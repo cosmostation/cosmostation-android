@@ -40,6 +40,16 @@ public class CdpDeposits {
         return Int.init(self.result[0].cdp_id)! 
     }
     
+    public func getSelfDeposit(_ address:String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        for deposit in self.result{
+            if (deposit.depositor == address) {
+                result = NSDecimalNumber.init(string: deposit.amount[0].amount)
+            }
+        }
+        return result;
+    }
+    
     public class CdpDepositResult {
         var cdp_id: String = ""
         var depositor: String = ""

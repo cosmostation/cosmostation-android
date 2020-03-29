@@ -96,6 +96,13 @@ public struct Cdp: Codable {
         return (rawDebtAmount.multiplying(by: NSDecimalNumber.init(value: power), withBehavior: WUtils.handler0)).subtracting(rawDebtAmount)
     }
     
+    public func getEstimatedTotalFee(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
+        if (accumulated_fees != nil && accumulated_fees!.count > 0) {
+            return NSDecimalNumber.init(string: accumulated_fees![0].amount).adding(getHiddenFee(cParam))
+        }
+        return getHiddenFee(cParam)
+    }
+    
     public func getEstimatedTotalDebt(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
         return getRawDebtAmount().adding(getHiddenFee(cParam))
     }

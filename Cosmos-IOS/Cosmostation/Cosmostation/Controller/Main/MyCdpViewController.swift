@@ -116,7 +116,8 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
             cell?.debtValueTitle.text = String(format: NSLocalizedString("debt_value_format", comment: ""), pDenom.uppercased())
             cell?.debtValue.attributedText = WUtils.getDPRawDollor(mCdp.result.getDpEstimatedTotalDebtValue(pDenom, cParam!).stringValue, 2, cell!.debtValue.font)
             
-            cell?.collateralValueTitle.text = String(format: NSLocalizedString("collateral_value_format", comment: ""), pDenom.uppercased())
+            cell?.collateralValueTitle.text = String(format: NSLocalizedString("collateral_value_format", comment: ""), cDenom.uppercased())
+            print("getDpCollateralValue ", mCdp.result.getDpCollateralValue(cDenom).stringValue)
             cell?.collateralValue.attributedText = WUtils.getDPRawDollor(mCdp.result.getDpCollateralValue(pDenom).stringValue, 2, cell!.collateralValue.font)
             
             cell?.currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), cDenom.uppercased())

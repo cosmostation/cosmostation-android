@@ -37,6 +37,11 @@ public class CdpOwen {
             self.collateralization_ratio = dictionary["collateralization_ratio"] as? String ?? ""
         }
         
+        
+        public func getTotalCollateralAmount() -> NSDecimalNumber {
+            return NSDecimalNumber.init(string: cdp.collateral![0].amount)
+        }
+        
         public func getDpCollateralValue(_ pDenom:String) -> NSDecimalNumber {
             return NSDecimalNumber.init(string: collateral_value.amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom))
         }
@@ -49,6 +54,34 @@ public class CdpOwen {
         
         public func getDpEstimatedTotalDebtValue(_ pDenom:String, _ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
             return cdp.getEstimatedTotalDebt(cParam).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom))
+        }
+        
+        public func getWithdrawableAmount(_ cDenom:String, _ pDenom:String, _ cParam:CdpParam.CollateralParam, _ cPrice:NSDecimalNumber, _ selfDepositAmount: NSDecimalNumber) -> NSDecimalNumber {
+            let cValue = NSDecimalNumber.init(string: collateral_value.amount)
+            print("cValue " , cValue)
+            print("TotalDebt " , cdp.getEstimatedTotalDebt(cParam))
+            let minCValue = cdp.getEstimatedTotalDebt(cParam).multiplying(by: cParam.getLiquidationRatio()).dividing(by: NSDecimalNumber.init(string: "0.95"), withBehavior:WUtils.handler0)
+            print("minCValue " , minCValue)
+            
+            let maxWithdrawableValue = cValue.subtracting(minCValue)
+            print("maxWithdrawableValue " , maxWithdrawableValue)
+            
+            let maxWithdrawableAmount = maxWithdrawableValue.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(cDenom) - WUtils.getKavaCoinDecimal(pDenom)).dividing(by: cPrice, withBehavior: WUtils.handler0)
+            print("maxWithdrawableAmount " , maxWithdrawableAmount)
+            
+            if (maxWithdrawableAmount.compare(selfDepositAmount).rawValue > 0) {
+                return selfDepositAmount
+            } else {
+                return maxWithdrawableAmount
+            }
+        }
+        
+        public func getMoreLoanableAmount(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
+            var maxDebtValue = NSDecimalNumber.init(string: collateral_value.amount).dividing(by: cParam.getLiquidationRatio(), withBehavior: WUtils.handler0)
+            print("maxDebtValue " , maxDebtValue)
+            maxDebtValue = maxDebtValue.multiplying(by: NSDecimalNumber.init(string: "0.95"), withBehavior: WUtils.handler0)
+            print("maxDebtValue padding " , maxDebtValue)
+            return maxDebtValue.subtracting(cdp.getEstimatedTotalDebt(cParam))
         }
     }
 }

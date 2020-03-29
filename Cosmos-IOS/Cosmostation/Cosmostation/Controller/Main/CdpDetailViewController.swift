@@ -21,10 +21,15 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var owenConstraint: NSLayoutConstraint!
     
     var cDenom: String = ""
+    var pDenom: String = ""
     var mMarketID: String = ""
+    var cAvailable: NSDecimalNumber = NSDecimalNumber.zero
+    var pAvailable: NSDecimalNumber = NSDecimalNumber.zero
+    var kAvailable: NSDecimalNumber = NSDecimalNumber.zero
+    var currentPrice: NSDecimalNumber = NSDecimalNumber.zero
+    var liquidationPrice: NSDecimalNumber = NSDecimalNumber.zero
+    var riskRate: NSDecimalNumber = NSDecimalNumber.zero
     
-//    var mCdpParam: CdpParam = CdpParam.init()
-//    var cParam: CdpParam.CollateralParam = CdpParam.CollateralParam.init()
     var cParam: CdpParam.CollateralParam?
     var mMyCdps: CdpOwen?
     var mMyCdpDeposit: CdpDeposits?
@@ -79,33 +84,25 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if ((mMyCdps) != nil) {
+        if (mMyCdps != nil && mMyCdpDeposit != nil) {
             if (indexPath.row == 0) {
-                let cell:CdpDetailMyTopCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailMyTopCell") as? CdpDetailMyTopCell
-                return cell!
-                
+                return self.onSetMyTopItems(tableView, indexPath)
             } else if (indexPath.row == 1) {
-                let cell:CdpDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailMyActionCell") as? CdpDetailMyActionCell
-                return cell!
-                
+                return self.onSetMyActionItems(tableView, indexPath)
             } else {
                 return self.onSetAssetsItems(tableView, indexPath)
-                
             }
             
         } else {
             if (indexPath.row == 0) {
-                return self.onSetDetailTopItems(tableView, indexPath)
-                
+                return self.onSetTopItems(tableView, indexPath)
             } else {
                 return self.onSetAssetsItems(tableView, indexPath)
             }
         }
     }
     
-    
-    
-    func onSetDetailTopItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+    func onSetTopItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:CdpDetailTopCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailTopCell") as? CdpDetailTopCell
         if (cParam != nil) {
             cell?.marketTitle.text = cParam!.getDpMarketId()
@@ -132,6 +129,128 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
     }
     
+    func onSetMyTopItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:CdpDetailMyTopCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailMyTopCell") as? CdpDetailMyTopCell
+        
+        liquidationPrice = mMyCdps!.result.getLiquidationPrice(cDenom, pDenom, cParam!)
+        riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
+        print("currentPrice ", currentPrice)
+        print("liquidationPrice ", liquidationPrice)
+        print("riskRate ", riskRate)
+        
+        cell?.marketTitle.text = cParam!.getDpMarketId()
+        WUtils.showRiskRate(riskRate, cell!.riskScore, _rateIamg: cell!.riskRateImg)
+        
+        cell?.debtValueTitle.text = String(format: NSLocalizedString("debt_value_format", comment: ""), pDenom.uppercased())
+        cell?.debtValue.attributedText = WUtils.getDPRawDollor(mMyCdps!.result.getDpEstimatedTotalDebtValue(pDenom, cParam!).stringValue, 2, cell!.debtValue.font)
+        
+        cell?.collateralValueTitle.text = String(format: NSLocalizedString("collateral_value_format", comment: ""), pDenom.uppercased())
+        cell?.collateralValue.attributedText = WUtils.getDPRawDollor(mMyCdps!.result.getDpCollateralValue(pDenom).stringValue, 2, cell!.collateralValue.font)
+        
+        cell?.minCollateralRate.attributedText = WUtils.displayPercent(cParam!.getDpLiquidationRatio(), font: cell!.minCollateralRate.font)
+        cell?.stabilityFee.attributedText = WUtils.displayPercent(cParam!.getDpStabilityFee(), font: cell!.stabilityFee.font)
+        cell?.liquidationPenalty.attributedText = WUtils.displayPercent(cParam!.getDpLiquidationPenalty(), font: cell!.liquidationPenalty.font)
+        
+        cell?.currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), cDenom.uppercased())
+        cell?.currentPrice.attributedText = WUtils.getDPRawDollor(currentPrice.stringValue, 4, cell!.currentPrice.font)
+        
+        cell?.liquidationPriceTitle.text = String(format: NSLocalizedString("liquidation_price_format", comment: ""), cDenom.uppercased())
+        cell?.liquidationPrice.attributedText = WUtils.getDPRawDollor(liquidationPrice.stringValue, 4, cell!.liquidationPrice.font)
+        
+        let url = KAVA_CDP_MARKET_IMG_URL + cParam!.getMarketImgPath() + ".png"
+        Alamofire.request(url, method: .get).responseImage { response  in
+            guard let image = response.result.value else { return }
+            cell?.marketImg.image = image
+        }
+        cell?.helpCollateralRate = {
+            self.onShowSimpleHelp(NSLocalizedString("help_collateral_rate_title", comment: ""), NSLocalizedString("help_collateral_rate_msg", comment: ""))
+        }
+        cell?.helpStabilityFee = {
+            self.onShowSimpleHelp(NSLocalizedString("help_stability_fee_title", comment: ""), NSLocalizedString("help_stability_fee_msg", comment: ""))
+        }
+        cell?.helpLiquidationPenalty = {
+            self.onShowSimpleHelp(NSLocalizedString("help_liquidation_penalty_title", comment: ""), NSLocalizedString("help_liquidation_penalty_msg", comment: ""))
+        }
+        return cell!
+    }
+    
+    func onSetMyActionItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell  {
+        let cell:CdpDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailMyActionCell") as? CdpDetailMyActionCell
+        
+        cell?.collateralDenom.text = cDenom.uppercased()
+        let selfDepositAmount = mMyCdpDeposit!.getSelfDeposit(account!.account_address)
+        let selfDepositValue = selfDepositAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(cDenom)).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
+        cell?.collateralSelfAmount.attributedText = WUtils.displayAmount2(selfDepositAmount.stringValue, cell!.collateralSelfAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
+        cell?.collateralSelfValue.attributedText = WUtils.getDPRawDollor(selfDepositValue.stringValue, 2, cell!.collateralSelfValue.font)
+        
+        let totalDepositAmount = mMyCdps!.result.getTotalCollateralAmount()
+        let totalDepositValue = totalDepositAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(cDenom)).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
+        cell?.collateralTotalAmount.attributedText = WUtils.displayAmount2(totalDepositAmount.stringValue, cell!.collateralTotalAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
+        cell?.collateralTotalValue.attributedText = WUtils.getDPRawDollor(totalDepositValue.stringValue, 2, cell!.collateralTotalValue.font)
+        
+        cell?.collateralWithdrawableTitle.text = String(format: NSLocalizedString("withdrawable_format", comment: ""), cDenom.uppercased())
+        let maxWithdrawableAmount = mMyCdps!.result.getWithdrawableAmount(cDenom, pDenom, cParam!, currentPrice, selfDepositAmount)
+        let maxWithdrawableValue = maxWithdrawableAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(cDenom)).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
+        cell?.collateralWithdrawableAmount.attributedText = WUtils.displayAmount2(maxWithdrawableAmount.stringValue, cell!.collateralWithdrawableAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
+        cell?.collateralWithdrawableValue.attributedText = WUtils.getDPRawDollor(maxWithdrawableValue.stringValue, 2, cell!.collateralWithdrawableValue.font)
+        
+        cell?.helpCollateralSelf = {
+            self.onShowSimpleHelp(NSLocalizedString("help_self_deposited_title", comment: ""), String(format: NSLocalizedString("help_self_deposited_msg", comment: ""), self.cDenom.uppercased()))
+        }
+        cell?.helpCollateralTotal = {
+            self.onShowSimpleHelp(NSLocalizedString("help_total_deposited_title", comment: ""), String(format: NSLocalizedString("help_total_deposited_msg", comment: ""), self.cDenom.uppercased()))
+        }
+        cell?.helpCollateralWithdrawable = {
+            self.onShowSimpleHelp(NSLocalizedString("help_withdrawable_title", comment: ""), NSLocalizedString("help_withdrawable_msg", comment: ""))
+        }
+        cell?.actionDeposit = {
+            print("actionDeposit")
+        }
+        cell?.actionWithdraw = {
+            print("actionWithdraw")
+        }
+        
+        
+        cell?.principalDenom.text = pDenom.uppercased()
+        let rawPricipalAmount = mMyCdps!.result.cdp.getRawPrincipalAmount()
+        cell?.principalAmount.attributedText = WUtils.displayAmount2(rawPricipalAmount.stringValue, cell!.principalAmount.font!, WUtils.getKavaCoinDecimal(pDenom), WUtils.getKavaCoinDecimal(pDenom))
+        cell?.principalValue.attributedText = WUtils.getDPRawDollor(rawPricipalAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom)).stringValue, 2, cell!.principalValue.font)
+        
+        let totalFeeAmount = mMyCdps!.result.cdp.getEstimatedTotalFee(cParam!)
+        cell?.interestAmount.attributedText = WUtils.displayAmount2(totalFeeAmount.stringValue, cell!.interestAmount.font!, WUtils.getKavaCoinDecimal(pDenom), WUtils.getKavaCoinDecimal(pDenom))
+        cell?.interestValue.attributedText = WUtils.getDPRawDollor(totalFeeAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom)).stringValue, 2, cell!.principalValue.font)
+        
+        let moreDebtAmount = mMyCdps!.result.getMoreLoanableAmount(cParam!)
+        cell?.remainingAmount.attributedText = WUtils.displayAmount2(moreDebtAmount.stringValue, cell!.remainingAmount.font!, WUtils.getKavaCoinDecimal(pDenom), WUtils.getKavaCoinDecimal(pDenom))
+        cell?.remainingValue.attributedText = WUtils.getDPRawDollor(moreDebtAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom)).stringValue, 2, cell!.remainingValue.font)
+        
+        cell?.helpPrincipal = {
+            self.onShowSimpleHelp(NSLocalizedString("help_loaned_amount_title", comment: ""), NSLocalizedString("help_loaned_amount_msg", comment: ""))
+        }
+        cell?.helpInterest = {
+            self.onShowSimpleHelp(NSLocalizedString("help_total_fee_title", comment: ""), NSLocalizedString("help_total_fee_msg", comment: ""))
+        }
+        cell?.helpRemaining = {
+            self.onShowSimpleHelp(NSLocalizedString("help_remaining_loan_title", comment: ""), NSLocalizedString("help_remaining_loan_msg", comment: ""))
+        }
+        cell?.actionDrawDebt = {
+            print("actionDrawDebt")
+        }
+        cell?.actionRepay = {
+            print("actionRepay")
+        }
+        
+        
+        Alamofire.request(KAVA_COIN_IMG_URL + cDenom + ".png", method: .get).responseImage { response  in
+            guard let image = response.result.value else { return }
+            cell?.collateralImg.image = image
+        }
+        Alamofire.request(KAVA_COIN_IMG_URL + pDenom + ".png", method: .get).responseImage { response  in
+            guard let image = response.result.value else { return }
+            cell?.principalImg.image = image
+        }
+        return cell!
+    }
     
     func onSetAssetsItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:CdpDetailAssetsCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailAssetsCell") as? CdpDetailAssetsCell
@@ -161,11 +280,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         return cell!
     }
 
-    
     @IBAction func onClickCreateCdp(_ sender: UIButton) {
         
     }
-    
     
     
     var mFetchCnt = 0
@@ -180,7 +297,6 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         onFetchCdpDeposit(account!, self.cDenom)
         onFetchKavaPrice(self.mMarketID)
     }
-    
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
@@ -214,12 +330,6 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             self.refresher.endRefreshing()
         }
     }
-    
-    var pDenom: String = ""
-    var cAvailable: NSDecimalNumber = NSDecimalNumber.zero
-    var pAvailable: NSDecimalNumber = NSDecimalNumber.zero
-    var kAvailable: NSDecimalNumber = NSDecimalNumber.zero
-    var currentPrice: NSDecimalNumber = NSDecimalNumber.zero
     
     func onShowSimpleHelp(_ title:String, _ msg:String) {
         let helpAlert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
