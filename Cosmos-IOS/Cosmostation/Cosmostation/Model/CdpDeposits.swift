@@ -36,6 +36,10 @@ public class CdpDeposits {
         }
     }
     
+    public func getCdpId() -> Int {
+        return Int.init(self.result[0].cdp_id)! 
+    }
+    
     public class CdpDepositResult {
         var cdp_id: String = ""
         var depositor: String = ""

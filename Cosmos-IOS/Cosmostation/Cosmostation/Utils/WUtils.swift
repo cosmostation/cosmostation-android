@@ -21,6 +21,8 @@ class WUtils {
     
     static let handler2 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
+    static let handler2Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
     static let handler0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
     static let handlerdown0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
@@ -911,7 +913,7 @@ class WUtils {
         nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let formatted   = nf.string(from: rate.rounding(accordingToBehavior: handler2))! + "%"
+        let formatted   = nf.string(from: rate.rounding(accordingToBehavior: handler2Down))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
         
         let preString   = formatted[..<endIndex]
@@ -933,7 +935,7 @@ class WUtils {
         nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let formatted   = nf.string(from: rate.multiplying(by: 100).rounding(accordingToBehavior: handler2))! + "%"
+        let formatted   = nf.string(from: rate.multiplying(by: 100).rounding(accordingToBehavior: handler2Down))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
         
         let preString   = formatted[..<endIndex]

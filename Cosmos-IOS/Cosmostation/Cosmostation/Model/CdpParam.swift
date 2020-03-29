@@ -123,6 +123,26 @@ public class CdpParam {
                 self.conversion_factor = conversion_factor
             }
         }
+        
+        func getMarketImgPath() -> String {
+            return market_id.replacingOccurrences(of: ":", with: "")
+        }
+        
+        func getDpMarketId() -> String {
+            return market_id.split(separator: ":")[0].uppercased() + " : " + market_id.split(separator: ":")[1].uppercased() + "X"
+        }
+        
+        func getDpLiquidationRatio() -> NSDecimalNumber {
+            return NSDecimalNumber.init(string: liquidation_ratio).multiplying(byPowerOf10: 2, withBehavior: WUtils.handler2Down)
+        }
+        
+        func getDpLiquidationPenalty() -> NSDecimalNumber {
+            return NSDecimalNumber.init(string: liquidation_penalty).multiplying(byPowerOf10: 2, withBehavior: WUtils.handler2Down)
+        }
+        
+        func getDpStabilityFee() -> NSDecimalNumber {
+            return (NSDecimalNumber.init(string: stability_fee).subtracting(NSDecimalNumber.one)).multiplying(by: NSDecimalNumber.init(string: "31536000")).multiplying(byPowerOf10: 2, withBehavior: WUtils.handler2Down)
+        }
     }
     
     public class DebtParam {
