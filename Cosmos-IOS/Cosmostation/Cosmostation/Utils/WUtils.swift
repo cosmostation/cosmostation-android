@@ -19,6 +19,8 @@ class WUtils {
     
     static let handler6 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 6, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
+    static let handler4Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 4, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
     static let handler2 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
     static let handler2Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
@@ -1597,6 +1599,47 @@ class WUtils {
             }
         }
         return String(result)
+    }
+    
+    static func getDPRawDollor(_ price:String, _ scale:Int, _ font:UIFont) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = scale
+        nf.maximumFractionDigits = scale
+        nf.numberStyle = .decimal
+        
+        let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(scale), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+        let amount = stringToDecimalNoLocale(price).rounding(accordingToBehavior: handler)
+        
+        let added       = "$ " + nf.string(from: amount)!
+        let endIndex    = added.index(added.endIndex, offsetBy: -scale)
+        
+        let preString   = added[..<endIndex]
+        let postString  = added[endIndex...]
+        
+        let preAttrs = [NSAttributedString.Key.font : font]
+        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
+    
+    static func showRiskRate(_ riskRate: NSDecimalNumber, _ scoreLabel: UILabel, _rateIamg:UIImageView) {
+        scoreLabel.attributedText = displayAmount2(riskRate.stringValue, scoreLabel.font, 0, 2)
+        if (riskRate.doubleValue < 50) {
+            scoreLabel.textColor = COLOR_CDP_SAFE
+            _rateIamg.image = UIImage(named: "safe")
+            
+        } else if (riskRate.doubleValue < 80) {
+            scoreLabel.textColor = COLOR_CDP_STABLE
+            _rateIamg.image = UIImage(named: "stable")
+            
+        } else {
+            scoreLabel.textColor = COLOR_CDP_DANGER
+            _rateIamg.image = UIImage(named: "danger")
+        }
     }
     
     

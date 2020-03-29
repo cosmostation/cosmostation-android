@@ -52,4 +52,48 @@ public struct Cdp: Codable {
             self.fees_updated = fees_updated
         }
     }
+    
+    public func getCdpId() -> Int {
+        return Int.init(id!)!
+    }
+    
+    public func getcDenom() -> String {
+        return collateral![0].denom
+    }
+    
+    public func getpDenom() -> String {
+        return principal![0].denom
+    }
+    
+    public func getRawCollateralAmount() -> NSDecimalNumber {
+        return NSDecimalNumber.init(string: collateral![0].amount)
+    }
+    
+    public func getRawPrincipalAmount() -> NSDecimalNumber {
+        return NSDecimalNumber.init(string: principal![0].amount)
+    }
+    
+    public func getRawDebtAmount() -> NSDecimalNumber {
+        if (accumulated_fees != nil && accumulated_fees!.count > 0) {
+            return NSDecimalNumber.init(string: principal![0].amount).adding(NSDecimalNumber.init(string: accumulated_fees![0].amount))
+        }
+        return NSDecimalNumber.init(string: principal![0].amount)
+    }
+    
+    public func getHiddenFee(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
+        let rawDebtAmount = getRawDebtAmount()
+        let now = Date().millisecondsSince1970
+        let start = WUtils.nodeTimeToInt64(input: fees_updated!).millisecondsSince1970
+        let gap = (now - start)/1000 + 30
+        
+        let doubel1 = Double(cParam.stability_fee)
+        let doubel2 = Double(gap)
+        let power = Double(pow(doubel1!, doubel2))
+        return (rawDebtAmount.multiplying(by: NSDecimalNumber.init(value: power), withBehavior: WUtils.handler0)).subtracting(rawDebtAmount)
+    }
+    
+    public func getEstimatedTotalDebt(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
+        return getRawDebtAmount().adding(getHiddenFee(cParam))
+    }
+    
 }

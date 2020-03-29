@@ -12,9 +12,16 @@ import AlamofireImage
 
 class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-
     @IBOutlet weak var myCdpCntLabel: UILabel!
     @IBOutlet weak var myCdpTableView: UITableView!
+    
+    var mainTabVC: MainTabViewController!
+    var refresher: UIRefreshControl!
+    
+    var mCdpParam: CdpParam = CdpParam.init()
+    var mMyCdps: Array<CdpOwen> = Array<CdpOwen>()
+    var mMyCdpDeposit = [Int:CdpDeposits]()
+    var mKavaPrice = [String:KavaTokenPrice]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +32,56 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
         self.myCdpTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.myCdpTableView.rowHeight = UITableView.automaticDimension
         self.myCdpTableView.estimatedRowHeight = UITableView.automaticDimension
+        
+        self.refresher = UIRefreshControl()
+        self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
+        self.refresher.tintColor = UIColor.white
+        self.myCdpTableView.addSubview(refresher)
+        
+        mCdpParam = BaseData.instance.mCdpParam
+        mMyCdps = BaseData.instance.mMyCdps
+        mMyCdpDeposit = BaseData.instance.mMyCdpDeposit
+        mKavaPrice = BaseData.instance.mKavaPrice
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
+    }
+    
+    @objc func onRequestFetch() {
+        if(!mainTabVC.onFetchAccountData()) {
+            self.refresher.endRefreshing()
+        }
+    }
+    
+    @objc func onFetchDone(_ notification: NSNotification) {
+        mCdpParam = BaseData.instance.mCdpParam
+        mMyCdps = BaseData.instance.mMyCdps
+        mMyCdpDeposit = BaseData.instance.mMyCdpDeposit
+        mKavaPrice = BaseData.instance.mKavaPrice
+        self.myCdpTableView.reloadData()
+        self.refresher.endRefreshing()
     }
     
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        if (mMyCdps.count < 1) {
+            return 1
+        } else {
+            return mMyCdps.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -37,20 +89,51 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell:CdpListPromotionCell? = tableView.dequeueReusableCell(withIdentifier:"CdpListPromotionCell") as? CdpListPromotionCell
-        let cell:CdpLisyMyCell? = tableView.dequeueReusableCell(withIdentifier:"CdpLisyMyCell") as? CdpLisyMyCell
-        
-        let url = KAVA_CDP_MARKET_IMG_URL + "xrpusd" + ".png"
-        Alamofire.request(url, method: .get).responseImage { response  in
-            guard let image = response.result.value else {
-                return
+        if (mMyCdps.count < 1) {
+            let cell:CdpListPromotionCell? = tableView.dequeueReusableCell(withIdentifier:"CdpListPromotionCell") as? CdpListPromotionCell
+            return cell!
+            
+        } else {
+            let mCdp = mMyCdps[indexPath.row]
+            let cDenom = mCdp.result.cdp.getcDenom()
+            let pDenom = mCdp.result.cdp.getpDenom()
+            let cParam = mCdpParam.result.getcParam(cDenom)
+            let mPrice = mKavaPrice[mCdp.result.cdp.getcDenom()]
+            
+            print("getEstimatedTotalDebt ", mCdp.result.cdp.getEstimatedTotalDebt(cParam!))
+            
+            let currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
+            let liquidationPrice = mCdp.result.getLiquidationPrice(cDenom, pDenom, cParam!)
+            let riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
+            print("currentPrice ", currentPrice)
+            print("liquidationPrice ", liquidationPrice)
+            print("riskRate ", riskRate)
+            
+            let cell:CdpLisyMyCell? = tableView.dequeueReusableCell(withIdentifier:"CdpLisyMyCell") as? CdpLisyMyCell
+            cell?.marketTitle.text = cParam!.getDpMarketId()
+            WUtils.showRiskRate(riskRate, cell!.riskScore, _rateIamg: cell!.riskRateImg)
+            
+            cell?.debtValueTitle.text = String(format: NSLocalizedString("debt_value_format", comment: ""), pDenom.uppercased())
+            cell?.debtValue.attributedText = WUtils.getDPRawDollor(mCdp.result.getDpEstimatedTotalDebtValue(pDenom, cParam!).stringValue, 2, cell!.debtValue.font)
+            
+            cell?.collateralValueTitle.text = String(format: NSLocalizedString("collateral_value_format", comment: ""), pDenom.uppercased())
+            cell?.collateralValue.attributedText = WUtils.getDPRawDollor(mCdp.result.getDpCollateralValue(pDenom).stringValue, 2, cell!.collateralValue.font)
+            
+            cell?.currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), cDenom.uppercased())
+            cell?.currentPrice.attributedText = WUtils.getDPRawDollor(currentPrice.stringValue, 4, cell!.currentPrice.font)
+            
+            cell?.liquidationPriceTitle.text = String(format: NSLocalizedString("liquidation_price_format", comment: ""), cDenom.uppercased())
+            cell?.liquidationPrice.attributedText = WUtils.getDPRawDollor(liquidationPrice.stringValue, 4, cell!.liquidationPrice.font)
+            
+            
+            let url = KAVA_CDP_MARKET_IMG_URL + cParam!.getMarketImgPath() + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell?.marketImg.image = image
             }
-            cell?.marketImg.image = image
+            return cell!
         }
-        
-        return cell!
     }
-    
-    
-
 }

@@ -68,6 +68,15 @@ public class CdpParam {
                 }
             }
         }
+        
+        public func getcParam(_ denom:String) -> CollateralParam? {
+            for param in collateral_params {
+                if (param.denom == denom) {
+                    return param
+                }
+            }
+            return nil
+        }
     }
     
     public class CollateralParam {

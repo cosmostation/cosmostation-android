@@ -404,6 +404,11 @@ let COLOR_IOV_DARK                          = UIColor.init(hexString: "065048")
 
 
 
+let COLOR_CDP_DANGER                        = UIColor.init(hexString: "35C1B3")
+let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
+let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
+
+
 enum ChainType: String {
     case SUPPORT_CHAIN_COSMOS_MAIN
     case SUPPORT_CHAIN_IRIS_MAIN

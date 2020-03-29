@@ -1137,7 +1137,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 let priceParam = KavaTokenPrice.init(responseData)
 //                print("onFetchKavaPrice ", market, " ", priceParam.result.price)
-                BaseData.instance.mKavaPrice[priceParam.result.market_id] = priceParam
+                let cDenom = String(priceParam.result.market_id.split(separator: ":")[0])
+                BaseData.instance.mKavaPrice[cDenom] = priceParam
                 
                 
             case .failure(let error):

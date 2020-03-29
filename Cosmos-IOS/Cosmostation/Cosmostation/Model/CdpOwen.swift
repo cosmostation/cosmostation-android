@@ -36,5 +36,19 @@ public class CdpOwen {
             self.collateral_value =  Coin.init(dictionary["collateral_value"] as! [String : Any])
             self.collateralization_ratio = dictionary["collateralization_ratio"] as? String ?? ""
         }
+        
+        public func getDpCollateralValue(_ pDenom:String) -> NSDecimalNumber {
+            return NSDecimalNumber.init(string: collateral_value.amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom))
+        }
+        
+        public func getLiquidationPrice(_ cDenom:String, _ pDenom:String, _ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
+            let collateralAmount = cdp.getRawCollateralAmount().multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(cDenom))
+            let rawDebtAmount = cdp.getRawDebtAmount().multiplying(by: NSDecimalNumber.init(string: cParam.liquidation_ratio)).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom))
+            return rawDebtAmount.dividing(by: collateralAmount, withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(pDenom)))
+        }
+        
+        public func getDpEstimatedTotalDebtValue(_ pDenom:String, _ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
+            return cdp.getEstimatedTotalDebt(cParam).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom))
+        }
     }
 }

@@ -161,6 +161,11 @@
 "kava_old_path" = "OLD PATH (44'/118'/0'/0)";
 "kava_new_path" = "NEW PATH (44'/459'/0'/0)";
 
+"current_price_format" = "Current %@ Price";
+"liquidation_price_format" = "Liquidation %@ Price";
+"debt_value_format" = "%@ Debt Value";
+"collateral_value_format" = "%@ Collateral Value";
+
 "clear_all" = "Clear All";
 "delete" = "Delete";
 "close" = "Close";

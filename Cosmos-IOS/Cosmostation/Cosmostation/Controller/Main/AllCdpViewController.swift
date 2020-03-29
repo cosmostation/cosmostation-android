@@ -86,7 +86,6 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
             }
             cell?.marketImg.image = image
         }
-        
         return cell!
     }
     
