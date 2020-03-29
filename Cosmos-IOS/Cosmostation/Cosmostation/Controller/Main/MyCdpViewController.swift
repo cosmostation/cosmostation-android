@@ -20,7 +20,6 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
     
     var mCdpParam: CdpParam = CdpParam.init()
     var mMyCdps: Array<CdpOwen> = Array<CdpOwen>()
-    var mMyCdpDeposit = [Int:CdpDeposits]()
     var mKavaPrice = [String:KavaTokenPrice]()
     
     override func viewDidLoad() {
@@ -40,8 +39,10 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
         
         mCdpParam = BaseData.instance.mCdpParam
         mMyCdps = BaseData.instance.mMyCdps
-        mMyCdpDeposit = BaseData.instance.mMyCdpDeposit
+        sortByCdpId()
         mKavaPrice = BaseData.instance.mKavaPrice
+        
+        myCdpCntLabel.text = String(mMyCdps.count)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,14 +69,12 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
     @objc func onFetchDone(_ notification: NSNotification) {
         mCdpParam = BaseData.instance.mCdpParam
         mMyCdps = BaseData.instance.mMyCdps
-        mMyCdpDeposit = BaseData.instance.mMyCdpDeposit
         mKavaPrice = BaseData.instance.mKavaPrice
+        myCdpCntLabel.text = String(mMyCdps.count)
         sortByCdpId()
         self.myCdpTableView.reloadData()
         self.refresher.endRefreshing()
     }
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (mMyCdps.count < 1) {
@@ -136,6 +135,16 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
             }
             return cell!
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let mCdp = mMyCdps[indexPath.row]
+        let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
+        cdpDetailVC.hidesBottomBarWhenPushed = true
+        cdpDetailVC.cDenom = mCdp.result.cdp.getcDenom()
+        cdpDetailVC.mMarketID = mCdp.result.cdp.getMarketId()
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(cdpDetailVC, animated: true)
     }
     
     func sortByCdpId() {

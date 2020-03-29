@@ -272,7 +272,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     print("CDP circuit_breaker ", BaseData.instance.mCdpParam.result.circuit_breaker)
                     print("CDP mKavaPrice", BaseData.instance.mKavaPrice.count)
                     print("CDP mMyCdps", BaseData.instance.mMyCdps.count)
-                    print("CDP mMyCdpDeposit", BaseData.instance.mMyCdpDeposit.count)
                 }
                 
             } else if (mChainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -1019,7 +1018,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 let cdpParam = CdpParam.init(responseData)
                 BaseData.instance.mCdpParam = cdpParam
                 BaseData.instance.mMyCdps.removeAll()
-                BaseData.instance.mMyCdpDeposit.removeAll()
                 for collateralParam in cdpParam.result.collateral_params {
                     self.mFetchCnt = self.mFetchCnt + 1
                     self.onFetchOwenCdp(account, collateralParam.denom)
@@ -1050,8 +1048,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         return
                 }
                 BaseData.instance.mMyCdps.append(CdpOwen.init(responseData))
-                self.mFetchCnt = self.mFetchCnt + 1
-                self.onFetchCdpDeposit(account, denom)
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchOwenCdp ", error) }
@@ -1078,8 +1074,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         return
                 }
                 let deposit = CdpDeposits.init(responseData)
-//                print("deposit ", deposit.result.count)
-                BaseData.instance.mMyCdpDeposit[deposit.getCdpId()] = deposit
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchCdpDeposit ", error) }

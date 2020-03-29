@@ -12,6 +12,9 @@
             <connections>
                 <outlet property="cdpDetailTableView" destination="gFX-KO-l4I" id="wZQ-2O-a0L"/>
                 <outlet property="createCdpBtn" destination="pju-V9-ejv" id="43Y-7t-X1Q"/>
+                <outlet property="emptyConstraint" destination="9h4-Tk-2mg" id="Zk8-d5-roP"/>
+                <outlet property="loadingImg" destination="1nP-BJ-CUo" id="Rs0-K5-Sgc"/>
+                <outlet property="owenConstraint" destination="lGu-ki-g3b" id="Yru-kx-LjV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,10 +26,17 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_cosmos" translatesAutoresizingMaskIntoConstraints="NO" id="bdR-vm-ghZ">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                 </imageView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gFX-KO-l4I">
+                <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gFX-KO-l4I">
                     <rect key="frame" x="0.0" y="44" width="414" height="744"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1nP-BJ-CUo" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
+                    <rect key="frame" x="177" y="423" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="5CK-1o-Hfl"/>
+                        <constraint firstAttribute="width" constant="60" id="NIw-IJ-C98"/>
+                    </constraints>
+                </imageView>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pju-V9-ejv">
                     <rect key="frame" x="16" y="796" width="382" height="50"/>
                     <constraints>
@@ -56,6 +66,8 @@
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bdR-vm-ghZ" secondAttribute="trailing" id="6zb-e1-fb8"/>
                 <constraint firstItem="pju-V9-ejv" firstAttribute="top" secondItem="gFX-KO-l4I" secondAttribute="bottom" constant="8" id="9h4-Tk-2mg"/>
+                <constraint firstItem="1nP-BJ-CUo" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="FEY-3y-0hr"/>
+                <constraint firstItem="1nP-BJ-CUo" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="ICk-ge-1QH"/>
                 <constraint firstItem="gFX-KO-l4I" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Icn-gn-DAX"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pju-V9-ejv" secondAttribute="trailing" constant="16" id="JOl-tQ-If1"/>
                 <constraint firstAttribute="top" secondItem="bdR-vm-ghZ" secondAttribute="top" id="aNT-FR-gjk"/>
@@ -63,6 +75,7 @@
                 <constraint firstItem="bdR-vm-ghZ" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="dSw-R9-9LD"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gFX-KO-l4I" secondAttribute="trailing" id="ddC-R1-Ndu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="pju-V9-ejv" secondAttribute="bottom" constant="16" id="g4N-Y4-OFM"/>
+                <constraint firstAttribute="bottom" secondItem="gFX-KO-l4I" secondAttribute="bottom" priority="250" id="lGu-ki-g3b"/>
                 <constraint firstItem="bdR-vm-ghZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="q8F-IG-J6x"/>
                 <constraint firstItem="pju-V9-ejv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="xjV-L7-qWR"/>
             </constraints>

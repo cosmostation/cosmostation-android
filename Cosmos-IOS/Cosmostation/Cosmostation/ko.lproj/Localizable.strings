@@ -165,6 +165,15 @@
 "debt_value_format" = "%@ Debt Value";
 "collateral_value_format" = "%@ Collateral Value";
 
+"help_collateral_rate_title" = "Min. Collateral Rate";
+"help_collateral_rate_msg" = "\nThe minimum rate at which the total USD value of the collateralized asset must be kept at against the total amount of USDX loaned from the CDP.\n\nFor example, if the minimum collateral rate is 200%, this means that in order to borrow 100 USDX from the CDP, you must deposit at least 200 USD worth of assets as collateral. If the total USD value of your collateralized asset falls below 200 USD due to price fluctuations, your position will be liquidated.";
+"help_stability_fee_title" = "Stability Fee (APR)";
+"help_stability_fee_msg" = "\nThe amount of fee you must pay for taking out USDX loans from the CDP, calculated as APR.\n\nWhen you repay your USDX debt, you must also pay this stability fee in order to close your collateralized debt position.";
+"help_liquidation_penalty_title" = "Liquidation Penalty";
+"help_liquidation_penalty_msg" = "\nThe amount of penalty you must pay in the event that your collateralized assets are liquidated due to price fluctuations.\n\nIf your collateral rate falls below minimum collateral rate, your assets will be liquidated.";
+
+
+
 "clear_all" = "전체 삭제";
 "delete" = "삭제";
 "close" = "닫기";

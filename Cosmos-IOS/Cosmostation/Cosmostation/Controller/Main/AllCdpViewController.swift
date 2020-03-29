@@ -35,6 +35,7 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
         self.allCdpTableView.addSubview(refresher)
         
         mAllCdp = BaseData.instance.mCdpParam.result.collateral_params
+        allCdpCntLabel.text = String(mAllCdp.count)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +61,7 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
     
     @objc func onFetchDone(_ notification: NSNotification) {
         mAllCdp = BaseData.instance.mCdpParam.result.collateral_params
+        allCdpCntLabel.text = String(mAllCdp.count)
         self.allCdpTableView.reloadData()
         self.refresher.endRefreshing()
     }
@@ -90,8 +92,11 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cParam = mAllCdp[indexPath.row]
         let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
         cdpDetailVC.hidesBottomBarWhenPushed = true
+        cdpDetailVC.cDenom = cParam.denom
+        cdpDetailVC.mMarketID = cParam.market_id
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(cdpDetailVC, animated: true)
     }

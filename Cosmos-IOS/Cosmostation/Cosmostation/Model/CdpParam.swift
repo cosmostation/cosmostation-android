@@ -133,6 +133,10 @@ public class CdpParam {
             }
         }
         
+        func getpDenom() -> String {
+            return debt_limit[0].denom
+        }
+        
         func getMarketImgPath() -> String {
             return market_id.replacingOccurrences(of: ":", with: "")
         }
