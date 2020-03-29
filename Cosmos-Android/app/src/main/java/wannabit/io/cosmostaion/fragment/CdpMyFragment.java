@@ -20,14 +20,18 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.KavaCdpDetailActivity;
 import wannabit.io.cosmostaion.activities.KavaCdpListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -83,6 +87,7 @@ public class CdpMyFragment extends BaseFragment {
     public void onRefreshTab() {
         if(!isAdded()) return;
         mMyOwenCdp = new ArrayList<ResCdpOwnerStatus.Result>(getMainActivity().mMyOwenCdps.values());
+        onSortMyCdp(mMyOwenCdp);
         mMyCdpAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -221,5 +226,15 @@ public class CdpMyFragment extends BaseFragment {
                 itemRoot                = itemView.findViewById(R.id.card_root);
             }
         }
+    }
+
+
+    public static void onSortMyCdp(ArrayList<ResCdpOwnerStatus.Result> cdps) {
+        Collections.sort(cdps, new Comparator<ResCdpOwnerStatus.Result>() {
+            @Override
+            public int compare(ResCdpOwnerStatus.Result o1, ResCdpOwnerStatus.Result o2) {
+                return o1.cdp.getCdpId() > o2.cdp.getCdpId() ? -1 : 1;
+            }
+        });
     }
 }
