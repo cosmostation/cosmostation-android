@@ -84,6 +84,8 @@
 		28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */; };
 		28474F0B241E06E200AF5A81 /* Qualityscore.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */; };
 		28474F0C241E06E200AF5A81 /* Preregistraion.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */; };
+		28617A7B243198D0006D66EA /* StepCreateCpdAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A7A243198D0006D66EA /* StepCreateCpdAmountViewController.swift */; };
+		28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A7C243198E2006D66EA /* StepCreateCpdCheckViewController.swift */; };
 		2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */; };
 		2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */; };
 		2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */; };
@@ -387,6 +389,8 @@
 		28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration.codec.pb.swift; sourceTree = "<group>"; };
 		28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Qualityscore.codec.pb.swift; sourceTree = "<group>"; };
 		28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preregistraion.codec.pb.swift; sourceTree = "<group>"; };
+		28617A7A243198D0006D66EA /* StepCreateCpdAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCreateCpdAmountViewController.swift; sourceTree = "<group>"; };
+		28617A7C243198E2006D66EA /* StepCreateCpdCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCreateCpdCheckViewController.swift; sourceTree = "<group>"; };
 		2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUnbondingInfoCellTableViewCell.swift; sourceTree = "<group>"; };
 		2876AD5D240CE4A6005B33F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletUnbondingInfoCellTableViewCell.xib; sourceTree = "<group>"; };
 		2876AD62240CE966005B33F4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletUnbondingInfoCellTableViewCell.strings; sourceTree = "<group>"; };
@@ -800,6 +804,8 @@
 				E1F1CF09239F7D7D004EF8A2 /* VoteSelectViewController.swift */,
 				E1F1CF0B239F7D8D004EF8A2 /* VoteCheckViewController.swift */,
 				E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */,
+				28617A7A243198D0006D66EA /* StepCreateCpdAmountViewController.swift */,
+				28617A7C243198E2006D66EA /* StepCreateCpdCheckViewController.swift */,
 			);
 			path = GenTx;
 			sourceTree = "<group>";
@@ -1380,6 +1386,7 @@
 				E1827E2A2256298300BC0350 /* ValidatorDetailHistoryHeader.swift in Sources */,
 				28474F04241E06E200AF5A81 /* Batch.codec.pb.swift in Sources */,
 				28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */,
+				28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */,
 				28474ED5241E06AF00AF5A81 /* TxRepayCdpCell.swift in Sources */,
 				E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */,
 				E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */,
@@ -1400,6 +1407,7 @@
 				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
 				2842AB72242C7C8A00248EEB /* CdpListAllCell.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
+				28617A7B243198D0006D66EA /* StepCreateCpdAmountViewController.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
 				28474EFF241E06E200AF5A81 /* Username.codec.pb.swift in Sources */,
 				2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */,

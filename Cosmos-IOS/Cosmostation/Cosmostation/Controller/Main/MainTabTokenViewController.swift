@@ -130,6 +130,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func updateView() {
+        print("updateView")
         if (mOrder == ORDER_BY_NAME) {
             sortByName()
             self.sortType.text = NSLocalizedString("name", comment: "")
@@ -426,7 +427,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                         if let tics = res as? Array<NSDictionary> {
                             if (tics.count > 0) {
                                 self.mBnbTics[ticSymbol] = tics[0].mutableCopy() as? NSMutableDictionary
-                                self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .fade)
+                                self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .none)
                             }
                         }
                         self.onUpdateTotalCard()

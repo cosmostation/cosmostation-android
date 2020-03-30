@@ -370,6 +370,7 @@ let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"
 let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"
 let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "300000"
 let KAVA_GAS_FEE_AMOUNT_REINVEST            = "300000"
+let KAVA_GAS_FEE_AMOUNT_CDP                 = "300000"
 
 
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"
@@ -404,7 +405,7 @@ let COLOR_IOV_DARK                          = UIColor.init(hexString: "065048")
 
 
 
-let COLOR_CDP_DANGER                        = UIColor.init(hexString: "35C1B3")
+let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
 let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
 

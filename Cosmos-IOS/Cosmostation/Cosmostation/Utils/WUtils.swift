@@ -27,7 +27,10 @@ class WUtils {
     
     static let handler0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
-    static let handlerdown0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    static let handler0Up = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.up, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
+    static let handler0Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
     
     static func getDivideHandler(_ decimal:Int16) -> NSDecimalNumberHandler{
         return NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: decimal, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
@@ -692,7 +695,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == symbol) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1089,7 +1092,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == denom) {
-                    rewardSum = rewardSum.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
+                    rewardSum = rewardSum.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1123,7 +1126,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == COSMOS_MAIN_DENOM) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1177,7 +1180,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == KAVA_MAIN_DENOM) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1626,19 +1629,19 @@ class WUtils {
         return attributedString1
     }
     
-    static func showRiskRate(_ riskRate: NSDecimalNumber, _ scoreLabel: UILabel, _rateIamg:UIImageView) {
+    static func showRiskRate(_ riskRate: NSDecimalNumber, _ scoreLabel: UILabel, _rateIamg:UIImageView?) {
         scoreLabel.attributedText = displayAmount2(riskRate.stringValue, scoreLabel.font, 0, 2)
         if (riskRate.doubleValue < 50) {
             scoreLabel.textColor = COLOR_CDP_SAFE
-            _rateIamg.image = UIImage(named: "safe")
+            _rateIamg?.image = UIImage(named: "safe")
             
         } else if (riskRate.doubleValue < 80) {
             scoreLabel.textColor = COLOR_CDP_STABLE
-            _rateIamg.image = UIImage(named: "stable")
+            _rateIamg?.image = UIImage(named: "stable")
             
         } else {
             scoreLabel.textColor = COLOR_CDP_DANGER
-            _rateIamg.image = UIImage(named: "danger")
+            _rateIamg?.image = UIImage(named: "danger")
         }
     }
     

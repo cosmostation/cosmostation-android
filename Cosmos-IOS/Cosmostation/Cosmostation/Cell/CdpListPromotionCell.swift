@@ -10,9 +10,9 @@ import UIKit
 
 class CdpListPromotionCell: UITableViewCell {
 
-    
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
     }
     
 }

@@ -35,4 +35,14 @@ class TokenDetailHeaderCustomCell: UITableViewCell {
         actionTokenInfo?()
     }
     
+    override func prepareForReuse() {
+        self.tokenImg.image = UIImage(named: "validatorNoneImg")
+        self.tokenSymbol.text = "-"
+        self.totalAmount.text = "-"
+        self.totalValue.text = "-"
+        self.tokenName.text = "-"
+        self.availableAmount.text = "-"
+        super.prepareForReuse()
+    }
+    
 }

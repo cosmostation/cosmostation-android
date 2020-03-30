@@ -93,7 +93,7 @@ public struct Cdp: Codable {
         let doubel1 = Double(cParam.stability_fee)
         let doubel2 = Double(gap)
         let power = Double(pow(doubel1!, doubel2))
-        return (rawDebtAmount.multiplying(by: NSDecimalNumber.init(value: power), withBehavior: WUtils.handler0)).subtracting(rawDebtAmount)
+        return (rawDebtAmount.multiplying(by: NSDecimalNumber.init(value: power), withBehavior: WUtils.handler0Up)).subtracting(rawDebtAmount)
     }
     
     public func getEstimatedTotalFee(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {

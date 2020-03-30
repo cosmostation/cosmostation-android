@@ -139,13 +139,17 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mCdp = mMyCdps[indexPath.row]
-        let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
-        cdpDetailVC.hidesBottomBarWhenPushed = true
-        cdpDetailVC.cDenom = mCdp.result.cdp.getcDenom()
-        cdpDetailVC.mMarketID = mCdp.result.cdp.getMarketId()
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(cdpDetailVC, animated: true)
+        if (mMyCdps.count < 1) {
+            return
+        } else {
+            let mCdp = mMyCdps[indexPath.row]
+            let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
+            cdpDetailVC.hidesBottomBarWhenPushed = true
+            cdpDetailVC.cDenom = mCdp.result.cdp.getcDenom()
+            cdpDetailVC.mMarketID = mCdp.result.cdp.getMarketId()
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(cdpDetailVC, animated: true)
+        }
     }
     
     func sortByCdpId() {

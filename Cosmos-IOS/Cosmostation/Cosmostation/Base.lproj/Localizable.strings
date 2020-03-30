@@ -160,6 +160,7 @@
 "select_new_path_msg" = "BIP44 for KAVA key generation will be implemented starting March, 2020.\n\nIf you created an address before March, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original KAVA wallet. Simply press [Import Mnemonics] to re-select your path.";
 "kava_old_path" = "OLD PATH (44'/118'/0'/0)";
 "kava_new_path" = "NEW PATH (44'/459'/0'/0)";
+"tx_next" = "Next";
 
 "current_price_format" = "Current %@ Price";
 "liquidation_price_format" = "Liquidation %@ Price";
@@ -186,6 +187,26 @@
 "help_remaining_loan_title" = "Remaining Loan Capacity";
 "help_remaining_loan_msg" = "\nThe amount of USDX that can be additionally loaned from the CDP. This capacity changes in accordance to changes in the collateral rate due to price fluctuations.";
 
+"creat_cdp_step_0" = "Deposit collateral to borrow USDX";
+"creat_cdp_step_1" = "Insert memo (optional)";
+"creat_cdp_step_2" = "Select transaction fee";
+"creat_cdp_step_3" = "Check transaction detail";
+"deposit_cdp_step_0" = "Enter deposit amount";
+"deposit_cdp_step_1" = "Insert memo (optional)";
+"deposit_cdp_step_2" = "Select transaction fee";
+"deposit_cdp_step_3" = "Check transaction detail";
+"withdraw_cdp_step_0" = "Enter withdrawal amount";
+"withdraw_cdp_step_1" = "Insert memo (optional)";
+"withdraw_cdp_step_2" = "Select transaction fee";
+"withdraw_cdp_step_3" = "Check transaction detail";
+"drawdebt_cdp_step_0" = "Enter loan amount";
+"drawdebt_cdp_step_1" = "Insert memo (optional)";
+"drawdebt_cdp_step_2" = "Select transaction fee";
+"drawdebt_cdp_step_3" = "Check transaction detail";
+"repay_cdp_step_0" = "Enter repayment amount";
+"repay_cdp_step_1" = "Insert memo (optional)";
+"repay_cdp_step_2" = "Select transaction fee";
+"repay_cdp_step_3" = "Check transaction detail";
 
 "clear_all" = "Clear All";
 "delete" = "Delete";
@@ -231,6 +252,11 @@
 "title_tx_detail" = "Transaction Detail";
 "title_cdp_list" = "CDP Market";
 "title_cdp_detail" = "CDP Status";
+"title_create_cdp" = "Create CDP";
+"title_deposit_cdp" = "DEPOSIT COLLATERAL";
+"title_withdraw_cdp" = "WITHDRAW COLLATERAL";
+"title_drawdebt_cdp" = "BORROW MORE USDX";
+"title_repay_cdp" = "REPAY USDX";
 
 "proposal_type_basic" = "Basic";
 "proposal_type_parameter" = "Parameter";
@@ -281,6 +307,8 @@
 "error_already_vote" = "Already voted.";
 "error_no_opinion" = "Please select your opinion.";
 "error_not_yet" = "Comming soon!";
+"error_less_than_min_deposit" = "Less than the minimum deposit amount.";
+"error_less_than_min_principal" = "Less than the minimum loan amount.";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";

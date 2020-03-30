@@ -12,7 +12,6 @@ import AlamofireImage
 
 class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-
     @IBOutlet weak var cdpDetailTableView: UITableView!
     @IBOutlet weak var createCdpBtn: UIButton!
     @IBOutlet weak var loadingImg: LoadingImageView!
@@ -204,10 +203,10 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             self.onShowSimpleHelp(NSLocalizedString("help_withdrawable_title", comment: ""), NSLocalizedString("help_withdrawable_msg", comment: ""))
         }
         cell?.actionDeposit = {
-            print("actionDeposit")
+            self.onClickDeposit()
         }
         cell?.actionWithdraw = {
-            print("actionWithdraw")
+            self.onClickWithdraw()
         }
         
         
@@ -234,10 +233,10 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             self.onShowSimpleHelp(NSLocalizedString("help_remaining_loan_title", comment: ""), NSLocalizedString("help_remaining_loan_msg", comment: ""))
         }
         cell?.actionDrawDebt = {
-            print("actionDrawDebt")
+            self.onClickDrawDebt()
         }
         cell?.actionRepay = {
-            print("actionRepay")
+            self.onClickRepay()
         }
         
         
@@ -281,6 +280,27 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
 
     @IBAction func onClickCreateCdp(_ sender: UIButton) {
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_CREATE_CDP
+        txVC.cDenom = cDenom
+        txVC.mMarketID = mMarketID
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    func onClickDeposit() {
+        
+    }
+    
+    func onClickWithdraw() {
+        
+    }
+    
+    func onClickDrawDebt() {
+        
+    }
+    
+    func onClickRepay() {
         
     }
     
@@ -351,8 +371,6 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             helpAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
     }
-    
-    
     
     func onFetchCdpParam(_ account:Account) {
         var url: String?

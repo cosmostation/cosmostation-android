@@ -41,6 +41,8 @@ class TransactionViewController: UIViewController {
     var mProposalTitle: String?
     var mProposer: String?
     
+    var cDenom: String?
+    var mMarketID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +88,32 @@ class TransactionViewController: UIViewController {
             stepDescription.text = NSLocalizedString("vote_step_1", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_vote", comment: "")
+            
+        } else if (mType == KAVA_MSG_TYPE_CREATE_CDP) {
+            stepDescription.text = NSLocalizedString("creat_cdp_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_create_cdp", comment: "")
+            
+        } else if (mType == KAVA_MSG_TYPE_DEPOSIT_CDP) {
+            stepDescription.text = NSLocalizedString("deposit_cdp_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_deposit_cdp", comment: "")
+            
+        } else if (mType == KAVA_MSG_TYPE_WITHDRAW_CDP) {
+            stepDescription.text = NSLocalizedString("withdraw_cdp_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_withdraw_cdp", comment: "")
+            
+        } else if (mType == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
+            stepDescription.text = NSLocalizedString("drawdebt_cdp_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_drawdebt_cdp", comment: "")
+            
+        } else if (mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
+            stepDescription.text = NSLocalizedString("repay_cdp_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_repay_cdp", comment: "")
+            
         }
         
         
@@ -131,6 +159,8 @@ class TransactionViewController: UIViewController {
             StepVc.mProposer = self.mProposer
             StepVc.mKavaSendDenom = self.mKavaSendDenom
             StepVc.mIovSendDenom = self.mIovSendDenom
+            StepVc.cDenom = self.cDenom
+            StepVc.mMarketID = self.mMarketID
         }
     }
     
@@ -170,6 +200,26 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("vote_step_1", comment: "")
                     
+                } else if (mType == KAVA_MSG_TYPE_CREATE_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    stepDescription.text = NSLocalizedString("creat_cdp_step_0", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_DEPOSIT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    stepDescription.text = NSLocalizedString("deposit_cdp_step_0", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_WITHDRAW_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    stepDescription.text = NSLocalizedString("withdraw_cdp_step_0", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    stepDescription.text = NSLocalizedString("drawdebt_cdp_step_0", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    stepDescription.text = NSLocalizedString("repay_cdp_step_0", comment: "")
+                    
                 }
                 
                 
@@ -206,6 +256,26 @@ class TransactionViewController: UIViewController {
                    stepImg.image = UIImage.init(named: "4StepImg2")
                    stepDescription.text = NSLocalizedString("delegate_step_2", comment: "")
                    
+                } else if (mType == KAVA_MSG_TYPE_CREATE_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    stepDescription.text = NSLocalizedString("creat_cdp_step_1", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_DEPOSIT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    stepDescription.text = NSLocalizedString("deposit_cdp_step_1", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_WITHDRAW_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    stepDescription.text = NSLocalizedString("withdraw_cdp_step_1", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    stepDescription.text = NSLocalizedString("drawdebt_cdp_step_1", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    stepDescription.text = NSLocalizedString("repay_cdp_step_1", comment: "")
+                    
                 }
                 
                 
@@ -242,6 +312,26 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("delegate_step_3", comment: "")
                   
+                } else if (mType == KAVA_MSG_TYPE_CREATE_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    stepDescription.text = NSLocalizedString("creat_cdp_step_2", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_DEPOSIT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    stepDescription.text = NSLocalizedString("deposit_cdp_step_2", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_WITHDRAW_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    stepDescription.text = NSLocalizedString("withdraw_cdp_step_2", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    stepDescription.text = NSLocalizedString("drawdebt_cdp_step_2", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    stepDescription.text = NSLocalizedString("repay_cdp_step_2", comment: "")
+                    
                 }
                 
                 
@@ -278,6 +368,26 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("reinvest_step_4", comment: "")
                  
+                } else if (mType == KAVA_MSG_TYPE_CREATE_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    stepDescription.text = NSLocalizedString("creat_cdp_step_3", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_DEPOSIT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    stepDescription.text = NSLocalizedString("deposit_cdp_step_3", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_WITHDRAW_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    stepDescription.text = NSLocalizedString("withdraw_cdp_step_3", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    stepDescription.text = NSLocalizedString("drawdebt_cdp_step_3", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    stepDescription.text = NSLocalizedString("repay_cdp_step_3", comment: "")
+                    
                 }
                 
             } else if (step == 4) {

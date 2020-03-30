@@ -77,9 +77,9 @@ public class CdpOwen {
         }
         
         public func getMoreLoanableAmount(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
-            var maxDebtValue = NSDecimalNumber.init(string: collateral_value.amount).dividing(by: cParam.getLiquidationRatio(), withBehavior: WUtils.handler0)
+            var maxDebtValue = NSDecimalNumber.init(string: collateral_value.amount).dividing(by: cParam.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
             print("maxDebtValue " , maxDebtValue)
-            maxDebtValue = maxDebtValue.multiplying(by: NSDecimalNumber.init(string: "0.95"), withBehavior: WUtils.handler0)
+            maxDebtValue = maxDebtValue.multiplying(by: NSDecimalNumber.init(string: "0.95"), withBehavior: WUtils.handler0Down)
             print("maxDebtValue padding " , maxDebtValue)
             return maxDebtValue.subtracting(cdp.getEstimatedTotalDebt(cParam))
         }

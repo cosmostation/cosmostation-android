@@ -211,6 +211,17 @@ class MsgGenerator {
         return msg
     }
     
+    static func genGetCreatCdpMsg(_ sender: String, _ collateral: Array<Coin>, _ principal: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+        value.collateral = collateral
+        value.principal = principal
+        msg.type = KAVA_MSG_TYPE_CREATE_CDP
+        msg.value = value
+        return msg
+    }
+    
     
     
     static func genSignedTx(_ msgs: Array<Msg>, _ fee: Fee, _ memo: String, _ signatures: Array<Signature>) -> StdTx {
