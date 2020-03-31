@@ -190,6 +190,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         cell?.collateralWithdrawableTitle.text = String(format: NSLocalizedString("withdrawable_format", comment: ""), cDenom.uppercased())
         let maxWithdrawableAmount = mMyCdps!.result.getWithdrawableAmount(cDenom, pDenom, cParam!, currentPrice, selfDepositAmount)
         let maxWithdrawableValue = maxWithdrawableAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(cDenom)).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
+//        print("maxWithdrawableAmount ", maxWithdrawableAmount)
+//        print("maxWithdrawableValue ", maxWithdrawableValue)
+        
         cell?.collateralWithdrawableAmount.attributedText = WUtils.displayAmount2(maxWithdrawableAmount.stringValue, cell!.collateralWithdrawableAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
         cell?.collateralWithdrawableValue.attributedText = WUtils.getDPRawDollor(maxWithdrawableValue.stringValue, 2, cell!.collateralWithdrawableValue.font)
         
@@ -298,6 +301,12 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func onClickWithdraw() {
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_WITHDRAW_CDP
+        txVC.cDenom = cDenom
+        txVC.mMarketID = mMarketID
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
         
     }
     

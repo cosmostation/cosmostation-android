@@ -60,13 +60,13 @@ public class CdpOwen {
             let cValue = NSDecimalNumber.init(string: collateral_value.amount)
             print("cValue " , cValue)
             print("TotalDebt " , cdp.getEstimatedTotalDebt(cParam))
-            let minCValue = cdp.getEstimatedTotalDebt(cParam).multiplying(by: cParam.getLiquidationRatio()).dividing(by: NSDecimalNumber.init(string: "0.95"), withBehavior:WUtils.handler0)
+            let minCValue = cdp.getEstimatedTotalDebt(cParam).multiplying(by: cParam.getLiquidationRatio()).dividing(by: NSDecimalNumber.init(string: "0.95"), withBehavior:WUtils.handler0Down)
             print("minCValue " , minCValue)
             
             let maxWithdrawableValue = cValue.subtracting(minCValue)
             print("maxWithdrawableValue " , maxWithdrawableValue)
             
-            let maxWithdrawableAmount = maxWithdrawableValue.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(cDenom) - WUtils.getKavaCoinDecimal(pDenom)).dividing(by: cPrice, withBehavior: WUtils.handler0)
+            let maxWithdrawableAmount = maxWithdrawableValue.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(cDenom) - WUtils.getKavaCoinDecimal(pDenom)).dividing(by: cPrice, withBehavior: WUtils.handler0Down)
             print("maxWithdrawableAmount " , maxWithdrawableAmount)
             
             if (maxWithdrawableAmount.compare(selfDepositAmount).rawValue > 0) {
