@@ -344,31 +344,62 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             BigDecimal totalDepositValue = new BigDecimal(mMyOwenCdp.cdp.collateral.get(0).amount).movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
             mMyTotalDepositValue.setText(WDp.getDpRawDollor(getBaseContext(), totalDepositValue, 2));
 
+
+            // TODO need code clean!!!
             mMyWithdrawableAmountTitle.setText(getString(R.string.str_expected_withdrawable_amount) + " " + cDenom.toUpperCase());
+//            BigDecimal cValue = new BigDecimal(mMyOwenCdp.collateral_value.amount);
+//            BigDecimal debtValue = new BigDecimal(mMyOwenCdp.cdp.principal.get(0).amount);
+//            BigDecimal feeValue = mMyOwenCdp.cdp.getAccumulatedFees();
+//            BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getBaseContext(), debtValue.add(feeValue), cParam, mMyOwenCdp.cdp);
+//            BigDecimal toRepayValue = debtValue.add(feeValue).add(hiddenFeeValue);
+//            BigDecimal totalWithdrawableValue = cValue.subtract(toRepayValue.multiply(new BigDecimal(cParam.liquidation_ratio)).setScale(0, RoundingMode.DOWN));
+//            WLog.w("cValue " + cValue);
+//            WLog.w("toRepayValue " + toRepayValue);
+//            WLog.w("totalWithdrawableValue " + totalWithdrawableValue);
+//            BigDecimal totalWithdrawableAmount = totalWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).divide(new BigDecimal(mKavaTokenPrice.price), 0, RoundingMode.HALF_DOWN);
+//            WLog.w("totalWithdrawableAmount " + totalWithdrawableAmount);
+//            BigDecimal myWithdrawableAmount = BigDecimal.ZERO;
+//            if (totalWithdrawableAmount.compareTo(selfDepositAmount) > 0) {
+//                myWithdrawableAmount = selfDepositAmount;
+//                WLog.w("myWithdrawableAmount " +  myWithdrawableAmount);
+//            } else {
+//                myWithdrawableAmount = totalWithdrawableAmount;
+//                WLog.w("myWithdrawableAmount " +  myWithdrawableAmount);
+//                myWithdrawableAmount = myWithdrawableAmount.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
+//                WLog.w("myWithdrawableAmount padding " +  myWithdrawableAmount);
+//            }
+//            BigDecimal myWithdrawableValue = myWithdrawableAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
+
             BigDecimal cValue = new BigDecimal(mMyOwenCdp.collateral_value.amount);
             BigDecimal debtValue = new BigDecimal(mMyOwenCdp.cdp.principal.get(0).amount);
             BigDecimal feeValue = mMyOwenCdp.cdp.getAccumulatedFees();
             BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getBaseContext(), debtValue.add(feeValue), cParam, mMyOwenCdp.cdp);
             BigDecimal toRepayValue = debtValue.add(feeValue).add(hiddenFeeValue);
-            BigDecimal totalWithdrawableValue = cValue.subtract(toRepayValue.multiply(new BigDecimal(cParam.liquidation_ratio)).setScale(0, RoundingMode.DOWN));
-            BigDecimal totalWithdrawableAmount = totalWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).divide(new BigDecimal(mKavaTokenPrice.price), 0, RoundingMode.HALF_DOWN);
-            BigDecimal myWithdrawableAmount = BigDecimal.ZERO;
-            if (totalWithdrawableAmount.compareTo(selfDepositAmount) > 0) {
-                myWithdrawableAmount = selfDepositAmount;
-                WLog.w("myWithdrawableAmount " +  myWithdrawableAmount);
-            } else {
-                myWithdrawableAmount = totalWithdrawableAmount;
-                WLog.w("myWithdrawableAmount " +  myWithdrawableAmount);
-                myWithdrawableAmount = myWithdrawableAmount.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
-                WLog.w("myWithdrawableAmount padding " +  myWithdrawableAmount);
+            WLog.w("cValue " + cValue);
+            WLog.w("TotalDebt " + toRepayValue);
+
+            BigDecimal minCValue = toRepayValue.multiply(new BigDecimal(cParam.liquidation_ratio)).divide(new BigDecimal("0.95"), 0, RoundingMode.DOWN);
+            WLog.w("minCValue " + minCValue);
+
+            BigDecimal maxWithdrawableValue = cValue.subtract(minCValue);
+            WLog.w("maxWithdrawableValue " + maxWithdrawableValue);
+
+            BigDecimal maxWithdrawableAmount = maxWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).divide(new BigDecimal(mKavaTokenPrice.price), 0, RoundingMode.DOWN);
+            WLog.w("maxWithdrawableAmount " + maxWithdrawableAmount);
+
+            if (maxWithdrawableAmount.compareTo(selfDepositAmount) > 0) {
+                maxWithdrawableAmount = selfDepositAmount;
             }
-            BigDecimal myWithdrawableValue = myWithdrawableAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
-            mMyWithdrawableAmount.setText(WDp.getDpAmount2(getBaseContext(), myWithdrawableAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
-            mMyWithdrawableValue.setText(WDp.getDpRawDollor(getBaseContext(), myWithdrawableValue, 2));
-            WLog.w("debtValue " + debtValue);
-            WLog.w("feeValue " + feeValue);
-            WLog.w("hiddenFeeValue " + hiddenFeeValue);
-            WLog.w("toRepayValue " + toRepayValue);
+            WLog.w("maxWithdrawableAmount result " + maxWithdrawableAmount);
+
+
+            mMyWithdrawableAmount.setText(WDp.getDpAmount2(getBaseContext(), maxWithdrawableAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
+            mMyWithdrawableValue.setText(WDp.getDpRawDollor(getBaseContext(), maxWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)), 2));
+
+//            WLog.w("\n\n\ndebtValue " + debtValue);
+//            WLog.w("feeValue " + feeValue);
+//            WLog.w("hiddenFeeValue " + hiddenFeeValue);
+//            WLog.w("toRepayValue " + toRepayValue);
 
 
             mMyLoadnedAmount.setText(WDp.getDpAmount2(getBaseContext(), debtValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
@@ -379,7 +410,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
             BigDecimal maxDebtValue = cValue.divide(new BigDecimal(cParam.liquidation_ratio),0, BigDecimal.ROUND_DOWN);
             WLog.w("maxDebtValue " +  maxDebtValue);
-            maxDebtValue = maxDebtValue.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
+            maxDebtValue = maxDebtValue.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
             WLog.w("maxDebtValue padding " +  maxDebtValue);
             BigDecimal moreDebtAmount = maxDebtValue.subtract(toRepayValue);
             mMyLoadableAmount.setText(WDp.getDpAmount2(getBaseContext(), moreDebtAmount, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
