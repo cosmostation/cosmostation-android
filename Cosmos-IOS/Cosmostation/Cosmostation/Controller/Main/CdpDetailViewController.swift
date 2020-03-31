@@ -196,6 +196,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         cell?.collateralWithdrawableAmount.attributedText = WUtils.displayAmount2(maxWithdrawableAmount.stringValue, cell!.collateralWithdrawableAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
         cell?.collateralWithdrawableValue.attributedText = WUtils.getDPRawDollor(maxWithdrawableValue.stringValue, 2, cell!.collateralWithdrawableValue.font)
         
+        cell?.depositBtn.setTitle(String(format: NSLocalizedString("str_deposit", comment: ""), self.cDenom.uppercased()), for: .normal)
+        cell?.withdrawBtn.setTitle(String(format: NSLocalizedString("str_withdraw", comment: ""), self.cDenom.uppercased()), for: .normal)
+        
         cell?.helpCollateralSelf = {
             self.onShowSimpleHelp(NSLocalizedString("help_self_deposited_title", comment: ""), String(format: NSLocalizedString("help_self_deposited_msg", comment: ""), self.cDenom.uppercased()))
         }

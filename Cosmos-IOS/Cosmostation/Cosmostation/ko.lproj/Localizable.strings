@@ -160,6 +160,8 @@
 "kava_old_path" = "변경 전 PATH (44'/118'/0'/0)";
 "kava_new_path" = "변경 후 PATH (44'/459'/0'/0)";
 "tx_next" = "다음";
+"str_deposit" = "  Deposit %@";
+"str_withdraw" = "  Withdraw %@";
 
 
 "current_price_format" = "Current %@ Price";
