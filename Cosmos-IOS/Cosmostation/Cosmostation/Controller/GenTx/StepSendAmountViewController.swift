@@ -247,7 +247,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     
     @IBAction func onClickAdd1(_ sender: UIButton) {
         var exist = NSDecimalNumber.zero
-        if(mTargetAmountTextField.text!.count > 0) {
+        if (mTargetAmountTextField.text!.count > 0) {
             exist = NSDecimalNumber(string: mTargetAmountTextField.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "1"))

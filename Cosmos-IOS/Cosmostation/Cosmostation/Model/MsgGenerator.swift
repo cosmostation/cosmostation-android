@@ -222,6 +222,17 @@ class MsgGenerator {
         return msg
     }
     
+    static func genGetDepositCdpMsg(_ owner: String, _ depositor: String, _ collateral: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.owner = owner
+        value.depositor = depositor
+        value.collateral = collateral
+        msg.type = KAVA_MSG_TYPE_DEPOSIT_CDP
+        msg.value = value
+        return msg
+    }
+    
     
     
     static func genSignedTx(_ msgs: Array<Msg>, _ fee: Fee, _ memo: String, _ signatures: Array<Signature>) -> StdTx {

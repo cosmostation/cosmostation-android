@@ -48,7 +48,7 @@ public class CdpOwen {
         
         public func getLiquidationPrice(_ cDenom:String, _ pDenom:String, _ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
             let collateralAmount = cdp.getRawCollateralAmount().multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(cDenom))
-            let rawDebtAmount = cdp.getRawDebtAmount().multiplying(by: NSDecimalNumber.init(string: cParam.liquidation_ratio)).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom))
+            let rawDebtAmount = cdp.getEstimatedTotalDebt(cParam).multiplying(by: NSDecimalNumber.init(string: cParam.liquidation_ratio)).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom))
             return rawDebtAmount.dividing(by: collateralAmount, withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(pDenom)))
         }
         

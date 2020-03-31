@@ -289,7 +289,12 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func onClickDeposit() {
-        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_DEPOSIT_CDP
+        txVC.cDenom = cDenom
+        txVC.mMarketID = mMarketID
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func onClickWithdraw() {

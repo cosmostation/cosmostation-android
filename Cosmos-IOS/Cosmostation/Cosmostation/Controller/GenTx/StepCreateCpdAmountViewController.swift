@@ -392,6 +392,11 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
         let rawDebtAmount = toPAmount.multiplying(by: cParam!.getLiquidationRatio()).multiplying(byPowerOf10: -pDpDecimal)
         liquidationPrice = rawDebtAmount.dividing(by: collateralAmount, withBehavior: WUtils.getDivideHandler(pDpDecimal))
         riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
+        
+        print("collateralAmount ", collateralAmount)
+        print("rawDebtAmount ", rawDebtAmount)
+        print("liquidationPrice ", liquidationPrice)
+        print("riskRate ", riskRate)
         return true
     }
     
@@ -400,15 +405,18 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             btnNext.backgroundColor = UIColor.clear
             btnNext.setTitle(NSLocalizedString("tx_next", comment: ""), for: .normal)
             btnNext.setTitleColor(COLOR_PHOTON, for: .normal)
+            btnNext.layer.borderWidth = 1.0
             
         } else {
             if (!isValiadPAmount()) {
                 btnNext.backgroundColor = UIColor.clear
                 btnNext.setTitle(NSLocalizedString("tx_next", comment: ""), for: .normal)
                 btnNext.setTitleColor(COLOR_PHOTON, for: .normal)
+                btnNext.layer.borderWidth = 1.0
                 
             } else {
                 btnNext.setTitleColor(UIColor.black, for: .normal)
+                btnNext.layer.borderWidth = 0.0
                 if (riskRate.doubleValue < 50) {
                     btnNext.backgroundColor = COLOR_CDP_SAFE
                     btnNext.setTitle(riskRate.stringValue + " SAFE", for: .normal)

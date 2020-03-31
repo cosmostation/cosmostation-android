@@ -1,8 +1,8 @@
 //
-//  StepCreateCpdCheckViewController.swift
+//  StepDepositCdpCheckViewController.swift
 //  Cosmostation
 //
-//  Created by 정용주 on 2020/03/30.
+//  Created by 정용주 on 2020/03/31.
 //  Copyright © 2020 wannabit. All rights reserved.
 //
 
@@ -11,19 +11,20 @@ import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
 
-class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate {
+class StepDepositCdpCheckViewController: BaseViewController, PasswordViewDelegate {
 
     @IBOutlet weak var cAmountLabel: UILabel!
     @IBOutlet weak var cDenomLabel: UILabel!
-    @IBOutlet weak var pAmountLabel: UILabel!
-    @IBOutlet weak var pDenomLabel: UILabel!
     @IBOutlet weak var feeAmountLabel: UILabel!
-    @IBOutlet weak var riskScoreLabel: UILabel!
-    @IBOutlet weak var currentPriceTitle: UILabel!
-    @IBOutlet weak var currentPrice: UILabel!
-    @IBOutlet weak var liquidationPriceTitle: UILabel!
-    @IBOutlet weak var liquidationPrice: UILabel!
-    @IBOutlet weak var memoLabel: UILabel!
+    @IBOutlet weak var beforeRiskRate: UILabel!
+    @IBOutlet weak var afterRiskRate: UILabel!
+    @IBOutlet weak var adjuestedcAmount: UILabel!
+    @IBOutlet weak var adjuestedcAmountDenom: UILabel!
+    @IBOutlet weak var beforeLiquidationPriceTitle: UILabel!
+    @IBOutlet weak var beforeLiquidationPrice: UILabel!
+    @IBOutlet weak var afterLiquidationPriceTitle: UILabel!
+    @IBOutlet weak var afterLiquidationPrice: UILabel!
+    @IBOutlet weak var memo: UILabel!
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnConfirm: UIButton!
@@ -40,7 +41,7 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
         self.btnConfirm.isUserInteractionEnabled = false
         pageHolderVC.onBeforePage()
     }
-
+    
     @IBAction func onClickConfirm(_ sender: UIButton) {
         let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
         self.navigationItem.title = ""
@@ -58,31 +59,29 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
     
     func onUpdateView() {
         let cDenom = pageHolderVC.cDenom
-        let pDenom = pageHolderVC.pDenom
         let cDpDecimal = WUtils.getKavaCoinDecimal(cDenom!)
-        let pDpDecimal = WUtils.getKavaCoinDecimal(pDenom!)
 
         let cAmount = NSDecimalNumber.init(string: pageHolderVC.mCollateral[0].amount)
-        let pAmount = NSDecimalNumber.init(string: pageHolderVC.mPrincipal[0].amount)
         let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
-
+        
         cDenomLabel.text = cDenom?.uppercased()
         cAmountLabel.attributedText = WUtils.displayAmount2(cAmount.stringValue, cAmountLabel.font!, cDpDecimal, cDpDecimal)
-
-        pDenomLabel.text = pDenom?.uppercased()
-        pAmountLabel.attributedText = WUtils.displayAmount2(pAmount.stringValue, pAmountLabel.font!, pDpDecimal, pDpDecimal)
-
+        
         feeAmountLabel.attributedText = WUtils.displayAmount2(fAmount.stringValue, feeAmountLabel.font!, 6, 6)
 
-        WUtils.showRiskRate(pageHolderVC.riskRate!, riskScoreLabel, _rateIamg: nil)
+        WUtils.showRiskRate(pageHolderVC.beforeRiskRate!, beforeRiskRate, _rateIamg: nil)
+        WUtils.showRiskRate(pageHolderVC.afterRiskRate!, afterRiskRate, _rateIamg: nil)
         
-        currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), cDenom!.uppercased())
-        currentPrice.attributedText = WUtils.getDPRawDollor(pageHolderVC.currentPrice!.stringValue, 4, currentPrice.font)
+        adjuestedcAmount.attributedText = WUtils.displayAmount2(pageHolderVC.totalDepositAmount!.stringValue, cAmountLabel.font!, cDpDecimal, cDpDecimal)
+        adjuestedcAmountDenom.text = cDenom?.uppercased()
         
-        liquidationPriceTitle.text = String(format: NSLocalizedString("liquidation_price_format", comment: ""), cDenom!.uppercased())
-        liquidationPrice.attributedText = WUtils.getDPRawDollor(pageHolderVC.liquidationPrice!.stringValue, 4, liquidationPrice.font)
+        beforeLiquidationPriceTitle.text = String(format: NSLocalizedString("before_liquidation_price_format", comment: ""), cDenom!.uppercased())
+        beforeLiquidationPrice.attributedText = WUtils.getDPRawDollor(pageHolderVC.beforeLiquidationPrice!.stringValue, 4, beforeLiquidationPrice.font)
         
-        memoLabel.text = pageHolderVC.mMemo
+        afterLiquidationPriceTitle.text = String(format: NSLocalizedString("after_liquidation_price_format", comment: ""), cDenom!.uppercased())
+        afterLiquidationPrice.attributedText = WUtils.getDPRawDollor(pageHolderVC.afterLiquidationPrice!.stringValue, 4, beforeLiquidationPrice.font)
+        
+        memo.text = pageHolderVC.mMemo
     }
     
     func passwordResponse(result: Int) {
@@ -114,7 +113,7 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
                     let accountInfo = KavaAccountInfo.init(info)
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
-                    self.onGenCreateCdpTx()
+                    self.onGenDepositCdpTx()
                 }
                 
             case .failure( _):
@@ -124,8 +123,7 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
         }
     }
     
-    
-    func onGenCreateCdpTx() {
+    func onGenDepositCdpTx() {
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
@@ -134,9 +132,9 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
             
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                let msg = MsgGenerator.genGetCreatCdpMsg(self.pageHolderVC.mAccount!.account_address,
-                                                         self.pageHolderVC.mCollateral,
-                                                         self.pageHolderVC.mPrincipal)
+                let msg = MsgGenerator.genGetDepositCdpMsg(self.pageHolderVC.mAccount!.account_address,
+                                                           self.pageHolderVC.mAccount!.account_address,
+                                                           self.pageHolderVC.mCollateral)
                 
                 var msgList = Array<Msg>()
                 msgList.append(msg)
@@ -193,13 +191,13 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            if(SHOW_LOG) { print("CreateCdp ", res) }
+                            if(SHOW_LOG) { print("DepositCdp ", res) }
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
                             if(SHOW_LOG) {
-                                print("CreateCdp error ", error)
+                                print("DepositCdp error ", error)
                             }
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500

@@ -1645,6 +1645,25 @@ class WUtils {
         }
     }
     
+    static func showRiskRate2(_ riskRate: NSDecimalNumber, _ scoreLabel: UILabel, _ textLabel:UILabel) {
+        scoreLabel.attributedText = displayAmount2(riskRate.stringValue, scoreLabel.font, 0, 2)
+        if (riskRate.doubleValue < 50) {
+            scoreLabel.textColor = COLOR_CDP_SAFE
+            textLabel.textColor = COLOR_CDP_SAFE
+            textLabel.text = "SAFE"
+            
+        } else if (riskRate.doubleValue < 80) {
+            scoreLabel.textColor = COLOR_CDP_STABLE
+            textLabel.textColor = COLOR_CDP_STABLE
+            textLabel.text = "STABLE"
+            
+        } else {
+            scoreLabel.textColor = COLOR_CDP_DANGER
+            textLabel.textColor = COLOR_CDP_DANGER
+            textLabel.text = "DANGER"
+        }
+    }
+    
     
     
     static func getGuideList() -> Array<GuideCategory> {
