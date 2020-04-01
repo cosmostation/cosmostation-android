@@ -1,11 +1,15 @@
 package wannabit.io.cosmostaion.network.res;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.model.KavaCDP;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ResCdpOwnerStatus {
 
@@ -68,8 +72,22 @@ public class ResCdpOwnerStatus {
             return BigDecimal.ZERO;
         }
 
-        public BigDecimal getDebtAmount() {
+        public BigDecimal getRawDebtAmount() {
             return getPrincipalAmount().add(getAccumulatedFees());
+        }
+
+
+        public BigDecimal getEstimatedTotalDebt(Context c, ResCdpParam.KavaCollateralParam cParam) {
+            BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(c, getRawDebtAmount(), cParam, cdp);
+            return  getRawDebtAmount().add(hiddenFeeValue);
+        }
+
+        public BigDecimal getLiquidationPrice(Context c, ResCdpParam.KavaCollateralParam cParam) {
+            int denomCDecimal = WUtil.getKavaCoinDecimal(getDenom());
+            int denomPDecimal = WUtil.getKavaCoinDecimal(getPDenom());
+            BigDecimal collateralAmount = getCollateralAmount().movePointLeft(denomCDecimal);
+            BigDecimal estimatedDebtAmount = getEstimatedTotalDebt(c, cParam).multiply(new BigDecimal(cParam.liquidation_ratio)).movePointLeft(denomPDecimal);
+            return estimatedDebtAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_DOWN);
         }
     }
 

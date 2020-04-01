@@ -125,7 +125,7 @@ public class CdpMyFragment extends BaseFragment {
                 final ResCdpParam.KavaCollateralParam param = getMainActivity().mCdpParam.getCollateralParamByDenom(status.getDenom());
 
                 final BigDecimal currentPrice = new BigDecimal(price.price);
-                final BigDecimal liquidationPrice = WDp.getLiquidationPrice(status, getMainActivity().mCdpParam.getRawLiquidationRatio(status.getDenom()));
+                final BigDecimal liquidationPrice = status.getLiquidationPrice(getContext(), param);
                 final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
 //            WLog.w("currentPrice " +  currentPrice);

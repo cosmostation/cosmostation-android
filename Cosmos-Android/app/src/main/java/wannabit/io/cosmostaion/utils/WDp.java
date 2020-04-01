@@ -1489,14 +1489,6 @@ public class WDp {
         return Html.fromHtml(strFront + strChange + strBack);
     }
 
-    public static BigDecimal getLiquidationPrice(ResCdpOwnerStatus.Result status, BigDecimal liquidationRatio) {
-        int denomDecimal = WUtil.getKavaCoinDecimal(status.getDenom());
-        int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
-        BigDecimal collateralAmount = status.getCollateralAmount().movePointLeft(denomDecimal);
-        BigDecimal debtAmount = status.getDebtAmount().multiply(liquidationRatio).movePointLeft(denomPDecimal);
-        return debtAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_DOWN);
-    }
-
     public static void DpRiskRate(Context c, BigDecimal riskRate, TextView textView, ImageView imageview) {
         textView.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
         if (riskRate.longValue() < 50) {

@@ -281,9 +281,13 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mInfoCollateralRateView.setVisibility(View.VISIBLE);
             mInfoLiquidationPriceLayer.setVisibility(View.VISIBLE);
 
-            mLiquidationPrice = WDp.getLiquidationPrice(mMyOwenCdp, new BigDecimal(cParam.liquidation_ratio));
+            mLiquidationPrice = mMyOwenCdp.getLiquidationPrice(getBaseContext(), cParam);
             mRiskRate = new BigDecimal(100).subtract((currentPrice.subtract(mLiquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
             WDp.DpRiskRate(getBaseContext(), mRiskRate, mInfoRiskScore, mInfoImgRisk);
+
+            WLog.w("currentPrice " + currentPrice);
+            WLog.w("mLiquidationPrice " + mLiquidationPrice);
+            WLog.w("mRiskRate " + mRiskRate);
 
             mInfoDebtValueTitle.setText(mMyOwenCdp.getPDenom().toUpperCase() + " " + getString(R.string.str_debt_value));
             mInfoCollateralValueTitle.setText(WDp.DpCollateralValueTitle(getBaseContext(), mMyOwenCdp.getDenom().toUpperCase()));
