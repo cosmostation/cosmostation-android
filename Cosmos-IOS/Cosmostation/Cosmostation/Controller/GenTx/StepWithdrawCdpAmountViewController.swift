@@ -178,27 +178,29 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
         }
     }
     
-        func isValiadCAmount() -> Bool {
-            let text = cAmountInput.text?.trimmingCharacters(in: .whitespaces)
-            if (text == nil || text!.count == 0) { return false }
-            let userInput = WUtils.stringToDecimal(text!)
-            if (userInput == NSDecimalNumber.zero) { return false }
-            if (userInput.multiplying(byPowerOf10: cDpDecimal).compare(cMaxWithdrawableAmount).rawValue > 0 ||
-                userInput.multiplying(byPowerOf10: cDpDecimal).compare(NSDecimalNumber.zero).rawValue < 0) {
-                return false
-            }
-            toCAmount = userInput.multiplying(byPowerOf10: cDpDecimal)
-            sumCAmount = mMyCdps!.result.getTotalCollateralAmount().subtracting(toCAmount)
-            let collateralAmount = sumCAmount.multiplying(byPowerOf10: -cDpDecimal)
-            let rawDebtAmount = mMyCdps!.result.cdp.getEstimatedTotalDebt(cParam!).multiplying(by: cParam!.getLiquidationRatio()).multiplying(byPowerOf10: -pDpDecimal)
-            afterLiquidationPrice = rawDebtAmount.dividing(by: collateralAmount, withBehavior: WUtils.getDivideHandler(pDpDecimal))
-            afterRiskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(afterLiquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
-            
-            print("currentPrice ", currentPrice)
-            print("afterLiquidationPrice ", afterLiquidationPrice)
-            print("afterRiskRate ", afterRiskRate)
-            return true
+    func isValiadCAmount() -> Bool {
+        let text = cAmountInput.text?.trimmingCharacters(in: .whitespaces)
+        if (text == nil || text!.count == 0) { return false }
+        let userInput = WUtils.stringToDecimal(text!)
+        if (userInput == NSDecimalNumber.zero) { return false }
+        if (userInput.multiplying(byPowerOf10: cDpDecimal).compare(cMaxWithdrawableAmount).rawValue > 0 ||
+            userInput.multiplying(byPowerOf10: cDpDecimal).compare(NSDecimalNumber.zero).rawValue < 0) {
+            return false
         }
+        toCAmount = userInput.multiplying(byPowerOf10: cDpDecimal)
+        sumCAmount = mMyCdps!.result.getTotalCollateralAmount().subtracting(toCAmount)
+        let collateralAmount = sumCAmount.multiplying(byPowerOf10: -cDpDecimal)
+        let rawDebtAmount = mMyCdps!.result.cdp.getEstimatedTotalDebt(cParam!).multiplying(by: cParam!.getLiquidationRatio()).multiplying(byPowerOf10: -pDpDecimal)
+        print("collateralAmount ", collateralAmount)
+        print("rawDebtAmount ", rawDebtAmount)
+        afterLiquidationPrice = rawDebtAmount.dividing(by: collateralAmount, withBehavior: WUtils.getDivideHandler(pDpDecimal))
+        afterRiskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(afterLiquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
+        
+        print("currentPrice ", currentPrice)
+        print("afterLiquidationPrice ", afterLiquidationPrice)
+        print("afterRiskRate ", afterRiskRate)
+        return true
+    }
 
     func onUpdateNextBtn() {
         if (!isValiadCAmount()) {

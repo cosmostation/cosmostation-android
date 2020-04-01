@@ -59,6 +59,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var beforeRiskRate: NSDecimalNumber?
     var afterRiskRate: NSDecimalNumber?
     var totalDepositAmount: NSDecimalNumber?
+    var totalLoanAmount: NSDecimalNumber?
     
     var mProvision: String?
     var mStakingPool: NSDictionary?
@@ -148,10 +149,10 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepWithdrawCdpCheckViewController")]
             
         } else if (mType == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
-            return [self.newVc(viewController: "VoteSelectViewController"),
+            return [self.newVc(viewController: "StepDrawDebtCdpAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
-                    self.newVc(viewController: "VoteCheckViewController")]
+                    self.newVc(viewController: "StepDrawDebtCdpCheckViewController")]
             
         } else if (mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
             return [self.newVc(viewController: "VoteSelectViewController"),

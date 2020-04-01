@@ -1,8 +1,8 @@
 //
-//  StepWithdrawCdpCheckViewController.swift
+//  StepDrawDebtCdpCheckViewController.swift
 //  Cosmostation
 //
-//  Created by 정용주 on 2020/03/31.
+//  Created by 정용주 on 2020/04/01.
 //  Copyright © 2020 wannabit. All rights reserved.
 //
 
@@ -11,11 +11,10 @@ import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
 
+class StepDrawDebtCdpCheckViewController: BaseViewController, PasswordViewDelegate {
 
-class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelegate {
-
-    @IBOutlet weak var cAmountLabel: UILabel!
-    @IBOutlet weak var cDenomLabel: UILabel!
+    @IBOutlet weak var pAmountLabel: UILabel!
+    @IBOutlet weak var pDenomLabel: UILabel!
     @IBOutlet weak var feeAmountLabel: UILabel!
     @IBOutlet weak var beforeRiskRate: UILabel!
     @IBOutlet weak var afterRiskRate: UILabel!
@@ -60,21 +59,22 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
     
     func onUpdateView() {
         let cDenom = pageHolderVC.cDenom
-        let cDpDecimal = WUtils.getKavaCoinDecimal(cDenom!)
-
-        let cAmount = NSDecimalNumber.init(string: pageHolderVC.mCollateral[0].amount)
+        let pDenom = pageHolderVC.pDenom
+        let pDpDecimal = WUtils.getKavaCoinDecimal(pDenom!)
+        
+        let pAmount = NSDecimalNumber.init(string: pageHolderVC.mPrincipal[0].amount)
         let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
         
-        cDenomLabel.text = cDenom?.uppercased()
-        cAmountLabel.attributedText = WUtils.displayAmount2(cAmount.stringValue, cAmountLabel.font!, cDpDecimal, cDpDecimal)
+        pDenomLabel.text = pDenom?.uppercased()
+        pAmountLabel.attributedText = WUtils.displayAmount2(pAmount.stringValue, pAmountLabel.font!, pDpDecimal, pDpDecimal)
         
         feeAmountLabel.attributedText = WUtils.displayAmount2(fAmount.stringValue, feeAmountLabel.font!, 6, 6)
-
+        
         WUtils.showRiskRate(pageHolderVC.beforeRiskRate!, beforeRiskRate, _rateIamg: nil)
         WUtils.showRiskRate(pageHolderVC.afterRiskRate!, afterRiskRate, _rateIamg: nil)
         
-        adjuestedcAmount.attributedText = WUtils.displayAmount2(pageHolderVC.totalDepositAmount!.stringValue, adjuestedcAmount.font!, cDpDecimal, cDpDecimal)
-        adjuestedcAmountDenom.text = cDenom?.uppercased()
+        adjuestedcAmount.attributedText = WUtils.displayAmount2(pageHolderVC.totalLoanAmount!.stringValue, adjuestedcAmount.font!, pDpDecimal, pDpDecimal)
+        adjuestedcAmountDenom.text = pDenom?.uppercased()
         
         beforeLiquidationPriceTitle.text = String(format: NSLocalizedString("before_liquidation_price_format", comment: ""), cDenom!.uppercased())
         beforeLiquidationPrice.attributedText = WUtils.getDPRawDollor(pageHolderVC.beforeLiquidationPrice!.stringValue, 4, beforeLiquidationPrice.font)
@@ -84,7 +84,7 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
         
         memo.text = pageHolderVC.mMemo
     }
-    
+
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
             self.onFetchAccountInfo(pageHolderVC.mAccount!)
@@ -115,7 +115,7 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
                     let accountInfo = KavaAccountInfo.init(info)
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
-                    self.onGenWithdrawCdpTx()
+                    self.onGenDrawDebtCdpTx()
                 }
                 
             case .failure( _):
@@ -125,7 +125,7 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
         }
     }
     
-    func onGenWithdrawCdpTx() {
+    func onGenDrawDebtCdpTx() {
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
@@ -134,9 +134,9 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
             
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                let msg = MsgGenerator.genGetWithdrawCdpMsg(self.pageHolderVC.mAccount!.account_address,
-                                                           self.pageHolderVC.mAccount!.account_address,
-                                                           self.pageHolderVC.mCollateral)
+                let msg = MsgGenerator.genGetDrawDebtCdpMsg(self.pageHolderVC.mAccount!.account_address,
+                                                            self.pageHolderVC.cDenom!,
+                                                            self.pageHolderVC.mPrincipal)
                 
                 var msgList = Array<Msg>()
                 msgList.append(msg)
@@ -193,13 +193,13 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            if(SHOW_LOG) { print("WithdrawCdp ", res) }
+                            if(SHOW_LOG) { print("DrawDebt ", res) }
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
                             if(SHOW_LOG) {
-                                print("WithdrawCdp error ", error)
+                                print("DrawDebt error ", error)
                             }
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500
@@ -223,6 +223,4 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
             });
         }
     }
-    
-    
 }
