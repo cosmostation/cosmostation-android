@@ -187,6 +187,10 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
 
     }
 
+    public ResCdpParam.Result getCDPParam() {
+        return mCdpParam;
+    }
+
     public ResCdpParam.KavaCollateralParam getCParam() {
         return mCdpParam.getCollateralParamByDenom(mMarketDenom);
     }
