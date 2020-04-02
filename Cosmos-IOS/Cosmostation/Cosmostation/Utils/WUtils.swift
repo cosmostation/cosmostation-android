@@ -1496,7 +1496,7 @@ class WUtils {
         } else if (type == CHAIN_IOV_S) {
             return "iov-mainnet"
         } else if (type == CHAIN_KAVA_TEST_S) {
-            return "kava-testnet-4000"
+            return "kava-testnet-5000"
         }
         return "cosmoshub-3"
     }
