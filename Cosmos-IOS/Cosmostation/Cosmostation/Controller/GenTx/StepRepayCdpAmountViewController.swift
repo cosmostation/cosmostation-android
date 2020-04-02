@@ -190,7 +190,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate{
             let pCoin = Coin.init(pDenom, toPAmount.stringValue)
             var pCoins = Array<Coin>()
             pCoins.append(pCoin)
-            self.pageHolderVC.mPrincipal = pCoins
+            self.pageHolderVC.mPayment = pCoins
             self.pageHolderVC.currentPrice = currentPrice
             self.pageHolderVC.beforeLiquidationPrice = beforeLiquidationPrice
             self.pageHolderVC.afterLiquidationPrice = afterLiquidationPrice
@@ -299,7 +299,8 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate{
             print("pAllAmount ", pAllAmount)
             
             let debtFloor = NSDecimalNumber.init(string: cdpParam!.result.debt_params[0].debt_floor)
-            let rawDebtAmount = mMyCdps!.result.cdp.getRawDebtAmount()
+//            let rawDebtAmount = mMyCdps!.result.cdp.getRawDebtAmount()
+            let rawDebtAmount = mMyCdps!.result.cdp.getRawPrincipalAmount()
             print("debtFloor ", debtFloor)
             print("rawDebtAmount ", rawDebtAmount)
             

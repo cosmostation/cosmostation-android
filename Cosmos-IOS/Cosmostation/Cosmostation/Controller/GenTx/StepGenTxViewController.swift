@@ -49,6 +49,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     var mCollateral = Array<Coin>()
     var mPrincipal = Array<Coin>()
+    var mPayment = Array<Coin>()
     var mSender: String?
     
     var currentPrice: NSDecimalNumber?
