@@ -111,7 +111,7 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
     
     @IBAction func onClickCAmountClear(_ sender: UIButton) {
         cAmountInput.text = ""
-        self.AmountChanged(cAmountInput)
+        onUpdateNextBtn()
     }
     
     @IBAction func onClickCMin(_ sender: UIButton) {

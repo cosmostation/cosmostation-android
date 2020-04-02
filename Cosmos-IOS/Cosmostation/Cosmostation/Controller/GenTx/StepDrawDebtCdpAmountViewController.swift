@@ -118,7 +118,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
     
     @IBAction func onClickPAmountClear(_ sender: UIButton) {
         pAmountInput.text = ""
-        AmountChangedP(pAmountInput)
+        onUpdateNextBtn()
     }
     
     @IBAction func onClickPMin(_ sender: UIButton) {

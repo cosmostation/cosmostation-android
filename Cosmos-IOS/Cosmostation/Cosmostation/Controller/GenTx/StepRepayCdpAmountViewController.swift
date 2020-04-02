@@ -126,7 +126,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate{
     
     @IBAction func onClickClear(_ sender: UIButton) {
         pAmountInput.text = ""
-        AmountChanged(pAmountInput)
+        onUpdateNextBtn()
     }
     
     @IBAction func onClick1_3(_ sender: UIButton) {
@@ -220,7 +220,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate{
         }
         
         toPAmount = userInputAmount
-        reaminPAmount = pAllAmount.subtracting(toPAmount)
+        reaminPAmount = mMyCdps!.result.cdp.getEstimatedTotalDebt(cParam!).subtracting(toPAmount)
         print("toPAmount ", toPAmount)
         print("reaminPAmount ", reaminPAmount)
         let collateralAmount = mMyCdps!.result.getTotalCollateralAmount().multiplying(byPowerOf10: -cDpDecimal)
