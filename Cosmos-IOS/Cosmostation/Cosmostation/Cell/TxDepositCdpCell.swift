@@ -10,6 +10,7 @@ import UIKit
 
 class TxDepositCdpCell: UITableViewCell {
     
+    @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var owerLabel: UILabel!
     @IBOutlet weak var depositorLabel: UILabel!
     @IBOutlet weak var collateralAmount: UILabel!

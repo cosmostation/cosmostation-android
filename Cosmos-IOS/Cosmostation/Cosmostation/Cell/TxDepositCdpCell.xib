@@ -72,7 +72,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ATOM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nvt-et-3VB">
                                 <rect key="frame" x="315.5" y="162.5" width="34.5" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                <color key="textColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -132,6 +132,7 @@
                 <outlet property="collateralDenom" destination="nvt-et-3VB" id="L1B-3I-aS0"/>
                 <outlet property="depositorLabel" destination="7O9-o1-ui8" id="adK-Rm-NnU"/>
                 <outlet property="owerLabel" destination="uwP-yq-gM9" id="TX4-VS-nxv"/>
+                <outlet property="txIcon" destination="2L2-1o-oJF" id="2wa-pT-atv"/>
             </connections>
             <point key="canvasLocation" x="188.40579710144928" y="209.59821428571428"/>
         </tableViewCell>

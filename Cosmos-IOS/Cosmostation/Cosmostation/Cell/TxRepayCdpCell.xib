@@ -72,7 +72,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ATOM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mM7-ow-Pks">
                                 <rect key="frame" x="350.5" y="162.5" width="34.5" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                <color key="textColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -132,6 +132,7 @@
                 <outlet property="paymentAmount" destination="9yp-uy-JeE" id="dd7-uY-LvN"/>
                 <outlet property="paymentDenom" destination="mM7-ow-Pks" id="a1d-Ko-y46"/>
                 <outlet property="senderLabel" destination="Npb-9U-5ua" id="4Lz-EP-phb"/>
+                <outlet property="txIcon" destination="RNc-Wp-IFg" id="ggL-C9-5BQ"/>
             </connections>
             <point key="canvasLocation" x="213.768115942029" y="210.60267857142856"/>
         </tableViewCell>

@@ -9,7 +9,8 @@
 import UIKit
 
 class TxPostPriceCell: UITableViewCell {
-
+    
+    @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var pricePoster: UILabel!
     @IBOutlet weak var marketId: UILabel!
     @IBOutlet weak var postPrice: UILabel!

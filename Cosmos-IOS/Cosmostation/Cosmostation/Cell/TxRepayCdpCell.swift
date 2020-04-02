@@ -9,7 +9,8 @@
 import UIKit
 
 class TxRepayCdpCell: UITableViewCell {
-
+    
+    @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var senderLabel: UILabel!
     @IBOutlet weak var coinTypeLabel: UILabel!
     @IBOutlet weak var paymentAmount: UILabel!
