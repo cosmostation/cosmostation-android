@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2815AA70243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA6F243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift */; };
 		2815AA72243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA71243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift */; };
+		2815AA7424349DE2008B23AA /* StepRepayCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */; };
+		2815AA7624349DF2008B23AA /* StepRepayCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA7524349DF2008B23AA /* StepRepayCdpCheckViewController.swift */; };
 		2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */; };
 		2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */; };
 		2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */; };
@@ -320,6 +322,8 @@
 /* Begin PBXFileReference section */
 		2815AA6F243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDrawDebtCdpAmountViewController.swift; sourceTree = "<group>"; };
 		2815AA71243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDrawDebtCdpCheckViewController.swift; sourceTree = "<group>"; };
+		2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRepayCdpAmountViewController.swift; sourceTree = "<group>"; };
+		2815AA7524349DF2008B23AA /* StepRepayCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRepayCdpCheckViewController.swift; sourceTree = "<group>"; };
 		2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDetailViewController.swift; sourceTree = "<group>"; };
 		2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCommonCell.swift; sourceTree = "<group>"; };
 		2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCommonCell.xib; sourceTree = "<group>"; };
@@ -824,6 +828,8 @@
 				28617A8424333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift */,
 				2815AA6F243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift */,
 				2815AA71243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift */,
+				2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */,
+				2815AA7524349DF2008B23AA /* StepRepayCdpCheckViewController.swift */,
 			);
 			path = GenTx;
 			sourceTree = "<group>";
@@ -1419,6 +1425,7 @@
 				E1FD2320233E1B8E009327FE /* WalletAddressCell.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */,
+				2815AA7424349DE2008B23AA /* StepRepayCdpAmountViewController.swift in Sources */,
 				E1F1CF0C239F7D8D004EF8A2 /* VoteCheckViewController.swift in Sources */,
 				2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
@@ -1495,6 +1502,7 @@
 				E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */,
 				282FF35D23F530ED0028CC66 /* TxEditRewardAddressCell.swift in Sources */,
 				E1406FC62260860E00D9440C /* StepUndelegateAmountViewController.swift in Sources */,
+				2815AA7624349DF2008B23AA /* StepRepayCdpCheckViewController.swift in Sources */,
 				E1827E18225620D000BC0350 /* VaildatorDetailViewController.swift in Sources */,
 				E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */,
 				28474F06241E06E200AF5A81 /* Orm.codec.pb.swift in Sources */,

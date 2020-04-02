@@ -155,10 +155,10 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepDrawDebtCdpCheckViewController")]
             
         } else if (mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
-            return [self.newVc(viewController: "VoteSelectViewController"),
+            return [self.newVc(viewController: "StepRepayCdpAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
-                    self.newVc(viewController: "VoteCheckViewController")]
+                    self.newVc(viewController: "StepRepayCdpCheckViewController")]
             
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),

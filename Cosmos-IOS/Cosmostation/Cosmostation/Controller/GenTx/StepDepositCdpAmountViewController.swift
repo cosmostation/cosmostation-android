@@ -214,15 +214,15 @@ class StepDepositCdpAmountViewController: BaseViewController, UITextFieldDelegat
             btnNext.layer.borderWidth = 0.0
             if (afterRiskRate.doubleValue < 50) {
                 btnNext.backgroundColor = COLOR_CDP_SAFE
-                btnNext.setTitle(afterRiskRate.stringValue + " SAFE", for: .normal)
+                btnNext.setTitle("SAFE", for: .normal)
                 
             } else if (afterRiskRate.doubleValue < 80) {
                 btnNext.backgroundColor = COLOR_CDP_STABLE
-                btnNext.setTitle(afterRiskRate.stringValue + " STABLE", for: .normal)
+                btnNext.setTitle("STABLE", for: .normal)
                 
             } else {
                 btnNext.backgroundColor = COLOR_CDP_DANGER
-                btnNext.setTitle(afterRiskRate.stringValue + " DANGER", for: .normal)
+                btnNext.setTitle("DANGER", for: .normal)
             }
             WUtils.showRiskRate2(afterRiskRate, afterSafeRate, afterSafeTxt)
             afterSafeRate.isHidden = false

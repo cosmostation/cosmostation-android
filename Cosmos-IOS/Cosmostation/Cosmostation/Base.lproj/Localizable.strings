@@ -163,6 +163,8 @@
 "tx_next" = "Next";
 "str_deposit" = "  Deposit %@";
 "str_withdraw" = "  Withdraw %@";
+"str_cannot_repay_partially" = "Cannot repay partially";
+"str_cannot_repay_all" = "Insufficient %@ to repay all";
 
 "current_price_format" = "Current %@ Price";
 "liquidation_price_format" = "Liquidation %@ Price";

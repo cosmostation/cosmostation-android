@@ -452,10 +452,10 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             cDpDecimal = WUtils.getKavaCoinDecimal(cDenom)
             pDpDecimal = WUtils.getKavaCoinDecimal(pDenom)
             
-            pMinAmount = NSDecimalNumber.init(string: cdpParam!.result.debt_params[0].debt_floor)
+            let debtFloor = NSDecimalNumber.init(string: cdpParam!.result.debt_params[0].debt_floor)
             currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
             cMaxAmount = account!.getTokenBalance(cDenom)
-            cMinAmount = pMinAmount.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05")).multiplying(by: cParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Down)
+            cMinAmount = debtFloor.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05")).multiplying(by: cParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Down)
             print("cMinAmount ", cMinAmount)
                 
             

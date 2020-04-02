@@ -310,7 +310,6 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         txVC.mMarketID = mMarketID
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
-        
     }
     
     func onClickDrawDebt() {
@@ -320,11 +319,15 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         txVC.mMarketID = mMarketID
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
-        
     }
     
     func onClickRepay() {
-        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_REPAYDEBT_CDP
+        txVC.cDenom = cDenom
+        txVC.mMarketID = mMarketID
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     
