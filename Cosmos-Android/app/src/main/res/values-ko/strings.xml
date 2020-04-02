@@ -440,6 +440,10 @@
     <string name="str_loanable_amount"><![CDATA[대출 가능 : ]]></string>
     <string name="str_approximate_value"><![CDATA[현재 가치 : ]]></string>
     <string name="str_max_paymentable_amount"><![CDATA[Max : ]]></string>
+    <string name="str_repay_particaly"><![CDATA[Repay Partially : ]]></string>
+    <string name="str_cannot_particaly">Cannot repay partially</string>
+    <string name="str_repay_all"><![CDATA[Repay All : ]]></string>
+    <string name="str_cannot_repay_all">Insufficient USDX to repay all</string>
 <!--    <string name="str_max_depositable_amount"><![CDATA[Max Depositable : ]]></string>-->
     <string name="str_max_depositable_amount"><![CDATA[Max : ]]></string>
 <!--    <string name="str_max_withdrawable_amount"><![CDATA[Max Withdrawable : ]]></string>-->
@@ -450,8 +454,13 @@
     <string name="str_add_70">70</string>
     <string name="str_add_one_fourths">1/4</string>
     <string name="str_add_three_fourths">3/4</string>
+    <string name="str_add_one_three">P 1/3</string>
+    <string name="str_add_two_three">P 2/3</string>
+    <string name="str_add_three_three">P Max</string>
+    <string name="str_add_p_all">All</string>
     <string name="str_cdp_promotion_title">Create a Collateralized Debt Position</string>
     <string name="str_cdp_promotion_msg">Borrow USDX by depositing XRP, BTC, BNB as collateral.\n100% on-chain decentralized finance.</string>
+    <string name="str_repay_all_notice">This CDP will be closed. \nAll deposits will be returned to each depositor.</string>
 
     <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
     <string name="str_create_cdp_step_2">Insert memo (optional)</string>
