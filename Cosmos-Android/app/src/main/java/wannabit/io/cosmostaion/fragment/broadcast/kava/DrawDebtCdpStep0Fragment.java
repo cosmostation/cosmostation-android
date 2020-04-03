@@ -135,25 +135,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
             mMinLoanableAmount = debtFloor.subtract(currentPAmount);
         }
 
-
-        mCurrentTotalDebetAmount = getOwenCdp().getPrincipalAmount().add(getOwenCdp().getAccumulatedFees());
-        BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), mCurrentTotalDebetAmount, getCParam(), getOwenCdp().cdp);
-        WLog.w("hiddenFeeValue " + hiddenFeeValue);
-        mCurrentTotalDebetAmount = mCurrentTotalDebetAmount.add(hiddenFeeValue);
-        WLog.w("mCurrentTotalDebetAmount " + mCurrentTotalDebetAmount);
-
-        mCurrentCollateralAmount = getOwenCdp().getCollateralAmount();
-        BigDecimal currentCollateralValue = new BigDecimal(getOwenCdp().collateral_value.amount);
-        WLog.w("currentCollateralValue " + currentCollateralValue);
-
-        mMaxLoanableAmount =  currentCollateralValue.divide(new BigDecimal(getCParam().liquidation_ratio), 0, RoundingMode.DOWN);
-//        WLog.w("mMaxLoanableAmount " + mMaxLoanableAmount);
-        mMaxLoanableAmount = mMaxLoanableAmount.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
-//        WLog.w("mMaxLoanableAmount padding : " + mMaxLoanableAmount);
-        mMaxLoanableAmount = mMaxLoanableAmount.subtract(mCurrentTotalDebetAmount);
-        WLog.w("mMinLoanableAmount " + mMinLoanableAmount);
-        WLog.w("mMaxLoanableAmount " + mMaxLoanableAmount);
-
+        mMaxLoanableAmount = getOwenCdp().getMoreLoanableAmount(getContext(), getCParam());
         WDp.showCoinDp(getContext(), mPrincipalDenom, mMinLoanableAmount.toPlainString(), mLoanableDenomTx, mLoanableMinTx, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), mPrincipalDenom, mMaxLoanableAmount.toPlainString(), mLoanableDenomTx, mLoanableMaxTx, getSActivity().mBaseChain);
 
@@ -162,8 +144,9 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
             Picasso.get().load(KAVA_COIN_IMG_URL + mPrincipalDenom + ".png").fit().into(mPrincipalImg);
         } catch (Exception e) { }
 
-
         //before(current) state views!!
+        mCurrentTotalDebetAmount = getOwenCdp().getEstimatedTotalDebt(getContext(), getCParam());
+        mCurrentCollateralAmount = getOwenCdp().getCollateralAmount();
         mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
         WLog.w("mBeforeLiquidationPrice " + mBeforeLiquidationPrice);
         mBeforeRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mBeforeLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));

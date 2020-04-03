@@ -542,8 +542,24 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     }
 
     private void onCheckStartRepayCdp() {
-        //TODO add check logic!
         if (!onCommonCheck()) return;
+
+        if (pAvailable.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enought_principal_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean repayAll = true;
+        boolean repayPart = true;
+        BigDecimal debtFloor = new BigDecimal(mCdpParam.debt_params.get(0).debt_floor);
+        BigDecimal rawDebt =  mMyOwenCdp.getPrincipalAmount();
+        BigDecimal totalDebt =  mMyOwenCdp.getEstimatedTotalDebt(getBaseContext(), cParam);
+        if (totalDebt.compareTo(pAvailable) > 0) { repayAll = false; }
+        if (rawDebt.compareTo(debtFloor) <= 0) { repayPart = false; }
+        if (!repayAll && !repayPart) {
+            Toast.makeText(getBaseContext(), R.string.error_can_not_repay, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent intent = new Intent(this, RepayCdpActivity.class);
         intent.putExtra("denom", mMarketDenom);
