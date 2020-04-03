@@ -5,10 +5,12 @@ import android.content.Context;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.model.KavaCDP;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ResCdpOwnerStatus {
@@ -88,6 +90,25 @@ public class ResCdpOwnerStatus {
             BigDecimal collateralAmount = getCollateralAmount().movePointLeft(denomCDecimal);
             BigDecimal estimatedDebtAmount = getEstimatedTotalDebt(c, cParam).multiply(new BigDecimal(cParam.liquidation_ratio)).movePointLeft(denomPDecimal);
             return estimatedDebtAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_DOWN);
+        }
+
+        public BigDecimal getWithdrawableAmount(Context c, ResCdpParam.KavaCollateralParam cParam, BigDecimal price, BigDecimal selfDeposit) {
+            int denomCDecimal = WUtil.getKavaCoinDecimal(getDenom());
+            int denomPDecimal = WUtil.getKavaCoinDecimal(getPDenom());
+            BigDecimal cValue = new BigDecimal(collateral_value.amount);
+            BigDecimal minCValue = getEstimatedTotalDebt(c, cParam).multiply(new BigDecimal(cParam.liquidation_ratio)).divide(new BigDecimal("0.95"), 0, BigDecimal.ROUND_DOWN);
+            WLog.w("cValue " + cValue);
+            WLog.w("minCValue " + minCValue);
+
+            BigDecimal maxWithdrawableValue = cValue.subtract(minCValue);
+            WLog.w("maxWithdrawableValue " + maxWithdrawableValue);
+            BigDecimal maxWithdrawableAmount = maxWithdrawableValue.movePointLeft(denomPDecimal - denomCDecimal).divide(price, 0, RoundingMode.DOWN);
+            WLog.w("maxWithdrawableAmount " + maxWithdrawableAmount);
+            if (maxWithdrawableAmount.compareTo(selfDeposit) > 0 ) {
+                return selfDeposit;
+            } else {
+                return maxWithdrawableAmount;
+            }
         }
     }
 
