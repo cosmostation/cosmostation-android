@@ -389,6 +389,10 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return false
         }
+        if (cdpParam!.result.circuit_breaker) {
+            self.onShowToast(NSLocalizedString("error_circuit_breaker", comment: ""))
+            return false
+        }
         return true
     }
     
