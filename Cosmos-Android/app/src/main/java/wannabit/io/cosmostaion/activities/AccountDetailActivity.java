@@ -251,6 +251,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mAccountState.setText(getString(R.string.str_only_address));
             mPathLayer.setVisibility(View.GONE);
             mImportMsg.setVisibility(View.VISIBLE);
+            mImportMsg.setTextColor(WDp.getChainColor(getBaseContext(), mBaseChain));
             mBtnCheck.setText(getString(R.string.str_import_mnemonic));
         }
 

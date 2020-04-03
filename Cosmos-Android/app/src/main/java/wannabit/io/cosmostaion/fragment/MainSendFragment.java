@@ -666,6 +666,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             show.show(getFragmentManager().beginTransaction(), "dialog");
 
         } else if (v.equals(mBtnWebDetail)) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) { return; }
             Intent webintent = new Intent(getMainActivity(), WebActivity.class);
             webintent.putExtra("address", getMainActivity().mAccount.address);
             webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
