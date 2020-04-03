@@ -104,7 +104,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             print("toCAmount ", toCAmount)
             let toCValue = toCAmount.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
             cDepositValue.attributedText = WUtils.getDPRawDollor(toCValue.stringValue, 2, cDepositValue.font)
-            pMaxAmount = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.9524")).multiplying(by: currentPrice).dividing(by: cParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
+            pMaxAmount = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.95")).multiplying(by: currentPrice).dividing(by: cParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
             print("pMaxAmount ", pMaxAmount)
         
             pAvailabeMinLabel.attributedText = WUtils.displayAmount2(pMinAmount.stringValue, pAvailabeMinLabel.font!, pDpDecimal, pDpDecimal)
@@ -455,7 +455,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             pMinAmount = NSDecimalNumber.init(string: cdpParam!.result.debt_params[0].debt_floor)
             currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
             cMaxAmount = account!.getTokenBalance(cDenom)
-            cMinAmount = pMinAmount.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05")).multiplying(by: cParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Down)
+            cMinAmount = pMinAmount.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05263157895")).multiplying(by: cParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Up)
             print("cMinAmount ", cMinAmount)
                 
             

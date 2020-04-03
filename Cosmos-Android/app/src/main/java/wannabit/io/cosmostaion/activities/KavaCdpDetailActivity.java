@@ -485,7 +485,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         if (!onCommonCheck()) return;
 
         BigDecimal principalMinAmount = new BigDecimal(mCdpParam.debt_params.get(0).debt_floor);
-        BigDecimal collateralMinAmount = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal(1.05)).multiply(new BigDecimal(cParam.liquidation_ratio)).divide(currentPrice, 0, RoundingMode.DOWN);
+        BigDecimal collateralMinAmount = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(cParam.liquidation_ratio)).divide(currentPrice, 0, RoundingMode.UP);
         if (collateralMinAmount.compareTo(cAvailable) > 0) {
             Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
             return;

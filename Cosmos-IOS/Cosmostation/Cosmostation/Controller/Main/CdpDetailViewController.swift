@@ -292,7 +292,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     @IBAction func onClickCreateCdp(_ sender: UIButton) {
         if (!onCommonCheck()) { return }
         let debtFloor = NSDecimalNumber.init(string: cdpParam!.result.debt_params[0].debt_floor)
-        let cMinAmount = debtFloor.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05")).multiplying(by: cParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Down)
+        let cMinAmount = debtFloor.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05263157895")).multiplying(by: cParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Up)
         if (cAvailable.compare(cMinAmount).rawValue < 0) {
             self.onShowToast(NSLocalizedString("error_less_than_min_deposit", comment: ""))
             return
