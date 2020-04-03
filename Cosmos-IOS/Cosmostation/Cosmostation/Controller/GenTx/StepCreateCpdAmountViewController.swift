@@ -452,17 +452,15 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             cDpDecimal = WUtils.getKavaCoinDecimal(cDenom)
             pDpDecimal = WUtils.getKavaCoinDecimal(pDenom)
             
-            let debtFloor = NSDecimalNumber.init(string: cdpParam!.result.debt_params[0].debt_floor)
+            pMinAmount = NSDecimalNumber.init(string: cdpParam!.result.debt_params[0].debt_floor)
             currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
             cMaxAmount = account!.getTokenBalance(cDenom)
-            cMinAmount = debtFloor.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05")).multiplying(by: cParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Down)
+            cMinAmount = pMinAmount.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05")).multiplying(by: cParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Down)
             print("cMinAmount ", cMinAmount)
                 
             
-            
             cAvailabeMinLabel.attributedText = WUtils.displayAmount2(cMinAmount.stringValue, cAvailabeMinLabel.font!, cDpDecimal, cDpDecimal)
             cAvailabeMaxLabel.attributedText = WUtils.displayAmount2(cMaxAmount.stringValue, cAvailabeMaxLabel.font!, cDpDecimal, cDpDecimal)
-            
             
             cDenomLabel.text = cDenom.uppercased()
             cAvailableDenom.text = cDenom.uppercased()
