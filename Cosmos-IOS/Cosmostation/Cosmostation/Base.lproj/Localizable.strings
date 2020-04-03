@@ -327,7 +327,7 @@
 "error_network_msg" = "Can't connect to the network. \nPlease try again in a few minutes.";
 "error_disable" = "Under Maintenance";
 "error_disable_msg" = "We are currently under maintenance. \nPlease check our community channels for more information.";
-"error_not_enought_principal_asset" = "Not enought USDX to repay.";
+"error_not_enought_principal_asset" = "Not enough USDX to repay.";
 "error_can_not_repay" = "Cannot repay now. You need more USDX to Repay.";
 "error_circuit_breaker" = "Now circuit breake";
 

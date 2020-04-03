@@ -34,7 +34,9 @@ let CSS_LCD_URL                         = "https://lcd-cosmos-app.cosmostation.i
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let BNB_URL                             = "https://dex.binance.org/";
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
-let KAVA_TEST_URL                       = "https://lcd-kava-testnet.cosmostation.io/";
+//let KAVA_TEST_URL                       = "https://lcd-kava-testnet.cosmostation.io/";
+let KAVA_TEST_URL                       = "https://kava-testnet-4000.kava.io/";
+
 let KAVA_TEST_API                       = "https://api-kava-testnet.cosmostation.io/";
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
 let IOV_REST_URL                        = "https://bnsapi.cluster-mainnet.iov.one/";        // same refer as"https://bnsapi.iov.one"
