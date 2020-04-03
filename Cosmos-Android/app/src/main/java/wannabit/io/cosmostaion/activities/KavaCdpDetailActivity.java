@@ -350,23 +350,15 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mMyWithdrawableValue.setText(WDp.getDpRawDollor(getBaseContext(), maxWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)), 2));
 
 
-            BigDecimal cValue = new BigDecimal(mMyOwenCdp.collateral_value.amount);
-            BigDecimal debtValue = new BigDecimal(mMyOwenCdp.cdp.principal.get(0).amount);
-            BigDecimal feeValue = mMyOwenCdp.cdp.getAccumulatedFees();
-            BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getBaseContext(), debtValue.add(feeValue), cParam, mMyOwenCdp.cdp);
-            BigDecimal toRepayValue = debtValue.add(feeValue).add(hiddenFeeValue);
-
+            final BigDecimal debtValue = mMyOwenCdp.getPrincipalAmount();
             mMyLoadnedAmount.setText(WDp.getDpAmount2(getBaseContext(), debtValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
             mMyLoadedValue.setText(WDp.getDpRawDollor(getBaseContext(), debtValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
 
-            mMyCdpFeeAmount.setText(WDp.getDpAmount2(getBaseContext(), feeValue.add(hiddenFeeValue), WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-            mMyCdpFeeValue.setText(WDp.getDpRawDollor(getBaseContext(), feeValue.add(hiddenFeeValue).movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
+            final BigDecimal totalFeeValue = mMyOwenCdp.getEstimatedTotalFee(getBaseContext(), cParam);
+            mMyCdpFeeAmount.setText(WDp.getDpAmount2(getBaseContext(), totalFeeValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
+            mMyCdpFeeValue.setText(WDp.getDpRawDollor(getBaseContext(), totalFeeValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
 
-            BigDecimal maxDebtValue = cValue.divide(new BigDecimal(cParam.liquidation_ratio),0, BigDecimal.ROUND_DOWN);
-            WLog.w("maxDebtValue " +  maxDebtValue);
-            maxDebtValue = maxDebtValue.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
-            WLog.w("maxDebtValue padding " +  maxDebtValue);
-            BigDecimal moreDebtAmount = maxDebtValue.subtract(toRepayValue);
+            final BigDecimal moreDebtAmount = mMyOwenCdp.getMoreLoanableAmount(getBaseContext(), cParam);
             mMyLoadableAmount.setText(WDp.getDpAmount2(getBaseContext(), moreDebtAmount, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
             mMyLoadableValue.setText(WDp.getDpRawDollor(getBaseContext(), moreDebtAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
 
@@ -537,6 +529,11 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
     private void onCheckStartDrawDebtCdp() {
         if (!onCommonCheck()) return;
+
+        if (mMyOwenCdp.getMoreLoanableAmount(getBaseContext(), cParam).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_can_not_draw_debt, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent intent = new Intent(this, DrawDebtActivity.class);
         intent.putExtra("denom", mMarketDenom);

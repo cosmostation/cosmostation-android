@@ -78,6 +78,10 @@ public class ResCdpOwnerStatus {
             return getPrincipalAmount().add(getAccumulatedFees());
         }
 
+        public BigDecimal getEstimatedTotalFee(Context c, ResCdpParam.KavaCollateralParam cParam) {
+            BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(c, getRawDebtAmount(), cParam, cdp);
+            return  getAccumulatedFees().add(hiddenFeeValue);
+        }
 
         public BigDecimal getEstimatedTotalDebt(Context c, ResCdpParam.KavaCollateralParam cParam) {
             BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(c, getRawDebtAmount(), cParam, cdp);
@@ -109,6 +113,15 @@ public class ResCdpOwnerStatus {
             } else {
                 return maxWithdrawableAmount;
             }
+        }
+
+        public BigDecimal getMoreLoanableAmount(Context c, ResCdpParam.KavaCollateralParam cParam) {
+            BigDecimal maxDebtValue = new BigDecimal(collateral_value.amount).divide(new BigDecimal(cParam.liquidation_ratio), 0, RoundingMode.DOWN);
+            WLog.w("maxDebtValue " + maxDebtValue);
+            maxDebtValue = maxDebtValue.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
+            WLog.w("maxDebtValue padding " + maxDebtValue);
+            return maxDebtValue.subtract(getEstimatedTotalDebt(c, cParam));
+
         }
     }
 

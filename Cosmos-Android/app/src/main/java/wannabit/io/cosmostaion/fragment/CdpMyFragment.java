@@ -136,7 +136,7 @@ public class CdpMyFragment extends BaseFragment {
                 holder.itemDebtValueTitle.setText(status.getPDenom().toUpperCase() + " " + getString(R.string.str_debt_value));
                 holder.itemCollateralValueTitle.setText(WDp.DpCollateralValueTitle(getContext(), status.getDenom().toUpperCase()));
 
-                final BigDecimal debtValue = new BigDecimal(status.cdp.principal.get(0).amount);
+                final BigDecimal debtValue = status.getPrincipalAmount();
                 final BigDecimal feeValue = status.getAccumulatedFees();
                 final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), debtValue.add(feeValue), param, status.cdp);
                 final BigDecimal totalDebtValue = debtValue.add(feeValue).add(hiddenFeeValue);
