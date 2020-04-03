@@ -21,6 +21,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     
     var cDenom: String = ""
     var pDenom: String = ""
+    var cDpDecimal:Int16 = 6
+    var pDpDecimal:Int16 = 6
+    var kDpDecimal:Int16 = 6
     var mMarketID: String = ""
     var cAvailable: NSDecimalNumber = NSDecimalNumber.zero
     var pAvailable: NSDecimalNumber = NSDecimalNumber.zero
@@ -29,6 +32,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     var liquidationPrice: NSDecimalNumber = NSDecimalNumber.zero
     var riskRate: NSDecimalNumber = NSDecimalNumber.zero
     
+    var cdpParam:CdpParam?
     var cParam: CdpParam.CollateralParam?
     var mMyCdps: CdpOwen?
     var mMyCdpDeposit: CdpDeposits?
@@ -178,22 +182,22 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         cell?.collateralDenom.text = cDenom.uppercased()
         let selfDepositAmount = mMyCdpDeposit!.getSelfDeposit(account!.account_address)
-        let selfDepositValue = selfDepositAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(cDenom)).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
-        cell?.collateralSelfAmount.attributedText = WUtils.displayAmount2(selfDepositAmount.stringValue, cell!.collateralSelfAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
+        let selfDepositValue = selfDepositAmount.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
+        cell?.collateralSelfAmount.attributedText = WUtils.displayAmount2(selfDepositAmount.stringValue, cell!.collateralSelfAmount.font!, cDpDecimal, cDpDecimal)
         cell?.collateralSelfValue.attributedText = WUtils.getDPRawDollor(selfDepositValue.stringValue, 2, cell!.collateralSelfValue.font)
         
         let totalDepositAmount = mMyCdps!.result.getTotalCollateralAmount()
-        let totalDepositValue = totalDepositAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(cDenom)).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
-        cell?.collateralTotalAmount.attributedText = WUtils.displayAmount2(totalDepositAmount.stringValue, cell!.collateralTotalAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
+        let totalDepositValue = totalDepositAmount.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
+        cell?.collateralTotalAmount.attributedText = WUtils.displayAmount2(totalDepositAmount.stringValue, cell!.collateralTotalAmount.font!, cDpDecimal, cDpDecimal)
         cell?.collateralTotalValue.attributedText = WUtils.getDPRawDollor(totalDepositValue.stringValue, 2, cell!.collateralTotalValue.font)
         
         cell?.collateralWithdrawableTitle.text = String(format: NSLocalizedString("withdrawable_format", comment: ""), cDenom.uppercased())
         let maxWithdrawableAmount = mMyCdps!.result.getWithdrawableAmount(cDenom, pDenom, cParam!, currentPrice, selfDepositAmount)
-        let maxWithdrawableValue = maxWithdrawableAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(cDenom)).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
+        let maxWithdrawableValue = maxWithdrawableAmount.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
 //        print("maxWithdrawableAmount ", maxWithdrawableAmount)
 //        print("maxWithdrawableValue ", maxWithdrawableValue)
         
-        cell?.collateralWithdrawableAmount.attributedText = WUtils.displayAmount2(maxWithdrawableAmount.stringValue, cell!.collateralWithdrawableAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
+        cell?.collateralWithdrawableAmount.attributedText = WUtils.displayAmount2(maxWithdrawableAmount.stringValue, cell!.collateralWithdrawableAmount.font!, cDpDecimal, cDpDecimal)
         cell?.collateralWithdrawableValue.attributedText = WUtils.getDPRawDollor(maxWithdrawableValue.stringValue, 2, cell!.collateralWithdrawableValue.font)
         
         cell?.depositBtn.setTitle(String(format: NSLocalizedString("str_deposit", comment: ""), self.cDenom.uppercased()), for: .normal)
@@ -218,16 +222,16 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         cell?.principalDenom.text = pDenom.uppercased()
         let rawPricipalAmount = mMyCdps!.result.cdp.getRawPrincipalAmount()
-        cell?.principalAmount.attributedText = WUtils.displayAmount2(rawPricipalAmount.stringValue, cell!.principalAmount.font!, WUtils.getKavaCoinDecimal(pDenom), WUtils.getKavaCoinDecimal(pDenom))
-        cell?.principalValue.attributedText = WUtils.getDPRawDollor(rawPricipalAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom)).stringValue, 2, cell!.principalValue.font)
+        cell?.principalAmount.attributedText = WUtils.displayAmount2(rawPricipalAmount.stringValue, cell!.principalAmount.font!, pDpDecimal, pDpDecimal)
+        cell?.principalValue.attributedText = WUtils.getDPRawDollor(rawPricipalAmount.multiplying(byPowerOf10: -pDpDecimal).stringValue, 2, cell!.principalValue.font)
         
         let totalFeeAmount = mMyCdps!.result.cdp.getEstimatedTotalFee(cParam!)
-        cell?.interestAmount.attributedText = WUtils.displayAmount2(totalFeeAmount.stringValue, cell!.interestAmount.font!, WUtils.getKavaCoinDecimal(pDenom), WUtils.getKavaCoinDecimal(pDenom))
-        cell?.interestValue.attributedText = WUtils.getDPRawDollor(totalFeeAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom)).stringValue, 2, cell!.principalValue.font)
+        cell?.interestAmount.attributedText = WUtils.displayAmount2(totalFeeAmount.stringValue, cell!.interestAmount.font!, pDpDecimal, pDpDecimal)
+        cell?.interestValue.attributedText = WUtils.getDPRawDollor(totalFeeAmount.multiplying(byPowerOf10: -pDpDecimal).stringValue, 2, cell!.principalValue.font)
         
         let moreDebtAmount = mMyCdps!.result.getMoreLoanableAmount(cParam!)
-        cell?.remainingAmount.attributedText = WUtils.displayAmount2(moreDebtAmount.stringValue, cell!.remainingAmount.font!, WUtils.getKavaCoinDecimal(pDenom), WUtils.getKavaCoinDecimal(pDenom))
-        cell?.remainingValue.attributedText = WUtils.getDPRawDollor(moreDebtAmount.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom)).stringValue, 2, cell!.remainingValue.font)
+        cell?.remainingAmount.attributedText = WUtils.displayAmount2(moreDebtAmount.stringValue, cell!.remainingAmount.font!, pDpDecimal, pDpDecimal)
+        cell?.remainingValue.attributedText = WUtils.getDPRawDollor(moreDebtAmount.multiplying(byPowerOf10: -pDpDecimal).stringValue, 2, cell!.remainingValue.font)
         
         cell?.helpPrincipal = {
             self.onShowSimpleHelp(NSLocalizedString("help_loaned_amount_title", comment: ""), NSLocalizedString("help_loaned_amount_msg", comment: ""))
@@ -261,17 +265,17 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         let cell:CdpDetailAssetsCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailAssetsCell") as? CdpDetailAssetsCell
         
         cell?.collateralDenom.text = cDenom.uppercased()
-        cell?.collateralAmount.attributedText = WUtils.displayAmount2(cAvailable.stringValue, cell!.collateralAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
-        let collateralValue = cAvailable.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(cDenom)).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
+        cell?.collateralAmount.attributedText = WUtils.displayAmount2(cAvailable.stringValue, cell!.collateralAmount.font!, cDpDecimal, cDpDecimal)
+        let collateralValue = cAvailable.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
         cell?.collateralValue.attributedText = WUtils.getDPRawDollor(collateralValue.stringValue, 2, cell!.collateralValue.font)
         
         cell?.principalDenom.text = pDenom.uppercased()
-        cell?.principalAmount.attributedText = WUtils.displayAmount2(pAvailable.stringValue, cell!.principalAmount.font!, WUtils.getKavaCoinDecimal(pDenom), WUtils.getKavaCoinDecimal(pDenom))
-        let principalValue = pAvailable.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(pDenom))
+        cell?.principalAmount.attributedText = WUtils.displayAmount2(pAvailable.stringValue, cell!.principalAmount.font!, pDpDecimal, pDpDecimal)
+        let principalValue = pAvailable.multiplying(byPowerOf10: -pDpDecimal)
         cell?.principalValue.attributedText = WUtils.getDPRawDollor(principalValue.stringValue, 2, cell!.principalValue.font)
         
-        cell?.kavaAmount.attributedText = WUtils.displayAmount2(kAvailable.stringValue, cell!.kavaAmount.font!, WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM), WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM))
-        let kavaValue = kAvailable.multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)).multiplying(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler2Down)
+        cell?.kavaAmount.attributedText = WUtils.displayAmount2(kAvailable.stringValue, cell!.kavaAmount.font!, kDpDecimal, kDpDecimal)
+        let kavaValue = kAvailable.multiplying(byPowerOf10: -kDpDecimal).multiplying(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler2Down)
         cell?.kavaValue.attributedText = WUtils.getDPRawDollor(kavaValue.stringValue, 2, cell!.kavaValue.font)
         
         Alamofire.request(KAVA_COIN_IMG_URL + cDenom + ".png", method: .get).responseImage { response  in
@@ -286,6 +290,14 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
 
     @IBAction func onClickCreateCdp(_ sender: UIButton) {
+        if (!onCommonCheck()) { return }
+        let debtFloor = NSDecimalNumber.init(string: cdpParam!.result.debt_params[0].debt_floor)
+        let cMinAmount = debtFloor.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05")).multiplying(by: cParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Down)
+        if (cAvailable.compare(cMinAmount).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_less_than_min_deposit", comment: ""))
+            return
+        }
+        
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_CREATE_CDP
         txVC.cDenom = cDenom
@@ -295,6 +307,12 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func onClickDeposit() {
+        if (!onCommonCheck()) { return }
+        if (cAvailable.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enought_deposit_asset", comment: ""))
+            return
+        }
+        
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_DEPOSIT_CDP
         txVC.cDenom = cDenom
@@ -304,6 +322,14 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func onClickWithdraw() {
+        if (!onCommonCheck()) { return }
+        let selfDepositAmount = mMyCdpDeposit!.getSelfDeposit(account!.account_address)
+        let maxWithdrawableAmount = mMyCdps!.result.getWithdrawableAmount(cDenom, pDenom, cParam!, currentPrice, selfDepositAmount)
+        if (maxWithdrawableAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enought_withdraw_asset", comment: ""))
+            return
+        }
+         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_WITHDRAW_CDP
         txVC.cDenom = cDenom
@@ -313,6 +339,12 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func onClickDrawDebt() {
+        if (!onCommonCheck()) { return }
+        if (mMyCdps!.result.getMoreLoanableAmount(cParam!).compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_can_not_draw_debt", comment: ""))
+            return
+        }
+        
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_DRAWDEBT_CDP
         txVC.cDenom = cDenom
@@ -322,12 +354,42 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func onClickRepay() {
+        if (!onCommonCheck()) { return }
+        if (pAvailable.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enought_principal_asset", comment: ""))
+            return
+        }
+        var repayAll = true
+        var repayPart = true
+        let debtFloor = NSDecimalNumber.init(string: cdpParam!.result.debt_params[0].debt_floor)
+        let rawDebt = mMyCdps!.result.cdp.getRawPrincipalAmount()
+        let totalDebt = mMyCdps!.result.cdp.getEstimatedTotalDebt(cParam!)
+        if (totalDebt.compare(pAvailable).rawValue > 0) { repayAll = false }
+        if (rawDebt.compare(debtFloor).rawValue <= 0) { repayPart = false }
+        if (!repayAll && !repayPart) {
+            self.onShowToast(NSLocalizedString("error_can_not_repay", comment: ""))
+            return
+        }
+        
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_REPAYDEBT_CDP
         txVC.cDenom = cDenom
         txVC.mMarketID = mMarketID
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    
+    func onCommonCheck() -> Bool {
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return false
+        }
+        if (self.account!.getKavaBalance().compare(NSDecimalNumber.one).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+            return false
+        }
+        return true
     }
     
     
@@ -352,6 +414,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
                 return
             }
             pDenom = cParam!.getpDenom()
+            cDpDecimal = WUtils.getKavaCoinDecimal(cDenom)
+            pDpDecimal = WUtils.getKavaCoinDecimal(pDenom)
+            kDpDecimal = WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)
             cAvailable = account!.getTokenBalance(cDenom)
             pAvailable = account!.getTokenBalance(pDenom)
             kAvailable = account!.getTokenBalance(KAVA_MAIN_DENOM)
@@ -414,7 +479,8 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
                             self.onFetchFinished()
                             return
                     }
-                    self.cParam = CdpParam.init(responseData).result.getcParam(self.cDenom)
+                    self.cdpParam = CdpParam.init(responseData)
+                    self.cParam = self.cdpParam!.result.getcParam(self.cDenom)
                     
                 case .failure(let error):
                     if (SHOW_LOG) { print("onFetchCdpParam ", error) }

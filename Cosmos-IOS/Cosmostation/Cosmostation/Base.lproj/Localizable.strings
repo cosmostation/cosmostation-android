@@ -315,6 +315,9 @@
 "error_not_yet" = "Comming soon!";
 "error_less_than_min_deposit" = "Less than the minimum deposit amount.";
 "error_less_than_min_principal" = "Less than the minimum loan amount.";
+"error_not_enought_deposit_asset" = "Not enought Asset to deposit.";
+"error_not_enought_withdraw_asset" = "Cannot withdraw collateral now.";
+"error_can_not_draw_debt" = "Cannot more loan now.";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";
@@ -324,6 +327,8 @@
 "error_network_msg" = "Can't connect to the network. \nPlease try again in a few minutes.";
 "error_disable" = "Under Maintenance";
 "error_disable_msg" = "We are currently under maintenance. \nPlease check our community channels for more information.";
+"error_not_enought_principal_asset" = "Not enought USDX to repay.";
+"error_can_not_repay" = "Cannot repay now. You need more USDX to Repay";
 
 "currency_usd" = "USD";
 "currency_eur" = "EUR";

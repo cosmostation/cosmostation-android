@@ -321,6 +321,11 @@
 "error_not_yet" = "준비중 입니다!";
 "error_less_than_min_deposit" = "Less than the minimum deposit amount.";
 "error_less_than_min_principal" = "Less than the minimum loan amount.";
+"error_not_enought_deposit_asset" = "Not enought collateral to deposit.";
+"error_not_enought_withdraw_asset" = "Cannot withdraw collateral now.";
+"error_can_not_draw_debt" = "Cannot more loan now.";
+"error_not_enought_principal_asset" = "Not enought USDX to repay.";
+"error_can_not_repay" = "Cannot repay now. You need more USDX to Repay";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";
