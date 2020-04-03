@@ -26,6 +26,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var totalAmount: UILabel!
     @IBOutlet weak var totalDenom: UILabel!
+    @IBOutlet weak var kavaOracle: UILabel!
     @IBOutlet weak var tokenCnt: UILabel!
     @IBOutlet weak var btnSort: UIView!
     @IBOutlet weak var sortType: UILabel!
@@ -85,31 +86,37 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
+            kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_COSMOS
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
             titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_IRIS
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Chain)"
             titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_BNB
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             titleChainImg.image = UIImage(named: "kavaImg")
             titleChainName.text = "(KAVA Chain)"
             titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_KAVA
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_IOV
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(KAVA Test)"
             titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = false
             totalCard.backgroundColor = COLOR_BG_GRAY
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
@@ -208,9 +215,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalValue.attributedText = WUtils.dpBnbValue(allBnb, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), totalValue.font)
+            var allKava = NSDecimalNumber.zero
+            for balance in mainTabVC.mBalances {
+                if (balance.balance_denom == KAVA_MAIN_DENOM) {
+                    allKava = allKava.adding(WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator))
+                } else {
+                    let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice)
+                    let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(6))
+                    allKava = allKava.adding(convertedKavaAmount.multiplying(byPowerOf10: 6))
+                }
+            }
+            totalAmount.attributedText = WUtils.displayAmount2(allKava.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allKava, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
@@ -374,9 +390,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.text = balance.balance_denom.uppercased()
             cell?.tokenSymbol.textColor = UIColor.white
             cell?.tokenTitle.text = ""
-            cell?.tokenDescription.text = balance.balance_denom + " guaranteed by Kava-chain"
+            if (balance.balance_denom == "usdx") {
+                cell?.tokenDescription.text = "USD Stable Asset"
+            } else {
+                cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Network"
+            }
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
-            cell?.tokenValue.attributedText = WUtils.dpAtomValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            
+            let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice)
+            let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             let url = KAVA_COIN_IMG_URL + balance.balance_denom + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
@@ -585,7 +608,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByValue() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             mainTabVC.mBalances.sort{
@@ -596,6 +619,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     return false
                 }
                 return $0.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol($0.balance_denom), mBnbTics)).compare($1.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol($1.balance_denom), mBnbTics))).rawValue > 0 ? true : false
+            }
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            mainTabVC.mBalances.sort {
+                if ($0.balance_denom == KAVA_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == KAVA_MAIN_DENOM){
+                    return false
+                }
+                return $0.kavaTokenDollorValue(BaseData.instance.mKavaPrice).compare($1.kavaTokenDollorValue(BaseData.instance.mKavaPrice)).rawValue > 0 ? true : false
             }
         }
         
