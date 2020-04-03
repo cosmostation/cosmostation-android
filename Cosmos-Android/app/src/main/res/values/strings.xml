@@ -16,7 +16,8 @@
 
 
     <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>
-    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet.cosmostation.io/</string>
+<!--    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet.cosmostation.io/</string>-->
+    <string name="url_lcd_kava_test" translatable="false">https://kava-testnet-4000.kava.io/</string>
     <string name="url_api_kava_main" translatable="false"></string>
     <string name="url_api_kava_test" translatable="false">https://api-kava-testnet.cosmostation.io/</string>
 
@@ -757,6 +758,11 @@
     <string name="error_less_than_min_deposit">Less than the minimum deposit amount.</string>
     <string name="error_less_than_min_principal">Less than the minimum loan amount.</string>
     <string name="error_dust_principal_remain">Remain Debt is less than 10$.</string>
+    <string name="error_circuit_breaker">Now circuit break</string>
+    <string name="error_not_enought_withdraw_asset">Cannot withdraw collateral now.</string>
+    <string name="error_can_not_draw_debt">Cannot more loan now.</string>
+    <string name="error_not_enought_principal_asset">Not enough USDX to repay.</string>
+    <string name="error_can_not_repay">Cannot repay now. You need more USDX to Repay.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

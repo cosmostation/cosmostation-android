@@ -15,7 +15,8 @@ public enum BaseChain {
     KAVA_LEGACY1("kava-1"),
     KAVA_MAIN("kava-2"),
     KAVA_TEST_LEGACY4("kava-testnet-4000"),
-    KAVA_TEST("kava-testnet-5000");
+//    KAVA_TEST("kava-testnet-5000");
+    KAVA_TEST("kava-testnet-4000");
 
     private final String chainName;
 
