@@ -78,6 +78,11 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
         pAmountInput.delegate = self
     }
     
+    override func enableUserInteraction() {
+        self.btnCancel.isUserInteractionEnabled = true
+        self.btnNext.isUserInteractionEnabled = true
+    }
+    
     func onUpdateView() {
         if (!isPrincipal) {
             cAvailabeMaxLabel.isHidden = false
