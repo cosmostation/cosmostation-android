@@ -122,7 +122,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     private ResCdpParam.Result          mCdpParam;
     private ResKavaMarketPrice.Result   mKavaTokenPrice;
     private ResCdpOwnerStatus.Result    mMyOwenCdp;
-    private ArrayList<ResCdpDepositStatus.Result> mMyDepositList = new ArrayList<>();
+    private ResCdpDepositStatus         mMyDeposits;
 
     private String                      mMarketDenom;
     private String                      mMaketId;
@@ -334,12 +334,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mOpenCdp.setOnClickListener(this);
 
         } else {
-            BigDecimal selfDepositAmount = BigDecimal.ZERO;
-            for (ResCdpDepositStatus.Result deposit:mMyDepositList) {
-                if (deposit.cdp_id.equals(mMyOwenCdp.cdp.id) && deposit.depositor.equals(mAccount.address)) {
-                    selfDepositAmount = new BigDecimal(deposit.amount.get(0).amount);
-                }
-            }
+            BigDecimal selfDepositAmount = mMyDeposits.getSelfDeposit(mAccount.address);
             mMySelfDepositAmount.setText(WDp.getDpAmount2(getBaseContext(), selfDepositAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
             BigDecimal selfDepositValue = selfDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
             mMySelfDepositValue.setText(WDp.getDpRawDollor(getBaseContext(), selfDepositValue, 2));
@@ -555,16 +550,6 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         startActivity(intent);
     }
 
-    private void onCheckStartRepayCdp() {
-        //TODO add check logic!
-        if (!onCommonCheck()) return;
-
-        Intent intent = new Intent(this, RepayCdpActivity.class);
-        intent.putExtra("denom", mMarketDenom);
-        intent.putExtra("marketId", mMaketId);
-        startActivity(intent);
-    }
-
     private void onCheckStartDepositCdp() {
         if (!onCommonCheck()) return;
 
@@ -583,6 +568,8 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         //TODO add check logic!
         if (!onCommonCheck()) return;
 
+        BigDecimal selfDepositAmount =mMyDeposits.getSelfDeposit(mAccount.address);
+
         Intent intent = new Intent(this, WithdrawCdpActivity.class);
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
@@ -598,6 +585,16 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         startActivity(intent);
     }
 
+    private void onCheckStartRepayCdp() {
+        //TODO add check logic!
+        if (!onCommonCheck()) return;
+
+        Intent intent = new Intent(this, RepayCdpActivity.class);
+        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("marketId", mMaketId);
+        startActivity(intent);
+    }
+
     private boolean onCommonCheck() {
         if(!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
@@ -605,12 +602,15 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return false;
         }
-
         if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (WDp.getAvailableCoin(mBalances, COSMOS_KAVA).compareTo(BigDecimal.ONE) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return false;
             }
+        }
+        if (mCdpParam.circuit_breaker) {
+            Toast.makeText(getBaseContext(), R.string.error_circuit_breaker, Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }
@@ -654,7 +654,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_DEPOSIT) {
             if (result.isSuccess && result.resultData != null) {
-                mMyDepositList = (ArrayList<ResCdpDepositStatus.Result>)result.resultData;
+                mMyDeposits = (ResCdpDepositStatus)result.resultData;
             }
         }
 

@@ -66,7 +66,7 @@ public class WithdrawCdpActivity extends BaseActivity {
     public ResCdpParam.Result           mCdpParam;
     public ResKavaMarketPrice.Result    mTokenPrice;
     public ResCdpOwnerStatus.Result     mMyOwenCdp;
-    public ArrayList<ResCdpDepositStatus.Result> mMyDepositList = new ArrayList<>();
+    public ResCdpDepositStatus          mMyDeposits;
 
     public BigDecimal                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mTotalDepositAmount;
 
@@ -279,7 +279,7 @@ public class WithdrawCdpActivity extends BaseActivity {
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_DEPOSIT) {
             if (result.isSuccess && result.resultData != null) {
-                mMyDepositList = (ArrayList<ResCdpDepositStatus.Result>)result.resultData;
+                mMyDeposits = (ResCdpDepositStatus)result.resultData;
             }
         }
 

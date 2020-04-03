@@ -124,12 +124,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
         mCurrentPrice = new BigDecimal(getPrice().price);
 
         // TODO need code clean!!!
-        BigDecimal selfDepositAmount = BigDecimal.ZERO;
-        for (ResCdpDepositStatus.Result deposit:getSActivity().mMyDepositList) {
-            if (deposit.cdp_id.equals(getOwenCdp().cdp.id) && deposit.depositor.equals(getSActivity().mAccount.address)) {
-                selfDepositAmount = new BigDecimal(deposit.amount.get(0).amount);
-            }
-        }
+        BigDecimal selfDepositAmount = getSActivity().mMyDeposits.getSelfDeposit(getSActivity().mAccount.address);
 
         BigDecimal currentCollateralValue = new BigDecimal(getOwenCdp().collateral_value.amount);
         BigDecimal debtValue = new BigDecimal(getOwenCdp().cdp.principal.get(0).amount);
