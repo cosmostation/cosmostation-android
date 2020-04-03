@@ -276,7 +276,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(COSMOS_KAVA)) {
                     totalAtomAmount = totalAtomAmount.add(WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
-
                 } else {
                     BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
                     BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(COSMOS_KAVA), RoundingMode.DOWN).movePointRight(WUtil.getKavaCoinDecimal(COSMOS_KAVA));
@@ -491,13 +490,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             holder.itemSymbol.setText(balance.symbol.toUpperCase());
             holder.itemInnerSymbol.setText("");
-            //TODO add coin descriptions
             if (balance.symbol.equals("usdx")) {
                 holder.itemFullName.setText("USD Stable Asset");
-
             } else {
                 holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Network");
-
             }
 
             Picasso.get().cancelRequest(holder.itemImg);
