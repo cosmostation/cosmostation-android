@@ -657,7 +657,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 return
             }
             self.loadingLayer.isHidden = true
-            self.controlLayer.isHidden = false
+            if (self.chainType! != ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                self.controlLayer.isHidden = false
+            }
             self.txTableView.reloadData()
         }
         
