@@ -501,7 +501,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         if (!onCommonCheck()) return;
 
         if (cAvailable.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_not_enought_deposit_asset, Toast.LENGTH_SHORT).show();
             return;
         }
 
