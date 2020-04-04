@@ -1664,6 +1664,21 @@ class WUtils {
         }
     }
     
+    static func showRiskRate3(_ riskRate: NSDecimalNumber, _ scoreLabel: UILabel, _ textLabel:UILabel, _ cardView:CardView) {
+        scoreLabel.attributedText = displayAmount2(riskRate.stringValue, scoreLabel.font, 0, 2)
+        if (riskRate.doubleValue < 50) {
+            textLabel.text = "SAFE"
+            cardView.backgroundColor = COLOR_CDP_SAFE
+            
+        } else if (riskRate.doubleValue < 80) {
+            textLabel.text = "STABLE"
+            cardView.backgroundColor = COLOR_CDP_STABLE
+            
+        } else {
+            textLabel.text = "DANGER"
+            cardView.backgroundColor = COLOR_CDP_DANGER
+        }
+    }
     
     
     static func getGuideList() -> Array<GuideCategory> {

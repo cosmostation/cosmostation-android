@@ -110,6 +110,8 @@
 		289DF185242DDF8300433CF4 /* CdpDetailAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 289DF183242DDF8300433CF4 /* CdpDetailAssetsCell.xib */; };
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
+		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
+		28DB28B92437ADC8002B01A0 /* RiskCheckPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB28B72437ADC8002B01A0 /* RiskCheckPopupViewController.xib */; };
 		BE9C8B421BF3A38F09124CC7 /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC8DB1702A51A9EF8ADFDB5 /* Pods_Cosmostation.framework */; };
 		E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAA52281266D006C2146 /* ValidatorDetailCell.xib */; };
 		E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAAC2281274A006C2146 /* ValidatorDetailHistoryHeader.xib */; };
@@ -425,6 +427,8 @@
 		289DF183242DDF8300433CF4 /* CdpDetailAssetsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpDetailAssetsCell.xib; sourceTree = "<group>"; };
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
+		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
+		28DB28B72437ADC8002B01A0 /* RiskCheckPopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskCheckPopupViewController.xib; sourceTree = "<group>"; };
 		2943718654DA7086BEF4CAC1 /* Pods-Cosmostation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.release.xcconfig"; path = "Target Support Files/Pods-Cosmostation/Pods-Cosmostation.release.xcconfig"; sourceTree = "<group>"; };
 		CCC8DB1702A51A9EF8ADFDB5 /* Pods_Cosmostation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cosmostation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E103DAA42281266D006C2146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ValidatorDetailCell.xib; sourceTree = "<group>"; };
@@ -830,6 +834,8 @@
 				2815AA71243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift */,
 				2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */,
 				2815AA7524349DF2008B23AA /* StepRepayCdpCheckViewController.swift */,
+				28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */,
+				28DB28B72437ADC8002B01A0 /* RiskCheckPopupViewController.xib */,
 			);
 			path = GenTx;
 			sourceTree = "<group>";
@@ -1269,6 +1275,7 @@
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */,
 				2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */,
+				28DB28B92437ADC8002B01A0 /* RiskCheckPopupViewController.xib in Resources */,
 				E16B89162341C558003E0922 /* TokenCell.xib in Resources */,
 				282FF34223F4FFD20028CC66 /* TxCommissionCell.xib in Resources */,
 				E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */,
@@ -1459,6 +1466,7 @@
 				28474ECE241E06AF00AF5A81 /* TxdrawDebtCdpCell.swift in Sources */,
 				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
 				28474F03241E06E200AF5A81 /* Gov.codec.pb.swift in Sources */,
+				28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */,
 				E19A321922544EB500A05E41 /* DashedView.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
 				E1406FCC2260A11300D9440C /* StepRewardCheckViewController.swift in Sources */,

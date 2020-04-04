@@ -174,6 +174,16 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         cell?.helpLiquidationPenalty = {
             self.onShowSimpleHelp(NSLocalizedString("help_liquidation_penalty_title", comment: ""), NSLocalizedString("help_liquidation_penalty_msg", comment: ""))
         }
+        cell?.helpRiskScore = {
+            let popupVC = RiskCheckPopupViewController(nibName: "RiskCheckPopupViewController", bundle: nil)
+            popupVC.type = popupVC.RISK_POPUP_CHECK
+            popupVC.cDenom = self.cDenom
+            popupVC.DNcurrentPrice = self.currentPrice
+            popupVC.DNliquidationPrice = self.liquidationPrice
+            popupVC.DNriskRate = self.riskRate
+            let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+            cardPopup.show(onViewController: self)
+        }
         return cell!
     }
     

@@ -259,7 +259,7 @@
 "title_tx_detail" = "트랜잭션 상세";
 "title_cdp_list" = "CDP 목록";
 "title_cdp_detail" = "CDP 상세";
-"title_create_cdp" = "Create CDP";
+"title_create_cdp" = "Open CDP";
 "title_deposit_cdp" = "DEPOSIT COLLATERAL";
 "title_withdraw_cdp" = "WITHDRAW COLLATERAL";
 "title_drawdebt_cdp" = "BORROW MORE USDX";

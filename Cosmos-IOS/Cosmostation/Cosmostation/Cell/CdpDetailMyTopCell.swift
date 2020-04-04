@@ -43,6 +43,7 @@ class CdpDetailMyTopCell: UITableViewCell {
     var helpCollateralRate: (() -> Void)? = nil
     var helpStabilityFee: (() -> Void)? = nil
     var helpLiquidationPenalty: (() -> Void)? = nil
+    var helpRiskScore: (() -> Void)? = nil
     
     @IBAction func onClickCollateralRate(_ sender: UIButton) {
         helpCollateralRate?()
@@ -54,5 +55,8 @@ class CdpDetailMyTopCell: UITableViewCell {
     
     @IBAction func onClickLiquidationPenalty(_ sender: UIButton) {
         helpStabilityFee?()
+    }
+    @IBAction func onClickRiskScore(_ sender: UIButton) {
+        helpRiskScore?()
     }
 }

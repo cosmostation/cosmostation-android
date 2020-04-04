@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class StepDepositCdpAmountViewController: BaseViewController, UITextFieldDelegate{
+class StepDepositCdpAmountViewController: BaseViewController, UITextFieldDelegate, SBCardPopupDelegate{
     
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnNext: UIButton!
@@ -157,26 +157,46 @@ class StepDepositCdpAmountViewController: BaseViewController, UITextFieldDelegat
     
     @IBAction func onClickNext(_ sender: UIButton) {
         if (isValiadCAmount()) {
-            let cCoin = Coin.init(cDenom, toCAmount.stringValue)
-            var cCoins = Array<Coin>()
-            cCoins.append(cCoin)
-            self.pageHolderVC.mCollateral = cCoins
+            view.endEditing(true)
+            let popupVC = RiskCheckPopupViewController(nibName: "RiskCheckPopupViewController", bundle: nil)
+            popupVC.type = popupVC.RISK_POPUP_CHANGE
+            popupVC.cDenom = self.cDenom
+            popupVC.DNcurrentPrice = self.currentPrice
+            popupVC.DNbeforeLiquidationPrice = self.beforeLiquidationPrice
+            popupVC.DNbeforeRiskRate = self.beforeRiskRate
+            popupVC.DNafterLiquidationPrice = self.afterLiquidationPrice
+            popupVC.DNafterRiskRate = self.afterRiskRate
             
-            self.pageHolderVC.currentPrice = currentPrice
-            self.pageHolderVC.beforeLiquidationPrice = beforeLiquidationPrice
-            self.pageHolderVC.afterLiquidationPrice = afterLiquidationPrice
-            self.pageHolderVC.beforeRiskRate = beforeRiskRate
-            self.pageHolderVC.afterRiskRate = afterRiskRate
-            self.pageHolderVC.pDenom = pDenom
-            self.pageHolderVC.totalDepositAmount = sumCAmount
-            
-            self.btnCancel.isUserInteractionEnabled = false
-            self.btnNext.isUserInteractionEnabled = false
-            pageHolderVC.onNextPage()
+            let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+            cardPopup.resultDelegate = self
+            cardPopup.show(onViewController: self)
             
         } else {
             self.onShowToast(NSLocalizedString("error_amount", comment: ""))
         }
+    }
+    
+    func SBCardPopupResponse(result: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
+            if(result == 10) {
+                let cCoin = Coin.init(self.cDenom, self.toCAmount.stringValue)
+                var cCoins = Array<Coin>()
+                cCoins.append(cCoin)
+                self.pageHolderVC.mCollateral = cCoins
+                
+                self.pageHolderVC.currentPrice = self.currentPrice
+                self.pageHolderVC.beforeLiquidationPrice = self.beforeLiquidationPrice
+                self.pageHolderVC.afterLiquidationPrice = self.afterLiquidationPrice
+                self.pageHolderVC.beforeRiskRate = self.beforeRiskRate
+                self.pageHolderVC.afterRiskRate = self.afterRiskRate
+                self.pageHolderVC.pDenom = self.pDenom
+                self.pageHolderVC.totalDepositAmount = self.sumCAmount
+                
+                self.btnCancel.isUserInteractionEnabled = false
+                self.btnNext.isUserInteractionEnabled = false
+                self.pageHolderVC.onNextPage()
+            }
+        })
     }
     
     func isValiadCAmount() -> Bool {
