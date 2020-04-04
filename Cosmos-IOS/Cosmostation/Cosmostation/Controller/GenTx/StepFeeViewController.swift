@@ -214,19 +214,28 @@ class StepFeeViewController: BaseViewController {
             } else {
                 available = WUtils.getTokenAmount(pageHolderVC.mBalances, COSMOS_MAIN_DENOM);
             }
+            toSpend = getSpendAmount()
+            if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return false
+            }
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             available = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM);
+            if (pageHolderVC.mKavaSendDenom == KAVA_MAIN_DENOM) {
+                if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return false
+                }
+            } else {
+                if(feeAmount.compare(available).rawValue > 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return false
+                }
+            }
         }
-        
         self.minFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
         self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
-        
-        toSpend = getSpendAmount()
-        if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-            return false
-        }
         return true;
     }
     
@@ -416,12 +425,12 @@ class StepFeeViewController: BaseViewController {
     
     func getSpendAmount() -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
-        if(pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
+        if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
             result = WUtils.stringToDecimal(pageHolderVC.mToDelegateAmount!.amount)
             
-        } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+        } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             
-        } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == IRIS_MSG_TYPE_TRANSFER) {
+        } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == KAVA_MSG_TYPE_TRANSFER) {
             result = WUtils.stringToDecimal(pageHolderVC.mToSendAmount[0].amount)
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
