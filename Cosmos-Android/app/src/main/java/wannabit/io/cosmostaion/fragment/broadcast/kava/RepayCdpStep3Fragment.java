@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ import wannabit.io.cosmostaion.activities.broadcast.kava.RepayCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
@@ -28,6 +30,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView mBeforeLiquidationPriceTitle, mAfterLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
     private TextView mRemainDebtTitle, mRemainDebtAmount, mRemainDebtDenom, mRemainDebtValue;
     private TextView mMemo;
+    private LinearLayout mWarnLayer;
     private Button mBeforeBtn, mConfirmBtn;
 
     public static RepayCdpStep3Fragment newInstance(Bundle bundle) {
@@ -62,6 +65,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         mRemainDebtDenom = rootView.findViewById(R.id.remaining_debt_amount_denom);
         mRemainDebtValue = rootView.findViewById(R.id.remaining_debt_value);
         mMemo = rootView.findViewById(R.id.memo);
+        mWarnLayer = rootView.findViewById(R.id.warnning_layer);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
         mBeforeBtn.setOnClickListener(this);
@@ -98,7 +102,9 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         WDp.showCoinDp(getContext(), pDenom, getSActivity().mRemainLoanAmount.toPlainString(), mRemainDebtDenom, mRemainDebtAmount, getSActivity().mBaseChain);
         BigDecimal remaindValue = getSActivity().mRemainLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
         mRemainDebtValue.setText(WDp.getDpRawDollor(getContext(), remaindValue, 2));
-
+        if (getSActivity().mRemainLoanAmount.equals(BigDecimal.ZERO)) {
+            mWarnLayer.setVisibility(View.VISIBLE);
+        }
         mMemo.setText(getSActivity().mMemo);
     }
 

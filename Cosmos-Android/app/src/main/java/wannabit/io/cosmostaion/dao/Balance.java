@@ -110,7 +110,7 @@ public class Balance implements Parcelable {
             if (mMarketPrice == null) {
                 return BigDecimal.ZERO;
             } else {
-                 return balance.movePointLeft(WUtil.getKavaCoinDecimal(symbol)).multiply(new BigDecimal(mMarketPrice.price).setScale(6, RoundingMode.DOWN));
+                 return balance.movePointLeft(WUtil.getKavaCoinDecimal(symbol)).multiply(new BigDecimal(mMarketPrice.price)).setScale(6, RoundingMode.DOWN);
             }
         }
     }

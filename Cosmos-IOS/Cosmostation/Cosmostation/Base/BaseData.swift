@@ -17,6 +17,9 @@ final class BaseData : NSObject{
     
     var database: Connection!
     var mAllValidator = Array<Validator>()
+    var mCdpParam = CdpParam.init()
+    var mKavaPrice = [String:KavaTokenPrice]()
+    var mMyCdps = Array<CdpOwen>()
     
     public override init() {
         super.init();
@@ -142,6 +145,14 @@ final class BaseData : NSObject{
         }
     }
     
+    func getPriceDollorPath() -> String {
+        if (getMarket() == 0) {
+            return "market_data.current_price.usd"
+        } else {
+            return "data.quotes.usd.price"
+        }
+    }
+    
     func getPrice24hPath() -> String {
         if (BaseData.instance.getMarket() == 0) {
             return "market_data.price_change_percentage_24h_in_currency." + BaseData.instance.getCurrencyString().lowercased()
@@ -152,6 +163,11 @@ final class BaseData : NSObject{
     
     func getLastPrice() -> Double? {
         return getMarketTic()?.value(forKeyPath: getPricePath()) as? Double
+    }
+    
+    func getLastDollorPrice() -> NSDecimalNumber {
+        let doubleValue = getMarketTic()?.value(forKeyPath: getPriceDollorPath()) as? Double
+        return NSDecimalNumber.init(string: String(doubleValue!))
     }
     
     func get24hPrice() -> Double? {
@@ -249,6 +265,20 @@ final class BaseData : NSObject{
     func getFCMToken() -> String {
         return UserDefaults.standard.string(forKey: KEY_FCM_TOKEN) ?? ""
     }
+    
+    func setKavaWarn() {
+        let remindTime = Calendar.current.date(byAdding: .day, value: 3, to: Date())?.millisecondsSince1970
+        UserDefaults.standard.set(String(remindTime!), forKey: KEY_KAVA_TESTNET_WARN)
+    }
+    
+    func getKavaWarn() ->Bool {
+        let reminTime = Int64(UserDefaults.standard.string(forKey: KEY_KAVA_TESTNET_WARN) ?? "0")
+        if (Date().millisecondsSince1970 > reminTime!) {
+            return true
+        }
+        return false
+    }
+    
     
     func initdb() {
         do {

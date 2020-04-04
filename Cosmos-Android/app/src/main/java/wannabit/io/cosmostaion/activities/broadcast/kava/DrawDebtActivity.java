@@ -63,10 +63,10 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
     public String                       mMemo;
     public Fee                          mFee;
 
-    public ResCdpParam.Result          mCdpParam;
-    public ResKavaMarketPrice.Result   mTokenPrice;
-    public ResCdpOwnerStatus.Result    mMyOwenCdp;
-    public ArrayList<ResCdpDepositStatus.Result> mMyDepositList = new ArrayList<>();
+    public ResCdpParam.Result           mCdpParam;
+    public ResKavaMarketPrice.Result    mTokenPrice;
+    public ResCdpOwnerStatus.Result     mMyOwenCdp;
+    private ResCdpDepositStatus         mMyDeposits;
 
     public BigDecimal                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mMoreAddedLoanAmount;
 
@@ -187,6 +187,10 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
 
     }
 
+    public ResCdpParam.Result getCDPParam() {
+        return mCdpParam;
+    }
+
     public ResCdpParam.KavaCollateralParam getCParam() {
         return mCdpParam.getCollateralParamByDenom(mMarketDenom);
     }
@@ -271,7 +275,7 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_DEPOSIT) {
             if (result.isSuccess && result.resultData != null) {
-                mMyDepositList = (ArrayList<ResCdpDepositStatus.Result>)result.resultData;
+                mMyDeposits = (ResCdpDepositStatus)result.resultData;
             }
         }
 

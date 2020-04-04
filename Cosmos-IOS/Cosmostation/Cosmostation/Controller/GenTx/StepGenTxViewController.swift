@@ -47,6 +47,21 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mMemo: String?
     var mFee: Fee?
     
+    var mCollateral = Array<Coin>()
+    var mPrincipal = Array<Coin>()
+    var mPayment = Array<Coin>()
+    var mSender: String?
+    
+    var currentPrice: NSDecimalNumber?
+    var liquidationPrice: NSDecimalNumber?
+    var riskRate: NSDecimalNumber?
+    var beforeLiquidationPrice: NSDecimalNumber?
+    var afterLiquidationPrice: NSDecimalNumber?
+    var beforeRiskRate: NSDecimalNumber?
+    var afterRiskRate: NSDecimalNumber?
+    var totalDepositAmount: NSDecimalNumber?
+    var totalLoanAmount: NSDecimalNumber?
+    
     var mProvision: String?
     var mStakingPool: NSDictionary?
     
@@ -65,6 +80,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mKavaSendDenom: String?
     var mIovSendDenom: String?
     
+    var cDenom: String?
+    var pDenom: String?
+    var mMarketID: String?
+    
+
     
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
@@ -111,6 +131,36 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "VoteCheckViewController")]
            
+        } else if (mType == KAVA_MSG_TYPE_CREATE_CDP) {
+            return [self.newVc(viewController: "StepCreateCpdAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepCreateCpdCheckViewController")]
+            
+        } else if (mType == KAVA_MSG_TYPE_DEPOSIT_CDP) {
+            return [self.newVc(viewController: "StepDepositCdpAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepDepositCdpCheckViewController")]
+            
+        } else if (mType == KAVA_MSG_TYPE_WITHDRAW_CDP) {
+            return [self.newVc(viewController: "StepWithdrawCdpAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepWithdrawCdpCheckViewController")]
+            
+        } else if (mType == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
+            return [self.newVc(viewController: "StepDrawDebtCdpAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepDrawDebtCdpCheckViewController")]
+            
+        } else if (mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
+            return [self.newVc(viewController: "StepRepayCdpAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepRepayCdpCheckViewController")]
+            
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),
                     self.newVc(viewController: "StepMemoViewController"),

@@ -142,7 +142,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
-    
     @objc func onFetchDone(_ notification: NSNotification) {
         self.walletTableView.reloadData()
         self.refresher.endRefreshing()
@@ -151,7 +150,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func emptyFloatySelected(_ floaty: Floaty) {
         self.onClickMainSend()
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
@@ -539,7 +537,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.nonCdpConstarint.priority = .defaultLow
                 cell?.cdpConstraint.priority = .defaultHigh
                 cell?.actionCdp = {
-//                    self.onClickCdp()
+                    self.onClickCdp()
                 }
             }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalKava.multiplying(byPowerOf10: -6).stringValue)
@@ -791,6 +789,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onClickIovNameservice() {
         self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+    }
+    
+    func onClickCdp() {
+        let cdpListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "CdpListViewController") as! CdpListViewController
+        cdpListVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(cdpListVC, animated: true)
+        
     }
     
     func onClickGuide1() {

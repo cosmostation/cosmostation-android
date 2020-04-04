@@ -121,13 +121,14 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
         mPrincipalDenom = getCParam().debt_limit.get(0).denom;
         setDpDecimals(WUtil.getKavaCoinDecimal(mCollateralDenom));
         mCurrentPrice = new BigDecimal(getPrice().price);
+        WLog.w("mCurrentPrice " + mCurrentPrice);
 
         mCanDepositMaxMaxAmount = getSActivity().getcAvailable();
         WDp.showCoinDp(getContext(), mCollateralDenom, mCanDepositMaxMaxAmount.toPlainString(), mCollateralDenomTx, mCollateralMaxTx, getSActivity().mBaseChain);
 
         mCurrentTotalDebetAmount = getOwenCdp().getPrincipalAmount().add(getOwenCdp().getAccumulatedFees());
         BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), mCurrentTotalDebetAmount, getCParam(), getOwenCdp().cdp);
-        WLog.w("hiddenFeeValue " + hiddenFeeValue);
+//        WLog.w("hiddenFeeValue " + hiddenFeeValue);
         mCurrentTotalDebetAmount = mCurrentTotalDebetAmount.add(hiddenFeeValue);
 
         mCurrentCollateralAmount = getOwenCdp().getCollateralAmount();
@@ -135,6 +136,13 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
         try {
             Picasso.get().load(KAVA_COIN_IMG_URL + mCollateralDenom + ".png").fit().into(mCollateralImg);
         } catch (Exception e) { }
+
+//        BigDecimal collateralAmount = mCurrentCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom));
+//        WLog.w("collateralAmount " + collateralAmount);
+//        WLog.w("mCurrentTotalDebetAmount " + mCurrentTotalDebetAmount);
+//        BigDecimal rawDebtAmount = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio));
+//        WLog.w("rawDebtAmount " + rawDebtAmount);
+
 
         //before(current) state views!!
         mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);

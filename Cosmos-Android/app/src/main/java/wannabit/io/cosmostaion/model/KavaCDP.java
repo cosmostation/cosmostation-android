@@ -35,4 +35,8 @@ public class KavaCDP {
         return result;
     }
 
+    public int getCdpId() {
+        return Integer.parseInt(id);
+    }
+
 }

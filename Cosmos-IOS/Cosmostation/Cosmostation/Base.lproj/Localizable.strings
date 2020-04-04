@@ -160,6 +160,61 @@
 "select_new_path_msg" = "BIP44 for KAVA key generation will be implemented starting March, 2020.\n\nIf you created an address before March, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original KAVA wallet. Simply press [Import Mnemonics] to re-select your path.";
 "kava_old_path" = "OLD PATH (44'/118'/0'/0)";
 "kava_new_path" = "NEW PATH (44'/459'/0'/0)";
+"tx_next" = "Next";
+"str_deposit" = "  Deposit %@";
+"str_withdraw" = "  Withdraw %@";
+"str_cannot_repay_partially" = "Cannot repay partially";
+"str_cannot_repay_all" = "Insufficient %@ to repay all";
+"str_no_more_3day" = "Hide 3Days";
+
+"current_price_format" = "Current %@ Price";
+"liquidation_price_format" = "Liquidation %@ Price";
+"debt_value_format" = "%@ Debt Value";
+"collateral_value_format" = "Collateral %@ Value";
+"withdrawable_format" = "Withdrawable %@";
+"before_liquidation_price_format" = "Initial Liquidation %@ Price";
+"after_liquidation_price_format" = "Adjusted Liquidation %@ Price";
+
+"help_collateral_rate_title" = "Min. Collateral Rate";
+"help_collateral_rate_msg" = "\nThe minimum rate at which the total USD value of the collateralized asset must be kept at against the total amount of USDX loaned from the CDP.\n\nFor example, if the minimum collateral rate is 200%, this means that in order to borrow 100 USDX from the CDP, you must deposit at least 200 USD worth of assets as collateral. If the total USD value of your collateralized asset falls below 200 USD due to price fluctuations, your position will be liquidated.";
+"help_stability_fee_title" = "Stability Fee (APR)";
+"help_stability_fee_msg" = "\nThe amount of fee you must pay for taking out USDX loans from the CDP, calculated as APR.\n\nWhen you repay your USDX debt, you must also pay this stability fee in order to close your collateralized debt position.";
+"help_liquidation_penalty_title" = "Liquidation Penalty";
+"help_liquidation_penalty_msg" = "\nThe amount of penalty you must pay in the event that your collateralized assets are liquidated due to price fluctuations.\n\nIf your collateral rate falls below minimum collateral rate, your assets will be liquidated.";
+"help_self_deposited_title" = "Self Deposited Collateral";
+"help_self_deposited_msg" = "\nThe amount of %@ deposited into the CDP as collateral from this wallet.";
+"help_total_deposited_title" = "Total Deposited Collateral";
+"help_total_deposited_msg" = "\nThe total amount of %@ deposited into the CDP as collateral.";
+"help_withdrawable_title" = "Withdrawable";
+"help_withdrawable_msg" = "\nThe amount of maximum collateral capable of being withdrawn from the CDP without reaching a risk score of 100.\n\nNote that withdrawing the collateral excessively close to the maximum amount can put the CDP into risk of going below the minimum collateral rate and being liquidated.";
+"help_loaned_amount_title" = "Loan Principal";
+"help_loaned_amount_msg" = "\nThe total amount of USDX loaned from the CDP.";
+"help_total_fee_title" = "Loan Interest";
+"help_total_fee_msg" = "\nAccrued CDP stability fee. The fee increases every second.";
+"help_remaining_loan_title" = "Remaining Loan Capacity";
+"help_remaining_loan_msg" = "\nThe amount of USDX that can be additionally loaned from the CDP. This capacity changes in accordance to changes in the collateral rate due to price fluctuations.";
+"help_kava_test_warn" = "\nThis wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.";
+
+"creat_cdp_step_0" = "Deposit collateral to borrow USDX";
+"creat_cdp_step_1" = "Insert memo (optional)";
+"creat_cdp_step_2" = "Select transaction fee";
+"creat_cdp_step_3" = "Check transaction detail";
+"deposit_cdp_step_0" = "Enter deposit amount";
+"deposit_cdp_step_1" = "Insert memo (optional)";
+"deposit_cdp_step_2" = "Select transaction fee";
+"deposit_cdp_step_3" = "Check transaction detail";
+"withdraw_cdp_step_0" = "Enter withdrawal amount";
+"withdraw_cdp_step_1" = "Insert memo (optional)";
+"withdraw_cdp_step_2" = "Select transaction fee";
+"withdraw_cdp_step_3" = "Check transaction detail";
+"drawdebt_cdp_step_0" = "Enter loan amount";
+"drawdebt_cdp_step_1" = "Insert memo (optional)";
+"drawdebt_cdp_step_2" = "Select transaction fee";
+"drawdebt_cdp_step_3" = "Check transaction detail";
+"repay_cdp_step_0" = "Enter repayment amount";
+"repay_cdp_step_1" = "Insert memo (optional)";
+"repay_cdp_step_2" = "Select transaction fee";
+"repay_cdp_step_3" = "Check transaction detail";
 
 "clear_all" = "Clear All";
 "delete" = "Delete";
@@ -203,6 +258,13 @@
 "title_guide" = "FAQ";
 "title_vote" = "Vote";
 "title_tx_detail" = "Transaction Detail";
+"title_cdp_list" = "CDP Market";
+"title_cdp_detail" = "CDP Status";
+"title_create_cdp" = "Open CDP";
+"title_deposit_cdp" = "DEPOSIT COLLATERAL";
+"title_withdraw_cdp" = "WITHDRAW COLLATERAL";
+"title_drawdebt_cdp" = "BORROW MORE USDX";
+"title_repay_cdp" = "REPAY USDX";
 
 "proposal_type_basic" = "Basic";
 "proposal_type_parameter" = "Parameter";
@@ -253,6 +315,11 @@
 "error_already_vote" = "Already voted.";
 "error_no_opinion" = "Please select your opinion.";
 "error_not_yet" = "Comming soon!";
+"error_less_than_min_deposit" = "Less than the minimum deposit amount.";
+"error_less_than_min_principal" = "Less than the minimum loan amount.";
+"error_not_enought_deposit_asset" = "Not enought Asset to deposit.";
+"error_not_enought_withdraw_asset" = "Cannot withdraw collateral now.";
+"error_can_not_draw_debt" = "Cannot more loan now.";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";
@@ -262,6 +329,9 @@
 "error_network_msg" = "Can't connect to the network. \nPlease try again in a few minutes.";
 "error_disable" = "Under Maintenance";
 "error_disable_msg" = "We are currently under maintenance. \nPlease check our community channels for more information.";
+"error_not_enought_principal_asset" = "Not enough USDX to repay.";
+"error_can_not_repay" = "Cannot repay now. You need more USDX to Repay.";
+"error_circuit_breaker" = "Now circuit breake";
 
 "currency_usd" = "USD";
 "currency_eur" = "EUR";
@@ -300,11 +370,11 @@
 "tx_cancel_order" = "Cancel Order";
 "tx_issue_token" = "Issue Token";
 "tx_kava_post_price" = "Post Price";
-"tx_kava_create_cdp" = "Create CDP";
-"tx_kava_deposit_cdp" = "Deposit CDP";
-"tx_kava_withdraw_cdp" = "Withdraw CDP";
-"tx_kava_drawdebt_cdp" = "Draw Debt CDP";
-"tx_kava_repaydebt_cdp" = "Repay Debt CDP";
+"tx_kava_create_cdp" = "CDP - Open";
+"tx_kava_deposit_cdp" = "CDP - Deposit";
+"tx_kava_withdraw_cdp" = "CDP - Withdraw";
+"tx_kava_drawdebt_cdp" = "CDP - Draw Debt";
+"tx_kava_repaydebt_cdp" = "CDP - Repay";
 "tx_known" = "Known";
 
 "chain_title_cosmos" = "COSMOS Hub";

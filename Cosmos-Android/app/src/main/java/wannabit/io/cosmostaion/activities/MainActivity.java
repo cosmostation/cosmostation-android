@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private FrameLayout                 mDimLayer;
     public  MainViewPageAdapter         mPageAdapter;
     public FloatingActionButton         mFloatBtn;
-    public FloatingActionButton         mFaucetBtn;
+//    public FloatingActionButton         mFaucetBtn;
 
     private ArrayList<Account>          mAccounts = new ArrayList<>();
     private TopSheetBehavior            mTopSheetBehavior;
@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mTabLayer               = findViewById(R.id.bottom_tab);
         mDimLayer               = findViewById(R.id.dim_layer);
         mFloatBtn               = findViewById(R.id.btn_floating);
-        mFaucetBtn              = findViewById(R.id.btn_faucet);
+//        mFaucetBtn              = findViewById(R.id.btn_faucet);
         mChainRecyclerView      = findViewById(R.id.chain_recycler);
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
 
@@ -116,19 +116,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
         });
 
-        //TODO temp for kava testnet
-        mFaucetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("address", mAccount.address);
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(getBaseContext(), R.string.str_copied, Toast.LENGTH_SHORT).show();
-
-                Intent fauceIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://faucet.kava.io/"));
-                startActivity(fauceIntent);
-            }
-        });
+//        //TODO temp for kava testnet
+//        mFaucetBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+//                ClipData clip = ClipData.newPlainText("address", mAccount.address);
+//                clipboard.setPrimaryClip(clip);
+//                Toast.makeText(getBaseContext(), R.string.str_copied, Toast.LENGTH_SHORT).show();
+//
+//                Intent fauceIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://faucet.kava.io/"));
+//                startActivity(fauceIntent);
+//            }
+//        });
 
         mChainRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mChainRecyclerView.setHasFixedSize(true);
@@ -202,8 +202,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 if (position != 0) mFloatBtn.hide();
                 else if (!mFloatBtn.isShown()) mFloatBtn.show();
 
-                if (position != 1 || !mBaseChain.equals(BaseChain.KAVA_TEST)) mFaucetBtn.hide();
-                else if (!mFaucetBtn.isShown()) mFaucetBtn.show();
+//                if (position != 1 || !mBaseChain.equals(BaseChain.KAVA_TEST)) mFaucetBtn.hide();
+//                else if (!mFaucetBtn.isShown()) mFaucetBtn.show();
 
 
             }
@@ -283,13 +283,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         }
 
-        if (mContentsPager != null) {
-            if (mContentsPager.getCurrentItem() == 1 && mBaseChain.equals(BaseChain.KAVA_TEST)) {
-                if (!mFaucetBtn.isShown()) mFaucetBtn.show();
-            } else {
-                mFaucetBtn.hide();
-            }
-        }
+//        if (mContentsPager != null) {
+//            if (mContentsPager.getCurrentItem() == 1 && mBaseChain.equals(BaseChain.KAVA_TEST)) {
+//                if (!mFaucetBtn.isShown()) mFaucetBtn.show();
+//            } else {
+//                mFaucetBtn.hide();
+//            }
+//        }
 
         onUpdateTitle();
         onFetchAllData();

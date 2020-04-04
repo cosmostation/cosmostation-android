@@ -75,6 +75,21 @@ public class Balance {
         }
     }
     
+    func kavaTokenDollorValue(_ prices:[String:KavaTokenPrice]) -> NSDecimalNumber {
+        if (balance_denom == "usdx"){
+            return WUtils.stringToDecimalNoLocale(self.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(balance_denom))
+            
+        } else {
+            if (prices.count <= 0) {
+                return NSDecimalNumber.zero
+            }
+            guard let kavaPrice = prices[balance_denom] else {
+                return NSDecimalNumber.zero
+            }
+            return WUtils.stringToDecimalNoLocale(self.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(balance_denom)).multiplying(by: NSDecimalNumber.init(string: kavaPrice.result.price), withBehavior: WUtils.handler6)
+        }
+    }
+    
 }
 
 

@@ -380,7 +380,8 @@ class StepFeeViewController: BaseViewController {
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
         
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
             if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
                 
@@ -401,7 +402,14 @@ class StepFeeViewController: BaseViewController {
             } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REINVEST))
                 
+            } else if (pageHolderVC.mType == KAVA_MSG_TYPE_CREATE_CDP ||
+                        pageHolderVC.mType == KAVA_MSG_TYPE_DEPOSIT_CDP ||
+                        pageHolderVC.mType == KAVA_MSG_TYPE_WITHDRAW_CDP ||
+                        pageHolderVC.mType == KAVA_MSG_TYPE_DRAWDEBT_CDP ||
+                        pageHolderVC.mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_CDP))
             }
+            
         }
         return result
     }

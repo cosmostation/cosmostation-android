@@ -211,6 +211,61 @@ class MsgGenerator {
         return msg
     }
     
+    static func genGetCreatCdpMsg(_ sender: String, _ collateral: Array<Coin>, _ principal: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+        value.collateral = collateral
+        value.principal = principal
+        msg.type = KAVA_MSG_TYPE_CREATE_CDP
+        msg.value = value
+        return msg
+    }
+    
+    static func genGetDepositCdpMsg(_ owner: String, _ depositor: String, _ collateral: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.owner = owner
+        value.depositor = depositor
+        value.collateral = collateral
+        msg.type = KAVA_MSG_TYPE_DEPOSIT_CDP
+        msg.value = value
+        return msg
+    }
+    
+    
+    static func genGetWithdrawCdpMsg(_ owner: String, _ depositor: String, _ collateral: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.owner = owner
+        value.depositor = depositor
+        value.collateral = collateral
+        msg.type = KAVA_MSG_TYPE_WITHDRAW_CDP
+        msg.value = value
+        return msg
+    }
+    
+    static func genGetDrawDebtCdpMsg(_ sender: String, _ cdp_denom: String, _ principal: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+        value.cdp_denom = cdp_denom
+        value.principal = principal
+        msg.type = KAVA_MSG_TYPE_DRAWDEBT_CDP
+        msg.value = value
+        return msg
+    }
+    
+    static func genGetRepayCdpMsg(_ sender: String, _ cdp_denom: String, _ payment: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+        value.cdp_denom = cdp_denom
+        value.payment = payment
+        msg.type = KAVA_MSG_TYPE_REPAYDEBT_CDP
+        msg.value = value
+        return msg
+    }
     
     
     static func genSignedTx(_ msgs: Array<Msg>, _ fee: Fee, _ memo: String, _ signatures: Array<Signature>) -> StdTx {

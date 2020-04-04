@@ -80,11 +80,17 @@
                         android:layout_alignParentRight="true"
                         android:orientation="horizontal">
                         <TextView
+                            android:id="@+id/loanable_min_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/font_ss_12_gray1"
+                            android:text="-"/>
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             style="@style/font_ss_12_gray1"
-                            android:text="@string/str_loanable_amount"/>
+                            android:text="~"/>
                         <TextView
                             android:id="@+id/loanable_max_amount"
                             android:layout_width="wrap_content"
@@ -115,7 +121,7 @@
                         android:background="@drawable/btn_trans_with_border"
                         style="@style/font_ss_12_white"
                         android:textAllCaps="false"
-                        android:text="@string/str_add01"/>
+                        android:text="@string/str_add_min"/>
                     <Button
                         android:id="@+id/btn_add_1"
                         android:layout_width="0dp"
@@ -125,7 +131,7 @@
                         android:background="@drawable/btn_trans_with_border"
                         style="@style/font_ss_12_white"
                         android:textAllCaps="false"
-                        android:text="@string/str_add1"/>
+                        android:text="@string/str_add_one_fourths"/>
                     <Button
                         android:id="@+id/btn_add_10"
                         android:layout_width="0dp"
@@ -135,7 +141,7 @@
                         android:background="@drawable/btn_trans_with_border"
                         style="@style/font_ss_12_white"
                         android:textAllCaps="false"
-                        android:text="@string/str_add10"/>
+                        android:text="@string/str_add_half"/>
                     <Button
                         android:id="@+id/btn_add_half"
                         android:layout_width="0dp"
@@ -145,7 +151,7 @@
                         android:background="@drawable/btn_trans_with_border"
                         style="@style/font_ss_12_white"
                         android:textAllCaps="false"
-                        android:text="@string/str_add_half"/>
+                        android:text="@string/str_add_three_fourths"/>
                     <Button
                         android:id="@+id/btn_add_all"
                         android:layout_width="0dp"

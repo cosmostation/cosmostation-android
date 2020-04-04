@@ -139,6 +139,7 @@
                 <outlet property="marketId" destination="axO-sg-E9l" id="AyF-pS-Jsk"/>
                 <outlet property="postPrice" destination="e27-4E-qSH" id="pfd-la-W0D"/>
                 <outlet property="pricePoster" destination="Jl7-la-aWj" id="kY8-rc-HyF"/>
+                <outlet property="txIcon" destination="kpl-eP-zye" id="W97-3o-Qhn"/>
                 <outlet property="validityTime" destination="bay-xv-fkw" id="lT1-8F-dtw"/>
             </connections>
             <point key="canvasLocation" x="179.71014492753625" y="237.38839285714283"/>

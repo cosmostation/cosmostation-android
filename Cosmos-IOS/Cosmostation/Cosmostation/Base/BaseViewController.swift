@@ -30,13 +30,10 @@ class BaseViewController: UIViewController {
         self.startAvoidingKeyboard()
     }
     
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         self.stopAvoidingKeyboard()
     }
-    
-
     
     public func showWaittingAlert() {
         waitAlert = UIAlertController(title: "", message: "\n\n\n\n", preferredStyle: .alert)
@@ -200,6 +197,10 @@ class BaseViewController: UIViewController {
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    
+    
+    
     
 }
 extension BaseViewController {

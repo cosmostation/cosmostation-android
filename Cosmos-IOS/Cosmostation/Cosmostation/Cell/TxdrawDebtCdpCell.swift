@@ -9,7 +9,8 @@
 import UIKit
 
 class TxdrawDebtCdpCell: UITableViewCell {
-
+    
+    @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var senderLabel: UILabel!
     @IBOutlet weak var coinTypeLabel: UILabel!
     @IBOutlet weak var principalAmount: UILabel!

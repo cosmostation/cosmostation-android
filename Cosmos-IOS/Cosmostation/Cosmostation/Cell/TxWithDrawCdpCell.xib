@@ -72,7 +72,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ATOM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMI-Dn-Erc">
                                 <rect key="frame" x="348.5" y="166.5" width="34.5" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                <color key="textColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -132,6 +132,7 @@
                 <outlet property="collateralDenom" destination="ZMI-Dn-Erc" id="WQ2-Kg-fca"/>
                 <outlet property="depositorLabel" destination="E9O-D6-Irg" id="6yM-YV-Tn7"/>
                 <outlet property="ownerLabel" destination="n3h-nK-eUU" id="g3b-uK-3qk"/>
+                <outlet property="txIcon" destination="oh4-Sh-yeX" id="Q1e-tD-6dG"/>
             </connections>
             <point key="canvasLocation" x="212.31884057971016" y="214.62053571428569"/>
         </tableViewCell>

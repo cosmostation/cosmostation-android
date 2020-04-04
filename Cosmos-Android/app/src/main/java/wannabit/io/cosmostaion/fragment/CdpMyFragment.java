@@ -20,14 +20,18 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.KavaCdpDetailActivity;
 import wannabit.io.cosmostaion.activities.KavaCdpListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -83,6 +87,7 @@ public class CdpMyFragment extends BaseFragment {
     public void onRefreshTab() {
         if(!isAdded()) return;
         mMyOwenCdp = new ArrayList<ResCdpOwnerStatus.Result>(getMainActivity().mMyOwenCdps.values());
+        onSortMyCdp(mMyOwenCdp);
         mMyCdpAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -120,7 +125,7 @@ public class CdpMyFragment extends BaseFragment {
                 final ResCdpParam.KavaCollateralParam param = getMainActivity().mCdpParam.getCollateralParamByDenom(status.getDenom());
 
                 final BigDecimal currentPrice = new BigDecimal(price.price);
-                final BigDecimal liquidationPrice = WDp.getLiquidationPrice(status, getMainActivity().mCdpParam.getRawLiquidationRatio(status.getDenom()));
+                final BigDecimal liquidationPrice = status.getLiquidationPrice(getContext(), param);
                 final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
 //            WLog.w("currentPrice " +  currentPrice);
@@ -131,7 +136,7 @@ public class CdpMyFragment extends BaseFragment {
                 holder.itemDebtValueTitle.setText(status.getPDenom().toUpperCase() + " " + getString(R.string.str_debt_value));
                 holder.itemCollateralValueTitle.setText(WDp.DpCollateralValueTitle(getContext(), status.getDenom().toUpperCase()));
 
-                final BigDecimal debtValue = new BigDecimal(status.cdp.principal.get(0).amount);
+                final BigDecimal debtValue = status.getPrincipalAmount();
                 final BigDecimal feeValue = status.getAccumulatedFees();
                 final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), debtValue.add(feeValue), param, status.cdp);
                 final BigDecimal totalDebtValue = debtValue.add(feeValue).add(hiddenFeeValue);
@@ -221,5 +226,15 @@ public class CdpMyFragment extends BaseFragment {
                 itemRoot                = itemView.findViewById(R.id.card_root);
             }
         }
+    }
+
+
+    public static void onSortMyCdp(ArrayList<ResCdpOwnerStatus.Result> cdps) {
+        Collections.sort(cdps, new Comparator<ResCdpOwnerStatus.Result>() {
+            @Override
+            public int compare(ResCdpOwnerStatus.Result o1, ResCdpOwnerStatus.Result o2) {
+                return o1.cdp.getCdpId() > o2.cdp.getCdpId() ? -1 : 1;
+            }
+        });
     }
 }

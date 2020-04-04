@@ -19,11 +19,18 @@ class WUtils {
     
     static let handler6 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 6, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
+    static let handler4Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 4, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
     static let handler2 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
+    static let handler2Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
     static let handler0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
-    static let handlerdown0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    static let handler0Up = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.up, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
+    static let handler0Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
     
     static func getDivideHandler(_ decimal:Int16) -> NSDecimalNumberHandler{
         return NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: decimal, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
@@ -688,7 +695,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == symbol) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -721,7 +728,7 @@ class WUtils {
         if (BaseData.instance.getCurrency() == 5) {
             amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler8)
         } else {
-            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler2)
+            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler2Down)
         }
         return dpValue(amount, font)
     }
@@ -734,7 +741,7 @@ class WUtils {
         if (BaseData.instance.getCurrency() == 5) {
             result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler8)
         } else {
-            result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler2)
+            result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler2Down)
         }
         return dpValue(result, font)
     }
@@ -747,7 +754,7 @@ class WUtils {
         if (BaseData.instance.getCurrency() == 5) {
             amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler8)
         } else {
-            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler2)
+            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler2Down)
         }
         return dpValue(amount, font)
     }
@@ -760,7 +767,7 @@ class WUtils {
         if (BaseData.instance.getCurrency() == 5) {
             result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler8)
         } else {
-            result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler2)
+            result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler2Down)
         }
         return dpValue(result, font)
     }
@@ -911,7 +918,7 @@ class WUtils {
         nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let formatted   = nf.string(from: rate.rounding(accordingToBehavior: handler2))! + "%"
+        let formatted   = nf.string(from: rate.rounding(accordingToBehavior: handler2Down))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
         
         let preString   = formatted[..<endIndex]
@@ -933,7 +940,7 @@ class WUtils {
         nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let formatted   = nf.string(from: rate.multiplying(by: 100).rounding(accordingToBehavior: handler2))! + "%"
+        let formatted   = nf.string(from: rate.multiplying(by: 100).rounding(accordingToBehavior: handler2Down))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
         
         let preString   = formatted[..<endIndex]
@@ -1085,7 +1092,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == denom) {
-                    rewardSum = rewardSum.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
+                    rewardSum = rewardSum.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1119,7 +1126,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == COSMOS_MAIN_DENOM) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1173,7 +1180,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == KAVA_MAIN_DENOM) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1597,6 +1604,81 @@ class WUtils {
         return String(result)
     }
     
+    static func getDPRawDollor(_ price:String, _ scale:Int, _ font:UIFont) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = scale
+        nf.maximumFractionDigits = scale
+        nf.numberStyle = .decimal
+        
+        let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(scale), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+        let amount = stringToDecimalNoLocale(price).rounding(accordingToBehavior: handler)
+        
+        let added       = "$ " + nf.string(from: amount)!
+        let endIndex    = added.index(added.endIndex, offsetBy: -scale)
+        
+        let preString   = added[..<endIndex]
+        let postString  = added[endIndex...]
+        
+        let preAttrs = [NSAttributedString.Key.font : font]
+        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
+    
+    static func showRiskRate(_ riskRate: NSDecimalNumber, _ scoreLabel: UILabel, _rateIamg:UIImageView?) {
+        scoreLabel.attributedText = displayAmount2(riskRate.stringValue, scoreLabel.font, 0, 2)
+        if (riskRate.doubleValue <= 50) {
+            scoreLabel.textColor = COLOR_CDP_SAFE
+            _rateIamg?.image = UIImage(named: "safe")
+            
+        } else if (riskRate.doubleValue < 80) {
+            scoreLabel.textColor = COLOR_CDP_STABLE
+            _rateIamg?.image = UIImage(named: "stable")
+            
+        } else {
+            scoreLabel.textColor = COLOR_CDP_DANGER
+            _rateIamg?.image = UIImage(named: "danger")
+        }
+    }
+    
+    static func showRiskRate2(_ riskRate: NSDecimalNumber, _ scoreLabel: UILabel, _ textLabel:UILabel) {
+        scoreLabel.attributedText = displayAmount2(riskRate.stringValue, scoreLabel.font, 0, 2)
+        if (riskRate.doubleValue <= 50) {
+            scoreLabel.textColor = COLOR_CDP_SAFE
+            textLabel.textColor = COLOR_CDP_SAFE
+            textLabel.text = "SAFE"
+            
+        } else if (riskRate.doubleValue < 80) {
+            scoreLabel.textColor = COLOR_CDP_STABLE
+            textLabel.textColor = COLOR_CDP_STABLE
+            textLabel.text = "STABLE"
+            
+        } else {
+            scoreLabel.textColor = COLOR_CDP_DANGER
+            textLabel.textColor = COLOR_CDP_DANGER
+            textLabel.text = "DANGER"
+        }
+    }
+    
+    static func showRiskRate3(_ riskRate: NSDecimalNumber, _ scoreLabel: UILabel, _ textLabel:UILabel, _ cardView:CardView) {
+        scoreLabel.attributedText = displayAmount2(riskRate.stringValue, scoreLabel.font, 0, 2)
+        if (riskRate.doubleValue <= 50) {
+            textLabel.text = "SAFE"
+            cardView.backgroundColor = COLOR_CDP_SAFE
+            
+        } else if (riskRate.doubleValue < 80) {
+            textLabel.text = "STABLE"
+            cardView.backgroundColor = COLOR_CDP_STABLE
+            
+        } else {
+            textLabel.text = "DANGER"
+            cardView.backgroundColor = COLOR_CDP_DANGER
+        }
+    }
     
     
     static func getGuideList() -> Array<GuideCategory> {

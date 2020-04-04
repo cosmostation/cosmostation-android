@@ -16,7 +16,8 @@
 
 
     <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>
-    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet.cosmostation.io/</string>
+<!--    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet.cosmostation.io/</string>-->
+    <string name="url_lcd_kava_test" translatable="false">https://kava-testnet-4000.kava.io/</string>
     <string name="url_api_kava_main" translatable="false"></string>
     <string name="url_api_kava_test" translatable="false">https://api-kava-testnet.cosmostation.io/</string>
 
@@ -441,7 +442,7 @@
     <string name="str_remain_debt_title2">Amount</string>
     <string name="str_collateral_value_title1">Collateral</string>
     <string name="str_collateral_value_title2">Value</string>
-    <string name="str_open_cdp">Create CDP</string>
+    <string name="str_open_cdp">Open CDP</string>
     <string name="str_available_amount">Available Amount</string>
     <string name="str_self_deposited_amount">Deposited Collateral (self)</string>
     <string name="str_total_deposited_amount">Deposited Collateral (total)</string>
@@ -495,7 +496,7 @@
     <string name="str_help_risk">A risk score of 100 will cause your CDP to be liquidated. Risk Score is calculated through comparing the current token price of your collateralized asset against the token price at which the CDP will be liquidated.\n\nFor example, a risk score of 60 and the current token price of your collateralized asset at $10 means that your CDP will be liquidated if the token price reaches $6.</string>
 
 
-    <string name="str_create_cdp_c">CREATE CDP</string>
+    <string name="str_create_cdp_c">OPEN CDP</string>
     <string name="str_repay_cdp_c">REPAY USDX</string>
     <string name="str_draw_debt_cdp_c">BORROW MORE USDX</string>
     <string name="str_deposit_cdp_c">DEPOSIT COLLATERAL</string>
@@ -506,6 +507,10 @@
     <string name="str_loanable_amount"><![CDATA[Max : ]]></string>
     <string name="str_approximate_value"><![CDATA[Approximate Value : ]]></string>
     <string name="str_max_paymentable_amount"><![CDATA[Max : ]]></string>
+    <string name="str_repay_particaly"><![CDATA[Repay Partially : ]]></string>
+    <string name="str_cannot_particaly">Cannot repay partially</string>
+    <string name="str_repay_all"><![CDATA[Repay All : ]]></string>
+    <string name="str_cannot_repay_all">Insufficient USDX to repay all</string>
 <!--    <string name="str_max_depositable_amount"><![CDATA[Max Depositable : ]]></string>-->
     <string name="str_max_depositable_amount"><![CDATA[Max : ]]></string>
 <!--    <string name="str_max_withdrawable_amount"><![CDATA[Max Withdrawable : ]]></string>-->
@@ -516,8 +521,13 @@
     <string name="str_add_70"><![CDATA[≈ 70]]></string>
     <string name="str_add_one_fourths">1/4</string>
     <string name="str_add_three_fourths">3/4</string>
+    <string name="str_add_one_three">P 1/3</string>
+    <string name="str_add_two_three">P 2/3</string>
+    <string name="str_add_three_three">P Max</string>
+    <string name="str_add_p_all">All</string>
     <string name="str_cdp_promotion_title">Create a Collateralized Debt Position</string>
     <string name="str_cdp_promotion_msg">Borrow USDX by depositing XRP, BTC, BNB as collateral.\n100% on-chain decentralized finance.</string>
+    <string name="str_repay_all_notice">This CDP will be closed. \nAll deposits will be returned to each depositor.</string>
 
 
     <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
@@ -748,6 +758,12 @@
     <string name="error_less_than_min_deposit">Less than the minimum deposit amount.</string>
     <string name="error_less_than_min_principal">Less than the minimum loan amount.</string>
     <string name="error_dust_principal_remain">Remain Debt is less than 10$.</string>
+    <string name="error_circuit_breaker">Now circuit break</string>
+    <string name="error_not_enought_deposit_asset">Not enought Asset to deposit.</string>
+    <string name="error_not_enought_withdraw_asset">Cannot withdraw collateral now.</string>
+    <string name="error_can_not_draw_debt">Cannot more loan now.</string>
+    <string name="error_not_enought_principal_asset">Not enough USDX to repay.</string>
+    <string name="error_can_not_repay">Cannot repay now. You need more USDX to Repay.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>
@@ -779,7 +795,7 @@
     <string name="tx_issue_token">Token Issue</string>
     <string name="tx_known">Unknown</string>
     <string name="tx_kava_post_price">Update Price</string>
-    <string name="tx_kava_create_cdp">CDP - Create</string>
+    <string name="tx_kava_create_cdp">CDP - Open</string>
     <string name="tx_kava_deposit_cdp">CDP - Deposit</string>
     <string name="tx_kava_withdraw_cdp">CDP - Withdraw</string>
     <string name="tx_kava_drawdebt_cdp">CDP - Draw Debt</string>

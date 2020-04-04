@@ -417,31 +417,86 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func onBindPostPrice(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxPostPriceCell? = tableView.dequeueReusableCell(withIdentifier:"TxPostPriceCell") as? TxPostPriceCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            cell?.pricePoster.text = msg.value.from
+            cell?.marketId.text = msg.value.market_id
+            cell?.postPrice.text = msg.value.price
+            cell?.validityTime.text = WUtils.txTimetoString(input: msg.value.expiry!)
+        }
         return cell!
     }
     
     func onBindCreateCdp(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxCreateCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxCreateCdpCell") as? TxCreateCdpCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let cDenom = msg.value.collateral![0].denom
+            let pDenom = msg.value.principal![0].denom
+            cell?.senderLabel.text = msg.value.sender
+            cell?.collateralAmount.attributedText = WUtils.displayAmount2(msg.value.collateral![0].amount, cell!.collateralAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
+            cell?.principalAmount.attributedText = WUtils.displayAmount2(msg.value.principal![0].amount, cell!.principalAmount.font!, WUtils.getKavaCoinDecimal(pDenom), WUtils.getKavaCoinDecimal(pDenom))
+            cell?.collateralDenom.text = cDenom.uppercased()
+            cell?.principalDenom.text = pDenom.uppercased()
+        }
         return cell!
     }
     
     func onBindDepositCdp(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxDepositCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxDepositCdpCell") as? TxDepositCdpCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let cDenom = msg.value.collateral![0].denom
+            cell?.owerLabel.text = msg.value.owner
+            cell?.depositorLabel.text = msg.value.depositor
+            cell?.collateralAmount.attributedText = WUtils.displayAmount2(msg.value.collateral![0].amount, cell!.collateralAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
+            cell?.collateralDenom.text = cDenom.uppercased()
+        }
         return cell!
     }
     
     func onBindWithdrawCdp(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxWithDrawCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxWithDrawCdpCell") as? TxWithDrawCdpCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let cDenom = msg.value.collateral![0].denom
+            cell?.ownerLabel.text = msg.value.owner
+            cell?.depositorLabel.text = msg.value.depositor
+            cell?.collateralAmount.attributedText = WUtils.displayAmount2(msg.value.collateral![0].amount, cell!.collateralAmount.font!, WUtils.getKavaCoinDecimal(cDenom), WUtils.getKavaCoinDecimal(cDenom))
+            cell?.collateralDenom.text = cDenom.uppercased()
+        }
         return cell!
     }
     
     func onBindDrawDebtCdp(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxdrawDebtCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxdrawDebtCdpCell") as? TxdrawDebtCdpCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let pDenom = msg.value.principal![0].denom
+            cell?.senderLabel.text = msg.value.sender
+            cell?.coinTypeLabel.text = msg.value.cdp_denom?.uppercased()
+            cell?.principalAmount.attributedText = WUtils.displayAmount2(msg.value.principal![0].amount, cell!.principalAmount.font!, WUtils.getKavaCoinDecimal(pDenom), WUtils.getKavaCoinDecimal(pDenom))
+            cell?.principalDenom.text = pDenom.uppercased()
+        }
         return cell!
     }
     
     func onBindRepayDebtCdp(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxRepayCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxRepayCdpCell") as? TxRepayCdpCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let pDenom = msg.value.payment![0].denom
+            cell?.senderLabel.text = msg.value.sender
+            cell?.coinTypeLabel.text = msg.value.cdp_denom?.uppercased()
+            cell?.paymentAmount.attributedText = WUtils.displayAmount2(msg.value.payment![0].amount, cell!.paymentAmount.font!, WUtils.getKavaCoinDecimal(pDenom), WUtils.getKavaCoinDecimal(pDenom))
+            cell?.paymentDenom.text = pDenom.uppercased()
+        }
         return cell!
     }
     
@@ -602,7 +657,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 return
             }
             self.loadingLayer.isHidden = true
-            self.controlLayer.isHidden = false
+            if (self.chainType! != ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                self.controlLayer.isHidden = false
+            }
             self.txTableView.reloadData()
         }
         

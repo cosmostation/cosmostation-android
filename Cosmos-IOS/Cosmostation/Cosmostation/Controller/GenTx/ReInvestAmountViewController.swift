@@ -108,7 +108,7 @@ class ReInvestAmountViewController: BaseViewController {
                     for rawReward in rawRewards {
                         if let atomReward = rawReward.object(forKey: "denom") as? String, atomReward == COSMOS_MAIN_DENOM {
                             var coin = Coin(rawReward as! [String : Any])
-                            coin.amount = NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handlerdown0).stringValue
+                            coin.amount = NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handler0Down).stringValue
                             self.pageHolderVC.mReinvestReward = coin
                         }
                     }
@@ -122,7 +122,7 @@ class ReInvestAmountViewController: BaseViewController {
                     for rawReward in rawRewards {
                         if let atomReward = rawReward.object(forKey: "denom") as? String, atomReward == KAVA_MAIN_DENOM {
                             var coin = Coin(rawReward as! [String : Any])
-                            coin.amount = NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handlerdown0).stringValue
+                            coin.amount = NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handler0Down).stringValue
                             self.pageHolderVC.mReinvestReward = coin
                         }
                     }

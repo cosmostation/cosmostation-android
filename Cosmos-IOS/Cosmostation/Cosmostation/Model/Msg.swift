@@ -72,6 +72,17 @@ public struct Msg: Codable {
         var proposal_id: String?
         var voter: String?
         var option: String?
+        var from: String?
+        var market_id: String?
+        var price: String?
+        var expiry: String?
+        var sender: String?
+        var depositor: String?
+        var owner: String?
+        var collateral: Array<Coin>?
+        var principal: Array<Coin>?
+        var payment: Array<Coin>?
+        var cdp_denom: String?
         
         
         enum CodingKeys: String, CodingKey {
@@ -97,6 +108,17 @@ public struct Msg: Codable {
             case proposal_id
             case voter
             case option
+            case from
+            case market_id
+            case price
+            case expiry
+            case sender
+            case depositor
+            case owner
+            case collateral
+            case principal
+            case payment
+            case cdp_denom
         }
         
         public func getAmount() -> Coin? {
@@ -237,7 +259,51 @@ public struct Msg: Codable {
                 self.option = option
             }
             
+            if let from =  dictionary["from"] as? String {
+                self.from = from
+            }
+            if let market_id =  dictionary["market_id"] as? String {
+                self.market_id = market_id
+            }
+            if let price =  dictionary["price"] as? String {
+                self.price = price
+            }
+            if let expiry =  dictionary["expiry"] as? String {
+                self.expiry = expiry
+            }
+            if let sender =  dictionary["sender"] as? String {
+                self.sender = sender
+            }
+            if let depositor =  dictionary["depositor"] as? String {
+                self.depositor = depositor
+            }
+            if let owner =  dictionary["owner"] as? String {
+                self.owner = owner
+            }
+            if let collaterals = dictionary["collateral"] as? Array<NSDictionary> {
+                self.collateral =  Array<Coin>()
+                for collateral in collaterals {
+                    self.collateral?.append(Coin(collateral as! [String : Any]))
+                }
+            }
+            if let principals = dictionary["principal"] as? Array<NSDictionary> {
+                self.principal =  Array<Coin>()
+                for principal in principals {
+                    self.principal?.append(Coin(principal as! [String : Any]))
+                }
+            }
+            if let payments = dictionary["payment"] as? Array<NSDictionary> {
+                self.payment =  Array<Coin>()
+                for payment in payments {
+                    self.payment?.append(Coin(payment as! [String : Any]))
+                }
+            }
             
+            
+            
+            if let cdp_denom =  dictionary["cdp_denom"] as? String {
+                self.cdp_denom = cdp_denom
+            }
         }
         
     }

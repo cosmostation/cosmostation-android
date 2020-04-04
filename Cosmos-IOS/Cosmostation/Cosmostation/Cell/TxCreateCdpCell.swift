@@ -9,7 +9,8 @@
 import UIKit
 
 class TxCreateCdpCell: UITableViewCell {
-
+    
+    @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var senderLabel: UILabel!
     @IBOutlet weak var collateralAmount: UILabel!
     @IBOutlet weak var collateralDenom: UILabel!

@@ -172,8 +172,10 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
     private void onUpdateView() {
         mLoadingLayer.setVisibility(View.GONE);
-        mDismissBtn.setVisibility(View.GONE);
-        mControlLayer2.setVisibility(View.VISIBLE);
+        if (!mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            mDismissBtn.setVisibility(View.GONE);
+            mControlLayer2.setVisibility(View.VISIBLE);
+        }
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
         } else {

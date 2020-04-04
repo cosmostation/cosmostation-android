@@ -123,45 +123,18 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
         setDpDecimals(WUtil.getKavaCoinDecimal(mCollateralDenom));
         mCurrentPrice = new BigDecimal(getPrice().price);
 
-        mCurrentTotalDebetAmount = getOwenCdp().getPrincipalAmount().add(getOwenCdp().getAccumulatedFees());
-        BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), mCurrentTotalDebetAmount, getCParam(), getOwenCdp().cdp);
-        WLog.w("hiddenFeeValue " + hiddenFeeValue);
-        mCurrentTotalDebetAmount = mCurrentTotalDebetAmount.add(hiddenFeeValue);
-        WLog.w("mCurrentTotalDebetAmount " + mCurrentTotalDebetAmount);
-
-        mCurrentCollateralAmount = getOwenCdp().getCollateralAmount();
-
-
-        BigDecimal currentCollateralValue = new BigDecimal(getOwenCdp().collateral_value.amount);
-        BigDecimal totalWithdrawableValue = currentCollateralValue.subtract(mCurrentTotalDebetAmount.multiply(new BigDecimal(getCParam().liquidation_ratio)).setScale(0, RoundingMode.DOWN));
-        BigDecimal totalWithdrawableAmount = totalWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).divide(new BigDecimal(getPrice().price), 0, RoundingMode.HALF_DOWN);
-        WLog.w("totalWithdrawableValue " +  totalWithdrawableValue);
-        WLog.w("totalWithdrawableAmount " +  totalWithdrawableAmount);
-
-        BigDecimal selfDepositAmount = BigDecimal.ZERO;
-        for (ResCdpDepositStatus.Result deposit:getSActivity().mMyDepositList) {
-            if (deposit.cdp_id.equals(getOwenCdp().cdp.id) && deposit.depositor.equals(getSActivity().mAccount.address)) {
-                selfDepositAmount = new BigDecimal(deposit.amount.get(0).amount);
-            }
-        }
-        WLog.w("selfDepositAmount " +  selfDepositAmount);
-
-        if (totalWithdrawableAmount.compareTo(selfDepositAmount) > 0) {
-            mCanWithdrawMaxMaxAmount = selfDepositAmount;
-            WLog.w("mCanWithdrawMaxMaxAmount " +  mCanWithdrawMaxMaxAmount);
-        } else {
-            mCanWithdrawMaxMaxAmount = totalWithdrawableAmount;
-            WLog.w("mCanWithdrawMaxMaxAmount " +  mCanWithdrawMaxMaxAmount);
-            mCanWithdrawMaxMaxAmount = mCanWithdrawMaxMaxAmount.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
-            WLog.w("mCanWithdrawMaxMaxAmount padding " +  mCanWithdrawMaxMaxAmount);
-        }
-
+        BigDecimal selfDepositAmount = getSActivity().mMyDeposits.getSelfDeposit(getSActivity().mAccount.address);
+        mCurrentTotalDebetAmount = getOwenCdp().getEstimatedTotalDebt(getContext(), getCParam());
+        mCanWithdrawMaxMaxAmount = getOwenCdp().getWithdrawableAmount(getContext(), getCParam(), mCurrentPrice, selfDepositAmount);
         WDp.showCoinDp(getContext(), mCollateralDenom, mCanWithdrawMaxMaxAmount.toPlainString(), mCollateralDenomTx, mCollateralMaxTx, getSActivity().mBaseChain);
 
         mCollateralSymbol.setText(mCollateralDenom.toUpperCase());
         try {
             Picasso.get().load(KAVA_COIN_IMG_URL + mCollateralDenom + ".png").fit().into(mCollateralImg);
         } catch (Exception e) { }
+
+
+        mCurrentCollateralAmount = getOwenCdp().getCollateralAmount();
 
         //before(current) state views!!
         mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);

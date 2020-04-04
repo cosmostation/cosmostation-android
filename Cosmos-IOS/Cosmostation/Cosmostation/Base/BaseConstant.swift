@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -27,6 +27,7 @@ let KEY_USING_BIO_AUTH                  = "KEY_USING_BIO_AUTH"
 let KEY_PRICE_TIC_CGC                   = "KEY_PRICE_TIC_CGC"
 let KEY_PRICE_TIC_CMC                   = "KEY_PRICE_TIC_CMC"
 let KEY_FCM_TOKEN                       = "KEY_FCM_TOKEN"
+let KEY_KAVA_TESTNET_WARN               = "KEY_KAVA_TESTNET_WARN"
 
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 let CSS_LCD_URL                         = "https://lcd-cosmos-app.cosmostation.io/";
@@ -34,7 +35,9 @@ let CSS_LCD_URL                         = "https://lcd-cosmos-app.cosmostation.i
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let BNB_URL                             = "https://dex.binance.org/";
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
-let KAVA_TEST_URL                       = "https://lcd-kava-testnet.cosmostation.io/";
+//let KAVA_TEST_URL                       = "https://lcd-kava-testnet.cosmostation.io/";
+let KAVA_TEST_URL                       = "https://kava-testnet-4000.kava.io/";
+
 let KAVA_TEST_API                       = "https://api-kava-testnet.cosmostation.io/";
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
 let IOV_REST_URL                        = "https://bnsapi.cluster-mainnet.iov.one/";        // same refer as"https://bnsapi.iov.one"
@@ -135,6 +138,11 @@ let KAVA_TEST_REDELEGATION              = KAVA_TEST_URL + "staking/redelegations
 let KAVA_TEST_REWARD_ADDRESS            = KAVA_TEST_URL + "distribution/delegators/";
 let KAVA_TEST_REWARD_ADDRESS_TAIL       = "/withdraw_address";
 let KAVA_TEST_PROPOSALS                 = KAVA_TEST_URL + "gov/proposals";
+let KAVA_TEST_CDP_PARAM                 = KAVA_TEST_URL + "cdp/parameters";
+let KAVA_TEST_CDP_OWEN                  = KAVA_TEST_URL + "cdp/cdps/cdp/";
+let KAVA_TEST_CDP_DEPOSIT               = KAVA_TEST_URL + "cdp/cdps/cdp/deposits/";
+let KAVA_TEST_TOKEN_PRICE_PARAM         = KAVA_TEST_URL + "pricefeed/parameters";
+let KAVA_TEST_TOKEN_PRICE               = KAVA_TEST_URL + "pricefeed/price/";
 
 let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "/v1/account/txs/";
 let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "/v1/account/transfer_txs/";
@@ -158,6 +166,7 @@ let COSMOS_VAL_URL                      = "https://raw.githubusercontent.com/cos
 let IRIS_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
 let KAVA_IMG_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
+let KAVA_CDP_MARKET_IMG_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
 
 //DB for Account
 let DB_ACCOUNT = Table("accnt")
@@ -364,6 +373,7 @@ let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"
 let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"
 let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "300000"
 let KAVA_GAS_FEE_AMOUNT_REINVEST            = "300000"
+let KAVA_GAS_FEE_AMOUNT_CDP                 = "300000"
 
 
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"
@@ -398,6 +408,11 @@ let COLOR_IOV_DARK                          = UIColor.init(hexString: "065048")
 
 
 
+let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
+let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
+let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
+
+
 enum ChainType: String {
     case SUPPORT_CHAIN_COSMOS_MAIN
     case SUPPORT_CHAIN_IRIS_MAIN
@@ -412,8 +427,8 @@ enum ChainType: String {
         result.append(SUPPORT_CHAIN_IRIS_MAIN)
         result.append(SUPPORT_CHAIN_BINANCE_MAIN)
         result.append(SUPPORT_CHAIN_KAVA_MAIN)
-//        result.append(SUPPORT_CHAIN_IOV_MAIN)
-//        result.append(SUPPORT_CHAIN_KAVA_TEST)
+        result.append(SUPPORT_CHAIN_IOV_MAIN)
+        result.append(SUPPORT_CHAIN_KAVA_TEST)
         return result
     }
     

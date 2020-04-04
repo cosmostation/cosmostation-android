@@ -159,6 +159,62 @@
 "select_new_path_msg" = "2020. 03월 부터 Kava 키 생성에 bip44가 적용됩니다.\n\n2020. 03월 이전에 주소를 생성하신 경우 [변경전 Path]를 이후에 생성하신 경우 [변경후 Path]를 선택해주세요.\n\nPath를 잘못 선택한 경우에도 기존 Kava 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 Path를 다시 지정하면 됩니다.";
 "kava_old_path" = "변경 전 PATH (44'/118'/0'/0)";
 "kava_new_path" = "변경 후 PATH (44'/459'/0'/0)";
+"tx_next" = "다음";
+"str_deposit" = "  Deposit %@";
+"str_withdraw" = "  Withdraw %@";
+"str_cannot_repay_partially" = "Cannot repay partially";
+"str_cannot_repay_all" = "Insufficient %@ to repay all";
+"str_no_more_3day" = "3일간 숨기기";
+
+
+"current_price_format" = "Current %@ Price";
+"liquidation_price_format" = "Liquidation %@ Price";
+"debt_value_format" = "%@ Debt Value";
+"collateral_value_format" = "Collateral %@ Value";
+"withdrawable_format" = "Withdrawable %@";
+"before_liquidation_price_format" = "Initial Liquidation %@ Price";
+"after_liquidation_price_format" = "Adjusted Liquidation %@ Price";
+
+"help_collateral_rate_title" = "Min. Collateral Rate";
+"help_collateral_rate_msg" = "\nThe minimum rate at which the total USD value of the collateralized asset must be kept at against the total amount of USDX loaned from the CDP.\n\nFor example, if the minimum collateral rate is 200%, this means that in order to borrow 100 USDX from the CDP, you must deposit at least 200 USD worth of assets as collateral. If the total USD value of your collateralized asset falls below 200 USD due to price fluctuations, your position will be liquidated.";
+"help_stability_fee_title" = "Stability Fee (APR)";
+"help_stability_fee_msg" = "\nThe amount of fee you must pay for taking out USDX loans from the CDP, calculated as APR.\n\nWhen you repay your USDX debt, you must also pay this stability fee in order to close your collateralized debt position.";
+"help_liquidation_penalty_title" = "Liquidation Penalty";
+"help_liquidation_penalty_msg" = "\nThe amount of penalty you must pay in the event that your collateralized assets are liquidated due to price fluctuations.\n\nIf your collateral rate falls below minimum collateral rate, your assets will be liquidated.";
+"help_self_deposited_title" = "Self Deposited Collateral";
+"help_self_deposited_msg" = "\nThe amount of %@ deposited into the CDP as collateral from this wallet.";
+"help_total_deposited_title" = "Total Deposited Collateral";
+"help_total_deposited_msg" = "\nThe total amount of %@ deposited into the CDP as collateral.";
+"help_withdrawable_title" = "Withdrawable";
+"help_withdrawable_msg" = "\nThe amount of maximum collateral capable of being withdrawn from the CDP without reaching a risk score of 100.\n\nNote that withdrawing the collateral excessively close to the maximum amount can put the CDP into risk of going below the minimum collateral rate and being liquidated.";
+"help_loaned_amount_title" = "Loan Principal";
+"help_loaned_amount_msg" = "\nThe total amount of USDX loaned from the CDP.";
+"help_total_fee_title" = "Loan Interest";
+"help_total_fee_msg" = "\nAccrued CDP stability fee. The fee increases every second.";
+"help_remaining_loan_title" = "Remaining Loan Capacity";
+"help_remaining_loan_msg" = "\nThe amount of USDX that can be additionally loaned from the CDP. This capacity changes in accordance to changes in the collateral rate due to price fluctuations.";
+"help_kava_test_warn" = "\nThis wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.";
+
+"creat_cdp_step_0" = "Deposit collateral to borrow USDX";
+"creat_cdp_step_1" = "Insert memo (optional)";
+"creat_cdp_step_2" = "Select transaction fee";
+"creat_cdp_step_3" = "Check transaction detail";
+"deposit_cdp_step_0" = "Enter deposit amount";
+"deposit_cdp_step_1" = "Insert memo (optional)";
+"deposit_cdp_step_2" = "Select transaction fee";
+"deposit_cdp_step_3" = "Check transaction detail";
+"withdraw_cdp_step_0" = "Enter withdrawal amount";
+"withdraw_cdp_step_1" = "Insert memo (optional)";
+"withdraw_cdp_step_2" = "Select transaction fee";
+"withdraw_cdp_step_3" = "Check transaction detail";
+"drawdebt_cdp_step_0" = "Enter loan amount";
+"drawdebt_cdp_step_1" = "Insert memo (optional)";
+"drawdebt_cdp_step_2" = "Select transaction fee";
+"drawdebt_cdp_step_3" = "Check transaction detail";
+"repay_cdp_step_0" = "Enter repayment amount";
+"repay_cdp_step_1" = "Insert memo (optional)";
+"repay_cdp_step_2" = "Select transaction fee";
+"repay_cdp_step_3" = "Check transaction detail";
 
 
 "clear_all" = "전체 삭제";
@@ -203,6 +259,13 @@
 "title_guide" = "도움말";
 "title_vote" = "투표 하기";
 "title_tx_detail" = "트랜잭션 상세";
+"title_cdp_list" = "CDP 목록";
+"title_cdp_detail" = "CDP 상세";
+"title_create_cdp" = "Open CDP";
+"title_deposit_cdp" = "DEPOSIT COLLATERAL";
+"title_withdraw_cdp" = "WITHDRAW COLLATERAL";
+"title_drawdebt_cdp" = "BORROW MORE USDX";
+"title_repay_cdp" = "REPAY USDX";
 
 "proposal_type_basic" = "기본";
 "proposal_type_parameter" = "파라미터 변경";
@@ -258,6 +321,14 @@
 "error_disable" = "점검중";
 "error_disable_msg" = "시스템 점검중입니다. 자세한 내용은 커뮤니티 체널을 확인해 주세요.";
 "error_not_yet" = "준비중 입니다!";
+"error_less_than_min_deposit" = "Less than the minimum deposit amount.";
+"error_less_than_min_principal" = "Less than the minimum loan amount.";
+"error_not_enought_deposit_asset" = "Not enought collateral to deposit.";
+"error_not_enought_withdraw_asset" = "Cannot withdraw collateral now.";
+"error_can_not_draw_debt" = "Cannot more loan now.";
+"error_not_enought_principal_asset" = "Not enough USDX to repay.";
+"error_can_not_repay" = "Cannot repay now. You need more USDX to Repay.";
+"error_circuit_breaker" = "Now circuit breake";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";
@@ -300,11 +371,11 @@
 "tx_cancel_order" = "주문 취소";
 "tx_issue_token" = "토큰 발행";
 "tx_kava_post_price" = "가격 정보 갱신";
-"tx_kava_create_cdp" = "CDP 생성";
-"tx_kava_deposit_cdp" = "CDP 담보 예치";
-"tx_kava_withdraw_cdp" = "CDP 융자 출금";
-"tx_kava_drawdebt_cdp" = "CDP 융자 증가";
-"tx_kava_repaydebt_cdp" = "CDP 상환";
+"tx_kava_create_cdp" = "CDP - 개설";
+"tx_kava_deposit_cdp" = "CDP - 예치";
+"tx_kava_withdraw_cdp" = "CDP - 출금";
+"tx_kava_drawdebt_cdp" = "CDP - 대출";
+"tx_kava_repaydebt_cdp" = "CDP - 상환";
 "tx_known" = "알수없음";
 
 "chain_title_cosmos" = "COSMOS Hub";

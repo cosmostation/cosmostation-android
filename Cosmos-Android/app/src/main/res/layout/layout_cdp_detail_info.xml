@@ -53,12 +53,22 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
                     <ImageView
                         android:id="@+id/cdp_safe_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"/>
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/img_safe"/>
+                    <ImageView
+                        android:layout_width="@dimen/space_14"
+                        android:layout_height="@dimen/space_14"
+                        android:layout_toRightOf="@+id/cdp_safe_img"
+                        android:layout_marginLeft="@dimen/space_4"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/question_ic"/>
                     <TextView
                         android:id="@+id/cdp_safe_rate"
                         android:layout_width="wrap_content"
