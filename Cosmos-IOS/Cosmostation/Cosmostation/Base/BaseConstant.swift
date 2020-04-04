@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = true;
+let SHOW_LOG                            = false;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -427,7 +427,7 @@ enum ChainType: String {
         result.append(SUPPORT_CHAIN_IRIS_MAIN)
         result.append(SUPPORT_CHAIN_BINANCE_MAIN)
         result.append(SUPPORT_CHAIN_KAVA_MAIN)
-        result.append(SUPPORT_CHAIN_IOV_MAIN)
+//        result.append(SUPPORT_CHAIN_IOV_MAIN)
         result.append(SUPPORT_CHAIN_KAVA_TEST)
         return result
     }
