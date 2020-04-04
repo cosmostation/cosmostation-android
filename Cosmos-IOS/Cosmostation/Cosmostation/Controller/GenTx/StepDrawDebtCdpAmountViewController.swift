@@ -255,7 +255,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
         } else {
             btnNext.setTitleColor(UIColor.black, for: .normal)
             btnNext.layer.borderWidth = 0.0
-            if (afterRiskRate.doubleValue < 50) {
+            if (afterRiskRate.doubleValue <= 50) {
                 btnNext.backgroundColor = COLOR_CDP_SAFE
 //                btnNext.setTitle(afterRiskRate.stringValue + " SAFE", for: .normal)
                 btnNext.setTitle("SAFE", for: .normal)

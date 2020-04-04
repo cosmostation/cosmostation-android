@@ -42,10 +42,10 @@
                                 <rect key="frame" x="0.0" y="50" width="320" height="60"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="4StepImg1" translatesAutoresizingMaskIntoConstraints="NO" id="3xJ-ty-n1M">
-                                        <rect key="frame" x="30" y="8" width="260" height="36"/>
+                                        <rect key="frame" x="95" y="8" width="130" height="18"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description for Transaction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUG-5q-kHF">
-                                        <rect key="frame" x="76.5" y="56" width="167" height="17"/>
+                                        <rect key="frame" x="76.5" y="38" width="167" height="17"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -4626,10 +4626,10 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bycicle" translatesAutoresizingMaskIntoConstraints="NO" id="Dh7-r8-QZm">
-                                <rect key="frame" x="70" y="270.5" width="180" height="124"/>
+                                <rect key="frame" x="115" y="270.5" width="90" height="62"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only a handful of validators will process this Tx" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="riU-g3-Hyc">
-                                <rect key="frame" x="46" y="402.5" width="228.5" height="13"/>
+                                <rect key="frame" x="46" y="340.5" width="228.5" height="13"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>

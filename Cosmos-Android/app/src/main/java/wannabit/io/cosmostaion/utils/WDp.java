@@ -1514,7 +1514,7 @@ public class WDp {
     }
 
     public static void DpRiskButton(Context c, BigDecimal riskRate, Button button) {
-        if (riskRate.longValue() < 50) {
+        if (riskRate.longValue() <= 50) {
             button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_safe_fill));
             button.setTextColor(c.getResources().getColor(R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
@@ -1535,7 +1535,7 @@ public class WDp {
     }
 
     public static void DpRiskButton2(Context c, BigDecimal riskRate, Button button) {
-        if (riskRate.longValue() < 50) {
+        if (riskRate.longValue() <= 50) {
             button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_safe_fill));
             button.setTextColor(c.getResources().getColor(R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
@@ -1557,7 +1557,7 @@ public class WDp {
 
     public static void DpRiskRate2(Context c, BigDecimal riskRate, TextView text, TextView rate, LinearLayout layer) {
         rate.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
-        if (riskRate.longValue() < 50) {
+        if (riskRate.longValue() <= 50) {
             text.setText("SAFE");
             layer.setBackground(c.getResources().getDrawable(R.drawable.btn_score_safe_fill));
 
@@ -1573,7 +1573,7 @@ public class WDp {
 
     public static void DpRiskRate3(Context c, BigDecimal riskRate, TextView score, TextView rate) {
         score.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
-        if (riskRate.longValue() < 50) {
+        if (riskRate.longValue() <= 50) {
             rate.setText("SAFE");
             rate.setTextColor(c.getResources().getColor(R.color.colorCdpSafe));
             score.setTextColor(c.getResources().getColor(R.color.colorCdpSafe));

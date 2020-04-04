@@ -265,7 +265,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
         } else {
             btnNext.setTitleColor(UIColor.black, for: .normal)
             btnNext.layer.borderWidth = 0.0
-            if (afterRiskRate.doubleValue < 50) {
+            if (afterRiskRate.doubleValue <= 50) {
                 btnNext.backgroundColor = COLOR_CDP_SAFE
                 btnNext.setTitle("SAFE", for: .normal)
                 if (reaminPAmount == NSDecimalNumber.zero) {

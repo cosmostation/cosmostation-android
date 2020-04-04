@@ -386,7 +386,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
 
         } else if (v.equals(mBtnPrincipal20)) {
-            BigDecimal cal = mPrincipalMaxAmount.multiply(new BigDecimal(0.2)).setScale(0, RoundingMode.DOWN);
+            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.2")).multiply(new BigDecimal(getPrice().price)).divide(new BigDecimal(getCParam().liquidation_ratio), 0, RoundingMode.DOWN);
             if (mPrincipalMinAmount.compareTo(cal) > 0) {
                 mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();
@@ -395,7 +395,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             }
 
         } else if (v.equals(mBtnPrincipal50)) {
-            BigDecimal cal = mPrincipalMaxAmount.multiply(new BigDecimal(0.5)).setScale(0, RoundingMode.DOWN);
+            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.5")).multiply(new BigDecimal(getPrice().price)).divide(new BigDecimal(getCParam().liquidation_ratio), 0, RoundingMode.DOWN);
             if (mPrincipalMinAmount.compareTo(cal) > 0) {
                 mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();
@@ -404,7 +404,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             }
 
         } else if (v.equals(mBtnPrincipal70)) {
-            BigDecimal cal = mPrincipalMaxAmount.multiply(new BigDecimal(0.7)).setScale(0, RoundingMode.DOWN);
+            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.7")).multiply(new BigDecimal(getPrice().price)).divide(new BigDecimal(getCParam().liquidation_ratio), 0, RoundingMode.DOWN);
             if (mPrincipalMinAmount.compareTo(cal) > 0) {
                 mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();

@@ -283,7 +283,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     }
     
     @IBAction func onClickP20(_ sender: UIButton) {
-        var calValue = pMaxAmount.multiplying(by: NSDecimalNumber.init(string: "0.2"))
+        var calValue = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.2")).multiplying(by: currentPrice).dividing(by: cParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
         if (calValue.compare(pMinAmount).rawValue < 0) {
             calValue = pMinAmount
             self.onShowToast(NSLocalizedString("error_less_than_min_principal", comment: ""))
@@ -294,7 +294,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     }
     
     @IBAction func onClickP50(_ sender: UIButton) {
-        var calValue = pMaxAmount.multiplying(by: NSDecimalNumber.init(string: "0.5"))
+        var calValue = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.5")).multiplying(by: currentPrice).dividing(by: cParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
         if (calValue.compare(pMinAmount).rawValue < 0) {
             calValue = pMinAmount
             self.onShowToast(NSLocalizedString("error_less_than_min_principal", comment: ""))
@@ -306,7 +306,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     }
     
     @IBAction func onClickP70(_ sender: UIButton) {
-        var calValue = pMaxAmount.multiplying(by: NSDecimalNumber.init(string: "0.7"))
+        var calValue = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.7")).multiplying(by: currentPrice).dividing(by: cParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
         if (calValue.compare(pMinAmount).rawValue < 0) {
             calValue = pMinAmount
             self.onShowToast(NSLocalizedString("error_less_than_min_principal", comment: ""))
@@ -439,7 +439,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             } else {
                 btnNext.setTitleColor(UIColor.black, for: .normal)
                 btnNext.layer.borderWidth = 0.0
-                if (riskRate.doubleValue < 50) {
+                if (riskRate.doubleValue <= 50) {
                     btnNext.backgroundColor = COLOR_CDP_SAFE
                     btnNext.setTitle(riskRate.stringValue + " SAFE", for: .normal)
                     
