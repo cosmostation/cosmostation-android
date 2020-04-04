@@ -1280,6 +1280,13 @@ class WUtils {
     
     static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (coin.denom == COSMOS_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             
@@ -1296,6 +1303,13 @@ class WUtils {
     
     static func showCoinDp(_ denom:String, _ amount:String, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (denom == COSMOS_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             
