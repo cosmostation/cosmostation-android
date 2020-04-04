@@ -50,6 +50,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         self.delegate = self
         self.selectedIndex = BaseData.instance.getLastTab()
+        
+        if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST && BaseData.instance.getKavaWarn()) {
+             DispatchQueue.main.async(execute: {
+                self.showKavaTestWarn()
+             });
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -164,9 +171,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         mChainType = ChainType(rawValue: mAccount.account_base_chain)
         mAccounts = BaseData.instance.selectAllAccounts()
-        if(mAccount == nil) {
+        if (mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
         }
+        
+        
     }
     
     func onFetchAccountData() -> Bool {
@@ -1164,11 +1173,32 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
     }
     
+    public func showKavaTestWarn() {
+            print("showKavaTestWarn")
+            let warnAlert = UIAlertController(title: NSLocalizedString("chain_title_kava_test", comment: ""), message: "", preferredStyle: .alert)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = NSTextAlignment.left
+            let messageText = NSMutableAttributedString(
+                string: NSLocalizedString("help_kava_test_warn", comment: ""),
+                attributes: [
+                    NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                    NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
+                ]
+            )
+            warnAlert.setValue(messageText, forKey: "attributedMessage")
+            warnAlert.addAction(UIAlertAction(title: NSLocalizedString("str_no_more_3day", comment: ""), style: .destructive, handler: { _ in
+                BaseData.instance.setKavaWarn()
+            }))
+            warnAlert.addAction(UIAlertAction(title: NSLocalizedString("confirm", comment: ""), style: .default, handler: nil))
+            self.present(warnAlert, animated: true, completion: nil)
+        }
+    
     public func hideWaittingAlert(){
         if (waitAlert != nil) {
             waitAlert?.dismiss(animated: true, completion: nil)
         }
     }
+    
     
     func accountSelected(_ id: Int) {
         if (id != self.mAccount.account_id) {

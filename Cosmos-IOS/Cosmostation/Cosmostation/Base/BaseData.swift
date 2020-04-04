@@ -266,6 +266,20 @@ final class BaseData : NSObject{
         return UserDefaults.standard.string(forKey: KEY_FCM_TOKEN) ?? ""
     }
     
+    func setKavaWarn() {
+        let remindTime = Calendar.current.date(byAdding: .day, value: 3, to: Date())?.millisecondsSince1970
+        UserDefaults.standard.set(String(remindTime!), forKey: KEY_KAVA_TESTNET_WARN)
+    }
+    
+    func getKavaWarn() ->Bool {
+        let reminTime = Int64(UserDefaults.standard.string(forKey: KEY_KAVA_TESTNET_WARN) ?? "0")
+        if (Date().millisecondsSince1970 > reminTime!) {
+            return true
+        }
+        return false
+    }
+    
+    
     func initdb() {
         do {
             let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)

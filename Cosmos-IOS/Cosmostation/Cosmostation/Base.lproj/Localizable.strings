@@ -165,6 +165,7 @@
 "str_withdraw" = "  Withdraw %@";
 "str_cannot_repay_partially" = "Cannot repay partially";
 "str_cannot_repay_all" = "Insufficient %@ to repay all";
+"str_no_more_3day" = "Hide 3Days";
 
 "current_price_format" = "Current %@ Price";
 "liquidation_price_format" = "Liquidation %@ Price";
@@ -192,6 +193,7 @@
 "help_total_fee_msg" = "\nAccrued CDP stability fee. The fee increases every second.";
 "help_remaining_loan_title" = "Remaining Loan Capacity";
 "help_remaining_loan_msg" = "\nThe amount of USDX that can be additionally loaned from the CDP. This capacity changes in accordance to changes in the collateral rate due to price fluctuations.";
+"help_kava_test_warn" = "\nThis wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
 "creat_cdp_step_1" = "Insert memo (optional)";

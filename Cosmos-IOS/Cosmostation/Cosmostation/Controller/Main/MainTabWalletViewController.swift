@@ -142,7 +142,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
-    
     @objc func onFetchDone(_ notification: NSNotification) {
         self.walletTableView.reloadData()
         self.refresher.endRefreshing()
@@ -151,7 +150,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func emptyFloatySelected(_ floaty: Floaty) {
         self.onClickMainSend()
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {

@@ -27,6 +27,7 @@ let KEY_USING_BIO_AUTH                  = "KEY_USING_BIO_AUTH"
 let KEY_PRICE_TIC_CGC                   = "KEY_PRICE_TIC_CGC"
 let KEY_PRICE_TIC_CMC                   = "KEY_PRICE_TIC_CMC"
 let KEY_FCM_TOKEN                       = "KEY_FCM_TOKEN"
+let KEY_KAVA_TESTNET_WARN               = "KEY_KAVA_TESTNET_WARN"
 
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 let CSS_LCD_URL                         = "https://lcd-cosmos-app.cosmostation.io/";
