@@ -375,7 +375,7 @@
     <string name="str_remain_debt_title2">Amount</string>
     <string name="str_collateral_value_title1">Collateral</string>
     <string name="str_collateral_value_title2">Value</string>
-    <string name="str_open_cdp">Create CDP</string>
+    <string name="str_open_cdp">Open CDP</string>
     <string name="str_available_amount">Available Amount</string>
     <string name="str_self_deposited_amount">Deposited Collateral (self)</string>
     <string name="str_total_deposited_amount">Deposited Collateral (total)</string>
@@ -430,7 +430,7 @@
     <string name="str_help_total_fee">Accrued CDP stability fee. The fee increases every second.</string>
     <string name="str_help_risk">A risk score of 100 will cause your CDP to be liquidated. Risk Score is calculated through comparing the current token price of your collateralized asset against the token price at which the CDP will be liquidated.\n\nFor example, a risk score of 60 and the current token price of your collateralized asset at $10 means that your CDP will be liquidated if the token price reaches $6.</string>
 
-    <string name="str_create_cdp_c">CREATE CDP</string>
+    <string name="str_create_cdp_c">OPEN CDP</string>
     <string name="str_repay_cdp_c">REPAY USDX</string>
     <string name="str_draw_debt_cdp_c">BORROW MORE USDX</string>
     <string name="str_deposit_cdp_c">DEPOSIT COLLATERAL</string>
@@ -745,7 +745,7 @@
     <string name="tx_issue_token">토큰 발행</string>
     <string name="tx_known">알수없음</string>
     <string name="tx_kava_post_price">가격 정보 갱신</string>
-    <string name="tx_kava_create_cdp">CDP - 생성</string>
+    <string name="tx_kava_create_cdp">CDP - 개설</string>
     <string name="tx_kava_deposit_cdp">CDP - 예치</string>
     <string name="tx_kava_withdraw_cdp">CDP - 출금</string>
     <string name="tx_kava_drawdebt_cdp">CDP - 대출</string>
