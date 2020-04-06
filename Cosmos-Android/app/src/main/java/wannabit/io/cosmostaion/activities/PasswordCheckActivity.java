@@ -222,7 +222,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_SEND) {
             onShowWaitDialog();
-            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_MAIN)) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_MAIN) || BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_TEST)) {
                 new SimpleBnbSendTask(getBaseApplication(),
                         this,
                         mAccount,

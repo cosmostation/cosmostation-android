@@ -128,7 +128,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount), getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
             }
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             mDpDecimal = 8;
             mDenomSendAmount.setText(getSActivity().mBnbToken.original_symbol.toUpperCase());
             mDenomCurrentAmount.setText(getSActivity().mBnbToken.original_symbol.toUpperCase());
