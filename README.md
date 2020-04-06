@@ -1,4 +1,7 @@
 <p align="center">
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
   <a href="https://www.cosmostation.io" target="_blank" rel="noopener noreferrer"><img width="100" src="https://user-images.githubusercontent.com/20435620/55696624-d7df2e00-59f8-11e9-9126-edf9a40b11a8.png" alt="Cosmostation logo"></a>
 </p>
 <h1 align="center">Cosmostation Mobile Wallet</h1>
@@ -126,3 +129,22 @@ sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer/
 Copyright © Cosmostation, Inc. All rights reserved.
 
 Licensed under the [MIT](LICENSE).
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/wannabit-yongjoo"><img src="https://avatars3.githubusercontent.com/u/38899600?v=4" width="100px;" alt=""/><br /><sub><b>wannabit-yongjoo</b></sub></a><br /><a href="https://github.com/cosmostation/cosmostation-mobile/commits?author=wannabit-yongjoo" title="Code">💻</a> <a href="https://github.com/cosmostation/cosmostation-mobile/issues?q=author%3Awannabit-yongjoo" title="Bug reports">🐛</a> <a href="#maintenance-wannabit-yongjoo" title="Maintenance">🚧</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
