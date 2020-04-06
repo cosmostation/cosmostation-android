@@ -529,6 +529,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
                     holder.chainName.setText(getString(R.string.str_iov));
 
+                } else if (chain.equals(BaseChain.BNB_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));
+                    holder.chainName.setText(getString(R.string.str_binance_test));
+
                 } else if (chain.equals(BaseChain.KAVA_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);

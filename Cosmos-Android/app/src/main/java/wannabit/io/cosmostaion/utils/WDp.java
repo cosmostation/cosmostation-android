@@ -72,7 +72,7 @@ public class WDp {
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
-        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -1040,7 +1040,7 @@ public class WDp {
     }
 
     public static String getPath(BaseChain chain, int position, boolean newBip) {
-        if (chain.equals(BaseChain.BNB_MAIN)) {
+        if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return BaseConstant.KEY_BNB_PATH + String.valueOf(position);
         } else if (chain.equals(BaseChain.IOV_MAIN)) {
             return BaseConstant.KEY_IOV_PATH + String.valueOf(position) +"'";
@@ -1341,27 +1341,12 @@ public class WDp {
         return ""+c.getTimeInMillis();
     }
 
-    public static String DpAtom(Context c) {
-        String result = c.getString(R.string.s_atom);
-        return result;
-    }
-
-    public static String DpPoton(Context c) {
-        String result = c.getString(R.string.s_photon);
-        return result;
-    }
-
-    public static String DpIris(Context c) {
-        String result = c.getString(R.string.s_iris);
-        return result;
-    }
-
     public static int getChainColor(Context c, BaseChain chain) {
         if (chain.equals(BaseChain.COSMOS_MAIN)) {
             return c.getResources().getColor(R.color.colorAtom);
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return c.getResources().getColor(R.color.colorIris);
-        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return c.getResources().getColor(R.color.colorBnb);
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             return c.getResources().getColor(R.color.colorKava);
@@ -1403,7 +1388,7 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorIris));
             textview.setText(c.getString(R.string.s_iris));
 
-        } else if (BaseChain.getChain(chain).equals(BaseChain.BNB_MAIN)) {
+        } else if (BaseChain.getChain(chain).equals(BaseChain.BNB_MAIN) || BaseChain.getChain(chain).equals(BaseChain.BNB_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBnb));
             textview.setText(c.getString(R.string.s_bnb));
 

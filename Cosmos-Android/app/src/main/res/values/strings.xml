@@ -223,6 +223,7 @@
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_iris" translatable="false">IRIS</string>
     <string name="str_binance" translatable="false">BINANCE</string>
+    <string name="str_binance_test" translatable="false">BINANCE\nTEST</string>
     <string name="str_iov" translatable="false">IOV</string>
     <string name="str_kava" translatable="false">KAVA</string>
     <string name="str_kava_test" translatable="false">KAVA TEST</string>
