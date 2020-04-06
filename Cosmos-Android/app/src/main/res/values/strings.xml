@@ -218,6 +218,7 @@
     <string name="str_cosmos_hub" translatable="false">(Cosmos Hub)</string>
     <string name="str_iris_net" translatable="false">(Iris Hub)</string>
     <string name="str_binance_net" translatable="false">(Binance Chain)</string>
+    <string name="str_binance_test_net" translatable="false">(Binance Test Chain)</string>
     <string name="str_iov_net" translatable="false">(IOV Chain)</string>
     <string name="str_kava_net" translatable="false">(KAVA Chain)</string>
     <string name="str_kava_net_test" translatable="false">(KAVA Test Chain)</string>

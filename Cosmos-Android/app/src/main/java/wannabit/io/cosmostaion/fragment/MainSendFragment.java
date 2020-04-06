@@ -362,16 +362,21 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_faq_iris);
             mFaqBtn.setText(R.string.str_guide_iris);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.VISIBLE);
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
-            if (SUPPORT_MOONPAY) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+                mBnbCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            }
+            if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 mBuyLayer.setVisibility(View.VISIBLE);
                 mBuyCoinTv.setText(R.string.str_buy_bnb);
+            } else {
+                mBuyLayer.setVisibility(View.GONE);
             }
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -387,11 +392,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.GONE);
             mKavaCard.setVisibility(View.VISIBLE);
+            mIovCard.setVisibility(View.GONE);
+            mMintCards.setVisibility(View.VISIBLE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             }
-            mIovCard.setVisibility(View.GONE);
             if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 mBuyLayer.setVisibility(View.VISIBLE);
                 mBuyCoinTv.setText(R.string.str_buy_kava);
@@ -493,7 +499,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             try {
                 if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB) != null) {
                     Balance bnbToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB);

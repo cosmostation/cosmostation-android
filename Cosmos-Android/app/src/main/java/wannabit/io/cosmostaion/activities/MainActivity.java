@@ -259,6 +259,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKava));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
 
+        } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));
+            mToolbarChainName.setText(getString(R.string.str_binance_test_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
+
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
             mToolbarChainName.setText(getString(R.string.str_kava_net_test));
@@ -384,7 +390,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 hasbalance  = true;
             }
             intent.putExtra("iovDenom", COSMOS_IOV);
-//            intent.putExtra("iovToken", WUtil.getIovMainToken(mIovTokens));
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {

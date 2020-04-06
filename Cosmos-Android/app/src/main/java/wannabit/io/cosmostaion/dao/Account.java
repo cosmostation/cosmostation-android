@@ -226,7 +226,7 @@ public class Account {
             } else if (chain.equals(BaseChain.IRIS_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 18, 18);
 
-            } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 8);
 
             } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
