@@ -253,7 +253,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
             }
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
             if (mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -308,14 +308,18 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             BigDecimal totalAmount = WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward, mAllValidators);
             mTvIrisValue.setText(WDp.getValueOfIris(this, getBaseDao(), totalAmount));
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN) && mBalance.symbol.equals(COSMOS_BNB)) {
+        } else if ((mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) && mBalance.symbol.equals(COSMOS_BNB)) {
             mBnbCard.setVisibility(View.VISIBLE);
             mBnbAction.setVisibility(View.GONE);
             mBnbTransfer.setVisibility(View.VISIBLE);
-            mBtnBuyBnb.setVisibility(View.VISIBLE);
             mBtnSendBnb.setOnClickListener(this);
             mBtnReceiveBnb.setOnClickListener(this);
-            mBtnBuyBnb.setOnClickListener(this);
+            if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                mBtnBuyBnb.setVisibility(View.VISIBLE);
+                mBtnBuyBnb.setOnClickListener(this);
+            } else {
+                mBtnBuyBnb.setVisibility(View.GONE);
+            }
 
             if (mBnbToken != null) {
                 BigDecimal totalAmount = mBalance.locked.add(mBalance.balance);
@@ -375,7 +379,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTokenRewardLayer.setVisibility(View.GONE);
                 mTokenImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
 
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) && mBnbToken != null) {
+            } else if ((mBaseChain.equals(BaseChain.BNB_MAIN) || (mBaseChain.equals(BaseChain.BNB_TEST))) && mBnbToken != null) {
                 mTokenLink.setVisibility(View.VISIBLE);
                 mBtnTokenDetail.setOnClickListener(this);
                 mBtnSendToken.setOnClickListener(this);
@@ -432,7 +436,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             ReqTxToken req = new ReqTxToken(0, 1, true, mAccount.address, mBalance.symbol);
             new TokenHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
             new HistoryTask(getBaseApplication(), this, null, mBaseChain)
                     .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString(), mBnbToken.symbol);
 
@@ -602,7 +606,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 return false;
             }
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
             if (WDp.getAvailableCoin(balances, COSMOS_BNB).compareTo(new BigDecimal("0.000375")) > 0) {
                 hasbalance  = true;
             }
@@ -684,7 +688,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     }
                 });
 
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
                 final BnbHistory history = mBnbHistory.get(position);
                 viewHolder.historyType.setText(history.txType);
                 viewHolder.historyType.setText(WDp.DpBNBTxType(getBaseContext(), history, mAccount.address));
@@ -692,6 +696,15 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 viewHolder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), history.timeStamp));
                 viewHolder.history_block.setText(history.blockHeight + " block");
                 viewHolder.historySuccess.setVisibility(View.GONE);
+                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent webintent = new Intent(getBaseContext(), WebActivity.class);
+                        webintent.putExtra("txid", history.txHash);
+                        webintent.putExtra("chain", mBaseChain.getChain());
+                        startActivity(webintent);
+                    }
+                });
 
             } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 final ResHistory.Source source = mHistory.get(position)._source;
@@ -753,7 +766,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     mBaseChain.equals(BaseChain.IRIS_MAIN) ||
                     mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 return mHistory.size();
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
                 return mBnbHistory.size();
             } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 return mApiTxHistory.size();

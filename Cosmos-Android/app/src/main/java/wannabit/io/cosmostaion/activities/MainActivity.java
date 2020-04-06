@@ -379,7 +379,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
             intent.putExtra("irisToken", WUtil.getIrisMainToken(mIrisTokens));
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
             if (WDp.getAvailableCoin(balances, COSMOS_BNB).compareTo(new BigDecimal("0.000375")) > 0) {
                 hasbalance  = true;
             }
