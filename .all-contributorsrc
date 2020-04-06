@@ -25,6 +25,17 @@
         "doc",
         "projectManagement"
       ]
+    },
+    {
+      "login": "HeartBreaker",
+      "name": "HeartBreaker",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/327096?v=4",
+      "profile": "https://github.com/HeartBreaker",
+      "contributions": [
+        "code",
+        "bug",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
