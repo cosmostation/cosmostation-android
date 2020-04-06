@@ -68,6 +68,21 @@ public class ApiClient {
         return service_binance;
     }
 
+    //Services for BinanceTest net
+    private static BinanceChain service_binance_test = null;
+    public static BinanceChain getBnbTestChain(Context c) {
+        if (service_binance_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_test_bnb))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_binance_test = retrofit.create(BinanceChain.class);
+            }
+        }
+        return service_binance_test;
+    }
+
     //Services for KAVA chain
     private static KavaChain service_kava = null;
     public static KavaChain getKavaChain(Context c) {
