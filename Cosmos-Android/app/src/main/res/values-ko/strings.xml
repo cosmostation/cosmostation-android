@@ -8,6 +8,7 @@
     <string name="str_bnb_main_net">바이낸스 메인넷</string>
     <string name="str_iov_main_net">아이오비 메인넷</string>
     <string name="str_kava_main_net">카바 메인넷</string>
+    <string name="str_bnb_test_net">바이낸스 테스트넷</string>
     <string name="str_kava_test_net">카바 테스트넷</string>
 
 

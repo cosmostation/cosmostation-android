@@ -62,6 +62,7 @@
     <string name="str_bnb_main_net">Binance Mainnet</string>
     <string name="str_iov_main_net">IOV Mainnet</string>
     <string name="str_kava_main_net">KAVA Mainnet</string>
+    <string name="str_bnb_test_net">Binance Testnet</string>
     <string name="str_kava_test_net">KAVA Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
