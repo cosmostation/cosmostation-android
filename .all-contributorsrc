@@ -45,6 +45,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ronaldstoner",
+      "name": "Ron Stoner",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6909088?v=4",
+      "profile": "http://www.twitter.com/forwardsecrecy",
+      "contributions": [
+        "bug",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
