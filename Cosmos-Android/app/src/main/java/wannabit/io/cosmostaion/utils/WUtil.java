@@ -895,7 +895,7 @@ public class WUtil {
                     if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
                     if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
 
-                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                     if(o1.symbol.equals(COSMOS_BNB)) return -1;
                     if(o2.symbol.equals(COSMOS_BNB)) return 1;
 
@@ -926,7 +926,7 @@ public class WUtil {
                     if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
                     if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
 
-                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                     if(o1.symbol.equals(COSMOS_BNB)) return -1;
                     if(o2.symbol.equals(COSMOS_BNB)) return 1;
 

@@ -495,6 +495,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             mBalances = getBaseDao().onSelectBalance(mAccount.id);
+            WLog.w("mBalances " + mBalances.size());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_ALL_VALIDATOR) {
             if (!result.isSuccess) {
