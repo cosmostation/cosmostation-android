@@ -1,5 +1,5 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <p align="center">
   <a href="https://www.cosmostation.io" target="_blank" rel="noopener noreferrer"><img width="100" src="https://user-images.githubusercontent.com/20435620/55696624-d7df2e00-59f8-11e9-9126-edf9a40b11a8.png" alt="Cosmostation logo"></a>
@@ -140,6 +140,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/wannabit-yongjoo"><img src="https://avatars3.githubusercontent.com/u/38899600?v=4" width="100px;" alt=""/><br /><sub><b>wannabit-yongjoo</b></sub></a><br /><a href="https://github.com/cosmostation/cosmostation-mobile/commits?author=wannabit-yongjoo" title="Code">💻</a> <a href="https://github.com/cosmostation/cosmostation-mobile/issues?q=author%3Awannabit-yongjoo" title="Bug reports">🐛</a> <a href="#maintenance-wannabit-yongjoo" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://jaybdev.net"><img src="https://avatars1.githubusercontent.com/u/20435620?v=4" width="100px;" alt=""/><br /><sub><b>JayB</b></sub></a><br /><a href="https://github.com/cosmostation/cosmostation-mobile/commits?author=kogisin" title="Documentation">📖</a> <a href="#projectManagement-kogisin" title="Project Management">📆</a></td>
   </tr>
 </table>
 

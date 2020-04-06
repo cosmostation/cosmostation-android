@@ -15,6 +15,16 @@
         "bug",
         "maintenance"
       ]
+    },
+    {
+      "login": "kogisin",
+      "name": "JayB",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/20435620?v=4",
+      "profile": "https://jaybdev.net",
+      "contributions": [
+        "doc",
+        "projectManagement"
+      ]
     }
   ],
   "contributorsPerLine": 7,
