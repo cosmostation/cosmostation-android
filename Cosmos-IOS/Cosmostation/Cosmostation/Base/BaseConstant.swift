@@ -428,7 +428,7 @@ enum ChainType: String {
         result.append(SUPPORT_CHAIN_BINANCE_MAIN)
         result.append(SUPPORT_CHAIN_KAVA_MAIN)
 //        result.append(SUPPORT_CHAIN_IOV_MAIN)
-        result.append(SUPPORT_CHAIN_KAVA_TEST)
+//        result.append(SUPPORT_CHAIN_KAVA_TEST)
         return result
     }
     
