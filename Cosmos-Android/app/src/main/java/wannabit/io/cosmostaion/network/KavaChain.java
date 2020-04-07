@@ -108,4 +108,14 @@ public interface KavaChain {
     @GET("/pricefeed/price/{market}")
     Call<ResKavaMarketPrice> getPrice(@Path("market") String market);
 
+
+    @GET("/bep3/parameters")
+    Call<String> getSwapParams();
+
+    @GET("/bep3/swap/{swapId}")
+    Call<String> getSwapById(@Path("swapId") String swapId);
+
+    @GET("/bep3/swaps")
+    Call<String> getSwaps();
+
 }

@@ -111,4 +111,15 @@ public enum BaseChain {
     public static boolean IS_SUPPORT_CHAIN(String chain) {
         return SUPPORT_CHAINS().contains(getChain(chain));
     }
+
+    public static ArrayList<BaseChain> getHtlcSendable(BaseChain fromChain) {
+        ArrayList<BaseChain> result = new ArrayList<>();
+        if (fromChain.equals(BNB_TEST.getChain())) {
+            result.add(KAVA_TEST);
+
+        } else if (fromChain.equals(KAVA_TEST.getChain())) {
+            result.add(BNB_TEST);
+        }
+        return result;
+    }
 }

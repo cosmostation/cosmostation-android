@@ -17,10 +17,11 @@
 
 
     <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>
-    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet.cosmostation.io/</string>
+    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet-5000.cosmostation.io/</string>
 <!--    <string name="url_lcd_kava_test" translatable="false">https://kava-testnet-4000.kava.io/</string>-->
     <string name="url_api_kava_main" translatable="false"></string>
-    <string name="url_api_kava_test" translatable="false">https://api-kava-testnet.cosmostation.io/</string>
+    <string name="url_api_kava_test" translatable="false">https://api-kava-testnet-5000.cosmostation.io/</string>
+<!--    <string name="url_api_kava_test" translatable="false">https://api-kava-testnet-4000.cosmostation.io/</string>-->
 
     <string name="url_rest_iov_main" translatable="false">https://bnsapi.cluster-mainnet.iov.one/</string>
     <string name="url_rpc_iov_main" translatable="false">https://rpc-iov-mainnet.cosmostation.io/</string>
@@ -94,6 +95,7 @@
     <string name="str_address">Address</string>
     <string name="str_paste">Paste</string>
     <string name="str_send_c">SEND</string>
+    <string name="str_htlc_send_c">HTLC SEND</string>
     <string name="str_receive_c">RECEIVE</string>
     <string name="str_send">Send</string>
     <string name="str_receive">Recieve</string>
@@ -554,6 +556,10 @@
     <string name="str_withdraw_cdp_step_2">Insert memo (optional)</string>
     <string name="str_withdraw_cdp_step_3">Select transaction fee</string>
     <string name="str_withdraw_cdp_step_4">Check transaction detail</string>
+    <string name="str_htlc_send_step_1">Select Destination Chain</string>
+    <string name="str_htlc_send_step_2">Select recipient account</string>
+    <string name="str_htlc_send_step_3">Insert amount to send</string>
+    <string name="str_htlc_send_step_4">Check transactions detail</string>
 
 
 

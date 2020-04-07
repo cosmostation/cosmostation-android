@@ -90,7 +90,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     private LinearLayout            mAtomAction, mAtomTransfer;
     private RelativeLayout          mBtnSendAtom, mBtnReceiveAtom, mBtnBuyAtom;
 
-    private RelativeLayout          mBnbAction;
+    private LinearLayout            mBnbAction;
     private LinearLayout            mBnbTransfer;
     private RelativeLayout          mBtnSendBnb, mBtnReceiveBnb, mBtnBuyBnb;
 
@@ -161,7 +161,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         mTvBnbValue             = mBnbCard.findViewById(R.id.dash_bnb_value);
         mTvBnbBalance           = mBnbCard.findViewById(R.id.dash_bnb_balance);
         mTvBnbLocked            = mBnbCard.findViewById(R.id.dash_bnb_locked);
-        mBnbAction              = mBnbCard.findViewById(R.id.btn_wallet_connect);
+        mBnbAction              = mBnbCard.findViewById(R.id.layer_bnb_module);
         mBnbTransfer            = mBnbCard.findViewById(R.id.layer_bnb_transfer);
         mBtnSendBnb             = mBnbCard.findViewById(R.id.btn_bnb_send);
         mBtnReceiveBnb          = mBnbCard.findViewById(R.id.btn_bnb_receive);

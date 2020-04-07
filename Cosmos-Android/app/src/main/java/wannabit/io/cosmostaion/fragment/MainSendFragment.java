@@ -28,9 +28,13 @@ import com.google.zxing.integration.android.IntentResult;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import org.apache.commons.lang3.RandomUtils;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
+import java.util.UUID;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.KavaCdpListActivity;
@@ -79,7 +83,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                                 mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
     private RelativeLayout      mBtnIrisReward, mBtnIrisVote;
     private TextView            mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
-    private RelativeLayout      mBtnBnbConnect;
+    private RelativeLayout      mBtnBnbConnect, mBtnBep3Send;
     private TextView            mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVesting,
                                 mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards;
     private RelativeLayout      mBtnKavaReward, mBtnKavaVote, mBtnKavaCdp;
@@ -158,6 +162,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvBnbBalance           = mBnbCard.findViewById(R.id.dash_bnb_balance);
         mTvBnbLocked            = mBnbCard.findViewById(R.id.dash_bnb_locked);
         mBtnBnbConnect          = mBnbCard.findViewById(R.id.btn_wallet_connect);
+        mBtnBep3Send            = mBnbCard.findViewById(R.id.btn_bep3_send);
 
         mKavaCard               = rootView.findViewById(R.id.card_kava);
         mTvKavaTotal            = mKavaCard.findViewById(R.id.dash_kava_amount);
@@ -259,6 +264,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnKavaVote.setOnClickListener(this);
         mBtnKavaCdp.setOnClickListener(this);
         mBtnBnbConnect.setOnClickListener(this);
+        mBtnBep3Send.setOnClickListener(this);
         mBuyCoinBtn.setOnClickListener(this);
         mBtnIovDeposit.setOnClickListener(this);
         mBtnIovNameService.setOnClickListener(this);
@@ -370,7 +376,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
             if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+                mBtnBep3Send.setVisibility(View.VISIBLE);
                 mBnbCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            } else {
+                mBtnBep3Send.setVisibility(View.GONE);
+                mBnbCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             }
             if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 mBuyLayer.setVisibility(View.VISIBLE);
@@ -397,6 +407,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            } else {
+                mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             }
             if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 mBuyLayer.setVisibility(View.VISIBLE);
@@ -819,6 +831,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .setRationaleMessage(getString(R.string.str_permission_qr))
             .check();
+
+        } else if (v.equals(mBtnBep3Send)) {
+            getMainActivity().onStartHTLCSendActivity();
 
         } else if (v.equals(mBuyCoinBtn)) {
             if (getMainActivity().mAccount.hasPrivateKey) {

@@ -36,6 +36,7 @@
     <string name="str_address">주소</string>
     <string name="str_paste">붙여넣기</string>
     <string name="str_send_c">보내기</string>
+    <string name="str_htlc_send_c">크로스체인 보내기</string>
     <string name="str_receive_c">받기</string>
     <string name="str_send">보내기</string>
     <string name="str_receive">받기</string>
@@ -483,6 +484,10 @@
     <string name="str_withdraw_cdp_step_2">Insert memo (optional)</string>
     <string name="str_withdraw_cdp_step_3">Select transaction fee</string>
     <string name="str_withdraw_cdp_step_4">Check transaction detail</string>
+    <string name="str_htlc_send_step_1">Select Destination Chain</string>
+    <string name="str_htlc_send_step_2">Select recipient account</string>
+    <string name="str_htlc_send_step_3">Insert amount to send</string>
+    <string name="str_htlc_send_step_4">Check transactions detail</string>
 
     <!--    <string name="str_min_collateral_rate">최소 담보 비율</string>-->
 <!--    <string name="str_stability_fee">안정화 수수료 (연간)</string>-->

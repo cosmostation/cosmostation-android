@@ -126,7 +126,6 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
 
 
     private int mTaskCount = 0;
-//    public void onFetchCdpInfo(FetchCallBack callback) {
     public void onFetchCdpInfo() {
         if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             //not yet

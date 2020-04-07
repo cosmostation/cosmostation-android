@@ -48,11 +48,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
+import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
+import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -67,6 +69,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
 import wannabit.io.cosmostaion.dialog.Dialog_Push_Enable;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
@@ -99,10 +102,12 @@ import wannabit.io.cosmostaion.task.SingleFetchTask.SingleStakingPoolTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -229,6 +234,38 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             intent.putExtra("page", 2);
         } else {
             intent.putExtra("page", 0);
+        }
+        startActivity(intent);
+    }
+
+
+
+    public void onStartHTLCSendActivity() {
+        if(mAccount == null) return;
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        boolean hasbalance = false;
+        Intent intent = new Intent(getBaseContext(), HtlcSendActivity.class);
+        if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal("0.000375")) > 0) {
+                hasbalance  = true;
+            }
+            WLog.w(("" + WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB)));
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+
+        } else {
+            Toast.makeText(getBaseContext(), "Brother.. Why you here?", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!hasbalance) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
         }
         startActivity(intent);
     }

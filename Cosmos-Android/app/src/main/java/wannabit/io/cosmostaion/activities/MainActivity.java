@@ -398,7 +398,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("kavaDenom", COSMOS_KAVA);
         }
 
-        if(!hasbalance){
+        if (!hasbalance) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
