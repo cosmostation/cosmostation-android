@@ -52,6 +52,8 @@
     <string name="str_connect">연결</string>
     <string name="str_wait">기다리기</string>
     <string name="str_recipient_address">수취인 주소</string>
+    <string name="str_recipient_chain">수취인 체인</string>
+    <string name="str_claim_address">Claim Address</string>
     <string name="str_dismiss">닫기</string>
     <string name="str_memo">메모</string>
     <string name="str_fees">Tx 수수료</string>
@@ -357,6 +359,8 @@
     <string name="str_kava_cdp_details">CDP 상세</string>
     <string name="str_my_cdps">내 CDP</string>
     <string name="str_all_cdps">모든 상품</string>
+    <string name="str_press_select_recipient_account">수신 계정 선택</string>
+    <string name="str_bep3_warn_1">In order to user this feature,\nyou must create a KAVA account and deposit a small amount of KAVA to be used as transaction fee.</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
@@ -720,6 +724,9 @@
     <string name="error_can_not_draw_debt">Cannot more loan now.</string>
     <string name="error_not_enought_principal_asset">Not enough USDX to repay.</string>
     <string name="error_can_not_repay">Cannot repay now. You need more USDX to Repay.</string>
+    <string name="error_can_not_bep3_account_title">No %1$s Account</string>
+    <string name="error_can_not_bep3_account_msg">In order to user this feature,\nyou must create a %1$s account and deposit a small amount of %2$s to be used as transaction fee.</string>
+    <string name="error_select_account_to_recipient">Please select account to receive</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

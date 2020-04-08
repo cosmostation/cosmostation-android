@@ -111,6 +111,8 @@
     <string name="str_connect">Connect</string>
     <string name="str_wait">Wait</string>
     <string name="str_recipient_address">Recipient Address</string>
+    <string name="str_recipient_chain">Recipient Chain</string>
+    <string name="str_claim_address">Claim Address</string>
     <string name="str_dismiss">Dismiss</string>
     <string name="str_memo">Memo</string>
     <string name="str_fees">Fee</string>
@@ -218,12 +220,19 @@
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
     <string name="str_cosmos_hub" translatable="false">(Cosmos Hub)</string>
+    <string name="str_cosmos_hub_2" translatable="false">Cosmos Hub</string>
     <string name="str_iris_net" translatable="false">(Iris Hub)</string>
+    <string name="str_iris_net_2" translatable="false">Iris Hub</string>
     <string name="str_binance_net" translatable="false">(Binance Chain)</string>
+    <string name="str_binance_net_2" translatable="false">Binance Chain</string>
     <string name="str_binance_test_net" translatable="false">(Binance Test Chain)</string>
+    <string name="str_binance_test_net_2" translatable="false">Binance Test Chain</string>
     <string name="str_iov_net" translatable="false">(IOV Chain)</string>
+    <string name="str_iov_net_2" translatable="false">IOV Chain</string>
     <string name="str_kava_net" translatable="false">(KAVA Chain)</string>
+    <string name="str_kava_net_2" translatable="false">KAVA Chain</string>
     <string name="str_kava_net_test" translatable="false">(KAVA Test Chain)</string>
+    <string name="str_kava_net_test_2" translatable="false">KAVA Test Chain</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_iris" translatable="false">IRIS</string>
     <string name="str_binance" translatable="false">BINANCE</string>
@@ -428,6 +437,8 @@
     <string name="str_kava_cdp_details">CDP Status</string>
     <string name="str_my_cdps">My CDP</string>
     <string name="str_all_cdps">All Products</string>
+    <string name="str_press_select_recipient_account">Select Recipient Account</string>
+    <string name="str_bep3_warn_1">In order to user this feature,\nyou must create a KAVA account and deposit a small amount of KAVA to be used as transaction fee.</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
@@ -557,9 +568,9 @@
     <string name="str_withdraw_cdp_step_3">Select transaction fee</string>
     <string name="str_withdraw_cdp_step_4">Check transaction detail</string>
     <string name="str_htlc_send_step_1">Select Destination Chain</string>
-    <string name="str_htlc_send_step_2">Select recipient account</string>
-    <string name="str_htlc_send_step_3">Insert amount to send</string>
-    <string name="str_htlc_send_step_4">Check transactions detail</string>
+    <string name="str_htlc_send_step_2">Select Recipient Account</string>
+    <string name="str_htlc_send_step_3">Insert Amount to Send</string>
+    <string name="str_htlc_send_step_4">Check Transactions Detail</string>
 
 
 
@@ -774,6 +785,10 @@
     <string name="error_can_not_draw_debt">Cannot more loan now.</string>
     <string name="error_not_enought_principal_asset">Not enough USDX to repay.</string>
     <string name="error_can_not_repay">Cannot repay now. You need more USDX to Repay.</string>
+    <string name="error_can_not_bep3_account_title">No %1$s Account</string>
+    <string name="error_can_not_bep3_account_msg">In order to user this feature,\nyou must create a %1$s account and deposit a small amount of %2$s to be used as transaction fee.</string>
+    <string name="error_select_account_to_recipient">Please select account to receive</string>
+
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

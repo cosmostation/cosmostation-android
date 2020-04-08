@@ -1402,6 +1402,22 @@ public class WDp {
         }
     }
 
+    public static String getDpMainDenom(Context c, String chain) {
+        if (BaseChain.getChain(chain).equals(BaseChain.COSMOS_MAIN)) {
+            return c.getString(R.string.s_atom);
+        } else if (BaseChain.getChain(chain).equals(BaseChain.IRIS_MAIN)) {
+            return c.getString(R.string.s_iris);
+        } else if (BaseChain.getChain(chain).equals(BaseChain.BNB_MAIN) || BaseChain.getChain(chain).equals(BaseChain.BNB_TEST)) {
+            return c.getString(R.string.s_bnb);
+        } else if (BaseChain.getChain(chain).equals(BaseChain.KAVA_MAIN) || BaseChain.getChain(chain).equals(BaseChain.KAVA_TEST)) {
+            return c.getString(R.string.s_kava);
+        } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN)) {
+            return c.getString(R.string.s_iov);
+        }
+        return "";
+
+    }
+
     public static Spanned DpLiquidationPriceTitle(Context c, String Denom) {
         String strFront = c.getString(R.string.str_liquidation_title1);
 //        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
@@ -1596,6 +1612,41 @@ public class WDp {
             WLog.w("e " + e.getMessage());
         }
         return result;
+    }
+
+    public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.cosmos_wh_main));
+            txtView.setText(c.getString(R.string.str_cosmos_hub_2));
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iris_wh));
+            txtView.setText(c.getString(R.string.str_iris_net_2));
+
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binance_ch_img));
+            txtView.setText(c.getString(R.string.str_binance_net_2));
+
+        } else if (chain.equals(BaseChain.BNB_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binancetestnet));
+            txtView.setText(c.getString(R.string.str_binance_test_net_2));
+
+        } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_img));
+            txtView.setText(c.getString(R.string.str_kava_net_2));
+
+        } else if (chain.equals(BaseChain.KAVA_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_test_img));
+            txtView.setText(c.getString(R.string.str_kava_net_test_2));
+
+        } else if (chain.equals(BaseChain.IOV_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_img));
+            txtView.setText(c.getString(R.string.str_iov_net_2));
+
+        }
+        txtView.setTextColor(getChainColor(c, chain));
+
+
     }
 
 }

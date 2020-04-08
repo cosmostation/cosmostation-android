@@ -17,12 +17,19 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.fragment.HtlcSendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcSendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcSendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcSendStep3Fragment;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_CLAIM;
 
 public class HtlcSendActivity extends BaseActivity {
 
@@ -34,9 +41,14 @@ public class HtlcSendActivity extends BaseActivity {
     private ViewPager               mViewPager;
     private HtlcSendPageAdapter     mPageAdapter;
 
+    public String                   mSendDenom = COSMOS_BNB;        //now only support bnb bep3
+    public ArrayList<Coin>          mToSendCoins;
     public BaseChain                mRecipientChain;
     public Account                  mRecipientAccount;
 
+
+    public Fee                      mSendFee;
+    public Fee                      mClaimFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +88,7 @@ public class HtlcSendActivity extends BaseActivity {
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_htlc_send_step_2));
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_htlc_send_step_3));
@@ -137,6 +150,38 @@ public class HtlcSendActivity extends BaseActivity {
         }
     }
 
+
+    public Fee onInitSendFee() {
+        if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+            Coin gasCoin = new Coin();
+            gasCoin.denom = BaseConstant.COSMOS_BNB;
+            gasCoin.amount = FEE_BNB_SEND;
+            ArrayList<Coin> gasCoins = new ArrayList<>();
+            gasCoins.add(gasCoin);
+            mSendFee = new Fee("", gasCoins);
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        }
+
+        return mSendFee;
+    }
+
+
+    public Fee onInitClaimFee() {
+        if (mRecipientChain.equals(BaseChain.BNB_MAIN) || mRecipientChain.equals(BaseChain.BNB_TEST)) {
+
+        } else if (mRecipientChain.equals(BaseChain.KAVA_MAIN) || mRecipientChain.equals(BaseChain.KAVA_TEST)) {
+            Fee fee = new Fee();
+            Coin gasCoin = new Coin();
+            gasCoin.denom = BaseConstant.COSMOS_KAVA;
+            gasCoin.amount = "5000";
+            ArrayList<Coin> gasCoins = new ArrayList<>();
+            gasCoins.add(gasCoin);
+            mClaimFee = new Fee(FEE_KAVA_GAS_AMOUNT_CLAIM, gasCoins);
+        }
+
+        return mClaimFee;
+    }
 
     public void onStartHtlcSend() {
 

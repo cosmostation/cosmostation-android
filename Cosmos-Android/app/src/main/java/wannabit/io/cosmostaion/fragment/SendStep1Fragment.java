@@ -88,9 +88,6 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         mAdd100.setOnClickListener(this);
         mAddHalf.setOnClickListener(this);
         mAddMax.setOnClickListener(this);
-
-
-
         return rootView;
     }
 

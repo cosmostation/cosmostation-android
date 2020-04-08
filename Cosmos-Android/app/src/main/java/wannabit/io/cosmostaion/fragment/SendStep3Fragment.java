@@ -205,7 +205,6 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onRefreshTab() {
-        WLog.w("onRefreshTab33");
         super.onRefreshTab();
         if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mAvailable  = getSActivity().mAccount.getAtomBalance();

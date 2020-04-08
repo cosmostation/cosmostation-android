@@ -26,7 +26,11 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 
 public class BaseData {
 
@@ -123,7 +127,7 @@ public class BaseData {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
-        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_DOLLOR_TIC, ""+tic.market_data.current_price.usd).commit();
             if (getCurrency() == 0) {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_TIC, ""+tic.market_data.current_price.usd).commit();
@@ -619,6 +623,22 @@ public class BaseData {
                 result.add(account);
             }
         }
+        return result;
+    }
+
+    public ArrayList<Account> onSelectAccountsByHtlcClaim(BaseChain chain) {
+        ArrayList<Account> result = new ArrayList<>();
+        ArrayList<Account> AllAccount = onSelectAccounts();
+        for (Account account:AllAccount) {
+            if (BaseChain.getChain(account.baseChain).equals(chain) && account.hasPrivateKey) {
+                if (chain.equals(KAVA_TEST)) {
+                    if (WDp.getAvailableCoin(account.balances, COSMOS_KAVA).compareTo(new BigDecimal("50000")) >= 0) {
+                        result.add(account);
+                    }
+                }
+            }
+        }
+
         return result;
     }
 

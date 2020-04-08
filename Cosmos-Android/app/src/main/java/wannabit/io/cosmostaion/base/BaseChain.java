@@ -114,10 +114,10 @@ public enum BaseChain {
 
     public static ArrayList<BaseChain> getHtlcSendable(BaseChain fromChain) {
         ArrayList<BaseChain> result = new ArrayList<>();
-        if (fromChain.equals(BNB_TEST.getChain())) {
+        if (fromChain.equals(BNB_TEST)) {
             result.add(KAVA_TEST);
 
-        } else if (fromChain.equals(KAVA_TEST.getChain())) {
+        } else if (fromChain.equals(KAVA_TEST)) {
             result.add(BNB_TEST);
         }
         return result;
