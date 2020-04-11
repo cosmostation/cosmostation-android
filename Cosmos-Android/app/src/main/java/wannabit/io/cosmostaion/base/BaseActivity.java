@@ -227,17 +227,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         v.clearFocus();
     }
 
-//    public void onStartMainActivity(boolean showHistory) {
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        if (showHistory) {
-//            intent.putExtra("page", 2);
-//        } else {
-//            intent.putExtra("page", 0);
-//        }
-//        startActivity(intent);
-//    }
-
     public void onStartMainActivity(int page) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

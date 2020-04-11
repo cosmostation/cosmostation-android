@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -84,20 +85,21 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     private ImageView               mTokenImg, mTokenLink;
     private TextView                mTvTokenSymbol, mTvTokenTotal, mTvTokenValue, mTvTokenDenom,
                                     mTvTokenAvailable, mTvTokenReward;
-    private LinearLayout            mIrisAction, mBtnTokenDetail;
-    private RelativeLayout          mBtnSendIris, mBtnSendToken;
+    private LinearLayout            mIrisAction, mIrisTransfer;
+    private RelativeLayout          mBtnSendIris, mBtnReceiveIris;
 
     private LinearLayout            mAtomAction, mAtomTransfer;
     private RelativeLayout          mBtnSendAtom, mBtnReceiveAtom, mBtnBuyAtom;
 
     private LinearLayout            mBnbAction;
     private LinearLayout            mBnbTransfer;
-    private RelativeLayout          mBtnSendBnb, mBtnReceiveBnb, mBtnBuyBnb;
+    private RelativeLayout          mBtnSendBnb, mBtnReceiveBnb, mBtnInterChain, mBtnBuyBnb;
 
     private LinearLayout            mKavaAction, mKavaTransfer;
     private RelativeLayout          mBtnSendKava, mBtnReceiveKava, mBtnBuyKava;
 
-
+    private LinearLayout            mBtnTokenDetail;
+    private RelativeLayout          mBtnSendToken, mBtnReceiveToken, mBtnBep3Send;
 
 
     private TextView                mHistoryCnt;
@@ -154,6 +156,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         mTvIrisUnBonding        = mIrisCard.findViewById(R.id.dash_iris_unbonding);
         mTvIrisRewards          = mIrisCard.findViewById(R.id.dash_iris_reward);
         mIrisAction             = mIrisCard.findViewById(R.id.layer_iris_actions);
+        mIrisTransfer           = mIrisCard.findViewById(R.id.layer_iris_transfer);
+        mBtnReceiveIris         = mIrisCard.findViewById(R.id.btn_iris_receive);
         mBtnSendIris            = mIrisCard.findViewById(R.id.btn_iris_send);
 
         mBnbCard                = findViewById(R.id.card_bnb);
@@ -162,6 +166,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         mTvBnbBalance           = mBnbCard.findViewById(R.id.dash_bnb_balance);
         mTvBnbLocked            = mBnbCard.findViewById(R.id.dash_bnb_locked);
         mBnbAction              = mBnbCard.findViewById(R.id.layer_bnb_module);
+        mBtnInterChain          = mBnbCard.findViewById(R.id.btn_bep3_send2);
         mBnbTransfer            = mBnbCard.findViewById(R.id.layer_bnb_transfer);
         mBtnSendBnb             = mBnbCard.findViewById(R.id.btn_bnb_send);
         mBtnReceiveBnb          = mBnbCard.findViewById(R.id.btn_bnb_receive);
@@ -192,7 +197,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         mTokenRewardLayer       = TokenCard.findViewById(R.id.token_reward_layer);
         mTvTokenReward          = TokenCard.findViewById(R.id.dash_token_reward);
         mBtnSendToken           = TokenCard.findViewById(R.id.btn_token_send);
+        mBtnReceiveToken        = TokenCard.findViewById(R.id.btn_token_receive);
         mBtnTokenDetail         = TokenCard.findViewById(R.id.btn_token_web);
+        mBtnBep3Send            = TokenCard.findViewById(R.id.btn_bep3_send);
 
         mHistoryCnt             = findViewById(R.id.token_cnt);
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
@@ -292,8 +299,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mBalance.symbol.equals(COSMOS_IRIS_ATTO)) {
             mIrisCard.setVisibility(View.VISIBLE);
             mIrisAction.setVisibility(View.GONE);
-            mBtnSendIris.setVisibility(View.VISIBLE);
+            mIrisTransfer.setVisibility(View.VISIBLE);
             mBtnSendIris.setOnClickListener(this);
+            mBtnReceiveIris.setOnClickListener(this);
 
             mBalances = getBaseDao().onSelectBalance(mAccount.id);
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
@@ -315,9 +323,12 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mBtnSendBnb.setOnClickListener(this);
             mBtnReceiveBnb.setOnClickListener(this);
             if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                mBtnInterChain.setVisibility(View.GONE);
                 mBtnBuyBnb.setVisibility(View.VISIBLE);
                 mBtnBuyBnb.setOnClickListener(this);
             } else {
+                mBtnInterChain.setVisibility(View.VISIBLE);
+                mBtnInterChain.setOnClickListener(this);
                 mBtnBuyBnb.setVisibility(View.GONE);
             }
 
@@ -361,14 +372,15 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         } else {
             TokenCard.setVisibility(View.VISIBLE);
-            mBtnSendToken.setVisibility(View.VISIBLE);
+            mBtnBep3Send.setVisibility(View.GONE);
             mBalances = getBaseDao().onSelectBalance(mAccount.id);
+            mBtnSendToken.setOnClickListener(this);
+            mBtnReceiveToken.setOnClickListener(this);
 
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mIrisToken != null) {
                 mTokenLink.setVisibility(View.GONE);
-                mBtnSendToken.setOnClickListener(this);
                 mTvTokenSymbol.setText(mIrisToken.base_token.symbol.toUpperCase());
                 mTvTokenDenom.setText(mBalance.symbol);
 
@@ -382,7 +394,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             } else if ((mBaseChain.equals(BaseChain.BNB_MAIN) || (mBaseChain.equals(BaseChain.BNB_TEST))) && mBnbToken != null) {
                 mTokenLink.setVisibility(View.VISIBLE);
                 mBtnTokenDetail.setOnClickListener(this);
-                mBtnSendToken.setOnClickListener(this);
                 mTvTokenSymbol.setText(mBnbToken.original_symbol);
                 mTvTokenDenom.setText(mBnbToken.symbol);
                 mTvTokenTotal.setText(WDp.getDpAmount(this, mBalance.getAllBnbBalance(), 8, mBaseChain));
@@ -404,14 +415,14 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
             } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN) || (mBaseChain.equals(BaseChain.KAVA_TEST)) && mBalance != null)) {
                 mTokenLink.setVisibility(View.GONE);
-                mBtnSendToken.setOnClickListener(this);
                 mTvTokenSymbol.setText(mBalance.symbol.toUpperCase());
                 mTvTokenDenom.setText(mBalance.symbol);
 
                 mTvTokenTotal.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
                 mTvTokenAvailable.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
-                //TODO no way to display token price
-                mTvTokenValue.setText(WDp.getValueOfKava(this, getBaseDao(), BigDecimal.ZERO));
+                BigDecimal tokenTotalValue = mBalance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
+                BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(COSMOS_KAVA), RoundingMode.DOWN);
+                mTvTokenValue.setText(WDp.getValueOfKava(this, getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(COSMOS_KAVA))));
                 mTokenRewardLayer.setVisibility(View.GONE);
                 try {
                     Picasso.get().load(KAVA_COIN_IMG_URL+mBalance.symbol+".png")
@@ -419,6 +430,12 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                             .into(mTokenImg);
 
                 } catch (Exception e) { }
+                if (mBalance.symbol.equals("bnb") && mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                    mBtnBep3Send.setVisibility(View.VISIBLE);
+                    mBtnBep3Send.setOnClickListener(this);
+                } else {
+                    mBtnBep3Send.setVisibility(View.GONE);
+                }
 
             } else {
                 onBackPressed();
@@ -505,7 +522,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBtnAddressDetail) || v.equals(mBtnReceiveAtom) || v.equals(mBtnReceiveBnb) || v.equals(mBtnReceiveKava)) {
+        if(v.equals(mBtnAddressDetail) || v.equals(mBtnReceiveAtom) || v.equals(mBtnReceiveIris) || v.equals(mBtnReceiveBnb) || v.equals(mBtnReceiveKava) || v.equals(mBtnReceiveToken)) {
             Bundle bundle = new Bundle();
             bundle.putString("address", mAccount.address);
             if (TextUtils.isEmpty(mAccount.nickName))
@@ -572,6 +589,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             } else {
                 onShowBuyWarnNoKey();
             }
+        } else if (v.equals(mBtnInterChain) || v.equals(mBtnBep3Send)) {
+            onStartHTLCSendActivity();
         }
     }
 

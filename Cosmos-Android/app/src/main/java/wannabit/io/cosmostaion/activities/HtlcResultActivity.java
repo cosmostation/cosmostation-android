@@ -111,7 +111,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-        if (mResult == null) {
+        if (mLoadingLayer.getVisibility() == View.VISIBLE) {
             return;
         } else {
             onStartMainActivity(0);

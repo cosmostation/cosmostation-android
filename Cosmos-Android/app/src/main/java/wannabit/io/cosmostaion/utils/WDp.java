@@ -915,9 +915,16 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP)) {
             result = BaseConstant.TX_TYPE_KAVA_REPAYDEBT_CDP;
 
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
+            result = BaseConstant.TX_TYPE_KAVA_BEP3_CREATE;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP)) {
+            result = BaseConstant.TX_TYPE_KAVA_BEP3_CLAIM;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
+            result = BaseConstant.TX_TYPE_KAVA_BEP3_REFUND;
+
         }
-
-
 
         return result;
     }
@@ -1020,6 +1027,18 @@ public class WDp {
                 result = c.getString(R.string.tx_kava_repaydebt_cdp);
                 break;
 
+            case BaseConstant.TX_TYPE_KAVA_BEP3_CREATE:
+                result = c.getString(R.string.tx_kava_bep3_create);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_BEP3_CLAIM:
+                result = c.getString(R.string.tx_kava_bep3_claim);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_BEP3_REFUND:
+                result = c.getString(R.string.tx_kava_bep3_refund);
+                break;
+
             case BaseConstant.TX_TYPE_UNKNOWN:
                 result = c.getString(R.string.tx_known);
                 break;
@@ -1045,6 +1064,8 @@ public class WDp {
             } else {
                 result = c.getString(R.string.tx_receive);
             }
+        } else if (history.txType.equals("HTL_TRANSFER")) {
+            result = c.getString(R.string.tx_swap);
         }
         return result;
 

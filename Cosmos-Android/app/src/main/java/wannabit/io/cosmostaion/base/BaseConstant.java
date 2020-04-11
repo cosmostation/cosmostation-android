@@ -224,6 +224,9 @@ public class BaseConstant {
     public final static int TX_TYPE_KAVA_WITHDRAW_CDP       = 3021;
     public final static int TX_TYPE_KAVA_DRAWDEBT_CDP       = 3022;
     public final static int TX_TYPE_KAVA_REPAYDEBT_CDP      = 3023;
+    public final static int TX_TYPE_KAVA_BEP3_CREATE        = 3024;
+    public final static int TX_TYPE_KAVA_BEP3_CLAIM         = 3025;
+    public final static int TX_TYPE_KAVA_BEP3_REFUND        = 3026;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;

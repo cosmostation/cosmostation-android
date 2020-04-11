@@ -777,6 +777,10 @@
     <string name="tx_kava_withdraw_cdp">CDP - 출금</string>
     <string name="tx_kava_drawdebt_cdp">CDP - 대출</string>
     <string name="tx_kava_repaydebt_cdp">CDP - 상환</string>
+    <string name="tx_swap">Atomic Swap</string>
+    <string name="tx_kava_bep3_create">Interchain Send</string>
+    <string name="tx_kava_bep3_claim">Interchain Claim</string>
+    <string name="tx_kava_bep3_refund">Interchain Refund</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>
