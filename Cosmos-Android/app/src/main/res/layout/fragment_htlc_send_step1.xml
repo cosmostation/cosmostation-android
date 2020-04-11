@@ -71,12 +71,12 @@
         android:layout_marginBottom="@dimen/space_32"
         android:gravity="center_horizontal">
         <ImageView
-            android:id="@+id/create_img"
+            android:id="@+id/warn_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/warning_ic"/>
         <TextView
-            android:id="@+id/create_msg2"
+            android:id="@+id/warn_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_6"

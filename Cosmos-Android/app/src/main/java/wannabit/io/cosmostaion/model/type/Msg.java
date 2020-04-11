@@ -201,6 +201,22 @@ public class Msg {
         @SerializedName("sender_other_chain")
         public String sender_other_chain;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("timestamp")
+        public String timestamp;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("expected_income")
+        public String expected_income;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("height_span")
+        public String height_span;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("cross_chain")
+        public Boolean cross_chain;
+
 
     }
 

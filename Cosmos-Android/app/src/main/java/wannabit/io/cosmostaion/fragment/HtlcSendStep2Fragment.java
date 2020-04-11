@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 
 public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -94,16 +95,20 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             mDecimal = 8;
             setDpDecimals(mDecimal);
-            mMaxAvailable = getSActivity().mAccount.getBnbBalance().subtract(new BigDecimal("0.000375"));
+            mMaxAvailable = getSActivity().mAccount.getBnbBalance().subtract(new BigDecimal(FEE_BNB_SEND));
             mDenomTitle.setText(getSActivity().mSendDenom.toUpperCase());
             mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, 8));
 
-            WLog.w("getBnbBalance " + getSActivity().mAccount.getBnbBalance());
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            mDecimal = WUtil.getKavaCoinDecimal(getSActivity().mSendDenom);
+            setDpDecimals(mDecimal);
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mSendDenom);
+            mDenomTitle.setText(getSActivity().mSendDenom.toUpperCase());
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDecimal, mDecimal));
 
         }
+
 
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -186,7 +191,11 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-
+                BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(mDecimal);
+                if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
+                Coin token = new Coin(getSActivity().mSendDenom.toLowerCase(), sendTemp.toPlainString());
+                mToSendCoins.add(token);
             }
 
             if (mToSendCoins.size() <= 0) { return false; }
@@ -248,6 +257,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2"), mDecimal, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                mAmountInput.setText(mMaxAvailable.movePointLeft(mDecimal).divide(new BigDecimal("2"), mDecimal, RoundingMode.DOWN).toPlainString());
 
             }
 
@@ -256,6 +266,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                mAmountInput.setText(mMaxAvailable.movePointLeft(mDecimal).toPlainString());
 
             }
 

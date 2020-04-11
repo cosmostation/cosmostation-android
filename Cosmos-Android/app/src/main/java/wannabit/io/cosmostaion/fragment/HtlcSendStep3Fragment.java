@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
@@ -34,6 +35,8 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView    mClaimFeeAmountTv, mClaimFeeDenomTv;
     private TextView    mClaimAddressTv;
     private Button      mBeforeBtn, mConfirmBtn;
+
+    private int         mDecimal = 8;
 
     public static HtlcSendStep3Fragment newInstance(Bundle bundle) {
         HtlcSendStep3Fragment fragment = new HtlcSendStep3Fragment();
@@ -75,9 +78,9 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
         Fee sendFee = getSActivity().onInitSendFee();
         Fee claimFee = getSActivity().onInitClaimFee();
 
-        BigDecimal toSendAmount   = new BigDecimal(getSActivity().mToSendCoins.get(0).amount);
-        BigDecimal sendFeeAmount      = new BigDecimal(sendFee.amount.get(0).amount);
-        BigDecimal claimFeeAmount      = new BigDecimal(claimFee.amount.get(0).amount);
+        BigDecimal toSendAmount         = new BigDecimal(getSActivity().mToSendCoins.get(0).amount);
+        BigDecimal sendFeeAmount        = new BigDecimal(sendFee.amount.get(0).amount);
+        BigDecimal claimFeeAmount       = new BigDecimal(claimFee.amount.get(0).amount);
 
         // set send card view
         mSendIcon.setColorFilter(WDp.getChainColor(getContext(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -92,13 +95,25 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             mReceiveAddressTv.setText(getSActivity().mRecipientAccount.address);
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            mDecimal = WUtil.getKavaCoinDecimal(getSActivity().mSendDenom);
+            mSendDenomTv.setText(getSActivity().mSendDenom.toUpperCase());
+            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mSendFeeDenomTv);
 
+            mSendAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount, mDecimal, mDecimal));
+            mSendFeeAmountTv.setText(WDp.getDpAmount2(getContext(), sendFeeAmount, 6, 6));
+
+            mReceiveChainTv.setText(getSActivity().mRecipientChain.getChain());
+            mReceiveAddressTv.setText(getSActivity().mRecipientAccount.address);
         }
 
 
         //set claim card view
         mClaimIcon.setColorFilter(WDp.getChainColor(getContext(), getSActivity().mRecipientChain), android.graphics.PorterDuff.Mode.SRC_IN);
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.BNB_TEST)) {
+            WDp.DpMainDenom(getContext(), getSActivity().mRecipientChain.getChain(), mClaimFeeDenomTv);
+
+            mClaimFeeAmountTv.setText(WDp.getDpAmount2(getContext(), claimFeeAmount, 0, 8));
+            mClaimAddressTv.setText(getSActivity().mRecipientAccount.address);
 
         } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.KAVA_TEST)) {
             WDp.DpMainDenom(getContext(), getSActivity().mRecipientChain.getChain(), mClaimFeeDenomTv);

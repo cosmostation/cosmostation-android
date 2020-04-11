@@ -59,6 +59,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
@@ -380,7 +381,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("irisToken", WUtil.getIrisMainToken(mIrisTokens));
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_BNB).compareTo(new BigDecimal("0.000375")) > 0) {
+            if (WDp.getAvailableCoin(balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("bnbToken", WUtil.getBnbMainToken(mBnbTokens));

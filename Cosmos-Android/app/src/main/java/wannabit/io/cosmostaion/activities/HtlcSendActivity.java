@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +28,10 @@ import wannabit.io.cosmostaion.fragment.HtlcSendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcSendStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.task.TaskResult;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_CLAIM;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_BEP3;
 
 public class HtlcSendActivity extends BaseActivity {
 
@@ -163,25 +161,34 @@ public class HtlcSendActivity extends BaseActivity {
             mSendFee = new Fee("", gasCoins);
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            Coin gasCoin = new Coin();
+            gasCoin.denom = BaseConstant.COSMOS_KAVA;
+            gasCoin.amount = "5000";
+            ArrayList<Coin> gasCoins = new ArrayList<>();
+            gasCoins.add(gasCoin);
+            mSendFee = new Fee(FEE_KAVA_GAS_AMOUNT_BEP3, gasCoins);
         }
-
         return mSendFee;
     }
 
 
     public Fee onInitClaimFee() {
         if (mRecipientChain.equals(BaseChain.BNB_MAIN) || mRecipientChain.equals(BaseChain.BNB_TEST)) {
+            Coin gasCoin = new Coin();
+            gasCoin.denom = BaseConstant.COSMOS_BNB;
+            gasCoin.amount = FEE_BNB_SEND;
+            ArrayList<Coin> gasCoins = new ArrayList<>();
+            gasCoins.add(gasCoin);
+            mClaimFee = new Fee("", gasCoins);
 
         } else if (mRecipientChain.equals(BaseChain.KAVA_MAIN) || mRecipientChain.equals(BaseChain.KAVA_TEST)) {
-            Fee fee = new Fee();
             Coin gasCoin = new Coin();
             gasCoin.denom = BaseConstant.COSMOS_KAVA;
             gasCoin.amount = "5000";
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
-            mClaimFee = new Fee(FEE_KAVA_GAS_AMOUNT_CLAIM, gasCoins);
+            mClaimFee = new Fee(FEE_KAVA_GAS_AMOUNT_BEP3, gasCoins);
         }
-
         return mClaimFee;
     }
 

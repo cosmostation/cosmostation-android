@@ -391,7 +391,30 @@ public class MsgGenerator {
         return result;
     }
 
+    public static Msg genCreateSwapMsg(BaseChain fromChain, BaseChain toChain, Account fromAccount, Account toAccount, ArrayList<Coin> sendCoins, long timestamp, byte[] originData) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (fromChain.equals(BaseChain.KAVA_MAIN)) {
 
+        } else if (fromChain.equals(BaseChain.KAVA_TEST)) {
+
+            value.from = fromAccount.address;
+            value.to = KAVA_TEST_DEPUTY;
+            value.sender_other_chain = BNB_TEST_DEPUTY;
+            value.recipient_other_chain = toAccount.address;
+
+            value.random_number_hash = WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase();
+            value.timestamp = String.valueOf(timestamp);
+            value.amount = sendCoins;
+            value.expected_income = sendCoins.get(0).amount  + sendCoins.get(0).denom.toLowerCase();
+            value.height_span = "500";
+            value.cross_chain = true;
+
+            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
+            result.value = value;
+        }
+        return result;
+    }
 
 
     public static HtltReq getBnbHtlcCreateMsg(BaseChain fromChain, BaseChain toChain, Account fromAccount, Account toAccount, ArrayList<Coin> sendCoins, long timestamp, byte[] originData) {
@@ -418,11 +441,9 @@ public class MsgGenerator {
                 Token token = new Token();
                 token.setDenom(toSendCoin.denom);
                 BigDecimal sendAmount = new BigDecimal(toSendCoin.amount).movePointRight(8);
-                WLog.w("sendAmount " + sendAmount.longValue());
                 token.setAmount(sendAmount.longValue());
                 htltReq.setOutAmount(Collections.singletonList(token));
                 htltReq.setExpectedIncome(sendAmount.toPlainString() + ":" + toSendCoin.denom);
-//                htltReq.setHeightSpan(540);
                 htltReq.setHeightSpan(10001);
                 htltReq.setCrossChain(true);
             }

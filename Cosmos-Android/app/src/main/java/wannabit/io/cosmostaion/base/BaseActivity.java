@@ -108,6 +108,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -248,13 +250,14 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         boolean hasbalance = false;
         Intent intent = new Intent(getBaseContext(), HtlcSendActivity.class);
         if (mBaseChain.equals(BaseChain.BNB_TEST)) {
-            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal("0.000375")) > 0) {
+            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
                 hasbalance  = true;
             }
-            WLog.w(("" + WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB)));
 
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
-
+            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_KAVA).compareTo(new BigDecimal("5000")) > 0) {
+                hasbalance  = true;
+            }
         } else {
             Toast.makeText(getBaseContext(), "Brother.. Why you here?", Toast.LENGTH_SHORT).show();
             return;

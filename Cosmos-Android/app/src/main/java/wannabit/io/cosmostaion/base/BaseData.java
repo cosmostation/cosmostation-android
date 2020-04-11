@@ -29,8 +29,11 @@ import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 
 public class BaseData {
 
@@ -635,6 +638,11 @@ public class BaseData {
                     if (WDp.getAvailableCoin(account.balances, COSMOS_KAVA).compareTo(new BigDecimal("50000")) >= 0) {
                         result.add(account);
                     }
+                } else if (chain.equals(BNB_TEST)) {
+                    if (WDp.getAvailableCoin(account.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
+                        result.add(account);
+                    }
+
                 }
             }
         }

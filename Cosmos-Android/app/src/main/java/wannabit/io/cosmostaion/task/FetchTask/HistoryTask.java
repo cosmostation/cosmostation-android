@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
+import retrofit2.Call;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -78,8 +79,12 @@ public class HistoryTask extends CommonTask {
                 Response<ResBnbHistories> response = null;
                 if (strings.length == 3) {
                     response = ApiClient.getBnbTestChain(mApp).getHistory(strings[0], strings[1], strings[2]).execute();
+//                    Call a = ApiClient.getBnbTestChain(mApp).getHistory(strings[0], strings[1], strings[2]);
+//                    WLog.w("url " + a.request().url().toString());
                 } else {
                     response = ApiClient.getBnbTestChain(mApp).getHistoryAsset(strings[0], strings[1], strings[2], strings[3]).execute();
+//                    Call a = ApiClient.getBnbTestChain(mApp).getHistoryAsset(strings[0], strings[1], strings[2], strings[3]);
+//                    WLog.w("url " + a.request().url().toString());
                 }
 
                 if(response.isSuccessful() && response.body() != null) {

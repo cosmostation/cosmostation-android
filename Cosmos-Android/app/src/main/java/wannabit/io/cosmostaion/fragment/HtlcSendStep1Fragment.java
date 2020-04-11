@@ -36,6 +36,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
     private RelativeLayout  mReceiverBtn;
     private ImageView       mKeyStatusImg;
     private TextView        mRecipientAddressTv;
+    private TextView        mWarnMSg;
 
     private ArrayList<Account>  mToAccountList;
     private Account             mToAccount;
@@ -59,7 +60,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         mReceiverBtn = rootView.findViewById(R.id.receive_layer);
         mKeyStatusImg = rootView.findViewById(R.id.key_status);
         mRecipientAddressTv = rootView.findViewById(R.id.key_address);
-
+        mWarnMSg = rootView.findViewById(R.id.warn_msg);
 
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -89,6 +90,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         super.onRefreshTab();
         mToAccount = null;
         mToAccountList = getSActivity().getBaseDao().onSelectAccountsByHtlcClaim(getSActivity().mRecipientChain);
+        mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), getSActivity().mRecipientChain.getChain(), WDp.getDpMainDenom(getContext(), getSActivity().mRecipientChain.getChain())));
         WLog.w("mToAccountList " + mToAccountList.size());
     }
 

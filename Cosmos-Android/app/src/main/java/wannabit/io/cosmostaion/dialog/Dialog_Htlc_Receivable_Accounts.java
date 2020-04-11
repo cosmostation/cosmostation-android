@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
@@ -87,7 +88,7 @@ public class Dialog_Htlc_Receivable_Accounts extends DialogFragment {
                 if (account.hasPrivateKey) {
                     holder.accountKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
                 }
-                WDp.showCoinDp(getContext(), COSMOS_BNB, account.getBnbBalance().toPlainString(), holder.accountDenom, holder.accountAvailable, baseChain);
+                WDp.showCoinDp(getContext(), COSMOS_BNB, account.getBnbBalanceScale().toPlainString(), holder.accountDenom, holder.accountAvailable, baseChain);
 
             } else if (baseChain.equals(BaseChain.KAVA_MAIN) || baseChain.equals(BaseChain.KAVA_TEST)) {
                 if (account.hasPrivateKey) {

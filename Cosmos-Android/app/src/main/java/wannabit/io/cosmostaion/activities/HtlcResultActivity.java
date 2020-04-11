@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -203,8 +204,36 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             recipientTv.setText(msg.value.recipient_other_chain);
             randomHashTv.setText(msg.value.random_number_hash);
 
-        } else if (mResSendTxInfo != null) {
+        } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) && mResSendTxInfo != null) {
+            final Msg msg = mResSendTxInfo.tx.value.msg.get(0);
 
+            if (mResSendTxInfo.isSuccess()) {
+                statusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
+                statusTv.setText(R.string.str_success_c);
+            } else {
+                statusImg.setImageDrawable(getResources().getDrawable(R.drawable.fail_ic));
+                statusTv.setText(R.string.str_failed_c);
+                errorTv.setText(mResSendTxInfo.failMessage());
+                errorTv.setVisibility(View.VISIBLE);
+            }
+
+            blockHeightTv.setText(mResSendTxInfo.height);
+            txHashTv.setText(mResSendTxInfo.txhash);
+            memoTv.setText(mResSendTxInfo.tx.value.memo);
+
+            Coin sendCoin = msg.value.getCoins().get(0);
+            WDp.showCoinDp(getBaseContext(), sendCoin, sendDenom, sendAmount, mBaseChain);
+            sendDenom.setText(sendCoin.denom.toUpperCase());
+            sendAmount.setText(WDp.getDpAmount2(this, new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(sendCoin.denom), WUtil.getKavaCoinDecimal(sendCoin.denom)));
+
+            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), feeDenom);
+            feeAmount.setText(WDp.getDpAmount2(getBaseContext(), mResSendTxInfo.simpleFee(), 6, 6));
+
+            senderTv.setText(msg.value.from);
+            relayRecipientTv.setText(msg.value.to);
+            relaySenderTv.setText(msg.value.sender_other_chain);
+            recipientTv.setText(msg.value.recipient_other_chain);
+            randomHashTv.setText(msg.value.random_number_hash);
         }
 
 
@@ -230,11 +259,34 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         iconImg.setColorFilter(WDp.getChainColor(getBaseContext(), mRecipientChain), android.graphics.PorterDuff.Mode.SRC_IN);
 
         if ((mRecipientChain.equals(BaseChain.BNB_MAIN) || mRecipientChain.equals(BaseChain.BNB_TEST)) && mResReceiveBnbTxInfo != null) {
+            final Msg msg = mResReceiveBnbTxInfo.tx.value.msg.get(0);
+            if (mResReceiveBnbTxInfo.ok) {
+                statusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
+                statusTv.setText(R.string.str_success_c);
+            } else {
+                statusImg.setImageDrawable(getResources().getDrawable(R.drawable.fail_ic));
+                statusTv.setText(R.string.str_failed_c);
+                errorTv.setText(mResReceiveBnbTxInfo.log);
+                errorTv.setVisibility(View.VISIBLE);
+            }
+
+            blockHeightTv.setText(mResReceiveBnbTxInfo.height);
+            txHashTv.setText(mResReceiveBnbTxInfo.hash);
+            memoTv.setText(mResReceiveBnbTxInfo.tx.value.memo);
+
+            claimDenom.setText("");
+            claimAmount.setText("");
+
+            WDp.DpMainDenom(getBaseContext(), mRecipientChain.getChain(), feeDenom);
+            feeAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(FEE_BNB_SEND), 0, 8));
+
+            claimerTv.setText(msg.value.from);
+            randomNumberTv.setText(msg.value.random_number);
+            swapIdTv.setText(msg.value.swap_id);
 
         } else if (mResReceiveTxInfo != null) {
             if (mRecipientChain.equals(BaseChain.KAVA_MAIN) || mRecipientChain.equals(BaseChain.KAVA_TEST)) {
                 final Msg msg = mResReceiveTxInfo.tx.value.msg.get(0);
-
                 if (mResReceiveTxInfo.isSuccess()) {
                     statusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
                     statusTv.setText(R.string.str_success_c);
@@ -301,6 +353,25 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
 
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            ApiClient.getKavaTestChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
+                @Override
+                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
+                    if(isFinishing()) return;
+                    WLog.w("onFetchSendTx " + response.toString());
+                    if(response.isSuccessful() && response.body() != null) {
+                        mResSendTxInfo = response.body();
+                        onUpdateView();
+                    }
+                    onUpdateView();
+                }
+
+                @Override
+                public void onFailure(Call<ResTxInfo> call, Throwable t) {
+                    WLog.w("onFetchSendTx KAVA onFailure");
+                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    onUpdateView();
+                }
+            });
 
         }
     }
@@ -318,8 +389,21 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                     WLog.w("onFetchClaimTx " + response.toString());
                     if(response.isSuccessful() && response.body() != null) {
                         mResReceiveBnbTxInfo = response.body();
+                        onUpdateView();
+                    } else {
+                        if (ClaimFetchCnt < 5) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ClaimFetchCnt++;
+                                    onFetchClaimTx(hash);
+                                }
+                            }, 3000);
+
+                        } else {
+                            onUpdateView();
+                        }
                     }
-                    onUpdateView();
                 }
 
                 @Override

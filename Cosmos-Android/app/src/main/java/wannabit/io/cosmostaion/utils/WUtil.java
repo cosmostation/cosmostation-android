@@ -1139,15 +1139,15 @@ public class WUtil {
     }
 
     public static int getKavaCoinDecimal(Coin coin) {
-        if (coin.denom.equals(COSMOS_KAVA)) {
+        if (coin.denom.equalsIgnoreCase(COSMOS_KAVA)) {
             return 6;
-        } else if (coin.denom.equals("xrp")) {
+        } else if (coin.denom.equalsIgnoreCase("xrp")) {
             return 6;
-        } else if (coin.denom.equals("btc")) {
+        } else if (coin.denom.equalsIgnoreCase("btc")) {
             return 8;
-        } else if (coin.denom.equals("usdx")) {
+        } else if (coin.denom.equalsIgnoreCase("usdx")) {
             return 6;
-        } else if (coin.denom.equals("bnb")) {
+        } else if (coin.denom.equalsIgnoreCase("bnb")) {
             return 8;
         }
         return 0;
@@ -1155,15 +1155,15 @@ public class WUtil {
     }
 
     public static int getKavaCoinDecimal(String denom) {
-        if (denom.equals(COSMOS_KAVA)) {
+        if (denom.equalsIgnoreCase(COSMOS_KAVA)) {
             return 6;
-        } else if (denom.equals("xrp")) {
+        } else if (denom.equalsIgnoreCase("xrp")) {
             return 6;
-        } else if (denom.equals("btc")) {
+        } else if (denom.equalsIgnoreCase("btc")) {
             return 8;
-        } else if (denom.equals("usdx")) {
+        } else if (denom.equalsIgnoreCase("usdx")) {
             return 6;
-        } else if (denom.equals("bnb")) {
+        } else if (denom.equalsIgnoreCase("bnb")) {
             return 8;
         }
         return 100;
