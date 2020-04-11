@@ -109,6 +109,7 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_DRAW_DEBT_CDP                   = 2067;
     public final static int TASK_GEN_TX_DEPOSIT_CDP                     = 2068;
     public final static int TASK_GEN_TX_WITHDRAW_CDP                    = 2069;
+    public final static int TASK_GEN_TX_HTLC_SWAP                       = 2070;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -167,6 +168,9 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_WITHDRAW_CDP                   = "cdp/MsgWithdraw";
     public final static String KAVA_MSG_TYPE_DRAWDEBT_CDP                   = "cdp/MsgDrawDebt";
     public final static String KAVA_MSG_TYPE_REPAYDEBT_CDP                  = "cdp/MsgRepayDebt";
+    public final static String KAVA_MSG_TYPE_BEP3_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
+    public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "bep3/MsgClaimAtomicSwap";
+    public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 
     public final static String IOV_KIND_SEND                                = "bcp/send";
 
@@ -193,6 +197,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_DRAW_DEBT_CDP                       = 5015;
     public final static int CONST_PW_TX_DEPOSIT_CDP                         = 5016;
     public final static int CONST_PW_TX_WITHDRAW_CDP                        = 5017;
+//    public final static int CONST_PW_TX_HTLS_SWAP                           = 5018;
 
 
     public final static int TX_TYPE_UNKNOWN                 = 3000;
@@ -301,6 +306,9 @@ public class BaseConstant {
     public final static int CMC_IRIS = 3874;
     public final static int CMC_BNB = 1839;
     public final static int CMC_KAVA = 4846;
+
+    public final static String BNB_TEST_DEPUTY = "tbnb1et8vmd0dgvswjnyaf73ez8ye0jehc8a7t7fljv";
+    public final static String KAVA_TEST_DEPUTY = "kava1aphsdnz5hu2t5ty2au6znprug5kx3zpy6zwq29";
 
 
     public final static String TOKEN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";

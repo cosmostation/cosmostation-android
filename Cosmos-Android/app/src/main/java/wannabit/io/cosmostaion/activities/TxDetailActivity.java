@@ -166,7 +166,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         if (!mIsGen) {
             super.onBackPressed();
         } else {
-            onStartMainActivity(false);
+            onStartMainActivity(0);
         }
     }
 

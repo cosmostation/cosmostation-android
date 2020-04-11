@@ -17,7 +17,9 @@
 
 
     <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>
-    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet-5000.cosmostation.io/</string>
+<!--    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet-5000.cosmostation.io/</string>-->
+    <string name="url_lcd_kava_test" translatable="false">http://kava-testnet-5000.kava.io:1317/</string>
+
 <!--    <string name="url_lcd_kava_test" translatable="false">https://kava-testnet-4000.kava.io/</string>-->
     <string name="url_api_kava_main" translatable="false"></string>
     <string name="url_api_kava_test" translatable="false">https://api-kava-testnet-5000.cosmostation.io/</string>
@@ -31,6 +33,9 @@
     <string name="str_atom_c" translatable="false">ATOM</string>
     <string name="str_photon_c" translatable="false">PHOTINO</string>
     <string name="str_kava_c" translatable="false">KAVA</string>
+
+    <string name="str_create_swap_memo_c" translatable="false">Atomic Swap Create with Cosmostation</string>
+    <string name="str_claim_swap_memo_c" translatable="false">KAVA</string>
 
     <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
@@ -95,7 +100,7 @@
     <string name="str_address">Address</string>
     <string name="str_paste">Paste</string>
     <string name="str_send_c">SEND</string>
-    <string name="str_htlc_send_c">HTLC SEND</string>
+    <string name="str_htlc_send_c"><![CDATA[Interchain Send & Claim]]></string>
     <string name="str_receive_c">RECEIVE</string>
     <string name="str_send">Send</string>
     <string name="str_receive">Recieve</string>
@@ -245,6 +250,7 @@
     <string name="str_tx_failed">Transaction Failed</string>
     <string name="str_tx_type">Transaction Type</string>
     <string name="str_tx_hash">Transaction Hash</string>
+    <string name="str_random_hash">Random Hash</string>
     <string name="str_tx_after_balance">Remaining balance</string>
     <string name="str_tx_from">From</string>
     <string name="str_tx_to">To</string>
@@ -439,6 +445,19 @@
     <string name="str_all_cdps">All Products</string>
     <string name="str_press_select_recipient_account">Select Recipient Account</string>
     <string name="str_bep3_warn_1">In order to user this feature,\nyou must create a KAVA account and deposit a small amount of KAVA to be used as transaction fee.</string>
+    <string name="str_check_sent_wallet">Check Sent Wallet</string>
+    <string name="str_check_received_wallet">Check Received Wallet</string>
+    <string name="str_wait_htlc_loading">Do Not Close!\nYour Transaction will submit to each chain in order,\nIt takes a little longer.</string>
+    <string name="str_sender">Sender</string>
+    <string name="str_relay_recipient">Relay recipient</string>
+    <string name="str_relay_sender">Relay Sender</string>
+    <string name="str_recipient">Recipient</string>
+    <string name="str_receive_amount">Receive Amount</string>
+    <string name="str_claimer">Claimer</string>
+    <string name="str_random_number">Random Number</string>
+    <string name="str_swap_id">Swap ID</string>
+
+
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
@@ -545,7 +564,8 @@
     <string name="str_cdp_promotion_title">Create a Collateralized Debt Position</string>
     <string name="str_cdp_promotion_msg">Borrow USDX by depositing XRP, BTC, BNB as collateral.\n100% on-chain decentralized finance.</string>
     <string name="str_repay_all_notice">This CDP will be closed. \nAll deposits will be returned to each depositor.</string>
-
+    <string name="str_select_receive_chain">Select Destination Chain</string>
+    <string name="str_select_account">Select Account</string>
 
     <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
     <string name="str_create_cdp_step_2">Insert memo (optional)</string>
@@ -788,6 +808,7 @@
     <string name="error_can_not_bep3_account_title">No %1$s Account</string>
     <string name="error_can_not_bep3_account_msg">In order to user this feature,\nyou must create a %1$s account and deposit a small amount of %2$s to be used as transaction fee.</string>
     <string name="error_select_account_to_recipient">Please select account to receive</string>
+
 
 
     <string name="s_atom">ATOM</string>

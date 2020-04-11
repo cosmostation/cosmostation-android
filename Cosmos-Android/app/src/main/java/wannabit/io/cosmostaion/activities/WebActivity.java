@@ -120,7 +120,7 @@ public class WebActivity extends BaseActivity {
             mWebview.goBack();
         } else {
             if(mGoMain) {
-                onStartMainActivity(false);
+                onStartMainActivity(0);
             } else {
                 super.onBackPressed();
             }

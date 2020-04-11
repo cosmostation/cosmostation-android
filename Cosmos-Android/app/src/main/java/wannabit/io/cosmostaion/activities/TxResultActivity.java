@@ -242,7 +242,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onBackPressed() {
-        onStartMainActivity(false);
+        onStartMainActivity(0);
     }
 
     private void onUpdateView() {

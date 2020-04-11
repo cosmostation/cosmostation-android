@@ -13,6 +13,7 @@ import com.google.zxing.common.BitMatrix;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.nio.ByteBuffer;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1375,4 +1376,10 @@ public class WUtil {
         return result;
     }
 
+
+    public static byte[] long2Bytes(long x){
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putLong(x);
+        return buffer.array();
+    }
 }

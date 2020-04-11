@@ -127,6 +127,7 @@ public class SimpleBnbSendTask extends CommonTask {
                     mResult.errorCode = resp.get(0).getCode();
                     mResult.errorMsg = resp.get(0).getLog();
                 }
+
             }
 
 

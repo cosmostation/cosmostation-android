@@ -30,8 +30,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickListener {
-
-    public final static int SELECT_ACCOUNT = 9100;
+    public final static int SELECT_ACCOUNT = 9101;
 
     private Button          mBeforeBtn, mNextBtn;
     private RelativeLayout  mReceiverBtn;
@@ -128,7 +127,6 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         }
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == SELECT_ACCOUNT && resultCode == Activity.RESULT_OK) {
@@ -136,7 +134,6 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
             onUpdateView();
         }
     }
-
 
     private HtlcSendActivity getSActivity() {
         return (HtlcSendActivity)getBaseActivity();

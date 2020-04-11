@@ -1,10 +1,13 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,7 @@ import wannabit.io.cosmostaion.fragment.HtlcSendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcSendStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.task.TaskResult;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -45,8 +49,6 @@ public class HtlcSendActivity extends BaseActivity {
     public ArrayList<Coin>          mToSendCoins;
     public BaseChain                mRecipientChain;
     public Account                  mRecipientAccount;
-
-
     public Fee                      mSendFee;
     public Fee                      mClaimFee;
 
@@ -184,10 +186,11 @@ public class HtlcSendActivity extends BaseActivity {
     }
 
     public void onStartHtlcSend() {
-
+        Intent intent = new Intent(HtlcSendActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+        startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
-
-
 
 
     private class HtlcSendPageAdapter extends FragmentPagerAdapter {
@@ -228,6 +231,20 @@ public class HtlcSendActivity extends BaseActivity {
 
         public ArrayList<BaseFragment> getFragments() {
             return mFragments;
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+         if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
+            Intent intent = new Intent(HtlcSendActivity.this, HtlcResultActivity.class);
+            intent.putExtra("toChain", mRecipientChain.getChain());
+            intent.putExtra("recipientId", ""+mRecipientAccount.id);
+            intent.putParcelableArrayListExtra("amount", mToSendCoins);
+            intent.putExtra("sendFee", mSendFee);
+            intent.putExtra("claimFee", mClaimFee);
+            startActivity(intent);
         }
     }
 }

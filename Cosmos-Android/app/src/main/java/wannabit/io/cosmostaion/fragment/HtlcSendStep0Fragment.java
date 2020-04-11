@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -16,10 +18,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receive_Chain;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int SELECT_DESTINATION_CHAIN = 9100;
 
     private Button          mBtnCancel, mBtnNext;
     private ImageView       mFromChainImg;
@@ -28,8 +31,8 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     private ImageView       mToChainImg;
     private TextView        mToChainTv;
 
-    private ArrayList<BaseChain> mToChainList;
-    private BaseChain       mToChain;
+    private ArrayList<BaseChain>    mToChainList;
+    private BaseChain               mToChain;
 
     public static HtlcSendStep0Fragment newInstance(Bundle bundle) {
         HtlcSendStep0Fragment fragment = new HtlcSendStep0Fragment();
@@ -74,6 +77,12 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnToChain)) {
+            Bundle bundle = new Bundle();
+            bundle.putString("chainName", getSActivity().mBaseChain.getChain());
+            Dialog_Htlc_Receive_Chain dialog = Dialog_Htlc_Receive_Chain.newInstance(bundle);
+            dialog.setCancelable(true);
+            dialog.setTargetFragment(this, SELECT_DESTINATION_CHAIN);
+            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnCancel)) {
             getSActivity().onBeforeStep();
@@ -85,7 +94,13 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         }
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == SELECT_DESTINATION_CHAIN && resultCode == Activity.RESULT_OK) {
+            mToChain = mToChainList.get(data.getIntExtra("position" , 0));
+            onUpdateView();
+        }
+    }
 
     private HtlcSendActivity getSActivity() {
         return (HtlcSendActivity)getBaseActivity();

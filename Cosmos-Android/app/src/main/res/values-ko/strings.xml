@@ -165,6 +165,7 @@
     <string name="str_tx_failed">Transaction 실패</string>
     <string name="str_tx_type">Tx 종류</string>
     <string name="str_tx_hash">Tx Hash</string>
+    <string name="str_random_hash">Random Hash</string>
     <string name="str_tx_after_balance">Remaining balance</string>
     <string name="str_tx_from">From</string>
     <string name="str_tx_to">To</string>
@@ -361,6 +362,17 @@
     <string name="str_all_cdps">모든 상품</string>
     <string name="str_press_select_recipient_account">수신 계정 선택</string>
     <string name="str_bep3_warn_1">In order to user this feature,\nyou must create a KAVA account and deposit a small amount of KAVA to be used as transaction fee.</string>
+    <string name="str_check_sent_wallet">보낸 지갑 확인</string>
+    <string name="str_check_received_wallet">받은 지갑 확인</string>
+    <string name="str_wait_htlc_loading">닫지 마세요! \ 거래가 순서대로 각 체인에 제출됩니다. \ n 시간이 조금 더 걸립니다.</string>
+    <string name="str_sender">송금자</string>
+    <string name="str_relay_recipient">중계 수신자</string>
+    <string name="str_relay_sender">중계 송금자</string>
+    <string name="str_recipient">수신자</string>
+    <string name="str_receive_amount">수신 금액</string>
+    <string name="str_claimer">요청자</string>
+    <string name="str_random_number">랜덤 넘버</string>
+    <string name="str_swap_id">스왑 ID</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
@@ -467,6 +479,8 @@
     <string name="str_cdp_promotion_title">Create a Collateralized Debt Position</string>
     <string name="str_cdp_promotion_msg">Borrow USDX by depositing XRP, BTC, BNB as collateral.\n100% on-chain decentralized finance.</string>
     <string name="str_repay_all_notice">This CDP will be closed. \nAll deposits will be returned to each depositor.</string>
+    <string name="str_select_receive_chain">Select Destination Chain</string>
+    <string name="str_select_account">Select Account</string>
 
     <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
     <string name="str_create_cdp_step_2">Insert memo (optional)</string>

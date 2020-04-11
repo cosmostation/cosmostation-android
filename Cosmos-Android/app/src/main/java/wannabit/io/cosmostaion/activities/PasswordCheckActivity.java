@@ -23,12 +23,15 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcSwapTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleChangeRewardAddressTask;
@@ -49,6 +52,7 @@ import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
@@ -90,6 +94,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mOwner;
     private String                      mDepositor;
     private String                      mCdpDenom;
+
+//    public BaseChain                    mRecipientChain;
+//    public Account                      mRecipientAccount;
+//    public Fee                          mSendFee;
+//    public Fee                          mClaimFee;
 
     private long                        mIdToDelete;
     private long                        mIdToCheck;
@@ -141,6 +150,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mOwner = getIntent().getStringExtra("owner");
         mDepositor = getIntent().getStringExtra("depositor");
         mCdpDenom = getIntent().getStringExtra("cdp_denom");
+        mDepositor = getIntent().getStringExtra("depositor");
+        mCdpDenom = getIntent().getStringExtra("cdp_denom");
+
+//        if (getIntent().getStringExtra("toChain") != null)
+//            mRecipientChain = BaseChain.getChain(getIntent().getStringExtra("toChain"));
+//        if (getIntent().getStringExtra("recipientId") != null)
+//            mRecipientAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("recipientId"));
+//        mSendFee = getIntent().getParcelableExtra("sendFee");
+//        mClaimFee = getIntent().getParcelableExtra("claimFee");
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
@@ -161,7 +179,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 mAskQuite = true;
                 Toast.makeText(getBaseContext(), R.string.str_ready_to_quite, Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 
@@ -374,6 +391,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         }
+
+//        else if (mPurpose == BaseConstant.CONST_PW_TX_HTLS_SWAP) {
+//            onShowWaitDialog();
+//            new HtlcSwapTask(getBaseApplication(), this,
+//                    mAccount, mRecipientAccount, mTargetCoins, mSendFee,
+//                    mClaimFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+//
+//        }
     }
 
     private void onShakeView() {
@@ -467,8 +492,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 startActivity(txIntent);
             }
 
-
-
         } else if (result.taskType == BaseConstant.TASK_DELETE_USER) {
             if(result.isSuccess) {
                 onDeleteAccount(mIdToDelete);
@@ -493,6 +516,16 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
             }
         }
+
+//        else if (result.taskType == BaseConstant.TASK_GEN_TX_HTLC_SWAP) {
+//            if(result.isSuccess) {
+//                WLog.w("TASK_GEN_TX_HTLC_SWAP Success");
+//            } else {
+//                WLog.w("TASK_GEN_TX_HTLC_SWAP Fail");
+//
+//            }
+//
+//        }
 
     }
 

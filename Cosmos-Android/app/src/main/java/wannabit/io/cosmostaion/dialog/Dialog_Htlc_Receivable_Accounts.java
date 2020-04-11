@@ -53,7 +53,6 @@ public class Dialog_Htlc_Receivable_Accounts extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_htlc_receivable_accouts, null);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
         mRecyclerView       = view.findViewById(R.id.recycler);
         mAccounts = getSActivity().getBaseDao().onSelectAccountsByHtlcClaim(BaseChain.getChain(getArguments().getString("chainName")));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

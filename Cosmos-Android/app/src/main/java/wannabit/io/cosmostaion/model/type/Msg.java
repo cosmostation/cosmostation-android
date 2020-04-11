@@ -173,6 +173,34 @@ public class Msg {
         @SerializedName("cdp_denom")
         public String cdp_denom;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("swap_id")
+        public String swap_id;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("random_number")
+        public String random_number;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("random_number_hash")
+        public String random_number_hash;
+
+
+
+
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("to")
+        public String to;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("recipient_other_chain")
+        public String recipient_other_chain;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("sender_other_chain")
+        public String sender_other_chain;
+
 
     }
 

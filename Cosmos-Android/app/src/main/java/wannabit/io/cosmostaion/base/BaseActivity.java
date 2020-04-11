@@ -227,14 +227,21 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         v.clearFocus();
     }
 
-    public void onStartMainActivity(boolean showHistory) {
+//    public void onStartMainActivity(boolean showHistory) {
+//        Intent intent = new Intent(this, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        if (showHistory) {
+//            intent.putExtra("page", 2);
+//        } else {
+//            intent.putExtra("page", 0);
+//        }
+//        startActivity(intent);
+//    }
+
+    public void onStartMainActivity(int page) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        if (showHistory) {
-            intent.putExtra("page", 2);
-        } else {
-            intent.putExtra("page", 0);
-        }
+        intent.putExtra("page", page);
         startActivity(intent);
     }
 
@@ -345,7 +352,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         if(getBaseDao().onSelectAccounts().size() > 0) {
             getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
-            onStartMainActivity(false);
+            onStartMainActivity(0);
         } else {
             getBaseDao().setLastUser(-1);
             Intent intent = new Intent(this, IntroActivity.class);
@@ -406,7 +413,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 Account account = getBaseDao().onSelectExistAccount(address);
                 if (account != null) {
                     getBaseDao().setLastUser(account.id);
-                    onStartMainActivity(true);
+                    onStartMainActivity(2);
 
                 }
 

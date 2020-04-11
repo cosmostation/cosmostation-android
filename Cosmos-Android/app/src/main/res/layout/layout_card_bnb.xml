@@ -130,17 +130,16 @@
                 android:layout_height="@dimen/space_40"
                 android:minHeight="@dimen/space_40"
                 android:background="@drawable/btn_trans_with_border"
-                android:clickable="true"
-                android:visibility="gone">
+                android:clickable="true">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:drawableLeft="@drawable/connect_ic"
+                    android:drawableLeft="@drawable/bepsend_ic_s"
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
                     style="@style/font_ss_12_white"
-                    android:text="BEP3 Send" />
+                    android:text="Interchain" />
             </RelativeLayout>
         </LinearLayout>
 

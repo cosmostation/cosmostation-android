@@ -120,6 +120,16 @@ public class WDp {
                 denomTv.setText(coin.denom.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), WUtil.getKavaCoinDecimal(coin), WUtil.getKavaCoinDecimal(coin)));
+
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+            if (coin.denom.equals(COSMOS_BNB)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+
+            } else {
+                denomTv.setText(coin.denom.toUpperCase());
+
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 8, 8));
         }
     }
 
@@ -147,6 +157,15 @@ public class WDp {
 
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 9));
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+            if (symbol.equals(COSMOS_BNB)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
         }
     }
 

@@ -218,7 +218,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if(result.isSuccess) {
-                onStartMainActivity(false);
+                onStartMainActivity(0);
             } else {
                 WLog.w("CREATE ACCOUNT with new mnemonic error : " + result.errorCode);
             }
