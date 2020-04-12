@@ -222,7 +222,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             memoTv.setText(mResSendTxInfo.tx.value.memo);
 
             Coin sendCoin = msg.value.getCoins().get(0);
-            WDp.showCoinDp(getBaseContext(), sendCoin, sendDenom, sendAmount, mBaseChain);
+//            WDp.showCoinDp(getBaseContext(), sendCoin, sendDenom, sendAmount, mBaseChain);
             sendDenom.setText(sendCoin.denom.toUpperCase());
             sendAmount.setText(WDp.getDpAmount2(this, new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(sendCoin.denom), WUtil.getKavaCoinDecimal(sendCoin.denom)));
 
@@ -305,6 +305,9 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 try {
                     if (!TextUtils.isEmpty(receiveCoin.denom)) {
                         WDp.showCoinDp(getBaseContext(), receiveCoin, claimDenom, claimAmount, mRecipientChain);
+                    } else {
+                        claimDenom.setText("");
+                        claimAmount.setText("");
                     }
 
                 } catch (Exception e) {

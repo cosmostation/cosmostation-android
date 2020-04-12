@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import okhttp3.RequestBody;
+import okio.Buffer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -166,6 +168,8 @@ public class HtlcSwapTask extends CommonTask {
             mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
             mRandomNumberHash = htltReq.getRandomNumberHash();
             mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_TEST_DEPUTY, mSendAccount.address).toUpperCase();
+            WLog.w("mRandomNumber " + mRandomNumber);
+            WLog.w("mExpectedSwapId " + mExpectedSwapId);
 
 
             TransactionOption options = new TransactionOption(mApp.getString(R.string.str_create_swap_memo_c)  , 82, null);
@@ -214,12 +218,6 @@ public class HtlcSwapTask extends CommonTask {
             mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BNB_TEST_DEPUTY, mSendAccount.address).toUpperCase();
             WLog.w("mExpectedSwapId " + mExpectedSwapId);
 
-//            WLog.w("mExpectedSwapId2 " + WKey.getSwapId(mRandomNumberHash, KAVA_TEST_DEPUTY, mSendAccount.address).toUpperCase());
-//            WLog.w("mExpectedSwapId3 " + WKey.getSwapId(mRandomNumberHash, BNB_TEST_DEPUTY, mReceiveAccount.address).toUpperCase());
-//            WLog.w("mExpectedSwapId4 " + WKey.getSwapId(mRandomNumberHash, KAVA_TEST_DEPUTY, mReceiveAccount.address).toUpperCase());
-//            WLog.w("mExpectedSwapId5 " + WKey.getSwapId(mRandomNumberHash, mSendAccount.address, BNB_TEST_DEPUTY).toUpperCase());
-
-
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey);
             Response<ResBroadTx> response2 = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
@@ -245,7 +243,7 @@ public class HtlcSwapTask extends CommonTask {
 
     }
 
-    private TaskResult onClaimHtlcSwap() throws Exception{
+    private TaskResult onClaimHtlcSwap() throws Exception {
         if (mReceiveChain.equals(BaseChain.BNB_MAIN)) {
 
         } else if (mReceiveChain.equals(BaseChain.BNB_TEST)) {
@@ -265,11 +263,14 @@ public class HtlcSwapTask extends CommonTask {
             wallet.setAccountNumber(mReceiveAccount.accountNumber);
             wallet.setSequence(Long.valueOf(mReceiveAccount.sequenceNumber));
 
-
             TransactionOption options = new TransactionOption(mApp.getString(R.string.str_claim_swap_memo_c)  , 82, null);
+
             BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.TEST_NET.getBaseUrl());
-            List<TransactionMetadata> resp = client.claimHtlt(mExpectedSwapId, WUtil.HexStringToByteArray(mRandomNumber), wallet, TransactionOption.DEFAULT_INSTANCE, true);
+            List<TransactionMetadata> resp = client.claimHtlt(BNB_TEST_DEPUTY, mExpectedSwapId, WUtil.HexStringToByteArray(mRandomNumber), wallet, TransactionOption.DEFAULT_INSTANCE, true);
 //            List<TransactionMetadata> resp = client.claimHtlt(mExpectedSwapId, WUtil.HexStringToByteArray(mRandomNumber), wallet, options, true);
+
+
+
 
             WLog.w("resp " + resp.get(0).toString());
             if (resp.get(0).isOk()) {

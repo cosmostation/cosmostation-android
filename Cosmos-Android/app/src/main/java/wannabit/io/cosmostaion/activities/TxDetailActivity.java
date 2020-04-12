@@ -57,6 +57,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_UNDELEGATE
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
@@ -244,6 +247,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private static final int TYPE_TX_WITHDRAW_CDP = 13;
         private static final int TYPE_TX_DRAW_DEBT_CDP = 14;
         private static final int TYPE_TX_REPAY_CDP = 15;
+        private static final int TYPE_TX_HTLC_CREATE = 16;
+        private static final int TYPE_TX_HTLC_CLAIM = 17;
+        private static final int TYPE_TX_HTLC_REFUND = 18;
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -281,6 +287,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxDrawDebtCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_drawdebt_cdp, viewGroup, false));
             } else if (viewType == TYPE_TX_REPAY_CDP) {
                 return new TxRepayDebtCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_repaydebt_cdp, viewGroup, false));
+            } else if (viewType == TYPE_TX_HTLC_CREATE) {
+                return new TxCreateHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_create, viewGroup, false));
+            } else if (viewType == TYPE_TX_HTLC_CLAIM) {
+                return new TxClaimHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
+            } else if (viewType == TYPE_TX_HTLC_REFUND) {
+                //TODO not yet
+                return new TxRefundHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
             }
 
             return new TxUnKnownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
@@ -320,6 +333,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindDrawDebtCdp(viewHolder, mResTxInfo.getMsg(position - 1));
             } else if (getItemViewType(position) == TYPE_TX_REPAY_CDP) {
                 onBindRepayDebtCdp(viewHolder, mResTxInfo.getMsg(position - 1));
+            } else if (getItemViewType(position) == TYPE_TX_HTLC_CREATE) {
+                onBindCreateHTLC(viewHolder, mResTxInfo.getMsg(position - 1));
+            } else if (getItemViewType(position) == TYPE_TX_HTLC_CLAIM) {
+                onBindClaimHTLC(viewHolder, mResTxInfo.getMsg(position - 1));
+            } else if (getItemViewType(position) == TYPE_TX_HTLC_REFUND) {
+                onBindRefundHTLC(viewHolder, mResTxInfo.getMsg(position - 1));
             } else {
                 onBindUnKnown(viewHolder, mResTxInfo.getMsg(position - 1));
             }
@@ -395,8 +414,17 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 } else if (mResTxInfo.getMsgType(position - 1) .equals(COSMOS_MSG_TYPE_WITHDRAW_VAL)) {
                     return TYPE_TX_COMMISSION;
-                }
 
+                } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
+                    return TYPE_TX_HTLC_CREATE;
+
+                } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_BEP3_CLAM_SWAP)) {
+                    return TYPE_TX_HTLC_CLAIM;
+
+                } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
+                    return TYPE_TX_HTLC_REFUND;
+
+                }
                 return TYPE_TX_UNKNOWN;
 
             }
@@ -761,6 +789,47 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         }
 
+        private void onBindCreateHTLC(RecyclerView.ViewHolder viewHolder, Msg msg) {
+            final TxCreateHtlcHolder holder = (TxCreateHtlcHolder)viewHolder;
+            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                Coin sendCoin = msg.value.getCoins().get(0);
+                holder.itemSendDenom.setText(sendCoin.denom.toUpperCase());
+                holder.itemSendAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(sendCoin.denom), WUtil.getKavaCoinDecimal(sendCoin.denom)));
+                holder.itemSender.setText(msg.value.from);
+                holder.itemRecipient.setText(msg.value.recipient_other_chain);
+                holder.itemRandomHash.setText(msg.value.random_number_hash);
+                holder.itemExpectIncome.setText(msg.value.expected_income);
+            }
+        }
+
+        private void onBindClaimHTLC(RecyclerView.ViewHolder viewHolder, Msg msg) {
+            final TxClaimHtlcHolder holder = (TxClaimHtlcHolder)viewHolder;
+            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                Coin receiveCoin = mResTxInfo.simpleSwapCoin();
+                try {
+                    if (!TextUtils.isEmpty(receiveCoin.denom)) {
+                        WDp.showCoinDp(getBaseContext(), receiveCoin, holder.itemReceiveDenom, holder.itemReceiveAmount, mBaseChain);
+                    } else {
+                        holder.itemReceiveDenom.setText("");
+                        holder.itemReceiveAmount.setText("");
+                    }
+                } catch (Exception e) {
+                    holder.itemReceiveDenom.setText("");
+                    holder.itemReceiveAmount.setText("");
+                }
+                holder.itemClaimer.setText(msg.value.from);
+                holder.itemRandomNumber.setText(msg.value.random_number);
+                holder.itemSwapId.setText(msg.value.swap_id);
+            }
+        }
+
+        private void onBindRefundHTLC(RecyclerView.ViewHolder viewHolder, Msg msg) {
+
+        }
+
+
         private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, Msg msg) {
             final TxUnKnownHolder holder = (TxUnKnownHolder)viewHolder;
             holder.itemUnknownImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -1123,6 +1192,48 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemPaymentDenom = itemView.findViewById(R.id.tx_payment_symbol);
             }
 
+        }
+
+        public class TxCreateHtlcHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemSendAmount, itemSendDenom, itemSender, itemRecipient, itemRandomHash, itemExpectIncome;
+
+            public TxCreateHtlcHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemSendAmount = itemView.findViewById(R.id.send_amount);
+                itemSendDenom = itemView.findViewById(R.id.send_amount_denom);
+                itemSender = itemView.findViewById(R.id.sender_addr);
+                itemRecipient = itemView.findViewById(R.id.recipient_addr);
+                itemRandomHash = itemView.findViewById(R.id.random_hash);
+                itemExpectIncome = itemView.findViewById(R.id.expected_income);
+            }
+        }
+
+        public class TxClaimHtlcHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemReceiveAmount, itemReceiveDenom, itemClaimer, itemRandomNumber, itemSwapId;
+
+            public TxClaimHtlcHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemReceiveAmount = itemView.findViewById(R.id.claim_amount);
+                itemReceiveDenom = itemView.findViewById(R.id.claim_amount_denom);
+                itemClaimer = itemView.findViewById(R.id.claimer_addr);
+                itemRandomNumber = itemView.findViewById(R.id.claim_random_number);
+                itemSwapId = itemView.findViewById(R.id.claim_swap_id);
+            }
+        }
+
+        public class TxRefundHtlcHolder extends RecyclerView.ViewHolder {
+
+            public TxRefundHtlcHolder(@NonNull View itemView) {
+                super(itemView);
+            }
         }
 
         public class TxUnKnownHolder extends RecyclerView.ViewHolder {

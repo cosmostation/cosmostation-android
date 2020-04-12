@@ -373,6 +373,7 @@
     <string name="str_claimer">요청자</string>
     <string name="str_random_number">랜덤 넘버</string>
     <string name="str_swap_id">스왑 ID</string>
+    <string name="str_expected_income">Expected Income</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
