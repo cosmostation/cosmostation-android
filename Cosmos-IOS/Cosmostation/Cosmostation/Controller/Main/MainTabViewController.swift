@@ -601,7 +601,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                     
                 } else if (self.mChainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                    guard let bondinginfos = res as? Array<NSDictionary> else {
+                    guard let bondinginfos = res as? Array<NSDictionary>, bondinginfos.count > 0 else {
                         _ = BaseData.instance.deleteBonding(account: account)
                         self.onFetchFinished()
                         return;
@@ -659,7 +659,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     BaseData.instance.updateUnbondings(self.mAccount.account_id, WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, self.mChainType))
                     
                 } else if (self.mChainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                    guard let unbondinginfos = res as? Array<NSDictionary> else {
+                    guard let unbondinginfos = res as? Array<NSDictionary>, unbondinginfos.count > 0 else {
                         _ = BaseData.instance.deleteUnbonding(account: account)
                         self.onFetchFinished()
                         return
