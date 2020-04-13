@@ -416,6 +416,37 @@ public class MsgGenerator {
         return result;
     }
 
+    public static Msg genClaimAtomicSwap(String from, String swapId, String randomNumber, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            value.from = from;
+            value.swap_id = swapId.toUpperCase();
+            value.random_number = randomNumber.toUpperCase();
+
+            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+
+    public static Msg genRefundAtomicSwap(String from, String swapId, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            value.from = from;
+            value.swap_id = swapId.toUpperCase();
+
+            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+
 
     public static HtltReq getBnbHtlcCreateMsg(BaseChain fromChain, BaseChain toChain, Account fromAccount, Account toAccount, ArrayList<Coin> sendCoins, long timestamp, byte[] originData) {
         HtltReq htltReq = new HtltReq();
@@ -453,20 +484,7 @@ public class MsgGenerator {
         return htltReq;
     }
 
-    public static Msg genClaimAtomicSwap(String from, String swapId, String randomNumber, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
-            value.from = from;
-            value.swap_id = swapId.toUpperCase();
-            value.random_number = randomNumber.toUpperCase();
 
-            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
-            result.value = value;
-
-        }
-        return result;
-    }
 
 
 

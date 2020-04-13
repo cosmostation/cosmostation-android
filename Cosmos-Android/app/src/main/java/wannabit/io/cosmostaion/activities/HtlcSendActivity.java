@@ -193,9 +193,6 @@ public class HtlcSendActivity extends BaseActivity {
     }
 
     public void onStartHtlcSend() {
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            return;
-        }
         Intent intent = new Intent(HtlcSendActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
         startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);

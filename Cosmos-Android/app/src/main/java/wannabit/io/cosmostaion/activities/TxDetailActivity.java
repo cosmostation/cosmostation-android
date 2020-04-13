@@ -292,8 +292,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (viewType == TYPE_TX_HTLC_CLAIM) {
                 return new TxClaimHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
             } else if (viewType == TYPE_TX_HTLC_REFUND) {
-                //TODO not yet
-                return new TxRefundHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
+                return new TxRefundHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_refund, viewGroup, false));
             }
 
             return new TxUnKnownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
@@ -826,7 +825,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         }
 
         private void onBindRefundHTLC(RecyclerView.ViewHolder viewHolder, Msg msg) {
-
+            final TxRefundHtlcHolder holder = (TxRefundHtlcHolder)viewHolder;
+            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                holder.itemFromAddr.setText(msg.value.from);
+                holder.itemSwapId.setText(msg.value.swap_id);
+            }
         }
 
 
@@ -1230,9 +1234,16 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         }
 
         public class TxRefundHtlcHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemFromAddr, itemSwapId;
 
             public TxRefundHtlcHolder(@NonNull View itemView) {
                 super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemFromAddr = itemView.findViewById(R.id.refund_addr);
+                itemSwapId = itemView.findViewById(R.id.refund_swap_id);
             }
         }
 

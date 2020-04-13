@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
-import android.os.Handler;
-
 import com.binance.dex.api.client.BinanceDexApiClientFactory;
 import com.binance.dex.api.client.BinanceDexApiRestClient;
 import com.binance.dex.api.client.BinanceDexEnvironment;
@@ -9,9 +7,6 @@ import com.binance.dex.api.client.Wallet;
 import com.binance.dex.api.client.domain.TransactionMetadata;
 import com.binance.dex.api.client.domain.broadcast.HtltReq;
 import com.binance.dex.api.client.domain.broadcast.TransactionOption;
-import com.binance.dex.api.client.domain.broadcast.Transfer;
-import com.binance.dex.api.client.encoding.message.ClaimHtltMessage;
-import com.binance.dex.api.client.encoding.message.TransactionRequestAssembler;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -21,10 +16,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import okhttp3.RequestBody;
-import okio.Buffer;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -119,14 +110,12 @@ public class HtlcSwapTask extends CommonTask {
                     for (int i = 0; i < 6; i++) {
                         Response<ResBnbSwapInfo> response = ApiClient.getBnbTestChain(mApp).getSwapById(mExpectedSwapId).execute();
                         if (response.isSuccessful() && response.body() != null && response.body().swapId != null) {
-                            WLog.w("GOGO");
                             break;
                         } else {
-                            WLog.w("WAIT " + i);
                             Thread.sleep(5000);
                         }
                     }
-                    Thread.sleep(20000);
+                    Thread.sleep(5000);
 
                 }
                 return onClaimHtlcSwap();
@@ -169,8 +158,7 @@ public class HtlcSwapTask extends CommonTask {
             mRandomNumberHash = htltReq.getRandomNumberHash();
             mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_TEST_DEPUTY, mSendAccount.address).toUpperCase();
             WLog.w("mRandomNumber " + mRandomNumber);
-            WLog.w("mExpectedSwapId " + mExpectedSwapId);
-
+            WLog.w("BNB Send mExpectedSwapId " + mExpectedSwapId);
 
             TransactionOption options = new TransactionOption(mApp.getString(R.string.str_create_swap_memo_c)  , 82, null);
             BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.TEST_NET.getBaseUrl());
@@ -210,13 +198,12 @@ public class HtlcSwapTask extends CommonTask {
             Msg createSwapMsg = MsgGenerator.genCreateSwapMsg(mSendChain, mReceiveChain, mSendAccount, mReceiveAccount, mToSendCoins, timestamp, originData);
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(createSwapMsg);
-//            WLog.w("createSwapMsg : " +  WUtil.prettyPrinter(createSwapMsg));
 
             mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
-            WLog.w("mRandomNumber " + mRandomNumber);
             mRandomNumberHash = WUtil.HexStringToByteArray(createSwapMsg.value.random_number_hash);
             mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BNB_TEST_DEPUTY, mSendAccount.address).toUpperCase();
-            WLog.w("mExpectedSwapId " + mExpectedSwapId);
+            WLog.w("mRandomNumber " + mRandomNumber);
+            WLog.w("KAVA Send mExpectedSwapId " + mExpectedSwapId);
 
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey);
@@ -244,6 +231,54 @@ public class HtlcSwapTask extends CommonTask {
     }
 
     private TaskResult onClaimHtlcSwap() throws Exception {
+
+//        //TEST for refund
+//        Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaTestChain(mApp).getAccountInfo(mSendAccount.address).execute();
+//        if(!response.isSuccessful()) {
+//            mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+//            return mResult;
+//        }
+//        mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mSendAccount.id, response.body()));
+//        mApp.getBaseDao().onUpdateBalances(mSendAccount.id, WUtil.getBalancesFromKavaLcd(mSendAccount.id, response.body()));
+//        mSendAccount = mApp.getBaseDao().onSelectAccount(""+mSendAccount.id);
+//
+//        String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
+//        DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mSendAccount.baseChain), entropy, Integer.parseInt(mSendAccount.path), mSendAccount.newBip44);
+//
+//        mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, mSendAccount.address, BNB_TEST_DEPUTY).toUpperCase();
+//
+//        Msg claimSwapMsg = MsgGenerator.genRefundAtomicSwap(mSendAccount.address, mExpectedSwapId, mSendChain);
+//        ArrayList<Msg> msgs= new ArrayList<>();
+//        msgs.add(claimSwapMsg);
+//        WLog.w("claimSwapMsg : " +  WUtil.prettyPrinter(claimSwapMsg));
+//
+//        ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mSendAccount, msgs, mSendFee, "refund", deterministicKey);
+//        WLog.w("reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+//        Response<ResBroadTx> claimRes = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
+//
+//        WLog.w("claimRes : " +  WUtil.prettyPrinter(claimRes));
+//
+//
+//        if(claimRes.isSuccessful() && claimRes.body() != null) {
+//            if (claimRes.body().txhash != null) {
+//                if (IS_SHOWLOG) WLog.w("refund suceess txhash " + claimRes.body().txhash);
+//                mResult.resultData = claimRes.body().txhash;
+//            }
+//            if(claimRes.body().code != null) {
+//                if (IS_SHOWLOG) WLog.w("refund error " + mResult.errorCode + "  " + mResult.errorMsg);
+//                mResult.errorCode = claimRes.body().code;
+//                mResult.errorMsg = claimRes.body().raw_log;
+//                mResult.isSuccess = false;
+//            }
+//
+//        } else {
+//            mResult.isSuccess = false;
+//            mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+//        }
+
+
+
+
         if (mReceiveChain.equals(BaseChain.BNB_MAIN)) {
 
         } else if (mReceiveChain.equals(BaseChain.BNB_TEST)) {
@@ -263,16 +298,12 @@ public class HtlcSwapTask extends CommonTask {
             wallet.setAccountNumber(mReceiveAccount.accountNumber);
             wallet.setSequence(Long.valueOf(mReceiveAccount.sequenceNumber));
 
-            TransactionOption options = new TransactionOption(mApp.getString(R.string.str_claim_swap_memo_c)  , 82, null);
-
+            mExpectedSwapId = mExpectedSwapId.toLowerCase();
+            mRandomNumber = mRandomNumber.toLowerCase();
             BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.TEST_NET.getBaseUrl());
-            List<TransactionMetadata> resp = client.claimHtlt(BNB_TEST_DEPUTY, mExpectedSwapId, WUtil.HexStringToByteArray(mRandomNumber), wallet, TransactionOption.DEFAULT_INSTANCE, true);
-//            List<TransactionMetadata> resp = client.claimHtlt(mExpectedSwapId, WUtil.HexStringToByteArray(mRandomNumber), wallet, options, true);
+            TransactionOption options = new TransactionOption(mApp.getString(R.string.str_claim_swap_memo_c)  , 82, null);
+            List<TransactionMetadata> resp = client.claimHtlt(mExpectedSwapId, WUtil.HexStringToByteArray(mRandomNumber), wallet, options, true);
 
-
-
-
-            WLog.w("resp " + resp.get(0).toString());
             if (resp.get(0).isOk()) {
                 if (IS_SHOWLOG) WLog.w("Claim suceess txhash " + resp.get(0).getHash());
                 mResult.resultData = resp.get(0).getHash();

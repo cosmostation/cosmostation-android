@@ -96,7 +96,6 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 mAccount, mRecipientAccount, mTargetCoins, mSendFee,
                 mClaimFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-
     }
 
     @Override
@@ -121,7 +120,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mSendFee)) {
+        if (v.equals(mSenderBtn)) {
             onStartMainActivity(0);
 
         } else if (v.equals(mReceiverBtn)) {
