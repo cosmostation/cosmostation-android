@@ -69,7 +69,11 @@ class MainTabSettingViewController: BaseViewController {
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            titleChainImg.image = UIImage(named: "binancetestnet")
+            titleChainName.text = "(Binance Test)"
+            titleAlarmBtn.isHidden = true
+        }  else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(KAVA Test)"
             titleAlarmBtn.isHidden = true

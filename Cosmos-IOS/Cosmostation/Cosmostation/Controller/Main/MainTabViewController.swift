@@ -174,8 +174,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if (mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
         }
-        
-        
     }
     
     func onFetchAccountData() -> Bool {
@@ -213,7 +211,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchIrisTokens()
             onFetchPriceTic(true)
             
-        } else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || mChainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             self.mFetchCnt = 3
             self.mAllValidator.removeAll()
             onFetchAccountInfo(mAccount)
@@ -299,7 +297,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
                 
-            }  else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            }  else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || mChainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 if (mBnbTokenList.count <= 0) {
@@ -512,6 +510,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = BNB_URL_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            url = BNB_TEST_URL_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         }
@@ -541,7 +541,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     
-                } else if (self.mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ) {
+                } else if (self.mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.mChainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.onFetchFinished()
@@ -908,7 +908,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchBnbTokens() {
-        let url = BNB_URL_TOKENS
+        var url = ""
+        if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ) {
+            url = BNB_URL_TOKENS
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            url = BNB_TEST_URL_TOKENS
+        }
         let request = Alamofire.request(url, method: .get, parameters: ["limit":"3000"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -965,7 +970,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 url = CMC_PRICE_TIC + "3874"
                 parameters = ["convert":BaseData.instance.getCurrencyString()]
             }
-        } else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || mChainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             if (BaseData.instance.getMarket() == 0) {
                 url = CGC_PRICE_TIC + "binancecoin"
                 parameters = [:]
@@ -1174,31 +1179,29 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     public func showKavaTestWarn() {
-            print("showKavaTestWarn")
-            let warnAlert = UIAlertController(title: NSLocalizedString("chain_title_kava_test", comment: ""), message: "", preferredStyle: .alert)
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = NSTextAlignment.left
-            let messageText = NSMutableAttributedString(
-                string: NSLocalizedString("help_kava_test_warn", comment: ""),
-                attributes: [
-                    NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                    NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
-                ]
-            )
-            warnAlert.setValue(messageText, forKey: "attributedMessage")
-            warnAlert.addAction(UIAlertAction(title: NSLocalizedString("str_no_more_3day", comment: ""), style: .destructive, handler: { _ in
-                BaseData.instance.setKavaWarn()
-            }))
-            warnAlert.addAction(UIAlertAction(title: NSLocalizedString("confirm", comment: ""), style: .default, handler: nil))
-            self.present(warnAlert, animated: true, completion: nil)
-        }
+        let warnAlert = UIAlertController(title: NSLocalizedString("chain_title_kava_test", comment: ""), message: "", preferredStyle: .alert)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = NSTextAlignment.left
+        let messageText = NSMutableAttributedString(
+            string: NSLocalizedString("help_kava_test_warn", comment: ""),
+            attributes: [
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
+            ]
+        )
+        warnAlert.setValue(messageText, forKey: "attributedMessage")
+        warnAlert.addAction(UIAlertAction(title: NSLocalizedString("str_no_more_3day", comment: ""), style: .destructive, handler: { _ in
+            BaseData.instance.setKavaWarn()
+        }))
+        warnAlert.addAction(UIAlertAction(title: NSLocalizedString("confirm", comment: ""), style: .default, handler: nil))
+        self.present(warnAlert, animated: true, completion: nil)
+    }
     
     public func hideWaittingAlert(){
         if (waitAlert != nil) {
             waitAlert?.dismiss(animated: true, completion: nil)
         }
     }
-    
     
     func accountSelected(_ id: Int) {
         if (id != self.mAccount.account_id) {

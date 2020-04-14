@@ -112,7 +112,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_IOV
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            titleChainImg.image = UIImage(named: "binancetestnet")
+            titleChainName.text = "(Binance Test)"
+            kavaOracle.isHidden = true
+            titleAlarmBtn.isHidden = true
+            totalCard.backgroundColor = COLOR_BG_GRAY
+        }  else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(KAVA Test)"
             titleAlarmBtn.isHidden = true
