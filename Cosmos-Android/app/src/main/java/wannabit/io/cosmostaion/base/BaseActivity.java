@@ -732,7 +732,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastIrisTic(0d);
                             getBaseDao().setLastIrisUpDown(0d);
 
-                        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                             getBaseDao().setLastBnbTic(0d);
                             getBaseDao().setLastBnbUpDown(0d);
 
@@ -754,7 +754,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().setLastIrisTic(0d);
                         getBaseDao().setLastIrisUpDown(0d);
 
-                    } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                    } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                         getBaseDao().setLastBnbTic(0d);
                         getBaseDao().setLastBnbUpDown(0d);
 
@@ -782,7 +782,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastIrisTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                             getBaseDao().setLastIrisUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
 
-                        } else if (response.isSuccessful() && chain.equals(BaseChain.BNB_MAIN)) {
+                        } else if (response.isSuccessful() && (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST) )) {
                             ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
                             getBaseDao().setLastBnbTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                             getBaseDao().setLastBnbUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
@@ -803,7 +803,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastIrisTic(0d);
                             getBaseDao().setLastIrisUpDown(0d);
 
-                        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                             getBaseDao().setLastBnbTic(0d);
                             getBaseDao().setLastBnbUpDown(0d);
 
@@ -825,7 +825,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().setLastIrisTic(0d);
                         getBaseDao().setLastIrisUpDown(0d);
 
-                    } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                    } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                         getBaseDao().setLastBnbTic(0d);
                         getBaseDao().setLastBnbUpDown(0d);
 
