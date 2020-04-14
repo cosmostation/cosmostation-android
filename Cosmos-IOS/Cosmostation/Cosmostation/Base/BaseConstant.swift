@@ -34,9 +34,9 @@ let CSS_LCD_URL                         = "https://lcd-cosmos-app.cosmostation.i
 //let CSS_LCD_URL                         = "https://lcd-cosmos-testnet.cosmostation.io/";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let BNB_URL                             = "https://dex.binance.org/";
+let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
-//let KAVA_TEST_URL                       = "https://lcd-kava-testnet.cosmostation.io/";
-let KAVA_TEST_URL                       = "https://kava-testnet-4000.kava.io/";
+let KAVA_TEST_URL                       = "https://lcd-kava-testnet-5000.cosmostation.io/";
 
 let KAVA_TEST_API                       = "https://api-kava-testnet.cosmostation.io/";
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
@@ -99,6 +99,12 @@ let BNB_URL_TOKENS                      = BNB_URL + "api/v1/tokens";
 let BNB_URL_TIC                         = BNB_URL + "api/v1/ticker/24hr";
 let BNB_URL_HISTORY                     = BNB_URL + "api/v1/transactions";
 let BNB_URL_TX                          = BNB_URL + "api/v1/tx/";
+
+let BNB_TEST_URL_ACCOUNT_INFO           = BNB_TEST_URL + "api/v1/account/";
+let BNB_TEST_URL_TOKENS                 = BNB_TEST_URL + "api/v1/tokens";
+let BNB_TEST_URL_TIC                    = BNB_TEST_URL + "api/v1/ticker/24hr";
+let BNB_TEST_URL_HISTORY                = BNB_TEST_URL + "api/v1/transactions";
+let BNB_TEST_URL_TX                     = BNB_TEST_URL + "api/v1/tx/";
 
 
 //KAVA_URL
@@ -419,6 +425,7 @@ enum ChainType: String {
     case SUPPORT_CHAIN_BINANCE_MAIN
     case SUPPORT_CHAIN_KAVA_MAIN
     case SUPPORT_CHAIN_IOV_MAIN
+    case SUPPORT_CHAIN_BINANCE_TEST
     case SUPPORT_CHAIN_KAVA_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
@@ -428,7 +435,8 @@ enum ChainType: String {
         result.append(SUPPORT_CHAIN_BINANCE_MAIN)
         result.append(SUPPORT_CHAIN_KAVA_MAIN)
 //        result.append(SUPPORT_CHAIN_IOV_MAIN)
-//        result.append(SUPPORT_CHAIN_KAVA_TEST)
+        result.append(SUPPORT_CHAIN_BINANCE_TEST)
+        result.append(SUPPORT_CHAIN_KAVA_TEST)
         return result
     }
     
@@ -442,6 +450,7 @@ let CHAIN_IRIS_S = "SUPPORT_CHAIN_IRIS_MAIN"
 let CHAIN_BINANCE_S = "SUPPORT_CHAIN_BINANCE_MAIN"
 let CHAIN_KAVA_S = "SUPPORT_CHAIN_KAVA_MAIN"
 let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
+let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 
 

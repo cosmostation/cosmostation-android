@@ -182,12 +182,13 @@
                     android:text="@string/str_vote_to" />
             </RelativeLayout>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layer_iris_transfer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
             <RelativeLayout
                 android:id="@+id/btn_iris_send"
                 android:layout_width="0dp"

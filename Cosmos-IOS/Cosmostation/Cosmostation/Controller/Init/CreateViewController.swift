@@ -115,6 +115,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         iovAction.setValue(UIImage(named: "iovImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let bnbTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_bnb", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.SUPPORT_CHAIN_BINANCE_TEST
+            self.onGenNewKey()
+        })
+        bnbTestAction.setValue(UIImage(named: "binancetestnet")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let kavaTestAction = UIAlertAction(title: NSLocalizedString("chain_title_kava_test", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SUPPORT_CHAIN_KAVA_TEST
             self.onGenNewKey()
@@ -127,6 +133,9 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(kavaAction)
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.SUPPORT_CHAIN_IOV_MAIN)) {
             showAlert.addAction(iovAction)
+        }
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.SUPPORT_CHAIN_BINANCE_TEST)) {
+            showAlert.addAction(bnbTestAction)
         }
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.SUPPORT_CHAIN_KAVA_TEST)) {
             showAlert.addAction(kavaTestAction)

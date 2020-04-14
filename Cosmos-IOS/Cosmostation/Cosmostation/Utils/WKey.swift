@@ -52,7 +52,7 @@ class WKey {
             } else {
                 return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
         } else {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
@@ -65,6 +65,7 @@ class WKey {
             chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_TEST ) {
             let sha256 = Crypto.sha256(Data.fromHex(pubHex)!)
             let ripemd160 = Crypto.ripemd160(sha256)
@@ -77,6 +78,8 @@ class WKey {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "bnb", program: ripemd160)
             } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "kava", program: ripemd160)
+            } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                result = try! SegwitAddrCoder.shared.encode2(hrp: "tbnb", program: ripemd160)
             }
             
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
@@ -91,7 +94,7 @@ class WKey {
             var childKey:HDPrivateKey?
             if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-            } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
             } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 if (newbip) {
@@ -113,6 +116,7 @@ class WKey {
             chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             //using Secp256k1
             let maskerKey = getMasterKeyFromWords(mnemonic)

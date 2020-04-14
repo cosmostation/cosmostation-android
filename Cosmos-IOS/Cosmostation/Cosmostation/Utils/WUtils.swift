@@ -601,7 +601,7 @@ class WUtils {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             formatted = nf.string(from: amount.rounding(accordingToBehavior: handler))
         }
 
@@ -1377,7 +1377,7 @@ class WUtils {
             return COLOR_ATOM
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return COLOR_IRIS
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return COLOR_BNB
         } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             return COLOR_KAVA
@@ -1400,7 +1400,7 @@ class WUtils {
             return COLOR_KAVA_DARK
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return COLOR_IOV_DARK
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
@@ -1417,7 +1417,7 @@ class WUtils {
             return TRANS_BG_COLOR_KAVA
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return TRANS_BG_COLOR_IOV
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
@@ -1428,7 +1428,7 @@ class WUtils {
             return "ATOM"
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return "IRIS"
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return "BNB"
         } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return "KAVA"
@@ -1445,7 +1445,7 @@ class WUtils {
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             label.text = "IRIS"
             label.textColor = COLOR_IRIS
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             label.text = "BNB"
             label.textColor = COLOR_BNB
         } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
@@ -1470,6 +1470,8 @@ class WUtils {
             return ChainType.SUPPORT_CHAIN_IOV_MAIN
         } else if (chainS == CHAIN_KAVA_TEST_S) {
             return ChainType.SUPPORT_CHAIN_KAVA_TEST
+        } else if (chainS == CHAIN_BINANCE_TEST_S) {
+            return ChainType.SUPPORT_CHAIN_BINANCE_TEST
         }
         return ChainType.SUPPORT_CHAIN_COSMOS_MAIN
     }
@@ -1509,8 +1511,10 @@ class WUtils {
             return "kava-2"
         } else if (type == CHAIN_IOV_S) {
             return "iov-mainnet"
+        } else if (type == CHAIN_BINANCE_TEST_S) {
+            return "Binance-Chain-Nile"
         } else if (type == CHAIN_KAVA_TEST_S) {
-            return "kava-testnet-4000"
+            return "kava-testnet-5000"
         }
         return "cosmoshub-3"
     }
