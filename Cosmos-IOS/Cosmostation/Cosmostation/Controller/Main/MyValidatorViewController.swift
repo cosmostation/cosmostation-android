@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import AlamofireImage
 
 class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, ClaimRewardAllDelegate {
     
@@ -178,12 +177,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
             cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
             let url = COSMOS_VAL_URL + validator.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell.validatorImg.image = image
-            }
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
@@ -193,23 +187,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
             }
             let url = IRIS_VAL_URL + validator.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell.validatorImg.image = image
-            }
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
             cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
             let url = KAVA_IMG_URL + validator.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell.validatorImg.image = image
-            }
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
         }
     }
     

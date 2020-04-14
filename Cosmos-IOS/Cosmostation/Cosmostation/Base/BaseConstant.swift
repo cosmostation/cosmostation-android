@@ -33,15 +33,18 @@ let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 let CSS_LCD_URL                         = "https://lcd-cosmos-app.cosmostation.io/";
 //let CSS_LCD_URL                         = "https://lcd-cosmos-testnet.cosmostation.io/";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
+
 let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
+
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
 let KAVA_TEST_URL                       = "https://lcd-kava-testnet-5000.cosmostation.io/";
+let KAVA_TEST_API                       = "https://api-kava-testnet-5000.cosmostation.io/";
 
-let KAVA_TEST_API                       = "https://api-kava-testnet.cosmostation.io/";
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
 let IOV_REST_URL                        = "https://bnsapi.cluster-mainnet.iov.one/";        // same refer as"https://bnsapi.iov.one"
 let IOV_RPC_URL                         = "https://rpc-iov-mainnet.cosmostation.io/";
+
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
@@ -150,8 +153,8 @@ let KAVA_TEST_CDP_DEPOSIT               = KAVA_TEST_URL + "cdp/cdps/cdp/deposits
 let KAVA_TEST_TOKEN_PRICE_PARAM         = KAVA_TEST_URL + "pricefeed/parameters";
 let KAVA_TEST_TOKEN_PRICE               = KAVA_TEST_URL + "pricefeed/price/";
 
-let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "/v1/account/txs/";
-let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "/v1/account/transfer_txs/";
+let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
+let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
 
 let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
 let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
@@ -305,6 +308,9 @@ let KAVA_MSG_TYPE_DEPOSIT_CDP               = "cdp/MsgDeposit";
 let KAVA_MSG_TYPE_WITHDRAW_CDP              = "cdp/MsgWithdraw";
 let KAVA_MSG_TYPE_DRAWDEBT_CDP              = "cdp/MsgDrawDebt";
 let KAVA_MSG_TYPE_REPAYDEBT_CDP             = "cdp/MsgRepayDebt";
+let KAVA_MSG_TYPE_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
+let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
+let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 
 
 let IOV_MSG_TYPE_TRANSFER                  = "iov_transfer";

@@ -375,6 +375,11 @@
 "tx_kava_withdraw_cdp" = "CDP - Withdraw";
 "tx_kava_drawdebt_cdp" = "CDP - Draw Debt";
 "tx_kava_repaydebt_cdp" = "CDP - Repay";
+"tx_create_htlc" = "Create Atomic Swap";
+"tx_claim_htlc" = "Claim Atomic Swap";
+"tx_kava_bep3_create" = "Create Atomic Swap";
+"tx_kava_bep3_claim" = "Claim Atomic Swap";
+"tx_kava_bep3_refund" = "Refund Atomic Swap";
 "tx_known" = "Known";
 
 "chain_title_cosmos" = "COSMOS Hub";

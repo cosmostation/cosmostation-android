@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import AlamofireImage
 import SafariServices
 
 class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
@@ -345,12 +344,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.availableAmount.attributedText = WUtils.displayAmount2(balance!.balance_amount, cell!.availableAmount.font, 0, 8)
             cell?.totalValue.attributedText = WUtils.dpBnbValue(balance!.exchangeBnbValue(bnbTic), BaseData.instance.getLastPrice(), cell!.totalValue.font)
             let url = TOKEN_IMG_URL + bnbToken!.original_symbol + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell?.tokenImg.image = image
-            }
+            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.actionTokenInfo = {
                 guard let url = URL(string: "https://explorer.binance.org/asset/" + self.bnbToken!.symbol) else { return }
                 let safariViewController = SFSafariViewController(url: url)
@@ -368,12 +362,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             //TODO no way to display token price
             cell?.totalValue.attributedText = WUtils.dpAtomValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), cell!.totalValue.font)
             let url = KAVA_COIN_IMG_URL + balance!.balance_denom + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell?.tokenImg.image = image
-            }
+            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.actionSend  = {
                 self.onSendToken()
             }

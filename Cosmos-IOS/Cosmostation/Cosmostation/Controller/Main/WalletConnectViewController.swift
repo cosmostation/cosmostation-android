@@ -9,7 +9,6 @@
 import UIKit
 import WalletConnect
 import Alamofire
-import AlamofireImage
 import BinanceChain
 import SwiftKeychainWrapper
 import BitcoinKit
@@ -128,12 +127,7 @@ class WalletConnectViewController: BaseViewController {
     
     
     func onViewUpdate(_ peer: WCPeerMeta) {
-        Alamofire.request(peer.icons[0], method: .get).responseImage { response  in
-            guard let image = response.result.value else {
-                return
-            }
-            self.wcImg.image = image
-        }
+        wcImg.af_setImage(withURL: URL(string: peer.icons[0])!)
         
         self.wcTitle.text = peer.name
         self.wcUrl.text = peer.url

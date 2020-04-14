@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import AlamofireImage
 import UserNotifications
 
 class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
@@ -143,7 +142,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func updateView() {
-        print("updateView")
         if (mOrder == ORDER_BY_NAME) {
             sortByName()
             self.sortType.text = NSLocalizedString("name", comment: "")
@@ -208,7 +206,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.dpAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, totalAmount.font, 6, chainType!)
             totalValue.attributedText = WUtils.dpIrisValue(allIris, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             var allBnb = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
                 if (balance.balance_denom == BNB_MAIN_DENOM) {
@@ -250,7 +248,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetCosmosItems(tableView, indexPath)
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return onSetIrisItems(tableView, indexPath)
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return onSetBnbItems(tableView, indexPath)
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return onSetKavaItems(tableView, indexPath)
@@ -281,7 +279,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             tokenDetailVC.irisRewards = mainTabVC.mIrisRewards
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
             tokenDetailVC.bnbToken = WUtils.getBnbToken(mainTabVC.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
             tokenDetailVC.bnbTic = WUtils.getTicData(WUtils.getBnbTicSymbol(mainTabVC.mBalances[indexPath.row].balance_denom), mBnbTics)
@@ -365,12 +363,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.tokenValue.attributedText = WUtils.dpBnbValue(convertAmount, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
                 
                 let url = TOKEN_IMG_URL + bnbToken.original_symbol + ".png"
-                Alamofire.request(url, method: .get).responseImage { response  in
-                    guard let image = response.result.value else {
-                        return
-                    }
-                    cell?.tokenImg.image = image
-                }
+                cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             }
         }
         return cell!
@@ -407,12 +400,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             let url = KAVA_COIN_IMG_URL + balance.balance_denom + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell?.tokenImg.image = image
-            }
+            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
         }
         return cell!
     }
@@ -544,7 +532,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) {
                     return true
@@ -590,7 +578,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return WUtils.stringToDecimal($0.balance_amount).compare(WUtils.stringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) {
                     return true
@@ -616,7 +604,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func sortByValue() {
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) {
                     return true

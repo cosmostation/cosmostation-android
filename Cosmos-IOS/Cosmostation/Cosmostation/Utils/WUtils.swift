@@ -458,6 +458,14 @@ class WUtils {
         } else if (msgs[0].type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
             resultMsg = NSLocalizedString("tx_kava_repaydebt_cdp", comment: "")
             
+        } else if (msgs[0].type == KAVA_MSG_TYPE_CREATE_SWAP) {
+            resultMsg = NSLocalizedString("tx_kava_bep3_create", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_CLAIM_SWAP) {
+            resultMsg = NSLocalizedString("tx_kava_bep3_claim", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_REFUND_SWAP) {
+            resultMsg = NSLocalizedString("tx_kava_bep3_refund", comment: "")
         }
         
         if(msgs.count > 1) {
@@ -478,6 +486,10 @@ class WUtils {
             } else {
                 resultMsg = NSLocalizedString("tx_receive", comment: "")
             }
+        } else if (bnbHistory.txType == "HTL_TRANSFER") {
+            resultMsg = NSLocalizedString("tx_create_htlc", comment: "")
+        } else if (bnbHistory.txType == "CLAIM_HTL") {
+            resultMsg = NSLocalizedString("tx_claim_htlc", comment: "")
         }
         return resultMsg
     }
@@ -780,7 +792,7 @@ class WUtils {
         if (BaseData.instance.getCurrency() == 5) {
             result = NSDecimalNumber(value: price!).multiplying(by: amount, withBehavior: WUtils.handler8)
         } else {
-            result = NSDecimalNumber(value: price!).multiplying(by: amount, withBehavior: WUtils.handler2)
+            result = NSDecimalNumber(value: price!).multiplying(by: amount, withBehavior: WUtils.handler2Down)
         }
         return dpValue(result, font)
     }

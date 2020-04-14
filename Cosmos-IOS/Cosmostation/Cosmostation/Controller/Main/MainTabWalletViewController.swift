@@ -128,7 +128,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             floaty.buttonColor = COLOR_ATOM
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             floaty.buttonColor = COLOR_IRIS
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             floaty.buttonColor = COLOR_BNB
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             floaty.buttonColor = COLOR_KAVA
@@ -163,7 +163,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return 5;
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return 4;
         } else {
             return 0;
@@ -175,7 +176,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetCosmosItems(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return onSetIrisItem(tableView, indexPath);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return onSetBnbItem(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return onSetKavaItem(tableView, indexPath);
@@ -192,12 +193,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 } else {
                     return 0;
                 }
-            } else {
-                return UITableView.automaticDimension;
             }
-        } else {
-            return UITableView.automaticDimension;
         }
+        return UITableView.automaticDimension;
     }
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
@@ -444,10 +442,19 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.availableAmount.attributedText = WUtils.displayAmount2("0", cell!.availableAmount.font, 0, 6)
                 cell?.lockedAmount.attributedText = WUtils.displayAmount2("0", cell!.lockedAmount.font, 0, 6)
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalBnb.stringValue)
+            cell?.bnbCard.backgroundColor = WUtils.getChainBg(chainType!)
             cell?.actionWC = {
                 self.onClickWalletConect()
             }
+            if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                cell?.btnBep3.isHidden = true
+            } else {
+                cell?.btnBep3.isHidden = false
+                cell?.actionBep3 = {
+                    self.onClickBep3Send()
+                }
+            }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalBnb.stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -465,16 +472,25 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.updownImg.image = nil
                 cell?.updownPercent.text = ""
             }
-            cell?.buySeparator.isHidden = false
-            cell?.buyBtn.isHidden = false
-            cell?.buyBtn.setTitle(NSLocalizedString("buy_bnb", comment: ""), for: .normal)
-            cell?.buyConstraint.priority = .defaultHigh
-            cell?.noBuyConstraint.priority = .defaultLow
+            
             cell?.actionTapPricel = {
                 self.onClickMarketInfo()
             }
-            cell?.actionBuy = {
-                self.onClickBuyCoin()
+            if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                cell?.buySeparator.isHidden = false
+                cell?.buyBtn.isHidden = false
+                cell?.buyBtn.setTitle(NSLocalizedString("buy_bnb", comment: ""), for: .normal)
+                cell?.buyConstraint.priority = .defaultHigh
+                cell?.noBuyConstraint.priority = .defaultLow
+                cell?.actionBuy = {
+                    self.onClickBuyCoin()
+                }
+            } else {
+                cell?.buySeparator.isHidden = true
+                cell?.buyBtn.isHidden = true
+                cell?.buyConstraint.priority = .defaultLow
+                cell?.noBuyConstraint.priority = .defaultHigh
+                cell?.actionBuy = { }
             }
             return cell!
             
@@ -530,13 +546,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionVote = {
                 self.onClickVoteList()
             }
+
+            cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
             if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
                 cell?.cdpBtn.isHidden = true
                 cell?.nonCdpConstarint.priority = .defaultHigh
                 cell?.cdpConstraint.priority = .defaultLow
             } else {
-                cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
                 cell?.cdpBtn.isHidden = false
                 cell?.nonCdpConstarint.priority = .defaultLow
                 cell?.cdpConstraint.priority = .defaultHigh
@@ -785,6 +801,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         self.onStartQrCode()
+    }
+    
+    func onClickBep3Send() {
+        print("onClickBep3Send")
     }
     
     func onClickIovDeposit() {

@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import AlamofireImage
 
 class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate, SBCardPopupDelegate{
     
