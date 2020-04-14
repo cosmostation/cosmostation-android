@@ -199,25 +199,28 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             onUpdateTotalCard();
             onFetchIrisTokenPrice();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             onUpdateTotalCard();
-            if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                onFetchBnbTokenPrice();
-            }
+            onFetchBnbTokenPrice();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-            } else {
-                mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            }
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             onUpdateTotalCard();
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
             onUpdateTotalCard();
             onFetchIovTokenPrice();
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            onUpdateTotalCard();
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            onUpdateTotalCard();
+
         }
         mTokenSize.setText(""+mBalances.size());
         if (mBalances != null && mBalances.size() > 0) {

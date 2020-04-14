@@ -1054,7 +1054,7 @@ public class WUtil {
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.CMC_IRIS;
 
-        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return BaseConstant.CMC_BNB;
 
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
@@ -1070,7 +1070,7 @@ public class WUtil {
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.CGC_IRIS;
 
-        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return BaseConstant.CGC_BNB;
 
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
@@ -1086,7 +1086,7 @@ public class WUtil {
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.MEMO_IRIS;
 
-        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return BaseConstant.MEMO_BNB;
         }
         return BaseConstant.MEMO_IRIS;
