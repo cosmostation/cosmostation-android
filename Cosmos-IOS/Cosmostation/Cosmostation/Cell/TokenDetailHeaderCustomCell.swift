@@ -36,7 +36,7 @@ class TokenDetailHeaderCustomCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        self.tokenImg.image = UIImage(named: "validatorNoneImg")
+        self.tokenImg.image = UIImage(named: "tokenIc")
         self.tokenSymbol.text = "-"
         self.totalAmount.text = "-"
         self.totalValue.text = "-"

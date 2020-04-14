@@ -14,7 +14,9 @@ class TokenDetailHeaderBnbCell: UITableViewCell {
     @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var availableAmount: UILabel!
     @IBOutlet weak var lockedAmount: UILabel!
-
+    @IBOutlet weak var BtnBuyBnb: UIButton!
+    @IBOutlet weak var BtnSendBep3: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -25,6 +27,7 @@ class TokenDetailHeaderBnbCell: UITableViewCell {
     var actionSend: (() -> Void)? = nil
     var actionRecieve: (() -> Void)? = nil
     var actionBuy: (() -> Void)? = nil
+    var actionSendBep3: (() -> Void)? = nil
     
     @IBAction func onClickSend(_ sender: Any) {
         actionSend?()
@@ -38,5 +41,8 @@ class TokenDetailHeaderBnbCell: UITableViewCell {
         actionBuy?()
     }
     
+    @IBAction func onClickSendBep3(_ sender: UIButton) {
+        actionSendBep3?()
+    }
     
 }
