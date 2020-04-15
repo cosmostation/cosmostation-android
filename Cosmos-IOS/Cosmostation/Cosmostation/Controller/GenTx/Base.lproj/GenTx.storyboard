@@ -3916,6 +3916,9 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickCancel:" destination="F6c-qs-azv" eventType="touchUpInside" id="8cv-uV-acd"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPP-a0-hxw">
                                         <rect key="frame" x="149" y="0.0" width="139" height="50"/>
@@ -3937,6 +3940,9 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickNext:" destination="F6c-qs-azv" eventType="touchUpInside" id="NCd-EG-snt"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -3959,6 +3965,15 @@ The actual amount of rewards you receive may be equal to or greater than what is
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Gfw-tc-Xr2"/>
                     </view>
+                    <connections>
+                        <outlet property="btnCancel" destination="h2Y-kM-42P" id="00I-ym-U4N"/>
+                        <outlet property="btnNext" destination="hPP-a0-hxw" id="YLG-RH-2hp"/>
+                        <outlet property="fromChainImg" destination="o1Z-lv-85P" id="Uli-KI-PHZ"/>
+                        <outlet property="fromChainTxt" destination="rU0-wg-GiW" id="Gkk-E4-E3K"/>
+                        <outlet property="toChainCard" destination="lG5-Ue-qTU" id="hIE-Hs-bs4"/>
+                        <outlet property="toChainImg" destination="wJm-5a-toj" id="DnF-L7-3Bm"/>
+                        <outlet property="toChainText" destination="8rG-1e-DV8" id="m4x-Ku-cQL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7QA-M9-Ew3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4048,6 +4063,9 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickBack:" destination="dnd-5B-i3N" eventType="touchUpInside" id="IBi-Bp-9uo"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhE-jR-OAb">
                                         <rect key="frame" x="149" y="0.0" width="139" height="50"/>
@@ -4069,6 +4087,9 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickNext:" destination="dnd-5B-i3N" eventType="touchUpInside" id="c3Q-vu-qld"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -4106,6 +4127,14 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mAa-ns-kDB"/>
                     </view>
+                    <connections>
+                        <outlet property="btnBack" destination="1yL-4b-OGg" id="Pgw-3E-L9T"/>
+                        <outlet property="btnNext" destination="zhE-jR-OAb" id="CqX-Vk-3Qb"/>
+                        <outlet property="toAddressCard" destination="IBl-ol-uVL" id="DIa-ip-d4P"/>
+                        <outlet property="toAddressImg" destination="UJ2-wI-9tU" id="eYY-NB-a7F"/>
+                        <outlet property="toAddressTxt" destination="hoR-um-MgJ" id="GX3-K4-27b"/>
+                        <outlet property="warnMsg" destination="KDA-Db-yrY" id="43J-CF-ofF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rlA-4S-aDQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4137,6 +4166,9 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                     <constraint firstAttribute="height" constant="32" id="EfZ-Is-BFk"/>
                                 </constraints>
                                 <state key="normal" image="close_btn"/>
+                                <connections>
+                                    <action selector="onClickClear:" destination="pLC-rU-iRM" eventType="touchUpInside" id="IGp-V1-TZ3"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNl-O4-6v7">
                                 <rect key="frame" x="266" y="74" width="4" height="14"/>
@@ -4176,6 +4208,9 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                                 <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickAdd01:" destination="pLC-rU-iRM" eventType="touchUpInside" id="Mcn-om-tVJ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6s-sl-5kI">
                                         <rect key="frame" x="49" y="0.0" width="43" height="35"/>
@@ -4194,6 +4229,9 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                                 <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickAdd1:" destination="pLC-rU-iRM" eventType="touchUpInside" id="MWL-I8-sHT"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vIT-Ta-27z">
                                         <rect key="frame" x="98" y="0.0" width="43" height="35"/>
@@ -4212,6 +4250,9 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                                 <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickAdd10:" destination="pLC-rU-iRM" eventType="touchUpInside" id="gcV-fr-RDK"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4M4-3u-XBa">
                                         <rect key="frame" x="147" y="0.0" width="43" height="35"/>
@@ -4230,6 +4271,9 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickAdd100:" destination="pLC-rU-iRM" eventType="touchUpInside" id="t8n-9d-tUi"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bGp-OO-B6v">
                                         <rect key="frame" x="196" y="0.0" width="43" height="35"/>
@@ -4248,6 +4292,9 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                                 <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickHalf:" destination="pLC-rU-iRM" eventType="touchUpInside" id="9mA-GK-fIo"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Bo-KN-8li">
                                         <rect key="frame" x="245" y="0.0" width="43" height="35"/>
@@ -4266,6 +4313,9 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                                 <real key="value" value="0.5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickMax:" destination="pLC-rU-iRM" eventType="touchUpInside" id="HGJ-dS-sZ1"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -4295,6 +4345,9 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickBack:" destination="pLC-rU-iRM" eventType="touchUpInside" id="hrU-7N-BiQ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8F-Fh-NZF">
                                         <rect key="frame" x="149" y="0.0" width="139" height="50"/>
@@ -4316,6 +4369,9 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickNext:" destination="pLC-rU-iRM" eventType="touchUpInside" id="TNp-mc-LaH"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -4342,6 +4398,13 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Nrl-pO-UA2"/>
                     </view>
+                    <connections>
+                        <outlet property="AmountInput" destination="G5L-bX-SaA" id="xoM-RQ-cE1"/>
+                        <outlet property="availableAmount" destination="YNl-O4-6v7" id="GKQ-tH-9MG"/>
+                        <outlet property="availableDenom" destination="opk-a1-WKc" id="fbP-9f-xXF"/>
+                        <outlet property="btnBack" destination="Vor-H1-fwv" id="dZM-7p-2Mh"/>
+                        <outlet property="btnNext" destination="R8F-Fh-NZF" id="QCf-1Y-sk5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r4b-qg-qZ9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4426,16 +4489,16 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgR-E3-eSb">
-                                        <rect key="frame" x="16" y="177" width="5" height="16.5"/>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipient Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jf0-eM-DXP">
                                         <rect key="frame" x="16" y="159" width="97" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgR-E3-eSb">
+                                        <rect key="frame" x="16" y="177" width="5" height="16.5"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -4580,6 +4643,9 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickBack:" destination="oNs-tT-n3l" eventType="touchUpInside" id="MaO-nq-PYQ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Utt-cY-Ygj">
                                         <rect key="frame" x="149" y="0.0" width="139" height="50"/>
@@ -4601,6 +4667,9 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickConfirm:" destination="oNs-tT-n3l" eventType="touchUpInside" id="K5s-ny-y6y"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -4619,6 +4688,22 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="F8A-EK-y12"/>
                     </view>
+                    <connections>
+                        <outlet property="btnBack" destination="APe-Jj-MBc" id="xUz-QZ-TY7"/>
+                        <outlet property="btnConfirm" destination="Utt-cY-Ygj" id="1M0-F1-DXL"/>
+                        <outlet property="claimAddress" destination="ZZc-Yf-zfG" id="hNP-6d-TlB"/>
+                        <outlet property="claimFeeDenom" destination="UvO-pz-ZIz" id="yMl-Mg-t4P"/>
+                        <outlet property="claimFeeLabel" destination="SN0-bA-wOw" id="gCS-pO-Rvr"/>
+                        <outlet property="claimImg" destination="sgs-eK-4ms" id="9HW-X2-QsO"/>
+                        <outlet property="recipientAddressLabel" destination="SgR-E3-eSb" id="mj7-d2-NTr"/>
+                        <outlet property="recipientChainLabel" destination="EQx-YQ-IwS" id="1VU-io-Q3G"/>
+                        <outlet property="sendAmountDenom" destination="r4s-eR-Ps3" id="Q3d-hd-RYn"/>
+                        <outlet property="sendAmountLabel" destination="ldl-Yh-SZ4" id="ZXN-0W-LxX"/>
+                        <outlet property="sendFeeAmountLabel" destination="VJ3-Z8-2Kv" id="K5c-E9-LZb"/>
+                        <outlet property="sendFeeDenom" destination="CxS-Lm-FZ1" id="dQk-nf-JuZ"/>
+                        <outlet property="sendFeeLabel" destination="VJ3-Z8-2Kv" id="keF-y4-C3G"/>
+                        <outlet property="sendImg" destination="aHX-Oe-1yk" id="INl-nS-ByW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G8K-Vr-FoH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
