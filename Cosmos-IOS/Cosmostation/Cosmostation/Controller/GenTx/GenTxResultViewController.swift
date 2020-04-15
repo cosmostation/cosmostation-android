@@ -179,7 +179,7 @@ class GenTxResultViewController: BaseViewController {
                 return
             }
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             guard let txType = response?["type"] as? String, let txHash = response?["hash"] as? String  else {
                 self.onStartMainTab()
                 return
@@ -329,7 +329,7 @@ class GenTxResultViewController: BaseViewController {
                 sendResultToAddress.adjustsFontSizeToFitWidth = true
                 sendResultMemo.text = mTxInfo?.tx.value.memo
                 
-            } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                 sendResultHash.text = mTxInfo?.hash
                 sendResultBlock.text = mTxInfo?.height
                 sendResultTime.text = "-"
@@ -493,6 +493,11 @@ class GenTxResultViewController: BaseViewController {
             guard let url = URL(string: "https://kava.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + mTxInfo!.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
@@ -524,6 +529,14 @@ class GenTxResultViewController: BaseViewController {
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            let text = "https://testnet-explorer.binance.org/tx/" + mTxInfo!.txhash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
         }
         
         
@@ -571,6 +584,9 @@ class GenTxResultViewController: BaseViewController {
             url = KAVA_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            url = BNB_TEST_URL_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
         }
         request!.responseJSON { (response) in
             switch response.result {
@@ -602,7 +618,7 @@ class GenTxResultViewController: BaseViewController {
                     } else {
                         self.onShowMoreWait()
                     }
-                } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                     self.fetchCnt = self.fetchCnt - 1
                     if(self.fetchCnt > 0) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500), execute: {
