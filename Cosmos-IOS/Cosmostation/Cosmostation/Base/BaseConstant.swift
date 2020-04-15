@@ -300,6 +300,7 @@ let IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal = "irishub/gov/CommunityTaxUsage
 
 
 let BNB_MSG_TYPE_TRANSFER                   = "bnb_transfer";
+let TASK_TYPE_HTLC_SWAP                     = "htlc_swap";
 
 let KAVA_MSG_TYPE_TRANSFER                  = "kava_transfer";
 let KAVA_MSG_TYPE_POST_PRICE                = "pricefeed/MsgPostPrice";

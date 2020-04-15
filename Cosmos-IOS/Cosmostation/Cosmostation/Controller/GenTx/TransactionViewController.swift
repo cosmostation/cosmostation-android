@@ -114,8 +114,12 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_repay_cdp", comment: "")
             
+        } else if (mType == TASK_TYPE_HTLC_SWAP) {
+            stepDescription.text = NSLocalizedString("htlc_swap_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_interchain_swap", comment: "")
+            
         }
-        
         
         self.titleLabel.adjustsFontSizeToFitWidth = true
         self.titleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:))))
@@ -220,6 +224,10 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("repay_cdp_step_0", comment: "")
                     
+                } else if (mType == TASK_TYPE_HTLC_SWAP) {
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    stepDescription.text = NSLocalizedString("htlc_swap_step_0", comment: "")
+                    
                 }
                 
                 
@@ -275,6 +283,10 @@ class TransactionViewController: UIViewController {
                 } else if (mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("repay_cdp_step_1", comment: "")
+                    
+                } else if (mType == TASK_TYPE_HTLC_SWAP) {
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    stepDescription.text = NSLocalizedString("htlc_swap_step_1", comment: "")
                     
                 }
                 
@@ -332,6 +344,10 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("repay_cdp_step_2", comment: "")
                     
+                } else if (mType == TASK_TYPE_HTLC_SWAP) {
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    stepDescription.text = NSLocalizedString("htlc_swap_step_2", comment: "")
+                    
                 }
                 
                 
@@ -387,6 +403,10 @@ class TransactionViewController: UIViewController {
                 } else if (mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("repay_cdp_step_3", comment: "")
+                    
+                } else if (mType == TASK_TYPE_HTLC_SWAP) {
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    stepDescription.text = NSLocalizedString("htlc_swap_step_3", comment: "")
                     
                 }
                 

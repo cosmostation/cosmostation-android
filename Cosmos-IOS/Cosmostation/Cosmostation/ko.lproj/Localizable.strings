@@ -215,6 +215,10 @@
 "repay_cdp_step_1" = "Insert memo (optional)";
 "repay_cdp_step_2" = "Select transaction fee";
 "repay_cdp_step_3" = "Check transaction detail";
+"htlc_swap_step_0" = "Select Destination Chain";
+"htlc_swap_step_1" = "Select Recipient Account";
+"htlc_swap_step_2" = "Insert Amount to Send";
+"htlc_swap_step_3" = "Check Transactions Detail";
 
 
 "clear_all" = "전체 삭제";
@@ -266,6 +270,7 @@
 "title_withdraw_cdp" = "WITHDRAW COLLATERAL";
 "title_drawdebt_cdp" = "BORROW MORE USDX";
 "title_repay_cdp" = "REPAY USDX";
+"title_interchain_swap" = "Interchain Send & Claim";
 
 "proposal_type_basic" = "기본";
 "proposal_type_parameter" = "파라미터 변경";

@@ -647,6 +647,11 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onClickBep3Send() {
         print("onClickBep3Send ");
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = TASK_TYPE_HTLC_SWAP
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     

@@ -161,6 +161,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepRepayCdpCheckViewController")]
             
+        } else if (mType == TASK_TYPE_HTLC_SWAP) {
+            return [self.newVc(viewController: "StepHtlcSend0ViewController"),
+                    self.newVc(viewController: "StepHtlcSend1ViewController"),
+                    self.newVc(viewController: "StepHtlcSend2ViewController"),
+                    self.newVc(viewController: "StepHtlcSend3ViewController")]
+            
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
