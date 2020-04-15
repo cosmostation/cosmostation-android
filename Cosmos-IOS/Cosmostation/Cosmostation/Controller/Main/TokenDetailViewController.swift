@@ -396,6 +396,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onSendToken()
             }
         }
+        cell?.actionReceive = {
+            self.onRecieveToken()
+        }
         return cell!
     }
     

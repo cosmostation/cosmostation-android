@@ -25,11 +25,17 @@ class TokenDetailHeaderCustomCell: UITableViewCell {
     }
     
     var actionSend: (() -> Void)? = nil
+    var actionReceive: (() -> Void)? = nil
     var actionTokenInfo: (() -> Void)? = nil
     
     @IBAction func onClickSend(_ sender: Any) {
         actionSend?()
     }
+    
+    @IBAction func onClickReceive(_ sender: UIButton) {
+        actionReceive?()
+    }
+    
     
     @IBAction func onClickTokenInfo(_ sender: Any) {
         actionTokenInfo?()
