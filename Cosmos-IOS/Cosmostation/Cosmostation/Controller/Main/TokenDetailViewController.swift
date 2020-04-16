@@ -382,18 +382,25 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.actionSend  = {
                 self.onSendToken()
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.tokenInfoBtn.isHidden = true
             cell?.tokenSymbol.text = balance!.balance_denom.uppercased()
             cell?.tokenName.text = balance?.balance_denom
             cell?.totalAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.totalAmount.font, WUtils.getKavaCoinDecimal(balance!.balance_denom), WUtils.getKavaCoinDecimal(balance!.balance_denom))
             cell?.availableAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.availableAmount.font, WUtils.getKavaCoinDecimal(balance!.balance_denom), WUtils.getKavaCoinDecimal(balance!.balance_denom))
-            //TODO no way to display token price
             cell?.totalValue.attributedText = WUtils.dpAtomValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), cell!.totalValue.font)
             let url = KAVA_COIN_IMG_URL + balance!.balance_denom + ".png"
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.actionSend  = {
                 self.onSendToken()
+            }
+            if ((balance?.balance_denom.uppercased() == BNB_MAIN_DENOM) && chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                cell?.btnBep3Send.isHidden = false
+                cell?.actionBep3Send  = {
+                    self.onClickBep3Send(BNB_MAIN_DENOM)
+                }
+            } else {
+                cell?.btnBep3Send.isHidden = true
             }
         }
         cell?.actionReceive = {

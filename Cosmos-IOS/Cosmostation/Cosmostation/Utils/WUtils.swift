@@ -1270,7 +1270,7 @@ class WUtils {
     
     static func getTokenBalace(_ balances:Array<Balance>, _ symbol:String) -> Balance? {
         for balance in balances {
-            if (balance.balance_denom == symbol) {
+            if (balance.balance_denom.caseInsensitiveCompare(symbol) == .orderedSame) {
                 return balance
             }
         }
@@ -1282,7 +1282,7 @@ class WUtils {
         var result = NSDecimalNumber.zero
         if (balances != nil) {
             balances!.forEach({ (balance) in
-                if (balance.balance_denom == symbol) {
+                if (balance.balance_denom.caseInsensitiveCompare(symbol) == .orderedSame) {
                     result = result.adding(WUtils.stringToDecimalNoLocale(balance.balance_amount))
                 }
             })

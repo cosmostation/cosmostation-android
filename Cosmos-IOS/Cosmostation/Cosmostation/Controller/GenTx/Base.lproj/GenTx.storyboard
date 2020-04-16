@@ -4436,68 +4436,68 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4s-eR-Ps3">
-                                        <rect key="frame" x="237" y="47" width="35" height="16.5"/>
+                                        <rect key="frame" x="237" y="51" width="35" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mX4-Dd-r4g">
-                                        <rect key="frame" x="16" y="48" width="72.5" height="14"/>
+                                        <rect key="frame" x="16" y="52" width="72.5" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldl-Yh-SZ4">
-                                        <rect key="frame" x="228" y="47" width="5" height="16.5"/>
+                                        <rect key="frame" x="228" y="51" width="5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnt-4M-Qc7">
-                                        <rect key="frame" x="16" y="74" width="21" height="14"/>
+                                        <rect key="frame" x="16" y="78" width="21" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJ3-Z8-2Kv">
-                                        <rect key="frame" x="228" y="72" width="5" height="16.5"/>
+                                        <rect key="frame" x="228" y="76" width="5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CxS-Lm-FZ1">
-                                        <rect key="frame" x="237" y="72" width="35" height="16.5"/>
+                                        <rect key="frame" x="237" y="76" width="35" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYB-45-Nrf">
-                                        <rect key="frame" x="16" y="100" width="256" height="0.5"/>
+                                        <rect key="frame" x="16" y="104" width="256" height="0.5"/>
                                         <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="gAL-MV-7ES"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipient Chain" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAg-M7-vF2">
-                                        <rect key="frame" x="16" y="112.5" width="85" height="14"/>
+                                        <rect key="frame" x="16" y="116.5" width="85" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQx-YQ-IwS">
-                                        <rect key="frame" x="16" y="130.5" width="5" height="16.5"/>
+                                        <rect key="frame" x="16" y="134.5" width="5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipient Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jf0-eM-DXP">
-                                        <rect key="frame" x="16" y="159" width="97" height="14"/>
+                                        <rect key="frame" x="16" y="163" width="97" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgR-E3-eSb">
-                                        <rect key="frame" x="16" y="177" width="5" height="16.5"/>
+                                        <rect key="frame" x="16" y="181" width="5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -4523,7 +4523,7 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                     <constraint firstItem="pnt-4M-Qc7" firstAttribute="leading" secondItem="mX4-Dd-r4g" secondAttribute="leading" id="XR3-C9-Nl4"/>
                                     <constraint firstItem="4hK-N2-JHJ" firstAttribute="leading" secondItem="aHX-Oe-1yk" secondAttribute="trailing" constant="6" id="Xzy-6w-rjA"/>
                                     <constraint firstAttribute="trailing" secondItem="r4s-eR-Ps3" secondAttribute="trailing" constant="16" id="cFh-7l-sqq"/>
-                                    <constraint firstItem="mX4-Dd-r4g" firstAttribute="top" secondItem="aHX-Oe-1yk" secondAttribute="bottom" constant="8" id="cJK-az-SuG"/>
+                                    <constraint firstItem="mX4-Dd-r4g" firstAttribute="top" secondItem="aHX-Oe-1yk" secondAttribute="bottom" constant="12" id="cJK-az-SuG"/>
                                     <constraint firstItem="SgR-E3-eSb" firstAttribute="leading" secondItem="Jf0-eM-DXP" secondAttribute="leading" id="dOE-aM-xXe"/>
                                     <constraint firstItem="r4s-eR-Ps3" firstAttribute="centerY" secondItem="mX4-Dd-r4g" secondAttribute="centerY" id="hl9-fm-lah"/>
                                     <constraint firstItem="ldl-Yh-SZ4" firstAttribute="centerY" secondItem="r4s-eR-Ps3" secondAttribute="centerY" id="hrE-WG-fBo"/>
@@ -4557,38 +4557,38 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EM-1l-OQX">
-                                        <rect key="frame" x="16" y="48" width="21" height="14"/>
+                                        <rect key="frame" x="16" y="52" width="21" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SN0-bA-wOw">
-                                        <rect key="frame" x="228" y="46" width="5" height="16.5"/>
+                                        <rect key="frame" x="228" y="50" width="5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvO-pz-ZIz">
-                                        <rect key="frame" x="237" y="46" width="35" height="16.5"/>
+                                        <rect key="frame" x="237" y="50" width="35" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sR2-Sa-lgR">
-                                        <rect key="frame" x="16" y="74" width="256" height="0.5"/>
+                                        <rect key="frame" x="16" y="78" width="256" height="0.5"/>
                                         <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="2Rq-6A-R5n"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Claim Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acC-2c-A80">
-                                        <rect key="frame" x="16" y="86.5" width="77.5" height="14"/>
+                                        <rect key="frame" x="16" y="90.5" width="77.5" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZc-Yf-zfG">
-                                        <rect key="frame" x="16" y="104.5" width="5" height="16.5"/>
+                                        <rect key="frame" x="16" y="108.5" width="5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -4596,7 +4596,7 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                 </subviews>
                                 <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.39509310790000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="7EM-1l-OQX" firstAttribute="top" secondItem="sgs-eK-4ms" secondAttribute="bottom" constant="8" id="6qa-6u-H8P"/>
+                                    <constraint firstItem="7EM-1l-OQX" firstAttribute="top" secondItem="sgs-eK-4ms" secondAttribute="bottom" constant="12" id="6qa-6u-H8P"/>
                                     <constraint firstItem="UvO-pz-ZIz" firstAttribute="leading" secondItem="SN0-bA-wOw" secondAttribute="trailing" constant="4" id="82I-HL-dAg"/>
                                     <constraint firstItem="sgs-eK-4ms" firstAttribute="leading" secondItem="9Q0-6J-6GZ" secondAttribute="leading" constant="12" id="DpK-MP-CvO"/>
                                     <constraint firstItem="sR2-Sa-lgR" firstAttribute="leading" secondItem="9Q0-6J-6GZ" secondAttribute="leading" constant="16" id="Hdv-xd-H6u"/>

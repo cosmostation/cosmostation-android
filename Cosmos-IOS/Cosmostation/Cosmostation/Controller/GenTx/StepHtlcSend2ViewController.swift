@@ -35,6 +35,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mHtlcDenom!)
             maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!)
+            availableAmount.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, availableAmount.font, mDpDecimal, mDpDecimal)
             availableDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
             availableDenom.textColor = .white
         }
