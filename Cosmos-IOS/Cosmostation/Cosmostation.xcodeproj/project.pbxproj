@@ -98,6 +98,12 @@
 		285A33DB244763290052BD3D /* SelectChainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285A33D9244763290052BD3D /* SelectChainCell.xib */; };
 		285A33DE2447633D0052BD3D /* SelectAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33DC2447633D0052BD3D /* SelectAccountCell.swift */; };
 		285A33DF2447633D0052BD3D /* SelectAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285A33DD2447633D0052BD3D /* SelectAccountCell.xib */; };
+		285A33E2244862670052BD3D /* HtlcResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33E0244862670052BD3D /* HtlcResultViewController.swift */; };
+		285A33E3244862670052BD3D /* HtlcResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285A33E1244862670052BD3D /* HtlcResultViewController.xib */; };
+		285A33E624486DA20052BD3D /* HtlcResultSentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33E424486DA20052BD3D /* HtlcResultSentCell.swift */; };
+		285A33E724486DA20052BD3D /* HtlcResultSentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285A33E524486DA20052BD3D /* HtlcResultSentCell.xib */; };
+		285A33EA24486DB60052BD3D /* HtlcResultClaimCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33E824486DB60052BD3D /* HtlcResultClaimCell.swift */; };
+		285A33EB24486DB60052BD3D /* HtlcResultClaimCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285A33E924486DB60052BD3D /* HtlcResultClaimCell.xib */; };
 		28617A7B243198D0006D66EA /* StepCreateCpdAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A7A243198D0006D66EA /* StepCreateCpdAmountViewController.swift */; };
 		28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A7C243198E2006D66EA /* StepCreateCpdCheckViewController.swift */; };
 		28617A7F24329433006D66EA /* StepDepositCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A7E24329433006D66EA /* StepDepositCdpAmountViewController.swift */; };
@@ -423,6 +429,12 @@
 		285A33D9244763290052BD3D /* SelectChainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectChainCell.xib; sourceTree = "<group>"; };
 		285A33DC2447633D0052BD3D /* SelectAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAccountCell.swift; sourceTree = "<group>"; };
 		285A33DD2447633D0052BD3D /* SelectAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectAccountCell.xib; sourceTree = "<group>"; };
+		285A33E0244862670052BD3D /* HtlcResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtlcResultViewController.swift; sourceTree = "<group>"; };
+		285A33E1244862670052BD3D /* HtlcResultViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HtlcResultViewController.xib; sourceTree = "<group>"; };
+		285A33E424486DA20052BD3D /* HtlcResultSentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtlcResultSentCell.swift; sourceTree = "<group>"; };
+		285A33E524486DA20052BD3D /* HtlcResultSentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HtlcResultSentCell.xib; sourceTree = "<group>"; };
+		285A33E824486DB60052BD3D /* HtlcResultClaimCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtlcResultClaimCell.swift; sourceTree = "<group>"; };
+		285A33E924486DB60052BD3D /* HtlcResultClaimCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HtlcResultClaimCell.xib; sourceTree = "<group>"; };
 		28617A7A243198D0006D66EA /* StepCreateCpdAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCreateCpdAmountViewController.swift; sourceTree = "<group>"; };
 		28617A7C243198E2006D66EA /* StepCreateCpdCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCreateCpdCheckViewController.swift; sourceTree = "<group>"; };
 		28617A7E24329433006D66EA /* StepDepositCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDepositCdpAmountViewController.swift; sourceTree = "<group>"; };
@@ -862,6 +874,8 @@
 				285A33D22446CDB80052BD3D /* StepHtlcSend3ViewController.swift */,
 				285A33D424475DC00052BD3D /* SelectPopupViewController.swift */,
 				285A33D524475DC00052BD3D /* SelectPopupViewController.xib */,
+				285A33E0244862670052BD3D /* HtlcResultViewController.swift */,
+				285A33E1244862670052BD3D /* HtlcResultViewController.xib */,
 			);
 			path = GenTx;
 			sourceTree = "<group>";
@@ -1197,6 +1211,10 @@
 				285A33D9244763290052BD3D /* SelectChainCell.xib */,
 				285A33DC2447633D0052BD3D /* SelectAccountCell.swift */,
 				285A33DD2447633D0052BD3D /* SelectAccountCell.xib */,
+				285A33E424486DA20052BD3D /* HtlcResultSentCell.swift */,
+				285A33E524486DA20052BD3D /* HtlcResultSentCell.xib */,
+				285A33E824486DB60052BD3D /* HtlcResultClaimCell.swift */,
+				285A33E924486DB60052BD3D /* HtlcResultClaimCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1296,13 +1314,16 @@
 				282FF35E23F530ED0028CC66 /* TxEditRewardAddressCell.xib in Resources */,
 				28474ED3241E06AF00AF5A81 /* TxCreateCdpCell.xib in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
+				285A33E3244862670052BD3D /* HtlcResultViewController.xib in Resources */,
 				E1774909228523C5003D8CD1 /* GuideDetailViewController.xib in Resources */,
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */,
+				285A33EB24486DB60052BD3D /* HtlcResultClaimCell.xib in Resources */,
 				289DF185242DDF8300433CF4 /* CdpDetailAssetsCell.xib in Resources */,
 				E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */,
 				28474ECF241E06AF00AF5A81 /* TxRepayCdpCell.xib in Resources */,
 				E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */,
+				285A33E724486DA20052BD3D /* HtlcResultSentCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */,
 				2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */,
@@ -1474,6 +1495,7 @@
 				28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */,
 				285A33D12446CDAB0052BD3D /* StepHtlcSend2ViewController.swift in Sources */,
 				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
+				285A33E2244862670052BD3D /* HtlcResultViewController.swift in Sources */,
 				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
 				2842AB72242C7C8A00248EEB /* CdpListAllCell.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
@@ -1487,6 +1509,7 @@
 				E1774908228523C5003D8CD1 /* GuideDetailViewController.swift in Sources */,
 				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
 				E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */,
+				285A33E624486DA20052BD3D /* HtlcResultSentCell.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
 				E151B64B224859E10026B8C0 /* StdSignMsg.swift in Sources */,
 				E191A57D237902C5002577BC /* WalletKavaCell.swift in Sources */,
@@ -1619,6 +1642,7 @@
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
 				E14FDC842373C52C00095C06 /* KavaAccountInfo.swift in Sources */,
+				285A33EA24486DB60052BD3D /* HtlcResultClaimCell.swift in Sources */,
 				2842AB67242C3ED900248EEB /* KavaTokenPriceParam.swift in Sources */,
 				E1CF42F023598AFE00907F45 /* ManageChainCell.swift in Sources */,
 				E1945E4C222E81C200A1436F /* VoteListViewController.swift in Sources */,
