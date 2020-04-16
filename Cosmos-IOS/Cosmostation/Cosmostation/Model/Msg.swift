@@ -83,6 +83,16 @@ public struct Msg: Codable {
         var principal: Array<Coin>?
         var payment: Array<Coin>?
         var cdp_denom: String?
+        var swap_id: String?
+        var random_number: String?
+        var random_number_hash: String?
+        var to: String?
+        var recipient_other_chain: String?
+        var sender_other_chain: String?
+        var timestamp: String?
+        var expected_income: String?
+        var height_span: String?
+        var cross_chain: Bool?
         
         
         enum CodingKeys: String, CodingKey {
@@ -119,6 +129,17 @@ public struct Msg: Codable {
             case principal
             case payment
             case cdp_denom
+            case swap_id
+            case random_number
+            case random_number_hash
+            case to
+            case recipient_other_chain
+            case sender_other_chain
+            case timestamp
+            case expected_income
+            case height_span
+            case cross_chain
+            
         }
         
         public func getAmount() -> Coin? {
@@ -300,9 +321,40 @@ public struct Msg: Codable {
             }
             
             
-            
             if let cdp_denom =  dictionary["cdp_denom"] as? String {
                 self.cdp_denom = cdp_denom
+            }
+            
+            
+            if let swap_id =  dictionary["swap_id"] as? String {
+                self.swap_id = swap_id
+            }
+            if let random_number =  dictionary["random_number"] as? String {
+                self.random_number = random_number
+            }
+            if let random_number_hash =  dictionary["random_number_hash"] as? String {
+                self.random_number_hash = random_number_hash
+            }
+            if let to =  dictionary["to"] as? String {
+                self.to = to
+            }
+            if let recipient_other_chain =  dictionary["recipient_other_chain"] as? String {
+                self.recipient_other_chain = recipient_other_chain
+            }
+            if let sender_other_chain =  dictionary["sender_other_chain"] as? String {
+                self.sender_other_chain = sender_other_chain
+            }
+            if let timestamp =  dictionary["timestamp"] as? String {
+                self.timestamp = timestamp
+            }
+            if let expected_income =  dictionary["expected_income"] as? String {
+                self.expected_income = expected_income
+            }
+            if let height_span =  dictionary["height_span"] as? String {
+                self.height_span = height_span
+            }
+            if let cross_chain =  dictionary["cross_chain"] as? Bool {
+                self.cross_chain = cross_chain
             }
         }
         

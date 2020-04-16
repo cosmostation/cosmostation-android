@@ -53,6 +53,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxWithDrawCdpCell", bundle: nil), forCellReuseIdentifier: "TxWithDrawCdpCell")
         self.txTableView.register(UINib(nibName: "TxdrawDebtCdpCell", bundle: nil), forCellReuseIdentifier: "TxdrawDebtCdpCell")
         self.txTableView.register(UINib(nibName: "TxRepayCdpCell", bundle: nil), forCellReuseIdentifier: "TxRepayCdpCell")
+        self.txTableView.register(UINib(nibName: "TxHtlcCreateCell", bundle: nil), forCellReuseIdentifier: "TxHtlcCreateCell")
+        self.txTableView.register(UINib(nibName: "TxHtlcClaimCell", bundle: nil), forCellReuseIdentifier: "TxHtlcClaimCell")
+        self.txTableView.register(UINib(nibName: "TxHtlcRefundCell", bundle: nil), forCellReuseIdentifier: "TxHtlcRefundCell")
         self.txTableView.register(UINib(nibName: "TxUnknownCell", bundle: nil), forCellReuseIdentifier: "TxUnknownCell")
         self.txTableView.rowHeight = UITableView.automaticDimension
         self.txTableView.estimatedRowHeight = UITableView.automaticDimension
@@ -175,6 +178,15 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
             } else if (msg?.type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
                 return onBindRepayDebtCdp(tableView, msg!)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_CREATE_SWAP) {
+                return onBindHtlcCreate(tableView, msg!)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_CLAIM_SWAP) {
+                return onBindHtlcClaim(tableView, msg!)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_REFUND_SWAP) {
+                return onBindHtlcRefund(tableView, msg!)
                 
             } else {
                 let cell:TxUnknownCell? = tableView.dequeueReusableCell(withIdentifier:"TxUnknownCell") as? TxUnknownCell
@@ -500,7 +512,49 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
+    func onBindHtlcCreate(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
+        let cell:TxHtlcCreateCell? = tableView.dequeueReusableCell(withIdentifier:"TxHtlcCreateCell") as? TxHtlcCreateCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let denom = msg.value.getAmounts()![0].denom
+            cell?.sendAmount.attributedText = WUtils.displayAmount2(msg.value.getAmounts()![0].amount, cell!.sendAmount.font!, WUtils.getKavaCoinDecimal(denom), WUtils.getKavaCoinDecimal(denom))
+            cell?.sendDenom.text = denom.uppercased()
+            cell?.senderLabel.text = msg.value.from
+            cell?.recipientLabel.text = msg.value.recipient_other_chain
+            cell?.randomHashLabel.text = msg.value.random_number_hash
+            cell?.expectedAmountLabel.text = msg.value.expected_income
+        }
+        return cell!
+    }
     
+    func onBindHtlcClaim(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
+        let cell:TxHtlcClaimCell? = tableView.dequeueReusableCell(withIdentifier:"TxHtlcClaimCell") as? TxHtlcClaimCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let receiveCoin = mTxInfo!.getSimpleSwapCoin()
+            if (!receiveCoin.denom.isEmpty) {
+                cell?.claimAmount.attributedText = WUtils.displayAmount2(receiveCoin.amount, cell!.claimAmount.font!, WUtils.getKavaCoinDecimal(receiveCoin.denom), WUtils.getKavaCoinDecimal(receiveCoin.denom))
+                cell?.claimDenom.text = receiveCoin.denom.uppercased()
+            }
+            cell?.claimerAddress.text = msg.value.from
+            cell?.randomNumberLabel.text = msg.value.random_number
+            cell?.swapIdLabel.text = msg.value.swap_id
+        }
+        return cell!
+    }
+    
+    func onBindHtlcRefund(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
+        let cell:TxHtlcRefundCell? = tableView.dequeueReusableCell(withIdentifier:"TxHtlcRefundCell") as? TxHtlcRefundCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            cell?.fromAddress.text = msg.value.from
+            cell?.swapIdLabel.text = msg.value.swap_id
+        }
+        return cell!
+    }
     
     
     func onBindUnknown(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {

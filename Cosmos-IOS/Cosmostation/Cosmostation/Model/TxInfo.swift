@@ -178,4 +178,21 @@ public struct TxInfo {
         return result
     }
     
+    
+    public func getSimpleSwapCoin() -> Coin {
+        var coin = Coin.init()
+        for event in self.events {
+            if (event.type == "transfer") {
+                for attr in event.attributes {
+                    if (attr.key == "amount") {
+                        let value = attr.value;
+                        coin.denom = value.filter{ $0.isLetter }
+                        coin.amount = value.filter{ $0.isNumber }
+                    }
+                }
+            }
+        }
+        return coin
+    }
+    
 }
