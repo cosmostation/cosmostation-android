@@ -1531,6 +1531,10 @@ class WUtils {
         return "cosmoshub-3"
     }
     
+    static func getChainName(_ chain:ChainType) -> String {
+        return getChainName(chain.rawValue)
+    }
+    
     static func clearBackgroundColor(of view: UIView) {
         if let effectsView = view as? UIVisualEffectView {
             effectsView.removeFromSuperview()
@@ -1589,15 +1593,15 @@ class WUtils {
     }
     
     static func getKavaCoinDecimal(_ denom:String) -> Int16 {
-        if (denom == KAVA_MAIN_DENOM) {
+        if (denom.caseInsensitiveCompare(KAVA_MAIN_DENOM) == .orderedSame) {
             return 6;
-        } else if (denom == "xrp") {
+        } else if (denom.caseInsensitiveCompare("xrp") == .orderedSame) {
             return 6;
-        } else if (denom == "btc") {
+        } else if (denom.caseInsensitiveCompare("btc") == .orderedSame) {
             return 8;
-        } else if (denom == "usdx") {
+        } else if (denom.caseInsensitiveCompare("usdx") == .orderedSame) {
             return 6;
-        } else if (denom == "bnb") {
+        } else if (denom.caseInsensitiveCompare("bnb") == .orderedSame) {
             return 8;
         }
         return 100;
@@ -1708,6 +1712,39 @@ class WUtils {
             textLabel.text = "DANGER"
             cardView.backgroundColor = COLOR_CDP_DANGER
         }
+    }
+    
+    static func dpChainInfo(_ chain: ChainType, _ img: UIImageView?, _ label: UILabel) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            label.text = NSLocalizedString("chain_title_cosmos", comment: "")
+            label.textColor = COLOR_ATOM
+            img?.image = UIImage(named: "cosmosWhMain")
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            label.text = NSLocalizedString("chain_title_iris", comment: "")
+            label.textColor = COLOR_IRIS
+            img?.image = UIImage(named: "irisWh")
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            label.text = NSLocalizedString("chain_title_bnb", comment: "")
+            label.textColor = COLOR_BNB
+            img?.image = UIImage(named: "binanceChImg")
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            label.text = NSLocalizedString("chain_title_kava", comment: "")
+           label.textColor = COLOR_KAVA
+           img?.image = UIImage(named: "kavaImg")
+        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            label.text = NSLocalizedString("chain_title_iov", comment: "")
+            label.textColor = COLOR_IOV
+            img?.image = UIImage(named: "iovImg")
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            label.text = NSLocalizedString("chain_title_test_bnb", comment: "")
+            label.textColor = COLOR_BNB
+            img?.image = UIImage(named: "binancetestnet")
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            label.text = NSLocalizedString("chain_title_kava_test", comment: "")
+            label.textColor = COLOR_KAVA
+            img?.image = UIImage(named: "kavaTestImg")
+        }
+        
     }
     
     

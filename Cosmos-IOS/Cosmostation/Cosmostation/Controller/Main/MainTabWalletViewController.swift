@@ -451,7 +451,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             } else {
                 cell?.btnBep3.isHidden = false
                 cell?.actionBep3 = {
-                    self.onClickBep3Send()
+                    self.onClickBep3Send(BNB_MAIN_DENOM)
                 }
             }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalBnb.stringValue)
@@ -803,10 +803,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.onStartQrCode()
     }
     
-    func onClickBep3Send() {
+    func onClickBep3Send(_ denom: String) {
         print("onClickBep3Send")
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = TASK_TYPE_HTLC_SWAP
+        txVC.mHtlcDenom = denom
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)

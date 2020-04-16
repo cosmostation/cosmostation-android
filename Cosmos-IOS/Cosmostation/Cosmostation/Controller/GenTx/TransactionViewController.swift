@@ -44,6 +44,8 @@ class TransactionViewController: UIViewController {
     var cDenom: String?
     var mMarketID: String?
     
+    var mHtlcDenom: String = BNB_MAIN_DENOM     //now only support bnb bep3
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
@@ -165,6 +167,7 @@ class TransactionViewController: UIViewController {
             StepVc.mIovSendDenom = self.mIovSendDenom
             StepVc.cDenom = self.cDenom
             StepVc.mMarketID = self.mMarketID
+            StepVc.mHtlcDenom = self.mHtlcDenom
         }
     }
     

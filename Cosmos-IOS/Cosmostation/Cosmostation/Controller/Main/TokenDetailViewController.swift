@@ -301,7 +301,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell?.BtnBuyBnb.isHidden = true
                 cell?.BtnSendBep3.isHidden = false;
                 cell?.actionSendBep3 = {
-                    self.onClickBep3Send()
+                    self.onClickBep3Send(BNB_MAIN_DENOM)
                 }
             }
         }
@@ -645,10 +645,11 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func onClickBep3Send() {
+    func onClickBep3Send(_ denom: String) {
         print("onClickBep3Send ");
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = TASK_TYPE_HTLC_SWAP
+        txVC.mHtlcDenom = denom
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)

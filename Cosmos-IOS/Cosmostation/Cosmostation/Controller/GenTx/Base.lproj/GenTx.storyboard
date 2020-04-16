@@ -3996,14 +3996,14 @@ The actual amount of rewards you receive may be equal to or greater than what is
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IBl-ol-uVL" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="16" y="40.5" width="288" height="50"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="key_off" translatesAutoresizingMaskIntoConstraints="NO" id="UJ2-wI-9tU">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="key_off" translatesAutoresizingMaskIntoConstraints="NO" id="UJ2-wI-9tU">
                                         <rect key="frame" x="8" y="14" width="22" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="bku-vo-HRm"/>
                                             <constraint firstAttribute="width" constant="22" id="ztb-hP-ki7"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cosmos MainNet" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoR-um-MgJ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Address" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoR-um-MgJ">
                                         <rect key="frame" x="34" y="17" width="202" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -4093,14 +4093,14 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     </button>
                                 </subviews>
                             </stackView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning_ic" translatesAutoresizingMaskIntoConstraints="NO" id="kjc-l7-2VU">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning_ic" translatesAutoresizingMaskIntoConstraints="NO" id="kjc-l7-2VU">
                                 <rect key="frame" x="143" y="384.5" width="34" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="AiV-da-7FS"/>
                                     <constraint firstAttribute="width" constant="34" id="oT7-Jr-y5w"/>
                                 </constraints>
                             </imageView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KDA-Db-yrY">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KDA-Db-yrY">
                                 <rect key="frame" x="21" y="422.5" width="278" height="55.5"/>
                                 <string key="text">In order to user this feature,
 you must create a KAVA account and deposit a small amount of KAVA to be used as transaction fee.</string>
@@ -4402,6 +4402,7 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                         <outlet property="AmountInput" destination="G5L-bX-SaA" id="xoM-RQ-cE1"/>
                         <outlet property="availableAmount" destination="YNl-O4-6v7" id="GKQ-tH-9MG"/>
                         <outlet property="availableDenom" destination="opk-a1-WKc" id="fbP-9f-xXF"/>
+                        <outlet property="btnAdd01" destination="T91-bW-XMa" id="6kf-F8-egh"/>
                         <outlet property="btnBack" destination="Vor-H1-fwv" id="dZM-7p-2Mh"/>
                         <outlet property="btnNext" destination="R8F-Fh-NZF" id="QCf-1Y-sk5"/>
                     </connections>
@@ -4699,7 +4700,6 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                         <outlet property="recipientChainLabel" destination="EQx-YQ-IwS" id="1VU-io-Q3G"/>
                         <outlet property="sendAmountDenom" destination="r4s-eR-Ps3" id="Q3d-hd-RYn"/>
                         <outlet property="sendAmountLabel" destination="ldl-Yh-SZ4" id="ZXN-0W-LxX"/>
-                        <outlet property="sendFeeAmountLabel" destination="VJ3-Z8-2Kv" id="K5c-E9-LZb"/>
                         <outlet property="sendFeeDenom" destination="CxS-Lm-FZ1" id="dQk-nf-JuZ"/>
                         <outlet property="sendFeeLabel" destination="VJ3-Z8-2Kv" id="keF-y4-C3G"/>
                         <outlet property="sendImg" destination="aHX-Oe-1yk" id="INl-nS-ByW"/>

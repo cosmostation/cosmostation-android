@@ -84,6 +84,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var pDenom: String?
     var mMarketID: String?
     
+    var mHtlcDenom: String?
+    var mHtlcToChain: ChainType?
+    var mHtlcToAccount: Account?
+    var mHtlcSendFee: Fee?
+    var mHtlcClaimFee: Fee?
 
     
     lazy var orderedViewControllers: [UIViewController] = {

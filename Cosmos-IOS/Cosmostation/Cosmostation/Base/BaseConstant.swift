@@ -387,6 +387,7 @@ let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"
 let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "300000"
 let KAVA_GAS_FEE_AMOUNT_REINVEST            = "300000"
 let KAVA_GAS_FEE_AMOUNT_CDP                 = "300000"
+let KAVA_GAS_FEE_AMOUNT_BEP3                = "200000"
 
 
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"
@@ -449,6 +450,17 @@ enum ChainType: String {
     
     static func IS_SUPPORT_CHAIN(_ chainS: String) -> Bool {
         return SUPPRT_CHAIN().contains(WUtils.getChainType(chainS))
+    }
+    
+    static func getHtlcSendable(_ chain: ChainType) -> Array<ChainType> {
+        var result = Array<ChainType>()
+        if (chain == SUPPORT_CHAIN_BINANCE_TEST) {
+            result.append(SUPPORT_CHAIN_KAVA_TEST)
+            
+        } else if (chain == SUPPORT_CHAIN_KAVA_TEST) {
+            result.append(SUPPORT_CHAIN_BINANCE_TEST)
+        }
+        return result
     }
 }
 
