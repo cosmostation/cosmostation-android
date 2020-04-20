@@ -343,6 +343,7 @@
 "error_circuit_breaker" = "Now circuit breake";
 "error_can_not_bep3_account_msg" = "In order to user this feature,\nyou must create a %@ account and deposit a small amount of %@ to be used as transaction fee.";
 "error_no_recipient_account" = "Please select receivable account";
+"error_no_more_faucet" = "이미 충분한 테스트 코인이 있네요.";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";

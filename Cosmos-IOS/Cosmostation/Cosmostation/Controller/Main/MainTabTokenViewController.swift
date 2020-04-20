@@ -9,8 +9,10 @@
 import UIKit
 import Alamofire
 import UserNotifications
+import Floaty
+import SafariServices
 
-class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate {
     
     let ORDER_BY_NAME = 0
     let ORDER_BY_AMOUNT = 1
@@ -35,6 +37,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     var mainTabVC: MainTabViewController!
     var mBnbTics = [String : NSMutableDictionary]()
     var mOrder:Int?
+    var mFaucet: Floaty?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -160,9 +163,33 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             onFetchIrisTokenPrice()
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             onFetchBnbTokenPrice()
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             onFetchKavaTokenPrice()
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            updateFloaty()
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            onFetchKavaTokenPrice()
+            updateFloaty()
+            
         }
+    }
+    
+    func updateFloaty() {
+        let floaty = Floaty()
+        floaty.buttonImage = UIImage.init(named: "faucetBtn")
+        if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            floaty.buttonColor = COLOR_BNB
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            floaty.buttonColor = COLOR_KAVA
+        }
+        floaty.fabDelegate = self
+        self.view.addSubview(floaty)
+    }
+    
+    func emptyFloatySelected(_ floaty: Floaty) {
+        self.onRequestFaucet()
     }
     
     @objc func onRequestFetch() {
@@ -459,6 +486,37 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onFetchKavaTokenPrice() {
         self.onUpdateTotalCard()
+    }
+    
+    func onRequestFaucet() {
+        if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            if (mainTabVC.mAccount.getBnbBalance().compare(NSDecimalNumber.init(value: 2)).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
+            } else {
+                self.showWaittingAlert()
+                let request = Alamofire.request(BNB_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                request.responseJSON { (response) in
+                    switch response.result {
+                    case .success(let res):
+                        print("res ", res)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000), execute: {
+                            self.onRequestFetch()
+                            self.hideWaittingAlert()
+                        })
+
+                    case .failure(let error):
+                        self.onShowToast(error.localizedDescription)
+                        self.hideWaittingAlert()
+                    }
+                }
+            }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            UIPasteboard.general.string = mainTabVC.mAccount.account_address
+            guard let url = URL(string: "https://faucet.kava.io/") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {

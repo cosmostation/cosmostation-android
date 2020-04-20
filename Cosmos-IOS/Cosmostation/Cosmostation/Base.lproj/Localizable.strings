@@ -332,6 +332,7 @@
 "error_not_enought_deposit_asset" = "Not enought Asset to deposit.";
 "error_not_enought_withdraw_asset" = "Cannot withdraw collateral now.";
 "error_can_not_draw_debt" = "Cannot more loan now.";
+"error_no_more_faucet" = "Alreay have enought test coin.";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";

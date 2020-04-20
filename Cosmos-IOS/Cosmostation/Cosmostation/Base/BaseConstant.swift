@@ -110,6 +110,7 @@ let BNB_TEST_URL_TIC                    = BNB_TEST_URL + "api/v1/ticker/24hr";
 let BNB_TEST_URL_HISTORY                = BNB_TEST_URL + "api/v1/transactions";
 let BNB_TEST_URL_TX                     = BNB_TEST_URL + "api/v1/tx/";
 let BNB_TEST_URL_CHECK_SWAPID           = BNB_TEST_URL + "api/v1/atomic-swaps/";
+let BNB_TEST_FAUCET                     = "https://faucet-binance.cosmostation.io/claim/";
 
 
 //KAVA_URL
