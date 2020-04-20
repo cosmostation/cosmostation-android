@@ -19,6 +19,7 @@
 
 #import <GoogleDataTransport/GDTCORAssert.h>
 #import <GoogleDataTransport/GDTCORConsoleLogger.h>
+#import <GoogleDataTransport/GDTCOREvent.h>
 #import <GoogleDataTransport/GDTCOREventTransformer.h>
 #import <GoogleDataTransport/GDTCORLifecycle.h>
 
@@ -46,8 +47,14 @@
 }
 
 - (void)transformEvent:(GDTCOREvent *)event
-      withTransformers:(NSArray<id<GDTCOREventTransformer>> *)transformers {
+      withTransformers:(NSArray<id<GDTCOREventTransformer>> *)transformers
+            onComplete:(void (^_Nullable)(BOOL wasWritten, NSError *error))completion {
   GDTCORAssert(event, @"You can't write a nil event");
+  BOOL hadOriginalCompletion = completion != nil;
+  if (!completion) {
+    completion = ^(BOOL wasWritten, NSError *_Nullable error) {
+    };
+  }
 
   __block GDTCORBackgroundIdentifier bgID = GDTCORBackgroundIdentifierInvalid;
   bgID = [[GDTCORApplication sharedApplication]
@@ -60,17 +67,21 @@
     GDTCOREvent *transformedEvent = event;
     for (id<GDTCOREventTransformer> transformer in transformers) {
       if ([transformer respondsToSelector:@selector(transform:)]) {
+        GDTCORLogDebug("Applying a transformer to event %@", event);
         transformedEvent = [transformer transform:transformedEvent];
         if (!transformedEvent) {
+          completion(NO, nil);
           return;
         }
       } else {
         GDTCORLogError(GDTCORMCETransformerDoesntImplementTransform,
                        @"Transformer doesn't implement transform: %@", transformer);
+        completion(NO, nil);
         return;
       }
     }
-    [self.storageInstance storeEvent:transformedEvent];
+    [self.storageInstance storeEvent:transformedEvent
+                          onComplete:hadOriginalCompletion ? completion : nil];
 
     // The work is done, cancel the background task if it's valid.
     [[GDTCORApplication sharedApplication] endBackgroundTask:bgID];

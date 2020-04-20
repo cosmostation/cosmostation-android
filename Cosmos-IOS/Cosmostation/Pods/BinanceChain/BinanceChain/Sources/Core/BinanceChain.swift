@@ -20,7 +20,7 @@ public class BinanceChain {
         case account = "account"
         case sequence = "sequence"
         case tx = "tx"
-        case tokens = "tokens"
+//        case tokens = "tokens"
         case markets = "markets"
         case fees = "fees"
         case depth = "depth"
@@ -41,7 +41,7 @@ public class BinanceChain {
         public var blockHeight: Int = 0
         public var fees: [Fee] = []
         public var peers: [Peer] = []
-        public var tokens: [Token] = []
+//        public var tokens: [Token] = []
         public var trades: [Trade] = []
         public var markets: [Market] = []
         public var candlesticks: [Candlestick] = []
@@ -111,12 +111,12 @@ public class BinanceChain {
         self.api(path: path, method: .get, parser: TxParser(), completion: completion)
     }
 
-    public func tokens(limit: Limit? = nil, offset: Int? = nil, completion: Completion? = nil) {
-        var parameters: Parameters = [:]
-        if let limit = limit { parameters["limit"] = limit.rawValue }
-        if let offset = offset { parameters["offset"] = offset }
-        self.api(path: .tokens, method: .get, parameters: parameters, parser: TokenParser(), completion: completion)
-    }
+//    public func tokens(limit: Limit? = nil, offset: Int? = nil, completion: Completion? = nil) {
+//        var parameters: Parameters = [:]
+//        if let limit = limit { parameters["limit"] = limit.rawValue }
+//        if let offset = offset { parameters["offset"] = offset }
+//        self.api(path: .tokens, method: .get, parameters: parameters, parser: TokenParser(), completion: completion)
+//    }
 
     public func markets(limit: Limit? = nil, offset: Int? = nil, completion: Completion? = nil) {
         var parameters: Parameters = [:]

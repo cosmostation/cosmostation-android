@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import "GULAppEnvironmentUtil.h"
+#import "GoogleUtilities/Environment/third_party/GULAppEnvironmentUtil.h"
 
 #import <Foundation/Foundation.h>
 #import <dlfcn.h>
@@ -201,7 +201,11 @@ static BOOL HasEmbeddedMobileProvision() {
 }
 
 + (BOOL)isSimulator {
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_SIMULATOR
+  return YES;
+#elif TARGET_OS_MACCATALYST
+  return NO;
+#elif TARGET_OS_IOS || TARGET_OS_TV
   NSString *platform = [GULAppEnvironmentUtil deviceModel];
   return [platform isEqual:@"x86_64"] || [platform isEqual:@"i386"];
 #elif TARGET_OS_OSX

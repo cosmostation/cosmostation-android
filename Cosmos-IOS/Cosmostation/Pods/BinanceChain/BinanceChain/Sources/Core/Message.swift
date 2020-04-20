@@ -14,6 +14,10 @@ public class Message {
         case stdtx = "F0625DEE"
         case signature = ""
         case publicKey = "EB5AE987"
+        
+        case createHtlc = "B33F9A24"
+        case claimHtlc = "C1665300"
+        case refundHtlc = "3454A27C"
     }
 
     private enum Source: Int {
@@ -39,6 +43,19 @@ public class Message {
     private var voteOption: VoteOption = .no
     private var source: Source = .cosmostation
 
+    private var swapID: String = ""
+    private var randomNumber: String = ""
+    private var recipientOtherChain: String = ""
+    private var senderOtherChain: String = ""
+    private var randomNumberHash: String = ""
+    private var timestamp: Int64 = 0
+    private var tokenAmount: [Token] = []
+    private var expectedIncome: String = ""
+    private var heightSpan: Int64 = 0
+    private var crossChain: Bool = true
+    
+    
+    
     // MARK: - Constructors
 
     private init(type: MessageType, wallet: Wallet) {
@@ -79,15 +96,7 @@ public class Message {
         return message
     }
 
-    public static func transfer(symbol: String, amount: Double, to address: String, wallet: Wallet) -> Message {
-        let message = Message(type: .transfer, wallet: wallet)
-        message.symbol = symbol
-        message.amount = amount
-        message.toAddress = address
-        return message
-    }
-    
-    public static func transfer2(symbol: String, amount: Double, to address: String, memo: String, wallet: Wallet) -> Message {
+    public static func transfer(symbol: String, amount: Double, to address: String, memo: String, wallet: Wallet) -> Message {
         let message = Message(type: .transfer, wallet: wallet)
         message.symbol = symbol
         message.amount = amount
@@ -100,6 +109,43 @@ public class Message {
         let message = Message(type: .vote, wallet: wallet)
         message.proposalId = proposalId
         message.voteOption = option
+        return message
+    }
+    
+    public static func createHtlc(toAddress: String, otherFrom: String, otherTo: String,
+                                   timestamp: Int64, randomNumberHash: String, sendAmount: Int64, sendDenom: String,
+                                   expectedIncom: String, heightSpan: Int64, crossChain: Bool, memo: String, wallet: Wallet) -> Message {
+        let message = Message(type: .createHtlc, wallet: wallet)
+        message.toAddress = toAddress
+        message.senderOtherChain = otherFrom
+        message.recipientOtherChain = otherTo
+        message.timestamp = timestamp
+        message.randomNumberHash = randomNumberHash
+
+        var token = Token.init()
+        token.amount = sendAmount
+        token.denom = sendDenom
+        message.tokenAmount = [token]
+
+        message.expectedIncome = expectedIncom
+        message.heightSpan = heightSpan
+        message.crossChain = crossChain
+        message.memo = memo
+        return message
+    }
+    
+    public static func claimHtlc(randomNumber: String, swapId: String, memo: String, wallet: Wallet) -> Message {
+        let message = Message(type: .claimHtlc, wallet: wallet)
+        message.randomNumber = randomNumber
+        message.swapID = swapId
+        message.memo = memo
+        return message
+    }
+    
+    public static func refundHtlc(swapId: String, memo: String, wallet: Wallet) -> Message {
+        let message = Message(type: .refundHtlc, wallet: wallet)
+        message.swapID = swapId
+        message.memo = memo
         return message
     }
 
@@ -220,6 +266,34 @@ public class Message {
             vote.option = Int64(self.voteOption.rawValue)
             return try vote.serializedData()
             
+        case .createHtlc:
+            var createHtlc = HashTimerLockTransferMsg()
+            createHtlc.from = self.wallet.address.unhexlify
+            createHtlc.to = self.wallet.address(from: toAddress).unhexlify
+            createHtlc.senderOtherChain = self.senderOtherChain
+            createHtlc.recipientOtherChain = self.recipientOtherChain
+            createHtlc.randomNumberHash = self.randomNumberHash.unhexlify
+            createHtlc.timestamp = self.timestamp
+            createHtlc.amount = self.tokenAmount
+            createHtlc.expectedIncome = self.expectedIncome
+            createHtlc.heightSpan = self.heightSpan
+            createHtlc.crossChain = self.crossChain
+            return try createHtlc.serializedData()
+            
+        case .claimHtlc:
+            var claimHtlc = ClaimHashTimerLockMsg()
+            claimHtlc.from = self.wallet.address.unhexlify
+            claimHtlc.swapID = self.swapID.unhexlify
+            claimHtlc.randomNumber = self.randomNumber.unhexlify
+            return try claimHtlc.serializedData()
+            
+            
+        case .refundHtlc:
+            var refundHtlc = RefundHashTimerLockMsg()
+            refundHtlc.from = self.wallet.address.unhexlify
+            refundHtlc.swapID = self.swapID.unhexlify
+            return try refundHtlc.serializedData()
+            
         default:
             throw BinanceError(message: "Invalid type")
 
@@ -280,6 +354,34 @@ public class Message {
                           self.voteOption.rawValue,
                           self.proposalId,
                           self.wallet.account)
+            
+            
+        case .createHtlc:
+            return String(format: JSON.createHtlc,
+                          self.tokenAmount[0].amount,
+                          self.tokenAmount[0].denom,
+                          self.crossChain == true ? "true" : "false",
+                          self.expectedIncome,
+                          self.wallet.account,
+                          self.heightSpan,
+                          self.randomNumberHash,
+                          self.recipientOtherChain,
+                          self.senderOtherChain,
+                          self.timestamp,
+                          self.toAddress)
+                              
+      case .claimHtlc:
+          return String(format: JSON.claimHtlc,
+                        self.wallet.account,
+                        self.randomNumber,
+                        self.swapID)
+            
+        case .refundHtlc:
+            return String(format: JSON.refundHtlc,
+                          self.wallet.account,
+                          self.swapID)
+            
+        
 
         case .signature:
             return String(format: JSON.signature,
@@ -336,7 +438,18 @@ fileprivate class JSON {
     """
 
     static let vote = """
-    {"option":%d,proposal_id":%d,voter":"%@"}
+    {"option":%d,"proposal_id":%d,voter":"%@"}
     """
 
+    static let createHtlc = """
+    {"amount":[{"amount":%ld,"denom":"%@"}],"cross_chain":%@,"expected_income":"%@","from":"%@","height_span":%ld,"random_number_hash":"%@","recipient_other_chain":"%@","sender_other_chain":"%@","timestamp":%ld,"to":"%@"}
+    """
+    
+    static let claimHtlc = """
+    {"from":"%@","random_number":"%@","swap_id":"%@"}
+    """
+    
+    static let refundHtlc = """
+    {"from":"%@","swap_id":"%@"}
+    """
 }
