@@ -179,9 +179,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         cell?.claimImg.image = cell?.claimImg.image?.withRenderingMode(.alwaysTemplate)
         cell?.claimImg.tintColor = WUtils.getChainColor(mHtlcToChain!)
         if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
-            cell?.blockHeightLabel.text = mSendTxInfo?.height
-            cell?.txHashLabel.text = mSendTxInfo?.hash
-            cell?.memoLabel.text = mSendTxInfo?.tx.value.memo
+            cell?.blockHeightLabel.text = mClaimTxInfo?.height
+            cell?.txHashLabel.text = mClaimTxInfo?.hash
+            cell?.memoLabel.text = mClaimTxInfo?.tx.value.memo
             
             cell?.receivedAmountLabel.text = ""
             cell?.receivedDenom.text = ""
@@ -195,15 +195,18 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             
             
         } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            cell?.blockHeightLabel.text = mSendTxInfo?.height
-            cell?.txHashLabel.text = mSendTxInfo?.txhash
-            cell?.memoLabel.text = mSendTxInfo?.tx.value.memo
+            cell?.blockHeightLabel.text = mClaimTxInfo?.height
+            cell?.txHashLabel.text = mClaimTxInfo?.txhash
+            cell?.memoLabel.text = mClaimTxInfo?.tx.value.memo
             
             let receiveCoin = mClaimTxInfo!.getSimpleSwapCoin()
             if (!receiveCoin.denom.isEmpty) {
                 cell?.receivedAmountLabel.attributedText = WUtils.displayAmount2(receiveCoin.amount, cell!.receivedAmountLabel.font!, WUtils.getKavaCoinDecimal(receiveCoin.denom), WUtils.getKavaCoinDecimal(receiveCoin.denom))
                 cell?.receivedDenom.text = receiveCoin.denom.uppercased()
             }
+            
+            cell?.feeLabel.attributedText = WUtils.displayAmount2(mClaimTxInfo!.getSimpleFee(), cell!.feeLabel.font!, 6, 6)
+            WUtils.setDenomTitle(mHtlcToChain!, cell!.feeDenomLabel)
             
             cell?.claimerAddress.text = msg?.value.from
             cell?.randomNumberLabel.text = msg?.value.random_number

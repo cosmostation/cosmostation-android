@@ -275,11 +275,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 mAllValidator.append(contentsOf: mTopValidators)
                 mAllValidator.append(contentsOf: mOtherValidators)
                 
-                if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-                    print("CDP circuit_breaker ", BaseData.instance.mCdpParam.result.circuit_breaker)
-                    print("CDP mKavaPrice", BaseData.instance.mKavaPrice.count)
-                    print("CDP mMyCdps", BaseData.instance.mMyCdps.count)
-                }
+//                if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+//                    print("CDP circuit_breaker ", BaseData.instance.mCdpParam.result.circuit_breaker)
+//                    print("CDP mKavaPrice", BaseData.instance.mKavaPrice.count)
+//                    print("CDP mMyCdps", BaseData.instance.mMyCdps.count)
+//                }
                 
             } else if (mChainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
