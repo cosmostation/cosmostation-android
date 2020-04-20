@@ -52,35 +52,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Error Message" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="73e-Wv-8lL" customClass="EdgeInsetLabel" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="16" y="75" width="294" height="30"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
-                                <color key="textColor" red="1" green="0.0" blue="0.37935924529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.45098039220000002" green="0.1137254902" blue="0.1647058824" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="leftTextInset">
-                                        <real key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="rightTextInset">
-                                        <real key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="topTextInset">
-                                        <real key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="bottomTextInset">
-                                        <real key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Block Height" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Buy-vn-zXY">
                                 <rect key="frame" x="16" y="86.5" width="72.5" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
@@ -224,13 +195,11 @@
                         <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.39509310790000002" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="DFS-uo-vQs" firstAttribute="leading" secondItem="2GV-t2-4uY" secondAttribute="leading" id="09A-4q-2yf"/>
-                            <constraint firstAttribute="trailing" secondItem="73e-Wv-8lL" secondAttribute="trailing" constant="16" id="09c-wd-vRs"/>
                             <constraint firstItem="Aab-4e-bfv" firstAttribute="trailing" secondItem="tsG-Tm-Hl3" secondAttribute="trailing" id="0k7-an-7Lb"/>
                             <constraint firstItem="srC-U6-SyQ" firstAttribute="leading" secondItem="2GV-t2-4uY" secondAttribute="leading" id="0xP-9v-XJO"/>
                             <constraint firstItem="ld1-Ud-c9P" firstAttribute="trailing" secondItem="hAF-na-Xov" secondAttribute="trailing" id="4fy-fq-hgu"/>
                             <constraint firstItem="0WW-GI-ytR" firstAttribute="top" secondItem="ld1-Ud-c9P" secondAttribute="bottom" constant="16" id="5km-DV-OV0"/>
                             <constraint firstItem="tsG-Tm-Hl3" firstAttribute="leading" secondItem="rd3-Hy-CBu" secondAttribute="trailing" constant="4" id="6H8-IU-Yjk"/>
-                            <constraint firstItem="Buy-vn-zXY" firstAttribute="top" secondItem="73e-Wv-8lL" secondAttribute="bottom" priority="250" constant="16" id="6RX-0e-zhr"/>
                             <constraint firstItem="7Oh-zj-8Kp" firstAttribute="leading" secondItem="N5x-fC-idg" secondAttribute="leading" constant="12" id="8FF-9J-sQp"/>
                             <constraint firstItem="89f-Pe-dhp" firstAttribute="leading" secondItem="HmK-BV-78K" secondAttribute="leading" id="9dc-f8-Xz5"/>
                             <constraint firstItem="ld1-Ud-c9P" firstAttribute="top" secondItem="V4B-eO-5gR" secondAttribute="bottom" constant="6" id="A02-S6-0zT"/>
@@ -272,8 +241,6 @@
                             <constraint firstItem="hAF-na-Xov" firstAttribute="centerY" secondItem="HmK-BV-78K" secondAttribute="centerY" id="gl5-i6-FVz"/>
                             <constraint firstItem="7hd-r1-P3I" firstAttribute="top" secondItem="zfy-t6-5dE" secondAttribute="bottom" constant="6" id="hDv-BT-yIl"/>
                             <constraint firstItem="5ho-L5-pug" firstAttribute="leading" secondItem="N5x-fC-idg" secondAttribute="leading" constant="16" id="hFd-C2-vEn"/>
-                            <constraint firstItem="73e-Wv-8lL" firstAttribute="top" secondItem="tsG-Tm-Hl3" secondAttribute="bottom" constant="4" id="hvA-Jj-UDU"/>
-                            <constraint firstItem="73e-Wv-8lL" firstAttribute="leading" secondItem="N5x-fC-idg" secondAttribute="leading" constant="16" id="kt7-WF-dvw"/>
                             <constraint firstItem="LhK-yo-1XW" firstAttribute="leading" secondItem="HmK-BV-78K" secondAttribute="leading" id="kxp-Wl-bT4"/>
                             <constraint firstItem="LhK-yo-1XW" firstAttribute="trailing" secondItem="hAF-na-Xov" secondAttribute="trailing" id="lCf-Wm-yGH"/>
                             <constraint firstItem="1hZ-ti-JMb" firstAttribute="leading" secondItem="2GV-t2-4uY" secondAttribute="leading" id="lFg-sh-dW5"/>
@@ -312,7 +279,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="blockHeightLabel" destination="XUZ-0S-jng" id="KlQ-l7-CI3"/>
-                <outlet property="errorMsg" destination="73e-Wv-8lL" id="ZlY-or-CD6"/>
+                <outlet property="feeDenom" destination="Aab-4e-bfv" id="ofD-Px-skA"/>
                 <outlet property="feeLabel" destination="ehq-ri-XJx" id="JNH-n7-dpR"/>
                 <outlet property="memoLabel" destination="srC-U6-SyQ" id="TNH-kw-xaa"/>
                 <outlet property="randomHashLabel" destination="7hd-r1-P3I" id="t7a-MA-ZsB"/>

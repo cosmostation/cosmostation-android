@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -102,12 +102,14 @@ let BNB_URL_TOKENS                      = BNB_URL + "api/v1/tokens";
 let BNB_URL_TIC                         = BNB_URL + "api/v1/ticker/24hr";
 let BNB_URL_HISTORY                     = BNB_URL + "api/v1/transactions";
 let BNB_URL_TX                          = BNB_URL + "api/v1/tx/";
+let BNB_URL_CHECK_SWAPID                = BNB_URL + "api/v1/atomic-swaps/";
 
 let BNB_TEST_URL_ACCOUNT_INFO           = BNB_TEST_URL + "api/v1/account/";
 let BNB_TEST_URL_TOKENS                 = BNB_TEST_URL + "api/v1/tokens";
 let BNB_TEST_URL_TIC                    = BNB_TEST_URL + "api/v1/ticker/24hr";
 let BNB_TEST_URL_HISTORY                = BNB_TEST_URL + "api/v1/transactions";
 let BNB_TEST_URL_TX                     = BNB_TEST_URL + "api/v1/tx/";
+let BNB_TEST_URL_CHECK_SWAPID           = BNB_TEST_URL + "api/v1/atomic-swaps/";
 
 
 //KAVA_URL
@@ -152,6 +154,7 @@ let KAVA_TEST_CDP_OWEN                  = KAVA_TEST_URL + "cdp/cdps/cdp/";
 let KAVA_TEST_CDP_DEPOSIT               = KAVA_TEST_URL + "cdp/cdps/cdp/deposits/";
 let KAVA_TEST_TOKEN_PRICE_PARAM         = KAVA_TEST_URL + "pricefeed/parameters";
 let KAVA_TEST_TOKEN_PRICE               = KAVA_TEST_URL + "pricefeed/price/";
+let KAVA_TEST_CHECK_SWAPID              = KAVA_TEST_URL + "bep3/swap/";
 
 let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
@@ -313,6 +316,8 @@ let KAVA_MSG_TYPE_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
 let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
 let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 
+let  BNB_TEST_DEPUTY                        = "tbnb1et8vmd0dgvswjnyaf73ez8ye0jehc8a7t7fljv"
+let  KAVA_TEST_DEPUTY                       = "kava1aphsdnz5hu2t5ty2au6znprug5kx3zpy6zwq29"
 
 let IOV_MSG_TYPE_TRANSFER                  = "iov_transfer";
 

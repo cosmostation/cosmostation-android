@@ -13,13 +13,13 @@ class HtlcResultSentCell: UITableViewCell {
     @IBOutlet weak var sendImg: UIImageView!
     @IBOutlet weak var resultImg: UIImageView!
     @IBOutlet weak var resultLabel: UILabel!
-    @IBOutlet weak var errorMsg: EdgeInsetLabel!
     @IBOutlet weak var blockHeightLabel: UILabel!
     @IBOutlet weak var txHashLabel: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
     @IBOutlet weak var sentAmountLabel: UILabel!
     @IBOutlet weak var sentDenom: UILabel!
     @IBOutlet weak var feeLabel: UILabel!
+    @IBOutlet weak var feeDenom: UILabel!
     @IBOutlet weak var senderLabel: UILabel!
     @IBOutlet weak var relayRecipientLabel: UILabel!
     @IBOutlet weak var relaySenderLabel: UILabel!

@@ -427,6 +427,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 wallet = Wallet(privateKey: pKey!.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
             }
             
+            
+            
             wallet.synchronise(){ (error) in
                 if let error = error {
                     if(SHOW_LOG) { print(error) }
@@ -437,11 +439,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         })
                     }
                 }
-                let bnbMsg = Message.transfer2(symbol: self.pageHolderVC.mToSendAmount[0].denom,
-                                               amount: (self.pageHolderVC.mToSendAmount[0].amount as NSString).doubleValue,
-                                               to: self.pageHolderVC.mToSendRecipientAddress!,
-                                               memo: self.pageHolderVC.mMemo!,
-                                               wallet: wallet)
+                
+                let bnbMsg = Message.transfer(symbol: self.pageHolderVC.mToSendAmount[0].denom,
+                                              amount: (self.pageHolderVC.mToSendAmount[0].amount as NSString).doubleValue,
+                                              to: self.pageHolderVC.mToSendRecipientAddress!,
+                                              memo: self.pageHolderVC.mMemo!,
+                                              wallet: wallet)
                 
                 binance!.broadcast(message: bnbMsg, sync: true) { (response) in
                     if let error = response.error {

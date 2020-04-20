@@ -212,7 +212,7 @@ class WKey {
         return result
     }
     
-    static func getIovDatafromDpAddress(_ address:String) -> Data? {
+    static func getDatafromDpAddress(_ address:String) -> Data? {
         let bech32 = Bech32()
         guard let (_, data) = try? bech32.decode(address) else {
             return nil
@@ -290,9 +290,35 @@ class WKey {
     }
     
     
-
+    static func generateRandomBytes() -> String? {
+        var keyData = Data(count: 32)
+        let result = keyData.withUnsafeMutableBytes {
+            SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
+        }
+        
+        if result == errSecSuccess {
+            return keyData.hexEncodedString()
+        } else {
+            print("Problem generating random bytes")
+            return nil
+        }
+    }
+    
+    static func getRandomNumnerHash(_ randomNumner: String, _ timeStamp: Int64) -> String {
+        let timeStampData = withUnsafeBytes(of: timeStamp.bigEndian) { Data($0) }
+        let originHex = randomNumner + timeStampData.hexEncodedString()
+        let hash = Crypto.sha256(Data.fromHex(originHex)!)
+        return hash.hexEncodedString()
+    }
     
     
+    static func getSwapId(_ randomNumnerHash: String, _ sender: String, _ otherSender: String) -> String {
+        let senderData = getDatafromDpAddress(sender)
+        let otherSenderData = otherSender.data(using: .utf8)
+        let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
+        let hash = Crypto.sha256(Data.fromHex(add)!)
+        return hash.hexEncodedString()
+    }
     
     
     

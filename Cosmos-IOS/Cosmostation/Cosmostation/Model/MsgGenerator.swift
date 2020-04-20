@@ -268,6 +268,52 @@ class MsgGenerator {
     }
     
     
+    static func genCreateSwapMsg(_ fromChain: ChainType, _ toChain: ChainType, _ fromAccount: Account, _ toAccount: Account,
+                                 _ sendCoin: Array<Coin>, _ timeStamp: Int64, _ randomNumberHash: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        if (fromChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            
+        } else  if (fromChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            value.from = fromAccount.account_address
+            value.to = KAVA_TEST_DEPUTY
+            value.sender_other_chain = BNB_TEST_DEPUTY
+            value.recipient_other_chain = toAccount.account_address
+            
+            value.random_number_hash = randomNumberHash.uppercased()
+            value.timestamp = String(timeStamp)
+            let data = try? JSONEncoder().encode(sendCoin)
+            do {
+                value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+            } catch { print(error) }
+            
+            value.expected_income = sendCoin[0].amount + sendCoin[0].denom.lowercased()
+            value.height_span = "500"
+            value.cross_chain = true
+        }
+        msg.type = KAVA_MSG_TYPE_CREATE_SWAP
+        msg.value = value
+        return msg
+    }
+    
+    
+    static func genClaimAtomicSwap(_ from: String, _ swapId: String, _ randomNumber: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.from = from
+        value.swap_id = swapId.uppercased()
+        value.random_number = randomNumber.uppercased()
+        msg.type = KAVA_MSG_TYPE_CLAIM_SWAP
+        msg.value = value
+        return msg
+    }
+    
+    static func genRefundAtomicSwap(_ sender: String, _ cdp_denom: String, _ payment: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        return msg
+    }
+    
+    
     static func genSignedTx(_ msgs: Array<Msg>, _ fee: Fee, _ memo: String, _ signatures: Array<Signature>) -> StdTx {
         let stdTx = StdTx.init()
         let value = StdTx.Value.init()
@@ -334,7 +380,7 @@ class MsgGenerator {
         
         //Set FeeInfo
         var feeInfo = Cash_FeeInfo.init()
-        feeInfo.payer = WKey.getIovDatafromDpAddress(fromAddr)!
+        feeInfo.payer = WKey.getDatafromDpAddress(fromAddr)!
         feeInfo.fees = sendFee
         
         //Set MetaData
@@ -342,8 +388,8 @@ class MsgGenerator {
         metaData.schema = 1
         
         var sendMsg = Cash_SendMsg.init()
-        sendMsg.source = WKey.getIovDatafromDpAddress(fromAddr)!
-        sendMsg.destination = WKey.getIovDatafromDpAddress(toAddr)!
+        sendMsg.source = WKey.getDatafromDpAddress(fromAddr)!
+        sendMsg.destination = WKey.getDatafromDpAddress(toAddr)!
         sendMsg.amount = sendCoin
         sendMsg.metadata = metaData
         sendMsg.memo = memo

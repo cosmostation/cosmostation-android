@@ -10,7 +10,6 @@ import UIKit
 import Alamofire
 import Floaty
 import SafariServices
-import SwiftKeychainWrapper
 
 class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate, QrScannerDelegate, PasswordViewDelegate {
 
@@ -871,23 +870,22 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 let safariViewController = SFSafariViewController(url: url)
                 present(safariViewController, animated: true, completion: nil)
             }
-            
+
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             guard let url = URL(string: "https://medium.com/irisnet-blog") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
-            
+
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             guard let url = URL(string: "https://medium.com/@binance") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
-            
+
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             guard let url = URL(string: "https://medium.com/kava-labs") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
-        
     }
     
     func onClickMarketInfo() {
@@ -1114,5 +1112,4 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             })
         }
     }
-    
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StepHtlcSend3ViewController: BaseViewController {
+class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate {
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnConfirm: UIButton!
     
@@ -64,7 +64,7 @@ class StepHtlcSend3ViewController: BaseViewController {
             sendAmountDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
             sendAmountDenom.textColor = .white
             
-            sendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, sendAmountLabel.font, 6, 6)
+            sendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, sendAmountLabel.font, WUtils.getKavaCoinDecimal(pageHolderVC.mToSendAmount[0].denom), WUtils.getKavaCoinDecimal(pageHolderVC.mToSendAmount[0].denom))
             sendFeeLabel.attributedText = WUtils.displayAmount2(sendFeeAmount.stringValue, sendFeeLabel.font, 6, 6)
             
             recipientChainLabel.text = WUtils.getChainName(pageHolderVC.mHtlcToChain!)
@@ -97,7 +97,14 @@ class StepHtlcSend3ViewController: BaseViewController {
     }
     
     @IBAction func onClickConfirm(_ sender: UIButton) {
-        
+        self.btnBack.isUserInteractionEnabled = false
+        self.btnConfirm.isUserInteractionEnabled = false
+        let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+        self.navigationItem.title = ""
+        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+        passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
+        passwordVC.resultDelegate = self
+        self.navigationController?.pushViewController(passwordVC, animated: false)
     }
     
     func onInitSendFee() {
@@ -133,6 +140,25 @@ class StepHtlcSend3ViewController: BaseViewController {
             tempList.append(feeCoin)
             pageHolderVC.mHtlcClaimFee = Fee.init(KAVA_GAS_FEE_AMOUNT_BEP3, tempList)
             
+        }
+    }
+    
+    func passwordResponse(result: Int) {
+        if (result == PASSWORD_RESUKT_OK) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(610), execute: {
+                let htlcDetailVC = HtlcResultViewController(nibName: "HtlcResultViewController", bundle: nil)
+                self.navigationItem.title = ""
+                htlcDetailVC.mHtlcDenom = self.pageHolderVC.mHtlcDenom
+                htlcDetailVC.mHtlcToSendAmount = self.pageHolderVC.mToSendAmount
+                htlcDetailVC.mHtlcToChain = self.pageHolderVC.mHtlcToChain
+                htlcDetailVC.mHtlcToAccount = self.pageHolderVC.mHtlcToAccount
+                htlcDetailVC.mHtlcSendFee = self.pageHolderVC.mHtlcSendFee
+                htlcDetailVC.mHtlcClaimFee = self.pageHolderVC.mHtlcClaimFee
+                self.navigationController?.pushViewController(htlcDetailVC, animated: true)
+            })
+        } else {
+            self.btnBack.isUserInteractionEnabled = true
+            self.btnConfirm.isUserInteractionEnabled = true
         }
     }
 }

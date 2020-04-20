@@ -537,6 +537,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             url = BNB_TEST_URL_HISTORY
         }
         let request = Alamofire.request(url, method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970, "txAsset":symbol], encoding: URLEncoding.default, headers: [:])
+//        let request = Alamofire.request(url, method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970, "txAsset":symbol, "txType":"CLAIM_HTL"], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { response in
             switch response.result {
             case .success(let res):
