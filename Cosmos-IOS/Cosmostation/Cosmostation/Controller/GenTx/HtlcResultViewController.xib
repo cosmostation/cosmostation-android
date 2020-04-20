@@ -19,6 +19,7 @@
                 <outlet property="htlcResultTableView" destination="Ysi-4A-YJE" id="Ecz-0f-YHi"/>
                 <outlet property="loadingImg" destination="15z-uY-StF" id="6gS-Du-g5w"/>
                 <outlet property="loadingLayer" destination="jEb-VK-FRi" id="nTA-cK-vtI"/>
+                <outlet property="loadingProgressLabel" destination="m4M-VF-the" id="Ljj-QT-9yk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -94,7 +95,7 @@ Please check the error code and message.</string>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEb-VK-FRi">
-                    <rect key="frame" x="57" y="393" width="300" height="120"/>
+                    <rect key="frame" x="57" y="378" width="300" height="150"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_1" translatesAutoresizingMaskIntoConstraints="NO" id="15z-uY-StF" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
                             <rect key="frame" x="120" y="0.0" width="60" height="60"/>
@@ -113,15 +114,24 @@ It takes a little longer.</string>
                             <nil key="highlightedColor"/>
                             <string key="userLabel">Transaction request submitted successfully.  After a few moments, the full results will be displayed. (Pending times depends on Tx fee.)</string>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/4 Broadcasting interchain send Tx from sending chain." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m4M-VF-the">
+                            <rect key="frame" x="8" y="113.5" width="284" height="11.5"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="fho-Az-ANu" firstAttribute="trailing" secondItem="m4M-VF-the" secondAttribute="trailing" constant="8" id="539-nm-jou"/>
+                        <constraint firstItem="m4M-VF-the" firstAttribute="leading" secondItem="fho-Az-ANu" secondAttribute="leading" constant="8" id="7L3-AO-Hef"/>
                         <constraint firstItem="15z-uY-StF" firstAttribute="centerX" secondItem="jEb-VK-FRi" secondAttribute="centerX" id="QP3-eK-ADZ"/>
                         <constraint firstItem="Cdf-vK-UAB" firstAttribute="top" secondItem="15z-uY-StF" secondAttribute="bottom" constant="4" id="c5G-qL-pyd"/>
                         <constraint firstAttribute="width" constant="300" id="fnI-Ir-xZ7"/>
-                        <constraint firstAttribute="height" constant="120" id="itt-ic-Oe1"/>
+                        <constraint firstAttribute="height" constant="150" id="itt-ic-Oe1"/>
                         <constraint firstAttribute="trailing" secondItem="Cdf-vK-UAB" secondAttribute="trailing" constant="10" id="kzj-wi-IJe"/>
                         <constraint firstItem="Cdf-vK-UAB" firstAttribute="leading" secondItem="jEb-VK-FRi" secondAttribute="leading" constant="10" id="rRc-Ua-5TP"/>
+                        <constraint firstItem="m4M-VF-the" firstAttribute="top" secondItem="Cdf-vK-UAB" secondAttribute="bottom" constant="8" id="u0l-FQ-VDc"/>
                         <constraint firstItem="15z-uY-StF" firstAttribute="top" secondItem="jEb-VK-FRi" secondAttribute="top" id="xcu-Iy-nqj"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="fho-Az-ANu"/>

@@ -222,6 +222,10 @@
 "htlc_swap_step_1" = "Select Recipient Account";
 "htlc_swap_step_2" = "Insert Amount to Send";
 "htlc_swap_step_3" = "Check Transactions Detail";
+"htlc_swap_progress_0" = "1/4 보내는 체인에서 인터체인 전송 트랜잭션을 발송 중 입니다.";
+"htlc_swap_progress_1" = "2/4 스왑아이디를 확인 중 입니다.";
+"htlc_swap_progress_2" = "3/4 받는 체인에서 인터체인 수신 트랜잭션을 발송 중 입니다.";
+"htlc_swap_progress_3" = "4/4 양쪽 체인에서 각각의 트랜잭션을 확인중 입니다.";
 
 
 "clear_all" = "전체 삭제";

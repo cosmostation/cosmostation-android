@@ -14,7 +14,6 @@ import Alamofire
 
 class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-
     @IBOutlet weak var htlcResultTableView: UITableView!
     @IBOutlet weak var bottomControlLayer: UIStackView!
     @IBOutlet weak var btnSentWallet: UIButton!
@@ -26,6 +25,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var loadingLayer: UIView!
     @IBOutlet weak var loadingImg: LoadingImageView!
+    @IBOutlet weak var loadingProgressLabel: UILabel!
     
     var mHtlcDenom: String?
     var mHtlcToSendAmount = Array<Coin>()
@@ -58,8 +58,24 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         self.htlcResultTableView.rowHeight = UITableView.automaticDimension
         self.htlcResultTableView.estimatedRowHeight = UITableView.automaticDimension
         
+
+        self.loadingProgressLabel.text = NSLocalizedString("htlc_swap_progress_0", comment: "")
         self.loadingImg.onStartAnimation()
         self.onCheckCreateHtlcSwap()
+        
+    }
+    
+    func onUpdateProgress(_ step: Int) {
+        if (step == 1) {
+            loadingProgressLabel.text = NSLocalizedString("htlc_swap_progress_1", comment: "")
+            
+        } else if (step == 2) {
+            loadingProgressLabel.text = NSLocalizedString("htlc_swap_progress_2", comment: "")
+            
+        } else if (step == 3) {
+            loadingProgressLabel.text = NSLocalizedString("htlc_swap_progress_3", comment: "")
+            
+        }
         
     }
     
@@ -157,7 +173,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         let cell:HtlcResultClaimCell? = tableView.dequeueReusableCell(withIdentifier:"HtlcResultClaimCell") as? HtlcResultClaimCell
         let msg = mClaimTxInfo?.getMsgs()[0]
         cell?.claimImg.image = cell?.claimImg.image?.withRenderingMode(.alwaysTemplate)
-        cell?.claimImg.tintColor = WUtils.getChainColor(chainType!)
+        cell?.claimImg.tintColor = WUtils.getChainColor(mHtlcToChain!)
         if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             cell?.blockHeightLabel.text = mSendTxInfo?.height
             cell?.txHashLabel.text = mSendTxInfo?.hash
@@ -405,6 +421,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     
     var mSwapFetchCnt = 6
     func onFetchSwapId() {
+        onUpdateProgress(1)
         print("onFetchSwapId ", mSwapFetchCnt)
         var url = ""
         if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
@@ -457,6 +474,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     }
     
     func onCheckClaimHtlcSwap() {
+        onUpdateProgress(2)
         print("onCheckClaimHtlcSwap ")
         var url: String?
         if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
@@ -675,6 +693,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     
     var mClaimTxFetchCnt = 6
     func onFetchClaimTx() {
+        onUpdateProgress(3)
         print("onFetchClaimTx")
         var url = ""
         var request:DataRequest?

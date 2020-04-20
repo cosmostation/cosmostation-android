@@ -222,6 +222,10 @@
 "htlc_swap_step_1" = "Select Recipient Account";
 "htlc_swap_step_2" = "Insert Amount to Send";
 "htlc_swap_step_3" = "Check Transactions Detail";
+"htlc_swap_progress_0" = "1/4 Broadcasting interchain send Tx from sending chain.";
+"htlc_swap_progress_1" = "2/4 Confirming swapid.";
+"htlc_swap_progress_2" = "3/4 Broadcasting interchain claim Tx on receiving chain.";
+"htlc_swap_progress_3" = "4/4 Confirming all Tx on each chain.";
 
 "clear_all" = "Clear All";
 "delete" = "Delete";
