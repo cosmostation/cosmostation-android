@@ -68,15 +68,11 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     func onUpdateProgress(_ step: Int) {
         if (step == 1) {
             loadingProgressLabel.text = NSLocalizedString("htlc_swap_progress_1", comment: "")
-            
         } else if (step == 2) {
             loadingProgressLabel.text = NSLocalizedString("htlc_swap_progress_2", comment: "")
-            
         } else if (step == 3) {
             loadingProgressLabel.text = NSLocalizedString("htlc_swap_progress_3", comment: "")
-            
         }
-        
     }
     
     var mTxFetchCnt = 2
@@ -85,6 +81,10 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         self.loadingLayer.isHidden = false
         if (!errorMSg.isEmpty) {
             //TODO handle error case
+            self.bottomControlLayer.isHidden = false
+            self.loadingLayer.isHidden = true
+            self.errorCard.isHidden = false
+            self.errorCodeLabel.text = errorMSg
             
         } else {
             mTxFetchCnt = mTxFetchCnt - 1
@@ -97,6 +97,10 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     
                 } else {
                     //TODO handle error case
+                    self.bottomControlLayer.isHidden = false
+                    self.loadingLayer.isHidden = true
+                    self.errorCard.isHidden = false
+                    self.errorCodeLabel.text = errorMSg
                     
                 }
             }
@@ -242,7 +246,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: self.account!)
                         //TODO error handle
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        self.onUpdateView(NSLocalizedString("error_network", comment: ""))
                         return
                     }
                     print("onCheckCreateHtlcSwap ", res)
@@ -252,9 +256,10 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     self.onCreateHtlcSwap()
                 }
                 
-            case .failure( _):
+            case .failure(let error):
                 //TODO error handle
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                self.onUpdateView(error.localizedDescription)
+                self.onShowToast(error.localizedDescription)
             }
         }
     }
@@ -263,7 +268,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         print("onCreateHtlcSwap")
         DispatchQueue.global().async {
             guard let words = KeychainWrapper.standard.string(forKey: self.account!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
-                //TODO error handle
+                self.onUpdateView(NSLocalizedString("error_invalid_password", comment: ""))
                 return
             }
             
@@ -283,7 +288,8 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 wallet.synchronise(){ (error) in
                     if let error = error {
                         if(SHOW_LOG) { print(error) }
-                        //TODO error handle
+                        self.onUpdateView(error.localizedDescription)
+                        return
                     }
                     
                     self.mTimeStamp = Date().millisecondsSince1970 / 1000
@@ -310,7 +316,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         print(response.broadcast)
                         if let error = response.error {
                             if(SHOW_LOG) { print(error.localizedDescription) }
-                            //TODO error handle
+                            self.onUpdateView(error.localizedDescription)
                         }
                         self.mSendHash = response.broadcast[0].hash
                         DispatchQueue.main.async(execute: {
@@ -375,6 +381,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 } catch {
                     //TODO error handle
                     if(SHOW_LOG) { print(error) }
+                    self.onUpdateView(error.localizedDescription)
                 }
                 
                 DispatchQueue.main.async(execute: {
@@ -407,19 +414,21 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                             case .failure(let error):
                                 //TODO error handle
                                 if(SHOW_LOG) { print("onCreateHtlcSwap error ", error) }
+                                self.onUpdateView(error.localizedDescription)
                             }
                         }
 
                     } catch {
                         //TODO error handle
                         if (SHOW_LOG) { print(error) }
+                        self.onUpdateView(error.localizedDescription)
                     }
                 });
             }
         }
     }
     
-    var mSwapFetchCnt = 6
+    var mSwapFetchCnt = 8
     func onFetchSwapId() {
         onUpdateProgress(1)
         print("onFetchSwapId ", mSwapFetchCnt)
@@ -465,9 +474,13 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     print("onFetchTx failure", error , " ", self.mSwapFetchCnt)
                 }
                 self.mSwapFetchCnt = self.mSwapFetchCnt - 1
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {
-                    self.onFetchSwapId()
-                })
+                if (self.mSwapFetchCnt > 0) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {
+                        self.onFetchSwapId()
+                    })
+                } else {
+                    self.onUpdateView(error.localizedDescription)
+                }
                 return
             }
         }
@@ -494,7 +507,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: self.mHtlcToAccount!)
                         //TODO error handle
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        self.onUpdateView(NSLocalizedString("error_network", comment: ""))
                         return
                     }
                     let accountInfo = KavaAccountInfo.init(info)
@@ -505,9 +518,10 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     })
                 }
                 
-            case .failure( _):
+            case .failure(let error):
                 //TODO error handle
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                self.onUpdateView(error.localizedDescription)
+                self.onShowToast(error.localizedDescription)
             }
         }
     }
@@ -517,6 +531,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.mHtlcToAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
+                self.onUpdateView(NSLocalizedString("error_invalid_password", comment: ""))
                 return
             }
             
@@ -535,6 +550,8 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     if let error = error {
                         if(SHOW_LOG) { print(error) }
                         //TODO error handle
+                        self.onUpdateView(error.localizedDescription)
+                        return
                     }
                     
                     let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_TEST_DEPUTY, self.account!.account_address)
@@ -549,7 +566,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         print(response.broadcast)
                         if let error = response.error {
                             if(SHOW_LOG) { print(error.localizedDescription) }
-                            //TODO error handle
+                            self.onUpdateView(error.localizedDescription)
                         }
                         print("onClaimHtlcSwap OK ", response.broadcast[0].hash)
                         self.mClaimHash = response.broadcast[0].hash
@@ -607,7 +624,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     
                 } catch {
                     if(SHOW_LOG) { print(error) }
-                    //TODO error handle
+                    self.onUpdateView(error.localizedDescription)
                 }
                 
                 DispatchQueue.main.async(execute: {
@@ -636,17 +653,15 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                                 }
                             case .failure(let error):
                                 if(SHOW_LOG) { print("onClaimHtlcSwap error ", error) }
-                                //TODO error handle
+                                self.onUpdateView(error.localizedDescription)
                             }
                         }
                     } catch {
                         if (SHOW_LOG) { print(error) }
-                        //TODO error handle
+                        self.onUpdateView(error.localizedDescription)
                     }
                 });
             }
-            
-            
         }
     }
     
@@ -676,17 +691,17 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 if(SHOW_LOG) { print("onFetchSendTx OK", res) }
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     print("onFetchSendTx error")
+                    self.onUpdateView(NSLocalizedString("error_network", comment: ""))
                     return
                 }
                 self.mSendTxInfo = TxInfo.init(info)
+                self.onUpdateView("")
                 
             case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchSendTx failure", error)
-                }
+                if(SHOW_LOG) {  print("onFetchSendTx failure", error) }
+                self.onUpdateView(error.localizedDescription)
                 return
             }
-            self.onUpdateView("")
         }
         
     }
@@ -724,6 +739,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     return
                 }
                 self.mClaimTxInfo = TxInfo.init(info)
+                self.onUpdateView("")
                 
             case .failure(let error):
                 self.mClaimTxFetchCnt = self.mClaimTxFetchCnt - 1
@@ -731,11 +747,12 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3000), execute: {
                         self.onFetchClaimTx()
                     })
+                } else {
+                    self.onUpdateView(error.localizedDescription)
                 }
                 if(SHOW_LOG) { print("onFetchClaimTx failure", error) }
                 return
             }
-            self.onUpdateView("")
         }
     }
 }
