@@ -277,15 +277,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
             mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
 
-            if (mToShowTestWarn) {
-                mToShowTestWarn = false;
-                if(getBaseDao().getKavaWarn()) {
-                    Dialog_Kava_Testnet dialog = Dialog_Kava_Testnet.newInstance(null);
-                    dialog.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-                }
-            }
-
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
             mToolbarChainName.setText(getString(R.string.str_iov_net));
@@ -305,6 +296,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         onUpdateTitle();
         onFetchAllData();
+        onShowTestNetWarnIfNeed();
         mSelectChainPosition = getBaseDao().getLastChain();
         onChainSelected(mSelectChainPosition);
 
@@ -458,6 +450,23 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     }
 
+    public void onShowTestNetWarnIfNeed() {
+        if (mBaseChain.equals(BaseChain.BNB_TEST) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mToShowTestWarn) {
+                mToShowTestWarn = false;
+                if(getBaseDao().getKavaWarn()) {
+                    Dialog_Kava_Testnet dialog = Dialog_Kava_Testnet.newInstance(null);
+                    dialog.setCancelable(true);
+                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                }
+            }
+        }
+    }
+
+    public void onSetKavaWarn() {
+        getBaseDao().setKavaWarn();
+    }
+
     @Override
     public void fetchFinished() {
         if(!isFinishing()) {
@@ -472,10 +481,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onBusyFetch();
         }
-    }
-
-    public void onSetKavaWarn() {
-        getBaseDao().setKavaWarn();
     }
 
     private class MainViewPageAdapter extends FragmentPagerAdapter {

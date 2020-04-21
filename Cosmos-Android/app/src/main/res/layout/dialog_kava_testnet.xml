@@ -18,7 +18,7 @@
             android:layout_marginTop="@dimen/space_24"
             style="@style/font_ss_17_gray8"
             android:gravity="center"
-            android:text="@string/str_kava_test_net"/>
+            android:text="@string/str_warn_testnet_title"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
-            android:text="@string/str_kava_testnet_msg"
+            android:text="@string/str_warn_testnet_msg"
             android:gravity="center"
             style="@style/font_ss_11_gray1"/>
 
