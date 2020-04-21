@@ -156,6 +156,7 @@ public class HtlcSwapTask extends CommonTask {
             HtltReq htltReq = MsgGenerator.getBnbHtlcCreateMsg(mSendChain, mReceiveChain, mSendAccount, mReceiveAccount, mToSendCoins, timestamp, originData);
             mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
             mRandomNumberHash = htltReq.getRandomNumberHash();
+            WLog.w("mRandomNumberHash " + mRandomNumberHash);
             mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_TEST_DEPUTY, mSendAccount.address).toUpperCase();
             WLog.w("mRandomNumber " + mRandomNumber);
             WLog.w("BNB Send mExpectedSwapId " + mExpectedSwapId);
@@ -207,6 +208,8 @@ public class HtlcSwapTask extends CommonTask {
 
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey);
+            WLog.w("reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+
             Response<ResBroadTx> response2 = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
             if(response2.isSuccessful() && response2.body() != null) {
                 if (response2.body().txhash != null) {

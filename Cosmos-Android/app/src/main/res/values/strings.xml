@@ -11,18 +11,18 @@
     <string name="url_lcd_main" translatable="false">https://lcd-cosmos-app.cosmostation.io/</string>
     <!--<string name="url_lcd_main" translatable="false">https://lcd-cosmos-testnet.cosmostation.io/</string>-->
     <string name="url_lcd_main_iris" translatable="false">https://lcd-iris.cosmostation.io/</string>
-    <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
-    <string name="url_test_bnb" translatable="false">https://testnet-dex.binance.org/</string>
     <string name="url_es_proxy" translatable="false">https://app-es.cosmostation.io/</string>
 
 
-    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>
-    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet-5000.cosmostation.io/</string>
+    <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
+    <string name="url_test_bnb" translatable="false">https://testnet-dex.binance.org/</string>
+    <string name="url_test_bnb_faucet" translatable="false">https://faucet-binance.cosmostation.io/claim/</string>
 
-<!--    <string name="url_lcd_kava_test" translatable="false">https://kava-testnet-4000.kava.io/</string>-->
+    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>
     <string name="url_api_kava_main" translatable="false"></string>
+
+    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet-5000.cosmostation.io/</string>
     <string name="url_api_kava_test" translatable="false">https://api-kava-testnet-5000.cosmostation.io/</string>
-<!--    <string name="url_api_kava_test" translatable="false">https://api-kava-testnet-4000.cosmostation.io/</string>-->
 
     <string name="url_rest_iov_main" translatable="false">https://bnsapi.cluster-mainnet.iov.one/</string>
     <string name="url_rpc_iov_main" translatable="false">https://rpc-iov-mainnet.cosmostation.io/</string>
@@ -33,8 +33,8 @@
     <string name="str_photon_c" translatable="false">PHOTINO</string>
     <string name="str_kava_c" translatable="false">KAVA</string>
 
-    <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation</string>
-    <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation</string>
+    <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
+    <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
 
     <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
@@ -808,7 +808,7 @@
     <string name="error_can_not_bep3_account_title">No %1$s Account</string>
     <string name="error_can_not_bep3_account_msg">In order to user this feature,\nyou must create a %1$s account and deposit a small amount of %2$s to be used as transaction fee.</string>
     <string name="error_select_account_to_recipient">Please select account to receive</string>
-
+    <string name="error_no_more_faucet">Alreay have enought test coin.</string>
 
 
     <string name="s_atom">ATOM</string>

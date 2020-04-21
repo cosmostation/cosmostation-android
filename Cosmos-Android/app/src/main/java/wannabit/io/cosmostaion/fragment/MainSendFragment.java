@@ -28,13 +28,9 @@ import com.google.zxing.integration.android.IntentResult;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
-import org.apache.commons.lang3.RandomUtils;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Random;
-import java.util.UUID;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.KavaCdpListActivity;
@@ -53,7 +49,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
@@ -884,5 +879,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         }
 
     }
+
+
 }
 

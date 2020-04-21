@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.network;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -8,6 +10,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbHistories;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
@@ -38,4 +41,7 @@ public interface BinanceChain {
 
     @GET("api/v1/atomic-swaps/{swapId}")
     Call<ResBnbSwapInfo> getSwapById(@Path("swapId") String swapId);
+
+    @GET("/claim/{address}")
+    Call<JSONObject> getFaucet(@Path("address") String address);
 }

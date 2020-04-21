@@ -590,6 +590,8 @@ public class WKey {
         System.arraycopy(rhs, 0, expectedSwapId, 0, rhs.length);
         System.arraycopy(o, 0, expectedSwapId, rhs.length, o.length);
 
+        WLog.w("expectedSwapId "+ WUtil.ByteArrayToHexString(expectedSwapId));
+
         byte[] expectedSwapIdSha = Sha256.getSha256Digest().digest(expectedSwapId);
         return WUtil.ByteArrayToHexString(expectedSwapIdSha);
     }

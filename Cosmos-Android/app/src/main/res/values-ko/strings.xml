@@ -742,6 +742,7 @@
     <string name="error_can_not_bep3_account_title">No %1$s Account</string>
     <string name="error_can_not_bep3_account_msg">In order to user this feature,\nyou must create a %1$s account and deposit a small amount of %2$s to be used as transaction fee.</string>
     <string name="error_select_account_to_recipient">Please select account to receive</string>
+    <string name="error_no_more_faucet">이미 충분한 테스트 코인이 있네요.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>
