@@ -70,6 +70,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
         self.updateTitle()
+        self.updateView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -492,22 +493,22 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             if (mainTabVC.mAccount.getBnbBalance().compare(NSDecimalNumber.init(value: 2)).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
-            } else {
-                self.showWaittingAlert()
-                let request = Alamofire.request(BNB_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                request.responseJSON { (response) in
-                    switch response.result {
-                    case .success(let res):
-                        print("res ", res)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000), execute: {
-                            self.onRequestFetch()
-                            self.hideWaittingAlert()
-                        })
-
-                    case .failure(let error):
-                        self.onShowToast(error.localizedDescription)
+                return
+            }
+            self.showWaittingAlert()
+            let request = Alamofire.request(BNB_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    print("res ", res)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000), execute: {
+                        self.onRequestFetch()
                         self.hideWaittingAlert()
-                    }
+                    })
+
+                case .failure(let error):
+                    self.onShowToast(error.localizedDescription)
+                    self.hideWaittingAlert()
                 }
             }
             

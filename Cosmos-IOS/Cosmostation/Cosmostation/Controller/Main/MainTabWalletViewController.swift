@@ -60,6 +60,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
         self.updateTitle()
+        self.walletTableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -168,6 +168,8 @@
 "select_destination_chain" = "Select Destination Chain";
 "select_account" = "Select Account";
 "no_account" = "No %@ Account";
+"testnet_warn_title" = "테스트넷 경고";
+"testnet_warn_msg" = "선택하신 지갑은 테스트넷을 위한 지갑입니다\n(해당 지갑의 토큰은 실제 가치가 없습니다).\n\n코스모스테이션은 사용자들이 각 체인의 고유한 기능들을 메인넷에 반영되기 이전에 확인하고 사용해 볼 수 있는 기회를 제공하기 위해 테스트넷을 지원합니다. 해당 테스트넷에 대한 지원은 언제든 중단될 수 있습니다.";
 
 
 "current_price_format" = "Current %@ Price";

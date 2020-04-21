@@ -51,7 +51,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         self.delegate = self
         self.selectedIndex = BaseData.instance.getLastTab()
         
-        if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST && BaseData.instance.getKavaWarn()) {
+        if ((mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || mChainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) && BaseData.instance.getKavaWarn()) {
              DispatchQueue.main.async(execute: {
                 self.showKavaTestWarn()
              });
@@ -1179,11 +1179,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     public func showKavaTestWarn() {
-        let warnAlert = UIAlertController(title: NSLocalizedString("chain_title_kava_test", comment: ""), message: "", preferredStyle: .alert)
+        let warnAlert = UIAlertController(title: NSLocalizedString("testnet_warn_title", comment: ""), message: "", preferredStyle: .alert)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSTextAlignment.left
         let messageText = NSMutableAttributedString(
-            string: NSLocalizedString("help_kava_test_warn", comment: ""),
+            string: NSLocalizedString("testnet_warn_msg", comment: ""),
             attributes: [
                 NSAttributedString.Key.paragraphStyle: paragraphStyle,
                 NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
