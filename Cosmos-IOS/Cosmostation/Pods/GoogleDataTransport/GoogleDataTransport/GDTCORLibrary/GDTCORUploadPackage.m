@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-#import <GoogleDataTransport/GDTCORUploadPackage.h>
+#import "GDTCORLibrary/Public/GDTCORUploadPackage.h"
 
 #import <GoogleDataTransport/GDTCORClock.h>
 #import <GoogleDataTransport/GDTCORConsoleLogger.h>
-#import <GoogleDataTransport/GDTCORStoredEvent.h>
 
 #import "GDTCORLibrary/Private/GDTCORStorage_Private.h"
 #import "GDTCORLibrary/Private/GDTCORUploadCoordinator.h"
@@ -48,12 +47,14 @@
                                                       userInfo:nil
                                                        repeats:YES];
   }
+  GDTCORLogDebug("Upload package created %@", self);
   return self;
 }
 
 - (instancetype)copy {
   GDTCORUploadPackage *newPackage = [[GDTCORUploadPackage alloc] initWithTarget:_target];
   newPackage->_events = [_events copy];
+  GDTCORLogDebug("Copying UploadPackage %@ to %@", self, newPackage);
   return newPackage;
 }
 
@@ -85,8 +86,9 @@
       [_handler respondsToSelector:@selector(packageDelivered:successful:)]) {
     [_expirationTimer invalidate];
     _isHandled = YES;
-    [_handler packageDelivered:self successful:YES];
+    [_handler packageDelivered:[self copy] successful:YES];
   }
+  GDTCORLogDebug("Upload package delivered: %@", self);
 }
 
 - (void)retryDeliveryInTheFuture {
@@ -94,8 +96,9 @@
       [_handler respondsToSelector:@selector(packageDelivered:successful:)]) {
     [_expirationTimer invalidate];
     _isHandled = YES;
-    [_handler packageDelivered:self successful:NO];
+    [_handler packageDelivered:[self copy] successful:NO];
   }
+  GDTCORLogDebug("Upload package will retry in the future: %@", self);
 }
 
 - (void)checkIfPackageIsExpired:(NSTimer *)timer {
@@ -103,6 +106,7 @@
     if (_handler && [_handler respondsToSelector:@selector(packageExpired:)]) {
       _isHandled = YES;
       [_expirationTimer invalidate];
+      GDTCORLogDebug("Upload package expired: %@", self);
       [_handler packageExpired:self];
     }
   }
@@ -138,10 +142,14 @@ static NSString *const kTargetKey = @"GDTCORUploadPackageTargetKey";
 }
 
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)aDecoder {
+  // Sets a global translation mapping to decode GDTCORStoredEvent objects encoded as instances of
+  // GDTCOREvent instead.
+  [NSKeyedUnarchiver setClass:[GDTCOREvent class] forClassName:@"GDTCORStoredEvent"];
+
   GDTCORTarget target = [aDecoder decodeIntegerForKey:kTargetKey];
   self = [self initWithTarget:target];
   if (self) {
-    NSSet *classes = [NSSet setWithObjects:[NSSet class], [GDTCORStoredEvent class], nil];
+    NSSet *classes = [NSSet setWithObjects:[NSSet class], [GDTCOREvent class], nil];
     _events = [aDecoder decodeObjectOfClasses:classes forKey:kEventsKey];
     _deliverByTime = [aDecoder decodeObjectOfClass:[GDTCORClock class] forKey:kDeliverByTimeKey];
     _isHandled = [aDecoder decodeBoolForKey:kIsHandledKey];

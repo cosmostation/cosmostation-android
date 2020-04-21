@@ -62,17 +62,8 @@ public struct Crypto {
 
         let signature = UnsafeMutablePointer<secp256k1_ecdsa_signature>.allocate(capacity: 1)
         defer { signature.deallocate() }
-
-        var paddingKey = Data()
-        let value: UInt8 = 0
-        for i in privateKey.raw.count..<32 {
-            paddingKey.append(value)
-        }
-        paddingKey.append(privateKey.raw)
-
-
         let status = data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
-            paddingKey.withUnsafeBytes { secp256k1_ecdsa_sign(ctx, signature, ptr, $0, nil, nil) }
+            privateKey.raw.withUnsafeBytes { secp256k1_ecdsa_sign(ctx, signature, ptr, $0, nil, nil) }
         }
         guard status == 1 else { throw CryptoError.signFailed }
 
@@ -84,6 +75,7 @@ public struct Crypto {
         var der = Data(count: length)
         guard der.withUnsafeMutableBytes({ return secp256k1_ecdsa_signature_serialize_der(ctx, $0, &length, normalizedsig) }) == 1 else { throw CryptoError.noEnoughSpace }
         der.count = length
+
         return der
     }
 

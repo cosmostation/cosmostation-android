@@ -49,7 +49,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
@@ -79,7 +78,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                                 mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
     private RelativeLayout      mBtnIrisReward, mBtnIrisVote;
     private TextView            mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
-    private RelativeLayout      mBtnBnbConnect;
+    private RelativeLayout      mBtnBnbConnect, mBtnBep3Send;
     private TextView            mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVesting,
                                 mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards;
     private RelativeLayout      mBtnKavaReward, mBtnKavaVote, mBtnKavaCdp;
@@ -158,6 +157,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvBnbBalance           = mBnbCard.findViewById(R.id.dash_bnb_balance);
         mTvBnbLocked            = mBnbCard.findViewById(R.id.dash_bnb_locked);
         mBtnBnbConnect          = mBnbCard.findViewById(R.id.btn_wallet_connect);
+        mBtnBep3Send            = mBnbCard.findViewById(R.id.btn_bep3_send);
 
         mKavaCard               = rootView.findViewById(R.id.card_kava);
         mTvKavaTotal            = mKavaCard.findViewById(R.id.dash_kava_amount);
@@ -259,6 +259,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnKavaVote.setOnClickListener(this);
         mBtnKavaCdp.setOnClickListener(this);
         mBtnBnbConnect.setOnClickListener(this);
+        mBtnBep3Send.setOnClickListener(this);
         mBuyCoinBtn.setOnClickListener(this);
         mBtnIovDeposit.setOnClickListener(this);
         mBtnIovNameService.setOnClickListener(this);
@@ -362,16 +363,25 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_faq_iris);
             mFaqBtn.setText(R.string.str_guide_iris);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.VISIBLE);
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
-            if (SUPPORT_MOONPAY) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+                mBtnBep3Send.setVisibility(View.VISIBLE);
+                mBnbCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            } else {
+                mBtnBep3Send.setVisibility(View.GONE);
+                mBnbCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+            }
+            if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 mBuyLayer.setVisibility(View.VISIBLE);
                 mBuyCoinTv.setText(R.string.str_buy_bnb);
+            } else {
+                mBuyLayer.setVisibility(View.GONE);
             }
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -387,11 +397,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.GONE);
             mKavaCard.setVisibility(View.VISIBLE);
+            mIovCard.setVisibility(View.GONE);
+            mMintCards.setVisibility(View.VISIBLE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            } else {
+                mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             }
-            mIovCard.setVisibility(View.GONE);
             if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 mBuyLayer.setVisibility(View.VISIBLE);
                 mBuyCoinTv.setText(R.string.str_buy_kava);
@@ -493,7 +506,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             try {
                 if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB) != null) {
                     Balance bnbToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB);
@@ -687,7 +700,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.irisnet.org/"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.binance.org"));
                 startActivity(guideIntent);
 
@@ -715,7 +728,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/irisnet-blog"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@binance"));
                 startActivity(guideIntent);
 
@@ -814,6 +827,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             .setRationaleMessage(getString(R.string.str_permission_qr))
             .check();
 
+        } else if (v.equals(mBtnBep3Send)) {
+            getMainActivity().onStartHTLCSendActivity();
+
         } else if (v.equals(mBuyCoinBtn)) {
             if (getMainActivity().mAccount.hasPrivateKey) {
                 getMainActivity().onShowBuySelectFiat();
@@ -863,5 +879,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         }
 
     }
+
+
 }
 

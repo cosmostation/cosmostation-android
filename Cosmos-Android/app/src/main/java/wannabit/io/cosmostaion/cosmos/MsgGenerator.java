@@ -1,7 +1,11 @@
 package wannabit.io.cosmostaion.cosmos;
 
+import android.content.Context;
 import android.util.Base64;
 
+import com.binance.dex.api.client.domain.broadcast.HtltReq;
+import com.binance.dex.api.client.domain.broadcast.TransactionOption;
+import com.binance.dex.api.client.encoding.message.Token;
 import com.github.orogvany.bip32.wallet.HdAddress;
 import com.google.protobuf.ByteString;
 
@@ -11,15 +15,21 @@ import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable;
 import net.i2p.crypto.eddsa.spec.EdDSAParameterSpec;
 import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.crypto.DeterministicKey;
 
+import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
 
+import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
@@ -34,14 +44,15 @@ import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
-import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.BNB_TEST_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_DEPUTY;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 public class MsgGenerator {
@@ -379,6 +390,101 @@ public class MsgGenerator {
         }
         return result;
     }
+
+    public static Msg genCreateSwapMsg(BaseChain fromChain, BaseChain toChain, Account fromAccount, Account toAccount, ArrayList<Coin> sendCoins, long timestamp, byte[] originData) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (fromChain.equals(BaseChain.KAVA_MAIN)) {
+
+        } else if (fromChain.equals(BaseChain.KAVA_TEST)) {
+
+            value.from = fromAccount.address;
+            value.to = KAVA_TEST_DEPUTY;
+            value.sender_other_chain = BNB_TEST_DEPUTY;
+            value.recipient_other_chain = toAccount.address;
+
+            value.random_number_hash = WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase();
+            value.timestamp = String.valueOf(timestamp);
+            value.amount = sendCoins;
+            value.expected_income = sendCoins.get(0).amount  + sendCoins.get(0).denom.toLowerCase();
+            value.height_span = "500";
+            value.cross_chain = true;
+
+            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
+            result.value = value;
+        }
+        return result;
+    }
+
+    public static Msg genClaimAtomicSwap(String from, String swapId, String randomNumber, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            value.from = from;
+            value.swap_id = swapId.toUpperCase();
+            value.random_number = randomNumber.toUpperCase();
+
+            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+
+    public static Msg genRefundAtomicSwap(String from, String swapId, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            value.from = from;
+            value.swap_id = swapId.toUpperCase();
+
+            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+
+
+    public static HtltReq getBnbHtlcCreateMsg(BaseChain fromChain, BaseChain toChain, Account fromAccount, Account toAccount, ArrayList<Coin> sendCoins, long timestamp, byte[] originData) {
+        HtltReq htltReq = new HtltReq();
+        Coin toSendCoin = sendCoins.get(0);
+        if (fromChain.equals(BaseChain.BNB_MAIN)) {
+            if (toChain.equals(BaseChain.KAVA_MAIN)) {
+
+            } else if (toChain.equals(BaseChain.KAVA_TEST)) {
+                //NO case
+
+            }
+
+        } else if (fromChain.equals(BaseChain.BNB_TEST)) {
+            if (toChain.equals(BaseChain.KAVA_MAIN)) {
+                //NO case
+
+            } else if (toChain.equals(BaseChain.KAVA_TEST)) {
+                htltReq.setRecipient(BNB_TEST_DEPUTY);
+                htltReq.setRecipientOtherChain(toAccount.address);
+                htltReq.setSenderOtherChain(KAVA_TEST_DEPUTY);
+                htltReq.setTimestamp(timestamp);
+                htltReq.setRandomNumberHash(Sha256.getSha256Digest().digest(originData));
+                Token token = new Token();
+                token.setDenom(toSendCoin.denom);
+                BigDecimal sendAmount = new BigDecimal(toSendCoin.amount).movePointRight(8);
+                token.setAmount(sendAmount.longValue());
+                htltReq.setOutAmount(Collections.singletonList(token));
+                htltReq.setExpectedIncome(sendAmount.toPlainString() + ":" + toSendCoin.denom);
+                htltReq.setHeightSpan(10001);
+                htltReq.setCrossChain(true);
+            }
+
+        }
+
+        return htltReq;
+    }
+
+
 
 
 

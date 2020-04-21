@@ -424,6 +424,26 @@ final class BaseData : NSObject{
         return result;
     }
     
+    public func selectAllAccountsByHtlcClaim(_ chain:ChainType?) -> Array<Account> {
+        var result = Array<Account>()
+        let allAccounts = selectAllAccounts()
+        for account in allAccounts {
+            if (WUtils.getChainType(account.account_base_chain) == chain && account.account_has_private) {
+                if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                    if (WUtils.getTokenAmount(account.account_balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.000375")).rawValue >= 0) {
+                        result.append(account)
+                    }
+                    
+                } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    if (WUtils.getTokenAmount(account.account_balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.init(string: "50000")).rawValue >= 0) {
+                        result.append(account)
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    
     public func selectAccountById(id: Int64) -> Account? {
         do {
             let query = DB_ACCOUNT.filter(DB_ACCOUNT_ID == id)

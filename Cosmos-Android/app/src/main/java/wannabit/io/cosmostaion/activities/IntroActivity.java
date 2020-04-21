@@ -112,11 +112,11 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                             Account account = getBaseDao().onSelectExistAccount(getIntent().getExtras().getString("notifyto"));
                             if (account != null) {
                                 getBaseDao().setLastUser(account.id);
-                                onStartMainActivity(true);
+                                onStartMainActivity(2);
                                 return;
                             }
                         }
-                        onStartMainActivity(false);
+                        onStartMainActivity(0);
                     }
                 }
             }

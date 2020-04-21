@@ -110,7 +110,6 @@
 "send_guide_msg_bnb" = "Decentralized network of blockchains\npowered by Tendermint BFT and ABCI.";
 "send_guide_title_kava" = "KAVA CHAIN";
 "send_guide_msg_kava" = "First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.";
-
 "send_guide_title_iov" = "IOV MAINNET";
 "send_guide_msg_iov" = "Built on Tendermint, IOV builds a fast, secure and decentralized universal name service.";
 "send_guide_btn1_cosmos" = "Guide";
@@ -165,7 +164,7 @@
 "str_withdraw" = "  Withdraw %@";
 "str_cannot_repay_partially" = "Cannot repay partially";
 "str_cannot_repay_all" = "Insufficient %@ to repay all";
-"str_no_more_3day" = "Hide 3Days";
+"str_no_more_3day" = "Hide 3 days";
 
 "current_price_format" = "Current %@ Price";
 "liquidation_price_format" = "Liquidation %@ Price";
@@ -174,6 +173,11 @@
 "withdrawable_format" = "Withdrawable %@";
 "before_liquidation_price_format" = "Initial Liquidation %@ Price";
 "after_liquidation_price_format" = "Adjusted Liquidation %@ Price";
+"select_destination_chain" = "Select Destination Chain";
+"select_account" = "Select Account";
+"no_account" = "No %@ Account";
+"testnet_warn_title" = "Testnet Warning";
+"testnet_warn_msg" = "This wallet is for testnet\n(Tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use new feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.";
 
 "help_collateral_rate_title" = "Min. Collateral Rate";
 "help_collateral_rate_msg" = "\nThe minimum rate at which the total USD value of the collateralized asset must be kept at against the total amount of USDX loaned from the CDP.\n\nFor example, if the minimum collateral rate is 200%, this means that in order to borrow 100 USDX from the CDP, you must deposit at least 200 USD worth of assets as collateral. If the total USD value of your collateralized asset falls below 200 USD due to price fluctuations, your position will be liquidated.";
@@ -215,6 +219,14 @@
 "repay_cdp_step_1" = "Insert memo (optional)";
 "repay_cdp_step_2" = "Select transaction fee";
 "repay_cdp_step_3" = "Check transaction detail";
+"htlc_swap_step_0" = "Select Destination Chain";
+"htlc_swap_step_1" = "Select Recipient Account";
+"htlc_swap_step_2" = "Insert Amount to Send";
+"htlc_swap_step_3" = "Check Transactions Detail";
+"htlc_swap_progress_0" = "1/4 Broadcasting interchain send Tx from sending chain.";
+"htlc_swap_progress_1" = "2/4 Confirming swapid.";
+"htlc_swap_progress_2" = "3/4 Broadcasting interchain claim Tx on receiving chain.";
+"htlc_swap_progress_3" = "4/4 Confirming all Tx on each chain.";
 
 "clear_all" = "Clear All";
 "delete" = "Delete";
@@ -265,6 +277,7 @@
 "title_withdraw_cdp" = "WITHDRAW COLLATERAL";
 "title_drawdebt_cdp" = "BORROW MORE USDX";
 "title_repay_cdp" = "REPAY USDX";
+"title_interchain_swap" = "Interchain Send & Claim";
 
 "proposal_type_basic" = "Basic";
 "proposal_type_parameter" = "Parameter";
@@ -320,6 +333,7 @@
 "error_not_enought_deposit_asset" = "Not enought Asset to deposit.";
 "error_not_enought_withdraw_asset" = "Cannot withdraw collateral now.";
 "error_can_not_draw_debt" = "Cannot more loan now.";
+"error_no_more_faucet" = "Alreay have enought test coin.";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";
@@ -332,6 +346,8 @@
 "error_not_enought_principal_asset" = "Not enough USDX to repay.";
 "error_can_not_repay" = "Cannot repay now. You need more USDX to Repay.";
 "error_circuit_breaker" = "Now circuit breake";
+"error_can_not_bep3_account_msg" = "In order to user this feature,\nyou must create a %@ account and deposit a small amount of %@ to be used as transaction fee.";
+"error_no_recipient_account" = "Please select receivable account";
 
 "currency_usd" = "USD";
 "currency_eur" = "EUR";
@@ -375,6 +391,11 @@
 "tx_kava_withdraw_cdp" = "CDP - Withdraw";
 "tx_kava_drawdebt_cdp" = "CDP - Draw Debt";
 "tx_kava_repaydebt_cdp" = "CDP - Repay";
+"tx_create_htlc" = "Create Atomic Swap";
+"tx_claim_htlc" = "Claim Atomic Swap";
+"tx_kava_bep3_create" = "Create Atomic Swap";
+"tx_kava_bep3_claim" = "Claim Atomic Swap";
+"tx_kava_bep3_refund" = "Refund Atomic Swap";
 "tx_known" = "Known";
 
 "chain_title_cosmos" = "COSMOS Hub";
@@ -382,6 +403,7 @@
 "chain_title_bnb" = "Binance Chain";
 "chain_title_kava" = "Kava Mainnet";
 "chain_title_iov" = "IOV Mainnet";
+"chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";

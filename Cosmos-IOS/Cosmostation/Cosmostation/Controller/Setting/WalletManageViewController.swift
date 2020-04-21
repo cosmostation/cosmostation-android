@@ -148,7 +148,14 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainImg.image = UIImage(named: "iovImg")
                     cell?.chainName.text = "IOV"
                     
-                } else if (selectedChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                } else if (selectedChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "binancetestnet")
+                    cell?.chainName.text = "BINANCE TEST"
+                    
+                }  else if (selectedChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true

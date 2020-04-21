@@ -101,7 +101,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mTotalSpendPrice.attributedText = WUtils.dpIrisValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             mReminaingPrice.attributedText = WUtils.dpIrisValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             mDpDecimal = 8
             mToSendDenomLabel.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
             mCurrentBalanceDenomTitle.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
@@ -197,7 +197,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
                 pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
-            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                 self.onGenBnbSendTx()
             }
         }
@@ -403,17 +403,31 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onGenBnbSendTx() {
-        print("onGenBnbSendTx")
         self.showWaittingAlert()
         DispatchQueue.global().async {
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
             
-            let binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
-            let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-            let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+            var binance: BinanceChain?
+            var pKey: HDPrivateKey?
+            var wallet = Wallet()
             var txResult = [String:Any]()
+            
+            if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                //For Binance maninet send
+                binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
+                pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
+                wallet = Wallet(privateKey: pKey!.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+                
+            } else {
+                //For Binance testent send
+                binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
+                pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
+                wallet = Wallet(privateKey: pKey!.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
+            }
+            
+            
             
             wallet.synchronise(){ (error) in
                 if let error = error {
@@ -425,15 +439,14 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         })
                     }
                 }
-                let bnbMsg = Message.transfer2(symbol: self.pageHolderVC.mToSendAmount[0].denom,
+                
+                let bnbMsg = Message.transfer(symbol: self.pageHolderVC.mToSendAmount[0].denom,
                                               amount: (self.pageHolderVC.mToSendAmount[0].amount as NSString).doubleValue,
                                               to: self.pageHolderVC.mToSendRecipientAddress!,
                                               memo: self.pageHolderVC.mMemo!,
                                               wallet: wallet)
                 
-                
-                
-                binance.broadcast(message: bnbMsg, sync: true) { (response) in
+                binance!.broadcast(message: bnbMsg, sync: true) { (response) in
                     if let error = response.error {
                         if(SHOW_LOG) { print(error.localizedDescription) }
                         if (self.waitAlert != nil) {
@@ -452,14 +465,11 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     }
                     print(response.broadcast)
                 }
-
             }
         }
-        
     }
     
     func onGenIovSendTx(_ nonce:Int64) {
-        print("onGenIovSendTx")
         DispatchQueue.global().async {
 //            var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
@@ -480,48 +490,6 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             } catch {
                 if(SHOW_LOG) { print(error) }
             }
-            
-//            DispatchQueue.main.async(execute: {
-//                do {
-//                    var url = CSS_LCD_URL_BORAD_TX
-//                    let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
-//                    request.responseJSON { response in
-//                        var txResult = [String:Any]()
-//                        switch response.result {
-//                        case .success(let res):
-//                            if(SHOW_LOG) { print("Send ", res) }
-//                            if let result = res as? [String : Any]  {
-//                                txResult = result
-//                            }
-//                        case .failure(let error):
-//                            if(SHOW_LOG) {
-//                                print("send error ", error)
-//                            }
-//                            if (response.response?.statusCode == 500) {
-//                                txResult["net_error"] = 500
-//                            }
-//                        }
-////                        if (self.waitAlert != nil) {
-////                            self.waitAlert?.dismiss(animated: true, completion: {
-////                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-////                                    txResult["type"] = COSMOS_MSG_TYPE_TRANSFER2
-////                                    self.onStartTxDetail(txResult)
-////                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-////                                    txResult["type"] = IRIS_MSG_TYPE_TRANSFER
-////                                    self.onStartTxResult(txResult)
-////                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-////                                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-////                                    txResult["type"] = KAVA_MSG_TYPE_TRANSFER
-////                                    self.onStartTxDetail(txResult)
-////                                }
-////                            })
-////                        }
-//                    }
-//
-//                } catch {
-//                    if(SHOW_LOG) { print(error) }
-//                }
-//            });
         }
     }
 }

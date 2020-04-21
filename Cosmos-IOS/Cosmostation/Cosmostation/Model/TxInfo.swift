@@ -25,6 +25,10 @@ public struct TxInfo {
     var failMsg: String = ""
     
     
+    //for binance chain
+    var ok: Bool = false
+    var log: String = ""
+    
     
     init() {}
     
@@ -70,6 +74,10 @@ public struct TxInfo {
                 return
             }
         }
+        
+        
+        self.ok = dictionary["ok"] as? Bool ?? false
+        self.log = dictionary["log"] as? String ?? ""
     }
     
     
@@ -168,6 +176,23 @@ public struct TxInfo {
             result = tx.value.fee.amount[0].amount
         }
         return result
+    }
+    
+    
+    public func getSimpleSwapCoin() -> Coin {
+        var coin = Coin.init()
+        for event in self.events {
+            if (event.type == "transfer") {
+                for attr in event.attributes {
+                    if (attr.key == "amount") {
+                        let value = attr.value;
+                        coin.denom = value.filter{ $0.isLetter }
+                        coin.amount = value.filter{ $0.isNumber }
+                    }
+                }
+            }
+        }
+        return coin
     }
     
 }

@@ -8,6 +8,7 @@
     <string name="str_bnb_main_net">바이낸스 메인넷</string>
     <string name="str_iov_main_net">아이오비 메인넷</string>
     <string name="str_kava_main_net">카바 메인넷</string>
+    <string name="str_bnb_test_net">바이낸스 테스트넷</string>
     <string name="str_kava_test_net">카바 테스트넷</string>
 
 
@@ -35,6 +36,7 @@
     <string name="str_address">주소</string>
     <string name="str_paste">붙여넣기</string>
     <string name="str_send_c">보내기</string>
+    <string name="str_htlc_send_c">크로스체인 보내기</string>
     <string name="str_receive_c">받기</string>
     <string name="str_send">보내기</string>
     <string name="str_receive">받기</string>
@@ -50,6 +52,8 @@
     <string name="str_connect">연결</string>
     <string name="str_wait">기다리기</string>
     <string name="str_recipient_address">수취인 주소</string>
+    <string name="str_recipient_chain">수취인 체인</string>
+    <string name="str_claim_address">Claim Address</string>
     <string name="str_dismiss">닫기</string>
     <string name="str_memo">메모</string>
     <string name="str_fees">Tx 수수료</string>
@@ -124,7 +128,7 @@
     <string name="str_faq_iov">Home Page</string>
     <string name="str_guide_iov">Star Name</string>
     <string name="str_telegram">텔레그램</string>
-    <string name="str_explore">민트스캔 익스플로러</string>
+    <string name="str_explore">익스플로러</string>
     <string name="str_explore_bnb">바이낸스 익스플로러</string>
     <string name="str_homepage">코스모스테이션</string>
     <string name="str_app_info">앱 정보</string>
@@ -161,6 +165,7 @@
     <string name="str_tx_failed">Transaction 실패</string>
     <string name="str_tx_type">Tx 종류</string>
     <string name="str_tx_hash">Tx Hash</string>
+    <string name="str_random_hash">Random Hash</string>
     <string name="str_tx_after_balance">Remaining balance</string>
     <string name="str_tx_from">From</string>
     <string name="str_tx_to">To</string>
@@ -355,6 +360,22 @@
     <string name="str_kava_cdp_details">CDP 상세</string>
     <string name="str_my_cdps">내 CDP</string>
     <string name="str_all_cdps">모든 상품</string>
+    <string name="str_press_select_recipient_account">수신 계정 선택</string>
+    <string name="str_bep3_warn_1">In order to user this feature,\nyou must create a KAVA account and deposit a small amount of KAVA to be used as transaction fee.</string>
+    <string name="str_check_sent_wallet">보낸 지갑 확인</string>
+    <string name="str_check_received_wallet">받은 지갑 확인</string>
+    <string name="str_wait_htlc_loading">닫지 마세요! \ 거래가 순서대로 각 체인에 제출됩니다. \ n 시간이 조금 더 걸립니다.</string>
+    <string name="str_sender">송금자</string>
+    <string name="str_relay_recipient">중계 수신자</string>
+    <string name="str_relay_sender">중계 송금자</string>
+    <string name="str_recipient">수신자</string>
+    <string name="str_receive_amount">수신 금액</string>
+    <string name="str_claimer">요청자</string>
+    <string name="str_random_number">랜덤 넘버</string>
+    <string name="str_swap_id">스왑 ID</string>
+    <string name="str_expected_income">Expected Income</string>
+    <string name="str_warn_testnet_title">테스트넷 경고</string>
+    <string name="str_warn_testnet_msg"><![CDATA[선택하신 지갑은 테스트넷을 위한 지갑입니다\n(해당 지갑의 토큰은 실제 가치가 없습니다).\n\n코스모스테이션은 사용자들이 각 체인의 고유한 기능들을 메인넷에 반영되기 이전에 확인하고 사용해 볼 수 있는 기회를 제공하기 위해 테스트넷을 지원합니다. 해당 테스트넷에 대한 지원은 언제든 중단될 수 있습니다.]]></string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
@@ -461,6 +482,8 @@
     <string name="str_cdp_promotion_title">Create a Collateralized Debt Position</string>
     <string name="str_cdp_promotion_msg">Borrow USDX by depositing XRP, BTC, BNB as collateral.\n100% on-chain decentralized finance.</string>
     <string name="str_repay_all_notice">This CDP will be closed. \nAll deposits will be returned to each depositor.</string>
+    <string name="str_select_receive_chain">Select Destination Chain</string>
+    <string name="str_select_account">Select Account</string>
 
     <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
     <string name="str_create_cdp_step_2">Insert memo (optional)</string>
@@ -482,6 +505,10 @@
     <string name="str_withdraw_cdp_step_2">Insert memo (optional)</string>
     <string name="str_withdraw_cdp_step_3">Select transaction fee</string>
     <string name="str_withdraw_cdp_step_4">Check transaction detail</string>
+    <string name="str_htlc_send_step_1">Select Destination Chain</string>
+    <string name="str_htlc_send_step_2">Select recipient account</string>
+    <string name="str_htlc_send_step_3">Insert amount to send</string>
+    <string name="str_htlc_send_step_4">Check transactions detail</string>
 
     <!--    <string name="str_min_collateral_rate">최소 담보 비율</string>-->
 <!--    <string name="str_stability_fee">안정화 수수료 (연간)</string>-->
@@ -714,6 +741,10 @@
     <string name="error_can_not_draw_debt">Cannot more loan now.</string>
     <string name="error_not_enought_principal_asset">Not enough USDX to repay.</string>
     <string name="error_can_not_repay">Cannot repay now. You need more USDX to Repay.</string>
+    <string name="error_can_not_bep3_account_title">No %1$s Account</string>
+    <string name="error_can_not_bep3_account_msg">In order to user this feature,\nyou must create a %1$s account and deposit a small amount of %2$s to be used as transaction fee.</string>
+    <string name="error_select_account_to_recipient">Please select account to receive</string>
+    <string name="error_no_more_faucet">이미 충분한 테스트 코인이 있네요.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>
@@ -722,7 +753,7 @@
     <string name="s_iris">IRIS</string>
     <string name="s_bnb">BNB</string>
     <string name="s_iov">IOV</string>
-    <string name="s_kava">KAVA</string>기
+    <string name="s_kava">KAVA</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>
@@ -750,6 +781,11 @@
     <string name="tx_kava_withdraw_cdp">CDP - 출금</string>
     <string name="tx_kava_drawdebt_cdp">CDP - 대출</string>
     <string name="tx_kava_repaydebt_cdp">CDP - 상환</string>
+    <string name="tx_create_htlc">아토믹 스왑 보내기</string>
+    <string name="tx_claim_htlc">아토믹 스왑 받기</string>
+    <string name="tx_kava_bep3_create">아토믹 스왑 보내기</string>
+    <string name="tx_kava_bep3_claim">아토믹 스왑 받기</string>
+    <string name="tx_kava_bep3_refund">아토믹 스왑 환불</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>

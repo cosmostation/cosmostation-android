@@ -36,6 +36,7 @@
                     android:layout_height="wrap_content"
                     style="@style/font_ss_10_white"
                     android:layout_marginTop="-4dp"
+                    android:gravity="center"
                     android:text="Cosmos"/>
             </LinearLayout>
             <LinearLayout

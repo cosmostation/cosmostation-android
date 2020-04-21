@@ -91,6 +91,15 @@ public class WebActivity extends BaseActivity {
             else
                 mWebview.loadUrl("https://kava.mintscan.io");
 
+        } else if (mBasechain.equals(BaseChain.BNB_TEST)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl("https://testnet-explorer.binance.org/tx/"+mTxid);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl("https://testnet-explorer.binance.org/address/"+mAddress);
+            else if (!TextUtils.isEmpty(mAsset))
+                mWebview.loadUrl("https://testnet-explorer.binance.org/asset/"+mAsset);
+
         }
 
         mShare.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +120,7 @@ public class WebActivity extends BaseActivity {
             mWebview.goBack();
         } else {
             if(mGoMain) {
-                onStartMainActivity(false);
+                onStartMainActivity(0);
             } else {
                 super.onBackPressed();
             }

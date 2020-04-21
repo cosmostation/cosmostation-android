@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import AlamofireImage
 
 class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -56,12 +55,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                     cell?.valCommissionLabel.text = "?? %"
                 }
                 let url = COSMOS_VAL_URL + validator.operator_address + ".png"
-                Alamofire.request(url, method: .get).responseImage { response  in
-                    guard let image = response.result.value else {
-                        return
-                    }
-                    cell!.valImg.image = image
-                }
+                cell!.valImg.af_setImage(withURL: URL(string: url)!)
                 
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 cell?.valPowerLabel.attributedText  =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell!.valPowerLabel.font, 6, pageHolderVC.chainType!)
@@ -73,12 +67,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                     cell?.valCommissionLabel.text = "-"
                 }
                 let url = IRIS_VAL_URL + validator.operator_address + ".png"
-                Alamofire.request(url, method: .get).responseImage { response  in
-                    guard let image = response.result.value else {
-                        return
-                    }
-                    cell!.valImg.image = image
-                }
+                cell!.valImg.af_setImage(withURL: URL(string: url)!)
                 
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 cell?.valPowerLabel.attributedText  =  WUtils.displayAmount(validator.tokens, cell!.valPowerLabel.font, 6, pageHolderVC.chainType!)
@@ -90,12 +79,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                     cell?.valCommissionLabel.text = "?? %"
                 }
                 let url = KAVA_IMG_URL + validator.operator_address + ".png"
-                Alamofire.request(url, method: .get).responseImage { response  in
-                    guard let image = response.result.value else {
-                        return
-                    }
-                    cell!.valImg.image = image
-                }
+                cell!.valImg.af_setImage(withURL: URL(string: url)!)
             }
 
             cell?.rootCard.needBorderUpdate = false

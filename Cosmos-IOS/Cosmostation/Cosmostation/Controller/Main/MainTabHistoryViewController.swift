@@ -50,7 +50,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             onFetchHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
@@ -92,7 +92,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            titleChainImg.image = UIImage(named: "binancetestnet")
+            titleChainName.text = "(Binance Test)"
+            titleAlarmBtn.isHidden = true
+        }  else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(KAVA Test)"
             titleAlarmBtn.isHidden = true
@@ -119,7 +123,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             onFetchHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
@@ -131,7 +135,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ) {
             return self.mHistories.count
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return self.mBnbHistories.count
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return self.mApiHistories.count
@@ -146,7 +150,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return onSetIrisItem(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             return onSetKavaItem(tableView, indexPath);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return onSetBnbItem(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return onSetIovItem(tableView, indexPath);
@@ -280,6 +284,14 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             txDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(txDetailVC, animated: true)
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            let bnbHistory = mBnbHistories[indexPath.row]
+            guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
+            print("url ", url)
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
         }
     }
     
@@ -335,7 +347,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchBnbHistory(_ address:String) {
-        let request = Alamofire.request(BNB_URL_HISTORY, method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970], encoding: URLEncoding.default, headers: [:])
+        var url = ""
+        if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            url = BNB_URL_HISTORY
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            url = BNB_TEST_URL_HISTORY
+        }
+        let request = Alamofire.request(url, method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { response in
             switch response.result {
             case .success(let res):

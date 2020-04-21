@@ -23,4 +23,9 @@ public struct Fee: Codable{
             }
         }
     }
+    
+    init(_ gas:String, _ amount:Array<Coin>) {
+        self.gas = gas
+        self.amount = amount
+    }
 }

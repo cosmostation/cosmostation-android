@@ -72,7 +72,7 @@ public class WDp {
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
-        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -120,6 +120,16 @@ public class WDp {
                 denomTv.setText(coin.denom.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), WUtil.getKavaCoinDecimal(coin), WUtil.getKavaCoinDecimal(coin)));
+
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+            if (coin.denom.equals(COSMOS_BNB)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+
+            } else {
+                denomTv.setText(coin.denom.toUpperCase());
+
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 8, 8));
         }
     }
 
@@ -147,6 +157,15 @@ public class WDp {
 
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 9));
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+            if (symbol.equals(COSMOS_BNB)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
         }
     }
 
@@ -896,9 +915,16 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP)) {
             result = BaseConstant.TX_TYPE_KAVA_REPAYDEBT_CDP;
 
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
+            result = BaseConstant.TX_TYPE_KAVA_BEP3_CREATE;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP)) {
+            result = BaseConstant.TX_TYPE_KAVA_BEP3_CLAIM;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
+            result = BaseConstant.TX_TYPE_KAVA_BEP3_REFUND;
+
         }
-
-
 
         return result;
     }
@@ -1001,6 +1027,18 @@ public class WDp {
                 result = c.getString(R.string.tx_kava_repaydebt_cdp);
                 break;
 
+            case BaseConstant.TX_TYPE_KAVA_BEP3_CREATE:
+                result = c.getString(R.string.tx_kava_bep3_create);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_BEP3_CLAIM:
+                result = c.getString(R.string.tx_kava_bep3_claim);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_BEP3_REFUND:
+                result = c.getString(R.string.tx_kava_bep3_refund);
+                break;
+
             case BaseConstant.TX_TYPE_UNKNOWN:
                 result = c.getString(R.string.tx_known);
                 break;
@@ -1026,6 +1064,11 @@ public class WDp {
             } else {
                 result = c.getString(R.string.tx_receive);
             }
+        } else if (history.txType.equals("HTL_TRANSFER")) {
+            result = c.getString(R.string.tx_create_htlc);
+
+        } else if (history.txType.equals("CLAIM_HTL")) {
+            result = c.getString(R.string.tx_claim_htlc);
         }
         return result;
 
@@ -1040,7 +1083,7 @@ public class WDp {
     }
 
     public static String getPath(BaseChain chain, int position, boolean newBip) {
-        if (chain.equals(BaseChain.BNB_MAIN)) {
+        if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return BaseConstant.KEY_BNB_PATH + String.valueOf(position);
         } else if (chain.equals(BaseChain.IOV_MAIN)) {
             return BaseConstant.KEY_IOV_PATH + String.valueOf(position) +"'";
@@ -1341,27 +1384,12 @@ public class WDp {
         return ""+c.getTimeInMillis();
     }
 
-    public static String DpAtom(Context c) {
-        String result = c.getString(R.string.s_atom);
-        return result;
-    }
-
-    public static String DpPoton(Context c) {
-        String result = c.getString(R.string.s_photon);
-        return result;
-    }
-
-    public static String DpIris(Context c) {
-        String result = c.getString(R.string.s_iris);
-        return result;
-    }
-
     public static int getChainColor(Context c, BaseChain chain) {
         if (chain.equals(BaseChain.COSMOS_MAIN)) {
             return c.getResources().getColor(R.color.colorAtom);
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return c.getResources().getColor(R.color.colorIris);
-        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return c.getResources().getColor(R.color.colorBnb);
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             return c.getResources().getColor(R.color.colorKava);
@@ -1403,7 +1431,7 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorIris));
             textview.setText(c.getString(R.string.s_iris));
 
-        } else if (BaseChain.getChain(chain).equals(BaseChain.BNB_MAIN)) {
+        } else if (BaseChain.getChain(chain).equals(BaseChain.BNB_MAIN) || BaseChain.getChain(chain).equals(BaseChain.BNB_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBnb));
             textview.setText(c.getString(R.string.s_bnb));
 
@@ -1415,6 +1443,22 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorIov));
             textview.setText(c.getString(R.string.s_iov));
         }
+    }
+
+    public static String getDpMainDenom(Context c, String chain) {
+        if (BaseChain.getChain(chain).equals(BaseChain.COSMOS_MAIN)) {
+            return c.getString(R.string.s_atom);
+        } else if (BaseChain.getChain(chain).equals(BaseChain.IRIS_MAIN)) {
+            return c.getString(R.string.s_iris);
+        } else if (BaseChain.getChain(chain).equals(BaseChain.BNB_MAIN) || BaseChain.getChain(chain).equals(BaseChain.BNB_TEST)) {
+            return c.getString(R.string.s_bnb);
+        } else if (BaseChain.getChain(chain).equals(BaseChain.KAVA_MAIN) || BaseChain.getChain(chain).equals(BaseChain.KAVA_TEST)) {
+            return c.getString(R.string.s_kava);
+        } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN)) {
+            return c.getString(R.string.s_iov);
+        }
+        return "";
+
     }
 
     public static Spanned DpLiquidationPriceTitle(Context c, String Denom) {
@@ -1611,6 +1655,41 @@ public class WDp {
             WLog.w("e " + e.getMessage());
         }
         return result;
+    }
+
+    public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.cosmos_wh_main));
+            txtView.setText(c.getString(R.string.str_cosmos_hub_2));
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iris_wh));
+            txtView.setText(c.getString(R.string.str_iris_net_2));
+
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binance_ch_img));
+            txtView.setText(c.getString(R.string.str_binance_net_2));
+
+        } else if (chain.equals(BaseChain.BNB_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binancetestnet));
+            txtView.setText(c.getString(R.string.str_binance_test_net_2));
+
+        } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_img));
+            txtView.setText(c.getString(R.string.str_kava_net_2));
+
+        } else if (chain.equals(BaseChain.KAVA_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_test_img));
+            txtView.setText(c.getString(R.string.str_kava_net_test_2));
+
+        } else if (chain.equals(BaseChain.IOV_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_img));
+            txtView.setText(c.getString(R.string.str_iov_net_2));
+
+        }
+        txtView.setTextColor(getChainColor(c, chain));
+
+
     }
 
 }

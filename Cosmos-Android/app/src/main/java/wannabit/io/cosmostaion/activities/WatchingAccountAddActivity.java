@@ -126,6 +126,16 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
+            } else if (mUserInput.startsWith("tbnb")) {
+                if (WKey.isValidBech32(mUserInput)) {
+                    onGenNewAccount(BaseChain.BNB_TEST, mUserInput);
+                    return;
+
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
             } else {
                 Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 return;
@@ -152,7 +162,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_EMPTY_ACCOUNT) {
             if(result.isSuccess) {
-                onStartMainActivity(false);
+                onStartMainActivity(0);
             } else {
                 if(result.errorCode == 7001) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_already_imported_address), Toast.LENGTH_SHORT).show();

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.model.StdTx;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -198,6 +199,25 @@ public class ResTxInfo {
         return result;
     }
 
+    public Coin simpleSwapCoin() {
+        Coin coin  = new Coin();
+        if (events != null) {
+            for (Event event:events) {
+                if (event.type.equals("transfer")) {
+                    for (EventAttribute attr:event.attributes) {
+                        if (attr.key.equals("amount")) {
+                            String value = attr.value;
+                            String denom = value.replaceAll("[0-9]", "");
+                            String amount = value.replaceAll("[^0-9]", "");
+                            coin.denom = denom;
+                            coin.amount = amount;
+                        }
+                    }
+                }
+            }
+        }
+        return coin;
+    }
 
 
 

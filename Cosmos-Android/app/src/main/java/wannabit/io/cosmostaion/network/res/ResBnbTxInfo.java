@@ -20,4 +20,7 @@ public class ResBnbTxInfo {
 
     @SerializedName("tx")
     public StdTx tx;
+
+    @SerializedName("log")
+    public String log;
 }

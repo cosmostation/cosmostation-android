@@ -13,6 +13,7 @@ import com.google.zxing.common.BitMatrix;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.nio.ByteBuffer;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -895,7 +896,7 @@ public class WUtil {
                     if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
                     if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
 
-                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                     if(o1.symbol.equals(COSMOS_BNB)) return -1;
                     if(o2.symbol.equals(COSMOS_BNB)) return 1;
 
@@ -926,7 +927,7 @@ public class WUtil {
                     if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
                     if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
 
-                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                     if(o1.symbol.equals(COSMOS_BNB)) return -1;
                     if(o2.symbol.equals(COSMOS_BNB)) return 1;
 
@@ -1053,7 +1054,7 @@ public class WUtil {
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.CMC_IRIS;
 
-        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return BaseConstant.CMC_BNB;
 
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
@@ -1069,7 +1070,7 @@ public class WUtil {
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.CGC_IRIS;
 
-        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return BaseConstant.CGC_BNB;
 
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
@@ -1085,7 +1086,7 @@ public class WUtil {
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.MEMO_IRIS;
 
-        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return BaseConstant.MEMO_BNB;
         }
         return BaseConstant.MEMO_IRIS;
@@ -1138,15 +1139,15 @@ public class WUtil {
     }
 
     public static int getKavaCoinDecimal(Coin coin) {
-        if (coin.denom.equals(COSMOS_KAVA)) {
+        if (coin.denom.equalsIgnoreCase(COSMOS_KAVA)) {
             return 6;
-        } else if (coin.denom.equals("xrp")) {
+        } else if (coin.denom.equalsIgnoreCase("xrp")) {
             return 6;
-        } else if (coin.denom.equals("btc")) {
+        } else if (coin.denom.equalsIgnoreCase("btc")) {
             return 8;
-        } else if (coin.denom.equals("usdx")) {
+        } else if (coin.denom.equalsIgnoreCase("usdx")) {
             return 6;
-        } else if (coin.denom.equals("bnb")) {
+        } else if (coin.denom.equalsIgnoreCase("bnb")) {
             return 8;
         }
         return 0;
@@ -1154,15 +1155,15 @@ public class WUtil {
     }
 
     public static int getKavaCoinDecimal(String denom) {
-        if (denom.equals(COSMOS_KAVA)) {
+        if (denom.equalsIgnoreCase(COSMOS_KAVA)) {
             return 6;
-        } else if (denom.equals("xrp")) {
+        } else if (denom.equalsIgnoreCase("xrp")) {
             return 6;
-        } else if (denom.equals("btc")) {
+        } else if (denom.equalsIgnoreCase("btc")) {
             return 8;
-        } else if (denom.equals("usdx")) {
+        } else if (denom.equalsIgnoreCase("usdx")) {
             return 6;
-        } else if (denom.equals("bnb")) {
+        } else if (denom.equalsIgnoreCase("bnb")) {
             return 8;
         }
         return 100;
@@ -1375,4 +1376,10 @@ public class WUtil {
         return result;
     }
 
+
+    public static byte[] long2Bytes(long x){
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putLong(x);
+        return buffer.array();
+    }
 }

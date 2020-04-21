@@ -48,11 +48,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
+import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
+import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -67,6 +69,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
 import wannabit.io.cosmostaion.dialog.Dialog_Push_Enable;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
@@ -99,10 +102,14 @@ import wannabit.io.cosmostaion.task.SingleFetchTask.SingleStakingPoolTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -222,13 +229,42 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         v.clearFocus();
     }
 
-    public void onStartMainActivity(boolean showHistory) {
+    public void onStartMainActivity(int page) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        if (showHistory) {
-            intent.putExtra("page", 2);
+        intent.putExtra("page", page);
+        startActivity(intent);
+    }
+
+
+
+    public void onStartHTLCSendActivity() {
+        if(mAccount == null) return;
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        boolean hasbalance = false;
+        Intent intent = new Intent(getBaseContext(), HtlcSendActivity.class);
+        if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
+                hasbalance  = true;
+            }
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_KAVA).compareTo(new BigDecimal("5000")) > 0) {
+                hasbalance  = true;
+            }
         } else {
-            intent.putExtra("page", 0);
+            Toast.makeText(getBaseContext(), "Brother.. Why you here?", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!hasbalance) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
         }
         startActivity(intent);
     }
@@ -308,7 +344,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         if(getBaseDao().onSelectAccounts().size() > 0) {
             getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
-            onStartMainActivity(false);
+            onStartMainActivity(0);
         } else {
             getBaseDao().setLastUser(-1);
             Intent intent = new Intent(this, IntroActivity.class);
@@ -369,7 +405,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 Account account = getBaseDao().onSelectExistAccount(address);
                 if (account != null) {
                     getBaseDao().setLastUser(account.id);
-                    onStartMainActivity(true);
+                    onStartMainActivity(2);
 
                 }
 
@@ -427,11 +463,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new IrisPoolTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST) ) {
             mTaskCount = 2;
 
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BnbTokenListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BnbTokenListTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
@@ -696,7 +732,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastIrisTic(0d);
                             getBaseDao().setLastIrisUpDown(0d);
 
-                        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                             getBaseDao().setLastBnbTic(0d);
                             getBaseDao().setLastBnbUpDown(0d);
 
@@ -718,7 +754,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().setLastIrisTic(0d);
                         getBaseDao().setLastIrisUpDown(0d);
 
-                    } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                    } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                         getBaseDao().setLastBnbTic(0d);
                         getBaseDao().setLastBnbUpDown(0d);
 
@@ -746,7 +782,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastIrisTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                             getBaseDao().setLastIrisUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
 
-                        } else if (response.isSuccessful() && chain.equals(BaseChain.BNB_MAIN)) {
+                        } else if (response.isSuccessful() && (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST) )) {
                             ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
                             getBaseDao().setLastBnbTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                             getBaseDao().setLastBnbUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
@@ -767,7 +803,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastIrisTic(0d);
                             getBaseDao().setLastIrisUpDown(0d);
 
-                        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                             getBaseDao().setLastBnbTic(0d);
                             getBaseDao().setLastBnbUpDown(0d);
 
@@ -789,7 +825,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().setLastIrisTic(0d);
                         getBaseDao().setLastIrisUpDown(0d);
 
-                    } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                    } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                         getBaseDao().setLastBnbTic(0d);
                         getBaseDao().setLastBnbUpDown(0d);
 

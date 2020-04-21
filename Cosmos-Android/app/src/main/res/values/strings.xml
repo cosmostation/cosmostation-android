@@ -11,16 +11,18 @@
     <string name="url_lcd_main" translatable="false">https://lcd-cosmos-app.cosmostation.io/</string>
     <!--<string name="url_lcd_main" translatable="false">https://lcd-cosmos-testnet.cosmostation.io/</string>-->
     <string name="url_lcd_main_iris" translatable="false">https://lcd-iris.cosmostation.io/</string>
-    <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
-    <string name="url_test_bnb" translatable="false">https://testnet-dex.binance.org/</string>
     <string name="url_es_proxy" translatable="false">https://app-es.cosmostation.io/</string>
 
 
+    <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
+    <string name="url_test_bnb" translatable="false">https://testnet-dex.binance.org/</string>
+    <string name="url_test_bnb_faucet" translatable="false">https://faucet-binance.cosmostation.io/claim/</string>
+
     <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>
-    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet.cosmostation.io/</string>
-<!--    <string name="url_lcd_kava_test" translatable="false">https://kava-testnet-4000.kava.io/</string>-->
     <string name="url_api_kava_main" translatable="false"></string>
-    <string name="url_api_kava_test" translatable="false">https://api-kava-testnet.cosmostation.io/</string>
+
+    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet-5000.cosmostation.io/</string>
+    <string name="url_api_kava_test" translatable="false">https://api-kava-testnet-5000.cosmostation.io/</string>
 
     <string name="url_rest_iov_main" translatable="false">https://bnsapi.cluster-mainnet.iov.one/</string>
     <string name="url_rpc_iov_main" translatable="false">https://rpc-iov-mainnet.cosmostation.io/</string>
@@ -30,6 +32,9 @@
     <string name="str_atom_c" translatable="false">ATOM</string>
     <string name="str_photon_c" translatable="false">PHOTINO</string>
     <string name="str_kava_c" translatable="false">KAVA</string>
+
+    <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
+    <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
 
     <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
@@ -62,6 +67,7 @@
     <string name="str_bnb_main_net">Binance Mainnet</string>
     <string name="str_iov_main_net">IOV Mainnet</string>
     <string name="str_kava_main_net">KAVA Mainnet</string>
+    <string name="str_bnb_test_net">Binance Testnet</string>
     <string name="str_kava_test_net">KAVA Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
@@ -93,6 +99,7 @@
     <string name="str_address">Address</string>
     <string name="str_paste">Paste</string>
     <string name="str_send_c">SEND</string>
+    <string name="str_htlc_send_c"><![CDATA[Interchain Send & Claim]]></string>
     <string name="str_receive_c">RECEIVE</string>
     <string name="str_send">Send</string>
     <string name="str_receive">Recieve</string>
@@ -103,11 +110,13 @@
     <string name="str_reinvest_c">RE-INVEST</string>
     <string name="str_before">Before</string>
     <string name="str_cancel">Cancel</string>
-    <string name="str_no_more_3day">Hide 3Days</string>
+    <string name="str_no_more_3day">Hide 3 days</string>
     <string name="str_continue">Continue</string>
     <string name="str_connect">Connect</string>
     <string name="str_wait">Wait</string>
     <string name="str_recipient_address">Recipient Address</string>
+    <string name="str_recipient_chain">Recipient Chain</string>
+    <string name="str_claim_address">Claim Address</string>
     <string name="str_dismiss">Dismiss</string>
     <string name="str_memo">Memo</string>
     <string name="str_fees">Fee</string>
@@ -182,7 +191,7 @@
     <string name="str_faq_iov">Home Page</string>
     <string name="str_guide_iov">Star Name</string>
     <string name="str_telegram">Telegram</string>
-    <string name="str_explore">Explorer Mintscan</string>
+    <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
     <string name="str_homepage">Cosmostation</string>
     <string name="str_app_info">App Info</string>
@@ -215,14 +224,23 @@
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
     <string name="str_cosmos_hub" translatable="false">(Cosmos Hub)</string>
+    <string name="str_cosmos_hub_2" translatable="false">Cosmos Hub</string>
     <string name="str_iris_net" translatable="false">(Iris Hub)</string>
+    <string name="str_iris_net_2" translatable="false">Iris Hub</string>
     <string name="str_binance_net" translatable="false">(Binance Chain)</string>
+    <string name="str_binance_net_2" translatable="false">Binance Chain</string>
+    <string name="str_binance_test_net" translatable="false">(Binance Test Chain)</string>
+    <string name="str_binance_test_net_2" translatable="false">Binance Test Chain</string>
     <string name="str_iov_net" translatable="false">(IOV Chain)</string>
+    <string name="str_iov_net_2" translatable="false">IOV Chain</string>
     <string name="str_kava_net" translatable="false">(KAVA Chain)</string>
+    <string name="str_kava_net_2" translatable="false">KAVA Chain</string>
     <string name="str_kava_net_test" translatable="false">(KAVA Test Chain)</string>
+    <string name="str_kava_net_test_2" translatable="false">KAVA Test Chain</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_iris" translatable="false">IRIS</string>
     <string name="str_binance" translatable="false">BINANCE</string>
+    <string name="str_binance_test" translatable="false">BINANCE\nTEST</string>
     <string name="str_iov" translatable="false">IOV</string>
     <string name="str_kava" translatable="false">KAVA</string>
     <string name="str_kava_test" translatable="false">KAVA TEST</string>
@@ -231,6 +249,7 @@
     <string name="str_tx_failed">Transaction Failed</string>
     <string name="str_tx_type">Transaction Type</string>
     <string name="str_tx_hash">Transaction Hash</string>
+    <string name="str_random_hash">Random Hash</string>
     <string name="str_tx_after_balance">Remaining balance</string>
     <string name="str_tx_from">From</string>
     <string name="str_tx_to">To</string>
@@ -423,6 +442,24 @@
     <string name="str_kava_cdp_details">CDP Status</string>
     <string name="str_my_cdps">My CDP</string>
     <string name="str_all_cdps">All Products</string>
+    <string name="str_press_select_recipient_account">Select Recipient Account</string>
+    <string name="str_bep3_warn_1">In order to user this feature,\nyou must create a KAVA account and deposit a small amount of KAVA to be used as transaction fee.</string>
+    <string name="str_check_sent_wallet">Check Sent Wallet</string>
+    <string name="str_check_received_wallet">Check Received Wallet</string>
+    <string name="str_wait_htlc_loading">Do Not Close!\nYour Transaction will submit to each chain in order,\nIt takes a little longer.</string>
+    <string name="str_sender">Sender</string>
+    <string name="str_relay_recipient">Relay recipient</string>
+    <string name="str_relay_sender">Relay Sender</string>
+    <string name="str_recipient">Recipient</string>
+    <string name="str_receive_amount">Receive Amount</string>
+    <string name="str_claimer">Claimer</string>
+    <string name="str_random_number">Random Number</string>
+    <string name="str_swap_id">Swap ID</string>
+    <string name="str_expected_income">Expected Income</string>
+    <string name="str_warn_testnet_title">Testnet Warning</string>
+    <string name="str_warn_testnet_msg"><![CDATA[This wallet is for testnet\n(Tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use new feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
+
+
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
@@ -529,7 +566,8 @@
     <string name="str_cdp_promotion_title">Create a Collateralized Debt Position</string>
     <string name="str_cdp_promotion_msg">Borrow USDX by depositing XRP, BTC, BNB as collateral.\n100% on-chain decentralized finance.</string>
     <string name="str_repay_all_notice">This CDP will be closed. \nAll deposits will be returned to each depositor.</string>
-
+    <string name="str_select_receive_chain">Select Destination Chain</string>
+    <string name="str_select_account">Select Account</string>
 
     <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
     <string name="str_create_cdp_step_2">Insert memo (optional)</string>
@@ -551,6 +589,10 @@
     <string name="str_withdraw_cdp_step_2">Insert memo (optional)</string>
     <string name="str_withdraw_cdp_step_3">Select transaction fee</string>
     <string name="str_withdraw_cdp_step_4">Check transaction detail</string>
+    <string name="str_htlc_send_step_1">Select Destination Chain</string>
+    <string name="str_htlc_send_step_2">Select Recipient Account</string>
+    <string name="str_htlc_send_step_3">Insert Amount to Send</string>
+    <string name="str_htlc_send_step_4">Check Transactions Detail</string>
 
 
 
@@ -765,6 +807,11 @@
     <string name="error_can_not_draw_debt">Cannot more loan now.</string>
     <string name="error_not_enought_principal_asset">Not enough USDX to repay.</string>
     <string name="error_can_not_repay">Cannot repay now. You need more USDX to Repay.</string>
+    <string name="error_can_not_bep3_account_title">No %1$s Account</string>
+    <string name="error_can_not_bep3_account_msg">In order to user this feature,\nyou must create a %1$s account and deposit a small amount of %2$s to be used as transaction fee.</string>
+    <string name="error_select_account_to_recipient">Please select account to receive</string>
+    <string name="error_no_more_faucet">Alreay have enought test coin.</string>
+
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>
@@ -801,6 +848,11 @@
     <string name="tx_kava_withdraw_cdp">CDP - Withdraw</string>
     <string name="tx_kava_drawdebt_cdp">CDP - Draw Debt</string>
     <string name="tx_kava_repaydebt_cdp">CDP - Repay</string>
+    <string name="tx_create_htlc">Create Atomic Swap</string>
+    <string name="tx_claim_htlc">Claim Atomic Swap</string>
+    <string name="tx_kava_bep3_create">Interchain Send</string>
+    <string name="tx_kava_bep3_claim">Interchain Claim</string>
+    <string name="tx_kava_bep3_refund">Interchain Refund</string>
 
 
     <string name="str_dp_time_format1" >MMM d, yyyy HH:mm:ss</string>

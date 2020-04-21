@@ -242,7 +242,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onBackPressed() {
-        onStartMainActivity(false);
+        onStartMainActivity(0);
     }
 
     private void onUpdateView() {
@@ -792,6 +792,39 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 }
             });
 
+        } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+            ApiClient.getBnbTestChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
+                @Override
+                public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
+                    if(isFinishing()) return;
+                    WLog.w("onFetchTx " + response.toString());
+                    if(response.isSuccessful() && response.body() != null) {
+                        mResBnbTxInfo = response.body();
+                        onUpdateView();
+
+                    } else {
+                        if(mIsSuccess && FetchCnt < 10) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    FetchCnt++;
+                                    onFetchTx(mTxHash);
+                                }
+                            }, 6000);
+                        } else {
+                            onShowMoreWait();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
+                    WLog.w("BNB onFailure");
+                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if(isFinishing()) return;
+                }
+            });
+
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
@@ -842,7 +875,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 webintent.putExtra("txid", mResTxInfo.txhash);
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 webintent.putExtra("txid", mResTxInfo.hash);
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
                 webintent.putExtra("txid", mResBnbTxInfo.hash);
             }
             webintent.putExtra("chain", mBaseChain.getChain());
@@ -861,6 +894,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://explorer.binance.org/tx/" + mResBnbTxInfo.hash);
             } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://kava.mintscan.io/txs/" + mResTxInfo.txhash);
+            } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://testnet-explorer.binance.org//txs/" + mResBnbTxInfo.hash);
             }
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));

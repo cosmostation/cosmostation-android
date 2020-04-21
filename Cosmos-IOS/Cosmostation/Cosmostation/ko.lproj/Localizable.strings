@@ -165,6 +165,11 @@
 "str_cannot_repay_partially" = "Cannot repay partially";
 "str_cannot_repay_all" = "Insufficient %@ to repay all";
 "str_no_more_3day" = "3일간 숨기기";
+"select_destination_chain" = "Select Destination Chain";
+"select_account" = "Select Account";
+"no_account" = "No %@ Account";
+"testnet_warn_title" = "테스트넷 경고";
+"testnet_warn_msg" = "선택하신 지갑은 테스트넷을 위한 지갑입니다\n(해당 지갑의 토큰은 실제 가치가 없습니다).\n\n코스모스테이션은 사용자들이 각 체인의 고유한 기능들을 메인넷에 반영되기 이전에 확인하고 사용해 볼 수 있는 기회를 제공하기 위해 테스트넷을 지원합니다. 해당 테스트넷에 대한 지원은 언제든 중단될 수 있습니다.";
 
 
 "current_price_format" = "Current %@ Price";
@@ -215,6 +220,14 @@
 "repay_cdp_step_1" = "Insert memo (optional)";
 "repay_cdp_step_2" = "Select transaction fee";
 "repay_cdp_step_3" = "Check transaction detail";
+"htlc_swap_step_0" = "Select Destination Chain";
+"htlc_swap_step_1" = "Select Recipient Account";
+"htlc_swap_step_2" = "Insert Amount to Send";
+"htlc_swap_step_3" = "Check Transactions Detail";
+"htlc_swap_progress_0" = "1/4 보내는 체인에서 인터체인 전송 트랜잭션을 발송 중 입니다.";
+"htlc_swap_progress_1" = "2/4 스왑아이디를 확인 중 입니다.";
+"htlc_swap_progress_2" = "3/4 받는 체인에서 인터체인 수신 트랜잭션을 발송 중 입니다.";
+"htlc_swap_progress_3" = "4/4 양쪽 체인에서 각각의 트랜잭션을 확인중 입니다.";
 
 
 "clear_all" = "전체 삭제";
@@ -266,6 +279,7 @@
 "title_withdraw_cdp" = "WITHDRAW COLLATERAL";
 "title_drawdebt_cdp" = "BORROW MORE USDX";
 "title_repay_cdp" = "REPAY USDX";
+"title_interchain_swap" = "Interchain Send & Claim";
 
 "proposal_type_basic" = "기본";
 "proposal_type_parameter" = "파라미터 변경";
@@ -329,6 +343,9 @@
 "error_not_enought_principal_asset" = "Not enough USDX to repay.";
 "error_can_not_repay" = "Cannot repay now. You need more USDX to Repay.";
 "error_circuit_breaker" = "Now circuit breake";
+"error_can_not_bep3_account_msg" = "In order to user this feature,\nyou must create a %@ account and deposit a small amount of %@ to be used as transaction fee.";
+"error_no_recipient_account" = "Please select receivable account";
+"error_no_more_faucet" = "이미 충분한 테스트 코인이 있네요.";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";
@@ -376,6 +393,11 @@
 "tx_kava_withdraw_cdp" = "CDP - 출금";
 "tx_kava_drawdebt_cdp" = "CDP - 대출";
 "tx_kava_repaydebt_cdp" = "CDP - 상환";
+"tx_create_htlc" = "아토믹 스왑 보내기";
+"tx_claim_htlc" = "아토믹 스왑 받기";
+"tx_kava_bep3_create" = "아토믹 스왑 보내기";
+"tx_kava_bep3_claim" = "아토믹 스왑 받기";
+"tx_kava_bep3_refund" = "아토믹 스왑 환불";
 "tx_known" = "알수없음";
 
 "chain_title_cosmos" = "COSMOS Hub";
@@ -383,6 +405,7 @@
 "chain_title_bnb" = "Binance Chain";
 "chain_title_kava" = "Kava Mainnet";
 "chain_title_iov" = "IOV Mainnet";
+"chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";

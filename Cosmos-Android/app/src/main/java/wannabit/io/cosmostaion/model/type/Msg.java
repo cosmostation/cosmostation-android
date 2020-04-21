@@ -174,6 +174,48 @@ public class Msg {
         public String cdp_denom;
 
 
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("swap_id")
+        public String swap_id;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("random_number")
+        public String random_number;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("random_number_hash")
+        public String random_number_hash;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("to")
+        public String to;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("recipient_other_chain")
+        public String recipient_other_chain;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("sender_other_chain")
+        public String sender_other_chain;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("timestamp")
+        public String timestamp;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("expected_income")
+        public String expected_income;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("height_span")
+        public String height_span;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("cross_chain")
+        public Boolean cross_chain;
+
+
     }
 
 }

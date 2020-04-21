@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -109,6 +109,7 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_DRAW_DEBT_CDP                   = 2067;
     public final static int TASK_GEN_TX_DEPOSIT_CDP                     = 2068;
     public final static int TASK_GEN_TX_WITHDRAW_CDP                    = 2069;
+    public final static int TASK_GEN_TX_HTLC_SWAP                       = 2070;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -167,6 +168,9 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_WITHDRAW_CDP                   = "cdp/MsgWithdraw";
     public final static String KAVA_MSG_TYPE_DRAWDEBT_CDP                   = "cdp/MsgDrawDebt";
     public final static String KAVA_MSG_TYPE_REPAYDEBT_CDP                  = "cdp/MsgRepayDebt";
+    public final static String KAVA_MSG_TYPE_BEP3_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
+    public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "bep3/MsgClaimAtomicSwap";
+    public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 
     public final static String IOV_KIND_SEND                                = "bcp/send";
 
@@ -193,6 +197,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_DRAW_DEBT_CDP                       = 5015;
     public final static int CONST_PW_TX_DEPOSIT_CDP                         = 5016;
     public final static int CONST_PW_TX_WITHDRAW_CDP                        = 5017;
+//    public final static int CONST_PW_TX_HTLS_SWAP                           = 5018;
 
 
     public final static int TX_TYPE_UNKNOWN                 = 3000;
@@ -219,6 +224,9 @@ public class BaseConstant {
     public final static int TX_TYPE_KAVA_WITHDRAW_CDP       = 3021;
     public final static int TX_TYPE_KAVA_DRAWDEBT_CDP       = 3022;
     public final static int TX_TYPE_KAVA_REPAYDEBT_CDP      = 3023;
+    public final static int TX_TYPE_KAVA_BEP3_CREATE        = 3024;
+    public final static int TX_TYPE_KAVA_BEP3_CLAIM         = 3025;
+    public final static int TX_TYPE_KAVA_BEP3_REFUND        = 3026;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
@@ -279,6 +287,7 @@ public class BaseConstant {
     public final static String FEE_KAVA_GAS_AMOUNT_REINVEST     = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_REDELEGATE   = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "300000";
+    public final static String FEE_KAVA_GAS_AMOUNT_BEP3         = "200000";
 
     public final static String FEE_IRIS_GAS_RATE_AVERAGE        = "0.000008";
 
@@ -300,6 +309,9 @@ public class BaseConstant {
     public final static int CMC_IRIS = 3874;
     public final static int CMC_BNB = 1839;
     public final static int CMC_KAVA = 4846;
+
+    public final static String BNB_TEST_DEPUTY = "tbnb1et8vmd0dgvswjnyaf73ez8ye0jehc8a7t7fljv";
+    public final static String KAVA_TEST_DEPUTY = "kava1aphsdnz5hu2t5ty2au6znprug5kx3zpy6zwq29";
 
 
     public final static String TOKEN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";

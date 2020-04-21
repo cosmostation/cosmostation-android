@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import AlamofireImage
 
 class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     

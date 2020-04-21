@@ -137,9 +137,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 //            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
             new HistoryTask(getBaseApplication(), this, req, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            new HistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain)
-                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            new HistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -260,7 +259,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 });
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
                 final BnbHistory history = mBnbHistory.get(position);
                 viewHolder.historyType.setText(WDp.DpBNBTxType(getContext(), history, getMainActivity().mAccount.address));
                 viewHolder.history_time.setText(WDp.getTimeformat(getContext(), history.timeStamp));
@@ -307,7 +306,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 });
 
-            }  else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);
                 if (tx.isSuccess()) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
@@ -338,7 +337,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN) ||
                     getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 return mHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) ||
+                    getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
                 return mBnbHistory.size();
             } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 return mApiTxHistory.size();

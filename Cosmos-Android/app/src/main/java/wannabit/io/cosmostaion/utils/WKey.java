@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.utils;
 
 import android.util.Base64;
 
+import com.binance.dex.api.client.domain.broadcast.HtltReq;
 import com.github.orogvany.bip32.Network;
 import com.github.orogvany.bip32.wallet.CoinType;
 import com.github.orogvany.bip32.wallet.HdAddress;
@@ -37,11 +38,13 @@ import wannabit.io.cosmostaion.model.IrisStdSignMsg;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_DEPUTY;
 
 public class WKey {
 
@@ -109,7 +112,7 @@ public class WKey {
     public static List<ChildNumber> getParentPath(BaseChain chain, boolean newBip) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-        } else if (chain.equals(BNB_MAIN)) {
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             if (newBip) {
@@ -203,7 +206,7 @@ public class WKey {
 
     public static String getDpAddress(BaseChain chain, String pubHex) {
         String result       = null;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN)|| chain.equals(KAVA_MAIN)|| chain.equals(KAVA_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BNB_TEST) || chain.equals(KAVA_TEST)) {
             MessageDigest digest = Sha256.getSha256Digest();
             byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
 
@@ -223,6 +226,8 @@ public class WKey {
                     result = bech32Encode("bnb".getBytes(), converted);
                 } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)){
                     result = bech32Encode("kava".getBytes(), converted);
+                } else if (chain.equals(BNB_TEST)){
+                    result = bech32Encode("tbnb".getBytes(), converted);
                 }
 
             } catch (Exception e) {
@@ -302,7 +307,7 @@ public class WKey {
 
     public static String getDpAddressWithPath(String seed, BaseChain chain, int path, Boolean newBip) {
         String result = "";
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BNB_TEST) || chain.equals(KAVA_TEST)) {
             //using Secp256k1
             DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain, newBip), true, true,  new ChildNumber(path));
             result =  getDpAddress(chain, childKey.getPublicKeyAsHex());
@@ -573,6 +578,25 @@ public class WKey {
 
         return inSig;
     }
+
+    public static String getSwapId(byte[] randomNumberHash, String sender, String otherchainSender) throws Exception{
+        byte[] s = convertBits(bech32Decode(sender).data, 5, 8, false);
+        byte[] rhs = new byte[randomNumberHash.length + s.length];
+        System.arraycopy(randomNumberHash, 0, rhs, 0, randomNumberHash.length);
+        System.arraycopy(s, 0, rhs, randomNumberHash.length, s.length);
+
+        byte[] o = otherchainSender.toLowerCase().getBytes(Charset.forName("UTF-8"));
+        byte[] expectedSwapId = new byte[rhs.length + o.length];
+        System.arraycopy(rhs, 0, expectedSwapId, 0, rhs.length);
+        System.arraycopy(o, 0, expectedSwapId, rhs.length, o.length);
+
+        WLog.w("expectedSwapId "+ WUtil.ByteArrayToHexString(expectedSwapId));
+
+        byte[] expectedSwapIdSha = Sha256.getSha256Digest().digest(expectedSwapId);
+        return WUtil.ByteArrayToHexString(expectedSwapIdSha);
+    }
+
+
 
 
     public static byte[] getStdSignMsgToSignByte(StdSignMsg stdSignMsg) {

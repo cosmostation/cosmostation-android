@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -33,15 +33,18 @@ let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 let CSS_LCD_URL                         = "https://lcd-cosmos-app.cosmostation.io/";
 //let CSS_LCD_URL                         = "https://lcd-cosmos-testnet.cosmostation.io/";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
-let BNB_URL                             = "https://dex.binance.org/";
-let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
-//let KAVA_TEST_URL                       = "https://lcd-kava-testnet.cosmostation.io/";
-let KAVA_TEST_URL                       = "https://kava-testnet-4000.kava.io/";
 
-let KAVA_TEST_API                       = "https://api-kava-testnet.cosmostation.io/";
+let BNB_URL                             = "https://dex.binance.org/";
+let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
+
+let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
+let KAVA_TEST_URL                       = "https://lcd-kava-testnet-5000.cosmostation.io/";
+let KAVA_TEST_API                       = "https://api-kava-testnet-5000.cosmostation.io/";
+
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
 let IOV_REST_URL                        = "https://bnsapi.cluster-mainnet.iov.one/";        // same refer as"https://bnsapi.iov.one"
 let IOV_RPC_URL                         = "https://rpc-iov-mainnet.cosmostation.io/";
+
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
@@ -99,6 +102,15 @@ let BNB_URL_TOKENS                      = BNB_URL + "api/v1/tokens";
 let BNB_URL_TIC                         = BNB_URL + "api/v1/ticker/24hr";
 let BNB_URL_HISTORY                     = BNB_URL + "api/v1/transactions";
 let BNB_URL_TX                          = BNB_URL + "api/v1/tx/";
+let BNB_URL_CHECK_SWAPID                = BNB_URL + "api/v1/atomic-swaps/";
+
+let BNB_TEST_URL_ACCOUNT_INFO           = BNB_TEST_URL + "api/v1/account/";
+let BNB_TEST_URL_TOKENS                 = BNB_TEST_URL + "api/v1/tokens";
+let BNB_TEST_URL_TIC                    = BNB_TEST_URL + "api/v1/ticker/24hr";
+let BNB_TEST_URL_HISTORY                = BNB_TEST_URL + "api/v1/transactions";
+let BNB_TEST_URL_TX                     = BNB_TEST_URL + "api/v1/tx/";
+let BNB_TEST_URL_CHECK_SWAPID           = BNB_TEST_URL + "api/v1/atomic-swaps/";
+let BNB_TEST_FAUCET                     = "https://faucet-binance.cosmostation.io/claim/";
 
 
 //KAVA_URL
@@ -143,9 +155,10 @@ let KAVA_TEST_CDP_OWEN                  = KAVA_TEST_URL + "cdp/cdps/cdp/";
 let KAVA_TEST_CDP_DEPOSIT               = KAVA_TEST_URL + "cdp/cdps/cdp/deposits/";
 let KAVA_TEST_TOKEN_PRICE_PARAM         = KAVA_TEST_URL + "pricefeed/parameters";
 let KAVA_TEST_TOKEN_PRICE               = KAVA_TEST_URL + "pricefeed/price/";
+let KAVA_TEST_CHECK_SWAPID              = KAVA_TEST_URL + "bep3/swap/";
 
-let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "/v1/account/txs/";
-let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "/v1/account/transfer_txs/";
+let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
+let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
 
 let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
 let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
@@ -291,6 +304,7 @@ let IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal = "irishub/gov/CommunityTaxUsage
 
 
 let BNB_MSG_TYPE_TRANSFER                   = "bnb_transfer";
+let TASK_TYPE_HTLC_SWAP                     = "htlc_swap";
 
 let KAVA_MSG_TYPE_TRANSFER                  = "kava_transfer";
 let KAVA_MSG_TYPE_POST_PRICE                = "pricefeed/MsgPostPrice";
@@ -299,7 +313,12 @@ let KAVA_MSG_TYPE_DEPOSIT_CDP               = "cdp/MsgDeposit";
 let KAVA_MSG_TYPE_WITHDRAW_CDP              = "cdp/MsgWithdraw";
 let KAVA_MSG_TYPE_DRAWDEBT_CDP              = "cdp/MsgDrawDebt";
 let KAVA_MSG_TYPE_REPAYDEBT_CDP             = "cdp/MsgRepayDebt";
+let KAVA_MSG_TYPE_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
+let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
+let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 
+let  BNB_TEST_DEPUTY                        = "tbnb1et8vmd0dgvswjnyaf73ez8ye0jehc8a7t7fljv"
+let  KAVA_TEST_DEPUTY                       = "kava1aphsdnz5hu2t5ty2au6znprug5kx3zpy6zwq29"
 
 let IOV_MSG_TYPE_TRANSFER                  = "iov_transfer";
 
@@ -374,6 +393,7 @@ let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"
 let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "300000"
 let KAVA_GAS_FEE_AMOUNT_REINVEST            = "300000"
 let KAVA_GAS_FEE_AMOUNT_CDP                 = "300000"
+let KAVA_GAS_FEE_AMOUNT_BEP3                = "200000"
 
 
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"
@@ -419,6 +439,7 @@ enum ChainType: String {
     case SUPPORT_CHAIN_BINANCE_MAIN
     case SUPPORT_CHAIN_KAVA_MAIN
     case SUPPORT_CHAIN_IOV_MAIN
+    case SUPPORT_CHAIN_BINANCE_TEST
     case SUPPORT_CHAIN_KAVA_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
@@ -428,12 +449,24 @@ enum ChainType: String {
         result.append(SUPPORT_CHAIN_BINANCE_MAIN)
         result.append(SUPPORT_CHAIN_KAVA_MAIN)
 //        result.append(SUPPORT_CHAIN_IOV_MAIN)
-//        result.append(SUPPORT_CHAIN_KAVA_TEST)
+        result.append(SUPPORT_CHAIN_BINANCE_TEST)
+        result.append(SUPPORT_CHAIN_KAVA_TEST)
         return result
     }
     
     static func IS_SUPPORT_CHAIN(_ chainS: String) -> Bool {
         return SUPPRT_CHAIN().contains(WUtils.getChainType(chainS))
+    }
+    
+    static func getHtlcSendable(_ chain: ChainType) -> Array<ChainType> {
+        var result = Array<ChainType>()
+        if (chain == SUPPORT_CHAIN_BINANCE_TEST) {
+            result.append(SUPPORT_CHAIN_KAVA_TEST)
+            
+        } else if (chain == SUPPORT_CHAIN_KAVA_TEST) {
+            result.append(SUPPORT_CHAIN_BINANCE_TEST)
+        }
+        return result
     }
 }
 
@@ -442,6 +475,7 @@ let CHAIN_IRIS_S = "SUPPORT_CHAIN_IRIS_MAIN"
 let CHAIN_BINANCE_S = "SUPPORT_CHAIN_BINANCE_MAIN"
 let CHAIN_KAVA_S = "SUPPORT_CHAIN_KAVA_MAIN"
 let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
+let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 
 

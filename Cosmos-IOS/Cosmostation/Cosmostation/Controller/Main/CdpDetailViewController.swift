@@ -114,10 +114,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             cell?.liquidationPenalty.attributedText = WUtils.displayPercent(cParam!.getDpLiquidationPenalty(), font: cell!.liquidationPenalty.font)
             cell?.currentPrice.attributedText = WUtils.getDPRawDollor(currentPrice.stringValue, 4, cell!.currentPrice.font)
             let url = KAVA_CDP_MARKET_IMG_URL + cParam!.getMarketImgPath() + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else { return }
-                cell?.marketImg.image = image
-            }
+            cell?.marketImg.af_setImage(withURL: URL(string: url)!)
             cell?.helpCollateralRate = {
                 self.onShowSimpleHelp(NSLocalizedString("help_collateral_rate_title", comment: ""), NSLocalizedString("help_collateral_rate_msg", comment: ""))
             }
@@ -161,10 +158,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         cell?.liquidationPrice.attributedText = WUtils.getDPRawDollor(liquidationPrice.stringValue, 4, cell!.liquidationPrice.font)
         
         let url = KAVA_CDP_MARKET_IMG_URL + cParam!.getMarketImgPath() + ".png"
-        Alamofire.request(url, method: .get).responseImage { response  in
-            guard let image = response.result.value else { return }
-            cell?.marketImg.image = image
-        }
+        cell?.marketImg.af_setImage(withURL: URL(string: url)!)
         cell?.helpCollateralRate = {
             self.onShowSimpleHelp(NSLocalizedString("help_collateral_rate_title", comment: ""), NSLocalizedString("help_collateral_rate_msg", comment: ""))
         }
@@ -259,15 +253,8 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             self.onClickRepay()
         }
         
-        
-        Alamofire.request(KAVA_COIN_IMG_URL + cDenom + ".png", method: .get).responseImage { response  in
-            guard let image = response.result.value else { return }
-            cell?.collateralImg.image = image
-        }
-        Alamofire.request(KAVA_COIN_IMG_URL + pDenom + ".png", method: .get).responseImage { response  in
-            guard let image = response.result.value else { return }
-            cell?.principalImg.image = image
-        }
+        cell?.collateralImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + cDenom + ".png")!)
+        cell?.principalImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + pDenom + ".png")!)
         return cell!
     }
     
@@ -288,14 +275,8 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         let kavaValue = kAvailable.multiplying(byPowerOf10: -kDpDecimal).multiplying(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler2Down)
         cell?.kavaValue.attributedText = WUtils.getDPRawDollor(kavaValue.stringValue, 2, cell!.kavaValue.font)
         
-        Alamofire.request(KAVA_COIN_IMG_URL + cDenom + ".png", method: .get).responseImage { response  in
-            guard let image = response.result.value else { return }
-            cell?.collateralImg.image = image
-        }
-        Alamofire.request(KAVA_COIN_IMG_URL + pDenom + ".png", method: .get).responseImage { response  in
-            guard let image = response.result.value else { return }
-            cell?.principalImg.image = image
-        }
+        cell?.collateralImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + cDenom + ".png")!)
+        cell?.principalImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + pDenom + ".png")!)
         return cell!
     }
 

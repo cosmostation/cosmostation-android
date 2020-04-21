@@ -10,7 +10,6 @@ import UIKit
 import Alamofire
 import Floaty
 import SafariServices
-import SwiftKeychainWrapper
 
 class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate, QrScannerDelegate, PasswordViewDelegate {
 
@@ -61,6 +60,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
         self.updateTitle()
+        self.walletTableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -95,6 +95,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            titleChainImg.image = UIImage(named: "binancetestnet")
+            titleChainName.text = "(Binance Test)"
+            titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(KAVA Test)"
@@ -124,7 +128,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             floaty.buttonColor = COLOR_ATOM
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             floaty.buttonColor = COLOR_IRIS
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             floaty.buttonColor = COLOR_BNB
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             floaty.buttonColor = COLOR_KAVA
@@ -159,7 +163,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return 5;
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return 4;
         } else {
             return 0;
@@ -171,7 +176,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetCosmosItems(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return onSetIrisItem(tableView, indexPath);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return onSetBnbItem(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return onSetKavaItem(tableView, indexPath);
@@ -188,12 +193,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 } else {
                     return 0;
                 }
-            } else {
-                return UITableView.automaticDimension;
             }
-        } else {
-            return UITableView.automaticDimension;
         }
+        return UITableView.automaticDimension;
     }
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
@@ -440,10 +442,19 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.availableAmount.attributedText = WUtils.displayAmount2("0", cell!.availableAmount.font, 0, 6)
                 cell?.lockedAmount.attributedText = WUtils.displayAmount2("0", cell!.lockedAmount.font, 0, 6)
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalBnb.stringValue)
+            cell?.bnbCard.backgroundColor = WUtils.getChainBg(chainType!)
             cell?.actionWC = {
                 self.onClickWalletConect()
             }
+            if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                cell?.btnBep3.isHidden = true
+            } else {
+                cell?.btnBep3.isHidden = false
+                cell?.actionBep3 = {
+                    self.onClickBep3Send(BNB_MAIN_DENOM)
+                }
+            }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalBnb.stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -461,16 +472,25 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.updownImg.image = nil
                 cell?.updownPercent.text = ""
             }
-            cell?.buySeparator.isHidden = false
-            cell?.buyBtn.isHidden = false
-            cell?.buyBtn.setTitle(NSLocalizedString("buy_bnb", comment: ""), for: .normal)
-            cell?.buyConstraint.priority = .defaultHigh
-            cell?.noBuyConstraint.priority = .defaultLow
+            
             cell?.actionTapPricel = {
                 self.onClickMarketInfo()
             }
-            cell?.actionBuy = {
-                self.onClickBuyCoin()
+            if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                cell?.buySeparator.isHidden = false
+                cell?.buyBtn.isHidden = false
+                cell?.buyBtn.setTitle(NSLocalizedString("buy_bnb", comment: ""), for: .normal)
+                cell?.buyConstraint.priority = .defaultHigh
+                cell?.noBuyConstraint.priority = .defaultLow
+                cell?.actionBuy = {
+                    self.onClickBuyCoin()
+                }
+            } else {
+                cell?.buySeparator.isHidden = true
+                cell?.buyBtn.isHidden = true
+                cell?.buyConstraint.priority = .defaultLow
+                cell?.noBuyConstraint.priority = .defaultHigh
+                cell?.actionBuy = { }
             }
             return cell!
             
@@ -526,13 +546,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionVote = {
                 self.onClickVoteList()
             }
+
+            cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
             if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
                 cell?.cdpBtn.isHidden = true
                 cell?.nonCdpConstarint.priority = .defaultHigh
                 cell?.cdpConstraint.priority = .defaultLow
             } else {
-                cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
                 cell?.cdpBtn.isHidden = false
                 cell?.nonCdpConstarint.priority = .defaultLow
                 cell?.cdpConstraint.priority = .defaultHigh
@@ -783,6 +803,16 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.onStartQrCode()
     }
     
+    func onClickBep3Send(_ denom: String) {
+        print("onClickBep3Send")
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = TASK_TYPE_HTLC_SWAP
+        txVC.mHtlcDenom = denom
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
     func onClickIovDeposit() {
         self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
     }
@@ -841,23 +871,22 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 let safariViewController = SFSafariViewController(url: url)
                 present(safariViewController, animated: true, completion: nil)
             }
-            
+
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             guard let url = URL(string: "https://medium.com/irisnet-blog") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
-            
+
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             guard let url = URL(string: "https://medium.com/@binance") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
-            
+
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             guard let url = URL(string: "https://medium.com/kava-labs") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
-        
     }
     
     func onClickMarketInfo() {
@@ -1008,7 +1037,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mIrisToken = WUtils.getIrisMainToken(self.mainTabVC.mIrisTokenList)
             txVC.mType = IRIS_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.000375")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
@@ -1084,5 +1113,4 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             })
         }
     }
-    
 }

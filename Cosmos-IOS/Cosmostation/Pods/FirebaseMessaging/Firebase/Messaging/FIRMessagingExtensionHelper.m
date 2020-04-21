@@ -46,7 +46,9 @@ static NSString *const kPayloadOptionsImageURLName = @"image";
   if (attachmentURL) {
     [self loadAttachmentForURL:attachmentURL
              completionHandler:^(UNNotificationAttachment *attachment) {
-               self.bestAttemptContent.attachments = @[ attachment ];
+               if (attachment != nil) {
+                 self.bestAttemptContent.attachments = @[ attachment ];
+               }
                [self deliverNotification];
              }];
   } else {
@@ -64,7 +66,7 @@ static NSString *const kPayloadOptionsImageURLName = @"image";
            completionHandler:(void (^)(UNNotificationAttachment *))completionHandler {
   __block UNNotificationAttachment *attachment = nil;
 
-   NSURLSession *session = [NSURLSession
+  NSURLSession *session = [NSURLSession
       sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
   [[session
       downloadTaskWithURL:attachmentURL
@@ -77,7 +79,7 @@ static NSString *const kPayloadOptionsImageURLName = @"image";
             return;
           }
 
-           NSFileManager *fileManager = [NSFileManager defaultManager];
+          NSFileManager *fileManager = [NSFileManager defaultManager];
           NSString *fileExtension =
               [NSString stringWithFormat:@".%@", [response.suggestedFilename pathExtension]];
           NSURL *localURL = [NSURL
@@ -92,7 +94,7 @@ static NSString *const kPayloadOptionsImageURLName = @"image";
             return;
           }
 
-           attachment = [UNNotificationAttachment attachmentWithIdentifier:@""
+          attachment = [UNNotificationAttachment attachmentWithIdentifier:@""
                                                                       URL:localURL
                                                                   options:nil
                                                                     error:&error];
@@ -114,5 +116,4 @@ static NSString *const kPayloadOptionsImageURLName = @"image";
   }
 }
 
- @end
-
+@end

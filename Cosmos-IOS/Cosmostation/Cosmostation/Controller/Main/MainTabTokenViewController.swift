@@ -8,10 +8,11 @@
 
 import UIKit
 import Alamofire
-import AlamofireImage
 import UserNotifications
+import Floaty
+import SafariServices
 
-class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate {
     
     let ORDER_BY_NAME = 0
     let ORDER_BY_AMOUNT = 1
@@ -36,6 +37,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     var mainTabVC: MainTabViewController!
     var mBnbTics = [String : NSMutableDictionary]()
     var mOrder:Int?
+    var mFaucet: Floaty?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +70,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
         self.updateTitle()
+        self.updateView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -112,7 +115,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_IOV
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            titleChainImg.image = UIImage(named: "binancetestnet")
+            titleChainName.text = "(Binance Test)"
+            kavaOracle.isHidden = true
+            titleAlarmBtn.isHidden = true
+            totalCard.backgroundColor = COLOR_BG_GRAY
+        }  else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(KAVA Test)"
             titleAlarmBtn.isHidden = true
@@ -137,7 +146,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func updateView() {
-        print("updateView")
         if (mOrder == ORDER_BY_NAME) {
             sortByName()
             self.sortType.text = NSLocalizedString("name", comment: "")
@@ -156,9 +164,33 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             onFetchIrisTokenPrice()
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             onFetchBnbTokenPrice()
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             onFetchKavaTokenPrice()
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            updateFloaty()
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            onFetchKavaTokenPrice()
+            updateFloaty()
+            
         }
+    }
+    
+    func updateFloaty() {
+        let floaty = Floaty()
+        floaty.buttonImage = UIImage.init(named: "faucetBtn")
+        if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            floaty.buttonColor = COLOR_BNB
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            floaty.buttonColor = COLOR_KAVA
+        }
+        floaty.fabDelegate = self
+        self.view.addSubview(floaty)
+    }
+    
+    func emptyFloatySelected(_ floaty: Floaty) {
+        self.onRequestFaucet()
     }
     
     @objc func onRequestFetch() {
@@ -202,7 +234,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.dpAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, totalAmount.font, 6, chainType!)
             totalValue.attributedText = WUtils.dpIrisValue(allIris, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             var allBnb = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
                 if (balance.balance_denom == BNB_MAIN_DENOM) {
@@ -244,7 +276,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetCosmosItems(tableView, indexPath)
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return onSetIrisItems(tableView, indexPath)
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return onSetBnbItems(tableView, indexPath)
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return onSetKavaItems(tableView, indexPath)
@@ -275,7 +307,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             tokenDetailVC.irisRewards = mainTabVC.mIrisRewards
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
             tokenDetailVC.bnbToken = WUtils.getBnbToken(mainTabVC.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
             tokenDetailVC.bnbTic = WUtils.getTicData(WUtils.getBnbTicSymbol(mainTabVC.mBalances[indexPath.row].balance_denom), mBnbTics)
@@ -359,12 +391,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.tokenValue.attributedText = WUtils.dpBnbValue(convertAmount, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
                 
                 let url = TOKEN_IMG_URL + bnbToken.original_symbol + ".png"
-                Alamofire.request(url, method: .get).responseImage { response  in
-                    guard let image = response.result.value else {
-                        return
-                    }
-                    cell?.tokenImg.image = image
-                }
+                cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             }
         }
         return cell!
@@ -401,12 +428,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             let url = KAVA_COIN_IMG_URL + balance.balance_denom + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell?.tokenImg.image = image
-            }
+            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
         }
         return cell!
     }
@@ -465,6 +487,37 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onFetchKavaTokenPrice() {
         self.onUpdateTotalCard()
+    }
+    
+    func onRequestFaucet() {
+        if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            if (mainTabVC.mAccount.getBnbBalance().compare(NSDecimalNumber.init(value: 2)).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
+                return
+            }
+            self.showWaittingAlert()
+            let request = Alamofire.request(BNB_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    print("res ", res)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000), execute: {
+                        self.onRequestFetch()
+                        self.hideWaittingAlert()
+                    })
+
+                case .failure(let error):
+                    self.onShowToast(error.localizedDescription)
+                    self.hideWaittingAlert()
+                }
+            }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            UIPasteboard.general.string = mainTabVC.mAccount.account_address
+            guard let url = URL(string: "https://faucet.kava.io/") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
@@ -538,7 +591,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) {
                     return true
@@ -584,7 +637,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return WUtils.stringToDecimal($0.balance_amount).compare(WUtils.stringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) {
                     return true
@@ -610,7 +663,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func sortByValue() {
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) {
                     return true

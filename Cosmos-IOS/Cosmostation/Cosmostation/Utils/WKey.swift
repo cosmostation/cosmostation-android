@@ -52,7 +52,7 @@ class WKey {
             } else {
                 return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
         } else {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
@@ -65,6 +65,7 @@ class WKey {
             chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_TEST ) {
             let sha256 = Crypto.sha256(Data.fromHex(pubHex)!)
             let ripemd160 = Crypto.ripemd160(sha256)
@@ -77,6 +78,8 @@ class WKey {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "bnb", program: ripemd160)
             } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "kava", program: ripemd160)
+            } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                result = try! SegwitAddrCoder.shared.encode2(hrp: "tbnb", program: ripemd160)
             }
             
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
@@ -91,7 +94,7 @@ class WKey {
             var childKey:HDPrivateKey?
             if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-            } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
             } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 if (newbip) {
@@ -113,6 +116,7 @@ class WKey {
             chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             //using Secp256k1
             let maskerKey = getMasterKeyFromWords(mnemonic)
@@ -208,7 +212,7 @@ class WKey {
         return result
     }
     
-    static func getIovDatafromDpAddress(_ address:String) -> Data? {
+    static func getDatafromDpAddress(_ address:String) -> Data? {
         let bech32 = Bech32()
         guard let (_, data) = try? bech32.decode(address) else {
             return nil
@@ -286,9 +290,35 @@ class WKey {
     }
     
     
-
+    static func generateRandomBytes() -> String? {
+        var keyData = Data(count: 32)
+        let result = keyData.withUnsafeMutableBytes {
+            SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
+        }
+        
+        if result == errSecSuccess {
+            return keyData.hexEncodedString()
+        } else {
+            print("Problem generating random bytes")
+            return nil
+        }
+    }
+    
+    static func getRandomNumnerHash(_ randomNumner: String, _ timeStamp: Int64) -> String {
+        let timeStampData = withUnsafeBytes(of: timeStamp.bigEndian) { Data($0) }
+        let originHex = randomNumner + timeStampData.hexEncodedString()
+        let hash = Crypto.sha256(Data.fromHex(originHex)!)
+        return hash.hexEncodedString()
+    }
     
     
+    static func getSwapId(_ randomNumnerHash: String, _ sender: String, _ otherSender: String) -> String {
+        let senderData = getDatafromDpAddress(sender)
+        let otherSenderData = otherSender.data(using: .utf8)
+        let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
+        let hash = Crypto.sha256(Data.fromHex(add)!)
+        return hash.hexEncodedString()
+    }
     
     
     

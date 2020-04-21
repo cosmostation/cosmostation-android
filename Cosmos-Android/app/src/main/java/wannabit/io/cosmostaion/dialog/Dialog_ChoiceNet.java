@@ -14,14 +14,15 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
 public class Dialog_ChoiceNet extends DialogFragment {
 
 
-    private LinearLayout mIovLayer, mKavaTestLayer;
-    private LinearLayout mMain, mIris, mBinance, mKava, mKavaTest, mIov, mTest12k, mTest13k;
+    private LinearLayout mIovLayer, mKavaTestLayer, mBinanaceTestLayer;
+    private LinearLayout mMain, mIris, mBinance, mKava, mIov, mBinanaceTest, mKavaTest, mTest12k, mTest13k;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -45,6 +46,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mKava = view.findViewById(R.id.kava_net);
         mIovLayer = view.findViewById(R.id.iov_layer);
         mIov = view.findViewById(R.id.iov_net);
+        mBinanaceTestLayer = view.findViewById(R.id.bnb_test_layer);
+        mBinanaceTest = view.findViewById(R.id.bnb_test_net);
         mKavaTestLayer = view.findViewById(R.id.kava_test_layer);
         mKavaTest = view.findViewById(R.id.kava_test_net);
         mTest12k = view.findViewById(R.id.gaia_12k);
@@ -90,6 +93,17 @@ public class Dialog_ChoiceNet extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IOV_MAIN);
+                    getDialog().dismiss();
+                }
+            });
+        }
+
+        if (BaseChain.SUPPORT_CHAINS().contains(BNB_TEST)) {
+            mBinanaceTestLayer.setVisibility(View.VISIBLE);
+            mBinanaceTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BNB_TEST);
                     getDialog().dismiss();
                 }
             });

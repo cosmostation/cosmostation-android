@@ -47,6 +47,7 @@ class TokenDetailHeaderKavaCell: UITableViewCell {
     @IBAction func onClickReceive(_ sender: UIButton) {
         actionRecieve?()
     }
+    
     @IBAction func onClickBuy(_ sender: UIButton) {
         actionBuy?()
     }

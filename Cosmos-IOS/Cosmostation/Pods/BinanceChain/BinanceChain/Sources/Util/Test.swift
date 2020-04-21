@@ -122,11 +122,11 @@ public class Test: WebSocketDelegate {
             group.leave()
         }
 
-        group.enter()
-        binance.tokens(limit: .fiveHundred, offset: 0) { (response) in
-            self.output("tokens", response.tokens, response.error)
-            group.leave()
-        }
+//        group.enter()
+//        binance.tokens(limit: .fiveHundred, offset: 0) { (response) in
+//            self.output("tokens", response.tokens, response.error)
+//            group.leave()
+//        }
 
         group.enter()
         binance.markets(limit: .oneHundred, offset: 0) { (response) in
@@ -222,7 +222,7 @@ public class Test: WebSocketDelegate {
                 self.output("broadcast.cancel", response.transactions, response.error)
             }
 
-            let msgTransfer = Message.transfer(symbol: self.symbol, amount: self.amount, to: self.addressTwo, wallet: wallet)
+            let msgTransfer = Message.transfer(symbol: self.symbol, amount: self.amount, to: self.addressTwo, memo: "", wallet: wallet)
             binance.broadcast(message: msgTransfer) { (response) in
                 self.output("broadcast.transfer", response.transactions, response.error)
             }
