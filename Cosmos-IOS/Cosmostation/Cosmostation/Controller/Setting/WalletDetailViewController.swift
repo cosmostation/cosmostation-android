@@ -97,6 +97,12 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            chainImg.image = UIImage(named: "binancetestnet")
+            keyPath.text = BNB_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             chainImg.image = UIImage(named: "kavaTestImg")
             if (account!.account_new_bip44) {
