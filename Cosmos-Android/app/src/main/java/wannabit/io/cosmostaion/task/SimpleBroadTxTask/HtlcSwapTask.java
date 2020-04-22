@@ -34,7 +34,9 @@ import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.task.CommonProgressTask;
 import wannabit.io.cosmostaion.task.CommonTask;
+import wannabit.io.cosmostaion.task.ProgressTaskListener;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -46,7 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_SWAP;
 
-public class HtlcSwapTask extends CommonTask {
+public class HtlcSwapTask extends CommonProgressTask {
 
     private Account         mSendAccount;
     private Account         mReceiveAccount;
@@ -60,7 +62,7 @@ public class HtlcSwapTask extends CommonTask {
     private String          mRandomNumber;
     private String          mExpectedSwapId;
 
-    public HtlcSwapTask(BaseApplication app, TaskListener listener, Account sendAccount, Account receiveAccount,
+    public HtlcSwapTask(BaseApplication app, ProgressTaskListener listener, Account sendAccount, Account receiveAccount,
                         ArrayList<Coin> sendCoins, Fee sendFee, Fee claimFee) {
         super(app, listener);
         this.mSendAccount = sendAccount;
@@ -78,8 +80,9 @@ public class HtlcSwapTask extends CommonTask {
 
             mResult = onCreateHtlcSwap();
             if (mResult.isSuccess) {
+                publishProgress(1);
                 if (mReceiveChain.equals(BaseChain.KAVA_MAIN)) {
-                    for (int i = 0; i < 6; i++) {
+                    for (int i = 0; i < 8; i++) {
                         Response<ResKavaSwapInfo> response = ApiClient.getKavaTestChain(mApp).getSwapById(mExpectedSwapId).execute();
                         if (response.isSuccessful() && response.body() != null && response.body().result.status != null) {
                             break;
@@ -88,7 +91,7 @@ public class HtlcSwapTask extends CommonTask {
                         }
                     }
                 } else if (mReceiveChain.equals(BaseChain.KAVA_TEST)) {
-                    for (int i = 0; i < 6; i++) {
+                    for (int i = 0; i < 8; i++) {
                         Response<ResKavaSwapInfo> response = ApiClient.getKavaChain(mApp).getSwapById(mExpectedSwapId).execute();
                         if (response.isSuccessful() && response.body() != null && response.body().result.status != null) {
                             break;
@@ -97,7 +100,7 @@ public class HtlcSwapTask extends CommonTask {
                         }
                     }
                 } else if (mReceiveChain.equals(BaseChain.BNB_MAIN)) {
-                    for (int i = 0; i < 6; i++) {
+                    for (int i = 0; i < 8; i++) {
                         Response<ResBnbSwapInfo> response = ApiClient.getBnbChain(mApp).getSwapById(mExpectedSwapId).execute();
                         if (response.isSuccessful() && response.body() != null && response.body().swapId != null) {
                             break;
@@ -107,7 +110,7 @@ public class HtlcSwapTask extends CommonTask {
                     }
 
                 } else if (mReceiveChain.equals(BaseChain.BNB_TEST)) {
-                    for (int i = 0; i < 6; i++) {
+                    for (int i = 0; i < 8; i++) {
                         Response<ResBnbSwapInfo> response = ApiClient.getBnbTestChain(mApp).getSwapById(mExpectedSwapId).execute();
                         if (response.isSuccessful() && response.body() != null && response.body().swapId != null) {
                             break;
@@ -115,9 +118,9 @@ public class HtlcSwapTask extends CommonTask {
                             Thread.sleep(5000);
                         }
                     }
-                    Thread.sleep(5000);
 
                 }
+                Thread.sleep(3000);
                 return onClaimHtlcSwap();
             }
 
@@ -234,54 +237,7 @@ public class HtlcSwapTask extends CommonTask {
     }
 
     private TaskResult onClaimHtlcSwap() throws Exception {
-
-//        //TEST for refund
-//        Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaTestChain(mApp).getAccountInfo(mSendAccount.address).execute();
-//        if(!response.isSuccessful()) {
-//            mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-//            return mResult;
-//        }
-//        mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mSendAccount.id, response.body()));
-//        mApp.getBaseDao().onUpdateBalances(mSendAccount.id, WUtil.getBalancesFromKavaLcd(mSendAccount.id, response.body()));
-//        mSendAccount = mApp.getBaseDao().onSelectAccount(""+mSendAccount.id);
-//
-//        String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
-//        DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mSendAccount.baseChain), entropy, Integer.parseInt(mSendAccount.path), mSendAccount.newBip44);
-//
-//        mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, mSendAccount.address, BNB_TEST_DEPUTY).toUpperCase();
-//
-//        Msg claimSwapMsg = MsgGenerator.genRefundAtomicSwap(mSendAccount.address, mExpectedSwapId, mSendChain);
-//        ArrayList<Msg> msgs= new ArrayList<>();
-//        msgs.add(claimSwapMsg);
-//        WLog.w("claimSwapMsg : " +  WUtil.prettyPrinter(claimSwapMsg));
-//
-//        ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mSendAccount, msgs, mSendFee, "refund", deterministicKey);
-//        WLog.w("reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
-//        Response<ResBroadTx> claimRes = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
-//
-//        WLog.w("claimRes : " +  WUtil.prettyPrinter(claimRes));
-//
-//
-//        if(claimRes.isSuccessful() && claimRes.body() != null) {
-//            if (claimRes.body().txhash != null) {
-//                if (IS_SHOWLOG) WLog.w("refund suceess txhash " + claimRes.body().txhash);
-//                mResult.resultData = claimRes.body().txhash;
-//            }
-//            if(claimRes.body().code != null) {
-//                if (IS_SHOWLOG) WLog.w("refund error " + mResult.errorCode + "  " + mResult.errorMsg);
-//                mResult.errorCode = claimRes.body().code;
-//                mResult.errorMsg = claimRes.body().raw_log;
-//                mResult.isSuccess = false;
-//            }
-//
-//        } else {
-//            mResult.isSuccess = false;
-//            mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-//        }
-
-
-
-
+        publishProgress(2);
         if (mReceiveChain.equals(BaseChain.BNB_MAIN)) {
 
         } else if (mReceiveChain.equals(BaseChain.BNB_TEST)) {

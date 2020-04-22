@@ -364,7 +364,7 @@
     <string name="str_bep3_warn_1">In order to user this feature,\nyou must create a KAVA account and deposit a small amount of KAVA to be used as transaction fee.</string>
     <string name="str_check_sent_wallet">보낸 지갑 확인</string>
     <string name="str_check_received_wallet">받은 지갑 확인</string>
-    <string name="str_wait_htlc_loading">닫지 마세요! \ 거래가 순서대로 각 체인에 제출됩니다. \ n 시간이 조금 더 걸립니다.</string>
+    <string name="str_wait_htlc_loading">닫지 마세요! \n거래가 순서대로 각 체인에 제출됩니다. \n 시간이 조금 더 걸립니다.</string>
     <string name="str_sender">송금자</string>
     <string name="str_relay_recipient">중계 수신자</string>
     <string name="str_relay_sender">중계 송금자</string>
@@ -509,6 +509,11 @@
     <string name="str_htlc_send_step_2">Select recipient account</string>
     <string name="str_htlc_send_step_3">Insert amount to send</string>
     <string name="str_htlc_send_step_4">Check transactions detail</string>
+    <string name="str_htlc_loading_progress_0">1/4 보내는 체인에서 인터체인 전송 트랜잭션을 발송 중 입니다.</string>
+    <string name="str_htlc_loading_progress_1">2/4 스왑아이디를 확인 중 입니다.</string>
+    <string name="str_htlc_loading_progress_2">3/4 받는 체인에서 인터체인 수신 트랜잭션을 발송 중 입니다.</string>
+    <string name="str_htlc_loading_progress_3">4/4 양쪽 체인에서 각각의 트랜잭션을 확인중 입니다.</string>
+
 
     <!--    <string name="str_min_collateral_rate">최소 담보 비율</string>-->
 <!--    <string name="str_stability_fee">안정화 수수료 (연간)</string>-->

@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
+import wannabit.io.cosmostaion.task.ProgressTaskListener;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcSwapTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -43,12 +44,13 @@ import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_SWAP;
 
-public class HtlcResultActivity extends BaseActivity implements View.OnClickListener, TaskListener {
+public class HtlcResultActivity extends BaseActivity implements View.OnClickListener, ProgressTaskListener {
     private Toolbar             mToolbar;
     private NestedScrollView    mTxScrollView;
     private CardView            mErrorCardView;
     private TextView            mErrorMsgTv;
     private RelativeLayout      mLoadingLayer;
+    private TextView            mLoadingProgress;
     private LinearLayout        mControlLayer;
     private Button              mSenderBtn, mReceiverBtn;
 
@@ -74,6 +76,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         mErrorCardView = findViewById(R.id.error_Card);
         mErrorMsgTv = findViewById(R.id.error_details);
         mLoadingLayer = findViewById(R.id.loadingLayer);
+        mLoadingProgress = findViewById(R.id.loadingProgress);
         mControlLayer = findViewById(R.id.bottom_control);
         mSenderBtn = findViewById(R.id.btn_sent);
         mReceiverBtn = findViewById(R.id.btn_received);
@@ -92,6 +95,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         mSendFee = getIntent().getParcelableExtra("sendFee");
         mClaimFee = getIntent().getParcelableExtra("claimFee");
 
+        mLoadingProgress.setText(getString(R.string.str_htlc_loading_progress_0));
         new HtlcSwapTask(getBaseApplication(), this,
                 mAccount, mRecipientAccount, mTargetCoins, mSendFee,
                 mClaimFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -140,7 +144,6 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 onUpdateClaimView();
                 mTxScrollView.setVisibility(View.VISIBLE);
 
-
             } else {
                 if(mResult.errorCode == ERROR_CODE_BROADCAST) {
                     mErrorMsgTv.setText(getString(R.string.error_network));
@@ -148,10 +151,19 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                     mErrorMsgTv.setText("error code : " + mResult.errorCode + "\n" + mResult.errorMsg);
                 }
                 mErrorCardView.setVisibility(View.VISIBLE);
-
             }
         }
 
+    }
+
+    private void onUpdateProgress(int progress) {
+        if (progress == 1) {
+            mLoadingProgress.setText(getString(R.string.str_htlc_loading_progress_1));
+        } else if (progress == 2) {
+            mLoadingProgress.setText(getString(R.string.str_htlc_loading_progress_2));
+        } else if (progress == 3) {
+            mLoadingProgress.setText(getString(R.string.str_htlc_loading_progress_3));
+        }
     }
 
     private void onUpdateSendView() {
@@ -463,6 +475,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             mResult = result;
             if (mResult.isSuccess) {
                 mTaskCount = 2;
+                onUpdateProgress(3);
                 onFetchSendTx(result.resultData2);
                 onFetchClaimTx((String)result.resultData);
 
@@ -470,6 +483,12 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 onUpdateView();
             }
         }
+    }
+
+    @Override
+    public void onTaskProgress(Integer progress) {
+        WLog.w("onTaskProgress " + progress);
+        onUpdateProgress(progress);
     }
 
 }

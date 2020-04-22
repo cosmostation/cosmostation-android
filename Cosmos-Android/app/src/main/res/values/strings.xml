@@ -593,6 +593,10 @@
     <string name="str_htlc_send_step_2">Select Recipient Account</string>
     <string name="str_htlc_send_step_3">Insert Amount to Send</string>
     <string name="str_htlc_send_step_4">Check Transactions Detail</string>
+    <string name="str_htlc_loading_progress_0">1/4 Broadcasting interchain send Tx from sending chain.</string>
+    <string name="str_htlc_loading_progress_1">2/4 Confirming swapid.</string>
+    <string name="str_htlc_loading_progress_2">3/4 Broadcasting interchain claim Tx on receiving chain.</string>
+    <string name="str_htlc_loading_progress_3">4/4 Confirming all Tx on each chain.</string>
 
 
 

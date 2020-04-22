@@ -120,6 +120,13 @@
                     android:gravity="center"
                     android:text="@string/str_wait_htlc_loading"
                     style="@style/font_ss_12_white"/>
+                <TextView
+                    android:id="@+id/loadingProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_6"
+                    android:gravity="center"
+                    style="@style/font_ss_10_white"/>
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
