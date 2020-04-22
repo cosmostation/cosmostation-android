@@ -788,9 +788,9 @@
     <string name="tx_kava_repaydebt_cdp">CDP - 상환</string>
     <string name="tx_create_htlc">아토믹 스왑 보내기</string>
     <string name="tx_claim_htlc">아토믹 스왑 받기</string>
-    <string name="tx_kava_bep3_create">아토믹 스왑 보내기</string>
-    <string name="tx_kava_bep3_claim">아토믹 스왑 받기</string>
-    <string name="tx_kava_bep3_refund">아토믹 스왑 환불</string>
+    <string name="tx_kava_bep3_create">인터체인 - 보내기</string>
+    <string name="tx_kava_bep3_claim">인터체인 - 받기</string>
+    <string name="tx_kava_bep3_refund">인터체인 - 환불</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>

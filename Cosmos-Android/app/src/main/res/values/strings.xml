@@ -854,9 +854,9 @@
     <string name="tx_kava_repaydebt_cdp">CDP - Repay</string>
     <string name="tx_create_htlc">Create Atomic Swap</string>
     <string name="tx_claim_htlc">Claim Atomic Swap</string>
-    <string name="tx_kava_bep3_create">Interchain Send</string>
-    <string name="tx_kava_bep3_claim">Interchain Claim</string>
-    <string name="tx_kava_bep3_refund">Interchain Refund</string>
+    <string name="tx_kava_bep3_create">Interchain - Send</string>
+    <string name="tx_kava_bep3_claim">Interchain - Claim</string>
+    <string name="tx_kava_bep3_refund">Interchain - Refund</string>
 
 
     <string name="str_dp_time_format1" >MMM d, yyyy HH:mm:ss</string>
