@@ -425,8 +425,8 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
                 owenConstraint.priority = .defaultHigh
                 createCdpBtn.isHidden = true
             } else {
-                emptyConstraint.priority = .defaultHigh
-                owenConstraint.priority = .defaultLow
+//                owenConstraint.priority = .defaultLow
+//                emptyConstraint.priority = .defaultHigh
                 createCdpBtn.isHidden = false
             }
             self.cdpDetailTableView.reloadData()
