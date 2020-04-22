@@ -87,10 +87,10 @@ public class DepositCdpStep3Fragment extends BaseFragment implements View.OnClic
         WDp.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate , mBeforeRiskTv, null);
         WDp.DpRiskRate(getContext(), getSActivity().mAfterRiskRate , mAfterRiskRateTv, null);
 
-        mBeforeLiquidationPriceTitle.setText(WDp.DpBeforeLiquidationPriceTitle(getContext(), cDenom.toUpperCase()));
+        mBeforeLiquidationPriceTitle.setText(String.format(getString(R.string.str_before_liquidation_title2), cDenom.toUpperCase()));
         mBeforeLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mBeforeLiquidationPrice.toPlainString(),  4));
 
-        mAfterLiquidationPriceTitle.setText(WDp.DpAfterLiquidationPriceTitle(getContext(), cDenom.toUpperCase()));
+        mAfterLiquidationPriceTitle.setText(String.format(getString(R.string.str_after_liquidation_title2), cDenom.toUpperCase()));
         mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(),  4));
 
         WDp.showCoinDp(getContext(), cDenom, getSActivity().mTotalDepositAmount.toPlainString(), mTotalDepositDenom, mTotalDepositAmount, getSActivity().mBaseChain);

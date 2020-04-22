@@ -44,7 +44,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
-                            android:text="Create Interchain Send"
+                            android:text="@string/str_create_interchain_send"
                             style="@style/font_ss_14_white"/>
                     </LinearLayout>
 
@@ -185,7 +185,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
-                            android:text="Claim Interchain Swap"
+                            android:text="@string/str_claim_interchain_swap"
                             style="@style/font_ss_14_white"/>
                     </LinearLayout>
 

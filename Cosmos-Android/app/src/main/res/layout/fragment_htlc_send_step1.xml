@@ -83,7 +83,7 @@
             android:layout_marginTop="@dimen/space_6"
             android:gravity="center"
             style="@style/font_ss_12_gray1"
-            android:text="@string/str_bep3_warn_1"/>
+            android:text="@string/error_can_not_bep3_account_msg"/>
     </LinearLayout>
 
     <LinearLayout

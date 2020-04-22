@@ -95,10 +95,10 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
 
         WDp.DpRiskRate(getContext(), getSActivity().mRiskRate, mRiskRate, null);
 
-        mCurrentPriceTitle.setText(WDp.DpCurrentPriceTitle(getContext(), cDenom.toUpperCase()));
+        mCurrentPriceTitle.setText(String.format(getString(R.string.str_current_title3), cDenom.toUpperCase()));
         mCurrentPrice.setText(WDp.getDpRawDollor(getContext(), getPrice().price,  4));
 
-        mLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getContext(), cDenom.toUpperCase()));
+        mLiquidationPriceTitle.setText(String.format(getString(R.string.str_liquidation_title3), cDenom.toUpperCase()));
         mLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mLiquidationPrice.toPlainString(),  4));
 
         mMemo.setText(getSActivity().mMemo);

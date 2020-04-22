@@ -289,8 +289,8 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             WLog.w("mLiquidationPrice " + mLiquidationPrice);
             WLog.w("mRiskRate " + mRiskRate);
 
-            mInfoDebtValueTitle.setText(mMyOwenCdp.getPDenom().toUpperCase() + " " + getString(R.string.str_debt_value));
-            mInfoCollateralValueTitle.setText(WDp.DpCollateralValueTitle(getBaseContext(), mMyOwenCdp.getDenom().toUpperCase()));
+            mInfoDebtValueTitle.setText(String.format(getString(R.string.str_debt_value), mMyOwenCdp.getPDenom().toUpperCase()));
+            mInfoCollateralValueTitle.setText(String.format(getString(R.string.str_collateral_value_title3), mMyOwenCdp.getDenom().toUpperCase()));
 
             final BigDecimal debtValue = new BigDecimal(mMyOwenCdp.cdp.principal.get(0).amount);
             final BigDecimal feeValue = mMyOwenCdp.getAccumulatedFees();
@@ -301,7 +301,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             final BigDecimal currentCollateralValue = new BigDecimal(mMyOwenCdp.collateral_value.amount);
             mInfoCollateralValue.setText(WDp.getDpRawDollor(getBaseContext(), currentCollateralValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
 
-            mInfoLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getBaseContext(), cDenom.toUpperCase()));
+            mInfoLiquidationPriceTitle.setText(String.format(getString(R.string.str_liquidation_title3), cDenom.toUpperCase()));
             mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), mLiquidationPrice, 4));
         }
 
@@ -309,7 +309,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         mInfoCollateralRate.setText(WDp.getPercentDp(cParam.getDpLiquidationRatio(), 2));
         mInfoStabilityFee.setText(WDp.getPercentDp(cParam.getDpStabilityFee(), 2));
         mInfoLiquidationPenalty.setText(WDp.getPercentDp(cParam.getDpLiquidationPenalty(), 2));
-        mInfoCurrentPriceTitle.setText(WDp.DpCurrentPriceTitle(getBaseContext(), cDenom.toUpperCase()));
+        mInfoCurrentPriceTitle.setText(String.format(getString(R.string.str_current_title3), cDenom.toUpperCase()));
         mInfoCurrentPrice.setText(WDp.getDpRawDollor(getBaseContext(), currentPrice, 4));
 
         mInfoMarketId.setText(cParam.getDpMarketId());
@@ -361,9 +361,10 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             final BigDecimal moreDebtAmount = mMyOwenCdp.getMoreLoanableAmount(getBaseContext(), cParam);
             mMyLoadableAmount.setText(WDp.getDpAmount2(getBaseContext(), moreDebtAmount, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
             mMyLoadableValue.setText(WDp.getDpRawDollor(getBaseContext(), moreDebtAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
+            
+            mMyBtnDepositTxt.setText(String.format(getString(R.string.str_btn_text_deposit), cDenom.toUpperCase()));
+            mMyBtnWithdrawTxt.setText(String.format(getString(R.string.str_btn_text_withdraw), cDenom.toUpperCase()));
 
-            mMyBtnDepositTxt.setText(getString(R.string.str_collateral_deposit) + " " + cDenom.toUpperCase());
-            mMyBtnWithdrawTxt.setText(getString(R.string.str_collateral_withdraw) + " " + cDenom.toUpperCase());
             mMyPrincipalDenom.setText(pDenom.toUpperCase());
             mMyCollateralDenom.setText(cParam.denom.toUpperCase());
 
@@ -432,7 +433,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
                     String.format(getString(R.string.str_help_total_deposited_collateral), mMarketDenom.toUpperCase()));
 
         } else if (v.equals(mMyWithdrawableLayer)) {
-            onShowHelpPopup(getString(R.string.str_help_withdrawable_t) + " " + mMarketDenom.toUpperCase(),
+            onShowHelpPopup(getString(R.string.str_expected_withdrawable_amount) + " " + mMarketDenom.toUpperCase(),
                     getString(R.string.str_help_withdrawable));
 
         } else if (v.equals(mMyLoadnedLayer)) {

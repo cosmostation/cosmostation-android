@@ -133,8 +133,8 @@ public class CdpMyFragment extends BaseFragment {
 //            WLog.w("riskRate " +  riskRate);
 
                 holder.itemTitleMarket.setText(param.getDpMarketId());
-                holder.itemDebtValueTitle.setText(status.getPDenom().toUpperCase() + " " + getString(R.string.str_debt_value));
-                holder.itemCollateralValueTitle.setText(WDp.DpCollateralValueTitle(getContext(), status.getDenom().toUpperCase()));
+                holder.itemDebtValueTitle.setText(String.format(getString(R.string.str_debt_value), status.getPDenom().toUpperCase()));
+                holder.itemCollateralValueTitle.setText(String.format(getString(R.string.str_collateral_value_title3), status.getDenom().toUpperCase()));
 
                 final BigDecimal debtValue = status.getPrincipalAmount();
                 final BigDecimal feeValue = status.getAccumulatedFees();
@@ -148,10 +148,10 @@ public class CdpMyFragment extends BaseFragment {
                 holder.itemStabilityFee.setText(WDp.getPercentDp(param.getDpStabilityFee(), 2));
                 holder.itemLiquidationPenalty.setText(WDp.getPercentDp(param.getDpLiquidationPenalty(), 2));
 
-                holder.itemCurrentPriceTitle.setText(WDp.DpCurrentPriceTitle(getContext(), status.getDenom().toUpperCase()));
+                holder.itemCurrentPriceTitle.setText(String.format(getString(R.string.str_current_title3), status.getDenom().toUpperCase()));
                 holder.itemCurrentPrice.setText(WDp.getDpRawDollor(getContext(), currentPrice, 4));
 
-                holder.itemLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getContext(), status.getDenom().toUpperCase()));
+                holder.itemLiquidationPriceTitle.setText(String.format(getString(R.string.str_liquidation_title3), status.getDenom().toUpperCase()));
                 holder.itemLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), liquidationPrice, 4));
 
                 WDp.DpRiskRate(getContext(), riskRate, holder.itemRiskScore,  holder.itemImgRisk);

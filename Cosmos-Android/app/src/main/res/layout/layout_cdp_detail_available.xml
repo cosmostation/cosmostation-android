@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
                 style="@style/font_ss_17_white"
-                android:text="My Available Assets"/>
+                android:text="@string/str_my_available_assets"/>
         </LinearLayout>
 
         <View

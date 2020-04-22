@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
                 style="@style/font_ss_17_white"
-                android:text="My CDP Information"/>
+                android:text="@string/str_my_cdp_information"/>
         </LinearLayout>
 
         <View

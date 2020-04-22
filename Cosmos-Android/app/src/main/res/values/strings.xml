@@ -443,10 +443,9 @@
     <string name="str_my_cdps">My CDP</string>
     <string name="str_all_cdps">All Products</string>
     <string name="str_press_select_recipient_account">Select Recipient Account</string>
-    <string name="str_bep3_warn_1">In order to user this feature,\nyou must create a KAVA account and deposit a small amount of KAVA to be used as transaction fee.</string>
-    <string name="str_check_sent_wallet">Check Sent Wallet</string>
-    <string name="str_check_received_wallet">Check Received Wallet</string>
-    <string name="str_wait_htlc_loading">Do Not Close!\nYour Transaction will submit to each chain in order,\nIt takes a little longer.</string>
+    <string name="str_check_sent_wallet">Check Origin Wallet</string>
+    <string name="str_check_received_wallet">Check Destination Wallet</string>
+    <string name="str_wait_htlc_loading">Do NOT close!\nTransactions are being submitted to each chain in order.\nPlease note that it may take longer than regular transactions.</string>
     <string name="str_sender">Sender</string>
     <string name="str_relay_recipient">Relay recipient</string>
     <string name="str_relay_sender">Relay Sender</string>
@@ -458,18 +457,25 @@
     <string name="str_expected_income">Expected Income</string>
     <string name="str_warn_testnet_title">Testnet Warning</string>
     <string name="str_warn_testnet_msg"><![CDATA[This wallet is for testnet\n(Tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use new feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
-
-
+    <string name="str_interchain">InterChain</string>
+    <string name="str_source_chain">Source Chain</string>
+    <string name="str_destination_chain">Destination Chain</string>
+    <string name="str_create_interchain_send">Create Interchain Send</string>
+    <string name="str_claim_interchain_swap">Claim Interchain Swap</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
     <string name="str_liquidation_penalty">Liquidation Penalty</string>
     <string name="str_liquidation_title1">Liquidation</string>
+    <string name="str_liquidation_title3">%1$s Liquidation Price</string>
     <string name="str_before_liquidation_title1">Initial Liquidation</string>
+    <string name="str_before_liquidation_title2">Initial Liquidation %1$s Price</string>
     <string name="str_after_liquidation_title1">Expected Liquidation</string>
+    <string name="str_after_liquidation_title2">Expected Liquidation %1$s Price</string>
     <string name="str_liquidation_title2">Price</string>
     <string name="str_current_title1">Current</string>
     <string name="str_current_title2">Price</string>
+    <string name="str_current_title3">%1$s Current Price</string>
     <string name="str_collateral_title1">Collateralized</string>
     <string name="str_collateral_title2">Amount</string>
     <string name="str_loaned_title1">Loaned</string>
@@ -480,6 +486,7 @@
     <string name="str_remain_debt_title2">Amount</string>
     <string name="str_collateral_value_title1">Collateral</string>
     <string name="str_collateral_value_title2">Value</string>
+    <string name="str_collateral_value_title3">%1$s Collateral Value</string>
     <string name="str_open_cdp">Open CDP</string>
     <string name="str_available_amount">Available Amount</string>
     <string name="str_self_deposited_amount">Deposited Collateral (self)</string>
@@ -494,7 +501,7 @@
     <string name="str_principal_drawdebt">Borrow more USDX</string>
     <string name="str_principal_repay">Repay USDX</string>
 
-    <string name="str_deposit_amount">Collateral Amount</string>
+    <string name="str_deposit_amount">Additional Collateral Amount</string>
     <string name="str_loan_amount">Loan Amount</string>
     <string name="str_loan_more_amount">Additional Loan Amount</string>
     <string name="str_payment_amount">Repayment Amount</string>
@@ -503,7 +510,11 @@
     <string name="str_after_total_debt">Adjusted Total Principal</string>
     <string name="str_after_total_deposit">Adjusted Total Collateral</string>
     <string name="str_risk_rate">Risk Score</string>
-    <string name="str_debt_value">Debt Value</string>
+    <string name="str_debt_value">%1$s Debt Value</string>
+    <string name="str_my_cdp_information">My CDP Information</string>
+    <string name="str_btn_text_deposit">Deposit %1$s</string>
+    <string name="str_btn_text_withdraw">Withdraw %1$s</string>
+    <string name="str_my_available_assets">My Available Assets</string>
 
     <string name="str_help_collateral_rate_t">Min. Collateral Rate</string>
     <string name="str_help_collateral_rate">The minimum rate at which the total USD value of the collateralized asset must be kept at against the total amount of USDX loaned from the CDP.\n\nFor example, if the minimum collateral rate is 200%, this means that in order to borrow 100 USDX from the CDP, you must deposit at least 200 USD worth of assets as collateral. If the total USD value of your collateralized asset falls below 200 USD due to price fluctuations, your position will be liquidated.</string>
@@ -519,7 +530,7 @@
     <string name="str_help_total_deposited_collateral_t">Total Deposited Collateral</string>
     <string name="str_help_total_deposited_collateral">The total amount of %1$s deposited into the CDP as collateral.</string>
     <string name="str_help_withdrawable_t">Withdrawable</string>
-    <string name="str_help_withdrawable">The amount of maximum collateral capable of being withdrawn from the CDP without reaching a risk score of 100.\n\nNote that withdrawing the collateral excessively close to the maximum amount can put the CDP into risk of going below the minimum collateral rate and being liquidated.</string>
+    <string name="str_help_withdrawable">The amount of maximum collateral capable of being withdrawn from the CDP without reaching a risk score of 95.\n\nNote that withdrawing the collateral excessively close to the maximum amount can put the CDP into risk of going below the minimum collateral rate and being liquidated.</string>
 
     <string name="str_help_available_amount_t">Available Amount</string>
     <string name="str_help_available_amount">The amount of USDX available for transactions.</string>

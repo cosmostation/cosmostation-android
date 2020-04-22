@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_16"
             style="@style/font_ss_14_gray1"
-            android:text="Source Chain"/>
+            android:text="@string/str_source_chain"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_16"
             style="@style/font_ss_14_gray1"
-            android:text="Destination Chain"/>
+            android:text="@string/str_destination_chain"/>
 
 
         <RelativeLayout

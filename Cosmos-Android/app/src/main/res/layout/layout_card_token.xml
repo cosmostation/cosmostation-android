@@ -195,7 +195,7 @@
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
                 style="@style/font_ss_12_white"
-                android:text="Interchain" />
+                android:text="@string/str_interchain" />
         </RelativeLayout>
 
     </LinearLayout>
