@@ -564,7 +564,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_API_TEST_TRANS_HISTORY + address
         }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(url!, method: .get, parameters: ["denom":balance!.balance_denom], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
