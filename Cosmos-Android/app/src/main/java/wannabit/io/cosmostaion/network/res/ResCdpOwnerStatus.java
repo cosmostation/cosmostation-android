@@ -113,6 +113,14 @@ public class ResCdpOwnerStatus {
             } else {
                 return maxWithdrawableAmount;
             }
+//            if (maxWithdrawableAmount.compareTo(selfDeposit) > 0 ) {
+//                maxWithdrawableAmount =  selfDeposit;
+//            }
+//            if (maxWithdrawableAmount.compareTo(BigDecimal.ZERO) <= 0) {
+//                maxWithdrawableAmount = BigDecimal.ZERO;
+//            }
+//            return maxWithdrawableAmount;
+
         }
 
         public BigDecimal getMoreLoanableAmount(Context c, ResCdpParam.KavaCollateralParam cParam) {
@@ -121,6 +129,12 @@ public class ResCdpOwnerStatus {
             maxDebtValue = maxDebtValue.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
             WLog.w("maxDebtValue padding " + maxDebtValue);
             return maxDebtValue.subtract(getEstimatedTotalDebt(c, cParam));
+
+//            maxDebtValue = maxDebtValue.subtract(getEstimatedTotalDebt(c, cParam));
+//            if (maxDebtValue.compareTo(BigDecimal.ZERO) <= 0) {
+////                maxDebtValue = BigDecimal.ZERO;
+//            }
+//            return maxDebtValue;
 
         }
     }

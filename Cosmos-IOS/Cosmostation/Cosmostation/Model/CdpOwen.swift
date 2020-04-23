@@ -66,7 +66,7 @@ public class CdpOwen {
             let maxWithdrawableValue = cValue.subtracting(minCValue)
             print("maxWithdrawableValue " , maxWithdrawableValue)
             
-            let maxWithdrawableAmount = maxWithdrawableValue.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(cDenom) - WUtils.getKavaCoinDecimal(pDenom)).dividing(by: cPrice, withBehavior: WUtils.handler0Down)
+            var maxWithdrawableAmount = maxWithdrawableValue.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(cDenom) - WUtils.getKavaCoinDecimal(pDenom)).dividing(by: cPrice, withBehavior: WUtils.handler0Down)
             print("maxWithdrawableAmount " , maxWithdrawableAmount)
             
             if (maxWithdrawableAmount.compare(selfDepositAmount).rawValue > 0) {
@@ -74,6 +74,16 @@ public class CdpOwen {
             } else {
                 return maxWithdrawableAmount
             }
+            
+//            if (maxWithdrawableAmount.compare(selfDepositAmount).rawValue > 0) {
+//                maxWithdrawableAmount = selfDepositAmount
+//            }
+//            if (maxWithdrawableAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
+//                maxWithdrawableAmount = NSDecimalNumber.zero
+//            }
+//            return maxWithdrawableAmount
+            
+            
         }
         
         public func getMoreLoanableAmount(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
@@ -82,6 +92,12 @@ public class CdpOwen {
             maxDebtValue = maxDebtValue.multiplying(by: NSDecimalNumber.init(string: "0.95"), withBehavior: WUtils.handler0Down)
             print("maxDebtValue padding " , maxDebtValue)
             return maxDebtValue.subtracting(cdp.getEstimatedTotalDebt(cParam))
+            
+//            maxDebtValue = maxDebtValue.subtracting(cdp.getEstimatedTotalDebt(cParam))
+//            if (maxDebtValue.compare(NSDecimalNumber.zero) <= 0) {
+//                maxDebtValue = NSDecimalNumber.zero
+//            }
+//            return maxDebtValue
         }
     }
 }

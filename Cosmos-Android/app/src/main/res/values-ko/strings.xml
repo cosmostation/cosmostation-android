@@ -738,7 +738,7 @@
     <string name="error_can_not_repay">지금은 상환할 수 없습니다. USDX가 더 필요합니다.</string>
     <string name="error_can_not_bep3_account_title">%1$s 계정이 없습니다.</string>
     <string name="error_can_not_bep3_account_msg">이 기능을 사용하기 위해서는, \n%1$s 지갑과 트랜젝션 수수료로 사용될 약간의 %2$s가 필요합니다.</string>
-    <string name="error_select_account_to_recipient">받을 계정을 선택해 주세요,</string>
+    <string name="error_select_account_to_recipient">받을 계정을 선택해 주세요.</string>
     <string name="error_no_more_faucet">이미 충분한 테스트 코인이 있네요.</string>
 
     <string name="s_atom">ATOM</string>

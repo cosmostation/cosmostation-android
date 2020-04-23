@@ -20,7 +20,6 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.broadcast.kava.CreateCdpActivity;
@@ -45,7 +44,6 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
@@ -285,9 +283,9 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mRiskRate = new BigDecimal(100).subtract((currentPrice.subtract(mLiquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
             WDp.DpRiskRate(getBaseContext(), mRiskRate, mInfoRiskScore, mInfoImgRisk);
 
-            WLog.w("currentPrice " + currentPrice);
-            WLog.w("mLiquidationPrice " + mLiquidationPrice);
-            WLog.w("mRiskRate " + mRiskRate);
+//            WLog.w("currentPrice " + currentPrice);
+//            WLog.w("mLiquidationPrice " + mLiquidationPrice);
+//            WLog.w("mRiskRate " + mRiskRate);
 
             mInfoDebtValueTitle.setText(String.format(getString(R.string.str_debt_value), mMyOwenCdp.getPDenom().toUpperCase()));
             mInfoCollateralValueTitle.setText(String.format(getString(R.string.str_collateral_value_title3), mMyOwenCdp.getDenom().toUpperCase()));
@@ -361,7 +359,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             final BigDecimal moreDebtAmount = mMyOwenCdp.getMoreLoanableAmount(getBaseContext(), cParam);
             mMyLoadableAmount.setText(WDp.getDpAmount2(getBaseContext(), moreDebtAmount, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
             mMyLoadableValue.setText(WDp.getDpRawDollor(getBaseContext(), moreDebtAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
-            
+
             mMyBtnDepositTxt.setText(String.format(getString(R.string.str_btn_text_deposit), cDenom.toUpperCase()));
             mMyBtnWithdrawTxt.setText(String.format(getString(R.string.str_btn_text_withdraw), cDenom.toUpperCase()));
 
@@ -633,7 +631,6 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
         if (mTaskCount == 0) {
             if (mCdpParam == null || mKavaTokenPrice == null) {
-                WLog.w("ERROR");
                 Toast.makeText(getBaseContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
                 onBackPressed();
                 return;
