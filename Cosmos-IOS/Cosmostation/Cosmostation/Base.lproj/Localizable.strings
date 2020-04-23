@@ -197,7 +197,6 @@
 "help_total_fee_msg" = "\nAccrued CDP stability fee. The fee increases every second.";
 "help_remaining_loan_title" = "Remaining Loan Capacity";
 "help_remaining_loan_msg" = "\nThe amount of USDX that can be additionally loaned from the CDP. This capacity changes in accordance to changes in the collateral rate due to price fluctuations.";
-"help_kava_test_warn" = "\nThis wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
 "creat_cdp_step_1" = "Insert memo (optional)";
@@ -347,7 +346,7 @@
 "error_can_not_repay" = "Cannot repay now. You need more USDX to Repay.";
 "error_circuit_breaker" = "Now circuit breake";
 "error_can_not_bep3_account_msg" = "In order to user this feature,\nyou must create a %@ account and deposit a small amount of %@ to be used as transaction fee.";
-"error_no_recipient_account" = "Please select receivable account";
+"error_no_recipient_account" = "Please select account to receive";
 
 "currency_usd" = "USD";
 "currency_eur" = "EUR";

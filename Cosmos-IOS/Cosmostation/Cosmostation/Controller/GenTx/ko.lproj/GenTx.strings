@@ -987,3 +987,26 @@
 "J34-R6-Cl1.text" = "이 CDP는 닫하게 됩니다.\n모든 담보물은 원 주인에게 돌아갑니다.";
 "uiG-LZ-0Pg.normalTitle" = "이전";
 "cts-55-2WV.normalTitle" = "확인";
+
+
+
+"CwP-gR-KIK.text" = "출발 체인";
+"E16-Sd-Rxh.text" = "도착 체인";
+"T7x-0J-45S.text" = "수취인 주소";
+"KgS-gr-nev.text" = "최대 전송 가능량";
+"4hK-N2-JHJ.text" = "인터체인 보내기 정보";
+"mX4-Dd-r4g.text" = "전송 수량";
+"pnt-4M-Qc7.text" = "Tx 수수료";
+"bAg-M7-vF2.text" = "수취인 체인";
+"Jf0-eM-DXP.text" = "수취인 주소";
+"9EV-8D-SnK.text" = "인터체인 받기 정보";
+"7EM-1l-OQX.text" = "Tx 수수료";
+"acC-2c-A80.text" = "수취인 요청 주소";
+"APe-Jj-MBc.normalTitle" = "이전";
+"Utt-cY-Ygj.normalTitle" = "확인";
+"h2Y-kM-42P.normalTitle" = "취소";
+"hPP-a0-hxw.normalTitle" = "다음";
+"1yL-4b-OGg.normalTitle" = "이전";
+"zhE-jR-OAb.normalTitle" = "다음";
+"Vor-H1-fwv.normalTitle" = "이전";
+"R8F-Fh-NZF.normalTitle" = "다음";

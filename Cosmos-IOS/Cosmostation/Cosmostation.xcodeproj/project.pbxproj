@@ -48,6 +48,7 @@
 		283A80D72451436A008FF813 /* CdpDetailAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80D92451436A008FF813 /* CdpDetailAssetsCell.xib */; };
 		283A80DC24514AB8008FF813 /* RiskCheckPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80DE24514AB8008FF813 /* RiskCheckPopupViewController.xib */; };
 		283A80E124514BD0008FF813 /* CdpDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80E324514BD0008FF813 /* CdpDetailViewController.xib */; };
+		283A80E6245158FB008FF813 /* HtlcResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80E8245158FB008FF813 /* HtlcResultViewController.xib */; };
 		2842AB57242C1DD900248EEB /* CdpListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB56242C1DD900248EEB /* CdpListViewController.swift */; };
 		2842AB59242C1DFC00248EEB /* MyCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */; };
 		2842AB5B242C1E0900248EEB /* AllCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */; };
@@ -111,7 +112,6 @@
 		285A33DE2447633D0052BD3D /* SelectAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33DC2447633D0052BD3D /* SelectAccountCell.swift */; };
 		285A33DF2447633D0052BD3D /* SelectAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285A33DD2447633D0052BD3D /* SelectAccountCell.xib */; };
 		285A33E2244862670052BD3D /* HtlcResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33E0244862670052BD3D /* HtlcResultViewController.swift */; };
-		285A33E3244862670052BD3D /* HtlcResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285A33E1244862670052BD3D /* HtlcResultViewController.xib */; };
 		285A33E624486DA20052BD3D /* HtlcResultSentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33E424486DA20052BD3D /* HtlcResultSentCell.swift */; };
 		285A33E724486DA20052BD3D /* HtlcResultSentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285A33E524486DA20052BD3D /* HtlcResultSentCell.xib */; };
 		285A33EA24486DB60052BD3D /* HtlcResultClaimCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33E824486DB60052BD3D /* HtlcResultClaimCell.swift */; };
@@ -393,6 +393,8 @@
 		283A80E024514ABF008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/RiskCheckPopupViewController.strings; sourceTree = "<group>"; };
 		283A80E224514BD0008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CdpDetailViewController.xib; sourceTree = "<group>"; };
 		283A80E524514BD3008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CdpDetailViewController.strings; sourceTree = "<group>"; };
+		283A80E7245158FB008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HtlcResultViewController.xib; sourceTree = "<group>"; };
+		283A80EA24515901008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HtlcResultViewController.strings; sourceTree = "<group>"; };
 		2842AB56242C1DD900248EEB /* CdpListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpListViewController.swift; sourceTree = "<group>"; };
 		2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCdpViewController.swift; sourceTree = "<group>"; };
 		2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCdpViewController.swift; sourceTree = "<group>"; };
@@ -456,7 +458,6 @@
 		285A33DC2447633D0052BD3D /* SelectAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAccountCell.swift; sourceTree = "<group>"; };
 		285A33DD2447633D0052BD3D /* SelectAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectAccountCell.xib; sourceTree = "<group>"; };
 		285A33E0244862670052BD3D /* HtlcResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtlcResultViewController.swift; sourceTree = "<group>"; };
-		285A33E1244862670052BD3D /* HtlcResultViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HtlcResultViewController.xib; sourceTree = "<group>"; };
 		285A33E424486DA20052BD3D /* HtlcResultSentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtlcResultSentCell.swift; sourceTree = "<group>"; };
 		285A33E524486DA20052BD3D /* HtlcResultSentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HtlcResultSentCell.xib; sourceTree = "<group>"; };
 		285A33E824486DB60052BD3D /* HtlcResultClaimCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtlcResultClaimCell.swift; sourceTree = "<group>"; };
@@ -895,7 +896,7 @@
 				285A33D424475DC00052BD3D /* SelectPopupViewController.swift */,
 				285A33D524475DC00052BD3D /* SelectPopupViewController.xib */,
 				285A33E0244862670052BD3D /* HtlcResultViewController.swift */,
-				285A33E1244862670052BD3D /* HtlcResultViewController.xib */,
+				283A80E8245158FB008FF813 /* HtlcResultViewController.xib */,
 			);
 			path = GenTx;
 			sourceTree = "<group>";
@@ -1340,7 +1341,7 @@
 				282FF35E23F530ED0028CC66 /* TxEditRewardAddressCell.xib in Resources */,
 				28474ED3241E06AF00AF5A81 /* TxCreateCdpCell.xib in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
-				285A33E3244862670052BD3D /* HtlcResultViewController.xib in Resources */,
+				283A80E6245158FB008FF813 /* HtlcResultViewController.xib in Resources */,
 				E1774909228523C5003D8CD1 /* GuideDetailViewController.xib in Resources */,
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */,
@@ -1781,6 +1782,15 @@
 				283A80E524514BD3008FF813 /* ko */,
 			);
 			name = CdpDetailViewController.xib;
+			sourceTree = "<group>";
+		};
+		283A80E8245158FB008FF813 /* HtlcResultViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				283A80E7245158FB008FF813 /* Base */,
+				283A80EA24515901008FF813 /* ko */,
+			);
+			name = HtlcResultViewController.xib;
 			sourceTree = "<group>";
 		};
 		2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */ = {

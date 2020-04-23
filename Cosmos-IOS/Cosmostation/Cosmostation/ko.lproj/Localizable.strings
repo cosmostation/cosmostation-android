@@ -198,7 +198,6 @@
 "help_total_fee_msg" = "\n현재까지 계산된 CDP 사용 수수료 입니다. 매 초 증가합니다.";
 "help_remaining_loan_title" = "추가 대출 가능 금액";
 "help_remaining_loan_msg" = "\n해당 CDP 계좌를 통해 추가적으로 빌릴 수 있는 최대 USDX 수량입니다. 담보물 토큰 가격의 변동에 따라 이 금액을 달라지게 됩니다.";
-"help_kava_test_warn" = "\nThis wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.";
 
 
 "creat_cdp_step_0" = "USDX 발행을 위해 담보물을 설정하세요";
@@ -336,17 +335,20 @@
 "error_disable" = "점검중";
 "error_disable_msg" = "시스템 점검중입니다. 자세한 내용은 커뮤니티 체널을 확인해 주세요.";
 "error_not_yet" = "준비중 입니다!";
-"error_less_than_min_deposit" = "Less than the minimum deposit amount.";
-"error_less_than_min_principal" = "Less than the minimum loan amount.";
-"error_not_enought_deposit_asset" = "Not enought collateral to deposit.";
-"error_not_enought_withdraw_asset" = "Cannot withdraw collateral now.";
-"error_can_not_draw_debt" = "Cannot more loan now.";
-"error_not_enought_principal_asset" = "Not enough USDX to repay.";
-"error_can_not_repay" = "Cannot repay now. You need more USDX to Repay.";
-"error_circuit_breaker" = "Now circuit breake";
-"error_can_not_bep3_account_msg" = "In order to user this feature,\nyou must create a %@ account and deposit a small amount of %@ to be used as transaction fee.";
-"error_no_recipient_account" = "Please select receivable account";
+"error_less_than_min_deposit" = "L최소 입금 수량보다 적습니다.";
+"error_less_than_min_principal" = "최소 대출 금액보다 적습니다.";
+"error_not_enought_deposit_asset" = "입금 할 충분한 담보금이 없습니다.";
+"error_not_enought_withdraw_asset" = "지금은 담보물을 출금할 수 없습니다.";
+"error_can_not_draw_debt" = "더 이상 빌리면 위험합니다.";
+"error_not_enought_principal_asset" = "USDX가 충분하지 않아 상환할 수 없습니다.";
+"error_can_not_repay" = "지금은 상환할 수 없습니다. USDX가 더 필요합니다.";
+"error_circuit_breaker" = "서킷 브래이크 발동중";
+"error_can_not_bep3_account_msg" = "이 기능을 사용하기 위해서는, \n%@ 지갑과 트랜젝션 수수료로 사용될 약간의 %@가 필요합니다.";
+"error_no_recipient_account" = "받을 계정을 선택해 주세요.";
 "error_no_more_faucet" = "이미 충분한 테스트 코인이 있네요.";
+
+
+
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";
