@@ -112,6 +112,8 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             cell?.minCollateralRate.attributedText = WUtils.displayPercent(cParam!.getDpLiquidationRatio(), font: cell!.minCollateralRate.font)
             cell?.stabilityFee.attributedText = WUtils.displayPercent(cParam!.getDpStabilityFee(), font: cell!.stabilityFee.font)
             cell?.liquidationPenalty.attributedText = WUtils.displayPercent(cParam!.getDpLiquidationPenalty(), font: cell!.liquidationPenalty.font)
+            
+            cell?.currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), cDenom.uppercased())
             cell?.currentPrice.attributedText = WUtils.getDPRawDollor(currentPrice.stringValue, 4, cell!.currentPrice.font)
             let url = KAVA_CDP_MARKET_IMG_URL + cParam!.getMarketImgPath() + ".png"
             cell?.marketImg.af_setImage(withURL: URL(string: url)!)

@@ -1,0 +1,75 @@
+
+/* Class = "UILabel"; text = "Withdrawable BTC"; ObjectID = "599-6J-ZUx"; */
+"599-6J-ZUx.text" = "Withdrawable BTC";
+
+/* Class = "UILabel"; text = "PDenom"; ObjectID = "6LU-h5-mcZ"; */
+"6LU-h5-mcZ.text" = "PDenom";
+
+/* Class = "UILabel"; text = "000000"; ObjectID = "87c-X6-h1s"; */
+"87c-X6-h1s.text" = "000000";
+
+/* Class = "UILabel"; text = "Deposited Collateral (self)"; ObjectID = "8ZT-XM-dd1"; */
+"8ZT-XM-dd1.text" = "나의 담보 수량";
+
+/* Class = "UILabel"; text = "$0.00"; ObjectID = "Dkl-d0-Wg8"; */
+"Dkl-d0-Wg8.text" = "$0.00";
+
+/* Class = "UILabel"; text = "Remaining Loan Capacity"; ObjectID = "GCp-mq-zZ2"; */
+"GCp-mq-zZ2.text" = "추가 대출 가능 금액";
+
+/* Class = "UILabel"; text = "000000"; ObjectID = "GmQ-sg-ec9"; */
+"GmQ-sg-ec9.text" = "000000";
+
+/* Class = "UILabel"; text = "$0.00"; ObjectID = "ICs-YC-309"; */
+"ICs-YC-309.text" = "$0.00";
+
+/* Class = "UILabel"; text = "Loan Principal"; ObjectID = "Klr-N3-CMY"; */
+"Klr-N3-CMY.text" = "대출 금액";
+
+/* Class = "UIButton"; normalTitle = "  Repay USDX"; ObjectID = "OOj-JD-fLH"; */
+"OOj-JD-fLH.normalTitle" = "  USDX 상환";
+
+/* Class = "UILabel"; text = "$0.00"; ObjectID = "XCT-F9-xdx"; */
+"XCT-F9-xdx.text" = "$0.00";
+
+/* Class = "UILabel"; text = "000000"; ObjectID = "Y3q-Uk-gFk"; */
+"Y3q-Uk-gFk.text" = "000000";
+
+/* Class = "UILabel"; text = "$0.00"; ObjectID = "Y9U-yF-kML"; */
+"Y9U-yF-kML.text" = "$0.00";
+
+/* Class = "UILabel"; text = "000000"; ObjectID = "aCu-5p-CaG"; */
+"aCu-5p-CaG.text" = "000000";
+
+/* Class = "UILabel"; text = "000000"; ObjectID = "bLc-4x-Bd8"; */
+"bLc-4x-Bd8.text" = "000000";
+
+/* Class = "UIButton"; normalTitle = "  Deposit BTC"; ObjectID = "bb0-fi-kPx"; */
+"bb0-fi-kPx.normalTitle" = "  Deposit BTC";
+
+/* Class = "UILabel"; text = "CDenom"; ObjectID = "gSs-mj-aKR"; */
+"gSs-mj-aKR.text" = "CDenom";
+
+/* Class = "UILabel"; text = "$0.00"; ObjectID = "nNo-c0-x74"; */
+"nNo-c0-x74.text" = "$0.00";
+
+/* Class = "UILabel"; text = "000000"; ObjectID = "pxJ-QI-jex"; */
+"pxJ-QI-jex.text" = "000000";
+
+/* Class = "UILabel"; text = "$0.00"; ObjectID = "q4a-E9-YCB"; */
+"q4a-E9-YCB.text" = "$0.00";
+
+/* Class = "UILabel"; text = "Deposited Collateral (total)"; ObjectID = "rw1-u2-xMP"; */
+"rw1-u2-xMP.text" = "전체 담보 수량";
+
+/* Class = "UILabel"; text = "My CDP Information"; ObjectID = "tpt-Dq-m35"; */
+"tpt-Dq-m35.text" = "내 CDP 계좌";
+
+/* Class = "UILabel"; text = "Loan Interest"; ObjectID = "u6K-v3-XHW"; */
+"u6K-v3-XHW.text" = "대충 이자";
+
+/* Class = "UIButton"; normalTitle = "  Withdraw  BTC"; ObjectID = "xrz-JZ-ryA"; */
+"xrz-JZ-ryA.normalTitle" = "  Withdraw  BTC";
+
+/* Class = "UIButton"; normalTitle = "  Borrow more USDX"; ObjectID = "za2-qF-pdH"; */
+"za2-qF-pdH.normalTitle" = "  추가 USDX 대출";

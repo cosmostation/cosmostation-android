@@ -40,6 +40,12 @@
 		283850212448A6B000E5DEF2 /* TxHtlcClaimCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2838501F2448A6B000E5DEF2 /* TxHtlcClaimCell.xib */; };
 		283850242448A6C600E5DEF2 /* TxHtlcRefundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283850222448A6C600E5DEF2 /* TxHtlcRefundCell.swift */; };
 		283850252448A6C600E5DEF2 /* TxHtlcRefundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283850232448A6C600E5DEF2 /* TxHtlcRefundCell.xib */; };
+		283A80BE24513DA2008FF813 /* CdpListPromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80C024513DA2008FF813 /* CdpListPromotionCell.xib */; };
+		283A80C324513F6F008FF813 /* CdpListAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80C524513F6F008FF813 /* CdpListAllCell.xib */; };
+		283A80C824513FF7008FF813 /* CdpDetailTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80CA24513FF7008FF813 /* CdpDetailTopCell.xib */; };
+		283A80CD24514194008FF813 /* CdpDetailMyTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80CF24514194008FF813 /* CdpDetailMyTopCell.xib */; };
+		283A80D2245141EB008FF813 /* CdpDetailMyActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80D4245141EB008FF813 /* CdpDetailMyActionCell.xib */; };
+		283A80D72451436A008FF813 /* CdpDetailAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80D92451436A008FF813 /* CdpDetailAssetsCell.xib */; };
 		2842AB57242C1DD900248EEB /* CdpListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB56242C1DD900248EEB /* CdpListViewController.swift */; };
 		2842AB59242C1DFC00248EEB /* MyCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */; };
 		2842AB5B242C1E0900248EEB /* AllCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */; };
@@ -50,11 +56,9 @@
 		2842AB65242C396700248EEB /* KavaTokenPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB64242C396700248EEB /* KavaTokenPrice.swift */; };
 		2842AB67242C3ED900248EEB /* KavaTokenPriceParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB66242C3ED900248EEB /* KavaTokenPriceParam.swift */; };
 		2842AB6A242C5AF100248EEB /* CdpListPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB68242C5AF100248EEB /* CdpListPromotionCell.swift */; };
-		2842AB6B242C5AF100248EEB /* CdpListPromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2842AB69242C5AF100248EEB /* CdpListPromotionCell.xib */; };
 		2842AB6E242C5C7200248EEB /* CdpLisyMyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB6C242C5C7200248EEB /* CdpLisyMyCell.swift */; };
 		2842AB6F242C5C7200248EEB /* CdpLisyMyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2842AB6D242C5C7200248EEB /* CdpLisyMyCell.xib */; };
 		2842AB72242C7C8A00248EEB /* CdpListAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB70242C7C8A00248EEB /* CdpListAllCell.swift */; };
-		2842AB73242C7C8A00248EEB /* CdpListAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2842AB71242C7C8A00248EEB /* CdpListAllCell.xib */; };
 		28474ECB241E06AF00AF5A81 /* TxWithDrawCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */; };
 		28474ECC241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */; };
 		28474ECD241E06AF00AF5A81 /* TxDepositCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */; };
@@ -123,13 +127,9 @@
 		289DF170242DD90300433CF4 /* CdpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */; };
 		289DF171242DD90300433CF4 /* CdpDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 289DF16F242DD90300433CF4 /* CdpDetailViewController.xib */; };
 		289DF178242DDF3800433CF4 /* CdpDetailTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */; };
-		289DF179242DDF3800433CF4 /* CdpDetailTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 289DF177242DDF3800433CF4 /* CdpDetailTopCell.xib */; };
 		289DF17C242DDF4F00433CF4 /* CdpDetailMyTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */; };
-		289DF17D242DDF4F00433CF4 /* CdpDetailMyTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 289DF17B242DDF4F00433CF4 /* CdpDetailMyTopCell.xib */; };
 		289DF180242DDF6A00433CF4 /* CdpDetailMyActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */; };
-		289DF181242DDF6A00433CF4 /* CdpDetailMyActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 289DF17F242DDF6A00433CF4 /* CdpDetailMyActionCell.xib */; };
 		289DF184242DDF8300433CF4 /* CdpDetailAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */; };
-		289DF185242DDF8300433CF4 /* CdpDetailAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 289DF183242DDF8300433CF4 /* CdpDetailAssetsCell.xib */; };
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
 		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
@@ -229,7 +229,7 @@
 		E16D9B24224A083E0019B7BB /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B23224A083E0019B7BB /* KeyboardViewController.swift */; };
 		E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B25224A08510019B7BB /* DecimalViewController.swift */; };
 		E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B27224A08660019B7BB /* AlphabetViewController.swift */; };
-		E16FACAF2361AC0F00372052 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = E16FACAE2361AC0F00372052 /* SwiftPackageProductDependency */; };
+		E16FACAF2361AC0F00372052 /* ed25519swift in Frameworks */ = {isa = PBXBuildFile; productRef = E16FACAE2361AC0F00372052 /* ed25519swift */; };
 		E16FACB12361ADFA00372052 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16FACB02361ADFA00372052 /* Bytes.swift */; };
 		E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06A225B04BD00C5756C /* TransactionViewController.swift */; };
 		E171A06D225B08A000C5756C /* StepDelegateAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06C225B08A000C5756C /* StepDelegateAmountViewController.swift */; };
@@ -377,6 +377,18 @@
 		2838501F2448A6B000E5DEF2 /* TxHtlcClaimCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxHtlcClaimCell.xib; sourceTree = "<group>"; };
 		283850222448A6C600E5DEF2 /* TxHtlcRefundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHtlcRefundCell.swift; sourceTree = "<group>"; };
 		283850232448A6C600E5DEF2 /* TxHtlcRefundCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxHtlcRefundCell.xib; sourceTree = "<group>"; };
+		283A80BF24513DA2008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CdpListPromotionCell.xib; sourceTree = "<group>"; };
+		283A80C224513DA7008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CdpListPromotionCell.strings; sourceTree = "<group>"; };
+		283A80C424513F6F008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CdpListAllCell.xib; sourceTree = "<group>"; };
+		283A80C724513F74008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CdpListAllCell.strings; sourceTree = "<group>"; };
+		283A80C924513FF7008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CdpDetailTopCell.xib; sourceTree = "<group>"; };
+		283A80CC24513FFC008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CdpDetailTopCell.strings; sourceTree = "<group>"; };
+		283A80CE24514194008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CdpDetailMyTopCell.xib; sourceTree = "<group>"; };
+		283A80D124514196008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CdpDetailMyTopCell.strings; sourceTree = "<group>"; };
+		283A80D3245141EB008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CdpDetailMyActionCell.xib; sourceTree = "<group>"; };
+		283A80D6245141F2008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CdpDetailMyActionCell.strings; sourceTree = "<group>"; };
+		283A80D82451436A008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CdpDetailAssetsCell.xib; sourceTree = "<group>"; };
+		283A80DB2451436F008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CdpDetailAssetsCell.strings; sourceTree = "<group>"; };
 		2842AB56242C1DD900248EEB /* CdpListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpListViewController.swift; sourceTree = "<group>"; };
 		2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCdpViewController.swift; sourceTree = "<group>"; };
 		2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCdpViewController.swift; sourceTree = "<group>"; };
@@ -387,11 +399,9 @@
 		2842AB64242C396700248EEB /* KavaTokenPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaTokenPrice.swift; sourceTree = "<group>"; };
 		2842AB66242C3ED900248EEB /* KavaTokenPriceParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaTokenPriceParam.swift; sourceTree = "<group>"; };
 		2842AB68242C5AF100248EEB /* CdpListPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpListPromotionCell.swift; sourceTree = "<group>"; };
-		2842AB69242C5AF100248EEB /* CdpListPromotionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpListPromotionCell.xib; sourceTree = "<group>"; };
 		2842AB6C242C5C7200248EEB /* CdpLisyMyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpLisyMyCell.swift; sourceTree = "<group>"; };
 		2842AB6D242C5C7200248EEB /* CdpLisyMyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpLisyMyCell.xib; sourceTree = "<group>"; };
 		2842AB70242C7C8A00248EEB /* CdpListAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpListAllCell.swift; sourceTree = "<group>"; };
-		2842AB71242C7C8A00248EEB /* CdpListAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpListAllCell.xib; sourceTree = "<group>"; };
 		28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxWithDrawCdpCell.xib; sourceTree = "<group>"; };
 		28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxdrawDebtCdpCell.xib; sourceTree = "<group>"; };
 		28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxDepositCdpCell.swift; sourceTree = "<group>"; };
@@ -462,13 +472,9 @@
 		289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailViewController.swift; sourceTree = "<group>"; };
 		289DF16F242DD90300433CF4 /* CdpDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpDetailViewController.xib; sourceTree = "<group>"; };
 		289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailTopCell.swift; sourceTree = "<group>"; };
-		289DF177242DDF3800433CF4 /* CdpDetailTopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpDetailTopCell.xib; sourceTree = "<group>"; };
 		289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyTopCell.swift; sourceTree = "<group>"; };
-		289DF17B242DDF4F00433CF4 /* CdpDetailMyTopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpDetailMyTopCell.xib; sourceTree = "<group>"; };
 		289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyActionCell.swift; sourceTree = "<group>"; };
-		289DF17F242DDF6A00433CF4 /* CdpDetailMyActionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpDetailMyActionCell.xib; sourceTree = "<group>"; };
 		289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailAssetsCell.swift; sourceTree = "<group>"; };
-		289DF183242DDF8300433CF4 /* CdpDetailAssetsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpDetailAssetsCell.xib; sourceTree = "<group>"; };
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
 		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
@@ -730,7 +736,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E16FACAF2361AC0F00372052 /* BuildFile in Frameworks */,
+				E16FACAF2361AC0F00372052 /* ed25519swift in Frameworks */,
 				C10F8E8103FA540DE8D91196 /* Pods_Cosmostation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1212,19 +1218,19 @@
 				283850222448A6C600E5DEF2 /* TxHtlcRefundCell.swift */,
 				283850232448A6C600E5DEF2 /* TxHtlcRefundCell.xib */,
 				2842AB68242C5AF100248EEB /* CdpListPromotionCell.swift */,
-				2842AB69242C5AF100248EEB /* CdpListPromotionCell.xib */,
+				283A80C024513DA2008FF813 /* CdpListPromotionCell.xib */,
 				2842AB6C242C5C7200248EEB /* CdpLisyMyCell.swift */,
 				2842AB6D242C5C7200248EEB /* CdpLisyMyCell.xib */,
 				2842AB70242C7C8A00248EEB /* CdpListAllCell.swift */,
-				2842AB71242C7C8A00248EEB /* CdpListAllCell.xib */,
+				283A80C524513F6F008FF813 /* CdpListAllCell.xib */,
 				289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */,
-				289DF177242DDF3800433CF4 /* CdpDetailTopCell.xib */,
+				283A80CA24513FF7008FF813 /* CdpDetailTopCell.xib */,
 				289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */,
-				289DF17B242DDF4F00433CF4 /* CdpDetailMyTopCell.xib */,
+				283A80CF24514194008FF813 /* CdpDetailMyTopCell.xib */,
 				289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */,
-				289DF17F242DDF6A00433CF4 /* CdpDetailMyActionCell.xib */,
+				283A80D4245141EB008FF813 /* CdpDetailMyActionCell.xib */,
 				289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */,
-				289DF183242DDF8300433CF4 /* CdpDetailAssetsCell.xib */,
+				283A80D92451436A008FF813 /* CdpDetailAssetsCell.xib */,
 				285A33D8244763290052BD3D /* SelectChainCell.swift */,
 				285A33D9244763290052BD3D /* SelectChainCell.xib */,
 				285A33DC2447633D0052BD3D /* SelectAccountCell.swift */,
@@ -1256,7 +1262,7 @@
 			);
 			name = Cosmostation;
 			packageProductDependencies = (
-				E16FACAE2361AC0F00372052 /* SwiftPackageProductDependency */,
+				E16FACAE2361AC0F00372052 /* ed25519swift */,
 			);
 			productName = Cosmostation;
 			productReference = E1945E24222E7C0600A1436F /* Cosmostation.app */;
@@ -1297,7 +1303,7 @@
 			);
 			mainGroup = E1945E1B222E7C0600A1436F;
 			packageReferences = (
-				E16FACAD2361AC0F00372052 /* RemoteSwiftPackageReference */,
+				E16FACAD2361AC0F00372052 /* XCRemoteSwiftPackageReference "ed25519swift" */,
 			);
 			productRefGroup = E1945E25222E7C0600A1436F /* Products */;
 			projectDirPath = "";
@@ -1316,7 +1322,7 @@
 				E126CF9B2387A60D002A546F /* WalletPriceCell.xib in Resources */,
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
 				E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */,
-				289DF179242DDF3800433CF4 /* CdpDetailTopCell.xib in Resources */,
+				283A80C824513FF7008FF813 /* CdpDetailTopCell.xib in Resources */,
 				282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */,
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
@@ -1337,7 +1343,7 @@
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */,
 				285A33EB24486DB60052BD3D /* HtlcResultClaimCell.xib in Resources */,
-				289DF185242DDF8300433CF4 /* CdpDetailAssetsCell.xib in Resources */,
+				283A80D72451436A008FF813 /* CdpDetailAssetsCell.xib in Resources */,
 				E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */,
 				28474ECF241E06AF00AF5A81 /* TxRepayCdpCell.xib in Resources */,
 				E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */,
@@ -1351,18 +1357,18 @@
 				E16B89162341C558003E0922 /* TokenCell.xib in Resources */,
 				282FF34223F4FFD20028CC66 /* TxCommissionCell.xib in Resources */,
 				E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */,
-				289DF181242DDF6A00433CF4 /* CdpDetailMyActionCell.xib in Resources */,
+				283A80D2245141EB008FF813 /* CdpDetailMyActionCell.xib in Resources */,
 				28474ECB241E06AF00AF5A81 /* TxWithDrawCdpCell.xib in Resources */,
 				2842AB6F242C5C7200248EEB /* CdpLisyMyCell.xib in Resources */,
 				E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */,
 				E103DACE22813248006C2146 /* WalletDetailViewController.xib in Resources */,
 				282FF35223F5172E0028CC66 /* TxTransferCell.xib in Resources */,
-				2842AB73242C7C8A00248EEB /* CdpListAllCell.xib in Resources */,
+				283A80C324513F6F008FF813 /* CdpListAllCell.xib in Resources */,
 				E126CFA02387A643002A546F /* WalletInflationCell.xib in Resources */,
 				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
 				285A33D724475DC00052BD3D /* SelectPopupViewController.xib in Resources */,
 				289DF171242DD90300433CF4 /* CdpDetailViewController.xib in Resources */,
-				2842AB6B242C5AF100248EEB /* CdpListPromotionCell.xib in Resources */,
+				283A80BE24513DA2008FF813 /* CdpListPromotionCell.xib in Resources */,
 				2838501D2448A69D00E5DEF2 /* TxHtlcCreateCell.xib in Resources */,
 				E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */,
 				E17748FA22842689003D8CD1 /* AllValidatorCell.xib in Resources */,
@@ -1389,7 +1395,7 @@
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				282FF34623F5062A0028CC66 /* TxDelegateCell.xib in Resources */,
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
-				289DF17D242DDF4F00433CF4 /* CdpDetailMyTopCell.xib in Resources */,
+				283A80CD24514194008FF813 /* CdpDetailMyTopCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
 				E126CFB92387A7F4002A546F /* TokenDetailHeaderCustomCell.xib in Resources */,
 				E103DAAF22812773006C2146 /* ValidatorDetailHistoryEmpty.xib in Resources */,
@@ -1703,6 +1709,60 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		283A80C024513DA2008FF813 /* CdpListPromotionCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				283A80BF24513DA2008FF813 /* Base */,
+				283A80C224513DA7008FF813 /* ko */,
+			);
+			name = CdpListPromotionCell.xib;
+			sourceTree = "<group>";
+		};
+		283A80C524513F6F008FF813 /* CdpListAllCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				283A80C424513F6F008FF813 /* Base */,
+				283A80C724513F74008FF813 /* ko */,
+			);
+			name = CdpListAllCell.xib;
+			sourceTree = "<group>";
+		};
+		283A80CA24513FF7008FF813 /* CdpDetailTopCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				283A80C924513FF7008FF813 /* Base */,
+				283A80CC24513FFC008FF813 /* ko */,
+			);
+			name = CdpDetailTopCell.xib;
+			sourceTree = "<group>";
+		};
+		283A80CF24514194008FF813 /* CdpDetailMyTopCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				283A80CE24514194008FF813 /* Base */,
+				283A80D124514196008FF813 /* ko */,
+			);
+			name = CdpDetailMyTopCell.xib;
+			sourceTree = "<group>";
+		};
+		283A80D4245141EB008FF813 /* CdpDetailMyActionCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				283A80D3245141EB008FF813 /* Base */,
+				283A80D6245141F2008FF813 /* ko */,
+			);
+			name = CdpDetailMyActionCell.xib;
+			sourceTree = "<group>";
+		};
+		283A80D92451436A008FF813 /* CdpDetailAssetsCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				283A80D82451436A008FF813 /* Base */,
+				283A80DB2451436F008FF813 /* ko */,
+			);
+			name = CdpDetailAssetsCell.xib;
+			sourceTree = "<group>";
+		};
 		2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2236,7 +2296,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E16FACAD2361AC0F00372052 /* RemoteSwiftPackageReference */ = {
+		E16FACAD2361AC0F00372052 /* XCRemoteSwiftPackageReference "ed25519swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pebble8888/ed25519swift.git";
 			requirement = {
@@ -2247,9 +2307,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E16FACAE2361AC0F00372052 /* SwiftPackageProductDependency */ = {
+		E16FACAE2361AC0F00372052 /* ed25519swift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E16FACAD2361AC0F00372052 /* RemoteSwiftPackageReference */;
+			package = E16FACAD2361AC0F00372052 /* XCRemoteSwiftPackageReference "ed25519swift" */;
 			productName = ed25519swift;
 		};
 /* End XCSwiftPackageProductDependency section */
