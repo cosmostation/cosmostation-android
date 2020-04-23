@@ -46,6 +46,8 @@
 		283A80CD24514194008FF813 /* CdpDetailMyTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80CF24514194008FF813 /* CdpDetailMyTopCell.xib */; };
 		283A80D2245141EB008FF813 /* CdpDetailMyActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80D4245141EB008FF813 /* CdpDetailMyActionCell.xib */; };
 		283A80D72451436A008FF813 /* CdpDetailAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80D92451436A008FF813 /* CdpDetailAssetsCell.xib */; };
+		283A80DC24514AB8008FF813 /* RiskCheckPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80DE24514AB8008FF813 /* RiskCheckPopupViewController.xib */; };
+		283A80E124514BD0008FF813 /* CdpDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80E324514BD0008FF813 /* CdpDetailViewController.xib */; };
 		2842AB57242C1DD900248EEB /* CdpListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB56242C1DD900248EEB /* CdpListViewController.swift */; };
 		2842AB59242C1DFC00248EEB /* MyCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */; };
 		2842AB5B242C1E0900248EEB /* AllCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */; };
@@ -125,7 +127,6 @@
 		2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */; };
 		28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908F6823F69BD100164030 /* EdgeInsetLabel.swift */; };
 		289DF170242DD90300433CF4 /* CdpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */; };
-		289DF171242DD90300433CF4 /* CdpDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 289DF16F242DD90300433CF4 /* CdpDetailViewController.xib */; };
 		289DF178242DDF3800433CF4 /* CdpDetailTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */; };
 		289DF17C242DDF4F00433CF4 /* CdpDetailMyTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */; };
 		289DF180242DDF6A00433CF4 /* CdpDetailMyActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */; };
@@ -133,7 +134,6 @@
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
 		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
-		28DB28B92437ADC8002B01A0 /* RiskCheckPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB28B72437ADC8002B01A0 /* RiskCheckPopupViewController.xib */; };
 		C10F8E8103FA540DE8D91196 /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20D291C0AF536BBDAE928C /* Pods_Cosmostation.framework */; };
 		E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAA52281266D006C2146 /* ValidatorDetailCell.xib */; };
 		E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAAC2281274A006C2146 /* ValidatorDetailHistoryHeader.xib */; };
@@ -389,6 +389,10 @@
 		283A80D6245141F2008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CdpDetailMyActionCell.strings; sourceTree = "<group>"; };
 		283A80D82451436A008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CdpDetailAssetsCell.xib; sourceTree = "<group>"; };
 		283A80DB2451436F008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CdpDetailAssetsCell.strings; sourceTree = "<group>"; };
+		283A80DD24514AB8008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RiskCheckPopupViewController.xib; sourceTree = "<group>"; };
+		283A80E024514ABF008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/RiskCheckPopupViewController.strings; sourceTree = "<group>"; };
+		283A80E224514BD0008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CdpDetailViewController.xib; sourceTree = "<group>"; };
+		283A80E524514BD3008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CdpDetailViewController.strings; sourceTree = "<group>"; };
 		2842AB56242C1DD900248EEB /* CdpListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpListViewController.swift; sourceTree = "<group>"; };
 		2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCdpViewController.swift; sourceTree = "<group>"; };
 		2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCdpViewController.swift; sourceTree = "<group>"; };
@@ -470,7 +474,6 @@
 		2877B8FC240E2A0E00EFE369 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/TxDetailViewController.strings; sourceTree = "<group>"; };
 		28908F6823F69BD100164030 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
 		289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailViewController.swift; sourceTree = "<group>"; };
-		289DF16F242DD90300433CF4 /* CdpDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpDetailViewController.xib; sourceTree = "<group>"; };
 		289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailTopCell.swift; sourceTree = "<group>"; };
 		289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyTopCell.swift; sourceTree = "<group>"; };
 		289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyActionCell.swift; sourceTree = "<group>"; };
@@ -478,7 +481,6 @@
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
 		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
-		28DB28B72437ADC8002B01A0 /* RiskCheckPopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskCheckPopupViewController.xib; sourceTree = "<group>"; };
 		90C3507019D5FF972346F7F1 /* Pods-Cosmostation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.debug.xcconfig"; path = "Target Support Files/Pods-Cosmostation/Pods-Cosmostation.debug.xcconfig"; sourceTree = "<group>"; };
 		9EC4E60C313BD1F7C37E2232 /* Pods-Cosmostation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.release.xcconfig"; path = "Target Support Files/Pods-Cosmostation/Pods-Cosmostation.release.xcconfig"; sourceTree = "<group>"; };
 		BB20D291C0AF536BBDAE928C /* Pods_Cosmostation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cosmostation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -885,7 +887,7 @@
 				2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */,
 				2815AA7524349DF2008B23AA /* StepRepayCdpCheckViewController.swift */,
 				28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */,
-				28DB28B72437ADC8002B01A0 /* RiskCheckPopupViewController.xib */,
+				283A80DE24514AB8008FF813 /* RiskCheckPopupViewController.xib */,
 				285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */,
 				285A33CE2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift */,
 				285A33D02446CDAB0052BD3D /* StepHtlcSend2ViewController.swift */,
@@ -999,7 +1001,7 @@
 				2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */,
 				2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */,
 				289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */,
-				289DF16F242DD90300433CF4 /* CdpDetailViewController.xib */,
+				283A80E324514BD0008FF813 /* CdpDetailViewController.xib */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1353,7 +1355,7 @@
 				2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */,
 				283850212448A6B000E5DEF2 /* TxHtlcClaimCell.xib in Resources */,
 				2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */,
-				28DB28B92437ADC8002B01A0 /* RiskCheckPopupViewController.xib in Resources */,
+				283A80DC24514AB8008FF813 /* RiskCheckPopupViewController.xib in Resources */,
 				E16B89162341C558003E0922 /* TokenCell.xib in Resources */,
 				282FF34223F4FFD20028CC66 /* TxCommissionCell.xib in Resources */,
 				E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */,
@@ -1367,7 +1369,7 @@
 				E126CFA02387A643002A546F /* WalletInflationCell.xib in Resources */,
 				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
 				285A33D724475DC00052BD3D /* SelectPopupViewController.xib in Resources */,
-				289DF171242DD90300433CF4 /* CdpDetailViewController.xib in Resources */,
+				283A80E124514BD0008FF813 /* CdpDetailViewController.xib in Resources */,
 				283A80BE24513DA2008FF813 /* CdpListPromotionCell.xib in Resources */,
 				2838501D2448A69D00E5DEF2 /* TxHtlcCreateCell.xib in Resources */,
 				E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */,
@@ -1761,6 +1763,24 @@
 				283A80DB2451436F008FF813 /* ko */,
 			);
 			name = CdpDetailAssetsCell.xib;
+			sourceTree = "<group>";
+		};
+		283A80DE24514AB8008FF813 /* RiskCheckPopupViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				283A80DD24514AB8008FF813 /* Base */,
+				283A80E024514ABF008FF813 /* ko */,
+			);
+			name = RiskCheckPopupViewController.xib;
+			sourceTree = "<group>";
+		};
+		283A80E324514BD0008FF813 /* CdpDetailViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				283A80E224514BD0008FF813 /* Base */,
+				283A80E524514BD3008FF813 /* ko */,
+			);
+			name = CdpDetailViewController.xib;
 			sourceTree = "<group>";
 		};
 		2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */ = {

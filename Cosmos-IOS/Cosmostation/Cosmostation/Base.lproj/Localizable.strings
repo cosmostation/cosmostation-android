@@ -172,7 +172,7 @@
 "collateral_value_format" = "%@ Collateral Value";
 "withdrawable_format" = "Withdrawable %@";
 "before_liquidation_price_format" = "Initial Liquidation %@ Price";
-"after_liquidation_price_format" = "Adjusted Liquidation %@ Price";
+"after_liquidation_price_format" = "Expected Liquidation %@ Price";
 "select_destination_chain" = "Select Destination Chain";
 "select_account" = "Select Account";
 "no_account" = "No %@ Account";

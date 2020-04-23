@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7tx-Mt-IvT" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                         <rect key="frame" x="12" y="4" width="296" height="486"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="txstake" translatesAutoresizingMaskIntoConstraints="NO" id="dXI-Fm-rz7">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="txCreateCdp" translatesAutoresizingMaskIntoConstraints="NO" id="dXI-Fm-rz7">
                                 <rect key="frame" x="16" y="16" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="2gf-hp-FN0"/>
@@ -530,10 +530,10 @@
     <resources>
         <image name="questionIc" width="14" height="14"/>
         <image name="tokenIc" width="22" height="22"/>
+        <image name="txCreateCdp" width="28" height="28"/>
         <image name="txDepositCdps" width="20" height="20"/>
         <image name="txDrawDebtCdps" width="20" height="20"/>
         <image name="txRepayCdps" width="20" height="20"/>
         <image name="txWithdrawCdps" width="20" height="20"/>
-        <image name="txstake" width="28" height="28"/>
     </resources>
 </document>
