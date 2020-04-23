@@ -384,6 +384,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_API_TEST_HISTORY + address
+            print("url ", url)
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in

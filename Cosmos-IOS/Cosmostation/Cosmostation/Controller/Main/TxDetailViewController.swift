@@ -665,6 +665,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_TX + txHash
+            print("url ", url)
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         }

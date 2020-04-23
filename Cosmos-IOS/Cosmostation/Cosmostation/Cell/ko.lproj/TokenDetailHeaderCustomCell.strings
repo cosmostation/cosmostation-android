@@ -3,7 +3,8 @@
 "0ix-SS-Cfs.text" = "SYMBOL";
 
 /* Class = "UIButton"; normalTitle = "  SEND"; ObjectID = "6lj-4E-pVd"; */
-"6lj-4E-pVd.normalTitle" = "  송금하기";
+"Fj1-l0-i5s.normalTitle" = "  보내기";
+"ED2-mL-eZe.normalTitle" = "  받기";
 
 /* Class = "UILabel"; text = "--"; ObjectID = "6tq-h6-KG4"; */
 "6tq-h6-KG4.text" = "--";
@@ -22,3 +23,5 @@
 
 /* Class = "UILabel"; text = "--"; ObjectID = "ZtS-bm-FME"; */
 "ZtS-bm-FME.text" = "--";
+
+"PCe-5j-woO.normalTitle" = "  인터체인";

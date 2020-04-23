@@ -3,7 +3,7 @@
 "CoD-Q7-H9G.text" = "사용 가능 수량";
 
 /* Class = "UIButton"; normalTitle = "  Wallet Connect"; ObjectID = "EPy-3i-rbp"; */
-"EPy-3i-rbp.normalTitle" = "  지갑 연결";
+"viC-zz-37S.normalTitle" = "  지갑 연결";
 
 /* Class = "UILabel"; text = "BNB"; ObjectID = "KmH-Wp-0hO"; */
 "KmH-Wp-0hO.text" = "BNB";
@@ -22,3 +22,5 @@
 
 /* Class = "UILabel"; text = "--"; ObjectID = "tcf-Me-1A3"; */
 "tcf-Me-1A3.text" = "--";
+
+"YCU-OQ-skY.normalTitle" = "  인터체인";
