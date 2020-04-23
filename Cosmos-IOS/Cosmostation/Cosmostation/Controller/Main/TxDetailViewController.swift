@@ -106,6 +106,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     func onShowErrorView(_ code: Int) {
         print("onShowErrorView")
         var logMsg = ""
