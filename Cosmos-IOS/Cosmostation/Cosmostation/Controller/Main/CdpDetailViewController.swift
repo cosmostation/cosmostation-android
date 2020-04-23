@@ -423,12 +423,12 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
 //            print("kAvailable ", kAvailable)
             
             if ((mMyCdps) != nil) {
-                emptyConstraint.isActive = false
-                owenConstraint.isActive = true
+                emptyConstraint?.isActive = false
+                owenConstraint?.isActive = true
                 createCdpBtn.isHidden = true
             } else {
-                emptyConstraint.isActive = true
-                owenConstraint.isActive = false
+                emptyConstraint?.isActive = true
+                owenConstraint?.isActive = false
                 createCdpBtn.isHidden = false
             }
             self.cdpDetailTableView.reloadData()

@@ -33,13 +33,13 @@
 "Zeg-ll-e4D.text" = "SAFE";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "fle-8Z-Hef"; */
-"fle-8Z-Hef.normalTitle" = "Cancel";
+"fle-8Z-Hef.normalTitle" = "취소";
 
 /* Class = "UILabel"; text = "123213"; ObjectID = "g5M-Vg-mRv"; */
 "g5M-Vg-mRv.text" = "123213";
 
 /* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "kJH-By-IC4"; */
-"kJH-By-IC4.normalTitle" = "Continue";
+"kJH-By-IC4.normalTitle" = "계속";
 
 /* Class = "UILabel"; text = "123213"; ObjectID = "wH4-3I-66F"; */
 "wH4-3I-66F.text" = "123213";

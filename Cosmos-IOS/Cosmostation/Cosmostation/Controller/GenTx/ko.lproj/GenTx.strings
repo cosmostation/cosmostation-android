@@ -942,9 +942,48 @@
 
 
 "nzj-NR-nfE.text" = "담보물 수량";
-
 "NwB-Fd-LCV.text" = "대출 금액";
-
 "hbz-ZY-Iar.text" = "Tx 수수료";
-
 "sN2-sN-PQZ.text" = "청산 위험도";
+"TJD-bQ-zRv.text" = "메모";
+"Rwn-Lb-6S4.normalTitle" = "이전";
+"InX-aN-k1Z.normalTitle" = "확인";
+
+
+"OfD-XI-5f6.text" = "추가 담보물 수량";
+"23r-Lh-cZY.text" = "Tx 수수료";
+"xqd-FR-8DD.text" = "청산 위험도";
+"Zqq-uh-MZj.text" = "예상 총 담보 수량";
+"o5d-Hu-fNc.text" = "메모";
+"Zfi-Lp-ccV.normalTitle" = "이전";
+"sTD-yx-C1a.normalTitle" = "확인";
+
+
+"88l-Ha-o0r.text" = "담보 출금 수량";
+"l7w-IN-052.text" = "Tx 수수료";
+"rU0-vd-Da8.text" = "청산 위험도";
+"mXz-T1-piS.text" = "예상 총 담보 수량";
+"wdS-35-Z75.text" = "메모";
+"4Tx-3r-1eO.normalTitle" = "이전";
+"Vz3-2l-3xc.normalTitle" = "확인";
+
+
+"dxV-Fe-QgR.text" = "추가 대출 금액";
+"A0S-tF-sTX.text" = "Tx 수수료";
+"SnQ-jo-7b6.text" = "청산 위험도";
+"HhL-oC-ZQ9.text" = "예상 총 대출 금액";
+"LB7-wZ-gHc.text" = "메모";
+"y5z-cB-2Ka.normalTitle" = "이전";
+"GJM-U1-LcF.normalTitle" = "확인";
+
+
+"fNC-5H-geC.text" = "부분 상환 : ";
+"as1-fd-Ylb.text" = "전체 상환 : ";
+"WMw-tG-gxL.text" = "상환 금액";
+"02G-4v-z6m.text" = "Tx 수수료";
+"epp-6j-x9h.text" = "청산 위험도";
+"Pmt-UT-02b.text" = "예상 대출 잔액";
+"5xp-JW-DxR.text" = "메모";
+"J34-R6-Cl1.text" = "이 CDP는 닫하게 됩니다.\n모든 담보물은 원 주인에게 돌아갑니다.";
+"uiG-LZ-0Pg.normalTitle" = "이전";
+"cts-55-2WV.normalTitle" = "확인";
