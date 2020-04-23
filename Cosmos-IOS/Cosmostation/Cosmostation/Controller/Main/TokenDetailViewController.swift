@@ -388,7 +388,10 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.tokenName.text = balance?.balance_denom
             cell?.totalAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.totalAmount.font, WUtils.getKavaCoinDecimal(balance!.balance_denom), WUtils.getKavaCoinDecimal(balance!.balance_denom))
             cell?.availableAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.availableAmount.font, WUtils.getKavaCoinDecimal(balance!.balance_denom), WUtils.getKavaCoinDecimal(balance!.balance_denom))
-            cell?.totalValue.attributedText = WUtils.dpAtomValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            
+            let tokenTotalValue = balance!.kavaTokenDollorValue(BaseData.instance.mKavaPrice)
+            let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
+            cell?.totalValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.totalValue.font)
             let url = KAVA_COIN_IMG_URL + balance!.balance_denom + ".png"
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.actionSend  = {
