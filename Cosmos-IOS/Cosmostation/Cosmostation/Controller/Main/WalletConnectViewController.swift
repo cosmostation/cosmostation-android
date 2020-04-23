@@ -147,7 +147,13 @@ class WalletConnectViewController: BaseViewController {
         let pKey = WKey.getHDKeyFromWords(words, account!)
         let extendPKey = PrivateKey.init(data: pKey.privateKey().raw, network: .testnet, isPublicKeyCompressed: false)
         let pubKeyString = extendPKey.publicKey().raw.dataToHexString()
-        let bnbWallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+    
+        var bnbWallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+        if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            bnbWallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+        } else {
+            bnbWallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
+        }
 
         bnbWallet.synchronise(){ (error) in
             if let _ = error {
