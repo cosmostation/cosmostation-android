@@ -384,7 +384,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("bnbToken", WUtil.getBnbMainToken(mBnbTokens));
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_IOV).compareTo(new BigDecimal("0.5")) > 0) {
+            if (WDp.getAvailableCoin(balances, COSMOS_IOV).compareTo(new BigDecimal("500000000")) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("iovDenom", COSMOS_IOV);

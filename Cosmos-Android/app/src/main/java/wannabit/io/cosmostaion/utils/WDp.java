@@ -156,7 +156,7 @@ public class WDp {
                 denomTv.setText(symbol.toUpperCase());
 
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 9));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 9, 9));
         } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             if (symbol.equals(COSMOS_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);

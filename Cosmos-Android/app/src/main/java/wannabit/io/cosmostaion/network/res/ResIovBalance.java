@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class ResIovBalance {
@@ -19,6 +20,15 @@ public class ResIovBalance {
                 return "" + whole + "." + fractional;
             }
             return "0";
+        }
+
+        public BigDecimal getAmount(String denom) {
+            if (denom.equals(ticker)) {
+                BigDecimal temp = new BigDecimal("" + whole + "." + fractional);
+                return temp.movePointRight(9);
+            }
+            return BigDecimal.ZERO;
+
         }
 
     }

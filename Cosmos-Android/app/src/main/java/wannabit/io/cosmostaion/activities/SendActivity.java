@@ -84,7 +84,6 @@ public class SendActivity extends BaseActivity {
         mIrisToken = getIntent().getParcelableExtra("irisToken");
         mBnbToken = getIntent().getParcelableExtra("bnbToken");
         mBnbTics = (HashMap<String, ResBnbTic>)getIntent().getSerializableExtra("bnbTics");
-//        mIovToken = getIntent().getParcelableExtra("iovToken");
         mKavaDenom = getIntent().getStringExtra("kavaDenom");
         mIovDenom = getIntent().getStringExtra("iovDenom");
 
@@ -98,7 +97,6 @@ public class SendActivity extends BaseActivity {
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (mBnbToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-//            if (mIovToken == null) onBackPressed();
             if (TextUtils.isEmpty(mIovDenom)) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (TextUtils.isEmpty(mKavaDenom)) onBackPressed();

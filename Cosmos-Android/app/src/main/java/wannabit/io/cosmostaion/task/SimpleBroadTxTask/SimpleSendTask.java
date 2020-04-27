@@ -3,9 +3,12 @@ package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 import com.github.orogvany.bip32.wallet.HdAddress;
 
 import org.bitcoinj.crypto.DeterministicKey;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -21,6 +24,8 @@ import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
+import wannabit.io.cosmostaion.network.res.ResIovNonce;
+import wannabit.io.cosmostaion.network.res.ResIovSubmitTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -68,7 +73,6 @@ public class SimpleSendTask extends CommonTask {
                 return mResult;
             }
 
-            int iovNonce = 0;
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(!accountResponse.isSuccessful()) {
@@ -110,15 +114,34 @@ public class SimpleSendTask extends CommonTask {
                 mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_MAIN)) {
-                iovNonce = 2;
+                Response<ResIovNonce> response = ApiClient.getIovChain(mApp).getNonce(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mAccount.sequenceNumber = response.body().model.sequence;
             }
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
 
+
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_MAIN)) {
                 HdAddress dKey = WKey.getEd25519KeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path));
-                String toSendReq = MsgGenerator.getIovTransferTx(iovNonce, mAccount.address, mToAddress, mToSendAmount, mToFees, mToSendMemo, dKey);
-                WLog.w("toSendReq " + toSendReq);
+                RequestBody toSendReq = MsgGenerator.getIovTransferTx(mAccount.sequenceNumber, mAccount.address, mToAddress, mToSendAmount, mToFees, mToSendMemo, dKey);
+                Response<ResIovSubmitTx> response = ApiClient.getIovChain(mApp).broadTx(toSendReq).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    if (response.body().hash != null) {
+                        mResult.resultData = response.body().hash;
+                    }
+                    if(response.body().code != 0) {
+                        mResult.errorCode = response.body().code;
+                        mResult.errorMsg = response.body().log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
+                } else {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                }
 
             } else {
                 DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);

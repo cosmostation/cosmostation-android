@@ -585,19 +585,19 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV) != null) {
                 Balance iovToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV);
-                mTvIovTotal.setText(WDp.getDpAmount2(getContext(), iovToken.balance, 0, 6));
-                mTvIovAvailable.setText(WDp.getDpAmount2(getContext(), iovToken.balance, 0, 6));
+                mTvIovTotal.setText(WDp.getDpAmount2(getContext(), iovToken.balance, 9, 6));
+                mTvIovAvailable.setText(WDp.getDpAmount2(getContext(), iovToken.balance, 9, 6));
                 //TODO no price info yet
                 mTvIovValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
-                mTvIovDeposited.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
-                mTvIovRewards.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
-                getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, iovToken.balance.toPlainString());
+                mTvIovDeposited.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 9, 6));
+                mTvIovRewards.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 9, 6));
+                getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, iovToken.balance.movePointLeft(9).toPlainString());
             } else {
-                mTvIovTotal.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
-                mTvIovAvailable.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
+                mTvIovTotal.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 9, 6));
+                mTvIovAvailable.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 9, 6));
                 mTvIovValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
-                mTvIovDeposited.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
-                mTvIovRewards.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
+                mTvIovDeposited.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 9, 6));
+                mTvIovRewards.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 9, 6));
                 getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, BigDecimal.ZERO.toPlainString());
             }
 

@@ -341,7 +341,8 @@ public class WUtil {
                 Balance temp = new Balance();
                 temp.accountId = accountId;
                 temp.symbol = coin.ticker;
-                temp.balance = new BigDecimal(coin.getDpAmount(coin.ticker));
+//                temp.balance = new BigDecimal(coin.getDpAmount(coin.ticker));
+                temp.balance = new BigDecimal(coin.getAmount(coin.ticker).toPlainString());
                 temp.fetchTime = time;
                 result.add(temp);
             }

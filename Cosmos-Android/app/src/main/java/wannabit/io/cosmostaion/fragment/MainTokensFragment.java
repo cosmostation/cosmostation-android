@@ -292,7 +292,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                     totalIovAmount = totalIovAmount.add(balance.balance);
                 }
             }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalIovAmount, 0, 6));
+            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalIovAmount, 9, 6));
             mTotalValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
         }
 
@@ -530,7 +530,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IOV_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(balance.symbol);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 0, 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 9, 6));
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
             holder.itemValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
         } else {

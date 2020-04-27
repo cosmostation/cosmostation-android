@@ -102,7 +102,7 @@ public enum BaseChain {
         result.add(IRIS_MAIN);
         result.add(BNB_MAIN);
         result.add(KAVA_MAIN);
-//        result.add(IOV_MAIN);
+        result.add(IOV_MAIN);
         result.add(BNB_TEST);
         result.add(KAVA_TEST);
         return result;
