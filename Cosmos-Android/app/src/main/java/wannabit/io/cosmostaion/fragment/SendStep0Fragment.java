@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -17,13 +18,22 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResIovOriginAddress;
 import wannabit.io.cosmostaion.utils.WKey;
 
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
     private EditText        mAddressInput;
     private Button          mCancel, mNextBtn;
@@ -63,52 +73,89 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.equals(mNextBtn)) {
-            String targetAddress = mAddressInput.getText().toString().trim();
-            if (getSActivity().mAccount.address.equals(targetAddress)) {
+            String userInput = mAddressInput.getText().toString().trim();
+            if (getSActivity().mAccount.address.equals(userInput)) {
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            //Check Support IOV starname service
+            if (BaseChain.SUPPORT_CHAINS().contains(IOV_MAIN) && userInput.contains("*")) {
+                getSActivity().onShowWaitDialog();
+                ApiClient.getIovChain(getSActivity()).getOriginAddress(userInput).enqueue(new Callback<ResIovOriginAddress>() {
+                    @Override
+                    public void onResponse(Call<ResIovOriginAddress> call, Response<ResIovOriginAddress> response) {
+                        getSActivity().onHideWaitDialog();
+                        if(response.isSuccessful() && response.body() != null) {
+                            String originAddress = response.body().getOriginAddress(getSActivity().mBaseChain);
+                            if (!TextUtils.isEmpty(originAddress)) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("starname", userInput);
+                                bundle.putString("originAddress", originAddress);
+                                Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
+                                dialog.setCancelable(true);
+                                dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+                            } else {
+                                Toast.makeText(getContext(), R.string.error_invalid_star_name, Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            Toast.makeText(getContext(), R.string.error_invalid_star_name, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResIovOriginAddress> call, Throwable t) {
+                        getSActivity().onHideWaitDialog();
+                        Toast.makeText(getContext(), R.string.error_invalid_star_name, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return;
+            }
+
+
             if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                if (targetAddress.startsWith("cosmos") && WKey.isValidBech32(targetAddress)) {
-                    getSActivity().mTagetAddress = targetAddress;
+                if (userInput.startsWith("cosmos") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_cosmos_address, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                if (targetAddress.startsWith("iaa") && WKey.isValidBech32(targetAddress)) {
-                    getSActivity().mTagetAddress = targetAddress;
+                if (userInput.startsWith("iaa") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_iris_address, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                if (targetAddress.startsWith("bnb") && WKey.isValidBech32(targetAddress)) {
-                    getSActivity().mTagetAddress = targetAddress;
+                if (userInput.startsWith("bnb") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_bnb_address, Toast.LENGTH_SHORT).show();
                 }
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-                if (targetAddress.startsWith("kava") && WKey.isValidBech32(targetAddress)) {
-                    getSActivity().mTagetAddress = targetAddress;
+                if (userInput.startsWith("kava") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_kava_address, Toast.LENGTH_SHORT).show();
                 }
             } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
-                if (targetAddress.startsWith("iov") && WKey.isValidBech32(targetAddress)) {
-                    getSActivity().mTagetAddress = targetAddress;
+                if (userInput.startsWith("iov") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_iov_address, Toast.LENGTH_SHORT).show();
                 }
             } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
-                if (targetAddress.startsWith("tbnb") && WKey.isValidBech32(targetAddress)) {
-                    getSActivity().mTagetAddress = targetAddress;
+                if (userInput.startsWith("tbnb") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_bnb_address, Toast.LENGTH_SHORT).show();
@@ -153,14 +200,23 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() != null) {
-                mAddressInput.setText(result.getContents().trim());
-                mAddressInput.setSelection(mAddressInput.getText().length());
+        if (requestCode == SELECT_STAR_NAME_ADDRESS) {
+            if (resultCode == Activity.RESULT_OK) {
+                getSActivity().mStarName = data.getStringExtra("starname");
+                getSActivity().mTagetAddress = data.getStringExtra("originAddress");
+                getSActivity().onNextStep();
             }
+
         } else {
-            super.onActivityResult(requestCode, resultCode, data);
+            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if(result != null) {
+                if(result.getContents() != null) {
+                    mAddressInput.setText(result.getContents().trim());
+                    mAddressInput.setSelection(mAddressInput.getText().length());
+                }
+            } else {
+                super.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 }

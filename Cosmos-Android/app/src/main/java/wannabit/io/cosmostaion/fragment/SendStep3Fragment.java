@@ -196,7 +196,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iov));
 
             mMinFeeAmount.setText(WDp.getDpString(FEE_IOV_SEND, 9));
-            mFeeAmount = new BigDecimal(FEE_IOV_SEND);
+            mFeeAmount = new BigDecimal(FEE_IOV_SEND).movePointRight(9);
             mMinFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
         }

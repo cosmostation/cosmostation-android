@@ -650,11 +650,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 1) {
             let cell:WalletIovCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
             let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.totalAmount.font, 0, 6)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.availableAmount.font, 0, 6)
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.totalAmount.font, 9, 6)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.availableAmount.font, 9, 6)
             //TODO deposit, rewardand value not support yet
-            cell?.depositedAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.depositedAmount.font, 0, 6)
-            cell?.rewardAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.rewardAmount.font, 0, 6)
+            cell?.depositedAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.depositedAmount.font, 9, 6)
+            cell?.rewardAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.rewardAmount.font, 9, 6)
             cell?.totalValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.totalValue.font)
             cell?.actionDeposit = {
                 self.onClickIovDeposit()
@@ -662,7 +662,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionNameService = {
                 self.onClickIovNameservice()
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalIov.stringValue)
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalIov.multiplying(byPowerOf10: -9).stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -1054,7 +1054,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.5")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "500000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }

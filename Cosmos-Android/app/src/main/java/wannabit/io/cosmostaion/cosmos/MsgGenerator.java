@@ -29,6 +29,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -87,10 +89,11 @@ public class MsgGenerator {
     }
 
     //Send Tx for IOV chain
-    public static String getIovTransferTx(int nonce, String fromAddr, String toAddr, ArrayList<Coin> coins , Fee fee, String memo, HdAddress dKey) {
+    public static RequestBody getIovTransferTx(int nonce, String fromAddr, String toAddr, ArrayList<Coin> coins , Fee fee, String memo, HdAddress dKey) {
 
-        long sendInterPart = WUtil.getQuotient(coins.get(0).amount).longValue();
-        long sendDecimalPart = WUtil.getRemainder(coins.get(0).amount).movePointRight(9).longValue();
+        BigDecimal sendAmount = new BigDecimal(coins.get(0).amount).movePointLeft(9);
+        long sendInterPart = WUtil.getQuotient(sendAmount.toPlainString()).longValue();
+        long sendDecimalPart = WUtil.getRemainder(sendAmount.toPlainString()).movePointRight(9).longValue();
 
         coin.Codec.Coin.Builder sendCoin = coin.Codec.Coin.newBuilder();
         if (sendInterPart >= 0) {
@@ -101,7 +104,7 @@ public class MsgGenerator {
         }
         sendCoin.setTicker(COSMOS_IOV);
 
-        long feeDecimalPart = WUtil.getRemainder(fee.amount.get(0).amount).movePointRight(9).longValue();
+        long feeDecimalPart = Long.parseLong(fee.amount.get(0).amount);
         coin.Codec.Coin.Builder sendFee = coin.Codec.Coin.newBuilder();
         sendFee.setFractional(feeDecimalPart);
         sendFee.setTicker(COSMOS_IOV);
@@ -161,16 +164,14 @@ public class MsgGenerator {
             sendTx.addSignatures(stdSignature);
             bnsd.Codec.Tx resultTx = sendTx.build();
 
-            WLog.w("result " + "0x" + WUtil.ByteArrayToHexString(resultTx.toByteArray()));
-
-            return "0x" + WUtil.ByteArrayToHexString(resultTx.toByteArray());
+            return RequestBody.create(MediaType.parse("text/plain"), Base64.encodeToString(resultTx.toByteArray(), Base64.DEFAULT));
 
         } catch (Exception e) {
             if(IS_SHOWLOG) {
                 WLog.w("IOV getTransferTx " +e);
             }
         }
-        return "";
+        return null;
 
     }
 

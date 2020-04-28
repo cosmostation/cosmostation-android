@@ -53,6 +53,7 @@ public class SendActivity extends BaseActivity {
     private ViewPager               mViewPager;
     private SendPageAdapter         mPageAdapter;
 
+    public String                   mStarName;
     public String                   mTagetAddress;
     public ArrayList<Coin>          mTargetCoins;
     public String                   mTargetMemo;
@@ -60,7 +61,6 @@ public class SendActivity extends BaseActivity {
 
     public IrisToken                    mIrisToken;
     public BnbToken                     mBnbToken;
-//    public IovToken                     mIovToken;
     public HashMap<String, ResBnbTic>   mBnbTics = new HashMap<>();
     public String                       mKavaDenom;
     public String                       mIovDenom;
@@ -84,7 +84,6 @@ public class SendActivity extends BaseActivity {
         mIrisToken = getIntent().getParcelableExtra("irisToken");
         mBnbToken = getIntent().getParcelableExtra("bnbToken");
         mBnbTics = (HashMap<String, ResBnbTic>)getIntent().getSerializableExtra("bnbTics");
-//        mIovToken = getIntent().getParcelableExtra("iovToken");
         mKavaDenom = getIntent().getStringExtra("kavaDenom");
         mIovDenom = getIntent().getStringExtra("iovDenom");
 
@@ -98,7 +97,6 @@ public class SendActivity extends BaseActivity {
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (mBnbToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-//            if (mIovToken == null) onBackPressed();
             if (TextUtils.isEmpty(mIovDenom)) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (TextUtils.isEmpty(mKavaDenom)) onBackPressed();

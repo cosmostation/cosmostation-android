@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
     private RelativeLayout  mTotalSpendLayer;
     private TextView        mTotalSpendAmount, mTotalPrice;
     private TextView        mCurrentBalance, mRemainingBalance, mRemainingPrice;
-    private TextView        mRecipientAddress, mMemo;
+    private TextView        mRecipientAddress, mRecipientStartName, mMemo;
     private Button          mBeforeBtn, mConfirmBtn;
     private TextView        mDenomSendAmount, mDenomFeeType, mDenomTotalSpend, mDenomCurrentAmount, mDenomRemainAmount;
     private int             mDpDecimal = 6;
@@ -58,6 +59,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         mRemainingBalance   = rootView.findViewById(R.id.remaining_available_atom);
         mRemainingPrice     = rootView.findViewById(R.id.remaining_price);
         mRecipientAddress   = rootView.findViewById(R.id.recipient_address);
+        mRecipientStartName = rootView.findViewById(R.id.recipient_starname);
         mMemo               = rootView.findViewById(R.id.memo);
         mBeforeBtn          = rootView.findViewById(R.id.btn_before);
         mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
@@ -195,17 +197,24 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomCurrentAmount);
             WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomRemainAmount);
 
-            mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 0, mDpDecimal));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 9));
-            mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 0, 9));
+            mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, mDpDecimal, mDpDecimal));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+            mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), mDpDecimal, mDpDecimal));
             mTotalPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
             BigDecimal currentAvai  = getSActivity().mAccount.getIovBalance();
-            mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 0, 9));
-            mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 0, 9));
+            mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, mDpDecimal, mDpDecimal));
+            mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), mDpDecimal, mDpDecimal));
             mRemainingPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
         }
         mRecipientAddress.setText(getSActivity().mTagetAddress);
+        if (TextUtils.isEmpty(getSActivity().mStarName)) {
+            mRecipientStartName.setVisibility(View.GONE);
+        } else {
+            mRecipientStartName.setVisibility(View.VISIBLE);
+            mRecipientStartName.setText(getSActivity().mStarName);
+        }
+
         mMemo.setText(getSActivity().mTargetMemo);
     }
 

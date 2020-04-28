@@ -101,6 +101,7 @@
 		28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */; };
 		28474F0B241E06E200AF5A81 /* Qualityscore.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */; };
 		28474F0C241E06E200AF5A81 /* Preregistraion.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */; };
+		28572ED82457CBCB00A7E447 /* IovNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28572ED72457CBCB00A7E447 /* IovNonce.swift */; };
 		285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */; };
 		285A33CF2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33CE2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift */; };
 		285A33D12446CDAB0052BD3D /* StepHtlcSend2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33D02446CDAB0052BD3D /* StepHtlcSend2ViewController.swift */; };
@@ -447,6 +448,7 @@
 		28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration.codec.pb.swift; sourceTree = "<group>"; };
 		28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Qualityscore.codec.pb.swift; sourceTree = "<group>"; };
 		28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preregistraion.codec.pb.swift; sourceTree = "<group>"; };
+		28572ED72457CBCB00A7E447 /* IovNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovNonce.swift; sourceTree = "<group>"; };
 		285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend0ViewController.swift; sourceTree = "<group>"; };
 		285A33CE2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend1ViewController.swift; sourceTree = "<group>"; };
 		285A33D02446CDAB0052BD3D /* StepHtlcSend2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend2ViewController.swift; sourceTree = "<group>"; };
@@ -872,8 +874,8 @@
 				E1069B0F22968E05007517DC /* StepRedelegateCheckViewController.swift */,
 				E1069B11229698BA007517DC /* StepChangeAddressViewController.swift */,
 				E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */,
-				E183EF1E22A75DFC003B3580 /* ReInvestAmountViewController.swift */,
 				E183EF2022A75E09003B3580 /* ReInvestCheckViewController.swift */,
+				E183EF1E22A75DFC003B3580 /* ReInvestAmountViewController.swift */,
 				E1F1CF09239F7D7D004EF8A2 /* VoteSelectViewController.swift */,
 				E1F1CF0B239F7D8D004EF8A2 /* VoteCheckViewController.swift */,
 				E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */,
@@ -1076,6 +1078,7 @@
 				E1406FC12260654F00D9440C /* TxInfo.swift */,
 				E17748E72283D0F4003D8CD1 /* GuideCategory.swift */,
 				E1A699572366D424004CA274 /* IovBalanceInfo.swift */,
+				28572ED72457CBCB00A7E447 /* IovNonce.swift */,
 				28D14E6D2418B7F0002CD42E /* ApiHistory.swift */,
 				2842AB5C242C2D4D00248EEB /* Cdp.swift */,
 				2842AB5E242C2F1800248EEB /* CdpOwen.swift */,
@@ -1586,6 +1589,7 @@
 				28474EFA241E06E200AF5A81 /* Cash.codec.pb.swift in Sources */,
 				E17B214423470950001743D6 /* TokenDetailHeaderBnbCell.swift in Sources */,
 				E1F1CF08239F5737004EF8A2 /* IrisVote.swift in Sources */,
+				28572ED82457CBCB00A7E447 /* IovNonce.swift in Sources */,
 				E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */,
 				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,

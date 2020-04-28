@@ -361,7 +361,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     public void onTaskResponse(TaskResult result) {
         if (result.taskType == BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS) {
             String rewardAddress = (String)result.resultData;
-            if(!TextUtils.isEmpty(rewardAddress)) {
+            if (!TextUtils.isEmpty(rewardAddress)) {
                 mRewardAddress.setText(rewardAddress.trim());
                 if(rewardAddress.equals(mAccount.address)) {
                     mRewardAddress.setTextColor(getResources().getColor(R.color.colorWhite));

@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -42,7 +42,7 @@ let KAVA_TEST_URL                       = "https://lcd-kava-testnet-5000.cosmost
 let KAVA_TEST_API                       = "https://api-kava-testnet-5000.cosmostation.io/";
 
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
-let IOV_REST_URL                        = "https://bnsapi.cluster-mainnet.iov.one/";        // same refer as"https://bnsapi.iov.one"
+let IOV_REST_URL                        = "https://bnsapi.iov.one/";
 let IOV_RPC_URL                         = "https://rpc-iov-mainnet.cosmostation.io/";
 
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
@@ -163,8 +163,10 @@ let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_t
 let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
 let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
 let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
-let IOV_REST_URL_BALANCE                = IOV_REST_URL + "cash/balances";
 
+let IOV_REST_URL_BALANCE                = IOV_REST_URL + "cash/balances";
+let IOV_REST_URL_NONCE                  = IOV_REST_URL + "nonce/address/";
+let IOV_REST_URL_TX_SUBMIT              = IOV_REST_URL + "tx/submit";
 
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
@@ -448,7 +450,7 @@ enum ChainType: String {
         result.append(SUPPORT_CHAIN_IRIS_MAIN)
         result.append(SUPPORT_CHAIN_BINANCE_MAIN)
         result.append(SUPPORT_CHAIN_KAVA_MAIN)
-//        result.append(SUPPORT_CHAIN_IOV_MAIN)
+        result.append(SUPPORT_CHAIN_IOV_MAIN)
         result.append(SUPPORT_CHAIN_BINANCE_TEST)
         result.append(SUPPORT_CHAIN_KAVA_TEST)
         return result

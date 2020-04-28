@@ -23,16 +23,16 @@ public class IovNonceTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-//        try {
-//            Response<ResIovNonce> response = ApiClient.getIovChain(mApp).getNonce(mAccount.address).execute();
-//            if(response.isSuccessful()) {
-//                mResult.isSuccess = true;
-//                mResult.resultData = response.body().nonce;
-//            }
-//
-//        } catch (Exception e) {
-//            WLog.w("IovNonceTask Error " + e.getMessage());
-//        }
+        try {
+            Response<ResIovNonce> response = ApiClient.getIovChain(mApp).getNonce(mAccount.address).execute();
+            if(response.isSuccessful()) {
+                mResult.isSuccess = true;
+                mResult.resultData = response.body().model.sequence;
+            }
+
+        } catch (Exception e) {
+            WLog.w("IovNonceTask Error " + e.getMessage());
+        }
         return mResult;
     }
 }
