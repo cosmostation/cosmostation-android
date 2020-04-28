@@ -53,6 +53,7 @@ public class SendActivity extends BaseActivity {
     private ViewPager               mViewPager;
     private SendPageAdapter         mPageAdapter;
 
+    public String                   mStarName;
     public String                   mTagetAddress;
     public ArrayList<Coin>          mTargetCoins;
     public String                   mTargetMemo;
@@ -60,7 +61,6 @@ public class SendActivity extends BaseActivity {
 
     public IrisToken                    mIrisToken;
     public BnbToken                     mBnbToken;
-//    public IovToken                     mIovToken;
     public HashMap<String, ResBnbTic>   mBnbTics = new HashMap<>();
     public String                       mKavaDenom;
     public String                       mIovDenom;

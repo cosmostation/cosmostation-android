@@ -57,7 +57,7 @@ public enum BaseChain {
                 chainName.equals(BaseChain.KAVA_TEST.chainName)) {
             return KAVA_TEST;
         }
-        return COSMOS_MAIN;
+        return null;
     }
 
     public static String getDpChain(String chain) {
@@ -93,7 +93,7 @@ public enum BaseChain {
         if (chain.equals(BNB_TEST.getChain())) {
             return BNB_TEST.getChain();
         }
-        return COSMOS_MAIN.getChain();
+        return null;
     }
 
     public static ArrayList<BaseChain> SUPPORT_CHAINS() {

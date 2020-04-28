@@ -95,17 +95,17 @@ Please check the error code and message.</string>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEb-VK-FRi">
-                    <rect key="frame" x="57" y="378" width="300" height="150"/>
+                    <rect key="frame" x="47" y="378" width="320" height="150"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_1" translatesAutoresizingMaskIntoConstraints="NO" id="15z-uY-StF" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
-                            <rect key="frame" x="120" y="0.0" width="60" height="60"/>
+                            <rect key="frame" x="130" y="0.0" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="59b-kf-Y2C"/>
                                 <constraint firstAttribute="width" constant="60" id="zhz-YV-iZl"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cdf-vK-UAB">
-                            <rect key="frame" x="10" y="64" width="280" height="69"/>
+                            <rect key="frame" x="10" y="64" width="300" height="55.5"/>
                             <string key="text">Do NOT close!
 Transactions are being submitted to each chain in order.
 Please note that it may take longer than regular transactions.</string>
@@ -115,7 +115,7 @@ Please note that it may take longer than regular transactions.</string>
                             <string key="userLabel">Transaction request submitted successfully.  After a few moments, the full results will be displayed. (Pending times depends on Tx fee.)</string>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/4 Broadcasting interchain send Tx from sending chain." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m4M-VF-the">
-                            <rect key="frame" x="8" y="141" width="284" height="11.5"/>
+                            <rect key="frame" x="8" y="127.5" width="304" height="11.5"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -127,7 +127,7 @@ Please note that it may take longer than regular transactions.</string>
                         <constraint firstItem="m4M-VF-the" firstAttribute="leading" secondItem="fho-Az-ANu" secondAttribute="leading" constant="8" id="7L3-AO-Hef"/>
                         <constraint firstItem="15z-uY-StF" firstAttribute="centerX" secondItem="jEb-VK-FRi" secondAttribute="centerX" id="QP3-eK-ADZ"/>
                         <constraint firstItem="Cdf-vK-UAB" firstAttribute="top" secondItem="15z-uY-StF" secondAttribute="bottom" constant="4" id="c5G-qL-pyd"/>
-                        <constraint firstAttribute="width" constant="300" id="fnI-Ir-xZ7"/>
+                        <constraint firstAttribute="width" constant="320" id="fnI-Ir-xZ7"/>
                         <constraint firstAttribute="height" constant="150" id="itt-ic-Oe1"/>
                         <constraint firstAttribute="trailing" secondItem="Cdf-vK-UAB" secondAttribute="trailing" constant="10" id="kzj-wi-IJe"/>
                         <constraint firstItem="Cdf-vK-UAB" firstAttribute="leading" secondItem="jEb-VK-FRi" secondAttribute="leading" constant="10" id="rRc-Ua-5TP"/>

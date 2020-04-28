@@ -247,6 +247,11 @@
                             android:singleLine="true"
                             android:ellipsize="middle"
                             style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:id="@+id/recipient_starname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/font_ss_12_white"/>
 
                         <TextView
                             android:layout_width="wrap_content"

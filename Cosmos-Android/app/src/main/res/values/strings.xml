@@ -500,6 +500,8 @@
     <string name="str_collateral_withdraw">Withdraw</string>
     <string name="str_principal_drawdebt">Borrow more USDX</string>
     <string name="str_principal_repay">Repay USDX</string>
+    <string name="str_star_name_service">StarName Service</string>
+    <string name="str_star_name">Starname</string>
 
     <string name="str_deposit_amount">Additional Collateral Amount</string>
     <string name="str_loan_amount">Loan Amount</string>
@@ -805,6 +807,7 @@
     <string name="error_invalid_bnb_address">Invalid Binance Address.</string>
     <string name="error_invalid_iov_address">Invalid Iov Address.</string>
     <string name="error_invalid_kava_address">Invalid Kava Address.</string>
+    <string name="error_invalid_star_name">Invalid Start Name.</string>
     <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
     <string name="error_iris_vote_only_validator">This proposal can only vote on validators.</string>
     <string name="error_no_bonding_no_vote">This proposal can only vote on delegators.</string>

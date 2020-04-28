@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.network.res.ResIovNonce;
+import wannabit.io.cosmostaion.network.res.ResIovOriginAddress;
 import wannabit.io.cosmostaion.network.res.ResIovSubmitTx;
 
 public interface IovChain {
@@ -34,6 +35,9 @@ public interface IovChain {
 
         @GET("/nonce/address/{address}")
         Call<ResIovNonce> getNonce(@Path("address") String address);
+
+        @GET("/username/resolve//{starname}")
+        Call<ResIovOriginAddress> getOriginAddress(@Path("starname") String starname);
 
         //Broadcast Tx
         @POST("/tx/submit")
