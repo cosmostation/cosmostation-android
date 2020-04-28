@@ -262,7 +262,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, totalAmount.font, 0, 6)
+            totalAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, totalAmount.font, 9, 6)
             totalValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, totalValue.font)
         }
     }
@@ -444,7 +444,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenDescription.text = balance.balance_denom
             
             let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.tokenAmount.font!, 0, 6)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.tokenAmount.font!, 9, 6)
             //TODO zero value for iov
             cell?.tokenValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.tokenValue.font)
             

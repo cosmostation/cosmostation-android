@@ -198,7 +198,7 @@ class WUtils {
     static func getBalancesWithIov(_ account: Account, _ balanceInfo: IovBalanceInfo) -> Array<Balance> {
         var result = Array<Balance>()
         for iovCoin in balanceInfo.coins {
-            result.append(Balance.init(account.account_id, iovCoin.ticker, iovCoin.getDpAmount(iovCoin.ticker), Date().millisecondsSince1970))
+            result.append(Balance.init(account.account_id, iovCoin.ticker, iovCoin.getAmount(iovCoin.ticker).stringValue, Date().millisecondsSince1970))
         }
         return result;
     }

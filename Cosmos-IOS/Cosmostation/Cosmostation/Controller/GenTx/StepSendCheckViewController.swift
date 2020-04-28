@@ -168,14 +168,14 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             mDpDecimal = 9
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, mDpDecimal)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 9, mDpDecimal)
             if (toSendDenom == IOV_MAIN_DENOM) {
                 currentAva = pageHolderVC.mAccount!.getIovBalance()
-                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, mDpDecimal)
-                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 0, mDpDecimal)
+                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 9, mDpDecimal)
+                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 9, mDpDecimal)
                 
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, mDpDecimal)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, mDpDecimal)
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 9, mDpDecimal)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 9, mDpDecimal)
                 
                 mTotalSpendPrice.attributedText = WUtils.dpValue(NSDecimalNumber.zero, mTotalSpendPrice.font)
                 mReminaingPrice.attributedText = WUtils.dpValue(NSDecimalNumber.zero, mReminaingPrice.font)
@@ -216,9 +216,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-            //TODO check nonce for sign
-            self.onGenIovSendTx(2)
-            return
+            url = IOV_REST_URL_NONCE + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -261,11 +259,21 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
                     self.onGenSendTx()
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+                    guard  let info = res as? [String : Any] else {
+                        self.hideWaittingAlert()
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return
+                    }
+                    let nonceInfo = IovNonce.init(info)
+                    self.onGenIovSendTx(nonceInfo.model!.sequence)
                 }
                 
-            case .failure( _):
+            case .failure(let error):
                 self.hideWaittingAlert()
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
             }
         }
     }
@@ -371,9 +379,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                                 txResult = result
                             }
                         case .failure(let error):
-                            if(SHOW_LOG) {
-                                print("send error ", error)
-                            }
+                            if(SHOW_LOG) { print("send error ", error) }
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500
                             }
@@ -471,25 +477,49 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func onGenIovSendTx(_ nonce:Int64) {
         DispatchQueue.global().async {
-//            var stdTx:StdTx!
+            var txString: String?
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
+            let path = IOV_BASE_PATH.appending(self.pageHolderVC.mAccount!.account_path).appending("'")
+            let pKey = WKey.deriveForPath(path, words)
+            txString = MsgGenerator.genIovSendTx(nonce,
+                                                 self.pageHolderVC.mAccount!.account_address,
+                                                 self.pageHolderVC.mToSendRecipientAddress!,
+                                                 self.pageHolderVC.mToSendAmount,
+                                                 self.pageHolderVC.mFee!,
+                                                 self.pageHolderVC.mMemo!,
+                                                 pKey!)
             
-            do {
-                let path = IOV_BASE_PATH.appending(self.pageHolderVC.mAccount!.account_path).appending("'")
-                let pKey = WKey.deriveForPath(path, words)
-                let txString = MsgGenerator.genIovSendTx(nonce,
-                                                         self.pageHolderVC.mAccount!.account_address,
-                                                         self.pageHolderVC.mToSendRecipientAddress!,
-                                                         self.pageHolderVC.mToSendAmount,
-                                                         self.pageHolderVC.mFee!,
-                                                         self.pageHolderVC.mMemo!,
-                                                         pKey!)
+            DispatchQueue.main.async(execute: {
+                var requestData = URLRequest(url: URL(string: IOV_REST_URL_TX_SUBMIT)!)
+                requestData.httpMethod = HTTPMethod.post.rawValue
+                requestData.setValue("text/plain", forHTTPHeaderField: "Content-Type")
+                requestData.httpBody = txString!.data(using: .utf8)
                 
-            } catch {
-                if(SHOW_LOG) { print(error) }
-            }
+                let request = Alamofire.request(requestData)
+                request.responseJSON { response in
+                    var txResult = [String:Any]()
+                    switch response.result {
+                        case .success(let res):
+                            if(SHOW_LOG) { print("Send ", res) }
+                            if let result = res as? [String : Any]  {
+                                txResult = result
+                            }
+                        case .failure(let error):
+                            if(SHOW_LOG) { print("Send error ", error) }
+                            if (response.response?.statusCode == 500) {
+                                txResult["net_error"] = 500
+                            }
+                        }
+                        if (self.waitAlert != nil) {
+                            self.waitAlert?.dismiss(animated: true, completion: {
+                                txResult["type"] = IOV_MSG_TYPE_TRANSFER
+                                self.onStartTxDetail(txResult)
+                            })
+                        }
+                }
+            });
         }
     }
 }

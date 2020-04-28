@@ -41,6 +41,13 @@ public class IovBalanceInfo {
             }
             return "0"
         }
+        
+        public func getAmount(_ denom:String) -> NSDecimalNumber {
+            if (denom == ticker) {
+                return NSDecimalNumber.init(string: String(whole) + "." + String(fractional)).multiplying(byPowerOf10: 9)
+            }
+            return NSDecimalNumber.zero
+        }
     }
     
     

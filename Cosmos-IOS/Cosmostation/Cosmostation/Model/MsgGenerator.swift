@@ -360,8 +360,9 @@ class MsgGenerator {
     }
     
     static func genIovSendTx(_ nonce:Int64, _ fromAddr:String, _ toAddr:String, _ sendCoins: Array<Coin>, _ fee:Fee,  _ memo:String, _ key:WKey.Ed25519Key) -> String {
-        let interPart = WUtils.getQuotient(sendCoins[0].amount)
-        let decimalPart = WUtils.getRemainder(sendCoins[0].amount).multiplying(byPowerOf10: 9)
+        let sendAmount = NSDecimalNumber.init(string: sendCoins[0].amount).multiplying(byPowerOf10: -9)
+        let interPart = WUtils.getQuotient(sendAmount.stringValue)
+        let decimalPart = WUtils.getRemainder(sendAmount.stringValue).multiplying(byPowerOf10: 9)
         
         //Set send coin
         var sendCoin = Coin_Coin.init()
@@ -423,10 +424,16 @@ class MsgGenerator {
         sendTx.signatures = [std_signature]
         
         let sendTxSerial = try? sendTx.serializedData()
-        let result = "0x" + bytesConvertToHexstring(byte: sendTxSerial!.bytes)
-        print("result ", result)
         
-        return result
+//        return sendTxSerial!.base64EncodedData()
+        
+        return sendTxSerial!.base64EncodedString()
+//        let result = "0x" + bytesConvertToHexstring(byte: sendTxSerial!.bytes)
+//        let result = bytesConvertToHexstring(byte: sendTxSerial!.bytes)
+//
+//        print("result ", result)
+//
+//        return result
     }
     
     static func getIovInSig(_ tx:Bnsd_Tx, _ nonce:Int64) -> [UInt8] {

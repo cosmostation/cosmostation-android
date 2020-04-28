@@ -313,7 +313,7 @@ class StepFeeViewController: BaseViewController {
             }
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             //TODO NOTICE NO need Fee set!!;
-            feeCoin = Coin.init(IOV_MAIN_DENOM, feeAmount.stringValue)
+            feeCoin = Coin.init(IOV_MAIN_DENOM, feeAmount.multiplying(byPowerOf10: 9).stringValue)
             var fee = Fee.init()
             let estGas = getEstimateGasAmount().stringValue
             fee.gas = estGas

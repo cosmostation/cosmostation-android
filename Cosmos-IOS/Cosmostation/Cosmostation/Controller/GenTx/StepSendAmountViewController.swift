@@ -65,8 +65,8 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             mDpDecimal = 9
-            maxAvailable = pageHolderVC.mAccount!.getIovBalance().subtracting(NSDecimalNumber.init(string: "0.5"))
-            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 0, mDpDecimal)
+            maxAvailable = pageHolderVC.mAccount!.getIovBalance().subtracting(NSDecimalNumber.init(string: "500000000"))
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 9, mDpDecimal)
         }
         
         mTargetAmountTextField.delegate = self
@@ -148,7 +148,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 return
             }
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-            if (userInput.compare(maxAvailable).rawValue > 0) {
+            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
             }
@@ -178,7 +178,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 return false
             }
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-            if (userInput.compare(maxAvailable).rawValue > 0) {
+            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
                 return false
             }
         }
@@ -208,7 +208,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 toSendCoin = Coin.init(pageHolderVC.mKavaSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
                 
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-                toSendCoin = Coin.init(pageHolderVC.mIovSendDenom!, userInput.stringValue)
+                toSendCoin = Coin.init(pageHolderVC.mIovSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
             }
             
             var tempList = Array<Coin>()
@@ -293,7 +293,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-            let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2), withBehavior: WUtils.getDivideHandler(mDpDecimal))
+            let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
         }
         self.onUIupdate()
@@ -322,7 +322,8 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 self.showMaxWarnning()
             }
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxAvailable, mDpDecimal)
+            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
             if (pageHolderVC.mIovSendDenom == IOV_MAIN_DENOM) {
                 self.showMaxWarnning()
             }
