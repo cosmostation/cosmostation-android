@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -122,7 +123,9 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
                 public void onStartTrackingTouch(SeekBar seekBar) { }
 
                 @Override
-                public void onStopTrackingTouch(SeekBar seekBar) { }
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    onPayableFee();
+                }
             });
             mSeekBarGas.setProgress(0);
 
@@ -164,7 +167,9 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
                 public void onStartTrackingTouch(SeekBar seekBar) { }
 
                 @Override
-                public void onStopTrackingTouch(SeekBar seekBar) { }
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    onPayableFee();
+                }
             });
             mSeekBarGas.setProgress(0);
         }
@@ -358,12 +363,18 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
 
         }
 
-        if((mToDelegate.add(mFeeAmount)).compareTo(mAvailable) > 0) {
+    }
+
+    private void onPayableFee() {
+        if ((mToDelegate.add(mFeeAmount)).compareTo(mAvailable) > 0) {
             Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-            mSeekBarGas.setProgress(mSeekBarGas.getProgress() - 1);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                mSeekBarGas.setProgress(0, true);
+            } else {
+                mSeekBarGas.setProgress(0);
+            }
             onUpdateFeeLayer();
         }
-
     }
 
     private DelegateActivity getSActivity() {

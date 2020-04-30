@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.fragment.broadcast.kava;
 
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class CreateCdpStep2Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -116,7 +118,9 @@ public class CreateCdpStep2Fragment extends BaseFragment implements View.OnClick
                 public void onStartTrackingTouch(SeekBar seekBar) { }
 
                 @Override
-                public void onStopTrackingTouch(SeekBar seekBar) { }
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    onPayableFee();
+                }
             });
             mSeekBarGas.setProgress(0);
         }
@@ -172,7 +176,7 @@ public class CreateCdpStep2Fragment extends BaseFragment implements View.OnClick
                 mFeeLayer1.setVisibility(View.VISIBLE);
                 mFeeLayer2.setVisibility(View.GONE);
 
-                mFeeAmount  = BigDecimal.ONE;
+                mFeeAmount  = BigDecimal.ZERO;
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -221,13 +225,18 @@ public class CreateCdpStep2Fragment extends BaseFragment implements View.OnClick
                 mGasFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
                 mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
             }
+        }
+    }
 
-            if(mFeeAmount.compareTo(mAvailable) > 0) {
-                Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-                mSeekBarGas.setProgress(mSeekBarGas.getProgress() - 1);
-                onUpdateFeeLayer();
+    private void onPayableFee() {
+        if (mFeeAmount.compareTo(mAvailable) > 0) {
+            Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                mSeekBarGas.setProgress(0, true);
+            } else {
+                mSeekBarGas.setProgress(0);
             }
-
+            onUpdateFeeLayer();
         }
     }
 

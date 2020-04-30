@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -126,7 +127,9 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 public void onStartTrackingTouch(SeekBar seekBar) { }
 
                 @Override
-                public void onStopTrackingTouch(SeekBar seekBar) { }
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    onPayableFee();
+                }
             });
             mSeekBarGas.setProgress(0);
 
@@ -183,7 +186,9 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 public void onStartTrackingTouch(SeekBar seekBar) { }
 
                 @Override
-                public void onStopTrackingTouch(SeekBar seekBar) { }
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    onPayableFee();
+                }
             });
             mSeekBarGas.setProgress(0);
 
@@ -366,13 +371,6 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             WLog.w("mFeeAmount "    + mFeeAmount.toPlainString());
 
 
-            if((mToSend.add(mFeeAmount)).compareTo(mAvailable) > 0) {
-                Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-                mSeekBarGas.setProgress(mSeekBarGas.getProgress() - 1);
-                onUpdateFeeLayer();
-            }
-
-
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if(mSeekBarGas.getProgress() == 0) {
                 mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.bycicle_img));
@@ -431,21 +429,33 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             WLog.w("mToSend "       + mToSend.toPlainString());
             WLog.w("mFeeAmount "    + mFeeAmount.toPlainString());
 
+
+        }
+
+    }
+
+    private void onPayableFee() {
+        BigDecimal compareAmount = BigDecimal.ZERO;
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            compareAmount = mToSend.add(mFeeAmount);
+
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (getSActivity().mKavaDenom.equals(COSMOS_KAVA)) {
-                if((mToSend.add(mFeeAmount)).compareTo(mAvailable) > 0) {
-                    Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-                    mSeekBarGas.setProgress(mSeekBarGas.getProgress() - 1);
-                    onUpdateFeeLayer();
-                }
+                compareAmount = mToSend.add(mFeeAmount);
             } else {
-                if(mFeeAmount.compareTo(mAvailable) > 0) {
-                    Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-                    mSeekBarGas.setProgress(mSeekBarGas.getProgress() - 1);
-                    onUpdateFeeLayer();
-                }
+                compareAmount = mFeeAmount;
             }
         }
 
+        if (compareAmount.compareTo(mAvailable) > 0) {
+            Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                mSeekBarGas.setProgress(0, true);
+            } else {
+                mSeekBarGas.setProgress(0);
+            }
+            onUpdateFeeLayer();
+        }
     }
 
     private SendActivity getSActivity() {

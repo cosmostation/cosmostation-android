@@ -605,16 +605,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            if (IS_TEST) {
-                if (WDp.getAvailableCoin(balances, COSMOS_MUON).compareTo(BigDecimal.ZERO) > 0) {
-                    hasbalance  = true;
-                }
-            } else {
-                if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ZERO) > 0) {
-                    hasbalance  = true;
-                }
-            }
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            hasbalance  = true;
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
@@ -627,15 +619,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
             if (WDp.getAvailableCoin(balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
-                hasbalance  = true;
-            }
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
         }

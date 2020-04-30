@@ -573,12 +573,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return false;
         }
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (WDp.getAvailableCoin(mBalances, COSMOS_KAVA).compareTo(BigDecimal.ONE) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }
+
         if (mCdpParam.circuit_breaker) {
             Toast.makeText(getBaseContext(), R.string.error_circuit_breaker, Toast.LENGTH_SHORT).show();
             return false;
