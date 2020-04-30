@@ -245,10 +245,8 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
+                onShowEmptyBlanaceWarnDialog();
             }
-            Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
-            dialog.setCancelable(true);
-            dialog.show(getFragmentManager().beginTransaction(), "dialog");
 
         } else if (v.equals(mClearAll)) {
             mAmountInput.setText("");
@@ -290,6 +288,12 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             getSActivity().mToDelegateAmount = null;
             return false;
         }
+    }
+
+    private void onShowEmptyBlanaceWarnDialog() {
+        Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
+        dialog.setCancelable(true);
+        dialog.show(getFragmentManager().beginTransaction(), "dialog");
     }
 
 

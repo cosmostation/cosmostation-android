@@ -287,26 +287,22 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         } else if (v.equals(mAddMax)) {
             if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
-                onShowWarnDialog();
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider1), mDpDecimal, RoundingMode.DOWN).toPlainString());
                 if (getSActivity().mIrisToken.base_token.equals(COSMOS_IRIS)) {
-                    onShowWarnDialog();
+                    onShowEmptyBlanaceWarnDialog();
                 }
             } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
                 if (getSActivity().mBnbToken.symbol.equals(COSMOS_BNB)) {
-                    onShowWarnDialog();
+                    onShowEmptyBlanaceWarnDialog();
                 }
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider1), mDpDecimal, RoundingMode.DOWN).toPlainString());
-                if (getSActivity().mKavaDenom.equals(COSMOS_KAVA)) {
-                    onShowWarnDialog();
-                }
             } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000000"), 9, RoundingMode.DOWN).toPlainString());
-                onShowWarnDialog();
+                onShowEmptyBlanaceWarnDialog();
             }
 
         } else if (v.equals(mClearAll)) {
@@ -383,7 +379,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         }
     }
 
-    private void onShowWarnDialog() {
+    private void onShowEmptyBlanaceWarnDialog() {
         Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
         dialog.setCancelable(true);
         dialog.show(getFragmentManager().beginTransaction(), "dialog");
