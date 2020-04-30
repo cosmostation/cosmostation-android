@@ -362,11 +362,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             if (IS_TEST) {
-                if (WDp.getAvailableCoin(balances, COSMOS_MUON).compareTo(BigDecimal.ONE) > 0) {
+                if (WDp.getAvailableCoin(balances, COSMOS_MUON).compareTo(BigDecimal.ZERO) > 0) {
                     hasbalance  = true;
                 }
             } else {
-                if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ONE) > 0) {
+                if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ZERO) > 0) {
                     hasbalance  = true;
                 }
             }
@@ -390,7 +390,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("iovDenom", COSMOS_IOV);
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
+            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("kavaDenom", COSMOS_KAVA);

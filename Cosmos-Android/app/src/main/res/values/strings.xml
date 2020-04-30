@@ -325,7 +325,7 @@
     <string name="str_monthly_return">Monthly Return</string>
     <string name="str_gas_amount">gas amount</string>
     <string name="str_gas_rate">gas rate</string>
-    <string name="str_fee_speed_title_0">Only a handful of validators will process this Tx.</string>
+    <string name="str_fee_speed_title_0">Only a handful of validators will process this Tx\n(Takes longer time to recorded on the block.)</string>
     <string name="str_fee_speed_title_1">A few validators include \"Cosmostation\" will process this Tx.</string>
     <string name="str_fee_speed_title_2">Most validators will process this Tx.</string>
     <string name="str_fee_speed_title_iris">Support fixed amount fee for Iris.\nIris Hub will refund the remaining gas fee after use.</string>
@@ -697,6 +697,7 @@
     <string name="str_vote_to">Vote</string>
     <string name="str_commission">Commission</string>
     <string name="str_voting_power">Voting Power</string>
+    <string name="str_free">Free</string>
     <string name="str_tiny">Min</string>
     <string name="str_low">Low</string>
     <string name="str_average">Mid</string>

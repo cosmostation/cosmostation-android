@@ -607,11 +607,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             if (IS_TEST) {
-                if (WDp.getAvailableCoin(balances, COSMOS_MUON).compareTo(BigDecimal.ONE) > 0) {
+                if (WDp.getAvailableCoin(balances, COSMOS_MUON).compareTo(BigDecimal.ZERO) > 0) {
                     hasbalance  = true;
                 }
             } else {
-                if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ONE) > 0) {
+                if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ZERO) > 0) {
                     hasbalance  = true;
                 }
             }
@@ -631,7 +631,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             }
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
+            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {

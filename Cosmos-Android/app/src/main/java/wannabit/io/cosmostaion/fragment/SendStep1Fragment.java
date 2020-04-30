@@ -103,7 +103,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mDpDecimal = 6;
             setDpDecimals(mDpDecimal);
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(BigDecimal.ONE);
+            mMaxAvailable = getSActivity().mAccount.getAtomBalance();
             mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -136,16 +136,13 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mDpDecimal = 6;
             setDpDecimals(mDpDecimal);
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            mMaxAvailable = getSActivity().mAccount.getKavaBalance().subtract(BigDecimal.ONE);
+            mMaxAvailable = getSActivity().mAccount.getKavaBalance();
             mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mDpDecimal = WUtil.getKavaCoinDecimal(getSActivity().mKavaDenom);
             setDpDecimals(mDpDecimal);
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mKavaDenom);
-            if (getSActivity().mKavaDenom.equals(COSMOS_KAVA)) {
-                mMaxAvailable = mMaxAvailable.subtract(BigDecimal.ONE);
-            }
             WDp.showCoinDp(getContext(), getSActivity().mKavaDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {

@@ -243,7 +243,7 @@
     <string name="str_monthly_return">월 예상 이자량</string>
     <string name="str_gas_amount">가스량</string>
     <string name="str_gas_rate">가스비</string>
-    <string name="str_fee_speed_title_0">소수의 검증인들만 처리해 줄 것입니다.</string>
+    <string name="str_fee_speed_title_0">소수의 검증인들만 처리해 줄 것입니다.\n(블럭체인에 반영시간이 좀 더 걸립니다.)</string>
     <string name="str_fee_speed_title_1">일부의 검증인들만 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_2">대부분의 검증인들이 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_iris">현재 아이리스는 고정 Tx 수수료를 지원합니다.\n아이리스는 사용후 남은 가스비를 전액 반환합니다.</string>
@@ -614,6 +614,7 @@
     <string name="str_vote_to">투표 하기</string>
     <string name="str_commission">검증인 수수료</string>
     <string name="str_voting_power">전체 위임량</string>
+    <string name="str_free">무료</string>
     <string name="str_tiny">최소</string>
     <string name="str_low">낮음</string>
     <string name="str_average">평균</string>
