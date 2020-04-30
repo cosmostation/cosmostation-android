@@ -164,8 +164,8 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (BondingState bond:mBondings) {
-                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_ATOM).compareTo(new BigDecimal("1")) >= 0) {
-                    if(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
+                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_ATOM).compareTo(BigDecimal.ONE) >= 0) {
+                    if (WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
                         toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
                         rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_ATOM));
                     }
@@ -183,19 +183,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
             }
 
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-            boolean hasbalance = false;
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
-                    hasbalance  = true;
-                }
-            }
-            if (!hasbalance){
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward_all, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (rewardSum.compareTo(new BigDecimal("1")) <= 0) {
+            if (rewardSum.compareTo(BigDecimal.ONE) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -229,10 +217,9 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             BigDecimal estimateGasAmount = (new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_REWARD_MUX).multiply(new BigDecimal(""+toClaimValidators.size()))).add(new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_REWARD_BASE));
             BigDecimal estimateFee = estimateGasAmount.multiply(new BigDecimal(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
 
-
-            WLog.w("estimateReward " + estimateReward);
-            WLog.w("estimateGasAmount " + estimateGasAmount);
-            WLog.w("estimateFee " + estimateFee);
+//            WLog.w("estimateReward " + estimateReward);
+//            WLog.w("estimateGasAmount " + estimateGasAmount);
+//            WLog.w("estimateFee " + estimateFee);
 
             ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
             boolean hasbalance = false;

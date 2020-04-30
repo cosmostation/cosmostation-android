@@ -172,23 +172,17 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
         if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(BigDecimal.ONE);
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
+            mMaxAvailable = getSActivity().mAccount.getAtomBalance();
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mMaxAvailable = getSActivity().mAccount.getIrisBalance().subtract(new BigDecimal("400000000000000000"));
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 18, getSActivity().mBaseChain));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 18, 18));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            mMaxAvailable = getSActivity().mAccount.getKavaBalance().subtract(BigDecimal.ONE);
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mMaxAvailable = getSActivity().mAccount.getKavaBalance();
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
         }
-
     }
 
     @Override

@@ -13,4 +13,7 @@ public interface KavaApi {
 
     @GET("/v1/account/transfer_txs/{address}")
     Call<ResApiTxList> getTokenTxs(@Path("address") String address, @Query("denom") String denom);
+
+    @GET("/v1/account/txs/{address}/{valAddress}")
+    Call<ResApiTxList> getStakeTxs(@Path("address") String address, @Path("valAddress") String valAddress);
 }

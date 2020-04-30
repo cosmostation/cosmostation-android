@@ -145,19 +145,13 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ONE) > 0) {
-                hasbalance  = true;
-            }
+            hasbalance  = true;
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
                 hasbalance  = true;
             }
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
-                hasbalance  = true;
-            }
         }
 
         if(!hasbalance){

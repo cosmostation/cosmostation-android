@@ -247,7 +247,7 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
                 mFeeLayer1.setVisibility(View.VISIBLE);
                 mFeeLayer2.setVisibility(View.GONE);
 
-                mFeeAmount  = BigDecimal.ONE;
+                mFeeAmount  = BigDecimal.ZERO;
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -303,7 +303,7 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
                 mFeeLayer1.setVisibility(View.VISIBLE);
                 mFeeLayer2.setVisibility(View.GONE);
 
-                mFeeAmount  = BigDecimal.ONE;
+                mFeeAmount  = BigDecimal.ZERO;
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {

@@ -784,7 +784,7 @@
     <string name="error_not_enough_budget">Insufficient available balance.\nUnder minimum tx fee.</string>
     <string name="error_not_enough_reward_all">Insufficient available balance.\nUnder minimum tx fee.</string>
     <string name="error_not_enough_reward">Not enough rewards to Claim</string>
-    <string name="error_small_reward">Rewards are too small.\nTransaction fee is bigger than your reward.</string>
+    <string name="error_small_reward">Rewards are too small.</string>
     <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed. \nPlease refer to the history.</string>
     <string name="error_vesting_time">Token transfer is locked for three weeks following mainnet launch.</string>
     <string name="error_send_disable">Token transfer is locked.</string>

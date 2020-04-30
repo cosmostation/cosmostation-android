@@ -113,6 +113,7 @@ public class BaseConstant {
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
+    public final static int TASK_FETCH_API_STAKE_HISTORY                = 2302;
 
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
 

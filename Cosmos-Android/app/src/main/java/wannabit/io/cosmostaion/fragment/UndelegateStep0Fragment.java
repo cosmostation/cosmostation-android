@@ -165,13 +165,13 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
         mMaxAvailable = getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator);
         if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 18, 18));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         }
     }
@@ -188,6 +188,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
             }
+
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
