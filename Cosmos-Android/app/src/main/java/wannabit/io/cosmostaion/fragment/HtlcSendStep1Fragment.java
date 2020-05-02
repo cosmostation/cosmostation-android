@@ -90,7 +90,12 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         super.onRefreshTab();
         mToAccount = null;
         mToAccountList = getSActivity().getBaseDao().onSelectAccountsByHtlcClaim(getSActivity().mRecipientChain);
-        mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), getSActivity().mRecipientChain.getChain(), WDp.getDpMainDenom(getContext(), getSActivity().mRecipientChain.getChain())));
+        if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.BNB_TEST)) {
+            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), getSActivity().mRecipientChain.getChain(), WDp.getDpMainDenom(getContext(), getSActivity().mRecipientChain.getChain())));
+
+        }  else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.KAVA_TEST)) {
+            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg2), getSActivity().mRecipientChain.getChain()));
+        }
         WLog.w("mToAccountList " + mToAccountList.size());
     }
 
@@ -118,8 +123,15 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
 
             } else {
                 Bundle bundle = new Bundle();
-                bundle.putString("chain", getSActivity().mRecipientChain.getChain());
-                bundle.putString("denom", WDp.getDpMainDenom(getContext(), getSActivity().mRecipientChain.getChain()));
+                String title = String.format(getString(R.string.error_can_not_bep3_account_title), getSActivity().mRecipientChain.getChain());
+                String msg = "";
+                if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.BNB_TEST)) {
+                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg), getSActivity().mRecipientChain.getChain(), WDp.getDpMainDenom(getContext(), getSActivity().mRecipientChain.getChain()));
+                } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.KAVA_TEST)) {
+                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg2), getSActivity().mRecipientChain.getChain());
+                }
+                bundle.putString("title", title);
+                bundle.putString("msg", msg);
                 Dialog_Htlc_Receivable_Empty dialog = Dialog_Htlc_Receivable_Empty.newInstance(bundle);
                 dialog.setCancelable(true);
                 getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

@@ -55,6 +55,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -238,6 +239,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         super.onResume();
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+
+
+//        WLog.w("mAccount " + mAccount.id);
+//        WLog.w("mAccount " + mAccount.address);
+//        WLog.w("sequenceNumber " + mAccount.sequenceNumber);
+//        WLog.w("accountNumber " + mAccount.accountNumber);
 
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));

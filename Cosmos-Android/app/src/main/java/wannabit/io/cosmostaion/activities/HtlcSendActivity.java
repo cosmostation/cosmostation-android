@@ -163,7 +163,7 @@ public class HtlcSendActivity extends BaseActivity {
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             Coin gasCoin = new Coin();
             gasCoin.denom = BaseConstant.COSMOS_KAVA;
-            gasCoin.amount = "5000";
+            gasCoin.amount = "0";
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
             mSendFee = new Fee(FEE_KAVA_GAS_AMOUNT_BEP3, gasCoins);
@@ -184,7 +184,7 @@ public class HtlcSendActivity extends BaseActivity {
         } else if (mRecipientChain.equals(BaseChain.KAVA_MAIN) || mRecipientChain.equals(BaseChain.KAVA_TEST)) {
             Coin gasCoin = new Coin();
             gasCoin.denom = BaseConstant.COSMOS_KAVA;
-            gasCoin.amount = "5000";
+            gasCoin.amount = "0";
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
             mClaimFee = new Fee(FEE_KAVA_GAS_AMOUNT_BEP3, gasCoins);

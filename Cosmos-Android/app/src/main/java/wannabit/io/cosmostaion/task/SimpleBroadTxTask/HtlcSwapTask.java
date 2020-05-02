@@ -83,8 +83,8 @@ public class HtlcSwapTask extends CommonProgressTask {
                 publishProgress(1);
                 if (mReceiveChain.equals(BaseChain.KAVA_MAIN)) {
                     for (int i = 0; i < 8; i++) {
-                        Response<ResKavaSwapInfo> response = ApiClient.getKavaTestChain(mApp).getSwapById(mExpectedSwapId).execute();
-                        if (response.isSuccessful() && response.body() != null && response.body().result.status != null) {
+                        Response<ResKavaSwapInfo> response = ApiClient.getKavaChain(mApp).getSwapById(mExpectedSwapId).execute();
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null) {
                             break;
                         } else {
                             Thread.sleep(5000);
@@ -92,8 +92,8 @@ public class HtlcSwapTask extends CommonProgressTask {
                     }
                 } else if (mReceiveChain.equals(BaseChain.KAVA_TEST)) {
                     for (int i = 0; i < 8; i++) {
-                        Response<ResKavaSwapInfo> response = ApiClient.getKavaChain(mApp).getSwapById(mExpectedSwapId).execute();
-                        if (response.isSuccessful() && response.body() != null && response.body().result.status != null) {
+                        Response<ResKavaSwapInfo> response = ApiClient.getKavaTestChain(mApp).getSwapById(mExpectedSwapId).execute();
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null) {
                             break;
                         } else {
                             Thread.sleep(5000);
@@ -294,6 +294,7 @@ public class HtlcSwapTask extends CommonProgressTask {
             msgs.add(claimSwapMsg);
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mReceiveAccount, msgs, mClaimFee, mApp.getString(R.string.str_claim_swap_memo_c), deterministicKey);
+//            WLog.w("reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
             Response<ResBroadTx> claimRes = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
             if(claimRes.isSuccessful() && claimRes.body() != null) {
                 if (claimRes.body().txhash != null) {

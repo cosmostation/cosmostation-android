@@ -249,17 +249,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         boolean hasbalance = false;
         Intent intent = new Intent(getBaseContext(), HtlcSendActivity.class);
-        if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+        if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
             if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
                 hasbalance  = true;
             }
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_KAVA).compareTo(new BigDecimal("5000")) > 0) {
-                hasbalance  = true;
-            }
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            hasbalance  = true;
+
         } else {
-            Toast.makeText(getBaseContext(), "Brother.. Why you here?", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!hasbalance) {

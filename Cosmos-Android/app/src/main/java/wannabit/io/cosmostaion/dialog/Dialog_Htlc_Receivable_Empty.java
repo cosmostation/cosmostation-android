@@ -34,8 +34,8 @@ public class Dialog_Htlc_Receivable_Empty extends DialogFragment {
         TextView title = view.findViewById(R.id.dialog_title);
         TextView msg = view.findViewById(R.id.dialog_msg);
 
-        title.setText(String.format(getString(R.string.error_can_not_bep3_account_title), getArguments().getString("chain")));
-        msg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), getArguments().getString("chain"), getArguments().getString("denom")));
+        title.setText(getArguments().getString("title"));
+        msg.setText(getArguments().getString("msg"));
 
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override

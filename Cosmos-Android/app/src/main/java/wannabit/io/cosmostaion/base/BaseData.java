@@ -29,7 +29,9 @@ import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
@@ -634,15 +636,15 @@ public class BaseData {
         ArrayList<Account> AllAccount = onSelectAccounts();
         for (Account account:AllAccount) {
             if (BaseChain.getChain(account.baseChain).equals(chain) && account.hasPrivateKey) {
-                if (chain.equals(KAVA_TEST)) {
-                    if (WDp.getAvailableCoin(account.balances, COSMOS_KAVA).compareTo(new BigDecimal("50000")) >= 0) {
-                        result.add(account);
-                    }
-                } else if (chain.equals(BNB_TEST)) {
-                    if (WDp.getAvailableCoin(account.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
+                if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+                    if (account.sequenceNumber > 0 && account.sequenceNumber > 0) {
                         result.add(account);
                     }
 
+                } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+                    if (WDp.getAvailableCoin(account.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
+                        result.add(account);
+                    }
                 }
             }
         }
