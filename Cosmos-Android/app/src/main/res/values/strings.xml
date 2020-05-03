@@ -186,7 +186,7 @@
     <string name="str_guide_iris">Medium</string>
     <string name="str_faq_bnb">Market</string>
     <string name="str_guide_bnb">Blog</string>
-    <string name="str_faq_kava">Home Page</string>
+    <string name="str_faq_kava">About USDX</string>
     <string name="str_guide_kava">Blog</string>
     <string name="str_faq_iov">Home Page</string>
     <string name="str_guide_iov">Star Name</string>
@@ -457,7 +457,7 @@
     <string name="str_expected_income">Expected Income</string>
     <string name="str_warn_testnet_title">Testnet Warning</string>
     <string name="str_warn_testnet_msg"><![CDATA[This wallet is for testnet\n(Tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use new feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
-    <string name="str_interchain">InterChain</string>
+    <string name="str_interchain">Interchain Transfer</string>
     <string name="str_source_chain">Source Chain</string>
     <string name="str_destination_chain">Destination Chain</string>
     <string name="str_create_interchain_send">Create Interchain Send</string>

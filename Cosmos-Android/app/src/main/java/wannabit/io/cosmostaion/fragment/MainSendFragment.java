@@ -705,7 +705,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 startActivity(guideIntent);
 
             } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/"));
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/registration/"));
                 startActivity(guideIntent);
 
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {

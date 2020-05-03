@@ -433,6 +433,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 if (mBalance.symbol.equals("bnb") && mBaseChain.equals(BaseChain.KAVA_TEST)) {
                     mBtnBep3Send.setVisibility(View.VISIBLE);
                     mBtnBep3Send.setOnClickListener(this);
+                } else if (mBalance.symbol.equals("usdx") && mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                    mTokenLink.setVisibility(View.VISIBLE);
+                    mBtnTokenDetail.setOnClickListener(this);
                 } else {
                     mBtnBep3Send.setVisibility(View.GONE);
                 }
@@ -578,10 +581,17 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             }
 
         } else if (v.equals(mBtnTokenDetail)) {
-            Intent webintent = new Intent(this, WebActivity.class);
-            webintent.putExtra("asset", mBnbToken.symbol);
-            webintent.putExtra("chain", mBaseChain.getChain());
-            startActivity(webintent);
+            if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+                Intent webintent = new Intent(this, WebActivity.class);
+                webintent.putExtra("asset", mBnbToken.symbol);
+                webintent.putExtra("chain", mBaseChain.getChain());
+                startActivity(webintent);
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                Intent webintent = new Intent(this, WebActivity.class);
+                webintent.putExtra("asset", "usdx");
+                webintent.putExtra("chain", mBaseChain.getChain());
+                startActivity(webintent);
+            }
 
         } else if (v.equals(mBtnBuyAtom) || v.equals(mBtnBuyBnb) || v.equals(mBtnBuyKava)) {
             if (mAccount.hasPrivateKey) {
