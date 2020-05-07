@@ -14,7 +14,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <android.support.v7.widget.CardView
                 android:id="@+id/send_swap_card"
                 android:layout_width="match_parent"
@@ -188,6 +187,70 @@
                             android:text="@string/str_claim_interchain_swap"
                             style="@style/font_ss_14_white"/>
                     </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_16">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_to_receive_amount"
+                            style="@style/font_ss_12_gray1"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+                            <TextView
+                                android:id="@+id/receive_amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                style="@style/font_ssl_12_white"/>
+                            <TextView
+                                android:id="@+id/receive_amount_denom"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_2"
+                                android:text="@string/str_atom_c"
+                                style="@style/font_ss_12_white"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_16">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_relay_fee"
+                            style="@style/font_ss_12_gray1"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+                            <TextView
+                                android:id="@+id/relay_fee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                style="@style/font_ssl_12_white"/>
+                            <TextView
+                                android:id="@+id/relay_fee_denom"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_2"
+                                android:text="@string/str_atom_c"
+                                style="@style/font_ss_12_white"/>
+                        </LinearLayout>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"

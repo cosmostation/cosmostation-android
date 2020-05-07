@@ -20,8 +20,7 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_RELAY_FEE;
 
 public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -32,6 +31,8 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView    mReceiveChainTv, mReceiveAddressTv;
     private CardView    mClaimCard;
     private ImageView   mClaimIcon;
+    private TextView    mReceiveAmountTv, mReceiveAmountDenomTv;
+    private TextView    mRelayFeeAmountTv, mRelayFeeAmountDenomTv;
     private TextView    mClaimFeeAmountTv, mClaimFeeDenomTv;
     private TextView    mClaimAddressTv;
     private Button      mBeforeBtn, mConfirmBtn;
@@ -62,6 +63,10 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
         mReceiveAddressTv = rootView.findViewById(R.id.recipient_address);
         mClaimCard = rootView.findViewById(R.id.claim_swap_card);
         mClaimIcon = rootView.findViewById(R.id.claim_icon);
+        mReceiveAmountTv = rootView.findViewById(R.id.receive_amount);
+        mReceiveAmountDenomTv = rootView.findViewById(R.id.receive_amount_denom);
+        mRelayFeeAmountTv = rootView.findViewById(R.id.relay_fee);
+        mRelayFeeAmountDenomTv = rootView.findViewById(R.id.relay_fee_denom);
         mClaimFeeAmountTv = rootView.findViewById(R.id.claim_fee);
         mClaimFeeDenomTv = rootView.findViewById(R.id.claim_fee_denom);
         mClaimAddressTv = rootView.findViewById(R.id.claim_address);
@@ -87,6 +92,8 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mSendDenomTv);
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mSendFeeDenomTv);
+            mReceiveAmountDenomTv.setText(getSActivity().mSendDenom.toUpperCase());
+            mRelayFeeAmountDenomTv.setText(getSActivity().mSendDenom.toUpperCase());
 
             mSendAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount, 0, 8));
             mSendFeeAmountTv.setText(WDp.getDpAmount2(getContext(), sendFeeAmount, 0, 8));
@@ -94,9 +101,15 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             mReceiveChainTv.setText(getSActivity().mRecipientChain.getChain());
             mReceiveAddressTv.setText(getSActivity().mRecipientAccount.address);
 
+            BigDecimal relayFee = new BigDecimal(FEE_BEP3_RELAY_FEE);
+            mReceiveAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount.subtract(relayFee), 0, 8));
+            mRelayFeeAmountTv.setText(WDp.getDpAmount2(getContext(), relayFee, 0, 8));
+
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mDecimal = WUtil.getKavaCoinDecimal(getSActivity().mSendDenom);
             mSendDenomTv.setText(getSActivity().mSendDenom.toUpperCase());
+            mReceiveAmountDenomTv.setText(getSActivity().mSendDenom.toUpperCase());
+            mRelayFeeAmountDenomTv.setText(getSActivity().mSendDenom.toUpperCase());
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mSendFeeDenomTv);
 
             mSendAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount, mDecimal, mDecimal));
@@ -104,6 +117,10 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
 
             mReceiveChainTv.setText(getSActivity().mRecipientChain.getChain());
             mReceiveAddressTv.setText(getSActivity().mRecipientAccount.address);
+
+            BigDecimal relayFee = new BigDecimal(FEE_BEP3_RELAY_FEE).movePointRight(mDecimal);
+            mReceiveAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount.subtract(relayFee), mDecimal, mDecimal));
+            mRelayFeeAmountTv.setText(WDp.getDpAmount2(getContext(), relayFee, mDecimal, mDecimal));
         }
 
 

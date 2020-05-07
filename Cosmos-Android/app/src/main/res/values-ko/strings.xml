@@ -60,6 +60,8 @@
     <string name="str_fees">Tx 수수료</string>
     <string name="str_fees_c">Tx 수수료</string>
     <string name="str_to_send_amount">전송 수량</string>
+    <string name="str_to_receive_amount">받을 수량</string>
+    <string name="str_relay_fee">Relay 수수료</string>
     <string name="str_total_spend_amount">지출 총량</string>
     <string name="str_current_available">현재 사용 가능 수량</string>
     <string name="str_remaining_available">전송 후 사용 가능 수량</string>

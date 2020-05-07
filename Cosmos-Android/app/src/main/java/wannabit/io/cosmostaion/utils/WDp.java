@@ -342,11 +342,11 @@ public class WDp {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
             if (denom.equals(COSMOS_ATOM) && IS_TEST) {
-                if (balance.symbol.equals(COSMOS_MUON)) {
+                if (balance.symbol.equalsIgnoreCase(COSMOS_MUON)) {
                     sum = balance.balance;
                 }
             } else {
-                if (balance.symbol.equals(denom)) {
+                if (balance.symbol.equalsIgnoreCase(denom)) {
                     sum = balance.balance;
                 }
             }

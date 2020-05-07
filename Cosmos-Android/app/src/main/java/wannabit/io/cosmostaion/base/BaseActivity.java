@@ -109,6 +109,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_RELAY_FEE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_SEND_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
@@ -250,12 +252,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         boolean hasbalance = false;
         Intent intent = new Intent(getBaseContext(), HtlcSendActivity.class);
         if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
-            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
+            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BEP3_SEND_CHECK)) > 0) {
                 hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            hasbalance  = true;
+            WLog.w("COSMOS_BNB " + WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB));
+            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BEP3_RELAY_FEE).movePointRight(8)) > 0) {
+                hasbalance  = true;
+            }
 
         } else {
             return;

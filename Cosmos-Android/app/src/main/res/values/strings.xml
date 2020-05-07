@@ -123,6 +123,8 @@
     <string name="str_fees">Fee</string>
     <string name="str_fees_c">FEE</string>
     <string name="str_to_send_amount">Send Amount</string>
+    <string name="str_to_receive_amount">Receive Amount</string>
+    <string name="str_relay_fee">Relay Fee</string>
     <string name="str_total_spend_amount">Total Spend</string>
     <string name="str_current_available">Current Available</string>
     <string name="str_remaining_available">Remaining Available</string>
