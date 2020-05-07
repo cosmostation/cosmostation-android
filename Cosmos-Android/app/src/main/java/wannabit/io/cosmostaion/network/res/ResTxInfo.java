@@ -219,6 +219,22 @@ public class ResTxInfo {
         return coin;
     }
 
+    public String simpleSwapId() {
+        String result = "";
+        if (events != null) {
+            for (Event event:events) {
+                if (event.type.equals("createAtomicSwap")) {
+                    for (EventAttribute attr:event.attributes) {
+                        if (attr.key.equals("atomic_swap_id")) {
+                            result = attr.value;
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
 
 
 

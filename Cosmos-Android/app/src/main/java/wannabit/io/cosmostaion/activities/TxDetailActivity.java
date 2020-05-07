@@ -29,12 +29,14 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -66,6 +68,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_C
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
+import static wannabit.io.cosmostaion.network.res.ResKavaSwapInfo.STATUS_EXPIRED;
 
 public class TxDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -77,6 +80,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     private TextView mLoadingMsgTv;
     private LinearLayout mControlLayer;
     private Button mDismissBtn;
+    private Button mRefundBtn;
     private LinearLayout mControlLayer2;
     private Button mExplorerBtn, mShareBtn;
 
@@ -88,7 +92,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
     private TxDetailAdapter mTxDetailAdapter;
     private ResTxInfo mResTxInfo;
+    private ResKavaSwapInfo mResKavaSwapInfo;
     private ResBnbTxInfo mResBnbTxInfo;
+    private String mSwapId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +108,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         mLoadingMsgTv = findViewById(R.id.tx_loading_msg);
         mControlLayer = findViewById(R.id.bottom_control);
         mDismissBtn = findViewById(R.id.btn_dismiss);
+        mRefundBtn = findViewById(R.id.btn_refund);
         mControlLayer2 = findViewById(R.id.control_after);
         mExplorerBtn = findViewById(R.id.btn_scan);
         mShareBtn = findViewById(R.id.btn_share);
@@ -118,6 +125,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         mErrorCode  = getIntent().getIntExtra("errorCode", BaseConstant.ERROR_CODE_UNKNOWN);
         mErrorMsg   = getIntent().getStringExtra("errorMsg");
         mTxHash     = getIntent().getStringExtra("txHash");
+
         mAllValidators = getBaseDao().mAllValidators;
         if (mIsGen) {
             mLoadingMsgTv.setVisibility(View.VISIBLE);
@@ -149,6 +157,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         mTxRecyclerView.setAdapter(mTxDetailAdapter);
 
         mDismissBtn.setOnClickListener(this);
+        mRefundBtn.setOnClickListener(this);
         mExplorerBtn.setOnClickListener(this);
         mShareBtn.setOnClickListener(this);
     }
@@ -225,6 +234,18 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
+
+        } else if (v.equals(mRefundBtn)) {
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            Intent reDelegate = new Intent(TxDetailActivity.this, HtlcRefundActivity.class);
+            reDelegate.putExtra("swapId", mSwapId);
+            startActivity(reDelegate);
+
         }
 
     }
@@ -762,7 +783,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 }
 
             }
-
         }
 
         private void onBindDrawDebtCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
@@ -773,7 +793,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
                 WDp.showCoinDp(getBaseContext(), msg.value.principal.get(0), holder.itemPrincipalDenom, holder.itemPrincipalAmount, mBaseChain);
             }
-
         }
 
         private void onBindRepayDebtCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
@@ -785,7 +804,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 WDp.showCoinDp(getBaseContext(), msg.value.payment.get(0), holder.itemPaymentDenom, holder.itemPaymentAmount, mBaseChain);
 
             }
-
         }
 
         private void onBindCreateHTLC(RecyclerView.ViewHolder viewHolder, Msg msg) {
@@ -799,6 +817,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemRecipient.setText(msg.value.recipient_other_chain);
                 holder.itemRandomHash.setText(msg.value.random_number_hash);
                 holder.itemExpectIncome.setText(msg.value.expected_income);
+                holder.itemStatus.setText(WDp.getKavaHtlcStatus(getBaseContext(), mResTxInfo, mResKavaSwapInfo));
+                if (mResKavaSwapInfo != null && mResKavaSwapInfo.result.status.equals(STATUS_EXPIRED)) {
+                    mRefundBtn.setVisibility(View.VISIBLE);
+                    mSwapId = mResTxInfo.simpleSwapId();
+                }
             }
         }
 
@@ -1201,7 +1224,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         public class TxCreateHtlcHolder extends RecyclerView.ViewHolder {
             ImageView itemMsgImg;
             TextView itemMsgTitle;
-            TextView itemSendAmount, itemSendDenom, itemSender, itemRecipient, itemRandomHash, itemExpectIncome;
+            TextView itemSendAmount, itemSendDenom, itemSender, itemRecipient, itemRandomHash, itemExpectIncome, itemStatus;
 
             public TxCreateHtlcHolder(@NonNull View itemView) {
                 super(itemView);
@@ -1213,6 +1236,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemRecipient = itemView.findViewById(R.id.recipient_addr);
                 itemRandomHash = itemView.findViewById(R.id.random_hash);
                 itemExpectIncome = itemView.findViewById(R.id.expected_income);
+                itemStatus = itemView.findViewById(R.id.status_txt);
             }
         }
 
@@ -1288,13 +1312,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             ApiClient.getCosmosChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if(isFinishing()) return;
+                    if (isFinishing()) return;
                     WLog.w("onFetchTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
+                    if (response.isSuccessful() && response.body() != null) {
                         mResTxInfo = response.body();
                         onUpdateView();
                     } else {
-                        if(mIsSuccess && FetchCnt < 10) {
+                        if (mIsGen && mIsSuccess && FetchCnt < 10) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -1310,8 +1334,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
-                    if(isFinishing()) return;
+                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (isFinishing()) return;
                 }
             });
 
@@ -1319,13 +1343,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             ApiClient.getIrisChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if(isFinishing()) return;
+                    if (isFinishing()) return;
                     WLog.w("onFetchTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
+                    if (response.isSuccessful() && response.body() != null) {
                         mResTxInfo = response.body();
                         onUpdateView();
                     } else {
-                        if(mIsSuccess && FetchCnt < 10) {
+                        if (mIsGen && mIsSuccess && FetchCnt < 10) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -1341,8 +1365,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
-                    if(isFinishing()) return;
+                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (isFinishing()) return;
                 }
             });
 
@@ -1350,13 +1374,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             ApiClient.getBnbChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
-                    if(isFinishing()) return;
+                    if (isFinishing()) return;
                     WLog.w("onFetchTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
+                    if (response.isSuccessful() && response.body() != null) {
                         mResBnbTxInfo = response.body();
                         onUpdateView();
                     } else {
-                        if(mIsSuccess && FetchCnt < 10) {
+                        if (mIsGen && mIsSuccess && FetchCnt < 10) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -1373,8 +1397,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("BNB onFailure");
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
-                    if(isFinishing()) return;
+                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (isFinishing()) return;
                 }
             });
 
@@ -1382,13 +1406,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if(isFinishing()) return;
+                    if (isFinishing()) return;
                     WLog.w("onFetchTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
+                    if (response.isSuccessful() && response.body() != null) {
                         mResTxInfo = response.body();
                         onUpdateView();
                     } else {
-                        if(mIsSuccess && FetchCnt < 10) {
+                        if (mIsGen && mIsSuccess && FetchCnt < 10) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -1404,8 +1428,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
-                    if(isFinishing()) return;
+                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (isFinishing()) return;
                 }
             });
 
@@ -1413,13 +1437,18 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             ApiClient.getKavaTestChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if(isFinishing()) return;
+                    if (isFinishing()) return;
                     WLog.w("onFetchTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
+                    if (response.isSuccessful() && response.body() != null) {
                         mResTxInfo = response.body();
-                        onUpdateView();
+                        if (mResTxInfo.getMsgType(0) .equals(KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
+                            onFetchHtlcStatus(mResTxInfo.simpleSwapId());
+                        } else {
+                            onUpdateView();
+                        }
+
                     } else {
-                        if(mIsSuccess && FetchCnt < 10) {
+                        if( mIsGen && mIsSuccess && FetchCnt < 10) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -1435,10 +1464,38 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
-                    if(isFinishing()) return;
+                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (isFinishing()) return;
                 }
             });
+        }
+    }
+
+
+    private void onFetchHtlcStatus(String swapId) {
+        if (!TextUtils.isEmpty(swapId)) {
+            if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+
+            } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                ApiClient.getKavaTestChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResKavaSwapInfo>() {
+                    @Override
+                    public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            mResKavaSwapInfo = response.body();
+                        }
+                        onUpdateView();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResKavaSwapInfo> call, Throwable t) {
+                        WLog.w("onFetchHtlcStatus " + t.getMessage());
+                        onUpdateView();
+                    }
+                });
+            }
+
+        } else {
+            onUpdateView();
         }
     }
 }

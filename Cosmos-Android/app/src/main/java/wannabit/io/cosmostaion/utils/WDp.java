@@ -45,8 +45,10 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
+import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
@@ -1690,6 +1692,24 @@ public class WDp {
         txtView.setTextColor(getChainColor(c, chain));
 
 
+    }
+
+    public static String getKavaHtlcStatus(Context c, ResTxInfo resTxInfo, ResKavaSwapInfo resKavaSwapInfo) {
+        if (!resTxInfo.isSuccess()) {
+            return c.getString(R.string.str_bep3_status_open);
+        }
+
+        if (resKavaSwapInfo == null) {
+            return c.getString(R.string.str_bep3_status_completed);
+        }
+
+        if (resKavaSwapInfo.result.status.equals(ResKavaSwapInfo.STATUS_EXPIRED)) {
+            return c.getString(R.string.str_bep3_status_expired);
+        } else if (resKavaSwapInfo.result.status.equals(ResKavaSwapInfo.STATUS_OPEN)) {
+            return c.getString(R.string.str_bep3_status_open);
+        } else {
+            return c.getString(R.string.str_bep3_status_completed);
+        }
     }
 
 }

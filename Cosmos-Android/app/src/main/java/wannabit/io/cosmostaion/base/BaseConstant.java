@@ -110,6 +110,7 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_DEPOSIT_CDP                     = 2068;
     public final static int TASK_GEN_TX_WITHDRAW_CDP                    = 2069;
     public final static int TASK_GEN_TX_HTLC_SWAP                       = 2070;
+    public final static int TASK_GEN_TX_HTLC_REFUND                     = 2071;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -199,6 +200,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_DEPOSIT_CDP                         = 5016;
     public final static int CONST_PW_TX_WITHDRAW_CDP                        = 5017;
 //    public final static int CONST_PW_TX_HTLS_SWAP                           = 5018;
+    public final static int CONST_PW_TX_HTLS_REFUND                         = 5019;
 
 
     public final static int TX_TYPE_UNKNOWN                 = 3000;

@@ -23,15 +23,12 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcSwapTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleChangeRewardAddressTask;
@@ -39,6 +36,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleCreateCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
@@ -94,6 +92,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mOwner;
     private String                      mDepositor;
     private String                      mCdpDenom;
+
+    private String                      mSwapId;
 
 //    public BaseChain                    mRecipientChain;
 //    public Account                      mRecipientAccount;
@@ -152,6 +152,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mCdpDenom = getIntent().getStringExtra("cdp_denom");
         mDepositor = getIntent().getStringExtra("depositor");
         mCdpDenom = getIntent().getStringExtra("cdp_denom");
+        mSwapId = getIntent().getStringExtra("swapId");
 
 //        if (getIntent().getStringExtra("toChain") != null)
 //            mRecipientChain = BaseChain.getChain(getIntent().getStringExtra("toChain"));
@@ -390,6 +391,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_HTLS_REFUND) {
+            onShowWaitDialog();
+            new SimpleHtlcRefundTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mSwapId,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
 //        else if (mPurpose == BaseConstant.CONST_PW_TX_HTLS_SWAP) {
@@ -462,8 +471,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_REPAY_CDP ||
                     result.taskType == BaseConstant.TASK_GEN_TX_DRAW_DEBT_CDP ||
                     result.taskType == BaseConstant.TASK_GEN_TX_DEPOSIT_CDP ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_WITHDRAW_CDP) {
-            if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
+                    result.taskType == BaseConstant.TASK_GEN_TX_WITHDRAW_CDP ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_HTLC_REFUND) {
+            if (!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;
             }
