@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
@@ -58,6 +59,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
+import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_EXPIRED;
+import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 
 public class WDp {
 
@@ -1716,6 +1720,23 @@ public class WDp {
         } else {
             return c.getString(R.string.str_bep3_status_completed);
         }
+    }
+
+    public static String getBnbHtlcStatus(Context c, ResBnbSwapInfo resBnbSwapInfo) {
+        if (resBnbSwapInfo == null) {
+            return "-";
+        }
+        if (resBnbSwapInfo.status == BNB_STATUS_OPEN) {
+            return c.getString(R.string.str_bep3_status_open);
+
+        } else if (resBnbSwapInfo.status == BNB_STATUS_EXPIRED) {
+            return c.getString(R.string.str_bep3_status_expired);
+
+        } else if (resBnbSwapInfo.status == BNB_STATUS_COMPLETED) {
+            return c.getString(R.string.str_bep3_status_completed);
+        }
+        return c.getString(R.string.str_bep3_status_completed);
+
     }
 
 }

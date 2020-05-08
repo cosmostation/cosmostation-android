@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -71,6 +72,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_C
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
+import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_EXPIRED;
 import static wannabit.io.cosmostaion.network.res.ResKavaSwapInfo.STATUS_EXPIRED;
 
 public class TxDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -94,9 +96,10 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     private String mTxHash;
 
     private TxDetailAdapter mTxDetailAdapter;
-    private ResTxInfo mResTxInfo;
+    private ResTxInfo       mResTxInfo;
     private ResKavaSwapInfo mResKavaSwapInfo;
-    private ResBnbTxInfo mResBnbTxInfo;
+    private ResBnbTxInfo    mResBnbTxInfo;
+    private ResBnbSwapInfo  mResBnbSwapInfo;
     private String mBnbTime;
     private String mSwapId = "";
 
@@ -219,6 +222,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 webintent.putExtra("txid", mResTxInfo.hash);
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                webintent.putExtra("txid", mResBnbTxInfo.hash);
+            } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
                 webintent.putExtra("txid", mResBnbTxInfo.hash);
             } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 return;
@@ -367,10 +372,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (getItemViewType(position) == TYPE_TX_HTLC_CREATE) {
                 onBindCreateHTLC(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HTLC_CLAIM) {
-//                onBindClaimHTLC(viewHolder, mResTxInfo.getMsg(position - 1));
                 onBindClaimHTLC(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HTLC_REFUND) {
-//                onBindRefundHTLC(viewHolder, mResTxInfo.getMsg(position - 1));
                 onBindRefundHTLC(viewHolder, position);
             } else {
                 onBindUnKnown(viewHolder, mResTxInfo.getMsg(position - 1));
@@ -866,19 +869,30 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 final Msg msg = mResBnbTxInfo.getMsg(position - 1);
                 if (mAccount.address.equals(msg.value.from)) {
                     holder.itemMsgTitle.setText(getString(R.string.tx_send_htlc));
+                    holder.itemSender.setText(msg.value.from);
+                    holder.itemRecipient.setText(msg.value.recipient_other_chain);
+                    if (mResBnbSwapInfo != null && mResBnbSwapInfo.status == BNB_STATUS_EXPIRED) {
+                        mRefundBtn.setVisibility(View.VISIBLE);
+                        mSwapId = mResBnbTxInfo.simpleSwapId();
+                    }
+
                 } else if (mAccount.address.equals(msg.value.to)) {
                     holder.itemMsgTitle.setText(getString(R.string.tx_receive_htlc));
+                    holder.itemSender.setText(msg.value.sender_other_chain);
+                    holder.itemRecipient.setText(msg.value.to);
                 } else {
                     holder.itemMsgTitle.setText(getString(R.string.tx_create_htlc));
+                    holder.itemSender.setText(msg.value.from);
+                    holder.itemRecipient.setText(msg.value.to);
                 }
-                Coin sendCoin = msg.value.getCoins().get(0);
                 //only support bnb
+                Coin sendCoin = msg.value.getCoins().get(0);
                 WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemSendDenom);
                 holder.itemSendAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(sendCoin.amount), 8, 8));
-                holder.itemSender.setText(msg.value.from);
-                holder.itemRecipient.setText(msg.value.recipient_other_chain);
                 holder.itemRandomHash.setText(msg.value.random_number_hash);
                 holder.itemExpectIncome.setText(msg.value.expected_income);
+                holder.itemExpectedLayer.setVisibility(View.GONE);
+                holder.itemStatus.setText(WDp.getBnbHtlcStatus(getBaseContext(), mResBnbSwapInfo));
             }
         }
 
@@ -1293,12 +1307,14 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         public class TxCreateHtlcHolder extends RecyclerView.ViewHolder {
             ImageView itemMsgImg;
             TextView itemMsgTitle;
+            LinearLayout itemExpectedLayer;
             TextView itemSendAmount, itemSendDenom, itemSender, itemRecipient, itemRandomHash, itemExpectIncome, itemStatus;
 
             public TxCreateHtlcHolder(@NonNull View itemView) {
                 super(itemView);
                 itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
                 itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemExpectedLayer = itemView.findViewById(R.id.expected_layer);
                 itemSendAmount = itemView.findViewById(R.id.send_amount);
                 itemSendDenom = itemView.findViewById(R.id.send_amount_denom);
                 itemSender = itemView.findViewById(R.id.sender_addr);
@@ -1487,7 +1503,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     WLog.w("onFetchTx " + response.toString());
                     if (response.isSuccessful() && response.body() != null) {
                         mResBnbTxInfo = response.body();
-                        onUpdateView();
+                        if (mResBnbTxInfo.getMsg(0).type.equals(BNB_MSG_TYPE_HTLC) &&
+                                mAccount.address.equals(mResBnbTxInfo.getMsg(0).value.from)) {
+                            onFetchHtlcStatus(mResBnbTxInfo.simpleSwapId());
+                        } else {
+                            onUpdateView();
+                        }
                     } else {
                         if (mIsSuccess && FetchCnt < 10) {
                             new Handler().postDelayed(new Runnable() {
@@ -1588,6 +1609,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
 
     private void onFetchHtlcStatus(String swapId) {
+        WLog.w("onFetchHtlcStatus " + swapId);
         if (!TextUtils.isEmpty(swapId)) {
             if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
 
@@ -1607,6 +1629,26 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                         onUpdateView();
                     }
                 });
+
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+
+            } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+                ApiClient.getBnbTestChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResBnbSwapInfo>() {
+                    @Override
+                    public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            mResBnbSwapInfo = response.body();
+                        }
+                        onUpdateView();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResBnbSwapInfo> call, Throwable t) {
+                        WLog.w("onFetchHtlcStatus " + t.getMessage());
+                        onUpdateView();
+                    }
+                });
+
             }
 
         } else {

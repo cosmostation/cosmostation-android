@@ -41,4 +41,13 @@ public class ResBnbTxInfo {
         }
         return result;
     }
+
+    public String simpleSwapId() {
+        String result = "";
+        String[] slice = log.split(":");
+        if (slice.length > 0) {
+            return slice[slice.length - 1].trim();
+        }
+        return result;
+    }
 }
