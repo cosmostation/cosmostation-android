@@ -96,7 +96,6 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         }  else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.KAVA_TEST)) {
             mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg2), getSActivity().mRecipientChain.getChain()));
         }
-        WLog.w("mToAccountList " + mToAccountList.size());
     }
 
     @Override

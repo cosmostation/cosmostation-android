@@ -637,7 +637,7 @@ public class BaseData {
         for (Account account:AllAccount) {
             if (BaseChain.getChain(account.baseChain).equals(chain) && account.hasPrivateKey) {
                 if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-                    if (account.sequenceNumber > 0 && account.sequenceNumber > 0) {
+                    if (account.accountNumber > 0) {
                         result.add(account);
                     }
 

@@ -286,7 +286,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (history.txType.equals("HTL_TRANSFER") || history.txType.equals("CLAIM_HTL")) {
+                        if (history.txType.equals("HTL_TRANSFER") || history.txType.equals("CLAIM_HTL") || history.txType.equals("REFUND_HTL")) {
                             Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
                             txDetail.putExtra("txHash", history.txHash);
                             txDetail.putExtra("isGen", false);

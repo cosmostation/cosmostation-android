@@ -79,8 +79,8 @@ public class HistoryTask extends CommonTask {
                 Response<ResBnbHistories> response = null;
                 if (strings.length == 3) {
                     response = ApiClient.getBnbTestChain(mApp).getHistory(strings[0], strings[1], strings[2]).execute();
-//                    Call a = ApiClient.getBnbTestChain(mApp).getHistory(strings[0], strings[1], strings[2]);
-//                    WLog.w("url " + a.request().url().toString());
+                    Call a = ApiClient.getBnbTestChain(mApp).getHistory(strings[0], strings[1], strings[2]);
+                    WLog.w("url " + a.request().url().toString());
                 } else {
                     response = ApiClient.getBnbTestChain(mApp).getHistoryAsset(strings[0], strings[1], strings[2], strings[3]).execute();
 //                    Call a = ApiClient.getBnbTestChain(mApp).getHistoryAsset(strings[0], strings[1], strings[2], strings[3]);

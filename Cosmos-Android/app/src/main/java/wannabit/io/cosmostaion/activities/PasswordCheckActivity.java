@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleChangeRewardAddressTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleCreateCdpTask;
@@ -393,12 +394,22 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == BaseConstant.CONST_PW_TX_HTLS_REFUND) {
             onShowWaitDialog();
-            new SimpleHtlcRefundTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mSwapId,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+                new SimpleBnbHtlcRefundTask(getBaseApplication(),
+                        this,
+                        mAccount,
+                        mSwapId,
+                        mTargetMemo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                new SimpleHtlcRefundTask(getBaseApplication(),
+                        this,
+                        mAccount,
+                        mSwapId,
+                        mTargetMemo,
+                        mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            }
+
         }
 
 //        else if (mPurpose == BaseConstant.CONST_PW_TX_HTLS_SWAP) {
@@ -472,13 +483,25 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_DRAW_DEBT_CDP ||
                     result.taskType == BaseConstant.TASK_GEN_TX_DEPOSIT_CDP ||
                     result.taskType == BaseConstant.TASK_GEN_TX_WITHDRAW_CDP ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_HTLC_REFUND) {
+                    result.taskType == BaseConstant.TASK_GEN_TX_HTLC_REFUND  ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND) {
             if (!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;
             }
 
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
+                txIntent.putExtra("isGen", true);
+                txIntent.putExtra("isSuccess", result.isSuccess);
+                txIntent.putExtra("errorCode", result.errorCode);
+                txIntent.putExtra("errorMsg", result.errorMsg);
+                String hash = String.valueOf(result.resultData);
+                if(!TextUtils.isEmpty(hash))
+                    txIntent.putExtra("txHash", hash);
+                startActivity(txIntent);
+
+            } else if (mBaseChain.equals(BaseChain.BNB_TEST) && result.taskType == BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
                 txIntent.putExtra("isGen", true);
                 txIntent.putExtra("isSuccess", result.isSuccess);

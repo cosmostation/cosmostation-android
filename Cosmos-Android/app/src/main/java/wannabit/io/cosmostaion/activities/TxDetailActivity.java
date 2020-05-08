@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResBnbNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
@@ -45,6 +46,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC_CLIAM;
+import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
@@ -72,7 +74,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_C
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
-import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_EXPIRED;
+import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResKavaSwapInfo.STATUS_EXPIRED;
 
 public class TxDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -100,6 +102,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     private ResKavaSwapInfo mResKavaSwapInfo;
     private ResBnbTxInfo    mResBnbTxInfo;
     private ResBnbSwapInfo  mResBnbSwapInfo;
+    private ResBnbNodeInfo  mResBnbNodeInfo;
     private String mBnbTime;
     private String mSwapId = "";
 
@@ -123,7 +126,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain  = BaseChain.getChain(mAccount.baseChain);
@@ -152,7 +154,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         } else {
             mLoadingLayer.setVisibility(View.GONE);
             mErrorCardView.setVisibility(View.VISIBLE);
-            if(mErrorCode == ERROR_CODE_BROADCAST) {
+            if (mErrorCode == ERROR_CODE_BROADCAST) {
                 mErrorMsgTv.setText(getString(R.string.error_network));
             } else {
                 mErrorMsgTv.setText("error code : " + mErrorCode + "\n" + mErrorMsg);
@@ -406,6 +408,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                         return TYPE_TX_HTLC_CREATE;
                     } else if (mResBnbTxInfo.getMsgType(position - 1) .equals(BNB_MSG_TYPE_HTLC_CLIAM)) {
                         return TYPE_TX_HTLC_CLAIM;
+                    } else if (mResBnbTxInfo.getMsgType(position - 1) .equals(BNB_MSG_TYPE_HTLC_REFUND)) {
+                        return TYPE_TX_HTLC_REFUND;
                     }
                     return TYPE_TX_UNKNOWN;
 
@@ -871,10 +875,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemMsgTitle.setText(getString(R.string.tx_send_htlc));
                     holder.itemSender.setText(msg.value.from);
                     holder.itemRecipient.setText(msg.value.recipient_other_chain);
-                    if (mResBnbSwapInfo != null && mResBnbSwapInfo.status == BNB_STATUS_EXPIRED) {
-                        mRefundBtn.setVisibility(View.VISIBLE);
-                        mSwapId = mResBnbTxInfo.simpleSwapId();
-                    }
 
                 } else if (mAccount.address.equals(msg.value.to)) {
                     holder.itemMsgTitle.setText(getString(R.string.tx_receive_htlc));
@@ -892,7 +892,15 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemRandomHash.setText(msg.value.random_number_hash);
                 holder.itemExpectIncome.setText(msg.value.expected_income);
                 holder.itemExpectedLayer.setVisibility(View.GONE);
-                holder.itemStatus.setText(WDp.getBnbHtlcStatus(getBaseContext(), mResBnbSwapInfo));
+                holder.itemStatus.setText(WDp.getBnbHtlcStatus(getBaseContext(), mResBnbSwapInfo, mResBnbNodeInfo));
+
+                if (mResBnbSwapInfo != null &&
+                        mResBnbNodeInfo != null &&
+                        mResBnbSwapInfo.status == BNB_STATUS_OPEN &&
+                        mResBnbSwapInfo.expireHeight < mResBnbNodeInfo.getCHeight()) {
+                    mRefundBtn.setVisibility(View.VISIBLE);
+                    mSwapId = mResBnbTxInfo.simpleSwapId();
+                }
             }
         }
 
@@ -934,8 +942,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemFromAddr.setText(msg.value.from);
                 holder.itemSwapId.setText(msg.value.swap_id);
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
 
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+                final Msg msg = mResBnbTxInfo.getMsg(position - 1);
+                holder.itemFromAddr.setText(msg.value.from);
+                holder.itemSwapId.setText(msg.value.swap_id);
             }
         }
 
@@ -1636,9 +1647,10 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
                         if (response.isSuccessful() && response.body() != null) {
+                            WLog.w("onFetchHtlcStatus url " + call.request().url());
                             mResBnbSwapInfo = response.body();
                         }
-                        onUpdateView();
+                        onFetchBnbNodeInfo();
                     }
 
                     @Override
@@ -1652,6 +1664,43 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         } else {
             onUpdateView();
+        }
+    }
+
+    private void onFetchBnbNodeInfo() {
+        if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            ApiClient.getBnbChain(getBaseContext()).getNodeInfo().enqueue(new Callback<ResBnbNodeInfo>() {
+                @Override
+                public void onResponse(Call<ResBnbNodeInfo> call, Response<ResBnbNodeInfo> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        mResBnbNodeInfo = response.body();
+                    }
+                    onUpdateView();
+                }
+
+                @Override
+                public void onFailure(Call<ResBnbNodeInfo> call, Throwable t) {
+                    WLog.w("onFetchBnbNodeInfo " + t.getMessage());
+                    onUpdateView();
+                }
+            });
+
+        } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+            ApiClient.getBnbTestChain(getBaseContext()).getNodeInfo().enqueue(new Callback<ResBnbNodeInfo>() {
+                @Override
+                public void onResponse(Call<ResBnbNodeInfo> call, Response<ResBnbNodeInfo> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        mResBnbNodeInfo = response.body();
+                    }
+                    onUpdateView();
+                }
+
+                @Override
+                public void onFailure(Call<ResBnbNodeInfo> call, Throwable t) {
+                    WLog.w("onFetchBnbNodeInfo " + t.getMessage());
+                    onUpdateView();
+                }
+            });
         }
     }
 }

@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbHistories;
+import wannabit.io.cosmostaion.network.res.ResBnbNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
@@ -20,6 +21,9 @@ import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface BinanceChain {
+
+    @GET("/api/v1/node-info")
+    Call<ResBnbNodeInfo> getNodeInfo();
 
     @GET("/api/v1/account/{address}")
     Call<ResBnbAccountInfo> getAccountInfo(@Path("address") String address);

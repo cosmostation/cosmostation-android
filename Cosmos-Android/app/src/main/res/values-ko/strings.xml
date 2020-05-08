@@ -364,8 +364,8 @@
     <string name="str_my_cdps">내 CDP</string>
     <string name="str_all_cdps">모든 상품</string>
     <string name="str_press_select_recipient_account">수신 계정 선택</string>
-    <string name="str_check_sent_wallet">보낸 지갑 확인</string>
-    <string name="str_check_received_wallet">받은 지갑 확인</string>
+    <string name="str_check_sent_wallet">보낸 지갑</string>
+    <string name="str_check_received_wallet">받은 지갑</string>
     <string name="str_wait_htlc_loading">닫지 마세요!\n거래가 순서대로 각 체인에 제출됩니다.\n일반 트랜잭션보다 시간이 조금 더 걸립니다.</string>
     <string name="str_sender">송금자</string>
     <string name="str_relay_recipient">중계 수신자</string>
@@ -387,6 +387,7 @@
     <string name="str_bep3_status_completed">수신 완료</string>
     <string name="str_bep3_status_expired">반환 가능</string>
     <string name="str_bep3_status_open">수신 대기</string>
+    <string name="str_bep3_status_refunded">반환완료</string>
     <string name="str_bep3_status_null">알 수 없음</string>
     <string name="str_interchain_refund">인터체인 환불하기</string>
     <string name="str_swapId">스왑 아이디</string>
@@ -801,6 +802,7 @@
     <string name="tx_receive_htlc">인터체인 - 받기</string>
     <string name="tx_create_htlc">인터체인 - 생성</string>
     <string name="tx_claim_htlc">인터체인 - 청구하기</string>
+    <string name="tx_refund_htlc">인터체인 - 환불하기</string>
     <string name="tx_kava_bep3_create">인터체인 - 보내기</string>
     <string name="tx_kava_bep3_claim">인터체인 - 청구하기</string>
     <string name="tx_kava_bep3_refund">인터체인 - 환불하기</string>

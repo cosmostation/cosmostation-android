@@ -35,6 +35,7 @@
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
+    <string name="str_refund_swap_memo_c" translatable="false">Refund Atomic Swap via Cosmostation Wallet</string>
 
     <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
@@ -446,8 +447,8 @@
     <string name="str_my_cdps">My CDP</string>
     <string name="str_all_cdps">All Products</string>
     <string name="str_press_select_recipient_account">Select Recipient Account</string>
-    <string name="str_check_sent_wallet">Check Origin Wallet</string>
-    <string name="str_check_received_wallet">Check Destination Wallet</string>
+    <string name="str_check_sent_wallet">Origin Wallet</string>
+    <string name="str_check_received_wallet">Destination Wallet</string>
     <string name="str_wait_htlc_loading">Do NOT close!\nTransactions are being submitted to each chain in order.\nPlease note that it may take longer than regular transactions.</string>
     <string name="str_sender">Sender</string>
     <string name="str_relay_recipient">Relay recipient</string>
@@ -469,6 +470,7 @@
     <string name="str_bep3_status_completed">Receive Completed (Claimed)</string>
     <string name="str_bep3_status_expired">Refundable</string>
     <string name="str_bep3_status_open">Wait Claim</string>
+    <string name="str_bep3_status_refunded">Refunded</string>
     <string name="str_bep3_status_null">UnKnown</string>
     <string name="str_interchain_refund">Interchain Refund</string>
     <string name="str_swapId">SwapId</string>
@@ -887,6 +889,7 @@
     <string name="tx_receive_htlc">Interchain - Receive</string>
     <string name="tx_create_htlc">Interchain - Create</string>
     <string name="tx_claim_htlc">Interchain - Claim</string>
+    <string name="tx_refund_htlc">Interchain - Refund</string>
     <string name="tx_kava_bep3_create">Interchain - Send</string>
     <string name="tx_kava_bep3_claim">Interchain - Claim</string>
     <string name="tx_kava_bep3_refund">Interchain - Refund</string>
