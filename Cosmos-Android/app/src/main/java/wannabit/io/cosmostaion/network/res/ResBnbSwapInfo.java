@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
+import wannabit.io.cosmostaion.model.type.Coin;
+
 public class ResBnbSwapInfo {
 
     public static final int BNB_STATUS_OPEN      = 0;
@@ -19,4 +21,12 @@ public class ResBnbSwapInfo {
 
     @SerializedName("randomNumber")
     public String randomNumber;
+
+    @SerializedName("outAmount")
+    public String outAmount;
+
+    public Coin getSendCoin() {
+        String[] output = outAmount.split(":");
+        return new Coin(output[1].trim(),output[0].trim());
+    }
 }

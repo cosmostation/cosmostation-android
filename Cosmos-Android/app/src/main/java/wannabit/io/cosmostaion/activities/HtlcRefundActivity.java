@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.fragment.HtlcRefundStep2Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcRefundStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -44,6 +45,7 @@ public class HtlcRefundActivity extends BaseActivity {
     private HtlcRefundPageAdapter       mPageAdapter;
 
     public ResKavaSwapInfo              mResKavaSwapInfo;
+    public ResBnbSwapInfo               mResBnbSwapInfo;
     public String                       mSwapId;
     public String                       mMemo;
     public Fee                          mFee;
@@ -231,6 +233,28 @@ public class HtlcRefundActivity extends BaseActivity {
                     onBackPressed();
                 }
             });
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+
+        } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+            ApiClient.getBnbTestChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResBnbSwapInfo>() {
+                @Override
+                public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        onHideWaitDialog();
+                        mResBnbSwapInfo = response.body();
+                        mPageAdapter.mCurrentFragment.onRefreshTab();
+                    } else {
+                        onBackPressed();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResBnbSwapInfo> call, Throwable t) {
+                    WLog.w("onFetchHtlcStatus " + t.getMessage());
+                    onBackPressed();
+                }
+            });
+
         }
     }
 }

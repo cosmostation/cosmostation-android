@@ -1609,7 +1609,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
 
     private void onFetchHtlcStatus(String swapId) {
-        WLog.w("onFetchHtlcStatus " + swapId);
         if (!TextUtils.isEmpty(swapId)) {
             if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
 

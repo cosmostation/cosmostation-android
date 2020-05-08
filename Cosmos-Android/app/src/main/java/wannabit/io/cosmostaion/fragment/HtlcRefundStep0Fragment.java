@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.HtlcRefundActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class HtlcRefundStep0Fragment extends BaseFragment implements View.OnClickListener  {
 
@@ -46,10 +48,22 @@ public class HtlcRefundStep0Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        mSwapId.setText(getSActivity().mSwapId);
-        mRefundAddress.setText(getSActivity().mResKavaSwapInfo.result.sender);
-        Coin coin = getSActivity().mResKavaSwapInfo.result.amount.get(0);
-        WDp.showCoinDp(getContext(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().mBaseChain);
+        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            mSwapId.setText(getSActivity().mSwapId);
+            mRefundAddress.setText(getSActivity().mResBnbSwapInfo.fromAddr);
+            Coin coin = getSActivity().mResBnbSwapInfo.getSendCoin();
+            WDp.showCoinDp(getContext(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().mBaseChain);
+
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            mSwapId.setText(getSActivity().mSwapId);
+            mRefundAddress.setText(getSActivity().mResKavaSwapInfo.result.sender);
+            Coin coin = getSActivity().mResKavaSwapInfo.result.amount.get(0);
+            WDp.showCoinDp(getContext(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().mBaseChain);
+
+        } else {
+            getSActivity().onBeforeStep();
+        }
+
     }
 
 
