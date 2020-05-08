@@ -174,6 +174,10 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "bep3/MsgClaimAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 
+
+    public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";
+    public final static String BNB_MSG_TYPE_HTLC_CLIAM                      = "tokens/ClaimHTLTMsg";
+
     public final static String IOV_KIND_SEND                                = "bcp/send";
 
 

@@ -1067,7 +1067,13 @@ public class WDp {
                 result = c.getString(R.string.tx_receive);
             }
         } else if (history.txType.equals("HTL_TRANSFER")) {
-            result = c.getString(R.string.tx_create_htlc);
+            if (history.fromAddr.equals(address)) {
+                result = c.getString(R.string.tx_send_htlc);
+            } else if (history.toAddr.equals(address)) {
+                result = c.getString(R.string.tx_receive_htlc);
+            } else {
+                result = c.getString(R.string.tx_create_htlc);
+            }
 
         } else if (history.txType.equals("CLAIM_HTL")) {
             result = c.getString(R.string.tx_claim_htlc);

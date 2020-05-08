@@ -40,6 +40,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/claim_amount_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">

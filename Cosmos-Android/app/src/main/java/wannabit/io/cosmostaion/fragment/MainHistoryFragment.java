@@ -259,7 +259,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 });
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 final BnbHistory history = mBnbHistory.get(position);
                 viewHolder.historyType.setText(WDp.DpBNBTxType(getContext(), history, getMainActivity().mAccount.address));
                 viewHolder.history_time.setText(WDp.getTimeformat(getContext(), history.timeStamp));
@@ -273,6 +273,34 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                         webintent.putExtra("txid", history.txHash);
                         webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
                         startActivity(webintent);
+                    }
+                });
+
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+                final BnbHistory history = mBnbHistory.get(position);
+                viewHolder.historyType.setText(WDp.DpBNBTxType(getContext(), history, getMainActivity().mAccount.address));
+                viewHolder.history_time.setText(WDp.getTimeformat(getContext(), history.timeStamp));
+                viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), history.timeStamp));
+                viewHolder.history_block.setText(history.blockHeight + " block");
+                viewHolder.historySuccess.setVisibility(View.GONE);
+                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (history.txType.equals("HTL_TRANSFER") || history.txType.equals("CLAIM_HTL")) {
+                            Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                            txDetail.putExtra("txHash", history.txHash);
+                            txDetail.putExtra("isGen", false);
+                            txDetail.putExtra("isSuccess", true);
+                            txDetail.putExtra("bnbTime", history.timeStamp);
+                            startActivity(txDetail);
+
+                        } else {
+                            Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+                            webintent.putExtra("txid", history.txHash);
+                            webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
+                            startActivity(webintent);
+                        }
+
                     }
                 });
 

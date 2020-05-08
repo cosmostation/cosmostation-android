@@ -797,9 +797,9 @@
     <string name="tx_kava_withdraw_cdp">CDP - 출금</string>
     <string name="tx_kava_drawdebt_cdp">CDP - 대출</string>
     <string name="tx_kava_repaydebt_cdp">CDP - 상환</string>
-<!--    <string name="tx_create_htlc">아토믹 스왑 보내기</string>-->
-<!--    <string name="tx_claim_htlc">아토믹 스왑 받기</string>-->
-    <string name="tx_create_htlc">인터체인 - 보내기</string>
+    <string name="tx_send_htlc">인터체인 - 보내기</string>
+    <string name="tx_receive_htlc">인터체인 - 받기</string>
+    <string name="tx_create_htlc">인터체인 - 생성</string>
     <string name="tx_claim_htlc">인터체인 - 청구하기</string>
     <string name="tx_kava_bep3_create">인터체인 - 보내기</string>
     <string name="tx_kava_bep3_claim">인터체인 - 청구하기</string>
