@@ -104,7 +104,7 @@
     <string name="str_htlc_refund_c">Interchain Refund</string>
     <string name="str_receive_c">RECEIVE</string>
     <string name="str_send">Send</string>
-    <string name="str_receive">Recieve</string>
+    <string name="str_receive">Receive</string>
     <string name="str_change_reward_address_c">CHANGE REWARD ADDRESS</string>
     <string name="str_delegate_c">DELEGATE</string>
     <string name="str_undelegate_c">UNDELEGATE</string>
