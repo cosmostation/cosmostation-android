@@ -76,7 +76,7 @@ public class SimpleBnbHtlcRefundTask extends CommonTask {
                 wallet.setSequence(Long.valueOf(mAccount.sequenceNumber));
 
                 BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.TEST_NET.getBaseUrl());
-                TransactionOption options = new TransactionOption(mApp.getString(R.string.str_refund_swap_memo_c)  , 82, null);
+                TransactionOption options = new TransactionOption(mMemo, 82, null);
                 List<TransactionMetadata> resp = client.refundHtlt(mSwapId, wallet, options, true);
                 if (resp.get(0).isOk()) {
                     WLog.w("OK " + resp.get(0).getHash());
