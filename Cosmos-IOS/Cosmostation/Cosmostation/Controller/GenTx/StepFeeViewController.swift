@@ -139,10 +139,12 @@ class StepFeeViewController: BaseViewController {
     }
 
     @IBAction func onSlideChanged(_ sender: UISlider) {
+//        print("onSlideChanged ")
     }
     
     @IBAction func onSlideEnd(_ sender: UISlider) {
-        if(sender.value < 0.5) {
+//        print("onSlideEnd")
+        if (sender.value < 0.5) {
             sender.value = 0.0
             _ = updateView(0)
         } else if (sender.value < 1.5) {
@@ -215,21 +217,27 @@ class StepFeeViewController: BaseViewController {
                 available = WUtils.getTokenAmount(pageHolderVC.mBalances, COSMOS_MAIN_DENOM);
             }
             toSpend = getSpendAmount()
-            if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
+            if (toSpend.adding(feeAmount).compare(available).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                self.feeSlider.setValue(0, animated: true)
+                self.updateView(0)
                 return false
             }
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             available = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM);
             if (pageHolderVC.mKavaSendDenom == KAVA_MAIN_DENOM) {
-                if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
+                if (toSpend.adding(feeAmount).compare(available).rawValue > 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    self.feeSlider.setValue(0, animated: true)
+                    self.updateView(0)
                     return false
                 }
             } else {
                 if(feeAmount.compare(available).rawValue > 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    self.feeSlider.setValue(0, animated: true)
+                    self.updateView(0)
                     return false
                 }
             }
@@ -294,7 +302,6 @@ class StepFeeViewController: BaseViewController {
             pageHolderVC.onNextPage()
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-//            if(NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
             if (self.updateView(Int(feeSlider!.value))) {
                 feeCoin = Coin.init(KAVA_MAIN_DENOM, feeAmount.stringValue)
                 var fee = Fee.init()

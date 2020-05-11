@@ -1322,10 +1322,10 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VVb-8x-Rzd" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="16" y="125" width="288" height="54"/>
+                                <rect key="frame" x="16" y="129" width="288" height="60"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="73E-G0-n1u">
-                                        <rect key="frame" x="82.5" y="11" width="123.5" height="32.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="73E-G0-n1u">
+                                        <rect key="frame" x="82.5" y="13" width="123.5" height="34.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="current reward address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gP-Eo-2SY">
                                                 <rect key="frame" x="0.0" y="0.0" width="123.5" height="14"/>
@@ -1334,7 +1334,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ie0-F7-lzz">
-                                                <rect key="frame" x="0.0" y="16" width="123.5" height="16.5"/>
+                                                <rect key="frame" x="0.0" y="18" width="123.5" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1345,7 +1345,7 @@
                                 <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.39509310790000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="73E-G0-n1u" firstAttribute="centerY" secondItem="VVb-8x-Rzd" secondAttribute="centerY" id="B9l-Vt-FAm"/>
-                                    <constraint firstAttribute="height" constant="54" id="fcQ-xi-rhD"/>
+                                    <constraint firstAttribute="height" constant="60" id="fcQ-xi-rhD"/>
                                     <constraint firstItem="73E-G0-n1u" firstAttribute="centerX" secondItem="VVb-8x-Rzd" secondAttribute="centerX" id="oeq-9W-MyI"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -1365,7 +1365,7 @@
                             <constraint firstItem="Hfj-Dy-i1C" firstAttribute="trailing" secondItem="Ync-7Z-nqq" secondAttribute="trailing" constant="16" id="RBC-nf-ULz"/>
                             <constraint firstItem="VVb-8x-Rzd" firstAttribute="leading" secondItem="Hfj-Dy-i1C" secondAttribute="leading" constant="16" id="bID-qp-jJm"/>
                             <constraint firstItem="Hfj-Dy-i1C" firstAttribute="bottom" secondItem="BuF-xY-530" secondAttribute="bottom" constant="16" id="efY-k9-mcf"/>
-                            <constraint firstItem="VVb-8x-Rzd" firstAttribute="top" secondItem="Ync-7Z-nqq" secondAttribute="bottom" constant="12" id="eji-hf-D6j"/>
+                            <constraint firstItem="VVb-8x-Rzd" firstAttribute="top" secondItem="Ync-7Z-nqq" secondAttribute="bottom" constant="16" id="eji-hf-D6j"/>
                             <constraint firstItem="VVb-8x-Rzd" firstAttribute="trailing" secondItem="Hfj-Dy-i1C" secondAttribute="trailing" constant="-16" id="pKu-0i-bCh"/>
                             <constraint firstItem="Hfj-Dy-i1C" firstAttribute="trailing" secondItem="bOz-sp-8fD" secondAttribute="trailing" constant="16" id="xth-D7-Tbg"/>
                             <constraint firstItem="Hfj-Dy-i1C" firstAttribute="leading" secondItem="bOz-sp-8fD" secondAttribute="leading" constant="-16" id="zjw-tQ-ywr"/>

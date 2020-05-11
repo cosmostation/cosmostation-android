@@ -263,20 +263,32 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         }
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.init(string: "80000000000000000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
         }
         
-        let noticeAlert = UIAlertController(title: NSLocalizedString("reward_address_notice_title", comment: ""), message: NSLocalizedString("reward_address_notice_msg", comment: ""), preferredStyle: .alert)
-        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: { _ in
+        let title = NSLocalizedString("reward_address_notice_title", comment: "")
+        let msg1 = NSLocalizedString("reward_address_notice_msg", comment: "")
+        let msg2 = NSLocalizedString("reward_address_notice_msg2", comment: "")
+        let msg = msg1 + msg2
+        let range = (msg as NSString).range(of: msg2)
+        
+        let noticeAlert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let attributedMessage: NSMutableAttributedString = NSMutableAttributedString(
+            string: msg,
+            attributes: [
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12.0)
+            ]
+        )
+        attributedMessage.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 14.0), range: range)
+        attributedMessage.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: range)
+        
+        noticeAlert.setValue(attributedMessage, forKey: "attributedMessage")
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
             if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
@@ -285,9 +297,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             }
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(txVC, animated: true)
-        }))
-        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: { _ in
-            self.dismiss(animated: true, completion: nil)
         }))
         self.present(noticeAlert, animated: true) {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))

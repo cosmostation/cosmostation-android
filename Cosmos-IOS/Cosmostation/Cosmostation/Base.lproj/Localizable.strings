@@ -76,7 +76,9 @@
 "override" = "Override";
 "validator_address" = "Validator address";
 "reward_address_notice_title" = "Reward Address Change";
-"reward_address_notice_msg" = "You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. Please confirm you have full authority with to change address.";
+"reward_address_notice_msg" = "\nYou can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. Please confirm you have full authority with to change address.\n\n";
+"reward_address_notice_msg2" = "Do not set as exchange address.\n";
+
 "reward_address_warnning_title" = "Double Check!";
 "more_wait_title" = "Result Display Delayed";
 "more_wait_msg" = "The transaction you requested has been successfully broadcasted to the blockchain. However, there is a delay in displaying the result. Please press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.";

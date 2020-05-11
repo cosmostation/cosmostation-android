@@ -91,21 +91,16 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
     }
     
     func onFetchRewardAddress(_ accountAddr: String) {
-        var url = ""
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseString { (response) in
-            switch response.result {
-            case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
                     guard let responseData = res as? NSDictionary,
                         let address = responseData.object(forKey: "result") as? String else {
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                        return;
+                            self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                            return;
                     }
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
                     self.currentRewardAddressLabel.text = trimAddress
@@ -115,7 +110,17 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                     self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
                     self.pageHolderVC.mCurrentRewardAddress = trimAddress
                     
-                } else if  (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                case .failure(let error):
+                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+                }
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseString { (response) in
+                switch response.result {
+                case .success(let res):
                     guard let address = res as? String else {
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))
                         return;
@@ -127,17 +132,11 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                     }
                     self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
                     self.pageHolderVC.mCurrentRewardAddress = trimAddress
-                }
-                
-                
-                
-            case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchRewardAddress ", error)
+                case .failure(let error):
+                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
         }
-        
     }
     
     func scannedAddress(result: String) {
