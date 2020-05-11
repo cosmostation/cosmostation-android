@@ -266,16 +266,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 }
             }
             
-            if (available.compare(NSDecimalNumber(string: "1")).rawValue < 0 ) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-            if (WUtils.getAllRewardByDenom(mainTabVC.mRewardList, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
-                return
-            }
-            
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
             txVC.mRewardTargetValidators = toClaimValidator
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
