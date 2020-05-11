@@ -29,7 +29,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         maxAvailable = NSDecimalNumber.zero
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             mDpDecimal = 6
-            maxAvailable = pageHolderVC.mAccount!.getAtomBalance().subtracting(NSDecimalNumber.one)
+            maxAvailable = pageHolderVC.mAccount!.getAtomBalance();
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -58,9 +58,6 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!)
             maxAvailable = self.pageHolderVC.mAccount!.getTokenBalance(self.pageHolderVC.mKavaSendDenom!)
-            if (self.pageHolderVC.mKavaSendDenom == KAVA_MAIN_DENOM) {
-                maxAvailable = maxAvailable.subtracting(NSDecimalNumber.one)
-            }
             WUtils.showCoinDp(self.pageHolderVC.mKavaSendDenom!, maxAvailable.stringValue, denomTitleLabel, mAvailableAmountLabel, pageHolderVC.chainType!)
         
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {

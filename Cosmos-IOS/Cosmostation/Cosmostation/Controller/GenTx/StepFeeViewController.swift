@@ -176,7 +176,7 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "bycicle")
             self.speedMsg.text = NSLocalizedString("fee_speed_title_0", comment: "")
             
-            feeAmount = NSDecimalNumber.init(string: "1")
+            feeAmount = NSDecimalNumber.zero
             self.minFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, minFeeAmountLabel.font, 6, pageHolderVC.chainType!)
             
         } else if (position == 1) {
@@ -294,7 +294,7 @@ class StepFeeViewController: BaseViewController {
             pageHolderVC.onNextPage()
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            if(NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
+//            if(NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
             if (self.updateView(Int(feeSlider!.value))) {
                 feeCoin = Coin.init(KAVA_MAIN_DENOM, feeAmount.stringValue)
                 var fee = Fee.init()
