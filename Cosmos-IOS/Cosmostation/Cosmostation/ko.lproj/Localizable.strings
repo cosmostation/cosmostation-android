@@ -297,6 +297,7 @@
 "error_amount" = "금액을 정확히 입력해 주세요.";
 "error_memo" = "메모를 정확히 입력해 주세요.";
 "error_only_fee_with_atom" = "지금은 ATOM만 수수료로 설정가능 합니다.";
+"error_not_enough_available" = "사용 가능 수량이 충분하지 않습니다..";
 "error_not_enough_balance" = "위임할만한 충분한 수량이 없습니다.";
 "error_not_undelegate" = "위임 해제할 수량이 없습니다.";
 "error_not_redelegate" = "재위임 할 수량이 없습니다.";

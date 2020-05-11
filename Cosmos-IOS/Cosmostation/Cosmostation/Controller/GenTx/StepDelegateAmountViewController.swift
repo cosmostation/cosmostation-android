@@ -29,7 +29,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         userBalance = NSDecimalNumber.zero
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             mDpDecimal = 6
-            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, COSMOS_MAIN_DENOM).subtracting(NSDecimalNumber.one)
+            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, COSMOS_MAIN_DENOM)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -39,7 +39,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             mDpDecimal = 6
-            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM).subtracting(NSDecimalNumber.one)
+            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
         }
         toDelegateAmountInput.delegate = self
@@ -252,12 +252,13 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
             toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
+            self.onUIupdate()
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
             toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
+            self.onUIupdate()
+            self.showMaxWarnning()
         }
-        self.onUIupdate()
-        self.showMaxWarnning()
     }
     
     func showMaxWarnning() {
