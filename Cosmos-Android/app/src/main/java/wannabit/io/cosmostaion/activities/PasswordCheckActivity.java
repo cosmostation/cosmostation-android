@@ -127,8 +127,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         mPurpose = getIntent().getIntExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        if (mPurpose != BaseConstant.CONST_PW_SIMPLE_CHECK) {
+            mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+            mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        }
         mTargetAddress = getIntent().getStringExtra("toAddress");
         mTargetCoins = getIntent().getParcelableArrayListExtra("amount");
         mTargetMemo = getIntent().getStringExtra("memo");
