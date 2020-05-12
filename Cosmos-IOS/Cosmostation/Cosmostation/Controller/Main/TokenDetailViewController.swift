@@ -402,6 +402,15 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell?.actionBep3Send  = {
                     self.onClickBep3Send(BNB_MAIN_DENOM)
                 }
+                
+            } else if ((balance?.balance_denom.uppercased() == "USDX") && chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                cell?.tokenInfoBtn.isHidden = false
+                cell?.actionTokenInfo  = {
+                    guard let url = URL(string: "https://www.kava.io/registration/") else { return }
+                    let safariViewController = SFSafariViewController(url: url)
+                    self.present(safariViewController, animated: true, completion: nil)
+                }
+                
             } else {
                 cell?.btnBep3Send.isHidden = true
             }

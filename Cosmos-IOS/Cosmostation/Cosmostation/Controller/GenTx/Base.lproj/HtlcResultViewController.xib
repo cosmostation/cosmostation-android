@@ -145,7 +145,7 @@ Please note that it may take longer than regular transactions.</string>
                                 <constraint firstAttribute="height" constant="50" id="dRP-dR-Rbr"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                            <state key="normal" title="Check Origin Wallet">
+                            <state key="normal" title="Origin Wallet">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -169,7 +169,7 @@ Please note that it may take longer than regular transactions.</string>
                                 <constraint firstAttribute="height" constant="50" id="dBR-BT-tWE"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                            <state key="normal" title="Check Destination Wallet">
+                            <state key="normal" title="Destination Wallet">
                                 <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>

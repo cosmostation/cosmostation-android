@@ -852,7 +852,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            guard let url = URL(string: "https://www.kava.io/") else { return }
+            guard let url = URL(string: "https://www.kava.io/registration/") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
