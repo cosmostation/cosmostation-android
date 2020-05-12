@@ -368,7 +368,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             }
 
         } else if (v.equals(mBtnCollateral3_4)) {
-            BigDecimal cal = mCollateralMaxAmount.multiply(new BigDecimal(0.75)).setScale(0);
+            BigDecimal cal = mCollateralMaxAmount.multiply(new BigDecimal(0.75)).setScale(0, RoundingMode.DOWN);
             if (mCollateralMinAmount.compareTo(cal) > 0) {
                 mCollateralInput.setText(mCollateralMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
