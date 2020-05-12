@@ -26,7 +26,6 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
         pageHolderVC = self.parent as? StepGenTxViewController
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             mDpDecimal = 8;
-//            maxAvailable = pageHolderVC.mAccount!.getBnbBalance().subtracting(NSDecimalNumber.init(string: "0.000375"))
             maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!).subtracting(NSDecimalNumber.init(string: "0.000375"))
             availableAmount.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, availableAmount.font, 0, mDpDecimal)
             availableDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()

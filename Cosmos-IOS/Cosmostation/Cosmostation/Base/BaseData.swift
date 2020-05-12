@@ -435,7 +435,7 @@ final class BaseData : NSObject{
                     }
                     
                 } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-                    if (WUtils.getTokenAmount(account.account_balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.init(string: "50000")).rawValue >= 0) {
+                    if (account.account_account_numner > 0) {
                         result.append(account)
                     }
                 }

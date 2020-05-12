@@ -378,10 +378,6 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             self.onShowAddMenomicDialog()
             return false
         }
-        if (self.account!.getKavaBalance().compare(NSDecimalNumber.one).rawValue < 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-            return false
-        }
         if (cdpParam!.result.circuit_breaker) {
             self.onShowToast(NSLocalizedString("error_circuit_breaker", comment: ""))
             return false

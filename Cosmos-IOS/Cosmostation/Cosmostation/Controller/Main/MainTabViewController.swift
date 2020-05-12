@@ -56,7 +56,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.showKavaTestWarn()
              });
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
