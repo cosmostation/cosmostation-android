@@ -152,7 +152,7 @@
                                             <constraint firstAttribute="height" constant="40" id="MYj-bb-ru3"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                        <state key="normal" title="  Interchain" image="bepsendIc">
+                                        <state key="normal" title="  Interchain Transfer" image="bepsendIc">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
