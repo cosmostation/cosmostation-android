@@ -171,6 +171,7 @@
                 <outlet property="sendDenom" destination="iap-ub-NMw" id="MWq-2h-fF6"/>
                 <outlet property="senderLabel" destination="4hj-IQ-lvo" id="1ue-Fw-v7Q"/>
                 <outlet property="txIcon" destination="g9K-2K-Uai" id="aM9-Y7-tlK"/>
+                <outlet property="txTitle" destination="nUC-VN-f3R" id="Grf-eB-hOC"/>
             </connections>
             <point key="canvasLocation" x="202.17391304347828" y="237.38839285714283"/>
         </tableViewCell>

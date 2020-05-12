@@ -11,6 +11,7 @@ import UIKit
 class TxHtlcCreateCell: UITableViewCell {
     
     @IBOutlet weak var txIcon: UIImageView!
+    @IBOutlet weak var txTitle: UILabel!
     @IBOutlet weak var sendAmount: UILabel!
     @IBOutlet weak var sendDenom: UILabel!
     @IBOutlet weak var senderLabel: UILabel!

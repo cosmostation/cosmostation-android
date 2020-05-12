@@ -306,6 +306,10 @@ let IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal = "irishub/gov/CommunityTaxUsage
 
 
 let BNB_MSG_TYPE_TRANSFER                   = "bnb_transfer";
+let BNB_MSG_TYPE_HTLC                       = "tokens/HTLTMsg";
+let BNB_MSG_TYPE_HTLC_CLIAM                 = "tokens/ClaimHTLTMsg";
+let BNB_MSG_TYPE_HTLC_REFUND                = "tokens/RefundHTLTMsg";
+
 let TASK_TYPE_HTLC_SWAP                     = "htlc_swap";
 
 let KAVA_MSG_TYPE_TRANSFER                  = "kava_transfer";
@@ -319,8 +323,8 @@ let KAVA_MSG_TYPE_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
 let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
 let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 
-let  BNB_TEST_DEPUTY                        = "tbnb1et8vmd0dgvswjnyaf73ez8ye0jehc8a7t7fljv"
-let  KAVA_TEST_DEPUTY                       = "kava1aphsdnz5hu2t5ty2au6znprug5kx3zpy6zwq29"
+let BNB_TEST_DEPUTY                        = "tbnb1et8vmd0dgvswjnyaf73ez8ye0jehc8a7t7fljv"
+let KAVA_TEST_DEPUTY                       = "kava1aphsdnz5hu2t5ty2au6znprug5kx3zpy6zwq29"
 
 let IOV_MSG_TYPE_TRANSFER                  = "iov_transfer";
 

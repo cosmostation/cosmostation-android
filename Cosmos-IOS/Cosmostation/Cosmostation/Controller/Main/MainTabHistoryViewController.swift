@@ -287,11 +287,21 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             let bnbHistory = mBnbHistories[indexPath.row]
-            guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
-            print("url ", url)
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-            
+            if (bnbHistory.txType == "HTL_TRANSFER" || bnbHistory.txType == "CLAIM_HTL" || bnbHistory.txType == "REFUND_HTL") {
+                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+                txDetailVC.mIsGen = false
+                txDetailVC.mTxHash = bnbHistory.txHash
+                txDetailVC.mBnbTime = bnbHistory.timeStamp
+                txDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(txDetailVC, animated: true)
+                
+            } else {
+                guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
+                print("url ", url)
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
         }
     }
     

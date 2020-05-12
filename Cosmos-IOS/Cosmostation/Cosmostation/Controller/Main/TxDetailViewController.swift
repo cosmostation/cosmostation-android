@@ -24,6 +24,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     var mIsGen: Bool = false
     var mTxHash: String?
     var mTxInfo: TxInfo?
+    var mBnbTime: String?
     var mBroadCaseResult: [String:Any]?
     var mFetchCnt = 10
     var mAllValidator = Array<Validator>()
@@ -184,13 +185,13 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else if (msg?.type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
                 return onBindRepayDebtCdp(tableView, msg!)
                 
-            } else if (msg?.type == KAVA_MSG_TYPE_CREATE_SWAP) {
+            } else if (msg?.type == KAVA_MSG_TYPE_CREATE_SWAP || msg?.type == BNB_MSG_TYPE_HTLC) {
                 return onBindHtlcCreate(tableView, msg!)
                 
-            } else if (msg?.type == KAVA_MSG_TYPE_CLAIM_SWAP) {
+            } else if (msg?.type == KAVA_MSG_TYPE_CLAIM_SWAP || msg?.type == BNB_MSG_TYPE_HTLC_CLIAM) {
                 return onBindHtlcClaim(tableView, msg!)
                 
-            } else if (msg?.type == KAVA_MSG_TYPE_REFUND_SWAP) {
+            } else if (msg?.type == KAVA_MSG_TYPE_REFUND_SWAP || msg?.type == BNB_MSG_TYPE_HTLC_REFUND) {
                 return onBindHtlcRefund(tableView, msg!)
                 
             } else {
@@ -233,6 +234,25 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.hashLabel.text = mTxInfo!.txhash
             cell?.memoLabel.text = mTxInfo!.tx.value.memo
             cell?.feeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo!.getSimpleFee(), cell!.feeAmountLabel.font!, 6, 6)
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            cell?.feeLayer.isHidden = false
+            cell?.usedFeeLayer.isHidden = true
+            cell?.limitFeeLayer.isHidden = true
+            cell?.statusImg.image = UIImage(named: "successIc")
+            cell?.statusLabel.text = NSLocalizedString("tx_success", comment: "")
+            cell?.errorMsg.isHidden = true
+            cell?.errorConstraint.priority = .defaultLow
+            cell?.successConstraint.priority = .defaultHigh
+            
+            cell?.heightLabel.text = mTxInfo!.height
+            cell?.msgCntLabel.text = String(mTxInfo!.tx.value.msg.count)
+            cell?.gasAmountLabel.text = "-"
+            cell?.timeLabel.text = WUtils.nodeTimetoString(input: mBnbTime!)
+            cell?.timeGapLabel.text = WUtils.timeGap(input: mBnbTime!)
+            cell?.hashLabel.text = mTxInfo!.hash
+            cell?.memoLabel.text = mTxInfo!.tx.value.memo
+            cell?.feeAmountLabel.attributedText = WUtils.displayAmount2("0.000375", cell!.feeAmountLabel.font!, 0, 8)
             
         }
         return cell!
@@ -529,6 +549,27 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.recipientLabel.text = msg.value.recipient_other_chain
             cell?.randomHashLabel.text = msg.value.random_number_hash
             cell?.expectedAmountLabel.text = msg.value.expected_income
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            WUtils.setDenomTitle(chainType!, cell!.sendDenom)
+            cell?.sendDenom.text = msg.value.getAmounts()![0].denom
+            cell?.sendAmount.attributedText = WUtils.displayAmount2(msg.value.getAmounts()![0].amount, cell!.sendAmount.font!, 8, 8)
+            if (self.account?.account_address == msg.value.from) {
+                cell!.txTitle.text = NSLocalizedString("tx_send_htlc2", comment: "")
+                cell?.senderLabel.text = msg.value.from
+                cell?.recipientLabel.text = msg.value.recipient_other_chain
+            } else if (self.account?.account_address == msg.value.to) {
+                cell!.txTitle.text = NSLocalizedString("tx_receive_htlc2", comment: "")
+                cell?.senderLabel.text = msg.value.sender_other_chain
+                cell?.recipientLabel.text = msg.value.to
+            } else {
+                cell!.txTitle.text = NSLocalizedString("tx_create_htlc2", comment: "")
+                cell?.senderLabel.text = msg.value.from
+                cell?.recipientLabel.text = msg.value.to
+            }
+            cell?.randomHashLabel.text = msg.value.random_number_hash
+            cell?.expectedAmountLabel.text = msg.value.expected_income
+            
         }
         return cell!
     }
@@ -546,6 +587,14 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.claimerAddress.text = msg.value.from
             cell?.randomNumberLabel.text = msg.value.random_number
             cell?.swapIdLabel.text = msg.value.swap_id
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            cell?.claimAmount.text = ""
+            cell?.claimDenom.text = "-"
+            cell?.claimerAddress.text = msg.value.from
+            cell?.randomNumberLabel.text = msg.value.random_number
+            cell?.swapIdLabel.text = msg.value.swap_id
+            
         }
         return cell!
     }
@@ -557,6 +606,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.fromAddress.text = msg.value.from
             cell?.swapIdLabel.text = msg.value.swap_id
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            cell?.fromAddress.text = msg.value.from
+            cell?.swapIdLabel.text = msg.value.swap_id
+            
         }
         return cell!
     }
@@ -590,6 +644,13 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            let text = "https://testnet-explorer.binance.org/tx/" + mTxInfo!.hash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             let text = "https://kava.mintscan.io/txs/" + mTxInfo!.txhash
             let textToShare = [ text ]
@@ -613,6 +674,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             guard let url = URL(string: "https://explorer.binance.org/tx/" + mTxInfo!.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + mTxInfo!.hash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
@@ -664,6 +730,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             url = BNB_URL_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
             
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            url = BNB_TEST_URL_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
+            print("url ", request?.request?.url)
+            
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
@@ -677,10 +748,10 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                if(SHOW_LOG) { print("onFetchTx OK", res) }
+                if(SHOW_LOG) { print("onFetchTx OK", res) }
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     self.mFetchCnt = self.mFetchCnt - 1
-                    if(self.mFetchCnt > 0) {
+                    if (self.mFetchCnt > 0) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
                             self.onFetchTx(txHash)
                         })

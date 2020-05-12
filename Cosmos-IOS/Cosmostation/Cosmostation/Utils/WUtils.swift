@@ -478,8 +478,10 @@ class WUtils {
         var resultMsg = NSLocalizedString("tx_known", comment: "")
         if (bnbHistory.txType == "NEW_ORDER") {
             resultMsg = NSLocalizedString("tx_new_order", comment: "")
+            
         } else if (bnbHistory.txType == "CANCEL_ORDER") {
             resultMsg = NSLocalizedString("tx_cancel_order", comment: "")
+            
         } else if (bnbHistory.txType == "TRANSFER") {
             if (bnbHistory.fromAddr == myaddress) {
                 resultMsg = NSLocalizedString("tx_send", comment: "")
@@ -487,9 +489,19 @@ class WUtils {
                 resultMsg = NSLocalizedString("tx_receive", comment: "")
             }
         } else if (bnbHistory.txType == "HTL_TRANSFER") {
-            resultMsg = NSLocalizedString("tx_create_htlc", comment: "")
+            if (bnbHistory.fromAddr == myaddress) {
+                resultMsg = NSLocalizedString("tx_send_htlc", comment: "")
+            } else if (bnbHistory.toAddr == myaddress) {
+                resultMsg = NSLocalizedString("tx_receive_htlc", comment: "")
+            } else {
+                resultMsg = NSLocalizedString("tx_create_htlc", comment: "")
+            }
+            
         } else if (bnbHistory.txType == "CLAIM_HTL") {
             resultMsg = NSLocalizedString("tx_claim_htlc", comment: "")
+            
+        } else if (bnbHistory.txType == "REFUND_HTL") {
+            resultMsg = NSLocalizedString("tx_refund_htlc", comment: "")
         }
         return resultMsg
     }
