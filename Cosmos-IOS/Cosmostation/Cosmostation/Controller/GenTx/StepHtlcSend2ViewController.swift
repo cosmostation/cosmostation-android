@@ -13,11 +13,13 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var btnNext: UIButton!
     
     @IBOutlet weak var AmountInput: AmountInputTextField!
-    @IBOutlet weak var availableAmount: UILabel!
+    @IBOutlet weak var minAvailableAmount: UILabel!
+    @IBOutlet weak var maxAvailableAmount: UILabel!
     @IBOutlet weak var availableDenom: UILabel!
     @IBOutlet weak var btnAdd01: UIButton!
     
     var pageHolderVC: StepGenTxViewController!
+    var minAvailable = NSDecimalNumber.zero
     var maxAvailable = NSDecimalNumber.zero
     var mDpDecimal:Int16 = 8
     
@@ -26,17 +28,22 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
         pageHolderVC = self.parent as? StepGenTxViewController
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             mDpDecimal = 8;
+            minAvailable = NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)
+            minAvailableAmount.attributedText = WUtils.displayAmount2(minAvailable.stringValue, minAvailableAmount.font, 0, mDpDecimal)
             maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!).subtracting(NSDecimalNumber.init(string: "0.000375"))
-            availableAmount.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, availableAmount.font, 0, mDpDecimal)
+            maxAvailableAmount.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, maxAvailableAmount.font, 0, mDpDecimal)
             availableDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
             availableDenom.textColor = COLOR_BNB
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mHtlcDenom!)
+            minAvailable = NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN).multiplying(byPowerOf10: mDpDecimal)
+            minAvailableAmount.attributedText = WUtils.displayAmount2(minAvailable.stringValue, minAvailableAmount.font, mDpDecimal, mDpDecimal)
             maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!)
-            availableAmount.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, availableAmount.font, mDpDecimal, mDpDecimal)
+            maxAvailableAmount.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, maxAvailableAmount.font, mDpDecimal, mDpDecimal)
             availableDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
             availableDenom.textColor = .white
+            
         }
         
         AmountInput.delegate = self
@@ -75,16 +82,22 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             textField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             return
         }
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             if (userInput.compare(maxAvailable).rawValue > 0) {
                 textField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
             }
+            if (userInput.compare(NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)).rawValue < 0) {
+                textField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
+                textField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
+            if (userInput.compare(NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)).rawValue < 0) {
                 textField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
             }
@@ -97,13 +110,13 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
         if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.stringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             if (userInput.compare(maxAvailable).rawValue > 0) { return false }
+            if (userInput.compare(NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)).rawValue < 0) {return false}
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) { return false }
+            if (userInput.compare(NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)).rawValue < 0) {return false}
         }
         return true
     }

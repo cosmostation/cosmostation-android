@@ -4170,14 +4170,26 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                     <action selector="onClickClear:" destination="pLC-rU-iRM" eventType="touchUpInside" id="IGp-V1-TZ3"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cIx-R8-wey">
+                                <rect key="frame" x="246.5" y="74" width="4" height="14"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xnk-DQ-e4v">
+                                <rect key="frame" x="254.5" y="74" width="7.5" height="14"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNl-O4-6v7">
                                 <rect key="frame" x="266" y="74" width="4" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max Available : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgS-gr-nev">
-                                <rect key="frame" x="182" y="74" width="84" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgS-gr-nev">
+                                <rect key="frame" x="184" y="74" width="58.5" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
@@ -4381,15 +4393,19 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                             <constraint firstItem="opk-a1-WKc" firstAttribute="leading" secondItem="YNl-O4-6v7" secondAttribute="trailing" constant="4" id="3GT-9r-sij"/>
                             <constraint firstItem="Nrl-pO-UA2" firstAttribute="trailing" secondItem="G5L-bX-SaA" secondAttribute="trailing" constant="16" id="4cJ-O2-K6i"/>
                             <constraint firstItem="91z-Pl-ehe" firstAttribute="top" secondItem="opk-a1-WKc" secondAttribute="bottom" constant="12" id="5Xp-8D-uWy"/>
+                            <constraint firstItem="cIx-R8-wey" firstAttribute="leading" secondItem="KgS-gr-nev" secondAttribute="trailing" constant="4" id="5aA-wW-0NM"/>
                             <constraint firstItem="Nrl-pO-UA2" firstAttribute="trailing" secondItem="opk-a1-WKc" secondAttribute="trailing" constant="16" id="9HT-Ma-kOu"/>
                             <constraint firstItem="G5L-bX-SaA" firstAttribute="leading" secondItem="Nrl-pO-UA2" secondAttribute="leading" constant="16" id="Fya-8M-1UK"/>
                             <constraint firstItem="Nrl-pO-UA2" firstAttribute="trailing" secondItem="jDP-Xa-bjF" secondAttribute="trailing" constant="16" id="HZi-9s-rah"/>
                             <constraint firstItem="91z-Pl-ehe" firstAttribute="leading" secondItem="Nrl-pO-UA2" secondAttribute="leading" constant="16" id="Jji-2d-akV"/>
                             <constraint firstItem="YNl-O4-6v7" firstAttribute="firstBaseline" secondItem="opk-a1-WKc" secondAttribute="firstBaseline" id="MZM-VF-XKU"/>
+                            <constraint firstItem="Xnk-DQ-e4v" firstAttribute="centerY" secondItem="opk-a1-WKc" secondAttribute="centerY" id="Maa-LO-UYK"/>
                             <constraint firstItem="G5L-bX-SaA" firstAttribute="top" secondItem="Nrl-pO-UA2" secondAttribute="top" constant="16" id="TSF-JQ-TY0"/>
-                            <constraint firstItem="YNl-O4-6v7" firstAttribute="leading" secondItem="KgS-gr-nev" secondAttribute="trailing" id="eQd-Is-yjO"/>
                             <constraint firstItem="jDP-Xa-bjF" firstAttribute="leading" secondItem="Nrl-pO-UA2" secondAttribute="leading" constant="16" id="fJg-8F-CFc"/>
+                            <constraint firstItem="cIx-R8-wey" firstAttribute="centerY" secondItem="opk-a1-WKc" secondAttribute="centerY" id="fnz-GI-BCJ"/>
                             <constraint firstItem="o82-2L-s5J" firstAttribute="centerY" secondItem="G5L-bX-SaA" secondAttribute="centerY" id="jt3-0d-hlt"/>
+                            <constraint firstItem="YNl-O4-6v7" firstAttribute="leading" secondItem="Xnk-DQ-e4v" secondAttribute="trailing" constant="4" id="lG8-r9-RUY"/>
+                            <constraint firstItem="Xnk-DQ-e4v" firstAttribute="leading" secondItem="cIx-R8-wey" secondAttribute="trailing" constant="4" id="mD4-TJ-d1x"/>
                             <constraint firstItem="Nrl-pO-UA2" firstAttribute="bottom" secondItem="jDP-Xa-bjF" secondAttribute="bottom" constant="16" id="n5a-4r-u29"/>
                             <constraint firstItem="KgS-gr-nev" firstAttribute="firstBaseline" secondItem="opk-a1-WKc" secondAttribute="firstBaseline" id="rfS-rs-oVi"/>
                             <constraint firstItem="opk-a1-WKc" firstAttribute="top" secondItem="G5L-bX-SaA" secondAttribute="bottom" constant="8" id="stJ-dn-AGU"/>
@@ -4400,11 +4416,12 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                     </view>
                     <connections>
                         <outlet property="AmountInput" destination="G5L-bX-SaA" id="xoM-RQ-cE1"/>
-                        <outlet property="availableAmount" destination="YNl-O4-6v7" id="GKQ-tH-9MG"/>
                         <outlet property="availableDenom" destination="opk-a1-WKc" id="fbP-9f-xXF"/>
                         <outlet property="btnAdd01" destination="T91-bW-XMa" id="6kf-F8-egh"/>
                         <outlet property="btnBack" destination="Vor-H1-fwv" id="dZM-7p-2Mh"/>
                         <outlet property="btnNext" destination="R8F-Fh-NZF" id="QCf-1Y-sk5"/>
+                        <outlet property="maxAvailableAmount" destination="YNl-O4-6v7" id="B2B-Kc-vJh"/>
+                        <outlet property="minAvailableAmount" destination="cIx-R8-wey" id="Jpi-46-eR3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r4b-qg-qZ9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -4453,8 +4470,8 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnt-4M-Qc7">
-                                        <rect key="frame" x="16" y="78" width="21" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send Tx Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnt-4M-Qc7">
+                                        <rect key="frame" x="16" y="78" width="68.5" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4496,8 +4513,8 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgR-E3-eSb">
-                                        <rect key="frame" x="16" y="181" width="5" height="16.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgR-E3-eSb">
+                                        <rect key="frame" x="16" y="181" width="256" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -4517,6 +4534,7 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                     <constraint firstItem="EQx-YQ-IwS" firstAttribute="leading" secondItem="bAg-M7-vF2" secondAttribute="leading" id="IfS-g6-rS6"/>
                                     <constraint firstItem="Jf0-eM-DXP" firstAttribute="leading" secondItem="mX4-Dd-r4g" secondAttribute="leading" id="Kzk-0G-Zrv"/>
                                     <constraint firstItem="CxS-Lm-FZ1" firstAttribute="firstBaseline" secondItem="pnt-4M-Qc7" secondAttribute="firstBaseline" id="M35-cr-LeF"/>
+                                    <constraint firstItem="SgR-E3-eSb" firstAttribute="trailing" secondItem="CxS-Lm-FZ1" secondAttribute="trailing" id="NkF-Gk-geR"/>
                                     <constraint firstItem="aHX-Oe-1yk" firstAttribute="top" secondItem="CJy-EY-e0a" secondAttribute="top" constant="12" id="TKb-8P-e2E"/>
                                     <constraint firstAttribute="height" constant="210" id="UCj-mw-bhe"/>
                                     <constraint firstItem="r4s-eR-Ps3" firstAttribute="leading" secondItem="ldl-Yh-SZ4" secondAttribute="trailing" constant="4" id="Vox-dH-Ty8"/>
@@ -4541,7 +4559,7 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Q0-6J-6GZ" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="16" y="238" width="288" height="140"/>
+                                <rect key="frame" x="16" y="238" width="288" height="195"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bepclaimIc" translatesAutoresizingMaskIntoConstraints="NO" id="sgs-eK-4ms">
                                         <rect key="frame" x="12" y="12" width="28" height="28"/>
@@ -4556,8 +4574,8 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EM-1l-OQX">
-                                        <rect key="frame" x="16" y="52" width="21" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receive Amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EM-1l-OQX">
+                                        <rect key="frame" x="16" y="52" width="87.5" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4574,21 +4592,57 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Relay Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEC-Ua-TCR">
+                                        <rect key="frame" x="16" y="78" width="55" height="14"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Rv-Ka-KqU">
+                                        <rect key="frame" x="228" y="76" width="5" height="16.5"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwz-Ti-vsz">
+                                        <rect key="frame" x="237" y="76" width="35" height="16.5"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Claim Tx Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKl-8F-pXZ">
+                                        <rect key="frame" x="16" y="104" width="71.5" height="14"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S58-9N-XQB">
+                                        <rect key="frame" x="228" y="102" width="5" height="16.5"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vG-bU-P2m">
+                                        <rect key="frame" x="237" y="102" width="35" height="16.5"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sR2-Sa-lgR">
-                                        <rect key="frame" x="16" y="78" width="256" height="0.5"/>
+                                        <rect key="frame" x="16" y="130" width="256" height="0.5"/>
                                         <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="2Rq-6A-R5n"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Claim Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acC-2c-A80">
-                                        <rect key="frame" x="16" y="90.5" width="77.5" height="14"/>
+                                        <rect key="frame" x="16" y="142.5" width="77.5" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZc-Yf-zfG">
-                                        <rect key="frame" x="16" y="108.5" width="5" height="16.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZc-Yf-zfG">
+                                        <rect key="frame" x="16" y="160.5" width="256" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -4596,23 +4650,36 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                                 </subviews>
                                 <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.39509310790000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="sR2-Sa-lgR" firstAttribute="top" secondItem="UKl-8F-pXZ" secondAttribute="bottom" constant="12" id="0ZY-N5-qIE"/>
+                                    <constraint firstItem="4vG-bU-P2m" firstAttribute="trailing" secondItem="UvO-pz-ZIz" secondAttribute="trailing" id="0zZ-xG-XdM"/>
+                                    <constraint firstItem="Nwz-Ti-vsz" firstAttribute="leading" secondItem="3Rv-Ka-KqU" secondAttribute="trailing" constant="4" id="1Rv-sU-MRa"/>
                                     <constraint firstItem="7EM-1l-OQX" firstAttribute="top" secondItem="sgs-eK-4ms" secondAttribute="bottom" constant="12" id="6qa-6u-H8P"/>
                                     <constraint firstItem="UvO-pz-ZIz" firstAttribute="leading" secondItem="SN0-bA-wOw" secondAttribute="trailing" constant="4" id="82I-HL-dAg"/>
+                                    <constraint firstItem="UKl-8F-pXZ" firstAttribute="top" secondItem="aEC-Ua-TCR" secondAttribute="bottom" constant="12" id="AKW-vx-upv"/>
                                     <constraint firstItem="sgs-eK-4ms" firstAttribute="leading" secondItem="9Q0-6J-6GZ" secondAttribute="leading" constant="12" id="DpK-MP-CvO"/>
+                                    <constraint firstItem="aEC-Ua-TCR" firstAttribute="leading" secondItem="7EM-1l-OQX" secondAttribute="leading" id="FI7-ZE-ENc"/>
                                     <constraint firstItem="sR2-Sa-lgR" firstAttribute="leading" secondItem="9Q0-6J-6GZ" secondAttribute="leading" constant="16" id="Hdv-xd-H6u"/>
                                     <constraint firstItem="7EM-1l-OQX" firstAttribute="leading" secondItem="9Q0-6J-6GZ" secondAttribute="leading" constant="16" id="Ii8-fT-Hn5"/>
+                                    <constraint firstItem="S58-9N-XQB" firstAttribute="firstBaseline" secondItem="4vG-bU-P2m" secondAttribute="firstBaseline" id="Jji-5z-Rx3"/>
                                     <constraint firstItem="UvO-pz-ZIz" firstAttribute="firstBaseline" secondItem="7EM-1l-OQX" secondAttribute="firstBaseline" id="Lsp-Qy-5yi"/>
                                     <constraint firstItem="sgs-eK-4ms" firstAttribute="top" secondItem="9Q0-6J-6GZ" secondAttribute="top" constant="12" id="UdS-PO-eEc"/>
                                     <constraint firstItem="SN0-bA-wOw" firstAttribute="firstBaseline" secondItem="UvO-pz-ZIz" secondAttribute="firstBaseline" id="VTd-DC-eVM"/>
                                     <constraint firstAttribute="trailing" secondItem="sR2-Sa-lgR" secondAttribute="trailing" constant="16" id="X91-fG-6LJ"/>
                                     <constraint firstItem="acC-2c-A80" firstAttribute="top" secondItem="sR2-Sa-lgR" secondAttribute="bottom" constant="12" id="ZHL-Nf-WAe"/>
                                     <constraint firstItem="ZZc-Yf-zfG" firstAttribute="top" secondItem="acC-2c-A80" secondAttribute="bottom" constant="4" id="ZgP-rM-Z1x"/>
-                                    <constraint firstAttribute="height" constant="140" id="bW0-BA-VUi"/>
-                                    <constraint firstItem="sR2-Sa-lgR" firstAttribute="top" secondItem="7EM-1l-OQX" secondAttribute="bottom" constant="12" id="cNC-r3-wfd"/>
+                                    <constraint firstAttribute="height" constant="195" id="bW0-BA-VUi"/>
+                                    <constraint firstItem="UKl-8F-pXZ" firstAttribute="leading" secondItem="7EM-1l-OQX" secondAttribute="leading" id="cbm-nM-fAV"/>
+                                    <constraint firstItem="3Rv-Ka-KqU" firstAttribute="firstBaseline" secondItem="Nwz-Ti-vsz" secondAttribute="firstBaseline" id="e3X-Z3-6dA"/>
+                                    <constraint firstItem="aEC-Ua-TCR" firstAttribute="top" secondItem="7EM-1l-OQX" secondAttribute="bottom" constant="12" id="fzg-36-dK2"/>
                                     <constraint firstItem="9EV-8D-SnK" firstAttribute="leading" secondItem="sgs-eK-4ms" secondAttribute="trailing" constant="6" id="g3k-v8-TGH"/>
+                                    <constraint firstItem="Nwz-Ti-vsz" firstAttribute="firstBaseline" secondItem="aEC-Ua-TCR" secondAttribute="firstBaseline" id="gvQ-cX-sFO"/>
                                     <constraint firstItem="acC-2c-A80" firstAttribute="leading" secondItem="7EM-1l-OQX" secondAttribute="leading" id="hwY-b7-y1b"/>
+                                    <constraint firstItem="ZZc-Yf-zfG" firstAttribute="trailing" secondItem="4vG-bU-P2m" secondAttribute="trailing" id="jfS-Ds-8Zk"/>
                                     <constraint firstAttribute="trailing" secondItem="UvO-pz-ZIz" secondAttribute="trailing" constant="16" id="kpk-UL-2Rz"/>
+                                    <constraint firstItem="Nwz-Ti-vsz" firstAttribute="trailing" secondItem="UvO-pz-ZIz" secondAttribute="trailing" id="oxk-zh-zON"/>
                                     <constraint firstItem="ZZc-Yf-zfG" firstAttribute="leading" secondItem="acC-2c-A80" secondAttribute="leading" id="poU-Mr-AXW"/>
+                                    <constraint firstItem="4vG-bU-P2m" firstAttribute="leading" secondItem="S58-9N-XQB" secondAttribute="trailing" constant="4" id="u01-eF-Ehc"/>
+                                    <constraint firstItem="4vG-bU-P2m" firstAttribute="firstBaseline" secondItem="UKl-8F-pXZ" secondAttribute="firstBaseline" id="u8o-2q-YT1"/>
                                     <constraint firstItem="9EV-8D-SnK" firstAttribute="centerY" secondItem="sgs-eK-4ms" secondAttribute="centerY" id="vrN-o0-CWy"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -4693,11 +4760,15 @@ you must create a KAVA account and deposit a small amount of KAVA to be used as 
                         <outlet property="btnBack" destination="APe-Jj-MBc" id="xUz-QZ-TY7"/>
                         <outlet property="btnConfirm" destination="Utt-cY-Ygj" id="1M0-F1-DXL"/>
                         <outlet property="claimAddress" destination="ZZc-Yf-zfG" id="hNP-6d-TlB"/>
-                        <outlet property="claimFeeDenom" destination="UvO-pz-ZIz" id="yMl-Mg-t4P"/>
-                        <outlet property="claimFeeLabel" destination="SN0-bA-wOw" id="gCS-pO-Rvr"/>
+                        <outlet property="claimFeeDenom" destination="4vG-bU-P2m" id="1bF-3R-kgP"/>
+                        <outlet property="claimFeeLabel" destination="S58-9N-XQB" id="NME-LK-gRl"/>
                         <outlet property="claimImg" destination="sgs-eK-4ms" id="9HW-X2-QsO"/>
+                        <outlet property="receiveAmountDenom" destination="UvO-pz-ZIz" id="ERk-0o-cKj"/>
+                        <outlet property="receiveAmountLabel" destination="SN0-bA-wOw" id="sEU-lY-4oi"/>
                         <outlet property="recipientAddressLabel" destination="SgR-E3-eSb" id="mj7-d2-NTr"/>
                         <outlet property="recipientChainLabel" destination="EQx-YQ-IwS" id="1VU-io-Q3G"/>
+                        <outlet property="relayFeeDenom" destination="Nwz-Ti-vsz" id="HWl-nV-N3Q"/>
+                        <outlet property="relayFeeLabel" destination="3Rv-Ka-KqU" id="Vmt-DA-os6"/>
                         <outlet property="sendAmountDenom" destination="r4s-eR-Ps3" id="Q3d-hd-RYn"/>
                         <outlet property="sendAmountLabel" destination="ldl-Yh-SZ4" id="ZXN-0W-LxX"/>
                         <outlet property="sendFeeDenom" destination="CxS-Lm-FZ1" id="dQk-nf-JuZ"/>

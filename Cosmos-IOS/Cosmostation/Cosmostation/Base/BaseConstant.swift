@@ -392,6 +392,9 @@ let GAS_FEE_AMOUNT_IRIS_REWARD_MUX          = "5000"
 
 
 let GAS_FEE_BNB_TRANSFER                    = "0.000375"
+let FEE_BEP3_RELAY_FEE                      = "0.00001"
+let FEE_BEP3_SEND_MIN                       = "0.10000"
+let FEE_BEP3_SEND_CHECK                     = "0.100375"
 
 let KAVA_GAS_FEE_AMOUNT_SEND                = "200000"
 let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"

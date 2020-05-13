@@ -21,11 +21,17 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate {
     @IBOutlet weak var recipientAddressLabel: UILabel!
     
     @IBOutlet weak var claimImg: UIImageView!
+    @IBOutlet weak var receiveAmountLabel: UILabel!
+    @IBOutlet weak var receiveAmountDenom: UILabel!
+    @IBOutlet weak var relayFeeLabel: UILabel!
+    @IBOutlet weak var relayFeeDenom: UILabel!
     @IBOutlet weak var claimFeeLabel: UILabel!
     @IBOutlet weak var claimFeeDenom: UILabel!
     @IBOutlet weak var claimAddress: UILabel!
     
     var pageHolderVC: StepGenTxViewController!
+    
+    var relayerFee: NSDecimalNumber = NSDecimalNumber.zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,10 +86,24 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate {
             claimFeeLabel.attributedText = WUtils.displayAmount2(claimFeeAmount.stringValue, claimFeeLabel.font, 0, 8)
             recipientAddressLabel.text = pageHolderVC.mHtlcToAccount?.account_address
             
+            relayFeeDenom.textColor = COLOR_BNB
+            receiveAmountDenom.textColor = COLOR_BNB
+            relayFeeDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
+            receiveAmountDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
+            relayerFee = NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE).multiplying(byPowerOf10: 8)
+            relayFeeLabel.attributedText = WUtils.displayAmount2(relayerFee.stringValue, relayFeeLabel.font, 8, 8)
+            receiveAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.subtracting(relayerFee).stringValue , receiveAmountLabel.font, 8, 8)
+            
+            
         } else if (pageHolderVC.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             claimFeeLabel.attributedText = WUtils.displayAmount2(claimFeeAmount.stringValue, claimFeeLabel.font, 6, 6)
             claimAddress.text = pageHolderVC.mHtlcToAccount?.account_address
             
+            relayFeeDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
+            receiveAmountDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
+            relayerFee = NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE)
+            relayFeeLabel.attributedText = WUtils.displayAmount2(relayerFee.stringValue, relayFeeLabel.font, 0, 8)
+            receiveAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.subtracting(relayerFee).stringValue , receiveAmountLabel.font, 0, 8)
         }
     }
     
