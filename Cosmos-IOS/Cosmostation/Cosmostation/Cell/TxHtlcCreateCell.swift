@@ -16,6 +16,7 @@ class TxHtlcCreateCell: UITableViewCell {
     @IBOutlet weak var sendDenom: UILabel!
     @IBOutlet weak var senderLabel: UILabel!
     @IBOutlet weak var recipientLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var randomHashLabel: UILabel!
     @IBOutlet weak var expectedAmountLabel: UILabel!
     

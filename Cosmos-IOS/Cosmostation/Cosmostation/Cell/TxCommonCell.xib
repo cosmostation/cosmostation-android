@@ -240,11 +240,22 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="--" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOr-KA-OgB">
-                                <rect key="frame" x="16" y="313" width="319" height="14.5"/>
+                                <rect key="frame" x="16" y="313" width="289" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="weo-zJ-OEr">
+                                <rect key="frame" x="317" y="324" width="18" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="18" id="Nzs-iD-tz8"/>
+                                    <constraint firstAttribute="height" constant="18" id="kyD-PR-z3a"/>
+                                </constraints>
+                                <state key="normal" image="walletDetailBtn"/>
+                                <connections>
+                                    <action selector="onClickHashCheck:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dX6-Za-pde"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" text="Memo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJz-Am-OWy">
                                 <rect key="frame" x="16" y="343.5" width="35" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
@@ -263,7 +274,6 @@
                         <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="mw9-2T-yzP" firstAttribute="centerY" secondItem="8bG-jL-dbB" secondAttribute="centerY" id="144-Xi-gtO"/>
-                            <constraint firstItem="GOr-KA-OgB" firstAttribute="trailing" secondItem="ul9-Qv-EO6" secondAttribute="trailing" id="4D6-SV-OLw"/>
                             <constraint firstItem="JSL-Pj-5cX" firstAttribute="trailing" secondItem="ul9-Qv-EO6" secondAttribute="trailing" id="4Vh-2M-Jwf"/>
                             <constraint firstItem="ul9-Qv-EO6" firstAttribute="leading" secondItem="NH7-FB-3rT" secondAttribute="trailing" constant="4" id="5xM-NR-Isr"/>
                             <constraint firstItem="mw9-2T-yzP" firstAttribute="trailing" secondItem="ul9-Qv-EO6" secondAttribute="trailing" id="6fP-k9-2zf"/>
@@ -282,6 +292,8 @@
                             <constraint firstItem="lLF-as-eG4" firstAttribute="trailing" secondItem="ul9-Qv-EO6" secondAttribute="trailing" id="Jfu-pf-8gp"/>
                             <constraint firstItem="av5-13-jva" firstAttribute="trailing" secondItem="ul9-Qv-EO6" secondAttribute="trailing" id="Jzd-Tt-Zxz"/>
                             <constraint firstItem="N5y-vF-wFW" firstAttribute="top" secondItem="mw9-2T-yzP" secondAttribute="bottom" constant="6" id="N2Z-PT-zVS"/>
+                            <constraint firstItem="weo-zJ-OEr" firstAttribute="centerY" secondItem="GOr-KA-OgB" secondAttribute="centerY" id="NBj-DH-wLg"/>
+                            <constraint firstAttribute="trailing" secondItem="weo-zJ-OEr" secondAttribute="trailing" constant="16" id="Nzs-I9-7G5"/>
                             <constraint firstItem="4k5-a6-DqK" firstAttribute="leading" secondItem="kG8-Ch-rWr" secondAttribute="leading" constant="16" id="OOf-qU-u1i"/>
                             <constraint firstItem="GOr-KA-OgB" firstAttribute="top" secondItem="GNl-xb-HLN" secondAttribute="bottom" constant="6" id="Py4-NR-DG4"/>
                             <constraint firstItem="M9u-q3-Ejf" firstAttribute="top" secondItem="kG8-Ch-rWr" secondAttribute="top" constant="16" id="SRC-EE-gcU"/>
@@ -297,6 +309,7 @@
                             <constraint firstItem="lLF-as-eG4" firstAttribute="leading" secondItem="M9u-q3-Ejf" secondAttribute="leading" id="dgZ-cG-iIE"/>
                             <constraint firstItem="4k5-a6-DqK" firstAttribute="top" secondItem="obt-nm-NRl" secondAttribute="bottom" constant="16" id="ebA-1I-CAC"/>
                             <constraint firstItem="flK-Y6-Cqs" firstAttribute="trailing" secondItem="ul9-Qv-EO6" secondAttribute="trailing" id="fhK-Mm-ggY"/>
+                            <constraint firstItem="weo-zJ-OEr" firstAttribute="leading" secondItem="GOr-KA-OgB" secondAttribute="trailing" constant="12" id="i3f-LJ-L3k"/>
                             <constraint firstAttribute="trailing" secondItem="Rfe-sL-kPA" secondAttribute="trailing" constant="16" id="iwI-IL-Ly4"/>
                             <constraint firstItem="av5-13-jva" firstAttribute="centerY" secondItem="K5m-bU-og5" secondAttribute="centerY" id="nh8-Ul-1d6"/>
                             <constraint firstItem="ul9-Qv-EO6" firstAttribute="centerY" secondItem="M9u-q3-Ejf" secondAttribute="centerY" id="p9I-lp-L16"/>
@@ -342,6 +355,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnHashCheck" destination="weo-zJ-OEr" id="S0P-8a-VN4"/>
                 <outlet property="errorConstraint" destination="FU6-lT-TMt" id="bE9-he-20l"/>
                 <outlet property="errorMsg" destination="lLF-as-eG4" id="Bnd-7S-FG6"/>
                 <outlet property="feeAmountLabel" destination="HK3-48-Yxm" id="mG8-cY-go6"/>
@@ -369,5 +383,6 @@
     </objects>
     <resources>
         <image name="successIc" width="12" height="12"/>
+        <image name="walletDetailBtn" width="25" height="24"/>
     </resources>
 </document>

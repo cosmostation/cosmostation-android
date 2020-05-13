@@ -195,4 +195,22 @@ public struct TxInfo {
         return coin
     }
     
+    public func getSimpleBnbSwapId() -> String {
+        return log.split(separator: ":").last?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+    }
+    
+    public func getSimpleKavaSwapId() -> String {
+        var result = ""
+        for event in self.events {
+            if (event.type == "createAtomicSwap") {
+                for attr in event.attributes {
+                    if (attr.key == "atomic_swap_id") {
+                        result = attr.value;
+                    }
+                }
+            }
+        }
+        return result
+    }
+    
 }

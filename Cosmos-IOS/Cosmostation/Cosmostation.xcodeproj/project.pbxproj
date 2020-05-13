@@ -126,6 +126,9 @@
 		2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */; };
 		2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */; };
 		2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */; };
+		2888B7FC246BC17300B2EB4A /* BnbNodeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B7FB246BC17300B2EB4A /* BnbNodeInfo.swift */; };
+		2888B7FE246BC83A00B2EB4A /* BnbSwapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B7FD246BC83A00B2EB4A /* BnbSwapInfo.swift */; };
+		2888B800246BCA3200B2EB4A /* KavaSwapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B7FF246BCA3200B2EB4A /* KavaSwapInfo.swift */; };
 		28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908F6823F69BD100164030 /* EdgeInsetLabel.swift */; };
 		289DF170242DD90300433CF4 /* CdpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */; };
 		289DF178242DDF3800433CF4 /* CdpDetailTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */; };
@@ -475,6 +478,9 @@
 		2876AD62240CE966005B33F4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletUnbondingInfoCellTableViewCell.strings; sourceTree = "<group>"; };
 		2877B8F9240E2A0200EFE369 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TxDetailViewController.xib; sourceTree = "<group>"; };
 		2877B8FC240E2A0E00EFE369 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/TxDetailViewController.strings; sourceTree = "<group>"; };
+		2888B7FB246BC17300B2EB4A /* BnbNodeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbNodeInfo.swift; sourceTree = "<group>"; };
+		2888B7FD246BC83A00B2EB4A /* BnbSwapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbSwapInfo.swift; sourceTree = "<group>"; };
+		2888B7FF246BCA3200B2EB4A /* KavaSwapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapInfo.swift; sourceTree = "<group>"; };
 		28908F6823F69BD100164030 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
 		289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailViewController.swift; sourceTree = "<group>"; };
 		289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailTopCell.swift; sourceTree = "<group>"; };
@@ -1086,6 +1092,9 @@
 				2842AB62242C37F300248EEB /* CdpDeposits.swift */,
 				2842AB64242C396700248EEB /* KavaTokenPrice.swift */,
 				2842AB66242C3ED900248EEB /* KavaTokenPriceParam.swift */,
+				2888B7FB246BC17300B2EB4A /* BnbNodeInfo.swift */,
+				2888B7FD246BC83A00B2EB4A /* BnbSwapInfo.swift */,
+				2888B7FF246BCA3200B2EB4A /* KavaSwapInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1487,6 +1496,7 @@
 				2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */,
 				28474EF7241E06E200AF5A81 /* Paychan.codec.pb.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
+				2888B7FC246BC17300B2EB4A /* BnbNodeInfo.swift in Sources */,
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
 				E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */,
 				282FF34923F50C540028CC66 /* TxUndelegateCell.swift in Sources */,
@@ -1561,6 +1571,7 @@
 				28474F03241E06E200AF5A81 /* Gov.codec.pb.swift in Sources */,
 				28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */,
 				E19A321922544EB500A05E41 /* DashedView.swift in Sources */,
+				2888B800246BCA3200B2EB4A /* KavaSwapInfo.swift in Sources */,
 				285A33D624475DC00052BD3D /* SelectPopupViewController.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
 				E1406FCC2260A11300D9440C /* StepRewardCheckViewController.swift in Sources */,
@@ -1575,6 +1586,7 @@
 				E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */,
 				28474F08241E06E200AF5A81 /* Sigs.codec.pb.swift in Sources */,
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
+				2888B7FE246BC83A00B2EB4A /* BnbSwapInfo.swift in Sources */,
 				28617A8324333B90006D66EA /* StepWithdrawCdpAmountViewController.swift in Sources */,
 				2842AB5B242C1E0900248EEB /* AllCdpViewController.swift in Sources */,
 				289DF180242DDF6A00433CF4 /* CdpDetailMyActionCell.swift in Sources */,

@@ -13,6 +13,7 @@ import SafariServices
 class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var txTableView: UITableView!
+    @IBOutlet weak var htlcRefundBtn: UIButton!
     @IBOutlet weak var dismissBtn: UIButton!
     @IBOutlet weak var controlLayer: UIStackView!
     @IBOutlet weak var errorLayer: CardView!
@@ -28,6 +29,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     var mBroadCaseResult: [String:Any]?
     var mFetchCnt = 10
     var mAllValidator = Array<Validator>()
+    
+    var mBnbNodeInfo: BnbNodeInfo?
+    var mBnbSwapInfo: BnbSwapInfo?
+    var mKavaSwapInfo: KavaSwapInfo?
+    var mSwapId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +130,12 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.errorCode.text =  "error code : " + String(code) + "\n" + logMsg
         self.loadingLayer.isHidden = true
         self.errorLayer.isHidden = false
+    }
+    
+    func onUpdateView() {
+        self.loadingLayer.isHidden = true
+        self.controlLayer.isHidden = false
+        self.txTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -255,6 +267,10 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.feeAmountLabel.attributedText = WUtils.displayAmount2("0.000375", cell!.feeAmountLabel.font!, 0, 8)
             
         }
+        cell?.actionHashCheck = {
+            self.onClickExplorer()
+        }
+        
         return cell!
     }
     
@@ -549,6 +565,12 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.recipientLabel.text = msg.value.recipient_other_chain
             cell?.randomHashLabel.text = msg.value.random_number_hash
             cell?.expectedAmountLabel.text = msg.value.expected_income
+            cell?.statusLabel.text = WUtils.getKavaHtlcStatus(self.mTxInfo!, mKavaSwapInfo)
+            
+            if (mKavaSwapInfo != nil && mKavaSwapInfo?.result.status == KavaSwapInfo.STATUS_EXPIRED) {
+                self.htlcRefundBtn.isHidden = false
+                self.mSwapId = self.mTxInfo?.getSimpleKavaSwapId()
+            }
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             WUtils.setDenomTitle(chainType!, cell!.sendDenom)
@@ -569,6 +591,15 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             }
             cell?.randomHashLabel.text = msg.value.random_number_hash
             cell?.expectedAmountLabel.text = msg.value.expected_income
+            cell?.statusLabel.text = WUtils.getBnbHtlcStatus(mBnbSwapInfo, mBnbNodeInfo)
+            
+            if (mBnbSwapInfo != nil &&
+                mBnbNodeInfo != nil &&
+                mBnbSwapInfo?.status == BnbSwapInfo.BNB_STATUS_OPEN &&
+                mBnbSwapInfo!.expireHeight < mBnbNodeInfo!.getCHeight()) {
+                self.htlcRefundBtn.isHidden = false
+                self.mSwapId = self.mTxInfo?.getSimpleBnbSwapId()
+            }
             
         }
         return cell!
@@ -661,7 +692,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         
     }
     
-    @IBAction func onClickExplorer(_ sender: UIButton) {
+    func onClickExplorer() {
         if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
             let safariViewController = SFSafariViewController(url: url)
@@ -697,6 +728,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.navigationController?.popViewController(animated: true)
         }
     }
+    
+    @IBAction func onClickHtlcRefund(_ sender: UIButton) {
+        print("onClickHtlcRefund")
+    }
+    
     
     func onShowMoreWait() {
         let noticeAlert = UIAlertController(title: NSLocalizedString("more_wait_title", comment: ""), message: NSLocalizedString("more_wait_msg", comment: ""), preferredStyle: .alert)
@@ -748,8 +784,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if(SHOW_LOG) { print("onFetchTx OK", res) }
-                guard let info = res as? [String : Any], info["error"] == nil else {
+//                if(SHOW_LOG) { print("onFetchTx OK", self.mIsGen, " ", res) }
+                guard !self.mIsGen, let info = res as? [String : Any], info["error"] == nil else {
+                    print("once more! ", self.mFetchCnt)
                     self.mFetchCnt = self.mFetchCnt - 1
                     if (self.mFetchCnt > 0) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
@@ -760,12 +797,31 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                     }
                     return
                 }
+                
                 self.mTxInfo = TxInfo.init(info)
                 
-            case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchTx failure", error)
+                //Check swap status if Send HTLC Tx
+                if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                    if (self.mTxInfo?.getMsgs()[0].type == BNB_MSG_TYPE_HTLC && self.account?.account_address == self.mTxInfo?.getMsgs()[0].value.from) {
+                        self.onFetchHtlcStatus(self.mTxInfo?.getSimpleBnbSwapId())
+                    } else {
+                        self.onUpdateView()
+                    }
+                    
+                } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    if (self.mTxInfo?.getMsgs()[0].type == KAVA_MSG_TYPE_CREATE_SWAP) {
+                        self.onFetchHtlcStatus(self.mTxInfo?.getSimpleKavaSwapId())
+                    } else {
+                        self.onUpdateView()
+                    }
+                    
+                } else {
+                    self.onUpdateView()
                 }
+                
+                
+            case .failure(let error):
+                if(SHOW_LOG) { print("onFetchTx failure", error) }
                 if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     self.mFetchCnt = self.mFetchCnt - 1
                     if(self.mFetchCnt > 0) {
@@ -787,17 +843,79 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 return
             }
-            self.loadingLayer.isHidden = true
-            if (self.chainType! != ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-                self.controlLayer.isHidden = false
-            }
-            self.txTableView.reloadData()
+            
         }
         
     }
     
+    func onFetchHtlcStatus(_ swapId: String?) {
+        print("onFetchHtlcStatus ", swapId)
+        if (swapId == nil) {self.onUpdateView()}
+        var url = ""
+        if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            url = BNB_TEST_URL_CHECK_SWAPID + swapId!
+            print("swapId url ", url)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_CHECK_SWAPID + swapId!
+            print("swapId url ", url)
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                if(SHOW_LOG) { print("onFetchSwapId ", res) }
+                if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                    if let info = res as? [String : Any] {
+                        self.mBnbSwapInfo = BnbSwapInfo.init(info)
+                    }
+                    self.onFetchBnbNodeInfo()
+                    
+                } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    if let info = res as? [String : Any], info["error"] == nil  {
+                        self.mKavaSwapInfo = KavaSwapInfo.init(info)
+                    }
+                    self.onUpdateView()
+                    
+                }
+                
+            case .failure(let error):
+                if(SHOW_LOG) { print("onFetchSwapId", error) }
+                self.onUpdateView()
+                return
+            }
+        }
+    }
     
-    
+    func onFetchBnbNodeInfo() {
+        var url = ""
+        if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            url = BNB_URL_NODE_INFO
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            url = BNB_TEST_URL_NODE_INFO
+            
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                if(SHOW_LOG) { print("onFetchBnbNodeInfo ", res) }
+                if let info = res as? [String : Any] {
+                    self.mBnbNodeInfo = BnbNodeInfo.init(info)
+                }
+                
+            case .failure(let error):
+//                if(SHOW_LOG) { print("onFetchBnbNodeInfo", error) }
+                return
+            }
+            self.onUpdateView()
+        }
+    }
     
     
     

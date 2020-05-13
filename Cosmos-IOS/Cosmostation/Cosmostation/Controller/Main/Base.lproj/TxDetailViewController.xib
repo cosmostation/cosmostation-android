@@ -14,6 +14,7 @@
                 <outlet property="dismissBtn" destination="m4a-6Y-f1I" id="X0b-QU-TeQ"/>
                 <outlet property="errorCode" destination="G9v-QX-nXf" id="cn6-IO-Cut"/>
                 <outlet property="errorLayer" destination="N0K-ec-NhI" id="IOm-kP-qme"/>
+                <outlet property="htlcRefundBtn" destination="QFR-lD-uH1" id="wdX-EV-Lsc"/>
                 <outlet property="loadingImg" destination="4FG-m6-2sk" id="lk9-np-zBR"/>
                 <outlet property="loadingLayer" destination="vAt-Ci-Cas" id="csv-ld-BAX"/>
                 <outlet property="loadingMsg" destination="Yke-lk-aaV" id="FP6-hE-52u"/>
@@ -47,7 +48,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7Nr-oT-YCK">
-                    <rect key="frame" x="0.0" y="102" width="414" height="682"/>
+                    <rect key="frame" x="0.0" y="102" width="414" height="732"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N0K-ec-NhI" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
@@ -125,13 +126,13 @@ After a few moments, the full results will be displayed.
                     <viewLayoutGuide key="safeArea" id="4ii-bZ-uVz"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bTa-9h-KWo">
-                    <rect key="frame" x="12" y="792" width="390" height="50"/>
+                    <rect key="frame" x="12" y="842" width="390" height="0.0"/>
                     <subviews>
                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="haP-FX-1BP">
-                            <rect key="frame" x="0.0" y="0.0" width="390" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="151" height="50"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="502-rv-iQc">
-                                    <rect key="frame" x="0.0" y="0.0" width="191" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="71.5" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="I1P-P2-WP4"/>
                                     </constraints>
@@ -154,13 +155,13 @@ After a few moments, the full results will be displayed.
                                         <action selector="onClickShare:" destination="-1" eventType="touchUpInside" id="360-bO-JdL"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Eo-wj-ceS">
-                                    <rect key="frame" x="199" y="0.0" width="191" height="50"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m4a-6Y-f1I">
+                                    <rect key="frame" x="79.5" y="0.0" width="71.5" height="50"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="sCN-CZ-4fC"/>
+                                        <constraint firstAttribute="height" constant="50" id="yYN-Zo-mbq"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                                    <state key="normal" title="Check Explorer">
+                                    <state key="normal" title="Dismiss">
                                         <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
@@ -175,18 +176,18 @@ After a few moments, the full results will be displayed.
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="onClickExplorer:" destination="-1" eventType="touchUpInside" id="soI-ks-w20"/>
+                                        <action selector="onClickDismiss:" destination="-1" eventType="touchUpInside" id="ehj-ZM-gg9"/>
                                     </connections>
                                 </button>
                             </subviews>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m4a-6Y-f1I">
-                            <rect key="frame" x="0.0" y="0.0" width="390" height="50"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFR-lD-uH1">
+                            <rect key="frame" x="0.0" y="0.0" width="151" height="50"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="50" id="yYN-Zo-mbq"/>
+                                <constraint firstAttribute="height" constant="50" id="RpZ-m7-pHR"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                            <state key="normal" title="Dismiss">
+                            <state key="normal" title="   Interchain Refund" image="beprefundIc">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -201,7 +202,7 @@ After a few moments, the full results will be displayed.
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="onClickDismiss:" destination="-1" eventType="touchUpInside" id="ehj-ZM-gg9"/>
+                                <action selector="onClickHtlcRefund:" destination="-1" eventType="touchUpInside" id="rCD-E0-b2C"/>
                             </connections>
                         </button>
                     </subviews>
@@ -235,6 +236,7 @@ After a few moments, the full results will be displayed.
         </view>
     </objects>
     <resources>
+        <image name="beprefundIc" width="24" height="24"/>
         <image name="bg_cosmos" width="360" height="740"/>
         <image name="loading_1" width="144" height="144"/>
     </resources>

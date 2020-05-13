@@ -199,6 +199,11 @@
 "help_total_fee_msg" = "\nAccrued CDP stability fee. The fee increases every second.";
 "help_remaining_loan_title" = "Remaining Loan Capacity";
 "help_remaining_loan_msg" = "\nThe amount of USDX that can be additionally loaned from the CDP. This capacity changes in accordance to changes in the collateral rate due to price fluctuations.";
+"bep3_status_open" = "Wait Claim";
+"bep3_status_completed" = "Receive Completed (Claimed)";
+"bep3_status_expired" = "Refundable";
+"bep3_status_refunded" = "Refunded";
+"bep3_status_null" = "UnKnown";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
 "creat_cdp_step_1" = "Insert memo (optional)";

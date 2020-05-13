@@ -96,7 +96,7 @@ let IRIS_LCD_URL_REDELEGATION           = IRIS_LCD_URL + "stake/delegators/";
 let IRIS_LCD_URL_REDELEGATION_TAIL      = "/redelegations";
 let IRIS_LCD_URL_TOKENS                 = IRIS_LCD_URL + "asset/tokens";
 
-
+let BNB_URL_NODE_INFO                   = BNB_URL + "api/v1/node-info";
 let BNB_URL_ACCOUNT_INFO                = BNB_URL + "api/v1/account/";
 let BNB_URL_TOKENS                      = BNB_URL + "api/v1/tokens";
 let BNB_URL_TIC                         = BNB_URL + "api/v1/ticker/24hr";
@@ -104,6 +104,7 @@ let BNB_URL_HISTORY                     = BNB_URL + "api/v1/transactions";
 let BNB_URL_TX                          = BNB_URL + "api/v1/tx/";
 let BNB_URL_CHECK_SWAPID                = BNB_URL + "api/v1/atomic-swaps/";
 
+let BNB_TEST_URL_NODE_INFO              = BNB_TEST_URL + "api/v1/node-info";
 let BNB_TEST_URL_ACCOUNT_INFO           = BNB_TEST_URL + "api/v1/account/";
 let BNB_TEST_URL_TOKENS                 = BNB_TEST_URL + "api/v1/tokens";
 let BNB_TEST_URL_TIC                    = BNB_TEST_URL + "api/v1/ticker/24hr";

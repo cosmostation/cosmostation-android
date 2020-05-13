@@ -474,7 +474,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 
             case .failure(let error):
                 if(SHOW_LOG) {
-                    print("onFetchTx failure", error , " ", self.mSwapFetchCnt)
+                    print("onFetchSwapId failure", error , " ", self.mSwapFetchCnt)
                 }
                 self.mSwapFetchCnt = self.mSwapFetchCnt - 1
                 if (self.mSwapFetchCnt > 0) {

@@ -31,6 +31,7 @@ class TxCommonCell: UITableViewCell {
     @IBOutlet weak var timeGapLabel: UILabel!
     @IBOutlet weak var hashLabel: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
+    @IBOutlet weak var btnHashCheck: UIButton!
     
     @IBOutlet weak var errorConstraint: NSLayoutConstraint!
     @IBOutlet weak var successConstraint: NSLayoutConstraint!
@@ -48,6 +49,12 @@ class TxCommonCell: UITableViewCell {
         limitFeeAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
         timeLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
         timeGapLabel.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_11_caption2)
+    }
+    
+    var actionHashCheck: (() -> Void)? = nil
+    
+    @IBAction func onClickHashCheck(_ sender: UIButton) {
+         actionHashCheck?()
     }
     
     func setDenomType(_ chainType:ChainType) {
