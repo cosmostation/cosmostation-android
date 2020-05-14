@@ -485,7 +485,7 @@ class GenTxResultViewController: BaseViewController {
             present(safariViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            guard let url = URL(string: "https://explorer.binance.org/tx/" + mTxInfo!.hash) else { return }
+            guard let url = URL(string: "https://binance.mintscan.io/txs/" + mTxInfo!.hash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
@@ -517,7 +517,7 @@ class GenTxResultViewController: BaseViewController {
             self.present(activityViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            let text = "https://explorer.binance.org/tx/" + mTxInfo!.hash
+            let text = "https://binance.mintscan.io/txs/" + mTxInfo!.hash
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view

@@ -130,7 +130,7 @@
 "binanace_explorer" = "바이낸스 익스플로러";
 "disconnected" = "연결 해제됨";
 "wc_alert_title" = "지갑 연결";
-"wc_alert_msg" = "바이낸스 댁스 거래소에 지갑을 연결하시겠습니까?";
+"wc_alert_msg" = "바이낸스 덱스 거래소에 지갑을 연결하시겠습니까?";
 "wc_request_sign_title" = "지갑 사인 요청";
 "wc_request_sign_msg" = "\n내용을 확인하시고 결정해 주시기 바랍니다.\n귀하의 자산에 영향을 미치는 내용입니다.";
 "wc_request_cancel_msg" = "\n내용을 확인하시고 결정해 주시기 바랍니다.\n\n주문 취소.";
@@ -418,7 +418,7 @@
 "tx_refund_htlc" = "인터체인\n환불하기";
 "tx_kava_bep3_create" = "인터체인\n보내기";
 "tx_kava_bep3_claim" = "인터체인\n청구하기";
-"tx_kava_bep3_refund" = "인터체인\n환불";
+"tx_kava_bep3_refund" = "인터체인\n환불하기";
 "tx_known" = "알수없음";
 
 "chain_title_cosmos" = "COSMOS Hub";

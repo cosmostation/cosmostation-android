@@ -263,7 +263,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             let bnbHistory = mBnbHistories[indexPath.row]
-            guard let url = URL(string: "https://explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
+            guard let url = URL(string: "https://binance.mintscan.io/txs/" + bnbHistory.txHash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             

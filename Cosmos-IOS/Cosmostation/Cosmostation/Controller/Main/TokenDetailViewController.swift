@@ -108,7 +108,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            guard let url = URL(string: "https://explorer.binance.org/address/" + account!.account_address) else { return }
+            guard let url = URL(string: "https://binance.mintscan.io/account/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
@@ -203,7 +203,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 
             } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                 let bnbHistory = mBnbHistories[indexPath.row - 1]
-                guard let url = URL(string: "https://explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
+                guard let url = URL(string: "https://binance.mintscan.io/txs/" + bnbHistory.txHash) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 present(safariViewController, animated: true, completion: nil)
                            
@@ -370,7 +370,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.actionTokenInfo = {
                 if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-                    guard let url = URL(string: "https://explorer.binance.org/asset/" + self.bnbToken!.symbol) else { return }
+                    guard let url = URL(string: "https://binance.mintscan.io/assets/" + self.bnbToken!.symbol) else { return }
                     let safariViewController = SFSafariViewController(url: url)
                     self.present(safariViewController, animated: true, completion: nil)
                 } else {
