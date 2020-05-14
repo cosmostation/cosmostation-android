@@ -74,11 +74,11 @@ public class WebActivity extends BaseActivity {
         } else if (mBasechain.equals(BaseChain.BNB_MAIN)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl("https://explorer.binance.org/tx/"+mTxid);
+                mWebview.loadUrl("https://binance.mintscan.io/txs/"+mTxid);
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl("https://explorer.binance.org/address/"+mAddress);
+                mWebview.loadUrl("https://binance.mintscan.io/account/"+mAddress);
             else if (!TextUtils.isEmpty(mAsset))
-                mWebview.loadUrl("https://explorer.binance.org/asset/"+mAsset);
+                mWebview.loadUrl("https://binance.mintscan.io/assets/"+mAsset);
 
         } else if (mBasechain.equals(BaseChain.KAVA_MAIN) || mBasechain.equals(BaseChain.KAVA_TEST)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));

@@ -142,15 +142,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else {
             mTvAppLock.setText(R.string.str_app_applock_diabeld);
         }
-
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) ||
-                getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            mTvTitleExplore.setText(R.string.str_explore);
-
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            mTvTitleExplore.setText(R.string.str_explore_bnb);
-
-        }
     }
 
     @Override
@@ -201,7 +192,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://irishub.mintscan.io/"));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://explorer.binance.org"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://binance.mintscan.io/"));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://kava.mintscan.io/"));

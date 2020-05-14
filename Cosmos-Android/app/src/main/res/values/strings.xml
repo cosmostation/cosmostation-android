@@ -195,7 +195,7 @@
     <string name="str_faq_iov">Home Page</string>
     <string name="str_guide_iov">Star Name</string>
     <string name="str_telegram">Telegram</string>
-    <string name="str_explore">Explorer</string>
+    <string name="str_explore">Mintscan Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
     <string name="str_homepage">Cosmostation</string>
     <string name="str_app_info">App Info</string>
@@ -882,19 +882,19 @@
     <string name="tx_issue_token">Token Issue</string>
     <string name="tx_known">Unknown</string>
     <string name="tx_kava_post_price">Update Price</string>
-    <string name="tx_kava_create_cdp">CDP - Open</string>
-    <string name="tx_kava_deposit_cdp">CDP - Deposit</string>
-    <string name="tx_kava_withdraw_cdp">CDP - Withdraw</string>
-    <string name="tx_kava_drawdebt_cdp">CDP - Draw Debt</string>
-    <string name="tx_kava_repaydebt_cdp">CDP - Repay</string>
-    <string name="tx_send_htlc">Interchain - Send</string>
-    <string name="tx_receive_htlc">Interchain - Receive</string>
-    <string name="tx_create_htlc">Interchain - Create</string>
-    <string name="tx_claim_htlc">Interchain - Claim</string>
-    <string name="tx_refund_htlc">Interchain - Refund</string>
-    <string name="tx_kava_bep3_create">Interchain - Send</string>
-    <string name="tx_kava_bep3_claim">Interchain - Claim</string>
-    <string name="tx_kava_bep3_refund">Interchain - Refund</string>
+    <string name="tx_kava_create_cdp">CDP\nOpen</string>
+    <string name="tx_kava_deposit_cdp">CDP\nDeposit</string>
+    <string name="tx_kava_withdraw_cdp">CDP\nWithdraw</string>
+    <string name="tx_kava_drawdebt_cdp">CDP\nDraw Debt</string>
+    <string name="tx_kava_repaydebt_cdp">CDP\nRepay</string>
+    <string name="tx_send_htlc">Interchain\nSend</string>
+    <string name="tx_receive_htlc">Interchain\nReceive</string>
+    <string name="tx_create_htlc">Interchain\nCreate</string>
+    <string name="tx_claim_htlc">Interchain\nClaim</string>
+    <string name="tx_refund_htlc">Interchain\nRefund</string>
+    <string name="tx_kava_bep3_create">Interchain\nSend</string>
+    <string name="tx_kava_bep3_claim">Interchain\nClaim</string>
+    <string name="tx_kava_bep3_refund">Interchain\nRefund</string>
 
 
     <string name="str_dp_time_format1" >MMM d, yyyy HH:mm:ss</string>
