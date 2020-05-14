@@ -308,8 +308,13 @@ class MsgGenerator {
         return msg
     }
     
-    static func genRefundAtomicSwap(_ sender: String, _ cdp_denom: String, _ payment: Array<Coin>) -> Msg {
+    static func genRefundAtomicSwap(_ from: String, _ swapId: String) -> Msg {
         var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.from = from
+        value.swap_id = swapId.uppercased()
+        msg.type = KAVA_MSG_TYPE_REFUND_SWAP
+        msg.value = value
         return msg
     }
     
