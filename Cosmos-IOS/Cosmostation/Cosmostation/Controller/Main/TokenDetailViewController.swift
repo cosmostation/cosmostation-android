@@ -680,7 +680,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             print("", WUtils.getTokenAmount(balances, BNB_MAIN_DENOM))
-            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).multiplying(byPowerOf10: -8).compare(NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE)).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).multiplying(byPowerOf10: -8).compare(NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
