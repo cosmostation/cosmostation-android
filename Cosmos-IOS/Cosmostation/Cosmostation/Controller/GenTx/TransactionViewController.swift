@@ -45,6 +45,8 @@ class TransactionViewController: UIViewController {
     var mMarketID: String?
     
     var mHtlcDenom: String = BNB_MAIN_DENOM     //now only support bnb bep3
+    var mHtlcRefundSwapId: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,6 +123,11 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_interchain_swap", comment: "")
             
+        } else if (mType == TASK_TYPE_HTLC_REFUND) {
+            stepDescription.text = NSLocalizedString("htlc_refund_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_interchain_refund", comment: "")
+            
         }
         
         self.titleLabel.adjustsFontSizeToFitWidth = true
@@ -168,6 +175,7 @@ class TransactionViewController: UIViewController {
             StepVc.cDenom = self.cDenom
             StepVc.mMarketID = self.mMarketID
             StepVc.mHtlcDenom = self.mHtlcDenom
+            StepVc.mHtlcRefundSwapId = self.mHtlcRefundSwapId
         }
     }
     
@@ -231,6 +239,10 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("htlc_swap_step_0", comment: "")
                     
+                } else if (mType == TASK_TYPE_HTLC_REFUND) {
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    stepDescription.text = NSLocalizedString("htlc_refund_step_0", comment: "")
+                    
                 }
                 
                 
@@ -290,6 +302,10 @@ class TransactionViewController: UIViewController {
                 } else if (mType == TASK_TYPE_HTLC_SWAP) {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("htlc_swap_step_1", comment: "")
+                    
+                } else if (mType == TASK_TYPE_HTLC_REFUND) {
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    stepDescription.text = NSLocalizedString("htlc_refund_step_1", comment: "")
                     
                 }
                 
@@ -351,6 +367,10 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("htlc_swap_step_2", comment: "")
                     
+                } else if (mType == TASK_TYPE_HTLC_REFUND) {
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    stepDescription.text = NSLocalizedString("htlc_refund_step_2", comment: "")
+                    
                 }
                 
                 
@@ -410,6 +430,10 @@ class TransactionViewController: UIViewController {
                 } else if (mType == TASK_TYPE_HTLC_SWAP) {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("htlc_swap_step_3", comment: "")
+                    
+                } else if (mType == TASK_TYPE_HTLC_REFUND) {
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    stepDescription.text = NSLocalizedString("htlc_refund_step_3", comment: "")
                     
                 }
                 

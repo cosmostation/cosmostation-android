@@ -89,6 +89,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mHtlcToAccount: Account?
     var mHtlcSendFee: Fee?
     var mHtlcClaimFee: Fee?
+    
+    
+    var mHtlcRefundSwapId: String?
+    var mBnbSwapInfo: BnbSwapInfo?
+    var mKavaSwapInfo: KavaSwapInfo?
 
     
     lazy var orderedViewControllers: [UIViewController] = {
@@ -171,6 +176,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepHtlcSend1ViewController"),
                     self.newVc(viewController: "StepHtlcSend2ViewController"),
                     self.newVc(viewController: "StepHtlcSend3ViewController")]
+            
+        } else if (mType == TASK_TYPE_HTLC_REFUND) {
+            return [self.newVc(viewController: "StepHtlcRefund0ViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepHtlcRefund3ViewController")]
             
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),

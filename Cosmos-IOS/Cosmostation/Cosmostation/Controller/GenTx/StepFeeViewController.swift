@@ -425,6 +425,10 @@ class StepFeeViewController: BaseViewController {
                         pageHolderVC.mType == KAVA_MSG_TYPE_DRAWDEBT_CDP ||
                         pageHolderVC.mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_CDP))
+                
+            } else if (pageHolderVC.mType == TASK_TYPE_HTLC_REFUND) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_BEP3))
+                
             }
             
         }

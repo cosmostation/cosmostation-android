@@ -97,7 +97,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                     onShowErrorView(code)
                     return
                 }
-            } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                 guard let txHash = mBroadCaseResult?["hash"] as? String  else {
                     self.onStartMainTab()
                     return
@@ -260,8 +260,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.heightLabel.text = mTxInfo!.height
             cell?.msgCntLabel.text = String(mTxInfo!.tx.value.msg.count)
             cell?.gasAmountLabel.text = "-"
-            cell?.timeLabel.text = WUtils.nodeTimetoString(input: mBnbTime!)
-            cell?.timeGapLabel.text = WUtils.timeGap(input: mBnbTime!)
+            cell?.timeLabel.text = WUtils.nodeTimetoString(input: mBnbTime)
+            cell?.timeGapLabel.text = WUtils.timeGap(input: mBnbTime)
             cell?.hashLabel.text = mTxInfo!.hash
             cell?.memoLabel.text = mTxInfo!.tx.value.memo
             cell?.feeAmountLabel.attributedText = WUtils.displayAmount2("0.000375", cell!.feeAmountLabel.font!, 0, 8)
@@ -731,6 +731,25 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     @IBAction func onClickHtlcRefund(_ sender: UIButton) {
         print("onClickHtlcRefund")
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let balances = BaseData.instance.selectBalanceById(accountId: self.account!.account_id)
+        if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.000375")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+        }
+        
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = TASK_TYPE_HTLC_REFUND
+        txVC.mHtlcRefundSwapId = self.mSwapId
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     
@@ -784,16 +803,20 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                if(SHOW_LOG) { print("onFetchTx OK", self.mIsGen, " ", res) }
-                guard !self.mIsGen, let info = res as? [String : Any], info["error"] == nil else {
+                if(SHOW_LOG) { print("onFetchTx OK", self.mIsGen, " ", res) }
+                guard let info = res as? [String : Any], info["error"] == nil else {
                     print("once more! ", self.mFetchCnt)
-                    self.mFetchCnt = self.mFetchCnt - 1
-                    if (self.mFetchCnt > 0) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
-                            self.onFetchTx(txHash)
-                        })
+                    if (self.mIsGen) {
+                        self.mFetchCnt = self.mFetchCnt - 1
+                        if (self.mFetchCnt > 0) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
+                                self.onFetchTx(txHash)
+                            })
+                        } else {
+                            self.onShowMoreWait()
+                        }
                     } else {
-                        self.onShowMoreWait()
+                        self.onUpdateView()
                     }
                     return
                 }
@@ -831,14 +854,19 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                     } else {
                         self.onShowMoreWait()
                     }
-                } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-                    self.mFetchCnt = self.mFetchCnt - 1
-                    if(self.mFetchCnt > 0) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500), execute: {
-                            self.onFetchTx(txHash)
-                        })
+                } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                    if (self.mIsGen) {
+                        self.mFetchCnt = self.mFetchCnt - 1
+                        if (self.mFetchCnt > 0) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500), execute: {
+                                self.onFetchTx(txHash)
+                            })
+                        } else {
+                            self.onShowMoreWait()
+                        }
+                        
                     } else {
-                        self.onShowMoreWait()
+                        self.onUpdateView()
                     }
                 }
                 return

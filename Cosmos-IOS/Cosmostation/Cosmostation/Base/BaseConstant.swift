@@ -312,6 +312,7 @@ let BNB_MSG_TYPE_HTLC_CLIAM                 = "tokens/ClaimHTLTMsg";
 let BNB_MSG_TYPE_HTLC_REFUND                = "tokens/RefundHTLTMsg";
 
 let TASK_TYPE_HTLC_SWAP                     = "htlc_swap";
+let TASK_TYPE_HTLC_REFUND                   = "htlc_refund";
 
 let KAVA_MSG_TYPE_TRANSFER                  = "kava_transfer";
 let KAVA_MSG_TYPE_POST_PRICE                = "pricefeed/MsgPostPrice";

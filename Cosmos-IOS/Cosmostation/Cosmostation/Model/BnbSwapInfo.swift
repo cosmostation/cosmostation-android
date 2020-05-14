@@ -31,4 +31,8 @@ public class BnbSwapInfo {
         self.outAmount = dictionary["outAmount"] as? String ?? ""
         self.expireHeight = dictionary["expireHeight"] as? UInt64 ?? 0
     }
+    
+    func getSendCoin() -> Coin {
+        return Coin.init(outAmount.split(separator: ":")[1].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), outAmount.split(separator: ":")[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
+    }
 }

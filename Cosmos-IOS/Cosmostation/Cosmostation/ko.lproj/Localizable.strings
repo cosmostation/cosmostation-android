@@ -85,7 +85,7 @@
 "fee_speed_title_1" = "일부의 검증인들만 처리해 줄 것입니다.";
 "fee_speed_title_2" = "대부분의 검증인들이 처리해 줄 것입니다.";
 "fee_speed_iris_title" = "현재 아이리스는 고정 Tx 수수료를 지원합니다.\n아이리스는 사용후 남은 가스비를 전액 반환합니다.";
-"fee_speed_bnb_title" = "현재 바이낸스는 고정 전송 수수료를 지원합니다.";
+"fee_speed_bnb_title" = "현재 바이낸스는 고정 수수료를 지원합니다.";
 "fee_speed_kava_title" = "현재 카바는 고정 전송 수수료를 지원합니다.";
 "fee_speed_iov_title" = "현재 아이오비는 고정 전송 수수료를 지원합니다.";
 "fee_description_title_0" = "Tx 수수료 0.000001 ATOM";
@@ -234,6 +234,10 @@
 "htlc_swap_progress_1" = "2/4 스왑아이디를 확인 중 입니다.";
 "htlc_swap_progress_2" = "3/4 받는 체인에서 인터체인 수신 트랜잭션을 발송 중 입니다.";
 "htlc_swap_progress_3" = "4/4 양쪽 체인에서 각각의 트랜잭션을 확인중 입니다.";
+"htlc_refund_step_0" = "인터체인 환불 요청";
+"htlc_refund_step_1" = "메모를 입력하세요 (선택사항)";
+"htlc_refund_step_2" = "Tx 수수료를 선택하세요";
+"htlc_refund_step_3" = "입력하신 정보를 확인하세요";
 
 
 "clear_all" = "전체 삭제";
@@ -286,6 +290,7 @@
 "title_drawdebt_cdp" = "추가 USDX 대출";
 "title_repay_cdp" = "USDX 상환";
 "title_interchain_swap" = "인터체인 보내기 & 받기";
+"title_interchain_refund" = "인터체인 환불하기";
 
 "proposal_type_basic" = "기본";
 "proposal_type_parameter" = "파라미터 변경";

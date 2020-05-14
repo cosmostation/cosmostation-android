@@ -29,6 +29,7 @@ public class KavaSwapInfo {
         var sender: String = ""
         var status: String = ""
         var direction: String = ""
+        var amount: Array<Coin> = Array<Coin>()
         
         init() {}
         
@@ -36,6 +37,12 @@ public class KavaSwapInfo {
             self.sender = dictionary["sender"] as? String ?? ""
             self.status = dictionary["status"] as? String ?? ""
             self.direction = dictionary["direction"] as? String ?? ""
+            self.amount.removeAll()
+            if let rawAmounts = dictionary["amount"] as? Array<NSDictionary>  {
+                for amount in rawAmounts {
+                    self.amount.append(Coin(amount as! [String : Any]))
+                }
+            }
         }
     }
 }

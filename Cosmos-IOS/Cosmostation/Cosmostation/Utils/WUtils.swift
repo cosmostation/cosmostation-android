@@ -250,7 +250,8 @@ class WUtils {
         return nodeFormatter.date(from: input) ?? Date.init()
     }
     
-    static func nodeTimetoString(input: String) -> String {
+    static func nodeTimetoString(input: String?) -> String {
+        if (input == nil) { return ""}
         let nodeFormatter = DateFormatter()
         nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
         nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
@@ -258,7 +259,7 @@ class WUtils {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
         
-        let fullDate = nodeFormatter.date(from: input)
+        let fullDate = nodeFormatter.date(from: input!)
         return localFormatter.string(from: fullDate!)
     }
     
@@ -317,8 +318,9 @@ class WUtils {
         }
     }
     
-    static func timeGap(input: String) -> String {
-        let secondsAgo = Int(Date().timeIntervalSince(nodeTimeToInt64(input: input)))
+    static func timeGap(input: String?) -> String {
+        if (input == nil) { return "-"}
+        let secondsAgo = Int(Date().timeIntervalSince(nodeTimeToInt64(input: input!)))
         
         let minute = 60
         let hour = 60 * minute
@@ -1314,6 +1316,15 @@ class WUtils {
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            if (coin.denom == BNB_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 8, 8)
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (coin.denom == KAVA_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -1336,6 +1347,15 @@ class WUtils {
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            if (denom == BNB_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 8, 8)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (denom == KAVA_MAIN_DENOM) {
