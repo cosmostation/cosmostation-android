@@ -347,7 +347,7 @@
 "error_disable" = "점검중";
 "error_disable_msg" = "시스템 점검중입니다. 자세한 내용은 커뮤니티 체널을 확인해 주세요.";
 "error_not_yet" = "준비중 입니다!";
-"error_less_than_min_deposit" = "L최소 입금 수량보다 적습니다.";
+"error_less_than_min_deposit" = "최소 입금 수량보다 적습니다.";
 "error_less_than_min_principal" = "최소 대출 금액보다 적습니다.";
 "error_not_enought_deposit_asset" = "입금 할 충분한 담보금이 없습니다.";
 "error_not_enought_withdraw_asset" = "지금은 담보물을 출금할 수 없습니다.";
