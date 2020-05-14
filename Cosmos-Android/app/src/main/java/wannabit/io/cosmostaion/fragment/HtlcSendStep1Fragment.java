@@ -88,7 +88,6 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        mToAccount = null;
         mToAccountList = getSActivity().getBaseDao().onSelectAccountsByHtlcClaim(getSActivity().mRecipientChain);
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.BNB_TEST)) {
             mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), getSActivity().mRecipientChain.getChain(), WDp.getDpMainDenom(getContext(), getSActivity().mRecipientChain.getChain())));

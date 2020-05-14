@@ -30,16 +30,18 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_SEND_MIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 
 public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button              mBefore, mNextBtn;
     private EditText            mAmountInput;
-    private TextView            mAvailableAmount;
+    private TextView            mMinAmount, mMaxAmount;
     private TextView            mDenomTitle;
     private ImageView           mClearAll;
     private Button              mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
+    private BigDecimal          mMinAvailable = BigDecimal.ZERO;
     private BigDecimal          mMaxAvailable = BigDecimal.ZERO;
 
     private ArrayList<Coin>     mToSendCoins = new ArrayList<>();
@@ -59,11 +61,12 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_send_step1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_htlc_send_step2, container, false);
         mBefore = rootView.findViewById(R.id.btn_before);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
-        mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
+        mMinAmount = rootView.findViewById(R.id.tv_min_coin);
+        mMaxAmount = rootView.findViewById(R.id.tv_max_coin);
         mDenomTitle = rootView.findViewById(R.id.tv_symbol_coin);
         mClearAll = rootView.findViewById(R.id.clearAll);
         mAdd01 = rootView.findViewById(R.id.btn_add_01);
@@ -95,17 +98,21 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             mDecimal = 8;
             setDpDecimals(mDecimal);
+            mMinAvailable = new BigDecimal(FEE_BEP3_SEND_MIN);
             mMaxAvailable = getSActivity().mAccount.getBnbBalance().subtract(new BigDecimal(FEE_BNB_SEND));
             mDenomTitle.setText(getSActivity().mSendDenom.toUpperCase());
             mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, 8));
+            mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, 0, 8));
+            mMaxAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, 8));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mDecimal = WUtil.getKavaCoinDecimal(getSActivity().mSendDenom);
             setDpDecimals(mDecimal);
+            mMinAvailable = new BigDecimal(FEE_BEP3_SEND_MIN).movePointRight(mDecimal);
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mSendDenom);
             mDenomTitle.setText(getSActivity().mSendDenom.toUpperCase());
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDecimal, mDecimal));
+            mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, mDecimal, mDecimal));
+            mMaxAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDecimal, mDecimal));
 
         }
 
@@ -157,12 +164,18 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
                             if (mMaxAvailable.compareTo(inputAmount) < 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
 
+                            } else if (mMinAvailable.compareTo(inputAmount) > 0) {
+                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+
                             } else {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                             }
 
                         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                             if (mMaxAvailable.compareTo(checkPosition) < 0) {
+                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+
+                            } else if (mMinAvailable.compareTo(checkPosition) > 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
 
                             } else {
@@ -186,6 +199,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
+                if (sendTemp.compareTo(mMinAvailable) < 0) return false;
                 Coin token = new Coin(getSActivity().mSendDenom, sendTemp.toPlainString());
                 mToSendCoins.add(token);
                 return true;
@@ -194,6 +208,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(mDecimal);
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
+                if (sendTemp.compareTo(mMinAvailable) < 0) return false;
                 Coin token = new Coin(getSActivity().mSendDenom.toLowerCase(), sendTemp.toPlainString());
                 mToSendCoins.add(token);
             }

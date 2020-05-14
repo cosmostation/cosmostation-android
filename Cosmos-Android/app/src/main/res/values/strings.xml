@@ -309,6 +309,7 @@
     <string name="str_max_available_undelegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_redelegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_send_amount"><![CDATA[Max Available : ]]></string>
+    <string name="str_available_send_amount"><![CDATA[Available : ]]></string>
     <string name="str_tx_error_description">Transaction request failed. \nPlease check the error code and message.</string>
     <string name="str_success_loading">Transaction request submitted successfully. \nAfter a few moments, the full results will be displayed.\n(Pending times depends on Tx fee.)</string>
     <string name="str_front_guide_title"><![CDATA[COSMOS HUB]]></string>
@@ -799,6 +800,7 @@
     <string name="error_import_errer">Cannot add this address.</string>
     <string name="error_not_enough_atom">Not enough balance to delegate</string>
     <string name="error_not_enough_budget">Insufficient available balance.\nUnder minimum tx fee.</string>
+    <string name="error_not_enough_budget_bep3">Insufficient available balance.</string>
     <string name="error_not_enough_reward_all">Insufficient available balance.\nUnder minimum tx fee.</string>
     <string name="error_not_enough_reward">Not enough rewards to Claim</string>
     <string name="error_small_reward">Rewards are too small.</string>

@@ -224,6 +224,7 @@
     <string name="str_max_available_undelegate_amount"><![CDATA[최대 위임 철회 가능량 : ]]></string>
     <string name="str_max_available_redelegate_amount"><![CDATA[최대 재위임 가능량 : ]]></string>
     <string name="str_max_available_send_amount"><![CDATA[최대 전송 가능량 : ]]></string>
+    <string name="str_available_send_amount"><![CDATA[전송 가능량 : ]]></string>
     <string name="str_tx_error_description">죄송합니다. 요청하신 전송이 실패하였습니다.\n아래에 보여지는 에러 코드와 메시지를 확인해 주세요.</string>
     <string name="str_success_loading">트랜잭션 전송에 성공하였습니다.\n블록 체인에 완전히 기록된 후 결과가 표시됩니다.\n(대기 시간은 Tx 수수료에 따라 달라집니다.)</string>
     <string name="str_front_guide_title"><![CDATA[코스모스 허브]]></string>
@@ -712,6 +713,7 @@
     <string name="error_already_imported_address">이미 등록된 주소입니다.</string>
     <string name="error_import_errer">이 주소 또는 공개키는 등록이 불가능 합니다.</string>
     <string name="error_not_enough_atom">위임하기에 사용 가능 수량이 충분하지 않습니다.</string>
+    <string name="error_not_enough_budget_bep3">사용 가능 수량이 충분하지 않습니다.</string>
     <string name="error_not_enough_budget">사용 가능 수량이 충분하지 않습니다.\n이용 가능 수량이 최소 수수료 이하 입니다.</string>
     <string name="error_not_enough_reward_all">사용 가능 수량이 충분하지 않습니다.\n이용 가능 수량이 최소 수수료 이하 입니다.</string>
     <string name="error_not_enough_reward">요청할 이자가 충분하지 않습니다.</string>

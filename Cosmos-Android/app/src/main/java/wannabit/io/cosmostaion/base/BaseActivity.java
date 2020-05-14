@@ -111,6 +111,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_RELAY_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_SEND_CHECK;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_SEND_MIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
@@ -257,8 +258,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            WLog.w("COSMOS_BNB " + WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB));
-            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BEP3_RELAY_FEE).movePointRight(8)) > 0) {
+            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BEP3_SEND_MIN).movePointRight(8)) > 0) {
                 hasbalance  = true;
             }
 
@@ -266,7 +266,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             return;
         }
         if (!hasbalance) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget_bep3, Toast.LENGTH_SHORT).show();
             return;
         }
         startActivity(intent);
