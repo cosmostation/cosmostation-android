@@ -241,8 +241,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
     public void onStartHTLCSendActivity() {
-        if(mAccount == null) return;
-        if(!mAccount.hasPrivateKey) {
+        if (mAccount == null) return;
+        if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();

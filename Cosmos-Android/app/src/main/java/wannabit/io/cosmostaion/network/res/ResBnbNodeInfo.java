@@ -4,17 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResBnbNodeInfo {
 
-    @SerializedName("protocol_version")
-    public BnbProtocal protocol_version;
-
     @SerializedName("sync_info")
     public BnbSyncInfo sync_info;
-
-    public class BnbProtocal {
-        @SerializedName("network")
-        public String network;
-
-    }
 
     public class BnbSyncInfo {
         @SerializedName("latest_block_height")

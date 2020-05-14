@@ -387,7 +387,7 @@
     <string name="str_bep3_status_completed">수신 완료</string>
     <string name="str_bep3_status_expired">반환 가능</string>
     <string name="str_bep3_status_open">수신 대기</string>
-    <string name="str_bep3_status_refunded">반환완료</string>
+    <string name="str_bep3_status_refunded">반환 완료</string>
     <string name="str_bep3_status_null">알 수 없음</string>
     <string name="str_interchain_refund">인터체인 환불하기</string>
     <string name="str_swapId">스왑 아이디</string>

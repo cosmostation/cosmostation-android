@@ -87,9 +87,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     private TextView mLoadingMsgTv;
     private LinearLayout mControlLayer;
     private Button mDismissBtn;
-    private Button mRefundBtn;
+    private RelativeLayout mRefundBtn;
     private LinearLayout mControlLayer2;
-    private Button mExplorerBtn, mShareBtn;
+    private Button mShareBtn;
 
     private boolean mIsGen;
     private boolean mIsSuccess;
@@ -120,7 +120,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         mDismissBtn = findViewById(R.id.btn_dismiss);
         mRefundBtn = findViewById(R.id.btn_refund);
         mControlLayer2 = findViewById(R.id.control_after);
-        mExplorerBtn = findViewById(R.id.btn_scan);
         mShareBtn = findViewById(R.id.btn_share);
 
         setSupportActionBar(mToolbar);
@@ -168,7 +167,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         mDismissBtn.setOnClickListener(this);
         mRefundBtn.setOnClickListener(this);
-        mExplorerBtn.setOnClickListener(this);
         mShareBtn.setOnClickListener(this);
     }
 
@@ -194,10 +192,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
     private void onUpdateView() {
         mLoadingLayer.setVisibility(View.GONE);
-        if (!mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mDismissBtn.setVisibility(View.GONE);
-            mControlLayer2.setVisibility(View.VISIBLE);
-        }
+        mControlLayer2.setVisibility(View.VISIBLE);
+
         if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
             if (mResBnbTxInfo != null) {
                 mTxDetailAdapter.notifyDataSetChanged();
@@ -216,23 +212,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         if (v.equals(mDismissBtn)) {
             onBackPressed();
-
-        } else if (v.equals(mExplorerBtn)) {
-            Intent webintent = new Intent(this, WebActivity.class);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                webintent.putExtra("txid", mResTxInfo.txhash);
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                webintent.putExtra("txid", mResTxInfo.hash);
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                webintent.putExtra("txid", mResBnbTxInfo.hash);
-            } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
-                webintent.putExtra("txid", mResBnbTxInfo.hash);
-            } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
-                return;
-            }
-            webintent.putExtra("chain", mBaseChain.getChain());
-            webintent.putExtra("goMain", mIsGen);
-            startActivity(webintent);
 
         } else if (v.equals(mShareBtn)) {
             Intent shareIntent = new Intent();
@@ -260,6 +239,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
+
+            //TODO check fee avaiavle
+
             Intent reDelegate = new Intent(TxDetailActivity.this, HtlcRefundActivity.class);
             reDelegate.putExtra("swapId", mSwapId);
             startActivity(reDelegate);
@@ -527,6 +509,27 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemMemo.setText(mResBnbTxInfo.tx.value.memo);
 
             }
+
+            holder.itemBtnHashLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent webintent = new Intent(getBaseContext(), WebActivity.class);
+                    if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                        webintent.putExtra("txid", mResTxInfo.txhash);
+                    } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                        webintent.putExtra("txid", mResTxInfo.hash);
+                    } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                        webintent.putExtra("txid", mResBnbTxInfo.hash);
+                    } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+                        webintent.putExtra("txid", mResBnbTxInfo.hash);
+                    } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                        return;
+                    }
+                    webintent.putExtra("chain", mBaseChain.getChain());
+                    webintent.putExtra("goMain", mIsGen);
+                    startActivity(webintent);
+                }
+            });
 
         }
 
@@ -891,7 +894,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemSendAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(sendCoin.amount), 8, 8));
                 holder.itemRandomHash.setText(msg.value.random_number_hash);
                 holder.itemExpectIncome.setText(msg.value.expected_income);
-                holder.itemExpectedLayer.setVisibility(View.GONE);
                 holder.itemStatus.setText(WDp.getBnbHtlcStatus(getBaseContext(), mResBnbSwapInfo, mResBnbNodeInfo));
 
                 if (mResBnbSwapInfo != null &&
@@ -963,6 +965,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     itemTime, itemTimeGap, itemMemo, itemFee, itemFeeDenom , itemFeeUsed, itemFeeUsedDenom,
                     itemFeeLimit, itemFeeLimitDenom;
             RelativeLayout itemFeeLayer, itemFeeUsedLayer, itemFeeLimitLayer;
+            ImageView itemBtnHashLink;
 
             public TxCommonHolder(@NonNull View itemView) {
                 super(itemView);
@@ -976,6 +979,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemTimeGap = itemView.findViewById(R.id.tx_block_time_gap);
                 itemHash = itemView.findViewById(R.id.tx_hash);
                 itemMemo = itemView.findViewById(R.id.str_tx_memo);
+                itemBtnHashLink = itemView.findViewById(R.id.tx_hash_link);
 
                 itemFeeLayer = itemView.findViewById(R.id.tx_fee_layer);
                 itemFee = itemView.findViewById(R.id.tx_fee);

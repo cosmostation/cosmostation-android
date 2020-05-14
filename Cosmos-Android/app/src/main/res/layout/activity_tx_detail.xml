@@ -27,29 +27,6 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
-        <Button
-            android:id="@+id/btn_refund"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
-            android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
-            android:textColor="@color/color_btn_photon"
-            android:textAllCaps="false"
-            android:text="@string/str_interchain_refund"
-            android:visibility="gone"/>
-        <Button
-            android:id="@+id/btn_dismiss"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_8"
-            android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
-            android:textAllCaps="false"
-            android:text="@string/str_dismiss"/>
         <LinearLayout
             android:id="@+id/control_after"
             android:layout_width="match_parent"
@@ -59,7 +36,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/btn_share"
@@ -73,7 +49,7 @@
                     android:textAllCaps="false"
                     android:text="@string/str_share"/>
                 <Button
-                    android:id="@+id/btn_scan"
+                    android:id="@+id/btn_dismiss"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_45"
                     android:layout_weight="1"
@@ -82,9 +58,29 @@
                     android:background="@drawable/btn_trans_with_border"
                     style="@style/font_ss_14_photon"
                     android:textAllCaps="false"
-                    android:text="@string/str_mintscan"/>
+                    android:text="@string/str_dismiss"/>
             </LinearLayout>
         </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/btn_refund"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginTop="@dimen/space_8"
+            android:background="@drawable/btn_trans_with_border"
+            android:clickable="true"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/beprefund_ic_s"
+                android:drawablePadding="@dimen/space_4"
+                android:gravity="center"
+                style="@style/font_ss_14_white"
+                android:text="@string/str_interchain_refund" />
+        </RelativeLayout>
+
     </LinearLayout>
 
     <RelativeLayout
