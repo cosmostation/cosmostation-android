@@ -808,6 +808,20 @@
     <string name="tx_kava_bep3_create">인터체인\n보내기</string>
     <string name="tx_kava_bep3_claim">인터체인\n청구하기</string>
     <string name="tx_kava_bep3_refund">인터체인\n환불하기</string>
+    <string name="tx_kava_create_cdp2">CDP 개설</string>
+    <string name="tx_kava_deposit_cdp2">CDP 예치</string>
+    <string name="tx_kava_withdraw_cdp2">CDP 출금</string>
+    <string name="tx_kava_drawdebt_cdp2">CDP 대출</string>
+    <string name="tx_kava_repaydebt_cdp2">CDP 상환</string>
+    <string name="tx_send_htlc2">인터체인 보내기</string>
+    <string name="tx_receive_htlc2">인터체인 받기</string>
+    <string name="tx_create_htlc2">인터체인 생성</string>
+    <string name="tx_claim_htlc2">인터체인 청구하기</string>
+    <string name="tx_refund_htlc2">인터체인 환불하기</string>
+    <string name="tx_kava_bep3_create2">인터체인 보내기</string>
+    <string name="tx_kava_bep3_claim2">인터체인 청구하기</string>
+    <string name="tx_kava_bep3_refund2">인터체인 환불하기</string>
+
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>

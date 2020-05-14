@@ -883,16 +883,16 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
                 final Msg msg = mResBnbTxInfo.getMsg(position - 1);
                 if (mAccount.address.equals(msg.value.from)) {
-                    holder.itemMsgTitle.setText(getString(R.string.tx_send_htlc));
+                    holder.itemMsgTitle.setText(getString(R.string.tx_send_htlc2));
                     holder.itemSender.setText(msg.value.from);
                     holder.itemRecipient.setText(msg.value.recipient_other_chain);
 
                 } else if (mAccount.address.equals(msg.value.to)) {
-                    holder.itemMsgTitle.setText(getString(R.string.tx_receive_htlc));
+                    holder.itemMsgTitle.setText(getString(R.string.tx_receive_htlc2));
                     holder.itemSender.setText(msg.value.sender_other_chain);
                     holder.itemRecipient.setText(msg.value.to);
                 } else {
-                    holder.itemMsgTitle.setText(getString(R.string.tx_create_htlc));
+                    holder.itemMsgTitle.setText(getString(R.string.tx_create_htlc2));
                     holder.itemSender.setText(msg.value.from);
                     holder.itemRecipient.setText(msg.value.to);
                 }

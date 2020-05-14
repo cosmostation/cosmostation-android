@@ -882,6 +882,7 @@
     <string name="tx_issue_token">Token Issue</string>
     <string name="tx_known">Unknown</string>
     <string name="tx_kava_post_price">Update Price</string>
+
     <string name="tx_kava_create_cdp">CDP\nOpen</string>
     <string name="tx_kava_deposit_cdp">CDP\nDeposit</string>
     <string name="tx_kava_withdraw_cdp">CDP\nWithdraw</string>
@@ -895,6 +896,19 @@
     <string name="tx_kava_bep3_create">Interchain\nSend</string>
     <string name="tx_kava_bep3_claim">Interchain\nClaim</string>
     <string name="tx_kava_bep3_refund">Interchain\nRefund</string>
+    <string name="tx_kava_create_cdp2">CDP Open</string>
+    <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
+    <string name="tx_kava_withdraw_cdp2">CDP Withdraw</string>
+    <string name="tx_kava_drawdebt_cdp2">CDP Draw Debt</string>
+    <string name="tx_kava_repaydebt_cdp2">CDP Repay</string>
+    <string name="tx_send_htlc2">Interchain Send</string>
+    <string name="tx_receive_htlc2">Interchain Receive</string>
+    <string name="tx_create_htlc2">Interchain Create</string>
+    <string name="tx_claim_htlc2">Interchain Claim</string>
+    <string name="tx_refund_htlc2">Interchain Refund</string>
+    <string name="tx_kava_bep3_create2">Interchain Send</string>
+    <string name="tx_kava_bep3_claim2">Interchain Claim</string>
+    <string name="tx_kava_bep3_refund2">Interchain Refund</string>
 
 
     <string name="str_dp_time_format1" >MMM d, yyyy HH:mm:ss</string>
