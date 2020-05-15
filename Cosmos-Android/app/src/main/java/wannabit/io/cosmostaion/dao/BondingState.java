@@ -24,7 +24,7 @@ public class BondingState {
     public BigDecimal getBondingAmount(Validator validator) {
         BigDecimal result = BigDecimal.ZERO;
         try {
-            result = new BigDecimal(validator.tokens).multiply(shares).divide(new BigDecimal(validator.delegator_shares), 0, BigDecimal.ROUND_HALF_DOWN);
+            result = new BigDecimal(validator.tokens).multiply(shares).divide(new BigDecimal(validator.delegator_shares), 0, BigDecimal.ROUND_DOWN);
 
         }catch (Exception e) {
         }

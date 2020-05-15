@@ -988,7 +988,7 @@ class WUtils {
         nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let formatted   = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: 100))! + "%"
+        let formatted   = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: 100))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
         
         let preString   = formatted[..<endIndex]
@@ -1013,12 +1013,13 @@ class WUtils {
         if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"))) ?? "0"
+            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"), withBehavior: handler12)) ?? "0"
+            
             endIndex = formatted.index(formatted.endIndex, offsetBy: -12)
         } else if (baseChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             nf.minimumFractionDigits = 18
             nf.maximumFractionDigits = 18
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000000000000000"))) ?? "0"
+            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000000000000000"), withBehavior: handler18)) ?? "0"
             endIndex = formatted.index(formatted.endIndex, offsetBy: -18)
         }
         
@@ -1043,12 +1044,12 @@ class WUtils {
         if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"))) ?? "0"
+            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"), withBehavior: handler12)) ?? "0"
             endIndex = formatted.index(formatted.endIndex, offsetBy: -12)
         } else if (baseChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             nf.minimumFractionDigits = 18
             nf.maximumFractionDigits = 18
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000000000000000"))) ?? "0"
+            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000000000000000"), withBehavior: handler18)) ?? "0"
             endIndex = formatted.index(formatted.endIndex, offsetBy: -18)
         }
         

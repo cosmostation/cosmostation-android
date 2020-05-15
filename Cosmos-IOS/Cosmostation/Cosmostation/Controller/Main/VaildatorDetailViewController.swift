@@ -129,7 +129,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
 //            print("onFetchFinished mRewards ", mRewards.count)
 //            print("onFetchFinished mHistories ", mHistories.count)
 
-            if((mBonding != nil && mBonding?.getBondingAmount(mValidator!) != NSDecimalNumber.zero) || mUnbondings.count > 0) {
+            if((mBonding != nil && NSDecimalNumber.init(string: mBonding?.bonding_shares) != NSDecimalNumber.zero) || mUnbondings.count > 0) {
                 mMyValidator = true
             } else {
                 mMyValidator = false
@@ -486,7 +486,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (mIsTop100 && chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if (mIrisStakePool != nil && mBonding != nil) {
-                let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
+                let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"), withBehavior: WUtils.handler0Down)
                 let bonded_tokens = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
                 cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
                 cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)

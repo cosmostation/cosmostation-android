@@ -259,7 +259,7 @@ public class WDp {
     public static SpannableString getDailyReturn(Context c, BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
         BigDecimal value = BigDecimal.ZERO;
         try {
-            value = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("365000000")), 12, RoundingMode.HALF_UP);
+            value = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("365000000")), 12, RoundingMode.DOWN);
 
         }catch (Exception e) {}
 
@@ -273,7 +273,7 @@ public class WDp {
     public static BigDecimal getMonthlyReturn(BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
         BigDecimal result = BigDecimal.ZERO;
         try {
-            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.HALF_UP);
+            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.DOWN);
 
         }catch (Exception e) {}
         return result;
@@ -282,7 +282,7 @@ public class WDp {
     public static SpannableString getMonthlyReturn(Context c, BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
         BigDecimal value = BigDecimal.ZERO;
         try {
-            value = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.HALF_UP);
+            value = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.DOWN);
 
         }catch (Exception e) {}
         SpannableString result;
@@ -294,7 +294,7 @@ public class WDp {
     public static SpannableString getIrisDailyReturn(Context c, ResLcdIrisPool pool, BigDecimal commission, BigDecimal delegated) {
         BigDecimal value = BigDecimal.ZERO;
         try {
-            value = pool.geTotal().multiply(new BigDecimal(0.04)).multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(pool.getBonded().multiply(new BigDecimal("365000000000000000000")), 18, RoundingMode.HALF_UP);
+            value = pool.geTotal().multiply(new BigDecimal(0.04)).setScale(0, RoundingMode.DOWN).multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(pool.getBonded().multiply(new BigDecimal("365000000000000000000")), 18, RoundingMode.DOWN);
 
         }catch (Exception e) {}
 
@@ -307,7 +307,7 @@ public class WDp {
     public static SpannableString getIrisMonthlyReturn(Context c, ResLcdIrisPool pool, BigDecimal commission, BigDecimal delegated) {
         BigDecimal value = BigDecimal.ZERO;
         try {
-            value = pool.geTotal().multiply(new BigDecimal(0.04)).multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(pool.getBonded().multiply(new BigDecimal("12000000000000000000")), 18, RoundingMode.HALF_UP);
+            value = pool.geTotal().multiply(new BigDecimal(0.04)).setScale(0, RoundingMode.DOWN).multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(pool.getBonded().multiply(new BigDecimal("12000000000000000000")), 18, RoundingMode.DOWN);
 
         }catch (Exception e) {}
         SpannableString result;
