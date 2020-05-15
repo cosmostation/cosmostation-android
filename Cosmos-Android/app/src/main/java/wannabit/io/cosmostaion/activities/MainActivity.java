@@ -325,6 +325,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mAccountListAdapter.notifyDataSetChanged();
     }
 
+    public void onUpdateAccountListAdapter() {
+        BaseChain chain = BaseChain.SUPPORT_CHAINS().get(getBaseDao().getLastChain() - 1);
+        mAccounts = getBaseDao().onSelectAccountsByChain(chain);
+        WUtil.onSortingAccount(mAccounts);
+        mAccountListAdapter.notifyDataSetChanged();
+    }
+
     private void onUpdateTitle() {
         if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);

@@ -238,16 +238,16 @@ public class Account {
             if (chain.equals(BaseChain.COSMOS_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
             } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 18, 18);
+                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 18, 6);
 
             } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 8);
+                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
 
             } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
 
             } else if (chain.equals(BaseChain.IOV_MAIN)) {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 9);
+                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
 
             } else {
                 return WDp.getDpAmount2(c, BigDecimal.ZERO, 6, 6);

@@ -659,6 +659,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else {
             mUndelegateCard.setVisibility(View.GONE);
         }
+
+        getMainActivity().onUpdateAccountListAdapter();
     }
 
     public MainActivity getMainActivity() {
