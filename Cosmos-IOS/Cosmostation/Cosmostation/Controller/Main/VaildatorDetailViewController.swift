@@ -568,7 +568,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.timestamp)
                     cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.timestamp)
-                    if(history._source.result.allResult) {
+                    if(history._source.allResult) {
                         cell?.txResultLabel.isHidden = true
                     } else {
                         cell?.txResultLabel.isHidden = false
