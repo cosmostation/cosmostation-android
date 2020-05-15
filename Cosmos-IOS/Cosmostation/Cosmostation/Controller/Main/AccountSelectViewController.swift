@@ -45,7 +45,6 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
         self.accountTableView.backgroundView?.addGestureRecognizer(dismissTap1)
         self.chainTableView.backgroundView?.addGestureRecognizer(dismissTap2)
         
-        
     }
     
     
