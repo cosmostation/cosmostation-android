@@ -62,6 +62,13 @@
 		2842AB6E242C5C7200248EEB /* CdpLisyMyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB6C242C5C7200248EEB /* CdpLisyMyCell.swift */; };
 		2842AB6F242C5C7200248EEB /* CdpLisyMyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2842AB6D242C5C7200248EEB /* CdpLisyMyCell.xib */; };
 		2842AB72242C7C8A00248EEB /* CdpListAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB70242C7C8A00248EEB /* CdpListAllCell.swift */; };
+		2845D87D246FAE16007CD497 /* VoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2845D87C246FAE16007CD497 /* VoteDetailsViewController.swift */; };
+		2845D880246FAED7007CD497 /* VoteInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2845D87E246FAED7007CD497 /* VoteInfoTableViewCell.swift */; };
+		2845D881246FAED7007CD497 /* VoteInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2845D87F246FAED7007CD497 /* VoteInfoTableViewCell.xib */; };
+		2845D884246FAEED007CD497 /* VoteTallyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2845D882246FAEED007CD497 /* VoteTallyTableViewCell.swift */; };
+		2845D885246FAEED007CD497 /* VoteTallyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2845D883246FAEED007CD497 /* VoteTallyTableViewCell.xib */; };
+		2845D887246FB96E007CD497 /* CosmosVote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2845D886246FB96E007CD497 /* CosmosVote.swift */; };
+		2845D889246FBA39007CD497 /* CosmosTally.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2845D888246FBA39007CD497 /* CosmosTally.swift */; };
 		28474ECB241E06AF00AF5A81 /* TxWithDrawCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */; };
 		28474ECC241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */; };
 		28474ECD241E06AF00AF5A81 /* TxDepositCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */; };
@@ -165,7 +172,6 @@
 		E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */; };
 		E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */; };
 		E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */; };
-		E1259AD923977B760045C8F6 /* VoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1259AD823977B760045C8F6 /* VoteDetailViewController.swift */; };
 		E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E126CF7F2387A3E1002A546F /* WalletCosmosCell.xib */; };
 		E126CF822387A48F002A546F /* WalletAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E126CF842387A48F002A546F /* WalletAddressCell.xib */; };
 		E126CF872387A4B4002A546F /* WalletIrisCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E126CF892387A4B4002A546F /* WalletIrisCell.xib */; };
@@ -414,6 +420,13 @@
 		2842AB6C242C5C7200248EEB /* CdpLisyMyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpLisyMyCell.swift; sourceTree = "<group>"; };
 		2842AB6D242C5C7200248EEB /* CdpLisyMyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpLisyMyCell.xib; sourceTree = "<group>"; };
 		2842AB70242C7C8A00248EEB /* CdpListAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpListAllCell.swift; sourceTree = "<group>"; };
+		2845D87C246FAE16007CD497 /* VoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDetailsViewController.swift; sourceTree = "<group>"; };
+		2845D87E246FAED7007CD497 /* VoteInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteInfoTableViewCell.swift; sourceTree = "<group>"; };
+		2845D87F246FAED7007CD497 /* VoteInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VoteInfoTableViewCell.xib; sourceTree = "<group>"; };
+		2845D882246FAEED007CD497 /* VoteTallyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteTallyTableViewCell.swift; sourceTree = "<group>"; };
+		2845D883246FAEED007CD497 /* VoteTallyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VoteTallyTableViewCell.xib; sourceTree = "<group>"; };
+		2845D886246FB96E007CD497 /* CosmosVote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmosVote.swift; sourceTree = "<group>"; };
+		2845D888246FBA39007CD497 /* CosmosTally.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmosTally.swift; sourceTree = "<group>"; };
 		28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxWithDrawCdpCell.xib; sourceTree = "<group>"; };
 		28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxdrawDebtCdpCell.xib; sourceTree = "<group>"; };
 		28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxDepositCdpCell.swift; sourceTree = "<group>"; };
@@ -530,7 +543,6 @@
 		E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabTokenViewController.swift; sourceTree = "<group>"; };
 		E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbAccountInfo.swift; sourceTree = "<group>"; };
 		E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabWalletViewController.swift; sourceTree = "<group>"; };
-		E1259AD823977B760045C8F6 /* VoteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDetailViewController.swift; sourceTree = "<group>"; };
 		E126CF7E2387A3E1002A546F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletCosmosCell.xib; sourceTree = "<group>"; };
 		E126CF812387A3E8002A546F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletCosmosCell.strings; sourceTree = "<group>"; };
 		E126CF832387A48F002A546F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletAddressCell.xib; sourceTree = "<group>"; };
@@ -1005,7 +1017,7 @@
 				E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */,
 				E1827E17225620D000BC0350 /* VaildatorDetailViewController.swift */,
 				E1945E4B222E81C200A1436F /* VoteListViewController.swift */,
-				E1259AD823977B760045C8F6 /* VoteDetailViewController.swift */,
+				2845D87C246FAE16007CD497 /* VoteDetailsViewController.swift */,
 				2842AB56242C1DD900248EEB /* CdpListViewController.swift */,
 				2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */,
 				2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */,
@@ -1101,6 +1113,8 @@
 				2888B7FB246BC17300B2EB4A /* BnbNodeInfo.swift */,
 				2888B7FD246BC83A00B2EB4A /* BnbSwapInfo.swift */,
 				2888B7FF246BCA3200B2EB4A /* KavaSwapInfo.swift */,
+				2845D886246FB96E007CD497 /* CosmosVote.swift */,
+				2845D888246FBA39007CD497 /* CosmosTally.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1260,6 +1274,10 @@
 				285A33E524486DA20052BD3D /* HtlcResultSentCell.xib */,
 				285A33E824486DB60052BD3D /* HtlcResultClaimCell.swift */,
 				285A33E924486DB60052BD3D /* HtlcResultClaimCell.xib */,
+				2845D87E246FAED7007CD497 /* VoteInfoTableViewCell.swift */,
+				2845D87F246FAED7007CD497 /* VoteInfoTableViewCell.xib */,
+				2845D882246FAEED007CD497 /* VoteTallyTableViewCell.swift */,
+				2845D883246FAEED007CD497 /* VoteTallyTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1402,6 +1420,7 @@
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */,
 				285A33DB244763290052BD3D /* SelectChainCell.xib in Resources */,
+				2845D881246FAED7007CD497 /* VoteInfoTableViewCell.xib in Resources */,
 				E126CF822387A48F002A546F /* WalletAddressCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
 				282FF36223F532360028CC66 /* TxVoteCell.xib in Resources */,
@@ -1413,6 +1432,7 @@
 				E1CF42F123598AFE00907F45 /* ManageChainCell.xib in Resources */,
 				E1C3C89923B1E27800A693C0 /* NotificationView.xib in Resources */,
 				E1FD233D233E1C44009327FE /* WalletGuideCell.xib in Resources */,
+				2845D885246FAEED007CD497 /* VoteTallyTableViewCell.xib in Resources */,
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				282FF34623F5062A0028CC66 /* TxDelegateCell.xib in Resources */,
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
@@ -1516,7 +1536,6 @@
 				28474EFE241E06E200AF5A81 /* Cmd.codec.pb.swift in Sources */,
 				28617A8524333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
-				E1259AD923977B760045C8F6 /* VoteDetailViewController.swift in Sources */,
 				285A33DA244763290052BD3D /* SelectChainCell.swift in Sources */,
 				28474EF3241E06E200AF5A81 /* Currency.codec.pb.swift in Sources */,
 				E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */,
@@ -1543,6 +1562,7 @@
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
 				28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */,
 				285A33D12446CDAB0052BD3D /* StepHtlcSend2ViewController.swift in Sources */,
+				2845D884246FAEED007CD497 /* VoteTallyTableViewCell.swift in Sources */,
 				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
 				285A33E2244862670052BD3D /* HtlcResultViewController.swift in Sources */,
 				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
@@ -1561,6 +1581,7 @@
 				285A33E624486DA20052BD3D /* HtlcResultSentCell.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
 				E151B64B224859E10026B8C0 /* StdSignMsg.swift in Sources */,
+				2845D880246FAED7007CD497 /* VoteInfoTableViewCell.swift in Sources */,
 				E191A57D237902C5002577BC /* WalletKavaCell.swift in Sources */,
 				28474F09241E06E200AF5A81 /* Validators.codec.pb.swift in Sources */,
 				28617A812432944F006D66EA /* StepDepositCdpCheckViewController.swift in Sources */,
@@ -1693,6 +1714,7 @@
 				E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */,
 				E10492152347C5D900A2980F /* WalletConnectImageView.swift in Sources */,
 				E17748E82283D0F4003D8CD1 /* GuideCategory.swift in Sources */,
+				2845D887246FB96E007CD497 /* CosmosVote.swift in Sources */,
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,
 				28474F00241E06E200AF5A81 /* Msgfee.codec.pb.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
@@ -1709,6 +1731,7 @@
 				E17B214823470960001743D6 /* TokenDetailHeaderCustomCell.swift in Sources */,
 				2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
+				2845D87D246FAE16007CD497 /* VoteDetailsViewController.swift in Sources */,
 				E1A6995B2366E8CC004CA274 /* WalletIovCell.swift in Sources */,
 				28474F0B241E06E200AF5A81 /* Qualityscore.codec.pb.swift in Sources */,
 				28474EF5241E06E200AF5A81 /* Distribution.codec.pb.swift in Sources */,
@@ -1729,6 +1752,7 @@
 				28474EFC241E06E200AF5A81 /* Termdeposit.codec.pb.swift in Sources */,
 				E1A82DE12244818C0097CAEE /* AccountInfo.swift in Sources */,
 				E1271B06224B874A0083AF17 /* AddAddressViewController.swift in Sources */,
+				2845D889246FBA39007CD497 /* CosmosTally.swift in Sources */,
 				28474EF2241E06E200AF5A81 /* App.codec.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

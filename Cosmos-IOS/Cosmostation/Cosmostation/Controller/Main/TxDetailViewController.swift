@@ -796,16 +796,15 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_TX + txHash
-            print("url ", url)
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         }
+        print("url ", request?.request?.url)
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if(SHOW_LOG) { print("onFetchTx OK", self.mIsGen, " ", res) }
+//                if(SHOW_LOG) { print("onFetchTx OK", self.mIsGen, " ", res) }
                 guard let info = res as? [String : Any], info["error"] == nil else {
-                    print("once more! ", self.mFetchCnt)
                     if (self.mIsGen) {
                         self.mFetchCnt = self.mFetchCnt - 1
                         if (self.mFetchCnt > 0) {

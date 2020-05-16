@@ -135,7 +135,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "ReInvestCheckViewController")]
             
-        } else if (mType == IRIS_MSG_TYPE_VOTE) {
+        } else if (mType == TASK_TYPE_VOTE) {
             return [self.newVc(viewController: "VoteSelectViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),

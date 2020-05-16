@@ -7,9 +7,15 @@
 //
 
 import Foundation
-
+import UIKit
 
 public class IrisProposal {
+    
+    static let PROPOSAL_DEPOSIT         = "DepositPeriod"
+    static let PROPOSAL_VOTING          = "VotingPeriod"
+    static let PROPOSAL_REJECTED        = "Rejected"
+    static let PROPOSAL_PASSED          = "Passed"
+    
     var type: String = ""
     var value: Value?
     
@@ -33,7 +39,7 @@ public class IrisProposal {
         return result
     }
     
-    public func getYes() ->NSDecimalNumber {
+    public func getYes() -> NSDecimalNumber {
         if let tally = self.value?.basicProposal?.tally_result {
             return NSDecimalNumber.init(string: tally.yes).multiplying(byPowerOf10: 2).dividing(by: getSum(), withBehavior: WUtils.handler2)
         }
@@ -59,6 +65,39 @@ public class IrisProposal {
             return NSDecimalNumber.init(string: tally.abstain).multiplying(byPowerOf10: 2).dividing(by: getSum(), withBehavior: WUtils.handler2)
         }
         return NSDecimalNumber.zero
+    }
+    
+    public func getStatusImg() -> UIImage? {
+        if (value?.basicProposal?.proposal_status == IrisProposal.PROPOSAL_DEPOSIT) {
+            return UIImage.init(named: "depositImg")
+        } else if (value?.basicProposal?.proposal_status == IrisProposal.PROPOSAL_VOTING) {
+            return UIImage.init(named: "votingImg")
+        } else if (value?.basicProposal?.proposal_status == IrisProposal.PROPOSAL_REJECTED) {
+            return UIImage.init(named: "rejectedImg")
+        } else if (value?.basicProposal?.proposal_status == IrisProposal.PROPOSAL_PASSED) {
+            return UIImage.init(named: "passedImg")
+        }
+        return nil
+    }
+    
+    public func getTitle() -> String? {
+        return "# " + (value?.basicProposal?.proposal_id)! + ". "  + (value?.basicProposal?.title)!
+    }
+    
+    public func getStartTime() -> String? {
+        if (value?.basicProposal?.proposal_status == IrisProposal.PROPOSAL_DEPOSIT) {
+            return NSLocalizedString("waiting_deposit", comment: "")
+        } else {
+            return WUtils.nodeTimetoString(input: (value?.basicProposal?.voting_start_time)!)
+        }
+    }
+    
+    public func getEndTime() -> String? {
+        if (value?.basicProposal?.proposal_status == IrisProposal.PROPOSAL_DEPOSIT) {
+            return NSLocalizedString("waiting_deposit", comment: "")
+        } else {
+            return WUtils.nodeTimetoString(input: (value?.basicProposal?.voting_end_time)!)
+        }
     }
     
     

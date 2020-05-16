@@ -76,6 +76,7 @@ let CSS_LCD_URL_PROVISIONS              = CSS_LCD_URL + "minting/annual-provisio
 let CSS_LCD_URL_MINT                    = CSS_LCD_URL + "minting/parameters";
 let CSS_LCD_URL_STAKING_POOL            = CSS_LCD_URL + "staking/pool";
 let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "gov/proposals";
+let CSS_LCD_URL_PROPOSALS_TALLY_TAIL    = "/tally";
 let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
 
 let IRIS_LCD_URL_ACCOUNT_INFO           = IRIS_LCD_URL + "bank/accounts/";
@@ -132,6 +133,7 @@ let KAVA_REDELEGATION                   = KAVA_URL + "staking/redelegations";
 let KAVA_REWARD_ADDRESS                 = KAVA_URL + "distribution/delegators/";
 let KAVA_REWARD_ADDRESS_TAIL            = "/withdraw_address";
 let KAVA_PROPOSALS                      = KAVA_URL + "gov/proposals";
+let KAVA_PROPOSALS_TALLY_TAIL           = "/tally";
 
 //KAVA_TEST_URL
 let KAVA_TEST_ACCOUNT_INFO              = KAVA_TEST_URL + "auth/accounts/";
@@ -311,6 +313,7 @@ let BNB_MSG_TYPE_HTLC                       = "tokens/HTLTMsg";
 let BNB_MSG_TYPE_HTLC_CLIAM                 = "tokens/ClaimHTLTMsg";
 let BNB_MSG_TYPE_HTLC_REFUND                = "tokens/RefundHTLTMsg";
 
+let TASK_TYPE_VOTE                          = "vote_task";
 let TASK_TYPE_HTLC_SWAP                     = "htlc_swap";
 let TASK_TYPE_HTLC_REFUND                   = "htlc_refund";
 
@@ -386,6 +389,7 @@ let FEE_REWARD_GAS_16                       = "1020000";
 
 let GAS_FEE_RATE_IRIS_AVERAGE               = "0.000008"
 
+let GAS_FEE_AMOUNT_IRIS_LOW                 = "10000"
 let GAS_FEE_AMOUNT_IRIS_SEND                = "25000"
 let GAS_FEE_AMOUNT_IRIS_MID                 = "50000"
 let GAS_FEE_AMOUNT_IRIS_REDELEGATE          = "65000"
@@ -398,6 +402,7 @@ let FEE_BEP3_RELAY_FEE                      = "0.00001"
 let FEE_BEP3_SEND_MIN                       = "0.10000"
 let FEE_BEP3_SEND_CHECK                     = "0.100375"
 
+let KAVA_GAS_FEE_AMOUNT_LOW                 = "100000"
 let KAVA_GAS_FEE_AMOUNT_SEND                = "200000"
 let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"
 let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"

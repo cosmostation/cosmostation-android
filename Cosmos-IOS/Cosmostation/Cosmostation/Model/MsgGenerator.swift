@@ -198,6 +198,12 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            value.proposal_id = proposalId
+            value.voter = fromAddress
+            value.option = opinion
+            
+            msg.type = COSMOS_MSG_TYPE_VOTE
+            msg.value = value
             
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             value.proposal_id = proposalId

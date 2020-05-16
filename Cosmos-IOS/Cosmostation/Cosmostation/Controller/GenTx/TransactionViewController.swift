@@ -211,7 +211,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("reinvest_step_1", comment: "")
                     
-                } else if (mType == IRIS_MSG_TYPE_VOTE) {
+                } else if (mType == TASK_TYPE_VOTE) {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("vote_step_1", comment: "")
                     
@@ -275,7 +275,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("delegate_step_2", comment: "")
                     
-                } else if (mType == IRIS_MSG_TYPE_VOTE) {
+                } else if (mType == TASK_TYPE_VOTE) {
                    stepImg.image = UIImage.init(named: "4StepImg2")
                    stepDescription.text = NSLocalizedString("delegate_step_2", comment: "")
                    
@@ -339,7 +339,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("delegate_step_3", comment: "")
                     
-                } else if (mType == IRIS_MSG_TYPE_VOTE) {
+                } else if (mType == TASK_TYPE_VOTE) {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("delegate_step_3", comment: "")
                   
@@ -403,7 +403,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("reinvest_step_4", comment: "")
                     
-                } else if (mType == IRIS_MSG_TYPE_VOTE) {
+                } else if (mType == TASK_TYPE_VOTE) {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("reinvest_step_4", comment: "")
                  

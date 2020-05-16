@@ -30,6 +30,7 @@ class VoteSelectViewController: BaseViewController {
         pageHolderVC = self.parent as? StepGenTxViewController
         
         proposalTitle.text = pageHolderVC.mProposalTitle
+        proposalTitle.adjustsFontSizeToFitWidth = true
         proposer.text = pageHolderVC.mProposer
     }
 
@@ -42,7 +43,7 @@ class VoteSelectViewController: BaseViewController {
     @IBAction func onClickNext(_ sender: UIButton) {
         if (pageHolderVC.mVoteOpinion == "Yes" ||
             pageHolderVC.mVoteOpinion == "No" ||
-            pageHolderVC.mVoteOpinion == "Veto" ||
+            pageHolderVC.mVoteOpinion == "NoWithVeto" ||
             pageHolderVC.mVoteOpinion == "Abstain") {
             self.btnCancel.isUserInteractionEnabled = false
             self.bntNext.isUserInteractionEnabled = false
@@ -77,7 +78,7 @@ class VoteSelectViewController: BaseViewController {
         sender.borderColor = UIColor.white
         checkVeto.image = checkVeto.image?.withRenderingMode(.alwaysTemplate)
         checkVeto.tintColor = UIColor.white
-        pageHolderVC.mVoteOpinion = "Veto"
+        pageHolderVC.mVoteOpinion = "NoWithVeto"
         
     }
     
@@ -108,7 +109,7 @@ class VoteSelectViewController: BaseViewController {
     
     override func enableUserInteraction() {
         self.btnCancel.isUserInteractionEnabled = true
-        self.btnCancel.isUserInteractionEnabled = true
+        self.bntNext.isUserInteractionEnabled = true
     }
     
     

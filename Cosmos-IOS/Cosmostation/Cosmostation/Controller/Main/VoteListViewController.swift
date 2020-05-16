@@ -133,10 +133,10 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let proposal = mProposals[indexPath.row]
             if (Int(proposal.id)! >= 25) {
-                let voteDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailViewController") as! VoteDetailViewController
-                voteDetailVC.proposalId = proposal.id
+                let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
+                voteDetailsVC.proposalId = proposal.id
                 self.navigationItem.title = ""
-                self.navigationController?.pushViewController(voteDetailVC, animated: true)
+                self.navigationController?.pushViewController(voteDetailsVC, animated: true)
                 
             } else {
                 guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.id) else { return }
@@ -146,16 +146,25 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let proposal = mIrisProposals[indexPath.row]
-            let voteDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailViewController") as! VoteDetailViewController
-            voteDetailVC.proposalId = proposal.value!.basicProposal!.proposal_id
+            let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
+            voteDetailsVC.proposalId = proposal.value!.basicProposal!.proposal_id
             self.navigationItem.title = ""
-            self.navigationController?.pushViewController(voteDetailVC, animated: true)
+            self.navigationController?.pushViewController(voteDetailsVC, animated: true)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             let proposal = mProposals[indexPath.row]
-            guard let url = URL(string: "https://kava.mintscan.io/proposals/" + proposal.id) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
+            if (Int(proposal.id)! >= 3) {
+                let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
+                voteDetailsVC.proposalId = proposal.id
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(voteDetailsVC, animated: true)
+                
+            } else {
+                guard let url = URL(string: "https://kava.mintscan.io/proposals/" + proposal.id) else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+            
         }
     }
     

@@ -30,6 +30,7 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
         pageHolderVC = self.parent as? StepGenTxViewController
         
         proposalTitle.text = pageHolderVC.mProposalTitle
+        proposalTitle.adjustsFontSizeToFitWidth = true
         proposer.text = pageHolderVC.mProposer
         WUtils.setDenomTitle(pageHolderVC.chainType!, mFeeDenomTitle)
     }
@@ -62,16 +63,15 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
     func onUpdateView() {
         let feeAmount = WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            mOpinion.text = pageHolderVC.mVoteOpinion
+            mFeeAmount.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmount.font, 6, 6)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             mOpinion.text = pageHolderVC.mVoteOpinion
-            mFeeAmount.attributedText = WUtils.displayAmount(feeAmount.stringValue, mFeeAmount.font, 18, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            mFeeAmount.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmount.font, 18, 18)
             
         }
-        
         mMemo.text = pageHolderVC.mMemo
     }
     
@@ -154,11 +154,34 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
                                                     self.pageHolderVC.mProposeId!,
                                                     self.pageHolderVC.mVoteOpinion!,
                                                     self.pageHolderVC.chainType!)
+                
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
                 if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
                     self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
+                    let encoder = JSONEncoder()
+                    encoder.outputFormatting = .sortedKeys
+                    let data = try? encoder.encode(stdMsg)
+                    let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
+                    let rawData: Data? = rawResult!.data(using: .utf8)
+                    let hash = Crypto.sha256(rawData!)
+                    let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                    
+                    var genedSignature = Signature.init()
+                    var genPubkey =  PublicKey.init()
+                    genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
+                    genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                    genedSignature.pub_key = genPubkey
+                    genedSignature.signature = WKey.convertSignature(signedData!)
+                    genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                    genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
+                    
+                    var signatures: Array<Signature> = Array<Signature>()
+                    signatures.append(genedSignature)
+                    
+                    stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
                     
                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     let irisStdMsg = MsgGenerator.getIrisToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner),  String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
@@ -210,14 +233,12 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            if(SHOW_LOG) { print("Send ", res) }
+                            if(SHOW_LOG) { print("Vote ", res) }
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
-                            if(SHOW_LOG) {
-                                print("send error ", error)
-                            }
+                            if(SHOW_LOG) { print("Vote error ", error) }
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500
                             }
@@ -225,12 +246,14 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
                                 if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                                    //TODO not yet!!!
+                                    txResult["type"] = COSMOS_MSG_TYPE_VOTE
+                                    self.onStartTxDetail(txResult)
                                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                                     txResult["type"] = IRIS_MSG_TYPE_VOTE
                                     self.onStartTxResult(txResult)
                                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                                    //TODO not yet!!!
+                                    txResult["type"] = COSMOS_MSG_TYPE_VOTE
+                                    self.onStartTxDetail(txResult)
                                 }
                             })
                         }

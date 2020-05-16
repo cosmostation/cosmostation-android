@@ -368,6 +368,9 @@ class StepFeeViewController: BaseViewController {
             } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
                 
+            } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+                
             }
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -386,8 +389,8 @@ class StepFeeViewController: BaseViewController {
             } else if (pageHolderVC.mType == IRIS_MSG_TYPE_REDELEGATE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
                 
-            } else if (pageHolderVC.mType == IRIS_MSG_TYPE_VOTE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
+            } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_LOW))
                            
             } else {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
@@ -428,6 +431,9 @@ class StepFeeViewController: BaseViewController {
                 
             } else if (pageHolderVC.mType == TASK_TYPE_HTLC_REFUND) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_BEP3))
+                
+            } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_LOW))
                 
             }
             

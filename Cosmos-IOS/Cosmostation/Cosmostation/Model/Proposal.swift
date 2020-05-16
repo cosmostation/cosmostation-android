@@ -7,11 +7,20 @@
 //
 
 import Foundation
+import UIKit
 
 public class Proposal {
+    
+    static let PROPOSAL_DEPOSIT         = "DepositPeriod"
+    static let PROPOSAL_VOTING          = "VotingPeriod"
+    static let PROPOSAL_REJECTED        = "Rejected"
+    static let PROPOSAL_PASSED          = "Passed"
+    
     var id: String = ""
     var proposal_id: String = ""
     var proposal_status: String = ""
+    var voting_start_time: String? = ""
+    var voting_end_time: String? = ""
     var content: ProposalContent?
     
     init() {}
@@ -20,8 +29,43 @@ public class Proposal {
         self.id = dictionary["id"] as? String ?? ""
         self.proposal_id = dictionary["proposal_id"] as? String ?? ""
         self.proposal_status = dictionary["proposal_status"] as? String ?? ""
+        self.voting_start_time = dictionary["voting_start_time"] as? String ?? nil
+        self.voting_end_time = dictionary["voting_end_time"] as? String ?? nil
         if let content = dictionary["content"] as? [String : Any] {
             self.content = ProposalContent.init(content)
+        }
+    }
+    
+    public func getStatusImg() -> UIImage? {
+        if (proposal_status == Proposal.PROPOSAL_DEPOSIT) {
+            return UIImage.init(named: "depositImg")
+        } else if (proposal_status == Proposal.PROPOSAL_VOTING) {
+            return UIImage.init(named: "votingImg")
+        } else if (proposal_status == Proposal.PROPOSAL_REJECTED) {
+            return UIImage.init(named: "rejectedImg")
+        } else if (proposal_status == Proposal.PROPOSAL_PASSED) {
+            return UIImage.init(named: "passedImg")
+        }
+        return nil
+    }
+    
+    public func getTitle() -> String? {
+        return "# " + id + ". "  + (content?.value.title)!
+    }
+    
+    public func getStartTime() -> String? {
+        if (proposal_status == Proposal.PROPOSAL_DEPOSIT) {
+            return NSLocalizedString("waiting_deposit", comment: "")
+        } else {
+            return WUtils.nodeTimetoString(input: voting_start_time)
+        }
+    }
+    
+    public func getEndTime() -> String? {
+        if (proposal_status == Proposal.PROPOSAL_DEPOSIT) {
+            return NSLocalizedString("waiting_deposit", comment: "")
+        } else {
+            return WUtils.nodeTimetoString(input: voting_end_time)
         }
     }
     
