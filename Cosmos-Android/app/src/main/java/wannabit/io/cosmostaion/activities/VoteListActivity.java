@@ -183,15 +183,17 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
-                        webintent.putExtra("voteId", proposal.id);
-                        webintent.putExtra("chain", mAccount.baseChain);
-                        startActivity(webintent);
-//                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailActivity.class);
-//                    voteIntent.putExtra("proposalId", proposal.id);
-//                    voteIntent.putExtra("topValidators", mTopValidators);
-//                    voteIntent.putExtra("bondedToken", mBondedToken);
-//                    startActivity(voteIntent);
+                        if (Integer.parseInt(proposal.id) >= 25) {
+                            Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                            voteIntent.putExtra("proposalId", proposal.id);
+                            startActivity(voteIntent);
+
+                        } else {
+                            Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
+                            webintent.putExtra("voteId", proposal.id);
+                            webintent.putExtra("chain", mAccount.baseChain);
+                            startActivity(webintent);
+                        }
                     }
                 });
 
@@ -215,15 +217,18 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
-                        webintent.putExtra("voteId", proposal.id);
-                        webintent.putExtra("chain", mAccount.baseChain);
-                        startActivity(webintent);
-//                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailActivity.class);
-//                    voteIntent.putExtra("proposalId", proposal.id);
-//                    voteIntent.putExtra("topValidators", mTopValidators);
-//                    voteIntent.putExtra("bondedToken", mBondedToken);
-//                    startActivity(voteIntent);
+                        if (Integer.parseInt(proposal.id) >= 3) {
+                            Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                            voteIntent.putExtra("proposalId", proposal.id);
+                            startActivity(voteIntent);
+
+                        } else {
+                            Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
+                            webintent.putExtra("voteId", proposal.id);
+                            webintent.putExtra("chain", mAccount.baseChain);
+                            startActivity(webintent);
+
+                        }
                     }
                 });
 
@@ -264,17 +269,17 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull IrisVoteAdapter.VoteHolder voteHolder, int position) {
             final IrisProposal proposal = mIrisProposals.get(position);
-            voteHolder.proposal_id.setText("# " + proposal.value.BasicProposal.proposal_id);
-            voteHolder.proposal_status.setText(proposal.value.BasicProposal.proposal_status);
-            voteHolder.proposal_title.setText(proposal.value.BasicProposal.title);
-            voteHolder.proposal_details.setText(proposal.value.BasicProposal.description);
-            if (proposal.value.BasicProposal.proposal_status.equals("DepositPeriod")) {
+            voteHolder.proposal_id.setText("# " + proposal.value.basicProposal.proposal_id);
+            voteHolder.proposal_status.setText(proposal.value.basicProposal.proposal_status);
+            voteHolder.proposal_title.setText(proposal.value.basicProposal.title);
+            voteHolder.proposal_details.setText(proposal.value.basicProposal.description);
+            if (proposal.value.basicProposal.proposal_status.equals("DepositPeriod")) {
                 voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
-            } else if (proposal.value.BasicProposal.proposal_status.equals("VotingPeriod")) {
+            } else if (proposal.value.basicProposal.proposal_status.equals("VotingPeriod")) {
                 voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
-            } else if (proposal.value.BasicProposal.proposal_status.equals("Rejected")) {
+            } else if (proposal.value.basicProposal.proposal_status.equals("Rejected")) {
                 voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
-            } else if (proposal.value.BasicProposal.proposal_status.equals("Passed")) {
+            } else if (proposal.value.basicProposal.proposal_status.equals("Passed")) {
                 voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
             } else {
                 voteHolder.proposal_status_img.setVisibility(View.GONE);
@@ -283,14 +288,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
-//                    webintent.putExtra("voteId", proposal.value.BasicProposal.proposal_id);
-//                    webintent.putExtra("chain", mAccount.baseChain);
-//                    startActivity(webintent);
-                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailActivity.class);
-                    voteIntent.putExtra("proposalId", proposal.value.BasicProposal.proposal_id);
-                    voteIntent.putExtra("topValidators", mTopValidators);
-                    voteIntent.putExtra("bondedToken", mBondedToken);
+                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                    voteIntent.putExtra("proposalId", proposal.value.basicProposal.proposal_id);
                     startActivity(voteIntent);
                 }
             });

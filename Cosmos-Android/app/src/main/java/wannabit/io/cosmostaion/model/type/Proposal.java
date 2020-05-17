@@ -1,14 +1,22 @@
 package wannabit.io.cosmostaion.model.type;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.utils.WDp;
+
 
 public class Proposal {
 
-    @SerializedName("proposal_id")
-    public String proposal_id;
+    public final static String PROPOSAL_DEPOSIT         = "DepositPeriod";
+    public final static String PROPOSAL_VOTING          = "VotingPeriod";
+    public final static String PROPOSAL_REJECTED        = "Rejected";
+    public final static String PROPOSAL_PASSED          = "Passed";
 
     @SerializedName("id")
     public String id;
@@ -16,11 +24,14 @@ public class Proposal {
     @SerializedName("proposal_status")
     public String proposal_status;
 
-//    @SerializedName("proposal_content")
-//    public ProposalContent proposal_content;
-
     @SerializedName("content")
     public ProposalContent content;
+
+    @SerializedName("voting_start_time")
+    public String voting_start_time;
+
+    @SerializedName("voting_end_time")
+    public String voting_end_time;
 
 
     public class ProposalContent {
@@ -40,72 +51,51 @@ public class Proposal {
         public String description;
     }
 
-    @SerializedName("voting_start_time")
-    public String voting_start_time;
 
-    @SerializedName("voting_end_time")
-    public String voting_end_time;
-}
+    public Drawable getStatusImg(Context c) {
+        if (proposal_status.equals(PROPOSAL_DEPOSIT)) {
+            return c.getResources().getDrawable(R.drawable.ic_deposit_img);
 
-/*
-public class Proposal {
+        } else if (proposal_status.equals(PROPOSAL_VOTING)) {
+            return c.getResources().getDrawable(R.drawable.ic_voting_img);
 
-    @SerializedName("type")
-    public String type;
+        } else if (proposal_status.equals(PROPOSAL_REJECTED)) {
+            return c.getResources().getDrawable(R.drawable.ic_rejected_img);
 
+        } else if (proposal_status.equals(PROPOSAL_PASSED)) {
+            return c.getResources().getDrawable(R.drawable.ic_passed_img);
 
-    @SerializedName("value")
-    public Value value;
+        }
+        return null;
+    }
 
-    public class Value {
-        @SerializedName("proposal_id")
-        public String proposal_id;
+    public String getTitle() {
+        return "# " + id + ". "  + content.value.title;
+    }
 
-        @SerializedName("title")
-        public String title;
-
-        @SerializedName("description")
-        public String description;
-
-        @SerializedName("proposal_status")
-        public String proposal_status;
-
-        @SerializedName("final_tally_result")
-        public FinalTallyResult final_tally_result;
-
-        @SerializedName("submit_time")
-        public String submit_time;
-
-        @SerializedName("deposit_end_time")
-        public String deposit_end_time;
-
-        @SerializedName("total_deposit")
-        public ArrayList<Coin> total_deposit;
-
-        @SerializedName("voting_start_time")
-        public String voting_start_time;
-
-        @SerializedName("voting_end_time")
-        public String voting_end_time;
-
+    public String getType() {
+        String[] split =  content.type.split("/");
+        return split[split.length - 1];
 
     }
 
-    public class FinalTallyResult {
+    public String getStartTime(Context c) {
+        if (proposal_status.equals(PROPOSAL_DEPOSIT)) {
+            return c.getString(R.string.str_vote_wait_deposit);
 
-        @SerializedName("yes")
-        public String yes;
+        } else {
+            return WDp.getTimeformat(c, voting_start_time);
 
-        @SerializedName("abstain")
-        public String abstain;
-
-        @SerializedName("no")
-        public String no;
-
-        @SerializedName("no_with_veto")
-        public String no_with_veto;
+        }
     }
 
+    public String getEndTime(Context c) {
+        if (proposal_status.equals(PROPOSAL_DEPOSIT)) {
+            return c.getString(R.string.str_vote_wait_deposit);
 
+        } else {
+            return WDp.getTimeformat(c, voting_end_time);
+
+        }
+    }
 }
-*/

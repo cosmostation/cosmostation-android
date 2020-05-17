@@ -112,6 +112,7 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_HTLC_SWAP                       = 2070;
     public final static int TASK_GEN_TX_HTLC_REFUND                     = 2071;
     public final static int TASK_GEN_TX_BNB_HTLC_REFUND                 = 2072;
+    public final static int TASK_FETCH_MY_VOTE                          = 2073;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -290,6 +291,7 @@ public class BaseConstant {
     public final static String FEE_GAS_AMOUNT_REINVEST      = "220000";
 
 
+    public final static String FEE_KAVA_GAS_AMOUNT_LOW          = "100000";
     public final static String FEE_KAVA_GAS_AMOUNT_SEND         = "200000";
     public final static String FEE_KAVA_GAS_AMOUNT_REWARD       = "200000";
     public final static String FEE_KAVA_GAS_AMOUNT_AVERAGE      = "250000";
@@ -305,6 +307,7 @@ public class BaseConstant {
     public final static String FEE_IRIS_GAS_AMOUNT_REDELEGATE   = "65000";
     public final static String FEE_IRIS_GAS_AMOUNT_REWARD_BASE  = "10000";
     public final static String FEE_IRIS_GAS_AMOUNT_REWARD_MUX   = "5000";
+    public final static String FEE_IRIS_GAS_AMOUNT_VOTE         = "10000";
 
     public final static String FEE_BNB_SEND             = "0.000375";
     public final static String FEE_BEP3_RELAY_FEE       = "0.00001";

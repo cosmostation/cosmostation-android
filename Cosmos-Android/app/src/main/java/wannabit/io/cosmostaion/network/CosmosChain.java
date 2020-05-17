@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
+import wannabit.io.cosmostaion.network.res.ResLcdProposal;
 import wannabit.io.cosmostaion.network.res.ResLcdProposalTally;
 import wannabit.io.cosmostaion.network.res.ResLcdProposalVoted;
 import wannabit.io.cosmostaion.network.res.ResLcdProposals;
@@ -33,6 +34,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
+import wannabit.io.cosmostaion.network.res.ResMyVote;
 import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -108,25 +110,23 @@ public interface CosmosChain {
     @GET("/gov/proposals")
     Call<ResLcdProposals> getProposalList();
 
-    //Broadcast Tx
-    @POST("/txs")
-    Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
-
-
-
-
-    //TODO adjust for cosmoshub-3
     @GET("/gov/proposals/{proposalId}/proposer")
     Call<ResLcdProposer> getProposer(@Path("proposalId") String proposalId);
 
     @GET("/gov/proposals/{proposalId}")
-    Call<Proposal> getProposalDetail(@Path("proposalId") String proposalId);
+    Call<ResLcdProposal> getProposalDetail(@Path("proposalId") String proposalId);
 
-    //TODO this is not show all
     @GET("/gov/proposals/{proposalId}/votes")
-    Call<ArrayList<ResLcdProposalVoted>> getVotedList(@Path("proposalId") String proposalId);
+    Call<ResLcdProposalVoted> getVotedList(@Path("proposalId") String proposalId);
 
     @GET("/gov/proposals/{proposalId}/tally")
     Call<ResLcdProposalTally> getTally(@Path("proposalId") String proposalId);
+
+    @GET("/gov/proposals/{proposalId}/votes/{address}")
+    Call<ResMyVote> getMyVote(@Path("proposalId") String proposalId, @Path("address") String address);
+
+    //Broadcast Tx
+    @POST("/txs")
+    Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
 }

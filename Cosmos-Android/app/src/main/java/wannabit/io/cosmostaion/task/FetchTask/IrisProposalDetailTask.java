@@ -26,7 +26,7 @@ public class IrisProposalDetailTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<IrisProposal> response = ApiClient.getIrisChain(mApp).getProposalDetail(proposal_id).execute();
-            if(response.isSuccessful()) {
+            if (response.isSuccessful()) {
                 mResult.isSuccess = true;
                 mResult.resultData = response.body();
             }

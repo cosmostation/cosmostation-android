@@ -15,6 +15,7 @@ import android.widget.Toast;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.VoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.Vote;
 
 public class VoteStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -78,19 +79,19 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
         mImgVeto.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray1), android.graphics.PorterDuff.Mode.SRC_IN);
         mImgAbstain.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray1), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        if (mMyVote.equals("Yes")) {
+        if (mMyVote.equals(Vote.OPTION_YES)) {
             mBtnYes.setBackground(getResources().getDrawable(R.drawable.box_round_selected));
             mImgYes.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        } else if (mMyVote.equals("No")) {
+        } else if (mMyVote.equals(Vote.OPTION_NO)) {
             mBtnNo.setBackground(getResources().getDrawable(R.drawable.box_round_selected));
             mImgNo.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        } else if (mMyVote.equals("Veto")) {
+        } else if (mMyVote.equals(Vote.OPTION_VETO)) {
             mBtnVeto.setBackground(getResources().getDrawable(R.drawable.box_round_selected));
             mImgVeto.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        } else if (mMyVote.equals("Abstain")) {
+        } else if (mMyVote.equals(Vote.OPTION_ABSTAIN)) {
             mBtnAbstain.setBackground(getResources().getDrawable(R.drawable.box_round_selected));
             mImgAbstain.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
 
@@ -105,26 +106,26 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnYes)) {
-            mMyVote = "Yes";
+            mMyVote = Vote.OPTION_YES;
             onUpdateView();
 
         } else if (v.equals(mBtnNo)) {
-            mMyVote = "No";
+            mMyVote = Vote.OPTION_NO;
             onUpdateView();
 
         } else if (v.equals(mBtnVeto)) {
-            mMyVote = "Veto";
+            mMyVote = Vote.OPTION_VETO;
             onUpdateView();
 
         } else if (v.equals(mBtnAbstain)) {
-            mMyVote = "Abstain";
+            mMyVote = Vote.OPTION_ABSTAIN;
             onUpdateView();
 
         } else if (v.equals(mCancel)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (mMyVote.equals("Yes") || mMyVote.equals("No") || mMyVote.equals("Veto") ||mMyVote.equals("Abstain")) {
+            if (mMyVote.equals(Vote.OPTION_YES) || mMyVote.equals(Vote.OPTION_NO) || mMyVote.equals(Vote.OPTION_VETO) ||mMyVote.equals(Vote.OPTION_ABSTAIN)) {
                 getSActivity().mOpinion = mMyVote;
                 getSActivity().onNextStep();
 

@@ -303,6 +303,12 @@ public class MsgGenerator {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            value.proposal_id = proposalId;
+            value.voter = accountAddr;
+            value.option = opinion;
+
+            result.type = BaseConstant.COSMOS_MSG_TYPE_VOTE;
+            result.value = value;
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             value.proposal_id = proposalId;

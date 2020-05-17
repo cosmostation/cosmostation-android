@@ -132,7 +132,7 @@
         </activity>
 
         <activity
-            android:name=".activities.VoteDetailActivity"
+            android:name=".activities.VoteDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">

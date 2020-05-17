@@ -1,10 +1,16 @@
 package wannabit.io.cosmostaion.model.type;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+
+import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.utils.WDp;
 
 public class IrisProposal {
     @SerializedName("type")
@@ -15,7 +21,7 @@ public class IrisProposal {
 
     public class Value {
         @SerializedName("BasicProposal")
-        public BasicProposal BasicProposal;
+        public BasicProposal basicProposal;
 
     }
 
@@ -33,7 +39,7 @@ public class IrisProposal {
         public String proposal_status;
 
         @SerializedName("tally_result")
-        public TallyResult tally_result;
+        public Tally tally_result;
 
         @SerializedName("submit_time")
         public String submit_time;
@@ -54,38 +60,60 @@ public class IrisProposal {
         public String proposer;
     }
 
-    public class TallyResult {
+    public boolean hasTally() {
+        if (value == null ) return false;
+        if (value.basicProposal == null) return false;
+        if (value.basicProposal.tally_result == null ) return false;
+        return true;
+    }
 
-        @SerializedName("yes")
-        public String yes;
 
-        @SerializedName("abstain")
-        public String abstain;
+    public Drawable getStatusImg(Context c) {
+        if (value.basicProposal.proposal_status.equals(Proposal.PROPOSAL_DEPOSIT)) {
+            return c.getResources().getDrawable(R.drawable.ic_deposit_img);
 
-        @SerializedName("no")
-        public String no;
+        } else if (value.basicProposal.proposal_status.equals(Proposal.PROPOSAL_VOTING)) {
+            return c.getResources().getDrawable(R.drawable.ic_voting_img);
 
-        @SerializedName("no_with_veto")
-        public String no_with_veto;
+        } else if (value.basicProposal.proposal_status.equals(Proposal.PROPOSAL_REJECTED)) {
+            return c.getResources().getDrawable(R.drawable.ic_rejected_img);
 
-        public BigDecimal sum() {
-            return new BigDecimal(yes).add(new BigDecimal(abstain)).add(new BigDecimal(no)).add(new BigDecimal(no_with_veto));
+        } else if (value.basicProposal.proposal_status.equals(Proposal.PROPOSAL_PASSED)) {
+            return c.getResources().getDrawable(R.drawable.ic_passed_img);
+
         }
+        return null;
+    }
 
-        public BigDecimal getYesPer() {
-            return new BigDecimal(yes).movePointRight(2).divide(sum(), 2, RoundingMode.DOWN);
-        }
+    public String getTitle() {
+        return "# " + value.basicProposal.proposal_id + ". "  + value.basicProposal.title;
+    }
 
-        public BigDecimal getNoPer() {
-            return new BigDecimal(no).movePointRight(2).divide(sum(), 2, RoundingMode.DOWN);
-        }
+    public String getType() {
+        String[] split =  type.split("/");
+        return split[split.length - 1];
 
-        public BigDecimal getAbstainPer() {
-            return new BigDecimal(abstain).movePointRight(2).divide(sum(), 2, RoundingMode.DOWN);
-        }
+    }
 
-        public BigDecimal getVetoPer() {
-            return new BigDecimal(no_with_veto).movePointRight(2).divide(sum(), 2, RoundingMode.DOWN);
+    public String getStartTime(Context c) {
+        if (value.basicProposal.proposal_status.equals(Proposal.PROPOSAL_DEPOSIT)) {
+            return c.getString(R.string.str_vote_wait_deposit);
+
+        } else {
+            return WDp.getTimeformat(c, value.basicProposal.voting_start_time);
+
         }
     }
+
+    public String getEndTime(Context c) {
+        if (value.basicProposal.proposal_status.equals(Proposal.PROPOSAL_DEPOSIT)) {
+            return c.getString(R.string.str_vote_wait_deposit);
+
+        } else {
+            return WDp.getTimeformat(c, value.basicProposal.voting_end_time);
+
+        }
+    }
+
+
 }

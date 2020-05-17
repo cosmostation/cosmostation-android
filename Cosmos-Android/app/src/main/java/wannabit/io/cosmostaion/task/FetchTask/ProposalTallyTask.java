@@ -36,10 +36,23 @@ public class ProposalTallyTask extends CommonTask {
                     return mResult;
                 }
 
-                if(response.body() != null) {
-                    mResult.resultData = response.body();
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
+            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                Response<ResLcdProposalTally> response = ApiClient.getKavaChain(mApp).getTally(mProposalId).execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
             }
 
         } catch (Exception e) {

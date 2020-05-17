@@ -46,7 +46,8 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
-import wannabit.io.cosmostaion.model.type.IrisVote;
+import wannabit.io.cosmostaion.model.type.Tally;
+import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
@@ -460,7 +461,6 @@ public class WUtil {
     }
 
     //TODO check multi unbonding with one validator
-    //TOOD check Chain Type need??
     public static ArrayList<UnBondingState> getUnbondingFromLcd(Context c, long accountId, ResLcdUnBonding lcd) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
@@ -484,19 +484,6 @@ public class WUtil {
         }
         return result;
     }
-
-    public static int getVoterType(ArrayList<ResLcdProposalVoted> votes, String type) {
-        int result = 0;
-        for(ResLcdProposalVoted vote:votes) {
-            if (vote.option.equals(type)) {
-                result = result + 1;
-            }
-        }
-
-        return result;
-    }
-
-
 
     public static String prettyPrinter(Object object) {
         String result = "";
@@ -842,8 +829,8 @@ public class WUtil {
         Collections.sort(proposals, new Comparator<IrisProposal>() {
             @Override
             public int compare(IrisProposal o1, IrisProposal o2) {
-                if (Integer.parseInt(o1.value.BasicProposal.proposal_id) < Integer.parseInt(o2.value.BasicProposal.proposal_id)) return 1;
-                else if (Integer.parseInt(o1.value.BasicProposal.proposal_id) > Integer.parseInt(o2.value.BasicProposal.proposal_id)) return -1;
+                if (Integer.parseInt(o1.value.basicProposal.proposal_id) < Integer.parseInt(o2.value.basicProposal.proposal_id)) return 1;
+                else if (Integer.parseInt(o1.value.basicProposal.proposal_id) > Integer.parseInt(o2.value.basicProposal.proposal_id)) return -1;
                 else return 0;
 
             }
@@ -1307,12 +1294,12 @@ public class WUtil {
         return result;
     }
 
-    public static int getIrisVoterType(ArrayList<IrisVote> votes, String option) {
+    public static int getVoterTypeCnt(ArrayList<Vote> votes, String option) {
         int result = 0;
         if (votes == null) {
             return result;
         }
-        for (IrisVote v:votes) {
+        for (Vote v:votes) {
             if (v.option.equals(option)) {
                 result = result + 1;
             }
@@ -1320,40 +1307,11 @@ public class WUtil {
         return result;
     }
 
-    public static BigDecimal getIrisVoteRate(IrisProposal.TallyResult tally, String option) {
-        try {
-            BigDecimal yesAmount =  new BigDecimal(tally.yes);
-            BigDecimal noAmount =  new BigDecimal(tally.no);
-            BigDecimal vetoAmount =  new BigDecimal(tally.no_with_veto);
-            BigDecimal abstainAmount =  new BigDecimal(tally.abstain);
-            BigDecimal all = yesAmount.add(noAmount).add(vetoAmount).add(abstainAmount);
-
-            if (option.equals("YES")) {
-                return yesAmount.movePointRight(2).divide(all, 2, RoundingMode.DOWN);
-
-            } else if (option.equals("No")) {
-                return noAmount.movePointRight(2).divide(all, 2, RoundingMode.DOWN);
-
-            } else if (option.equals("NoWithVeto")) {
-                return vetoAmount.movePointRight(2).divide(all, 2, RoundingMode.DOWN);
-
-            } else if (option.equals("Abstain")) {
-                return all.movePointRight(2).divide(all, 2, RoundingMode.DOWN);
-
-            }
-
-        } catch (Exception e) {
-
-        } finally {
-            return BigDecimal.ZERO;
-        }
-    }
-
-    public static IrisVote getMyVote(ArrayList<IrisVote> votes, String address) {
+    public static Vote getMyVote(ArrayList<Vote> votes, String address) {
         if (votes == null) {
             return null;
         }
-        for (IrisVote v:votes) {
+        for (Vote v:votes) {
             if (v.voter.equals(address)) {
                 return v;
             }
