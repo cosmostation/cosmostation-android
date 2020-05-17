@@ -44,7 +44,6 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private ArrayList<Validator> mTopValidators = new ArrayList<>();
     private ArrayList<Proposal> mProposals = new ArrayList<>();
     private ArrayList<IrisProposal> mIrisProposals = new ArrayList<>();
-    private String mBondedToken;
 
 
     @Override
@@ -61,7 +60,6 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTopValidators = getIntent().getParcelableArrayListExtra("topValidators");
-        mBondedToken = getIntent().getStringExtra("bondedToken");
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

@@ -795,13 +795,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             startActivity(validators);
 
         } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote)) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) return;
             Intent proposals = new Intent(getMainActivity(), VoteListActivity.class);
-            proposals.putExtra("topValidators", getMainActivity().mTopValidators);
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                proposals.putExtra("bondedToken", getMainActivity().mBondedToken.toPlainString());
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                proposals.putExtra("bondedToken", getMainActivity().mIrisPool.bonded_tokens);
-            }
             startActivity(proposals);
 
         } else if (v.equals(mBtnBnbConnect)) {

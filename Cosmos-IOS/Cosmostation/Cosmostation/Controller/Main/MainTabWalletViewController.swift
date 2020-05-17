@@ -788,6 +788,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickVoteList() {
+        if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            return
+        }
         let voteListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteListViewController") as! VoteListViewController
         voteListVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
