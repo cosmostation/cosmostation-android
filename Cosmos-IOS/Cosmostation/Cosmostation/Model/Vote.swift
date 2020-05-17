@@ -9,16 +9,18 @@
 import Foundation
 
 
-public class IrisVote {
+public class Vote {
     
-    static let OPTION_YES           = "Yes"
-    static let OPTION_NO            = "No"
-    static let OPTION_VETO          = "NoWithVeto"
-    static let OPTION_ABSTAIN       = "Abstain"
+    public static let OPTION_YES           = "Yes"
+    public static let OPTION_NO            = "No"
+    public static let OPTION_VETO          = "NoWithVeto"
+    public static let OPTION_ABSTAIN       = "Abstain"
     
     var voter: String = ""
     var proposal_id: String = ""
     var option: String = ""
+    
+    init() {}
     
     init(_ dictionary: [String: Any]) {
         self.voter = dictionary["voter"] as? String ?? ""

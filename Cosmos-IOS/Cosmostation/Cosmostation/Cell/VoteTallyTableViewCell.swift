@@ -44,7 +44,31 @@ class VoteTallyTableViewCell: UITableViewCell {
     @IBOutlet weak var cntAbstain: UILabel!
     
     
-    func onUpdateCards(_ tally:CosmosTally) {
+    func onCheckMyVote (_ myVote:Vote?) {
+        if (myVote == nil) { return }
+        if (myVote?.option.caseInsensitiveCompare(Vote.OPTION_YES) == .orderedSame) {
+            self.myVoteYes.isHidden = false
+            self.cardYes.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
+            self.cardYes.borderWidth = 1
+            
+        } else if (myVote?.option.caseInsensitiveCompare(Vote.OPTION_NO) == .orderedSame) {
+            self.myVoteNo.isHidden = false
+            self.cardNo.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
+            self.cardNo.borderWidth = 1
+            
+        } else if (myVote?.option.caseInsensitiveCompare(Vote.OPTION_VETO) == .orderedSame) {
+            self.myVoteVeto.isHidden = false
+            self.cardVeto.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
+            self.cardVeto.borderWidth = 1
+            
+        } else if (myVote?.option.caseInsensitiveCompare(Vote.OPTION_ABSTAIN) == .orderedSame) {
+            self.myVoteAbstain.isHidden = false
+            self.cardAbstain.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
+            self.cardAbstain.borderWidth = 1
+        }
+    }
+    
+    func onUpdateCards(_ tally:Tally, _ voters:Array<Vote>) {
         progressYes.progress = tally.getYes().floatValue / 100
         progressNo.progress = tally.getNo().floatValue / 100
         progressVeto.progress = tally.getVeto().floatValue / 100
@@ -54,43 +78,6 @@ class VoteTallyTableViewCell: UITableViewCell {
         percentNo.attributedText = WUtils.displayPercent(tally.getNo(), font: percentYes.font)
         percentVeto.attributedText = WUtils.displayPercent(tally.getVeto(), font: percentYes.font)
         percentAbstain.attributedText = WUtils.displayPercent(tally.getAbstain(), font: percentYes.font)
-    }
-    
-    
-    func onCheckMyVote (_ myVote:CosmosVote?) {
-        if (myVote == nil) { return }
-        if (myVote?.result.option.caseInsensitiveCompare(CosmosVote.OPTION_YES) == .orderedSame) {
-            self.myVoteYes.isHidden = false
-            self.cardYes.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardYes.borderWidth = 1
-            
-        } else if (myVote?.result.option.caseInsensitiveCompare(CosmosVote.OPTION_NO) == .orderedSame) {
-            self.myVoteNo.isHidden = false
-            self.cardNo.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardNo.borderWidth = 1
-            
-        } else if (myVote?.result.option.caseInsensitiveCompare(CosmosVote.OPTION_VETO) == .orderedSame) {
-            self.myVoteVeto.isHidden = false
-            self.cardVeto.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardVeto.borderWidth = 1
-            
-        } else if (myVote?.result.option.caseInsensitiveCompare(CosmosVote.OPTION_ABSTAIN) == .orderedSame) {
-            self.myVoteAbstain.isHidden = false
-            self.cardAbstain.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardAbstain.borderWidth = 1
-        }
-    }
-    
-    func onUpdateIrisCards(_ irisProposal:IrisProposal, _ voters:Array<IrisVote>) {
-        progressYes.progress = irisProposal.getYes().floatValue / 100
-        progressNo.progress = irisProposal.getNo().floatValue / 100
-        progressVeto.progress = irisProposal.getVeto().floatValue / 100
-        propressAbstain.progress = irisProposal.getAbstain().floatValue / 100
-        
-        percentYes.attributedText = WUtils.displayPercent(irisProposal.getYes(), font: percentYes.font)
-        percentNo.attributedText = WUtils.displayPercent(irisProposal.getNo(), font: percentYes.font)
-        percentVeto.attributedText = WUtils.displayPercent(irisProposal.getVeto(), font: percentYes.font)
-        percentAbstain.attributedText = WUtils.displayPercent(irisProposal.getAbstain(), font: percentYes.font)
         
         imgYes.isHidden = false
         imgNo.isHidden = false
@@ -101,34 +88,10 @@ class VoteTallyTableViewCell: UITableViewCell {
         cntVeto.isHidden = false
         cntAbstain.isHidden = false
         
-        cntYes.text = WUtils.getIrisVoterTypeCnt(voters, IrisVote.OPTION_YES)
-        cntNo.text = WUtils.getIrisVoterTypeCnt(voters, IrisVote.OPTION_NO)
-        cntVeto.text = WUtils.getIrisVoterTypeCnt(voters, IrisVote.OPTION_VETO)
-        cntAbstain.text = WUtils.getIrisVoterTypeCnt(voters, IrisVote.OPTION_ABSTAIN)
-    }
-    
-    func onCheckIrisMyVote (_ myVote:IrisVote?) {
-        if (myVote == nil) { return }
-        if (myVote?.option.caseInsensitiveCompare(IrisVote.OPTION_YES) == .orderedSame) {
-            self.myVoteYes.isHidden = false
-            self.cardYes.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardYes.borderWidth = 1
-            
-        } else if (myVote?.option.caseInsensitiveCompare(IrisVote.OPTION_NO) == .orderedSame) {
-            self.myVoteNo.isHidden = false
-            self.cardNo.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardNo.borderWidth = 1
-            
-        } else if (myVote?.option.caseInsensitiveCompare(IrisVote.OPTION_VETO) == .orderedSame) {
-            self.myVoteVeto.isHidden = false
-            self.cardVeto.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardVeto.borderWidth = 1
-            
-        } else if (myVote?.option.caseInsensitiveCompare(IrisVote.OPTION_ABSTAIN) == .orderedSame) {
-            self.myVoteAbstain.isHidden = false
-            self.cardAbstain.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardAbstain.borderWidth = 1
-        }
+        cntYes.text = WUtils.getIrisVoterTypeCnt(voters, Vote.OPTION_YES)
+        cntNo.text = WUtils.getIrisVoterTypeCnt(voters, Vote.OPTION_NO)
+        cntVeto.text = WUtils.getIrisVoterTypeCnt(voters, Vote.OPTION_VETO)
+        cntAbstain.text = WUtils.getIrisVoterTypeCnt(voters, Vote.OPTION_ABSTAIN)
     }
     
 }

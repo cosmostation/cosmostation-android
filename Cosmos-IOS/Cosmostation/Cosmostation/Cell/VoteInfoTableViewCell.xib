@@ -59,56 +59,56 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Proposal Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IG4-ui-y1c">
-                                <rect key="frame" x="16" y="100" width="80.5" height="14.5"/>
+                                <rect key="frame" x="16" y="102" width="80.5" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yI0-eL-lQV">
-                                <rect key="frame" x="410" y="100" width="6" height="14.5"/>
+                                <rect key="frame" x="410" y="102" width="6" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Voting Start Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzH-Dv-e8q">
-                                <rect key="frame" x="16" y="122.5" width="99" height="14.5"/>
+                                <rect key="frame" x="16" y="126.5" width="99" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m3X-Vs-VVh">
-                                <rect key="frame" x="410" y="122.5" width="6" height="14.5"/>
+                                <rect key="frame" x="410" y="126.5" width="6" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Voting End Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KH4-c3-ohL">
-                                <rect key="frame" x="16" y="145" width="92.5" height="14.5"/>
+                                <rect key="frame" x="16" y="151" width="92.5" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwc-7Q-e0m">
-                                <rect key="frame" x="410" y="145" width="6" height="14.5"/>
+                                <rect key="frame" x="410" y="151" width="6" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6KK-yM-R3J">
-                                <rect key="frame" x="16" y="175.5" width="404" height="0.5"/>
+                                <rect key="frame" x="16" y="181.5" width="404" height="0.5"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="L9a-s3-4Br"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvz-bo-nO9">
-                                <rect key="frame" x="16" y="192" width="65" height="14.5"/>
+                                <rect key="frame" x="16" y="198" width="65" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r1F-uy-6Jz">
-                                <rect key="frame" x="16" y="210.5" width="400" height="151.5"/>
+                                <rect key="frame" x="16" y="216.5" width="400" height="145.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Hello Word
 Come together</string>
@@ -155,14 +155,14 @@ Come together</string>
                             <constraint firstItem="m3X-Vs-VVh" firstAttribute="centerY" secondItem="tzH-Dv-e8q" secondAttribute="centerY" id="euo-74-bzf"/>
                             <constraint firstAttribute="trailing" secondItem="kVY-zx-Doa" secondAttribute="trailing" constant="16" id="ewc-8z-tgI"/>
                             <constraint firstItem="m3X-Vs-VVh" firstAttribute="trailing" secondItem="pz4-hx-UQc" secondAttribute="trailing" id="ftp-gZ-a5z"/>
-                            <constraint firstItem="KH4-c3-ohL" firstAttribute="top" secondItem="tzH-Dv-e8q" secondAttribute="bottom" constant="8" id="grE-WP-Z7X"/>
+                            <constraint firstItem="KH4-c3-ohL" firstAttribute="top" secondItem="tzH-Dv-e8q" secondAttribute="bottom" constant="10" id="grE-WP-Z7X"/>
                             <constraint firstItem="kVY-zx-Doa" firstAttribute="leading" secondItem="xGf-eg-g9S" secondAttribute="leading" id="gyt-hB-LFx"/>
                             <constraint firstItem="uwc-7Q-e0m" firstAttribute="centerY" secondItem="KH4-c3-ohL" secondAttribute="centerY" id="ho8-ox-POM"/>
                             <constraint firstItem="r1F-uy-6Jz" firstAttribute="top" secondItem="uvz-bo-nO9" secondAttribute="bottom" constant="4" id="hoO-Zi-1Uo"/>
-                            <constraint firstItem="IG4-ui-y1c" firstAttribute="top" secondItem="VN6-Bd-E2T" secondAttribute="bottom" constant="8" id="kc1-QE-kqh"/>
+                            <constraint firstItem="IG4-ui-y1c" firstAttribute="top" secondItem="VN6-Bd-E2T" secondAttribute="bottom" constant="10" id="kc1-QE-kqh"/>
                             <constraint firstItem="isa-Bm-yA1" firstAttribute="top" secondItem="XJE-Jo-zMu" secondAttribute="top" constant="16" id="lpL-Zf-xl8"/>
                             <constraint firstItem="VN6-Bd-E2T" firstAttribute="top" secondItem="kVY-zx-Doa" secondAttribute="bottom" constant="12" id="nEj-I7-iNL"/>
-                            <constraint firstItem="tzH-Dv-e8q" firstAttribute="top" secondItem="IG4-ui-y1c" secondAttribute="bottom" constant="8" id="nev-KL-mMC"/>
+                            <constraint firstItem="tzH-Dv-e8q" firstAttribute="top" secondItem="IG4-ui-y1c" secondAttribute="bottom" constant="10" id="nev-KL-mMC"/>
                             <constraint firstItem="isa-Bm-yA1" firstAttribute="centerY" secondItem="xGf-eg-g9S" secondAttribute="centerY" id="oIb-Bi-zG2"/>
                             <constraint firstItem="r1F-uy-6Jz" firstAttribute="leading" secondItem="XJE-Jo-zMu" secondAttribute="leading" constant="16" id="pAg-N1-vUN"/>
                             <constraint firstItem="xGf-eg-g9S" firstAttribute="leading" secondItem="XJE-Jo-zMu" secondAttribute="leading" constant="16" id="q1b-mY-kJK"/>

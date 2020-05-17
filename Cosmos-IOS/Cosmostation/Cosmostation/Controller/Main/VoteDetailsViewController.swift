@@ -15,16 +15,15 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var voteDetailTableView: UITableView!
     @IBOutlet weak var btnVote: UIButton!
     @IBOutlet weak var loadingImg: LoadingImageView!
+    var refresher: UIRefreshControl!
     
     var proposalId: String?
-    
     var mProposal: Proposal?
-    var mTally: CosmosTally?
-    var mMyVote: CosmosVote?
-    
     var mIrisProposal: IrisProposal?
-    var mIrisVotes = Array<IrisVote>()
-    var mIrisMyVote: IrisVote?
+    var mProposer: String?
+    var mTally: Tally?
+    var mVoters = Array<Vote>()
+    var mMyVote: Vote?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +38,11 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
         self.voteDetailTableView.register(UINib(nibName: "VoteTallyTableViewCell", bundle: nil), forCellReuseIdentifier: "VoteTallyTableViewCell")
         self.voteDetailTableView.rowHeight = UITableView.automaticDimension
         self.voteDetailTableView.estimatedRowHeight = UITableView.automaticDimension
+        
+        refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(onFech), for: .valueChanged)
+        refresher.tintColor = UIColor.white
+        voteDetailTableView.addSubview(refresher)
         
         self.loadingImg.onStartAnimation()
         self.onFech()
@@ -59,6 +63,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
         self.voteDetailTableView.reloadData()
         self.voteDetailTableView.isHidden = false
         self.btnVote.isHidden = false
+        self.refresher.endRefreshing()
     }
     
     
@@ -109,7 +114,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
                 return
             }
-            if (mIrisMyVote != nil) {
+            if (mMyVote != nil) {
                 self.onShowToast(NSLocalizedString("error_already_vote", comment: ""))
                 return
             }
@@ -142,7 +147,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func getProposer() -> String? {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            return ""
+            return self.mProposer
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return mIrisProposal?.value?.basicProposal?.proposer
         }
@@ -168,7 +173,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.statusTitle.text = mProposal?.proposal_status
             cell?.proposalTitle.text = mProposal?.getTitle()
             cell?.proposalTitle.adjustsFontSizeToFitWidth = true
-            cell?.proposerLabel.text = "-"
+            cell?.proposerLabel.text = self.mProposer
             cell?.proposalTypeLabel.text = String((mProposal?.content?.type)!.split(separator: "/").last!)
             cell?.voteStartTime.text = mProposal?.getStartTime()
             cell?.voteEndTime.text = mProposal?.getEndTime()
@@ -198,27 +203,28 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     func onBindTally(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteTallyTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteTallyTableViewCell") as? VoteTallyTableViewCell
         if ((chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) && mTally != nil) {
-            cell?.onUpdateCards(mTally!)
+            cell?.onUpdateCards(mTally!, mVoters)
             cell?.onCheckMyVote(mMyVote)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN && mIrisProposal != nil) {
-            cell?.onUpdateIrisCards(mIrisProposal!, mIrisVotes)
-            cell?.onCheckIrisMyVote(mIrisMyVote)
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN && mIrisProposal != nil && mIrisProposal?.value?.basicProposal?.tally_result != nil) {
+            cell?.onUpdateCards((mIrisProposal?.value?.basicProposal?.tally_result)!, mVoters)
+            cell?.onCheckMyVote(mMyVote)
         }
         return cell!
     }
     
-    func onFech() {
+    @objc func onFech() {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            mFetchCnt = 3
+            mFetchCnt = 5
             onFetchProposalDetail(proposalId!)
             onFetchTally(proposalId!)
             onFetchMyVote(proposalId!, account!.account_address)
+            onFetchProposer(proposalId!)
+            onFetchVoteList(proposalId!)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             mFetchCnt = 2
-            self.mIrisVotes.removeAll()
-            self.mIrisMyVote = nil
+            self.mVoters.removeAll()
             onFetchIrisProposalDetail(proposalId!)
             onFetchIrisVoteList(proposalId!)
             
@@ -273,7 +279,8 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                     self.onFetchFinished()
                     return
                 }
-                self.mTally = CosmosTally.init(rawTally)
+                let cosmosTally = CosmosTally.init(rawTally)
+                self.mTally = cosmosTally.result
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchTally ", error) }
@@ -297,13 +304,66 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                     self.onFetchFinished()
                     return
                 }
-                self.mMyVote = CosmosVote.init(rawVote)
+                let cosmosVote = CosmosVote.init(rawVote)
+                self.mMyVote = cosmosVote.result
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchMyVote ", error) }
             }
             self.onFetchFinished()
         }
+    }
+    
+    func onFetchProposer(_ id: String) {
+        var url = ""
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_PROPOSALS + "/" + id +  "/proposer"
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_PROPOSALS + "/" + id +  "/proposer"
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let rawProposer = res as? [String : Any], rawProposer["error"] == nil else {
+                    self.onFetchFinished()
+                    return
+                }
+                let cosmosProposer = CosmosProposer.init(rawProposer)
+                self.mProposer = cosmosProposer.result.proposer
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchProposer ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchVoteList(_ id: String) {
+        var url = ""
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_PROPOSALS + "/" + id +  "/votes"
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_PROPOSALS + "/" + id +  "/votes"
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let votesRaw = res as? [String : Any], let voters = votesRaw["result"] as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for RawVote in voters {
+                    self.mVoters.append(Vote.init(RawVote as! [String : Any]))
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchProposer ", error) }
+            }
+            self.onFetchFinished()
+        }
+        
     }
     
     
@@ -337,9 +397,9 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                     return
                 }
                 for RawVote in rawVotes {
-                    self.mIrisVotes.append(IrisVote.init(RawVote as! [String : Any]))
+                    self.mVoters.append(Vote.init(RawVote as! [String : Any]))
                 }
-                self.mIrisMyVote = WUtils.getMyIrisVote(self.mIrisVotes, self.account!.account_address)
+                self.mMyVote = WUtils.getMyIrisVote(self.mVoters, self.account!.account_address)
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchIrisVoteList ", error) }

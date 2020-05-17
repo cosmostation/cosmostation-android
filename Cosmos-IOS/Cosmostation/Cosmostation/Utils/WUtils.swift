@@ -1652,7 +1652,7 @@ class WUtils {
     }
     
     
-    static func getMyIrisVote(_ votes: Array<IrisVote>, _ address: String) -> IrisVote? {
+    static func getMyIrisVote(_ votes: Array<Vote>, _ address: String) -> Vote? {
         for vote in votes {
             if (vote.voter == address) {
                 return vote
@@ -1661,7 +1661,7 @@ class WUtils {
         return nil
     }
     
-    static func getIrisVoterTypeCnt(_ votes: Array<IrisVote>, _ type: String) -> String {
+    static func getIrisVoterTypeCnt(_ votes: Array<Vote>, _ type: String) -> String {
         var result = 0
         for vote in votes {
             if (vote.option == type) {

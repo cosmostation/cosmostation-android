@@ -28,45 +28,6 @@ public class IrisProposal {
         }
     }
     
-    public func getSum() ->NSDecimalNumber {
-        var result = NSDecimalNumber.zero
-        if let tally = self.value?.basicProposal?.tally_result {
-            result = result.adding(NSDecimalNumber.init(string: tally.yes))
-            result = result.adding(NSDecimalNumber.init(string: tally.no))
-            result = result.adding(NSDecimalNumber.init(string: tally.no_with_veto))
-            result = result.adding(NSDecimalNumber.init(string: tally.abstain))
-        }
-        return result
-    }
-    
-    public func getYes() -> NSDecimalNumber {
-        if let tally = self.value?.basicProposal?.tally_result {
-            return NSDecimalNumber.init(string: tally.yes).multiplying(byPowerOf10: 2).dividing(by: getSum(), withBehavior: WUtils.handler2)
-        }
-        return NSDecimalNumber.zero
-    }
-    
-    public func getNo() ->NSDecimalNumber {
-        if let tally = self.value?.basicProposal?.tally_result {
-            return NSDecimalNumber.init(string: tally.no).multiplying(byPowerOf10: 2).dividing(by: getSum(), withBehavior: WUtils.handler2)
-        }
-        return NSDecimalNumber.zero
-    }
-    
-    public func getVeto() ->NSDecimalNumber {
-        if let tally = self.value?.basicProposal?.tally_result {
-            return NSDecimalNumber.init(string: tally.no_with_veto).multiplying(byPowerOf10: 2).dividing(by: getSum(), withBehavior: WUtils.handler2)
-        }
-        return NSDecimalNumber.zero
-    }
-    
-    public func getAbstain() ->NSDecimalNumber {
-        if let tally = self.value?.basicProposal?.tally_result {
-            return NSDecimalNumber.init(string: tally.abstain).multiplying(byPowerOf10: 2).dividing(by: getSum(), withBehavior: WUtils.handler2)
-        }
-        return NSDecimalNumber.zero
-    }
-    
     public func getStatusImg() -> UIImage? {
         if (value?.basicProposal?.proposal_status == IrisProposal.PROPOSAL_DEPOSIT) {
             return UIImage.init(named: "depositImg")
@@ -119,7 +80,7 @@ public class IrisProposal {
         var voting_start_time: String = ""
         var voting_end_time: String = ""
         var proposer: String = ""
-        var tally_result: TallyResult?
+        var tally_result: Tally?
         
         init(_ dictionary: [String: Any]) {
             self.proposal_id = dictionary["proposal_id"] as? String ?? ""
@@ -130,22 +91,8 @@ public class IrisProposal {
             self.voting_end_time = dictionary["voting_end_time"] as? String ?? ""
             self.proposer = dictionary["proposer"] as? String ?? ""
             if let rawTally = dictionary["tally_result"] as? [String : Any] {
-                self.tally_result = TallyResult.init(rawTally)
+                self.tally_result = Tally.init(rawTally)
             }
-        }
-    }
-    
-    public class TallyResult {
-        var yes: String = ""
-        var abstain: String = ""
-        var no: String = ""
-        var no_with_veto: String = ""
-        
-        init(_ dictionary: [String: Any]) {
-            self.yes = dictionary["yes"] as? String ?? ""
-            self.abstain = dictionary["abstain"] as? String ?? ""
-            self.no = dictionary["no"] as? String ?? ""
-            self.no_with_veto = dictionary["no_with_veto"] as? String ?? ""
         }
     }
 }
