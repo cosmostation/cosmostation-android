@@ -37,7 +37,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     var mainTabVC: MainTabViewController!
     var mBnbTics = [String : NSMutableDictionary]()
     var mOrder:Int?
-    var mFaucet: Floaty?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -190,6 +189,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func emptyFloatySelected(_ floaty: Floaty) {
+        floaty.fabDelegate = nil
         self.onRequestFaucet()
     }
     
@@ -500,7 +500,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-                    print("res ", res)
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000), execute: {
                         self.onRequestFetch()
                         self.hideWaittingAlert()
@@ -513,10 +512,25 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            UIPasteboard.general.string = mainTabVC.mAccount.account_address
-            guard let url = URL(string: "https://faucet.kava.io/") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
+            if (mainTabVC.mAccount.getKavaBalance().compare(NSDecimalNumber.init(value: 5000000)).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
+                return
+            }
+            self.showWaittingAlert()
+            let request = Alamofire.request(KAVA_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000), execute: {
+                        self.onRequestFetch()
+                        self.hideWaittingAlert()
+                    })
+
+                case .failure(let error):
+                    self.onShowToast(error.localizedDescription)
+                    self.hideWaittingAlert()
+                }
+            }
         }
     }
     
