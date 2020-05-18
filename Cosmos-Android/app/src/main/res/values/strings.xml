@@ -378,7 +378,7 @@
     <string name="str_iris_proposal_type_SoftwareUpgradeProposal">SoftwareUpgrade Proposal</string>
     <string name="str_iris_proposal_type_SystemHaltProposal">SystemHalt Proposal</string>
     <string name="str_iris_proposal_type_CommunityTaxUsageProposal">CommunityTaxUsage Proposal</string>
-    <string name="str_opinion">Opinion</string>
+    <string name="str_opinion">My Vote</string>
     <string name="str_proposal_id">Proposal Id</string>
     <string name="str_notification">Notification</string>
     <string name="str_network_error_title">Network Error</string>

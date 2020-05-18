@@ -295,7 +295,7 @@
     <string name="str_iris_proposal_type_SoftwareUpgradeProposal">소프트웨어 업그레이드 제안</string>
     <string name="str_iris_proposal_type_SystemHaltProposal">시스템 중지 제안</string>
     <string name="str_iris_proposal_type_CommunityTaxUsageProposal">커뮤니티 풀 코인 사용 제안</string>
-    <string name="str_opinion">의견</string>
+    <string name="str_opinion">내 투표</string>
     <string name="str_proposal_id">의제 번호</string>
     <string name="str_notification">알람</string>
     <string name="str_network_error_title">네트워크 에러</string>
