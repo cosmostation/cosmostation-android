@@ -46,25 +46,30 @@ class VoteTallyTableViewCell: UITableViewCell {
     
     func onCheckMyVote (_ myVote:Vote?) {
         if (myVote == nil) { return }
+        self.cardYes.borderColor = UIColor.init(hexString: "#9CA2AC", alpha: 1.0)
+        self.cardNo.borderColor = UIColor.init(hexString: "#9CA2AC", alpha: 1.0)
+        self.cardVeto.borderColor = UIColor.init(hexString: "#9CA2AC", alpha: 1.0)
+        self.cardAbstain.borderColor = UIColor.init(hexString: "#9CA2AC", alpha: 1.0)
+        self.cardYes.borderWidth = 1
+        self.cardNo.borderWidth = 1
+        self.cardVeto.borderWidth = 1
+        self.cardAbstain.borderWidth = 1
+        
         if (myVote?.option.caseInsensitiveCompare(Vote.OPTION_YES) == .orderedSame) {
             self.myVoteYes.isHidden = false
             self.cardYes.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardYes.borderWidth = 1
             
         } else if (myVote?.option.caseInsensitiveCompare(Vote.OPTION_NO) == .orderedSame) {
             self.myVoteNo.isHidden = false
             self.cardNo.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardNo.borderWidth = 1
             
         } else if (myVote?.option.caseInsensitiveCompare(Vote.OPTION_VETO) == .orderedSame) {
             self.myVoteVeto.isHidden = false
             self.cardVeto.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardVeto.borderWidth = 1
             
         } else if (myVote?.option.caseInsensitiveCompare(Vote.OPTION_ABSTAIN) == .orderedSame) {
             self.myVoteAbstain.isHidden = false
             self.cardAbstain.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
-            self.cardAbstain.borderWidth = 1
         }
     }
     
