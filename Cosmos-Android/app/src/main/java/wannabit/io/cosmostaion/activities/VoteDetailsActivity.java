@@ -365,6 +365,11 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 holder.itemAbstainCnt.setText(""+WUtil.getVoterTypeCnt(mVotes, Vote.OPTION_ABSTAIN));
 
                 if (mMyVote != null) {
+                    holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+                    holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+                    holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+                    holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+
                     if (mMyVote.option.equals(Vote.OPTION_YES)) {
                         holder.itemYesDone.setVisibility(View.VISIBLE);
                         holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_voted));
