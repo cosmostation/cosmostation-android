@@ -1248,6 +1248,16 @@ public class WUtil {
             case "BTCB-1DE":
                 return true;
 
+            case "ETH-1C9":
+                return true;
+            case "IDRTB-178":
+                return true;
+            case "BUSD-BD1":
+                return true;
+            case "TAUDB-888":
+                return true;
+
+
         }
         return false;
     }
