@@ -455,13 +455,36 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
 
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("address", mAccount.address);
-            clipboard.setPrimaryClip(clip);
-            Toast.makeText(getBaseContext(), R.string.str_copied, Toast.LENGTH_SHORT).show();
+            if (mAccount.getKavaBalance().compareTo(new BigDecimal("5000000")) > 0) {
+                Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            Intent fauceIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://faucet.kava.io/"));
-            startActivity(fauceIntent);
+            onShowWaitDialog();
+            ApiClient.getKavaTestFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
+                @Override
+                public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                    if (response.isSuccessful()) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                onHideWaitDialog();
+                                onFetchAllData();
+                            }
+                        },2000);
+
+                    } else {
+                        onHideWaitDialog();
+                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JSONObject> call, Throwable t) {
+                    onHideWaitDialog();
+                    Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
 

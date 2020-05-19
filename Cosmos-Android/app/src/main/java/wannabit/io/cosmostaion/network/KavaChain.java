@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.network;
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -138,5 +140,14 @@ public interface KavaChain {
 
     @GET("/bep3/swaps")
     Call<String> getSwaps();
+
+
+
+
+
+
+
+    @GET("/claim/{address}")
+    Call<JSONObject> getFaucet(@Path("address") String address);
 
 }
