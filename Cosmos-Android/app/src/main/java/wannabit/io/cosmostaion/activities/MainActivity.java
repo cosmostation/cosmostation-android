@@ -128,6 +128,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mFaucetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mFaucetBtn.setOnClickListener(null);
                 onGetFaucet();
             }
         });
