@@ -17,7 +17,8 @@ public enum BaseChain {
 
     BNB_TEST("Binance-Chain-Nile"),
     KAVA_TEST_LEGACY4("kava-testnet-4000"),
-    KAVA_TEST("kava-testnet-5000");
+    KAVA_TEST_LEGACY5("kava-testnet-5000"),
+    KAVA_TEST("kava-testnet-6000");
 
     private final String chainName;
 
@@ -54,6 +55,7 @@ public enum BaseChain {
             return BNB_TEST;
         }
         if (chainName.equals(BaseChain.KAVA_TEST_LEGACY4.chainName) ||
+                chainName.equals(BaseChain.KAVA_TEST_LEGACY5.chainName) ||
                 chainName.equals(BaseChain.KAVA_TEST.chainName)) {
             return KAVA_TEST;
         }
@@ -87,6 +89,7 @@ public enum BaseChain {
         }
 
         if (chain.equals(KAVA_TEST_LEGACY4.getChain()) ||
+                chain.equals(KAVA_TEST_LEGACY5.getChain()) ||
                 chain.equals(KAVA_TEST.getChain())) {
             return KAVA_TEST.getChain();
         }

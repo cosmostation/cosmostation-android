@@ -325,8 +325,8 @@ public class BaseConstant {
     public final static int CMC_BNB = 1839;
     public final static int CMC_KAVA = 4846;
 
-    public final static String BNB_TEST_DEPUTY = "tbnb1et8vmd0dgvswjnyaf73ez8ye0jehc8a7t7fljv";
-    public final static String KAVA_TEST_DEPUTY = "kava1aphsdnz5hu2t5ty2au6znprug5kx3zpy6zwq29";
+    public final static String BNB_TEST_DEPUTY = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
+    public final static String KAVA_TEST_DEPUTY = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl";
 
 
     public final static String TOKEN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
