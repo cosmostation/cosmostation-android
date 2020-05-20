@@ -62,7 +62,7 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
         let cDenom = pageHolderVC.cDenom
         let cDpDecimal = WUtils.getKavaCoinDecimal(cDenom!)
 
-        let cAmount = NSDecimalNumber.init(string: pageHolderVC.mCollateral[0].amount)
+        let cAmount = NSDecimalNumber.init(string: pageHolderVC.mCollateral.amount)
         let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
         
         cDenomLabel.text = cDenom?.uppercased()

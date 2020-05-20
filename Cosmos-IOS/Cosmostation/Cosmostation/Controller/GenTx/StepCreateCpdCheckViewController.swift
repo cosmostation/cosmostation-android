@@ -62,8 +62,8 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
         let cDpDecimal = WUtils.getKavaCoinDecimal(cDenom!)
         let pDpDecimal = WUtils.getKavaCoinDecimal(pDenom!)
 
-        let cAmount = NSDecimalNumber.init(string: pageHolderVC.mCollateral[0].amount)
-        let pAmount = NSDecimalNumber.init(string: pageHolderVC.mPrincipal[0].amount)
+        let cAmount = NSDecimalNumber.init(string: pageHolderVC.mCollateral.amount)
+        let pAmount = NSDecimalNumber.init(string: pageHolderVC.mPrincipal.amount)
         let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
 
         cDenomLabel.text = cDenom?.uppercased()
@@ -189,7 +189,7 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
                         url = KAVA_TEST_BORAD_TX
                     }
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
-                    request.validate().responseJSON { response in
+                    request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):

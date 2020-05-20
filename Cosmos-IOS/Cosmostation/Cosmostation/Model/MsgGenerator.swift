@@ -217,7 +217,8 @@ class MsgGenerator {
         return msg
     }
     
-    static func genGetCreatCdpMsg(_ sender: String, _ collateral: Array<Coin>, _ principal: Array<Coin>) -> Msg {
+//    static func genGetCreatCdpMsg(_ sender: String, _ collateral: Array<Coin>, _ principal: Array<Coin>) -> Msg {
+    static func genGetCreatCdpMsg(_ sender: String, _ collateral: Coin, _ principal: Coin) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
         value.sender = sender
@@ -228,7 +229,7 @@ class MsgGenerator {
         return msg
     }
     
-    static func genGetDepositCdpMsg(_ owner: String, _ depositor: String, _ collateral: Array<Coin>) -> Msg {
+    static func genGetDepositCdpMsg(_ owner: String, _ depositor: String, _ collateral: Coin) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
         value.owner = owner
@@ -240,7 +241,7 @@ class MsgGenerator {
     }
     
     
-    static func genGetWithdrawCdpMsg(_ owner: String, _ depositor: String, _ collateral: Array<Coin>) -> Msg {
+    static func genGetWithdrawCdpMsg(_ owner: String, _ depositor: String, _ collateral: Coin) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
         value.owner = owner
@@ -251,7 +252,7 @@ class MsgGenerator {
         return msg
     }
     
-    static func genGetDrawDebtCdpMsg(_ sender: String, _ cdp_denom: String, _ principal: Array<Coin>) -> Msg {
+    static func genGetDrawDebtCdpMsg(_ sender: String, _ cdp_denom: String, _ principal: Coin) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
         value.sender = sender
@@ -262,7 +263,7 @@ class MsgGenerator {
         return msg
     }
     
-    static func genGetRepayCdpMsg(_ sender: String, _ cdp_denom: String, _ payment: Array<Coin>) -> Msg {
+    static func genGetRepayCdpMsg(_ sender: String, _ cdp_denom: String, _ payment: Coin) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
         value.sender = sender

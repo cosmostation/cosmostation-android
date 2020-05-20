@@ -44,7 +44,7 @@ public class CdpDeposits {
         var result = NSDecimalNumber.zero
         for deposit in self.result{
             if (deposit.depositor == address) {
-                result = NSDecimalNumber.init(string: deposit.amount[0].amount)
+                result = NSDecimalNumber.init(string: deposit.amount?.amount)
             }
         }
         return result;
@@ -53,7 +53,7 @@ public class CdpDeposits {
     public class CdpDepositResult {
         var cdp_id: String = ""
         var depositor: String = ""
-        var amount: Array<Coin> = Array<Coin>()
+        var amount: Coin?
         
         init() {}
         
@@ -66,11 +66,8 @@ public class CdpDeposits {
                 self.depositor = depositor
             }
             
-            if let rawAmounts = dictionary["amount"] as? Array<NSDictionary> {
-                self.amount.removeAll()
-                for rawAmount in rawAmounts {
-                    self.amount.append(Coin(rawAmount as! [String : Any]))
-                }
+            if let rawAmounts = dictionary["amount"] as? [String : Any] {
+                self.amount = Coin(rawAmounts)
             }
         }
     }

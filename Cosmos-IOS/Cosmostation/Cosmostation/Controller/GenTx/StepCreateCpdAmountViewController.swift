@@ -364,14 +364,10 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
             if(result == 10) {
                 let cCoin = Coin.init(self.cDenom, self.toCAmount.stringValue)
-                var cCoins = Array<Coin>()
-                cCoins.append(cCoin)
-                self.pageHolderVC.mCollateral = cCoins
+                self.pageHolderVC.mCollateral = cCoin
 
                 let pCoin = Coin.init(self.pDenom, self.toPAmount.stringValue)
-                var pCoins = Array<Coin>()
-                pCoins.append(pCoin)
-                self.pageHolderVC.mPrincipal = pCoins
+                self.pageHolderVC.mPrincipal = pCoin
 
                 self.pageHolderVC.currentPrice = self.currentPrice
                 self.pageHolderVC.liquidationPrice = self.liquidationPrice

@@ -198,9 +198,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
             if(result == 10) {
                 let pCoin = Coin.init(self.pDenom, self.toPAmount.stringValue)
-                var pCoins = Array<Coin>()
-                pCoins.append(pCoin)
-                self.pageHolderVC.mPrincipal = pCoins
+                self.pageHolderVC.mPrincipal = pCoin
 
                 self.pageHolderVC.currentPrice = self.currentPrice
                 self.pageHolderVC.beforeLiquidationPrice = self.beforeLiquidationPrice

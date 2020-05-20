@@ -62,7 +62,7 @@ class StepDrawDebtCdpCheckViewController: BaseViewController, PasswordViewDelega
         let pDenom = pageHolderVC.pDenom
         let pDpDecimal = WUtils.getKavaCoinDecimal(pDenom!)
         
-        let pAmount = NSDecimalNumber.init(string: pageHolderVC.mPrincipal[0].amount)
+        let pAmount = NSDecimalNumber.init(string: pageHolderVC.mPrincipal.amount)
         let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
         
         pDenomLabel.text = pDenom?.uppercased()

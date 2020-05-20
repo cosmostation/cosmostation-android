@@ -79,9 +79,10 @@ public struct Msg: Codable {
         var sender: String?
         var depositor: String?
         var owner: String?
-        var collateral: Array<Coin>?
-        var principal: Array<Coin>?
-        var payment: Array<Coin>?
+        var collateral: Coin?
+        var principal: Coin?
+        var payment: Coin?
+        
         var cdp_denom: String?
         var swap_id: String?
         var random_number: String?
@@ -301,23 +302,14 @@ public struct Msg: Codable {
             if let owner =  dictionary["owner"] as? String {
                 self.owner = owner
             }
-            if let collaterals = dictionary["collateral"] as? Array<NSDictionary> {
-                self.collateral =  Array<Coin>()
-                for collateral in collaterals {
-                    self.collateral?.append(Coin(collateral as! [String : Any]))
-                }
+            if let rawCollateral = dictionary["collateral"] as? [String : Any] {
+                self.collateral = Coin(rawCollateral)
             }
-            if let principals = dictionary["principal"] as? Array<NSDictionary> {
-                self.principal =  Array<Coin>()
-                for principal in principals {
-                    self.principal?.append(Coin(principal as! [String : Any]))
-                }
+            if let rawPrincipal = dictionary["principal"] as? [String : Any] {
+                self.principal = Coin(rawPrincipal)
             }
-            if let payments = dictionary["payment"] as? Array<NSDictionary> {
-                self.payment =  Array<Coin>()
-                for payment in payments {
-                    self.payment?.append(Coin(payment as! [String : Any]))
-                }
+            if let rawPayment = dictionary["payment"] as? [String : Any] {
+                self.payment = Coin(rawPayment)
             }
             
             
