@@ -306,7 +306,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
             
             //calculate min debtable amount from current state.(if current debt under debt_floor.)
             let currentPAmount = mMyCdps?.result.cdp.getRawPrincipalAmount()
-            let debtFloor = NSDecimalNumber.init(string: cdpParam!.result.debt_params[0].debt_floor)
+            let debtFloor = NSDecimalNumber.init(string: cdpParam!.result.debt_param?.debt_floor)
             
             if (currentPAmount!.compare(debtFloor).rawValue > 0) {
                 pMinAmount = NSDecimalNumber.one

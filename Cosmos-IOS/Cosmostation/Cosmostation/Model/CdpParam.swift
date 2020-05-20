@@ -28,8 +28,8 @@ public class CdpParam {
         var surplus_auction_threshold: String = ""
         var debt_auction_threshold: String = ""
         var circuit_breaker: Bool = true
-        var global_debt_limit: Array<Coin> = Array<Coin>()
-        var debt_params: Array<DebtParam> = Array<DebtParam>()
+        var global_debt_limit: Coin?
+        var debt_param: DebtParam?
         var collateral_params: Array<CollateralParam> = Array<CollateralParam>()
         
         init() {}
@@ -47,18 +47,12 @@ public class CdpParam {
                 self.circuit_breaker = circuit_breaker
             }
             
-            if let rawGlobalDebtLimits = dictionary["global_debt_limit"] as? Array<NSDictionary> {
-                self.global_debt_limit.removeAll()
-                for rawGlobalDebtLimit in rawGlobalDebtLimits {
-                    self.global_debt_limit.append(Coin(rawGlobalDebtLimit as! [String : Any]))
-                }
+            if let rawGlobalDebtLimits = dictionary["global_debt_limit"] as? [String : Any] {
+                self.global_debt_limit = Coin(rawGlobalDebtLimits)
             }
             
-            if let rawDebtParams = dictionary["debt_params"] as? Array<NSDictionary> {
-                self.debt_params.removeAll()
-                for rawDebtParam in rawDebtParams {
-                    self.debt_params.append(DebtParam(rawDebtParam as! [String : Any]))
-                }
+            if let rawDebtParam = dictionary["debt_param"] as? [String : Any] {
+                self.debt_param = DebtParam(rawDebtParam)
             }
             
             if let rawCollateralParams = dictionary["collateral_params"] as? Array<NSDictionary> {
@@ -82,7 +76,7 @@ public class CdpParam {
     public class CollateralParam {
         var denom: String = ""
         var liquidation_ratio: String = ""
-        var debt_limit: Array<Coin> = Array<Coin>()
+        var debt_limit: Coin?
         var stability_fee: String = ""
         var auction_size: String = ""
         var liquidation_penalty: String = ""
@@ -101,12 +95,10 @@ public class CdpParam {
                 self.liquidation_ratio = liquidation_ratio
             }
             
-            if let rawDebtLimits = dictionary["debt_limit"] as? Array<NSDictionary> {
-                self.debt_limit.removeAll()
-                for rawDebtLimit in rawDebtLimits {
-                    self.debt_limit.append(Coin(rawDebtLimit as! [String : Any]))
-                }
+            if let rawDebt_limit = dictionary["debt_limit"] as? [String : Any] {
+                self.debt_limit = Coin(rawDebt_limit)
             }
+            
             
             if let stability_fee =  dictionary["stability_fee"] as? String {
                 self.stability_fee = stability_fee
@@ -134,7 +126,7 @@ public class CdpParam {
         }
         
         func getpDenom() -> String {
-            return debt_limit[0].denom
+            return debt_limit!.denom
         }
         
         func getMarketImgPath() -> String {

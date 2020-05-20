@@ -46,8 +46,20 @@ public class KavaAccountInfo {
         
         init(_ dictionary: [String: Any]) {
             self.address = dictionary["address"] as? String ?? ""
-            self.account_number = dictionary["account_number"] as? String ?? ""
-            self.sequence = dictionary["sequence"] as? String ?? ""
+            if let accountNumber = dictionary["account_number"] as? String {
+                self.account_number = accountNumber
+            }
+            if let accountNumber = dictionary["account_number"] as? Int64 {
+                self.account_number = String(accountNumber)
+            }
+            
+            if let seQuence = dictionary["sequence"] as? String {
+                self.sequence = seQuence
+            }
+            if let seQuence = dictionary["sequence"] as? Int64 {
+                self.sequence = String(seQuence)
+            }
+            
             
             self.coins.removeAll()
             if let rawCoins = dictionary["coins"] as? Array<NSDictionary> {
@@ -56,11 +68,9 @@ public class KavaAccountInfo {
                 }
             }
             
-            
             if let pva = dictionary["PeriodicVestingAccount"] as? [String : Any] {
                 self.PeriodicVestingAccount = KavaPeriodicVestingAccount.init(pva)
             }
-            
 
             self.vesting_period_progress.removeAll()
             if let vpps = dictionary["vesting_period_progress"] as? Array<NSDictionary> {
@@ -136,8 +146,19 @@ public class KavaAccountInfo {
         
         init(_ dictionary: [String: Any]) {
             self.address = dictionary["address"] as? String ?? ""
-            self.account_number = dictionary["account_number"] as? String ?? ""
-            self.sequence = dictionary["sequence"] as? String ?? ""
+            if let accountNumber = dictionary["account_number"] as? String {
+                self.account_number = accountNumber
+            }
+            if let accountNumber = dictionary["account_number"] as? Int64 {
+                self.account_number = String(accountNumber)
+            }
+            
+            if let seQuence = dictionary["sequence"] as? String {
+                self.sequence = seQuence
+            }
+            if let seQuence = dictionary["sequence"] as? Int64 {
+                self.sequence = String(seQuence)
+            }
             
             
             self.coins.removeAll()

@@ -318,7 +318,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
             print("pAvailable ", pAvailable)
             print("pAllAmount ", pAllAmount)
             
-            let debtFloor = NSDecimalNumber.init(string: cdpParam!.result.debt_params[0].debt_floor)
+            let debtFloor = NSDecimalNumber.init(string: cdpParam!.result.debt_param?.debt_floor)
 //            let rawDebtAmount = mMyCdps!.result.cdp.getRawDebtAmount()
             let rawDebtAmount = mMyCdps!.result.cdp.getRawPrincipalAmount()
             print("debtFloor ", debtFloor)

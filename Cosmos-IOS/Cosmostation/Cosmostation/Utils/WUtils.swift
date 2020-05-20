@@ -1562,7 +1562,7 @@ class WUtils {
         } else if (type == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (type == CHAIN_KAVA_TEST_S) {
-            return "kava-testnet-5000"
+            return "kava-testnet-6000"
         }
         return "cosmoshub-3"
     }

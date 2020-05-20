@@ -11,9 +11,9 @@ import Foundation
 public struct Cdp: Codable {
     var id: String?
     var owner: String?
-    var collateral: Array<Coin>?
-    var principal: Array<Coin>?
-    var accumulated_fees: Array<Coin>?
+    var collateral: Coin?
+    var principal: Coin?
+    var accumulated_fees: Coin?
     var fees_updated: String?
     
     init() {}
@@ -27,25 +27,16 @@ public struct Cdp: Codable {
             self.owner = owner
         }
         
-        if let rawCollaterals = dictionary["collateral"] as? Array<NSDictionary> {
-            self.collateral =  Array<Coin>()
-            for rawCollateral in rawCollaterals {
-                self.collateral?.append(Coin(rawCollateral as! [String : Any]))
-            }
+        if let rawCollateral = dictionary["collateral"] as? [String : Any] {
+            self.collateral = Coin(rawCollateral)
         }
         
-        if let rawPrincipals = dictionary["principal"] as? Array<NSDictionary> {
-            self.principal =  Array<Coin>()
-            for rawPrincipal in rawPrincipals {
-                self.principal?.append(Coin(rawPrincipal as! [String : Any]))
-            }
+        if let rawPrincipal = dictionary["principal"] as? [String : Any] {
+            self.principal = Coin(rawPrincipal)
         }
         
-        if let rawAccumulatedFees = dictionary["accumulated_fees"] as? Array<NSDictionary> {
-            self.accumulated_fees =  Array<Coin>()
-            for rawAccumulatedFee in rawAccumulatedFees {
-                self.accumulated_fees?.append(Coin(rawAccumulatedFee as! [String : Any]))
-            }
+        if let rawAccumulated_fees = dictionary["accumulated_fees"] as? [String : Any] {
+            self.accumulated_fees = Coin(rawAccumulated_fees)
         }
         
         if let fees_updated =  dictionary["fees_updated"] as? String {
@@ -58,30 +49,30 @@ public struct Cdp: Codable {
     }
     
     public func getMarketId() -> String {
-        return collateral![0].denom + ":usd"
+        return collateral!.denom + ":usd"
     }
     
     public func getcDenom() -> String {
-        return collateral![0].denom
+        return collateral!.denom
     }
     
     public func getpDenom() -> String {
-        return principal![0].denom
+        return principal!.denom
     }
     
     public func getRawCollateralAmount() -> NSDecimalNumber {
-        return NSDecimalNumber.init(string: collateral![0].amount)
+        return NSDecimalNumber.init(string: collateral!.amount)
     }
     
     public func getRawPrincipalAmount() -> NSDecimalNumber {
-        return NSDecimalNumber.init(string: principal![0].amount)
+        return NSDecimalNumber.init(string: principal!.amount)
     }
     
     public func getRawDebtAmount() -> NSDecimalNumber {
-        if (accumulated_fees != nil && accumulated_fees!.count > 0) {
-            return NSDecimalNumber.init(string: principal![0].amount).adding(NSDecimalNumber.init(string: accumulated_fees![0].amount))
+        if (accumulated_fees != nil) {
+            return NSDecimalNumber.init(string: principal!.amount).adding(NSDecimalNumber.init(string: accumulated_fees!.amount))
         }
-        return NSDecimalNumber.init(string: principal![0].amount)
+        return NSDecimalNumber.init(string: principal!.amount)
     }
     
     public func getHiddenFee(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
@@ -97,8 +88,8 @@ public struct Cdp: Codable {
     }
     
     public func getEstimatedTotalFee(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
-        if (accumulated_fees != nil && accumulated_fees!.count > 0) {
-            return NSDecimalNumber.init(string: accumulated_fees![0].amount).adding(getHiddenFee(cParam))
+        if (accumulated_fees != nil) {
+            return NSDecimalNumber.init(string: accumulated_fees!.amount).adding(getHiddenFee(cParam))
         }
         return getHiddenFee(cParam)
     }

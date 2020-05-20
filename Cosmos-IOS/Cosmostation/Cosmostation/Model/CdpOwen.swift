@@ -39,7 +39,7 @@ public class CdpOwen {
         
         
         public func getTotalCollateralAmount() -> NSDecimalNumber {
-            return NSDecimalNumber.init(string: cdp.collateral![0].amount)
+            return NSDecimalNumber.init(string: cdp.collateral!.amount)
         }
         
         public func getDpCollateralValue(_ pDenom:String) -> NSDecimalNumber {
