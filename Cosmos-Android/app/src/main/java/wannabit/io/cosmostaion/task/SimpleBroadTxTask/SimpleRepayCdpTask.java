@@ -33,19 +33,19 @@ public class SimpleRepayCdpTask extends CommonTask {
 
     private Account         mAccount;
     private String          mSender;
-    private ArrayList<Coin> mPayments;
+    private Coin            mPayment;
     private String          mCdpDenom;
     private String          mMemo;
     private Fee             mFees;
 
     public SimpleRepayCdpTask(BaseApplication app, TaskListener listener,
                                Account account, String sender,
-                               ArrayList<Coin> payments, String cdpDenom,
+                              Coin payment, String cdpDenom,
                                String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
         this.mSender = sender;
-        this.mPayments = payments;
+        this.mPayment = payment;
         this.mCdpDenom = cdpDenom;
         this.mMemo = memo;
         this.mFees = fees;
@@ -92,7 +92,7 @@ public class SimpleRepayCdpTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg repayCdpMsg = MsgGenerator.genRepayCdpMsg(mSender, mPayments, mCdpDenom, BaseChain.getChain(mAccount.baseChain));
+            Msg repayCdpMsg = MsgGenerator.genRepayCdpMsg(mSender, mPayment, mCdpDenom, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(repayCdpMsg);
 

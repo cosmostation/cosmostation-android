@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.network.res;
 
+import android.text.TextUtils;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -48,13 +52,16 @@ public class ResTxInfo {
 
     public class Log {
         @SerializedName("msg_index")
-        public String msg_index;
+        public int msg_index;
 
         @SerializedName("success")
         public boolean success;
 
         @SerializedName("log")
         public String log;
+
+        @SerializedName("events")
+        public ArrayList<Event> events;
     }
 
     public boolean isSuccess() {
@@ -68,7 +75,7 @@ public class ResTxInfo {
         try {
             ArrayList<Log> temp = new Gson().fromJson(new Gson().toJson(logs), new TypeToken<List<Log>>(){}.getType());
             for (Log log:temp) {
-                if(!log.success) {
+                if (!TextUtils.isEmpty(log.log)) {
                     result = false;
                     break;
                 }
@@ -94,7 +101,7 @@ public class ResTxInfo {
         try {
             ArrayList<Log> temp = new Gson().fromJson(new Gson().toJson(logs), new TypeToken<List<Log>>(){}.getType());
             for (Log log:temp) {
-                if(!log.success) {
+                if (!TextUtils.isEmpty(log.log)) {
                     result = log.log;
                     break;
                 }
@@ -142,11 +149,21 @@ public class ResTxInfo {
         return result;
     }
 
+    public ArrayList<Event> getEvent() {
+        if (events != null) return events;
+        try {
+            ArrayList<Log> temp = new Gson().fromJson(new Gson().toJson(logs), new TypeToken<List<Log>>(){}.getType());
+            return temp.get(0).events;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     public BigDecimal simpleReward(String opAdd) {
         BigDecimal result = BigDecimal.ZERO;
-        if (events != null) {
-            for (Event event:events) {
+        if (getEvent() != null) {
+            for (Event event:getEvent()) {
                 if (event.type.equals("withdraw_rewards")) {
                     for (int i = 0; i < event.attributes.size(); i ++) {
                         if (event.attributes.get(i).key.equals("validator") && event.attributes.get(i).value.equals(opAdd)) {
@@ -165,8 +182,8 @@ public class ResTxInfo {
 
     public BigDecimal simpleAutoReward() {
         BigDecimal result = BigDecimal.ZERO;
-        if (events != null) {
-            for (Event event:events) {
+        if (getEvent() != null) {
+            for (Event event:getEvent()) {
                 if (event.type.equals("transfer")) {
                     for (EventAttribute attr:event.attributes) {
                         if (attr.key.equals("amount")) {
@@ -183,8 +200,8 @@ public class ResTxInfo {
 
     public BigDecimal simpleCommission() {
         BigDecimal result = BigDecimal.ZERO;
-        if (events != null) {
-            for (Event event:events) {
+        if (getEvent() != null) {
+            for (Event event:getEvent()) {
                 if (event.type.equals("withdraw_commission")) {
                     for (EventAttribute attr:event.attributes) {
                         if (attr.key.equals("amount")) {
@@ -201,8 +218,8 @@ public class ResTxInfo {
 
     public Coin simpleSwapCoin() {
         Coin coin  = new Coin();
-        if (events != null) {
-            for (Event event:events) {
+        if (getEvent() != null) {
+            for (Event event:getEvent()) {
                 if (event.type.equals("transfer")) {
                     for (EventAttribute attr:event.attributes) {
                         if (attr.key.equals("amount")) {
@@ -221,8 +238,8 @@ public class ResTxInfo {
 
     public String simpleSwapId() {
         String result = "";
-        if (events != null) {
-            for (Event event:events) {
+        if (getEvent() != null) {
+            for (Event event:getEvent()) {
                 if (event.type.equals("createAtomicSwap")) {
                     for (EventAttribute attr:event.attributes) {
                         if (attr.key.equals("atomic_swap_id")) {

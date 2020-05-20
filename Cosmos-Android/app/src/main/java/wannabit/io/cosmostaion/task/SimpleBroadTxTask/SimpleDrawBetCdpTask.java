@@ -33,19 +33,19 @@ public class SimpleDrawBetCdpTask extends CommonTask {
 
     private Account         mAccount;
     private String          mSender;
-    private ArrayList<Coin> mPrincipals;
+    private Coin            mPrincipal;
     private String          mCdpDenom;
     private String          mMemo;
     private Fee             mFees;
 
     public SimpleDrawBetCdpTask(BaseApplication app, TaskListener listener,
                               Account account, String sender,
-                              ArrayList<Coin> principals, String cdpDenom,
+                                Coin principal, String cdpDenom,
                               String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
         this.mSender = sender;
-        this.mPrincipals = principals;
+        this.mPrincipal = principal;
         this.mCdpDenom = cdpDenom;
         this.mMemo = memo;
         this.mFees = fees;
@@ -92,7 +92,7 @@ public class SimpleDrawBetCdpTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg drawDebtCdpMsg = MsgGenerator.genDrawDebtCdpMsg(mSender, mPrincipals, mCdpDenom, BaseChain.getChain(mAccount.baseChain));
+            Msg drawDebtCdpMsg = MsgGenerator.genDrawDebtCdpMsg(mSender, mPrincipal, mCdpDenom, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(drawDebtCdpMsg);
 

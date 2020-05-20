@@ -86,9 +86,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mProposalId;
     private String                      mOpinion;
 
-    private ArrayList<Coin>             mCollateralCoins;
-    private ArrayList<Coin>             mPrincipalCoins;
-    private ArrayList<Coin>             mPaymentCoins;
+//    private ArrayList<Coin>             mCollateralCoins;
+//    private ArrayList<Coin>             mPrincipalCoins;
+//    private ArrayList<Coin>             mPaymentCoins;
+
+    private Coin             mCollateralCoin;
+    private Coin             mPrincipalCoin;
+    private Coin             mPaymentCoin;
+
     private String                      mSender;
     private String                      mOwner;
     private String                      mDepositor;
@@ -146,9 +151,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mReInvestAmount = getIntent().getParcelableExtra("reInvestAmount");
         mProposalId = getIntent().getStringExtra("proposal_id");
         mOpinion = getIntent().getStringExtra("opinion");
-        mCollateralCoins = getIntent().getParcelableArrayListExtra("collateralCoins");
-        mPrincipalCoins = getIntent().getParcelableArrayListExtra("principalCoins");
-        mPaymentCoins = getIntent().getParcelableArrayListExtra("payment");
+        mCollateralCoin = getIntent().getParcelableExtra("collateralCoin");
+        mPrincipalCoin = getIntent().getParcelableExtra("principalCoin");
+        mPaymentCoin = getIntent().getParcelableExtra("payment");
         mSender = getIntent().getStringExtra("sender");
         mOwner = getIntent().getStringExtra("owner");
         mDepositor = getIntent().getStringExtra("depositor");
@@ -345,8 +350,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     this,
                     mAccount,
                     mSender,
-                    mCollateralCoins,
-                    mPrincipalCoins,
+                    mCollateralCoin,
+                    mPrincipalCoin,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -356,7 +361,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     this,
                     mAccount,
                     mSender,
-                    mPaymentCoins,
+                    mPaymentCoin,
                     mCdpDenom,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
@@ -367,7 +372,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     this,
                     mAccount,
                     mSender,
-                    mPrincipalCoins,
+                    mPrincipalCoin,
                     mCdpDenom,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
@@ -379,7 +384,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mAccount,
                     mOwner,
                     mDepositor,
-                    mCollateralCoins,
+                    mCollateralCoin,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -390,7 +395,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mAccount,
                     mOwner,
                     mDepositor,
-                    mCollateralCoins,
+                    mCollateralCoin,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 

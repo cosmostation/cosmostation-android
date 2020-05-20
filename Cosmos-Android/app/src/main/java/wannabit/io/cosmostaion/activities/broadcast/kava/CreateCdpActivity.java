@@ -174,17 +174,12 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
 
     public void onStartCreateCdp() {
         Coin collateralCoin = new Coin(getCParam().denom, toCollateralAmount.toPlainString());
-        ArrayList<Coin> collateralCoins = new ArrayList<>();
-        collateralCoins.add(collateralCoin);
-
         Coin principalCoin = new Coin(getCParam().debt_limit.denom, toPrincipalAmount.toPlainString());
-        ArrayList<Coin> principalCoins = new ArrayList<>();
-        principalCoins.add(principalCoin);
 
         Intent intent = new Intent(CreateCdpActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_CREATE_CDP);
-        intent.putParcelableArrayListExtra("collateralCoins", collateralCoins);
-        intent.putParcelableArrayListExtra("principalCoins", principalCoins);
+        intent.putExtra("collateralCoin", collateralCoin);
+        intent.putExtra("principalCoin", principalCoin);
         intent.putExtra("sender", mAccount.address);
         intent.putExtra("fee", mFee);
         intent.putExtra("memo", mMemo);

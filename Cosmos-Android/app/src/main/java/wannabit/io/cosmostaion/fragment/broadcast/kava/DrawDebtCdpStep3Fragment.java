@@ -75,8 +75,8 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
         final String pDenom = getCParam().debt_limit.denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
-        WDp.showCoinDp(getContext(), pDenom, getSActivity().mPrincipals.get(0).amount, mLoanDenom, mLoanAmount, getSActivity().mBaseChain);
-        BigDecimal moreLoanValue = new BigDecimal(getSActivity().mPrincipals.get(0).amount).movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
+        WDp.showCoinDp(getContext(), pDenom, getSActivity().mPrincipal.amount, mLoanDenom, mLoanAmount, getSActivity().mBaseChain);
+        BigDecimal moreLoanValue = new BigDecimal(getSActivity().mPrincipal.amount).movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
         mLoanValue.setText(WDp.getDpRawDollor(getContext(), moreLoanValue, 2));
 
         WDp.showCoinDp(getContext(), COSMOS_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);

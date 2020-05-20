@@ -159,15 +159,15 @@ public class Msg {
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("collateral")
-        public ArrayList<Coin> collateral;
+        public Coin collateral;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("principal")
-        public ArrayList<Coin> principal;
+        public Coin principal;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("payment")
-        public ArrayList<Coin> payment;
+        public Coin payment;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("cdp_denom")

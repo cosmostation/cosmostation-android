@@ -75,8 +75,8 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
         final String pDenom = getCParam().debt_limit.denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
-        WDp.showCoinDp(getContext(), cDenom, getSActivity().mCollaterals.get(0).amount, mWithdrawDenom, mWithdrawAmount, getSActivity().mBaseChain);
-        BigDecimal collateralValue = new BigDecimal(getSActivity().mCollaterals.get(0).amount).movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal(getPrice().price)).setScale(2, RoundingMode.DOWN);
+        WDp.showCoinDp(getContext(), cDenom, getSActivity().mCollateral.amount, mWithdrawDenom, mWithdrawAmount, getSActivity().mBaseChain);
+        BigDecimal collateralValue = new BigDecimal(getSActivity().mCollateral.amount).movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal(getPrice().price)).setScale(2, RoundingMode.DOWN);
         mWithdrawValue.setText(WDp.getDpRawDollor(getContext(), collateralValue, 2));
 
         WDp.showCoinDp(getContext(), COSMOS_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);

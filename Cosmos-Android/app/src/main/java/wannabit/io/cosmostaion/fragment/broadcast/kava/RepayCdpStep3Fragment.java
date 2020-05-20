@@ -80,8 +80,8 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         final String pDenom = getCParam().debt_limit.denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
-        WDp.showCoinDp(getContext(), pDenom, getSActivity().mPayment.get(0).amount, mPaymentDenom, mPaymentAmount, getSActivity().mBaseChain);
-        BigDecimal paymentValue = new BigDecimal(getSActivity().mPayment.get(0).amount).movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
+        WDp.showCoinDp(getContext(), pDenom, getSActivity().mPayment.amount, mPaymentDenom, mPaymentAmount, getSActivity().mBaseChain);
+        BigDecimal paymentValue = new BigDecimal(getSActivity().mPayment.amount).movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
         mPaymentValue.setText(WDp.getDpRawDollor(getContext(), paymentValue, 2));
 
         WDp.showCoinDp(getContext(), COSMOS_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);

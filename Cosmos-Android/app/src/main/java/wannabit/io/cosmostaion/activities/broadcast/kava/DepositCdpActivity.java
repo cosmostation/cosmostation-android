@@ -59,7 +59,7 @@ public class DepositCdpActivity extends BaseActivity {
     private String                      mMarketDenom;
     private String                      mMaketId;
 
-    public ArrayList<Coin>              mCollaterals = new ArrayList<>();
+    public Coin                         mCollateral = new Coin();
     public String                       mMemo;
     public Fee                          mFee;
 
@@ -182,7 +182,7 @@ public class DepositCdpActivity extends BaseActivity {
         intent.putExtra("depositor", mAccount.address);
         //TODO only support self owen CDP now
         intent.putExtra("owner", mAccount.address);
-        intent.putParcelableArrayListExtra("collateralCoins", mCollaterals);
+        intent.putExtra("collateralCoin", mCollateral);
         intent.putExtra("fee", mFee);
         intent.putExtra("memo", mMemo);
         startActivity(intent);

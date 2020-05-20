@@ -59,7 +59,7 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
 
     private String                      mMarketDenom;
     private String                      mMaketId;
-    public ArrayList<Coin>              mPrincipals = new ArrayList<>();
+    public Coin                         mPrincipal = new Coin();
     public String                       mMemo;
     public Fee                          mFee;
 
@@ -178,7 +178,7 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
         Intent intent = new Intent(DrawDebtActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP);
         intent.putExtra("sender", mAccount.address);
-        intent.putParcelableArrayListExtra("principalCoins", mPrincipals);
+        intent.putExtra("principalCoin", mPrincipal);
         intent.putExtra("cdp_denom", getCParam().denom);
         intent.putExtra("fee", mFee);
         intent.putExtra("memo", mMemo);

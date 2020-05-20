@@ -811,8 +811,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 holder.itemSender.setText(msg.value.sender);
-                WDp.showCoinDp(getBaseContext(), msg.value.collateral.get(0), holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
-                WDp.showCoinDp(getBaseContext(), msg.value.principal.get(0), holder.itemPrincipalDenom, holder.itemPrincipalAmount, mBaseChain);
+                WDp.showCoinDp(getBaseContext(), msg.value.collateral, holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
+                WDp.showCoinDp(getBaseContext(), msg.value.principal, holder.itemPrincipalDenom, holder.itemPrincipalAmount, mBaseChain);
 
             }
 
@@ -824,7 +824,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 holder.itemOwner.setText(msg.value.owner);
                 holder.itemDepositor.setText(msg.value.depositor);
-                WDp.showCoinDp(getBaseContext(), msg.value.collateral.get(0), holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
+                WDp.showCoinDp(getBaseContext(), msg.value.collateral, holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
             }
 
         }
@@ -836,7 +836,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                     holder.itemOwner.setText(msg.value.owner);
                     holder.itemDepositor.setText(msg.value.depositor);
-                    WDp.showCoinDp(getBaseContext(), msg.value.collateral.get(0), holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
+                    WDp.showCoinDp(getBaseContext(), msg.value.collateral, holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
                 }
 
             }
@@ -848,7 +848,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 holder.itemSender.setText(msg.value.sender);
                 holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
-                WDp.showCoinDp(getBaseContext(), msg.value.principal.get(0), holder.itemPrincipalDenom, holder.itemPrincipalAmount, mBaseChain);
+                WDp.showCoinDp(getBaseContext(), msg.value.principal, holder.itemPrincipalDenom, holder.itemPrincipalAmount, mBaseChain);
             }
         }
 
@@ -858,7 +858,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 holder.itemSender.setText(msg.value.sender);
                 holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
-                WDp.showCoinDp(getBaseContext(), msg.value.payment.get(0), holder.itemPaymentDenom, holder.itemPaymentAmount, mBaseChain);
+                WDp.showCoinDp(getBaseContext(), msg.value.payment, holder.itemPaymentDenom, holder.itemPaymentAmount, mBaseChain);
 
             }
         }

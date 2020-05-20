@@ -302,9 +302,8 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
                         mAfterLiquidationPrice == null || mAfterRiskRate == null) {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
                 } else {
-                    getSActivity().mCollaterals.clear();
                     Coin collateral = new Coin(mCollateralDenom, mToWithdrawAmount.toPlainString());
-                    getSActivity().mCollaterals.add(collateral);
+                    getSActivity().mCollateral = collateral;
                     getSActivity().mBeforeLiquidationPrice = mBeforeLiquidationPrice;
                     getSActivity().mBeforeRiskRate = mBeforeRiskRate;
                     getSActivity().mAfterLiquidationPrice = mAfterLiquidationPrice;

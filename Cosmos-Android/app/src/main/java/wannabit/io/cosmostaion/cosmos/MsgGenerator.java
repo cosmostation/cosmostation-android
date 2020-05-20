@@ -323,13 +323,13 @@ public class MsgGenerator {
     }
 
 
-    public static Msg genCreateCdpMsg(String sender, ArrayList<Coin> collateralCoins, ArrayList<Coin> principalCoins, BaseChain chain) {
+    public static Msg genCreateCdpMsg(String sender, Coin collateralCoin, Coin principalCoin, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             value.sender = sender;
-            value.collateral = collateralCoins;
-            value.principal = principalCoins;
+            value.collateral = collateralCoin;
+            value.principal = principalCoin;
 
             result.type = BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
             result.value = value;
@@ -338,12 +338,12 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genRepayCdpMsg(String sender, ArrayList<Coin> payments, String cdpDenom, BaseChain chain) {
+    public static Msg genRepayCdpMsg(String sender, Coin payment, String cdpDenom, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             value.sender = sender;
-            value.payment = payments;
+            value.payment = payment;
             value.cdp_denom = cdpDenom;
 
             result.type = BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
@@ -353,12 +353,12 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genDrawDebtCdpMsg(String sender, ArrayList<Coin> principals, String cdpDenom, BaseChain chain) {
+    public static Msg genDrawDebtCdpMsg(String sender, Coin principal, String cdpDenom, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             value.sender = sender;
-            value.principal = principals;
+            value.principal = principal;
             value.cdp_denom = cdpDenom;
 
             result.type = BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
@@ -368,13 +368,13 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genDepositCdpMsg(String owner, ArrayList<Coin> collaterals, String depositor, BaseChain chain) {
+    public static Msg genDepositCdpMsg(String owner, Coin collateral, String depositor, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             value.depositor = depositor;
             value.owner = owner;
-            value.collateral = collaterals;
+            value.collateral = collateral;
 
             result.type = BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
             result.value = value;
@@ -383,13 +383,13 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genWithdrawCdpMsg(String owner, ArrayList<Coin> collaterals, String depositor, BaseChain chain) {
+    public static Msg genWithdrawCdpMsg(String owner, Coin collateral, String depositor, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             value.depositor = depositor;
             value.owner = owner;
-            value.collateral = collaterals;
+            value.collateral = collateral;
 
             result.type = BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
             result.value = value;

@@ -34,20 +34,20 @@ public class SimpleCreateCdpTask extends CommonTask {
 
     private Account         mAccount;
     private String          mSender;
-    private ArrayList<Coin> mCollateralCoins;
-    private ArrayList<Coin> mPrincipalCoins;
+    private Coin            mCollateralCoin;
+    private Coin            mPrincipalCoin;
     private String          mMemo;
     private Fee             mFees;
 
     public SimpleCreateCdpTask(BaseApplication app, TaskListener listener,
                                Account account, String sender,
-                               ArrayList<Coin> collateralCoins, ArrayList<Coin> principalCoins,
+                               Coin collateralCoin, Coin principalCoin,
                                String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
         this.mSender = sender;
-        this.mCollateralCoins = collateralCoins;
-        this.mPrincipalCoins = principalCoins;
+        this.mCollateralCoin = collateralCoin;
+        this.mPrincipalCoin = principalCoin;
         this.mMemo = memo;
         this.mFees = fees;
         this.mResult.taskType   = TASK_GEN_TX_CREATE_CDP;
@@ -93,7 +93,7 @@ public class SimpleCreateCdpTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg createCdpMsg = MsgGenerator.genCreateCdpMsg(mSender, mCollateralCoins, mPrincipalCoins, BaseChain.getChain(mAccount.baseChain));
+            Msg createCdpMsg = MsgGenerator.genCreateCdpMsg(mSender, mCollateralCoin, mPrincipalCoin, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(createCdpMsg);
 

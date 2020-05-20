@@ -59,7 +59,7 @@ public class RepayCdpActivity extends BaseActivity implements TaskListener {
 
     private String                      mMarketDenom;
     private String                      mMaketId;
-    public ArrayList<Coin>              mPayment = new ArrayList<>();
+    public Coin                         mPayment = new Coin();
     public String                       mMemo;
     public Fee                          mFee;
 
@@ -178,7 +178,7 @@ public class RepayCdpActivity extends BaseActivity implements TaskListener {
         Intent intent = new Intent(RepayCdpActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_REPAY_CDP);
         intent.putExtra("sender", mAccount.address);
-        intent.putParcelableArrayListExtra("payment", mPayment);
+        intent.putExtra("payment", mPayment);
         intent.putExtra("cdp_denom", getCParam().denom);
         intent.putExtra("fee", mFee);
         intent.putExtra("memo", mMemo);

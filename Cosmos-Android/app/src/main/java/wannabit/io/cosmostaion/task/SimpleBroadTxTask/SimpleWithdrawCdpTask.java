@@ -32,7 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_WITHDRAW_CDP
 public class SimpleWithdrawCdpTask extends CommonTask {
 
     private Account         mAccount;
-    private ArrayList<Coin> mCollaterals;
+    private Coin            mCollateral;
     private String          mOwner;
     private String          mDepositor;
     private String          mMemo;
@@ -40,10 +40,10 @@ public class SimpleWithdrawCdpTask extends CommonTask {
 
     public SimpleWithdrawCdpTask(BaseApplication app, TaskListener listener,
                                 Account account, String owner, String depositor,
-                                ArrayList<Coin> collaterals, String memo, Fee fees) {
+                                 Coin collateral, String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
-        this.mCollaterals = collaterals;
+        this.mCollateral = collateral;
         this.mOwner = owner;
         this.mDepositor = depositor;
         this.mMemo = memo;
@@ -91,7 +91,7 @@ public class SimpleWithdrawCdpTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg withdrawCdpMsg = MsgGenerator.genWithdrawCdpMsg(mOwner, mCollaterals, mDepositor, BaseChain.getChain(mAccount.baseChain));
+            Msg withdrawCdpMsg = MsgGenerator.genWithdrawCdpMsg(mOwner, mCollateral, mDepositor, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(withdrawCdpMsg);
 

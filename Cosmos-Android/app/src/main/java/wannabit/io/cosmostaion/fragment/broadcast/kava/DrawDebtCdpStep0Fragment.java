@@ -314,9 +314,8 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
                         mAfterLiquidationPrice == null || mAfterRiskRate == null || mToLoanAmount == null) {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
                 } else {
-                    getSActivity().mPrincipals.clear();
                     Coin principal = new Coin(mPrincipalDenom, mToLoanAmount.toPlainString());
-                    getSActivity().mPrincipals.add(principal);
+                    getSActivity().mPrincipal = principal;
                     getSActivity().mBeforeLiquidationPrice = mBeforeLiquidationPrice;
                     getSActivity().mBeforeRiskRate = mBeforeRiskRate;
                     getSActivity().mAfterLiquidationPrice = mAfterLiquidationPrice;

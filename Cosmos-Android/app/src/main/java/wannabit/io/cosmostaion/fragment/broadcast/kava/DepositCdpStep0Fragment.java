@@ -311,9 +311,8 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
                         mAfterLiquidationPrice == null || mAfterRiskRate == null) {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
                 } else {
-                    getSActivity().mCollaterals.clear();
                     Coin collateral = new Coin(mCollateralDenom, mToDepositAmount.toPlainString());
-                    getSActivity().mCollaterals.add(collateral);
+                    getSActivity().mCollateral = collateral;
                     getSActivity().mBeforeLiquidationPrice = mBeforeLiquidationPrice;
                     getSActivity().mBeforeRiskRate = mBeforeRiskRate;
                     getSActivity().mAfterLiquidationPrice = mAfterLiquidationPrice;

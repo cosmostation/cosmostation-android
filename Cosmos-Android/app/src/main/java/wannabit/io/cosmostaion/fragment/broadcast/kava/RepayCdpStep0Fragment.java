@@ -314,9 +314,8 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mBtnNext)) {
             if (onValidateAmount()) {
-                getSActivity().mPayment.clear();
                 Coin payment = new Coin(pDenom, mToPaymentAmount.toPlainString());
-                getSActivity().mPayment.add(payment);
+                getSActivity().mPayment = payment;
                 getSActivity().mBeforeLiquidationPrice = mBeforeLiquidationPrice;
                 getSActivity().mBeforeRiskRate = mBeforeRiskRate;
                 getSActivity().mAfterLiquidationPrice = mAfterLiquidationPrice;
