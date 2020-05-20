@@ -38,7 +38,7 @@ let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
-let KAVA_TEST_URL                       = "https://lcd-kava-testnet-5000.cosmostation.io/";
+let KAVA_TEST_URL                       = "https://lcd-kava-testnet-6000.cosmostation.io/";
 let KAVA_TEST_API                       = "https://api-kava-testnet-5000.cosmostation.io/";
 
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
@@ -329,8 +329,8 @@ let KAVA_MSG_TYPE_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
 let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
 let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 
-let BNB_TEST_DEPUTY                        = "tbnb1et8vmd0dgvswjnyaf73ez8ye0jehc8a7t7fljv"
-let KAVA_TEST_DEPUTY                       = "kava1aphsdnz5hu2t5ty2au6znprug5kx3zpy6zwq29"
+let BNB_TEST_DEPUTY                        = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h"
+let KAVA_TEST_DEPUTY                       = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl"
 
 let IOV_MSG_TYPE_TRANSFER                  = "iov_transfer";
 
