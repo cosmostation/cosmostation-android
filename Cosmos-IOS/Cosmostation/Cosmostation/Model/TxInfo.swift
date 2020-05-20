@@ -63,6 +63,12 @@ public struct TxInfo {
                         return;
                     }
                 }
+                
+                if let rawEvents = log.object(forKey: "events") as? Array<NSDictionary> {
+                    for rawEvent in rawEvents {
+                        self.events.append(Event(rawEvent as! [String : Any]))
+                    }
+                }
             }
         }
         if let code = dictionary["code"] as? Int {

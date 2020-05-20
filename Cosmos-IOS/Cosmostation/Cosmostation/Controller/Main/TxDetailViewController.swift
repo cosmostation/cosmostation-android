@@ -799,7 +799,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         }
-        print("url ", request?.request?.url)
+        print("txdetail url ", request?.request?.url)
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
