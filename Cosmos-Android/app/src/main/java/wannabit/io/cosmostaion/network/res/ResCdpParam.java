@@ -29,10 +29,10 @@ public class ResCdpParam {
         public Boolean circuit_breaker;
 
         @SerializedName("global_debt_limit")
-        public ArrayList<Coin> global_debt_limit;
+        public Coin global_debt_limit;
 
-        @SerializedName("debt_params")
-        public ArrayList<KavaCdpDebtParam> debt_params;
+        @SerializedName("debt_param")
+        public KavaCdpDebtParam debt_param;
 
         @SerializedName("collateral_params")
         public ArrayList<KavaCollateralParam> collateral_params;
@@ -79,7 +79,7 @@ public class ResCdpParam {
         public String liquidation_ratio;
 
         @SerializedName("debt_limit")
-        public ArrayList<Coin> debt_limit;
+        public Coin debt_limit;
 
         @SerializedName("stability_fee")
         public String stability_fee;

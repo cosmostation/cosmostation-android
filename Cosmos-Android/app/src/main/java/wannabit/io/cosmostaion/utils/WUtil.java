@@ -1106,12 +1106,8 @@ public class WUtil {
     public static int getKavaCoinDecimal(ResCdpParam.Result params, Balance balance) {
         int result = 0;
         if (params != null) {
-            if (params.debt_params != null) {
-                for (ResCdpParam.KavaCdpDebtParam debtParams: params.debt_params) {
-                    if (debtParams.denom.equals(balance.symbol)) {
-                        return Integer.parseInt(debtParams.conversion_factor);
-                    }
-                }
+            if (params.debt_param != null) {
+                return Integer.parseInt(params.debt_param.conversion_factor);
             }
 
             if (params.collateral_params != null) {

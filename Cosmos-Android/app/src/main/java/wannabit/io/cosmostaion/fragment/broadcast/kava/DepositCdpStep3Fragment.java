@@ -73,7 +73,7 @@ public class DepositCdpStep3Fragment extends BaseFragment implements View.OnClic
     @Override
     public void onRefreshTab() {
         final String cDenom = getCParam().denom;
-        final String pDenom = getCParam().debt_limit.get(0).denom;
+        final String pDenom = getCParam().debt_limit.denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
         WDp.showCoinDp(getContext(), cDenom, getSActivity().mCollaterals.get(0).amount, mDepositDenom, mDepositAmount, getSActivity().mBaseChain);

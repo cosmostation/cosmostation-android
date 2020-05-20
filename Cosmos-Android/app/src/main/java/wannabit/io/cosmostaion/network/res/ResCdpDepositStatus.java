@@ -24,14 +24,14 @@ public class ResCdpDepositStatus {
         public String depositor;
 
         @SerializedName("amount")
-        public ArrayList<Coin> amount;
+        public Coin amount;
 
     }
 
     public BigDecimal getSelfDeposit(String address) {
         for (Result deposit:result) {
             if (deposit.depositor.equals(address)) {
-                return new BigDecimal(deposit.amount.get(0).amount);
+                return new BigDecimal(deposit.amount.amount);
             }
         }
         return BigDecimal.ZERO;

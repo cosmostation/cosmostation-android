@@ -253,7 +253,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         if (cParam == null || mKavaTokenPrice == null) {onBackPressed();}
 
         cDenom = cParam.denom;
-        pDenom = cParam.debt_limit.get(0).denom;
+        pDenom = cParam.debt_limit.denom;
         cAvailable = WUtil.getTokenBalance(mBalances, cDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, cDenom).balance;
         pAvailable = WUtil.getTokenBalance(mBalances, pDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, pDenom).balance;
         kAvailable = WUtil.getTokenBalance(mBalances, COSMOS_KAVA) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, COSMOS_KAVA).balance;
@@ -290,7 +290,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mInfoDebtValueTitle.setText(String.format(getString(R.string.str_debt_value), mMyOwenCdp.getPDenom().toUpperCase()));
             mInfoCollateralValueTitle.setText(String.format(getString(R.string.str_collateral_value_title3), mMyOwenCdp.getDenom().toUpperCase()));
 
-            final BigDecimal debtValue = new BigDecimal(mMyOwenCdp.cdp.principal.get(0).amount);
+            final BigDecimal debtValue = new BigDecimal(mMyOwenCdp.cdp.principal.amount);
             final BigDecimal feeValue = mMyOwenCdp.getAccumulatedFees();
             final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getBaseContext(), debtValue.add(feeValue), cParam, mMyOwenCdp.cdp);
             final BigDecimal totalDebtValue = debtValue.add(feeValue).add(hiddenFeeValue);
@@ -337,8 +337,8 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             BigDecimal selfDepositValue = selfDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
             mMySelfDepositValue.setText(WDp.getDpRawDollor(getBaseContext(), selfDepositValue, 2));
 
-            mMyTotalDepositAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mMyOwenCdp.cdp.collateral.get(0).amount), WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
-            BigDecimal totalDepositValue = new BigDecimal(mMyOwenCdp.cdp.collateral.get(0).amount).movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
+            mMyTotalDepositAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mMyOwenCdp.cdp.collateral.amount), WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
+            BigDecimal totalDepositValue = new BigDecimal(mMyOwenCdp.cdp.collateral.amount).movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
             mMyTotalDepositValue.setText(WDp.getDpRawDollor(getBaseContext(), totalDepositValue, 2));
 
             mMyWithdrawableAmountTitle.setText(getString(R.string.str_expected_withdrawable_amount) + " " + cDenom.toUpperCase());
@@ -394,7 +394,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         BigDecimal collateralValue = cAvailable.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mEmptyCollateralValue.setText(WDp.getDpRawDollor(getBaseContext(), collateralValue, 2));
 
-        mEmptyPrincipalDenom.setText(cParam.debt_limit.get(0).denom.toUpperCase());
+        mEmptyPrincipalDenom.setText(cParam.debt_limit.denom.toUpperCase());
         mEmptyPrincipalAmount.setText(WDp.getDpAmount2(getBaseContext(), pAvailable, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
         BigDecimal principalValue = pAvailable.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)).setScale(2, RoundingMode.DOWN);
         mEmptyPrincipalValue.setText(WDp.getDpRawDollor(getBaseContext(), principalValue, 2));
@@ -483,7 +483,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     private void onCheckStartCreateCdp() {
         if (!onCommonCheck()) return;
 
-        BigDecimal principalMinAmount = new BigDecimal(mCdpParam.debt_params.get(0).debt_floor);
+        BigDecimal principalMinAmount = new BigDecimal(mCdpParam.debt_param.debt_floor);
         BigDecimal collateralMinAmount = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(cParam.liquidation_ratio)).divide(currentPrice, 0, RoundingMode.UP);
         if (collateralMinAmount.compareTo(cAvailable) > 0) {
             Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
@@ -550,7 +550,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
         boolean repayAll = true;
         boolean repayPart = true;
-        BigDecimal debtFloor = new BigDecimal(mCdpParam.debt_params.get(0).debt_floor);
+        BigDecimal debtFloor = new BigDecimal(mCdpParam.debt_param.debt_floor);
         BigDecimal rawDebt =  mMyOwenCdp.getPrincipalAmount();
         BigDecimal totalDebt =  mMyOwenCdp.getEstimatedTotalDebt(getBaseContext(), cParam);
         if (totalDebt.compareTo(pAvailable) > 0) { repayAll = false; }

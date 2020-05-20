@@ -177,7 +177,7 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
         ArrayList<Coin> collateralCoins = new ArrayList<>();
         collateralCoins.add(collateralCoin);
 
-        Coin principalCoin = new Coin(getCParam().debt_limit.get(0).denom, toPrincipalAmount.toPlainString());
+        Coin principalCoin = new Coin(getCParam().debt_limit.denom, toPrincipalAmount.toPlainString());
         ArrayList<Coin> principalCoins = new ArrayList<>();
         principalCoins.add(principalCoin);
 

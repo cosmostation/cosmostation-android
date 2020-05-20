@@ -135,7 +135,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
         mBeforeLiquidationPrice = mBeforeRiskRate = mAfterLiquidationPrice = mAfterRiskRate = mRemainLoanAmount= BigDecimal.ZERO;
 
         cDenom = getCParam().denom;
-        pDenom = getCParam().debt_limit.get(0).denom;
+        pDenom = getCParam().debt_limit.denom;
         setDpDecimals(WUtil.getKavaCoinDecimal(pDenom));
         mCurrentPrice = new BigDecimal(getPrice().price);
 
@@ -144,7 +144,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
         WLog.w("pAvailableAmount " +  pAvailableAmount);
         WLog.w("pAllAmount " +  pAllAmount);
 
-        BigDecimal debtFloor = new BigDecimal(getCdpParam().debt_params.get(0).debt_floor);
+        BigDecimal debtFloor = new BigDecimal(getCdpParam().debt_param.debt_floor);
         BigDecimal rawDebtAmount =  getOwenCdp().getPrincipalAmount();
         WLog.w("pAvailableAmount " + pAvailableAmount);
         WLog.w("debtFloor " + debtFloor);

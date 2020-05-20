@@ -119,7 +119,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
 
     private void onUpdateInitInfo() {
         mCollateralDenom = getCParam().denom;
-        mPrincipalDenom = getCParam().debt_limit.get(0).denom;
+        mPrincipalDenom = getCParam().debt_limit.denom;
         setDpDecimals(WUtil.getKavaCoinDecimal(mCollateralDenom));
         mCurrentPrice = new BigDecimal(getPrice().price);
 

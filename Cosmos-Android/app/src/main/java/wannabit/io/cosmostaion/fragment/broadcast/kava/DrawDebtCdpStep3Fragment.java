@@ -72,7 +72,7 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
     @Override
     public void onRefreshTab() {
         final String cDenom = getCParam().denom;
-        final String pDenom = getCParam().debt_limit.get(0).denom;
+        final String pDenom = getCParam().debt_limit.denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
         WDp.showCoinDp(getContext(), pDenom, getSActivity().mPrincipals.get(0).amount, mLoanDenom, mLoanAmount, getSActivity().mBaseChain);

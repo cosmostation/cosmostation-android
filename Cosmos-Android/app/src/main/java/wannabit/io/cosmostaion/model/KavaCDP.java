@@ -16,21 +16,21 @@ public class KavaCDP {
     public String owner;
 
     @SerializedName("collateral")
-    public ArrayList<Coin> collateral;
+    public Coin collateral;
 
     @SerializedName("principal")
-    public ArrayList<Coin> principal;
+    public Coin principal;
 
     @SerializedName("accumulated_fees")
-    public ArrayList<Coin> accumulated_fees;
+    public Coin accumulated_fees;
 
     @SerializedName("fees_updated")
     public String fees_updated;
 
     public BigDecimal getAccumulatedFees() {
         BigDecimal result = BigDecimal.ZERO;
-        if (accumulated_fees != null && accumulated_fees.size() > 0) {
-            result = new BigDecimal(accumulated_fees.get(0).amount);
+        if (accumulated_fees != null) {
+            result = new BigDecimal(accumulated_fees.amount);
         }
         return result;
     }

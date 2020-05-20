@@ -77,7 +77,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         final String cDenom = getCParam().denom;
-        final String pDenom = getCParam().debt_limit.get(0).denom;
+        final String pDenom = getCParam().debt_limit.denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
         WDp.showCoinDp(getContext(), pDenom, getSActivity().mPayment.get(0).amount, mPaymentDenom, mPaymentAmount, getSActivity().mBaseChain);

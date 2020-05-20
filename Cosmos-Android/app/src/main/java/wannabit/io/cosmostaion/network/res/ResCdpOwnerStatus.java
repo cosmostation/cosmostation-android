@@ -34,42 +34,42 @@ public class ResCdpOwnerStatus {
         public String collateralization_ratio;
 
         public String getDenom() {
-            return cdp.collateral.get(0).denom;
+            return cdp.collateral.denom;
         }
 
         public String getPDenom() {
-            return cdp.principal.get(0).denom;
+            return cdp.principal.denom;
         }
 
         public String getMarketId() {
-            return cdp.collateral.get(0).denom + ":usd";
+            return cdp.collateral.denom + ":usd";
         }
 
         public String getDpMarketId() {
-            return cdp.collateral.get(0).denom.toUpperCase() + " : usdx".toUpperCase() ;
+            return cdp.collateral.denom.toUpperCase() + " : usdx".toUpperCase() ;
         }
 
         public String getImagePath() {
-            return cdp.collateral.get(0).denom + "usd.png";
+            return cdp.collateral.denom + "usd.png";
         }
 
         public BigDecimal getCollateralAmount() {
             try {
-                return new BigDecimal(cdp.collateral.get(0).amount);
+                return new BigDecimal(cdp.collateral.amount);
             } catch (Exception e) {}
             return BigDecimal.ZERO;
         }
 
         public BigDecimal getPrincipalAmount() {
             try {
-                return new BigDecimal(cdp.principal.get(0).amount);
+                return new BigDecimal(cdp.principal.amount);
             } catch (Exception e) { }
             return BigDecimal.ZERO;
         }
 
         public BigDecimal getAccumulatedFees() {
             try {
-                return new BigDecimal(cdp.accumulated_fees.get(0).amount);
+                return new BigDecimal(cdp.accumulated_fees.amount);
             } catch (Exception e) { }
             return BigDecimal.ZERO;
         }
