@@ -64,9 +64,11 @@ public struct TxInfo {
                     }
                 }
                 
-                if let rawEvents = log.object(forKey: "events") as? Array<NSDictionary> {
-                    for rawEvent in rawEvents {
-                        self.events.append(Event(rawEvent as! [String : Any]))
+                if (self.events.count <= 0) {
+                    if let rawEvents = log.object(forKey: "events") as? Array<NSDictionary> {
+                        for rawEvent in rawEvents {
+                            self.events.append(Event(rawEvent as! [String : Any]))
+                        }
                     }
                 }
             }

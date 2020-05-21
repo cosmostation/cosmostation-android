@@ -794,7 +794,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             url = BNB_TEST_URL_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-            print("url ", request?.request?.url)
             
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_TX + txHash
