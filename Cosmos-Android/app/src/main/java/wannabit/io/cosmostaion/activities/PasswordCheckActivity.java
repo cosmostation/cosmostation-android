@@ -86,14 +86,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mProposalId;
     private String                      mOpinion;
 
-//    private ArrayList<Coin>             mCollateralCoins;
-//    private ArrayList<Coin>             mPrincipalCoins;
-//    private ArrayList<Coin>             mPaymentCoins;
-
-    private Coin             mCollateralCoin;
-    private Coin             mPrincipalCoin;
-    private Coin             mPaymentCoin;
-
+    private Coin                        mCollateralCoin;
+    private Coin                        mPrincipalCoin;
+    private Coin                        mPaymentCoin;
     private String                      mSender;
     private String                      mOwner;
     private String                      mDepositor;

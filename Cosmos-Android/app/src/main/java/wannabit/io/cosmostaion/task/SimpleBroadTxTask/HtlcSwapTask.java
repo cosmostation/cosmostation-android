@@ -214,7 +214,7 @@ public class HtlcSwapTask extends CommonProgressTask {
             WLog.w("reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
             Response<ResBroadTx> response2 = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
-            if(response2.isSuccessful() && response2.body() != null) {
+            if (response2.isSuccessful() && response2.body() != null) {
                 if (response2.body().txhash != null) {
                     if (IS_SHOWLOG) WLog.w("Send suceess txhash " + response2.body().txhash);
                     result.resultData2 = response2.body().txhash;
@@ -228,6 +228,7 @@ public class HtlcSwapTask extends CommonProgressTask {
                 }
 
             } else {
+                if (IS_SHOWLOG) WLog.w("Fail " + response2.errorBody().string());
                 result.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 result.isSuccess = false;
             }

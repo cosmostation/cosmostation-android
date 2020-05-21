@@ -413,9 +413,7 @@ public class MsgGenerator {
             value.random_number_hash = WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase();
             value.timestamp = String.valueOf(timestamp);
             value.amount = sendCoins;
-            value.expected_income = sendCoins.get(0).amount  + sendCoins.get(0).denom.toLowerCase();
             value.height_span = "500";
-            value.cross_chain = true;
 
             result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
             result.value = value;
