@@ -403,14 +403,14 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                 if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     self.mApiHistories.removeAll()
                     guard let histories = res as? Array<NSDictionary> else {
-                        print("no history!!")
+                        if (SHOW_LOG) { print("no history!!") }
                         self.emptyLabel.isHidden = false
                         return;
                     }
                     for rawHistory in histories {
                         self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
                     }
-                    print("mApiHistories ", self.mApiHistories.count)
+                    if (SHOW_LOG) { print("mApiHistories ", self.mApiHistories.count) }
                     if (self.mApiHistories.count > 0) {
                         self.historyTableView.reloadData()
                         self.emptyLabel.isHidden = true

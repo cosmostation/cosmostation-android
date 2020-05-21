@@ -77,7 +77,6 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     
     var mTxFetchCnt = 2
     func onUpdateView(_ errorMSg: String) {
-        print("onUpdateView ", mTxFetchCnt)
         self.loadingLayer.isHidden = false
         if (!errorMSg.isEmpty) {
             //TODO handle error case
@@ -230,7 +229,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     
     
     func onCheckCreateHtlcSwap() {
-        print("onCheckCreateHtlcSwap")
+//        print("onCheckCreateHtlcSwap")
         var url: String?
         if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account!.account_address
@@ -252,7 +251,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         self.onUpdateView(NSLocalizedString("error_network", comment: ""))
                         return
                     }
-                    print("onCheckCreateHtlcSwap ", res)
+                    if (SHOW_LOG) { print("onCheckCreateHtlcSwap ", res) }
                     let accountInfo = KavaAccountInfo.init(info)
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(self.account!, accountInfo))
                     BaseData.instance.updateBalances(self.account!.account_id, WUtils.getBalancesWithKavaAccountInfo(self.account!, accountInfo))
@@ -268,7 +267,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     }
     
     func onCreateHtlcSwap() {
-        print("onCreateHtlcSwap")
+//        print("onCreateHtlcSwap")
         DispatchQueue.global().async {
             guard let words = KeychainWrapper.standard.string(forKey: self.account!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 self.onUpdateView(NSLocalizedString("error_invalid_password", comment: ""))
@@ -300,7 +299,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     self.mRandomNumberHash = WKey.getRandomNumnerHash(self.mRandomNumber!, self.mTimeStamp!)
                     
                     let sendAmount = NSDecimalNumber.init(string: self.mHtlcToSendAmount[0].amount).multiplying(byPowerOf10: 8)
-                    print("sendAmount ", sendAmount.int64Value)
+//                    print("sendAmount ", sendAmount.int64Value)
                     
                     let bnbMsg = Message.createHtlc(toAddress: BNB_TEST_DEPUTY,
                                                     otherFrom: KAVA_TEST_DEPUTY,
@@ -389,7 +388,6 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 
                 DispatchQueue.main.async(execute: {
                     let postTx = PostTx.init("sync", stdTx.value)
-                    print("stdTx \n", stdTx)
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
                     let data = try? encoder.encode(postTx)
@@ -405,9 +403,8 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         request.validate().responseJSON { response in
                             switch response.result {
                             case .success(let res):
-                                print("res ", res)
                                 if let result = res as? [String : Any], let hash = result["txhash"] as? String  {
-                                    print("onCreateHtlcSwap ok ", hash)
+                                    if (SHOW_LOG) { print("onCreateHtlcSwap ok ", hash) }
                                     self.mSendHash = hash
                                     DispatchQueue.main.async(execute: {
                                         self.onFetchSwapId()
@@ -434,7 +431,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     var mSwapFetchCnt = 8
     func onFetchSwapId() {
         onUpdateProgress(1)
-        print("onFetchSwapId ", mSwapFetchCnt)
+//        print("onFetchSwapId ", mSwapFetchCnt)
         var url = ""
         if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             
@@ -487,7 +484,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     
     func onCheckClaimHtlcSwap() {
         onUpdateProgress(2)
-        print("onCheckClaimHtlcSwap ")
+//        print("onCheckClaimHtlcSwap")
         var url: String?
         if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + mHtlcToAccount!.account_address
@@ -526,7 +523,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     }
     
     func onClaimHtlcSwap() {
-        print("onClaimHtlcSwap")
+//        print("onClaimHtlcSwap")
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.mHtlcToAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
@@ -547,15 +544,14 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 }
                 wallet.synchronise(){ (error) in
                     if let error = error {
-                        if(SHOW_LOG) { print(error) }
-                        //TODO error handle
+                        if (SHOW_LOG) { print(error) }
                         self.onUpdateView(error.localizedDescription)
                         return
                     }
                     
                     let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_TEST_DEPUTY, self.account!.account_address)
-                    print("swapId ", swapId)
-                    print("randomNumber ", self.mRandomNumber!)
+                    if (SHOW_LOG) { print("swapId ", swapId) }
+                    if (SHOW_LOG) { print("randomNumber ", self.mRandomNumber!) }
                     let bnbMsg = Message.claimHtlc(randomNumber: self.mRandomNumber!,
                                                    swapId: swapId,
                                                    memo: "Claim Atomic Swap via Cosmostation Wallet",
@@ -564,10 +560,10 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     binance!.broadcast(message: bnbMsg, sync: true) { (response) in
                         print(response.broadcast)
                         if let error = response.error {
-                            if(SHOW_LOG) { print(error.localizedDescription) }
+                            if (SHOW_LOG) { print(error.localizedDescription) }
                             self.onUpdateView(error.localizedDescription)
                         }
-                        print("onClaimHtlcSwap OK ", response.broadcast[0].hash)
+                        if (SHOW_LOG) { print("onClaimHtlcSwap OK ", response.broadcast[0].hash) }
                         self.mClaimHash = response.broadcast[0].hash
                         self.onFetchSendTx()
                         self.onFetchClaimTx()
@@ -643,15 +639,15 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         request.validate().responseJSON { response in
                             switch response.result {
                             case .success(let res):
-                                if(SHOW_LOG) { print("onClaimHtlcSwap ", res) }
+                                if (SHOW_LOG) { print("onClaimHtlcSwap ", res) }
                                 if let result = res as? [String : Any], let hash = result["txhash"] as? String  {
-                                    print("onClaimHtlcSwap OK ", hash)
+                                    if (SHOW_LOG) { print("onClaimHtlcSwap OK ", hash) }
                                     self.mClaimHash = hash
                                     self.onFetchSendTx()
                                     self.onFetchClaimTx()
                                 }
                             case .failure(let error):
-                                if(SHOW_LOG) { print("onClaimHtlcSwap error ", error) }
+                                if (SHOW_LOG) { print("onClaimHtlcSwap error ", error) }
                                 self.onUpdateView(error.localizedDescription)
                             }
                         }
@@ -668,7 +664,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     
     
     func onFetchSendTx() {
-        print("onFetchSendTx")
+//        print("onFetchSendTx")
         var url = ""
         var request:DataRequest?
         if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
@@ -687,17 +683,17 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if(SHOW_LOG) { print("onFetchSendTx OK", res) }
                 guard let info = res as? [String : Any], info["error"] == nil else {
-                    print("onFetchSendTx error")
+                    if (SHOW_LOG) { print("onFetchSendTx error") }
                     self.onUpdateView(NSLocalizedString("error_network", comment: ""))
                     return
                 }
+                if (SHOW_LOG) { print("onFetchSendTx OK", res) }
                 self.mSendTxInfo = TxInfo.init(info)
                 self.onUpdateView("")
                 
             case .failure(let error):
-                if(SHOW_LOG) {  print("onFetchSendTx failure", error) }
+                if (SHOW_LOG) {  print("onFetchSendTx failure", error) }
                 self.onUpdateView(error.localizedDescription)
                 return
             }
@@ -708,7 +704,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     var mClaimTxFetchCnt = 6
     func onFetchClaimTx() {
         onUpdateProgress(3)
-        print("onFetchClaimTx")
+//        print("onFetchClaimTx")
         var url = ""
         var request:DataRequest?
         if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
@@ -727,7 +723,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if(SHOW_LOG) { print("onFetchClaimTx OK", res) }
+                if (SHOW_LOG) { print("onFetchClaimTx OK", res) }
                 self.mClaimTxFetchCnt = self.mClaimTxFetchCnt - 1
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     if (self.mClaimTxFetchCnt > 0) {
@@ -749,7 +745,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 } else {
                     self.onUpdateView(error.localizedDescription)
                 }
-                if(SHOW_LOG) { print("onFetchClaimTx failure", error) }
+                if (SHOW_LOG) { print("onFetchClaimTx failure", error) }
                 return
             }
         }

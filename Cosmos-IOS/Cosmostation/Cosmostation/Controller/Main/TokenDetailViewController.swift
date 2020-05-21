@@ -589,7 +589,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                     for rawHistory in histories {
                         self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
                     }
-                    print("mApiHistories ", self.mApiHistories.count)
+                    if (SHOW_LOG) { print("mApiHistories ", self.mApiHistories.count) }
 
                     if (self.mApiHistories.count > 0) {
                         self.tokenDetailTableView.reloadData()
