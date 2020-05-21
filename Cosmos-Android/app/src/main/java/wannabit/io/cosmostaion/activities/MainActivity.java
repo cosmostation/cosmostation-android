@@ -471,7 +471,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                                 onHideWaitDialog();
                                 onFetchAllData();
                             }
-                        },2000);
+                        },6000);
 
                     } else {
                         onHideWaitDialog();

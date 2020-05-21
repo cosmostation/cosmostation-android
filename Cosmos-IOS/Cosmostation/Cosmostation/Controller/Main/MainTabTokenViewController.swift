@@ -521,7 +521,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000), execute: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
                         self.onRequestFetch()
                         self.hideWaittingAlert()
                     })
