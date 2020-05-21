@@ -26,7 +26,7 @@ public class ApiHistory {
         var height: Int64 = -1
         var tx_hash: String = ""
         var memo: String = ""
-        var timestamp: String = ""
+        var time: String = ""
         var fee: Fee = Fee.init()
         var msg: Array<Msg> = Array<Msg>()
         
@@ -34,12 +34,12 @@ public class ApiHistory {
         
         init() {}
         
-        init(_ dictionary: [String: Any]) {
+        init(_ dictionary: NSDictionary) {
             self.id = dictionary["id"] as? Int64 ?? -1
             self.height = dictionary["height"] as? Int64 ?? -1
             self.tx_hash = dictionary["tx_hash"] as? String ?? ""
             self.memo = dictionary["memo"] as? String ?? ""
-            self.timestamp = dictionary["timestamp"] as? String ?? ""
+            self.time = dictionary["time"] as? String ?? ""
             
             if let feedata = dictionary["fee"] as? [String : Any] {
                 self.fee = Fee.init(feedata)
@@ -52,15 +52,56 @@ public class ApiHistory {
             
             
             if let logs = dictionary["logs"] as? NSDictionary {
-                if let success = logs.object(forKey: "success") as? Bool {
-                    self.isSuccess = success
+                if let check = logs.object(forKey: "log") as? String {
+                    if (!check.isEmpty) {
+                        self.isSuccess = false
+                        return;
+                    }
                 }
             }
             
             if let logs = dictionary["logs"] as? Array<NSDictionary> {
                 for log in logs {
-                    if let success = log.object(forKey: "success") as? Bool {
-                        if(!success) {
+                    if let check = log.object(forKey: "log") as? String {
+                        if (!check.isEmpty) {
+                            self.isSuccess = false
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        
+        init(_ dictionary: [String: Any]) {
+            self.id = dictionary["id"] as? Int64 ?? -1
+            self.height = dictionary["height"] as? Int64 ?? -1
+            self.tx_hash = dictionary["tx_hash"] as? String ?? ""
+            self.memo = dictionary["memo"] as? String ?? ""
+            self.time = dictionary["time"] as? String ?? ""
+            
+            if let feedata = dictionary["fee"] as? [String : Any] {
+                self.fee = Fee.init(feedata)
+            }
+            
+            let rawMsgs = dictionary["messages"] as! Array<NSDictionary>
+            for rawMsg in rawMsgs {
+                self.msg.append(Msg(rawMsg as! [String : Any]))
+            }
+            
+            
+            if let logs = dictionary["logs"] as? NSDictionary {
+                if let check = logs.object(forKey: "log") as? String {
+                    if (!check.isEmpty) {
+                        self.isSuccess = false
+                        return;
+                    }
+                }
+            }
+            
+            if let logs = dictionary["logs"] as? Array<NSDictionary> {
+                for log in logs {
+                    if let check = log.object(forKey: "log") as? String {
+                        if (!check.isEmpty) {
                             self.isSuccess = false
                             return;
                         }

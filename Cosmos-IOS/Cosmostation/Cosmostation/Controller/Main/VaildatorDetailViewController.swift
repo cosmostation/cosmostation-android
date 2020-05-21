@@ -544,8 +544,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 let history = mApiHistories[indexPath.row]
                 cell?.txBlockLabel.text = String(history.height) + " block"
                 cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
-                cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.timestamp)
-                cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.timestamp)
+                cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
+                cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
                 if(history.isSuccess) {
                     cell?.txResultLabel.isHidden = true
                 } else {
@@ -915,12 +915,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             case .success(let res):
                 if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     self.mApiHistories.removeAll()
-                    guard let history = res as? [String : Any] else {
+                    guard let histories = res as? Array<NSDictionary> else {
                         print("no history!!")
                         return;
                     }
-                    let rawHistory = ApiHistory.init(history)
-                    self.mApiHistories = rawHistory.historyData
+                    for rawHistory in histories {
+                        self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
+                    }
                 }
                 
             case .failure(let error):

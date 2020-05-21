@@ -480,8 +480,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     func onSetKavaTestHistoryItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
         let history = mApiHistories[indexPath.row - 1]
-        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.timestamp)
-        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.timestamp)
+        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
+        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
         cell?.txBlockLabel.text = String(history.height) + " block"
         cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
         if (history.isSuccess) {
@@ -582,12 +582,13 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             case .success(let res):
                 if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     self.mApiHistories.removeAll()
-                    guard let history = res as? [String : Any] else {
+                    guard let histories = res as? Array<NSDictionary> else {
                         print("no history!!")
                         return;
                     }
-                    let rawHistory = ApiHistory.init(history)
-                    self.mApiHistories = rawHistory.historyData
+                    for rawHistory in histories {
+                        self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
+                    }
                     print("mApiHistories ", self.mApiHistories.count)
 
                     if (self.mApiHistories.count > 0) {
