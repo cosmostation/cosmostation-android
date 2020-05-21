@@ -441,23 +441,21 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_TEST_DEPUTY, self.account!.account_address)
             url = BNB_TEST_URL_CHECK_SWAPID + swapId
-            print("swapId ", swapId)
-            print("swapId url ", url)
+            if (SHOW_LOG) { print("swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             
         } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_DEPUTY, self.account!.account_address)
             url = KAVA_TEST_CHECK_SWAPID + swapId
-            print("swapId ", swapId)
-            print("swapId url ", url)
+            if (SHOW_LOG) { print("swapId url ", url) }
         }
 
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if(SHOW_LOG) { print("onFetchSwapId ", res) }
+                if (SHOW_LOG) { print("onFetchSwapId ", res) }
                 self.mSwapFetchCnt = self.mSwapFetchCnt - 1
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     if (self.mSwapFetchCnt > 0) {
@@ -473,9 +471,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 
                 
             case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchSwapId failure", error , " ", self.mSwapFetchCnt)
-                }
+                if(SHOW_LOG) { print("onFetchSwapId failure", error , " ", self.mSwapFetchCnt) }
                 self.mSwapFetchCnt = self.mSwapFetchCnt - 1
                 if (self.mSwapFetchCnt > 0) {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {

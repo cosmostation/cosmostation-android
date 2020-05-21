@@ -294,9 +294,7 @@ class MsgGenerator {
                 value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
             } catch { print(error) }
             
-            value.expected_income = sendCoin[0].amount + sendCoin[0].denom.lowercased()
             value.height_span = "500"
-            value.cross_chain = true
         }
         msg.type = KAVA_MSG_TYPE_CREATE_SWAP
         msg.value = value
