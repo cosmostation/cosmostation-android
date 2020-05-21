@@ -22,7 +22,7 @@
     <string name="url_api_kava_main" translatable="false"></string>
 
     <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet-6000.cosmostation.io/</string>
-    <string name="url_api_kava_test" translatable="false">https://api-kava-testnet-5000.cosmostation.io/</string>
+    <string name="url_api_kava_test" translatable="false">https://api-kava-testnet-6000.cosmostation.io/</string>
     <string name="url_test_kava_faucet" translatable="false">https://kava-testnet-6000.cosmostation.io</string>
 
     <string name="url_rest_iov_main" translatable="false">https://bnsapi.iov.one/</string>

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
+import java.util.ArrayList;
+
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -31,9 +33,17 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
             } else if (mChain.equals(BaseChain.BNB_MAIN)) {
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ResApiTxList> response = ApiClient.getKavaTestApi(mApp).getAccountTxs(mAddress).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().data;
+//                Response<ResApiTxList> response = ApiClient.getKavaTestApi(mApp).getAccountTxs(mAddress).execute();
+//                if (response.isSuccessful() && response.body() != null) {
+//                    mResult.resultData = response.body().data;
+//                    mResult.isSuccess = true;
+//                } else {
+//                    WLog.w("HistoryTask : NOk");
+//                }
+
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaTestApi(mApp).getAccountTxs(mAddress).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 } else {
                     WLog.w("HistoryTask : NOk");

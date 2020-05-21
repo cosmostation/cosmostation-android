@@ -46,7 +46,6 @@ import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
-import wannabit.io.cosmostaion.task.FetchTask.ApiAccountTxsHistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRedelegateStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
@@ -62,7 +61,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
@@ -1024,8 +1022,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.historySuccess.setVisibility(View.VISIBLE);
             }
             holder.historyType.setText(WDp.DpTxType(getBaseContext(), tx.messages, mAccount.address));
-            holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), tx.timestamp));
-            holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), tx.timestamp));
+            holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), tx.time));
+            holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), tx.time));
             holder.history_block.setText("" + tx.height + " block");
             holder.historyRoot.setOnClickListener(new View.OnClickListener() {
                 @Override

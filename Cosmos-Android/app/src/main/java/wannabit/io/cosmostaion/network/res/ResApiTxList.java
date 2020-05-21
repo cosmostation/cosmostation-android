@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.network.res;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -35,8 +37,8 @@ public class ResApiTxList {
         @SerializedName("memo")
         public String memo;
 
-        @SerializedName("timestamp")
-        public String timestamp;
+        @SerializedName("time")
+        public String time;
 
         @SerializedName("logs")
         @Expose
@@ -53,7 +55,7 @@ public class ResApiTxList {
             try {
                 ArrayList<Log> temp = new Gson().fromJson(new Gson().toJson(logs), new TypeToken<List<Log>>(){}.getType());
                 for (Log log:temp) {
-                    if(!log.success) {
+                    if (!TextUtils.isEmpty(log.log)) {
                         result = false;
                         break;
                     }

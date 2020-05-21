@@ -165,6 +165,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 mEmptyHistory.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
             }
+
         } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_HISTORY) {
             ArrayList<BnbHistory> hits = (ArrayList<BnbHistory>)result.resultData;
             if (hits != null && hits.size() > 0) {
@@ -342,8 +343,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.historySuccess.setVisibility(View.VISIBLE);
                 }
                 viewHolder.historyType.setText(WDp.DpTxType(getContext(), tx.messages, getMainActivity().mAccount.address));
-                viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), tx.timestamp));
-                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), tx.timestamp));
+                viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), tx.time));
+                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), tx.time));
                 viewHolder.history_block.setText("" + tx.height + " block");
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override

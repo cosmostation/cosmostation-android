@@ -756,8 +756,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     viewHolder.historySuccess.setVisibility(View.VISIBLE);
                 }
                 viewHolder.historyType.setText(WDp.DpTxType(getBaseContext(), tx.messages, mAccount.address));
-                viewHolder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), tx.timestamp));
-                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), tx.timestamp));
+                viewHolder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), tx.time));
+                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), tx.time));
                 viewHolder.history_block.setText("" + tx.height + " block");
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
