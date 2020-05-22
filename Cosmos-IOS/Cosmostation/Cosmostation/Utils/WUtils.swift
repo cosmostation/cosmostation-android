@@ -468,6 +468,9 @@ class WUtils {
             
         } else if (msgs[0].type == KAVA_MSG_TYPE_REFUND_SWAP) {
             resultMsg = NSLocalizedString("tx_kava_bep3_refund", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+            resultMsg = NSLocalizedString("tx_kava_incentive_reward", comment: "")
         }
         
         if(msgs.count > 1) {

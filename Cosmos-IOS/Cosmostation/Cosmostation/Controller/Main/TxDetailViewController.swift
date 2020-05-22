@@ -63,6 +63,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxHtlcCreateCell", bundle: nil), forCellReuseIdentifier: "TxHtlcCreateCell")
         self.txTableView.register(UINib(nibName: "TxHtlcClaimCell", bundle: nil), forCellReuseIdentifier: "TxHtlcClaimCell")
         self.txTableView.register(UINib(nibName: "TxHtlcRefundCell", bundle: nil), forCellReuseIdentifier: "TxHtlcRefundCell")
+        self.txTableView.register(UINib(nibName: "TxIncentiveTableViewCell", bundle: nil), forCellReuseIdentifier: "TxIncentiveTableViewCell")
         self.txTableView.register(UINib(nibName: "TxUnknownCell", bundle: nil), forCellReuseIdentifier: "TxUnknownCell")
         self.txTableView.rowHeight = UITableView.automaticDimension
         self.txTableView.estimatedRowHeight = UITableView.automaticDimension
@@ -207,6 +208,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
             } else if (msg?.type == KAVA_MSG_TYPE_REFUND_SWAP || msg?.type == BNB_MSG_TYPE_HTLC_REFUND) {
                 return onBindHtlcRefund(tableView, msg!)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+                return onBindIncentive(tableView, msg!)
                 
             } else {
                 let cell:TxUnknownCell? = tableView.dequeueReusableCell(withIdentifier:"TxUnknownCell") as? TxUnknownCell
@@ -648,6 +652,17 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.fromAddress.text = msg.value.from
             cell?.swapIdLabel.text = msg.value.swap_id
             
+        }
+        return cell!
+    }
+    
+    func onBindIncentive(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
+        let cell:TxIncentiveTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"TxIncentiveTableViewCell") as? TxIncentiveTableViewCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            cell?.senderLabel.text = msg.value.sender
+            cell?.coinTypeLabel.text = msg.value.denom
         }
         return cell!
     }

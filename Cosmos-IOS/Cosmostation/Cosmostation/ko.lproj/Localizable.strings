@@ -419,7 +419,8 @@
 "tx_kava_bep3_create" = "인터체인\n보내기";
 "tx_kava_bep3_claim" = "인터체인\n청구하기";
 "tx_kava_bep3_refund" = "인터체인\n환불하기";
-"tx_known" = "알수없음";
+"tx_kava_incentive_reward" = "Crypto Payday\n참여";
+"tx_known" = "알 수 없음";
 
 "chain_title_cosmos" = "COSMOS Hub";
 "chain_title_iris" = "IRIS Hub";

@@ -51,24 +51,35 @@ public class ApiHistory {
             }
             
             
+//            if let logs = dictionary["logs"] as? NSDictionary {
+//                if let check = logs.object(forKey: "log") as? String {
+//                    if (!check.isEmpty) {
+//                        self.isSuccess = false
+//                        return;
+//                    }
+//                }
+//            }
+//
+//            if let logs = dictionary["logs"] as? Array<NSDictionary> {
+//                for log in logs {
+//                    if let check = log.object(forKey: "log") as? String {
+//                        if (!check.isEmpty) {
+//                            self.isSuccess = false
+//                            return;
+//                        }
+//                    }
+//                }
+//            }
             if let logs = dictionary["logs"] as? NSDictionary {
-                if let check = logs.object(forKey: "log") as? String {
-                    if (!check.isEmpty) {
-                        self.isSuccess = false
-                        return;
-                    }
-                }
+                self.isSuccess = true
+            } else {
+                self.isSuccess = false
             }
             
             if let logs = dictionary["logs"] as? Array<NSDictionary> {
-                for log in logs {
-                    if let check = log.object(forKey: "log") as? String {
-                        if (!check.isEmpty) {
-                            self.isSuccess = false
-                            return;
-                        }
-                    }
-                }
+                self.isSuccess = true
+            } else {
+                self.isSuccess = false
             }
         }
         

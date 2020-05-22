@@ -414,7 +414,8 @@
 "tx_kava_bep3_create" = "Interchain\nSend";
 "tx_kava_bep3_claim" = "Interchain\nClaim";
 "tx_kava_bep3_refund" = "Interchain\nRefund";
-"tx_known" = "Known";
+"tx_kava_incentive_reward" = "Crypto Payday\nParticipate";
+"tx_known" = "Unknown";
 
 "chain_title_cosmos" = "COSMOS Hub";
 "chain_title_iris" = "IRIS Hub";

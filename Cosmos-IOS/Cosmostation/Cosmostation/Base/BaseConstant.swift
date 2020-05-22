@@ -328,6 +328,7 @@ let KAVA_MSG_TYPE_REPAYDEBT_CDP             = "cdp/MsgRepayDebt";
 let KAVA_MSG_TYPE_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
 let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
 let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
+let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 
 let BNB_TEST_DEPUTY                        = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h"
 let KAVA_TEST_DEPUTY                       = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl"

@@ -94,6 +94,7 @@ public struct Msg: Codable {
         var expected_income: String?
         var height_span: String?
         var cross_chain: Bool?
+        var denom: String?
         
         
         enum CodingKeys: String, CodingKey {
@@ -140,6 +141,7 @@ public struct Msg: Codable {
             case expected_income
             case height_span
             case cross_chain
+            case denom
             
         }
         
@@ -347,6 +349,9 @@ public struct Msg: Codable {
             }
             if let cross_chain =  dictionary["cross_chain"] as? Bool {
                 self.cross_chain = cross_chain
+            }
+            if let denom =  dictionary["denom"] as? String {
+                self.denom = denom
             }
         }
         
