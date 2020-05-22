@@ -240,7 +240,7 @@ public class ResTxInfo {
         String result = "";
         if (getEvent() != null) {
             for (Event event:getEvent()) {
-                if (event.type.equals("createAtomicSwap")) {
+                if (event.type.equals("create_atomic_swap")) {
                     for (EventAttribute attr:event.attributes) {
                         if (attr.key.equals("atomic_swap_id")) {
                             result = attr.value;
