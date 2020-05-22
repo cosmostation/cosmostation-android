@@ -323,6 +323,16 @@ class MsgGenerator {
         return msg
     }
     
+    static func genIncentiveReward(_ sender: String, _ denom: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+        value.denom = denom
+        msg.type = KAVA_MSG_TYPE_INCENTIVE_REWARD
+        msg.value = value
+        return msg
+    }
+    
     
     static func genSignedTx(_ msgs: Array<Msg>, _ fee: Fee, _ memo: String, _ signatures: Array<Signature>) -> StdTx {
         let stdTx = StdTx.init()
