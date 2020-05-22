@@ -351,13 +351,13 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             if (tally != null) {
                 holder.itemYesProgress.setProgress(tally.getYesPer().intValue());
                 holder.itemNoProgress.setProgress(tally.getNoPer().intValue());
-                holder.itemVetoProgress.setProgress(tally.getAbstainPer().intValue());
-                holder.itemAbstainProgress.setProgress(tally.getVetoPer().intValue());
+                holder.itemVetoProgress.setProgress(tally.getVetoPer().intValue());
+                holder.itemAbstainProgress.setProgress(tally.getAbstainPer().intValue());
 
                 holder.itemYesRate.setText(WDp.getDpString(tally.getYesPer().toPlainString() + "%", 3));
                 holder.itemNoRate.setText(WDp.getDpString(tally.getNoPer().toPlainString() + "%", 3));
-                holder.itemVetoRate.setText(WDp.getDpString(tally.getAbstainPer().toPlainString() + "%", 3));
-                holder.itemAbstainRate.setText(WDp.getDpString(tally.getVetoPer().toPlainString() + "%", 3));
+                holder.itemVetoRate.setText(WDp.getDpString(tally.getVetoPer().toPlainString() + "%", 3));
+                holder.itemAbstainRate.setText(WDp.getDpString(tally.getAbstainPer().toPlainString() + "%", 3));
 
                 holder.itemYesCnt.setText(""+ WUtil.getVoterTypeCnt(mVotes, Vote.OPTION_YES));
                 holder.itemNoCnt.setText(""+WUtil.getVoterTypeCnt(mVotes, Vote.OPTION_NO));
