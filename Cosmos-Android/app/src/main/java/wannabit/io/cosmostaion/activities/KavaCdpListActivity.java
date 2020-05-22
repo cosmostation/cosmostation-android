@@ -51,7 +51,7 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
 
     public ResCdpParam.Result                           mCdpParam;
     public HashMap<String, ResKavaMarketPrice.Result>   mKavaTokenPrices = new HashMap<>();
-    public HashMap<String, ResCdpOwnerStatus.Result>    mMyOwenCdps = new HashMap<>();
+    public HashMap<String, ResCdpOwnerStatus.MyCDP>    mMyOwenCdps = new HashMap<>();
 
     //not need yet!!!
     public HashMap<String, ArrayList<ResCdpDepositStatus.Result>>      mMyDepositedCdp;
@@ -163,7 +163,7 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
             }
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
             if (result.isSuccess && result.resultData != null) {
-                final ResCdpOwnerStatus.Result myCdp = (ResCdpOwnerStatus.Result)result.resultData;
+                final ResCdpOwnerStatus.MyCDP myCdp = (ResCdpOwnerStatus.MyCDP)result.resultData;
                 mMyOwenCdps.put(result.resultData2, myCdp);
             }
         }

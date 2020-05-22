@@ -74,6 +74,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_REFUN
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
@@ -279,6 +280,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private static final int TYPE_TX_HTLC_CREATE = 16;
         private static final int TYPE_TX_HTLC_CLAIM = 17;
         private static final int TYPE_TX_HTLC_REFUND = 18;
+        private static final int TYPE_TX_INCENTIVE_REWARD = 19;
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -322,6 +324,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxClaimHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
             } else if (viewType == TYPE_TX_HTLC_REFUND) {
                 return new TxRefundHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_refund, viewGroup, false));
+            } else if (viewType == TYPE_TX_INCENTIVE_REWARD) {
+                return new TxIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_incentive_reward, viewGroup, false));
             }
 
             return new TxUnKnownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
@@ -367,6 +371,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindClaimHTLC(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HTLC_REFUND) {
                 onBindRefundHTLC(viewHolder, position);
+            } else if (getItemViewType(position) == TYPE_TX_INCENTIVE_REWARD) {
+                onBindIncentive(viewHolder, position);
             } else {
                 onBindUnKnown(viewHolder, mResTxInfo.getMsg(position - 1));
             }
@@ -468,6 +474,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
                         return TYPE_TX_HTLC_REFUND;
+
+                    } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_INCENTIVE_REWARD)) {
+                        return TYPE_TX_INCENTIVE_REWARD;
 
                     }
                     return TYPE_TX_UNKNOWN;
@@ -875,6 +884,10 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemRecipient.setText(msg.value.recipient_other_chain);
                 holder.itemRandomHash.setText(msg.value.random_number_hash);
                 holder.itemExpectIncome.setText(msg.value.expected_income);
+                if (mResKavaSwapInfo != null) {
+                    WLog.w("mResKavaSwapInfo " +mResKavaSwapInfo.result.status);
+                }
+
                 holder.itemStatus.setText(WDp.getKavaHtlcStatus(getBaseContext(), mResTxInfo, mResKavaSwapInfo));
                 if (mResKavaSwapInfo != null && mResKavaSwapInfo.result.status.equals(STATUS_EXPIRED)) {
                     mRefundBtn.setVisibility(View.VISIBLE);
@@ -957,6 +970,17 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 final Msg msg = mResBnbTxInfo.getMsg(position - 1);
                 holder.itemFromAddr.setText(msg.value.from);
                 holder.itemSwapId.setText(msg.value.swap_id);
+            }
+        }
+
+        private void onBindIncentive(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxIncentiveHolder holder = (TxIncentiveHolder)viewHolder;
+            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemSender.setText(msg.value.sender);
+                holder.itemDenom.setText(msg.value.denom);
+
             }
         }
 
@@ -1381,6 +1405,20 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
+        public class TxIncentiveHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemSender, itemDenom;
+
+            public TxIncentiveHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemSender = itemView.findViewById(R.id.tx_incentive_sender);
+                itemDenom = itemView.findViewById(R.id.tx_incentive_denom);
+            }
+        }
+
         public class TxUnKnownHolder extends RecyclerView.ViewHolder {
             ImageView itemUnknownImg;
             TextView itemUnknownTitle;
@@ -1598,9 +1636,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     WLog.w("onFetchTx " + response.toString());
                     if (response.isSuccessful() && response.body() != null) {
                         mResTxInfo = response.body();
-                        if (mResTxInfo.getMsgType(0) .equals(KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
+                        WLog.w(" KAVA_MSG_TYPE_BEP3_CREATE_SWAP " +mResTxInfo.getMsgType(0));
+                        if (mResTxInfo.getMsgType(0).equals(KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
+                            WLog.w("11111 " + mResTxInfo.simpleSwapId());
                             onFetchHtlcStatus(mResTxInfo.simpleSwapId());
                         } else {
+                            WLog.w("22222");
                             onUpdateView();
                         }
 
@@ -1632,6 +1673,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
 
     private void onFetchHtlcStatus(String swapId) {
+        WLog.w("onFetchHtlcStatus "  +swapId);
         if (!TextUtils.isEmpty(swapId)) {
             if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
 
@@ -1640,7 +1682,10 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
                         if (response.isSuccessful() && response.body() != null) {
+                            WLog.w("6666");
                             mResKavaSwapInfo = response.body();
+                        } else {
+                            WLog.w("7777");
                         }
                         onUpdateView();
                     }

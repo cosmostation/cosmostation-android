@@ -43,7 +43,7 @@ public interface BinanceChain {
     @GET("/api/v1/tx/{hash}")
     Call<ResBnbTxInfo> getSearchTx(@Path("hash") String hash, @Query("format") String format);
 
-    @GET("api/v1/atomic-swaps/{swapId}")
+    @GET("/api/v1/atomic-swaps/{swapId}")
     Call<ResBnbSwapInfo> getSwapById(@Path("swapId") String swapId);
 
     @GET("/claim/{address}")

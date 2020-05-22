@@ -1016,7 +1016,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             } else {
                 tx = mApiTxHistory.get(position - 3);
             }
-            if (tx.isSuccess()) {
+            if (tx.logs != null) {
                 holder.historySuccess.setVisibility(View.GONE);
             } else {
                 holder.historySuccess.setVisibility(View.VISIBLE);

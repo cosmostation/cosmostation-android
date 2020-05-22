@@ -173,6 +173,10 @@ public class Msg {
         @SerializedName("cdp_denom")
         public String cdp_denom;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("denom")
+        public String denom;
+
 
 
         @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -113,6 +113,7 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_HTLC_REFUND                     = 2071;
     public final static int TASK_GEN_TX_BNB_HTLC_REFUND                 = 2072;
     public final static int TASK_FETCH_MY_VOTE                          = 2073;
+    public final static int TASK_FETCH_KAVA_INCENTIVE_PARAM             = 2074;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -175,6 +176,7 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_BEP3_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "bep3/MsgClaimAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
+    public final static String KAVA_MSG_TYPE_INCENTIVE_REWARD               = "incentive/MsgClaimReward";
 
 
     public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";
@@ -237,6 +239,7 @@ public class BaseConstant {
     public final static int TX_TYPE_KAVA_BEP3_CREATE        = 3024;
     public final static int TX_TYPE_KAVA_BEP3_CLAIM         = 3025;
     public final static int TX_TYPE_KAVA_BEP3_REFUND        = 3026;
+    public final static int TX_TYPE_KAVA_INCENTIVE_REWARD   = 3027;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;

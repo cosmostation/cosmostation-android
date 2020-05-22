@@ -345,7 +345,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
         return getSActivity().getCParam();
     }
 
-    private ResCdpOwnerStatus.Result getOwenCdp() {
+    private ResCdpOwnerStatus.MyCDP getOwenCdp() {
         return getSActivity().mMyOwenCdp;
     }
 

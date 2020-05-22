@@ -49,6 +49,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
@@ -91,6 +92,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mUndelegateMoniker0, mUndelegateMoniker1, mUndelegateMoniker2, mUndelegateMoniker3, mUndelegateMoniker4;
     private TextView            mUndelegateAmount0, mUndelegateAmount1, mUndelegateAmount2, mUndelegateAmount3, mUndelegateAmount4;
     private TextView            mUndelegateTime0, mUndelegateTime1, mUndelegateTime2, mUndelegateTime3, mUndelegateTime4;
+
+    private CardView            mKavaIncentiveCard;
+    private RelativeLayout      mBtnParticipate;
+    private TextView            mParticipateDone;
 
     private RelativeLayout      mPriceLayer;
     private TextView            mMarket;
@@ -203,6 +208,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mUndelegateTime3        = mUndelegateCard.findViewById(R.id.undelegate_detail_time3);
         mUndelegateTime4        = mUndelegateCard.findViewById(R.id.undelegate_detail_time4);
 
+        mKavaIncentiveCard      = rootView.findViewById(R.id.card_kava_incentive);
+        mBtnParticipate         = mKavaIncentiveCard.findViewById(R.id.btn_kava_incentive);
+        mParticipateDone        = mKavaIncentiveCard.findViewById(R.id.kava_incentive_done);
+
         mPriceLayer             = rootView.findViewById(R.id.price_layer);
         mMarket                 = rootView.findViewById(R.id.dash_price_market);
         mPerPrice               = rootView.findViewById(R.id.dash_per_price);
@@ -263,6 +272,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBuyCoinBtn.setOnClickListener(this);
         mBtnIovDeposit.setOnClickListener(this);
         mBtnIovNameService.setOnClickListener(this);
+        mBtnParticipate.setOnClickListener(this);
 
         return rootView;
     }
@@ -318,7 +328,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void onUpdateView() {
-        if(getMainActivity() == null || getMainActivity().mAccount == null) return;
+        if (getMainActivity() == null || getMainActivity().mAccount == null) return;
 
         mAddress.setText(getMainActivity().mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -660,6 +670,13 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mUndelegateCard.setVisibility(View.GONE);
         }
 
+        //Show Kava Incentive cards!!!
+        if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            mKavaIncentiveCard.setVisibility(View.VISIBLE);
+        } else {
+            mKavaIncentiveCard.setVisibility(View.GONE);
+        }
+
         getMainActivity().onUpdateAccountListAdapter();
     }
 
@@ -835,7 +852,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (v.equals(mBtnKavaCdp)) {
-            //TODO check dao's mKavaCdpParams & mKavaTokenPrices
             startActivity(new Intent(getMainActivity(), KavaCdpListActivity.class));
 
         } else if (v.equals(mBtnIovDeposit)) {
@@ -843,6 +859,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mBtnIovNameService)) {
             Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+
+        } else if (v.equals(mBtnParticipate)) {
+            WLog.w("mBtnParticipate");
+
         }
 
     }

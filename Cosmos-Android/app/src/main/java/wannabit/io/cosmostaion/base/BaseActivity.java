@@ -72,8 +72,10 @@ import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
+import wannabit.io.cosmostaion.network.res.ResIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResIovAddressInfo;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
@@ -88,7 +90,9 @@ import wannabit.io.cosmostaion.task.FetchTask.IovBalanceTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisPoolTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisTokenListTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
@@ -113,6 +117,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_RELAY_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_SEND_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_SEND_MIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -490,7 +496,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mTaskCount = 10;
+            mTaskCount = 11;
 
             new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -505,7 +511,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
+            new KavaIncentiveParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mTaskCount = 1;
@@ -641,8 +647,23 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 final ResKavaMarketPrice.Result price = (ResKavaMarketPrice.Result)result.resultData;
                 getBaseDao().mKavaTokenPrices.put(price.getDenom(), price);
             }
-        }
 
+        } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
+            getBaseDao().mKavaIncentiveParam = (ResIncentiveParam.IncentiveParam)result.resultData;
+            if (getBaseDao().mKavaIncentiveParam != null && getBaseDao().mKavaIncentiveParam.isActive()) {
+                getBaseDao().mMyOwenCdp.clear();
+                mTaskCount = mTaskCount + getBaseDao().mKavaIncentiveParam.rewards.size();
+                for (ResIncentiveParam.IncentiveReward  reward:getBaseDao().mKavaIncentiveParam.rewards) {
+                    new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, reward.denom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
+            }
+
+        } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mMyOwenCdp.add((ResCdpOwnerStatus.MyCDP)result.resultData);
+                // TODO fetch each incentive reward claim status for each denom.. so can update incentive card status!!
+            }
+        }
 
         mMyValidators.clear();
         if (mTaskCount == 0 &&

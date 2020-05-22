@@ -65,7 +65,7 @@ public class WithdrawCdpActivity extends BaseActivity {
 
     public ResCdpParam.Result           mCdpParam;
     public ResKavaMarketPrice.Result    mTokenPrice;
-    public ResCdpOwnerStatus.Result     mMyOwenCdp;
+    public ResCdpOwnerStatus.MyCDP      mMyOwenCdp;
     public ResCdpDepositStatus          mMyDeposits;
 
     public BigDecimal                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mTotalDepositAmount;
@@ -272,7 +272,7 @@ public class WithdrawCdpActivity extends BaseActivity {
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
             if (result.isSuccess && result.resultData != null) {
-                mMyOwenCdp = (ResCdpOwnerStatus.Result)result.resultData;
+                mMyOwenCdp = (ResCdpOwnerStatus.MyCDP)result.resultData;
                 mTaskCount = mTaskCount + 1;
                 new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mMarketDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }

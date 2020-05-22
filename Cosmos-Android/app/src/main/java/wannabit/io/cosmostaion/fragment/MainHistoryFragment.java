@@ -337,7 +337,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
             } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);
-                if (tx.isSuccess()) {
+                if (tx.logs != null) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
                 } else {
                     viewHolder.historySuccess.setVisibility(View.VISIBLE);

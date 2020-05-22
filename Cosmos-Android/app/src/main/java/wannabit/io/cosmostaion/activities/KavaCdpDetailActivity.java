@@ -119,7 +119,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
     private ResCdpParam.Result          mCdpParam;
     private ResKavaMarketPrice.Result   mKavaTokenPrice;
-    private ResCdpOwnerStatus.Result    mMyOwenCdp;
+    private ResCdpOwnerStatus.MyCDP     mMyOwenCdp;
     private ResCdpDepositStatus         mMyDeposits;
 
     private String                      mMarketDenom;
@@ -613,7 +613,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
             if (result.isSuccess && result.resultData != null) {
-                mMyOwenCdp = (ResCdpOwnerStatus.Result)result.resultData;
+                mMyOwenCdp = (ResCdpOwnerStatus.MyCDP)result.resultData;
                 mTaskCount = mTaskCount + 1;
                 new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mMarketDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }

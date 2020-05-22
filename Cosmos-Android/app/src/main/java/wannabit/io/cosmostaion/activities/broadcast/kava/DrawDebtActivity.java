@@ -65,7 +65,7 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
 
     public ResCdpParam.Result           mCdpParam;
     public ResKavaMarketPrice.Result    mTokenPrice;
-    public ResCdpOwnerStatus.Result     mMyOwenCdp;
+    public ResCdpOwnerStatus.MyCDP      mMyOwenCdp;
     private ResCdpDepositStatus         mMyDeposits;
 
     public BigDecimal                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mMoreAddedLoanAmount;
@@ -268,7 +268,7 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
             if (result.isSuccess && result.resultData != null) {
-                mMyOwenCdp = (ResCdpOwnerStatus.Result)result.resultData;
+                mMyOwenCdp = (ResCdpOwnerStatus.MyCDP)result.resultData;
                 mTaskCount = mTaskCount + 1;
                 new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mMarketDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }

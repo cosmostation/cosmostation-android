@@ -750,7 +750,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
             } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);
-                if (tx.isSuccess()) {
+                if (tx.logs != null) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
                 } else {
                     viewHolder.historySuccess.setVisibility(View.VISIBLE);

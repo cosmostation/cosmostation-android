@@ -23,8 +23,10 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
+import wannabit.io.cosmostaion.network.res.ResIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -46,7 +48,9 @@ public class BaseData {
 
     //COMMON DATA
     public ResCdpParam.Result                               mKavaCdpParams;
+    public ArrayList<ResCdpOwnerStatus.MyCDP>               mMyOwenCdp = new ArrayList<>();
     public HashMap<String, ResKavaMarketPrice.Result>       mKavaTokenPrices = new HashMap<>();
+    public ResIncentiveParam.IncentiveParam                 mKavaIncentiveParam;
 
     public BaseData(BaseApplication apps) {
         this.mApp = apps;

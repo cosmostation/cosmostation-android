@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpList;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
@@ -140,6 +141,11 @@ public interface KavaChain {
 
     @GET("/bep3/swaps")
     Call<String> getSwaps();
+
+
+
+    @GET("/incentive/parameters")
+    Call<ResIncentiveParam> getIncentiveParams();
 
 
 

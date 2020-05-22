@@ -43,7 +43,7 @@ public class CdpMyFragment extends BaseFragment {
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
 
-    private ArrayList<ResCdpOwnerStatus.Result> mMyOwenCdp = new ArrayList<>();
+    private ArrayList<ResCdpOwnerStatus.MyCDP> mMyOwenCdp = new ArrayList<>();
     private MyCdpAdapter mMyCdpAdapter;
 
     public static CdpMyFragment newInstance(Bundle bundle) {
@@ -86,7 +86,7 @@ public class CdpMyFragment extends BaseFragment {
     @Override
     public void onRefreshTab() {
         if(!isAdded()) return;
-        mMyOwenCdp = new ArrayList<ResCdpOwnerStatus.Result>(getMainActivity().mMyOwenCdps.values());
+        mMyOwenCdp = new ArrayList<ResCdpOwnerStatus.MyCDP>(getMainActivity().mMyOwenCdps.values());
         onSortMyCdp(mMyOwenCdp);
         mMyCdpAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
@@ -119,7 +119,7 @@ public class CdpMyFragment extends BaseFragment {
 
             } else {
                 final MyCdpHolder holder = (MyCdpHolder)viewHolder;
-                final ResCdpOwnerStatus.Result status = mMyOwenCdp.get(position);
+                final ResCdpOwnerStatus.MyCDP status = mMyOwenCdp.get(position);
                 final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(status.getDenom());
                 final int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
                 final ResCdpParam.KavaCollateralParam param = getMainActivity().mCdpParam.getCollateralParamByDenom(status.getDenom());
@@ -229,10 +229,10 @@ public class CdpMyFragment extends BaseFragment {
     }
 
 
-    public static void onSortMyCdp(ArrayList<ResCdpOwnerStatus.Result> cdps) {
-        Collections.sort(cdps, new Comparator<ResCdpOwnerStatus.Result>() {
+    public static void onSortMyCdp(ArrayList<ResCdpOwnerStatus.MyCDP> cdps) {
+        Collections.sort(cdps, new Comparator<ResCdpOwnerStatus.MyCDP>() {
             @Override
-            public int compare(ResCdpOwnerStatus.Result o1, ResCdpOwnerStatus.Result o2) {
+            public int compare(ResCdpOwnerStatus.MyCDP o1, ResCdpOwnerStatus.MyCDP o2) {
                 return o1.cdp.getCdpId() > o2.cdp.getCdpId() ? -1 : 1;
             }
         });

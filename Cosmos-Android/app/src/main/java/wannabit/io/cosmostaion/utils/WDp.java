@@ -928,6 +928,9 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
             result = BaseConstant.TX_TYPE_KAVA_BEP3_REFUND;
 
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD)) {
+            result = BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD;
+
         }
 
         return result;
@@ -1041,6 +1044,10 @@ public class WDp {
 
             case BaseConstant.TX_TYPE_KAVA_BEP3_REFUND:
                 result = c.getString(R.string.tx_kava_bep3_refund);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD:
+                result = c.getString(R.string.tx_kava_incentive_reward);
                 break;
 
             case BaseConstant.TX_TYPE_UNKNOWN:

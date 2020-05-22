@@ -451,8 +451,6 @@ public class MsgGenerator {
         return result;
     }
 
-
-
     public static HtltReq getBnbHtlcCreateMsg(BaseChain fromChain, BaseChain toChain, Account fromAccount, Account toAccount, ArrayList<Coin> sendCoins, long timestamp, byte[] originData) {
         HtltReq htltReq = new HtltReq();
         Coin toSendCoin = sendCoins.get(0);
@@ -487,6 +485,20 @@ public class MsgGenerator {
         }
 
         return htltReq;
+    }
+
+    public static Msg genIncentiveReward(String from, String denom, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            value.sender = from;
+            value.denom = denom;
+
+            result.type = BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD;
+            result.value = value;
+
+        }
+        return result;
     }
 
 

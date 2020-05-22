@@ -19,10 +19,10 @@ public class ResCdpOwnerStatus {
     public String height;
 
     @SerializedName("result")
-    public Result result;
+    public MyCDP result;
 
 
-    public class Result {
+    public class MyCDP {
 
         @SerializedName("cdp")
         public KavaCDP cdp;
