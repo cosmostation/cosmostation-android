@@ -37,6 +37,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletIrisCell", bundle: nil), forCellReuseIdentifier: "WalletIrisCell")
         self.walletTableView.register(UINib(nibName: "WalletBnbCell", bundle: nil), forCellReuseIdentifier: "WalletBnbCell")
         self.walletTableView.register(UINib(nibName: "WalletKavaCell", bundle: nil), forCellReuseIdentifier: "WalletKavaCell")
+        self.walletTableView.register(UINib(nibName: "WalletKavaIncentiveCell", bundle: nil), forCellReuseIdentifier: "WalletKavaIncentiveCell")
         self.walletTableView.register(UINib(nibName: "WalletIovCell", bundle: nil), forCellReuseIdentifier: "WalletIovCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
@@ -156,11 +157,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return 6;
         } else if  (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             return 5;
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN ||
@@ -178,8 +179,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetIrisItem(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return onSetBnbItem(tableView, indexPath);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             return onSetKavaItem(tableView, indexPath);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            return onSetKavaTestItem(tableView, indexPath);
         } else {
             return onSetIovItems(tableView, indexPath);
         }
@@ -533,6 +536,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 1) {
             let cell:WalletKavaCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaCell") as? WalletKavaCell
             let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.totalAmount.font!, 6, 6)
             cell?.totalValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.totalValue.font)
             cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
@@ -546,20 +550,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionVote = {
                 self.onClickVoteList()
             }
-
-            cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
-            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                cell?.cdpBtn.isHidden = true
-                cell?.nonCdpConstarint.priority = .defaultHigh
-                cell?.cdpConstraint.priority = .defaultLow
-            } else {
-                cell?.cdpBtn.isHidden = false
-                cell?.nonCdpConstarint.priority = .defaultLow
-                cell?.cdpConstraint.priority = .defaultHigh
-                cell?.actionCdp = {
-                    self.onClickCdp()
-                }
-            }
+            cell?.cdpBtn.isHidden = true
+            cell?.nonCdpConstarint.priority = .defaultHigh
+            cell?.cdpConstraint.priority = .defaultLow
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalKava.multiplying(byPowerOf10: -6).stringValue)
             return cell!
             
@@ -578,31 +571,130 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.updownImg.image = nil
                 cell?.updownPercent.text = ""
             }
-            
-            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                cell?.buySeparator.isHidden = false
-                cell?.buyBtn.isHidden = false
-                cell?.buyBtn.setTitle(NSLocalizedString("buy_kava", comment: ""), for: .normal)
-                cell?.buyConstraint.priority = .defaultHigh
-                cell?.noBuyConstraint.priority = .defaultLow
-                cell?.actionBuy = {
-                    self.onClickBuyCoin()
-                }
-            } else {
-                cell?.buySeparator.isHidden = true
-                cell?.buyBtn.isHidden = true
-                cell?.buyConstraint.priority = .defaultLow
-                cell?.noBuyConstraint.priority = .defaultHigh
-                cell?.actionBuy = { }
+            cell?.buySeparator.isHidden = false
+            cell?.buyBtn.isHidden = false
+            cell?.buyBtn.setTitle(NSLocalizedString("buy_kava", comment: ""), for: .normal)
+            cell?.buyConstraint.priority = .defaultHigh
+            cell?.noBuyConstraint.priority = .defaultLow
+            cell?.actionBuy = {
+                self.onClickBuyCoin()
             }
-            
             cell?.actionTapPricel = {
                 self.onClickMarketInfo()
             }
-            
             return cell!
             
         } else if (indexPath.row == 3) {
+            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            if (mainTabVC!.mInflation != nil) {
+                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
+            }
+            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
+                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            }
+            return cell!
+            
+        } else {
+            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.guideImg.image = UIImage(named: "kavamainImg")
+            cell?.guideTitle.text = NSLocalizedString("send_guide_title_kava", comment: "")
+            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_kava", comment: "")
+            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_kava", comment: ""), for: .normal)
+            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_kava", comment: ""), for: .normal)
+            cell?.actionGuide1 = {
+                self.onClickGuide1()
+            }
+            cell?.actionGuide2 = {
+                self.onClickGuide2()
+            }
+            return cell!
+        }
+        
+    }
+    
+    func onSetKavaTestItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            if (mainTabVC.mAccount.account_has_private) {
+                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
+                cell?.keyState.tintColor = COLOR_KAVA
+            }
+            cell?.dpAddress.text = mainTabVC.mAccount.account_address
+            cell?.dpAddress.adjustsFontSizeToFitWidth = true
+            cell?.actionShare = {
+                self.onClickActionShare()
+            }
+            cell?.actionWebLink = {
+                self.onClickActionLink()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell:WalletKavaCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaCell") as? WalletKavaCell
+            let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.totalAmount.font!, 6, 6)
+            cell?.totalValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
+            cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
+            cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
+            cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
+            cell?.vestingAmount.attributedText = WUtils.dpVestingCoin(mainTabVC.mBalances, cell!.vestingAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
+            cell?.actionDelegate = {
+                self.onClickValidatorList()
+            }
+            cell?.actionVote = {
+                self.onClickVoteList()
+            }
+            cell?.cdpBtn.isHidden = false
+            cell?.nonCdpConstarint.priority = .defaultLow
+            cell?.cdpConstraint.priority = .defaultHigh
+            cell?.actionCdp = {
+                self.onClickCdp()
+            }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalKava.multiplying(byPowerOf10: -6).stringValue)
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell:WalletKavaIncentiveCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaIncentiveCell") as? WalletKavaIncentiveCell
+            //TODO check show or hide btn
+            
+//            cell?.btnParticipate.isHidden = true
+//            cell?.participateDone.isHidden = false
+//            cell?.BtnConstraint?.isActive = false
+//            cell?.LabelConstraint?.isActive = true
+            
+            cell?.actionParticipate = {
+                print("start action!!")
+            }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
+            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                cell?.updownImg.image = UIImage(named: "priceUp")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                cell?.updownImg.image = UIImage(named: "priceDown")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else {
+                cell?.updownImg.image = nil
+                cell?.updownPercent.text = ""
+            }
+            cell?.buySeparator.isHidden = true
+            cell?.buyBtn.isHidden = true
+            cell?.buyConstraint.priority = .defaultLow
+            cell?.noBuyConstraint.priority = .defaultHigh
+            cell?.actionBuy = { }
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 4) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             if (mainTabVC!.mInflation != nil) {
                 cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)

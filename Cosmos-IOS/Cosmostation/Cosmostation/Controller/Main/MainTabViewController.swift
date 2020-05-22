@@ -233,7 +233,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchPriceTic(true)
             
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            self.mFetchCnt = 12
+            self.mFetchCnt = 13
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -249,6 +249,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             onFetchCdpParam(mAccount)
             onFetchPriceParam()
+            onFetchIncentiveParam()
             
         } else if (mChainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             self.mFetchCnt = 1
@@ -1065,6 +1066,32 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchOwenCdp ", error) }
             }
+            self.onFetchFinished()
+        }
+    }
+    
+    
+    func onFetchIncentiveParam() {
+        var url: String?
+        if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = ""
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_INCENTIVE_PARAM
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let _ = responseData.object(forKey: "height") as? String else {
+                            self.onFetchFinished()
+                            return
+                    }
+                    BaseData.instance.mIncentiveParam = KavaIncentiveParam.init(responseData).result
+                    
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchIncentiveParam ", error) }
+                }
             self.onFetchFinished()
         }
     }

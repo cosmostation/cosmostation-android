@@ -20,6 +20,7 @@ final class BaseData : NSObject{
     var mCdpParam = CdpParam.init()
     var mKavaPrice = [String:KavaTokenPrice]()
     var mMyCdps = Array<CdpOwen>()
+    var mIncentiveParam = KavaIncentiveParam.IncentiveParam.init()
     
     public override init() {
         super.init();

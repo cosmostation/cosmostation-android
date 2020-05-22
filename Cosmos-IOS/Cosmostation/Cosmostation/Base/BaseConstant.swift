@@ -159,6 +159,9 @@ let KAVA_TEST_CDP_DEPOSIT               = KAVA_TEST_URL + "cdp/cdps/cdp/deposits
 let KAVA_TEST_TOKEN_PRICE_PARAM         = KAVA_TEST_URL + "pricefeed/parameters";
 let KAVA_TEST_TOKEN_PRICE               = KAVA_TEST_URL + "pricefeed/price/";
 let KAVA_TEST_CHECK_SWAPID              = KAVA_TEST_URL + "bep3/swap/";
+let KAVA_TEST_INCENTIVE_PARAM           = KAVA_TEST_URL + "/incentive/parameters";
+
+
 
 let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
