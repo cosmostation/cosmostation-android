@@ -51,7 +51,7 @@
             android:id="@+id/kava_incentive_done"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_8"
             android:gravity="right"
             style="@style/font_ss_14_photon"
             android:text="@string/str_kava_participate_done"

@@ -534,7 +534,7 @@
     <string name="str_btn_text_withdraw">Withdraw %1$s</string>
     <string name="str_my_available_assets">My Available Assets</string>
     <string name="str_kava_incentive_title">Crypto Payday</string>
-    <string name="str_kava_incentive_msg">BNB holder who mint the most USDX earn the most minter rewards! Every Wendesday at 14:00 UTC</string>
+    <string name="str_kava_incentive_msg">BNB holders who mint the most USDX earn the most minter rewards! Every Wendesday at 14:00 UTC</string>
     <string name="str_kava_participate">Participate</string>
     <string name="str_kava_participate_done">Participation Complete!!</string>
 

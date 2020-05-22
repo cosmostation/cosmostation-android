@@ -884,10 +884,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemRecipient.setText(msg.value.recipient_other_chain);
                 holder.itemRandomHash.setText(msg.value.random_number_hash);
                 holder.itemExpectIncome.setText(msg.value.expected_income);
-                if (mResKavaSwapInfo != null) {
-                    WLog.w("mResKavaSwapInfo " +mResKavaSwapInfo.result.status);
-                }
-
                 holder.itemStatus.setText(WDp.getKavaHtlcStatus(getBaseContext(), mResTxInfo, mResKavaSwapInfo));
                 if (mResKavaSwapInfo != null && mResKavaSwapInfo.result.status.equals(STATUS_EXPIRED)) {
                     mRefundBtn.setVisibility(View.VISIBLE);
@@ -1633,15 +1629,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
                     if (isFinishing()) return;
-                    WLog.w("onFetchTx " + response.toString());
                     if (response.isSuccessful() && response.body() != null) {
                         mResTxInfo = response.body();
-                        WLog.w(" KAVA_MSG_TYPE_BEP3_CREATE_SWAP " +mResTxInfo.getMsgType(0));
                         if (mResTxInfo.getMsgType(0).equals(KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
-                            WLog.w("11111 " + mResTxInfo.simpleSwapId());
                             onFetchHtlcStatus(mResTxInfo.simpleSwapId());
                         } else {
-                            WLog.w("22222");
                             onUpdateView();
                         }
 
@@ -1673,7 +1665,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
 
     private void onFetchHtlcStatus(String swapId) {
-        WLog.w("onFetchHtlcStatus "  +swapId);
+//        WLog.w("onFetchHtlcStatus "  +swapId);
         if (!TextUtils.isEmpty(swapId)) {
             if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
 
@@ -1682,10 +1674,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            WLog.w("6666");
                             mResKavaSwapInfo = response.body();
-                        } else {
-                            WLog.w("7777");
                         }
                         onUpdateView();
                     }
