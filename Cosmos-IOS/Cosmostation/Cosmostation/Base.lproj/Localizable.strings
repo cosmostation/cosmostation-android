@@ -237,6 +237,10 @@
 "htlc_refund_step_1" = "Insert memo (optional)";
 "htlc_refund_step_2" = "Select transaction fee";
 "htlc_refund_step_3" = "Check transaction detail";
+"incentive_participate_step_0" = "Incentive reward claim";
+"incentive_participate_step_1" = "Insert memo (optional)";
+"incentive_participate_step_2" = "Select transaction fee";
+"incentive_participate_step_3" = "Check transaction detail";
 
 "clear_all" = "Clear All";
 "delete" = "Delete";
@@ -289,6 +293,7 @@
 "title_repay_cdp" = "REPAY USDX";
 "title_interchain_swap" = "Interchain Send & Claim";
 "title_interchain_refund" = "Interchain Refund";
+"title_participate_incentive" = "Crypto Payday Participate";
 
 "proposal_type_basic" = "Basic";
 "proposal_type_parameter" = "Parameter";

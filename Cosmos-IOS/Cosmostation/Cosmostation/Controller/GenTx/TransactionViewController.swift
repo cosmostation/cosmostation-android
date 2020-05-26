@@ -128,6 +128,11 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_interchain_refund", comment: "")
             
+        } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+            stepDescription.text = NSLocalizedString("incentive_participate_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_participate_incentive", comment: "")
+            
         }
         
         self.titleLabel.adjustsFontSizeToFitWidth = true
@@ -243,6 +248,10 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("htlc_refund_step_0", comment: "")
                     
+                } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    stepDescription.text = NSLocalizedString("incentive_participate_step_0", comment: "")
+                    
                 }
                 
                 
@@ -306,6 +315,10 @@ class TransactionViewController: UIViewController {
                 } else if (mType == TASK_TYPE_HTLC_REFUND) {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("htlc_refund_step_1", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    stepDescription.text = NSLocalizedString("incentive_participate_step_1", comment: "")
                     
                 }
                 
@@ -371,6 +384,10 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("htlc_refund_step_2", comment: "")
                     
+                } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    stepDescription.text = NSLocalizedString("incentive_participate_step_2", comment: "")
+                    
                 }
                 
                 
@@ -434,6 +451,10 @@ class TransactionViewController: UIViewController {
                 } else if (mType == TASK_TYPE_HTLC_REFUND) {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("htlc_refund_step_3", comment: "")
+                    
+                } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    stepDescription.text = NSLocalizedString("incentive_participate_step_3", comment: "")
                     
                 }
                 

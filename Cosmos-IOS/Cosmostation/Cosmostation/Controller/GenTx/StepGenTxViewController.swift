@@ -183,6 +183,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepHtlcRefund3ViewController")]
             
+        } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+            return [self.newVc(viewController: "StepIncentive0ViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepIncentive3ViewController")]
+            
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),
                     self.newVc(viewController: "StepMemoViewController"),

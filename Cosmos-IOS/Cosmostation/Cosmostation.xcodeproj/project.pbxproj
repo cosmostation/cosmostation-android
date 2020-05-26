@@ -110,6 +110,8 @@
 		28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */; };
 		28474F0B241E06E200AF5A81 /* Qualityscore.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */; };
 		28474F0C241E06E200AF5A81 /* Preregistraion.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */; };
+		284B0F02247D5FD800B5A2D0 /* StepIncentive0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B0F01247D5FD800B5A2D0 /* StepIncentive0ViewController.swift */; };
+		284B0F04247D5FE800B5A2D0 /* StepIncentive3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B0F03247D5FE800B5A2D0 /* StepIncentive3ViewController.swift */; };
 		2852D76D2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */; };
 		2852D76E2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2852D76C2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib */; };
 		2852D7702477E41A00D11DC4 /* KavaIncentiveParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D76F2477E41A00D11DC4 /* KavaIncentiveParam.swift */; };
@@ -475,6 +477,8 @@
 		28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration.codec.pb.swift; sourceTree = "<group>"; };
 		28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Qualityscore.codec.pb.swift; sourceTree = "<group>"; };
 		28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preregistraion.codec.pb.swift; sourceTree = "<group>"; };
+		284B0F01247D5FD800B5A2D0 /* StepIncentive0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepIncentive0ViewController.swift; sourceTree = "<group>"; };
+		284B0F03247D5FE800B5A2D0 /* StepIncentive3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepIncentive3ViewController.swift; sourceTree = "<group>"; };
 		2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxIncentiveTableViewCell.swift; sourceTree = "<group>"; };
 		2852D76C2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxIncentiveTableViewCell.xib; sourceTree = "<group>"; };
 		2852D76F2477E41A00D11DC4 /* KavaIncentiveParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveParam.swift; sourceTree = "<group>"; };
@@ -937,6 +941,8 @@
 				283A80E8245158FB008FF813 /* HtlcResultViewController.xib */,
 				2888B801246CE35D00B2EB4A /* StepHtlcRefund0ViewController.swift */,
 				2888B803246CE37200B2EB4A /* StepHtlcRefund3ViewController.swift */,
+				284B0F01247D5FD800B5A2D0 /* StepIncentive0ViewController.swift */,
+				284B0F03247D5FE800B5A2D0 /* StepIncentive3ViewController.swift */,
 			);
 			path = GenTx;
 			sourceTree = "<group>";
@@ -1589,6 +1595,7 @@
 				28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */,
 				285A33D12446CDAB0052BD3D /* StepHtlcSend2ViewController.swift in Sources */,
 				2845D884246FAEED007CD497 /* VoteTallyTableViewCell.swift in Sources */,
+				284B0F02247D5FD800B5A2D0 /* StepIncentive0ViewController.swift in Sources */,
 				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
 				285A33E2244862670052BD3D /* HtlcResultViewController.swift in Sources */,
 				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
@@ -1690,6 +1697,7 @@
 				28474EF8241E06E200AF5A81 /* Account.codec.pb.swift in Sources */,
 				E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */,
 				E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */,
+				284B0F04247D5FE800B5A2D0 /* StepIncentive3ViewController.swift in Sources */,
 				E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */,
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
 				E17B213123470222001743D6 /* TokenDetailViewController.swift in Sources */,

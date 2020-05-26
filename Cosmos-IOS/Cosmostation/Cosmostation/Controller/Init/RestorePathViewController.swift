@@ -204,6 +204,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     request.responseJSON { (response) in
                         switch response.result {
                             case .success(let res):
+                                print("res ", res)
                                 guard let info = res as? [String : Any] else {
                                     return
                                 }

@@ -400,8 +400,7 @@ class StepFeeViewController: BaseViewController {
             //Notice! useless but make format!
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
         
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
             if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
                 
@@ -435,6 +434,8 @@ class StepFeeViewController: BaseViewController {
             } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_LOW))
                 
+            } else if (pageHolderVC.mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_LOW))
             }
             
         }

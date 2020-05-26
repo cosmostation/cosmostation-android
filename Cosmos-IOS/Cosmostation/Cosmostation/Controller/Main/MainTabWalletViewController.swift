@@ -665,7 +665,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
 //            cell?.LabelConstraint?.isActive = true
             
             cell?.actionParticipate = {
-                print("start action!!")
+                self.onClickIncentive()
             }
             return cell!
             
@@ -938,7 +938,17 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         cdpListVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(cdpListVC, animated: true)
+    }
+    
+    func onClickIncentive() {
+        print("onClickIncentive")
+        //TOOD chekc valiadte
         
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_INCENTIVE_REWARD
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func onClickGuide1() {
