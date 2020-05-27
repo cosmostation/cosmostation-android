@@ -417,7 +417,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             if (balance.balance_denom == "usdx") {
                 cell?.tokenDescription.text = "USD Stable Asset"
             } else {
-                cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Network"
+                cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Chain"
             }
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
             
@@ -452,7 +452,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             if (balance.balance_denom == "usdx") {
                 cell?.tokenDescription.text = "USD Stable Asset"
             } else {
-                cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Network"
+                cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Chain"
             }
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
             

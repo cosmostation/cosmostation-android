@@ -945,8 +945,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickIncentive() {
-        print("onClickIncentive")
-        //TOOD chekc valiadte
+        if (!mainTabVC.mAccount.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_INCENTIVE_REWARD

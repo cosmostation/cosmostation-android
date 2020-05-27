@@ -18,10 +18,10 @@ public class Tally {
     init() {}
     
     init(_ dictionary: [String: Any]) {
-        self.yes = dictionary["yes"] as? String ?? ""
-        self.abstain = dictionary["abstain"] as? String ?? ""
-        self.no = dictionary["no"] as? String ?? ""
-        self.no_with_veto = dictionary["no_with_veto"] as? String ?? ""
+        self.yes = dictionary["yes"] as? String ?? "0"
+        self.abstain = dictionary["abstain"] as? String ?? "0"
+        self.no = dictionary["no"] as? String ?? "0"
+        self.no_with_veto = dictionary["no_with_veto"] as? String ?? "0"
     }
     
     public func getSum() ->NSDecimalNumber {
