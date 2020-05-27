@@ -197,6 +197,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                     return 0;
                 }
             }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (BaseData.instance.mUnClaimedIncentiveRewards.count == 0 && indexPath.row == 2) {
+                return 0;
+            }
         }
         return UITableView.automaticDimension;
     }
@@ -631,7 +635,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletKavaCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaCell") as? WalletKavaCell
-            let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let totalKava = WUtils.getAllKavaTest(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.totalAmount.font!, 6, 6)
             cell?.totalValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.totalValue.font)

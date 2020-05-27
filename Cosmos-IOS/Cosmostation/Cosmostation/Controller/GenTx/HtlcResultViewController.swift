@@ -253,8 +253,8 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     }
                     if (SHOW_LOG) { print("onCheckCreateHtlcSwap ", res) }
                     let accountInfo = KavaAccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(self.account!, accountInfo))
-                    BaseData.instance.updateBalances(self.account!.account_id, WUtils.getBalancesWithKavaAccountInfo(self.account!, accountInfo))
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(self.account!, accountInfo, self.chainType!))
+                    BaseData.instance.updateBalances(self.account!.account_id, WUtils.getBalancesWithKavaAccountInfo(self.account!, accountInfo, self.chainType!))
                     self.onCreateHtlcSwap()
                 }
                 
@@ -507,8 +507,8 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         return
                     }
                     let accountInfo = KavaAccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(self.mHtlcToAccount!, accountInfo))
-                    BaseData.instance.updateBalances(self.mHtlcToAccount!.account_id, WUtils.getBalancesWithKavaAccountInfo(self.mHtlcToAccount!, accountInfo))
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(self.mHtlcToAccount!, accountInfo, self.mHtlcToChain!))
+                    BaseData.instance.updateBalances(self.mHtlcToAccount!.account_id, WUtils.getBalancesWithKavaAccountInfo(self.mHtlcToAccount!, accountInfo, self.mHtlcToChain!))
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {
                         self.onClaimHtlcSwap()
                     })

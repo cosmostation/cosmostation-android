@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -159,7 +159,8 @@ let KAVA_TEST_CDP_DEPOSIT               = KAVA_TEST_URL + "cdp/cdps/cdp/deposits
 let KAVA_TEST_TOKEN_PRICE_PARAM         = KAVA_TEST_URL + "pricefeed/parameters";
 let KAVA_TEST_TOKEN_PRICE               = KAVA_TEST_URL + "pricefeed/price/";
 let KAVA_TEST_CHECK_SWAPID              = KAVA_TEST_URL + "bep3/swap/";
-let KAVA_TEST_INCENTIVE_PARAM           = KAVA_TEST_URL + "/incentive/parameters";
+let KAVA_TEST_INCENTIVE_PARAM           = KAVA_TEST_URL + "incentive/parameters";
+let KAVA_TEST_MY_INCENTIVE              = KAVA_TEST_URL + "incentive/claims/";
 
 
 

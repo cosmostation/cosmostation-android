@@ -11,6 +11,8 @@ import UIKit
 class TxIncentiveTableViewCell: UITableViewCell {
     
     @IBOutlet weak var txIcon: UIImageView!
+    @IBOutlet weak var rewardAmount: UILabel!
+    @IBOutlet weak var rewardAmountDenom: UILabel!
     @IBOutlet weak var senderLabel: UILabel!
     @IBOutlet weak var coinTypeLabel: UILabel!
 

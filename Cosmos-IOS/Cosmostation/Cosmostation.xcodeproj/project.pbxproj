@@ -153,6 +153,7 @@
 		289DF17C242DDF4F00433CF4 /* CdpDetailMyTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */; };
 		289DF180242DDF6A00433CF4 /* CdpDetailMyActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */; };
 		289DF184242DDF8300433CF4 /* CdpDetailAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */; };
+		28ACF35E247E4531003C8812 /* KavaIncentiveReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */; };
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
 		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
@@ -522,6 +523,7 @@
 		289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyTopCell.swift; sourceTree = "<group>"; };
 		289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyActionCell.swift; sourceTree = "<group>"; };
 		289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailAssetsCell.swift; sourceTree = "<group>"; };
+		28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveReward.swift; sourceTree = "<group>"; };
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
 		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
@@ -1138,6 +1140,7 @@
 				2800CF9524719EC4003C3EF1 /* Tally.swift */,
 				2800CF972471A004003C3EF1 /* CosmosProposer.swift */,
 				2852D76F2477E41A00D11DC4 /* KavaIncentiveParam.swift */,
+				28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1628,6 +1631,7 @@
 				E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */,
 				282FF34123F4FFD20028CC66 /* TxCommissionCell.swift in Sources */,
 				28474ECE241E06AF00AF5A81 /* TxdrawDebtCdpCell.swift in Sources */,
+				28ACF35E247E4531003C8812 /* KavaIncentiveReward.swift in Sources */,
 				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
 				28474F03241E06E200AF5A81 /* Gov.codec.pb.swift in Sources */,
 				28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */,

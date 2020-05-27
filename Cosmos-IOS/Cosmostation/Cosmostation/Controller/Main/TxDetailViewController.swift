@@ -662,7 +662,12 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.senderLabel.text = msg.value.sender
-            cell?.coinTypeLabel.text = msg.value.denom
+            cell?.coinTypeLabel.text = msg.value.denom?.uppercased()
+            
+            let incentiveCoin = mTxInfo!.getKavaIncentive()
+            if (!incentiveCoin.amount.isEmpty) {
+                WUtils.showCoinDp(incentiveCoin, cell!.rewardAmountDenom, cell!.rewardAmount, chainType!)
+            }
         }
         return cell!
     }

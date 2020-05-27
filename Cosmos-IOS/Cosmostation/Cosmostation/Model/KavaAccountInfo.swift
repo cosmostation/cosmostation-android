@@ -42,6 +42,8 @@ public class KavaAccountInfo {
         var BaseVestingAccount: KavaBaseVestingAccount = KavaBaseVestingAccount.init()
         var vesting_periods: Array<VestingPeriod> = Array<VestingPeriod>()
         
+        var original_vesting: Array<Coin> = Array<Coin>()
+        
         init() {}
         
         init(_ dictionary: [String: Any]) {
@@ -87,6 +89,13 @@ public class KavaAccountInfo {
             if let vps = dictionary["vesting_periods"] as? Array<NSDictionary> {
                 for vp in vps {
                     self.vesting_periods.append(VestingPeriod(vp as! [String : Any]))
+                }
+            }
+            
+            self.original_vesting.removeAll()
+            if let rawOriginal_vesting = dictionary["original_vesting"] as? Array<NSDictionary> {
+                for coin in rawOriginal_vesting {
+                    self.original_vesting.append(Coin(coin as! [String : Any]))
                 }
             }
         }

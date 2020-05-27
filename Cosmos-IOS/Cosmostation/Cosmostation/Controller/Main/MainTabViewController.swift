@@ -233,7 +233,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchPriceTic(true)
             
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            self.mFetchCnt = 13
+            self.mFetchCnt = 14
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -250,6 +250,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchCdpParam(mAccount)
             onFetchPriceParam()
             onFetchIncentiveParam()
+            //TODO hard code
+            onFetchMyIncentive(mAccount, "bnb")
             
         } else if (mChainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             self.mFetchCnt = 1
@@ -558,8 +560,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         return
                     }
                     let kavaAccountInfo = KavaAccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, kavaAccountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, kavaAccountInfo))
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, kavaAccountInfo, self.mChainType))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, kavaAccountInfo, self.mChainType))
                     
                 }
             case .failure(let error):
@@ -1078,6 +1080,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_INCENTIVE_PARAM
         }
+        BaseData.instance.mIncentiveParam = KavaIncentiveParam.IncentiveParam.init()
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -1092,6 +1095,33 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 case .failure(let error):
                     if (SHOW_LOG) { print("onFetchIncentiveParam ", error) }
                 }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchMyIncentive(_ account:Account, _ denom:String) {
+        var url: String?
+        if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = ""
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_MY_INCENTIVE + account.account_address + "/" + denom
+        }
+        BaseData.instance.mUnClaimedIncentiveRewards.removeAll()
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("onFetchMyIncentive res ", res)
+                guard let responseData = res as? NSDictionary,
+                    let _ = responseData.object(forKey: "height") as? String else {
+                        self.onFetchFinished()
+                        return
+                }
+                BaseData.instance.mUnClaimedIncentiveRewards = KavaIncentiveReward.init(responseData).result
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchMyIncentive ", error) }
+            }
             self.onFetchFinished()
         }
     }

@@ -66,7 +66,7 @@
 "tpt-Dq-m35.text" = "내 CDP 계좌";
 
 /* Class = "UILabel"; text = "Loan Interest"; ObjectID = "u6K-v3-XHW"; */
-"u6K-v3-XHW.text" = "대충 이자";
+"u6K-v3-XHW.text" = "대출 이자";
 
 /* Class = "UIButton"; normalTitle = "  Withdraw  BTC"; ObjectID = "xrz-JZ-ryA"; */
 "xrz-JZ-ryA.normalTitle" = "  Withdraw  BTC";

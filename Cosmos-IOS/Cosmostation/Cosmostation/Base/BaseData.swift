@@ -21,6 +21,7 @@ final class BaseData : NSObject{
     var mKavaPrice = [String:KavaTokenPrice]()
     var mMyCdps = Array<CdpOwen>()
     var mIncentiveParam = KavaIncentiveParam.IncentiveParam.init()
+    var mUnClaimedIncentiveRewards = Array<KavaIncentiveReward.UnClaimedIncentiveReward>()
     
     public override init() {
         super.init();

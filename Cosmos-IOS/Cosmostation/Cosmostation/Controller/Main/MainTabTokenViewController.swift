@@ -278,8 +278,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetIrisItems(tableView, indexPath)
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return onSetBnbItems(tableView, indexPath)
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             return onSetKavaItems(tableView, indexPath)
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            return onSetKavaTestItems(tableView, indexPath)
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return onSetIovItems(tableView, indexPath)
         }
@@ -294,7 +296,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
         tokenDetailVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
             tokenDetailVC.allValidator = mainTabVC.mAllValidator
             tokenDetailVC.allRewards = mainTabVC.mRewardList
@@ -311,10 +313,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
             tokenDetailVC.bnbToken = WUtils.getBnbToken(mainTabVC.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
             tokenDetailVC.bnbTic = WUtils.getTicData(WUtils.getBnbTicSymbol(mainTabVC.mBalances[indexPath.row].balance_denom), mBnbTics)
-            self.navigationController?.pushViewController(tokenDetailVC, animated: true)
-            
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
@@ -405,14 +403,48 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.text = "KAVA"
             cell?.tokenSymbol.textColor = COLOR_KAVA
             cell?.tokenTitle.text = ""
-            cell?.tokenDescription.text = balance.balance_denom
+            cell?.tokenDescription.text = "Kava Chain Native Token"
             
             let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.tokenAmount.font!, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             
         } else {
-            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.text = balance.balance_denom.uppercased()
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = ""
+            if (balance.balance_denom == "usdx") {
+                cell?.tokenDescription.text = "USD Stable Asset"
+            } else {
+                cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Network"
+            }
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
+            
+            let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice)
+            let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            let url = KAVA_COIN_IMG_URL + balance.balance_denom + ".png"
+            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
+        }
+        return cell!
+    }
+    
+    func onSetKavaTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == KAVA_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "kavaTokenImg")
+            cell?.tokenSymbol.text = "KAVA"
+            cell?.tokenSymbol.textColor = COLOR_KAVA
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = "Kava Chain Native Token"
+            
+            let totalKava = WUtils.getAllKavaTest(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.tokenAmount.font!, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            
+        } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.text = balance.balance_denom.uppercased()
             cell?.tokenSymbol.textColor = UIColor.white

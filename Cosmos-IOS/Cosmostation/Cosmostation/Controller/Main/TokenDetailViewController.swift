@@ -158,9 +158,10 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             } else if ((chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) &&
                 balance?.balance_denom == BNB_MAIN_DENOM) {
                 return onSetBnbItem(tableView, indexPath);
-            } else if ((chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) &&
-                balance?.balance_denom == KAVA_MAIN_DENOM) {
+            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN && balance?.balance_denom == KAVA_MAIN_DENOM) {
                 return onSetKavaItem(tableView, indexPath);
+            }  else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST && balance?.balance_denom == KAVA_MAIN_DENOM) {
+                return onSetKavaTestItem(tableView, indexPath);
             } else {
                 return onSetCustomTokenItem(tableView, indexPath);
             }
@@ -328,20 +329,41 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.actionRecieve = {
             self.onRecieveToken()
         }
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            cell?.butBtn.isHidden = false
-            cell?.showBuyConstraint.priority = .defaultHigh
-            cell?.hideBuyConstraint.priority = .defaultLow
-            cell?.actionBuy = {
-                self.onBuyCoin()
-            }
-        } else {
-            cell?.butBtn.isHidden = true
-            cell?.showBuyConstraint.priority = .defaultLow
-            cell?.hideBuyConstraint.priority = .defaultHigh
+        cell?.butBtn.isHidden = false
+        cell?.showBuyConstraint.priority = .defaultHigh
+        cell?.hideBuyConstraint.priority = .defaultLow
+        cell?.actionBuy = {
+            self.onBuyCoin()
         }
         return cell!
     }
+    
+    func onSetKavaTestItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        let cell:TokenDetailHeaderKavaCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderKavaCell") as? TokenDetailHeaderKavaCell
+        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
+        let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
+        let unbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
+        let totalKava = WUtils.getAllKavaTest(balances, bondingList, unbondingList, allRewards, allValidator)
+        
+        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.totalAmount.font!, 6, 6)
+        cell?.totalValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+        cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.availableAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
+        cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(bondingList, allValidator, cell!.delegatedAmount.font, 6, chainType!)
+        cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(unbondingList, cell!.unbondingAmount.font, 6, chainType!)
+        cell?.rewardAmount.attributedText = WUtils.dpRewards(allRewards, cell!.rewardAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
+        cell?.vestingAmount.attributedText = WUtils.dpVestingCoin(balances, cell!.vestingAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
+        cell?.actionSend  = {
+            self.onSendToken()
+        }
+        cell?.actionRecieve = {
+            self.onRecieveToken()
+        }
+        cell?.butBtn.isHidden = true
+        cell?.showBuyConstraint.priority = .defaultLow
+        cell?.hideBuyConstraint.priority = .defaultHigh
+        return cell!
+    }
+    
     
     func onSetCustomTokenItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:TokenDetailHeaderCustomCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderCustomCell") as? TokenDetailHeaderCustomCell

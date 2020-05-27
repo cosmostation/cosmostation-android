@@ -113,8 +113,8 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
                         return
                     }
                     let accountInfo = KavaAccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo, self.pageHolderVC.chainType!))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo, self.pageHolderVC.chainType!))
                     self.onGenWithdrawCdpTx()
                 }
                 
