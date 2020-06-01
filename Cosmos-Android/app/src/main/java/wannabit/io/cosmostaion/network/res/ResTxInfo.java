@@ -253,6 +253,27 @@ public class ResTxInfo {
     }
 
 
+    public Coin simpleIncentive() {
+        Coin coin  = new Coin();
+        if (getEvent() != null) {
+            for (Event event:getEvent()) {
+                if (event.type.equals("claim_reward")) {
+                    for (EventAttribute attr:event.attributes) {
+                        if (attr.key.equals("claim_amount")) {
+                            String value = attr.value;
+                            String denom = value.replaceAll("[0-9]", "");
+                            String amount = value.replaceAll("[^0-9]", "");
+                            coin.denom = denom;
+                            coin.amount = amount;
+                        }
+                    }
+                }
+            }
+        }
+        return coin;
+
+    }
+
 
 
     public class Event {

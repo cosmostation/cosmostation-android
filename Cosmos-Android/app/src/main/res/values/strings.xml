@@ -478,6 +478,8 @@
     <string name="str_swapId">SwapId</string>
     <string name="str_refund_amount">Refund Amount</string>
     <string name="str_refund_to">Refund To</string>
+    <string name="str_incentive_amount">Participate Reward</string>
+    <string name="str_participator">Participator</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>

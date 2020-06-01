@@ -394,6 +394,8 @@
     <string name="str_swapId">스왑 아이디</string>
     <string name="str_refund_amount">환불 수량</string>
     <string name="str_refund_to">환불 받을 주소</string>
+    <string name="str_incentive_amount">인센티브 수량</string>
+    <string name="str_participator">참여자</string>
 
 
     <string name="str_min_collateral_rate">최소 담보 비율</string>

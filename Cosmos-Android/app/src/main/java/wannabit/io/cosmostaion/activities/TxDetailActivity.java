@@ -975,11 +975,21 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
-                holder.itemDenom.setText(msg.value.denom);
-
+                holder.itemDenom.setText(msg.value.denom.toUpperCase());
+                Coin incentiveCoin = mResTxInfo.simpleIncentive();
+                try {
+                    if (!TextUtils.isEmpty(incentiveCoin.denom)) {
+                        WDp.showCoinDp(getBaseContext(), incentiveCoin, holder.itemIncentiveDenom, holder.itemIncentiveAmount, mBaseChain);
+                    } else {
+                        holder.itemIncentiveDenom.setText("");
+                        holder.itemIncentiveAmount.setText("");
+                    }
+                } catch (Exception e) {
+                    holder.itemIncentiveDenom.setText("");
+                    holder.itemIncentiveAmount.setText("");
+                }
             }
         }
-
 
         private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, Msg msg) {
             final TxUnKnownHolder holder = (TxUnKnownHolder)viewHolder;
@@ -1404,12 +1414,14 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         public class TxIncentiveHolder extends RecyclerView.ViewHolder {
             ImageView itemMsgImg;
             TextView itemMsgTitle;
-            TextView itemSender, itemDenom;
+            TextView itemIncentiveAmount, itemIncentiveDenom, itemSender, itemDenom;
 
             public TxIncentiveHolder(@NonNull View itemView) {
                 super(itemView);
                 itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
                 itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemIncentiveAmount = itemView.findViewById(R.id.tx_incentive_amount);
+                itemIncentiveDenom = itemView.findViewById(R.id.tx_incentive_symbol);
                 itemSender = itemView.findViewById(R.id.tx_incentive_sender);
                 itemDenom = itemView.findViewById(R.id.tx_incentive_denom);
             }
