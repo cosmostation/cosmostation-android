@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Coin;
 
-public class ResIncentiveParam {
+public class ResKavaIncentiveParam {
 
     @SerializedName("height")
     public String height;

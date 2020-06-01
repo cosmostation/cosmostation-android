@@ -114,6 +114,8 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_BNB_HTLC_REFUND                 = 2072;
     public final static int TASK_FETCH_MY_VOTE                          = 2073;
     public final static int TASK_FETCH_KAVA_INCENTIVE_PARAM             = 2074;
+    public final static int TASK_FETCH_KAVA_PRICE_PARAM                 = 2075;
+    public final static int TASK_FETCH_KAVA_INCENTIVE_REWARD            = 2076;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;

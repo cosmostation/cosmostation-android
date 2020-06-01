@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.network.res;
 import com.google.gson.annotations.SerializedName;
 
 public class ResKavaMarketPrice {
-
     @SerializedName("height")
     public String height;
 
@@ -11,7 +10,6 @@ public class ResKavaMarketPrice {
     public Result result;
 
     public class Result {
-
         @SerializedName("market_id")
         public String market_id;
 

@@ -14,8 +14,10 @@ import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpList;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
-import wannabit.io.cosmostaion.network.res.ResIncentiveParam;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.network.res.ResKavaPriceParam;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
@@ -129,6 +131,10 @@ public interface KavaChain {
     @GET("/cdp/cdps/ratio/{denom}/{ratio}")
     Call<ResCdpList> getCdpCoinRate(@Path("denom") String denom, @Path("ratio") String ratio);
 
+
+    @GET("/pricefeed/parameters")
+    Call<ResKavaPriceParam> getPriceParam();
+
     @GET("/pricefeed/price/{market}")
     Call<ResKavaMarketPrice> getPrice(@Path("market") String market);
 
@@ -145,9 +151,10 @@ public interface KavaChain {
 
 
     @GET("/incentive/parameters")
-    Call<ResIncentiveParam> getIncentiveParams();
+    Call<ResKavaIncentiveParam> getIncentiveParams();
 
-
+    @GET("/incentive/claims/{address}/{denom}")
+    Call<ResKavaIncentiveReward> getIncentive(@Path("address") String address, @Path("denom") String denom);
 
 
 

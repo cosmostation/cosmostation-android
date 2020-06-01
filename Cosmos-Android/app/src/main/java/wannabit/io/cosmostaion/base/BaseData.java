@@ -26,7 +26,8 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
-import wannabit.io.cosmostaion.network.res.ResIncentiveParam;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -36,7 +37,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 
 public class BaseData {
@@ -47,10 +47,11 @@ public class BaseData {
     public ArrayList<Validator> mAllValidators = new ArrayList<>();
 
     //COMMON DATA
-    public ResCdpParam.Result                               mKavaCdpParams;
-    public ArrayList<ResCdpOwnerStatus.MyCDP>               mMyOwenCdp = new ArrayList<>();
-    public HashMap<String, ResKavaMarketPrice.Result>       mKavaTokenPrices = new HashMap<>();
-    public ResIncentiveParam.IncentiveParam                 mKavaIncentiveParam;
+    public ResCdpParam.Result                                               mKavaCdpParams;
+    public ArrayList<ResCdpOwnerStatus.MyCDP>                               mMyOwenCdp = new ArrayList<>();
+    public HashMap<String, ResKavaMarketPrice.Result>                       mKavaTokenPrices = new HashMap<>();
+    public ResKavaIncentiveParam.IncentiveParam                             mKavaIncentiveParam;
+    public ArrayList<ResKavaIncentiveReward.KavaUnclaimedIncentiveReward>   mKavaUnClaimedIncentiveRewards = new ArrayList<>();
 
     public BaseData(BaseApplication apps) {
         this.mApp = apps;
