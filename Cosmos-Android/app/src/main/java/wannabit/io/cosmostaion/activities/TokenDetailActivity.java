@@ -346,7 +346,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvBnbValue.setText(WDp.getValueOfBnb(this, getBaseDao(), BigDecimal.ZERO));
             }
 
-        } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST))&& mBalance.symbol.equals(COSMOS_KAVA)) {
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) && mBalance.symbol.equals(COSMOS_KAVA)) {
             mKavaCard.setVisibility(View.VISIBLE);
             mKavaAction.setVisibility(View.GONE);
             mKavaTransfer.setVisibility(View.VISIBLE);
@@ -362,6 +362,30 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
 
             BigDecimal totalAmount = WDp.getAllKava(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
+            mTvKavaTotal.setText(WDp.getDpAmount(this, totalAmount, 6, mBaseChain));
+            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, COSMOS_KAVA));
+            mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));
+            mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
+            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(this, mRewards, mBaseChain, COSMOS_KAVA));
+            mTvKavaVesting.setText(WDp.getDpVestedCoin(this, mBalances, mBaseChain, COSMOS_KAVA));
+            mTvKavaValue.setText(WDp.getValueOfKava(this, getBaseDao(), totalAmount));
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_TEST) && mBalance.symbol.equals(COSMOS_KAVA)) {
+            mKavaCard.setVisibility(View.VISIBLE);
+            mKavaAction.setVisibility(View.GONE);
+            mKavaTransfer.setVisibility(View.VISIBLE);
+            if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                mBtnBuyKava.setVisibility(View.VISIBLE);
+                mBtnBuyKava.setOnClickListener(this);
+            }
+            mBtnSendKava.setOnClickListener(this);
+            mBtnReceiveKava.setOnClickListener(this);
+
+            mBalances = getBaseDao().onSelectBalance(mAccount.id);
+            mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
+            mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
+
+            BigDecimal totalAmount = WDp.getAllTestKava(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
             mTvKavaTotal.setText(WDp.getDpAmount(this, totalAmount, 6, mBaseChain));
             mTvKavaAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, COSMOS_KAVA));
             mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));

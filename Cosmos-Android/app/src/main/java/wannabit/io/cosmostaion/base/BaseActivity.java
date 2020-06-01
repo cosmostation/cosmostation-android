@@ -645,7 +645,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
                 final ResKavaMarketPrice.Result price = (ResKavaMarketPrice.Result)result.resultData;
-                getBaseDao().mKavaTokenPrices.put(price.getDenom(), price);
+                getBaseDao().mKavaTokenPrices.put(price.market_id, price);
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {

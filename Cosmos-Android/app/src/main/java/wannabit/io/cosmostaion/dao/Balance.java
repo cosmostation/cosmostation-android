@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
@@ -106,11 +107,11 @@ public class Balance implements Parcelable {
             if (prices == null || prices.size() <= 0) {
                 return BigDecimal.ZERO;
             }
-            ResKavaMarketPrice.Result mMarketPrice = prices.get(symbol);
+            ResKavaMarketPrice.Result mMarketPrice = prices.get(symbol + ":usd");
             if (mMarketPrice == null) {
                 return BigDecimal.ZERO;
             } else {
-                 return balance.movePointLeft(WUtil.getKavaCoinDecimal(symbol)).multiply(new BigDecimal(mMarketPrice.price)).setScale(6, RoundingMode.DOWN);
+                return balance.movePointLeft(WUtil.getKavaCoinDecimal(symbol)).multiply(new BigDecimal(mMarketPrice.price)).setScale(6, RoundingMode.DOWN);
             }
         }
     }

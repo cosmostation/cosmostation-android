@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
@@ -271,11 +272,25 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBnbAmount, 0, 6));
             mTotalValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), totalBnbAmount));
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             BigDecimal totalAtomAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(COSMOS_KAVA)) {
                     totalAtomAmount = totalAtomAmount.add(WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
+                } else {
+                    BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
+                    BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(COSMOS_KAVA), RoundingMode.DOWN).movePointRight(WUtil.getKavaCoinDecimal(COSMOS_KAVA));
+                    totalAtomAmount = totalAtomAmount.add(convertedKavaAmount);
+                }
+            }
+            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAtomAmount, 6, 6));
+            mTotalValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAtomAmount));
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            BigDecimal totalAtomAmount = BigDecimal.ZERO;
+            for (Balance balance:mBalances) {
+                if (balance.symbol.equals(COSMOS_KAVA)) {
+                    totalAtomAmount = totalAtomAmount.add(WDp.getAllTestKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
                 } else {
                     BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
                     BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(COSMOS_KAVA), RoundingMode.DOWN).movePointRight(WUtil.getKavaCoinDecimal(COSMOS_KAVA));
@@ -331,8 +346,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindIrisItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
                 onBindBnbItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 onBindKavaItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                onBindKavaTestItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
                 onBindIovItem(viewHolder, position);
             }
@@ -479,7 +496,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(getString(R.string.str_kava_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.KAVA_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText(balance.symbol);
+            holder.itemFullName.setText("Kava Chain Native Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
 
@@ -493,7 +510,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             if (balance.symbol.equals("usdx")) {
                 holder.itemFullName.setText("USD Stable Asset");
             } else {
-                holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Network");
+                holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain");
             }
 
             Picasso.get().cancelRequest(holder.itemImg);
@@ -521,6 +538,57 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 startActivity(intent);
             }
         });
+    }
+
+    private void onBindKavaTestItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = mBalances.get(position);
+        if (balance.symbol.equals(COSMOS_KAVA)) {
+            holder.itemSymbol.setText(getString(R.string.str_kava_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.KAVA_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Kava Chain Native Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
+
+            BigDecimal totalAmount = WDp.getAllTestKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+            holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
+            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
+        } else {
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setText(balance.symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("");
+            if (balance.symbol.equals("usdx")) {
+                holder.itemFullName.setText("USD Stable Asset");
+            } else {
+                holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain");
+            }
+
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+            try {
+                Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png")
+                        .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                        .into(holder.itemImg);
+
+            } catch (Exception e) { }
+
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, WUtil.getKavaCoinDecimal(balance.symbol), 6));
+            BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
+            BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(COSMOS_KAVA), RoundingMode.DOWN);
+            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(COSMOS_KAVA))));
+
+        }
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
+                intent.putExtra("balance", balance);
+                intent.putExtra("allValidators", getMainActivity().mAllValidators);
+                intent.putExtra("rewards", getMainActivity().mRewards);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void onBindIovItem(TokensAdapter.AssetHolder holder, final int position) {

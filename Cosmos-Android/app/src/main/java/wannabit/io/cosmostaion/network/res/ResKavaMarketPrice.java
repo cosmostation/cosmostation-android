@@ -18,9 +18,5 @@ public class ResKavaMarketPrice {
         @SerializedName("price")
         public String price;
 
-        public String getDenom() {
-            return market_id.split(":")[0];
-        }
-
     }
 }

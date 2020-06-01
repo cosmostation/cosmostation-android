@@ -375,8 +375,6 @@ public class WUtil {
                                     originalVestiong = originalVestiong.add(new BigDecimal(vesting.amount));
                                 }
                             }
-                            WLog.w("balance " +  balance);
-                            WLog.w("originalVestiong " +  originalVestiong);
                             if (balance.compareTo(originalVestiong) <= 0) {
                                 balance = BigDecimal.ZERO;
                             } else {
@@ -400,12 +398,8 @@ public class WUtil {
                         }
                     }
                 }
-
             }
-
         }
-
-
         return result;
     }
 
