@@ -239,7 +239,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 ApiClient.getKavaChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
-                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
+                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body(), mChain);
                         holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, COSMOS_KAVA), 6, 6));
                     }
 
@@ -291,7 +291,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 ApiClient.getKavaTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
-                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
+                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body(), mChain);
                         holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, COSMOS_KAVA), 6, 6));
 
                     }

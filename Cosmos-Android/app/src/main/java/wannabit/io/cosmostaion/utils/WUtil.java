@@ -121,26 +121,43 @@ public class WUtil {
         return result;
     }
 
-    public static Account getAccountFromKavaLcd(long id, ResLcdKavaAccountInfo lcd) {
+    public static Account getAccountFromKavaLcd(long id, ResLcdKavaAccountInfo lcd, BaseChain chain) {
         Account result = new Account();
-        result.id = id;
-        if (lcd.result != null && lcd.height != null) {
-            if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
-                result.address = lcd.result.value.address;
-                result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
-                result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
+        if (chain.equals(BaseChain.KAVA_MAIN)) {
+            result.id = id;
+            if (lcd.result != null && lcd.height != null) {
+                if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
+                    result.address = lcd.result.value.address;
+                    result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
+                    result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
 
-            } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT)) {
-                result.address = lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.address;
-                result.sequenceNumber = Integer.parseInt(lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence);
-                result.accountNumber = Integer.parseInt(lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.account_number);
+                } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT)) {
+                    result.address = lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.address;
+                    result.sequenceNumber = Integer.parseInt(lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence);
+                    result.accountNumber = Integer.parseInt(lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.account_number);
 
-            } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
-                result.address = lcd.result.value.BaseVestingAccount.BaseAccount.address;
-                result.sequenceNumber = Integer.parseInt(lcd.result.value.BaseVestingAccount.BaseAccount.sequence);
-                result.accountNumber = Integer.parseInt(lcd.result.value.BaseVestingAccount.BaseAccount.account_number);
-
+                } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
+                    result.address = lcd.result.value.BaseVestingAccount.BaseAccount.address;
+                    result.sequenceNumber = Integer.parseInt(lcd.result.value.BaseVestingAccount.BaseAccount.sequence);
+                    result.accountNumber = Integer.parseInt(lcd.result.value.BaseVestingAccount.BaseAccount.account_number);
+                }
             }
+
+        } else if (chain.equals(BaseChain.KAVA_TEST)) {
+            result.id = id;
+            if (lcd.result != null && lcd.height != null) {
+                if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
+                    result.address = lcd.result.value.address;
+                    result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
+                    result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
+
+                } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
+                    result.address = lcd.result.value.address;
+                    result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
+                    result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
+                }
+            }
+
         }
         return result;
     }
@@ -224,10 +241,11 @@ public class WUtil {
         return result;
     }
 
-    public static ArrayList<Balance> getBalancesFromKavaLcd(long accountId, ResLcdKavaAccountInfo lcd) {
+    public static ArrayList<Balance> getBalancesFromKavaLcd(long accountId, ResLcdKavaAccountInfo lcd, BaseChain chain) {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
-        if (lcd.result != null && lcd.height != null) {
+
+        if (chain.equals(BaseChain.KAVA_MAIN) && (lcd.result != null && lcd.height != null)) {
             if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
                 if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
                     for (Coin coin : lcd.result.value.coins) {
@@ -330,7 +348,64 @@ public class WUtil {
                 WLog.w("dpBalance " + dpBalance);
 
             }
+
+        } else if (chain.equals(BaseChain.KAVA_TEST) && (lcd.result != null && lcd.height != null)) {
+            if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
+                if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
+                    for (Coin coin : lcd.result.value.coins) {
+                        Balance temp = new Balance();
+                        temp.accountId = accountId;
+                        temp.symbol = coin.denom;
+                        temp.balance = new BigDecimal(coin.amount);
+                        temp.fetchTime = time;
+                        result.add(temp);
+                    }
+                }
+                return result;
+
+            } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
+                BigDecimal balance = BigDecimal.ZERO;
+                BigDecimal originalVestiong = BigDecimal.ZERO;
+                if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
+                    for (Coin coin : lcd.result.value.coins) {
+                        if (coin.denom.equals(COSMOS_KAVA)) {
+                            balance = new BigDecimal(coin.amount);
+                            if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
+                                for (Coin vesting : lcd.result.value.original_vesting) {
+                                    originalVestiong = originalVestiong.add(new BigDecimal(vesting.amount));
+                                }
+                            }
+                            WLog.w("balance " +  balance);
+                            WLog.w("originalVestiong " +  originalVestiong);
+                            if (balance.compareTo(originalVestiong) <= 0) {
+                                balance = BigDecimal.ZERO;
+                            } else {
+                                balance = balance.subtract(originalVestiong);
+                            }
+                            Balance temp = new Balance();
+                            temp.accountId = accountId;
+                            temp.symbol = COSMOS_KAVA;
+                            temp.balance = balance;
+                            temp.locked = originalVestiong;
+                            temp.fetchTime = time;
+                            result.add(temp);
+
+                        } else {
+                            Balance temp = new Balance();
+                            temp.accountId = accountId;
+                            temp.symbol = coin.denom;
+                            temp.balance = new BigDecimal(coin.amount);
+                            temp.fetchTime = time;
+                            result.add(temp);
+                        }
+                    }
+                }
+
+            }
+
         }
+
+
         return result;
     }
 

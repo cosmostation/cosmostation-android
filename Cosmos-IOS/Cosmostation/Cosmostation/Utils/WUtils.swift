@@ -226,7 +226,12 @@ class WUtils {
                         })
                         print("dpBalance ", dpBalance)
                         print("originalVestiong ", originalVestiong)
-                        result.append(Balance.init(account.account_id, coin.denom, dpBalance.subtracting(originalVestiong).stringValue, Date().millisecondsSince1970, NSDecimalNumber.zero.stringValue, originalVestiong.stringValue))
+                        if (dpBalance.compare(originalVestiong).rawValue <= 0) {
+                            dpBalance = NSDecimalNumber.zero
+                        } else {
+                            dpBalance = dpBalance.subtracting(originalVestiong)
+                        }
+                        result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, NSDecimalNumber.zero.stringValue, originalVestiong.stringValue))
                         
                     } else {
                         result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))

@@ -474,7 +474,33 @@ public class WDp {
         return sum;
     }
 
-    public static SpannableString getDpAllIris(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, ArrayList<Validator> validators, BaseChain chain) {
+    public static BigDecimal getAllTestKava(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Balance balance : balances) {
+            if (balance.symbol.equals(BaseConstant.COSMOS_KAVA)) {
+                sum = sum.add(balance.balance);
+                sum = sum.add(balance.locked);
+            }
+        }
+        if(bondings != null) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+            }
+        }
+        if (unbondings != null) {
+            for(UnBondingState unbonding : unbondings) {
+                sum = sum.add(unbonding.balance);
+            }
+        }
+        if (rewards != null) {
+            for(Reward reward : rewards) {
+                sum = sum.add(reward.getRewardAmount(COSMOS_KAVA));
+            }
+        }
+        return sum;
+    }
+
+        public static SpannableString getDpAllIris(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, ArrayList<Validator> validators, BaseChain chain) {
         return getDpAmount(c, getAllIris(balances, bondings, unbondings, reward, validators), 6, chain);
     }
 

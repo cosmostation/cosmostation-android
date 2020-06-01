@@ -554,7 +554,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             mTvKavaTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
@@ -564,11 +564,41 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, COSMOS_KAVA));
             mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
-            if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-                mBtnKavaCdp.setVisibility(View.VISIBLE);
-            } else {
-                mBtnKavaCdp.setVisibility(View.GONE);
+            mBtnKavaCdp.setVisibility(View.GONE);
+
+            try {
+                mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastKavaTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastKavaUpDown())));
+                if(getBaseDao().getLastKavaUpDown() > 0) {
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                } else if (getBaseDao().getLastKavaUpDown() < 0){
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                } else {
+                    mUpDownImg.setVisibility(View.GONE);
+                }
+
+                mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
+                mYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+
+            } catch (Exception e) {
+                mPerPrice.setText("???");
+                mUpDownPrice.setText("???");
+                mUpDownImg.setVisibility(View.GONE);
             }
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            BigDecimal totalAmount = WDp.getAllTestKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+            mTvKavaTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
+            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
+            mTvKavaVesting.setText(WDp.getDpVestedCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
+            mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
+            mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
+            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, COSMOS_KAVA));
+            mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
+            getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
+            mBtnKavaCdp.setVisibility(View.VISIBLE);
 
             try {
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastKavaTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));

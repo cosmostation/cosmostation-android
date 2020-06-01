@@ -46,6 +46,9 @@ public class ResLcdKavaAccountInfo {
         @SerializedName("vesting_periods")
         public ArrayList<VestingPeriod> vesting_periods;
 
+        @SerializedName("original_vesting")
+        public ArrayList<Coin> original_vesting;
+
     }
 
     public class PeriodicVestingAccount {
