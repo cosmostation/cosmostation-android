@@ -246,11 +246,25 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allBnb.stringValue, totalAmount.font, 0, 6)
             totalValue.attributedText = WUtils.dpBnbValue(allBnb, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             var allKava = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
                 if (balance.balance_denom == KAVA_MAIN_DENOM) {
                     allKava = allKava.adding(WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator))
+                } else {
+                    let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice)
+                    let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(6))
+                    allKava = allKava.adding(convertedKavaAmount.multiplying(byPowerOf10: 6))
+                }
+            }
+            totalAmount.attributedText = WUtils.displayAmount2(allKava.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allKava, BaseData.instance.getLastPrice(), totalValue.font)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            var allKava = NSDecimalNumber.zero
+            for balance in mainTabVC.mBalances {
+                if (balance.balance_denom == KAVA_MAIN_DENOM) {
+                    allKava = allKava.adding(WUtils.getAllKavaTest(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator))
                 } else {
                     let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice)
                     let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(6))
