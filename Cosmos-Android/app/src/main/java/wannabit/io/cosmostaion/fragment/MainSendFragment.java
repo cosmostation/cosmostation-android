@@ -565,6 +565,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
             mBtnKavaCdp.setVisibility(View.GONE);
+            mKavaIncentiveCard.setVisibility(View.GONE);
 
             try {
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastKavaTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -599,6 +600,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
             mBtnKavaCdp.setVisibility(View.VISIBLE);
+            if (getBaseDao().mKavaUnClaimedIncentiveRewards.size() > 0) {
+                mKavaIncentiveCard.setVisibility(View.VISIBLE);
+            } else {
+                mKavaIncentiveCard.setVisibility(View.GONE);
+            }
 
             try {
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastKavaTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -698,13 +704,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else {
             mUndelegateCard.setVisibility(View.GONE);
-        }
-
-        //Show Kava Incentive cards!!!
-        if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mKavaIncentiveCard.setVisibility(View.VISIBLE);
-        } else {
-            mKavaIncentiveCard.setVisibility(View.GONE);
         }
 
         getMainActivity().onUpdateAccountListAdapter();
@@ -891,7 +890,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnParticipate)) {
-            WLog.w("mBtnParticipate");
+            getMainActivity().onStartIncentiveClaim();
 
         }
 

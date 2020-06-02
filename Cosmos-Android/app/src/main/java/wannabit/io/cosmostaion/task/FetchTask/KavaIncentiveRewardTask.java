@@ -37,8 +37,6 @@ public class KavaIncentiveRewardTask extends CommonTask {
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
-                } else {
-                    WLog.w("KavaIncentiveRewardTask : NO");
                 }
             }
 

@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleChangeRewardAddressTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimIncentiveTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleCreateCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
@@ -95,11 +96,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mCdpDenom;
 
     private String                      mSwapId;
-
-//    public BaseChain                    mRecipientChain;
-//    public Account                      mRecipientAccount;
-//    public Fee                          mSendFee;
-//    public Fee                          mClaimFee;
+    private String                      mClaimDenom;
 
     private long                        mIdToDelete;
     private long                        mIdToCheck;
@@ -156,6 +153,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mDepositor = getIntent().getStringExtra("depositor");
         mCdpDenom = getIntent().getStringExtra("cdp_denom");
         mSwapId = getIntent().getStringExtra("swapId");
+        mClaimDenom = getIntent().getStringExtra("denom");
 
 //        if (getIntent().getStringExtra("toChain") != null)
 //            mRecipientChain = BaseChain.getChain(getIntent().getStringExtra("toChain"));
@@ -412,6 +410,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                         mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
             }
 
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE) {
+            new SimpleClaimIncentiveTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mClaimDenom,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
         }
 
 //        else if (mPurpose == BaseConstant.CONST_PW_TX_HTLS_SWAP) {
@@ -486,7 +492,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_DEPOSIT_CDP ||
                     result.taskType == BaseConstant.TASK_GEN_TX_WITHDRAW_CDP ||
                     result.taskType == BaseConstant.TASK_GEN_TX_HTLC_REFUND  ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND) {
+                    result.taskType == BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND ||
+                    result.taskType == BaseConstant.TASK_GEN_KAVA_CLAIM_INCENTIVE ) {
             if (!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;

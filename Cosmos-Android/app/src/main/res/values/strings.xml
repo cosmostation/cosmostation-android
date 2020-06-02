@@ -103,6 +103,7 @@
     <string name="str_send_c">SEND</string>
     <string name="str_htlc_send_c"><![CDATA[Interchain Send & Claim]]></string>
     <string name="str_htlc_refund_c">Interchain Refund</string>
+    <string name="str_participate_incentive">Crypto Payday Participate</string>
     <string name="str_receive_c">RECEIVE</string>
     <string name="str_send">Send</string>
     <string name="str_receive">Receive</string>
@@ -480,6 +481,8 @@
     <string name="str_refund_to">Refund To</string>
     <string name="str_incentive_amount">Participate Reward</string>
     <string name="str_participator">Participator</string>
+    <string name="str_this_total_reward">This Round Total Reward</string>
+    <string name="str_lock_time">Lock Time</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
@@ -636,6 +639,10 @@
     <string name="str_htlc_refund_step_1">Insert memo (optional)</string>
     <string name="str_htlc_refund_step_2">Select transaction fee</string>
     <string name="str_htlc_refund_step_3">Check transaction detail</string>
+    <string name="str_incentive_participate_step_0">Incentive Reward Claim</string>
+    <string name="str_incentive_participate_step_1">Insert memo (optional)</string>
+    <string name="str_incentive_participate_step_2">Select transaction fee</string>
+    <string name="str_incentive_participate_step_3">Check transaction detail</string>
 
 
     <string name="str_main_wallet">WALLET</string>

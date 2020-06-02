@@ -38,6 +38,7 @@
     <string name="str_send_c">보내기</string>
     <string name="str_htlc_send_c"><![CDATA[인터체인 보내기 & 받기]]></string>
     <string name="str_htlc_refund_c">인터체인 환불</string>
+    <string name="str_participate_incentive">Crypto Payday 참여</string>
     <string name="str_receive_c">받기</string>
     <string name="str_send">보내기</string>
     <string name="str_receive">받기</string>
@@ -396,6 +397,8 @@
     <string name="str_refund_to">환불 받을 주소</string>
     <string name="str_incentive_amount">인센티브 수량</string>
     <string name="str_participator">참여자</string>
+    <string name="str_this_total_reward">이번 주 총 인센티브 수량</string>
+    <string name="str_lock_time">잠금 시간</string>
 
 
     <string name="str_min_collateral_rate">최소 담보 비율</string>
@@ -552,6 +555,10 @@
     <string name="str_htlc_refund_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_htlc_refund_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_htlc_refund_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_incentive_participate_step_0">인센티브 보상 요청</string>
+    <string name="str_incentive_participate_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_incentive_participate_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_incentive_participate_step_3">입력하신 정보를 확인하세요</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

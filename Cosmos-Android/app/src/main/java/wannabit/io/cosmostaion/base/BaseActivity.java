@@ -48,6 +48,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
+import wannabit.io.cosmostaion.activities.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -280,6 +281,21 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         startActivity(intent);
     }
 
+    public void onStartIncentiveClaim() {
+        WLog.w("onStartIncentiveClaim");
+//        if (mAccount == null) return;
+//        if (!mAccount.hasPrivateKey) {
+//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+//            return;
+//        }
+        Intent intent = new Intent(getBaseContext(), ClaimIncentiveActivity.class);
+        startActivity(intent);
+
+    }
+
+
     public void onChoiceNet(BaseChain chain) { }
 
     public void onShare(boolean isText, String address) {
@@ -417,9 +433,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 if (account != null) {
                     getBaseDao().setLastUser(account.id);
                     onStartMainActivity(2);
-
                 }
-
             }
         });
 

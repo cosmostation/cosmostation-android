@@ -116,6 +116,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_KAVA_INCENTIVE_PARAM             = 2074;
     public final static int TASK_FETCH_KAVA_PRICE_PARAM                 = 2075;
     public final static int TASK_FETCH_KAVA_INCENTIVE_REWARD            = 2076;
+    public final static int TASK_GEN_KAVA_CLAIM_INCENTIVE               = 2077;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -212,6 +213,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_WITHDRAW_CDP                        = 5017;
 //    public final static int CONST_PW_TX_HTLS_SWAP                           = 5018;
     public final static int CONST_PW_TX_HTLS_REFUND                         = 5019;
+    public final static int CONST_PW_TX_CLAIM_INCENTIVE                     = 5020;
 
 
     public final static int TX_TYPE_UNKNOWN                 = 3000;
