@@ -435,7 +435,7 @@ class StepFeeViewController: BaseViewController {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_LOW))
                 
             } else if (pageHolderVC.mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
-                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_LOW))
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
             }
             
         }

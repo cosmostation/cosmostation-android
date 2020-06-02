@@ -36,7 +36,7 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
         WUtils.setDenomTitle(self.chainType!, feeAmountDenom)
         WUtils.setDenomTitle(self.chainType!, myRewardDenom)
         mIncentiveReward = BaseData.instance.mIncentiveParam.rewards[0]
-        mUnClaimedIncentiveReward = BaseData.instance.mUnClaimedIncentiveRewards[0]
+        mUnClaimedIncentiveReward = BaseData.instance.mUnClaimedIncentiveRewards.last
     }
     
     override func enableUserInteraction() {

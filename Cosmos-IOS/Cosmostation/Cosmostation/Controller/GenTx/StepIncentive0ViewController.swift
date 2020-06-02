@@ -31,7 +31,7 @@ class StepIncentive0ViewController: BaseViewController {
         self.pageHolderVC = self.parent as? StepGenTxViewController
         
         mIncentiveReward = BaseData.instance.mIncentiveParam.rewards[0]
-        mUnClaimedIncentiveReward = BaseData.instance.mUnClaimedIncentiveRewards[0]
+        mUnClaimedIncentiveReward = BaseData.instance.mUnClaimedIncentiveRewards.last
         let tAmount = NSDecimalNumber.init(string: mIncentiveReward.available_rewards.amount)
         let mAmount = NSDecimalNumber.init(string: mUnClaimedIncentiveReward.reward.amount)
         
