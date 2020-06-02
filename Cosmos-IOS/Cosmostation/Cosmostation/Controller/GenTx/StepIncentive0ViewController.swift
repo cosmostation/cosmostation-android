@@ -12,8 +12,6 @@ class StepIncentive0ViewController: BaseViewController {
     
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnNext: UIButton!
-    @IBOutlet weak var totalRewardAmount: UILabel!
-    @IBOutlet weak var totalRewardAmountDenom: UILabel!
     @IBOutlet weak var myRewardAmount: UILabel!
     @IBOutlet weak var myRewardDenom: UILabel!
     @IBOutlet weak var incentiveAddress: UILabel!
@@ -22,7 +20,6 @@ class StepIncentive0ViewController: BaseViewController {
     
     var pageHolderVC: StepGenTxViewController!
     var mIncentiveReward: KavaIncentiveParam.IncentiveReward!
-    var mUnClaimedIncentiveReward: KavaIncentiveReward.UnClaimedIncentiveReward!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,14 +28,14 @@ class StepIncentive0ViewController: BaseViewController {
         self.pageHolderVC = self.parent as? StepGenTxViewController
         
         mIncentiveReward = BaseData.instance.mIncentiveParam.rewards[0]
-        mUnClaimedIncentiveReward = BaseData.instance.mUnClaimedIncentiveRewards.last
-        let tAmount = NSDecimalNumber.init(string: mIncentiveReward.available_rewards.amount)
-        let mAmount = NSDecimalNumber.init(string: mUnClaimedIncentiveReward.reward.amount)
         
-        WUtils.setDenomTitle(self.chainType!, totalRewardAmountDenom)
+        var mAmount = NSDecimalNumber.zero
+        for reward in BaseData.instance.mUnClaimedIncentiveRewards {
+            mAmount = mAmount.adding(NSDecimalNumber.init(string: reward.reward.amount))
+        }
+        
         WUtils.setDenomTitle(self.chainType!, myRewardDenom)
         
-        totalRewardAmount.attributedText = WUtils.displayAmount2(tAmount.stringValue, totalRewardAmount.font, 6, 6)
         myRewardAmount.attributedText = WUtils.displayAmount2(mAmount.stringValue, myRewardAmount.font, 6, 6)
         incentiveAddress.text = self.account?.account_address
         incentiveDenom.text = mIncentiveReward.denom.uppercased()

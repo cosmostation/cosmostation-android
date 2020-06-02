@@ -223,17 +223,20 @@ public struct TxInfo {
     
     public func getKavaIncentive() -> Coin {
         var coin = Coin.init()
+        var rewardSum = NSDecimalNumber.zero
         for event in self.events {
             if (event.type == "claim_reward") {
                 for attr in event.attributes {
                     if (attr.key == "claim_amount") {
                         let value = attr.value;
                         coin.denom = value.filter{ $0.isLetter }
-                        coin.amount = value.filter{ $0.isNumber }
+//                        coin.amount = value.filter{ $0.isNumber }
+                        rewardSum = rewardSum.adding(NSDecimalNumber.init(string: value.filter{ $0.isNumber }))
                     }
                 }
             }
         }
+        coin.amount = rewardSum.stringValue
         return coin
     }
 }

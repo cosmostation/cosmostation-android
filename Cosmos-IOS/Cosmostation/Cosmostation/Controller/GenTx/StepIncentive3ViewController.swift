@@ -25,8 +25,6 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
     
     var pageHolderVC: StepGenTxViewController!
     var mIncentiveReward: KavaIncentiveParam.IncentiveReward!
-    var mUnClaimedIncentiveReward: KavaIncentiveReward.UnClaimedIncentiveReward!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +34,6 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
         WUtils.setDenomTitle(self.chainType!, feeAmountDenom)
         WUtils.setDenomTitle(self.chainType!, myRewardDenom)
         mIncentiveReward = BaseData.instance.mIncentiveParam.rewards[0]
-        mUnClaimedIncentiveReward = BaseData.instance.mUnClaimedIncentiveRewards.last
     }
     
     override func enableUserInteraction() {
@@ -47,7 +44,10 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
     
     func onUpdateView() {
         let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
-        let mAmount = NSDecimalNumber.init(string: mUnClaimedIncentiveReward.reward.amount)
+        var mAmount = NSDecimalNumber.zero
+        for reward in BaseData.instance.mUnClaimedIncentiveRewards {
+            mAmount = mAmount.adding(NSDecimalNumber.init(string: reward.reward.amount))
+        }
 
         feeAmount.attributedText = WUtils.displayAmount2(fAmount.stringValue, feeAmount.font, 6, 6)
         myRewardAmount.attributedText = WUtils.displayAmount2(mAmount.stringValue, myRewardAmount.font, 6, 6)
