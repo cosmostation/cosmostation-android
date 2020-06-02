@@ -243,7 +243,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mAccountGenTime.setText(WDp.getDpTime(getBaseContext(), mAccount.importTime));
         mAccountChain.setText(mBaseChain.getChain());
 
-        if(mAccount.hasPrivateKey) {
+        if (mAccount.hasPrivateKey) {
             mAccountState.setText(getString(R.string.str_with_mnemonic));
             mAccountPath.setText(WDp.getPath(BaseChain.getChain(mAccount.baseChain), Integer.parseInt(mAccount.path), mAccount.newBip44));
             mPathLayer.setVisibility(View.VISIBLE);
@@ -303,7 +303,9 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
             } else {
-                startActivity(new Intent(AccountDetailActivity.this, RestoreActivity.class));
+                Intent restoreIntent = new Intent(AccountDetailActivity.this, RestoreActivity.class);
+                restoreIntent.putExtra("chain", mBaseChain.getChain());
+                startActivity(restoreIntent);
             }
 
         } else if (v.equals(mBtnDelete)) {

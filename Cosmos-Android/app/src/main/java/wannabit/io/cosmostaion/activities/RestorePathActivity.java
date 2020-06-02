@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
@@ -77,7 +78,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
         mWordSize = getIntent().getIntExtra("size", 24);
         mIsNewBip44forKava = getIntent().getBooleanExtra("bip44", false);
-
     }
 
 
@@ -99,7 +99,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
     }
 
     private void onOverrideAccount(Account account, int path) {
-        new OverrideAccountTask(getBaseApplication(), mChain, account, this).execute(""+path, mEntropy, ""+mWordSize);
+        new OverrideAccountTask(getBaseApplication(), mChain, account, this, mIsNewBip44forKava).execute(""+path, mEntropy, ""+mWordSize);
     }
 
     @Override

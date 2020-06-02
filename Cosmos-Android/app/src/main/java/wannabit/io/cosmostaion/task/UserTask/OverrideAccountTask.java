@@ -20,11 +20,13 @@ import wannabit.io.cosmostaion.utils.WLog;
 public class OverrideAccountTask extends CommonTask {
     private BaseChain mBaseChain;
     private Account mAccount;
+    private Boolean mKavaNewPath;
 
-    public OverrideAccountTask(BaseApplication app, BaseChain chain, Account account, TaskListener listener) {
+    public OverrideAccountTask(BaseApplication app, BaseChain chain, Account account, TaskListener listener, boolean bip44) {
         super(app, listener);
         this.mBaseChain = chain;
         this.mAccount = account;
+        this.mKavaNewPath = bip44;
         this.mResult.taskType = BaseConstant.TASK_OVERRIDE_ACCOUNT;
     }
 
@@ -61,7 +63,7 @@ public class OverrideAccountTask extends CommonTask {
     private Account onModAccount(Account account, String entropy, String path, String msize) {
         if (BaseChain.COSMOS_MAIN.equals(mBaseChain) || BaseChain.IRIS_MAIN.equals(mBaseChain) ||
                 BaseChain.BNB_MAIN.equals(mBaseChain) || BaseChain.KAVA_MAIN.equals(mBaseChain) || BaseChain.BNB_TEST.equals(mBaseChain) || BaseChain.KAVA_TEST.equals(mBaseChain)) {
-            DeterministicKey dKey       = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(path), mAccount.newBip44);
+            DeterministicKey dKey       = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(path), mKavaNewPath);
             EncResult encR              = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ account.uuid, entropy, false);
             account.address             = WKey.getDpAddress(BaseChain.getChain(account.baseChain), dKey.getPublicKeyAsHex());
             account.hasPrivateKey       = true;
@@ -70,6 +72,8 @@ public class OverrideAccountTask extends CommonTask {
             account.fromMnemonic        = true;
             account.path                = path;
             account.msize               = Integer.parseInt(msize);
+            account.newBip44            = mKavaNewPath;
+
         } else if (BaseChain.IOV_MAIN.equals(mBaseChain)) {
             HdAddress dKey = WKey.getEd25519KeyWithPathfromEntropy(mBaseChain, entropy, Integer.parseInt(path));
             EncResult encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ account.uuid, entropy, false);
