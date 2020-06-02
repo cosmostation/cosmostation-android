@@ -109,7 +109,6 @@ public class ClaimIncentiveActivity extends BaseActivity {
                 onHideKeyboard();
             }
         });
-//        onShowWaitDialog();
     }
 
 

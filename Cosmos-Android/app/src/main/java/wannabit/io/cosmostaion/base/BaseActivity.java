@@ -282,14 +282,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onStartIncentiveClaim() {
-        WLog.w("onStartIncentiveClaim");
-//        if (mAccount == null) return;
-//        if (!mAccount.hasPrivateKey) {
-//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return;
-//        }
+        if (mAccount == null) return;
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
         Intent intent = new Intent(getBaseContext(), ClaimIncentiveActivity.class);
         startActivity(intent);
 

@@ -255,6 +255,7 @@ public class ResTxInfo {
 
     public Coin simpleIncentive() {
         Coin coin  = new Coin();
+        BigDecimal amountSum = BigDecimal.ZERO;
         if (getEvent() != null) {
             for (Event event:getEvent()) {
                 if (event.type.equals("claim_reward")) {
@@ -264,12 +265,13 @@ public class ResTxInfo {
                             String denom = value.replaceAll("[0-9]", "");
                             String amount = value.replaceAll("[^0-9]", "");
                             coin.denom = denom;
-                            coin.amount = amount;
+                            amountSum = amountSum.add(new BigDecimal(amount));
                         }
                     }
                 }
             }
         }
+        coin.amount = amountSum.toPlainString();
         return coin;
 
     }
