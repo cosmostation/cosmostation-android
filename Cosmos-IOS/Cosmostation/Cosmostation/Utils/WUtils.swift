@@ -216,7 +216,7 @@ class WUtils {
                 
             } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
                 var dpBalance = NSDecimalNumber.zero
-                var dpVestiong = NSDecimalNumber.zero
+                var dpVesting = NSDecimalNumber.zero
                 var originalVestiong = NSDecimalNumber.zero
                 var deleagtedVesting = NSDecimalNumber.zero
                 
@@ -231,23 +231,18 @@ class WUtils {
                             deleagtedVesting = deleagtedVesting.adding(NSDecimalNumber.init(string: coin.amount))
                         })
                         
-                        print("dpBalance            ", dpBalance)
-                        print("originalVestiong     ", originalVestiong)
-                        print("deleagtedVesting     ", deleagtedVesting)
-                        
-//                        if (dpBalance.compare(originalVestiong).rawValue <= 0) {
-//                            dpBalance = NSDecimalNumber.zero
-//                        } else {
-//                            dpBalance = dpBalance.subtracting(originalVestiong)
-//                        }
-//                        result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, NSDecimalNumber.zero.stringValue, originalVestiong.stringValue))
+                        if (SHOW_LOG) {
+                            print("dpBalance            ", dpBalance)
+                            print("originalVestiong     ", originalVestiong)
+                            print("deleagtedVesting     ", deleagtedVesting)
+                        }
                         
                         dpBalance = dpBalance.subtracting(originalVestiong).adding(deleagtedVesting)
                         if (dpBalance.compare(NSDecimalNumber.zero).rawValue <= 0) {
                             dpBalance = NSDecimalNumber.zero
                         }
-                        dpVestiong = originalVestiong.subtracting(deleagtedVesting)
-                        result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, deleagtedVesting.stringValue, dpVestiong.stringValue))
+                        dpVesting = originalVestiong.subtracting(deleagtedVesting)
+                        result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, deleagtedVesting.stringValue, dpVesting.stringValue))
                         
                     } else {
                         result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))

@@ -203,7 +203,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             if (BaseData.instance.mUnClaimedIncentiveRewards.count == 0 && indexPath.row == 2) {
                 return 0;
             }
-            if (BaseData.instance.mKavaAccountResult.type == COSMOS_AUTH_TYPE_ACCOUNT && indexPath.row == 6) {
+            if (BaseData.instance.mKavaAccountResult.type == COSMOS_AUTH_TYPE_ACCOUNT &&
+                BaseData.instance.mKavaAccountResult.getCVestingCnt() > 0 && indexPath.row == 6) {
                 return 0;
             }
         }

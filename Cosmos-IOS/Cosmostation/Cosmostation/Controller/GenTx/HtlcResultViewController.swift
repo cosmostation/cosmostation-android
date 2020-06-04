@@ -297,6 +297,11 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     self.mTimeStamp = Date().millisecondsSince1970 / 1000
                     self.mRandomNumber = WKey.generateRandomBytes()
                     self.mRandomNumberHash = WKey.getRandomNumnerHash(self.mRandomNumber!, self.mTimeStamp!)
+                    if (SHOW_LOG) {
+                        print("mTimeStamp ", self.mTimeStamp)
+                        print("mRandomNumber ", self.mRandomNumber)
+                        print("mRandomNumberHash ", self.mRandomNumberHash)
+                    }
                     
                     let sendAmount = NSDecimalNumber.init(string: self.mHtlcToSendAmount[0].amount).multiplying(byPowerOf10: 8)
 //                    print("sendAmount ", sendAmount.int64Value)
@@ -315,7 +320,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                                                     wallet: wallet)
                     
                     binance!.broadcast(message: bnbMsg, sync: true) { (response) in
-                        print(response.broadcast)
+                        if (SHOW_LOG) { print("onCreateHtlcSwap response", response.broadcast) }
                         if let error = response.error {
                             if(SHOW_LOG) { print(error.localizedDescription) }
                             self.onUpdateView(error.localizedDescription)
@@ -358,7 +363,6 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         let encoder = JSONEncoder()
                         encoder.outputFormatting = .sortedKeys
                         let data = try? encoder.encode(stdMsg)
-//                        print("String " , String(data:data!, encoding:.utf8))
                         let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
                         let rawData: Data? = rawResult!.data(using: .utf8)
                         let hash = Crypto.sha256(rawData!)
