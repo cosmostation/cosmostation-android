@@ -17,6 +17,8 @@ final class BaseData : NSObject{
     
     var database: Connection!
     var mAllValidator = Array<Validator>()
+    
+    var mKavaAccountResult = KavaAccountInfo.KavaAccountResult.init()
     var mCdpParam = CdpParam.init()
     var mKavaPrice = [String:KavaTokenPrice]()
     var mMyCdps = Array<CdpOwen>()

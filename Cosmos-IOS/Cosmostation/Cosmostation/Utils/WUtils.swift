@@ -65,28 +65,28 @@ class WUtils {
         let result = account
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                result.account_address = (accountInfo.result.value?.address)!
-                result.account_sequence_number = Int64(accountInfo.result.value!.sequence)!
-                result.account_account_numner = Int64(accountInfo.result.value!.account_number)!
+                result.account_address = accountInfo.result.value.address
+                result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
+                result.account_account_numner = Int64(accountInfo.result.value.account_number)!
             } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
-                result.account_address = accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.address
-                result.account_sequence_number = Int64(accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence)!
-                result.account_account_numner = Int64(accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.account_number)!
+                result.account_address = accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.address
+                result.account_sequence_number = Int64(accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence)!
+                result.account_account_numner = Int64(accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.account_number)!
             } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
-                result.account_address = accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.address
-                result.account_sequence_number = Int64(accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence)!
-                result.account_account_numner = Int64(accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.account_number)!
+                result.account_address = accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.address
+                result.account_sequence_number = Int64(accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence)!
+                result.account_account_numner = Int64(accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.account_number)!
             }
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                result.account_address = (accountInfo.result.value?.address)!
-                result.account_sequence_number = Int64(accountInfo.result.value!.sequence)!
-                result.account_account_numner = Int64(accountInfo.result.value!.account_number)!
+                result.account_address = accountInfo.result.value.address
+                result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
+                result.account_account_numner = Int64(accountInfo.result.value.account_number)!
             } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
-                result.account_address = accountInfo.result.value!.address
-                result.account_sequence_number = Int64(accountInfo.result.value!.sequence)!
-                result.account_account_numner = Int64(accountInfo.result.value!.account_number)!
+                result.account_address = accountInfo.result.value.address
+                result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
+                result.account_account_numner = Int64(accountInfo.result.value.account_number)!
             }
         }
         
@@ -122,7 +122,7 @@ class WUtils {
         var result = Array<Balance>()
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                accountInfo.result.value?.coins.forEach({ (coin) in
+                accountInfo.result.value.coins.forEach({ (coin) in
                     result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
                 })
                 
@@ -133,21 +133,21 @@ class WUtils {
                 var dpVesting = NSDecimalNumber.zero
                 var dpBalance = NSDecimalNumber.zero
                 
-                for i in 0 ..< accountInfo.result.value!.vesting_period_progress.count {
-                    if (!accountInfo.result.value!.vesting_period_progress[i].period_complete &&
-                        !accountInfo.result.value!.vesting_period_progress[i].vesting_successful) {
-                        totalVestiong = totalVestiong.adding(NSDecimalNumber.init(string: accountInfo.result.value!.PeriodicVestingAccount.vesting_periods[i].amount[0].amount))
+                for i in 0 ..< accountInfo.result.value.vesting_period_progress.count {
+                    if (!accountInfo.result.value.vesting_period_progress[i].period_complete &&
+                        !accountInfo.result.value.vesting_period_progress[i].vesting_successful) {
+                        totalVestiong = totalVestiong.adding(NSDecimalNumber.init(string: accountInfo.result.value.PeriodicVestingAccount.vesting_periods[i].amount[0].amount))
                     }
                 }
                 
-                accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.delegated_vesting.forEach({ (coin) in
+                accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.delegated_vesting.forEach({ (coin) in
                     totalDeleagtedVesting = totalDeleagtedVesting.adding(NSDecimalNumber.init(string: coin.amount))
                 })
                 if (totalVestiong.compare(NSDecimalNumber.zero).rawValue > 0) {
                     dpVesting = totalVestiong.subtracting(totalDeleagtedVesting)
                 }
                 
-                accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.forEach({ (coin) in
+                accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.forEach({ (coin) in
                     dpBalance = dpBalance.adding(NSDecimalNumber.init(string: coin.amount))
                 })
                 
@@ -174,11 +174,11 @@ class WUtils {
                 var dpVesting = NSDecimalNumber.zero
                 var dpBalance = NSDecimalNumber.zero
                 
-                for i in 0 ..< accountInfo.result.value!.vesting_periods.count {
-                    totalVestiong = totalVestiong.adding(NSDecimalNumber.init(string: accountInfo.result.value!.vesting_periods[i].amount[0].amount))
+                for i in 0 ..< accountInfo.result.value.vesting_periods.count {
+                    totalVestiong = totalVestiong.adding(NSDecimalNumber.init(string: accountInfo.result.value.vesting_periods[i].amount[0].amount))
                 }
                 
-                accountInfo.result.value!.BaseVestingAccount.delegated_vesting.forEach({ (coin) in
+                accountInfo.result.value.BaseVestingAccount.delegated_vesting.forEach({ (coin) in
                     totalDeleagtedVesting = totalDeleagtedVesting.adding(NSDecimalNumber.init(string: coin.amount))
                 })
                 
@@ -186,7 +186,7 @@ class WUtils {
                     dpVesting = totalVestiong.subtracting(totalDeleagtedVesting)
                 }
                 
-                accountInfo.result.value!.BaseVestingAccount.BaseAccount.coins.forEach({ (coin) in
+                accountInfo.result.value.BaseVestingAccount.BaseAccount.coins.forEach({ (coin) in
                     dpBalance = dpBalance.adding(NSDecimalNumber.init(string: coin.amount))
                 })
                 
@@ -210,7 +210,7 @@ class WUtils {
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                accountInfo.result.value?.coins.forEach({ (coin) in
+                accountInfo.result.value.coins.forEach({ (coin) in
                     result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
                 })
                 
@@ -220,14 +220,14 @@ class WUtils {
                 var originalVestiong = NSDecimalNumber.zero
                 var deleagtedVesting = NSDecimalNumber.zero
                 
-                accountInfo.result.value!.coins.forEach({ (coin) in
+                accountInfo.result.value.coins.forEach({ (coin) in
                     if (coin.denom == KAVA_MAIN_DENOM) {
                         dpBalance = NSDecimalNumber.init(string: coin.amount)
-                        accountInfo.result.value!.original_vesting.forEach({ (coin) in
+                        accountInfo.result.value.original_vesting.forEach({ (coin) in
                             originalVestiong = originalVestiong.adding(NSDecimalNumber.init(string: coin.amount))
                         })
                         
-                        accountInfo.result.value!.delegated_vesting.forEach({ (coin) in
+                        accountInfo.result.value.delegated_vesting.forEach({ (coin) in
                             deleagtedVesting = deleagtedVesting.adding(NSDecimalNumber.init(string: coin.amount))
                         })
                         
@@ -355,6 +355,15 @@ class WUtils {
         return localFormatter.string(from: fullDate)
     }
     
+    static func vestingTimeToString(_ startTime:Int64, _ vesting: KavaAccountInfo.VestingPeriod) -> String {
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
+        let unlockTime = (startTime + vesting.length) * 1000
+        
+        let fullDate = Date.init(milliseconds: Int(unlockTime))
+        return localFormatter.string(from: fullDate)
+    }
+    
     static func unbondingDateFromNow() -> String {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
@@ -417,6 +426,24 @@ class WUtils {
             return "(\(secondsAgo / hour) hours ago)"
         } else {
             return "(\(secondsAgo / day) days ago)"
+        }
+    }
+    
+    static func vestingTimeGap(_ startTime:Int64, _ vesting: KavaAccountInfo.VestingPeriod) -> String {
+        let unlockTime = (startTime + vesting.length) * 1000
+        let secondsLeft = Int(Date().timeIntervalSince(Date.init(milliseconds: Int(unlockTime)))) * -1
+        
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        if secondsLeft < minute {
+            return "Soon"
+        } else if secondsLeft < hour {
+            return "(\(secondsLeft / minute) minutes remaining)"
+        } else if secondsLeft < day {
+            return "(\(secondsLeft / hour) hours remaining)"
+        } else {
+            return "(\(secondsLeft / day) days remaining)"
         }
     }
     

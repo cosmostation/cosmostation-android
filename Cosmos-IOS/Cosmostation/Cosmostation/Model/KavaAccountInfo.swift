@@ -22,7 +22,7 @@ public class KavaAccountInfo {
     
     public class KavaAccountResult {
         var type: String = ""
-        var value: KavaAccountValue?
+        var value: KavaAccountValue = KavaAccountValue.init()
         
         init() {}
         
@@ -30,6 +30,58 @@ public class KavaAccountInfo {
             self.type = dictionary["type"] as? String ?? ""
             self.value = KavaAccountValue.init(dictionary["value"] as! [String : Any])
         }
+        
+        func getCVestingCnt() -> Int {
+            var result = 0;
+            let cTime = Date().millisecondsSince1970
+            for vestingPeriod in value.vesting_periods {
+                let unlockTime = (value.start_time + vestingPeriod.length) * 1000
+                if (cTime < unlockTime) {
+                    result = result + 1
+                }
+            }
+            return result;
+        }
+        
+        func getCVestingSum() -> NSDecimalNumber {
+            var result = NSDecimalNumber.zero
+            let cTime = Date().millisecondsSince1970
+            for vestingPeriod in value.vesting_periods {
+                let unlockTime = (value.start_time + vestingPeriod.length) * 1000
+                if (cTime < unlockTime) {
+                    for coin in vestingPeriod.amount {
+                        result = result.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                }
+            }
+            return result
+        }
+        
+        func getCVestingPeriods() -> Array<VestingPeriod> {
+            var result = Array<VestingPeriod>()
+            let cTime = Date().millisecondsSince1970
+            for vestingPeriod in value.vesting_periods {
+                let unlockTime = (value.start_time + vestingPeriod.length) * 1000
+                if (cTime < unlockTime) {
+                    result.append(vestingPeriod)
+                }
+            }
+            return result
+        }
+        
+        func getCVestingPeriod(_ position:Int) -> VestingPeriod {
+            return getCVestingPeriods()[position]
+        }
+        
+        func getCVestingPeriodAmount(_ position:Int) -> NSDecimalNumber {
+            var result = NSDecimalNumber.zero
+            let cVestingPeriod = getCVestingPeriod(position)
+            for coin in cVestingPeriod.amount {
+                result = result.adding(NSDecimalNumber.init(string: coin.amount))
+            }
+            return result
+        }
+        
     }
     
     public class KavaAccountValue {
@@ -44,6 +96,8 @@ public class KavaAccountInfo {
         
         var original_vesting: Array<Coin> = Array<Coin>()
         var delegated_vesting: Array<Coin> = Array<Coin>()
+        var start_time: Int64 = 0
+        var end_time: Int64 = 0
         
         init() {}
         
@@ -105,6 +159,14 @@ public class KavaAccountInfo {
                 for coin in rawDelegated_vesting {
                     self.delegated_vesting.append(Coin(coin as! [String : Any]))
                 }
+            }
+            
+            if let startTime = dictionary["start_time"] as? Int64 {
+                self.start_time = startTime
+            }
+            
+            if let endTime = dictionary["end_time"] as? Int64 {
+                self.end_time = endTime
             }
         }
     }
@@ -187,11 +249,13 @@ public class KavaAccountInfo {
     }
 
     public class VestingPeriod {
+        var length: Int64 = 0
         var amount: Array<Coin> = Array<Coin>()
         
         init() {}
         
         init(_ dictionary: [String: Any]) {
+            self.length = dictionary["length"] as? Int64 ?? 0
             self.amount.removeAll()
             let rawCoins = dictionary["amount"] as! Array<NSDictionary>
             for coin in rawCoins {

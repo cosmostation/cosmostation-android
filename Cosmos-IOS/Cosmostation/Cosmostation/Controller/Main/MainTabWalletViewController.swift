@@ -40,6 +40,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletKavaIncentiveCell", bundle: nil), forCellReuseIdentifier: "WalletKavaIncentiveCell")
         self.walletTableView.register(UINib(nibName: "WalletIovCell", bundle: nil), forCellReuseIdentifier: "WalletIovCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
+        self.walletTableView.register(UINib(nibName: "WalletVestingDetailCell", bundle: nil), forCellReuseIdentifier: "WalletVestingDetailCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
         self.walletTableView.register(UINib(nibName: "WalletGuideCell", bundle: nil), forCellReuseIdentifier: "WalletGuideCell")
@@ -157,8 +158,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             return 6;
         } else if  (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
@@ -167,6 +167,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return 4;
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            return 7
         } else {
             return 0;
         }
@@ -199,6 +201,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (BaseData.instance.mUnClaimedIncentiveRewards.count == 0 && indexPath.row == 2) {
+                return 0;
+            }
+            if (BaseData.instance.mKavaAccountResult.type == COSMOS_AUTH_TYPE_ACCOUNT && indexPath.row == 6) {
                 return 0;
             }
         }
@@ -708,7 +713,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             return cell!
             
-        } else {
+        } else if (indexPath.row == 5) {
             let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
             cell?.guideImg.image = UIImage(named: "kavamainImg")
             cell?.guideTitle.text = NSLocalizedString("send_guide_title_kava", comment: "")
@@ -720,6 +725,42 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             cell?.actionGuide2 = {
                 self.onClickGuide2()
+            }
+            return cell!
+            
+        } else {
+            let cell:WalletVestingDetailCell? = tableView.dequeueReusableCell(withIdentifier:"WalletVestingDetailCell") as? WalletVestingDetailCell
+            let mKavaAccount = BaseData.instance.mKavaAccountResult
+            cell?.vestingCntLabel.text = "(" + String(mKavaAccount.getCVestingCnt()) + ")"
+            cell?.vestingTotalAmount.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingSum().stringValue, cell!.vestingTotalAmount.font!, 6, 6)
+            if (mKavaAccount.getCVestingCnt() > 0) {
+                cell?.vestingTime0.text = WUtils.vestingTimeToString(mKavaAccount.value.start_time, mKavaAccount.getCVestingPeriod(0))
+                cell?.vestingGap0.text = WUtils.vestingTimeGap(mKavaAccount.value.start_time, mKavaAccount.getCVestingPeriod(0))
+                cell?.vestingAmount0.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(0).stringValue, cell!.vestingAmount0.font!, 6, 6)
+            }
+            if (mKavaAccount.getCVestingCnt() > 1) {
+                cell?.vestingLayer1.isHidden = false
+                cell?.vestingTime1.text = WUtils.vestingTimeToString(mKavaAccount.value.start_time, mKavaAccount.getCVestingPeriod(1))
+                cell?.vestingGap1.text = WUtils.vestingTimeGap(mKavaAccount.value.start_time, mKavaAccount.getCVestingPeriod(1))
+                cell?.vestingAmount1.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(1).stringValue, cell!.vestingAmount1.font!, 6, 6)
+            }
+            if (mKavaAccount.getCVestingCnt() > 2) {
+                cell?.vestingLayer2.isHidden = false
+                cell?.vestingTime2.text = WUtils.vestingTimeToString(mKavaAccount.value.start_time, mKavaAccount.getCVestingPeriod(2))
+                cell?.vestingGap2.text = WUtils.vestingTimeGap(mKavaAccount.value.start_time, mKavaAccount.getCVestingPeriod(2))
+                cell?.vestingAmount2.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(2).stringValue, cell!.vestingAmount2.font!, 6, 6)
+            }
+            if (mKavaAccount.getCVestingCnt() > 3) {
+                cell?.vestingLayer3.isHidden = false
+                cell?.vestingTime3.text = WUtils.vestingTimeToString(mKavaAccount.value.start_time, mKavaAccount.getCVestingPeriod(3))
+                cell?.vestingGap3.text = WUtils.vestingTimeGap(mKavaAccount.value.start_time, mKavaAccount.getCVestingPeriod(3))
+                cell?.vestingAmount3.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(3).stringValue, cell!.vestingAmount3.font!, 6, 6)
+            }
+            if (mKavaAccount.getCVestingCnt() > 4) {
+                cell?.vestingLayer4.isHidden = false
+                cell?.vestingTime4.text = WUtils.vestingTimeToString(mKavaAccount.value.start_time, mKavaAccount.getCVestingPeriod(4))
+                cell?.vestingGap4.text = WUtils.vestingTimeGap(mKavaAccount.value.start_time, mKavaAccount.getCVestingPeriod(4))
+                cell?.vestingAmount4.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(4).stringValue, cell!.vestingAmount4.font!, 6, 6)
             }
             return cell!
         }
