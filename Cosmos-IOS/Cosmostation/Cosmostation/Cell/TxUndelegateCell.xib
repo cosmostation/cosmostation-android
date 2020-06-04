@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -52,7 +52,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="us3-ue-lDr">
-                                <rect key="frame" x="16" y="132" width="6" height="14.5"/>
+                                <rect key="frame" x="16" y="132" width="264" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -127,6 +127,7 @@
                             <constraint firstItem="us3-ue-lDr" firstAttribute="top" secondItem="9o1-1Q-uQ7" secondAttribute="bottom" constant="6" id="J1C-ya-fkC"/>
                             <constraint firstItem="77D-JC-OwA" firstAttribute="top" secondItem="oPI-Sh-YNf" secondAttribute="top" constant="16" id="J1I-qk-oxn"/>
                             <constraint firstItem="9o1-1Q-uQ7" firstAttribute="leading" secondItem="77D-JC-OwA" secondAttribute="leading" id="JUb-jx-v6q"/>
+                            <constraint firstAttribute="trailing" secondItem="us3-ue-lDr" secondAttribute="trailing" constant="16" id="P1b-9x-3jN"/>
                             <constraint firstAttribute="bottom" secondItem="eaR-bk-02N" secondAttribute="bottom" constant="16" id="V2X-m6-vkm"/>
                             <constraint firstItem="KFG-AF-MfJ" firstAttribute="centerY" secondItem="8uJ-nb-wFU" secondAttribute="centerY" id="VM8-Bz-wXT"/>
                             <constraint firstItem="UQi-9m-06I" firstAttribute="leading" secondItem="77D-JC-OwA" secondAttribute="leading" id="VP0-FJ-eOc"/>

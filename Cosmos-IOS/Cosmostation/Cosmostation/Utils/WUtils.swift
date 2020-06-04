@@ -216,7 +216,9 @@ class WUtils {
                 
             } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
                 var dpBalance = NSDecimalNumber.zero
+                var dpVestiong = NSDecimalNumber.zero
                 var originalVestiong = NSDecimalNumber.zero
+                var deleagtedVesting = NSDecimalNumber.zero
                 
                 accountInfo.result.value!.coins.forEach({ (coin) in
                     if (coin.denom == KAVA_MAIN_DENOM) {
@@ -224,14 +226,28 @@ class WUtils {
                         accountInfo.result.value!.original_vesting.forEach({ (coin) in
                             originalVestiong = originalVestiong.adding(NSDecimalNumber.init(string: coin.amount))
                         })
-                        print("dpBalance ", dpBalance)
-                        print("originalVestiong ", originalVestiong)
-                        if (dpBalance.compare(originalVestiong).rawValue <= 0) {
+                        
+                        accountInfo.result.value!.delegated_vesting.forEach({ (coin) in
+                            deleagtedVesting = deleagtedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                        })
+                        
+                        print("dpBalance            ", dpBalance)
+                        print("originalVestiong     ", originalVestiong)
+                        print("deleagtedVesting     ", deleagtedVesting)
+                        
+//                        if (dpBalance.compare(originalVestiong).rawValue <= 0) {
+//                            dpBalance = NSDecimalNumber.zero
+//                        } else {
+//                            dpBalance = dpBalance.subtracting(originalVestiong)
+//                        }
+//                        result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, NSDecimalNumber.zero.stringValue, originalVestiong.stringValue))
+                        
+                        dpBalance = dpBalance.subtracting(originalVestiong).adding(deleagtedVesting)
+                        if (dpBalance.compare(NSDecimalNumber.zero).rawValue <= 0) {
                             dpBalance = NSDecimalNumber.zero
-                        } else {
-                            dpBalance = dpBalance.subtracting(originalVestiong)
                         }
-                        result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, NSDecimalNumber.zero.stringValue, originalVestiong.stringValue))
+                        dpVestiong = originalVestiong.subtracting(deleagtedVesting)
+                        result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, deleagtedVesting.stringValue, dpVestiong.stringValue))
                         
                     } else {
                         result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))

@@ -153,6 +153,8 @@
 		289DF17C242DDF4F00433CF4 /* CdpDetailMyTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */; };
 		289DF180242DDF6A00433CF4 /* CdpDetailMyActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */; };
 		289DF184242DDF8300433CF4 /* CdpDetailAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */; };
+		28A209DF248897F400C2C078 /* WalletVestingDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A209DD248897F400C2C078 /* WalletVestingDetailCell.swift */; };
+		28A209E0248897F400C2C078 /* WalletVestingDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A209DE248897F400C2C078 /* WalletVestingDetailCell.xib */; };
 		28ACF35E247E4531003C8812 /* KavaIncentiveReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */; };
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
@@ -523,6 +525,8 @@
 		289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyTopCell.swift; sourceTree = "<group>"; };
 		289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyActionCell.swift; sourceTree = "<group>"; };
 		289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailAssetsCell.swift; sourceTree = "<group>"; };
+		28A209DD248897F400C2C078 /* WalletVestingDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletVestingDetailCell.swift; sourceTree = "<group>"; };
+		28A209DE248897F400C2C078 /* WalletVestingDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletVestingDetailCell.xib; sourceTree = "<group>"; };
 		28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveReward.swift; sourceTree = "<group>"; };
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
@@ -1222,6 +1226,8 @@
 				E126CF982387A5C9002A546F /* WalletIovCell.xib */,
 				2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */,
 				2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */,
+				28A209DD248897F400C2C078 /* WalletVestingDetailCell.swift */,
+				28A209DE248897F400C2C078 /* WalletVestingDetailCell.xib */,
 				E1FD2332233E1C16009327FE /* WalletPriceCell.swift */,
 				E126CF9D2387A60D002A546F /* WalletPriceCell.xib */,
 				E1FD2336233E1C30009327FE /* WalletInflationCell.swift */,
@@ -1446,6 +1452,7 @@
 				E103DAC9228129FD006C2146 /* WalletManageViewController.xib in Resources */,
 				E126CFA52387A713002A546F /* TokenDetailHeaderCosmosCell.xib in Resources */,
 				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
+				28A209E0248897F400C2C078 /* WalletVestingDetailCell.xib in Resources */,
 				E16B70DD229F9A78001D6B9C /* RedelegateCell.xib in Resources */,
 				E126CF912387A55A002A546F /* WalletKavaCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
@@ -1624,6 +1631,7 @@
 				E19A32262254AE7A00A05E41 /* ManageHeader.swift in Sources */,
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
+				28A209DF248897F400C2C078 /* WalletVestingDetailCell.swift in Sources */,
 				2852D76D2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift in Sources */,
 				28474ED2241E06AF00AF5A81 /* TxPostPriceCell.swift in Sources */,
 				285A33D32446CDB80052BD3D /* StepHtlcSend3ViewController.swift in Sources */,

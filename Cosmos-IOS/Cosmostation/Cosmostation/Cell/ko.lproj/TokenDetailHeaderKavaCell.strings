@@ -27,7 +27,7 @@
 "cKc-74-tp8.normalTitle" = "  KAVA 구입";
 
 /* Class = "UILabel"; text = "Vesting"; ObjectID = "gBR-Wg-Rf7"; */
-"gBR-Wg-Rf7.text" = "잠긴 수량";
+"gBR-Wg-Rf7.text" = "잠긴수량 (위임가능)";
 
 /* Class = "UILabel"; text = "--"; ObjectID = "nNa-gR-dJt"; */
 "nNa-gR-dJt.text" = "--";

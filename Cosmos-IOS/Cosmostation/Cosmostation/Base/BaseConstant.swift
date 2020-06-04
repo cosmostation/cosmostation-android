@@ -416,6 +416,7 @@ let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "300000"
 let KAVA_GAS_FEE_AMOUNT_REINVEST            = "300000"
 let KAVA_GAS_FEE_AMOUNT_CDP                 = "300000"
 let KAVA_GAS_FEE_AMOUNT_BEP3                = "200000"
+let KAVA_GAS_FEE_AMOUNT_HIGH                = "350000"
 
 
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"

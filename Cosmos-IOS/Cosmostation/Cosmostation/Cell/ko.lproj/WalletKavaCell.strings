@@ -6,7 +6,7 @@
 "C3t-mz-BvV.normalTitle" = "  투표하기";
 
 /* Class = "UILabel"; text = "Vesting"; ObjectID = "JwO-XO-BlK"; */
-"JwO-XO-BlK.text" = "잠긴 수량";
+"JwO-XO-BlK.text" = "잠긴수량 (위임가능)";
 
 /* Class = "UILabel"; text = "Available"; ObjectID = "KPK-HL-ANV"; */
 "KPK-HL-ANV.text" = "사용 가능 수량";

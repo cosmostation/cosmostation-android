@@ -97,7 +97,7 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
             let cDenom = mCdp.result.cdp.getcDenom()
             let pDenom = mCdp.result.cdp.getpDenom()
             let cParam = mCdpParam.result.getcParam(cDenom)
-            let mPrice = mKavaPrice[mCdp.result.cdp.getcDenom()]
+            let mPrice = mKavaPrice[mCdp.result.cdp.getcDenom() + ":usd"]
             
             print("getEstimatedTotalDebt ", mCdp.result.cdp.getEstimatedTotalDebt(cParam!))
             
