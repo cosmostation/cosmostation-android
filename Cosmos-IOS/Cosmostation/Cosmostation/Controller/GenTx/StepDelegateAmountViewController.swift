@@ -39,7 +39,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             mDpDecimal = 6
-            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM)
+            userBalance = WUtils.getDelegableAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
         }
         toDelegateAmountInput.delegate = self

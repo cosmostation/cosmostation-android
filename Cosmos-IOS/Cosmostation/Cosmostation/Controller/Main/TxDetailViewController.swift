@@ -665,8 +665,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.coinTypeLabel.text = msg.value.denom?.uppercased()
             
             let incentiveCoin = mTxInfo!.getKavaIncentive()
-            if (!incentiveCoin.amount.isEmpty) {
+            if (!incentiveCoin.denom.isEmpty) {
                 WUtils.showCoinDp(incentiveCoin, cell!.rewardAmountDenom, cell!.rewardAmount, chainType!)
+            } else {
+                cell!.rewardAmountDenom.text = ""
+                cell!.rewardAmount.text = ""
             }
         }
         return cell!

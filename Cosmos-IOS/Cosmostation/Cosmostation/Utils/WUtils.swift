@@ -1428,6 +1428,20 @@ class WUtils {
         return result
     }
     
+    static func getDelegableAmount(_ balances:Array<Balance>?, _ symbol:String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        if (balances != nil) {
+            balances!.forEach({ (balance) in
+                if (balance.balance_denom.caseInsensitiveCompare(symbol) == .orderedSame) {
+                    result = result.adding(WUtils.stringToDecimalNoLocale(balance.balance_amount))
+                    result = result.adding(WUtils.stringToDecimalNoLocale(balance.balance_locked))
+                }
+            })
+        }
+        return result
+        
+    }
+    
     static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (coin.denom == COSMOS_MAIN_DENOM) {
