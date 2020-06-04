@@ -483,6 +483,7 @@
     <string name="str_participator">Participator</string>
     <string name="str_this_total_reward">This Round Total Reward</string>
     <string name="str_lock_time">Lock Time</string>
+    <string name="str_vesting_schedule">Vesting Unlock Schedule</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
@@ -794,6 +795,7 @@
     <string name="str_vesting_title">Vesting Account</string>
     <string name="str_vesting_msg">Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
+    <string name="str_vesting_amount">Vesting (Delegable)</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

@@ -364,27 +364,45 @@ public class WUtil {
                 return result;
 
             } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
-                BigDecimal balance = BigDecimal.ZERO;
+                BigDecimal dpBalance = BigDecimal.ZERO;
+                BigDecimal dpVesting = BigDecimal.ZERO;
                 BigDecimal originalVestiong = BigDecimal.ZERO;
+                BigDecimal delegatedVesting = BigDecimal.ZERO;
+
                 if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
                     for (Coin coin : lcd.result.value.coins) {
                         if (coin.denom.equals(COSMOS_KAVA)) {
-                            balance = new BigDecimal(coin.amount);
+                            dpBalance = new BigDecimal(coin.amount);
+
                             if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
                                 for (Coin vesting : lcd.result.value.original_vesting) {
                                     originalVestiong = originalVestiong.add(new BigDecimal(vesting.amount));
                                 }
                             }
-                            if (balance.compareTo(originalVestiong) <= 0) {
-                                balance = BigDecimal.ZERO;
-                            } else {
-                                balance = balance.subtract(originalVestiong);
+
+                            if (lcd.result.value.delegated_vesting != null && lcd.result.value.delegated_vesting.size() > 0) {
+                                for (Coin vesting : lcd.result.value.delegated_vesting) {
+                                    delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.amount));
+                                }
                             }
+
+                            WLog.w("dpBalance" +  dpBalance);
+                            WLog.w("originalVestiong" +  originalVestiong);
+                            WLog.w("delegatedVesting" +  delegatedVesting);
+
+                            dpBalance = dpBalance.subtract(originalVestiong).add(delegatedVesting);
+                            if (dpBalance.compareTo(BigDecimal.ZERO) <= 0) {
+                                dpBalance = BigDecimal.ZERO;
+                            }
+
+                            dpVesting = originalVestiong.subtract(delegatedVesting);
+
                             Balance temp = new Balance();
                             temp.accountId = accountId;
                             temp.symbol = COSMOS_KAVA;
-                            temp.balance = balance;
-                            temp.locked = originalVestiong;
+                            temp.balance = dpBalance;
+                            temp.frozen = delegatedVesting;
+                            temp.locked = dpVesting;
                             temp.fetchTime = time;
                             result.add(temp);
 

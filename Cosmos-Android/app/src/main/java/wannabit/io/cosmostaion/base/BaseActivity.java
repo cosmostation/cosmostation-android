@@ -671,6 +671,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 final ResKavaPriceParam.KavaPriceParam kavaPriceParam = (ResKavaPriceParam.KavaPriceParam)result.resultData;
                 getBaseDao().mKavaTokenPrices.clear();
+                mTaskCount = mTaskCount + kavaPriceParam.markets.size();
                 for (ResKavaPriceParam.KavaPriceMarket market:kavaPriceParam.markets) {
                     new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), market.market_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }

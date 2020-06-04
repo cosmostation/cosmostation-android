@@ -47,6 +47,7 @@ import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
+import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
@@ -1235,6 +1236,11 @@ public class WDp {
         return result;
     }
 
+    public static String getVestingTime(Context c, long startTime, ResLcdKavaAccountInfo.VestingPeriod vestingPeriod) {
+        long unlockTime = (startTime + vestingPeriod.length) * 1000;
+        return getDpTime(c, unlockTime);
+    }
+
     public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
@@ -1256,6 +1262,12 @@ public class WDp {
         } catch (Exception e) {};
 
         return result;
+    }
+
+    public static String getVestingTimeGap(Context c, long startTime, ResLcdKavaAccountInfo.VestingPeriod vestingPeriod) {
+        long unlockTime = (startTime + vestingPeriod.length) * 1000;
+        return getUnbondingTimeleft(c, unlockTime);
+
     }
 
     public static String getUnbondingTimeleft(Context c, long finishTime) {

@@ -68,6 +68,7 @@ public class AccountInfoTask extends CommonTask {
                 if(response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mAccount.id, response.body(), BaseChain.getChain(mAccount.baseChain)));
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, response.body(), BaseChain.getChain(mAccount.baseChain)));
+                    mApp.getBaseDao().mKavaAccount = response.body().result;
                 }
             }
             mResult.isSuccess = true;

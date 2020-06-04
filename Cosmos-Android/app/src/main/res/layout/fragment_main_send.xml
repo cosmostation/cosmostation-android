@@ -349,7 +349,6 @@
                     android:layout_marginLeft="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_2"
-                    android:layout_marginBottom="@dimen/space_12"
                     app:cardPreventCornerOverlap="true"
                     app:cardCornerRadius="@dimen/space_6"
                     app:cardElevation="1.5dp"
@@ -437,6 +436,15 @@
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
+
+                <include
+                    android:id="@+id/card_vesting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:layout_marginRight="@dimen/space_12"
+                    android:layout_marginTop="@dimen/space_2"
+                    layout="@layout/layout_vesting_schedule"/>
 
 
             </LinearLayout>

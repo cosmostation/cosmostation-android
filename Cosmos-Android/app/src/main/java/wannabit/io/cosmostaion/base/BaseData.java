@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -47,6 +48,7 @@ public class BaseData {
     public ArrayList<Validator> mAllValidators = new ArrayList<>();
 
     //COMMON DATA
+    public ResLcdKavaAccountInfo.Result                                     mKavaAccount;
     public ResCdpParam.Result                                               mKavaCdpParams;
     public ArrayList<ResCdpOwnerStatus.MyCDP>                               mMyOwenCdp = new ArrayList<>();
     public HashMap<String, ResKavaMarketPrice.Result>                       mKavaTokenPrices = new HashMap<>();

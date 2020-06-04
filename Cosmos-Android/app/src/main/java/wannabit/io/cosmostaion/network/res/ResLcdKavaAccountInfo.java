@@ -2,7 +2,9 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import wannabit.io.cosmostaion.model.type.Coin;
 
@@ -49,6 +51,72 @@ public class ResLcdKavaAccountInfo {
         @SerializedName("original_vesting")
         public ArrayList<Coin> original_vesting;
 
+        @SerializedName("delegated_vesting")
+        public ArrayList<Coin> delegated_vesting;
+
+        @SerializedName("start_time")
+        public long start_time;
+
+        @SerializedName("end_time")
+        public long end_time;
+
+
+        public int getCVestingCnt() {
+            int result = 0;
+            if (vesting_periods != null) {
+                long cTime = Calendar.getInstance().getTime().getTime();
+                for (VestingPeriod vestingPeriod:vesting_periods) {
+                    long unlockTime = (this.start_time + vestingPeriod.length) * 1000;
+                    if (cTime < unlockTime) {
+                        result = result + 1;
+                    }
+                }
+            }
+            return result;
+        }
+
+        public BigDecimal getCVestingSum() {
+            BigDecimal result = BigDecimal.ZERO;
+            if (vesting_periods != null) {
+                long cTime = Calendar.getInstance().getTime().getTime();
+                for (VestingPeriod vestingPeriod:vesting_periods) {
+                    long unlockTime = (this.start_time + vestingPeriod.length) * 1000;
+                    if (cTime < unlockTime) {
+                        for (Coin coin:vestingPeriod.amount) {
+                            result = result.add(new BigDecimal(coin.amount));
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        public ArrayList<VestingPeriod> getCVestingPeriods() {
+            ArrayList<VestingPeriod> result = new ArrayList<>();
+            if (vesting_periods != null) {
+                long cTime = Calendar.getInstance().getTime().getTime();
+                for (VestingPeriod vestingPeriod:vesting_periods) {
+                    long unlockTime = (this.start_time + vestingPeriod.length) * 1000;
+                    if (cTime < unlockTime) {
+                        result.add(vestingPeriod);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public VestingPeriod getCVestingPeriod(int position) {
+            return getCVestingPeriods().get(position);
+        }
+
+        public BigDecimal getCVestingPeriodAmount(int position) {
+            BigDecimal result = BigDecimal.ZERO;
+            VestingPeriod vestingPeriod = getCVestingPeriod(position);
+            for (Coin coin:vestingPeriod.amount) {
+                result = result.add(new BigDecimal(coin.amount));
+            }
+            return result;
+        }
     }
 
     public class PeriodicVestingAccount {
@@ -90,6 +158,9 @@ public class ResLcdKavaAccountInfo {
     }
 
     public class VestingPeriod {
+        @SerializedName("length")
+        public long length;
+
         @SerializedName("amount")
         public ArrayList<Coin> amount;
     }
