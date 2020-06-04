@@ -721,12 +721,12 @@
     <string name="error_invalid_memo">불가능한 메모입니다.</string>
     <string name="error_network">네트워크 에러</string>
     <string name="error_address_not_in_node">주소 또는 공개키는 정확하지만 요청하신 주소는 블럭체인상에 아직 존재하지 않습니다.</string>
-    <string name="error_no_delegate">위임 철회 할 양이 없습니다.</string>
+    <string name="error_no_undelegate">위임 철회 할 양이 없습니다.</string>
     <string name="error_no_redelegate">재 위임 할 양이 없습니다.</string>
     <string name="error_permission">권한을 허락하지 않으셨습니다. 셋팅에서 허락해 주세요.</string>
     <string name="error_already_imported_address">이미 등록된 주소입니다.</string>
     <string name="error_import_errer">이 주소 또는 공개키는 등록이 불가능 합니다.</string>
-    <string name="error_not_enough_atom">위임하기에 사용 가능 수량이 충분하지 않습니다.</string>
+    <string name="error_not_enough_to_delegate">위임 할 수량이 충분하지 않습니다.</string>
     <string name="error_not_enough_budget_bep3">사용 가능 수량이 충분하지 않습니다.</string>
     <string name="error_not_enough_budget">사용 가능 수량이 충분하지 않습니다.\n이용 가능 수량이 최소 수수료 이하 입니다.</string>
     <string name="error_not_enough_reward_all">사용 가능 수량이 충분하지 않습니다.\n이용 가능 수량이 최소 수수료 이하 입니다.</string>

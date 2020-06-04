@@ -357,6 +357,18 @@ public class WDp {
         return sum;
     }
 
+    public static BigDecimal getDelegableAmount(ArrayList<Balance> balances, String denom) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Balance balance : balances) {
+            if (balance.symbol.equalsIgnoreCase(denom)) {
+                sum = balance.balance;
+                sum = balance.locked;
+            }
+        }
+        return sum;
+    }
+
+
     public static SpannableString getDpAvailableCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
         return getDpAmount(c, getAvailableCoin(balances, denom), 6, chain);
     }

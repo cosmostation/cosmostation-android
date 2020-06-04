@@ -205,13 +205,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
+            if (WDp.getDelegableAmount(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
         }
 
         if (!hasbalance) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -246,7 +246,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         if (mBondingState == null || mBondingState.getBondingAmount(mValidator).compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_no_redelegate, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -302,7 +302,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
         if (mBondingState == null || mBondingState.getBondingAmount(mValidator).compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
             return;
         }
 

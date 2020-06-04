@@ -201,6 +201,20 @@ public class Account {
         return result;
     }
 
+    public BigDecimal getKavaDelegable() {
+        BigDecimal result = BigDecimal.ZERO;
+        if(balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_KAVA)) {
+                result = balance.balance.add(balance.locked);
+                break;
+            }
+        }
+        return result;
+    }
+
     public BigDecimal getTokenBalance(String symbol) {
         BigDecimal result = BigDecimal.ZERO;
         if(balances == null || balances.size() == 0)  {

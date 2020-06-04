@@ -180,7 +180,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 18, 18));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mMaxAvailable = getSActivity().mAccount.getKavaBalance();
+            mMaxAvailable = getSActivity().mAccount.getKavaDelegable();
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
         }
     }
