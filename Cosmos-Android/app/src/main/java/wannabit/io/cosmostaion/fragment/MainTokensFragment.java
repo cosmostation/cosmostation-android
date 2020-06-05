@@ -613,7 +613,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     private void onBindIovItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
         if (balance.symbol.equals(COSMOS_IOV)) {
-            holder.itemSymbol.setText(COSMOS_IOV.toUpperCase());
+            holder.itemSymbol.setText(getString(R.string.str_iov_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IOV_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(balance.symbol);
@@ -635,7 +635,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     private void onBindBandItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
         if (balance.symbol.equals(COSMOS_BAND)) {
-            holder.itemSymbol.setText(COSMOS_BAND.toUpperCase());
+            holder.itemSymbol.setText(getString(R.string.str_band_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.BAND_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Band Chain Native Token");

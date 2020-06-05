@@ -35,6 +35,8 @@
     <string name="str_atom_c" translatable="false">ATOM</string>
     <string name="str_photon_c" translatable="false">PHOTINO</string>
     <string name="str_kava_c" translatable="false">KAVA</string>
+    <string name="str_iov_c" translatable="false">IOV</string>
+    <string name="str_band_c" translatable="false">BAND</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>

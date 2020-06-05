@@ -321,7 +321,7 @@
     </style>
 
     <style name="font_ss_14_band" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorBand</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
