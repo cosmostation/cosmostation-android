@@ -350,8 +350,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             //TODO IOV toekn details
+            
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             //TODO IOV toekn details
+            
         }
         
     }

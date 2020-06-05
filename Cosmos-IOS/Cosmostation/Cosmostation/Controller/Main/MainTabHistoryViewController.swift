@@ -21,6 +21,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
 
     @IBOutlet weak var historyTableView: UITableView!
     @IBOutlet weak var emptyLabel: UILabel!
+    @IBOutlet weak var comingLabel: UILabel!
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
@@ -54,6 +55,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            comingLabel.isHidden = false
         }
     }
     
@@ -131,6 +134,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            comingLabel.isHidden = false
         }
     }
 
