@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
@@ -210,6 +211,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             onUpdateTotalCard();
             onFetchIovTokenPrice();
 
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+            onUpdateTotalCard();
+
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             onUpdateTotalCard();
@@ -309,6 +314,17 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalIovAmount, 9, 6));
             mTotalValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
+
+        }  else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            BigDecimal totalBandAmount = BigDecimal.ZERO;
+            for (Balance balance:mBalances) {
+                if (balance.symbol.equals(COSMOS_BAND)) {
+                    totalBandAmount = totalBandAmount.add(WDp.getAllBand(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
+                }
+            }
+            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBandAmount, 9, 6));
+            mTotalValue.setText(WDp.getValueOfBand(getContext(), getBaseDao(), totalBandAmount));
+
         }
 
         if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
@@ -352,6 +368,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindKavaTestItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
                 onBindIovItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+//                onBindIovItem(viewHolder, position);
+                onBindBandItem(viewHolder, position);
             }
         }
 
@@ -594,7 +613,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     private void onBindIovItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
         if (balance.symbol.equals(COSMOS_IOV)) {
-            holder.itemSymbol.setText(COSMOS_IOV.toUpperCase());
+            holder.itemSymbol.setText(getString(R.string.str_iov_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IOV_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(balance.symbol);
@@ -612,6 +631,36 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
         });
     }
+
+    private void onBindBandItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = mBalances.get(position);
+        if (balance.symbol.equals(COSMOS_BAND)) {
+            holder.itemSymbol.setText(getString(R.string.str_band_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.BAND_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Band Chain Native Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
+
+            BigDecimal totalAmount = WDp.getAllBand(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 6, 6));
+            holder.itemValue.setText(WDp.getValueOfBand(getContext(), getBaseDao(), totalAmount));
+        } else {
+            //TODO no case yet
+        }
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
+//                intent.putExtra("balance", balance);
+//                intent.putExtra("allValidators", getMainActivity().mAllValidators);
+//                intent.putExtra("rewards", getMainActivity().mRewards);
+//                startActivity(intent);
+            }
+        });
+    }
+
+
+
 
     private void onFetchCosmosTokenPrice() {
         onUpdateTotalCard();

@@ -181,6 +181,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
@@ -188,6 +189,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
+
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
@@ -195,6 +197,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             mCardRewardAddress.setVisibility(View.GONE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
+
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
@@ -203,6 +206,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             mCardRewardAddress.setVisibility(View.GONE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
+
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
             mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
@@ -211,6 +215,16 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
             mCardRewardAddress.setVisibility(View.GONE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
+
+        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+            mCardRewardAddress.setVisibility(View.GONE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
+
         } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));

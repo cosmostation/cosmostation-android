@@ -243,6 +243,20 @@ public class Account {
         return result;
     }
 
+    public BigDecimal getBandBalance() {
+        BigDecimal result = BigDecimal.ZERO;
+        if(balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_BAND)) {
+                result = balance.balance;
+                break;
+            }
+        }
+        return result;
+    }
+
 
     public SpannableString getLastTotal(Context c, BaseChain chain) {
         if (TextUtils.isEmpty(lastTotal)) {
@@ -262,6 +276,9 @@ public class Account {
 
             } else if (chain.equals(BaseChain.IOV_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
+
+            } else if (chain.equals(BaseChain.BAND_MAIN)) {
+                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
 
             } else {
                 return WDp.getDpAmount2(c, BigDecimal.ZERO, 6, 6);

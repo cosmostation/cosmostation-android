@@ -490,7 +490,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeUsedDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeLimitDenom);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 if (mResTxInfo.isSuccess()) {
                     holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
                     holder.itemStatusTxt.setText(R.string.str_success_c);
@@ -503,7 +503,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemHeight.setText(mResTxInfo.height);
                 holder.itemMsgCnt.setText(String.valueOf(mResTxInfo.tx.value.msg.size()));
                 holder.itemGas.setText(String.format("%s / %s", mResTxInfo.gas_used, mResTxInfo.gas_wanted));
-                holder.itemFee.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleFee(), 6, mBaseChain));
+                holder.itemFee.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleFee(), 6, 6));
                 holder.itemFeeLayer.setVisibility(View.VISIBLE);
                 holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
@@ -541,6 +541,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                         webintent.putExtra("txid", mResBnbTxInfo.hash);
                     } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
                         return;
+                    } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                        return;
                     }
                     webintent.putExtra("chain", mBaseChain.getChain());
                     webintent.putExtra("goMain", mIsGen);
@@ -553,7 +555,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindTransfer(RecyclerView.ViewHolder viewHolder, Msg msg) {
             final TxTransferHolder holder = (TxTransferHolder)viewHolder;
             holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 ArrayList<Coin> toDpCoin = new ArrayList<>();
                 if (msg.type.equals(COSMOS_MSG_TYPE_TRANSFER2))  {
                     holder.itemFromAddress.setText(msg.value.from_address);
@@ -1672,7 +1674,42 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     if (isFinishing()) return;
                 }
             });
+
+        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            ApiClient.getBandChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
+                @Override
+                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
+                    if (isFinishing()) return;
+                    WLog.w("onFetchTx " + response.toString());
+                    if (response.isSuccessful() && response.body() != null) {
+                        mResTxInfo = response.body();
+                        onUpdateView();
+                    } else {
+                        if (mIsSuccess && FetchCnt < 10) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    FetchCnt++;
+                                    onFetchTx(mTxHash);
+                                }
+                            }, 6000);
+                        } else if (!mIsGen) {
+                            onBackPressed();
+                        } else {
+                            onShowMoreWait();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResTxInfo> call, Throwable t) {
+                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (isFinishing()) return;
+                }
+            });
         }
+
+
     }
 
 

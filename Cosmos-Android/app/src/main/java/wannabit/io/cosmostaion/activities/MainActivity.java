@@ -62,6 +62,7 @@ import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
@@ -270,6 +271,18 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKava));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
 
+        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
+            mToolbarChainName.setText(getString(R.string.str_iov_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIov));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
+
+        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
+            mToolbarChainName.setText(getString(R.string.str_band_chain));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBand));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBand));
+
         } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));
             mToolbarChainName.setText(getString(R.string.str_binance_test_net));
@@ -283,12 +296,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKava));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
             mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
-
-        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
-            mToolbarChainName.setText(getString(R.string.str_iov_net));
-            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIov));
-            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
 
         }
 
@@ -410,6 +417,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 hasbalance  = true;
             }
             intent.putExtra("kavaDenom", COSMOS_KAVA);
+
+        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (WDp.getAvailableCoin(balances, COSMOS_BAND).compareTo(BigDecimal.ZERO) > 0) {
+                hasbalance  = true;
+            }
+
         }
 
         if (!hasbalance) {
@@ -630,6 +643,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
                     holder.chainName.setText(getString(R.string.str_iov));
+
+                } else if (chain.equals(BaseChain.BAND_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
+                    holder.chainName.setText(getString(R.string.str_band));
 
                 } else if (chain.equals(BaseChain.BNB_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);

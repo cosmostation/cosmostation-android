@@ -310,7 +310,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mTvIrisTotal.setText(WDp.getDpAmount(this, WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward, mAllValidators), 18, mBaseChain));
             mTvIrisAvailable.setText(WDp.getDpAmount(this, WDp.getAvailableCoin(mBalances, COSMOS_IRIS_ATTO), 18, mBaseChain));
             mTvIrisDelegated.setText(WDp.getDpAmount(this, WDp.getAllDelegatedAmount(mBondings, mAllValidators, mBaseChain), 18, mBaseChain));
-            mTvIrisUnBonding.setText(WDp.getDpAmount(this, WDp.getUnbondingAmount(mUnbondings, mAllValidators), 18, mBaseChain));
+            mTvIrisUnBonding.setText(WDp.getDpAmount(this, WDp.getUnbondingAmount(mUnbondings), 18, mBaseChain));
             mTvIrisRewards.setText(WDp.getDpAmount(this, mIrisReward.getSimpleIrisReward(), 18, mBaseChain));
 
             BigDecimal totalAmount = WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward, mAllValidators);

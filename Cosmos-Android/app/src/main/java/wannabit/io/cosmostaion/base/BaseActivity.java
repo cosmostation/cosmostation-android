@@ -538,6 +538,20 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 //            new IovTokenListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
+        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            mTaskCount = 9;
+            new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnbondedValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
         onPriceTic(BaseChain.getChain(mAccount.baseChain));
 //        return true;
@@ -566,7 +580,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 return;
             }
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) ||
+                    mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 if(temp != null) {
                     mTopValidators = temp;
                 }
@@ -584,7 +599,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 mTaskCount = mTaskCount + mBondings.size();
                 mRewards.clear();
                 for(BondingState bonding:mBondings) {
@@ -612,7 +627,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_STAKING_POOL) {
             try {
-                if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
                     mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
                 }
             } catch (Exception e) {}
@@ -698,7 +713,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         mMyValidators.clear();
         if (mTaskCount == 0 &&
-                (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST))) {
+                (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) ||
+                        mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN))) {
             for(Validator top:mTopValidators) {
                 boolean already = false;
                 for(BondingState bond:mBondings) {
@@ -736,16 +752,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             mAllValidators.addAll(mOtherValidators);
             getBaseDao().setAllValidators(mAllValidators);
 
-//            WLog.w("KAVA mBondings " + mBondings.size());
-//            WLog.w("KAVA mUnbondings " + mUnbondings.size());
-//            WLog.w("KAVA mMyValidators " + mMyValidators.size());
-//            WLog.w("KAVA mTopValidators " + mTopValidators.size());
-//            WLog.w("KAVA mOtherValidators " + mOtherValidators.size());
-//            WLog.w("KAVA mRewards " + mRewards.size());
-//
-//            WLog.w("KAVA mInflation " + mInflation);
-//            WLog.w("KAVA mProvisions " + mProvisions);
-//            WLog.w("KAVA mBondedToken " + mBondedToken);
+            WLog.w("mBondings " + mBondings.size());
+            WLog.w("mUnbondings " + mUnbondings.size());
+            WLog.w("MyValidators " + mMyValidators.size());
+            WLog.w("TopValidators " + mTopValidators.size());
+            WLog.w("OtherValidators " + mOtherValidators.size());
+            WLog.w("mRewards " + mRewards.size());
+            WLog.w("mInflation " + mInflation);
+            WLog.w("mProvisions " + mProvisions);
+            WLog.w("mBondedToken " + mBondedToken);
         }
         if (mTaskCount == 0 && mFetchCallback != null) {
             mFetchCallback.fetchFinished();
@@ -795,6 +810,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastKavaTic(0d);
                             getBaseDao().setLastKavaUpDown(0d);
 
+                        } else if (chain.equals(BaseChain.BAND_MAIN)) {
+                            getBaseDao().setLastBandTic(0d);
+                            getBaseDao().setLastBandUpDown(0d);
+
                         }
                     }
                 }
@@ -816,6 +835,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
                         getBaseDao().setLastKavaTic(0d);
                         getBaseDao().setLastKavaUpDown(0d);
+
+                    } else if (chain.equals(BaseChain.BAND_MAIN)) {
+                        getBaseDao().setLastBandTic(0d);
+                        getBaseDao().setLastBandUpDown(0d);
 
                     }
                 }

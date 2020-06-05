@@ -136,6 +136,16 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
+            } else if (mUserInput.startsWith("band")) {
+                if (WKey.isValidBech32(mUserInput)) {
+                    onGenNewAccount(BaseChain.BAND_MAIN, mUserInput);
+                    return;
+
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
             } else {
                 Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 return;

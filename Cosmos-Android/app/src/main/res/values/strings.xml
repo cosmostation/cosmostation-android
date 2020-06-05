@@ -28,11 +28,15 @@
     <string name="url_rest_iov_main" translatable="false">https://bnsapi.iov.one/</string>
     <string name="url_rpc_iov_main" translatable="false">https://rpc-iov-mainnet.cosmostation.io/</string>
 
+    <string name="url_lcd_band_main" translatable="false">https://lcd-band.cosmostation.io/</string>
+
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
     <string name="str_atom_c" translatable="false">ATOM</string>
     <string name="str_photon_c" translatable="false">PHOTINO</string>
     <string name="str_kava_c" translatable="false">KAVA</string>
+    <string name="str_iov_c" translatable="false">IOV</string>
+    <string name="str_band_c" translatable="false">BAND</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
@@ -196,6 +200,8 @@
     <string name="str_guide_kava">Blog</string>
     <string name="str_faq_iov">Home Page</string>
     <string name="str_guide_iov">Star Name</string>
+    <string name="str_faq_band">Home Page</string>
+    <string name="str_guide_band">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Mintscan Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -239,6 +245,8 @@
     <string name="str_binance_test_net_2" translatable="false">Binance Test Chain</string>
     <string name="str_iov_net" translatable="false">(IOV Chain)</string>
     <string name="str_iov_net_2" translatable="false">IOV Chain</string>
+    <string name="str_band_chain" translatable="false">(BAND Chain)</string>
+    <string name="str_band_chain_2" translatable="false">BAND Chain</string>
     <string name="str_kava_net" translatable="false">(KAVA Chain)</string>
     <string name="str_kava_net_2" translatable="false">KAVA Chain</string>
     <string name="str_kava_net_test" translatable="false">(KAVA Test Chain)</string>
@@ -249,6 +257,7 @@
     <string name="str_binance_test" translatable="false">BINANCE\nTEST</string>
     <string name="str_iov" translatable="false">IOV</string>
     <string name="str_kava" translatable="false">KAVA</string>
+    <string name="str_band" translatable="false">BAND</string>
     <string name="str_kava_test" translatable="false">KAVA TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
@@ -319,11 +328,13 @@
     <string name="str_front_guide_title_binance"><![CDATA[BINANCE CHAIN]]></string>
     <string name="str_front_guide_title_kava"><![CDATA[KAVA CHAIN]]></string>
     <string name="str_front_guide_title_iov"><![CDATA[IOV MAINNET]]></string>
+    <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
     <string name="str_front_guide_msg_iov">Built on Tendermint, IOV builds a fast, secure and decentralized universal name service.</string>
+    <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -876,6 +887,7 @@
     <string name="s_bnb">BNB</string>
     <string name="s_iov">IOV</string>
     <string name="s_kava">KAVA</string>
+    <string name="s_band">BAND</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

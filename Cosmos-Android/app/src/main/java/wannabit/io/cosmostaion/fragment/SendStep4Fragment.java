@@ -190,7 +190,6 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 WDp.showCoinDp(getContext(), getSActivity().mKavaDenom, currentAvai.subtract(toSendAmount).toPlainString(), mDenomRemainAmount, mRemainingBalance, getSActivity().mBaseChain);
             }
 
-
         } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mDpDecimal = 9;
             WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomSendAmount);
@@ -206,7 +205,27 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, mDpDecimal, mDpDecimal));
             mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), mDpDecimal, mDpDecimal));
             mRemainingPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+        } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            mDpDecimal = 6;
+            mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorBand));
+            mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorBand));
+            mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorBand));
+
+            mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 6, 6));
+            mTotalPrice.setText(WDp.getValueOfBand(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
+
+            BigDecimal currentAvai  = getSActivity().mAccount.getBandBalance();
+            mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 6, 6));
+            mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, 6));
+            mRemainingPrice.setText(WDp.getValueOfBand(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
+
         }
+
+
+
         mRecipientAddress.setText(getSActivity().mTagetAddress);
         if (TextUtils.isEmpty(getSActivity().mStarName)) {
             mRecipientStartName.setVisibility(View.GONE);

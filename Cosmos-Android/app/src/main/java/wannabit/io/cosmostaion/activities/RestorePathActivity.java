@@ -146,6 +146,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
                 } else if (mChain.equals(BaseChain.IOV_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+                } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
                 }
             } else  {
                 if(temp.hasPrivateKey) {
@@ -165,6 +167,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
                     } else if (mChain.equals(BaseChain.IOV_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+                    } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
                     }
                 }
             }
@@ -266,6 +270,22 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResIovBalance> call, Throwable t) { }
                 });
 
+            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+                holder.bandLayer.setVisibility(View.VISIBLE);
+                holder.bandAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                ApiClient.getBandChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+                        if(response.isSuccessful() && response.body() != null) {
+                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
+                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
+                                holder.bandAmount.setText(WDp.getDpAmount2(getBaseContext(), balance.get(0).balance, 6, 6));
+                        } else { }
+                    }
+                    @Override
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
+                });
+
             } else if (mChain.equals(BaseChain.BNB_TEST)) {
                 holder.bnbLayer.setVisibility(View.VISIBLE);
                 holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
@@ -311,8 +331,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         public class NewWalletHolder extends RecyclerView.ViewHolder {
             CardView cardNewWallet;
-            RelativeLayout atomLayer, photonLayer, irisLayer, bnbLayer, kavaLayer, iovLayer;
-            TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount, bnbAmount, kavaAmount, iovAmount;
+            RelativeLayout atomLayer, photonLayer, irisLayer, bnbLayer, kavaLayer, iovLayer, bandLayer;
+            TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount, bnbAmount, kavaAmount, iovAmount, bandAmount;
 
             public NewWalletHolder(View v) {
                 super(v);
@@ -332,6 +352,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 kavaAmount          = itemView.findViewById(R.id.kava_amount);
                 iovLayer            = itemView.findViewById(R.id.iov_layer);
                 iovAmount           = itemView.findViewById(R.id.iov_amount);
+                bandLayer           = itemView.findViewById(R.id.band_layer);
+                bandAmount          = itemView.findViewById(R.id.band_amount);
             }
         }
     }

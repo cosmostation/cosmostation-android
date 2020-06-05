@@ -160,6 +160,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_bnb_address, Toast.LENGTH_SHORT).show();
                 }
+            } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                if (userInput.startsWith("band") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_bnb_address, Toast.LENGTH_SHORT).show();
+                }
+
             }
 
 
