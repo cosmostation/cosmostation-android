@@ -150,6 +150,16 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         return result
     }
     
+    func getBandBalance() -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        for balance in self.account_balances {
+            if (balance.balance_denom == BAND_MAIN_DENOM) {
+                result = WUtils.stringToDecimal(balance.balance_amount)
+            }
+        }
+        return result
+    }
+    
     func getTokenBalance(_ symbol:String) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
         for balance in self.account_balances {

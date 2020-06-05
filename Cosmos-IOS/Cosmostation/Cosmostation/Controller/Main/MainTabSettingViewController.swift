@@ -69,6 +69,10 @@ class MainTabSettingViewController: BaseViewController {
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
+        }  else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            titleChainImg.image = UIImage(named: "bandChainImg")
+            titleChainName.text = "(Band Chain)"
+            titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Test)"

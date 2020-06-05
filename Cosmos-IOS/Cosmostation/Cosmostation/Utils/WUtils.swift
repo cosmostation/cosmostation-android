@@ -265,7 +265,7 @@ class WUtils {
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
@@ -283,7 +283,7 @@ class WUtils {
     
     static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 for entry in unbondinginfo.entries {
@@ -779,6 +779,16 @@ class WUtils {
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
     
+    static func availableAmount(_ balances:Array<Balance>, _ symbol:String, _ chain:ChainType) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == symbol) {
+                amount = stringToDecimal(balance.balance_amount)
+            }
+        }
+        return amount;
+    }
+    
     static func dpVestingCoin(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for balance in balances {
@@ -798,12 +808,28 @@ class WUtils {
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
     
+    static func deleagtedAmount(_ bondings:Array<Bonding>, _ validators:Array<Validator>, _ chain:ChainType) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        return amount
+    }
+    
     static func dpUnbondings(_ unbondings:Array<Unbonding>, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for unbonding in unbondings {
             amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
         }
         return displayAmount(amount.stringValue, font, deciaml, chain);
+    }
+    
+    static func unbondingAmount(_ unbondings:Array<Unbonding>, _ chain:ChainType) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for unbonding in unbondings {
+            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+        }
+        return amount
     }
     
     static func dpRewards(_ rewards:Array<Reward>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) ->  NSMutableAttributedString {
@@ -816,6 +842,18 @@ class WUtils {
             }
         }
         return displayAmount(amount.stringValue, font, deciaml, chain)
+    }
+    
+    static func rewardAmount(_ rewards:Array<Reward>, _ symbol:String, _ chain:ChainType) ->  NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == symbol) {
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                }
+            }
+        }
+        return amount
     }
     
     static func dpIrisRewards(_ rewards:IrisRewards?, _ font:UIFont, _ deciaml:Int, _ chain:ChainType ) ->  NSMutableAttributedString {
@@ -1243,6 +1281,29 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == COSMOS_MAIN_DENOM) {
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                }
+            }
+        }
+        return amount
+    }
+    
+    static func getAllBand(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == BAND_MAIN_DENOM) {
+                amount = stringToDecimal(balance.balance_amount)
+            }
+        }
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        for unbonding in unbondings {
+            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+        }
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == BAND_MAIN_DENOM) {
                     amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }

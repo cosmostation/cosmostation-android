@@ -39,6 +39,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletKavaCell", bundle: nil), forCellReuseIdentifier: "WalletKavaCell")
         self.walletTableView.register(UINib(nibName: "WalletKavaIncentiveCell", bundle: nil), forCellReuseIdentifier: "WalletKavaIncentiveCell")
         self.walletTableView.register(UINib(nibName: "WalletIovCell", bundle: nil), forCellReuseIdentifier: "WalletIovCell")
+        self.walletTableView.register(UINib(nibName: "WalletBandCell", bundle: nil), forCellReuseIdentifier: "WalletBandCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletVestingDetailCell", bundle: nil), forCellReuseIdentifier: "WalletVestingDetailCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
@@ -97,6 +98,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            titleChainImg.image = UIImage(named: "bandChainImg")
+            titleChainName.text = "(Band Chain)"
+            titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Test)"
@@ -136,6 +141,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             floaty.buttonColor = COLOR_KAVA
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             floaty.buttonColor = COLOR_IOV
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            floaty.buttonColor = COLOR_BAND
         }
         floaty.fabDelegate = self
         self.view.addSubview(floaty)
@@ -169,6 +176,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 4;
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return 7
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            return 5;
         } else {
             return 0;
         }
@@ -183,6 +192,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetBnbItem(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             return onSetKavaItem(tableView, indexPath);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            return onSetBandItem(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return onSetKavaTestItem(tableView, indexPath);
         } else {
@@ -833,6 +844,94 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    func onSetBandItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            if (mainTabVC.mAccount.account_has_private) {
+                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
+                cell?.keyState.tintColor = COLOR_BAND
+            }
+            cell?.dpAddress.text = mainTabVC.mAccount.account_address
+            cell?.dpAddress.adjustsFontSizeToFitWidth = true
+            cell?.actionShare = {
+                self.onClickActionShare()
+            }
+            cell?.actionWebLink = {
+                self.onClickActionLink()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell:WalletBandCell? = tableView.dequeueReusableCell(withIdentifier:"WalletBandCell") as? WalletBandCell
+            let totalAmount = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, BAND_MAIN_DENOM, chainType!)   //mainTabVC.mAccount.getBandBalance()
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, BAND_MAIN_DENOM, chainType!)
+            
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
+            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
+            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
+            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
+            cell?.totalValue.attributedText = WUtils.dpAtomValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            cell?.actionDelegate = {
+//                self.onClickValidatorList()
+            }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
+            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                cell?.updownImg.image = UIImage(named: "priceUp")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                cell?.updownImg.image = UIImage(named: "priceDown")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else {
+                cell?.updownImg.image = nil
+                cell?.updownPercent.text = ""
+            }
+            cell?.buySeparator.isHidden = true
+            cell?.buyBtn.isHidden = true
+            cell?.buyConstraint.priority = .defaultLow
+            cell?.noBuyConstraint.priority = .defaultHigh
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            if (mainTabVC!.mInflation != nil) {
+                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
+            }
+            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
+                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            }
+            return cell!
+            
+        } else {
+            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.guideImg.image = UIImage(named: "bandprotocolImg")
+            cell?.guideTitle.text = NSLocalizedString("send_guide_title_band", comment: "")
+            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_band", comment: "")
+            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_band", comment: ""), for: .normal)
+            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_band", comment: ""), for: .normal)
+            cell?.actionGuide1 = {
+                self.onClickGuide1()
+            }
+            cell?.actionGuide2 = {
+                self.onClickGuide2()
+            }
+            return cell!
+        }
+    }
+    
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.onShowAccountSwicth()
     }
@@ -1026,6 +1125,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            guard let url = URL(string: "https://bandprotocol.com/") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
         
     }
@@ -1054,6 +1157,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
 
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             guard let url = URL(string: "https://medium.com/kava-labs") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            guard let url = URL(string: "https://medium.com/bandprotocol") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
@@ -1103,6 +1211,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 let safariViewController = SFSafariViewController(url: url)
                 present(safariViewController, animated: true, completion: nil)
             }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/band-protocol") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
@@ -1230,6 +1343,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             txVC.mIovSendDenom = IOV_MAIN_DENOM
             txVC.mType = IOV_MSG_TYPE_TRANSFER
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            //TODO
+            return
         } else {
             return
         }
