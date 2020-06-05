@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
@@ -135,6 +136,10 @@ public class WDp {
 
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 8, 8));
+
+        } else if (chain.equals(BaseChain.BAND_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
         }
     }
 
@@ -171,6 +176,10 @@ public class WDp {
 
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
+
+        } else if (chain.equals(BaseChain.BAND_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }
     }
 
@@ -180,6 +189,14 @@ public class WDp {
             sum = sum.add(reward.getRewardAmount(denom).setScale(0, BigDecimal.ROUND_DOWN));
         }
         return getDpAmount(c, sum, 6, chain);
+    }
+
+    public static BigDecimal getAllRewardAmount(ArrayList<Reward> rewards, String denom) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Reward reward : rewards) {
+            sum = sum.add(reward.getRewardAmount(denom).setScale(0, BigDecimal.ROUND_DOWN));
+        }
+        return sum;
     }
 
     public static SpannableString getDpAllIrisRewardAmount(Context c, ResLcdIrisReward rewards, BaseChain chain) {
@@ -395,7 +412,7 @@ public class WDp {
     public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         if (bondings == null || bondings.size() == 0) return sum;
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)|| chain.equals(BaseChain.KAVA_TEST)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN)|| chain.equals(BaseChain.KAVA_TEST)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
@@ -419,10 +436,10 @@ public class WDp {
     }
 
     public static SpannableString getDpAllUnbondingAmount(Context c, ArrayList<UnBondingState> unbondings, ArrayList<Validator> validators, BaseChain chain) {
-        return getDpAmount(c, getUnbondingAmount(unbondings, validators), 6, chain);
+        return getDpAmount(c, getUnbondingAmount(unbondings), 6, chain);
     }
 
-    public static BigDecimal getUnbondingAmount(ArrayList<UnBondingState> unbondings, ArrayList<Validator> validators) {
+    public static BigDecimal getUnbondingAmount(ArrayList<UnBondingState> unbondings) {
         BigDecimal sum = BigDecimal.ZERO;
         if (unbondings == null || unbondings.size() == 0) return sum;
         for(UnBondingState unbonding : unbondings) {
@@ -534,6 +551,31 @@ public class WDp {
         }
         if(reward != null) {
             sum = sum.add(reward.getSimpleIrisReward());
+        }
+        return sum;
+    }
+
+    public static BigDecimal getAllBand(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Balance balance : balances) {
+            if(balance.symbol.equals(COSMOS_BAND)) {
+                sum = sum.add(balance.balance);
+            }
+        }
+        if(bondings != null) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+            }
+        }
+        if (unbondings != null) {
+            for(UnBondingState unbonding : unbondings) {
+                sum = sum.add(unbonding.balance);
+            }
+        }
+        if (rewards != null) {
+            for(Reward reward : rewards) {
+                sum = sum.add(reward.getRewardAmount(COSMOS_BAND));
+            }
         }
         return sum;
     }
@@ -730,6 +772,25 @@ public class WDp {
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
         }
+    }
+
+    public static SpannableString getValueOfBand(Context c, BaseData dao, BigDecimal totalAmount) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if(dao.getCurrency() == 5) {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBandTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBandTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        }
+
     }
 
 //    public static SpannableString getValueOfKavaToken(Context c, ResKavaMarketPrice.Result price, int scale) {
@@ -1148,21 +1209,19 @@ public class WDp {
             return BaseConstant.KEY_BNB_PATH + String.valueOf(position);
         } else if (chain.equals(BaseChain.IOV_MAIN)) {
             return BaseConstant.KEY_IOV_PATH + String.valueOf(position) +"'";
-        }  else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             if (newBip) {
                 return BaseConstant.KEY_NEW_KAVA_PATH + String.valueOf(position);
             } else {
                 return BaseConstant.KEY_PATH + String.valueOf(position);
             }
-
+        } else if (chain.equals(BaseChain.BAND_MAIN)) {
+            return BaseConstant.KEY_BAND_PATH + String.valueOf(position);
         } else {
             return BaseConstant.KEY_PATH + String.valueOf(position);
 
         }
     }
-
-
-
 
 
     public static DecimalFormat getDecimalFormat(Context c, int cnt) {
@@ -1467,6 +1526,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorKava);
         } else if (chain.equals(BaseChain.IOV_MAIN)) {
             return c.getResources().getColor(R.color.colorIov);
+        } else if (chain.equals(BaseChain.BAND_MAIN)) {
+            return c.getResources().getColor(R.color.colorBand);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
         }
@@ -1477,8 +1538,10 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
         } else if(chain.equals(BaseChain.IRIS_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iris);
-        }  else if(chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        } else if(chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_kava);
+        } else if(chain.equals(BaseChain.BAND_MAIN)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_band);
         }
         return null;
     }
@@ -1490,6 +1553,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorIris);
         } else if(chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             return c.getResources().getColorStateList(R.color.colorKava);
+        } else if(chain.equals(BaseChain.BAND_MAIN)) {
+            return c.getResources().getColorStateList(R.color.colorBand);
         }
         return null;
     }
@@ -1514,6 +1579,10 @@ public class WDp {
         } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIov));
             textview.setText(c.getString(R.string.s_iov));
+
+        } else if (BaseChain.getChain(chain).equals(BaseChain.BAND_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorBand));
+            textview.setText(c.getString(R.string.s_band));
         }
     }
 
@@ -1528,6 +1597,8 @@ public class WDp {
             return c.getString(R.string.s_kava);
         } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN)) {
             return c.getString(R.string.s_iov);
+        } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN)) {
+            return c.getString(R.string.s_band);
         }
         return "";
 

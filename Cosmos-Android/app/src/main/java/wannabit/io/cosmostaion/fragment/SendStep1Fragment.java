@@ -153,6 +153,13 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mMaxAvailable = mMaxAvailable.subtract(new BigDecimal("500000000"));
             }
             WDp.showCoinDp(getContext(), getSActivity().mIovDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
+
+        } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            mDpDecimal = 6;
+            setDpDecimals(mDpDecimal);
+            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
+            mMaxAvailable = getSActivity().mAccount.getBandBalance();
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
         }
         onAddAmountWatcher();
     }
@@ -206,14 +213,15 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                                 getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN) ||
                                 getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) ||
                                 getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST) ||
-                                getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+                                getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN) ||
+                                getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                             if(inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             } else {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                             }
 
-                        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
                             if(inputAmount.compareTo(mMaxAvailable) > 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             } else {
@@ -282,6 +290,8 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider2), mDpDecimal, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000000"), 9, RoundingMode.DOWN).toPlainString());
+            } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
             }
 
         } else if (v.equals(mAddMax)) {
@@ -303,6 +313,8 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mAmountInput.setText(mMaxAvailable.toPlainString());
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000000"), 9, RoundingMode.DOWN).toPlainString());
                 onShowEmptyBlanaceWarnDialog();
+            } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
             }
 
         } else if (v.equals(mClearAll)) {
@@ -370,6 +382,15 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 Coin iov = new Coin(BaseConstant.COSMOS_IOV, sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
                 mToSendCoins.add(iov);
                 return true;
+
+            } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
+                Coin band = new Coin(BaseConstant.COSMOS_BAND, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                mToSendCoins.add(band);
+                return true;
+
             }
             return false;
 

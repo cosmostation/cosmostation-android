@@ -41,6 +41,15 @@
                 android:clipToPadding="false"
                 android:overScrollMode="never"
                 android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/band_notyet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_6"
+                android:layout_centerInParent="true"
+                style="@style/font_ss_14_white"
+                android:text="Comming Soon!!"/>
         </RelativeLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>

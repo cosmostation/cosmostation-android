@@ -29,6 +29,8 @@ public class BaseConstant {
     public final static String PRE_KAVA_TIC                 = "PRE_KAVA_TIC";
     public final static String PRE_KAVA_DOLLOR_TIC          = "PRE_KAVA_DOLLOR_TIC";
     public final static String PRE_KAVA_UP_DOWN_24          = "PRE_KAVA_UP_DOWN_24";
+    public final static String PRE_BAND_TIC                 = "PRE_BAND_TIC";
+    public final static String PRE_BAND_UP_DOWN_24          = "PRE_BAND_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -262,6 +264,7 @@ public class BaseConstant {
     public final static String COSMOS_BNB           = "BNB";
     public final static String COSMOS_KAVA          = "ukava";
     public final static String COSMOS_IOV           = "IOV";
+    public final static String COSMOS_BAND          = "uband";
 
 
     //TODO HardCoding!!
@@ -273,6 +276,7 @@ public class BaseConstant {
     public final static String KEY_BNB_PATH         = "44'/714'/0'/0/";
     public final static String KEY_IOV_PATH         = "44'/234'/";
     public final static String KEY_NEW_KAVA_PATH    = "44'/459'/0'/0/";
+    public final static String KEY_BAND_PATH        = "44'/494'/0'/0/";
     public final static String characterFilter  = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -328,6 +332,7 @@ public class BaseConstant {
     public final static String CGC_IRIS = "iris-network";
     public final static String CGC_BNB = "binancecoin";
     public final static String CGC_KAVA = "kava";
+    public final static String CGC_BAND = "band-protocol";
     public final static int CMC_ATOM = 3794;
     public final static int CMC_IRIS = 3874;
     public final static int CMC_BNB = 1839;

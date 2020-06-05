@@ -180,6 +180,28 @@
                     android:text="0"
                     style="@style/font_ssl_9_white"/>
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/band_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_6"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="BAND"
+                    style="@style/font_ss_9_band"/>
+                <TextView
+                    android:id="@+id/band_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right"
+                    android:text="0"
+                    style="@style/font_ssl_9_white"/>
+            </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

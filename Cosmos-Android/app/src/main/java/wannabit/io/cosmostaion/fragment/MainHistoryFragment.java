@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -50,6 +52,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private RecyclerView                    mRecyclerView;
     private LinearLayout                    mEmptyHistory;
     private HistoryAdapter                  mHistoryAdapter;
+    private TextView                        mBandNot;
 
     private ArrayList<ResHistory.InnerHits> mHistory = new ArrayList<>();
     private ArrayList<BnbHistory>           mBnbHistory = new ArrayList<>();
@@ -73,6 +76,17 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
         mEmptyHistory           = rootView.findViewById(R.id.empty_history);
+        mBandNot                = rootView.findViewById(R.id.band_notyet);
+        mBandNot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+//                txDetail.putExtra("txHash", "D35250296EB34C1BE61C0E24950861C87C9A25ACAA5996D5FD4418B0298995A9");
+//                txDetail.putExtra("isGen", false);
+//                txDetail.putExtra("isSuccess", true);
+//                startActivity(txDetail);
+            }
+        });
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -127,6 +141,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     }
 
     private void onFetchHistory() {
+        mBandNot.setVisibility(View.GONE);
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, getMainActivity().mBaseChain);
@@ -147,6 +162,12 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             mApiTxHistory.clear();
             mEmptyHistory.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.GONE);
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            mBandNot.setVisibility(View.VISIBLE);
+            mEmptyHistory.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.GONE);
+
         }
     }
 

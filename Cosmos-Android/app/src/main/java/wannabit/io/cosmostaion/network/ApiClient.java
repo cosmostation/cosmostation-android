@@ -5,6 +5,7 @@ import android.content.Context;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ApiClient {
 
@@ -172,6 +173,21 @@ public class ApiClient {
             }
         }
         return service_iov;
+    }
+
+    //Rest for IOV main net
+    private static BandChain service_band = null;
+    public static BandChain getBandChain(Context c) {
+        if (service_band == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_band_main))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_band = retrofit.create(BandChain.class);
+            }
+        }
+        return service_band;
     }
 
 

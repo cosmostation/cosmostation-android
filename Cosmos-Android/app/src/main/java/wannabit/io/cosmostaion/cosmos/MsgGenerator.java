@@ -62,7 +62,7 @@ public class MsgGenerator {
     public static Msg genTransferMsg(String fromAddr, String toAddr, ArrayList<Coin> coins, BaseChain chain) {
         Msg         result      = new Msg();
         Msg.Value   value       = new Msg.Value();
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.BAND_MAIN)) {
             value.from_address = fromAddr;
             value.to_address = toAddr;
             value.amount = coins;
@@ -618,7 +618,7 @@ public class MsgGenerator {
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-//        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
 
         return reqBroadCast;
