@@ -118,6 +118,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "bandChainImg")
             titleChainName.text = "(Band Chain)"
             titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = TRANS_BG_COLOR_BAND
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Test)"
@@ -163,10 +165,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.tokenTableView.reloadData()
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             onFetchCosmosTokenPrice()
+            
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             onFetchIrisTokenPrice()
+            
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             onFetchBnbTokenPrice()
+            
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             onFetchKavaTokenPrice()
             
@@ -177,6 +182,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             onFetchKavaTokenPrice()
             updateFloaty()
             
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            onFetchBandTokenPrice()
         }
     }
     
@@ -282,6 +289,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, totalAmount.font, 9, 6)
             totalValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, totalValue.font)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            let allBand = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            totalAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allBand, BaseData.instance.getLastPrice(), totalValue.font)
+            
         }
     }
     
@@ -302,6 +315,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetKavaTestItems(tableView, indexPath)
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return onSetIovItems(tableView, indexPath)
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            return onSetBandItems(tableView, indexPath)
         }
         return onSetCosmosItems(tableView, indexPath)
     }
@@ -334,6 +349,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            //TODO IOV toekn details
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             //TODO IOV toekn details
         }
         
@@ -502,6 +519,30 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
+    func onSetBandItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == BAND_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "bandTokenImg")
+            cell?.tokenSymbol.text = "BAND"
+            cell?.tokenSymbol.textColor = COLOR_BAND
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = balance.balance_denom
+            let allBand = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allBand, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
+    
+    
+    
     
     func onFetchCosmosTokenPrice() {
         self.onUpdateTotalCard()
@@ -536,6 +577,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchKavaTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    func onFetchBandTokenPrice() {
         self.onUpdateTotalCard()
     }
     
