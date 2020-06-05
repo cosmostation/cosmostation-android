@@ -23,6 +23,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
     private LinearLayout mIovLayer, mKavaTestLayer, mBinanaceTestLayer;
     private LinearLayout mMain, mIris, mBinance, mKava, mIov, mBinanaceTest, mKavaTest, mTest12k, mTest13k;
+    private LinearLayout mBandLayer, mBand;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -52,6 +53,9 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mKavaTest = view.findViewById(R.id.kava_test_net);
         mTest12k = view.findViewById(R.id.gaia_12k);
         mTest13k = view.findViewById(R.id.gaia_13k);
+
+        mBandLayer = view.findViewById(R.id.band_layer);
+        mBand = view.findViewById(R.id.band_chain);
 
         mMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +124,13 @@ public class Dialog_ChoiceNet extends DialogFragment {
             });
         }
 
+        mBand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BAND_MAIN);
+                getDialog().dismiss();
+            }
+        });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
