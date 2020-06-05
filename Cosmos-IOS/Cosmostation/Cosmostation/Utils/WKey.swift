@@ -65,6 +65,7 @@ class WKey {
             chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chain == ChainType.SUPPORT_CHAIN_BAND_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_TEST ) {
             let sha256 = Crypto.sha256(Data.fromHex(pubHex)!)
@@ -78,6 +79,8 @@ class WKey {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "bnb", program: ripemd160)
             } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "kava", program: ripemd160)
+            } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                result = try! SegwitAddrCoder.shared.encode2(hrp: "band", program: ripemd160)
             } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "tbnb", program: ripemd160)
             }
@@ -102,6 +105,9 @@ class WKey {
                 } else {
                     childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 }
+            } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 494, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                
             } else {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
             }
@@ -116,6 +122,7 @@ class WKey {
             chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chain == ChainType.SUPPORT_CHAIN_BAND_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             //using Secp256k1

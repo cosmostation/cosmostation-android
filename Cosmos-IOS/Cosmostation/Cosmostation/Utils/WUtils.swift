@@ -1563,6 +1563,8 @@ class WUtils {
             return COLOR_KAVA
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return COLOR_IOV
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            return COLOR_BAND
         } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return COLOR_KAVA
         }
@@ -1580,6 +1582,8 @@ class WUtils {
             return COLOR_KAVA_DARK
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return COLOR_IOV_DARK
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            return COLOR_BAND_DARK
         } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return COLOR_DARK_GRAY
         }
@@ -1597,6 +1601,8 @@ class WUtils {
             return TRANS_BG_COLOR_KAVA
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return TRANS_BG_COLOR_IOV
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            return TRANS_BG_COLOR_BAND
         } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return COLOR_BG_GRAY
         }
@@ -1614,6 +1620,8 @@ class WUtils {
             return "KAVA"
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return "IOV"
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            return "BAND"
         }
         return ""
     }
@@ -1634,6 +1642,9 @@ class WUtils {
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             label.text = "IOV"
             label.textColor = COLOR_IOV
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            label.text = "BAND"
+            label.textColor = COLOR_BAND
         }
     }
     
@@ -1648,6 +1659,8 @@ class WUtils {
            return ChainType.SUPPORT_CHAIN_KAVA_MAIN
         } else if (chainS == CHAIN_IOV_S) {
             return ChainType.SUPPORT_CHAIN_IOV_MAIN
+        } else if (chainS == CHAIN_BAND_S) {
+            return ChainType.SUPPORT_CHAIN_BAND_MAIN
         } else if (chainS == CHAIN_KAVA_TEST_S) {
             return ChainType.SUPPORT_CHAIN_KAVA_TEST
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
@@ -1691,6 +1704,8 @@ class WUtils {
             return "kava-2"
         } else if (type == CHAIN_IOV_S) {
             return "iov-mainnet"
+        } else if (type == CHAIN_BAND_S) {
+            return "band-wenchang-mainnet"
         } else if (type == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (type == CHAIN_KAVA_TEST_S) {
