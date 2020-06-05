@@ -828,7 +828,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         }
 
         // Show vesting schedule card
-        if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST) && getBaseDao().mKavaAccount.value.getCVestingCnt() > 0) {
+        if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST) && getBaseDao().mKavaAccount != null && getBaseDao().mKavaAccount.value.getCVestingCnt() > 0) {
             ResLcdKavaAccountInfo.Value mKavaAccount = getBaseDao().mKavaAccount.value;
             mVestingCard.setVisibility(View.VISIBLE);
             mVestingLayer1.setVisibility(View.GONE);
