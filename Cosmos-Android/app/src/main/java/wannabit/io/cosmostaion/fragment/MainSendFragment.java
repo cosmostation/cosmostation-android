@@ -54,6 +54,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
@@ -455,7 +456,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_faq_bnb);
             mFaqBtn.setText(R.string.str_guide_bnb);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.GONE);
@@ -464,7 +465,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBandCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-            if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             } else {
                 mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
@@ -703,7 +704,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
             BigDecimal totalAmount = WDp.getAllTestKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             mTvKavaTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
@@ -816,7 +817,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         }
 
         // Show incentive claim card
-        if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
             if (getBaseDao().mKavaUnClaimedIncentiveRewards.size() > 0) {
                 mKavaIncentiveCard.setVisibility(View.VISIBLE);
             } else {
@@ -828,7 +829,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         }
 
         // Show vesting schedule card
-        if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST) && getBaseDao().mKavaAccount != null && getBaseDao().mKavaAccount.value.getCVestingCnt() > 0) {
+        if (getMainActivity().mBaseChain.equals(KAVA_TEST) && getBaseDao().mKavaAccount != null && getBaseDao().mKavaAccount.value.getCVestingCnt() > 0) {
             ResLcdKavaAccountInfo.Value mKavaAccount = getBaseDao().mKavaAccount.value;
             mVestingCard.setVisibility(View.VISIBLE);
             mVestingLayer1.setVisibility(View.GONE);
@@ -892,7 +893,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             show.show(getFragmentManager().beginTransaction(), "dialog");
 
         } else if (v.equals(mBtnWebDetail)) {
-            if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) { return; }
+            if (getMainActivity().mBaseChain.equals(KAVA_TEST)) { return; }
+            if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return; }
             Intent webintent = new Intent(getMainActivity(), WebActivity.class);
             webintent.putExtra("address", getMainActivity().mAccount.address);
             webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
@@ -917,7 +919,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.binance.org"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/registration/"));
                 startActivity(guideIntent);
 
@@ -949,7 +951,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@binance"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/kava-labs"));
                 startActivity(guideIntent);
 
@@ -991,7 +993,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     startActivity(guideIntent);
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 if (getBaseDao().getMarket() == 0) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/kava"));
                     startActivity(guideIntent);
@@ -1018,7 +1020,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             startActivity(validators);
 
         } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote)) {
-            if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) return;
+            if (getMainActivity().mBaseChain.equals(KAVA_TEST)) return;
             Intent proposals = new Intent(getMainActivity(), VoteListActivity.class);
             startActivity(proposals);
 

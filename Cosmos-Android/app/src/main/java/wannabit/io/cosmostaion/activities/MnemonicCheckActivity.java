@@ -61,6 +61,8 @@ public class MnemonicCheckActivity extends BaseActivity {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
         } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.IOV_MAIN)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+        } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.BAND_MAIN)) {
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
         }
         final ArrayList<String> mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
 
@@ -75,6 +77,8 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mTvWords[i].setBackground(getDrawable(R.drawable.box_round_kava));
             } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.IOV_MAIN)) {
                 mTvWords[i].setBackground(getDrawable(R.drawable.box_round_iov));
+            } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.BAND_MAIN)) {
+                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_band));
             }
             if(i >= mWords.size()) mTvWords[i].setVisibility(View.INVISIBLE);
             else mTvWords[i].setVisibility(View.VISIBLE);
