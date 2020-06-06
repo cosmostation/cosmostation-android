@@ -45,6 +45,8 @@ let IOV_URL                             = "https://rest-iov.cosmostation.io/";  
 let IOV_REST_URL                        = "https://bnsapi.iov.one/";
 let IOV_RPC_URL                         = "https://rpc-iov-mainnet.cosmostation.io/";
 
+let BAND_URL                            = "https://lcd-band.cosmostation.io/";
+
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
@@ -175,6 +177,31 @@ let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
 let IOV_REST_URL_BALANCE                = IOV_REST_URL + "cash/balances";
 let IOV_REST_URL_NONCE                  = IOV_REST_URL + "nonce/address/";
 let IOV_REST_URL_TX_SUBMIT              = IOV_REST_URL + "tx/submit";
+
+
+
+
+//let CSS_LCD_URL_BLOCK                   = CSS_LCD_URL + "blocks/";
+let BAND_TX                             = BAND_URL + "txs/";
+let BAND_VALIDATORS                     = BAND_URL + "staking/validators";
+let BAND_ACCOUNT_INFO                   = BAND_URL + "auth/accounts/";
+let BAND_BONDING                        = BAND_URL + "staking/delegators/";
+let BAND_BONDING_TAIL                   = "/delegations";
+let BAND_UNBONDING                      = BAND_URL + "staking/delegators/";
+let BAND_UNBONDING_TAIL                 = "/unbonding_delegations";
+//let CSS_LCD_URL_REWARD_ALL              = CSS_LCD_URL + "distribution/delegators/";
+//let CSS_LCD_URL_REWARD_ALL_TAIL         = "/rewards";
+let BAND_REWARD_FROM_VAL                = BAND_URL + "distribution/delegators/";
+let BAND_REWARD_FROM_VAL_TAIL           = "/rewards/";
+//let CSS_LCD_URL_REWARD_ADDRESS          = CSS_LCD_URL + "distribution/delegators/";
+//let CSS_LCD_URL_REWARD_ADDRESS_TAIL     = "/withdraw_address";
+//let CSS_LCD_URL_REDELEGATION            = CSS_LCD_URL + "staking/redelegations";
+let BAND_INFLATION                      = BAND_URL + "minting/inflation";
+let BAND_PROVISIONS                     = BAND_URL + "minting/annual-provisions";
+let BAND_STAKING_POOL                   = BAND_URL + "staking/pool";
+//let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "gov/proposals";
+//let CSS_LCD_URL_PROPOSALS_TALLY_TAIL    = "/tally";
+let BAND_BORAD_TX                       = BAND_URL + "txs";
 
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
@@ -337,7 +364,8 @@ let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 let BNB_TEST_DEPUTY                        = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h"
 let KAVA_TEST_DEPUTY                       = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl"
 
-let IOV_MSG_TYPE_TRANSFER                  = "iov_transfer";
+let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
+let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
@@ -359,6 +387,7 @@ let BASE_PATH                               = "m/44'/118'/0'/0/"
 let BNB_BASE_PATH                           = "m/44'/714'/0'/0/"
 let KAVA_BASE_PATH                          = "m/44'/459'/0'/0/"
 let IOV_BASE_PATH                           = "m/44'/234'/"
+let BAND_BASE_PATH                          = "m/44'/494'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";
 let FEE_ATOM_MID                            = "2000";
@@ -449,7 +478,9 @@ let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "46d7cb", 
 let COLOR_IOV                               = UIColor.init(hexString: "35C1B3")
 let COLOR_IOV_DARK                          = UIColor.init(hexString: "065048")
 
-
+let TRANS_BG_COLOR_BAND                     = UIColor.init(hexString: "5286FF", alpha: 0.15)
+let COLOR_BAND                              = UIColor.init(hexString: "516FFA")
+let COLOR_BAND_DARK                         = UIColor.init(hexString: "2A3C8B")
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
@@ -462,6 +493,7 @@ enum ChainType: String {
     case SUPPORT_CHAIN_BINANCE_MAIN
     case SUPPORT_CHAIN_KAVA_MAIN
     case SUPPORT_CHAIN_IOV_MAIN
+    case SUPPORT_CHAIN_BAND_MAIN
     case SUPPORT_CHAIN_BINANCE_TEST
     case SUPPORT_CHAIN_KAVA_TEST
     
@@ -472,6 +504,7 @@ enum ChainType: String {
         result.append(SUPPORT_CHAIN_BINANCE_MAIN)
         result.append(SUPPORT_CHAIN_KAVA_MAIN)
 //        result.append(SUPPORT_CHAIN_IOV_MAIN)
+        result.append(SUPPORT_CHAIN_BAND_MAIN)
         result.append(SUPPORT_CHAIN_BINANCE_TEST)
         result.append(SUPPORT_CHAIN_KAVA_TEST)
         return result
@@ -498,6 +531,7 @@ let CHAIN_IRIS_S = "SUPPORT_CHAIN_IRIS_MAIN"
 let CHAIN_BINANCE_S = "SUPPORT_CHAIN_BINANCE_MAIN"
 let CHAIN_KAVA_S = "SUPPORT_CHAIN_KAVA_MAIN"
 let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
+let CHAIN_BAND_S = "SUPPORT_CHAIN_BAND_MAIN"
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 
@@ -508,6 +542,7 @@ let IRIS_DP_DENOM = "iris"
 let BNB_MAIN_DENOM = "BNB"
 let IOV_MAIN_DENOM = "IOV"
 let KAVA_MAIN_DENOM = "ukava"
+let BAND_MAIN_DENOM = "uband"
 
 let Font_17_body = UIFont(name: "Helvetica-Light", size: 17)!
 let Font_15_subTitle = UIFont(name: "Helvetica-Light", size: 15)!

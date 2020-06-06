@@ -322,7 +322,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                     totalBandAmount = totalBandAmount.add(WDp.getAllBand(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
                 }
             }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBandAmount, 9, 6));
+            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBandAmount, 6, 6));
             mTotalValue.setText(WDp.getValueOfBand(getContext(), getBaseDao(), totalBandAmount));
 
         }

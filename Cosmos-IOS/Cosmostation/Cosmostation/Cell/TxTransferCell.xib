@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -231,7 +231,7 @@
                             <constraint firstAttribute="bottom" secondItem="roL-Kq-CMB" secondAttribute="bottom" priority="750" constant="20" id="d9g-dX-FHa"/>
                             <constraint firstItem="BS0-qH-4Xm" firstAttribute="top" secondItem="yuP-Pv-da0" secondAttribute="bottom" constant="6" id="dxH-6H-Zhj"/>
                             <constraint firstItem="GfB-uC-ZaN" firstAttribute="leading" secondItem="Pru-Uj-esN" secondAttribute="leading" id="gCU-Uo-Ifr"/>
-                            <constraint firstItem="roL-Kq-CMB" firstAttribute="top" secondItem="GfB-uC-ZaN" secondAttribute="bottom" constant="16" id="gZj-RY-ImT"/>
+                            <constraint firstItem="roL-Kq-CMB" firstAttribute="top" secondItem="GfB-uC-ZaN" secondAttribute="bottom" constant="20" id="gZj-RY-ImT"/>
                             <constraint firstItem="axA-H3-CyW" firstAttribute="leading" secondItem="7gE-zu-nKt" secondAttribute="leading" constant="16" id="jZy-lw-7Q2"/>
                             <constraint firstItem="2sy-rV-Y6F" firstAttribute="centerY" secondItem="Pru-Uj-esN" secondAttribute="centerY" id="tE5-x2-9TH"/>
                             <constraint firstAttribute="bottom" secondItem="axA-H3-CyW" secondAttribute="bottom" priority="250" constant="20" id="zeq-KQ-Q57"/>

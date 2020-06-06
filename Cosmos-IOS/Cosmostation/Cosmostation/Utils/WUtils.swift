@@ -265,7 +265,7 @@ class WUtils {
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
@@ -283,7 +283,7 @@ class WUtils {
     
     static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 for entry in unbondinginfo.entries {
@@ -779,6 +779,16 @@ class WUtils {
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
     
+    static func availableAmount(_ balances:Array<Balance>, _ symbol:String, _ chain:ChainType) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == symbol) {
+                amount = stringToDecimal(balance.balance_amount)
+            }
+        }
+        return amount;
+    }
+    
     static func dpVestingCoin(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for balance in balances {
@@ -798,12 +808,28 @@ class WUtils {
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
     
+    static func deleagtedAmount(_ bondings:Array<Bonding>, _ validators:Array<Validator>, _ chain:ChainType) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        return amount
+    }
+    
     static func dpUnbondings(_ unbondings:Array<Unbonding>, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for unbonding in unbondings {
             amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
         }
         return displayAmount(amount.stringValue, font, deciaml, chain);
+    }
+    
+    static func unbondingAmount(_ unbondings:Array<Unbonding>, _ chain:ChainType) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for unbonding in unbondings {
+            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+        }
+        return amount
     }
     
     static func dpRewards(_ rewards:Array<Reward>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) ->  NSMutableAttributedString {
@@ -816,6 +842,18 @@ class WUtils {
             }
         }
         return displayAmount(amount.stringValue, font, deciaml, chain)
+    }
+    
+    static func rewardAmount(_ rewards:Array<Reward>, _ symbol:String, _ chain:ChainType) ->  NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == symbol) {
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                }
+            }
+        }
+        return amount
     }
     
     static func dpIrisRewards(_ rewards:IrisRewards?, _ font:UIFont, _ deciaml:Int, _ chain:ChainType ) ->  NSMutableAttributedString {
@@ -1250,6 +1288,29 @@ class WUtils {
         return amount
     }
     
+    static func getAllBand(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == BAND_MAIN_DENOM) {
+                amount = stringToDecimal(balance.balance_amount)
+            }
+        }
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        for unbonding in unbondings {
+            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+        }
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == BAND_MAIN_DENOM) {
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                }
+            }
+        }
+        return amount
+    }
+    
     static func getAllIris(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:IrisRewards?, _ validators:Array<Validator>) ->  NSDecimalNumber {
         var sum = NSDecimalNumber.zero
         for balance in balances {
@@ -1466,6 +1527,15 @@ class WUtils {
                 denomLabel.text = coin.denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, getKavaCoinDecimal(coin.denom), getKavaCoinDecimal(coin.denom))
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (coin.denom == BAND_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
         }
     }
     
@@ -1498,6 +1568,15 @@ class WUtils {
                 denomLabel.text = denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, getKavaCoinDecimal(denom), getKavaCoinDecimal(denom))
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (denom == BAND_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
         }
     }
     
@@ -1563,6 +1642,8 @@ class WUtils {
             return COLOR_KAVA
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return COLOR_IOV
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            return COLOR_BAND
         } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return COLOR_KAVA
         }
@@ -1580,6 +1661,8 @@ class WUtils {
             return COLOR_KAVA_DARK
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return COLOR_IOV_DARK
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            return COLOR_BAND_DARK
         } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return COLOR_DARK_GRAY
         }
@@ -1597,6 +1680,8 @@ class WUtils {
             return TRANS_BG_COLOR_KAVA
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return TRANS_BG_COLOR_IOV
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            return TRANS_BG_COLOR_BAND
         } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return COLOR_BG_GRAY
         }
@@ -1614,6 +1699,8 @@ class WUtils {
             return "KAVA"
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return "IOV"
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            return "BAND"
         }
         return ""
     }
@@ -1634,6 +1721,9 @@ class WUtils {
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             label.text = "IOV"
             label.textColor = COLOR_IOV
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            label.text = "BAND"
+            label.textColor = COLOR_BAND
         }
     }
     
@@ -1648,6 +1738,8 @@ class WUtils {
            return ChainType.SUPPORT_CHAIN_KAVA_MAIN
         } else if (chainS == CHAIN_IOV_S) {
             return ChainType.SUPPORT_CHAIN_IOV_MAIN
+        } else if (chainS == CHAIN_BAND_S) {
+            return ChainType.SUPPORT_CHAIN_BAND_MAIN
         } else if (chainS == CHAIN_KAVA_TEST_S) {
             return ChainType.SUPPORT_CHAIN_KAVA_TEST
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
@@ -1691,6 +1783,8 @@ class WUtils {
             return "kava-2"
         } else if (type == CHAIN_IOV_S) {
             return "iov-mainnet"
+        } else if (type == CHAIN_BAND_S) {
+            return "band-wenchang-mainnet"
         } else if (type == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (type == CHAIN_KAVA_TEST_S) {

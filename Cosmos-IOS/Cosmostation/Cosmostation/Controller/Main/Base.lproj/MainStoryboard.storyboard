@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -268,6 +268,12 @@
                                     <constraint firstAttribute="height" constant="50" id="zuM-6F-LgI"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon!!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXP-AQ-reI">
+                                <rect key="frame" x="151" y="352.5" width="112.5" height="20"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLK-Ns-Awb">
                                 <rect key="frame" x="167" y="352.5" width="80" height="20"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
@@ -286,6 +292,7 @@
                             <constraint firstItem="clr-UP-CWo" firstAttribute="top" secondItem="qFY-lo-0IC" secondAttribute="bottom" id="Gnp-Hi-O0X"/>
                             <constraint firstItem="lR6-M3-g2M" firstAttribute="top" secondItem="zcq-nb-U4b" secondAttribute="top" id="JCy-MX-B1b"/>
                             <constraint firstItem="cSU-sE-n4m" firstAttribute="trailing" secondItem="clr-UP-CWo" secondAttribute="trailing" id="Jlp-Do-UEe"/>
+                            <constraint firstItem="XXP-AQ-reI" firstAttribute="centerY" secondItem="cSU-sE-n4m" secondAttribute="centerY" id="Ujz-xx-KpP"/>
                             <constraint firstItem="cSU-sE-n4m" firstAttribute="trailing" secondItem="qFY-lo-0IC" secondAttribute="trailing" id="b5k-rF-ogu"/>
                             <constraint firstAttribute="bottom" secondItem="clr-UP-CWo" secondAttribute="bottom" id="dtL-Jv-v9s"/>
                             <constraint firstItem="lR6-M3-g2M" firstAttribute="leading" secondItem="cSU-sE-n4m" secondAttribute="leading" id="j78-qw-woP"/>
@@ -294,12 +301,14 @@
                             <constraint firstItem="cSU-sE-n4m" firstAttribute="leading" secondItem="qFY-lo-0IC" secondAttribute="leading" id="u9T-SZ-dep"/>
                             <constraint firstItem="qFY-lo-0IC" firstAttribute="top" secondItem="cSU-sE-n4m" secondAttribute="top" id="whw-UP-kc4"/>
                             <constraint firstItem="TLK-Ns-Awb" firstAttribute="centerX" secondItem="cSU-sE-n4m" secondAttribute="centerX" id="yXk-OV-43V"/>
+                            <constraint firstItem="XXP-AQ-reI" firstAttribute="centerX" secondItem="cSU-sE-n4m" secondAttribute="centerX" id="zcq-hJ-kli"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cSU-sE-n4m"/>
                     </view>
                     <navigationItem key="navigationItem" id="zKv-T3-ZiW"/>
                     <connections>
                         <outlet property="chainBg" destination="lR6-M3-g2M" id="0CO-W2-aIb"/>
+                        <outlet property="comingLabel" destination="XXP-AQ-reI" id="My0-et-lna"/>
                         <outlet property="emptyLabel" destination="TLK-Ns-Awb" id="WEt-to-cJP"/>
                         <outlet property="historyTableView" destination="clr-UP-CWo" id="pah-B7-2Pd"/>
                         <outlet property="titleAlarmBtn" destination="zcu-1U-k6P" id="uci-XX-AoF"/>
