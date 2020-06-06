@@ -73,7 +73,7 @@ public class UnBondingStateTask extends CommonTask {
                 Response<ResLcdUnBondings> response = ApiClient.getKavaTestChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.BNB_MAIN, mAccount.id, response.body().result));
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.KAVA_MAIN, mAccount.id, response.body().result));
                     } else {
                         mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }

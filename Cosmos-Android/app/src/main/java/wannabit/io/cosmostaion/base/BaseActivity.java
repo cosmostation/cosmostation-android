@@ -686,9 +686,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 final ResKavaPriceParam.KavaPriceParam kavaPriceParam = (ResKavaPriceParam.KavaPriceParam)result.resultData;
                 getBaseDao().mKavaTokenPrices.clear();
-                mTaskCount = mTaskCount + kavaPriceParam.markets.size();
-                for (ResKavaPriceParam.KavaPriceMarket market:kavaPriceParam.markets) {
-                    new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), market.market_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                if (kavaPriceParam != null && kavaPriceParam.markets != null && kavaPriceParam.markets.size() > 0) {
+                    mTaskCount = mTaskCount + kavaPriceParam.markets.size();
+                    for (ResKavaPriceParam.KavaPriceMarket market:kavaPriceParam.markets) {
+                        new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), market.market_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    }
                 }
             }
 
@@ -752,15 +754,17 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             mAllValidators.addAll(mOtherValidators);
             getBaseDao().setAllValidators(mAllValidators);
 
-            WLog.w("mBondings " + mBondings.size());
-            WLog.w("mUnbondings " + mUnbondings.size());
             WLog.w("MyValidators " + mMyValidators.size());
             WLog.w("TopValidators " + mTopValidators.size());
             WLog.w("OtherValidators " + mOtherValidators.size());
+
+            WLog.w("mBondings " + mBondings.size());
+            WLog.w("mUnbondings " + mUnbondings.size());
             WLog.w("mRewards " + mRewards.size());
-            WLog.w("mInflation " + mInflation);
-            WLog.w("mProvisions " + mProvisions);
-            WLog.w("mBondedToken " + mBondedToken);
+
+//            WLog.w("mInflation " + mInflation);
+//            WLog.w("mProvisions " + mProvisions);
+//            WLog.w("mBondedToken " + mBondedToken);
         }
         if (mTaskCount == 0 && mFetchCallback != null) {
             mFetchCallback.fetchFinished();

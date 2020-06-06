@@ -17,6 +17,7 @@ import java.nio.ByteBuffer;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -152,7 +153,7 @@ public class WUtil {
                     result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
                     result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
 
-                } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
+                } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT) || lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
                     result.address = lcd.result.value.address;
                     result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
                     result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
@@ -301,6 +302,7 @@ public class WUtil {
                 WLog.w(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT);
                 WLog.w("totalVesting " + totalVesting);
                 WLog.w("totalDelegateVseting " + totalDelegateVseting);
+
                 WLog.w("dpVesting " + dpVesting);
                 WLog.w("dpBalance " + dpBalance);
 
@@ -364,10 +366,11 @@ public class WUtil {
                 }
                 return result;
 
-            } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
+            }  else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT) || lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
                 BigDecimal dpBalance = BigDecimal.ZERO;
                 BigDecimal dpVesting = BigDecimal.ZERO;
                 BigDecimal originalVestiong = BigDecimal.ZERO;
+                BigDecimal remainVestiong = BigDecimal.ZERO;
                 BigDecimal delegatedVesting = BigDecimal.ZERO;
 
                 if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
@@ -387,16 +390,24 @@ public class WUtil {
                                 }
                             }
 
-                            WLog.w("dpBalance" +  dpBalance);
-                            WLog.w("originalVestiong" +  originalVestiong);
-                            WLog.w("delegatedVesting" +  delegatedVesting);
+                            WLog.w("dpBalance " +  dpBalance);
+                            WLog.w("originalVestiong " +  originalVestiong);
+                            WLog.w("delegatedVesting " +  delegatedVesting);
 
-                            dpBalance = dpBalance.subtract(originalVestiong).add(delegatedVesting);
-                            if (dpBalance.compareTo(BigDecimal.ZERO) <= 0) {
-                                dpBalance = BigDecimal.ZERO;
+                            remainVestiong = lcd.result.value.getCVestingSum();
+                            WLog.w("remainVestiong " +  remainVestiong);
+
+                            dpVesting = remainVestiong.subtract(delegatedVesting);
+                            WLog.w("dpVesting " +  dpVesting);
+                            if (dpVesting.compareTo(BigDecimal.ZERO) <= 0) {
+                                dpVesting = BigDecimal.ZERO;
                             }
+                            WLog.w("dpVesting1 " +  dpVesting);
 
-                            dpVesting = originalVestiong.subtract(delegatedVesting);
+                            if (remainVestiong.compareTo(delegatedVesting) > 0) {
+                                dpBalance = dpBalance.subtract(remainVestiong).add(delegatedVesting);
+                            }
+                            WLog.w("dpBalancee " +  dpBalance);
 
                             Balance temp = new Balance();
                             temp.accountId = accountId;
@@ -406,6 +417,7 @@ public class WUtil {
                             temp.locked = dpVesting;
                             temp.fetchTime = time;
                             result.add(temp);
+
 
                         } else {
                             Balance temp = new Balance();
@@ -417,6 +429,7 @@ public class WUtil {
                         }
                     }
                 }
+
             }
         }
         return result;

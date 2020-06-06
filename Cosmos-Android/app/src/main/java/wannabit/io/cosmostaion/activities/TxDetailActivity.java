@@ -1466,6 +1466,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
     private int FetchCnt = 0;
     private void onFetchTx(String hash) {
+        WLog.w("hash "+ hash);
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             ApiClient.getCosmosChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
