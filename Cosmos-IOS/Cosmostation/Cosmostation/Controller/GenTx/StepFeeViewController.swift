@@ -42,7 +42,8 @@ class StepFeeViewController: BaseViewController {
         
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             rewardAllGasAmounts = WUtils.getGasAmountForRewards()
             
             let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapFeeType(sender:)))
@@ -179,7 +180,7 @@ class StepFeeViewController: BaseViewController {
             self.speedMsg.text = NSLocalizedString("fee_speed_title_0", comment: "")
             
             feeAmount = NSDecimalNumber.zero
-            self.minFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, minFeeAmountLabel.font, 6, pageHolderVC.chainType!)
+            self.minFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, minFeeAmountLabel.font, 6, 6)
             
         } else if (position == 1) {
             self.minFeeCardView.isHidden = true
@@ -193,7 +194,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 4)
 
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
-            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 6, pageHolderVC.chainType!)
+            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, minFeeAmountLabel.font, 6, 6)
             
         } else if (position == 2) {
             self.minFeeCardView.isHidden = true
@@ -207,7 +208,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 3)
             
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
-            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 6, pageHolderVC.chainType!)
+            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, minFeeAmountLabel.font, 6, 6)
         }
         
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
@@ -241,6 +242,17 @@ class StepFeeViewController: BaseViewController {
                     return false
                 }
             }
+            
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            available = WUtils.getTokenAmount(pageHolderVC.mBalances, BAND_MAIN_DENOM);
+            toSpend = getSpendAmount()
+            if (toSpend.adding(feeAmount).compare(available).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                self.feeSlider.setValue(0, animated: true)
+                self.updateView(0)
+                return false
+            }
+            
         }
         self.minFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
         self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
@@ -335,6 +347,24 @@ class StepFeeViewController: BaseViewController {
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
             
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
+            if (self.updateView(Int(feeSlider!.value))) {
+                feeCoin = Coin.init(BAND_MAIN_DENOM, feeAmount.stringValue)
+                var fee = Fee.init()
+                let estGas = getEstimateGasAmount().stringValue
+                fee.gas = estGas
+                
+                var estAmount: Array<Coin> = Array<Coin>()
+                estAmount.append(feeCoin)
+                fee.amount = estAmount
+                
+                pageHolderVC.mFee = fee
+                
+                self.beforeBtn.isUserInteractionEnabled = false
+                self.nextBtn.isUserInteractionEnabled = false
+                pageHolderVC.onNextPage()
+            }
         }
     }
     
@@ -438,6 +468,10 @@ class StepFeeViewController: BaseViewController {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_HIGH))
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (pageHolderVC.mType == BAND_MSG_TYPE_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            }
         }
         return result
     }
@@ -449,7 +483,7 @@ class StepFeeViewController: BaseViewController {
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             
-        } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == KAVA_MSG_TYPE_TRANSFER) {
+        } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == KAVA_MSG_TYPE_TRANSFER || pageHolderVC.mType == BAND_MSG_TYPE_TRANSFER) {
             result = WUtils.stringToDecimal(pageHolderVC.mToSendAmount[0].amount)
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {

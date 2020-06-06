@@ -1164,6 +1164,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://medium.com/bandprotocol") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
+            
         }
     }
     
@@ -1343,9 +1344,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             txVC.mIovSendDenom = IOV_MAIN_DENOM
             txVC.mType = IOV_MSG_TYPE_TRANSFER
+            
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
-            //TODO
-            return
+            if (WUtils.getTokenAmount(balances, BAND_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mType = BAND_MSG_TYPE_TRANSFER
+            
         } else {
             return
         }

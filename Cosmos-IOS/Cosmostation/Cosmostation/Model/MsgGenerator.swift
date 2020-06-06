@@ -102,7 +102,7 @@ class MsgGenerator {
     static func genGetSendMsg(_ fromAddress: String, _ toAddress: String, _ amount: Array<Coin>, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             value.from_address = fromAddress
             value.to_address = toAddress
             let data = try? JSONEncoder().encode(amount)

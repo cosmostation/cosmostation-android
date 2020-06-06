@@ -182,7 +182,7 @@ let IOV_REST_URL_TX_SUBMIT              = IOV_REST_URL + "tx/submit";
 
 
 //let CSS_LCD_URL_BLOCK                   = CSS_LCD_URL + "blocks/";
-//let CSS_LCD_URL_TX                      = CSS_LCD_URL + "txs/";
+let BAND_TX                             = BAND_URL + "txs/";
 let BAND_VALIDATORS                     = BAND_URL + "staking/validators";
 let BAND_ACCOUNT_INFO                   = BAND_URL + "auth/accounts/";
 let BAND_BONDING                        = BAND_URL + "staking/delegators/";
@@ -201,7 +201,7 @@ let BAND_PROVISIONS                     = BAND_URL + "minting/annual-provisions"
 let BAND_STAKING_POOL                   = BAND_URL + "staking/pool";
 //let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "gov/proposals";
 //let CSS_LCD_URL_PROPOSALS_TALLY_TAIL    = "/tally";
-//let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
+let BAND_BORAD_TX                       = BAND_URL + "txs";
 
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
@@ -364,7 +364,8 @@ let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 let BNB_TEST_DEPUTY                        = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h"
 let KAVA_TEST_DEPUTY                       = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl"
 
-let IOV_MSG_TYPE_TRANSFER                  = "iov_transfer";
+let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
+let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"

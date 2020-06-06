@@ -1527,6 +1527,15 @@ class WUtils {
                 denomLabel.text = coin.denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, getKavaCoinDecimal(coin.denom), getKavaCoinDecimal(coin.denom))
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (coin.denom == BAND_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
         }
     }
     
@@ -1559,6 +1568,15 @@ class WUtils {
                 denomLabel.text = denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, getKavaCoinDecimal(denom), getKavaCoinDecimal(denom))
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (denom == BAND_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
         }
     }
     

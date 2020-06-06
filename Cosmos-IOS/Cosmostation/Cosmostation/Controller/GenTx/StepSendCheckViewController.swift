@@ -181,6 +181,19 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mReminaingPrice.attributedText = WUtils.dpValue(NSDecimalNumber.zero, mReminaingPrice.font)
             } else {}
             
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            mDpDecimal = 6
+            currentAva = pageHolderVC.mAccount!.getBandBalance()
+            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
+            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
+            
+            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
+            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
+            
+            mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            
         }
         
         mToAddressLabel.text = pageHolderVC.mToSendRecipientAddress
@@ -195,7 +208,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
                 pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
                 pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN ||
+                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                 self.onGenBnbSendTx()
@@ -217,6 +231,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             url = IOV_REST_URL_NONCE + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_ACCOUNT_INFO + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -268,6 +284,20 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     }
                     let nonceInfo = IovNonce.init(info)
                     self.onGenIovSendTx(nonceInfo.model!.sequence)
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                    guard let responseData = res as? NSDictionary,
+                        let info = responseData.object(forKey: "result") as? [String : Any] else {
+                        _ = BaseData.instance.deleteBalance(account: account)
+                        self.hideWaittingAlert()
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return
+                    }
+                    let accountInfo = AccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
+                    self.onGenSendTx()
+                    
                 }
                 
             case .failure(let error):
@@ -296,7 +326,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 
                 if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
                     self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
@@ -368,6 +399,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         url = KAVA_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                        url = BAND_BORAD_TX
                     }
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
@@ -395,6 +428,9 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
                                     self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                                     txResult["type"] = KAVA_MSG_TYPE_TRANSFER
+                                    self.onStartTxDetail(txResult)
+                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                                    txResult["type"] = BAND_MSG_TYPE_TRANSFER
                                     self.onStartTxDetail(txResult)
                                 }
                             })

@@ -484,4 +484,5 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             }
         }
     }
+    
 }
