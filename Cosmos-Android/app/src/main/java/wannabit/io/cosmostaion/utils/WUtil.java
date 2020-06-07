@@ -369,8 +369,8 @@ public class WUtil {
             }  else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT) || lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
                 BigDecimal dpBalance = BigDecimal.ZERO;
                 BigDecimal dpVesting = BigDecimal.ZERO;
-                BigDecimal originalVestiong = BigDecimal.ZERO;
-                BigDecimal remainVestiong = BigDecimal.ZERO;
+                BigDecimal originalVesting = BigDecimal.ZERO;
+                BigDecimal remainVesting = BigDecimal.ZERO;
                 BigDecimal delegatedVesting = BigDecimal.ZERO;
 
                 if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
@@ -380,7 +380,7 @@ public class WUtil {
 
                             if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
                                 for (Coin vesting : lcd.result.value.original_vesting) {
-                                    originalVestiong = originalVestiong.add(new BigDecimal(vesting.amount));
+                                    originalVesting = originalVesting.add(new BigDecimal(vesting.amount));
                                 }
                             }
 
@@ -391,21 +391,21 @@ public class WUtil {
                             }
 
                             WLog.w("dpBalance " +  dpBalance);
-                            WLog.w("originalVestiong " +  originalVestiong);
+                            WLog.w("originalVesting " +  originalVesting);
                             WLog.w("delegatedVesting " +  delegatedVesting);
 
-                            remainVestiong = lcd.result.value.getCVestingSum();
-                            WLog.w("remainVestiong " +  remainVestiong);
+                            remainVesting = lcd.result.value.getCVestingSum();
+                            WLog.w("remainVesting " +  remainVesting);
 
-                            dpVesting = remainVestiong.subtract(delegatedVesting);
+                            dpVesting = remainVesting.subtract(delegatedVesting);
                             WLog.w("dpVesting " +  dpVesting);
                             if (dpVesting.compareTo(BigDecimal.ZERO) <= 0) {
                                 dpVesting = BigDecimal.ZERO;
                             }
                             WLog.w("dpVesting1 " +  dpVesting);
 
-                            if (remainVestiong.compareTo(delegatedVesting) > 0) {
-                                dpBalance = dpBalance.subtract(remainVestiong).add(delegatedVesting);
+                            if (remainVesting.compareTo(delegatedVesting) > 0) {
+                                dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
                             }
                             WLog.w("dpBalancee " +  dpBalance);
 
