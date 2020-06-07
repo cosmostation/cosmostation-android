@@ -334,9 +334,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onUpdateAccountListAdapter() {
         int lastPosition = getBaseDao().getLastChain() - 1;
-        if (lastPosition < 0 ) lastPosition = 0;
-        BaseChain chain = BaseChain.SUPPORT_CHAINS().get(lastPosition);
-        mAccounts = getBaseDao().onSelectAccountsByChain(chain);
+        if (lastPosition < 0) {
+            mAccounts = getBaseDao().onSelectAccounts();
+        } else {
+            BaseChain chain = BaseChain.SUPPORT_CHAINS().get(lastPosition);
+            mAccounts = getBaseDao().onSelectAccountsByChain(chain);
+        }
         WUtil.onSortingAccount(mAccounts);
         mAccountListAdapter.notifyDataSetChanged();
     }

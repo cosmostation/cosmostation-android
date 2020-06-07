@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResLcdKavaAccountInfo {
     @SerializedName("height")
@@ -65,8 +66,9 @@ public class ResLcdKavaAccountInfo {
             int result = 0;
             if (vesting_periods != null) {
                 long cTime = Calendar.getInstance().getTime().getTime();
-                for (VestingPeriod vestingPeriod:vesting_periods) {
-                    long unlockTime = (this.start_time + vestingPeriod.length) * 1000;
+                for (int i = 0; i < vesting_periods.size(); i ++) {
+                    long unlockTime = getUnLockTime(i);
+//                    WLog.w("lTime " + unlockTime);
                     if (cTime < unlockTime) {
                         result = result + 1;
                     }
@@ -79,10 +81,10 @@ public class ResLcdKavaAccountInfo {
             BigDecimal result = BigDecimal.ZERO;
             if (vesting_periods != null) {
                 long cTime = Calendar.getInstance().getTime().getTime();
-                for (VestingPeriod vestingPeriod:vesting_periods) {
-                    long unlockTime = (this.start_time + vestingPeriod.length) * 1000;
+                for (int i = 0; i < vesting_periods.size(); i ++) {
+                    long unlockTime = getUnLockTime(i);
                     if (cTime < unlockTime) {
-                        for (Coin coin:vestingPeriod.amount) {
+                        for (Coin coin:vesting_periods.get(i).amount) {
                             result = result.add(new BigDecimal(coin.amount));
                         }
                     }
@@ -95,10 +97,10 @@ public class ResLcdKavaAccountInfo {
             ArrayList<VestingPeriod> result = new ArrayList<>();
             if (vesting_periods != null) {
                 long cTime = Calendar.getInstance().getTime().getTime();
-                for (VestingPeriod vestingPeriod:vesting_periods) {
-                    long unlockTime = (this.start_time + vestingPeriod.length) * 1000;
+                for (int i = 0; i < vesting_periods.size(); i ++) {
+                    long unlockTime = getUnLockTime(i);
                     if (cTime < unlockTime) {
-                        result.add(vestingPeriod);
+                        result.add(vesting_periods.get(i));
                     }
                 }
             }
@@ -116,6 +118,14 @@ public class ResLcdKavaAccountInfo {
                 result = result.add(new BigDecimal(coin.amount));
             }
             return result;
+        }
+
+        public long getUnLockTime(int position) {
+            long result = this.start_time;
+            for (int i = 0; i <= position; i ++) {
+                result = result + vesting_periods.get(i).length;
+            }
+            return result * 1000;
         }
     }
 

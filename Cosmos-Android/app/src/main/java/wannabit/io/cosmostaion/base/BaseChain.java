@@ -21,7 +21,8 @@ public enum BaseChain {
     BNB_TEST("Binance-Chain-Nile"),
     KAVA_TEST_LEGACY4("kava-testnet-4000"),
     KAVA_TEST_LEGACY5("kava-testnet-5000"),
-    KAVA_TEST("kava-testnet-6000");
+    KAVA_TEST_LEGACY6("kava-testnet-6000"),
+    KAVA_TEST("kava-3-test");
 
     private final String chainName;
 
