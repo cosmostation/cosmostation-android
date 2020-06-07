@@ -298,11 +298,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                    print("CDP mKavaPrice", BaseData.instance.mKavaPrice.count)
 //                    print("CDP mMyCdps", BaseData.instance.mMyCdps.count)
 //                }
-//                print("mTopValidators ", mTopValidators.count)
-//                print("mOtherValidators ", mOtherValidators.count)
-//                print("mBondingList ", mBondingList.count)
-//                print("mUnbondingList ", mUnbondingList.count)
-//                print("mRewardList ", mRewardList.count)
+                print("mTopValidators ", mTopValidators.count)
+                print("mOtherValidators ", mOtherValidators.count)
+                
+                
+                print("mBondingList ", mBondingList.count)
+                print("mUnbondingList ", mUnbondingList.count)
+                print("mRewardList ", mRewardList.count)
                 
             } else if (mChainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
