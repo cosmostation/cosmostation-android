@@ -645,7 +645,7 @@
     <string name="str_delegated">위임된 수량</string>
     <string name="str_unbonding">위임 철회중인 수량</string>
     <string name="str_reward">이자량</string>
-    <string name="str_delegate">Delegate</string>
+    <string name="str_delegate">위임 하기</string>
     <string name="str_get_reward">위임 하기</string>
     <string name="str_vote_to">투표 하기</string>
     <string name="str_commission">검증인 수수료</string>
