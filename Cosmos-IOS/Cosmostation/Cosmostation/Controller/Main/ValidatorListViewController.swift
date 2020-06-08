@@ -55,6 +55,8 @@ class ValidatorListViewController: BaseViewController {
                 validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_IRIS2
             } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_KAVA2
+            } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_BAND2
             }
             
         } else {
@@ -64,6 +66,8 @@ class ValidatorListViewController: BaseViewController {
                 validatorSegment.tintColor = COLOR_IRIS
             } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 validatorSegment.tintColor = COLOR_KAVA
+            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                validatorSegment.tintColor = COLOR_BAND
             }
         }
 

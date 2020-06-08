@@ -219,6 +219,8 @@ let IRIS_VAL_URL                        = "https://raw.githubusercontent.com/cos
 let KAVA_IMG_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
 let KAVA_CDP_MARKET_IMG_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
+let BAND_IMG_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+
 
 //DB for Account
 let DB_ACCOUNT = Table("accnt")
@@ -481,6 +483,7 @@ let COLOR_IOV                               = UIColor.init(hexString: "35C1B3")
 let COLOR_IOV_DARK                          = UIColor.init(hexString: "065048")
 
 let TRANS_BG_COLOR_BAND                     = UIColor.init(hexString: "5286FF", alpha: 0.15)
+let TRANS_BG_COLOR_BAND2                    = UIColor.init(hexString: "5286FF", alpha: 0.4)
 let COLOR_BAND                              = UIColor.init(hexString: "516FFA")
 let COLOR_BAND_DARK                         = UIColor.init(hexString: "2A3C8B")
 
