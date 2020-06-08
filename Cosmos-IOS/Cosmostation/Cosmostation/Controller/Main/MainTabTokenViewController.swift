@@ -529,7 +529,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.text = "BAND"
             cell?.tokenSymbol.textColor = COLOR_BAND
             cell?.tokenTitle.text = ""
-            cell?.tokenDescription.text = balance.balance_denom
+            cell?.tokenDescription.text = "Band Chain Native Token"
             let allBand = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allBand, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
