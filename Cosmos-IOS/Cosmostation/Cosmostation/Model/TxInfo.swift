@@ -140,7 +140,7 @@ public struct TxInfo {
             if (event.type == "transfer") {
                 for attr in event.attributes {
                     if (attr.key == "amount") {
-                        result = attr.value.replacingOccurrences(of: "uatom", with: "").replacingOccurrences(of: "ukava", with: "")
+                        result = attr.value.filter{ $0.isNumber }
                         break
                     }
                 }
@@ -155,7 +155,7 @@ public struct TxInfo {
             if (event.type == "withdraw_rewards") {
                 for i in 0...event.attributes.count {
                     if (event.attributes[i].key == "validator" && event.attributes[i].value == opAddr) {
-                        result = event.attributes[i - 1].value.replacingOccurrences(of: "uatom", with: "").replacingOccurrences(of: "ukava", with: "")
+                        result = event.attributes[i - 1].value.filter{ $0.isNumber }
                         break
                     }
                 }
@@ -170,7 +170,7 @@ public struct TxInfo {
             if (event.type == "withdraw_commission") {
                 for attr in event.attributes {
                     if (attr.value == "amount") {
-                        result = attr.value.replacingOccurrences(of: "uatom", with: "").replacingOccurrences(of: "ukava", with: "")
+                        result = attr.value.filter{ $0.isNumber }
                     }
                 }
             }

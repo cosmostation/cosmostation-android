@@ -31,7 +31,8 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             memoCntLabel.text = "0/255 byte"
         } else {
             memoCntLabel.text = "0/100 byte"
@@ -46,8 +47,8 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
     }
     
     @IBAction func onClickNext(_ sender: Any) {
-        if(isValiadMemoSize()) {
-            if(memoInputTextView.text != nil && memoInputTextView.text.count > 0) {
+        if (isValiadMemoSize()) {
+            if (memoInputTextView.text != nil && memoInputTextView.text.count > 0) {
                 pageHolderVC.mMemo = memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             } else {
                 pageHolderVC.mMemo = ""
@@ -71,7 +72,8 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             memoCntLabel.text = String(byteArray.count) + "/255 byte"
             if (byteArray.count > 255) {
                 self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
@@ -93,7 +95,8 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             if (byteArray.count > 255) {
                 return false
             }

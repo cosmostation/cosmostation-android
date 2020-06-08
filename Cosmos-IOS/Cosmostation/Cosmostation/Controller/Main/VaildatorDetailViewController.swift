@@ -1345,7 +1345,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         
     }
     
-    
     func onCheckRedelegate() {
         if (!account!.account_has_private) {
             self.onShowAddMenomicDialog()
