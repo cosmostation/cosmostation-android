@@ -661,7 +661,7 @@
     <string name="str_deposited">예금 수량</string>
     <string name="str_deposite">예금 하기</string>
     <string name="str_name_service">Name Service</string>
-    <string name="str_promotion_title">코스모스테이션에 위임하세요!</string>
+    <string name="str_promotion_title">위임하고 이자받기</string>
     <string name="str_sorting_s">Sorting</string>
     <string name="str_sorting_by_name">이름으로 정렬</string>
     <string name="str_sorting_by_power">전체 위임량으로 정렬</string>
@@ -760,6 +760,7 @@
     <string name="error_invalid_bnb_address">유효한 바이낸스 주소가 아닙니다.</string>
     <string name="error_invalid_iov_address">유효한 아이오비 주소가 아닙니다.</string>
     <string name="error_invalid_kava_address">유효한 카바 주소가 아닙니다.</string>
+    <string name="error_invalid_band_address">유효한 밴드 주소가 아닙니다.</string>
     <string name="error_invalid_star_name">유효한 스타 네임이 아닙니다.</string>
     <string name="error_iris_token_not_yet">아이리스 토큰 전송은 조만간 지원하겠습니다.</string>
     <string name="error_iris_vote_only_validator">이 제안은 벨리데이터만 투표가 가능합니다.</string>

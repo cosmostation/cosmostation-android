@@ -757,7 +757,7 @@
     <string name="str_deposited">Deposited</string>
     <string name="str_deposite">Deposite</string>
     <string name="str_name_service">Name Service</string>
-    <string name="str_promotion_title">Delegate to earn rewards.</string>
+    <string name="str_promotion_title">START DELEGATING FOR REWARDS</string>
     <string name="str_sorting_s">Sorting</string>
     <string name="str_sorting_by_name">By Name</string>
     <string name="str_sorting_by_power">By Voting Power</string>
@@ -859,6 +859,7 @@
     <string name="error_invalid_bnb_address">Invalid Binance Address.</string>
     <string name="error_invalid_iov_address">Invalid Iov Address.</string>
     <string name="error_invalid_kava_address">Invalid Kava Address.</string>
+    <string name="error_invalid_band_address">Invalid Band Address.</string>
     <string name="error_invalid_star_name">Invalid Start Name.</string>
     <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
     <string name="error_iris_vote_only_validator">This proposal can only vote on validators.</string>

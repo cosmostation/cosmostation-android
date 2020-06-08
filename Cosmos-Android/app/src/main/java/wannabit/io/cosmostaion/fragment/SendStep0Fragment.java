@@ -165,7 +165,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_bnb_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_band_address, Toast.LENGTH_SHORT).show();
                 }
 
             }

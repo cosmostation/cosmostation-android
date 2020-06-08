@@ -238,7 +238,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
             return;
 //            if (mRewards == null) {
@@ -293,6 +293,9 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 //                return;
 //            }
 
+        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);
