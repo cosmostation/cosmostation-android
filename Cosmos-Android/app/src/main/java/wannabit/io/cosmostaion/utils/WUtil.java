@@ -779,8 +779,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
                 return o1.description.moniker.compareTo(o2.description.moniker);
             }
         });
@@ -798,8 +798,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
 
                 if (Double.parseDouble(o1.tokens) > Double.parseDouble(o2.tokens)) return -1;
                 else if (Double.parseDouble(o1.tokens) < Double.parseDouble(o2.tokens)) return 1;
@@ -820,8 +820,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
 
                 BigDecimal bondingO1 = BigDecimal.ZERO;
                 BigDecimal bondingO2 = BigDecimal.ZERO;
@@ -851,8 +851,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
 
                 BigDecimal rewardO1 = WDp.getValidatorReward(rewards, o1.operator_address, denom);
                 BigDecimal rewardO2 = WDp.getValidatorReward(rewards, o2.operator_address, denom);
@@ -884,9 +884,9 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
-                if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+                if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) || chain.equals(BAND_MAIN)) {
                     if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
                     else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
                     else return 0;
@@ -945,8 +945,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
 
                 BigDecimal rewardO1 = reward.getPerValReward(o1.operator_address);
                 BigDecimal rewardO2 = reward.getPerValReward(o2.operator_address);

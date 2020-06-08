@@ -53,6 +53,14 @@ public class SingleValidatorInfoTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
+
+            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+                Response<ResLcdSingleValidator> response = ApiClient.getBandChain(mApp).getValidatorDetail(mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
             }
 
         } catch (Exception e) {

@@ -70,6 +70,17 @@ public class SingleBondingStateTask extends CommonTask {
                         mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
                 }
                 mResult.isSuccess = true;
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BAND_MAIN)) {
+                Response<ResLcdSingleBonding> response = ApiClient.getBandChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
+                if(response.isSuccessful()) {
+                    if(response.body() != null && response.body().result != null)
+                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, BaseChain.COSMOS_MAIN));
+                    else
+                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                }
+                mResult.isSuccess = true;
+
             }
 
 
