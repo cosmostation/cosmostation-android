@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdSingleUnBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdValidators;
+import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
 import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -57,6 +58,8 @@ public interface BandChain {
     @GET("/staking/pool")
     Call<ResStakingPool> getStakingPool();
 
+    @GET("/distribution/delegators/{address}/withdraw_address")
+    Call<ResLcdWithDrawAddress> getWithdrawAddress(@Path("address") String address);
 
 
     @GET("/staking/validators/{validatorAddr}")

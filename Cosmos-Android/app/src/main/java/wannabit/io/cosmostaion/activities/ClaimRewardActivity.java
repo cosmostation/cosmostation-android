@@ -169,7 +169,8 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         if(mTaskCount > 0) return;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)
                 || mBaseChain.equals(BaseChain.KAVA_MAIN)
-                || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                || mBaseChain.equals(BaseChain.KAVA_TEST)
+                || mBaseChain.equals(BaseChain.BAND_MAIN)) {
             mTaskCount = mValidators.size() + 1;
             mRewards.clear();
             for(Validator val:mValidators) {

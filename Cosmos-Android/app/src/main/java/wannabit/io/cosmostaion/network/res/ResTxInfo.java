@@ -169,6 +169,7 @@ public class ResTxInfo {
                         if (event.attributes.get(i).key.equals("validator") && event.attributes.get(i).value.equals(opAdd)) {
                             if (i-1 < event.attributes.size() && event.attributes.get(i-1) != null && event.attributes.get(i-1).key.equals("amount")) {
                                 String temp = event.attributes.get(i-1).value.replaceAll("[^0-9]", "");
+                                result = new BigDecimal(temp);
                             }
                         }
 
