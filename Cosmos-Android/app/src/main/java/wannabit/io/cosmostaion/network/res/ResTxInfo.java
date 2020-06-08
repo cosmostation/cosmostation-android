@@ -168,8 +168,7 @@ public class ResTxInfo {
                     for (int i = 0; i < event.attributes.size(); i ++) {
                         if (event.attributes.get(i).key.equals("validator") && event.attributes.get(i).value.equals(opAdd)) {
                             if (i-1 < event.attributes.size() && event.attributes.get(i-1) != null && event.attributes.get(i-1).key.equals("amount")) {
-                                String temp = event.attributes.get(i-1).value.replace("uatom", "").replace("ukava", "");
-                                result = new BigDecimal(temp);
+                                String temp = event.attributes.get(i-1).value.replaceAll("[^0-9]", "");
                             }
                         }
 
@@ -187,7 +186,7 @@ public class ResTxInfo {
                 if (event.type.equals("transfer")) {
                     for (EventAttribute attr:event.attributes) {
                         if (attr.key.equals("amount")) {
-                            String temp = attr.value.replace("uatom", "").replace("ukava", "");
+                            String temp = attr.value.replaceAll("[^0-9]", "");
                             result = new BigDecimal(temp);
                             break;
                         }
@@ -205,7 +204,7 @@ public class ResTxInfo {
                 if (event.type.equals("withdraw_commission")) {
                     for (EventAttribute attr:event.attributes) {
                         if (attr.key.equals("amount")) {
-                            String temp = attr.value.replace("uatom", "").replace("ukava", "");
+                            String temp = attr.value.replaceAll("[^0-9]", "");
                             result = new BigDecimal(temp);
                             break;
                         }
