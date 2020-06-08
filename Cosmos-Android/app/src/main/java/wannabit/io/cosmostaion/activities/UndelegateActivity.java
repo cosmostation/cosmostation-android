@@ -172,7 +172,7 @@ public class UndelegateActivity extends BaseActivity {
         Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE);
         intent.putExtra("toAddress", mValidator.operator_address);
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
             intent.putExtra("uAmount", mUnDelegateAmount);
         } else if  (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal validatorShareRate = new BigDecimal(mValidator.delegator_shares).divide(new BigDecimal(mValidator.tokens), 18, BigDecimal.ROUND_HALF_DOWN);

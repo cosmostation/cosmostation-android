@@ -62,7 +62,8 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         BigDecimal feeAmount = new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount);
         if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
                 || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)
+                || getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
             mTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAmount, 6, getSActivity().mBaseChain));
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
 

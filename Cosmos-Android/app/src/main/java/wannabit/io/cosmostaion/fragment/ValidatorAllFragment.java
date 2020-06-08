@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.BAND_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_IMG_URL;
@@ -161,6 +162,18 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
+
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                if (getMainActivity().mBondedToken != null && getMainActivity().mProvisions != null) {
+                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
+                }
+                try {
+                    Picasso.get().load(BAND_IMG_URL+validator.operator_address+".png")
+                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                            .into(holder.itemAvatar);
+                } catch (Exception e){}
+
             }
 
             holder.itemTvMoniker.setText(validator.description.moniker);
@@ -180,13 +193,15 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 holder.itemRevoked.setVisibility(View.GONE);
             }
 
-            if(checkIsMyValidator(mMyValidators, validator.description.moniker)) {
+            if (checkIsMyValidator(mMyValidators, validator.description.moniker)) {
                 if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
                 } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                 } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
                 }
             } else {
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));

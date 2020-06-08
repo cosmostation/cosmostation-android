@@ -139,6 +139,32 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 mExpectedLayer.setVisibility(View.GONE);
             }
 
+        } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            for (Reward reward:getSActivity().mRewards) {
+                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+            }
+            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                mTvGoalLayer.setVisibility(View.GONE);
+                mExpectedLayer.setVisibility(View.VISIBLE);
+
+                BigDecimal currentBand     = getSActivity().mAccount.getBandBalance();
+                BigDecimal expectedBand    = currentBand.add(rewardSum).subtract(feeAmount);
+                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expectedBand, 6, getSActivity().mBaseChain));
+                BigDecimal expectedPrice = BigDecimal.ZERO;
+                if(getBaseDao().getCurrency() != 5) {
+                    expectedPrice = expectedBand.multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                } else {
+                    expectedPrice = expectedBand.multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                }
+                mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+            } else {
+                mTvGoalLayer.setVisibility(View.VISIBLE);
+                mExpectedLayer.setVisibility(View.GONE);
+            }
+
         }
 
         String monikers = "";
@@ -174,7 +200,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     private boolean onCheckValidateRewardAndFee() {
         if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
                 || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)
+                || getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
             BigDecimal rewardSum    = BigDecimal.ZERO;
             BigDecimal feeAtom      = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
             for (Reward reward:getSActivity().mRewards) {

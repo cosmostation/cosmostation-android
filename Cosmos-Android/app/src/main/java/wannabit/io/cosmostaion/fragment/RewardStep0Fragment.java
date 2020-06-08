@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,7 +21,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class RewardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -73,7 +71,8 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
                 || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)
+                || getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (Reward reward:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));

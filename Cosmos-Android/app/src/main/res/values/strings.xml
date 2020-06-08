@@ -867,7 +867,7 @@
     <string name="error_not_voting_period">Not voting period.</string>
     <string name="error_no_option">Please select your opinion.</string>
     <string name="error_no_tx">Tx does not exist.</string>
-    <string name="error_not_yet">Comming soon!</string>
+    <string name="error_not_yet">Coming soon!</string>
     <string name="error_less_than_min_deposit">Less than the minimum deposit amount.</string>
     <string name="error_less_than_min_principal">Less than the minimum loan amount.</string>
     <string name="error_dust_principal_remain">Remain Debt is less than 10$.</string>

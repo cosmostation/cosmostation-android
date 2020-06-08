@@ -1007,7 +1007,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
             }
 
-        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward)) {
+        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward) || v.equals(mBtnBandDeleagte)) {
             Intent validators = new Intent(getMainActivity(), ValidatorListActivity.class);
             validators.putExtra("myValidators", getMainActivity().mMyValidators);
             validators.putExtra("topValidators", getMainActivity().mTopValidators);
@@ -1064,9 +1064,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mBtnIovDeposit)) {
             Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
-
-        } else if (v.equals(mBtnBandDeleagte)) {
-            WLog.w("mBtnBandDeleagte");
 
         } else if (v.equals(mBtnIovNameService)) {
             Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();

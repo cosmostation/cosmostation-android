@@ -684,7 +684,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemDelegateAmountDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemAutoRewardAmountDenom);
             holder.itemDelegateImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 holder.itemDelegator.setText(msg.value.delegator_address);
                 holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_address);
@@ -706,7 +706,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemUnDelegateAmountDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemAutoRewardAmountDenom);
             holder.itemUndelegateImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 holder.itemUnDelegator.setText(msg.value.delegator_address);
                 holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_address);
@@ -751,7 +751,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             final TxRewardHolder holder = (TxRewardHolder)viewHolder;
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemRewardAmountDenom);
             holder.itemRewardImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 holder.itemDelegator.setText(msg.value.delegator_address);
                 holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_address);

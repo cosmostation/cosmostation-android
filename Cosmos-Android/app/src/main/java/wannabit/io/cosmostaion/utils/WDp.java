@@ -68,7 +68,7 @@ public class WDp {
     public static SpannableString getDpAmount(Context c, BigDecimal input, int point, BaseChain chain) {
         SpannableString result;
         BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.BAND_MAIN)) {
             amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
