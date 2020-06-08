@@ -725,7 +725,7 @@ class WUtils {
         var formatted: String?
         if (amount == NSDecimalNumber.zero) {
             formatted = nf.string(from: NSDecimalNumber.zero)
-        } else if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
@@ -1150,7 +1150,8 @@ class WUtils {
         nf.numberStyle = .decimal
         var formatted = ""
         var endIndex: String.Index?
-        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST || baseChain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"), withBehavior: handler12)) ?? "0"
@@ -1181,7 +1182,8 @@ class WUtils {
         nf.numberStyle = .decimal
         var formatted = ""
         var endIndex: String.Index?
-        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST || baseChain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"), withBehavior: handler12)) ?? "0"
@@ -2009,6 +2011,10 @@ class WUtils {
             label.text = NSLocalizedString("chain_title_iov", comment: "")
             label.textColor = COLOR_IOV
             img?.image = UIImage(named: "iovImg")
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            label.text = NSLocalizedString("chain_title_band", comment: "")
+            label.textColor = COLOR_BAND
+            img?.image = UIImage(named: "bandChainImg")
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             label.text = NSLocalizedString("chain_title_test_bnb", comment: "")
             label.textColor = COLOR_BNB

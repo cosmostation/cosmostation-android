@@ -63,7 +63,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onRequestFetch() {
-        if(!mainTabVC.onFetchAccountData()) {
+        if (!mainTabVC.onFetchAccountData()) {
             self.refresher.endRefreshing()
         }
     }
@@ -135,6 +135,16 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 cell.validatorImg.image = image
             }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
+            cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
+            let url = BAND_IMG_URL + validator.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell.validatorImg.image = image
+            }
         }
         
         cell.monikerLabel.text = validator.description.moniker
@@ -157,6 +167,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
             } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
+            } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
             }
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY

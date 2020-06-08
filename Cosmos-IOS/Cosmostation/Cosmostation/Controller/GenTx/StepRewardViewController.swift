@@ -47,7 +47,8 @@ class StepRewardViewController: BaseViewController {
         }
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             pageHolderVC.mRewardList.removeAll()
             mFetchCnt = 1 + pageHolderVC.mRewardTargetValidators.count;
             for val in pageHolderVC.mRewardTargetValidators {
@@ -70,6 +71,7 @@ class StepRewardViewController: BaseViewController {
     func updateView() {
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, COSMOS_MAIN_DENOM, pageHolderVC.chainType!)
+            
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             var selectedRewardSum = NSDecimalNumber.zero
             for delegation in pageHolderVC.mIrisRewards!.delegations {
@@ -84,6 +86,10 @@ class StepRewardViewController: BaseViewController {
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, KAVA_MAIN_DENOM, pageHolderVC.chainType!)
+            
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, BAND_MAIN_DENOM, pageHolderVC.chainType!)
+            
         }
         
         var monikers = ""
@@ -137,6 +143,8 @@ class StepRewardViewController: BaseViewController {
             url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_REWARD_FROM_VAL + accountAddr + BAND_REWARD_FROM_VAL_TAIL + validatorAddr
         }
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -170,6 +178,19 @@ class StepRewardViewController: BaseViewController {
                     }
                     self.pageHolderVC.mRewardList.append(reward)
                     
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                    print("SUPPORT_CHAIN_BAND_MAIN reward ", res)
+                    guard let responseData = res as? NSDictionary,
+                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return;
+                    }
+                    let reward = Reward.init()
+                    reward.reward_v_address = validatorAddr
+                    for rawReward in rawRewards {
+                        reward.reward_amount.append(Coin(rawReward as! [String : Any]))
+                    }
+                    self.pageHolderVC.mRewardList.append(reward)
                 }
                 
             case .failure(let error):
@@ -209,6 +230,8 @@ class StepRewardViewController: BaseViewController {
             url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         
@@ -231,7 +254,8 @@ class StepRewardViewController: BaseViewController {
             }
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
@@ -244,7 +268,7 @@ class StepRewardViewController: BaseViewController {
                     
                 case .failure(let error):
                     if(SHOW_LOG) {
-                        print("onFetchIrisReward ", error)
+                        print("onFetchRewardAddress ", error)
                     }
                 }
                 self.onFetchFinished()

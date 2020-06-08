@@ -77,7 +77,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onRequestFetch() {
-        if(!mainTabVC.onFetchAccountData()) {
+        if (!mainTabVC.onFetchAccountData()) {
             self.refresher.endRefreshing()
         }
     }
@@ -101,6 +101,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell?.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
             } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 cell?.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
+            } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                cell?.cardView.backgroundColor = TRANS_BG_COLOR_BAND
             }
             return cell!
             
@@ -158,21 +160,21 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             cell.revokedImg.isHidden = true
             cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
-        
+
         let bonding = BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, validator.operator_address)
         if (bonding != nil) {
             cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmount(bonding!.getBondingAmount(validator).stringValue, cell.myDelegatedAmoutLabel.font, 6, chainType!)
         } else {
             cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.myDelegatedAmoutLabel.font, 6, chainType!)
         }
-        
+
         let unbonding = BaseData.instance.selectUnBondingWithValAdd(mainTabVC.mAccount.account_id, validator.operator_address)
         var unbondSum = NSDecimalNumber.zero
         for unbond in unbonding {
             unbondSum = unbondSum.adding(WUtils.stringToDecimal(unbond.unbonding_balance))
         }
         cell.myUndelegatingAmountLabel.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell.myUndelegatingAmountLabel.font, 6, chainType!)
-        
+
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
             cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
@@ -194,6 +196,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
             let url = KAVA_IMG_URL + validator.operator_address + ".png"
             cell.validatorImg.af_setImage(withURL: URL(string: url)!)
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
+            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
+            let url = BAND_IMG_URL + validator.operator_address + ".png"
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
+            
         }
     }
     
@@ -212,12 +221,21 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             } else {
                 cell.totalRewardLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.totalRewardLabel.font, 6, chainType!)
             }
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (mainTabVC.mRewardList.count > 0) {
                 cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, KAVA_MAIN_DENOM, chainType!)
             } else {
                 cell.totalRewardLabel.attributedText = WUtils.displayAmount("0", cell.totalRewardLabel.font, 6, chainType!)
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if(mainTabVC.mRewardList.count > 0) {
+                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, BAND_MAIN_DENOM, chainType!)
+            } else {
+                cell.totalRewardLabel.attributedText = WUtils.displayAmount("0", cell.totalRewardLabel.font, 6, chainType!)
+            }
+            
         }
         cell.delegate = self
     }
@@ -322,6 +340,10 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
 
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
+            
         }
         
     }
@@ -343,7 +365,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         }))
         self.present(alert, animated: true, completion: nil)
     }
-    
     
     func sortByName() {
         mainTabVC.mMyValidators.sort{
@@ -386,7 +407,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     func sortByReward() {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+            chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             mainTabVC.mMyValidators.sort{
                 if ($0.jailed && !$1.jailed) {
                     return false

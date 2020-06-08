@@ -46,14 +46,17 @@ class WKey {
         
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (account.account_new_bip44) {
                 return try! masterKey.derived(at: 44, hardened: true).derived(at: 459, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             } else {
                 return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             }
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 494, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             
@@ -100,14 +103,17 @@ class WKey {
             var childKey:HDPrivateKey?
             if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                
             } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                
             } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 if (newbip) {
                     childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 459, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 } else {
                     childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 }
+                
             } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 494, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
@@ -218,6 +224,8 @@ class WKey {
             result = bech32.encode("iaa", values: data)
         } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             result = bech32.encode("kava", values: data)
+        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            result = bech32.encode("band", values: data)
         }
         return result
     }

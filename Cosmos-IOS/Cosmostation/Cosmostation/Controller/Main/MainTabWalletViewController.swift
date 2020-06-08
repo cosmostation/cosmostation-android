@@ -679,7 +679,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 2) {
             let cell:WalletKavaIncentiveCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaIncentiveCell") as? WalletKavaIncentiveCell
             //TODO check show or hide btn
-            
 //            cell?.btnParticipate.isHidden = true
 //            cell?.participateDone.isHidden = false
 //            cell?.BtnConstraint?.isActive = false
@@ -876,7 +875,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
             cell?.totalValue.attributedText = WUtils.dpAtomValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
             cell?.actionDelegate = {
-//                self.onClickValidatorList()
+                self.onClickValidatorList()
             }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
             return cell!

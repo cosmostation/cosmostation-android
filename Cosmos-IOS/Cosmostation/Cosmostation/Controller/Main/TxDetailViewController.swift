@@ -286,7 +286,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             cell?.delegatorLabel.text = msg.value.delegator_address
             cell?.validatorLabel.text = msg.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!, true)
@@ -310,7 +311,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             cell?.undelegatorLabel.text = msg.value.delegator_address
             cell?.validatorLabel.text = msg.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!, true)
@@ -430,7 +432,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             cell?.delegatorLabel.text = msg.value.delegator_address
             cell?.validatorLabel.text = msg.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!, true)

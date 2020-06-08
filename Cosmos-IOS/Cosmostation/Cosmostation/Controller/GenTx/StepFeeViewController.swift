@@ -380,8 +380,10 @@ class StepFeeViewController: BaseViewController {
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
                 
             } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
                 
             } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
@@ -406,6 +408,7 @@ class StepFeeViewController: BaseViewController {
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
             if (pageHolderVC.mType == IRIS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
                 
             } else if (pageHolderVC.mType == IRIS_MSG_TYPE_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_SEND))
@@ -433,8 +436,10 @@ class StepFeeViewController: BaseViewController {
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
             if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
                 
             } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
                 
             } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REDELEGATE))
@@ -469,8 +474,31 @@ class StepFeeViewController: BaseViewController {
             }
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
-            if (pageHolderVC.mType == BAND_MSG_TYPE_TRANSFER) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+                
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+                
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
+                
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == KAVA_MSG_TYPE_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+                
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+                
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = rewardAllGasAmounts[pageHolderVC.mRewardTargetValidators.count-1]
+                
+            } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
+                
+            } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+                
             }
         }
         return result

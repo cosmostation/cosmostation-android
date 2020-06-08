@@ -348,7 +348,7 @@
 "error_no_bonding_no_vote" = "This proposal can only vote on delegators.";
 "error_already_vote" = "Already voted.";
 "error_no_opinion" = "Please select your opinion.";
-"error_not_yet" = "Comming soon!";
+"error_not_yet" = "Coming soon!";
 "error_less_than_min_deposit" = "Less than the minimum deposit amount.";
 "error_less_than_min_principal" = "Less than the minimum loan amount.";
 "error_not_enought_deposit_asset" = "Not enought Asset to deposit.";

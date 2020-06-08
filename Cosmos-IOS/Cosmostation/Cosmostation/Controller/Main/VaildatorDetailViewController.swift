@@ -113,6 +113,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             onFetchApiHistory(account!, mValidator!)
             
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            mUnbondings.removeAll()
+            mRewards.removeAll()
+            mFetchCnt = 4
+            onFetchValidatorInfo(mValidator!)
+            onFetchSignleBondingInfo(account!, mValidator!)
+            onFetchSignleUnBondingInfo(account!, mValidator!)
+            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
+            
         }
         
     }
@@ -248,6 +257,17 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 cell!.validatorImg.image = image
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+            let url = BAND_IMG_URL + mValidator!.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell!.validatorImg.image = image
+            }
         }
         
         if (mSelfBondingShare != nil) {
@@ -275,6 +295,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (mIsTop100 && (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST)) {
+            if (mStakingPool != nil && mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
+            } else {
+                cell!.avergaeYield.text = "?? %"
+            }
+            
+        } else if (mIsTop100 && chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             if (mStakingPool != nil && mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
@@ -344,6 +373,17 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 cell!.validatorImg.image = image
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+            let url = BAND_IMG_URL + mValidator!.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell!.validatorImg.image = image
+            }
         }
         
         if (mSelfBondingShare != nil) {
@@ -376,6 +416,16 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 let provisions = NSDecimalNumber.init(string: mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
                 cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
+            } else {
+                cell!.avergaeYield.text = "?? %"
+            }
+            
+        } else if (mIsTop100 && chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (mStakingPool != nil && mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
+
             } else {
                 cell!.avergaeYield.text = "?? %"
             }
@@ -471,6 +521,30 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             } else {
                 cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, chainType!)
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (mBonding != nil) {
+                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, chainType!)
+            } else {
+                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, chainType!)
+            }
+            
+            if (mUnbondings.count > 0) {
+                var unbondSum = NSDecimalNumber.zero
+                for unbonding in mUnbondings {
+                    unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+                }
+                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
+            } else {
+                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
+            }
+            
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, BAND_MAIN_DENOM)
+                cell!.myRewardAmount.attributedText =  WUtils.displayAmount(rewardSum.stringValue, cell!.myRewardAmount.font, 6, chainType!)
+            } else {
+                cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, chainType!)
+            }
         }
         
         if (mIsTop100 && chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
@@ -502,6 +576,17 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
                 cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
                 
+            } else {
+                cell!.myDailyReturns.text = "-"
+                cell!.myMonthlyReturns.text = "-"
+            }
+            
+        } else if (mIsTop100 && chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
+                let provisions = NSDecimalNumber.init(string: mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
+                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
             } else {
                 cell!.myDailyReturns.text = "-"
                 cell!.myMonthlyReturns.text = "-"
@@ -649,6 +734,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS + "/" + validator.operator_address
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_VALIDATORS + "/" + validator.operator_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -676,6 +763,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                         return
                     }
                     self.mValidator = Validator(validator as! [String : Any])
+                    
+                } else if (self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                    guard let responseData = res as? NSDictionary,
+                        let validator = responseData.object(forKey: "result") as? NSDictionary else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    self.mValidator = Validator(validator as! [String : Any])
                 }
                 
             case .failure(let error):
@@ -695,6 +790,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_BONDING + account.account_address + KAVA_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_BONDING + account.account_address + BAND_BONDING_TAIL + "/" + validator.operator_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -734,6 +831,20 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                         self.mFetchCnt = self.mFetchCnt + 1
                         self.onFetchRewardInfo(account, validator)
                     }
+                    
+                } else if (self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                    guard let responseData = res as? NSDictionary,
+                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    let bondinginfo = BondingInfo(rawData)
+                    self.mBonding = Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970)
+                    if (self.mBonding != nil && self.mBonding!.getBondingAmount(self.mValidator!) != NSDecimalNumber.zero) {
+                        self.mFetchCnt = self.mFetchCnt + 1
+                        self.onFetchRewardInfo(account, validator)
+                    }
+                    
                 }
                 
             case .failure(let error):
@@ -753,6 +864,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_UNBONDING + account.account_address + KAVA_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_UNBONDING + account.account_address + BAND_UNBONDING_TAIL + "/" + validator.operator_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -789,6 +902,18 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     for entry in unbondinginfo.entries {
                         self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, WUtils.nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
                     }
+                    
+                } else if (self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                    guard let responseData = res as? NSDictionary,
+                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    let unbondinginfo = UnbondingInfo(rawData)
+                    for entry in unbondinginfo.entries {
+                        self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, WUtils.nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
+                    }
+                    
                 }
                 
             case .failure(let error):
@@ -806,6 +931,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_REWARD_FROM_VAL + account.account_address + KAVA_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + account.account_address + KAVA_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_REWARD_FROM_VAL + account.account_address + BAND_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -837,7 +964,20 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     }
                     self.mRewards.append(reward)
                     
+                } else if (self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                    guard let responseData = res as? NSDictionary,
+                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return;
+                    }
+                    let reward = Reward.init()
+                    reward.reward_v_address = validator.operator_address
+                    for rawReward in rawRewards {
+                        reward.reward_amount.append(Coin(rawReward as! [String : Any]))
+                    }
+                    self.mRewards.append(reward)
                 }
+                    
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchRewardInfo ", error) }
             }
@@ -931,7 +1071,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
     }
     
-    
     func onFetchSelfBondRate(_ address: String, _ vAddress: String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
@@ -942,6 +1081,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_BONDING + address + KAVA_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_BONDING + address + KAVA_TEST_BONDING_TAIL + "/" + vAddress
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_BONDING + address + BAND_BONDING_TAIL + "/" + vAddress
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -963,6 +1104,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.mSelfBondingShare = BondingInfo(rawData).shares
                     
                 } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    guard let responseData = res as? NSDictionary,
+                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                        self.onFetchFinished()
+                        return;
+                    }
+                    self.mSelfBondingShare = BondingInfo(rawData).shares
+                    
+                } else if (self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let rawData = responseData.object(forKey: "result") as? [String : Any] else {
                         self.onFetchFinished()
@@ -1103,7 +1252,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
     }
     
-    
     func onStartDelegate() {
         if (!account!.account_has_private) {
             self.onShowAddMenomicDialog()
@@ -1129,13 +1277,19 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (WUtils.getTokenAmount(balances, BAND_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mTargetValidator = mValidator
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+            chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_DELEGATE
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_DELEGATE
@@ -1157,7 +1311,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             if (mUnbondings.count >= 7) {
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
@@ -1179,7 +1334,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         txVC.mTargetValidator = mValidator
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+            chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_UNDELEGATE
@@ -1188,7 +1344,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         self.navigationController?.pushViewController(txVC, animated: true)
         
     }
-    
     
     func onCheckRedelegate() {
         if (!account!.account_has_private) {
@@ -1211,6 +1366,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             self.onFetchIrisRedelegateState(account!)
             
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+            return
         }
     }
     
@@ -1295,6 +1453,24 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, BAND_MAIN_DENOM)
+                if(rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if(rewardSum.compare(NSDecimalNumber.one).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
@@ -1303,7 +1479,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         txVC.mRewardTargetValidators = validators
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+            chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_WITHDRAW
@@ -1374,6 +1551,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+            return
         }
         self.onFetchRewardAddress(account!.account_address)
     }
