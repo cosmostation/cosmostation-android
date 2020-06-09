@@ -86,6 +86,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public  MainViewPageAdapter         mPageAdapter;
     public FloatingActionButton         mFloatBtn;
     public FloatingActionButton         mFaucetBtn;
+    public FloatingActionButton         mAirDropBtn;
 
     private ArrayList<Account>          mAccounts = new ArrayList<>();
     private TopSheetBehavior            mTopSheetBehavior;
@@ -113,6 +114,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mDimLayer               = findViewById(R.id.dim_layer);
         mFloatBtn               = findViewById(R.id.btn_floating);
         mFaucetBtn              = findViewById(R.id.btn_faucet);
+        mAirDropBtn             = findViewById(R.id.btn_airdrop);
         mChainRecyclerView      = findViewById(R.id.chain_recycler);
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
 
@@ -130,6 +132,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             @Override
             public void onClick(View v) {
                 onGetFaucet();
+            }
+        });
+
+        mAirDropBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGetAirDrop();
             }
         });
 
@@ -209,6 +218,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     mFaucetBtn.hide();
                 } else if (!mFaucetBtn.isShown()) {
                     mFaucetBtn.show();
+                }
+
+                if (position != 1 || !(mBaseChain.equals(BaseChain.KAVA_MAIN )) || mAccount.accountNumber > 0) {
+                    mAirDropBtn.hide();
+                } else {
+                    mAirDropBtn.show();
                 }
 
 
@@ -305,6 +320,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 if (!mFaucetBtn.isShown()) mFaucetBtn.show();
             } else {
                 mFaucetBtn.hide();
+            }
+
+            if (mContentsPager.getCurrentItem() == 1 && mBaseChain.equals(BaseChain.KAVA_MAIN) && mAccount.accountNumber <= 0) {
+                if (!mAirDropBtn.isShown()) mAirDropBtn.show();
+            } else {
+                mAirDropBtn.hide();
             }
         }
 
@@ -503,6 +524,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         }
 
+    }
+
+    public void onGetAirDrop() {
+        //TODO request airdrop for kava mainnet for null user!
+        //mAirDropBtn.hide();
     }
 
     public void onShowTestNetWarnIfNeed() {
