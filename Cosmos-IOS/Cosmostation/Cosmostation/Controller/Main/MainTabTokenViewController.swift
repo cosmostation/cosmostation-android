@@ -174,6 +174,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             onFetchKavaTokenPrice()
+            updateFloaty()
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             updateFloaty()
@@ -188,15 +189,30 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func updateFloaty() {
-        let floaty = Floaty()
-        floaty.buttonImage = UIImage.init(named: "faucetBtn")
-        if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
-            floaty.buttonColor = COLOR_BNB
+        if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (mainTabVC.mAccount.account_account_numner <= 0 && mainTabVC.mAccount.account_has_private) {
+                let floaty = Floaty()
+                floaty.buttonImage = UIImage.init(named: "airdropBtn")
+                floaty.buttonColor = COLOR_KAVA
+                floaty.fabDelegate = self
+                self.view.addSubview(floaty)
+            }
+            
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let floaty = Floaty()
+            floaty.buttonImage = UIImage.init(named: "faucetBtn")
             floaty.buttonColor = COLOR_KAVA
+            floaty.fabDelegate = self
+            self.view.addSubview(floaty)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            let floaty = Floaty()
+            floaty.buttonImage = UIImage.init(named: "faucetBtn")
+            floaty.buttonColor = COLOR_BNB
+            floaty.fabDelegate = self
+            self.view.addSubview(floaty)
+            
         }
-        floaty.fabDelegate = self
-        self.view.addSubview(floaty)
     }
     
     func emptyFloatySelected(_ floaty: Floaty) {
@@ -628,6 +644,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     self.hideWaittingAlert()
                 }
             }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            //TODO request airdrop for kava mainnet for null user!
+            
         }
     }
     
