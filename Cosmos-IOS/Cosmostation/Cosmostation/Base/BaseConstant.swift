@@ -40,8 +40,6 @@ let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
 let KAVA_TEST_URL                       = "https://lcd-kava-testnet-6000.cosmostation.io/";
 let KAVA_TEST_API                       = "https://api-kava-testnet-6000.cosmostation.io/";
-//let KAVA_TEST_URL                       = "https://lcd-kava-testnet-3.cosmostation.io/";
-//let KAVA_TEST_API                       = "https://api-kava-testnet-3.cosmostation.io/";
 
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
 let IOV_REST_URL                        = "https://bnsapi.iov.one/";
