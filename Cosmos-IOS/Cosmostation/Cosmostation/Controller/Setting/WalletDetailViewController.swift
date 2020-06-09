@@ -69,18 +69,21 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             chainImg.image = UIImage(named: "cosmosWhMain")
             keyPath.text = BASE_PATH.appending(account!.account_path)
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             chainImg.image = UIImage(named: "irisWh")
             keyPath.text = BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             chainImg.image = UIImage(named: "binanceChImg")
             keyPath.text = BNB_BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             chainImg.image = UIImage(named: "kavaImg")
             if (account!.account_new_bip44) {
@@ -91,18 +94,21 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             chainImg.image = UIImage(named: "iovImg")
             keyPath.text = IOV_BASE_PATH.appending(account!.account_path).appending("'")
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             chainImg.image = UIImage(named: "binancetestnet")
             keyPath.text = BNB_BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             chainImg.image = UIImage(named: "kavaTestImg")
             if (account!.account_new_bip44) {
@@ -113,6 +119,14 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            chainImg.image = UIImage(named: "bandChainImg")
+            keyPath.text = BAND_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
         }
         importDate.text = WUtils.longTimetoString(input:account!.account_import_time)
         
