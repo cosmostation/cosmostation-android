@@ -24,7 +24,14 @@ public class KavaCdpParamTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                //mainnet not yet!
+                Response<ResCdpParam> response = ApiClient.getKavaChain(mApp).getCdpParams().execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+
+                } else {
+                    WLog.w("KavaCdpParamTask : NOk");
+                }
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
                 Response<ResCdpParam> response = ApiClient.getKavaTestChain(mApp).getCdpParams().execute();

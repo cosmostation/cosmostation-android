@@ -385,7 +385,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
             mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
 
-            BigDecimal totalAmount = WDp.getAllTestKava(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
+            BigDecimal totalAmount = WDp.getAllKava(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
             mTvKavaTotal.setText(WDp.getDpAmount(this, totalAmount, 6, mBaseChain));
             mTvKavaAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, COSMOS_KAVA));
             mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));

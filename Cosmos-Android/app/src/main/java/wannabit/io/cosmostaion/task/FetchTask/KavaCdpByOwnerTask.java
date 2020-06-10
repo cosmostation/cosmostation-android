@@ -32,7 +32,13 @@ public class KavaCdpByOwnerTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                //mainnet not yet!
+                Response<ResCdpOwnerStatus> response = ApiClient.getKavaChain(mApp).getCdpStatusByOwner(mAddress, mDenom).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.resultData2 = mDenom;
+                    mResult.isSuccess = true;
+
+                }
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
                 Response<ResCdpOwnerStatus> response = ApiClient.getKavaTestChain(mApp).getCdpStatusByOwner(mAddress, mDenom).execute();
@@ -41,8 +47,6 @@ public class KavaCdpByOwnerTask extends CommonTask {
                     mResult.resultData2 = mDenom;
                     mResult.isSuccess = true;
 
-                } else {
-//                    if(IS_SHOWLOG) {WLog.w("KavaCdpByOwnerTask : NOk");}
                 }
             }
 

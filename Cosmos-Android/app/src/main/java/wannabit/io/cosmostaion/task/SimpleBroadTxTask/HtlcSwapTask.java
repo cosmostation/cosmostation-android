@@ -188,8 +188,8 @@ public class HtlcSwapTask extends CommonProgressTask {
                 mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 return mResult;
             }
-            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mSendAccount.id, response.body(), mSendChain));
-            mApp.getBaseDao().onUpdateBalances(mSendAccount.id, WUtil.getBalancesFromKavaLcd(mSendAccount.id, response.body(), mSendChain));
+            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mSendAccount.id, response.body()));
+            mApp.getBaseDao().onUpdateBalances(mSendAccount.id, WUtil.getBalancesFromKavaLcd(mSendAccount.id, response.body()));
             mSendAccount = mApp.getBaseDao().onSelectAccount(""+mSendAccount.id);
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
@@ -284,7 +284,7 @@ public class HtlcSwapTask extends CommonProgressTask {
                 mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 return mResult;
             }
-            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mReceiveAccount.id, response.body(), mReceiveChain));
+            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mReceiveAccount.id, response.body()));
             mReceiveAccount = mApp.getBaseDao().onSelectAccount(""+mReceiveAccount.id);
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);

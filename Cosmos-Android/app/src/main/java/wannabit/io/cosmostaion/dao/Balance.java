@@ -107,7 +107,7 @@ public class Balance implements Parcelable {
             if (prices == null || prices.size() <= 0) {
                 return BigDecimal.ZERO;
             }
-            ResKavaMarketPrice.Result mMarketPrice = prices.get(symbol + ":usd");
+            ResKavaMarketPrice.Result mMarketPrice = prices.get(symbol + ":usd:30");
             if (mMarketPrice == null) {
                 return BigDecimal.ZERO;
             } else {

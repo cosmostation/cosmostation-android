@@ -30,7 +30,11 @@ public class KavaIncentiveRewardTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                //mainnet not yet!
+                Response<ResKavaIncentiveReward> response = ApiClient.getKavaChain(mApp).getIncentive(mAccount.address, mDenom).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
                 Response<ResKavaIncentiveReward> response = ApiClient.getKavaTestChain(mApp).getIncentive(mAccount.address, mDenom).execute();
