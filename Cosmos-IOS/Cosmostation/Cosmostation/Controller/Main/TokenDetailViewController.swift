@@ -415,13 +415,13 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.actionSend  = {
                 self.onSendToken()
             }
-            if ((balance?.balance_denom.uppercased() == BNB_MAIN_DENOM) && chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (balance?.balance_denom.uppercased() == BNB_MAIN_DENOM) {
                 cell?.btnBep3Send.isHidden = false
                 cell?.actionBep3Send  = {
                     self.onClickBep3Send(BNB_MAIN_DENOM)
                 }
                 
-            } else if ((balance?.balance_denom.uppercased() == "USDX") && chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (balance?.balance_denom.uppercased() == "USDX") {
                 cell?.tokenInfoBtn.isHidden = false
                 cell?.actionTokenInfo  = {
                     guard let url = URL(string: "https://www.kava.io/registration/") else { return }

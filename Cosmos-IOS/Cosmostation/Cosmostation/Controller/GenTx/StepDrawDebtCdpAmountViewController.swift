@@ -229,14 +229,14 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
         sumPAmount = mMyCdps!.result.cdp.getEstimatedTotalDebt(cParam!).adding(toPAmount)
         let collateralAmount = mMyCdps!.result.getTotalCollateralAmount().multiplying(byPowerOf10: -cDpDecimal)
         let rawDebtAmount = sumPAmount.multiplying(by: cParam!.getLiquidationRatio()).multiplying(byPowerOf10: -pDpDecimal)
-        print("collateralAmount ", collateralAmount)
-        print("rawDebtAmount ", rawDebtAmount)
         afterLiquidationPrice = rawDebtAmount.dividing(by: collateralAmount, withBehavior: WUtils.getDivideHandler(pDpDecimal))
         afterRiskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(afterLiquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
         
-        print("currentPrice ", currentPrice)
-        print("afterLiquidationPrice ", afterLiquidationPrice)
-        print("afterRiskRate ", afterRiskRate)
+        if (SHOW_LOG) {
+            print("currentPrice ", currentPrice)
+            print("afterLiquidationPrice ", afterLiquidationPrice)
+            print("afterRiskRate ", afterRiskRate)
+        }
         return true
     }
     
@@ -314,8 +314,6 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
             
             //calculate max debtable amount from current state.
             pMaxAmount = mMyCdps!.result.getMoreLoanableAmount(cParam!)
-            print("pMinAmount ", pMinAmount)
-            print("pMaxAmount ", pMaxAmount)
             
             pAvailabeMinLabel.attributedText = WUtils.displayAmount2(pMinAmount.stringValue, pAvailabeMinLabel.font!, pDpDecimal, pDpDecimal)
             pAvailabeMaxLabel.attributedText = WUtils.displayAmount2(pMaxAmount.stringValue, pAvailabeMaxLabel.font!, pDpDecimal, pDpDecimal)
@@ -324,9 +322,11 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
             beforeRiskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(beforeLiquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
             WUtils.showRiskRate2(beforeRiskRate, beforeSafeRate, beforeSafeTxt)
             
-            print("currentPrice ", currentPrice)
-            print("beforeLiquidationPrice ", beforeLiquidationPrice)
-            print("beforeRiskRate ", beforeRiskRate)
+            if (SHOW_LOG) {
+                print("currentPrice ", currentPrice)
+                print("beforeLiquidationPrice ", beforeLiquidationPrice)
+                print("beforeRiskRate ", beforeRiskRate)
+            }
             
             pDenomLabel.text = pDenom.uppercased()
             pAvailableDenom.text = pDenom.uppercased()
@@ -343,7 +343,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
     func onFetchCdpParam() {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_PARAM
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_PARAM
         }
@@ -369,7 +369,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
     func onFetchKavaPrice(_ market:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_TOKEN_PRICE + market
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_TOKEN_PRICE + market
         }
@@ -394,7 +394,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
     func onFetchOwenCdp(_ account:Account, _ denom:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_OWEN + account.account_address + "/" + denom
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + denom
         }
@@ -420,7 +420,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
     func onFetchCdpDeposit(_ account:Account, _ denom:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_DEPOSIT + account.account_address + "/" + denom
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_DEPOSIT + account.account_address + "/" + denom
         }

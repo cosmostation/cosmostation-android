@@ -38,7 +38,8 @@ let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 
 //let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
-let KAVA_URL                            = "https://lcd-kava-testnet-3.cosmostation.io/";
+//let KAVA_URL                            = "https://lcd-kava-testnet-3.cosmostation.io/";
+let KAVA_URL                            = "https://lcd-kava-testnet-6000.cosmostation.io/";
 let KAVA_API                            = "https://api-kava.cosmostation.io/";
 
 let KAVA_TEST_URL                       = "https://lcd-kava-testnet-6000.cosmostation.io/";
@@ -547,7 +548,7 @@ enum ChainType: String {
         } else if (chain == SUPPORT_CHAIN_BINANCE_MAIN) {
             result.append(SUPPORT_CHAIN_KAVA_MAIN)
             
-        } else if (chain == SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chain == SUPPORT_CHAIN_KAVA_MAIN) {
             result.append(SUPPORT_CHAIN_BINANCE_MAIN)
             
         }
