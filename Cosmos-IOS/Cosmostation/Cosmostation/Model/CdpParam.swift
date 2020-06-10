@@ -81,8 +81,11 @@ public class CdpParam {
         var auction_size: String = ""
         var liquidation_penalty: String = ""
         var prefix: Int = 0
-        var market_id: String = ""
         var conversion_factor: String = ""
+        
+        
+        var spot_market_id: String = ""
+        var liquidation_market_id: String = ""
         
         init() {}
         
@@ -116,12 +119,16 @@ public class CdpParam {
                 self.prefix = prefix
             }
             
-            if let market_id =  dictionary["market_id"] as? String {
-                self.market_id = market_id
-            }
-            
             if let conversion_factor =  dictionary["conversion_factor"] as? String {
                 self.conversion_factor = conversion_factor
+            }
+            
+            if let spot_market_id =  dictionary["spot_market_id"] as? String {
+                self.spot_market_id = spot_market_id
+            }
+            
+            if let liquidation_market_id =  dictionary["liquidation_market_id"] as? String {
+                self.liquidation_market_id = liquidation_market_id
             }
         }
         
@@ -130,11 +137,11 @@ public class CdpParam {
         }
         
         func getMarketImgPath() -> String {
-            return market_id.replacingOccurrences(of: ":", with: "")
+            return spot_market_id.replacingOccurrences(of: ":", with: "")
         }
         
         func getDpMarketId() -> String {
-            return market_id.split(separator: ":")[0].uppercased() + " : " + market_id.split(separator: ":")[1].uppercased() + "X"
+            return spot_market_id.split(separator: ":")[0].uppercased() + " : " + spot_market_id.split(separator: ":")[1].uppercased() + "X"
         }
         
         func getLiquidationRatio() -> NSDecimalNumber {

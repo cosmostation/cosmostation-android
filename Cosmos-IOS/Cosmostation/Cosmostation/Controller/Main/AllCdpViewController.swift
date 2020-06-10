@@ -95,7 +95,7 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
         let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
         cdpDetailVC.hidesBottomBarWhenPushed = true
         cdpDetailVC.cDenom = cParam.denom
-        cdpDetailVC.mMarketID = cParam.market_id
+        cdpDetailVC.mMarketID = cParam.spot_market_id
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(cdpDetailVC, animated: true)
     }

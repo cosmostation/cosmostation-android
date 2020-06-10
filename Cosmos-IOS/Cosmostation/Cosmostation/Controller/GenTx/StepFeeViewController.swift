@@ -227,6 +227,7 @@ class StepFeeViewController: BaseViewController {
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             available = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM);
+            toSpend = getSpendAmount()
             if (pageHolderVC.mKavaSendDenom == KAVA_MAIN_DENOM) {
                 if (toSpend.adding(feeAmount).compare(available).rawValue > 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
