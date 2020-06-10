@@ -93,14 +93,19 @@ public class ResCdpParam {
         @SerializedName("prefix")
         public int prefix;
 
-        @SerializedName("market_id")
-        public String market_id;
-
         @SerializedName("conversion_factor")
         public String conversion_factor;
 
+
+
+        @SerializedName("spot_market_id")
+        public String spot_market_id;
+
+        @SerializedName("liquidation_market_id")
+        public String liquidation_market_id;
+
         public String getDpMarketId() {
-            return market_id.split(":")[0].toUpperCase() + " : " + market_id.split(":")[1].toUpperCase() + "X";
+            return spot_market_id.split(":")[0].toUpperCase() + " : " + spot_market_id.split(":")[1].toUpperCase() + "X";
         }
 
         public BigDecimal getDpLiquidationRatio() {
@@ -116,7 +121,7 @@ public class ResCdpParam {
         }
 
         public String getImagePath() {
-            return market_id.replace(":","")   +".png";
+            return spot_market_id.replace(":","")   +".png";
         }
     }
 

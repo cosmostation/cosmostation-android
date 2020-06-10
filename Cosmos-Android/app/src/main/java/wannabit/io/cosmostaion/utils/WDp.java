@@ -378,8 +378,7 @@ public class WDp {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
             if (balance.symbol.equalsIgnoreCase(denom)) {
-                sum = balance.balance;
-                sum = balance.locked;
+                sum = balance.balance.add(balance.locked);
             }
         }
         return sum;

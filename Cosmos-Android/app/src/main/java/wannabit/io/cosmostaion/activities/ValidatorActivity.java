@@ -514,8 +514,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_SELF_BONDING) {
             ResLcdBonding temp = (ResLcdBonding)result.resultData;
-            WLog.w("temp " + temp.shares);
-            WLog.w("mValidator " + mValidator.tokens);
             if(temp != null)
                 mSelfBondingRate = WDp.getSelfBondRate(mValidator.tokens, temp.shares);
 
