@@ -364,7 +364,7 @@
 "error_not_enought_principal_asset" = "USDX가 충분하지 않아 상환할 수 없습니다.";
 "error_can_not_repay" = "지금은 상환할 수 없습니다. USDX가 더 필요합니다.";
 "error_circuit_breaker" = "서킷 브래이크 발동중";
-"error_can_not_bep3_account_msg" = "이 기능을 사용하기 위해서는, \n%@ 지갑과 트랜젝션 수수료로 사용될 약간의 %@가 필요합니다.";
+"error_can_not_bep3_account_msg" = "이 기능을 사용하기 위해서는, 유효한 \n%@ 지갑이 필요합니다.\n(지갑을 생성하신 후 에어드랍을 받으세요!)";
 "error_no_recipient_account" = "받을 계정을 선택해 주세요.";
 "error_no_more_faucet" = "이미 충분한 테스트 코인이 있네요.";
 

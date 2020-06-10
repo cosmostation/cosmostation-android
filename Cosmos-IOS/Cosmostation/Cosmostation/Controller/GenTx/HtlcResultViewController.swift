@@ -243,8 +243,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                    self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: self.account!)
                         //TODO error handle
@@ -274,18 +273,10 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 return
             }
             
-            if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
-                var binance: BinanceChain?
-                var pKey: HDPrivateKey?
-                var wallet = Wallet()
-                
-                if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-                    
-                } else if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
-                    binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
-                    pKey = WKey.getHDKeyFromWords(words, self.account!)
-                    wallet = Wallet(privateKey: pKey!.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
-                }
+            if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                let binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
+                let pKey = WKey.getHDKeyFromWords(words, self.account!)
+                let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
                 
                 wallet.synchronise(){ (error) in
                     if let error = error {
@@ -298,14 +289,62 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     self.mRandomNumber = WKey.generateRandomBytes()
                     self.mRandomNumberHash = WKey.getRandomNumnerHash(self.mRandomNumber!, self.mTimeStamp!)
                     if (SHOW_LOG) {
-                        print("mTimeStamp ", self.mTimeStamp)
-                        print("mRandomNumber ", self.mRandomNumber)
-                        print("mRandomNumberHash ", self.mRandomNumberHash)
+                        print("BINANCE_MAIN mTimeStamp ", self.mTimeStamp)
+                        print("BINANCE_MAIN mRandomNumber ", self.mRandomNumber)
+                        print("BINANCE_MAIN mRandomNumberHash ", self.mRandomNumberHash)
                     }
                     
                     let sendAmount = NSDecimalNumber.init(string: self.mHtlcToSendAmount[0].amount).multiplying(byPowerOf10: 8)
 //                    print("sendAmount ", sendAmount.int64Value)
+                    let bnbMsg = Message.createHtlc(toAddress: BNB_DEPUTY,
+                                                    otherFrom: KAVA_DEPUTY,
+                                                    otherTo: self.mHtlcToAccount!.account_address,
+                                                    timestamp: self.mTimeStamp!,
+                                                    randomNumberHash: self.mRandomNumberHash!,
+                                                    sendAmount: sendAmount.int64Value,
+                                                    sendDenom: BNB_MAIN_DENOM,
+                                                    expectedIncom: sendAmount.stringValue + ":" + BNB_MAIN_DENOM,
+                                                    heightSpan: 10001,
+                                                    crossChain: true,
+                                                    memo: "Create Atomic Swap via Cosmostation Wallet",
+                                                    wallet: wallet)
                     
+                    binance.broadcast(message: bnbMsg, sync: true) { (response) in
+                        if (SHOW_LOG) { print("onCreateHtlcSwap response", response.broadcast) }
+                        if let error = response.error {
+                            if(SHOW_LOG) { print(error.localizedDescription) }
+                            self.onUpdateView(error.localizedDescription)
+                        }
+                        self.mSendHash = response.broadcast[0].hash
+                        DispatchQueue.main.async(execute: {
+                            self.onFetchSwapId()
+                        });
+                    }
+                }
+                
+            } else if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                let binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
+                let pKey = WKey.getHDKeyFromWords(words, self.account!)
+                let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
+                
+                wallet.synchronise(){ (error) in
+                    if let error = error {
+                        if(SHOW_LOG) { print(error) }
+                        self.onUpdateView(error.localizedDescription)
+                        return
+                    }
+                    
+                    self.mTimeStamp = Date().millisecondsSince1970 / 1000
+                    self.mRandomNumber = WKey.generateRandomBytes()
+                    self.mRandomNumberHash = WKey.getRandomNumnerHash(self.mRandomNumber!, self.mTimeStamp!)
+                    if (SHOW_LOG) {
+                        print("BINANCE_TEST mTimeStamp ", self.mTimeStamp)
+                        print("BINANCE_TEST mRandomNumber ", self.mRandomNumber)
+                        print("BINANCE_TEST mRandomNumberHash ", self.mRandomNumberHash)
+                    }
+                    
+                    let sendAmount = NSDecimalNumber.init(string: self.mHtlcToSendAmount[0].amount).multiplying(byPowerOf10: 8)
+                    //                    print("sendAmount ", sendAmount.int64Value)
                     let bnbMsg = Message.createHtlc(toAddress: BNB_TEST_DEPUTY,
                                                     otherFrom: KAVA_TEST_DEPUTY,
                                                     otherTo: self.mHtlcToAccount!.account_address,
@@ -319,7 +358,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                                                     memo: "Create Atomic Swap via Cosmostation Wallet",
                                                     wallet: wallet)
                     
-                    binance!.broadcast(message: bnbMsg, sync: true) { (response) in
+                    binance.broadcast(message: bnbMsg, sync: true) { (response) in
                         if (SHOW_LOG) { print("onCreateHtlcSwap response", response.broadcast) }
                         if let error = response.error {
                             if(SHOW_LOG) { print(error.localizedDescription) }
@@ -329,60 +368,54 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         DispatchQueue.main.async(execute: {
                             self.onFetchSwapId()
                         });
-                        
                     }
                 }
-                
                 
             } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 var stdTx:StdTx!
                 do {
-                    if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                        
-                    } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-                        let pKey = WKey.getHDKeyFromWords(words, self.account!)
-                        
-                        self.mTimeStamp = Date().millisecondsSince1970 / 1000
-                        self.mRandomNumber = WKey.generateRandomBytes()
-                        self.mRandomNumberHash = WKey.getRandomNumnerHash(self.mRandomNumber!, self.mTimeStamp!)
-                        
-                        let msg = MsgGenerator.genCreateSwapMsg(self.chainType!, self.mHtlcToChain!,
-                                                                self.account!, self.mHtlcToAccount!,
-                                                                self.mHtlcToSendAmount, self.mTimeStamp!, self.mRandomNumberHash!)
-                        
-                        var msgList = Array<Msg>()
-                        msgList.append(msg)
-                        
-                        let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.account!.account_base_chain),
-                                                               String(self.account!.account_account_numner),
-                                                               String(self.account!.account_sequence_number),
-                                                               msgList,
-                                                               self.mHtlcSendFee!,
-                                                               "Create Atomic Swap via Cosmostation Wallet")
-                        
-                        let encoder = JSONEncoder()
-                        encoder.outputFormatting = .sortedKeys
-                        let data = try? encoder.encode(stdMsg)
-                        let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                        let rawData: Data? = rawResult!.data(using: .utf8)
-                        let hash = Crypto.sha256(rawData!)
-                        
-                        let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
-                        
-                        var genedSignature = Signature.init()
-                        var genPubkey =  PublicKey.init()
-                        genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                        genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
-                        genedSignature.pub_key = genPubkey
-                        genedSignature.signature = WKey.convertSignature(signedData!)
-                        genedSignature.account_number = String(self.account!.account_account_numner)
-                        genedSignature.sequence = String(self.account!.account_sequence_number)
-                        
-                        var signatures: Array<Signature> = Array<Signature>()
-                        signatures.append(genedSignature)
-                        
-                        stdTx = MsgGenerator.genSignedTx(msgList, self.mHtlcSendFee!, "Create Atomic Swap via Cosmostation Wallet", signatures)
-                    }
+                    let pKey = WKey.getHDKeyFromWords(words, self.account!)
+                    
+                    self.mTimeStamp = Date().millisecondsSince1970 / 1000
+                    self.mRandomNumber = WKey.generateRandomBytes()
+                    self.mRandomNumberHash = WKey.getRandomNumnerHash(self.mRandomNumber!, self.mTimeStamp!)
+                    
+                    let msg = MsgGenerator.genCreateSwapMsg(self.chainType!, self.mHtlcToChain!,
+                                                            self.account!, self.mHtlcToAccount!,
+                                                            self.mHtlcToSendAmount, self.mTimeStamp!, self.mRandomNumberHash!)
+                    
+                    var msgList = Array<Msg>()
+                    msgList.append(msg)
+                    
+                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.account!.account_base_chain),
+                                                           String(self.account!.account_account_numner),
+                                                           String(self.account!.account_sequence_number),
+                                                           msgList,
+                                                           self.mHtlcSendFee!,
+                                                           "Create Atomic Swap via Cosmostation Wallet")
+                    
+                    let encoder = JSONEncoder()
+                    encoder.outputFormatting = .sortedKeys
+                    let data = try? encoder.encode(stdMsg)
+                    let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
+                    let rawData: Data? = rawResult!.data(using: .utf8)
+                    let hash = Crypto.sha256(rawData!)
+                    
+                    let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                    
+                    var genedSignature = Signature.init()
+                    var genPubkey =  PublicKey.init()
+                    genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
+                    genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                    genedSignature.pub_key = genPubkey
+                    genedSignature.signature = WKey.convertSignature(signedData!)
+                    genedSignature.account_number = String(self.account!.account_account_numner)
+                    genedSignature.sequence = String(self.account!.account_sequence_number)
+                    
+                    var signatures: Array<Signature> = Array<Signature>()
+                    signatures.append(genedSignature)
+                    
+                    stdTx = MsgGenerator.genSignedTx(msgList, self.mHtlcSendFee!, "Create Atomic Swap via Cosmostation Wallet", signatures)
                     
                 } catch {
                     //TODO error handle
@@ -438,18 +471,24 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
 //        print("onFetchSwapId ", mSwapFetchCnt)
         var url = ""
         if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_DEPUTY, self.account!.account_address)
+            url = BNB_TEST_URL_CHECK_SWAPID + swapId
+            if (SHOW_LOG) { print("BINANCE_MAIN swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_TEST_DEPUTY, self.account!.account_address)
             url = BNB_TEST_URL_CHECK_SWAPID + swapId
-            if (SHOW_LOG) { print("swapId url ", url) }
+            if (SHOW_LOG) { print("BINANCE_TEST swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_DEPUTY, self.account!.account_address)
+            url = KAVA_TEST_CHECK_SWAPID + swapId
+            if (SHOW_LOG) { print("KAVA_MAIN swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_DEPUTY, self.account!.account_address)
             url = KAVA_TEST_CHECK_SWAPID + swapId
-            if (SHOW_LOG) { print("swapId url ", url) }
+            if (SHOW_LOG) { print("KAVA_TEST swapId url ", url) }
         }
 
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
@@ -502,8 +541,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                    self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: self.mHtlcToAccount!)
                         //TODO error handle
@@ -535,17 +573,45 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 return
             }
             
-            if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
-                var binance: BinanceChain?
-                var pKey: HDPrivateKey?
-                var wallet = Wallet()
-                if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                let binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
+                let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
+                let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+                
+                wallet.synchronise(){ (error) in
+                    if let error = error {
+                        if (SHOW_LOG) { print(error) }
+                        self.onUpdateView(error.localizedDescription)
+                        return
+                    }
                     
-                } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
-                    binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
-                    pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
-                    wallet = Wallet(privateKey: pKey!.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
+                    let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_DEPUTY, self.account!.account_address)
+                    if (SHOW_LOG) { print("swapId ", swapId) }
+                    if (SHOW_LOG) { print("randomNumber ", self.mRandomNumber!) }
+                    let bnbMsg = Message.claimHtlc(randomNumber: self.mRandomNumber!,
+                                                   swapId: swapId,
+                                                   memo: "Claim Atomic Swap via Cosmostation Wallet",
+                                                   wallet: wallet)
+                    
+                    binance.broadcast(message: bnbMsg, sync: true) { (response) in
+                        print(response.broadcast)
+                        if let error = response.error {
+                            if (SHOW_LOG) { print(error.localizedDescription) }
+                            self.onUpdateView(error.localizedDescription)
+                        }
+                        if (SHOW_LOG) { print("onClaimHtlcSwap OK ", response.broadcast[0].hash) }
+                        self.mClaimHash = response.broadcast[0].hash
+                        self.onFetchSendTx()
+                        self.onFetchClaimTx()
+                        
+                    }
                 }
+                
+            } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                let binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
+                let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
+                let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
+                
                 wallet.synchronise(){ (error) in
                     if let error = error {
                         if (SHOW_LOG) { print(error) }
@@ -561,7 +627,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                                                    memo: "Claim Atomic Swap via Cosmostation Wallet",
                                                    wallet: wallet)
                     
-                    binance!.broadcast(message: bnbMsg, sync: true) { (response) in
+                    binance.broadcast(message: bnbMsg, sync: true) { (response) in
                         print(response.broadcast)
                         if let error = response.error {
                             if (SHOW_LOG) { print(error.localizedDescription) }
@@ -577,49 +643,49 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 
             } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 do {
+                    let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
+                    var swapId: String = "";
                     if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-
+                        swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_DEPUTY, self.account!.account_address)
                     } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-                        let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
-                        
-                        let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_DEPUTY, self.account!.account_address)
-                        let msg = MsgGenerator.genClaimAtomicSwap(self.mHtlcToAccount!.account_address,
-                                                                  swapId,
-                                                                  self.mRandomNumber!)
-                        
-                        var msgList = Array<Msg>()
-                        msgList.append(msg)
-                        
-                        let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.mHtlcToAccount!.account_base_chain),
-                                                               String(self.mHtlcToAccount!.account_account_numner),
-                                                               String(self.mHtlcToAccount!.account_sequence_number),
-                                                               msgList,
-                                                               self.mHtlcClaimFee!,
-                                                               "Claim Atomic Swap via Cosmostation Wallet")
-                        
-                        let encoder = JSONEncoder()
-                        encoder.outputFormatting = .sortedKeys
-                        let data = try? encoder.encode(stdMsg)
-                        let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                        let rawData: Data? = rawResult!.data(using: .utf8)
-                        let hash = Crypto.sha256(rawData!)
-                        
-                        let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
-                        
-                        var genedSignature = Signature.init()
-                        var genPubkey =  PublicKey.init()
-                        genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                        genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
-                        genedSignature.pub_key = genPubkey
-                        genedSignature.signature = WKey.convertSignature(signedData!)
-                        genedSignature.account_number = String(self.mHtlcToAccount!.account_account_numner)
-                        genedSignature.sequence = String(self.mHtlcToAccount!.account_sequence_number)
-                        
-                        var signatures: Array<Signature> = Array<Signature>()
-                        signatures.append(genedSignature)
-                        
-                        stdTx = MsgGenerator.genSignedTx(msgList, self.mHtlcClaimFee!, "Claim Atomic Swap via Cosmostation Wallet", signatures)
+                        swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_DEPUTY, self.account!.account_address)
                     }
+                    let msg = MsgGenerator.genClaimAtomicSwap(self.mHtlcToAccount!.account_address,
+                                                              swapId,
+                                                              self.mRandomNumber!)
+                    
+                    var msgList = Array<Msg>()
+                    msgList.append(msg)
+                    
+                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.mHtlcToAccount!.account_base_chain),
+                                                           String(self.mHtlcToAccount!.account_account_numner),
+                                                           String(self.mHtlcToAccount!.account_sequence_number),
+                                                           msgList,
+                                                           self.mHtlcClaimFee!,
+                                                           "Claim Atomic Swap via Cosmostation Wallet")
+                    
+                    let encoder = JSONEncoder()
+                    encoder.outputFormatting = .sortedKeys
+                    let data = try? encoder.encode(stdMsg)
+                    let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
+                    let rawData: Data? = rawResult!.data(using: .utf8)
+                    let hash = Crypto.sha256(rawData!)
+                    
+                    let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                    
+                    var genedSignature = Signature.init()
+                    var genPubkey =  PublicKey.init()
+                    genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
+                    genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                    genedSignature.pub_key = genPubkey
+                    genedSignature.signature = WKey.convertSignature(signedData!)
+                    genedSignature.account_number = String(self.mHtlcToAccount!.account_account_numner)
+                    genedSignature.sequence = String(self.mHtlcToAccount!.account_sequence_number)
+                    
+                    var signatures: Array<Signature> = Array<Signature>()
+                    signatures.append(genedSignature)
+                    
+                    stdTx = MsgGenerator.genSignedTx(msgList, self.mHtlcClaimFee!, "Claim Atomic Swap via Cosmostation Wallet", signatures)
                     
                 } catch {
                     if(SHOW_LOG) { print(error) }

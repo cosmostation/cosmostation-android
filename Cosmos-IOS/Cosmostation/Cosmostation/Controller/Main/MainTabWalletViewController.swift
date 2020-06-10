@@ -454,6 +454,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletBnbCell? = tableView.dequeueReusableCell(withIdentifier:"WalletBnbCell") as? WalletBnbCell
+            cell?.bnbCard.backgroundColor = WUtils.getChainBg(chainType!)
             var totalBnb = NSDecimalNumber.zero
             if let balance = WUtils.getTokenBalace(mainTabVC.mBalances, BNB_MAIN_DENOM) {
                 totalBnb = WUtils.getAllBnb(balance)
@@ -467,17 +468,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.availableAmount.attributedText = WUtils.displayAmount2("0", cell!.availableAmount.font, 0, 6)
                 cell?.lockedAmount.attributedText = WUtils.displayAmount2("0", cell!.lockedAmount.font, 0, 6)
             }
-            cell?.bnbCard.backgroundColor = WUtils.getChainBg(chainType!)
             cell?.actionWC = {
                 self.onClickWalletConect()
             }
-            if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-                cell?.btnBep3.isHidden = true
-            } else {
-                cell?.btnBep3.isHidden = false
-                cell?.actionBep3 = {
-                    self.onClickBep3Send(BNB_MAIN_DENOM)
-                }
+            cell?.btnBep3.isHidden = false
+            cell?.actionBep3 = {
+                self.onClickBep3Send(BNB_MAIN_DENOM)
             }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalBnb.stringValue)
             return cell!

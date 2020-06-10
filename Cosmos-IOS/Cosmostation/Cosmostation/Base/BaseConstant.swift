@@ -379,6 +379,9 @@ let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
 let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 
+//TODO check 
+let BNB_DEPUTY                              = ""
+let KAVA_DEPUTY                             = ""
 let BNB_TEST_DEPUTY                        = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h"
 let KAVA_TEST_DEPUTY                       = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl"
 
@@ -540,6 +543,13 @@ enum ChainType: String {
             
         } else if (chain == SUPPORT_CHAIN_KAVA_TEST) {
             result.append(SUPPORT_CHAIN_BINANCE_TEST)
+            
+        } else if (chain == SUPPORT_CHAIN_BINANCE_MAIN) {
+            result.append(SUPPORT_CHAIN_KAVA_MAIN)
+            
+        } else if (chain == SUPPORT_CHAIN_KAVA_TEST) {
+            result.append(SUPPORT_CHAIN_BINANCE_MAIN)
+            
         }
         return result
     }

@@ -289,18 +289,17 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.actionRecieve = {
                 self.onRecieveToken()
             }
+            cell?.BtnSendBep3.isHidden = false;
+            cell?.actionSendBep3 = {
+                self.onClickBep3Send(BNB_MAIN_DENOM)
+            }
             if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                 cell?.BtnBuyBnb.isHidden = false
-                cell?.BtnSendBep3.isHidden = true;
                 cell?.actionBuy = {
                     self.onBuyCoin()
                 }
             } else {
                 cell?.BtnBuyBnb.isHidden = true
-                cell?.BtnSendBep3.isHidden = false;
-                cell?.actionSendBep3 = {
-                    self.onClickBep3Send(BNB_MAIN_DENOM)
-                }
             }
         }
         return cell!

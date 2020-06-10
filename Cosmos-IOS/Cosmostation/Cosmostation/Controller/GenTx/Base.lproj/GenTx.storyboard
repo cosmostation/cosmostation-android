@@ -4437,16 +4437,16 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                 </subviews>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning_ic" translatesAutoresizingMaskIntoConstraints="NO" id="kjc-l7-2VU">
-                                <rect key="frame" x="143" y="384.5" width="34" height="34"/>
+                                <rect key="frame" x="143" y="412" width="34" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="AiV-da-7FS"/>
                                     <constraint firstAttribute="width" constant="34" id="oT7-Jr-y5w"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KDA-Db-yrY">
-                                <rect key="frame" x="21" y="422.5" width="278" height="55.5"/>
+                                <rect key="frame" x="21" y="450" width="278" height="28"/>
                                 <string key="text">In order to user this feature,
-you must create a KAVA account and deposit a small amount of KAVA to be used as transaction fee.</string>
+you must create a KAVA account and have history</string>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
