@@ -241,14 +241,12 @@ public class RepayCdpActivity extends BaseActivity implements TaskListener {
     private int mTaskCount = 0;
     public void onFetchCdpInfo() {
         onShowWaitDialog();
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            //not yet
-
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mTaskCount = 3;
             new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mMarketDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
 
     }
