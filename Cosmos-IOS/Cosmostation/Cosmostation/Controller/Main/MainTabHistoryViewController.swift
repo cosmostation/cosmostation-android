@@ -291,15 +291,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\", \"tx.value.msg.value.proposer\"]}}}"
             url = CSS_ES_PROXY_COSMOS
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.address\", \"tx.value.msg.value.owner\", \"tx.value.msg.value.banker\", \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.proposer\", \"tx.value.msg.value.dest_address\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.author\", \"tx.value.msg.value.consumer\", \"tx.value.msg.value.trustee\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\"]}}}"
             url = IRIS_ES_PROXY_IRIS
             
         }
-//        else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-//            query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\", \"tx.value.msg.value.proposer\"]}}}"
-//            url = KAVA_ES_PROXY_IRIS
-//        }
+        
         let data = query.data(using: .utf8)
         do {
             let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]

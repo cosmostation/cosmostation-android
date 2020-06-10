@@ -558,10 +558,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
-    
-    
-    
-    
     func onFetchCosmosTokenPrice() {
         self.onUpdateTotalCard()
     }

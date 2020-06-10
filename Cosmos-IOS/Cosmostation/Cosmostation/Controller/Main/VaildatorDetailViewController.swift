@@ -101,7 +101,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSignleBondingInfo(account!, mValidator!)
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            onFetchHistory(account!, mValidator!, "0", "100")
+            onFetchApiHistory(account!, mValidator!)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             mUnbondings.removeAll()
@@ -168,7 +168,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else {
-            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 if (mApiHistories.count > 0) {
                     return mApiHistories.count
                 } else {
@@ -623,8 +623,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onSetHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            if(mApiHistories.count > 0) {
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (mApiHistories.count > 0) {
                 let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
                 let history = mApiHistories[indexPath.row]
                 cell?.txBlockLabel.text = String(history.height) + " block"
@@ -666,14 +666,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     } else {
                         cell?.txResultLabel.isHidden = true
                     }
-                } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                    cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.timestamp)
-                    cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.timestamp)
-                    if(history._source.allResult) {
-                        cell?.txResultLabel.isHidden = true
-                    } else {
-                        cell?.txResultLabel.isHidden = false
-                    }
                 }
                 return cell!
                 
@@ -686,7 +678,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(indexPath.section == 1 && mHistories.count > 0) {
+        if (indexPath.section == 1 && mHistories.count > 0) {
             let history = mHistories[indexPath.row]
             if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
@@ -695,16 +687,20 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 txDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(txDetailVC, animated: true)
-                
+
             } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 guard let url = URL(string: "https://irishub.mintscan.io/txs/" + history._source.hash) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 present(safariViewController, animated: true, completion: nil)
-                
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+
+            }
+            
+        } else if (indexPath.section == 1 && mApiHistories.count > 0) {
+            let history = mApiHistories[indexPath.row]
+            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false
-                txDetailVC.mTxHash = history._source.hash
+                txDetailVC.mTxHash = history.tx_hash
                 txDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(txDetailVC, animated: true)
@@ -1013,10 +1009,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             query = "{\"from\" : " + from + ",\"query\" : { \"bool\" : { \"must\" : [ { \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\" ], \"query\" : \"" + account.account_address + "\" } }, {  \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.validator_addr\", \"tx.value.msg.value.validator_address\", \"tx.value.msg.value.val_operator_addr\", \"tx.value.msg.value.validator_dst_addr\", \"tx.value.msg.value.validator_src_addr\", \"result.tags.key\" ], \"query\" : \"" + validator.operator_address + "\"  } } ]  } },  \"size\": " + size + ",\"sort\" : [ { \"height\" : {  \"order\" : \"desc\" } } ] }"
             url = IRIS_ES_PROXY_IRIS
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            query = "{\"from\" : " + from + ",\"query\" : { \"bool\" : { \"must\" : [ { \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\" ], \"query\" : \"" + account.account_address + "\" } }, { \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.validator_address\", \"tx.value.msg.value.validator_dst_address\", \"tx.value.msg.value.validator_src_address\" ], \"query\" : \"" + validator.operator_address + "\"} } ] }  }, \"size\": " + size + ",\"sort\" : [ {  \"height\" : {  \"order\" : \"desc\" } } ] }"
-            
-            url = KAVA_ES_PROXY_IRIS
         }
 //        print("query ", query)
         let data = query.data(using: .utf8)
@@ -1046,7 +1038,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onFetchApiHistory(_ account: Account, _ validator: Validator) {
         var url: String?
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_API_TEST_HISTORY + account.account_address + "/" + validator.operator_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
