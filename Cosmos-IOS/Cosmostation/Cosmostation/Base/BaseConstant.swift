@@ -150,6 +150,7 @@ let KAVA_MY_INCENTIVE                   = KAVA_URL + "incentive/claims/";
 
 let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
 let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
+let KAVA_FAUCET                         = "https://faucet-kava-3.cosmostation.io/claim/";
 
 
 //KAVA_TEST_URL

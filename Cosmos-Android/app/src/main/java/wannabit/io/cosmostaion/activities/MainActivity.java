@@ -527,8 +527,36 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onGetAirDrop() {
-        //TODO request airdrop for kava mainnet for null user!
-        //mAirDropBtn.hide();
+        if (mAccount.accountNumber > 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        onShowWaitDialog();
+        ApiClient.getKavaFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                if (response.isSuccessful()) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            onHideWaitDialog();
+                            onFetchAllData();
+                        }
+                    },6000);
+
+                } else {
+                    onHideWaitDialog();
+                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSONObject> call, Throwable t) {
+                onHideWaitDialog();
+                Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void onShowTestNetWarnIfNeed() {

@@ -21,6 +21,7 @@
 
     <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-3.cosmostation.io/</string>
     <string name="url_api_kava_main" translatable="false">https://api-kava-3.cosmostation.io/</string>
+    <string name="url_kava_faucet" translatable="false">https://faucet-kava-3.cosmostation.io</string>
 
     <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet-6000.cosmostation.io/</string>
     <string name="url_api_kava_test" translatable="false">https://api-kava-testnet-6000.cosmostation.io/</string>

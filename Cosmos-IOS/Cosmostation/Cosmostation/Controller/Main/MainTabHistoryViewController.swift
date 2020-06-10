@@ -380,7 +380,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     self.mApiHistories.removeAll()
                     guard let histories = res as? Array<NSDictionary> else {
                         if (SHOW_LOG) { print("no history!!") }

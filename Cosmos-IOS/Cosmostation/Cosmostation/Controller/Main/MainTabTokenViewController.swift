@@ -642,7 +642,25 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            //TODO request airdrop for kava mainnet for null user!
+            if (mainTabVC.mAccount.account_account_numner > 0) {
+                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
+                return
+            }
+            self.showWaittingAlert()
+            let request = Alamofire.request(KAVA_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
+                        self.onRequestFetch()
+                        self.hideWaittingAlert()
+                    })
+
+                case .failure(let error):
+                    self.onShowToast(error.localizedDescription)
+                    self.hideWaittingAlert()
+                }
+            }
             
         }
     }
