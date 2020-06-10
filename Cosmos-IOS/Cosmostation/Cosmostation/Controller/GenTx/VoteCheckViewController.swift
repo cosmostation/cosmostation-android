@@ -129,8 +129,8 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
                         return
                     }
                     let accountInfo = KavaAccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo, self.pageHolderVC.chainType!))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo, self.pageHolderVC.chainType!))
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
                     self.onGenVoteTx()
                 }
                 

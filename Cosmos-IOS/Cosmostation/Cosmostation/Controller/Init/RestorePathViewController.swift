@@ -151,7 +151,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             }
                             let tempAccount = Account.init(isNew: true)
                             tempAccount.account_id = -1
-                            let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info), self.userChain!)
+                            let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info))
                             cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, KAVA_MAIN_DENOM, ChainType.SUPPORT_CHAIN_KAVA_MAIN)
                             
                         case .failure(let error):
@@ -232,7 +232,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                                 }
                                 let tempAccount = Account.init(isNew: true)
                                 tempAccount.account_id = -1
-                                let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info),self.userChain!)
+                                let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info))
                                 cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, KAVA_MAIN_DENOM, ChainType.SUPPORT_CHAIN_KAVA_TEST)
                                 
                             case .failure(let error):

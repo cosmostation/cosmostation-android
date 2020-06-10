@@ -272,8 +272,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         return
                     }
                     let accountInfo = KavaAccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo, self.pageHolderVC.chainType!))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo, self.pageHolderVC.chainType!))
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
                     self.onGenSendTx()
                     
                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {

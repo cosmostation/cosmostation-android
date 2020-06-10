@@ -620,8 +620,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                     let kavaAccountInfo = KavaAccountInfo.init(info)
                     BaseData.instance.mKavaAccountResult = kavaAccountInfo.result
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, kavaAccountInfo, self.mChainType))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, kavaAccountInfo, self.mChainType))
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, kavaAccountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, kavaAccountInfo))
                     
                 } else if (self.mChainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                     guard let responseData = res as? NSDictionary,
