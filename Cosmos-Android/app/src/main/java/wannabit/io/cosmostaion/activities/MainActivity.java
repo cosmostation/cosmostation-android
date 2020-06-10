@@ -256,7 +256,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-
 //        WLog.w("mAccount " + mAccount.id);
 //        WLog.w("mAccount " + mAccount.address);
 //        WLog.w("sequenceNumber " + mAccount.sequenceNumber);
