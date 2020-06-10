@@ -337,11 +337,27 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     }
 
 
-
-
     private void onFetchSendTx(String hash) {
         WLog.w("onFetchSendTx " + hash);
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            ApiClient.getBnbChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
+                @Override
+                public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
+                    if(isFinishing()) return;
+                    WLog.w("onFetchSendTx " + response.toString());
+                    if(response.isSuccessful() && response.body() != null) {
+                        mResSendBnbTxInfo = response.body();
+                    }
+                    onUpdateView();
+                }
+
+                @Override
+                public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
+                    WLog.w("onFetchSendTx BNB onFailure");
+                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    onUpdateView();
+                }
+            });
 
         } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
             ApiClient.getBnbTestChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
@@ -364,6 +380,25 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             });
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
+                @Override
+                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
+                    if(isFinishing()) return;
+                    WLog.w("onFetchSendTx " + response.toString());
+                    if(response.isSuccessful() && response.body() != null) {
+                        mResSendTxInfo = response.body();
+                        onUpdateView();
+                    }
+                    onUpdateView();
+                }
+
+                @Override
+                public void onFailure(Call<ResTxInfo> call, Throwable t) {
+                    WLog.w("onFetchSendTx KAVA onFailure");
+                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    onUpdateView();
+                }
+            });
 
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
             ApiClient.getKavaTestChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
@@ -393,6 +428,37 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     private void onFetchClaimTx(String hash) {
         WLog.w("onFetchClaimTx " + hash);
         if (mRecipientChain.equals(BaseChain.BNB_MAIN)) {
+            ApiClient.getBnbChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
+                @Override
+                public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
+                    if(isFinishing()) return;
+                    WLog.w("onFetchClaimTx " + response.toString());
+                    if(response.isSuccessful() && response.body() != null) {
+                        mResReceiveBnbTxInfo = response.body();
+                        onUpdateView();
+                    } else {
+                        if (ClaimFetchCnt < 5) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ClaimFetchCnt++;
+                                    onFetchClaimTx(hash);
+                                }
+                            }, 3000);
+
+                        } else {
+                            onUpdateView();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
+                    WLog.w("onFetchClaimTx BNB onFailure");
+                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    onUpdateView();
+                }
+            });
 
         } else if (mRecipientChain.equals(BaseChain.BNB_TEST)) {
             ApiClient.getBnbTestChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
@@ -428,6 +494,37 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             });
 
         } else if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
+            ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
+                @Override
+                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
+                    if(isFinishing()) return;
+                    WLog.w("onFetchClaimTx " + response.toString());
+                    if(response.isSuccessful() && response.body() != null) {
+                        mResReceiveTxInfo = response.body();
+                        onUpdateView();
+                    } else {
+                        if (ClaimFetchCnt < 5) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ClaimFetchCnt++;
+                                    onFetchClaimTx(hash);
+                                }
+                            }, 3000);
+
+                        } else {
+                            onUpdateView();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResTxInfo> call, Throwable t) {
+                    WLog.w("onFetchClaimTx KAVA onFailure");
+                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    onUpdateView();
+                }
+            });
 
         } else if (mRecipientChain.equals(BaseChain.KAVA_TEST)) {
             ApiClient.getKavaTestChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {

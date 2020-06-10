@@ -51,9 +51,11 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_TEST_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_DEPUTY;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
@@ -402,9 +404,20 @@ public class MsgGenerator {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (fromChain.equals(BaseChain.KAVA_MAIN)) {
+            value.from = fromAccount.address;
+            value.to = KAVA_DEPUTY;
+            value.sender_other_chain = BNB_DEPUTY;
+            value.recipient_other_chain = toAccount.address;
+
+            value.random_number_hash = WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase();
+            value.timestamp = String.valueOf(timestamp);
+            value.amount = sendCoins;
+            value.height_span = "500";
+
+            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
+            result.value = value;
 
         } else if (fromChain.equals(BaseChain.KAVA_TEST)) {
-
             value.from = fromAccount.address;
             value.to = KAVA_TEST_DEPUTY;
             value.sender_other_chain = BNB_TEST_DEPUTY;
@@ -464,7 +477,19 @@ public class MsgGenerator {
 
         } else if (fromChain.equals(BaseChain.BNB_TEST)) {
             if (toChain.equals(BaseChain.KAVA_MAIN)) {
-                //NO case
+                htltReq.setRecipient(BNB_DEPUTY);
+                htltReq.setRecipientOtherChain(toAccount.address);
+                htltReq.setSenderOtherChain(KAVA_DEPUTY);
+                htltReq.setTimestamp(timestamp);
+                htltReq.setRandomNumberHash(Sha256.getSha256Digest().digest(originData));
+                Token token = new Token();
+                token.setDenom(toSendCoin.denom);
+                BigDecimal sendAmount = new BigDecimal(toSendCoin.amount).movePointRight(8);
+                token.setAmount(sendAmount.longValue());
+                htltReq.setOutAmount(Collections.singletonList(token));
+                htltReq.setExpectedIncome(sendAmount.toPlainString() + ":" + toSendCoin.denom);
+                htltReq.setHeightSpan(10001);
+                htltReq.setCrossChain(true);
 
             } else if (toChain.equals(BaseChain.KAVA_TEST)) {
                 htltReq.setRecipient(BNB_TEST_DEPUTY);

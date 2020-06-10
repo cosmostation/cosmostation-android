@@ -43,14 +43,7 @@ public class SingleSelfBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
-
                 Response<ResLcdSingleBonding> response = ApiClient.getKavaChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-                if (response.isSuccessful()) {
-                    WLog.w("1111");
-                } else {
-                    WLog.w("2222");
-
-                }
                 if (response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

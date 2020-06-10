@@ -132,7 +132,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             String address = WKey.getDpAddressWithPath(mHdSeed, mChain, position, mIsNewBip44forKava);
             holder.newPath.setText(WDp.getPath(mChain, position, mIsNewBip44forKava));
             holder.newAddress.setText(address);
-            final Account temp = getBaseDao().onSelectExistAccount(address);
+            final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
             if(temp == null) {
                 holder.newState.setText(getString(R.string.str_ready));
                 holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));

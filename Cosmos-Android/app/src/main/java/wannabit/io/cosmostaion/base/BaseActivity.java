@@ -428,7 +428,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         mPushBody.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Account account = getBaseDao().onSelectExistAccount(address);
+                Account account = getBaseDao().onSelectExistAccount2(address);
                 if (account != null) {
                     getBaseDao().setLastUser(account.id);
                     onStartMainActivity(2);

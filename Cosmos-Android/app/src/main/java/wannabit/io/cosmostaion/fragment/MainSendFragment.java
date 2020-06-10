@@ -434,11 +434,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
+            mBtnBep3Send.setVisibility(View.VISIBLE);
             if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
-                mBtnBep3Send.setVisibility(View.VISIBLE);
                 mBnbCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             } else {
-                mBtnBep3Send.setVisibility(View.GONE);
                 mBnbCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             }
             if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
