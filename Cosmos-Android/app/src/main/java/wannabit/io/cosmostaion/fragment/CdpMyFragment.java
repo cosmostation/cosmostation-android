@@ -120,7 +120,7 @@ public class CdpMyFragment extends BaseFragment {
             } else {
                 final MyCdpHolder holder = (MyCdpHolder)viewHolder;
                 final ResCdpOwnerStatus.MyCDP status = mMyOwenCdp.get(position);
-                final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(status.getDenom() + ":usd");
+                final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(status.getMarketId());
                 final int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
                 final ResCdpParam.KavaCollateralParam param = getMainActivity().mCdpParam.getCollateralParamByDenom(status.getDenom());
 

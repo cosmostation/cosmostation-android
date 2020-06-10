@@ -296,7 +296,7 @@ class StepDepositCdpAmountViewController: BaseViewController, UITextFieldDelegat
     func onFetchCdpParam() {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_PARAM
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_PARAM
         }
@@ -322,7 +322,7 @@ class StepDepositCdpAmountViewController: BaseViewController, UITextFieldDelegat
     func onFetchKavaPrice(_ market:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_TOKEN_PRICE + market
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_TOKEN_PRICE + market
         }
@@ -347,7 +347,7 @@ class StepDepositCdpAmountViewController: BaseViewController, UITextFieldDelegat
     func onFetchOwenCdp(_ account:Account, _ denom:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_OWEN + account.account_address + "/" + denom
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + denom
         }
@@ -373,7 +373,7 @@ class StepDepositCdpAmountViewController: BaseViewController, UITextFieldDelegat
     func onFetchCdpDeposit(_ account:Account, _ denom:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_DEPOSIT + account.account_address + "/" + denom
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_DEPOSIT + account.account_address + "/" + denom
         }

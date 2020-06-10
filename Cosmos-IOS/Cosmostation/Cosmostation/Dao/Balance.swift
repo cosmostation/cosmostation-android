@@ -83,7 +83,7 @@ public class Balance {
             if (prices.count <= 0) {
                 return NSDecimalNumber.zero
             }
-            guard let kavaPrice = prices[balance_denom + ":usd"] else {
+            guard let kavaPrice = prices[balance_denom + ":usd:30"] else {
                 return NSDecimalNumber.zero
             }
             return WUtils.stringToDecimalNoLocale(self.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(balance_denom)).multiplying(by: NSDecimalNumber.init(string: kavaPrice.result.price), withBehavior: WUtils.handler6)

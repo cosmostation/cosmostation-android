@@ -115,6 +115,21 @@ public class ApiClient {
         return service_kava;
     }
 
+    //Services for KAVA api
+    private static KavaApi api_kava = null;
+    public static KavaApi getKavaApi(Context c) {
+        if (api_kava == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_kava_main))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_kava = retrofit.create(KavaApi.class);
+            }
+        }
+        return api_kava;
+    }
+
     //Services for KAVATest chain
     private static KavaChain service_kava_test = null;
     public static KavaChain getKavaTestChain(Context c) {

@@ -143,7 +143,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private void onFetchHistory() {
         mBandNot.setVisibility(View.GONE);
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, getMainActivity().mBaseChain);
 //            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
             new HistoryTask(getBaseApplication(), this, req, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -155,7 +155,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             new HistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
@@ -326,37 +326,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 });
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                final ResHistory.Source source = mHistory.get(position)._source;
-                if (source.isSuccess()) {
-                    viewHolder.historySuccess.setVisibility(View.GONE);
-                } else {
-                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
-                }
-                viewHolder.historyType.setText(WDp.DpTxType(getContext(), source.tx.value.msg, getMainActivity().mAccount.address));
-                viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.timestamp));
-                viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), source.timestamp));
-                viewHolder.history_block.setText(source.height + " block");
-                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int TxType = WDp.getHistoryDpType(source.tx.value.msg, getMainActivity().mAccount.address);
-                        if (TxType > TX_TYPE_UNKNOWN && TxType <= TX_TYPE_REINVEST) {
-                            Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-                            txDetail.putExtra("txHash", source.hash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
-                        } else {
-                            Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                            webintent.putExtra("txid", source.hash);
-                            webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                            startActivity(webintent);
-                        }
-                    }
-                });
-
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);
                 if (tx.logs != null) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
@@ -384,13 +354,13 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         @Override
         public int getItemCount() {
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) ||
-                    getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN) ||
-                    getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                    getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 return mHistory.size();
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) ||
                     getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
                 return mBnbHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) ||
+                    getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 return mApiTxHistory.size();
             }
             return 0;

@@ -54,6 +54,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
@@ -122,7 +123,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private LinearLayout        mGuideAction;
     private Button              mGuideBtn, mFaqBtn;
 
-    private CardView            mVestingCard, mVestingBgCard;
+    private CardView            mVestingCard;
     private TextView            mVestingCnt, mVestingTotalAmount;
     private RelativeLayout      mVestingLayer0, mVestingLayer1, mVestingLayer2, mVestingLayer3, mVestingLayer4;
     private TextView            mVestingTime0, mVestingTime1, mVestingTime2, mVestingTime3, mVestingTime4;
@@ -257,7 +258,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mFaqBtn                 = rootView.findViewById(R.id.btn_faq);
 
         mVestingCard            = rootView.findViewById(R.id.card_vesting);
-        mVestingBgCard          = mVestingCard.findViewById(R.id.vesting_card);
         mVestingCnt             = mVestingCard.findViewById(R.id.vesting_count);
         mVestingTotalAmount     = mVestingCard.findViewById(R.id.total_vesting_amount);
         mVestingLayer0          = mVestingCard.findViewById(R.id.vesting_layer0);
@@ -434,11 +434,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
+            mBtnBep3Send.setVisibility(View.VISIBLE);
             if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
-                mBtnBep3Send.setVisibility(View.VISIBLE);
                 mBnbCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             } else {
-                mBtnBep3Send.setVisibility(View.GONE);
                 mBnbCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             }
             if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
@@ -642,7 +641,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, COSMOS_KAVA));
             mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
-            mBtnKavaCdp.setVisibility(View.GONE);
+            mBtnKavaCdp.setVisibility(View.VISIBLE);
 
             try {
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastKavaTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -705,7 +704,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-            BigDecimal totalAmount = WDp.getAllTestKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             mTvKavaTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
             mTvKavaVesting.setText(WDp.getDpVestedCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
@@ -817,7 +816,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         }
 
         // Show incentive claim card
-        if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+        if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+                mKavaIncentiveCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            } else {
+                mKavaIncentiveCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            }
             if (getBaseDao().mKavaUnClaimedIncentiveRewards.size() > 0) {
                 mKavaIncentiveCard.setVisibility(View.VISIBLE);
             } else {
@@ -829,7 +833,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         }
 
         // Show vesting schedule card
-        if (getMainActivity().mBaseChain.equals(KAVA_TEST) && getBaseDao().mKavaAccount != null && getBaseDao().mKavaAccount.value.getCVestingCnt() > 0) {
+//        WLog.w("getCVestingCnt " + getBaseDao().mKavaAccount.value.getCVestingCnt());
+        if ((getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) &&
+                getBaseDao().mKavaAccount != null && getBaseDao().mKavaAccount.value.getCVestingCnt() > 0) {
+            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+                mVestingCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            } else {
+                mVestingCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            }
             ResLcdKavaAccountInfo.Value mKavaAccount = getBaseDao().mKavaAccount.value;
             mVestingCard.setVisibility(View.VISIBLE);
             mVestingLayer1.setVisibility(View.GONE);

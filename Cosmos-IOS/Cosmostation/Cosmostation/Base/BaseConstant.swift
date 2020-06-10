@@ -37,9 +37,13 @@ let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 
-let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
+//let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
+let KAVA_URL                            = "https://lcd-kava-testnet-6000.cosmostation.io/";
+let KAVA_API                            = "https://api-kava-testnet-6000.cosmostation.io/";
+
 let KAVA_TEST_URL                       = "https://lcd-kava-testnet-6000.cosmostation.io/";
 let KAVA_TEST_API                       = "https://api-kava-testnet-6000.cosmostation.io/";
+
 
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
 let IOV_REST_URL                        = "https://bnsapi.iov.one/";
@@ -136,6 +140,18 @@ let KAVA_REWARD_ADDRESS                 = KAVA_URL + "distribution/delegators/";
 let KAVA_REWARD_ADDRESS_TAIL            = "/withdraw_address";
 let KAVA_PROPOSALS                      = KAVA_URL + "gov/proposals";
 let KAVA_PROPOSALS_TALLY_TAIL           = "/tally";
+let KAVA_CDP_PARAM                      = KAVA_URL + "cdp/parameters";
+let KAVA_CDP_OWEN                       = KAVA_URL + "cdp/cdps/cdp/";
+let KAVA_CDP_DEPOSIT                    = KAVA_URL + "cdp/cdps/cdp/deposits/";
+let KAVA_TOKEN_PRICE_PARAM              = KAVA_URL + "pricefeed/parameters";
+let KAVA_TOKEN_PRICE                    = KAVA_URL + "pricefeed/price/";
+let KAVA_CHECK_SWAPID                   = KAVA_URL + "bep3/swap/";
+let KAVA_INCENTIVE_PARAM                = KAVA_URL + "incentive/parameters";
+let KAVA_MY_INCENTIVE                   = KAVA_URL + "incentive/claims/";
+
+let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
+let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
+
 
 //KAVA_TEST_URL
 let KAVA_TEST_ACCOUNT_INFO              = KAVA_TEST_URL + "auth/accounts/";
@@ -363,6 +379,9 @@ let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
 let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 
+//TODO check 
+let BNB_DEPUTY                              = ""
+let KAVA_DEPUTY                             = ""
 let BNB_TEST_DEPUTY                        = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h"
 let KAVA_TEST_DEPUTY                       = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl"
 
@@ -524,6 +543,13 @@ enum ChainType: String {
             
         } else if (chain == SUPPORT_CHAIN_KAVA_TEST) {
             result.append(SUPPORT_CHAIN_BINANCE_TEST)
+            
+        } else if (chain == SUPPORT_CHAIN_BINANCE_MAIN) {
+            result.append(SUPPORT_CHAIN_KAVA_MAIN)
+            
+        } else if (chain == SUPPORT_CHAIN_KAVA_MAIN) {
+            result.append(SUPPORT_CHAIN_BINANCE_MAIN)
+            
         }
         return result
     }

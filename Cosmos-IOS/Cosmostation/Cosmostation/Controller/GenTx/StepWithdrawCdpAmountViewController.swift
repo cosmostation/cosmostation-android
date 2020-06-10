@@ -208,14 +208,15 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
         sumCAmount = mMyCdps!.result.getTotalCollateralAmount().subtracting(toCAmount)
         let collateralAmount = sumCAmount.multiplying(byPowerOf10: -cDpDecimal)
         let rawDebtAmount = mMyCdps!.result.cdp.getEstimatedTotalDebt(cParam!).multiplying(by: cParam!.getLiquidationRatio()).multiplying(byPowerOf10: -pDpDecimal)
-        print("collateralAmount ", collateralAmount)
-        print("rawDebtAmount ", rawDebtAmount)
+
         afterLiquidationPrice = rawDebtAmount.dividing(by: collateralAmount, withBehavior: WUtils.getDivideHandler(pDpDecimal))
         afterRiskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(afterLiquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
         
-        print("currentPrice ", currentPrice)
-        print("afterLiquidationPrice ", afterLiquidationPrice)
-        print("afterRiskRate ", afterRiskRate)
+        if (SHOW_LOG) {
+            print("currentPrice ", currentPrice)
+            print("afterLiquidationPrice ", afterLiquidationPrice)
+            print("afterRiskRate ", afterRiskRate)
+        }
         return true
     }
 
@@ -275,9 +276,11 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
             beforeRiskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(beforeLiquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
             WUtils.showRiskRate2(beforeRiskRate, beforeSafeRate, beforeSafeTxt)
             
-            print("currentPrice ", currentPrice)
-            print("beforeLiquidationPrice ", beforeLiquidationPrice)
-            print("beforeRiskRate ", beforeRiskRate)
+            if (SHOW_LOG) {
+                print("currentPrice ", currentPrice)
+                print("beforeLiquidationPrice ", beforeLiquidationPrice)
+                print("beforeRiskRate ", beforeRiskRate)
+            }
             
             let selfDepositAmount = mMyCdpDeposit!.getSelfDeposit(account!.account_address)
             cMaxWithdrawableAmount = mMyCdps!.result.getWithdrawableAmount(cDenom, pDenom, cParam!, currentPrice, selfDepositAmount)
@@ -298,7 +301,7 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
     func onFetchCdpParam() {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_PARAM
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_PARAM
         }
@@ -324,7 +327,7 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
     func onFetchKavaPrice(_ market:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_TOKEN_PRICE + market
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_TOKEN_PRICE + market
         }
@@ -349,7 +352,7 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
     func onFetchOwenCdp(_ account:Account, _ denom:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_OWEN + account.account_address + "/" + denom
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + denom
         }
@@ -375,7 +378,7 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
     func onFetchCdpDeposit(_ account:Account, _ denom:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_DEPOSIT + account.account_address + "/" + denom
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_DEPOSIT + account.account_address + "/" + denom
         }

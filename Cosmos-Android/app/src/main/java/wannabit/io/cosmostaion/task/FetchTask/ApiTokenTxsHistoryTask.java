@@ -34,14 +34,15 @@ public class ApiTokenTxsHistoryTask extends CommonTask {
             } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
             } else if (mChain.equals(BaseChain.BNB_MAIN)) {
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaApi(mApp).getTokenTxs(mAddress, mDenom).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiTokenTxsHistoryTask : NOk");
+                }
+
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-//                Response<ResApiTxList> response = ApiClient.getKavaTestApi(mApp).getTokenTxs(mAddress, mDenom).execute();
-//                if(response.isSuccessful() && response.body() != null) {
-//                    mResult.resultData = response.body().data;
-//                    mResult.isSuccess = true;
-//                } else {
-//                    WLog.w("ApiTokenTxsHistoryTask : NOk");
-//                }
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaTestApi(mApp).getTokenTxs(mAddress, mDenom).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();

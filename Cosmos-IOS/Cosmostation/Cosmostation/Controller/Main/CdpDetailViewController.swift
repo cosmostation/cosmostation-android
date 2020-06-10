@@ -60,8 +60,10 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         self.refresher.tintColor = UIColor.white
         self.cdpDetailTableView.addSubview(refresher)
         
-        print("cDenom ", cDenom)
-        print("mMarketID ", mMarketID)
+        if (SHOW_LOG) {
+            print("cDenom ", cDenom)
+            print("mMarketID ", mMarketID)
+        }
         
         self.loadingImg.onStartAnimation()
         self.onFetchCdpData()
@@ -136,9 +138,12 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         liquidationPrice = mMyCdps!.result.getLiquidationPrice(cDenom, pDenom, cParam!)
         riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
-        print("currentPrice ", currentPrice)
-        print("liquidationPrice ", liquidationPrice)
-        print("riskRate ", riskRate)
+        
+        if (SHOW_LOG) {
+            print("currentPrice ", currentPrice)
+            print("liquidationPrice ", liquidationPrice)
+            print("riskRate ", riskRate)
+        }
         
         cell?.marketTitle.text = cParam!.getDpMarketId()
         WUtils.showRiskRate(riskRate, cell!.riskScore, _rateIamg: cell!.riskRateImg)
@@ -459,7 +464,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     func onFetchCdpParam(_ account:Account) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_PARAM
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_PARAM
         }
@@ -485,7 +490,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     func onFetchOwenCdp(_ account:Account, _ denom:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_OWEN + account.account_address + "/" + denom
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + denom
         }
@@ -511,7 +516,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     func onFetchCdpDeposit(_ account:Account, _ denom:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_DEPOSIT + account.account_address + "/" + denom
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_DEPOSIT + account.account_address + "/" + denom
         }
@@ -537,7 +542,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     func onFetchKavaPrice(_ market:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_TOKEN_PRICE + market
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_TOKEN_PRICE + market
         }

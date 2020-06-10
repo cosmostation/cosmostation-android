@@ -1541,7 +1541,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     WLog.w("onFetchTx " + response.toString());
                     if (response.isSuccessful() && response.body() != null) {
                         mResBnbTxInfo = response.body();
-                        onUpdateView();
+                        mResBnbTxInfo = response.body();
+                        if (mResBnbTxInfo.getMsg(0).type.equals(BNB_MSG_TYPE_HTLC) &&
+                                mAccount.address.equals(mResBnbTxInfo.getMsg(0).value.from)) {
+                            onFetchHtlcStatus(mResBnbTxInfo.simpleSwapId());
+                        } else {
+                            onUpdateView();
+                        }
                     } else {
                         if (mIsSuccess && FetchCnt < 10) {
                             new Handler().postDelayed(new Runnable() {
@@ -1614,7 +1620,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     WLog.w("onFetchTx " + response.toString());
                     if (response.isSuccessful() && response.body() != null) {
                         mResTxInfo = response.body();
-                        onUpdateView();
+                        if (mResTxInfo.getMsgType(0).equals(KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
+                            onFetchHtlcStatus(mResTxInfo.simpleSwapId());
+                        } else {
+                            onUpdateView();
+                        }
+
                     } else {
                         if (mIsSuccess && FetchCnt < 10) {
                             new Handler().postDelayed(new Runnable() {
@@ -1718,6 +1729,21 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 //        WLog.w("onFetchHtlcStatus "  +swapId);
         if (!TextUtils.isEmpty(swapId)) {
             if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                ApiClient.getKavaChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResKavaSwapInfo>() {
+                    @Override
+                    public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            mResKavaSwapInfo = response.body();
+                        }
+                        onUpdateView();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResKavaSwapInfo> call, Throwable t) {
+                        WLog.w("onFetchHtlcStatus " + t.getMessage());
+                        onUpdateView();
+                    }
+                });
 
             } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 ApiClient.getKavaTestChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResKavaSwapInfo>() {
@@ -1737,6 +1763,22 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 });
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                ApiClient.getBnbChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResBnbSwapInfo>() {
+                    @Override
+                    public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            WLog.w("onFetchHtlcStatus url " + call.request().url());
+                            mResBnbSwapInfo = response.body();
+                        }
+                        onFetchBnbNodeInfo();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResBnbSwapInfo> call, Throwable t) {
+                        WLog.w("onFetchHtlcStatus " + t.getMessage());
+                        onUpdateView();
+                    }
+                });
 
             } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
                 ApiClient.getBnbTestChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResBnbSwapInfo>() {

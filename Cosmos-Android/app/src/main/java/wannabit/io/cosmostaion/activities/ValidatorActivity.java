@@ -483,12 +483,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 //            WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
             new ValHistoryTask(getBaseApplication(), this, req, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
-//            WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
-            new ValHistoryTask(getBaseApplication(), this, req, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
@@ -519,6 +514,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_SELF_BONDING) {
             ResLcdBonding temp = (ResLcdBonding)result.resultData;
+            WLog.w("temp " + temp.shares);
+            WLog.w("mValidator " + mValidator.tokens);
             if(temp != null)
                 mSelfBondingRate = WDp.getSelfBondRate(mValidator.tokens, temp.shares);
 
@@ -548,6 +545,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if (hits != null && hits.size() > 0) {
                 mApiTxHistory = hits;
             }
+            WLog.w("mApiTxHistory " + mApiTxHistory.size());
         }
         if (mTaskCount == 0) {
             mValidatorAdapter.notifyDataSetChanged();
@@ -594,7 +592,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 onBindAction(viewHolder);
 
             } else if (getItemViewType(position) == TYPE_HISTORY) {
-                if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                     onBindApiHistory(viewHolder, position);
                 } else {
                     onBindHistory(viewHolder, position);
@@ -1071,35 +1069,36 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     }
                 });
 
-            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.timestamp));
-                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.timestamp));
-                if (source.isSuccess()) {
-                    holder.historySuccess.setVisibility(View.GONE);
-                } else {
-                    holder.historySuccess.setVisibility(View.VISIBLE);
-                }
-                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int TxType = WDp.getHistoryDpType(source.tx.value.msg, mAccount.address);
-                        if (TxType > TX_TYPE_UNKNOWN && TxType <= TX_TYPE_REINVEST) {
-                            Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
-                            txDetail.putExtra("txHash", source.hash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
-                        } else {
-                            Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                            webintent.putExtra("txid", source.hash);
-                            webintent.putExtra("chain", mBaseChain.getChain());
-                            startActivity(webintent);
-                        }
-                    }
-                });
             }
-        }
 
+//            else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+//                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.timestamp));
+//                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.timestamp));
+//                if (source.isSuccess()) {
+//                    holder.historySuccess.setVisibility(View.GONE);
+//                } else {
+//                    holder.historySuccess.setVisibility(View.VISIBLE);
+//                }
+//                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        int TxType = WDp.getHistoryDpType(source.tx.value.msg, mAccount.address);
+//                        if (TxType > TX_TYPE_UNKNOWN && TxType <= TX_TYPE_REINVEST) {
+//                            Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+//                            txDetail.putExtra("txHash", source.hash);
+//                            txDetail.putExtra("isGen", false);
+//                            txDetail.putExtra("isSuccess", true);
+//                            startActivity(txDetail);
+//                        } else {
+//                            Intent webintent = new Intent(getBaseContext(), WebActivity.class);
+//                            webintent.putExtra("txid", source.hash);
+//                            webintent.putExtra("chain", mBaseChain.getChain());
+//                            startActivity(webintent);
+//                        }
+//                    }
+//                });
+//            }
+        }
 
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
             final HistoryHolder holder = (HistoryHolder)viewHolder;
@@ -1158,7 +1157,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         @Override
         public int getItemCount() {
             if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
-                if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                     if(mApiTxHistory.size() > 0) {
                         return mApiTxHistory.size() + 2;
                     } else {
@@ -1174,7 +1173,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
             } else {
-                if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                     if(mApiTxHistory.size() > 0) {
                         return mApiTxHistory.size() + 3;
                     } else {

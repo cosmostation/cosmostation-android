@@ -25,7 +25,14 @@ public class KavaIncentiveParamTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                //mainnet not yet!
+                Response<ResKavaIncentiveParam> response = ApiClient.getKavaChain(mApp).getIncentiveParams().execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+
+                } else {
+                    WLog.w("KavaIncentiveParamTask : NOk");
+                }
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
                 Response<ResKavaIncentiveParam> response = ApiClient.getKavaTestChain(mApp).getIncentiveParams().execute();

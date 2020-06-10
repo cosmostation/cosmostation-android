@@ -42,7 +42,7 @@ public class ResCdpOwnerStatus {
         }
 
         public String getMarketId() {
-            return cdp.collateral.denom + ":usd";
+            return cdp.collateral.denom + ":usd:30";
         }
 
         public String getDpMarketId() {

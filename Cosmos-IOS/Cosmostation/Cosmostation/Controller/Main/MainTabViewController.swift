@@ -218,7 +218,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchPriceTic(true)
             
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            self.mFetchCnt = 10
+            self.mFetchCnt = 14
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -231,6 +231,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             onFetchPriceTic(true)
+            
+            onFetchCdpParam(mAccount)
+            onFetchPriceParam()
+            onFetchIncentiveParam()
+            //TODO hard code
+            onFetchMyIncentive(mAccount, "bnb")
             
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             self.mFetchCnt = 14
@@ -620,8 +626,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                     let kavaAccountInfo = KavaAccountInfo.init(info)
                     BaseData.instance.mKavaAccountResult = kavaAccountInfo.result
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, kavaAccountInfo, self.mChainType))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, kavaAccountInfo, self.mChainType))
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, kavaAccountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, kavaAccountInfo))
                     
                 } else if (self.mChainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                     guard let responseData = res as? NSDictionary,
@@ -1158,7 +1164,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchCdpParam(_ account:Account) {
         var url: String?
         if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_PARAM
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_PARAM
         }
@@ -1190,7 +1196,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchOwenCdp(_ account:Account, _ denom:String) {
         var url: String?
         if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_OWEN + account.account_address + "/" + denom
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + denom
         }
@@ -1217,7 +1223,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchIncentiveParam() {
         var url: String?
         if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_INCENTIVE_PARAM
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_INCENTIVE_PARAM
         }
@@ -1243,7 +1249,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchMyIncentive(_ account:Account, _ denom:String) {
         var url: String?
         if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_MY_INCENTIVE + account.account_address + "/" + denom
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_MY_INCENTIVE + account.account_address + "/" + denom
         }
@@ -1267,36 +1273,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchCdpDeposit(_ account:Account, _ denom:String) {
-        var url: String?
-        if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
-        } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            url = KAVA_TEST_CDP_DEPOSIT + account.account_address + "/" + denom
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchCdpDeposit res ", res)
-                guard let responseData = res as? NSDictionary,
-                    let _ = responseData.object(forKey: "height") as? String else {
-                        self.onFetchFinished()
-                        return
-                }
-                let deposit = CdpDeposits.init(responseData)
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchCdpDeposit ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
     
     func onFetchPriceParam() {
         var url: String?
         if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_TOKEN_PRICE_PARAM
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_TOKEN_PRICE_PARAM
         }
@@ -1326,7 +1307,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchKavaPrice(_ market:String) {
         var url: String?
         if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_TOKEN_PRICE + market
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_TOKEN_PRICE + market
         }

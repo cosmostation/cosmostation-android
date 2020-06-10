@@ -97,16 +97,19 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
             let cDenom = mCdp.result.cdp.getcDenom()
             let pDenom = mCdp.result.cdp.getpDenom()
             let cParam = mCdpParam.result.getcParam(cDenom)
-            let mPrice = mKavaPrice[mCdp.result.cdp.getcDenom() + ":usd"]
+            let mPrice = mKavaPrice[mCdp.result.cdp.getcDenom() + ":usd:30"]
             
-            print("getEstimatedTotalDebt ", mCdp.result.cdp.getEstimatedTotalDebt(cParam!))
+            if (SHOW_LOG) { print("getEstimatedTotalDebt ", mCdp.result.cdp.getEstimatedTotalDebt(cParam!)) }
             
             let currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
             let liquidationPrice = mCdp.result.getLiquidationPrice(cDenom, pDenom, cParam!)
             let riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
-            print("currentPrice ", currentPrice)
-            print("liquidationPrice ", liquidationPrice)
-            print("riskRate ", riskRate)
+            
+            if (SHOW_LOG) {
+                print("currentPrice ", currentPrice)
+                print("liquidationPrice ", liquidationPrice)
+                print("riskRate ", riskRate)
+            }
             
             let cell:CdpLisyMyCell? = tableView.dequeueReusableCell(withIdentifier:"CdpLisyMyCell") as? CdpLisyMyCell
             cell?.marketTitle.text = cParam!.getDpMarketId()
@@ -116,7 +119,6 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
             cell?.debtValue.attributedText = WUtils.getDPRawDollor(mCdp.result.getDpEstimatedTotalDebtValue(pDenom, cParam!).stringValue, 2, cell!.debtValue.font)
             
             cell?.collateralValueTitle.text = String(format: NSLocalizedString("collateral_value_format", comment: ""), cDenom.uppercased())
-            print("getDpCollateralValue ", mCdp.result.getDpCollateralValue(cDenom).stringValue)
             cell?.collateralValue.attributedText = WUtils.getDPRawDollor(mCdp.result.getDpCollateralValue(pDenom).stringValue, 2, cell!.collateralValue.font)
             
             cell?.currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), cDenom.uppercased())

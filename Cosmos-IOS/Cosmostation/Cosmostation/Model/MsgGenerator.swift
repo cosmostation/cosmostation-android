@@ -280,6 +280,19 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (fromChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            value.from = fromAccount.account_address
+            value.to = KAVA_DEPUTY
+            value.sender_other_chain = BNB_DEPUTY
+            value.recipient_other_chain = toAccount.account_address
+            
+            value.random_number_hash = randomNumberHash.uppercased()
+            value.timestamp = String(timeStamp)
+            let data = try? JSONEncoder().encode(sendCoin)
+            do {
+                value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+            } catch { print(error) }
+            
+            value.height_span = "500"
             
         } else  if (fromChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             value.from = fromAccount.account_address

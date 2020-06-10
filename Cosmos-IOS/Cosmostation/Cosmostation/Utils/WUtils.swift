@@ -61,35 +61,17 @@ class WUtils {
         return result
     }
     
-    static func getAccountWithKavaAccountInfo(_ account: Account, _ accountInfo: KavaAccountInfo, _ chainType: ChainType) -> Account {
+    static func getAccountWithKavaAccountInfo(_ account: Account, _ accountInfo: KavaAccountInfo) -> Account {
         let result = account
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                result.account_address = accountInfo.result.value.address
-                result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
-                result.account_account_numner = Int64(accountInfo.result.value.account_number)!
-            } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
-                result.account_address = accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.address
-                result.account_sequence_number = Int64(accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence)!
-                result.account_account_numner = Int64(accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.account_number)!
-            } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
-                result.account_address = accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.address
-                result.account_sequence_number = Int64(accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence)!
-                result.account_account_numner = Int64(accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.account_number)!
-            }
-            
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                result.account_address = accountInfo.result.value.address
-                result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
-                result.account_account_numner = Int64(accountInfo.result.value.account_number)!
-            } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
-                result.account_address = accountInfo.result.value.address
-                result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
-                result.account_account_numner = Int64(accountInfo.result.value.account_number)!
-            }
+        if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+            result.account_address = accountInfo.result.value.address
+            result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
+            result.account_account_numner = Int64(accountInfo.result.value.account_number)!
+        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT || accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
+            result.account_address = accountInfo.result.value.address
+            result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
+            result.account_account_numner = Int64(accountInfo.result.value.account_number)!
         }
-        
         return result
     }
     
@@ -118,152 +100,61 @@ class WUtils {
         return result;
     }
     
-    static func getBalancesWithKavaAccountInfo(_ account: Account, _ accountInfo: KavaAccountInfo, _ chainType: ChainType) -> Array<Balance> {
+    static func getBalancesWithKavaAccountInfo(_ account: Account, _ accountInfo: KavaAccountInfo) -> Array<Balance> {
         var result = Array<Balance>()
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                accountInfo.result.value.coins.forEach({ (coin) in
-                    result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
-                })
-                
-            } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
-                //TODO 1 year after re-calculate logic
-                var totalVestiong = NSDecimalNumber.zero
-                var totalDeleagtedVesting = NSDecimalNumber.zero
-                var dpVesting = NSDecimalNumber.zero
-                var dpBalance = NSDecimalNumber.zero
-                
-                for i in 0 ..< accountInfo.result.value.vesting_period_progress.count {
-                    if (!accountInfo.result.value.vesting_period_progress[i].period_complete &&
-                        !accountInfo.result.value.vesting_period_progress[i].vesting_successful) {
-                        totalVestiong = totalVestiong.adding(NSDecimalNumber.init(string: accountInfo.result.value.PeriodicVestingAccount.vesting_periods[i].amount[0].amount))
-                    }
-                }
-                
-                accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.delegated_vesting.forEach({ (coin) in
-                    totalDeleagtedVesting = totalDeleagtedVesting.adding(NSDecimalNumber.init(string: coin.amount))
-                })
-                if (totalVestiong.compare(NSDecimalNumber.zero).rawValue > 0) {
-                    dpVesting = totalVestiong.subtracting(totalDeleagtedVesting)
-                }
-                
-                accountInfo.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.forEach({ (coin) in
-                    dpBalance = dpBalance.adding(NSDecimalNumber.init(string: coin.amount))
-                })
-                
-//                dpBalance = dpBalance.adding(totalDeleagtedVesting).subtracting(totalVestiong)
-                result.append(Balance.init(account.account_id,
-                                           KAVA_MAIN_DENOM,
-                                           dpBalance.stringValue,
-                                           Date().millisecondsSince1970,
-                                           NSDecimalNumber.zero.stringValue,
-                                           totalVestiong.stringValue))
-                
-                if (SHOW_LOG) {
-                    print("COSMOS_AUTH_TYPE_VESTING_ACCOUNT");
-                    print("totalVestiong", totalVestiong);
-                    print("totalDeleagtedVesting", totalDeleagtedVesting);
-                    print("dpVesting", dpVesting);
-                    print("dpBalance", dpBalance);
-                }
-                
-            } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
-                //TODO 1 year after re-calculate logic
-                var totalVestiong = NSDecimalNumber.zero
-                var totalDeleagtedVesting = NSDecimalNumber.zero
-                var dpVesting = NSDecimalNumber.zero
-                var dpBalance = NSDecimalNumber.zero
-                
-                for i in 0 ..< accountInfo.result.value.vesting_periods.count {
-                    totalVestiong = totalVestiong.adding(NSDecimalNumber.init(string: accountInfo.result.value.vesting_periods[i].amount[0].amount))
-                }
-                
-                accountInfo.result.value.BaseVestingAccount.delegated_vesting.forEach({ (coin) in
-                    totalDeleagtedVesting = totalDeleagtedVesting.adding(NSDecimalNumber.init(string: coin.amount))
-                })
-                
-                if (totalVestiong.compare(NSDecimalNumber.zero).rawValue > 0) {
-                    dpVesting = totalVestiong.subtracting(totalDeleagtedVesting)
-                }
-                
-                accountInfo.result.value.BaseVestingAccount.BaseAccount.coins.forEach({ (coin) in
-                    dpBalance = dpBalance.adding(NSDecimalNumber.init(string: coin.amount))
-                })
-                
-//                dpBalance = dpBalance.adding(totalDeleagtedVesting).subtracting(totalVestiong)
-                result.append(Balance.init(account.account_id,
-                                           KAVA_MAIN_DENOM,
-                                           dpBalance.stringValue,
-                                           Date().millisecondsSince1970,
-                                           NSDecimalNumber.zero.stringValue,
-                                           totalVestiong.stringValue))
-                
-                if (SHOW_LOG) {
-                    print("COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT");
-                    print("totalVestiong", totalVestiong);
-                    print("totalDeleagtedVesting", totalDeleagtedVesting);
-                    print("dpVesting", dpVesting);
-                    print("dpBalance", dpBalance);
-                }
-                
-            }
+        if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+            accountInfo.result.value.coins.forEach({ (coin) in
+                result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
+            })
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                accountInfo.result.value.coins.forEach({ (coin) in
-                    result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
-                })
-                
-            } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT || accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
-                var dpBalance = NSDecimalNumber.zero
-                var dpVesting = NSDecimalNumber.zero
-                var originalVesting = NSDecimalNumber.zero
-                var remainVesting = NSDecimalNumber.zero
-                var delegatedVesting = NSDecimalNumber.zero
-                
-                accountInfo.result.value.coins.forEach({ (coin) in
-                    if (coin.denom == KAVA_MAIN_DENOM) {
-                        dpBalance = NSDecimalNumber.init(string: coin.amount)
-                        accountInfo.result.value.original_vesting.forEach({ (coin) in
-                            originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
-                        })
-                        
-                        accountInfo.result.value.delegated_vesting.forEach({ (coin) in
-                            delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
-                        })
-                        
-                        if (SHOW_LOG) {
-                            print("dpBalance            ", dpBalance)
-                            print("originalVesting      ", originalVesting)
-                            print("delegatedVesting     ", delegatedVesting)
-                        }
-                        
-                        remainVesting = accountInfo.result.getCVestingSum()
-                        if (SHOW_LOG) { print("remainVesting            ", remainVesting)}
-                        
-                        dpVesting = remainVesting.subtracting(delegatedVesting);
-                        if (SHOW_LOG) { print("dpVesting      ", dpVesting) }
-                        
-                        if (dpVesting.compare(NSDecimalNumber.zero).rawValue <= 0) {
-                            dpVesting = NSDecimalNumber.zero;
-                        }
-                        if (SHOW_LOG) { print("dpVesting1      ", dpVesting) }
-                        
-                        if (remainVesting.compare(delegatedVesting).rawValue > 0) {
-                            dpBalance = dpBalance.subtracting(remainVesting).adding(delegatedVesting);
-                        }
-                        if (SHOW_LOG) { print("dpBalance      ", dpBalance) }
-                        
-                        result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, delegatedVesting.stringValue, dpVesting.stringValue))
-                        
-                    } else {
-                        result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
+        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT || accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
+            var dpBalance = NSDecimalNumber.zero
+            var dpVesting = NSDecimalNumber.zero
+            var originalVesting = NSDecimalNumber.zero
+            var remainVesting = NSDecimalNumber.zero
+            var delegatedVesting = NSDecimalNumber.zero
+            
+            accountInfo.result.value.coins.forEach({ (coin) in
+                if (coin.denom == KAVA_MAIN_DENOM) {
+                    dpBalance = NSDecimalNumber.init(string: coin.amount)
+                    accountInfo.result.value.original_vesting.forEach({ (coin) in
+                        originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    })
+                    
+                    accountInfo.result.value.delegated_vesting.forEach({ (coin) in
+                        delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    })
+                    
+                    if (SHOW_LOG) {
+                        print("dpBalance            ", dpBalance)
+                        print("originalVesting      ", originalVesting)
+                        print("delegatedVesting     ", delegatedVesting)
                     }
+                    
+                    remainVesting = accountInfo.result.getCVestingSum()
+                    if (SHOW_LOG) { print("remainVesting            ", remainVesting)}
+                    
+                    dpVesting = remainVesting.subtracting(delegatedVesting);
+                    if (SHOW_LOG) { print("dpVesting      ", dpVesting) }
+                    
+                    if (dpVesting.compare(NSDecimalNumber.zero).rawValue <= 0) {
+                        dpVesting = NSDecimalNumber.zero;
+                    }
+                    if (SHOW_LOG) { print("dpVesting1      ", dpVesting) }
+                    
+                    if (remainVesting.compare(delegatedVesting).rawValue > 0) {
+                        dpBalance = dpBalance.subtracting(remainVesting).adding(delegatedVesting);
+                    }
+                    if (SHOW_LOG) { print("dpBalance      ", dpBalance) }
+                    
+                    result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, delegatedVesting.stringValue, dpVesting.stringValue))
+                    
+                } else {
+                    result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
+                }
 
-                })
-            }
+            })
         }
-
         return result;
     }
     
@@ -1358,33 +1249,6 @@ class WUtils {
         for balance in balances {
             if (balance.balance_denom == KAVA_MAIN_DENOM) {
                 amount = stringToDecimal(balance.balance_amount)
-            }
-        }
-        
-        for bonding in bondings {
-            amount = amount.adding(bonding.getBondingAmount(validators))
-        }
-        
-        for unbonding in unbondings {
-            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
-        }
-        
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == KAVA_MAIN_DENOM) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return amount
-    }
-    
-    static func getAllKavaTest(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        
-        for balance in balances {
-            if (balance.balance_denom == KAVA_MAIN_DENOM) {
-                amount = stringToDecimal(balance.balance_amount)
                 amount = amount.adding(stringToDecimal(balance.balance_locked))
             }
         }
@@ -1794,7 +1658,7 @@ class WUtils {
         } else if (type == CHAIN_BINANCE_S) {
             return "Binance-Chain-Tigris"
         } else if (type == CHAIN_KAVA_S) {
-            return "kava-2"
+            return "kava-3"
         } else if (type == CHAIN_IOV_S) {
             return "iov-mainnet"
         } else if (type == CHAIN_BAND_S) {

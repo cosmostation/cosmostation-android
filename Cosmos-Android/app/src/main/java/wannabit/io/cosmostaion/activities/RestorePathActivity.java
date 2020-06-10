@@ -132,7 +132,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             String address = WKey.getDpAddressWithPath(mHdSeed, mChain, position, mIsNewBip44forKava);
             holder.newPath.setText(WDp.getPath(mChain, position, mIsNewBip44forKava));
             holder.newAddress.setText(address);
-            final Account temp = getBaseDao().onSelectExistAccount(address);
+            final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
             if(temp == null) {
                 holder.newState.setText(getString(R.string.str_ready));
                 holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -243,7 +243,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 ApiClient.getKavaChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
-                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body(), mChain);
+                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
                         holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, COSMOS_KAVA), 6, 6));
                     }
 
@@ -311,7 +311,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 ApiClient.getKavaTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
-                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body(), mChain);
+                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
                         holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, COSMOS_KAVA), 6, 6));
 
                     }

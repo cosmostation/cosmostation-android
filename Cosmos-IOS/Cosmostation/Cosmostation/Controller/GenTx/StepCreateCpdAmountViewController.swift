@@ -105,11 +105,9 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             
         } else {
             toCAmount = WUtils.stringToDecimal(cAmountInput.text?.trimmingCharacters(in: .whitespaces)).multiplying(byPowerOf10: cDpDecimal)
-            print("toCAmount ", toCAmount)
             let toCValue = toCAmount.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
             cDepositValue.attributedText = WUtils.getDPRawDollor(toCValue.stringValue, 2, cDepositValue.font)
             pMaxAmount = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.95")).multiplying(by: currentPrice).dividing(by: cParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
-            print("pMaxAmount ", pMaxAmount)
         
             pAvailabeMinLabel.attributedText = WUtils.displayAmount2(pMinAmount.stringValue, pAvailabeMinLabel.font!, pDpDecimal, pDpDecimal)
             pAvailabeMaxLabel.attributedText = WUtils.displayAmount2(pMaxAmount.stringValue, pAvailabeMinLabel.font!, pDpDecimal, pDpDecimal)
@@ -403,17 +401,19 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             return false
         }
         toPAmount = userInput.multiplying(byPowerOf10: pDpDecimal)
-        print("toPAmount ", toPAmount)
         
         let collateralAmount = toCAmount.multiplying(byPowerOf10: -cDpDecimal)
         let rawDebtAmount = toPAmount.multiplying(by: cParam!.getLiquidationRatio()).multiplying(byPowerOf10: -pDpDecimal)
         liquidationPrice = rawDebtAmount.dividing(by: collateralAmount, withBehavior: WUtils.getDivideHandler(pDpDecimal))
         riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
         
-        print("collateralAmount ", collateralAmount)
-        print("rawDebtAmount ", rawDebtAmount)
-        print("liquidationPrice ", liquidationPrice)
-        print("riskRate ", riskRate)
+        if (SHOW_LOG) {
+            print("toPAmount ", toPAmount)
+            print("collateralAmount ", collateralAmount)
+            print("rawDebtAmount ", rawDebtAmount)
+            print("liquidationPrice ", liquidationPrice)
+            print("riskRate ", riskRate)
+        }
         return true
     }
     
@@ -473,8 +473,6 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
             cMaxAmount = account!.getTokenBalance(cDenom)
             cMinAmount = pMinAmount.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05263157895")).multiplying(by: cParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Up)
-            print("cMinAmount ", cMinAmount)
-                
             
             cAvailabeMinLabel.attributedText = WUtils.displayAmount2(cMinAmount.stringValue, cAvailabeMinLabel.font!, cDpDecimal, cDpDecimal)
             cAvailabeMaxLabel.attributedText = WUtils.displayAmount2(cMaxAmount.stringValue, cAvailabeMaxLabel.font!, cDpDecimal, cDpDecimal)
@@ -501,7 +499,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     func onFetchCdpParam() {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_CDP_PARAM
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CDP_PARAM
         }
@@ -527,7 +525,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     func onFetchKavaPrice(_ market:String) {
         var url: String?
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            url = ""
+            url = KAVA_TOKEN_PRICE + market
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_TOKEN_PRICE + market
         }

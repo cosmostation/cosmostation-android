@@ -97,13 +97,11 @@ public class CdpAllFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull AllCdpHolder holder, int position) {
             final ResCdpParam.KavaCollateralParam param = mKavaCollateralParam.get(position);
-//            final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(param.denom);
 
             holder.itemTitleMarket.setText(param.getDpMarketId());
             holder.itemCollateralRate.setText(WDp.getPercentDp(param.getDpLiquidationRatio(), 2));
             holder.itemStabilityFee.setText(WDp.getPercentDp(param.getDpStabilityFee(), 2));
             holder.itemLiquidationPenalty.setText(WDp.getPercentDp(param.getDpLiquidationPenalty(), 2));
-//            holder.itemCurrentPrice.setText(WDp.getDpRawDollor(getContext(), price.price, 4));
 
             Picasso.get().cancelRequest(holder.itemImgMarket);
             try {

@@ -338,6 +338,9 @@ public class BaseConstant {
     public final static int CMC_BNB = 1839;
     public final static int CMC_KAVA = 4846;
 
+
+    public final static String BNB_DEPUTY = "";
+    public final static String KAVA_DEPUTY = "";
     public final static String BNB_TEST_DEPUTY = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
     public final static String KAVA_TEST_DEPUTY = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl";
 

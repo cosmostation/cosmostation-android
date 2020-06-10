@@ -127,14 +127,12 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
 
     private int mTaskCount = 0;
     public void onFetchCdpInfo() {
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            //not yet
-
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mTaskCount = 1;
             mKavaTokenPrices.clear();
             mMyOwenCdps.clear();
             new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
     }
 
@@ -150,7 +148,7 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
                 if (cdpParam != null && cdpParam.collateral_params != null && cdpParam.collateral_params.size() > 0) {
                     mTaskCount = mTaskCount + (cdpParam.collateral_params.size() * 2);
                     for (ResCdpParam.KavaCollateralParam param:getBaseDao().mKavaCdpParams.collateral_params) {
-                        new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), param.market_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), param.market_id + ":30").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, param.denom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
                 }

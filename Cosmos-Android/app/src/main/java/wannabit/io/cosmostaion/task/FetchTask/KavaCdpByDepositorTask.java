@@ -30,7 +30,14 @@ public class KavaCdpByDepositorTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                //mainnet not yet!
+                Response<ResCdpDepositStatus> response = ApiClient.getKavaChain(mApp).getCdpDepositStatus(mAddress, mDenom).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+
+                } else {
+                    WLog.w("KavaCdpByDepositor : NOk");
+                }
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
                 Response<ResCdpDepositStatus> response = ApiClient.getKavaTestChain(mApp).getCdpDepositStatus(mAddress, mDenom).execute();
