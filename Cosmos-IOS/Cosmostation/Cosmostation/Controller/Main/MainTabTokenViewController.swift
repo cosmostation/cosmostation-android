@@ -106,7 +106,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "kavaImg")
             titleChainName.text = "(KAVA Chain)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
+            kavaOracle.isHidden = false
             totalCard.backgroundColor = TRANS_BG_COLOR_KAVA
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             titleChainImg.image = UIImage(named: "iovImg")
