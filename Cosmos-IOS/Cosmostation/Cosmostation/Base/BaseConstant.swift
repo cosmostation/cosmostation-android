@@ -37,8 +37,9 @@ let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 
-let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
-let KAVA_API                            = "https://api-kava.cosmostation.io/";
+//let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
+let KAVA_URL                            = "https://lcd-kava-testnet-6000.cosmostation.io/";
+let KAVA_API                            = "https://api-kava-testnet-6000.cosmostation.io/";
 
 let KAVA_TEST_URL                       = "https://lcd-kava-testnet-6000.cosmostation.io/";
 let KAVA_TEST_API                       = "https://api-kava-testnet-6000.cosmostation.io/";

@@ -916,17 +916,18 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (swapId == nil) {self.onUpdateView()}
         var url = ""
         if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            url = BNB_URL_CHECK_SWAPID + swapId!
             
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             url = BNB_TEST_URL_CHECK_SWAPID + swapId!
-            print("swapId url ", url)
             
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_CHECK_SWAPID + swapId!
             
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CHECK_SWAPID + swapId!
-            print("swapId url ", url)
         }
+        print("swapId url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {

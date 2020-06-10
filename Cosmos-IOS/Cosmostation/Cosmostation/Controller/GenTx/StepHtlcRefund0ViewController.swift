@@ -72,10 +72,13 @@ class StepHtlcRefund0ViewController: BaseViewController {
     func onFetchSwapInfo(_ swapId: String) {
         var url = ""
         if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            url = BNB_URL_CHECK_SWAPID + swapId
             
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             url = BNB_TEST_URL_CHECK_SWAPID + swapId
+            
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_CHECK_SWAPID + swapId
             
         } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_CHECK_SWAPID + swapId
