@@ -47,13 +47,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.refresher.tintColor = UIColor.white
         self.historyTableView.addSubview(refresher)
         
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             onFetchHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             comingLabel.isHidden = false
@@ -126,13 +124,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onRequestFetch() {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             onFetchHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             comingLabel.isHidden = false
@@ -140,13 +136,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return self.mHistories.count
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return self.mBnbHistories.count
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return self.mApiHistories.count
         }
         return 0
@@ -164,7 +158,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return onSetIovItem(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            return onSetKavaTestItem(tableView, indexPath);
+            return onSetKavaItem(tableView, indexPath);
         }
         return onSetEmptyItem(tableView, indexPath);
     }
@@ -210,27 +204,12 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         return cell!
     }
     
-    func onSetKavaItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.timestamp)
-        cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.timestamp)
-        cell?.txBlockLabel.text = String(history._source.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mainTabVC.mAccount.account_address)
-        if (history._source.allResult) {
-            cell?.txResultLabel.isHidden = true
-        } else {
-            cell?.txResultLabel.isHidden = false
-        }
-        return cell!
-    }
-    
     func onSetIovItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
         return cell!
     }
     
-    func onSetKavaTestItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+    func onSetKavaItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
         let history = mApiHistories[indexPath.row]
         cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
@@ -276,16 +255,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            let history = mHistories[indexPath.row]
-            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-            txDetailVC.mIsGen = false
-            txDetailVC.mTxHash = history._source.hash
-            txDetailVC.hidesBottomBarWhenPushed = true
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(txDetailVC, animated: true)
-            
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let history = mApiHistories[indexPath.row]
             let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
             txDetailVC.mIsGen = false
@@ -325,10 +295,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.address\", \"tx.value.msg.value.owner\", \"tx.value.msg.value.banker\", \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.proposer\", \"tx.value.msg.value.dest_address\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.author\", \"tx.value.msg.value.consumer\", \"tx.value.msg.value.trustee\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\"]}}}"
             url = IRIS_ES_PROXY_IRIS
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\", \"tx.value.msg.value.proposer\"]}}}"
-            url = KAVA_ES_PROXY_IRIS
         }
+//        else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+//            query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\", \"tx.value.msg.value.proposer\"]}}}"
+//            url = KAVA_ES_PROXY_IRIS
+//        }
         let data = query.data(using: .utf8)
         do {
             let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
@@ -401,10 +372,12 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchApiHistory(_ address:String) {
         var url: String?
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_API_HISTORY + address
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_API_TEST_HISTORY + address
-            print("url ", url)
         }
+        print("url ", url)
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {

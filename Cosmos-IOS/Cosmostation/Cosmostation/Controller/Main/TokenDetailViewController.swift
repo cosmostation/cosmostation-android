@@ -343,7 +343,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
         let unbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
-        let totalKava = WUtils.getAllKavaTest(balances, bondingList, unbondingList, allRewards, allValidator)
+        let totalKava = WUtils.getAllKava(balances, bondingList, unbondingList, allRewards, allValidator)
         
         cell?.totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.totalAmount.font!, 6, 6)
         cell?.totalValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.totalValue.font)

@@ -10,6 +10,7 @@ import UIKit
 
 class WalletKavaIncentiveCell: UITableViewCell {
 
+    @IBOutlet weak var rootCard: CardView!
     @IBOutlet weak var btnParticipate: UIButton!
     @IBOutlet weak var participateDone: UILabel!
     @IBOutlet weak var BtnConstraint: NSLayoutConstraint!
