@@ -322,13 +322,13 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mBnbTransfer.setVisibility(View.VISIBLE);
             mBtnSendBnb.setOnClickListener(this);
             mBtnReceiveBnb.setOnClickListener(this);
+            mBtnInterChain.setVisibility(View.VISIBLE);
+            mBtnInterChain.setOnClickListener(this);
+
             if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                mBtnInterChain.setVisibility(View.GONE);
                 mBtnBuyBnb.setVisibility(View.VISIBLE);
                 mBtnBuyBnb.setOnClickListener(this);
             } else {
-                mBtnInterChain.setVisibility(View.VISIBLE);
-                mBtnInterChain.setOnClickListener(this);
                 mBtnBuyBnb.setVisibility(View.GONE);
             }
 
@@ -346,37 +346,15 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvBnbValue.setText(WDp.getValueOfBnb(this, getBaseDao(), BigDecimal.ZERO));
             }
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) && mBalance.symbol.equals(COSMOS_KAVA)) {
+        } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST))&& mBalance.symbol.equals(COSMOS_KAVA)) {
             mKavaCard.setVisibility(View.VISIBLE);
             mKavaAction.setVisibility(View.GONE);
             mKavaTransfer.setVisibility(View.VISIBLE);
             if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 mBtnBuyKava.setVisibility(View.VISIBLE);
                 mBtnBuyKava.setOnClickListener(this);
-            }
-            mBtnSendKava.setOnClickListener(this);
-            mBtnReceiveKava.setOnClickListener(this);
-
-            mBalances = getBaseDao().onSelectBalance(mAccount.id);
-            mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
-            mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
-
-            BigDecimal totalAmount = WDp.getAllKava(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
-            mTvKavaTotal.setText(WDp.getDpAmount(this, totalAmount, 6, mBaseChain));
-            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, COSMOS_KAVA));
-            mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));
-            mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
-            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(this, mRewards, mBaseChain, COSMOS_KAVA));
-            mTvKavaVesting.setText(WDp.getDpVestedCoin(this, mBalances, mBaseChain, COSMOS_KAVA));
-            mTvKavaValue.setText(WDp.getValueOfKava(this, getBaseDao(), totalAmount));
-
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST) && mBalance.symbol.equals(COSMOS_KAVA)) {
-            mKavaCard.setVisibility(View.VISIBLE);
-            mKavaAction.setVisibility(View.GONE);
-            mKavaTransfer.setVisibility(View.VISIBLE);
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                mBtnBuyKava.setVisibility(View.VISIBLE);
-                mBtnBuyKava.setOnClickListener(this);
+            } else {
+                mBtnBuyKava.setVisibility(View.GONE);
             }
             mBtnSendKava.setOnClickListener(this);
             mBtnReceiveKava.setOnClickListener(this);
@@ -454,10 +432,10 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                             .into(mTokenImg);
 
                 } catch (Exception e) { }
-                if (mBalance.symbol.equals("bnb") && mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                if (mBalance.symbol.equals("bnb")) {
                     mBtnBep3Send.setVisibility(View.VISIBLE);
                     mBtnBep3Send.setOnClickListener(this);
-                } else if (mBalance.symbol.equals("usdx") && mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                } else if (mBalance.symbol.equals("usdx")) {
                     mTokenLink.setVisibility(View.VISIBLE);
                     mBtnTokenDetail.setOnClickListener(this);
                 } else {
@@ -485,8 +463,10 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString(), mBnbToken.symbol);
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            ReqTxToken req = new ReqTxToken(0, 0, true, mAccount.address, mBalance.symbol);
-            new TokenHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            ReqTxToken req = new ReqTxToken(0, 0, true, mAccount.address, mBalance.symbol);
+//            new TokenHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
 
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
             new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -742,37 +722,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     }
                 });
 
-            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                final ResHistory.Source source = mHistory.get(position)._source;
-                if(source.isSuccess()) {
-                    viewHolder.historySuccess.setVisibility(View.GONE);
-                } else {
-                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
-                }
-                viewHolder.historyType.setText(WDp.DpTxType(getBaseContext(), source.tx.value.msg, mAccount.address));
-                viewHolder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.timestamp));
-                viewHolder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.timestamp));
-                viewHolder.history_block.setText(source.height + " block");
-                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int TxType = WDp.getHistoryDpType(source.tx.value.msg, mAccount.address);
-                        if (TxType > TX_TYPE_UNKNOWN && TxType <= TX_TYPE_REINVEST) {
-                            Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
-                            txDetail.putExtra("txHash", source.hash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
-                        } else {
-                            Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                            webintent.putExtra("txid", source.hash);
-                            webintent.putExtra("chain", mBaseChain.getChain());
-                            startActivity(webintent);
-                        }
-                    }
-                });
-
-            } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);
                 if (tx.logs != null) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
@@ -798,13 +748,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public int getItemCount() {
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) ||
-                    mBaseChain.equals(BaseChain.IRIS_MAIN) ||
-                    mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 return mHistory.size();
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
                 return mBnbHistory.size();
-            } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 return mApiTxHistory.size();
             }
             return 0;

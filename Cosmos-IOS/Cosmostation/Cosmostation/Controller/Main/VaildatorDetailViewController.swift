@@ -1047,16 +1047,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-                    self.mApiHistories.removeAll()
-                    guard let histories = res as? Array<NSDictionary> else {
-                        print("no history!!")
-                        return;
-                    }
-                    for rawHistory in histories {
-                        self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
-                    }
+                self.mApiHistories.removeAll()
+                guard let histories = res as? Array<NSDictionary> else {
+                    print("no history!!")
+                    return;
                 }
+                for rawHistory in histories {
+                    self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
+                }
+                print("mApiHistories.count ", self.mApiHistories.count)
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchApiHistory ", error) }

@@ -290,6 +290,10 @@ public class WKey {
             return bech32Encode("cosmos".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(IRIS_MAIN)) {
             return bech32Encode("iaa".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            return bech32Encode("kava".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(BAND_MAIN)) {
+            return bech32Encode("band".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
@@ -300,6 +304,10 @@ public class WKey {
             return bech32Encode("cosmosvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(IRIS_MAIN)) {
             return bech32Encode("iva".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            return bech32Encode("kavavaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(BAND_MAIN)) {
+            return bech32Encode("bandvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
