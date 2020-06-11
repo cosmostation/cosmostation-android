@@ -128,6 +128,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         iovAction.setValue(UIImage(named: "iovImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let bandAction = UIAlertAction(title: NSLocalizedString("chain_title_band", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.SUPPORT_CHAIN_BAND_MAIN
+            self.initViewUpdate()
+        })
+        bandAction.setValue(UIImage(named: "bandChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let bnbTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_bnb", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SUPPORT_CHAIN_BINANCE_TEST
             self.initViewUpdate()
@@ -147,6 +153,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.SUPPORT_CHAIN_IOV_MAIN)) {
             showAlert.addAction(iovAction)
         }
+        showAlert.addAction(bandAction)
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.SUPPORT_CHAIN_BINANCE_TEST)) {
             showAlert.addAction(bnbTestAction)
         }
