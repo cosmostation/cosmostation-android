@@ -379,6 +379,11 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     self.mTimeStamp = Date().millisecondsSince1970 / 1000
                     self.mRandomNumber = WKey.generateRandomBytes()
                     self.mRandomNumberHash = WKey.getRandomNumnerHash(self.mRandomNumber!, self.mTimeStamp!)
+                    if (SHOW_LOG) {
+                        print("KAVA mTimeStamp ", self.mTimeStamp)
+                        print("KAVA mRandomNumber ", self.mRandomNumber)
+                        print("KAVA mRandomNumberHash ", self.mRandomNumberHash)
+                    }
                     
                     let msg = MsgGenerator.genCreateSwapMsg(self.chainType!, self.mHtlcToChain!,
                                                             self.account!, self.mHtlcToAccount!,
@@ -465,14 +470,14 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         }
     }
     
-    var mSwapFetchCnt = 8
+    var mSwapFetchCnt = 10
     func onFetchSwapId() {
         onUpdateProgress(1)
 //        print("onFetchSwapId ", mSwapFetchCnt)
         var url = ""
         if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_DEPUTY, self.account!.account_address)
-            url = BNB_TEST_URL_CHECK_SWAPID + swapId
+            url = BNB_URL_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("BINANCE_MAIN swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
@@ -482,7 +487,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             
         } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_DEPUTY, self.account!.account_address)
-            url = KAVA_TEST_CHECK_SWAPID + swapId
+            url = KAVA_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("KAVA_MAIN swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
@@ -502,6 +507,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {
                             self.onFetchSwapId()
                         })
+                    } else {
+                        //Sometimes check swapid didn't callback!!
+                        self.onCheckClaimHtlcSwap()
                     }
                     return
                 }
@@ -518,7 +526,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         self.onFetchSwapId()
                     })
                 } else {
-                    self.onUpdateView(error.localizedDescription)
+//                    self.onUpdateView(error.localizedDescription)
+                    //Sometimes check swapid didn't callback!!
+                    self.onCheckClaimHtlcSwap()
                 }
                 return
             }
@@ -646,9 +656,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
                     var swapId: String = "";
                     if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                        swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_DEPUTY, self.account!.account_address)
-                    } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                         swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_DEPUTY, self.account!.account_address)
+                    } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                        swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_DEPUTY, self.account!.account_address)
                     }
                     let msg = MsgGenerator.genClaimAtomicSwap(self.mHtlcToAccount!.account_address,
                                                               swapId,

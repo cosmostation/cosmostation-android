@@ -292,7 +292,7 @@ class MsgGenerator {
                 value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
             } catch { print(error) }
             
-            value.height_span = "500"
+            value.height_span = "250"
             
         } else  if (fromChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             value.from = fromAccount.account_address
