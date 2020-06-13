@@ -214,6 +214,23 @@ public class HtlcRefundActivity extends BaseActivity {
 
     private void onFetchHtlcStatus(String swapId) {
         if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            ApiClient.getKavaChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResKavaSwapInfo>() {
+                @Override
+                public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        onHideWaitDialog();
+                        mResKavaSwapInfo = response.body();
+                        mPageAdapter.mCurrentFragment.onRefreshTab();
+                    } else {
+                        onBackPressed();
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResKavaSwapInfo> call, Throwable t) {
+                    WLog.w("onFetchHtlcStatus " + t.getMessage());
+                    onBackPressed();
+                }
+            });
 
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
             ApiClient.getKavaTestChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResKavaSwapInfo>() {
@@ -233,7 +250,26 @@ public class HtlcRefundActivity extends BaseActivity {
                     onBackPressed();
                 }
             });
+
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            ApiClient.getBnbChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResBnbSwapInfo>() {
+                @Override
+                public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        onHideWaitDialog();
+                        mResBnbSwapInfo = response.body();
+                        mPageAdapter.mCurrentFragment.onRefreshTab();
+                    } else {
+                        onBackPressed();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResBnbSwapInfo> call, Throwable t) {
+                    WLog.w("onFetchHtlcStatus " + t.getMessage());
+                    onBackPressed();
+                }
+            });
 
         } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
             ApiClient.getBnbTestChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResBnbSwapInfo>() {

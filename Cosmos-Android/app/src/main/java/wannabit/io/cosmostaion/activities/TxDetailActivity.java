@@ -51,6 +51,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC_REFUND
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_TRANSFER3;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
@@ -336,7 +337,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             if (getItemViewType(position) == TYPE_TX_COMMON) {
                 onBindCommon(viewHolder);
             } else if (getItemViewType(position) == TYPE_TX_TRANSFER) {
-                onBindTransfer(viewHolder, mResTxInfo.getMsg(position - 1));
+                onBindTransfer(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_DELEGATE) {
                 onBindDelegate(viewHolder, mResTxInfo.getMsg(position - 1));
             } else if (getItemViewType(position) == TYPE_TX_UNDELEGATE) {
@@ -374,7 +375,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (getItemViewType(position) == TYPE_TX_INCENTIVE_REWARD) {
                 onBindIncentive(viewHolder, position);
             } else {
-                onBindUnKnown(viewHolder, mResTxInfo.getMsg(position - 1));
+                onBindUnKnown(viewHolder, position);
             }
         }
 
@@ -402,10 +403,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
                     if (mResBnbTxInfo.getMsgType(position - 1).equals(BNB_MSG_TYPE_HTLC)) {
                         return TYPE_TX_HTLC_CREATE;
-                    } else if (mResBnbTxInfo.getMsgType(position - 1) .equals(BNB_MSG_TYPE_HTLC_CLIAM)) {
+                    } else if (mResBnbTxInfo.getMsgType(position - 1).equals(BNB_MSG_TYPE_HTLC_CLIAM)) {
                         return TYPE_TX_HTLC_CLAIM;
-                    } else if (mResBnbTxInfo.getMsgType(position - 1) .equals(BNB_MSG_TYPE_HTLC_REFUND)) {
+                    } else if (mResBnbTxInfo.getMsgType(position - 1).equals(BNB_MSG_TYPE_HTLC_REFUND)) {
                         return TYPE_TX_HTLC_REFUND;
+                    } else if (mResBnbTxInfo.getMsgType(position - 1).equals(COSMOS_MSG_TYPE_TRANSFER)) {
+                        return TYPE_TX_TRANSFER;
                     }
                     return TYPE_TX_UNKNOWN;
 
@@ -552,10 +555,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         }
 
-        private void onBindTransfer(RecyclerView.ViewHolder viewHolder, Msg msg) {
+        private void onBindTransfer(RecyclerView.ViewHolder viewHolder, int position) {
             final TxTransferHolder holder = (TxTransferHolder)viewHolder;
             holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
                 ArrayList<Coin> toDpCoin = new ArrayList<>();
                 if (msg.type.equals(COSMOS_MSG_TYPE_TRANSFER2))  {
                     holder.itemFromAddress.setText(msg.value.from_address);
@@ -611,6 +615,18 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                final Msg msg = mResBnbTxInfo.getMsg(position - 1);
+                holder.itemFromAddress.setText(msg.value.inputs.get(0).address);
+                holder.itemToAddress.setText(msg.value.outputs.get(0).address);
+                if (mAccount.address.equals(msg.value.inputs.get(0).address)) {
+                    holder.itemSendRecieveTv.setText(R.string.tx_send);
+                }
+                if (mAccount.address.equals(msg.value.outputs.get(0).address)) {
+                    holder.itemSendRecieveTv.setText(R.string.tx_receive);
+                }
+                ArrayList<Coin> toDpCoin = msg.value.inputs.get(0).coins;
+                holder.itemSingleCoinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), toDpCoin.get(0), holder.itemAmountDenom, holder.itemAmount, mBaseChain);
 
             }
         }
@@ -993,7 +1009,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
-        private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, Msg msg) {
+//        private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, Msg msg) {
+//            final TxUnKnownHolder holder = (TxUnKnownHolder)viewHolder;
+//            holder.itemUnknownImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+//        }
+        private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, int position) {
             final TxUnKnownHolder holder = (TxUnKnownHolder)viewHolder;
             holder.itemUnknownImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         }

@@ -510,7 +510,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     txIntent.putExtra("txHash", hash);
                 startActivity(txIntent);
 
-            } else if (mBaseChain.equals(BaseChain.BNB_TEST) && result.taskType == BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND) {
+            } else if ((mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) && result.taskType == BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
                 txIntent.putExtra("isGen", true);
                 txIntent.putExtra("isSuccess", result.isSuccess);

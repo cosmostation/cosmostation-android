@@ -291,10 +291,22 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                        webintent.putExtra("txid", history.txHash);
-                        webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                        startActivity(webintent);
+//                        if (history.txType.equals("HTL_TRANSFER") || history.txType.equals("CLAIM_HTL") || history.txType.equals("REFUND_HTL") ||
+//                                history.txType.equals("NEW_ORDER") || history.txType.equals("CANCEL_ORDER") || history.txType.equals("TRANSFER")) {
+                        if (history.txType.equals("HTL_TRANSFER") || history.txType.equals("CLAIM_HTL") || history.txType.equals("REFUND_HTL") || history.txType.equals("TRANSFER")) {
+                            Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                            txDetail.putExtra("txHash", history.txHash);
+                            txDetail.putExtra("isGen", false);
+                            txDetail.putExtra("isSuccess", true);
+                            txDetail.putExtra("bnbTime", history.timeStamp);
+                            startActivity(txDetail);
+
+                        } else {
+                            Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+                            webintent.putExtra("txid", history.txHash);
+                            webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
+                            startActivity(webintent);
+                        }
                     }
                 });
 
