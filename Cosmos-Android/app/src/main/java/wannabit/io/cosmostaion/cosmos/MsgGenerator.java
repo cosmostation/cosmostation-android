@@ -412,7 +412,7 @@ public class MsgGenerator {
             value.random_number_hash = WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase();
             value.timestamp = String.valueOf(timestamp);
             value.amount = sendCoins;
-            value.height_span = "500";
+            value.height_span = "250";
 
             result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
             result.value = value;
@@ -469,14 +469,6 @@ public class MsgGenerator {
         Coin toSendCoin = sendCoins.get(0);
         if (fromChain.equals(BaseChain.BNB_MAIN)) {
             if (toChain.equals(BaseChain.KAVA_MAIN)) {
-
-            } else if (toChain.equals(BaseChain.KAVA_TEST)) {
-                //NO case
-
-            }
-
-        } else if (fromChain.equals(BaseChain.BNB_TEST)) {
-            if (toChain.equals(BaseChain.KAVA_MAIN)) {
                 htltReq.setRecipient(BNB_DEPUTY);
                 htltReq.setRecipientOtherChain(toAccount.address);
                 htltReq.setSenderOtherChain(KAVA_DEPUTY);
@@ -490,6 +482,14 @@ public class MsgGenerator {
                 htltReq.setExpectedIncome(sendAmount.toPlainString() + ":" + toSendCoin.denom);
                 htltReq.setHeightSpan(10001);
                 htltReq.setCrossChain(true);
+
+            } else if (toChain.equals(BaseChain.KAVA_TEST)) {
+                //NO case
+            }
+
+        } else if (fromChain.equals(BaseChain.BNB_TEST)) {
+            if (toChain.equals(BaseChain.KAVA_MAIN)) {
+                //NO case
 
             } else if (toChain.equals(BaseChain.KAVA_TEST)) {
                 htltReq.setRecipient(BNB_TEST_DEPUTY);

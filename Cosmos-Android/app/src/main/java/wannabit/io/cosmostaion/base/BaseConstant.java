@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -339,8 +339,8 @@ public class BaseConstant {
     public final static int CMC_KAVA = 4846;
 
 
-    public final static String BNB_DEPUTY = "";
-    public final static String KAVA_DEPUTY = "";
+    public final static String BNB_DEPUTY = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
+    public final static String KAVA_DEPUTY = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
     public final static String BNB_TEST_DEPUTY = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
     public final static String KAVA_TEST_DEPUTY = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl";
 

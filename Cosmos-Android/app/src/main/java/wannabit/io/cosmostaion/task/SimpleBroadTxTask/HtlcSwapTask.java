@@ -43,8 +43,10 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_TEST_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_SWAP;
 
@@ -157,7 +159,7 @@ public class HtlcSwapTask extends CommonProgressTask {
             HtltReq htltReq = MsgGenerator.getBnbHtlcCreateMsg(mSendChain, mReceiveChain, mSendAccount, mReceiveAccount, mToSendCoins, timestamp, originData);
             mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
             mRandomNumberHash = htltReq.getRandomNumberHash();
-            mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_TEST_DEPUTY, mSendAccount.address).toUpperCase();
+            mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_DEPUTY, mSendAccount.address).toUpperCase();
             WLog.w("BNB_MAIN mRandomNumberHash " + mRandomNumberHash);
             WLog.w("BNB_MAIN mRandomNumber " + mRandomNumber);
             WLog.w("BNB_MAIN Send mExpectedSwapId " + mExpectedSwapId);
@@ -246,7 +248,7 @@ public class HtlcSwapTask extends CommonProgressTask {
 
             mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
             mRandomNumberHash = WUtil.HexStringToByteArray(createSwapMsg.value.random_number_hash);
-            mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BNB_TEST_DEPUTY, mSendAccount.address).toUpperCase();
+            mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BNB_DEPUTY, mSendAccount.address).toUpperCase();
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey);
             WLog.w("KAVA_MAIN mRandomNumber " + mRandomNumber);
             WLog.w("KAVA_MAIN Send mExpectedSwapId " + mExpectedSwapId);

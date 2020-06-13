@@ -251,37 +251,34 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
     public void onStartHTLCSendActivity() {
-        Toast.makeText(getBaseContext(), "This feature will open when RELAYER!!", Toast.LENGTH_SHORT).show();
-        return;
+        if (mAccount == null) return;
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
 
-//        if (mAccount == null) return;
-//        if (!mAccount.hasPrivateKey) {
-//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return;
-//        }
-//
-//        boolean hasbalance = false;
-//        Intent intent = new Intent(getBaseContext(), HtlcSendActivity.class);
-//        if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
-//            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BEP3_SEND_CHECK)) > 0) {
-//                hasbalance  = true;
-//            }
-//
-//        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-//            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BEP3_SEND_MIN).movePointRight(8)) > 0) {
-//                hasbalance  = true;
-//            }
-//
-//        } else {
-//            return;
-//        }
-//        if (!hasbalance) {
-//            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget_bep3, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        startActivity(intent);
+        boolean hasbalance = false;
+        Intent intent = new Intent(getBaseContext(), HtlcSendActivity.class);
+        if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BEP3_SEND_CHECK)) > 0) {
+                hasbalance  = true;
+            }
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (WDp.getAvailableCoin(mAccount.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BEP3_SEND_MIN).movePointRight(8)) > 0) {
+                hasbalance  = true;
+            }
+
+        } else {
+            return;
+        }
+        if (!hasbalance) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget_bep3, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        startActivity(intent);
     }
 
     public void onStartIncentiveClaim() {
