@@ -98,7 +98,7 @@ public class SendActivity extends BaseActivity {
             if (mBnbToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             if (TextUtils.isEmpty(mIovDenom)) onBackPressed();
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (TextUtils.isEmpty(mKavaDenom)) onBackPressed();
         }
 

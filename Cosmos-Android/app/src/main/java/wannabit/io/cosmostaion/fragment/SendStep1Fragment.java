@@ -132,14 +132,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 8, getSActivity().mBaseChain));
             }
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            mDpDecimal = 6;
-            setDpDecimals(mDpDecimal);
-            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            mMaxAvailable = getSActivity().mAccount.getKavaBalance();
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mDpDecimal = WUtil.getKavaCoinDecimal(getSActivity().mKavaDenom);
             setDpDecimals(mDpDecimal);
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mKavaDenom);
