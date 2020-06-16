@@ -326,12 +326,12 @@
     <string name="str_tx_fee_used">Tx 수수료 사용량</string>
     <string name="str_tx_fee_limit">Tx 수수료 최대량</string>
     <string name="str_from">출금 주소</string>
-    <string name="str_to">입금 추소</string>
+    <string name="str_to">입금 주소</string>
     <string name="str_delegator">위임자</string>
     <string name="str_undelegator">위임해재자</string>
     <string name="str_redelegator">재위임자</string>
     <string name="str_auto_claimed_reward">자동 수집 이자</string>
-    <string name="str_from_validator">출발 검증안</string>
+    <string name="str_from_validator">출발 검증인</string>
     <string name="str_to_validator">도착 검증인</string>
     <string name="str_validators">검증인들</string>
     <string name="str_amount_sum">합계 총액</string>
