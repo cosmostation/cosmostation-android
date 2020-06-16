@@ -150,6 +150,7 @@
 		2868559B24989ACD0099D18F /* DelegateWarnPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559924989ACD0099D18F /* DelegateWarnPopup.swift */; };
 		2868559C24989ACD0099D18F /* DelegateWarnPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */; };
 		2868559E2498C2D10099D18F /* KavaSwapSupply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559D2498C2D10099D18F /* KavaSwapSupply.swift */; };
+		286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559F2498DBBF0099D18F /* KavaSupply.swift */; };
 		2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */; };
 		2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */; };
 		2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */; };
@@ -531,6 +532,7 @@
 		2868559924989ACD0099D18F /* DelegateWarnPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateWarnPopup.swift; sourceTree = "<group>"; };
 		2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelegateWarnPopup.xib; sourceTree = "<group>"; };
 		2868559D2498C2D10099D18F /* KavaSwapSupply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapSupply.swift; sourceTree = "<group>"; };
+		2868559F2498DBBF0099D18F /* KavaSupply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSupply.swift; sourceTree = "<group>"; };
 		2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUnbondingInfoCellTableViewCell.swift; sourceTree = "<group>"; };
 		2876AD5D240CE4A6005B33F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletUnbondingInfoCellTableViewCell.xib; sourceTree = "<group>"; };
 		2876AD62240CE966005B33F4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletUnbondingInfoCellTableViewCell.strings; sourceTree = "<group>"; };
@@ -1184,6 +1186,7 @@
 				2852D76F2477E41A00D11DC4 /* KavaIncentiveParam.swift */,
 				28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */,
 				2868559D2498C2D10099D18F /* KavaSwapSupply.swift */,
+				2868559F2498DBBF0099D18F /* KavaSupply.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1610,6 +1613,7 @@
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				2888B7FC246BC17300B2EB4A /* BnbNodeInfo.swift in Sources */,
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
+				286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */,
 				E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */,
 				282FF34923F50C540028CC66 /* TxUndelegateCell.swift in Sources */,
 				E1BA208E22F8117000EAB87F /* IrisStdSignMsg.swift in Sources */,

@@ -148,6 +148,7 @@ let KAVA_CHECK_SWAPID                   = KAVA_URL + "bep3/swap/";
 let KAVA_CHECK_SWAP_SUPPLY              = KAVA_URL + "bep3/supplies";
 let KAVA_INCENTIVE_PARAM                = KAVA_URL + "incentive/parameters";
 let KAVA_MY_INCENTIVE                   = KAVA_URL + "incentive/claims/";
+let KAVA_CHECK_SUPPLY                   = KAVA_URL + "supply/total";
 
 let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
 let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";

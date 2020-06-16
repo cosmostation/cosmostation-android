@@ -94,6 +94,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mHtlcRefundSwapId: String?
     var mBnbSwapInfo: BnbSwapInfo?
     var mKavaSwapInfo: KavaSwapInfo?
+    var mSwapRemainCap: NSDecimalNumber = NSDecimalNumber.zero
+    
 
     
     lazy var orderedViewControllers: [UIViewController] = {

@@ -295,13 +295,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             self.onShowToast(NSLocalizedString("error_less_than_min_deposit", comment: ""))
             return
         }
-        
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = KAVA_MSG_TYPE_CREATE_CDP
-        txVC.cDenom = cDenom
-        txVC.mMarketID = mMarketID
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
+        onCheckSupply(KAVA_MSG_TYPE_CREATE_CDP)
     }
     
     func onClickDeposit() {
@@ -342,13 +336,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             self.onShowToast(NSLocalizedString("error_can_not_draw_debt", comment: ""))
             return
         }
-        
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = KAVA_MSG_TYPE_DRAWDEBT_CDP
-        txVC.cDenom = cDenom
-        txVC.mMarketID = mMarketID
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
+        onCheckSupply(KAVA_MSG_TYPE_DRAWDEBT_CDP)
     }
     
     func onClickRepay() {
@@ -561,6 +549,49 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
                     if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }
                 }
             self.onFetchFinished()
+        }
+    }
+    
+    
+    func onCheckSupply(_ msgType:String) {
+        let request = Alamofire.request(KAVA_CHECK_SUPPLY, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
+                let supply = KavaSupply.init(info)
+                if (self.cdpParam!.result.getGlobalDebtAmount().compare(supply.getDebtAmount()).rawValue <= 0) {
+                    let msg = String(format: NSLocalizedString("error_no_more_debt_kava", comment: ""),
+                                     supply.getDebtAmount().multiplying(byPowerOf10: -6, withBehavior: WUtils.handler0) .stringValue,
+                                     self.cdpParam!.result.getGlobalDebtAmount().multiplying(byPowerOf10: -6, withBehavior: WUtils.handler0).stringValue)
+                    self.onShowToast(msg)
+                } else {
+                    if (msgType == KAVA_MSG_TYPE_CREATE_CDP) {
+                        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+                        txVC.mType = KAVA_MSG_TYPE_CREATE_CDP
+                        txVC.cDenom = self.cDenom
+                        txVC.mMarketID = self.mMarketID
+                        self.navigationItem.title = ""
+                        self.navigationController?.pushViewController(txVC, animated: true)
+                        
+                    } else if (msgType == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
+                        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+                        txVC.mType = KAVA_MSG_TYPE_DRAWDEBT_CDP
+                        txVC.cDenom = self.cDenom
+                        txVC.mMarketID = self.mMarketID
+                        self.navigationItem.title = ""
+                        self.navigationController?.pushViewController(txVC, animated: true)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                return
+            }
         }
     }
 }

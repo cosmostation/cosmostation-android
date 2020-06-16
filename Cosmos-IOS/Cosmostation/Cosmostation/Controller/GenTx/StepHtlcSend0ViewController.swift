@@ -54,12 +54,12 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     }
     
     @IBAction func onClickNext(_ sender: UIButton) {
-        pageHolderVC.mHtlcToChain = self.toChain
         if (pageHolderVC.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             onCheckSwapSupply()
         } else {
             self.btnCancel.isUserInteractionEnabled = false
             self.btnNext.isUserInteractionEnabled = false
+            self.pageHolderVC.mHtlcToChain = self.toChain
             pageHolderVC.onNextPage()
         }
     }
@@ -83,6 +83,8 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
             } else {
                 self.btnCancel.isUserInteractionEnabled = false
                 self.btnNext.isUserInteractionEnabled = false
+                self.pageHolderVC.mHtlcToChain = self.toChain
+                self.pageHolderVC.mSwapRemainCap = self.swapSupply.getRemainAmount().multiplying(byPowerOf10: -8)
                 pageHolderVC.onNextPage()
             }
             

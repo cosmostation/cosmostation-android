@@ -71,6 +71,14 @@ public class CdpParam {
             }
             return nil
         }
+        
+        public func getGlobalDebtAmount() -> NSDecimalNumber {
+            var result = NSDecimalNumber.zero
+            if (global_debt_limit != nil && !global_debt_limit!.denom.isEmpty) {
+                result =  NSDecimalNumber.init(string: global_debt_limit?.amount)
+            }
+            return result
+        }
     }
     
     public class CollateralParam {
