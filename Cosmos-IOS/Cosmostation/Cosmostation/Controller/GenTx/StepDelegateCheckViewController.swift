@@ -11,7 +11,7 @@ import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
 
-class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate {
+class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate, SBCardPopupDelegate {
     
     @IBOutlet weak var toDelegateAmountLabel: UILabel!
     @IBOutlet weak var toDelegateAmountDenom: UILabel!
@@ -32,12 +32,10 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate 
     }
 
     @IBAction func onClickConfirm(_ sender: Any) {
-        let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-        self.navigationItem.title = ""
-        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
-        passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
-        passwordVC.resultDelegate = self
-        self.navigationController?.pushViewController(passwordVC, animated: false)
+        let popupVC = DelegateWarnPopup(nibName: "DelegateWarnPopup", bundle: nil)
+        let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+        cardPopup.resultDelegate = self
+        cardPopup.show(onViewController: self)
     }
     
     
@@ -70,12 +68,23 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate 
         memoLabel.text = pageHolderVC.mMemo
     }
     
+    
+    func SBCardPopupResponse(result: Int) {
+        if (result == 1) {
+            let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+            self.navigationItem.title = ""
+            self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+            passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
+            passwordVC.resultDelegate = self
+            self.navigationController?.pushViewController(passwordVC, animated: false)
+        }
+    }
+    
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
             self.onFetchAccountInfo(pageHolderVC.mAccount!)
         }
     }
-    
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()

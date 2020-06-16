@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     
@@ -22,6 +23,7 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     var pageHolderVC: StepGenTxViewController!
     var toChainList = Array<ChainType>()
     var toChain: ChainType?
+    var swapSupply = KavaSwapSupply.SwapSupply.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,9 +55,13 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     
     @IBAction func onClickNext(_ sender: UIButton) {
         pageHolderVC.mHtlcToChain = self.toChain
-        self.btnCancel.isUserInteractionEnabled = false
-        self.btnNext.isUserInteractionEnabled = false
-        pageHolderVC.onNextPage()
+        if (pageHolderVC.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            onCheckSwapSupply()
+        } else {
+            self.btnCancel.isUserInteractionEnabled = false
+            self.btnNext.isUserInteractionEnabled = false
+            pageHolderVC.onNextPage()
+        }
     }
     
     @objc func onClickToChain (_ sender: UITapGestureRecognizer) {
@@ -68,8 +74,48 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     }
     
     func SBCardPopupResponse(result: Int) {
-        self.toChain = self.toChainList[result]
-        self.updateView()
+        if (result == -1) {
+            if (swapSupply.getRemainAmount().compare(NSDecimalNumber.zero).rawValue <= 0) {
+                self.btnCancel.isUserInteractionEnabled = false
+                self.btnNext.isUserInteractionEnabled = false
+                pageHolderVC.onBeforePage()
+                
+            } else {
+                self.btnCancel.isUserInteractionEnabled = false
+                self.btnNext.isUserInteractionEnabled = false
+                pageHolderVC.onNextPage()
+            }
+            
+        } else {
+            self.toChain = self.toChainList[result]
+            self.updateView()
+        }
+        
+    }
+    
+    func onCheckSwapSupply() {
+        let request = Alamofire.request(KAVA_CHECK_SWAP_SUPPLY, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+                case .success(let res):
+                    guard let info = res as? [String : Any] else {
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return
+                    }
+                    let supply = KavaSwapSupply.init(info)
+                    self.swapSupply = supply.getSwapSupply("bnb")
+                    let popupVC = Bep3SupplyPopup(nibName: "Bep3SupplyPopup", bundle: nil)
+                    popupVC.swapSupply = self.swapSupply
+                    let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+                    cardPopup.resultDelegate = self
+                    cardPopup.show(onViewController: self)
+                    
+                case .failure(let error):
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
+        }
+        
     }
     
 }

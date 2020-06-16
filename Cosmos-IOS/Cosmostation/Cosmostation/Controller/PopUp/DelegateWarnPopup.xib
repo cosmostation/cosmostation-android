@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DelegateWarnPopup" customModule="Cosmostation" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ROE-xX-jLa" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                    <rect key="frame" x="18" y="253" width="378" height="400"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgDelegateWarning" translatesAutoresizingMaskIntoConstraints="NO" id="oXg-jq-j5K">
+                            <rect key="frame" x="159" y="8" width="60" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="9Fy-iI-pbG"/>
+                                <constraint firstAttribute="height" constant="60" id="ne4-xl-RSF"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="248" text="Delegate Notice" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6t-iL-Fz4">
+                            <rect key="frame" x="12" y="76" width="354" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="r1h-PZ-N1M"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLD-UV-Do8">
+                            <rect key="frame" x="12" y="104" width="354" height="193.5"/>
+                            <string key="text">Please perform careful due diligence on validators before delegating.
+
+Users can receive staking rewards for delegating to a validator to operate a node on their behalf. If a problem occurs with the selected validators node, you may also lose a portion of your delegated stake..
+
+When you undelegate, there will be an unbonding period specific to the network. For tokens in "unbonding" state, you will not be able to accumulate staking rewards or make transactions.</string>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GdC-aK-2PT">
+                            <rect key="frame" x="0.0" y="350" width="378" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnZ-of-W7v">
+                                    <rect key="frame" x="0.0" y="0.0" width="184" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="8pN-Wm-Upd"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                    <state key="normal" title="Cancel">
+                                        <color key="titleColor" red="1" green="0.1529411765" blue="0.27058823529999998" alpha="1" colorSpace="deviceRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onClickCancel:" destination="-1" eventType="touchUpInside" id="IoV-k8-Psn"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xDJ-FJ-BVy">
+                                    <rect key="frame" x="194" y="0.0" width="184" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="BG8-mm-waq"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                    <state key="normal" title="Continue">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onClickConfirm:" destination="-1" eventType="touchUpInside" id="93h-0B-efX"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="nLD-UV-Do8" firstAttribute="top" secondItem="u6t-iL-Fz4" secondAttribute="bottom" constant="8" id="0fx-dJ-twa"/>
+                        <constraint firstItem="u6t-iL-Fz4" firstAttribute="centerX" secondItem="ROE-xX-jLa" secondAttribute="centerX" id="29c-Uj-LKa"/>
+                        <constraint firstItem="GdC-aK-2PT" firstAttribute="leading" secondItem="ROE-xX-jLa" secondAttribute="leading" id="Gi8-MJ-Kfx"/>
+                        <constraint firstItem="u6t-iL-Fz4" firstAttribute="top" secondItem="oXg-jq-j5K" secondAttribute="bottom" constant="8" id="K1Y-j7-1Dj"/>
+                        <constraint firstAttribute="bottom" secondItem="GdC-aK-2PT" secondAttribute="bottom" id="Nsn-2e-YJN"/>
+                        <constraint firstAttribute="height" constant="400" id="OPl-12-AwI"/>
+                        <constraint firstAttribute="trailing" secondItem="nLD-UV-Do8" secondAttribute="trailing" constant="12" id="OZe-pH-EEE"/>
+                        <constraint firstAttribute="trailing" secondItem="GdC-aK-2PT" secondAttribute="trailing" id="OkL-mK-xIT"/>
+                        <constraint firstItem="oXg-jq-j5K" firstAttribute="centerX" secondItem="ROE-xX-jLa" secondAttribute="centerX" id="SJ9-Nr-9fj"/>
+                        <constraint firstItem="GdC-aK-2PT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nLD-UV-Do8" secondAttribute="bottom" constant="16" id="Y0S-EW-6wh"/>
+                        <constraint firstAttribute="trailing" secondItem="u6t-iL-Fz4" secondAttribute="trailing" constant="12" id="gJD-V0-VLT"/>
+                        <constraint firstItem="oXg-jq-j5K" firstAttribute="top" secondItem="ROE-xX-jLa" secondAttribute="top" constant="8" id="pe1-TD-6So"/>
+                        <constraint firstItem="u6t-iL-Fz4" firstAttribute="leading" secondItem="ROE-xX-jLa" secondAttribute="leading" constant="12" id="rhq-sE-xYh"/>
+                        <constraint firstItem="nLD-UV-Do8" firstAttribute="leading" secondItem="ROE-xX-jLa" secondAttribute="leading" constant="12" id="xzg-zp-IMz"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                            <real key="value" value="0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ROE-xX-jLa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="08h-CJ-Ih7"/>
+                <constraint firstItem="ROE-xX-jLa" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="3AE-U9-oya"/>
+                <constraint firstItem="ROE-xX-jLa" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="209" id="5Vm-yd-PbR"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ROE-xX-jLa" secondAttribute="bottom" constant="209" id="99k-ao-luO"/>
+                <constraint firstItem="ROE-xX-jLa" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-18" id="U22-ea-dS0"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="139" y="154"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="imgDelegateWarning" width="70" height="70"/>
+    </resources>
+</document>

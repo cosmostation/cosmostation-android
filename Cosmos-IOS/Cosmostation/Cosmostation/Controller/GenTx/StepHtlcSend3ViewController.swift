@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate {
+class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBCardPopupDelegate {
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnConfirm: UIButton!
     
@@ -107,8 +107,6 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate {
         }
     }
     
-    
-    
     @IBAction func onClickBack(_ sender: UIButton) {
         self.btnBack.isUserInteractionEnabled = false
         self.btnConfirm.isUserInteractionEnabled = false
@@ -117,14 +115,23 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate {
     }
     
     @IBAction func onClickConfirm(_ sender: UIButton) {
-        self.btnBack.isUserInteractionEnabled = false
-        self.btnConfirm.isUserInteractionEnabled = false
-        let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-        self.navigationItem.title = ""
-        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
-        passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
-        passwordVC.resultDelegate = self
-        self.navigationController?.pushViewController(passwordVC, animated: false)
+        let popupVC = Bep3WarnPopup(nibName: "Bep3WarnPopup", bundle: nil)
+        let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+        cardPopup.resultDelegate = self
+        cardPopup.show(onViewController: self)
+    }
+    
+    func SBCardPopupResponse(result: Int) {
+        if (result == 1) {
+            self.btnBack.isUserInteractionEnabled = false
+            self.btnConfirm.isUserInteractionEnabled = false
+            let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+            self.navigationItem.title = ""
+            self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+            passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
+            passwordVC.resultDelegate = self
+            self.navigationController?.pushViewController(passwordVC, animated: false)
+        }
     }
     
     func onInitSendFee() {

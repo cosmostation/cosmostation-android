@@ -145,6 +145,7 @@ let KAVA_CDP_DEPOSIT                    = KAVA_URL + "cdp/cdps/cdp/deposits/";
 let KAVA_TOKEN_PRICE_PARAM              = KAVA_URL + "pricefeed/parameters";
 let KAVA_TOKEN_PRICE                    = KAVA_URL + "pricefeed/price/";
 let KAVA_CHECK_SWAPID                   = KAVA_URL + "bep3/swap/";
+let KAVA_CHECK_SWAP_SUPPLY              = KAVA_URL + "bep3/supplies";
 let KAVA_INCENTIVE_PARAM                = KAVA_URL + "incentive/parameters";
 let KAVA_MY_INCENTIVE                   = KAVA_URL + "incentive/claims/";
 

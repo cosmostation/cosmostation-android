@@ -11,7 +11,7 @@ import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
 
-class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate {
+class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate, SBCardPopupDelegate {
 
     @IBOutlet weak var cAmountLabel: UILabel!
     @IBOutlet weak var cDenomLabel: UILabel!
@@ -42,12 +42,10 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
     }
 
     @IBAction func onClickConfirm(_ sender: UIButton) {
-        let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-        self.navigationItem.title = ""
-        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
-        passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
-        passwordVC.resultDelegate = self
-        self.navigationController?.pushViewController(passwordVC, animated: false)
+        let popupVC = CdpWarnPopup(nibName: "CdpWarnPopup", bundle: nil)
+        let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+        cardPopup.resultDelegate = self
+        cardPopup.show(onViewController: self)
     }
     
     override func enableUserInteraction() {
@@ -83,6 +81,17 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
         liquidationPrice.attributedText = WUtils.getDPRawDollor(pageHolderVC.liquidationPrice!.stringValue, 4, liquidationPrice.font)
         
         memoLabel.text = pageHolderVC.mMemo
+    }
+    
+    func SBCardPopupResponse(result: Int) {
+        if (result == 1) {
+            let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+            self.navigationItem.title = ""
+            self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+            passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
+            passwordVC.resultDelegate = self
+            self.navigationController?.pushViewController(passwordVC, animated: false)
+        }
     }
     
     func passwordResponse(result: Int) {

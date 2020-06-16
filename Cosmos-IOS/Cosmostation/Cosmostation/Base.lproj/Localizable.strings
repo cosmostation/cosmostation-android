@@ -208,6 +208,10 @@
 "bep3_status_expired" = "Refundable";
 "bep3_status_refunded" = "Refunded";
 "bep3_status_null" = "UnKnown";
+"str_bep3_available_title" = "BNB-BEP3 swap available";
+"str_bep3_unavailable_title" = "BNB-BEP3 swap unavailable";
+"str_bep3_bnb_cap_over" = "The total amount of BNB available for swap has reached its network capacity.\n\nThe maximum swap capacity is determined through Kava policies & governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\n\nhttps://t.me/kavalabs";
+"str_bep3_bnb_cap" = "Current remaining swap capacity is  %@\n\nThe maximum swap capacity is determined through Kava policies & governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\nhttps://t.me/kavalabs";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
 "creat_cdp_step_1" = "Insert memo (optional)";

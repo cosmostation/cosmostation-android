@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CdpWarnPopup" customModule="Cosmostation" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCz-gK-L3b" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                    <rect key="frame" x="18" y="283" width="378" height="340"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgCdpWarning" translatesAutoresizingMaskIntoConstraints="NO" id="9Yk-Yf-OeO">
+                            <rect key="frame" x="159" y="8" width="60" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="TOV-8V-4lR"/>
+                                <constraint firstAttribute="height" constant="60" id="fc3-or-KW5"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="248" text="CDP Notice" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7R-QO-YbX">
+                            <rect key="frame" x="12" y="76" width="354" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="tRI-nI-fNV"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erl-xy-CBV">
+                            <rect key="frame" x="12" y="104" width="354" height="113"/>
+                            <string key="text">CDP risks liquidation due to changes in the value of collateral. The user is responsible for all decisions and responsibilities, including the opening, reimbursement and liquidation of the CDP.
+
+The Cosmostation wallet does not provide separate alarms for liquidation and liquidation risk.</string>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xGC-AP-oOQ">
+                            <rect key="frame" x="0.0" y="290" width="378" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8hi-kG-lea">
+                                    <rect key="frame" x="0.0" y="0.0" width="184" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="d2P-yE-vgx"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                    <state key="normal" title="Cancel">
+                                        <color key="titleColor" red="1" green="0.1529411765" blue="0.27058823529999998" alpha="1" colorSpace="deviceRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onClickCancel:" destination="-1" eventType="touchUpInside" id="Nb1-R8-e1t"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vN-P0-slo">
+                                    <rect key="frame" x="194" y="0.0" width="184" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="UuP-yV-DSS"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                    <state key="normal" title="Continue">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onClickContinue:" destination="-1" eventType="touchUpInside" id="GTX-Ca-KEN"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="xGC-AP-oOQ" secondAttribute="bottom" id="8zt-AD-8PM"/>
+                        <constraint firstAttribute="trailing" secondItem="e7R-QO-YbX" secondAttribute="trailing" constant="12" id="AUl-qD-f6V"/>
+                        <constraint firstItem="erl-xy-CBV" firstAttribute="top" secondItem="e7R-QO-YbX" secondAttribute="bottom" constant="8" id="Dtc-nL-Shi"/>
+                        <constraint firstItem="9Yk-Yf-OeO" firstAttribute="centerX" secondItem="ZCz-gK-L3b" secondAttribute="centerX" id="EuZ-56-IHu"/>
+                        <constraint firstItem="e7R-QO-YbX" firstAttribute="leading" secondItem="ZCz-gK-L3b" secondAttribute="leading" constant="12" id="LHT-eF-U4T"/>
+                        <constraint firstAttribute="height" constant="340" id="OGk-0s-N9f"/>
+                        <constraint firstAttribute="trailing" secondItem="erl-xy-CBV" secondAttribute="trailing" constant="12" id="R8Q-dA-RWU"/>
+                        <constraint firstItem="xGC-AP-oOQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="erl-xy-CBV" secondAttribute="bottom" constant="8" id="Rah-m9-ofI"/>
+                        <constraint firstAttribute="trailing" secondItem="xGC-AP-oOQ" secondAttribute="trailing" id="Rfm-xc-sum"/>
+                        <constraint firstItem="xGC-AP-oOQ" firstAttribute="leading" secondItem="ZCz-gK-L3b" secondAttribute="leading" id="XGH-Sq-kBS"/>
+                        <constraint firstItem="e7R-QO-YbX" firstAttribute="top" secondItem="9Yk-Yf-OeO" secondAttribute="bottom" constant="8" id="XXf-W4-5GM"/>
+                        <constraint firstItem="9Yk-Yf-OeO" firstAttribute="top" secondItem="ZCz-gK-L3b" secondAttribute="top" constant="8" id="fWC-k9-Jp2"/>
+                        <constraint firstItem="e7R-QO-YbX" firstAttribute="centerX" secondItem="ZCz-gK-L3b" secondAttribute="centerX" id="juY-S4-HhG"/>
+                        <constraint firstItem="erl-xy-CBV" firstAttribute="leading" secondItem="ZCz-gK-L3b" secondAttribute="leading" constant="12" id="tlJ-5g-D5r"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                            <real key="value" value="0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ZCz-gK-L3b" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="4gG-kc-czl"/>
+                <constraint firstItem="ZCz-gK-L3b" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-18" id="IDs-bi-3Lu"/>
+                <constraint firstItem="ZCz-gK-L3b" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="Mh0-hB-TUb"/>
+                <constraint firstItem="ZCz-gK-L3b" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="239" id="eQL-4l-ajU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ZCz-gK-L3b" secondAttribute="bottom" constant="239" id="jdJ-Jh-hOq"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="139" y="154"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="imgCdpWarning" width="70" height="70"/>
+    </resources>
+</document>
