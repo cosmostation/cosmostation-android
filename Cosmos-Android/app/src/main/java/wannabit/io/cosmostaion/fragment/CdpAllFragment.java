@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.KavaCdpDetailActivity;
 import wannabit.io.cosmostaion.activities.KavaCdpListActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -114,7 +115,11 @@ public class CdpAllFragment extends BaseFragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getMainActivity(), KavaCdpDetailActivity.class);
                     intent.putExtra("denom", param.denom);
-                    intent.putExtra("marketId", param.spot_market_id);
+                    if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                        intent.putExtra("marketId", param.spot_market_id);
+                    } else {
+                        intent.putExtra("marketId", param.market_id);
+                    }
                     startActivity(intent);
                 }
             });

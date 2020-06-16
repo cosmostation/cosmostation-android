@@ -499,15 +499,15 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
             return;
         }
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            onCheckSupply(KAVA_MSG_TYPE_CREATE_CDP);
 
-//        WLog.w("mCdpParam " + mCdpParam.global_debt_limit.amount);
-//
-//        Intent intent = new Intent(this, CreateCdpActivity.class);
-//        intent.putExtra("denom", mMarketDenom);
-//        intent.putExtra("marketId", mMaketId);
-//        startActivity(intent);
-
-        onCheckSupply(KAVA_MSG_TYPE_CREATE_CDP);
+        } else {
+            Intent intent = new Intent(KavaCdpDetailActivity.this, CreateCdpActivity.class);
+            intent.putExtra("denom", mMarketDenom);
+            intent.putExtra("marketId", mMaketId);
+            startActivity(intent);
+        }
     }
 
     private void onCheckStartDepositCdp() {
@@ -547,13 +547,15 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             Toast.makeText(getBaseContext(), R.string.error_can_not_draw_debt, Toast.LENGTH_SHORT).show();
             return;
         }
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            onCheckSupply(KAVA_MSG_TYPE_DRAWDEBT_CDP);
 
-//        Intent intent = new Intent(this, DrawDebtActivity.class);
-//        intent.putExtra("denom", mMarketDenom);
-//        intent.putExtra("marketId", mMaketId);
-//        startActivity(intent);
-
-        onCheckSupply(KAVA_MSG_TYPE_DRAWDEBT_CDP);
+        } else {
+            Intent intent = new Intent(KavaCdpDetailActivity.this, DrawDebtActivity.class);
+            intent.putExtra("denom", mMarketDenom);
+            intent.putExtra("marketId", mMaketId);
+            startActivity(intent);
+        }
     }
 
     private void onCheckStartRepayCdp() {

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.network.res;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
@@ -105,6 +107,8 @@ public class ResCdpParam {
         public String conversion_factor;
 
 
+        @SerializedName("market_id")
+        public String market_id;
 
         @SerializedName("spot_market_id")
         public String spot_market_id;
@@ -113,7 +117,11 @@ public class ResCdpParam {
         public String liquidation_market_id;
 
         public String getDpMarketId() {
-            return spot_market_id.split(":")[0].toUpperCase() + " : " + spot_market_id.split(":")[1].toUpperCase() + "X";
+            if (!TextUtils.isEmpty(spot_market_id))
+                return spot_market_id.split(":")[0].toUpperCase() + " : " + spot_market_id.split(":")[1].toUpperCase() + "X";
+            if (!TextUtils.isEmpty(market_id))
+                return market_id.split(":")[0].toUpperCase() + " : " + market_id.split(":")[1].toUpperCase() + "X";
+            return "";
         }
 
         public BigDecimal getDpLiquidationRatio() {
@@ -129,7 +137,11 @@ public class ResCdpParam {
         }
 
         public String getImagePath() {
-            return spot_market_id.replace(":","")   +".png";
+            if (!TextUtils.isEmpty(spot_market_id))
+                return spot_market_id.replace(":","")   +".png";
+            if (!TextUtils.isEmpty(market_id))
+                return market_id.replace(":","")   +".png";
+            return "";
         }
     }
 

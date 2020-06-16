@@ -148,7 +148,13 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
                 if (cdpParam != null && cdpParam.collateral_params != null && cdpParam.collateral_params.size() > 0) {
                     mTaskCount = mTaskCount + (cdpParam.collateral_params.size() * 2);
                     for (ResCdpParam.KavaCollateralParam param:getBaseDao().mKavaCdpParams.collateral_params) {
-                        new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), param.spot_market_id + ":30").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        WLog.w("market_id " + param.market_id);
+                        WLog.w("spot_market_id " + param.market_id);
+                        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                            new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), param.spot_market_id + ":30").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        } else {
+                            new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), param.market_id + ":30").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        }
                         new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, param.denom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
                 }
