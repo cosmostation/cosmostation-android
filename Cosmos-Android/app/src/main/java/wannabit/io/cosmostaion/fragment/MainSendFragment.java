@@ -1012,7 +1012,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://coinmarketcap.com/currencies/kava"));
                     startActivity(guideIntent);
                 }
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/band-protocol"));
                 startActivity(guideIntent);
 
