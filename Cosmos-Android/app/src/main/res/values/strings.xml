@@ -779,7 +779,7 @@
     <string name="str_recent">Recent</string>
     <string name="str_fee_free_title">Fee Free Event</string>
     <string name="str_fee_free_msg">To commemorate the launch of the main net, \nwe will hold a free 3-week event.</string>
-    <string name="str_delegate_notice">If you delegate to the validator you already delegated, the accumulated rewards will be automatically withdrawn and deposited into your available balance.</string>
+    <string name="str_delegate_notice">When you delegate, your accumulated rewards will be automatically claimed to your available balance.</string>
     <string name="str_undelegate_notice">If you undelegate to the validator, the accumulated rewards will be automatically withdrawn and deposited into your available balance.</string>
     <string name="str_reward_notice">Rewards are accumulated each block.\nThe actual amount of rewards you receive may be equal to or greater than what is displayed now.</string>
     <string name="str_multi_reward_notice">Claiming rewards from multiple validators in one transaction requires more fees than a regular transaction. However, using this function is less expensive than claiming your rewards individually from each validator.</string>
@@ -825,8 +825,7 @@
     <string name="str_cdp_warn_title">CDP Notice</string>
     <string name="str_cdp_warn_msg">CDP risks liquidation due to changes in the value of collateral. The user is responsible for all decisions and responsibilities, including the opening, reimbursement and liquidation of the CDP. \n\nThe Cosmostation wallet does not provide separate alarms for liquidation and liquidation risk.</string>
     <string name="str_delegate_warn_title">Delegate Notice</string>
-    <string name="str_delegate_warn_msg">Perform careful due diligence on validators befor delegating If a validator misbehaves, part of its total stake, which includes the stake of its delegators, can be slashed.\nDelegators should therefore carefully select validators they think will behave correctly.\n\nWhen you undelegate, the undelegated will be in "unbonding" state for 21 days and will not be availalbe for transaction, you will not be able to accumulate staking rewards.</string>
-
+    <string name="str_delegate_warn_msg">Please perform careful due diligence on validators before delegating.\n\nUsers can receive staking rewards for delegating to a validator to operate a node on their behalf. If a problem occurs with the selected validators node, you may also lose a portion of your delegated stake.\n\nWhen you undelegate, there will be an unbonding period specific to the network. For tokens in "unbonding" state, you will not be able to accumulate staking rewards or make transactions.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
