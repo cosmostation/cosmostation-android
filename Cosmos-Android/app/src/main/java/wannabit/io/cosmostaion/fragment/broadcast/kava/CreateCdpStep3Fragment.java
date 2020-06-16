@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.broadcast.kava;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.broadcast.kava.CreateCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Cdp_Warning;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -22,6 +25,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 
 public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int SELECT_CDP_CONFIRM = 9105;
 
     private TextView mCollateralAmountTitle, mCollateralAmount, mCollateralDenom, mCollateralValue;
     private TextView mPrincipalAmountTitle, mPrincipalAmount, mPrincipalDenom, mPrincipalValue;
@@ -110,10 +114,20 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
+            Dialog_Cdp_Warning dialog = Dialog_Cdp_Warning.newInstance();
+            dialog.setTargetFragment(CreateCdpStep3Fragment.this, SELECT_CDP_CONFIRM);
+            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SELECT_CDP_CONFIRM && resultCode == Activity.RESULT_OK) {
             getSActivity().onStartCreateCdp();
 
         }
     }
+
 
     private CreateCdpActivity getSActivity() {
         return (CreateCdpActivity)getBaseActivity();

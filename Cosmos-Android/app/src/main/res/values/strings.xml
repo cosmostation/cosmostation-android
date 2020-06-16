@@ -621,6 +621,16 @@
     <string name="str_repay_all_notice">This CDP will be closed. \nAll deposits will be returned to each depositor.</string>
     <string name="str_select_receive_chain">Select Destination Chain</string>
     <string name="str_select_account">Select Account</string>
+    <string name="str_bep3_cap_status">Swap Cap Information</string>
+    <string name="str_bep3_available_title">BNB-BEP3 swap available.</string>
+    <string name="str_bep3_unavailable_title">BNB-BEP3 swap unavailable</string>
+    <string name="str_bep3_system_max">System Max</string>
+    <string name="str_bep3_current_cap">Current Cap</string>
+    <string name="str_bep3_remain_cap">Remaining Cap</string>
+    <string name="str_bep3_bnb_cap_over">The total amount of BNB available for swap has reached its network capacity.\n\nThe maximum swap capacity is determined through Kava policies <![CDATA[&]]> governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\n\nhttps://t.me/kavalabs</string>
+    <string name="str_bep3_bnb_cap">Current remaining swap capacity is %1$s\n\nThe maximum swap capacity is determined through Kava policies <![CDATA[&]]> governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\nhttps://t.me/kavalabs</string>
+
+
 
     <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
     <string name="str_create_cdp_step_2">Insert memo (optional)</string>
@@ -810,6 +820,13 @@
     <string name="str_vesting_msg">Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
     <string name="str_vesting_amount">Vesting (Delegable)</string>
+    <string name="str_htlc_warn_title">BEP3 Swap Notice</string>
+    <string name="str_htlc_warn_msg">BEP3 transactions are handled by two networks on both ends of the interchain transfer<![CDATA[ & ]]>a relayer in between. \nCosmostation supports BEP3 transactions, but does not guarantee the stability of the network and success of the transaction. If your transaction fails, please make an inquiry on the network community channel.\n\nShould the BEP3 transaction fail, your tokens can be returned in full through the [Refund] function activated in your transaction history.</string>
+    <string name="str_cdp_warn_title">CDP Notice</string>
+    <string name="str_cdp_warn_msg">CDP risks liquidation due to changes in the value of collateral. The user is responsible for all decisions and responsibilities, including the opening, reimbursement and liquidation of the CDP. \n\nThe Cosmostation wallet does not provide separate alarms for liquidation and liquidation risk.</string>
+    <string name="str_delegate_warn_title">Delegate Notice</string>
+    <string name="str_delegate_warn_msg">Perform careful due diligence on validators befor delegating If a validator misbehaves, part of its total stake, which includes the stake of its delegators, can be slashed.\nDelegators should therefore carefully select validators they think will behave correctly.\n\nWhen you undelegate, the undelegated will be in "unbonding" state for 21 days and will not be availalbe for transaction, you will not be able to accumulate staking rewards.</string>
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -881,7 +898,7 @@
     <string name="error_can_not_bep3_account_msg2">In order to user this feature,\nyou must create a %1$s account wallet.</string>
     <string name="error_select_account_to_recipient">Please select account to receive</string>
     <string name="error_no_more_faucet">Alreay have enought test coin.</string>
-
+    <string name="error_no_more_debt_kava">Cannot issue USDX. Maximum network USDX capacity has been reached.\n%1$s / %2$s</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

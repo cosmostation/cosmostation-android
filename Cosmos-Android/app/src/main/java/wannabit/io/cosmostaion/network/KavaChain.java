@@ -18,7 +18,9 @@ import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaPriceParam;
+import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
@@ -111,6 +113,9 @@ public interface KavaChain {
     @GET("/gov/proposals/{proposalId}/proposer")
     Call<ResLcdProposer> getProposer(@Path("proposalId") String proposalId);
 
+    @GET("/supply/total")
+    Call<ResKavaSupply> getSupply();
+
     @POST("/txs")
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
@@ -147,6 +152,9 @@ public interface KavaChain {
 
     @GET("/bep3/swaps")
     Call<String> getSwaps();
+
+    @GET("/bep3/supplies")
+    Call<ResKavaSwapSupply> getSupplies();
 
 
 

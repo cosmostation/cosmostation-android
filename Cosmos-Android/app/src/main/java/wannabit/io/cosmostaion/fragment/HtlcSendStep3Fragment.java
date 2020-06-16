@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -16,6 +18,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Warning;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -23,6 +26,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_RELAY_FEE;
 
 public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int SELECT_HTLC_CONFIRM = 9104;
 
     private CardView    mSendCard;
     private ImageView   mSendIcon;
@@ -148,6 +152,16 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
+            Dialog_Htlc_Warning dialog = Dialog_Htlc_Warning.newInstance();
+            dialog.setTargetFragment(HtlcSendStep3Fragment.this, SELECT_HTLC_CONFIRM);
+            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SELECT_HTLC_CONFIRM && resultCode == Activity.RESULT_OK) {
             getSActivity().onStartHtlcSend();
 
         }

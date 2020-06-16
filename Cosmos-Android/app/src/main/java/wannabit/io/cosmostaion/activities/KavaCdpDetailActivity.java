@@ -20,7 +20,11 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.broadcast.kava.CreateCdpActivity;
 import wannabit.io.cosmostaion.activities.broadcast.kava.DepositCdpActivity;
@@ -33,10 +37,13 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Staus;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
@@ -50,6 +57,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
@@ -491,10 +500,14 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             return;
         }
 
-        Intent intent = new Intent(this, CreateCdpActivity.class);
-        intent.putExtra("denom", mMarketDenom);
-        intent.putExtra("marketId", mMaketId);
-        startActivity(intent);
+//        WLog.w("mCdpParam " + mCdpParam.global_debt_limit.amount);
+//
+//        Intent intent = new Intent(this, CreateCdpActivity.class);
+//        intent.putExtra("denom", mMarketDenom);
+//        intent.putExtra("marketId", mMaketId);
+//        startActivity(intent);
+
+        onCheckSupply(KAVA_MSG_TYPE_CREATE_CDP);
     }
 
     private void onCheckStartDepositCdp() {
@@ -535,10 +548,12 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             return;
         }
 
-        Intent intent = new Intent(this, DrawDebtActivity.class);
-        intent.putExtra("denom", mMarketDenom);
-        intent.putExtra("marketId", mMaketId);
-        startActivity(intent);
+//        Intent intent = new Intent(this, DrawDebtActivity.class);
+//        intent.putExtra("denom", mMarketDenom);
+//        intent.putExtra("marketId", mMaketId);
+//        startActivity(intent);
+
+        onCheckSupply(KAVA_MSG_TYPE_DRAWDEBT_CDP);
     }
 
     private void onCheckStartRepayCdp() {
@@ -633,6 +648,51 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         }
     }
 
+
+    private void onCheckSupply(String msgType) {
+        ApiClient.getKavaChain(getBaseContext()).getSupply().enqueue(new Callback<ResKavaSupply>() {
+            @Override
+            public void onResponse(Call<ResKavaSupply> call, Response<ResKavaSupply> response) {
+                if (response.isSuccessful()) {
+                    WLog.w("GlobalDebtAmount " + mCdpParam.getGlobalDebtAmount());
+                    WLog.w("CurrentDebtAmount " + response.body().getDebtAmount());
+
+                    if (mCdpParam.getGlobalDebtAmount().compareTo(response.body().getDebtAmount()) <= 0 ) {
+                        String msg = String.format(String.format(getString(R.string.error_no_more_debt_kava),
+                                response.body().getDebtAmount().movePointLeft(6).toPlainString(),
+                                mCdpParam.getGlobalDebtAmount().movePointLeft(6).toPlainString()));
+                        Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        if (msgType.equals(KAVA_MSG_TYPE_CREATE_CDP)) {
+                            Intent intent = new Intent(KavaCdpDetailActivity.this, CreateCdpActivity.class);
+                            intent.putExtra("denom", mMarketDenom);
+                            intent.putExtra("marketId", mMaketId);
+                            startActivity(intent);
+
+                        } else  if (msgType.equals(KAVA_MSG_TYPE_DRAWDEBT_CDP)) {
+                            Intent intent = new Intent(KavaCdpDetailActivity.this, DrawDebtActivity.class);
+                            intent.putExtra("denom", mMarketDenom);
+                            intent.putExtra("marketId", mMaketId);
+                            startActivity(intent);
+                        }
+                    }
+
+
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResKavaSupply> call, Throwable t) {
+                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
+        });
+    }
 
 
 }

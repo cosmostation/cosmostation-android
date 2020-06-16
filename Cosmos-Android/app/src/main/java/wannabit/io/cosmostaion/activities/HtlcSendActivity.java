@@ -49,6 +49,7 @@ public class HtlcSendActivity extends BaseActivity {
     public Account                  mRecipientAccount;
     public Fee                      mSendFee;
     public Fee                      mClaimFee;
+    public Coin                     mRemainCap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

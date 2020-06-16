@@ -11,18 +11,28 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receive_Chain;
+import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Supply;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_DESTINATION_CHAIN = 9100;
+    public final static int SELECT_SWAP_CAP_CHECK = 9103;
 
     private Button          mBtnCancel, mBtnNext;
     private ImageView       mFromChainImg;
@@ -31,8 +41,9 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     private ImageView       mToChainImg;
     private TextView        mToChainTv;
 
-    private ArrayList<BaseChain>    mToChainList;
-    private BaseChain               mToChain;
+    private ArrayList<BaseChain>                mToChainList;
+    private BaseChain                           mToChain;
+    private ResKavaSwapSupply.KavaSwapSupply    mSupply;
 
     public static HtlcSendStep0Fragment newInstance(Bundle bundle) {
         HtlcSendStep0Fragment fragment = new HtlcSendStep0Fragment();
@@ -88,23 +99,62 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
-            getSActivity().mRecipientChain = mToChain;
-            getSActivity().onNextStep();
-
+            if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                //check bep3 limit!!
+                onCheckSwapSupply();
+            } else {
+                getSActivity().mRecipientChain = mToChain;
+                getSActivity().onNextStep();
+            }
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == SELECT_DESTINATION_CHAIN && resultCode == Activity.RESULT_OK) {
+        if (requestCode == SELECT_DESTINATION_CHAIN && resultCode == Activity.RESULT_OK) {
             mToChain = mToChainList.get(data.getIntExtra("position" , 0));
             onUpdateView();
+
+        } else if (requestCode == SELECT_SWAP_CAP_CHECK && resultCode == Activity.RESULT_OK) {
+            if (mSupply.getRemainAmount().compareTo(BigDecimal.ZERO) <= 0) {
+                getSActivity().onBackPressed();
+            } else {
+                getSActivity().mRecipientChain = mToChain;
+                getSActivity().mRemainCap = mSupply.getRemainCap();
+                getSActivity().onNextStep();
+            }
         }
     }
+
+    private void onCheckSwapSupply() {
+        ApiClient.getKavaChain(getContext()).getSupplies().enqueue(new Callback<ResKavaSwapSupply>() {
+            @Override
+            public void onResponse(Call<ResKavaSwapSupply> call, Response<ResKavaSwapSupply> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+
+                } else {
+                    mSupply = response.body().getSwapSupply(getSActivity().mSendDenom);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("supply", mSupply);
+                    Dialog_Htlc_Supply dialog = Dialog_Htlc_Supply.newInstance(bundle);
+                    dialog.setTargetFragment(HtlcSendStep0Fragment.this, SELECT_SWAP_CAP_CHECK);
+                    getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResKavaSwapSupply> call, Throwable t) {
+                Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
 
     private HtlcSendActivity getSActivity() {
         return (HtlcSendActivity)getBaseActivity();
     }
-
 
 }

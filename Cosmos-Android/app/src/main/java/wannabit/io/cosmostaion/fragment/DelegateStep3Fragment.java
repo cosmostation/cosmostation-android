@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,9 +16,12 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Delegate_Warning;
+import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int SELECT_DELEGATE_CHECK = 9106;
 
     private TextView        mDelegateAmount;
     private TextView        mFeeAmount;
@@ -79,10 +84,20 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            getSActivity().onStartDelegate();
+            Dialog_Delegate_Warning dialog = Dialog_Delegate_Warning.newInstance();
+            dialog.setTargetFragment(DelegateStep3Fragment.this, SELECT_DELEGATE_CHECK);
+            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
 
         }
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SELECT_DELEGATE_CHECK && resultCode == Activity.RESULT_OK) {
+            getSActivity().onStartDelegate();
+        }
     }
 
     private DelegateActivity getSActivity() {

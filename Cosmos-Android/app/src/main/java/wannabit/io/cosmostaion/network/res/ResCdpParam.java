@@ -37,6 +37,14 @@ public class ResCdpParam {
         @SerializedName("collateral_params")
         public ArrayList<KavaCollateralParam> collateral_params;
 
+        public BigDecimal getGlobalDebtAmount() {
+            BigDecimal result = BigDecimal.ZERO;
+            if (global_debt_limit != null) {
+                result = new BigDecimal(global_debt_limit.amount);
+            }
+            return result;
+        }
+
         public BigDecimal getRawLiquidationRatio(String denom) {
             for (KavaCollateralParam param : collateral_params) {
                 if (param.denom.equals(denom)) {

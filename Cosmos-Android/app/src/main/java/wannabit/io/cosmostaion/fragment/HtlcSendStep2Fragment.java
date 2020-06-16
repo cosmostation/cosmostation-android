@@ -100,6 +100,12 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             setDpDecimals(mDecimal);
             mMinAvailable = new BigDecimal(FEE_BEP3_SEND_MIN);
             mMaxAvailable = getSActivity().mAccount.getBnbBalance().subtract(new BigDecimal(FEE_BNB_SEND));
+            if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+               BigDecimal remainCap = new BigDecimal(getSActivity().mRemainCap.amount);
+               if (mMaxAvailable.compareTo(remainCap) > 0) {
+                   mMaxAvailable = remainCap;
+               }
+            }
             mDenomTitle.setText(getSActivity().mSendDenom.toUpperCase());
             mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
             mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, 0, 8));
