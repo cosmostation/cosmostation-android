@@ -34,18 +34,30 @@ public class Tally {
     }
     
     public func getYes() -> NSDecimalNumber {
+        if (getSum() == NSDecimalNumber.zero) {
+            return NSDecimalNumber.zero
+        }
         return NSDecimalNumber.init(string: yes).multiplying(byPowerOf10: 2).dividing(by: getSum(), withBehavior: WUtils.handler2)
     }
     
     public func getNo() -> NSDecimalNumber {
+        if (getSum() == NSDecimalNumber.zero) {
+            return NSDecimalNumber.zero
+        }
         return NSDecimalNumber.init(string: no).multiplying(byPowerOf10: 2).dividing(by: getSum(), withBehavior: WUtils.handler2)
     }
     
     public func getVeto() -> NSDecimalNumber {
+        if (getSum() == NSDecimalNumber.zero) {
+            return NSDecimalNumber.zero
+        }
         return NSDecimalNumber.init(string: no_with_veto).multiplying(byPowerOf10: 2).dividing(by: getSum(), withBehavior: WUtils.handler2)
     }
     
     public func getAbstain() -> NSDecimalNumber {
+        if (getSum() == NSDecimalNumber.zero) {
+            return NSDecimalNumber.zero
+        }
         return NSDecimalNumber.init(string: abstain).multiplying(byPowerOf10: 2).dividing(by: getSum(), withBehavior: WUtils.handler2)
     }
 }

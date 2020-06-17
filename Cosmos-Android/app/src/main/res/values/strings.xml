@@ -622,7 +622,7 @@
     <string name="str_select_receive_chain">Select Destination Chain</string>
     <string name="str_select_account">Select Account</string>
     <string name="str_bep3_cap_status">Swap Cap Information</string>
-    <string name="str_bep3_available_title">BNB-BEP3 swap available.</string>
+    <string name="str_bep3_available_title">BNB-BEP3 swap available</string>
     <string name="str_bep3_unavailable_title">BNB-BEP3 swap unavailable</string>
     <string name="str_bep3_system_max">System Max</string>
     <string name="str_bep3_current_cap">Current Cap</string>

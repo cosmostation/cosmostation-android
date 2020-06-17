@@ -24,18 +24,30 @@ public class Tally {
     }
 
     public BigDecimal getYesPer() {
+        if (sum().equals(BigDecimal.ZERO)) {
+            return BigDecimal.ZERO.setScale(2);
+        }
         return new BigDecimal(yes).movePointRight(2).divide(sum(), 2, RoundingMode.DOWN);
     }
 
     public BigDecimal getNoPer() {
+        if (sum().equals(BigDecimal.ZERO)) {
+            return BigDecimal.ZERO.setScale(2);
+        }
         return new BigDecimal(no).movePointRight(2).divide(sum(), 2, RoundingMode.DOWN);
     }
 
     public BigDecimal getAbstainPer() {
+        if (sum().equals(BigDecimal.ZERO)) {
+            return BigDecimal.ZERO.setScale(2);
+        }
         return new BigDecimal(abstain).movePointRight(2).divide(sum(), 2, RoundingMode.DOWN);
     }
 
     public BigDecimal getVetoPer() {
+        if (sum().equals(BigDecimal.ZERO)) {
+            return BigDecimal.ZERO.setScale(2);
+        }
         return new BigDecimal(no_with_veto).movePointRight(2).divide(sum(), 2, RoundingMode.DOWN);
     }
 }

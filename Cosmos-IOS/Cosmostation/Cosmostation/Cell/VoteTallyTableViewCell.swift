@@ -78,12 +78,12 @@ class VoteTallyTableViewCell: UITableViewCell {
         progressNo.progress = tally.getNo().floatValue / 100
         progressVeto.progress = tally.getVeto().floatValue / 100
         propressAbstain.progress = tally.getAbstain().floatValue / 100
-        
+
         percentYes.attributedText = WUtils.displayPercent(tally.getYes(), font: percentYes.font)
         percentNo.attributedText = WUtils.displayPercent(tally.getNo(), font: percentYes.font)
         percentVeto.attributedText = WUtils.displayPercent(tally.getVeto(), font: percentYes.font)
         percentAbstain.attributedText = WUtils.displayPercent(tally.getAbstain(), font: percentYes.font)
-        
+
         imgYes.isHidden = false
         imgNo.isHidden = false
         imgVeto.isHidden = false
@@ -92,7 +92,7 @@ class VoteTallyTableViewCell: UITableViewCell {
         cntNo.isHidden = false
         cntVeto.isHidden = false
         cntAbstain.isHidden = false
-        
+
         cntYes.text = WUtils.getIrisVoterTypeCnt(voters, Vote.OPTION_YES)
         cntNo.text = WUtils.getIrisVoterTypeCnt(voters, Vote.OPTION_NO)
         cntVeto.text = WUtils.getIrisVoterTypeCnt(voters, Vote.OPTION_VETO)
