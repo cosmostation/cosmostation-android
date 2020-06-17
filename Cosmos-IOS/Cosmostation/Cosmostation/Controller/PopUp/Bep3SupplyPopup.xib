@@ -60,7 +60,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="eXH-fu-b1x" firstAttribute="firstBaseline" secondItem="2cH-qx-zdb" secondAttribute="firstBaseline" id="0Tw-yb-2Nu"/>
                                         <constraint firstItem="2cH-qx-zdb" firstAttribute="firstBaseline" secondItem="8iV-dR-PWH" secondAttribute="firstBaseline" id="8Qv-cz-GYF"/>
@@ -95,7 +95,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="Cgt-g9-sxV" firstAttribute="leading" secondItem="apS-wp-ShX" secondAttribute="trailing" constant="4" id="6u4-q4-aZx"/>
                                         <constraint firstItem="f5n-jt-XRB" firstAttribute="centerY" secondItem="Uli-cT-Sav" secondAttribute="centerY" id="Fbg-gq-SpN"/>
@@ -130,7 +130,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="Nf0-RT-KJU" firstAttribute="leading" secondItem="wxa-PG-pZE" secondAttribute="leading" id="1l0-RO-oqW"/>
                                         <constraint firstItem="xEh-hX-SHG" firstAttribute="firstBaseline" secondItem="421-fc-WUS" secondAttribute="firstBaseline" id="S5N-jL-4o4"/>
