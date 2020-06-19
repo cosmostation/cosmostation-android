@@ -504,7 +504,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemFailTxt.setVisibility(View.VISIBLE);
                 }
                 holder.itemHeight.setText(mResTxInfo.height);
-                holder.itemMsgCnt.setText(String.valueOf(mResTxInfo.tx.value.msg.size()));
+                holder.itemMsgCnt.setText(String.valueOf(mResTxInfo.getMsgs().size()));
                 holder.itemGas.setText(String.format("%s / %s", mResTxInfo.gas_used, mResTxInfo.gas_wanted));
                 holder.itemFee.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleFee(), 6, 6));
                 holder.itemFeeLayer.setVisibility(View.VISIBLE);
@@ -514,6 +514,27 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemMemo.setText(mResTxInfo.tx.value.memo);
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                if (mResTxInfo.isIrisSuccess()) {
+                    holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
+                    holder.itemStatusTxt.setText(R.string.str_success_c);
+                } else {
+                    holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.fail_ic));
+                    holder.itemStatusTxt.setText(R.string.str_failed_c);
+                    holder.itemFailTxt.setText(mResTxInfo.failMsgIris());
+                    holder.itemFailTxt.setVisibility(View.VISIBLE);
+                }
+                holder.itemHeight.setText(mResTxInfo.height);
+                holder.itemMsgCnt.setText(String.valueOf(mResTxInfo.getMsgs().size()));
+                holder.itemGas.setText(String.format("%s / %s", mResTxInfo.result.GasUsed, mResTxInfo.result.GasWanted));
+
+                holder.itemFeeUsed.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleUsedFeeIris(), 18, 18));
+                holder.itemFeeUsedLayer.setVisibility(View.VISIBLE);
+                holder.itemFeeLimit.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleFee(), 18, 18));
+                holder.itemFeeLimitLayer.setVisibility(View.VISIBLE);
+                holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
+                holder.itemHash.setText(mResTxInfo.hash);
+                holder.itemMemo.setText(mResTxInfo.tx.value.memo);
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
                 holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
@@ -613,6 +634,42 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 }
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemFromAddress.setText(msg.value.inputs.get(0).address);
+                holder.itemToAddress.setText(msg.value.outputs.get(0).address);
+                if (mAccount.address.equals(msg.value.inputs.get(0).address)) {
+                    holder.itemSendRecieveTv.setText(R.string.tx_send);
+                }
+                if (mAccount.address.equals(msg.value.outputs.get(0).address)) {
+                    holder.itemSendRecieveTv.setText(R.string.tx_receive);
+                }
+
+                ArrayList<Coin> toDpCoin = msg.value.inputs.get(0).coins;
+                if (toDpCoin.size() == 1) {
+                    holder.itemSingleCoinLayer.setVisibility(View.VISIBLE);
+                    WDp.showCoinDp(getBaseContext(), toDpCoin.get(0), holder.itemAmountDenom, holder.itemAmount, mBaseChain);
+                } else {
+                    holder.itemMultiCoinLayer.setVisibility(View.VISIBLE);
+                    if (toDpCoin.size() > 0) {
+                        WDp.showCoinDp(getBaseContext(), toDpCoin.get(0), holder.itemAmountDenom0, holder.itemAmount0, mBaseChain);
+                    }
+                    if (toDpCoin.size() > 1) {
+                        holder.itemAmountLayer1.setVisibility(View.VISIBLE);
+                        WDp.showCoinDp(getBaseContext(), toDpCoin.get(1), holder.itemAmountDenom1, holder.itemAmount1, mBaseChain);
+                    }
+                    if (toDpCoin.size() > 2) {
+                        holder.itemAmountLayer2.setVisibility(View.VISIBLE);
+                        WDp.showCoinDp(getBaseContext(), toDpCoin.get(2), holder.itemAmountDenom2, holder.itemAmount2, mBaseChain);
+                    }
+                    if (toDpCoin.size() > 3) {
+                        holder.itemAmountLayer3.setVisibility(View.VISIBLE);
+                        WDp.showCoinDp(getBaseContext(), toDpCoin.get(3), holder.itemAmountDenom3, holder.itemAmount3, mBaseChain);
+                    }
+                    if (toDpCoin.size() > 4) {
+                        holder.itemAmountLayer4.setVisibility(View.VISIBLE);
+                        WDp.showCoinDp(getBaseContext(), toDpCoin.get(4), holder.itemAmountDenom4, holder.itemAmount4, mBaseChain);
+                    }
+                }
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 final Msg msg = mResBnbTxInfo.getMsg(position - 1);
@@ -631,6 +688,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
+        //TODO now not perfect support with multi transfer with multi coins!!
         private void onBindMultiSend(RecyclerView.ViewHolder viewHolder, int position) {
             final TxMultiSendHolder holder = (TxMultiSendHolder)viewHolder;
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom0);
@@ -690,6 +748,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 }
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemInputAddress0.setText(msg.value.inputs.get(0).address);
+                holder.itemInputAmount0.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.inputs.get(0).coins.get(0).amount), 18, 18));
+                holder.itemOutputAddress0.setText(msg.value.outputs.get(0).address);
+                holder.itemOutputAmount0.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.outputs.get(0).coins.get(0).amount), 18, 18));
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 

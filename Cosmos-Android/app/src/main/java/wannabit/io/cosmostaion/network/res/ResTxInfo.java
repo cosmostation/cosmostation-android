@@ -278,6 +278,12 @@ public class ResTxInfo {
     public Result result;
 
     public class Result {
+        @SerializedName("Code")
+        public int Code;
+
+        @SerializedName("Log")
+        public String Log;
+
         @SerializedName("GasWanted")
         public String GasWanted;
 
@@ -296,5 +302,26 @@ public class ResTxInfo {
 
         @SerializedName("value")
         public String value;
+    }
+
+
+    public boolean isIrisSuccess() {
+        boolean isSuccess = false;
+        if (result != null && result.Code == 0) {
+            isSuccess = true;
+        }
+        return isSuccess;
+    }
+
+    public String failMsgIris() {
+        String msg = "";
+        if (result != null && !TextUtils.isEmpty(result.Log)) {
+            msg = result.Log;
+        }
+        return msg.replace(" ", "\u00A0");
+    }
+
+    public BigDecimal simpleUsedFeeIris() {
+        return simpleFee().multiply(new BigDecimal(result.GasUsed)).divide(new BigDecimal(result.GasWanted), 18, BigDecimal.ROUND_DOWN);
     }
 }

@@ -145,12 +145,13 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, getMainActivity().mBaseChain);
-//            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
             new HistoryTask(getBaseApplication(), this, req, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
+
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             ReqTx req = new ReqTx(0, 1, true, getMainActivity().mAccount.address, getMainActivity().mBaseChain);
-//            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
             new HistoryTask(getBaseApplication(), this, req, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             new HistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
@@ -177,7 +178,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if (result.taskType == BaseConstant.TASK_FETCH_HISTORY) {
             ArrayList<ResHistory.InnerHits> hits = (ArrayList<ResHistory.InnerHits>)result.resultData;
             if (hits != null && hits.size() > 0) {
-//                WLog.w("hit size " + hits.size());
+                WLog.w("hit size " + hits.size());
                 mHistory = hits;
                 mHistoryAdapter.notifyDataSetChanged();
                 mEmptyHistory.setVisibility(View.GONE);
@@ -274,10 +275,17 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                        webintent.putExtra("txid", source.hash);
-                        webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                        startActivity(webintent);
+//                        Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+//                        webintent.putExtra("txid", source.hash);
+//                        webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
+//                        startActivity(webintent);
+
+                        Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                        txDetail.putExtra("txHash", source.hash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
+
                     }
                 });
 
