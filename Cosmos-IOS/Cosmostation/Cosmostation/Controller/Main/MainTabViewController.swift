@@ -1136,7 +1136,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CGC_PRICE_TIC + "band-protocol"
             parameters = [:]
         }
-        
         let request = Alamofire.request(url!, method: .get,  parameters: parameters, encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {

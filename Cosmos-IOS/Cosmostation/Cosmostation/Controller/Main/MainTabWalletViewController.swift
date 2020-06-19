@@ -721,55 +721,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:WalletKavaIncentiveCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaIncentiveCell") as? WalletKavaIncentiveCell
-            cell?.rootCard.backgroundColor = COLOR_BG_GRAY
-            //TODO check show or hide btn
-//            cell?.btnParticipate.isHidden = true
-//            cell?.participateDone.isHidden = false
-//            cell?.BtnConstraint?.isActive = false
-//            cell?.LabelConstraint?.isActive = true
-            
-            cell?.actionParticipate = {
-                self.onClickIncentive()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 3) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.text = ""
-            }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionBuy = { }
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 4) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (mainTabVC!.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
-            }
-            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
-            }
-            return cell!
-            
-        } else if (indexPath.row == 5) {
             let cell:WalletVestingDetailCell? = tableView.dequeueReusableCell(withIdentifier:"WalletVestingDetailCell") as? WalletVestingDetailCell
             let mKavaAccount = BaseData.instance.mKavaAccountResult
             cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
@@ -803,6 +754,55 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.vestingTime4.text = WUtils.longTimetoString(input: mKavaAccount.getUnLockTime(4))
                 cell?.vestingGap4.text = WUtils.getUnbondingTimeleft(mKavaAccount.getUnLockTime(4))
                 cell?.vestingAmount4.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(4).stringValue, cell!.vestingAmount4.font!, 6, 6)
+            }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell:WalletKavaIncentiveCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaIncentiveCell") as? WalletKavaIncentiveCell
+            cell?.rootCard.backgroundColor = COLOR_BG_GRAY
+            //TODO check show or hide btn
+//            cell?.btnParticipate.isHidden = true
+//            cell?.participateDone.isHidden = false
+//            cell?.BtnConstraint?.isActive = false
+//            cell?.LabelConstraint?.isActive = true
+            
+            cell?.actionParticipate = {
+                self.onClickIncentive()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 4) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
+            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                cell?.updownImg.image = UIImage(named: "priceUp")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                cell?.updownImg.image = UIImage(named: "priceDown")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else {
+                cell?.updownImg.image = nil
+                cell?.updownPercent.text = ""
+            }
+            cell?.buySeparator.isHidden = true
+            cell?.buyBtn.isHidden = true
+            cell?.buyConstraint.priority = .defaultLow
+            cell?.noBuyConstraint.priority = .defaultHigh
+            cell?.actionBuy = { }
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 5) {
+            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            if (mainTabVC!.mInflation != nil) {
+                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
+            }
+            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
+                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
             }
             return cell!
             
