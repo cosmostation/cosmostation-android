@@ -946,6 +946,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemWithdrawAddress.setText(msg.value.withdraw_address);
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemDelegator.setText(msg.value.delegator_addr);
+                holder.itemWithdrawAddress.setText(msg.value.withdraw_addr);
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
@@ -962,6 +965,10 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemOpinion.setText(msg.value.option);
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemDelegator.setText(msg.value.voter);
+                holder.itemProposalId.setText(msg.value.proposal_id);
+                holder.itemOpinion.setText(msg.value.option);
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
@@ -975,9 +982,14 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemCommissionValidator.setText(msg.value.validator_address);
-                holder.itemCommissionValidatorMoniker.setText(msg.value.proposal_id);
                 holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
-                holder.itemCommissionAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleCommission(position - 1), 6, mBaseChain));
+                holder.itemCommissionAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleCommission(position - 1), 6, 6));
+
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemCommissionValidator.setText(msg.value.validator_addr);
+                holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
+                holder.itemCommissionAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleCommissionIris(), 18, 18));
             }
         }
 

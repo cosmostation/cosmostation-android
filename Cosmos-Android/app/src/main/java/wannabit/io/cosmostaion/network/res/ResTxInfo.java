@@ -361,4 +361,19 @@ public class ResTxInfo {
         String temp = rewardValidatorsIris().get(position).value.replaceAll("[^0-9]", "");
         return new BigDecimal(temp);
     }
+
+    public BigDecimal simpleCommissionIris() {
+        BigDecimal reward = BigDecimal.ZERO;
+        if (result != null && result.Tags != null) {
+            for (Tag tag:result.Tags) {
+                if (tag.key.equals("withdraw-reward-commission")) {
+                    if (tag.value != null) {
+                        String temp = tag.value.replaceAll("[^0-9]", "");
+                        reward = new BigDecimal(temp);
+                    }
+                }
+            }
+        }
+        return reward;
+    }
 }
