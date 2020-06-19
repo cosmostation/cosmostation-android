@@ -347,25 +347,25 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (getItemViewType(position) == TYPE_TX_REWARD) {
                 onBindReward(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_ADDRESS_CHANGE) {
-                onBindAddress(viewHolder, mResTxInfo.getMsg(position - 1));
+                onBindAddress(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_VOTE) {
-                onBindVote(viewHolder, mResTxInfo.getMsg(position - 1));
+                onBindVote(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_COMMISSION) {
                 onBindCommission(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_MULTI_SEND) {
-                onBindMultiSend(viewHolder, mResTxInfo.getMsg(position - 1));
+                onBindMultiSend(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_POST_PRICE) {
-                onBindPostPrice(viewHolder, mResTxInfo.getMsg(position - 1));
+                onBindPostPrice(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_CREATE_CDP) {
-                onBindCreateCdp(viewHolder, mResTxInfo.getMsg(position - 1));
+                onBindCreateCdp(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_DEPOSIT_CDP) {
-                onBindDepositCdp(viewHolder, mResTxInfo.getMsg(position - 1));
+                onBindDepositCdp(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_WITHDRAW_CDP) {
-                onBindWithdrawCdp(viewHolder, mResTxInfo.getMsg(position - 1));
+                onBindWithdrawCdp(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_DRAW_DEBT_CDP) {
-                onBindDrawDebtCdp(viewHolder, mResTxInfo.getMsg(position - 1));
+                onBindDrawDebtCdp(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_REPAY_CDP) {
-                onBindRepayDebtCdp(viewHolder, mResTxInfo.getMsg(position - 1));
+                onBindRepayDebtCdp(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HTLC_CREATE) {
                 onBindCreateHTLC(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HTLC_CLAIM) {
@@ -631,7 +631,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
-        private void onBindMultiSend(RecyclerView.ViewHolder viewHolder, Msg msg) {
+        private void onBindMultiSend(RecyclerView.ViewHolder viewHolder, int position) {
             final TxMultiSendHolder holder = (TxMultiSendHolder)viewHolder;
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom0);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom1);
@@ -643,6 +643,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom3);
             holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemInputAddress0.setText(msg.value.inputs.get(0).address);
                 holder.itemInputAmount0.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(0).coins.get(0).amount), 6, mBaseChain));
                 holder.itemOutputAddress0.setText(msg.value.outputs.get(0).address);
@@ -784,10 +785,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
-        private void onBindAddress(RecyclerView.ViewHolder viewHolder, Msg msg) {
+        private void onBindAddress(RecyclerView.ViewHolder viewHolder, int position) {
             final TxAddressHolder holder = (TxAddressHolder)viewHolder;
             holder.itemAddressImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_address);
                 holder.itemWithdrawAddress.setText(msg.value.withdraw_address);
 
@@ -798,10 +800,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
-        private void onBindVote(RecyclerView.ViewHolder viewHolder, Msg msg) {
+        private void onBindVote(RecyclerView.ViewHolder viewHolder, int position) {
             final TxVoteHolder holder = (TxVoteHolder)viewHolder;
             holder.itemVoteImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.voter);
                 holder.itemProposalId.setText(msg.value.proposal_id);
                 holder.itemOpinion.setText(msg.value.option);
@@ -826,10 +829,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
-        private void onBindPostPrice(RecyclerView.ViewHolder viewHolder, Msg msg) {
+        private void onBindPostPrice(RecyclerView.ViewHolder viewHolder, int position) {
             final TxPostPriceHolder holder = (TxPostPriceHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemPoster.setText(msg.value.from);
                 holder.itemMakerId.setText(msg.value.market_id);
                 holder.itemPostPrice.setText(msg.value.price);
@@ -838,10 +842,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         }
 
-        private void onBindCreateCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
+        private void onBindCreateCdp(RecyclerView.ViewHolder viewHolder, int position) {
             final TxCreateCdpHolder holder = (TxCreateCdpHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
                 WDp.showCoinDp(getBaseContext(), msg.value.collateral, holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
                 WDp.showCoinDp(getBaseContext(), msg.value.principal, holder.itemPrincipalDenom, holder.itemPrincipalAmount, mBaseChain);
@@ -850,10 +855,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         }
 
-        private void onBindDepositCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
+        private void onBindDepositCdp(RecyclerView.ViewHolder viewHolder, int position) {
             final TxDepositCdpHolder holder = (TxDepositCdpHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemOwner.setText(msg.value.owner);
                 holder.itemDepositor.setText(msg.value.depositor);
                 WDp.showCoinDp(getBaseContext(), msg.value.collateral, holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
@@ -861,33 +867,33 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         }
 
-        private void onBindWithdrawCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
+        private void onBindWithdrawCdp(RecyclerView.ViewHolder viewHolder, int position) {
             final TxWithdrawCdpHolder holder = (TxWithdrawCdpHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-                if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-                    holder.itemOwner.setText(msg.value.owner);
-                    holder.itemDepositor.setText(msg.value.depositor);
-                    WDp.showCoinDp(getBaseContext(), msg.value.collateral, holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
-                }
-
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemOwner.setText(msg.value.owner);
+                holder.itemDepositor.setText(msg.value.depositor);
+                WDp.showCoinDp(getBaseContext(), msg.value.collateral, holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
             }
         }
 
-        private void onBindDrawDebtCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
+        private void onBindDrawDebtCdp(RecyclerView.ViewHolder viewHolder, int position) {
             final TxDrawDebtCdpHolder holder = (TxDrawDebtCdpHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
                 holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
                 WDp.showCoinDp(getBaseContext(), msg.value.principal, holder.itemPrincipalDenom, holder.itemPrincipalAmount, mBaseChain);
             }
         }
 
-        private void onBindRepayDebtCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
+        private void onBindRepayDebtCdp(RecyclerView.ViewHolder viewHolder, int position) {
             final TxRepayDebtCdpHolder holder = (TxRepayDebtCdpHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
                 holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
                 WDp.showCoinDp(getBaseContext(), msg.value.payment, holder.itemPaymentDenom, holder.itemPaymentAmount, mBaseChain);
@@ -955,14 +961,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 try {
                     if (!TextUtils.isEmpty(receiveCoin.denom)) {
                         WDp.showCoinDp(getBaseContext(), receiveCoin, holder.itemReceiveDenom, holder.itemReceiveAmount, mBaseChain);
-                    } else {
-                        holder.itemReceiveDenom.setText("");
-                        holder.itemReceiveAmount.setText("");
                     }
-                } catch (Exception e) {
-                    holder.itemReceiveDenom.setText("");
-                    holder.itemReceiveAmount.setText("");
-                }
+                } catch (Exception e) {}
+
                 holder.itemClaimer.setText(msg.value.from);
                 holder.itemRandomNumber.setText(msg.value.random_number);
                 holder.itemSwapId.setText(msg.value.swap_id);
@@ -982,11 +983,18 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
+                Coin refundCoin = mResTxInfo.simpleRefund();
+                try {
+                    if (!TextUtils.isEmpty(refundCoin.denom)) {
+                        WDp.showCoinDp(getBaseContext(), refundCoin, holder.itemRefundDenom, holder.itemRefundAmount, mBaseChain);
+                    }
+                } catch (Exception e) { }
                 holder.itemFromAddr.setText(msg.value.from);
                 holder.itemSwapId.setText(msg.value.swap_id);
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
                 final Msg msg = mResBnbTxInfo.getMsg(position - 1);
+                holder.itemAmountLayer.setVisibility(View.GONE);
                 holder.itemFromAddr.setText(msg.value.from);
                 holder.itemSwapId.setText(msg.value.swap_id);
             }
@@ -1014,10 +1022,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
-//        private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, Msg msg) {
-//            final TxUnKnownHolder holder = (TxUnKnownHolder)viewHolder;
-//            holder.itemUnknownImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-//        }
+
         private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, int position) {
             final TxUnKnownHolder holder = (TxUnKnownHolder)viewHolder;
             holder.itemUnknownImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -1427,12 +1432,16 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         public class TxRefundHtlcHolder extends RecyclerView.ViewHolder {
             ImageView itemMsgImg;
             TextView itemMsgTitle;
-            TextView itemFromAddr, itemSwapId;
+            RelativeLayout itemAmountLayer;
+            TextView itemRefundAmount, itemRefundDenom, itemFromAddr, itemSwapId;
 
             public TxRefundHtlcHolder(@NonNull View itemView) {
                 super(itemView);
                 itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
                 itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemAmountLayer = itemView.findViewById(R.id.refund_amount_layer);
+                itemRefundAmount = itemView.findViewById(R.id.refund_amount);
+                itemRefundDenom = itemView.findViewById(R.id.refund_amount_denom);
                 itemFromAddr = itemView.findViewById(R.id.refund_addr);
                 itemSwapId = itemView.findViewById(R.id.refund_swap_id);
             }

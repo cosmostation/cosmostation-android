@@ -219,7 +219,25 @@ public class ResTxInfo {
         return coin;
     }
 
-
+    public Coin simpleRefund() {
+        Coin coin  = new Coin();
+        if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
+            for (Event event:logs.get(0).events) {
+                if (event.type.equals("transfer")) {
+                    for (EventAttribute attr:event.attributes) {
+                        if (attr.key.equals("amount")) {
+                            String value = attr.value;
+                            String denom = value.replaceAll("[0-9]", "");
+                            String amount = value.replaceAll("[^0-9]", "");
+                            coin.denom = denom;
+                            coin.amount = amount;
+                        }
+                    }
+                }
+            }
+        }
+        return coin;
+    }
 
 
 
