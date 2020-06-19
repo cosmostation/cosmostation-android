@@ -335,6 +335,7 @@
     <string name="str_to_validator">도착 검증인</string>
     <string name="str_validators">검증인들</string>
     <string name="str_amount_sum">합계 총액</string>
+    <string name="str_reward_sum">이자 총액</string>
     <string name="str_withdraw_address">이자 출금 주소</string>
     <string name="str_voter">투표자</string>
     <string name="str_success_c">성공</string>

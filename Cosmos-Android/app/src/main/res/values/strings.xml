@@ -429,6 +429,7 @@
     <string name="str_to_validator">To Validator</string>
     <string name="str_validators">Validators</string>
     <string name="str_amount_sum">Amount Sum</string>
+    <string name="str_reward_sum">Reward Sum</string>
     <string name="str_withdraw_address">Reward Withdraw Address</string>
     <string name="str_voter">Voter</string>
     <string name="str_success_c">Success</string>

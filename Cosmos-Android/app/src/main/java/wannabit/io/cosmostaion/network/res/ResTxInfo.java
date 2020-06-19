@@ -290,12 +290,10 @@ public class ResTxInfo {
         @SerializedName("GasUsed")
         public String GasUsed;
 
-        @SerializedName("tags")
-        public ArrayList<Tag> tags;
+        @SerializedName("Tags")
+        public ArrayList<Tag> Tags;
     }
 
-    @SerializedName("tags")
-    public ArrayList<Tag> tags;
     public class Tag {
         @SerializedName("key")
         public String key;
@@ -323,5 +321,44 @@ public class ResTxInfo {
 
     public BigDecimal simpleUsedFeeIris() {
         return simpleFee().multiply(new BigDecimal(result.GasUsed)).divide(new BigDecimal(result.GasWanted), 18, BigDecimal.ROUND_DOWN);
+    }
+
+
+    public BigDecimal simpleRewardIris() {
+        BigDecimal reward = BigDecimal.ZERO;
+        if (result != null && result.Tags != null) {
+            for (Tag tag:result.Tags) {
+                if (tag.key.equals("withdraw-reward-total")) {
+                    if (tag.value != null) {
+                        String temp = tag.value.replaceAll("[^0-9]", "");
+                        reward = new BigDecimal(temp);
+                    }
+                }
+
+            }
+        }
+        return reward;
+    }
+
+
+    public ArrayList<Tag> rewardValidatorsIris() {
+        ArrayList<Tag> validators = new ArrayList<>();
+        if (result != null && result.Tags != null) {
+            for (Tag tag:result.Tags) {
+                if (tag.key.startsWith("withdraw-reward-from-validator-")) {
+                    validators.add(tag);
+                }
+            }
+        }
+        return validators;
+    }
+
+    public String rewardValidatorIris(int position) {
+        return rewardValidatorsIris().get(position).key.replace("withdraw-reward-from-validator-", "");
+    }
+
+    public BigDecimal rewardAmountIris(int position) {
+        String temp = rewardValidatorsIris().get(position).value.replaceAll("[^0-9]", "");
+        return new BigDecimal(temp);
     }
 }

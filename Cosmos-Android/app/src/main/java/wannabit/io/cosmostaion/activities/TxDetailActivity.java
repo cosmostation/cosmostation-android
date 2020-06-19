@@ -68,6 +68,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
@@ -282,6 +283,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private static final int TYPE_TX_HTLC_CLAIM = 17;
         private static final int TYPE_TX_HTLC_REFUND = 18;
         private static final int TYPE_TX_INCENTIVE_REWARD = 19;
+        private static final int TYPE_TX_REWARD_ALL = 20;
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -327,6 +329,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxRefundHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_refund, viewGroup, false));
             } else if (viewType == TYPE_TX_INCENTIVE_REWARD) {
                 return new TxIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_incentive_reward, viewGroup, false));
+            } else if (viewType == TYPE_TX_REWARD_ALL) {
+                return new TxRewardAllHolder(getLayoutInflater().inflate(R.layout.item_tx_reward_all, viewGroup, false));
             }
 
             return new TxUnKnownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
@@ -374,6 +378,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindRefundHTLC(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_INCENTIVE_REWARD) {
                 onBindIncentive(viewHolder, position);
+            } else if (getItemViewType(position) == TYPE_TX_REWARD_ALL) {
+                onBindRewardAll(viewHolder, position);
             } else {
                 onBindUnKnown(viewHolder, position);
             }
@@ -480,6 +486,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_INCENTIVE_REWARD)) {
                         return TYPE_TX_INCENTIVE_REWARD;
+
+                    } else if (mResTxInfo.getMsgType(position - 1) .equals(IRIS_MSG_TYPE_WITHDRAW_ALL)) {
+                        return TYPE_TX_REWARD_ALL;
 
                     }
                     return TYPE_TX_UNKNOWN;
@@ -769,13 +778,18 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemDelegator.setText(msg.value.delegator_address);
                 holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_address);
-                holder.itemDelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, mBaseChain));
-                holder.itemAutoRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, mBaseChain));
+                holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, 6));
+                holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
                 if (mResTxInfo.getMsgs().size() == 1) {
                     holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
                 }
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemDelegator.setText(msg.value.delegator_addr);
+                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
+                holder.itemValidator.setText(msg.value.validator_addr);
+                holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.delegation.amount), 18, 18));
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
@@ -799,6 +813,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 }
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemUnDelegator.setText(msg.value.delegator_addr);
+                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
+                holder.itemValidator.setText(msg.value.validator_addr);
+                holder.itemUndelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.shares_amount), 18, 18));
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
@@ -824,6 +843,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 }
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemReDelegator.setText(msg.value.delegator_addr);
+                holder.itemFromValidator.setText(msg.value.validator_src_addr);
+                holder.itemFromMoniker.setText(WUtil.getMonikerName(msg.value.validator_src_addr, mAllValidators, true));
+                holder.itemToValidator.setText(msg.value.validator_dst_addr);
+                holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_addr, mAllValidators, true));
+                holder.itemRedelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.shares_amount), 18, 18));
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
@@ -842,8 +868,71 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleReward(msg.value.validator_address, position - 1), 6, mBaseChain));
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemDelegator.setText(msg.value.delegator_addr);
+                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
+                holder.itemValidator.setText(msg.value.validator_addr);
+                holder.itemRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleRewardIris(), 18, 18));
+
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+
+            }
+        }
+
+        private void onBindRewardAll(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxRewardAllHolder holder = (TxRewardAllHolder)viewHolder;
+            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemRewardAllAmountDenom);
+            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                holder.itemDelegator.setText(msg.value.delegator_addr);
+                holder.itemRewardValidatorCnt.setText( " (" + String.valueOf(mResTxInfo.rewardValidatorsIris().size()) + ")");
+                holder.itemRewardValidator0.setText(mResTxInfo.rewardValidatorIris(0));
+                holder.itemRewardMoniker0.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(0), mAllValidators, true));
+                if (mResTxInfo.rewardValidatorsIris().size() > 1) {
+                    holder.itemRewardValidator1.setVisibility(View.VISIBLE);
+                    holder.itemRewardMoniker1.setVisibility(View.VISIBLE);
+                    holder.itemRewardValidator1.setText(mResTxInfo.rewardValidatorIris(1));
+                    holder.itemRewardMoniker1.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(1), mAllValidators, true));
+                }
+                if (mResTxInfo.rewardValidatorsIris().size() > 2) {
+                    holder.itemRewardValidator2.setVisibility(View.VISIBLE);
+                    holder.itemRewardMoniker2.setVisibility(View.VISIBLE);
+                    holder.itemRewardValidator2.setText(mResTxInfo.rewardValidatorIris(2));
+                    holder.itemRewardMoniker2.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(2), mAllValidators, true));
+                }
+                if (mResTxInfo.rewardValidatorsIris().size() > 3) {
+                    holder.itemRewardValidator3.setVisibility(View.VISIBLE);
+                    holder.itemRewardMoniker3.setVisibility(View.VISIBLE);
+                    holder.itemRewardValidator3.setText(mResTxInfo.rewardValidatorIris(3));
+                    holder.itemRewardMoniker3.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(3), mAllValidators, true));
+                }
+                if (mResTxInfo.rewardValidatorsIris().size() > 4) {
+                    holder.itemRewardValidator4.setVisibility(View.VISIBLE);
+                    holder.itemRewardMoniker4.setVisibility(View.VISIBLE);
+                    holder.itemRewardValidator4.setText(mResTxInfo.rewardValidatorIris(4));
+                    holder.itemRewardMoniker4.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(4), mAllValidators, true));
+                }
+                if (mResTxInfo.rewardValidatorsIris().size() > 5) {
+                    holder.itemRewardValidator5.setVisibility(View.VISIBLE);
+                    holder.itemRewardMoniker5.setVisibility(View.VISIBLE);
+                    holder.itemRewardValidator5.setText(mResTxInfo.rewardValidatorIris(5));
+                    holder.itemRewardMoniker5.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(5), mAllValidators, true));
+                }
+                if (mResTxInfo.rewardValidatorsIris().size() > 6) {
+                    holder.itemRewardValidator6.setVisibility(View.VISIBLE);
+                    holder.itemRewardMoniker6.setVisibility(View.VISIBLE);
+                    holder.itemRewardValidator6.setText(mResTxInfo.rewardValidatorIris(6));
+                    holder.itemRewardMoniker6.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(6), mAllValidators, true));
+                }
+                if (mResTxInfo.rewardValidatorsIris().size() > 7) {
+                    holder.itemRewardValidator7.setVisibility(View.VISIBLE);
+                    holder.itemRewardMoniker7.setVisibility(View.VISIBLE);
+                    holder.itemRewardValidator7.setText(mResTxInfo.rewardValidatorIris(7));
+                    holder.itemRewardMoniker7.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(7), mAllValidators, true));
+                }
+                holder.itemRewardAllAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleRewardIris(), 18, 18));
 
             }
         }
@@ -1303,6 +1392,40 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemMoniker = itemView.findViewById(R.id.tx_reward_moniker);
                 itemRewardAmount = itemView.findViewById(R.id.tx_reward_amount);
                 itemRewardAmountDenom = itemView.findViewById(R.id.tx_reward_amount_symbol);
+            }
+        }
+
+        public class TxRewardAllHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemDelegator;
+            TextView itemRewardValidatorCnt;
+            TextView itemRewardValidator0, itemRewardValidator1, itemRewardValidator2, itemRewardValidator3, itemRewardValidator4, itemRewardValidator5, itemRewardValidator6, itemRewardValidator7;
+            TextView itemRewardMoniker0, itemRewardMoniker1, itemRewardMoniker2, itemRewardMoniker3, itemRewardMoniker4, itemRewardMoniker5, itemRewardMoniker6, itemRewardMoniker7;
+            TextView itemRewardAllAmount, itemRewardAllAmountDenom;
+
+            public TxRewardAllHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemDelegator = itemView.findViewById(R.id.tx_reward_all_delegator);
+                itemRewardValidatorCnt = itemView.findViewById(R.id.validator_count);
+                itemRewardValidator0 = itemView.findViewById(R.id.tx_reward_validator0);
+                itemRewardValidator1 = itemView.findViewById(R.id.tx_reward_validator1);
+                itemRewardValidator2 = itemView.findViewById(R.id.tx_reward_validator2);
+                itemRewardValidator3 = itemView.findViewById(R.id.tx_reward_validator3);
+                itemRewardValidator4 = itemView.findViewById(R.id.tx_reward_validator4);
+                itemRewardValidator5 = itemView.findViewById(R.id.tx_reward_validator5);
+                itemRewardValidator6 = itemView.findViewById(R.id.tx_reward_validator6);
+                itemRewardValidator7 = itemView.findViewById(R.id.tx_reward_validator7);
+                itemRewardMoniker0 = itemView.findViewById(R.id.tx_reward_moniker0);
+                itemRewardMoniker1 = itemView.findViewById(R.id.tx_reward_moniker1);
+                itemRewardMoniker2 = itemView.findViewById(R.id.tx_reward_moniker2);
+                itemRewardMoniker3 = itemView.findViewById(R.id.tx_reward_moniker3);
+                itemRewardMoniker4 = itemView.findViewById(R.id.tx_reward_moniker4);
+                itemRewardMoniker5 = itemView.findViewById(R.id.tx_reward_moniker5);
+                itemRewardMoniker6 = itemView.findViewById(R.id.tx_reward_moniker6);
+                itemRewardMoniker7 = itemView.findViewById(R.id.tx_reward_moniker7);
+                itemRewardAllAmount = itemView.findViewById(R.id.tx_reward_all_sum_amount);
+                itemRewardAllAmountDenom = itemView.findViewById(R.id.tx_reward_all_sum_symbol);
             }
         }
 
