@@ -212,6 +212,7 @@ class GenTxResultViewController: BaseViewController {
     
     func onTxDetailView() {
 //        print("onTxDetailView")
+        /*
         if (mTxType == COSMOS_MSG_TYPE_DELEGATE || mTxType == IRIS_MSG_TYPE_DELEGATE) {
             self.delegateResultView.isHidden = false
             self.loadingView.isHidden = true
@@ -462,6 +463,7 @@ class GenTxResultViewController: BaseViewController {
             }
             
         }
+         */
 
         self.actionLayer.isHidden = false
         self.dismissBtn.isHidden = true
@@ -474,70 +476,70 @@ class GenTxResultViewController: BaseViewController {
     }
     
     @IBAction func onClickExplorer(_ sender: UIButton) {
-        if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            guard let url = URL(string: "https://irishub.mintscan.io/txs/" + mTxInfo!.hash) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            guard let url = URL(string: "https://binance.mintscan.io/txs/" + mTxInfo!.hash) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            guard let url = URL(string: "https://kava.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
-            guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + mTxInfo!.hash) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
+//        if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+//            guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
+//            let safariViewController = SFSafariViewController(url: url)
+//            present(safariViewController, animated: true, completion: nil)
+//
+//        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+//            guard let url = URL(string: "https://irishub.mintscan.io/txs/" + mTxInfo!.hash) else { return }
+//            let safariViewController = SFSafariViewController(url: url)
+//            present(safariViewController, animated: true, completion: nil)
+//
+//        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+//            guard let url = URL(string: "https://binance.mintscan.io/txs/" + mTxInfo!.hash) else { return }
+//            let safariViewController = SFSafariViewController(url: url)
+//            present(safariViewController, animated: true, completion: nil)
+//
+//        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+//            guard let url = URL(string: "https://kava.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
+//            let safariViewController = SFSafariViewController(url: url)
+//            present(safariViewController, animated: true, completion: nil)
+//
+//        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+//            guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + mTxInfo!.hash) else { return }
+//            let safariViewController = SFSafariViewController(url: url)
+//            present(safariViewController, animated: true, completion: nil)
+//        }
     }
     
     @IBAction func onClickShare(_ sender: UIButton) {
-        if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            let text = "https://irishub.mintscan.io/txs/" + mTxInfo!.hash
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            let text = "https://binance.mintscan.io/txs/" + mTxInfo!.hash
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            let text = "https://kava.mintscan.io/txs/" + mTxInfo!.txhash
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
-            let text = "https://testnet-explorer.binance.org/tx/" + mTxInfo!.txhash
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-            
-        }
+//        if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+//            let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash
+//            let textToShare = [ text ]
+//            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+//            activityViewController.popoverPresentationController?.sourceView = self.view
+//            self.present(activityViewController, animated: true, completion: nil)
+//            
+//        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+//            let text = "https://irishub.mintscan.io/txs/" + mTxInfo!.hash
+//            let textToShare = [ text ]
+//            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+//            activityViewController.popoverPresentationController?.sourceView = self.view
+//            self.present(activityViewController, animated: true, completion: nil)
+//            
+//        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+//            let text = "https://binance.mintscan.io/txs/" + mTxInfo!.hash
+//            let textToShare = [ text ]
+//            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+//            activityViewController.popoverPresentationController?.sourceView = self.view
+//            self.present(activityViewController, animated: true, completion: nil)
+//            
+//        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+//            let text = "https://kava.mintscan.io/txs/" + mTxInfo!.txhash
+//            let textToShare = [ text ]
+//            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+//            activityViewController.popoverPresentationController?.sourceView = self.view
+//            self.present(activityViewController, animated: true, completion: nil)
+//            
+//        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+//            let text = "https://testnet-explorer.binance.org/tx/" + mTxInfo!.txhash
+//            let textToShare = [ text ]
+//            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+//            activityViewController.popoverPresentationController?.sourceView = self.view
+//            self.present(activityViewController, animated: true, completion: nil)
+//            
+//        }
         
         
         

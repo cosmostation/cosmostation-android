@@ -14,9 +14,9 @@ public struct Result {
     var gas_used: String = ""
     var log: Data?
     var allResult: Bool = true
-    
+
     init() {}
-    
+
     init(_ dictionary: [String: Any]) {
         self.code = dictionary["Code"] as? Int ?? -1
         self.gas_wanted = dictionary["gas_wanted"] as? String ?? ""
@@ -32,7 +32,7 @@ public struct Result {
                 }
             }
         }
-        
+
         if let log = dictionary["log"] as? NSDictionary {
 //            print("log NSDictionary ", log)
             if let code = log.object(forKey: "code") as? Int {

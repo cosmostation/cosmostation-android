@@ -1892,7 +1892,7 @@ class WUtils {
     }
     
     static func getKavaHtlcStatus(_ txInfo:TxInfo, _ swap:KavaSwapInfo?) -> String {
-        if (!txInfo.isSuccess) {
+        if (!txInfo.isSuccess()) {
             return NSLocalizedString("bep3_status_open", comment: "")
         }
         
