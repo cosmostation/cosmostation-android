@@ -226,10 +226,8 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mAvailable  = getSActivity().mAccount.getKavaBalance();
-            //TODO need more gas than cosmos
-//            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward)));
-//            mEstimateGasAmount = new BigDecimal(rewardGasFees.get(getSActivity().mValidators.size() - 1));
-            mEstimateGasAmount = new BigDecimal(FEE_KAVA_GAS_AMOUNT_REWARD);
+            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
+            mEstimateGasAmount = new BigDecimal(rewardGasFees.get(getSActivity().mValidators.size() - 1));
             onUpdateFeeLayer();
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
