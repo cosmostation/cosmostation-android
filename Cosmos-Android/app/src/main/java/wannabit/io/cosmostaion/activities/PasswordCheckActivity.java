@@ -477,73 +477,16 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
             }
 
-        } else if (result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_SEND ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD_ADDRESS_CHANGE ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_REINVEST ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_BNB_SIMPLE_SEND ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_VOTE ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_CREATE_CDP ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_REPAY_CDP ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_DRAW_DEBT_CDP ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_DEPOSIT_CDP ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_WITHDRAW_CDP ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_HTLC_REFUND  ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND ||
-                    result.taskType == BaseConstant.TASK_GEN_KAVA_CLAIM_INCENTIVE ) {
-            if (!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
-                onShakeView();
-                return;
-            }
-
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
-                Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if(!TextUtils.isEmpty(hash))
-                    txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-
-            } else if ((mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) && result.taskType == BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND) {
-                Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if(!TextUtils.isEmpty(hash))
-                    txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-
-            } else {
-                Intent txIntent = new Intent(PasswordCheckActivity.this, TxResultActivity.class);
-                txIntent.putExtra("txType", result.taskType);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                String hash = String.valueOf(result.resultData);
-                if(!TextUtils.isEmpty(hash))
-                    txIntent.putExtra("txHash", hash);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-
-                startActivity(txIntent);
-            }
-
         } else if (result.taskType == BaseConstant.TASK_DELETE_USER) {
             if(result.isSuccess) {
                 onDeleteAccount(mIdToDelete);
-
             } else {
                 onShakeView();
                 onInitView();
                 Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
 
             }
+
         } else if (result.taskType == BaseConstant.TASK_CHECK_MNEMONIC) {
             if(result.isSuccess) {
                 Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicCheckActivity.class);
@@ -555,19 +498,38 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 onShakeView();
                 onInitView();
                 Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
-
             }
-        }
 
-//        else if (result.taskType == BaseConstant.TASK_GEN_TX_HTLC_SWAP) {
-//            if(result.isSuccess) {
-//                WLog.w("TASK_GEN_TX_HTLC_SWAP Success");
-//            } else {
-//                WLog.w("TASK_GEN_TX_HTLC_SWAP Fail");
-//
-//            }
-//
-//        }
+        } else {
+            if (!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
+                onShakeView();
+                return;
+            }
+
+            if ((mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) && result.taskType == BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND) {
+                Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
+                txIntent.putExtra("isGen", true);
+                txIntent.putExtra("isSuccess", result.isSuccess);
+                txIntent.putExtra("errorCode", result.errorCode);
+                txIntent.putExtra("errorMsg", result.errorMsg);
+                String hash = String.valueOf(result.resultData);
+                if(!TextUtils.isEmpty(hash))
+                    txIntent.putExtra("txHash", hash);
+                startActivity(txIntent);
+
+            } else {
+                Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
+                txIntent.putExtra("isGen", true);
+                txIntent.putExtra("isSuccess", result.isSuccess);
+                txIntent.putExtra("errorCode", result.errorCode);
+                txIntent.putExtra("errorMsg", result.errorMsg);
+                String hash = String.valueOf(result.resultData);
+                if(!TextUtils.isEmpty(hash))
+                    txIntent.putExtra("txHash", hash);
+                startActivity(txIntent);
+            }
+
+        }
 
     }
 

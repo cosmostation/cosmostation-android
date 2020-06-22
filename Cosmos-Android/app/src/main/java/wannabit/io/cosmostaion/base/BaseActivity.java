@@ -724,7 +724,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         mMyValidators.clear();
         if (mTaskCount == 0 &&
                 (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) ||
-                        mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN))) {
+                        mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) ||
+                        mBaseChain.equals(BaseChain.BAND_MAIN))) {
             for(Validator top:mTopValidators) {
                 boolean already = false;
                 for(BondingState bond:mBondings) {
