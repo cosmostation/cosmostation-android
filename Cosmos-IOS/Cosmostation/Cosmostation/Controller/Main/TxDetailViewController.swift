@@ -541,7 +541,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else if (self.account?.account_address == msg?.value.outputs![0].address) {
                 cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
             }
-            var coins = msg?.value.inputs?[0].coins
+            let coins = msg?.value.inputs?[0].coins
             cell?.multiAmountStack.isHidden = true
             cell?.amountLabel.isHidden = false
             cell?.amountDenomLabel.isHidden = false
@@ -867,6 +867,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.fromAddress.text = msg?.value.from
             cell?.swapIdLabel.text = msg?.value.swap_id
+            let refundCoin = mTxInfo?.simpleRefund()
+            if (refundCoin != nil) {
+                cell?.refundAmount.attributedText = WUtils.displayAmount2(refundCoin!.amount, cell!.refundAmount.font!, WUtils.getKavaCoinDecimal(refundCoin!.denom), WUtils.getKavaCoinDecimal(refundCoin!.denom))
+                cell?.refundDenom.text = refundCoin!.denom.uppercased()
+            }
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             cell?.fromAddress.text = msg?.value.from

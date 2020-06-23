@@ -11,6 +11,8 @@ import UIKit
 class TxHtlcRefundCell: UITableViewCell {
     
     @IBOutlet weak var txIcon: UIImageView!
+    @IBOutlet weak var refundAmount: UILabel!
+    @IBOutlet weak var refundDenom: UILabel!
     @IBOutlet weak var fromAddress: UILabel!
     @IBOutlet weak var swapIdLabel: UILabel!
     
