@@ -411,16 +411,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                         
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-                                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-                                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
-                                    txResult["type"] = COSMOS_MSG_TYPE_WITHDRAW_DEL
-                                    self.onStartTxDetail(txResult)
-                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                                    txResult["type"] = IRIS_MSG_TYPE_WITHDRAW
-                                    self.onStartTxResult(txResult)
-                                }
+                                self.onStartTxDetail(txResult)
                             })
                         }
                     }
