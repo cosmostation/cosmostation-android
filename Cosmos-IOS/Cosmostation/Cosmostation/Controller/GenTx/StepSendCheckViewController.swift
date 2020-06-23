@@ -456,15 +456,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 wallet = Wallet(privateKey: pKey!.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
             }
             
-            
-            
             wallet.synchronise(){ (error) in
                 if let error = error {
                     if(SHOW_LOG) { print(error) }
                     if (self.waitAlert != nil) {
                         self.waitAlert?.dismiss(animated: true, completion: {
-                            txResult["type"] = BNB_MSG_TYPE_TRANSFER
-                            self.onStartTxResult(txResult)
+                            self.onStartTxDetail(txResult)
                         })
                     }
                 }
@@ -480,16 +477,14 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         if(SHOW_LOG) { print(error.localizedDescription) }
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                txResult["type"] = BNB_MSG_TYPE_TRANSFER
-                                self.onStartTxResult(txResult)
+                                self.onStartTxDetail(txResult)
                             })
                         }
                     }
                     if (self.waitAlert != nil) {
                         self.waitAlert?.dismiss(animated: true, completion: {
-                            txResult["type"] = BNB_MSG_TYPE_TRANSFER
                             txResult["hash"] = response.broadcast[0].hash
-                            self.onStartTxResult(txResult)
+                            self.onStartTxDetail(txResult)
                         })
                     }
                     print(response.broadcast)
@@ -537,7 +532,6 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         }
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                txResult["type"] = IOV_MSG_TYPE_TRANSFER
                                 self.onStartTxDetail(txResult)
                             })
                         }
