@@ -1373,7 +1373,6 @@ class WUtils {
             })
         }
         return result
-        
     }
     
     static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {

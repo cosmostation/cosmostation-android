@@ -533,6 +533,21 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
             }
             
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            cell?.fromLabel.text = msg?.value.inputs![0].address
+            cell?.toLabel.text = msg?.value.outputs![0].address
+            if (self.account?.account_address == msg?.value.inputs![0].address) {
+                cell?.txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
+            } else if (self.account?.account_address == msg?.value.outputs![0].address) {
+                cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
+            }
+            var coins = msg?.value.inputs?[0].coins
+            cell?.multiAmountStack.isHidden = true
+            cell?.amountLabel.isHidden = false
+            cell?.amountDenomLabel.isHidden = false
+            cell?.multiAmountConstraint.priority = .defaultLow
+            cell?.singleAmountConstraint.priority = .defaultHigh
+            WUtils.showCoinDp(coins![0], cell!.amountDenomLabel, cell!.amountLabel, chainType!)
         }
         return cell!
     }
