@@ -169,6 +169,8 @@
 		28A209E0248897F400C2C078 /* WalletVestingDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A209DE248897F400C2C078 /* WalletVestingDetailCell.xib */; };
 		28ACF35E247E4531003C8812 /* KavaIncentiveReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */; };
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
+		28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */; };
+		28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
 		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
 		C10F8E8103FA540DE8D91196 /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20D291C0AF536BBDAE928C /* Pods_Cosmostation.framework */; };
@@ -553,6 +555,8 @@
 		28A209DE248897F400C2C078 /* WalletVestingDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletVestingDetailCell.xib; sourceTree = "<group>"; };
 		28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveReward.swift; sourceTree = "<group>"; };
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxRewardAllCell.swift; sourceTree = "<group>"; };
+		28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxRewardAllCell.xib; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
 		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
 		90C3507019D5FF972346F7F1 /* Pods-Cosmostation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.debug.xcconfig"; path = "Target Support Files/Pods-Cosmostation/Pods-Cosmostation.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1306,6 +1310,8 @@
 				282FF35423F518E00028CC66 /* TxMultiTransferCell.xib */,
 				282FF35723F52FD40028CC66 /* TxRewardCell.swift */,
 				282FF35823F52FD40028CC66 /* TxRewardCell.xib */,
+				28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */,
+				28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */,
 				282FF35B23F530ED0028CC66 /* TxEditRewardAddressCell.swift */,
 				282FF35C23F530ED0028CC66 /* TxEditRewardAddressCell.xib */,
 				282FF35F23F532360028CC66 /* TxVoteCell.swift */,
@@ -1518,6 +1524,7 @@
 				E1C3C89923B1E27800A693C0 /* NotificationView.xib in Resources */,
 				E1FD233D233E1C44009327FE /* WalletGuideCell.xib in Resources */,
 				2845D885246FAEED007CD497 /* VoteTallyTableViewCell.xib in Resources */,
+				28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */,
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				282FF34623F5062A0028CC66 /* TxDelegateCell.xib in Resources */,
 				2868559824989AB80099D18F /* CdpWarnPopup.xib in Resources */,
@@ -1758,6 +1765,7 @@
 				E12D6B89226DF36D00D07CE4 /* StepSendAddressViewController.swift in Sources */,
 				E13171442260215E00EE5AD0 /* GenTxResultViewController.swift in Sources */,
 				E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */,
+				28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */,
 				282FF36123F532360028CC66 /* TxVoteCell.swift in Sources */,
 				282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */,
 				28474EF8241E06E200AF5A81 /* Account.codec.pb.swift in Sources */,

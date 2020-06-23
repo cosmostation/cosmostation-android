@@ -344,6 +344,7 @@ let IRIS_MSG_TYPE_UNDELEGATE                = "irishub/stake/BeginUnbonding";
 let IRIS_MSG_TYPE_REDELEGATE                = "irishub/stake/BeginRedelegate";
 let IRIS_MSG_TYPE_WITHDRAW                  = "irishub/distr/MsgWithdrawDelegationReward";
 let IRIS_MSG_TYPE_WITHDRAW_ALL              = "irishub/distr/MsgWithdrawDelegationRewardsAll";
+let IRIS_MSG_TYPE_COMMISSION                = "irishub/distr/MsgWithdrawValidatorRewardsAll";
 let IRIS_MSG_TYPE_VOTE                      = "irishub/gov/MsgVote";
 let IRIS_MSG_TYPE_DEPOSIT                   = "irishub/gov/MsgDeposit";
 let IRIS_MSG_TYPE_SUBMIT_PROPOSAL           = "irishub/gov/MsgSubmitProposal";

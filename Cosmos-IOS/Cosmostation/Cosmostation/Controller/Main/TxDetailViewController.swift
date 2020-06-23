@@ -52,6 +52,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxTransferCell", bundle: nil), forCellReuseIdentifier: "TxTransferCell")
         self.txTableView.register(UINib(nibName: "TxMultiTransferCell", bundle: nil), forCellReuseIdentifier: "TxMultiTransferCell")
         self.txTableView.register(UINib(nibName: "TxRewardCell", bundle: nil), forCellReuseIdentifier: "TxRewardCell")
+        self.txTableView.register(UINib(nibName: "TxRewardAllCell", bundle: nil), forCellReuseIdentifier: "TxRewardAllCell")
         self.txTableView.register(UINib(nibName: "TxEditRewardAddressCell", bundle: nil), forCellReuseIdentifier: "TxEditRewardAddressCell")
         self.txTableView.register(UINib(nibName: "TxVoteCell", bundle: nil), forCellReuseIdentifier: "TxVoteCell")
         self.txTableView.register(UINib(nibName: "TxPostPriceCell", bundle: nil), forCellReuseIdentifier: "TxPostPriceCell")
@@ -111,7 +112,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
 
         } else {
             //TODO TEST HASH for KAVA 
-//            mTxHash = "8AE5558D991DC8B7DA3C311D364818E3CBF1CED934B4B0EB65409AD4167FB59C"
+//            mTxHash = "94C476304818D6B1C47DF0FE9D0ABF2462191912DAA11C847483CC58D4A1452D"
             self.loadingMsg.isHidden = true
             self.loadingImg.onStartAnimation()
             self.onFetchTx(mTxHash!)
@@ -174,7 +175,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else if (msg?.type == COSMOS_MSG_TYPE_VOTE || msg?.type == IRIS_MSG_TYPE_VOTE) {
                 return onBindVote(tableView, indexPath.row)
                 
-            } else if (msg?.type == COSMOS_MSG_TYPE_WITHDRAW_VAL) {
+            } else if (msg?.type == COSMOS_MSG_TYPE_WITHDRAW_VAL || msg?.type == IRIS_MSG_TYPE_COMMISSION) {
                 return onBindCommission(tableView, indexPath.row)
                 
             } else if (msg?.type == COSMOS_MSG_TYPE_TRANSFER || msg?.type == COSMOS_MSG_TYPE_TRANSFER2 || msg?.type == COSMOS_MSG_TYPE_TRANSFER3 || msg?.type == IRIS_MSG_TYPE_TRANSFER) {
@@ -213,6 +214,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
             } else if (msg?.type == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
                 return onBindIncentive(tableView, indexPath.row)
+                
+            } else if (msg?.type == IRIS_MSG_TYPE_WITHDRAW_ALL) {
+                return onBindGetRewardAll(tableView, indexPath.row)
                 
             } else {
                 let cell:TxUnknownCell? = tableView.dequeueReusableCell(withIdentifier:"TxUnknownCell") as? TxUnknownCell
@@ -257,6 +261,32 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.feeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleFee().stringValue, cell!.feeAmountLabel.font!, 6, 6)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.feeLayer.isHidden = true
+            cell?.usedFeeLayer.isHidden = false
+            cell?.limitFeeLayer.isHidden = false
+            if (mTxInfo!.isSuccessIris()) {
+                cell?.statusImg.image = UIImage(named: "successIc")
+                cell?.statusLabel.text = NSLocalizedString("tx_success", comment: "")
+                cell?.errorMsg.isHidden = true
+                cell?.errorConstraint.priority = .defaultLow
+                cell?.successConstraint.priority = .defaultHigh
+            } else {
+                cell?.statusImg.image = UIImage(named: "failIc")
+                cell?.statusLabel.text = NSLocalizedString("tx_fail", comment: "")
+                cell?.errorMsg.text = mTxInfo?.failMsgIris()
+                cell?.errorMsg.isHidden = false
+                cell?.errorConstraint.priority = .defaultHigh
+                cell?.successConstraint.priority = .defaultLow
+            }
+            cell?.heightLabel.text = mTxInfo!.height
+            cell?.msgCntLabel.text = String(mTxInfo!.getMsgs().count)
+            cell?.gasAmountLabel.text = mTxInfo!.result!.GasUsed! + " / " + mTxInfo!.result!.GasWanted!
+            cell?.timeLabel.text = WUtils.txTimetoString(input: mTxInfo!.timestamp!)
+            cell?.timeGapLabel.text = WUtils.txTimeGap(input: mTxInfo!.timestamp!)
+            cell?.hashLabel.text = mTxInfo!.hash
+            cell?.memoLabel.text = mTxInfo!.tx?.value.memo
+            cell?.usedFeeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleUsedFeeIris().stringValue, cell!.usedFeeAmountLabel.font!, 18, 18)
+            cell?.limitFeeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleFee().stringValue, cell!.limitFeeAmountLabel.font!, 18, 18)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             cell?.feeLayer.isHidden = false
@@ -307,6 +337,16 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 cell?.autoRewardBottomConstraint.priority = .defaultLow
                 cell?.feeBottomConstraint.priority = .defaultHigh
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.delegatorLabel.text = msg?.value.delegator_addr
+            cell?.validatorLabel.text = msg?.value.validator_addr
+            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_addr!, true)
+            cell?.delegateAmountLabel.attributedText = WUtils.displayAmount2(msg?.value.delegation?.amount, cell!.delegateAmountLabel.font!, 18, 18)
+            cell?.autoRewardLayer.isHidden = true
+            cell?.autoRewardBottomConstraint.priority = .defaultLow
+            cell?.feeBottomConstraint.priority = .defaultHigh
+            
         }
         return cell!
     }
@@ -333,6 +373,16 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 cell?.autoRewardBottomConstraint.priority = .defaultLow
                 cell?.feeBottomConstraint.priority = .defaultHigh
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.undelegatorLabel.text = msg?.value.delegator_addr
+            cell?.validatorLabel.text = msg?.value.validator_addr
+            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_addr!, true)
+            cell?.undelegateAmountLabel.attributedText = WUtils.displayAmount2(msg?.value.shares_amount, cell!.undelegateAmountLabel.font!, 18, 18)
+            cell?.autoRewardLayer.isHidden = true
+            cell?.autoRewardBottomConstraint.priority = .defaultLow
+            cell?.feeBottomConstraint.priority = .defaultHigh
+
         }
         return cell!
     }
@@ -360,6 +410,18 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 cell?.autoRewardBottomConstraint.priority = .defaultLow
                 cell?.feeBottomConstraint.priority = .defaultHigh
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.redelegatorLabel.text = msg?.value.delegator_addr
+            cell?.fromValidatorLabel.text = msg?.value.validator_src_addr
+            cell?.fromMonikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_src_addr!, true)
+            cell?.toValidatorLabel.text = msg?.value.validator_dst_addr
+            cell?.toMonikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_dst_addr!, true)
+            cell?.redelegateAmountLabel.attributedText = WUtils.displayAmount2(msg?.value.shares_amount, cell!.redelegateAmountLabel.font!, 18, 18)
+            cell?.autoRewardLayer.isHidden = true
+            cell?.autoRewardBottomConstraint.priority = .defaultLow
+            cell?.feeBottomConstraint.priority = .defaultHigh
+
         }
         return cell!
     }
@@ -370,7 +432,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             var coins :[Coin]?
             if (msg?.type == COSMOS_MSG_TYPE_TRANSFER3) {
                 cell?.fromLabel.text = msg?.value.inputs![0].address
@@ -426,6 +489,50 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                     WUtils.showCoinDp(coins![4], cell!.multiAmountDenom4, cell!.multiAmount4, chainType!)
                 }
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.fromLabel.text = msg?.value.inputs![0].address
+            cell?.toLabel.text = msg?.value.outputs![0].address
+            if (self.account?.account_address == msg?.value.inputs![0].address) {
+                cell?.txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
+            } else if (self.account?.account_address == msg?.value.outputs![0].address) {
+                cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
+            }
+            var coins = msg?.value.inputs?[0].coins
+            coins = sortCoins(coins!, chainType!)
+            if (coins!.count <= 1) {
+                cell?.multiAmountStack.isHidden = true
+                cell?.amountLabel.isHidden = false
+                cell?.amountDenomLabel.isHidden = false
+                cell?.multiAmountConstraint.priority = .defaultLow
+                cell?.singleAmountConstraint.priority = .defaultHigh
+                WUtils.showCoinDp(coins![0], cell!.amountDenomLabel, cell!.amountLabel, chainType!)
+            } else {
+                cell?.multiAmountStack.isHidden = false
+                cell?.amountLabel.isHidden = true
+                cell?.amountDenomLabel.isHidden = true
+                cell?.multiAmountConstraint.priority = .defaultHigh
+                cell?.singleAmountConstraint.priority = .defaultLow
+                cell?.multiAmountLayer0.isHidden = false
+                WUtils.showCoinDp(coins![0], cell!.multiAmountDenom0, cell!.multiAmount0, chainType!)
+                if (coins!.count > 1) {
+                    cell?.multiAmountLayer1.isHidden = false
+                    WUtils.showCoinDp(coins![1], cell!.multiAmountDenom1, cell!.multiAmount1, chainType!)
+                }
+                if (coins!.count > 2) {
+                    cell?.multiAmountLayer2.isHidden = false
+                    WUtils.showCoinDp(coins![2], cell!.multiAmountDenom2, cell!.multiAmount2, chainType!)
+                }
+                if (coins!.count > 3) {
+                    cell?.multiAmountLayer3.isHidden = false
+                    WUtils.showCoinDp(coins![3], cell!.multiAmountDenom3, cell!.multiAmount3, chainType!)
+                }
+                if (coins!.count > 4) {
+                    cell?.multiAmountLayer4.isHidden = false
+                    WUtils.showCoinDp(coins![4], cell!.multiAmountDenom4, cell!.multiAmount4, chainType!)
+                }
+            }
+            
         }
         return cell!
     }
@@ -448,6 +555,66 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.validatorLabel.text = msg?.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_address!, true)
             cell?.amountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleReward(msg!.value.validator_address!, position - 1).stringValue, cell!.amountLabel.font!, 6, 6)
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.delegatorLabel.text = msg?.value.delegator_addr
+            cell?.validatorLabel.text = msg?.value.validator_addr
+            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_addr!, true)
+            cell?.amountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleRewardIris().stringValue, cell!.amountLabel.font!, 18, 18)
+            
+        }
+        return cell!
+    }
+    
+    func onBindGetRewardAll(_ tableView: UITableView,  _ position:Int) -> UITableViewCell {
+        let cell:TxRewardAllCell? = tableView.dequeueReusableCell(withIdentifier:"TxRewardAllCell") as? TxRewardAllCell
+        let msg = mTxInfo?.getMsg(position - 1)
+        cell?.setDenomType(chainType!)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.delegatorLabel.text = msg?.value.delegator_addr
+            cell?.validatorCnt.text = "(" + String(mTxInfo!.rewardValidatorsIris().count) + ")"
+            
+            cell?.validatorLabel0.text = mTxInfo!.rewardValidatorIris(0)
+            cell?.monikerLabel0.text = WUtils.getMonikerName(mAllValidator, mTxInfo!.rewardValidatorIris(0), true)
+            if (mTxInfo!.rewardValidatorsIris().count > 1) {
+                cell?.validatorLayer1.isHidden = false
+                cell?.validatorLabel1.text = mTxInfo!.rewardValidatorIris(1)
+                cell?.monikerLabel1.text = WUtils.getMonikerName(mAllValidator, mTxInfo!.rewardValidatorIris(1), true)
+            }
+            if (mTxInfo!.rewardValidatorsIris().count > 2) {
+                cell?.validatorLayer2.isHidden = false
+                cell?.validatorLabel2.text = mTxInfo!.rewardValidatorIris(2)
+                cell?.monikerLabel2.text = WUtils.getMonikerName(mAllValidator, mTxInfo!.rewardValidatorIris(2), true)
+            }
+            if (mTxInfo!.rewardValidatorsIris().count > 3) {
+                cell?.validatorLayer3.isHidden = false
+                cell?.validatorLabel3.text = mTxInfo!.rewardValidatorIris(3)
+                cell?.monikerLabel3.text = WUtils.getMonikerName(mAllValidator, mTxInfo!.rewardValidatorIris(3), true)
+            }
+            if (mTxInfo!.rewardValidatorsIris().count > 4) {
+                cell?.validatorLayer4.isHidden = false
+                cell?.validatorLabel4.text = mTxInfo!.rewardValidatorIris(4)
+                cell?.monikerLabel4.text = WUtils.getMonikerName(mAllValidator, mTxInfo!.rewardValidatorIris(4), true)
+            }
+            if (mTxInfo!.rewardValidatorsIris().count > 5) {
+                cell?.validatorLayer5.isHidden = false
+                cell?.validatorLabel5.text = mTxInfo!.rewardValidatorIris(5)
+                cell?.monikerLabel5.text = WUtils.getMonikerName(mAllValidator, mTxInfo!.rewardValidatorIris(5), true)
+            }
+            if (mTxInfo!.rewardValidatorsIris().count > 6) {
+                cell?.validatorLayer6.isHidden = false
+                cell?.validatorLabel6.text = mTxInfo!.rewardValidatorIris(6)
+                cell?.monikerLabel6.text = WUtils.getMonikerName(mAllValidator, mTxInfo!.rewardValidatorIris(6), true)
+            }
+            if (mTxInfo!.rewardValidatorsIris().count > 7) {
+                cell?.validatorLayer7.isHidden = false
+                cell?.validatorLabel7.text = mTxInfo!.rewardValidatorIris(7)
+                cell?.monikerLabel7.text = WUtils.getMonikerName(mAllValidator, mTxInfo!.rewardValidatorIris(7), true)
+            }
+            cell?.amountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleRewardIris().stringValue, cell!.amountLabel.font!, 18, 18)
+            
         }
         return cell!
     }
@@ -460,6 +627,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.delegatorLabel.text = msg?.value.delegator_address
             cell?.widthrawAddressLabel.text = msg?.value.withdraw_address
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.delegatorLabel.text = msg?.value.delegator_addr
+            cell?.widthrawAddressLabel.text = msg?.value.withdraw_addr
+            
         }
         return cell!
     }
@@ -473,6 +645,12 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.voterLabel.text = msg?.value.voter
             cell?.proposalIdLabel.text = msg?.value.proposal_id
             cell?.opinionLabel.text = msg?.value.option
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.voterLabel.text = msg?.value.voter
+            cell?.proposalIdLabel.text = msg?.value.proposal_id
+            cell?.opinionLabel.text = msg?.value.option
+            
         }
         return cell!
     }
@@ -487,6 +665,12 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.validatorLabel.text = msg?.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_address!, true)
             cell?.commissionAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleCommission(position - 1).stringValue, cell!.commissionAmountLabel.font!, 6, 6)
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.validatorLabel.text = msg?.value.validator_addr
+            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_addr!, true)
+            cell?.commissionAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleCommissionIris().stringValue, cell!.commissionAmountLabel.font!, 18, 18)
+            
         }
         return cell!
     }
@@ -641,7 +825,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let receiveCoin = mTxInfo!.simpleSwapCoin()
-            print("receiveCoin ", receiveCoin)
             if (receiveCoin != nil) {
                 cell?.claimAmount.attributedText = WUtils.displayAmount2(receiveCoin!.amount, cell!.claimAmount.font!, WUtils.getKavaCoinDecimal(receiveCoin!.denom), WUtils.getKavaCoinDecimal(receiveCoin!.denom))
                 cell?.claimDenom.text = receiveCoin!.denom.uppercased()
@@ -1028,6 +1211,18 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 return false
             })
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            return coins.sorted(by: {
+                if ($0.denom == IRIS_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.denom == IRIS_MAIN_DENOM) {
+                    return false
+                }
+                return false
+            })
+            
         }
         return coins
     }
