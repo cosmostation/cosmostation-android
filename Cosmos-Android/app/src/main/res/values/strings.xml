@@ -917,7 +917,7 @@
     <string name="tx_undelegate">Undelegate</string>
     <string name="tx_redelegate">Redelegate</string>
     <string name="tx_get_reward">Get Reward</string>
-    <string name="tx_get_reward_all">Get Rewards All</string>
+    <string name="tx_get_reward_all">Get All Rewards</string>
     <string name="tx_get_commission">Get Commission</string>
     <string name="tx_change_reward_address">Edit Address</string>
     <string name="tx_vote">Vote</string>

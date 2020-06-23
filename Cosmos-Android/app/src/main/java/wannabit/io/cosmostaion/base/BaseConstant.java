@@ -157,6 +157,7 @@ public class BaseConstant {
     public final static String IRIS_MSG_TYPE_REDELEGATE                     = "irishub/stake/BeginRedelegate";
     public final static String IRIS_MSG_TYPE_WITHDRAW                       = "irishub/distr/MsgWithdrawDelegationReward";
     public final static String IRIS_MSG_TYPE_WITHDRAW_ALL                   = "irishub/distr/MsgWithdrawDelegationRewardsAll";
+    public final static String IRIS_MSG_TYPE_COMMISSION                     = "irishub/distr/MsgWithdrawValidatorRewardsAll";
     public final static String IRIS_MSG_TYPE_VOTE                           = "irishub/gov/MsgVote";
     public final static String IRIS_MSG_TYPE_DEPOSIT                        = "irishub/gov/MsgDeposit";
     public final static String IRIS_MSG_TYPE_SUBMIT_PROPOSAL                = "irishub/gov/MsgSubmitProposal";
