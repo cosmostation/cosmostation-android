@@ -110,6 +110,7 @@
 		28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */; };
 		28474F0B241E06E200AF5A81 /* Qualityscore.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */; };
 		28474F0C241E06E200AF5A81 /* Preregistraion.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */; };
+		2848644E24A333CD0046E5C8 /* BottomLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2848644D24A333CD0046E5C8 /* BottomLineView.swift */; };
 		284B0F02247D5FD800B5A2D0 /* StepIncentive0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B0F01247D5FD800B5A2D0 /* StepIncentive0ViewController.swift */; };
 		284B0F04247D5FE800B5A2D0 /* StepIncentive3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B0F03247D5FE800B5A2D0 /* StepIncentive3ViewController.swift */; };
 		2852D76D2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */; };
@@ -493,6 +494,7 @@
 		28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration.codec.pb.swift; sourceTree = "<group>"; };
 		28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Qualityscore.codec.pb.swift; sourceTree = "<group>"; };
 		28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preregistraion.codec.pb.swift; sourceTree = "<group>"; };
+		2848644D24A333CD0046E5C8 /* BottomLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineView.swift; sourceTree = "<group>"; };
 		284B0F01247D5FD800B5A2D0 /* StepIncentive0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepIncentive0ViewController.swift; sourceTree = "<group>"; };
 		284B0F03247D5FE800B5A2D0 /* StepIncentive3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepIncentive3ViewController.swift; sourceTree = "<group>"; };
 		2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxIncentiveTableViewCell.swift; sourceTree = "<group>"; };
@@ -1134,6 +1136,7 @@
 				E1C3C89823B1E27800A693C0 /* NotificationView.xib */,
 				E1C3C89A23B1E3E400A693C0 /* NotificationView.swift */,
 				28908F6823F69BD100164030 /* EdgeInsetLabel.swift */,
+				2848644D24A333CD0046E5C8 /* BottomLineView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1799,6 +1802,7 @@
 				E1F1CF0A239F7D7D004EF8A2 /* VoteSelectViewController.swift in Sources */,
 				E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */,
 				28474EF9241E06E200AF5A81 /* Datamigration.codec.pb.swift in Sources */,
+				2848644E24A333CD0046E5C8 /* BottomLineView.swift in Sources */,
 				2842AB59242C1DFC00248EEB /* MyCdpViewController.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,

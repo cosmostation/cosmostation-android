@@ -16,32 +16,58 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     @IBOutlet weak var keyboardView: UIView!
     @IBOutlet weak var mNeminicImg: UIImageView!
     
-    @IBOutlet weak var mNemonicInput0: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput1: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput2: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput3: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput4: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput5: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput6: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput7: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput8: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput9: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput10: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput11: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput12: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput13: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput14: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput15: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput16: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput17: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput18: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput19: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput20: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput21: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput22: BottomLineTextField!
-    @IBOutlet weak var mNemonicInput23: BottomLineTextField!
+    @IBOutlet weak var mNemonicLayer0: BottomLineView!
+    @IBOutlet weak var mNemonicLayer1: BottomLineView!
+    @IBOutlet weak var mNemonicLayer2: BottomLineView!
+    @IBOutlet weak var mNemonicLayer3: BottomLineView!
+    @IBOutlet weak var mNemonicLayer4: BottomLineView!
+    @IBOutlet weak var mNemonicLayer5: BottomLineView!
+    @IBOutlet weak var mNemonicLayer6: BottomLineView!
+    @IBOutlet weak var mNemonicLayer7: BottomLineView!
+    @IBOutlet weak var mNemonicLayer8: BottomLineView!
+    @IBOutlet weak var mNemonicLayer9: BottomLineView!
+    @IBOutlet weak var mNemonicLayer10: BottomLineView!
+    @IBOutlet weak var mNemonicLayer11: BottomLineView!
+    @IBOutlet weak var mNemonicLayer12: BottomLineView!
+    @IBOutlet weak var mNemonicLayer13: BottomLineView!
+    @IBOutlet weak var mNemonicLayer14: BottomLineView!
+    @IBOutlet weak var mNemonicLayer15: BottomLineView!
+    @IBOutlet weak var mNemonicLayer16: BottomLineView!
+    @IBOutlet weak var mNemonicLayer17: BottomLineView!
+    @IBOutlet weak var mNemonicLayer18: BottomLineView!
+    @IBOutlet weak var mNemonicLayer19: BottomLineView!
+    @IBOutlet weak var mNemonicLayer20: BottomLineView!
+    @IBOutlet weak var mNemonicLayer21: BottomLineView!
+    @IBOutlet weak var mNemonicLayer22: BottomLineView!
+    @IBOutlet weak var mNemonicLayer23: BottomLineView!
     
-    var mNemonicInputs: [BottomLineTextField] = [BottomLineTextField]()
+    @IBOutlet weak var mNemonicInput0: UITextField!
+    @IBOutlet weak var mNemonicInput1: UITextField!
+    @IBOutlet weak var mNemonicInput2: UITextField!
+    @IBOutlet weak var mNemonicInput3: UITextField!
+    @IBOutlet weak var mNemonicInput4: UITextField!
+    @IBOutlet weak var mNemonicInput5: UITextField!
+    @IBOutlet weak var mNemonicInput6: UITextField!
+    @IBOutlet weak var mNemonicInput7: UITextField!
+    @IBOutlet weak var mNemonicInput8: UITextField!
+    @IBOutlet weak var mNemonicInput9: UITextField!
+    @IBOutlet weak var mNemonicInput10: UITextField!
+    @IBOutlet weak var mNemonicInput11: UITextField!
+    @IBOutlet weak var mNemonicInput12: UITextField!
+    @IBOutlet weak var mNemonicInput13: UITextField!
+    @IBOutlet weak var mNemonicInput14: UITextField!
+    @IBOutlet weak var mNemonicInput15: UITextField!
+    @IBOutlet weak var mNemonicInput16: UITextField!
+    @IBOutlet weak var mNemonicInput17: UITextField!
+    @IBOutlet weak var mNemonicInput18: UITextField!
+    @IBOutlet weak var mNemonicInput19: UITextField!
+    @IBOutlet weak var mNemonicInput20: UITextField!
+    @IBOutlet weak var mNemonicInput21: UITextField!
+    @IBOutlet weak var mNemonicInput22: UITextField!
+    @IBOutlet weak var mNemonicInput23: UITextField!
+
+    var mNemonicLayers: [BottomLineView] = [BottomLineView]()
+    var mNemonicInputs: [UITextField] = [UITextField]()
     
     @IBOutlet weak var suggestCollectionView: UICollectionView!
     @IBOutlet weak var wordCntLabel: UILabel!
@@ -53,6 +79,13 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mNemonicLayers = [self.mNemonicLayer0, self.mNemonicLayer1, self.mNemonicLayer2, self.mNemonicLayer3,
+                               self.mNemonicLayer4, self.mNemonicLayer5, self.mNemonicLayer6, self.mNemonicLayer7,
+                               self.mNemonicLayer8, self.mNemonicLayer9, self.mNemonicLayer10, self.mNemonicLayer11,
+                               self.mNemonicLayer12, self.mNemonicLayer13, self.mNemonicLayer14, self.mNemonicLayer15,
+                               self.mNemonicLayer16, self.mNemonicLayer17, self.mNemonicLayer18, self.mNemonicLayer19,
+                               self.mNemonicLayer20, self.mNemonicLayer21, self.mNemonicLayer22, self.mNemonicLayer23]
+        
         self.mNemonicInputs = [self.mNemonicInput0, self.mNemonicInput1, self.mNemonicInput2, self.mNemonicInput3,
                                self.mNemonicInput4, self.mNemonicInput5, self.mNemonicInput6, self.mNemonicInput7,
                                self.mNemonicInput8, self.mNemonicInput9, self.mNemonicInput10, self.mNemonicInput11,
@@ -78,6 +111,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         self.cardView.isHidden = true
         self.actionView.isHidden = true
         self.keyboardView.isHidden = true
+        
     }
     
     
@@ -190,10 +224,10 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     }
     
     func updateFocus() {
-        for i in 0 ..< self.mNemonicInputs.count {
-            self.mNemonicInputs[i].hasFocused = false
+        for i in 0 ..< self.mNemonicLayers.count {
+            self.mNemonicLayers[i].hasFocused = false
         }
-        self.mNemonicInputs[mCurrentPosition].hasFocused = true
+        self.mNemonicLayers[mCurrentPosition].hasFocused = true
         self.mNemonicInputs[mCurrentPosition].becomeFirstResponder()
         updateCollectionView()
     }
@@ -232,7 +266,6 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             }
         }
         self.wordCntLabel.textColor = WUtils.getChainColor(chainType!)
-        
     }
     
     func onValidateUserinput() -> Bool {
@@ -247,17 +280,14 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         if (!(userInputWords.count == 12 || userInputWords.count == 16 || userInputWords.count == 24)) {
             return false
         }
-        
         for input in userInputWords {
             if (!allMnemonicWords.contains(input)) {
                 return false
             }
         }
-        
         if (BTCMnemonic.init(words: userInputWords, password: "", wordListType: .english) == nil) {
             return false
         }
-        
         return true
     }
     
@@ -284,7 +314,6 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             updateFocus()
         }
         updateWordCnt()
-        
     }
     
     @IBAction func onSpaceClick(_ sender: Any) {
@@ -297,11 +326,11 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     
     @IBAction func onPasteClick(_ sender: Any) {
         if let myString = UIPasteboard.general.string {
-            
+
             for i in 0 ..< self.mNemonicInputs.count {
                 self.mNemonicInputs[i].text = ""
             }
-            
+
             let userPaste : [String] = myString.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
             for i in 0 ..< self.mNemonicInputs.count {
                 if(userPaste.count > i) {
@@ -315,10 +344,10 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
                 mCurrentPosition = 23
             }
             updateFocus()
-            
+
         } else {
             self.onShowToast(NSLocalizedString("error_no_clipboard", comment: ""))
-            
+
         }
         updateWordCnt()
     }

@@ -168,11 +168,16 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onUpdateAccountDB() {
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
-        mChainType = ChainType(rawValue: mAccount.account_base_chain)
         mAccounts = BaseData.instance.selectAllAccounts()
+        if (mAccount == nil && mAccounts.count > 0) {
+            mAccount = mAccounts[0]
+            BaseData.instance.setRecentAccountId(mAccount.account_id)
+        }
         if (mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
+            return
         }
+        mChainType = ChainType(rawValue: mAccount.account_base_chain)
     }
     
     func onFetchAccountData() -> Bool {
