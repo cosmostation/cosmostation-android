@@ -444,6 +444,23 @@ let FEE_REWARD_GAS_14                       = "900000";
 let FEE_REWARD_GAS_15                       = "960000";
 let FEE_REWARD_GAS_16                       = "1020000";
 
+let FEE_KAVA_REWARD_GAS_1                   = "100000";
+let FEE_KAVA_REWARD_GAS_2                   = "220000";
+let FEE_KAVA_REWARD_GAS_3                   = "240000";
+let FEE_KAVA_REWARD_GAS_4                   = "300000";
+let FEE_KAVA_REWARD_GAS_5                   = "400000";
+let FEE_KAVA_REWARD_GAS_6                   = "460000";
+let FEE_KAVA_REWARD_GAS_7                   = "520000";
+let FEE_KAVA_REWARD_GAS_8                   = "590000";
+let FEE_KAVA_REWARD_GAS_9                   = "660000";
+let FEE_KAVA_REWARD_GAS_10                  = "720000";
+let FEE_KAVA_REWARD_GAS_11                  = "790000";
+let FEE_KAVA_REWARD_GAS_12                  = "860000";
+let FEE_KAVA_REWARD_GAS_13                  = "920000";
+let FEE_KAVA_REWARD_GAS_14                  = "990000";
+let FEE_KAVA_REWARD_GAS_15                  = "1020000";
+let FEE_KAVA_REWARD_GAS_16                  = "1120000";
+
 
 
 let GAS_FEE_RATE_IRIS_AVERAGE               = "0.000008"

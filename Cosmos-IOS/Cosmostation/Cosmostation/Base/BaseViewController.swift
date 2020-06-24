@@ -89,14 +89,6 @@ class BaseViewController: UIViewController {
         self.navigationController?.pushViewController(createVC, animated: true)
     }
     
-    func onStartTxResult(_ response:[String:Any]) {
-//        print("onStartTxResult")
-        let resultVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "GenTxResultViewController") as! GenTxResultViewController
-        resultVC.response = response
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(resultVC, animated: true)
-    }
-    
     func onStartTxDetail(_ response:[String:Any]) {
         let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
         txDetailVC.mIsGen = true

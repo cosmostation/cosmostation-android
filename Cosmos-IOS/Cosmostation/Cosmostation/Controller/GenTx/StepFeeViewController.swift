@@ -30,7 +30,6 @@ class StepFeeViewController: BaseViewController {
     @IBOutlet weak var nextBtn: UIButton!
     
     var pageHolderVC: StepGenTxViewController!
-    var rewardAllGasAmounts: Array<NSDecimalNumber>!
     var feeAmount   = NSDecimalNumber.zero
     var feeCoin:Coin!
     
@@ -44,7 +43,6 @@ class StepFeeViewController: BaseViewController {
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
-            rewardAllGasAmounts = WUtils.getGasAmountForRewards()
             
             let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapFeeType(sender:)))
             self.feeTypeCardView.addGestureRecognizer(gesture)
@@ -396,7 +394,7 @@ class StepFeeViewController: BaseViewController {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
                 
             } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                result = rewardAllGasAmounts[pageHolderVC.mRewardTargetValidators.count-1]
+                result = WUtils.getGasAmountForRewards()[pageHolderVC.mRewardTargetValidators.count - 1]
                 
             } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
@@ -451,8 +449,7 @@ class StepFeeViewController: BaseViewController {
             } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
                 
             } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                //only one
-                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REWARD))
+                result = WUtils.getGasAmountForKavaRewards()[pageHolderVC.mRewardTargetValidators.count - 1]
                 
             } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REINVEST))
@@ -492,7 +489,7 @@ class StepFeeViewController: BaseViewController {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
                 
             } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                result = rewardAllGasAmounts[pageHolderVC.mRewardTargetValidators.count-1]
+                result = WUtils.getGasAmountForRewards()[pageHolderVC.mRewardTargetValidators.count - 1]
                 
             } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
