@@ -33,6 +33,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     private LinearLayout        mWarnLayer;
 
     private TextView            mAddress;
+    private LinearLayout[]      mWordsLayer = new LinearLayout[24];
     private TextView[]          mTvWords = new TextView[24];
 
     private TextView            mTvWarnMsg;
@@ -65,7 +66,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        for(int i = 0; i < mTvWords.length; i++) {
+        for(int i = 0; i < mWordsLayer.length; i++) {
+            mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i , "id", this.getPackageName()));
             mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i , "id", this.getPackageName()));
         }
         mCheckPassword = false;
@@ -74,6 +76,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onPostResume() {
+        WLog.w("onPostResume");
         super.onPostResume();
         if (mChain == null) {
             Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
@@ -81,7 +84,9 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
         } else {
             onShowWaitDialog();
-            onGenWords();
+            if (mWords == null || mWords.size() != 24) {
+                onGenWords();
+            }
             onUpdateView();
         }
     }
@@ -126,22 +131,21 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         } else if (mChain.equals(BaseChain.BNB_TEST) || mChain.equals(BaseChain.KAVA_TEST)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
         }
-        for(int i = 0; i < mTvWords.length; i++) {
+        for(int i = 0; i < mWordsLayer.length; i++) {
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_atom));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_atom));
             } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_iris));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iris));
             } else if (mChain.equals(BaseChain.BNB_MAIN)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_bnb));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_bnb));
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_kava));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_kava));
             } else if (mChain.equals(BaseChain.IOV_MAIN)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_iov));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iov));
             } else if (mChain.equals(BaseChain.BAND_MAIN)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_band));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_band));
             } else if (mChain.equals(BaseChain.BNB_TEST) || mChain.equals(BaseChain.KAVA_TEST)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_darkgray));
-
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_darkgray));
             }
         }
 
@@ -155,11 +159,11 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             }
         } else {
             for(int i = 0; i < mTvWords.length; i++) {
-                mTvWords[i].setText(mWords.get(i).replaceAll("[a-z]", "?"));
+                mTvWords[i].setText("");
             }
         }
 
-        if(mCheckPassword) {
+        if (mCheckPassword) {
             mBtnNext.setText(getString(R.string.str_create_wallet));
             mTvWarnMsg.setText(getString(R.string.str_create_warn1));
         } else {
@@ -172,7 +176,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if(v.equals(mBtnNext)) {
-            if(mBtnNext.getText().equals(getString(R.string.str_show_mnemonic))) {
+            if (mBtnNext.getText().equals(getString(R.string.str_show_mnemonic))) {
                 if(!getBaseDao().onHasPassword()) {
                     Intent intent = new Intent(CreateActivity.this, PasswordSetActivity.class);
                     startActivityForResult(intent, BaseConstant.CONST_PW_INIT);

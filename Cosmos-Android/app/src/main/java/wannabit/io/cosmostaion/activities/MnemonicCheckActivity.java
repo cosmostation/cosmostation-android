@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class MnemonicCheckActivity extends BaseActivity {
 
     private Toolbar             mToolbar;
     private CardView            mMnemonicLayer;
+    private LinearLayout[]      mWordsLayer = new LinearLayout[24];
     private TextView[]          mTvWords = new TextView[24];
     private Button              mCopy;
 
@@ -45,7 +47,8 @@ public class MnemonicCheckActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        for(int i = 0; i < mTvWords.length; i++) {
+        for(int i = 0; i < mWordsLayer.length; i++) {
+            mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i , "id", this.getPackageName()));
             mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i , "id", this.getPackageName()));
         }
 
@@ -66,22 +69,22 @@ public class MnemonicCheckActivity extends BaseActivity {
         }
         final ArrayList<String> mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
 
-        for(int i = 0; i < mTvWords.length; i++) {
+        for(int i = 0; i < mWordsLayer.length; i++) {
             if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.COSMOS_MAIN)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_atom));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_atom));
             } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.IRIS_MAIN)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_iris));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iris));
             } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.BNB_MAIN) || BaseChain.getChain(toCheck.baseChain).equals(BaseChain.BNB_TEST)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_bnb));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_bnb));
             } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.KAVA_MAIN) || BaseChain.getChain(toCheck.baseChain).equals(BaseChain.KAVA_TEST)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_kava));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_kava));
             } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.IOV_MAIN)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_iov));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iov));
             } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.BAND_MAIN)) {
-                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_band));
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_band));
             }
-            if(i >= mWords.size()) mTvWords[i].setVisibility(View.INVISIBLE);
-            else mTvWords[i].setVisibility(View.VISIBLE);
+            if(i >= mWords.size()) mWordsLayer[i].setVisibility(View.INVISIBLE);
+            else mWordsLayer[i].setVisibility(View.VISIBLE);
         }
 
         for(int i = 0; i < mWords.size(); i++) {
