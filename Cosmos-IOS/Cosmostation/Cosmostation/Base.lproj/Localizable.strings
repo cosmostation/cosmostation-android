@@ -141,6 +141,12 @@
 "wc_request_cancel_msg" = "\nPlease check the contents and decide.\n\nCancel Order.";
 "wc_request_success" = "Tx Success!";
 "wc_request_fail" = "Tx Fail";
+
+"wc_trade_title" = "Place Order Request";
+"wc_cancel_title" = "Cancel Order Request";
+"wc_trade_msg" = "Please check the contents and decide.\nIt affects your assets.";
+"wc_cancel_msg" = "Please check the contents and decide.\nYour order will cancel.";
+
 "vesting_account" = "Vesting Account";
 "vesting_account_msg" = "Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.";
 "waiting_deposit" = "Waiting Deposit";

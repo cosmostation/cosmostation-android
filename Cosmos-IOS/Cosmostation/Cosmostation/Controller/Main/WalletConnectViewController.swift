@@ -13,7 +13,7 @@ import BinanceChain
 import SwiftKeychainWrapper
 import BitcoinKit
 
-class WalletConnectViewController: BaseViewController {
+class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
 
     @IBOutlet weak var wcCardView: CardView!
     @IBOutlet weak var wcImg: UIImageView!
@@ -94,13 +94,14 @@ class WalletConnectViewController: BaseViewController {
 
         interactor.onBnbSign = { [weak self] (id, order) in
             if let bnbOrder = order as? WCBinanceTradeOrder {
+                print("make bnbOrder ", bnbOrder)
                 let price =  NSDecimalNumber.init(value: bnbOrder.msgs[0].price).dividing(by: NSDecimalNumber.init(string: "100000000"), withBehavior: WUtils.handler8)
                 let quantity =  NSDecimalNumber.init(value: bnbOrder.msgs[0].quantity).dividing(by: NSDecimalNumber.init(string: "100000000"), withBehavior: WUtils.handler8)
                 
                 var msg = NSLocalizedString("wc_request_sign_msg", comment: "")
                 msg = msg + "\n\n Symbol : " + bnbOrder.msgs[0].symbol + "\n" +
-                "Price : " + price.stringValue + "\n" +
-                "Quantity : " + quantity.stringValue
+                    "Price : " + price.stringValue + "\n" +
+                    "Quantity : " + quantity.stringValue
                 
                 let alert = UIAlertController(title: NSLocalizedString("wc_request_sign_title", comment: ""), message: msg, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .destructive, handler: nil))
@@ -108,10 +109,10 @@ class WalletConnectViewController: BaseViewController {
                     self?.signBnbOrder(id: id, order: order)
                 }))
                 self?.present(alert, animated: true, completion: nil)
-                
             }
             
             if let bnbOrder = order as? WCBinanceCancelOrder {
+                print("cancel bnbOrder ", bnbOrder)
                 var msg = NSLocalizedString("wc_request_cancel_msg", comment: "")
                 msg = msg + "Symbol : " + bnbOrder.msgs[0].symbol + "\n"
                 let alert = UIAlertController(title: NSLocalizedString("wc_request_sign_title", comment: ""), message: msg, preferredStyle: .alert)
@@ -121,8 +122,19 @@ class WalletConnectViewController: BaseViewController {
                 }))
                 self?.present(alert, animated: true, completion: nil)
             }
-            
+            //TODO
+//            let popupVC = WcTradePopup(nibName: "WcTradePopup", bundle: nil)
+//            let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+//            popupVC.bnbOrderId = id
+//            popupVC.bnbOrder = order
+//            cardPopup.resultDelegate = self
+//            cardPopup.show(onViewController: self!)
         }
+    }
+    
+    
+    func SBCardPopupResponse(result: Int) {
+        print("SBCardPopupResponse ", result)
     }
     
     
@@ -148,7 +160,7 @@ class WalletConnectViewController: BaseViewController {
         let extendPKey = PrivateKey.init(data: pKey.privateKey().raw, network: .testnet, isPublicKeyCompressed: false)
         let pubKeyString = extendPKey.publicKey().raw.dataToHexString()
     
-        var bnbWallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+        var bnbWallet = Wallet()
         if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             bnbWallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
         } else {
