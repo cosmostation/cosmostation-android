@@ -54,10 +54,6 @@ public class Dialog_MoreWait extends DialogFragment {
         return builder.create();
     }
 
-//    private TxResultActivity getTopActivity() {
-//        return (TxResultActivity)getActivity();
-//    }
-
     private TxDetailActivity getTopActivity() {
         return (TxDetailActivity)getActivity();
     }

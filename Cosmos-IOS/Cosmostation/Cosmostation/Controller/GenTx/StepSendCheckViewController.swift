@@ -419,20 +419,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         }
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                                    txResult["type"] = COSMOS_MSG_TYPE_TRANSFER2
-                                    self.onStartTxDetail(txResult)
-                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                                    txResult["type"] = IRIS_MSG_TYPE_TRANSFER
-                                    self.onStartTxResult(txResult)
-                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-                                    txResult["type"] = KAVA_MSG_TYPE_TRANSFER
-                                    self.onStartTxDetail(txResult)
-                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
-                                    txResult["type"] = BAND_MSG_TYPE_TRANSFER
-                                    self.onStartTxDetail(txResult)
-                                }
+                                self.onStartTxDetail(txResult)
                             })
                         }
                     }
@@ -469,15 +456,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 wallet = Wallet(privateKey: pKey!.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
             }
             
-            
-            
             wallet.synchronise(){ (error) in
                 if let error = error {
                     if(SHOW_LOG) { print(error) }
                     if (self.waitAlert != nil) {
                         self.waitAlert?.dismiss(animated: true, completion: {
-                            txResult["type"] = BNB_MSG_TYPE_TRANSFER
-                            self.onStartTxResult(txResult)
+                            self.onStartTxDetail(txResult)
                         })
                     }
                 }
@@ -493,16 +477,14 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         if(SHOW_LOG) { print(error.localizedDescription) }
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                txResult["type"] = BNB_MSG_TYPE_TRANSFER
-                                self.onStartTxResult(txResult)
+                                self.onStartTxDetail(txResult)
                             })
                         }
                     }
                     if (self.waitAlert != nil) {
                         self.waitAlert?.dismiss(animated: true, completion: {
-                            txResult["type"] = BNB_MSG_TYPE_TRANSFER
                             txResult["hash"] = response.broadcast[0].hash
-                            self.onStartTxResult(txResult)
+                            self.onStartTxDetail(txResult)
                         })
                     }
                     print(response.broadcast)
@@ -550,7 +532,6 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         }
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                txResult["type"] = IOV_MSG_TYPE_TRANSFER
                                 self.onStartTxDetail(txResult)
                             })
                         }

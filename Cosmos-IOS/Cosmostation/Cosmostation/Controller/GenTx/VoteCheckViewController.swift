@@ -245,16 +245,7 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
                         }
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                                    txResult["type"] = COSMOS_MSG_TYPE_VOTE
-                                    self.onStartTxDetail(txResult)
-                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                                    txResult["type"] = IRIS_MSG_TYPE_VOTE
-                                    self.onStartTxResult(txResult)
-                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                                    txResult["type"] = COSMOS_MSG_TYPE_VOTE
-                                    self.onStartTxDetail(txResult)
-                                }
+                                self.onStartTxDetail(txResult)
                             })
                         }
                     }

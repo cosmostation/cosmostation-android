@@ -16,6 +16,12 @@
 		2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */; };
 		2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */; };
 		2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */; };
+		282BDFE224A5992500D3A5D4 /* WcTradePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BDFE024A5992500D3A5D4 /* WcTradePopup.swift */; };
+		282BDFE324A5992600D3A5D4 /* WcTradePopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282BDFE124A5992500D3A5D4 /* WcTradePopup.xib */; };
+		282BDFE624A5BCCB00D3A5D4 /* WcCancelPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BDFE424A5BCCB00D3A5D4 /* WcCancelPopup.swift */; };
+		282BDFE724A5BCCB00D3A5D4 /* WcCancelPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282BDFE524A5BCCB00D3A5D4 /* WcCancelPopup.xib */; };
+		282BDFEA24A5BCE000D3A5D4 /* WcTransferPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BDFE824A5BCE000D3A5D4 /* WcTransferPopup.swift */; };
+		282BDFEB24A5BCE000D3A5D4 /* WcTransferPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282BDFE924A5BCE000D3A5D4 /* WcTransferPopup.xib */; };
 		282FF34123F4FFD20028CC66 /* TxCommissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FF33F23F4FFD20028CC66 /* TxCommissionCell.swift */; };
 		282FF34223F4FFD20028CC66 /* TxCommissionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FF34023F4FFD20028CC66 /* TxCommissionCell.xib */; };
 		282FF34523F5062A0028CC66 /* TxDelegateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FF34323F5062A0028CC66 /* TxDelegateCell.swift */; };
@@ -110,6 +116,7 @@
 		28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */; };
 		28474F0B241E06E200AF5A81 /* Qualityscore.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */; };
 		28474F0C241E06E200AF5A81 /* Preregistraion.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */; };
+		2848644E24A333CD0046E5C8 /* BottomLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2848644D24A333CD0046E5C8 /* BottomLineView.swift */; };
 		284B0F02247D5FD800B5A2D0 /* StepIncentive0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B0F01247D5FD800B5A2D0 /* StepIncentive0ViewController.swift */; };
 		284B0F04247D5FE800B5A2D0 /* StepIncentive3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B0F03247D5FE800B5A2D0 /* StepIncentive3ViewController.swift */; };
 		2852D76D2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */; };
@@ -169,6 +176,8 @@
 		28A209E0248897F400C2C078 /* WalletVestingDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A209DE248897F400C2C078 /* WalletVestingDetailCell.xib */; };
 		28ACF35E247E4531003C8812 /* KavaIncentiveReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */; };
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
+		28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */; };
+		28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
 		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
 		C10F8E8103FA540DE8D91196 /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20D291C0AF536BBDAE928C /* Pods_Cosmostation.framework */; };
@@ -217,7 +226,6 @@
 		E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D6B8A226DF3A700D07CE4 /* StepSendAmountViewController.swift */; };
 		E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D6B8C226DF3BB00D07CE4 /* StepSendCheckViewController.swift */; };
 		E1317142225F352A00EE5AD0 /* PostTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1317141225F352A00EE5AD0 /* PostTx.swift */; };
-		E13171442260215E00EE5AD0 /* GenTxResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */; };
 		E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */; };
 		E1406FC02260643200D9440C /* BlockInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FBF2260643200D9440C /* BlockInfo.swift */; };
 		E1406FC22260654F00D9440C /* TxInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FC12260654F00D9440C /* TxInfo.swift */; };
@@ -389,6 +397,12 @@
 		2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDetailViewController.swift; sourceTree = "<group>"; };
 		2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCommonCell.swift; sourceTree = "<group>"; };
 		2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCommonCell.xib; sourceTree = "<group>"; };
+		282BDFE024A5992500D3A5D4 /* WcTradePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WcTradePopup.swift; sourceTree = "<group>"; };
+		282BDFE124A5992500D3A5D4 /* WcTradePopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WcTradePopup.xib; sourceTree = "<group>"; };
+		282BDFE424A5BCCB00D3A5D4 /* WcCancelPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WcCancelPopup.swift; sourceTree = "<group>"; };
+		282BDFE524A5BCCB00D3A5D4 /* WcCancelPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WcCancelPopup.xib; sourceTree = "<group>"; };
+		282BDFE824A5BCE000D3A5D4 /* WcTransferPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WcTransferPopup.swift; sourceTree = "<group>"; };
+		282BDFE924A5BCE000D3A5D4 /* WcTransferPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WcTransferPopup.xib; sourceTree = "<group>"; };
 		282FF33F23F4FFD20028CC66 /* TxCommissionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCommissionCell.swift; sourceTree = "<group>"; };
 		282FF34023F4FFD20028CC66 /* TxCommissionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCommissionCell.xib; sourceTree = "<group>"; };
 		282FF34323F5062A0028CC66 /* TxDelegateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDelegateCell.swift; sourceTree = "<group>"; };
@@ -492,6 +506,7 @@
 		28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration.codec.pb.swift; sourceTree = "<group>"; };
 		28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Qualityscore.codec.pb.swift; sourceTree = "<group>"; };
 		28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preregistraion.codec.pb.swift; sourceTree = "<group>"; };
+		2848644D24A333CD0046E5C8 /* BottomLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineView.swift; sourceTree = "<group>"; };
 		284B0F01247D5FD800B5A2D0 /* StepIncentive0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepIncentive0ViewController.swift; sourceTree = "<group>"; };
 		284B0F03247D5FE800B5A2D0 /* StepIncentive3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepIncentive3ViewController.swift; sourceTree = "<group>"; };
 		2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxIncentiveTableViewCell.swift; sourceTree = "<group>"; };
@@ -553,6 +568,8 @@
 		28A209DE248897F400C2C078 /* WalletVestingDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletVestingDetailCell.xib; sourceTree = "<group>"; };
 		28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveReward.swift; sourceTree = "<group>"; };
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxRewardAllCell.swift; sourceTree = "<group>"; };
+		28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxRewardAllCell.xib; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
 		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
 		90C3507019D5FF972346F7F1 /* Pods-Cosmostation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.debug.xcconfig"; path = "Target Support Files/Pods-Cosmostation/Pods-Cosmostation.debug.xcconfig"; sourceTree = "<group>"; };
@@ -627,7 +644,6 @@
 		E12D6B8A226DF3A700D07CE4 /* StepSendAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSendAmountViewController.swift; sourceTree = "<group>"; };
 		E12D6B8C226DF3BB00D07CE4 /* StepSendCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSendCheckViewController.swift; sourceTree = "<group>"; };
 		E1317141225F352A00EE5AD0 /* PostTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTx.swift; sourceTree = "<group>"; };
-		E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenTxResultViewController.swift; sourceTree = "<group>"; };
 		E13696572292492800F3D5E2 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherValidatorViewController.swift; sourceTree = "<group>"; };
 		E136D8A223039493001BEBB8 /* Cosmostation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cosmostation.entitlements; sourceTree = "<group>"; };
@@ -830,6 +846,12 @@
 				2868559624989AB80099D18F /* CdpWarnPopup.xib */,
 				2868559924989ACD0099D18F /* DelegateWarnPopup.swift */,
 				2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */,
+				282BDFE024A5992500D3A5D4 /* WcTradePopup.swift */,
+				282BDFE124A5992500D3A5D4 /* WcTradePopup.xib */,
+				282BDFE424A5BCCB00D3A5D4 /* WcCancelPopup.swift */,
+				282BDFE524A5BCCB00D3A5D4 /* WcCancelPopup.xib */,
+				282BDFE824A5BCE000D3A5D4 /* WcTransferPopup.swift */,
+				282BDFE924A5BCE000D3A5D4 /* WcTransferPopup.xib */,
 			);
 			path = PopUp;
 			sourceTree = "<group>";
@@ -963,7 +985,6 @@
 				E183EF1E22A75DFC003B3580 /* ReInvestAmountViewController.swift */,
 				E1F1CF09239F7D7D004EF8A2 /* VoteSelectViewController.swift */,
 				E1F1CF0B239F7D8D004EF8A2 /* VoteCheckViewController.swift */,
-				E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */,
 				28617A7A243198D0006D66EA /* StepCreateCpdAmountViewController.swift */,
 				28617A7C243198E2006D66EA /* StepCreateCpdCheckViewController.swift */,
 				28617A7E24329433006D66EA /* StepDepositCdpAmountViewController.swift */,
@@ -1133,6 +1154,7 @@
 				E1C3C89823B1E27800A693C0 /* NotificationView.xib */,
 				E1C3C89A23B1E3E400A693C0 /* NotificationView.swift */,
 				28908F6823F69BD100164030 /* EdgeInsetLabel.swift */,
+				2848644D24A333CD0046E5C8 /* BottomLineView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1306,6 +1328,8 @@
 				282FF35423F518E00028CC66 /* TxMultiTransferCell.xib */,
 				282FF35723F52FD40028CC66 /* TxRewardCell.swift */,
 				282FF35823F52FD40028CC66 /* TxRewardCell.xib */,
+				28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */,
+				28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */,
 				282FF35B23F530ED0028CC66 /* TxEditRewardAddressCell.swift */,
 				282FF35C23F530ED0028CC66 /* TxEditRewardAddressCell.xib */,
 				282FF35F23F532360028CC66 /* TxVoteCell.swift */,
@@ -1474,6 +1498,7 @@
 				283850252448A6C600E5DEF2 /* TxHtlcRefundCell.xib in Resources */,
 				2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */,
 				283850212448A6B000E5DEF2 /* TxHtlcClaimCell.xib in Resources */,
+				282BDFE324A5992600D3A5D4 /* WcTradePopup.xib in Resources */,
 				2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */,
 				283A80DC24514AB8008FF813 /* RiskCheckPopupViewController.xib in Resources */,
 				E16B89162341C558003E0922 /* TokenCell.xib in Resources */,
@@ -1516,12 +1541,15 @@
 				282FF35623F518E00028CC66 /* TxMultiTransferCell.xib in Resources */,
 				E1CF42F123598AFE00907F45 /* ManageChainCell.xib in Resources */,
 				E1C3C89923B1E27800A693C0 /* NotificationView.xib in Resources */,
+				282BDFEB24A5BCE000D3A5D4 /* WcTransferPopup.xib in Resources */,
 				E1FD233D233E1C44009327FE /* WalletGuideCell.xib in Resources */,
 				2845D885246FAEED007CD497 /* VoteTallyTableViewCell.xib in Resources */,
+				28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */,
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				282FF34623F5062A0028CC66 /* TxDelegateCell.xib in Resources */,
 				2868559824989AB80099D18F /* CdpWarnPopup.xib in Resources */,
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
+				282BDFE724A5BCCB00D3A5D4 /* WcCancelPopup.xib in Resources */,
 				2852D7742477E83400D11DC4 /* WalletKavaIncentiveCell.xib in Resources */,
 				283A80CD24514194008FF813 /* CdpDetailMyTopCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
@@ -1684,6 +1712,7 @@
 				28A209DF248897F400C2C078 /* WalletVestingDetailCell.swift in Sources */,
 				2852D76D2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift in Sources */,
 				28474ED2241E06AF00AF5A81 /* TxPostPriceCell.swift in Sources */,
+				282BDFE624A5BCCB00D3A5D4 /* WcCancelPopup.swift in Sources */,
 				285A33D32446CDB80052BD3D /* StepHtlcSend3ViewController.swift in Sources */,
 				E1F7F63623436B71000E597F /* BnbHistory.swift in Sources */,
 				E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */,
@@ -1698,6 +1727,7 @@
 				2888B800246BCA3200B2EB4A /* KavaSwapInfo.swift in Sources */,
 				285A33D624475DC00052BD3D /* SelectPopupViewController.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
+				282BDFE224A5992500D3A5D4 /* WcTradePopup.swift in Sources */,
 				E1406FCC2260A11300D9440C /* StepRewardCheckViewController.swift in Sources */,
 				2868559324989AA50099D18F /* Bep3WarnPopup.swift in Sources */,
 				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
@@ -1756,8 +1786,8 @@
 				E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E12D6B89226DF36D00D07CE4 /* StepSendAddressViewController.swift in Sources */,
-				E13171442260215E00EE5AD0 /* GenTxResultViewController.swift in Sources */,
 				E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */,
+				28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */,
 				282FF36123F532360028CC66 /* TxVoteCell.swift in Sources */,
 				282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */,
 				28474EF8241E06E200AF5A81 /* Account.codec.pb.swift in Sources */,
@@ -1795,6 +1825,7 @@
 				E1F1CF0A239F7D7D004EF8A2 /* VoteSelectViewController.swift in Sources */,
 				E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */,
 				28474EF9241E06E200AF5A81 /* Datamigration.codec.pb.swift in Sources */,
+				2848644E24A333CD0046E5C8 /* BottomLineView.swift in Sources */,
 				2842AB59242C1DFC00248EEB /* MyCdpViewController.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,
@@ -1846,6 +1877,7 @@
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
 				28474ECD241E06AF00AF5A81 /* TxDepositCdpCell.swift in Sources */,
 				E151B651224867D60026B8C0 /* Proposal.swift in Sources */,
+				282BDFEA24A5BCE000D3A5D4 /* WcTransferPopup.swift in Sources */,
 				289DF170242DD90300433CF4 /* CdpDetailViewController.swift in Sources */,
 				E1A82DD5224223250097CAEE /* Balance.swift in Sources */,
 				282FF35523F518E00028CC66 /* TxMultiTransferCell.swift in Sources */,

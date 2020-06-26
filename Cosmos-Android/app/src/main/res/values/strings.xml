@@ -380,6 +380,15 @@
     <string name="str_wc_new_order">New Order</string>
     <string name="str_wc_cancel_order">Order Cancel</string>
     <string name="str_switch_wallet">Switch Wallet</string>
+    <string name="str_wc_trade_title">Place Order Request</string>
+    <string name="str_wc_cancel_title">Cancel Order Request</string>
+    <string name="str_wc_transfer_title">Transfer Request</string>
+    <string name="str_wc_trade_msg">Please check the contents and decide.\nIt affects your assets.</string>
+    <string name="str_wc_cancel_msg">Please check the contents and decide.\nYour order will cancel.</string>
+    <string name="str_wc_transfer_msg">Please check the contents and decide.\nIt affects your assets.</string>
+    <string name="str_wc_transfer_side">Side</string>
+    <string name="str_wc_transfer_symbol">Symbol</string>
+    <string name="str_wc_transfer_price">Price</string>
     <string name="str_quorum">Quorum</string>
     <string name="str_turnout">Turnout</string>
     <string name="str_vote_yes">YES</string>
@@ -429,6 +438,7 @@
     <string name="str_to_validator">To Validator</string>
     <string name="str_validators">Validators</string>
     <string name="str_amount_sum">Amount Sum</string>
+    <string name="str_reward_sum">Reward Sum</string>
     <string name="str_withdraw_address">Reward Withdraw Address</string>
     <string name="str_voter">Voter</string>
     <string name="str_success_c">Success</string>
@@ -916,7 +926,7 @@
     <string name="tx_undelegate">Undelegate</string>
     <string name="tx_redelegate">Redelegate</string>
     <string name="tx_get_reward">Get Reward</string>
-    <string name="tx_get_reward_all">Get Rewards All</string>
+    <string name="tx_get_reward_all">Get All Rewards</string>
     <string name="tx_get_commission">Get Commission</string>
     <string name="tx_change_reward_address">Edit Address</string>
     <string name="tx_vote">Vote</string>
@@ -1012,29 +1022,6 @@
         <item>Z</item>
     </string-array>
 
-
-    <!--<string-array name="atom_fee" translatable="false">-->
-        <!--<item>0.005</item>-->
-        <!--<item>0.010</item>-->
-        <!--<item>0.020</item>-->
-    <!--</string-array>-->
-    <!--<string name="atom_fee_l" translatable="false">0.005</string>-->
-    <!--<string name="atom_fee_m" translatable="false">0.010</string>-->
-    <!--<string name="atom_fee_h" translatable="false">0.020</string>-->
-
-    <string-array name="atom_fee" translatable="false">
-        <item>0.0005</item>
-        <item>0.001</item>
-        <item>0.002</item>
-        <item>0.004</item>
-    </string-array>
-    <string name="atom_fee_t" translatable="false">0.0005</string>
-    <string name="atom_fee_l" translatable="false">0.001</string>
-    <string name="atom_fee_m" translatable="false">0.002</string>
-    <string name="atom_fee_h" translatable="false">0.004</string>
-
-    <!--<string name="gas_constant" translatable="false">0.005</string>-->
-    <string name="gas_constant" translatable="false">0.0025</string>
     <string-array name="gas_multi_reward" translatable="false">
         <item>100000</item>
         <item>200000</item>
@@ -1054,26 +1041,23 @@
         <item>1020000</item>
     </string-array>
 
-    <string-array name="muon_fee" translatable="false">
-        <item>1</item>
-        <item>2</item>
-        <item>4</item>
+    <string-array name="gas_multi_reward_kava" translatable="false">
+        <item>100000</item>
+        <item>220000</item>
+        <item>240000</item>
+        <item>300000</item>
+        <item>400000</item>
+        <item>460000</item>
+        <item>520000</item>
+        <item>590000</item>
+        <item>660000</item>
+        <item>720000</item>
+        <item>790000</item>
+        <item>860000</item>
+        <item>920000</item>
+        <item>990000</item>
+        <item>1020000</item>
+        <item>1120000</item>
     </string-array>
-    <string name="muon_fee_l" translatable="false">1</string>
-    <string name="muon_fee_m" translatable="false">2</string>
-    <string name="muon_fee_h" translatable="false">4</string>
-
-
-    <string-array name="photino_fee" translatable="false">
-        <item>60</item>
-        <item>120</item>
-        <item>240</item>
-    </string-array>
-    <string name="photino_fee_l" translatable="false">60</string>
-    <string name="photino_fee_m" translatable="false">120</string>
-    <string name="photino_fee_h" translatable="false">240</string>
-
-
-
 
 </resources>

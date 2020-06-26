@@ -1373,7 +1373,6 @@ class WUtils {
             })
         }
         return result
-        
     }
     
     static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
@@ -1387,6 +1386,13 @@ class WUtils {
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (coin.denom == IRIS_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 18, 18)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             if (coin.denom == BNB_MAIN_DENOM) {
@@ -1428,6 +1434,13 @@ class WUtils {
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (denom == IRIS_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 18, 18)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             if (denom == BNB_MAIN_DENOM) {
@@ -1732,6 +1745,30 @@ class WUtils {
         return gasAmounts
     }
     
+    static func getGasAmountForKavaRewards() -> Array<NSDecimalNumber> {
+        var gasAmounts = Array<NSDecimalNumber>()
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_1))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_2))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_3))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_4))
+        
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_5))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_6))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_7))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_8))
+        
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_9))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_10))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_11))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_12))
+        
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_13))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_14))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_15))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_16))
+        return gasAmounts
+    }
+    
     static func getKavaCoinDecimal(_ denom:String) -> Int16 {
         if (denom.caseInsensitiveCompare(KAVA_MAIN_DENOM) == .orderedSame) {
             return 6;
@@ -1892,7 +1929,7 @@ class WUtils {
     }
     
     static func getKavaHtlcStatus(_ txInfo:TxInfo, _ swap:KavaSwapInfo?) -> String {
-        if (!txInfo.isSuccess) {
+        if (!txInfo.isSuccess()) {
             return NSLocalizedString("bep3_status_open", comment: "")
         }
         

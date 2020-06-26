@@ -140,6 +140,12 @@
 "wc_request_cancel_msg" = "\n내용을 확인하시고 결정해 주시기 바랍니다.\n\n주문 취소.";
 "wc_request_success" = "사인 성공";
 "wc_request_fail" = "사인 실패";
+
+"wc_trade_title" = "Place Order 요청";
+"wc_cancel_title" = "Cancel Order 요청";
+"wc_trade_msg" = "내용을 확인하시고 결정해 주시기 바랍니다.\n귀하의 자산에 영향을 미치는 내용입니다.";
+"wc_cancel_msg" = "내용을 확인하시고 결정해 주시기 바랍니다.\n기존 주문이 취소됩니다.";
+
 "vesting_account" = "베스팅 계정";
 "vesting_account_msg" = "베스팅 계정으로 보입니다. 정확한 수량으로 위임 및 위임해재를 하시기 위해서 cli를 이용하시는것을 권장합니다.";
 "waiting_deposit" = "디파짓 대기중";

@@ -136,7 +136,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             cell?.blockHeightLabel.text = mSendTxInfo?.height
             cell?.txHashLabel.text = mSendTxInfo?.hash
-            cell?.memoLabel.text = mSendTxInfo?.tx.value.memo
+            cell?.memoLabel.text = mSendTxInfo?.tx?.value.memo
             
             let sendCoin = msg?.value.getAmounts()![0]
             cell?.sentAmountLabel.attributedText = WUtils.displayAmount2(sendCoin?.amount, cell!.sentAmountLabel.font!, 8, 8)
@@ -154,13 +154,13 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.blockHeightLabel.text = mSendTxInfo?.height
             cell?.txHashLabel.text = mSendTxInfo?.txhash
-            cell?.memoLabel.text = mSendTxInfo?.tx.value.memo
+            cell?.memoLabel.text = mSendTxInfo?.tx?.value.memo
             
             let sendCoin = msg?.value.getAmounts()![0]
             cell?.sentAmountLabel.attributedText = WUtils.displayAmount2(sendCoin?.amount, cell!.sentAmountLabel.font!, WUtils.getKavaCoinDecimal(sendCoin!.denom), WUtils.getKavaCoinDecimal(sendCoin!.denom))
             cell?.sentDenom.text = sendCoin?.denom.uppercased()
             
-            cell?.feeLabel.attributedText = WUtils.displayAmount2(mSendTxInfo!.getSimpleFee(), cell!.feeLabel.font!, 6, 6)
+            cell?.feeLabel.attributedText = WUtils.displayAmount2(mSendTxInfo!.simpleFee().stringValue, cell!.feeLabel.font!, 6, 6)
             WUtils.setDenomTitle(chainType!, cell!.feeDenom)
             
             cell?.senderLabel.text = msg?.value.from
@@ -180,7 +180,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             cell?.blockHeightLabel.text = mClaimTxInfo?.height
             cell?.txHashLabel.text = mClaimTxInfo?.hash
-            cell?.memoLabel.text = mClaimTxInfo?.tx.value.memo
+            cell?.memoLabel.text = mClaimTxInfo?.tx?.value.memo
             
             cell?.receivedAmountLabel.text = ""
             cell?.receivedDenom.text = ""
@@ -196,15 +196,15 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.blockHeightLabel.text = mClaimTxInfo?.height
             cell?.txHashLabel.text = mClaimTxInfo?.txhash
-            cell?.memoLabel.text = mClaimTxInfo?.tx.value.memo
+            cell?.memoLabel.text = mClaimTxInfo?.tx?.value.memo
             
-            let receiveCoin = mClaimTxInfo!.getSimpleSwapCoin()
-            if (!receiveCoin.denom.isEmpty) {
-                cell?.receivedAmountLabel.attributedText = WUtils.displayAmount2(receiveCoin.amount, cell!.receivedAmountLabel.font!, WUtils.getKavaCoinDecimal(receiveCoin.denom), WUtils.getKavaCoinDecimal(receiveCoin.denom))
-                cell?.receivedDenom.text = receiveCoin.denom.uppercased()
+            let receiveCoin = mClaimTxInfo!.simpleSwapCoin()
+            if (receiveCoin != nil) {
+                cell?.receivedAmountLabel.attributedText = WUtils.displayAmount2(receiveCoin!.amount, cell!.receivedAmountLabel.font!, WUtils.getKavaCoinDecimal(receiveCoin!.denom), WUtils.getKavaCoinDecimal(receiveCoin!.denom))
+                cell?.receivedDenom.text = receiveCoin!.denom.uppercased()
             }
             
-            cell?.feeLabel.attributedText = WUtils.displayAmount2(mClaimTxInfo!.getSimpleFee(), cell!.feeLabel.font!, 6, 6)
+            cell?.feeLabel.attributedText = WUtils.displayAmount2(mClaimTxInfo!.simpleFee().stringValue, cell!.feeLabel.font!, 6, 6)
             WUtils.setDenomTitle(mHtlcToChain!, cell!.feeDenomLabel)
             
             cell?.claimerAddress.text = msg?.value.from

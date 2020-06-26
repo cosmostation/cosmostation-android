@@ -26,6 +26,7 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
                 <ImageView
+                    android:id="@+id/tx_msg_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_tx_distribution"/>
@@ -51,268 +52,186 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
-                    android:gravity="right"
-                    android:maxLength="1"
+                    android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ss_12_white"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/space_16">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_validators"
-                    style="@style/font_ss_12_gray1"/>
                 <LinearLayout
-                    android:id="@+id/tx_reward_all_validator0"
-                    android:layout_marginTop="@dimen/space_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/tx_reward_moniker0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginLeft="@dimen/space_4"
-                            android:gravity="right"
-                            android:maxWidth="@dimen/space_180"
-                            android:ellipsize="end"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                        <TextView
-                            android:id="@+id/tx_reward_validator0"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toLeftOf="@+id/tx_reward_moniker0"
-                            android:gravity="right"
-                            android:maxLength="1"
-                            android:ellipsize="middle"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/tx_reward_amount_symbol0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="IRIS"
-                            style="@style/font_ss_12_iris"/>
-                        <TextView
-                            android:id="@+id/tx_reward_amount0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/tx_reward_amount_symbol0"
-                            android:layout_toLeftOf="@+id/tx_reward_amount_symbol0"
-                            android:layout_marginRight="@dimen/space_2"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                    </RelativeLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/tx_reward_all_validator1"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/tx_reward_moniker1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginLeft="@dimen/space_4"
-                            android:gravity="right"
-                            android:maxWidth="@dimen/space_180"
-                            android:ellipsize="end"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                        <TextView
-                            android:id="@+id/tx_reward_validator1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toLeftOf="@+id/tx_reward_moniker1"
-                            android:gravity="right"
-                            android:maxLength="1"
-                            android:ellipsize="middle"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/tx_reward_amount_symbol1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="IRIS"
-                            style="@style/font_ss_12_iris"/>
-                        <TextView
-                            android:id="@+id/tx_reward_amount1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/tx_reward_amount_symbol1"
-                            android:layout_toLeftOf="@+id/tx_reward_amount_symbol1"
-                            android:layout_marginRight="@dimen/space_2"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                    </RelativeLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/tx_reward_all_validator2"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/tx_reward_moniker2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginLeft="@dimen/space_4"
-                            android:gravity="right"
-                            android:maxWidth="@dimen/space_180"
-                            android:ellipsize="end"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                        <TextView
-                            android:id="@+id/tx_reward_validator2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toLeftOf="@+id/tx_reward_moniker2"
-                            android:gravity="right"
-                            android:maxLength="1"
-                            android:ellipsize="middle"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/tx_reward_amount_symbol2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="IRIS"
-                            style="@style/font_ss_12_iris"/>
-                        <TextView
-                            android:id="@+id/tx_reward_amount2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/tx_reward_amount_symbol2"
-                            android:layout_toLeftOf="@+id/tx_reward_amount_symbol2"
-                            android:layout_marginRight="@dimen/space_2"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                    </RelativeLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/tx_reward_all_validator3"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/tx_reward_moniker3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginLeft="@dimen/space_4"
-                            android:gravity="right"
-                            android:maxWidth="@dimen/space_180"
-                            android:ellipsize="end"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                        <TextView
-                            android:id="@+id/tx_reward_validator3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toLeftOf="@+id/tx_reward_moniker3"
-                            android:gravity="right"
-                            android:maxLength="1"
-                            android:ellipsize="middle"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/tx_reward_amount_symbol3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="IRIS"
-                            style="@style/font_ss_12_iris"/>
-                        <TextView
-                            android:id="@+id/tx_reward_amount3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/tx_reward_amount_symbol3"
-                            android:layout_toLeftOf="@+id/tx_reward_amount_symbol3"
-                            android:layout_marginRight="@dimen/space_2"
-                            android:text="-"
-                            style="@style/font_ss_12_white"/>
-                    </RelativeLayout>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/tx_reward_all_commission"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_16">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_commission"
-                    style="@style/font_ss_12_gray1"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4">
+                    android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/tx_reward_all_commission_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="IRIS"
-                        style="@style/font_ss_12_iris"/>
+                        android:text="@string/str_validators"
+                        style="@style/font_ss_12_gray1"/>
                     <TextView
-                        android:id="@+id/tx_reward_all_commission_amount"
+                        android:id="@+id/validator_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_reward_all_commission_symbol"
-                        android:layout_toLeftOf="@+id/tx_reward_all_commission_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
                         style="@style/font_ss_12_white"/>
-                </RelativeLayout>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tx_reward_validator0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_ss_12_white"/>
+                <TextView
+                    android:id="@+id/tx_reward_moniker0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="-"
+                    style="@style/font_ss_11_white"/>
+                <TextView
+                    android:id="@+id/tx_reward_validator1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_ss_12_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_moniker1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="-"
+                    style="@style/font_ss_11_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_validator2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_ss_12_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_moniker2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="-"
+                    style="@style/font_ss_11_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_validator3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_ss_12_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_moniker3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="-"
+                    style="@style/font_ss_11_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_validator4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_ss_12_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_moniker4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="-"
+                    style="@style/font_ss_11_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_validator5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_ss_12_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_moniker5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="-"
+                    style="@style/font_ss_11_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_validator6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_ss_12_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_moniker6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="-"
+                    style="@style/font_ss_11_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_validator7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_ss_12_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tx_reward_moniker7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="-"
+                    style="@style/font_ss_11_white"
+                    android:visibility="gone"/>
             </LinearLayout>
-            <LinearLayout
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -320,12 +239,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_amount_sum"
+                    android:text="@string/str_reward_sum"
                     style="@style/font_ss_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4">
+                    android:layout_alignParentRight="true">
                     <TextView
                         android:id="@+id/tx_reward_all_sum_symbol"
                         android:layout_width="wrap_content"
@@ -343,7 +262,7 @@
                         android:text="-"
                         style="@style/font_ss_12_white"/>
                 </RelativeLayout>
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

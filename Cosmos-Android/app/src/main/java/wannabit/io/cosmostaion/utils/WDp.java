@@ -118,6 +118,13 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            if (coin.denom.equals(COSMOS_IRIS_ATTO)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
+
 
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             if (coin.denom.equals(COSMOS_KAVA)) {
@@ -125,15 +132,14 @@ public class WDp {
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
             }
+            //TODO need check decimal with denom's type
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), WUtil.getKavaCoinDecimal(coin), WUtil.getKavaCoinDecimal(coin)));
 
         } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             if (coin.denom.equals(COSMOS_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
-
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
-
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 8, 8));
 
@@ -149,6 +155,13 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            if (symbol.equals(COSMOS_IRIS_ATTO)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+            }
+            //TODO need check decimal with denom's type
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             if (symbol.equals(COSMOS_KAVA)) {
