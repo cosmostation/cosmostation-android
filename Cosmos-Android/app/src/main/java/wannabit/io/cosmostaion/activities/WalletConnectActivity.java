@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -78,6 +79,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
     private Session.MethodCall.Custom   mCustom;
 
 
+    @SuppressLint("HandlerLeak")
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

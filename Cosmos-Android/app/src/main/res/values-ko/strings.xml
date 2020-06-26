@@ -286,6 +286,15 @@
     <string name="str_wc_new_order">새로운 주문</string>
     <string name="str_wc_cancel_order">주문 취소</string>
     <string name="str_switch_wallet">지갑 전환</string>
+    <string name="str_wc_trade_title">Place Order 요청</string>
+    <string name="str_wc_cancel_title">Cancel Order 요청</string>
+    <string name="str_wc_transfer_title">Transfer 요청</string>
+    <string name="str_wc_trade_msg">내용을 확인하시고 결정해 주시기 바랍니다.\n귀하의 자산에 영향을 미치는 내용입니다.</string>
+    <string name="str_wc_cancel_msg">내용을 확인하시고 결정해 주시기 바랍니다.\n기존 주문이 취소됩니다.</string>
+    <string name="str_wc_transfer_msg">내용을 확인하시고 결정해 주시기 바랍니다.\n귀하의 자산에 영향을 미치는 내용입니다.</string>
+    <string name="str_wc_transfer_side">종류</string>
+    <string name="str_wc_transfer_symbol">심볼</string>
+    <string name="str_wc_transfer_price">가격</string>
     <string name="str_quorum">정족율</string>
     <string name="str_turnout">투표율</string>
     <string name="str_vote_yes">찬성</string>

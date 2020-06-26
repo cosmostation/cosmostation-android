@@ -83,4 +83,7 @@
     <color name="colorCdpSafe">#40F683</color>
     <color name="colorCdpSafe2">#31E072</color>
 
+    <color name="colorBnbBuy">#37CC6E</color>
+    <color name="colorBnbSell">#FF2745</color>
+
 </resources>

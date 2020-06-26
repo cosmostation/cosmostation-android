@@ -380,6 +380,15 @@
     <string name="str_wc_new_order">New Order</string>
     <string name="str_wc_cancel_order">Order Cancel</string>
     <string name="str_switch_wallet">Switch Wallet</string>
+    <string name="str_wc_trade_title">Place Order Request</string>
+    <string name="str_wc_cancel_title">Cancel Order Request</string>
+    <string name="str_wc_transfer_title">Transfer Request</string>
+    <string name="str_wc_trade_msg">Please check the contents and decide.\nIt affects your assets.</string>
+    <string name="str_wc_cancel_msg">Please check the contents and decide.\nYour order will cancel.</string>
+    <string name="str_wc_transfer_msg">Please check the contents and decide.\nIt affects your assets.</string>
+    <string name="str_wc_transfer_side">Side</string>
+    <string name="str_wc_transfer_symbol">Symbol</string>
+    <string name="str_wc_transfer_price">Price</string>
     <string name="str_quorum">Quorum</string>
     <string name="str_turnout">Turnout</string>
     <string name="str_vote_yes">YES</string>
