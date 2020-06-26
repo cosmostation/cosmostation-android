@@ -577,7 +577,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
                         return;
                     } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
-                        return;
+                        webintent.putExtra("txid", mResTxInfo.txhash);
                     }
                     webintent.putExtra("chain", mBaseChain.getChain());
                     webintent.putExtra("goMain", mIsGen);

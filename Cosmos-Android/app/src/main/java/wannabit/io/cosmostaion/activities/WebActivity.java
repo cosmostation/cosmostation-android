@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
@@ -27,7 +26,6 @@ public class WebActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-
         mWebview = findViewById(R.id.webView);
         mShare = findViewById(R.id.btn_floating);
         mWebview.getSettings().setJavaScriptEnabled(true);
@@ -101,6 +99,15 @@ public class WebActivity extends BaseActivity {
                 mWebview.loadUrl("https://testnet-explorer.binance.org/address/"+mAddress);
             else if (!TextUtils.isEmpty(mAsset))
                 mWebview.loadUrl("https://testnet-explorer.binance.org/asset/"+mAsset);
+
+        } else if (mBasechain.equals(BaseChain.BAND_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorBand));
+            String newUA= "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
+            mWebview.getSettings().setUserAgentString(newUA);
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl("https://cosmoscan.io/tx/"+mTxid);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl("https://cosmoscan.io/account/"+mAddress);
 
         }
 
