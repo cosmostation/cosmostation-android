@@ -70,6 +70,18 @@ public class SingleAllRedelegateState extends CommonTask {
                     }
                 }
 
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BAND_MAIN)) {
+                Response<ResLcdRedelegate> response = ApiClient.getBandChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
+                if(response.isSuccessful()) {
+                    if(response.body() != null && response.body().result != null) {
+                        mResult.resultData = response.body().result;
+                        mResult.isSuccess = true;
+                    } else {
+                        mResult.resultData = new ArrayList<Redelegate>();
+                        mResult.isSuccess = true;
+                    }
+                }
+
             }
 
 

@@ -74,6 +74,9 @@ public interface BandChain {
     @GET("/staking/redelegations")
     Call<ResLcdRedelegate> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
 
+    @GET("/staking/redelegations")
+    Call<ResLcdRedelegate> getRedelegateAllHistory(@Query("delegator") String delegator, @Query("validator_from") String validator_from, @Query("validator_to") String validator_to);
+
 
     //Broadcast Tx
     @POST("/txs")

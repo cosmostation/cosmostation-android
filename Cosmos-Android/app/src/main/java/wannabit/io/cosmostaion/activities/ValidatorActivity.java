@@ -261,7 +261,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
             hasbalance  = true;
             if (mRedelegates == null || mRedelegates.size() > 0) {
                 Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
@@ -284,11 +284,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     }
                 }
             }
-
-        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
-            //TODO Band not yet
-            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
-            return;
 
         }
 

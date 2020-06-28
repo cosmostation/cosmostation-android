@@ -60,7 +60,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-//        mAllValidators = getIntent().getParcelableArrayListExtra("allValidators");
         mMyValidators = getIntent().getParcelableArrayListExtra("myValidators");
         mTopValidators = getIntent().getParcelableArrayListExtra("topValidators");
         mOtherValidators = getIntent().getParcelableArrayListExtra("otherValidators");
@@ -271,7 +270,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-
 
         } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
             if (mRewards == null) {
