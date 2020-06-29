@@ -61,9 +61,8 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         if(getSActivity().mReinvestCoin != null) {
             BigDecimal rewardSum = new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN);
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
-                    || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                    || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) ||
+                    getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST) || getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, getSActivity().mBaseChain));
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 18, getSActivity().mBaseChain));
