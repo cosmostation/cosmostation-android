@@ -49,6 +49,7 @@ let IOV_REST_URL                        = "https://bnsapi.iov.one/";
 let IOV_RPC_URL                         = "https://rpc-iov-mainnet.cosmostation.io/";
 
 let BAND_URL                            = "https://lcd-band.cosmostation.io/";
+let BAND_API                            = "https://api-band-wenchang-mainnet.cosmostation.io/";
 
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
@@ -220,6 +221,9 @@ let BAND_STAKING_POOL                   = BAND_URL + "staking/pool";
 //let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "gov/proposals";
 //let CSS_LCD_URL_PROPOSALS_TALLY_TAIL    = "/tally";
 let BAND_BORAD_TX                       = BAND_URL + "txs";
+
+let BAND_API_HISTORY                    = BAND_API + "v1/account/txs/";
+let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";
 
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
