@@ -29,9 +29,8 @@ class ReInvestAmountViewController: BaseViewController {
         WUtils.setDenomTitle(pageHolderVC.chainType!, rewardDenomLabel)
         
         self.loadingImg.onStartAnimation()
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             self.onFetchReward(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             self.onFetchIrisReward(pageHolderVC.mAccount!)
@@ -57,25 +56,30 @@ class ReInvestAmountViewController: BaseViewController {
     
     func updateView() {
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN && self.pageHolderVC.mReinvestReward != nil) {
-            rewardAmountLabel.attributedText = WUtils.displayAmount(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, pageHolderVC.chainType!)
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, 6)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
-            
             self.loadingImg.isHidden = true
             self.controlLayer.isHidden = false
             self.cardView.isHidden = false
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            rewardAmountLabel.attributedText = WUtils.displayAmount(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 18, pageHolderVC.chainType!)
-            validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 18, 18)
+            validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             self.loadingImg.isHidden = true
             self.controlLayer.isHidden = false
             self.cardView.isHidden = false
             
         } else if ((pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) &&
             self.pageHolderVC.mReinvestReward != nil) {
-            rewardAmountLabel.attributedText = WUtils.displayAmount(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, pageHolderVC.chainType!)
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, 6)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
+            self.loadingImg.isHidden = true
+            self.controlLayer.isHidden = false
+            self.cardView.isHidden = false
             
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN && self.pageHolderVC.mReinvestReward != nil) {
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, 6)
+            validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             self.loadingImg.isHidden = true
             self.controlLayer.isHidden = false
             self.cardView.isHidden = false
@@ -93,6 +97,8 @@ class ReInvestAmountViewController: BaseViewController {
             url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_REWARD_FROM_VAL + accountAddr + BAND_REWARD_FROM_VAL_TAIL + validatorAddr
         }
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -120,7 +126,21 @@ class ReInvestAmountViewController: BaseViewController {
                         return;
                     }
                     for rawReward in rawRewards {
-                        if let atomReward = rawReward.object(forKey: "denom") as? String, atomReward == KAVA_MAIN_DENOM {
+                        if let kavaReward = rawReward.object(forKey: "denom") as? String, kavaReward == KAVA_MAIN_DENOM {
+                            var coin = Coin(rawReward as! [String : Any])
+                            coin.amount = NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handler0Down).stringValue
+                            self.pageHolderVC.mReinvestReward = coin
+                        }
+                    }
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                    guard let responseData = res as? NSDictionary,
+                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.updateView()
+                        return;
+                    }
+                    for rawReward in rawRewards {
+                        if let bandReward = rawReward.object(forKey: "denom") as? String, bandReward == BAND_MAIN_DENOM {
                             var coin = Coin(rawReward as! [String : Any])
                             coin.amount = NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handler0Down).stringValue
                             self.pageHolderVC.mReinvestReward = coin

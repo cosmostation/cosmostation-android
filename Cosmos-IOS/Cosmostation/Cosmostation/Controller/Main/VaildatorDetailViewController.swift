@@ -1201,6 +1201,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         
@@ -1214,7 +1216,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     }
 
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                    if(trimAddress == accountAddr) {
+                    if (trimAddress == accountAddr) {
                         self.onStartReInvest()
                     } else {
                         self.onShowReInvsetFailDialog()
@@ -1224,9 +1226,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
@@ -1237,7 +1238,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                             return;
                     }
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                    if(trimAddress == accountAddr) {
+                    if (trimAddress == accountAddr) {
                         self.onStartReInvest()
                     } else {
                         self.onShowReInvsetFailDialog()
@@ -1544,8 +1545,21 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
-            self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
-            return
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, BAND_MAIN_DENOM)
+                if(rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if(rewardSum.compare(NSDecimalNumber.one).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
         }
         self.onFetchRewardAddress(account!.account_address)
     }
