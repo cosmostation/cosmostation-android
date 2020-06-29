@@ -317,29 +317,18 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             url = KAVA_VALIDATORS
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                    self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                              print("no validators!!")
-                            return
-                    }
-                    self.mToReDelegateValidators.removeAll()
-                    for validator in validators {
-                        let tempVal = Validator(validator as! [String : Any])
-                        if(tempVal.operator_address != self.mTargetValidator?.operator_address) {
-                            self.mToReDelegateValidators.append(tempVal)
-                        }
-                    }
-                    self.sortByPower()
-                } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-                    guard let responseData = res as? NSDictionary,
-                        let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            print("no validators!!")
                             return
                     }
                     self.mToReDelegateValidators.removeAll()

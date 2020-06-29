@@ -136,7 +136,7 @@ class MsgGenerator {
     static func genGetRedelegateMsg(_ address: String, _ fromValAddress: String, _ toValAddress: String, _ amount: Coin, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             value.delegator_address = address
             value.validator_src_address = fromValAddress
             value.validator_dst_address = toValAddress
@@ -177,7 +177,7 @@ class MsgGenerator {
     static func genGetModifyRewardAddressMsg(_ requestAddress: String, _ newRewardAddress: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             value.delegator_address = requestAddress
             value.withdraw_address = newRewardAddress
             

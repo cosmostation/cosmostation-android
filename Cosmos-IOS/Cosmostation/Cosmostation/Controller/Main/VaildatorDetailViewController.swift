@@ -1131,12 +1131,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_REDELEGATION;
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_REDELEGATION;
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_REDELEGATION;
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["delegator":address, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN ) {
                     if let responseData = res as? NSDictionary,
                         let redelegateHistories = responseData.object(forKey: "result") as? Array<NSDictionary> {
                         if (redelegateHistories.count > 0) {
@@ -1352,7 +1354,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
 
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -1361,10 +1363,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             self.onFetchIrisRedelegateState(account!)
-            
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
-            self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
-            return
         }
     }
     
@@ -1374,9 +1372,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         txVC.mInflation = mInflation
         txVC.mProvision = mProvision
         txVC.mStakingPool = mStakingPool
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             txVC.mIrisStakePool = mIrisStakePool
@@ -1473,10 +1470,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         var validators = Array<Validator>()
         validators.append(mValidator!)
         txVC.mRewardTargetValidators = validators
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-            chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_WITHDRAW
