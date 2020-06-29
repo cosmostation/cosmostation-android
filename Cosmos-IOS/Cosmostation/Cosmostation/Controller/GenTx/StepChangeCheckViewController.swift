@@ -32,7 +32,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func onUpdateView() {
         let feeAmout = WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             rewardAddressChangeFee.attributedText = WUtils.displayAmount(feeAmout.stringValue, rewardAddressChangeFee.font, 6, pageHolderVC.chainType!)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             rewardAddressChangeFee.attributedText = WUtils.displayAmount(feeAmout.stringValue, rewardAddressChangeFee.font, 18, pageHolderVC.chainType!)
@@ -57,7 +57,21 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     @IBAction func onClickConfirm(_ sender: UIButton) {
-        let noticeAlert = UIAlertController(title: NSLocalizedString("reward_address_warnning_title", comment: ""), message: NSLocalizedString("reward_address_notice_msg", comment: ""), preferredStyle: .alert)
+        let title = NSLocalizedString("reward_address_warnning_title", comment: "")
+        let msg1 = NSLocalizedString("reward_address_notice_msg", comment: "")
+        let msg2 = NSLocalizedString("reward_address_notice_msg2", comment: "")
+        let msg = msg1 + msg2
+        let range = (msg as NSString).range(of: msg2)
+        let noticeAlert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let attributedMessage: NSMutableAttributedString = NSMutableAttributedString(
+            string: msg,
+            attributes: [
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12.0)
+            ]
+        )
+        attributedMessage.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 14.0), range: range)
+        attributedMessage.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: range)
+        noticeAlert.setValue(attributedMessage, forKey: "attributedMessage")
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: { _ in
             self.onShowPasswordCheck()
         }))
@@ -87,11 +101,19 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
+        var url: String?
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
+             url = CSS_LCD_URL_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_ACCOUNT_INFO + account.account_address
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {
                             _ = BaseData.instance.deleteBalance(account: account)
@@ -103,16 +125,8 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenModifyRewardAddressTx()
-                case .failure( _):
-                    self.hideWaittingAlert()
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                }
-            }
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            let request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -123,10 +137,25 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenModifyRewardAddressTx()
-                case .failure( _):
-                    self.hideWaittingAlert()
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                    guard let responseData = res as? NSDictionary,
+                        let info = responseData.object(forKey: "result") as? [String : Any] else {
+                            _ = BaseData.instance.deleteBalance(account: account)
+                            self.hideWaittingAlert()
+                            self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                            return
+                    }
+                    let accountInfo = AccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
+                    self.onGenModifyRewardAddressTx()
+                    
                 }
+                
+            case .failure( _):
+                self.hideWaittingAlert()
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
         }
     }
@@ -194,6 +223,8 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                         url = CSS_LCD_URL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                         url = IRIS_LCD_URL_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                        url = BAND_BORAD_TX
                     }
                     let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
@@ -205,9 +236,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                                 txResult = result
                             }
                         case .failure(let error):
-                            if(SHOW_LOG) {
-                                print("AddressChange error ", error)
-                            }
+                            if(SHOW_LOG) { print("AddressChange error ", error) }
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500
                             }
