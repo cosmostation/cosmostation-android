@@ -144,7 +144,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
             hasbalance  = true;
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -222,7 +222,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardAlarm.setVisibility(View.GONE);
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
-            mCardRewardAddress.setVisibility(View.GONE);
+            mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
 
         } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
