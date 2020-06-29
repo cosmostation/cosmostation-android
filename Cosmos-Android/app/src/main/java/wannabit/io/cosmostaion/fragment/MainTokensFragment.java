@@ -388,8 +388,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         if (balance.symbol.equals(COSMOS_ATOM) || (IS_TEST && balance.symbol.equals(COSMOS_MUON))) {
             holder.itemSymbol.setText(getString(R.string.str_atom_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.COSMOS_MAIN));
-            holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText(balance.symbol);
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Cosmos Hub Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
 
@@ -499,7 +499,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         if (balance.symbol.equals(COSMOS_KAVA)) {
             holder.itemSymbol.setText(getString(R.string.str_kava_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.KAVA_MAIN));
-            holder.itemInnerSymbol.setText("");
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("Kava Chain Native Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
@@ -510,7 +510,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             holder.itemSymbol.setText(balance.symbol.toUpperCase());
-            holder.itemInnerSymbol.setText("");
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             if (balance.symbol.equals("usdx")) {
                 holder.itemFullName.setText("USD Stable Asset");
             } else {
@@ -549,7 +549,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         if (balance.symbol.equals(COSMOS_KAVA)) {
             holder.itemSymbol.setText(getString(R.string.str_kava_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.KAVA_MAIN));
-            holder.itemInnerSymbol.setText("");
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("Kava Chain Native Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
@@ -560,7 +560,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             holder.itemSymbol.setText(balance.symbol.toUpperCase());
-            holder.itemInnerSymbol.setText("");
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             if (balance.symbol.equals("usdx")) {
                 holder.itemFullName.setText("USD Stable Asset");
             } else {
@@ -600,7 +600,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         if (balance.symbol.equals(COSMOS_IOV)) {
             holder.itemSymbol.setText(getString(R.string.str_iov_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IOV_MAIN));
-            holder.itemInnerSymbol.setText("");
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText(balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 9, 6));
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
@@ -622,7 +622,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         if (balance.symbol.equals(COSMOS_BAND)) {
             holder.itemSymbol.setText(getString(R.string.str_band_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.BAND_MAIN));
-            holder.itemInnerSymbol.setText("");
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("Band Chain Native Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
 

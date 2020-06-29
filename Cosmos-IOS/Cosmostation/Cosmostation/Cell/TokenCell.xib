@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -58,9 +58,8 @@
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhF-Xr-C8Y">
-                                <rect key="frame" x="57" y="21.5" width="0.0" height="0.0"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhF-Xr-C8Y">
+                                <rect key="frame" x="113" y="20" width="33" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
@@ -70,6 +69,7 @@
                         <constraints>
                             <constraint firstItem="3sf-gI-6rG" firstAttribute="top" secondItem="08K-3z-ccE" secondAttribute="bottom" constant="4" id="2Db-0F-CER"/>
                             <constraint firstAttribute="trailing" secondItem="TG1-pz-YZe" secondAttribute="trailing" constant="8" id="89q-wL-gUQ"/>
+                            <constraint firstItem="fhF-Xr-C8Y" firstAttribute="leading" secondItem="08K-3z-ccE" secondAttribute="trailing" constant="4" id="FGD-mv-Roh"/>
                             <constraint firstItem="08K-3z-ccE" firstAttribute="leading" secondItem="bXY-sd-W4V" secondAttribute="trailing" constant="12" id="GbV-qo-6c7"/>
                             <constraint firstItem="4Xa-f4-eN0" firstAttribute="firstBaseline" secondItem="3sf-gI-6rG" secondAttribute="firstBaseline" id="KEP-mj-ym9"/>
                             <constraint firstItem="bXY-sd-W4V" firstAttribute="leading" secondItem="UEl-4g-UdM" secondAttribute="leading" constant="12" id="Kf0-QP-D7H"/>
@@ -79,6 +79,7 @@
                             <constraint firstItem="bXY-sd-W4V" firstAttribute="centerY" secondItem="UEl-4g-UdM" secondAttribute="centerY" id="eS2-v7-aFW"/>
                             <constraint firstItem="TG1-pz-YZe" firstAttribute="leading" secondItem="9GU-wf-7Um" secondAttribute="trailing" constant="8" id="hBL-GV-NUL"/>
                             <constraint firstItem="3sf-gI-6rG" firstAttribute="leading" secondItem="08K-3z-ccE" secondAttribute="leading" id="kgz-Ia-Zu7"/>
+                            <constraint firstItem="fhF-Xr-C8Y" firstAttribute="centerY" secondItem="08K-3z-ccE" secondAttribute="centerY" id="lCK-hS-oX7"/>
                             <constraint firstItem="9GU-wf-7Um" firstAttribute="firstBaseline" secondItem="08K-3z-ccE" secondAttribute="firstBaseline" id="sXU-c4-M7I"/>
                             <constraint firstItem="4Xa-f4-eN0" firstAttribute="trailing" secondItem="9GU-wf-7Um" secondAttribute="trailing" id="svu-fq-OEI"/>
                         </constraints>

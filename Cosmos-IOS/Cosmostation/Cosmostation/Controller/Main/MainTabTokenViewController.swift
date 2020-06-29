@@ -381,8 +381,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "atom_ic")
             cell?.tokenSymbol.text = "ATOM"
             cell?.tokenSymbol.textColor = COLOR_ATOM
-            cell?.tokenTitle.text = ""
-            cell?.tokenDescription.text = balance.balance_denom
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenDescription.text = "Cosmos Hub Staking Token"
             let allAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
@@ -455,7 +455,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "kavaTokenImg")
             cell?.tokenSymbol.text = "KAVA"
             cell?.tokenSymbol.textColor = COLOR_KAVA
-            cell?.tokenTitle.text = ""
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Kava Chain Native Token"
             
             let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
@@ -466,7 +466,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.text = balance.balance_denom.uppercased()
             cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = ""
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             if (balance.balance_denom == "usdx") {
                 cell?.tokenDescription.text = "USD Stable Asset"
             } else {
@@ -490,7 +490,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "kavaTokenImg")
             cell?.tokenSymbol.text = "KAVA"
             cell?.tokenSymbol.textColor = COLOR_KAVA
-            cell?.tokenTitle.text = ""
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Kava Chain Native Token"
             
             let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
@@ -501,7 +501,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.text = balance.balance_denom.uppercased()
             cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = ""
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             if (balance.balance_denom == "usdx") {
                 cell?.tokenDescription.text = "USD Stable Asset"
             } else {
@@ -525,7 +525,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "iovTokenImg")
             cell?.tokenSymbol.text = IOV_MAIN_DENOM
             cell?.tokenSymbol.textColor = COLOR_IOV
-            cell?.tokenTitle.text = ""
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = balance.balance_denom
             
             let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
@@ -544,7 +544,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "bandTokenImg")
             cell?.tokenSymbol.text = "BAND"
             cell?.tokenSymbol.textColor = COLOR_BAND
-            cell?.tokenTitle.text = ""
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Band Chain Native Token"
             let allBand = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
