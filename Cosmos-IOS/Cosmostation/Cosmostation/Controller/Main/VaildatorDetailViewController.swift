@@ -116,11 +116,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             mUnbondings.removeAll()
             mRewards.removeAll()
-            mFetchCnt = 4
+            mFetchCnt = 5
             onFetchValidatorInfo(mValidator!)
             onFetchSignleBondingInfo(account!, mValidator!)
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
+            onFetchApiHistory(account!, mValidator!)
             
         }
         
@@ -168,7 +169,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else {
-            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                 if (mApiHistories.count > 0) {
                     return mApiHistories.count
                 } else {
@@ -623,7 +624,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onSetHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             if (mApiHistories.count > 0) {
                 let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
                 let history = mApiHistories[indexPath.row]
@@ -697,7 +698,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (indexPath.section == 1 && mApiHistories.count > 0) {
             let history = mApiHistories[indexPath.row]
-            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false
                 txDetailVC.mTxHash = history.tx_hash
@@ -1042,6 +1043,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_API_TEST_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_API_HISTORY + account.account_address + "/" + validator.operator_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in

@@ -977,6 +977,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             guard let url = URL(string: "https://kava.mintscan.io/txs/" + mTxInfo!.txhash!) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+//            guard let url = URL(string: "https://cosmoscan.io/tx/" + mTxInfo!.txhash!) else { return }
+//            var safariViewController = SFSafariViewController(url: url)
+//            present(safariViewController, animated: true, completion: nil)
         }
     }
     
