@@ -66,6 +66,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
@@ -870,6 +871,10 @@ public class WUtil {
                     if(o1.symbol.equals(COSMOS_IOV)) return -1;
                     if(o2.symbol.equals(COSMOS_IOV)) return 1;
 
+                } else if (chain.equals(BAND_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_BAND)) return -1;
+                    if(o2.symbol.equals(COSMOS_BAND)) return 1;
+
                 }
                 return o2.balance.compareTo(o1.balance);
             }
@@ -899,6 +904,10 @@ public class WUtil {
                 } else if (chain.equals(IOV_MAIN)) {
                     if(o1.symbol.equals(COSMOS_IOV)) return -1;
                     if(o2.symbol.equals(COSMOS_IOV)) return 1;
+
+                } else if (chain.equals(BAND_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_BAND)) return -1;
+                    if(o2.symbol.equals(COSMOS_BAND)) return 1;
 
                 }
                 return o1.symbol.compareTo(o2.symbol);

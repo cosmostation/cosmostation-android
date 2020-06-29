@@ -38,26 +38,23 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            rewardLabel.attributedText = WUtils.displayAmount(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 6, pageHolderVC.chainType!)
-            feeLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 6, pageHolderVC.chainType!)
-            
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 6, 6)
+            feeLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 6, 6)
             if let bonding = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address) {
-                currentDelegateAmount.attributedText = WUtils.displayAmount(bonding.getBondingAmount(pageHolderVC.mTargetValidator!).stringValue, currentDelegateAmount.font, 6, pageHolderVC.chainType!)
+                currentDelegateAmount.attributedText = WUtils.displayAmount2(bonding.getBondingAmount(pageHolderVC.mTargetValidator!).stringValue, currentDelegateAmount.font, 6, 6)
                 let expected = (NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount)).adding(bonding.getBondingAmount(pageHolderVC.mTargetValidator!))
-                expectedDelegateAmount.attributedText = WUtils.displayAmount(expected.stringValue, expectedDelegateAmount.font, 6, pageHolderVC.chainType!)
+                expectedDelegateAmount.attributedText = WUtils.displayAmount2(expected.stringValue, expectedDelegateAmount.font, 6, 6)
             }
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            rewardLabel.attributedText = WUtils.displayAmount(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 18, pageHolderVC.chainType!)
-            feeLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 18, pageHolderVC.chainType!)
-            
+            rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 18, 18)
+            feeLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 18, 18)
             if let bonding = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address) {
-                currentDelegateAmount.attributedText = WUtils.displayAmount(bonding.getBondingAmount(pageHolderVC.mTargetValidator!).stringValue, currentDelegateAmount.font, 18, pageHolderVC.chainType!)
+                currentDelegateAmount.attributedText = WUtils.displayAmount2(bonding.getBondingAmount(pageHolderVC.mTargetValidator!).stringValue, currentDelegateAmount.font, 18, 18)
                 let expected = (NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount)).adding(bonding.getBondingAmount(pageHolderVC.mTargetValidator!))
-                expectedDelegateAmount.attributedText = WUtils.displayAmount(expected.stringValue, expectedDelegateAmount.font, 18, pageHolderVC.chainType!)
+                expectedDelegateAmount.attributedText = WUtils.displayAmount2(expected.stringValue, expectedDelegateAmount.font, 18, 18)
             }
         }
         validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
@@ -74,7 +71,6 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
         self.backBtn.isUserInteractionEnabled = false
         self.confirmBtn.isUserInteractionEnabled = false
         pageHolderVC.onBeforePage()
-        
     }
     
     func checkIsWasteFee() -> Bool {
@@ -124,6 +120,8 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             url = KAVA_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_ACCOUNT_INFO + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -165,6 +163,20 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
                     self.onGenReinvest()
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                    guard let responseData = res as? NSDictionary,
+                        let info = responseData.object(forKey: "result") as? [String : Any] else {
+                            _ = BaseData.instance.deleteBalance(account: account)
+                            self.hideWaittingAlert()
+                            self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                            return
+                    }
+                    let accountInfo = AccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
+                    self.onGenReinvest()
+                    
                 }
                 
             case .failure( _):
@@ -184,9 +196,8 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 var msgList = Array<Msg>()
-                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                     let rewardMsg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
                                                                  self.pageHolderVC.mTargetValidator!.operator_address,
                                                                  self.pageHolderVC.chainType!)
@@ -266,6 +277,8 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                         url = KAVA_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                        url = BAND_BORAD_TX
                     }
             
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])

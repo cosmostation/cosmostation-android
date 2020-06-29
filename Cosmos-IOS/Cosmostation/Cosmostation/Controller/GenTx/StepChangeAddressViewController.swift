@@ -74,14 +74,23 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
+            
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if (!userInput!.starts(with: "iaa") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
+            
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (!userInput!.starts(with: "band") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
             return;
+            
         }
         self.btnCancel.isUserInteractionEnabled = false
         self.btnNext.isUserInteractionEnabled = false
@@ -91,9 +100,36 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
     }
     
     func onFetchRewardAddress(_ accountAddr: String) {
+        var url = ""
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            request.responseString { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let address = res as? String else {
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return;
+                    }
+                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                    self.currentRewardAddressLabel.text = trimAddress
+                    if(trimAddress != accountAddr) {
+                        self.currentRewardAddressLabel.textColor = UIColor.init(hexString: "f31963")
+                    }
+                    self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
+                    self.pageHolderVC.mCurrentRewardAddress = trimAddress
+                    
+                case .failure(let error):
+                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+                }
+            }
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
@@ -110,28 +146,6 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                     self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
                     self.pageHolderVC.mCurrentRewardAddress = trimAddress
                     
-                case .failure(let error):
-                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
-                }
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseString { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let address = res as? String else {
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                        return;
-                    }
-                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                    self.currentRewardAddressLabel.text = trimAddress
-                    if(trimAddress != accountAddr) {
-                        self.currentRewardAddressLabel.textColor = UIColor.init(hexString: "f31963")
-                    }
-                    self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
-                    self.pageHolderVC.mCurrentRewardAddress = trimAddress
                 case .failure(let error):
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }

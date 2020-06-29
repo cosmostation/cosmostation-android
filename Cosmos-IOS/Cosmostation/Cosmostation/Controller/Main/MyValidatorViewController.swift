@@ -248,43 +248,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         var toClaimValidator = Array<Validator>()
         
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            if(WUtils.getAllRewardByDenom(mainTabVC.mRewardList, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
-                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
-                return
-            }
-            
-            var myBondedValidator = Array<Validator>()
-            for validator in self.mainTabVC.mAllValidator {
-                for bonding in self.mainTabVC.mBondingList {
-                    if(bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber(string: "1")).rawValue > 0) {
-                        myBondedValidator.append(validator)
-                        break;
-                    }
-                }
-            }
-            
-            myBondedValidator.sort {
-                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
-                return reward0.compare(reward1).rawValue > 0 ? true : false
-            }
-            
-            if (myBondedValidator.count > 16) {
-                toClaimValidator = Array(myBondedValidator[0..<16])
-            } else {
-                toClaimValidator = myBondedValidator
-            }
-            
-            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-            txVC.mRewardTargetValidators = toClaimValidator
-            txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
-            txVC.hidesBottomBarWhenPushed = true
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(txVC, animated: true)
-            
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if (self.mainTabVC.mIrisRewards != nil && (self.mainTabVC.mIrisRewards?.delegations.count)! > 0) {
                 for validator in self.mainTabVC.mAllValidator {
                     for delegation in self.mainTabVC.mIrisRewards!.delegations {
@@ -294,16 +258,12 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                 }
             }
-            print("toClaimValidator ", toClaimValidator.count)
             if (toClaimValidator.count <= 0 ) {
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
             let estimatedGasAmount = (NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_MUX).multiplying(by: NSDecimalNumber.init(value: toClaimValidator.count))).adding(NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_BASE))
             let estimatedFeeAmount = estimatedGasAmount.multiplying(byPowerOf10: 18).multiplying(by: NSDecimalNumber.init(string: GAS_FEE_RATE_IRIS_AVERAGE), withBehavior: WUtils.handler0)
-            print("estimatedGasAmount ", estimatedGasAmount)
-            print("estimatedFeeAmount ", estimatedFeeAmount)
-            
             let balances = BaseData.instance.selectBalanceById(accountId: mainTabVC.mAccount!.account_id)
             if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(estimatedFeeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
@@ -315,62 +275,61 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
             
-            if (toClaimValidator.count > 1 ) {
-                let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-                txVC.mRewardTargetValidators = toClaimValidator
-                txVC.mType = IRIS_MSG_TYPE_WITHDRAW
-                txVC.hidesBottomBarWhenPushed = true
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(txVC, animated: true)
-            } else {
-                let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-                txVC.mRewardTargetValidators = toClaimValidator
-                txVC.mType = IRIS_MSG_TYPE_WITHDRAW_ALL
-                txVC.hidesBottomBarWhenPushed = true
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(txVC, animated: true)
+            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+            txVC.mRewardTargetValidators = toClaimValidator
+            txVC.mType = IRIS_MSG_TYPE_WITHDRAW
+            txVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(txVC, animated: true)
+            return
+        }
+        
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if(WUtils.getAllRewardByDenom(mainTabVC.mRewardList, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
             }
-
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (WUtils.getAllRewardByDenom(mainTabVC.mRewardList, KAVA_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
             
-            var myBondedValidator = Array<Validator>()
-            for validator in self.mainTabVC.mAllValidator {
-                for bonding in self.mainTabVC.mBondingList {
-                    if(bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber(string: "1")).rawValue > 0) {
-                        myBondedValidator.append(validator)
-                        break;
-                    }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (WUtils.getAllRewardByDenom(mainTabVC.mRewardList, BAND_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+        }
+        var myBondedValidator = Array<Validator>()
+        for validator in self.mainTabVC.mAllValidator {
+            for bonding in self.mainTabVC.mBondingList {
+                if(bonding.bonding_v_address == validator.operator_address &&
+                    WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.one).rawValue > 0) {
+                    myBondedValidator.append(validator)
+                    break;
                 }
             }
-            
-            myBondedValidator.sort {
-                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
-                return reward0.compare(reward1).rawValue > 0 ? true : false
-            }
-            
-            if (myBondedValidator.count > 16) {
-                toClaimValidator = Array(myBondedValidator[0..<16])
-            } else {
-                toClaimValidator = myBondedValidator
-            }
-            
-            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-            txVC.mRewardTargetValidators = toClaimValidator
-            txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
-            txVC.hidesBottomBarWhenPushed = true
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(txVC, animated: true)
-            
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
-            self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
-            
         }
+        
+        myBondedValidator.sort {
+            let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
+            let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+            return reward0.compare(reward1).rawValue > 0 ? true : false
+        }
+        
+        if (myBondedValidator.count > 16) {
+            toClaimValidator = Array(myBondedValidator[0..<16])
+        } else {
+            toClaimValidator = myBondedValidator
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mRewardTargetValidators = toClaimValidator
+        txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
         
     }
     

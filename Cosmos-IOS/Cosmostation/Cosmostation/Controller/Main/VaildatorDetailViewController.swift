@@ -116,11 +116,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             mUnbondings.removeAll()
             mRewards.removeAll()
-            mFetchCnt = 4
+            mFetchCnt = 5
             onFetchValidatorInfo(mValidator!)
             onFetchSignleBondingInfo(account!, mValidator!)
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
+            onFetchApiHistory(account!, mValidator!)
             
         }
         
@@ -168,7 +169,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else {
-            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                 if (mApiHistories.count > 0) {
                     return mApiHistories.count
                 } else {
@@ -623,7 +624,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onSetHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             if (mApiHistories.count > 0) {
                 let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
                 let history = mApiHistories[indexPath.row]
@@ -697,7 +698,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (indexPath.section == 1 && mApiHistories.count > 0) {
             let history = mApiHistories[indexPath.row]
-            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false
                 txDetailVC.mTxHash = history.tx_hash
@@ -1042,6 +1043,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_API_TEST_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_API_HISTORY + account.account_address + "/" + validator.operator_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -1128,12 +1131,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_REDELEGATION;
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_REDELEGATION;
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_REDELEGATION;
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["delegator":address, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN ) {
                     if let responseData = res as? NSDictionary,
                         let redelegateHistories = responseData.object(forKey: "result") as? Array<NSDictionary> {
                         if (redelegateHistories.count > 0) {
@@ -1196,6 +1201,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         
@@ -1209,7 +1216,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     }
 
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                    if(trimAddress == accountAddr) {
+                    if (trimAddress == accountAddr) {
                         self.onStartReInvest()
                     } else {
                         self.onShowReInvsetFailDialog()
@@ -1219,9 +1226,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
@@ -1232,7 +1238,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                             return;
                     }
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                    if(trimAddress == accountAddr) {
+                    if (trimAddress == accountAddr) {
                         self.onStartReInvest()
                     } else {
                         self.onShowReInvsetFailDialog()
@@ -1349,7 +1355,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
 
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -1358,10 +1364,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             self.onFetchIrisRedelegateState(account!)
-            
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
-            self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
-            return
         }
     }
     
@@ -1371,9 +1373,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         txVC.mInflation = mInflation
         txVC.mProvision = mProvision
         txVC.mStakingPool = mStakingPool
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             txVC.mIrisStakePool = mIrisStakePool
@@ -1470,10 +1471,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         var validators = Array<Validator>()
         validators.append(mValidator!)
         txVC.mRewardTargetValidators = validators
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-            chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_WITHDRAW
@@ -1546,8 +1545,21 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
-            self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
-            return
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, BAND_MAIN_DENOM)
+                if(rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if(rewardSum.compare(NSDecimalNumber.one).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
         }
         self.onFetchRewardAddress(account!.account_address)
     }

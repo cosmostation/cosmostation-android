@@ -68,7 +68,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     private ImageView               mChainBg;
     private Toolbar                 mToolbar;
 
-
     private ImageView               mBtnWebDetail, mBtnAddressDetail;
     private ImageView               mKeyState;
     private TextView                mAddress;

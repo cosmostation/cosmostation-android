@@ -165,9 +165,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             mRecyclerView.setVisibility(View.GONE);
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
-            mBandNot.setVisibility(View.VISIBLE);
-            mEmptyHistory.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.GONE);
+            new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
     }
@@ -363,6 +361,27 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 });
 
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                final ResApiTxList.Data tx = mApiTxHistory.get(position);
+                if (tx.logs != null) {
+                    viewHolder.historySuccess.setVisibility(View.GONE);
+                } else {
+                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                }
+                viewHolder.historyType.setText(WDp.DpTxType(getContext(), tx.messages, getMainActivity().mAccount.address));
+                viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), tx.time));
+                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), tx.time));
+                viewHolder.history_block.setText("" + tx.height + " block");
+                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                        txDetail.putExtra("txHash", tx.tx_hash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
+                    }
+                });
             }
         }
 
@@ -376,6 +395,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mBnbHistory.size();
             } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) ||
                     getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                return mApiTxHistory.size();
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 return mApiTxHistory.size();
             }
             return 0;

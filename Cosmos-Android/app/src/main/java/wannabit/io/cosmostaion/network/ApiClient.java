@@ -206,7 +206,7 @@ public class ApiClient {
         return service_iov;
     }
 
-    //Rest for IOV main net
+    //Rest for Band main net
     private static BandChain service_band = null;
     public static BandChain getBandChain(Context c) {
         if (service_band == null) {
@@ -219,6 +219,21 @@ public class ApiClient {
             }
         }
         return service_band;
+    }
+
+    //Services for Band api
+    private static BandApi api_band = null;
+    public static BandApi getBandApi(Context c) {
+        if (api_band == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_band_main))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_band = retrofit.create(BandApi.class);
+            }
+        }
+        return api_band;
     }
 
 

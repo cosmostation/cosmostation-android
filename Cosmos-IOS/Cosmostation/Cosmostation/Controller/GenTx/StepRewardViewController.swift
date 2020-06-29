@@ -252,10 +252,8 @@ class StepRewardViewController: BaseViewController {
                 }
                 self.onFetchFinished()
             }
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):

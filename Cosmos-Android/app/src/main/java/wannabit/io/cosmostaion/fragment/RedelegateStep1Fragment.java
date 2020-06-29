@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.BAND_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_IMG_URL;
@@ -91,9 +92,8 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             if(mCheckedValidator == null) {
                 Toast.makeText(getContext(), R.string.error_no_to_validator, Toast.LENGTH_SHORT).show();
             } else {
-                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
-                        || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                        || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) ||
+                        getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST) || getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                     new SingleAllRedelegateState(getBaseApplication(), this, getSActivity().mAccount,
                             getSActivity().mFromValidator.operator_address,
                             mCheckedValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -179,6 +179,18 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
+
+            } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
+                if(getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
+                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
+                }
+                try {
+                    Picasso.get().load(BAND_IMG_URL+validator.operator_address+".png")
+                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                            .into(holder.itemAvatar);
+                } catch (Exception e){}
+
             }
             holder.itemTvMoniker.setText(validator.description.moniker);
             holder.itemFree.setVisibility(View.GONE);
@@ -209,6 +221,10 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else if ((getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST) )&& mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+            } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBand), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else {

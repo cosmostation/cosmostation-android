@@ -347,30 +347,6 @@ public class WDp {
         return result;
     }
 
-    public static SpannableString getDpBalance(Context c, ArrayList<Balance> balances, BaseChain chain) {
-        BigDecimal sum = BigDecimal.ZERO;
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
-            for(Balance balance : balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
-                    sum = balance.balance;
-                }
-            }
-            return getDpAmount(c, sum, 6, chain);
-
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-            for(Balance balance : balances) {
-                if(balance.symbol.equals(COSMOS_IRIS_ATTO)) {
-                    sum = balance.balance;
-                }
-            }
-            return getDpAmount(c, sum, 6, chain);
-
-        } else {
-            return getDpAmount(c, sum, 6, chain);
-
-        }
-    }
-
     public static BigDecimal getAvailableCoin(ArrayList<Balance> balances, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
@@ -565,97 +541,6 @@ public class WDp {
         return sum;
     }
 
-
-    public static SpannableString getDpPhotonBalance(Context c, ArrayList<Balance> balances, BaseChain chain) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON) || balance.symbol.equals(BaseConstant.COSMOS_PHOTINO)) {
-                sum = balance.balance;
-            }
-        }
-        return getDpAmount(c, sum, 6, chain);
-
-    }
-
-//    public static SpannableString getDpAllPhotonRewardAmount(Context c, ArrayList<Reward> rewards, BaseChain chain) {
-//        BigDecimal sum = BigDecimal.ZERO;
-//        for(Reward reward : rewards) {
-//            sum = sum.add(reward.getPhotonAmount());
-//        }
-//        return getDpAmount(c, sum, 6, chain);
-//    }
-//
-//    public static SpannableString getDpPhotonRewardAmount(Context c, ArrayList<Reward> rewards, String valOpAddr, BaseChain chain) {
-//        BigDecimal sum = BigDecimal.ZERO;
-//        for(Reward reward : rewards) {
-//            if(reward.validatorAddress.equals(valOpAddr)) {
-//                sum = reward.getPhotonAmount();
-//                break;
-//            }
-//        }
-//        return getDpAmount(c, sum, 6, chain);
-//    }
-//
-//    public static SpannableString getDpAllPhoton(Context c, ArrayList<Balance> balances, ArrayList<Reward> rewards, BaseChain chain) {
-//        BigDecimal sum = BigDecimal.ZERO;
-//        for(Balance balance : balances) {
-//            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)|| balance.symbol.equals(BaseConstant.COSMOS_PHOTINO)) {
-//                sum = sum.add(balance.balance);
-//            }
-//        }
-//        for(Reward reward : rewards) {
-//            sum = sum.add(reward.getPhotonAmount());
-//        }
-//        return getDpAmount(c, sum, 6, chain);
-//    }
-
-    public static SpannableString getDpAllPhoton2(Context c, ArrayList<Balance> balances, TotalReward totalReward, BaseChain chain) {
-        BigDecimal sum = BigDecimal.ZERO;
-        if(balances != null) {
-            for(Balance balance : balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)|| balance.symbol.equals(BaseConstant.COSMOS_PHOTINO)) {
-                    sum = sum.add(balance.balance);
-                }
-            }
-        }
-        if(totalReward != null && totalReward.coins != null) {
-            for(Coin coin : totalReward.coins) {
-                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)|| coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
-                    sum = sum.add(new BigDecimal(coin.amount));
-                    break;
-                }
-            }
-        }
-        return getDpAmount(c, sum, 6, chain);
-    }
-
-    public static SpannableString getDpTotalPhotonAmount(Context c, HashMap<Long, ArrayList<Balance>> balanceHashMap,
-                                                       HashMap<Long, TotalReward> rewardHashMap,
-                                                         BaseChain chain) {
-        BigDecimal sum = BigDecimal.ZERO;
-        if(balanceHashMap != null) {
-            for (long key : balanceHashMap.keySet() ) {
-                for(Balance balance : balanceHashMap.get(key)) {
-                    if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON) || balance.symbol.equals(BaseConstant.COSMOS_PHOTINO)) {
-                        sum = sum.add(balance.balance);
-                    }
-                }
-            }
-        }
-        if(rewardHashMap != null) {
-            for (long key : rewardHashMap.keySet() ) {
-                for(Coin coin : rewardHashMap.get(key).coins) {
-                    if(coin.denom.equals(BaseConstant.COSMOS_PHOTON) || coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
-                        sum = sum.add(new BigDecimal(coin.amount));
-                    }
-                }
-            }
-        }
-        return getDpAmount(c, sum, 6, chain);
-    }
-
-
-
     public static SpannableString getPriceDp(Context c, BigDecimal input, String symbol, int currency) {
         if (currency == 5) {
             SpannableString result;
@@ -777,14 +662,6 @@ public class WDp {
         }
 
     }
-
-//    public static SpannableString getValueOfKavaToken(Context c, ResKavaMarketPrice.Result price, int scale) {
-//        BigDecimal mPrice = new BigDecimal(price.price);
-//        SpannableString result;
-//        result = new SpannableString("$ " +getDecimalFormat(c, scale).format(mPrice));
-//        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - scale, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-//        return result;
-//    }
 
     public static SpannableString getDpRawDollor(Context c, String price, int scale) {
         BigDecimal mPrice = new BigDecimal(price);
@@ -1300,7 +1177,7 @@ public class WDp {
     public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
-            if(chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.IRIS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            if(chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.IRIS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.BAND_MAIN)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 21);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
@@ -1582,7 +1459,7 @@ public class WDp {
             return c.getString(R.string.s_kava);
         } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN)) {
             return c.getString(R.string.s_iov);
-        } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN)) {
+        } else if (BaseChain.getChain(chain).equals(BaseChain.BAND_MAIN)) {
             return c.getString(R.string.s_band);
         }
         return "";
@@ -1813,6 +1690,10 @@ public class WDp {
         } else if (chain.equals(BaseChain.IOV_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_img));
             txtView.setText(c.getString(R.string.str_iov_net_2));
+
+        } else if (chain.equals(BaseChain.BAND_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.band_chain_img));
+            txtView.setText(c.getString(R.string.str_band_chain_2));
 
         }
         txtView.setTextColor(getChainColor(c, chain));

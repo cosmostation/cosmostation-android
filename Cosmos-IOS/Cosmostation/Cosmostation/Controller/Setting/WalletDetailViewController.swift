@@ -289,7 +289,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         let msg2 = NSLocalizedString("reward_address_notice_msg2", comment: "")
         let msg = msg1 + msg2
         let range = (msg as NSString).range(of: msg2)
-        
         let noticeAlert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         let attributedMessage: NSMutableAttributedString = NSMutableAttributedString(
             string: msg,
@@ -304,7 +303,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-            if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                 txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
             } else if (self.chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 txVC.mType = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
@@ -380,9 +379,35 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onFetchRewardAddress(_ accountAddr: String) {
+        var url = ""
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            request.responseString { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let address = res as? String else {
+                        return;
+                    }
+                    self.rewardCard.isHidden = false
+                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                    self.rewardAddress.text = trimAddress
+                    if(trimAddress != accountAddr) {
+                        self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
+                    }
+                    self.rewardAddress.adjustsFontSizeToFitWidth = true
+                    
+                case .failure(let error):
+                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+                }
+            }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
@@ -397,27 +422,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                         self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
                     }
                     self.rewardAddress.adjustsFontSizeToFitWidth = true
-                case .failure(let error):
-                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
-                }
-            }
-            
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            let url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseString { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let address = res as? String else {
-                        return;
-                    }
-                    self.rewardCard.isHidden = false
-                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                    self.rewardAddress.text = trimAddress
-                    if(trimAddress != accountAddr) {
-                        self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
-                    }
-                    self.rewardAddress.adjustsFontSizeToFitWidth = true
+                    
                 case .failure(let error):
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
