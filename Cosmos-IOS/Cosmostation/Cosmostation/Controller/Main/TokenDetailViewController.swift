@@ -136,8 +136,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return mHistories.count + 1
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             return mBnbHistories.count + 1
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return mApiHistories.count + 1
@@ -495,22 +494,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         return cell!
     }
     
-//    func onSetKavaTestHistoryItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-//        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-//        let history = mApiHistories[indexPath.row - 1]
-//        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-//        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-//        cell?.txBlockLabel.text = String(history.height) + " block"
-//        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
-//        if (history.isSuccess) {
-//            cell?.txResultLabel.isHidden = true
-//        } else {
-//            cell?.txResultLabel.isHidden = false
-//        }
-//        return cell!
-//    }
-    
-    
     func onFetchHistory(_ address:String, _ symbol:String) {
         var query = ""
         var url = ""
@@ -600,7 +583,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                print("res ", res)
+                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
                     self.mApiHistories.removeAll()
                     guard let histories = res as? Array<NSDictionary> else {
                         print("no history!!")
@@ -609,8 +593,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                     for rawHistory in histories {
                         self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
                     }
-                    if (SHOW_LOG) { print("mApiHistories ", self.mApiHistories.count) }
-
                     if (self.mApiHistories.count > 0) {
                         self.tokenDetailTableView.reloadData()
                     }
