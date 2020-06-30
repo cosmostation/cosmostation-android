@@ -303,7 +303,7 @@ public class BaseConstant {
     public final static String FEE_GAS_AMOUNT_REINVEST      = "220000";
 
 
-    public final static String FEE_KAVA_GAS_AMOUNT_LOW          = "100000";
+    public final static String FEE_KAVA_GAS_AMOUNT_LOW          = "150000";
     public final static String FEE_KAVA_GAS_AMOUNT_SEND         = "200000";
     public final static String FEE_KAVA_GAS_AMOUNT_REWARD       = "200000";
     public final static String FEE_KAVA_GAS_AMOUNT_AVERAGE      = "250000";
