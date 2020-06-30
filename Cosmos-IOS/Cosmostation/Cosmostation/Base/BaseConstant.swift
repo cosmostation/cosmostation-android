@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -448,7 +448,7 @@ let FEE_REWARD_GAS_14                       = "900000";
 let FEE_REWARD_GAS_15                       = "960000";
 let FEE_REWARD_GAS_16                       = "1020000";
 
-let FEE_KAVA_REWARD_GAS_1                   = "100000";
+let FEE_KAVA_REWARD_GAS_1                   = "150000";
 let FEE_KAVA_REWARD_GAS_2                   = "220000";
 let FEE_KAVA_REWARD_GAS_3                   = "240000";
 let FEE_KAVA_REWARD_GAS_4                   = "300000";
@@ -482,7 +482,7 @@ let FEE_BEP3_RELAY_FEE                      = "0.00001"
 let FEE_BEP3_SEND_MIN                       = "0.10000"
 let FEE_BEP3_SEND_CHECK                     = "0.100375"
 
-let KAVA_GAS_FEE_AMOUNT_LOW                 = "100000"
+let KAVA_GAS_FEE_AMOUNT_LOW                 = "150000"
 let KAVA_GAS_FEE_AMOUNT_SEND                = "200000"
 let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"
 let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"

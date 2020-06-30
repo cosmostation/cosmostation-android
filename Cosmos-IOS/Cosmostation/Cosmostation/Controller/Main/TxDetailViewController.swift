@@ -895,7 +895,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.coinTypeLabel.text = msg?.value.denom?.uppercased()
             
             let incentiveCoin = mTxInfo!.simpleIncentive()
-            if (incentiveCoin != nil) {
+            if (incentiveCoin != nil && !incentiveCoin!.denom.isEmpty) {
                 WUtils.showCoinDp(incentiveCoin!, cell!.rewardAmountDenom, cell!.rewardAmount, chainType!)
             } else {
                 cell!.rewardAmountDenom.text = ""
@@ -995,7 +995,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func onClickHtlcRefund(_ sender: UIButton) {
-        print("onClickHtlcRefund")
+//        print("onClickHtlcRefund")
         if (!account!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
@@ -1008,7 +1008,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 return
             }
         }
-        
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = TASK_TYPE_HTLC_REFUND
@@ -1067,7 +1066,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         }
-        print("txdetail url ", request?.request?.url)
+//        print("txdetail url ", request?.request?.url)
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1145,7 +1144,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onFetchHtlcStatus(_ swapId: String?) {
-        print("onFetchHtlcStatus ", swapId)
+//        print("onFetchHtlcStatus ", swapId)
         if (swapId == nil) {self.onUpdateView()}
         var url = ""
         if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
@@ -1207,7 +1206,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 
             case .failure(let error):
-//                if(SHOW_LOG) { print("onFetchBnbNodeInfo", error) }
+                if(SHOW_LOG) { print("onFetchBnbNodeInfo", error) }
                 return
             }
             self.onUpdateView()

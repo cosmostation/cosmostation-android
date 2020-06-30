@@ -95,8 +95,10 @@ public struct TxInfo {
     
     public func simpleFee() -> NSDecimalNumber {
         var fee = NSDecimalNumber.zero
-        if let feeAmount = tx?.value.fee.amount[0].amount {
-            fee = NSDecimalNumber.init(string: feeAmount)
+        if let rawFee = tx?.value.fee {
+            if (rawFee.amount.count > 0) {
+                fee = NSDecimalNumber.init(string: rawFee.amount[0].amount)
+            }
         }
         return fee
     }

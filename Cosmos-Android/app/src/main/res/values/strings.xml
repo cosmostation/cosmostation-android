@@ -1043,7 +1043,7 @@
     </string-array>
 
     <string-array name="gas_multi_reward_kava" translatable="false">
-        <item>100000</item>
+        <item>150000</item>
         <item>220000</item>
         <item>240000</item>
         <item>300000</item>
