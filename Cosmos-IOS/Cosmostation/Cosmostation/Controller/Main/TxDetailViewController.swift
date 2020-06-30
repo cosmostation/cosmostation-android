@@ -895,7 +895,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.coinTypeLabel.text = msg?.value.denom?.uppercased()
             
             let incentiveCoin = mTxInfo!.simpleIncentive()
-            if (incentiveCoin != nil) {
+            if (incentiveCoin != nil && !incentiveCoin!.denom.isEmpty) {
                 WUtils.showCoinDp(incentiveCoin!, cell!.rewardAmountDenom, cell!.rewardAmount, chainType!)
             } else {
                 cell!.rewardAmountDenom.text = ""
