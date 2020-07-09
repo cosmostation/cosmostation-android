@@ -451,7 +451,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onBindBnbItem(TokensAdapter.AssetHolder holder, final int position) {
         Balance balance = mBalances.get(position);
-        BnbToken token = WUtil.getBnbToken(getMainActivity().mBnbTokens, balance);
+        BnbToken token = WUtil.getBnbToken(getBaseDao().mBnbTokens, balance);
 
         if (token != null) {
             holder.itemSymbol.setText(token.original_symbol);

@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class BnbToken implements Parcelable {
 
+    public static int BNB_TOKEN_TYPE_BEP2 = 1;
+    public static int BNB_TOKEN_TYPE_MINI = 2;
+
     @SerializedName("symbol")
     public String symbol;
 
@@ -24,6 +27,8 @@ public class BnbToken implements Parcelable {
 
     @SerializedName("mintable")
     public boolean mintable;
+
+    public int type;
 
     public BnbToken() {
     }

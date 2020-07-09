@@ -19,6 +19,7 @@ import java.util.Iterator;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
@@ -54,6 +55,8 @@ public class BaseData {
     public HashMap<String, ResKavaMarketPrice.Result>                       mKavaTokenPrices = new HashMap<>();
     public ResKavaIncentiveParam.IncentiveParam                             mKavaIncentiveParam;
     public ArrayList<ResKavaIncentiveReward.KavaUnclaimedIncentiveReward>   mKavaUnClaimedIncentiveRewards = new ArrayList<>();
+
+    public ArrayList<BnbToken>                                              mBnbTokens = new ArrayList<>();
 
     public BaseData(BaseApplication apps) {
         this.mApp = apps;
