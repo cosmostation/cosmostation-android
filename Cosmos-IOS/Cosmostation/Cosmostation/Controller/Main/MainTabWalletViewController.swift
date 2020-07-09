@@ -1372,7 +1372,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mBnbToken = WUtils.getBnbMainToken(self.mainTabVC.mBnbTokenList)
+            txVC.mBnbToken = WUtils.getBnbMainToken(BaseData.instance.mBnbTokenList)
             txVC.mType = BNB_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {

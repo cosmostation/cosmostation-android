@@ -360,7 +360,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
             tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
-            tokenDetailVC.bnbToken = WUtils.getBnbToken(mainTabVC.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
+            tokenDetailVC.bnbToken = WUtils.getBnbToken(BaseData.instance.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
             tokenDetailVC.bnbTic = WUtils.getTicData(WUtils.getBnbTicSymbol(mainTabVC.mBalances[indexPath.row].balance_denom), mBnbTics)
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
@@ -424,7 +424,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func onSetBnbItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
-        if let bnbToken = WUtils.getBnbToken(mainTabVC.mBnbTokenList, balance) {
+        if let bnbToken = WUtils.getBnbToken(BaseData.instance.mBnbTokenList, balance) {
             cell?.tokenSymbol.text = bnbToken.original_symbol.uppercased()
             cell?.tokenTitle.text = "(" + bnbToken.symbol + ")"
             cell?.tokenDescription.text = bnbToken.name
