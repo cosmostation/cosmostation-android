@@ -534,6 +534,9 @@ let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
 let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
 
+let COLOR_WC_TRADE_BUY                      = UIColor.init(hexString: "37CC6E")
+let COLOR_WC_TRADE_SELL                     = UIColor.init(hexString: "FF2745")
+
 
 enum ChainType: String {
     case SUPPORT_CHAIN_COSMOS_MAIN

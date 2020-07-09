@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WalletConnect
 
 class WcCancelPopup: BaseViewController, SBCardPopupContent {
     var popupViewController: SBCardPopupViewController?
@@ -16,9 +17,15 @@ class WcCancelPopup: BaseViewController, SBCardPopupContent {
     @IBOutlet weak var WcTitleLabel: UILabel!
     @IBOutlet weak var WcMsgLabel: UILabel!
     @IBOutlet weak var WcSymbolLabel: UILabel!
+    
+    var bnbOrderId :Int64?
+    var bnbOrder :WCBinanceCancelOrder?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let firstMsg = bnbOrder?.msgs[0]
+        WcSymbolLabel.text = firstMsg?.symbol
     }
     
     @IBAction func onClickCancel(_ sender: UIButton) {

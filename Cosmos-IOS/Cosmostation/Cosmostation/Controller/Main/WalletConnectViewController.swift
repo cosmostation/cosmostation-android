@@ -73,9 +73,11 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
         configure(interactor: interactor)
         interactor.connect().cauterize()
         self.interactor = interactor
-        
     }
     
+    var wcPopup:SBCardPopupViewController?
+    var cOrder:WCBinanceOrder?
+    var cId:Int64?
     
     func configure(interactor: WCInteractor) {
         let accounts = [account!.account_address]
@@ -93,50 +95,23 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
         }
 
         interactor.onBnbSign = { [weak self] (id, order) in
-            if let bnbOrder = order as? WCBinanceTradeOrder {
-                print("make bnbOrder ", bnbOrder)
-                let price =  NSDecimalNumber.init(value: bnbOrder.msgs[0].price).dividing(by: NSDecimalNumber.init(string: "100000000"), withBehavior: WUtils.handler8)
-                let quantity =  NSDecimalNumber.init(value: bnbOrder.msgs[0].quantity).dividing(by: NSDecimalNumber.init(string: "100000000"), withBehavior: WUtils.handler8)
-                
-                var msg = NSLocalizedString("wc_request_sign_msg", comment: "")
-                msg = msg + "\n\n Symbol : " + bnbOrder.msgs[0].symbol + "\n" +
-                    "Price : " + price.stringValue + "\n" +
-                    "Quantity : " + quantity.stringValue
-                
-                let alert = UIAlertController(title: NSLocalizedString("wc_request_sign_title", comment: ""), message: msg, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .destructive, handler: nil))
-                alert.addAction(UIAlertAction(title: NSLocalizedString("sign", comment: ""), style: .default, handler: { [weak self] _ in
-                    self?.signBnbOrder(id: id, order: order)
-                }))
-                self?.present(alert, animated: true, completion: nil)
+            if (self?.wcPopup?.viewIfLoaded?.window != nil) {
+                self?.wcPopup?.dismiss(animated: true, completion: {
+                    self?.onShowPopupForRequest(id: id, order: order)
+                })
+            } else {
+                self?.onShowPopupForRequest(id: id, order: order)
             }
-            
-            if let bnbOrder = order as? WCBinanceCancelOrder {
-                print("cancel bnbOrder ", bnbOrder)
-                var msg = NSLocalizedString("wc_request_cancel_msg", comment: "")
-                msg = msg + "Symbol : " + bnbOrder.msgs[0].symbol + "\n"
-                let alert = UIAlertController(title: NSLocalizedString("wc_request_sign_title", comment: ""), message: msg, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .destructive, handler: nil))
-                alert.addAction(UIAlertAction(title: NSLocalizedString("sign", comment: ""), style: .default, handler: { [weak self] _ in
-                    self?.signBnbOrder(id: id, order: order)
-                }))
-                self?.present(alert, animated: true, completion: nil)
-            }
-            //TODO
-//            let popupVC = WcTradePopup(nibName: "WcTradePopup", bundle: nil)
-//            let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
-//            popupVC.bnbOrderId = id
-//            popupVC.bnbOrder = order
-//            cardPopup.resultDelegate = self
-//            cardPopup.show(onViewController: self!)
         }
     }
     
-    
     func SBCardPopupResponse(result: Int) {
-        print("SBCardPopupResponse ", result)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
+            if(result == 1) {
+                self.signBnbOrder()
+            }
+        })
     }
-    
     
     func onViewUpdate(_ peer: WCPeerMeta) {
         wcImg.af_setImage(withURL: URL(string: peer.icons[0])!)
@@ -152,7 +127,41 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
         
     }
     
-    func signBnbOrder(id: Int64, order: WCBinanceOrder) {
+    func onShowPopupForRequest(id: Int64, order: WCBinanceOrder) {
+        self.cId = id
+        self.cOrder = order
+        if let bnbOrder = order as? WCBinanceTradeOrder {
+            let popupVC = WcTradePopup(nibName: "WcTradePopup", bundle: nil)
+            popupVC.bnbOrderId = id
+            popupVC.bnbOrder = bnbOrder
+            self.wcPopup = SBCardPopupViewController(contentViewController: popupVC)
+            self.wcPopup?.resultDelegate = self
+            self.wcPopup?.show(onViewController: self)
+            return
+        }
+
+        if let bnbOrder = order as? WCBinanceCancelOrder {
+            let popupVC = WcCancelPopup(nibName: "WcCancelPopup", bundle: nil)
+            popupVC.bnbOrderId = id
+            popupVC.bnbOrder = bnbOrder
+            self.wcPopup = SBCardPopupViewController(contentViewController: popupVC)
+            self.wcPopup!.resultDelegate = self
+            self.wcPopup!.show(onViewController: self)
+            return
+        }
+        
+        if let bnbOrder = order as? WCBinanceTransferOrder {
+            let popupVC = WcTransferPopup(nibName: "WcTransferPopup", bundle: nil)
+            popupVC.bnbOrderId = id
+            popupVC.bnbOrder = bnbOrder
+            self.wcPopup = SBCardPopupViewController(contentViewController: popupVC)
+            self.wcPopup!.resultDelegate = self
+            self.wcPopup!.show(onViewController: self)
+            return
+        }
+    }
+    
+    func signBnbOrder() {
         guard let words = KeychainWrapper.standard.string(forKey: account!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
             return
         }
@@ -172,12 +181,12 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
                 return
             }
             
-            let signature = bnbWallet.sign(message: order.encoded)
+            let signature = bnbWallet.sign(message: self.cOrder!.encoded)
             let signed = WCBinanceOrderSignature(
                 signature: signature.dataToHexString(),
                 publicKey: pubKeyString
             )
-            self.interactor?.approveBnbOrder(id: id, signed: signed).done({ confirm in
+            self.interactor?.approveBnbOrder(id: self.cId!, signed: signed).done({ confirm in
                 if (confirm.ok) {
                     self.onShowToast(NSLocalizedString("wc_request_success", comment: ""))
                 } else {

@@ -26,7 +26,6 @@
                 <outlet property="WcToCard" destination="SbY-gy-kfU" id="aoZ-K9-hDg"/>
                 <outlet property="WcToIcon" destination="Fts-Mg-82P" id="7Nu-Zc-HBH"/>
                 <outlet property="WcToSymbol" destination="c9A-JW-lx0" id="Zfv-6U-koR"/>
-                <outlet property="tradeConstraint" destination="x7u-2w-AHD" id="5KZ-uS-tVR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
