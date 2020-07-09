@@ -682,7 +682,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     }
                 }
 
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
                 final Msg msg = mResBnbTxInfo.getMsg(position - 1);
                 holder.itemFromAddress.setText(msg.value.inputs.get(0).address);
                 holder.itemToAddress.setText(msg.value.outputs.get(0).address);

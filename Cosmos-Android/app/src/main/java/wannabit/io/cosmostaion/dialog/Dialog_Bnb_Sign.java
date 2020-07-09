@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.binance.dex.api.client.encoding.message.BinanceDexTransactionMessage;
+import com.binance.dex.api.client.encoding.message.TransferMessage;
 import com.google.gson.Gson;
 
 import java.math.BigDecimal;
