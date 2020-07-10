@@ -809,7 +809,7 @@
     <string name="error_select_account_to_recipient">받을 계정을 선택해 주세요.</string>
     <string name="error_no_more_faucet">이미 충분한 테스트 코인이 있네요.</string>
     <string name="error_no_more_debt_kava">USDX를 더 이상 발행할 수 없습니다. 시스템에서 지원가능한 모든 USDX가 발행되었습니다.\n%1$s / %2$s</string>
-    <string name="error_bnb_mini_amount">BEP8 토큰 잔고가 1 미만인 경우, 전체 금액 전송만 가능합니다.</string>
+    <string name="error_bnb_mini_amount">BEP8는 최소 전송 금액은 1보다 커야 합니다. 토큰 잔고가 1 미만인 경우, 전체 금액 전송만 가능합니다.</string>
 
 
     <string name="s_atom">ATOM</string>
