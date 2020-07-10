@@ -104,7 +104,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         var result = NSDecimalNumber.zero
         for balance in self.account_balances {
             if (balance.balance_denom == COSMOS_MAIN_DENOM) {
-                result = WUtils.stringToDecimal(balance.balance_amount)
+                result = WUtils.stringToDecimalNoLocale(balance.balance_amount)
             }
         }
         return result
@@ -114,7 +114,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         var result = NSDecimalNumber.zero
         for balance in self.account_balances {
             if (balance.balance_denom == IRIS_MAIN_DENOM) {
-                result = WUtils.stringToDecimal(balance.balance_amount)
+                result = WUtils.stringToDecimalNoLocale(balance.balance_amount)
             }
         }
         return result
@@ -134,7 +134,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         var result = NSDecimalNumber.zero
         for balance in self.account_balances {
             if (balance.balance_denom == KAVA_MAIN_DENOM) {
-                result = WUtils.stringToDecimal(balance.balance_amount)
+                result = WUtils.stringToDecimalNoLocale(balance.balance_amount)
             }
         }
         return result
@@ -144,7 +144,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         var result = NSDecimalNumber.zero
         for balance in self.account_balances {
             if (balance.balance_denom == IOV_MAIN_DENOM) {
-                result = WUtils.stringToDecimal(balance.balance_amount)
+                result = WUtils.stringToDecimalNoLocale(balance.balance_amount)
             }
         }
         return result
@@ -154,7 +154,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         var result = NSDecimalNumber.zero
         for balance in self.account_balances {
             if (balance.balance_denom == BAND_MAIN_DENOM) {
-                result = WUtils.stringToDecimal(balance.balance_amount)
+                result = WUtils.stringToDecimalNoLocale(balance.balance_amount)
             }
         }
         return result
@@ -164,7 +164,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         var result = NSDecimalNumber.zero
         for balance in self.account_balances {
             if (balance.balance_denom == symbol) {
-                result = WUtils.stringToDecimal(balance.balance_amount)
+                result = WUtils.stringToDecimalNoLocale(balance.balance_amount)
             }
         }
         return result
