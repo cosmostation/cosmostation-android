@@ -48,4 +48,7 @@ public interface BinanceChain {
 
     @GET("/claim/{address}")
     Call<JSONObject> getFaucet(@Path("address") String address);
+
+    @GET("/api/v1/mini/tokens")
+    Call<ArrayList<BnbToken>> getMiniTokens(@Query("limit") String limit);
 }

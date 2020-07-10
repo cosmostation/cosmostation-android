@@ -86,6 +86,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
+import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.BondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.IovBalanceTask;
@@ -149,8 +150,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public ResLcdIrisReward                 mIrisReward;
     public ResLcdIrisPool                   mIrisPool;
     public ArrayList<IrisToken>             mIrisTokens = new ArrayList<>();
-
-    public ArrayList<BnbToken>              mBnbTokens = new ArrayList<>();
 
     public ResIovAddressInfo                mIovAddressInfo;
     public ArrayList<IovToken>              mIovTokens = new ArrayList<>();
@@ -488,10 +487,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST) ) {
-            mTaskCount = 2;
+            mTaskCount = 3;
 
+            getBaseDao().mBnbTokens.clear();
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BnbTokenListTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BnbMiniTokenListTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
@@ -647,7 +648,24 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             mIrisPool = (ResLcdIrisPool)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_TOKENS) {
-            mBnbTokens = (ArrayList<BnbToken>)result.resultData;
+            ArrayList<BnbToken> tempTokens = (ArrayList<BnbToken>)result.resultData;
+            if (tempTokens!= null) {
+                for (BnbToken token:tempTokens) {
+                    token.type = BnbToken.BNB_TOKEN_TYPE_BEP2;
+                    getBaseDao().mBnbTokens.add(token);
+                }
+            }
+            WLog.w("TASK_FETCH_BNB_TOKENS : " + getBaseDao().mBnbTokens.size());
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_MINI_TOKENS) {
+            ArrayList<BnbToken> tempTokens = (ArrayList<BnbToken>)result.resultData;
+            if (tempTokens!= null) {
+                for (BnbToken token:tempTokens) {
+                    token.type = BnbToken.BNB_TOKEN_TYPE_MINI;
+                    getBaseDao().mBnbTokens.add(token);
+                }
+            }
+            WLog.w("TASK_FETCH_BNB_MINI_TOKENS : " + getBaseDao().mBnbTokens.size());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_IRIS_TOKENS) {
             mIrisTokens = (ArrayList<IrisToken>)result.resultData;

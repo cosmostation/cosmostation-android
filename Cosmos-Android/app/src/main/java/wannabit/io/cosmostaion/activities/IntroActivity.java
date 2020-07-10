@@ -68,7 +68,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         btnImportMnemonic.setOnClickListener(this);
         btnWatchAddress.setOnClickListener(this);
 
-
 //        WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
 //            WLog.w("" + ((ActivityManager)getSystemService(Context.ACTIVITY_SERVICE)).isBackgroundRestricted());

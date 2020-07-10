@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class BnbToken implements Parcelable {
 
+    public static int BNB_TOKEN_TYPE_BEP2 = 1;
+    public static int BNB_TOKEN_TYPE_MINI = 2;
+
     @SerializedName("symbol")
     public String symbol;
 
@@ -24,6 +27,8 @@ public class BnbToken implements Parcelable {
 
     @SerializedName("mintable")
     public boolean mintable;
+
+    public int type = 0;
 
     public BnbToken() {
     }
@@ -48,6 +53,7 @@ public class BnbToken implements Parcelable {
         owner = in.readString();
         total_supply = in.readString();
         mintable = in.readByte() != 0;
+        type = in.readInt();
     }
 
     @Override
@@ -63,6 +69,7 @@ public class BnbToken implements Parcelable {
         dest.writeString(owner);
         dest.writeString(total_supply);
         dest.writeByte((byte) (mintable ? 1 : 0));
+        dest.writeInt(type);
     }
 
     public static final Creator<BnbToken> CREATOR = new Creator<BnbToken>() {

@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -119,6 +119,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_KAVA_PRICE_PARAM                 = 2075;
     public final static int TASK_FETCH_KAVA_INCENTIVE_REWARD            = 2076;
     public final static int TASK_GEN_KAVA_CLAIM_INCENTIVE               = 2077;
+    public final static int TASK_FETCH_BNB_MINI_TOKENS                  = 2078;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;

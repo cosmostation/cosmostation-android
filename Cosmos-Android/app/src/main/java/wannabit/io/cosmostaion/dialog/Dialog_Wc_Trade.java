@@ -12,7 +12,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.binance.dex.api.client.domain.OrderSide;
+import com.binance.dex.api.client.encoding.message.NewOrderMessage;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.squareup.moshi.Json;
+import com.squareup.picasso.Picasso;
+
+import java.math.BigDecimal;
+
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.WalletConnectActivity;
+import wannabit.io.cosmostaion.model.type.BnbParam;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 
 public class Dialog_Wc_Trade extends DialogFragment {
 
@@ -44,7 +59,54 @@ public class Dialog_Wc_Trade extends DialogFragment {
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 
-        //TODO show trade info
+        JsonObject json = new Gson().fromJson(getArguments().getString("param"), JsonObject.class);
+        JsonObject rawMsg = new Gson().fromJson(json.getAsJsonArray("msgs").get(0), JsonObject.class);
+        NewOrderMessage msg =  new Gson().fromJson(json.getAsJsonArray("msgs").get(0), NewOrderMessage.class);
+
+        String[] pair_denom = msg.getSymbol().split("_");
+        symbol_tv.setText(pair_denom[0].split("-")[0]);
+        price_denom_tv.setText(pair_denom[1].split("-")[0]);
+
+        BigDecimal dpPrice = new BigDecimal(msg.getPrice()).movePointLeft(8);
+        BigDecimal dpAmount = new BigDecimal(msg.getQuantity()).movePointLeft(8);
+        price_tv.setText(WDp.getDpAmount2(getContext(), new BigDecimal(msg.getPrice()), 8, 8));
+
+        if (rawMsg.get("side").getAsLong() == 1L) {
+            side_tv.setText("BUY");
+            side_tv.setTextColor(getResources().getColor(R.color.colorBnbBuy));
+
+            Picasso.get().load(TOKEN_IMG_URL+pair_denom[1].split("-")[0]+".png")
+                    .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                    .into(fromCoinImg);
+            Picasso.get().load(TOKEN_IMG_URL+pair_denom[0].split("-")[0]+".png")
+                    .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                    .into(toCoinImg);
+
+            fromCoinSymbol.setText(pair_denom[1].split("-")[0]);
+            toCoinSymbol.setText(pair_denom[0].split("-")[0]);
+
+            fromCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount.multiply(dpPrice), 0, 8));
+            toCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount, 0, 8));
+
+        } else if (rawMsg.get("side").getAsLong() == 2L) {
+            side_tv.setText("SELL");
+            side_tv.setTextColor(getResources().getColor(R.color.colorBnbSell));
+
+            Picasso.get().load(TOKEN_IMG_URL+pair_denom[0].split("-")[0]+".png")
+                    .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                    .into(fromCoinImg);
+            Picasso.get().load(TOKEN_IMG_URL+pair_denom[1].split("-")[0]+".png")
+                    .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                    .into(toCoinImg);
+
+            fromCoinSymbol.setText(pair_denom[0].split("-")[0]);
+            toCoinSymbol.setText(pair_denom[1].split("-")[0]);
+
+            fromCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount, 0, 8));
+            toCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount.multiply(dpPrice), 0, 8));
+
+        }
+
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +117,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((WalletConnectActivity)getActivity()).onBnbSign(getArguments().getLong("id"));
                 getDialog().dismiss();
             }
         });

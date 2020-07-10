@@ -35,7 +35,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mIrisStakePool: NSDictionary?
     var mIrisTokenList = Array<IrisToken>()
     
-    var mBnbTokenList = Array<BnbToken>()
+//    var mBnbTokenList = Array<BnbToken>()
     
     var waitAlert: UIAlertController?
     var banner: NotificationBanner?
@@ -216,10 +216,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchPriceTic(true)
             
         } else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || mChainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
-            self.mFetchCnt = 3
+            self.mFetchCnt = 4
             self.mAllValidator.removeAll()
+            BaseData.instance.mBnbTokenList.removeAll()
             onFetchAccountInfo(mAccount)
             onFetchBnbTokens()
+            onFetchBnbMiniTokens()
             onFetchPriceTic(true)
             
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
@@ -334,9 +336,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }  else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || mChainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-                if (mBnbTokenList.count <= 0) {
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                }
+//                if (mBnbTokenList.count <= 0) {
+//                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+//                }
                 NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
                 self.hideWaittingAlert()
                 return
@@ -1070,9 +1072,35 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if let tokens = res as? Array<NSDictionary> {
-                    self.mBnbTokenList.removeAll()
                     for token in tokens {
-                        self.mBnbTokenList.append(BnbToken(token as! [String : Any]))
+                        let bnbToken = BnbToken(token as! [String : Any])
+                        bnbToken.type = BNB_TOKEN_TYPE_BEP2
+                        BaseData.instance.mBnbTokenList.append(bnbToken)
+                    }
+                }
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBnbTokens ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchBnbMiniTokens() {
+        var url = ""
+        if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ) {
+            url = BNB_URL_MINI_TOKENS
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            url = BNB_TEST_URL_MINI_TOKENS
+        }
+        let request = Alamofire.request(url, method: .get, parameters: ["limit":"3000"], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if let tokens = res as? Array<NSDictionary> {
+                    for token in tokens {
+                        let bnbToken = BnbToken(token as! [String : Any])
+                        bnbToken.type = BNB_TOKEN_TYPE_MINI
+                        BaseData.instance.mBnbTokenList.append(bnbToken)
                     }
                 }
             case .failure(let error):

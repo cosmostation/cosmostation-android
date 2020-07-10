@@ -25,6 +25,8 @@ final class BaseData : NSObject{
     var mIncentiveParam = KavaIncentiveParam.IncentiveParam.init()
     var mUnClaimedIncentiveRewards = Array<KavaIncentiveReward.UnClaimedIncentiveReward>()
     
+    var mBnbTokenList = Array<BnbToken>()
+    
     public override init() {
         super.init();
         if database == nil {

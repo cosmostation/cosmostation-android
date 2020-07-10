@@ -35,34 +35,64 @@ class WcTradePopup: BaseViewController, SBCardPopupContent {
     @IBOutlet weak var WcToAmount: UILabel!
     
     var bnbOrderId :Int64?
-    var bnbOrder :WCBinanceOrder?
+    var bnbOrder :WCBinanceTradeOrder?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let firstMsg = bnbOrder?.msgs[0]
+        let pair_denom = firstMsg!.symbol.split(separator: "_")
+        WcSymbolLabel.text = String(pair_denom[0].split(separator: "-")[0])
+        WcPriceDenom.text = String(pair_denom[1].split(separator: "-")[0])
         
-//        if let order = bnbOrder as? WCBinanceTradeOrder {
-//            tradeConstraint.priority = .defaultHigh
-//            cancelConstraint.priority = .defaultLow
-//            
-//        }
-//        
-//        if let order = bnbOrder as? WCBinanceCancelOrder {
-//            tradeConstraint.priority = .defaultLow
-//            cancelConstraint.priority = .defaultHigh
-//            
-//        }
+        let dpPrice = NSDecimalNumber.init(value: firstMsg!.price).multiplying(byPowerOf10: -8, withBehavior: WUtils.handler8)
+        let dpAmount = NSDecimalNumber.init(value: firstMsg!.quantity).multiplying(byPowerOf10: -8, withBehavior: WUtils.handler8)
+        WcPriceLabel.attributedText = WUtils.displayAmount2(dpPrice.stringValue, WcPriceLabel.font, 0, 8)
         
+        if (firstMsg!.side == 1) {
+            WcSideLabel.text = "BUY"
+            WcSideLabel.textColor = COLOR_WC_TRADE_BUY
+            
+            let fromUrl = TOKEN_IMG_URL + pair_denom[1] + ".png"
+            WcFromIcon.af_setImage(withURL: URL(string: fromUrl)!)
+            
+            let toUrl = TOKEN_IMG_URL + pair_denom[0] + ".png"
+            WcToIcon.af_setImage(withURL: URL(string: toUrl)!)
+            
+            WcFromSymbol.text = String(pair_denom[1].split(separator: "-")[0])
+            WcToSymbol.text = String(pair_denom[0].split(separator: "-")[0])
+            
+            WcFromAmount.attributedText = WUtils.displayAmount2(dpPrice.multiplying(by: dpAmount, withBehavior: WUtils.handler8).stringValue, WcPriceLabel.font, 0, 8)
+            WcToAmount.attributedText = WUtils.displayAmount2(dpAmount.stringValue, WcPriceLabel.font, 0, 8)
+            
+        } else {
+            WcSideLabel.text = "SELL"
+            WcSideLabel.textColor = COLOR_WC_TRADE_SELL
+            
+            let fromUrl = TOKEN_IMG_URL + pair_denom[0] + ".png"
+            WcFromIcon.af_setImage(withURL: URL(string: fromUrl)!)
+            
+            let toUrl = TOKEN_IMG_URL + pair_denom[1] + ".png"
+            WcToIcon.af_setImage(withURL: URL(string: toUrl)!)
+            
+            WcFromSymbol.text = String(pair_denom[0].split(separator: "-")[0])
+            WcToSymbol.text = String(pair_denom[1].split(separator: "-")[0])
+            
+            WcFromAmount.attributedText = WUtils.displayAmount2(dpAmount.stringValue, WcPriceLabel.font, 0, 8)
+            WcToAmount.attributedText = WUtils.displayAmount2(dpPrice.multiplying(by: dpAmount, withBehavior: WUtils.handler8).stringValue, WcPriceLabel.font, 0, 8)
+            
+        }
     }
 
     @IBAction func onClickCancel(_ sender: UIButton) {
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: -1)
         popupViewController?.close()
+        popupViewController?.resultDelegate?.SBCardPopupResponse(result: -1)
     }
     
     
     @IBAction func onClickConfirm(_ sender: UIButton) {
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: 1)
         popupViewController?.close()
+        popupViewController?.resultDelegate?.SBCardPopupResponse(result: 1)
     }
 }
