@@ -1074,7 +1074,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 if let tokens = res as? Array<NSDictionary> {
                     for token in tokens {
                         let bnbToken = BnbToken(token as! [String : Any])
-                        bnbToken.type = bnbToken.BNB_TOKEN_TYPE_BEP2
+                        bnbToken.type = BNB_TOKEN_TYPE_BEP2
                         BaseData.instance.mBnbTokenList.append(bnbToken)
                     }
                 }
@@ -1099,7 +1099,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 if let tokens = res as? Array<NSDictionary> {
                     for token in tokens {
                         let bnbToken = BnbToken(token as! [String : Any])
-                        bnbToken.type = bnbToken.BNB_TOKEN_TYPE_MINI
+                        bnbToken.type = BNB_TOKEN_TYPE_MINI
                         BaseData.instance.mBnbTokenList.append(bnbToken)
                     }
                 }

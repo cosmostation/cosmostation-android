@@ -8,9 +8,11 @@
 
 import Foundation
 
+
+let BNB_TOKEN_TYPE_BEP2 = 1
+let BNB_TOKEN_TYPE_MINI = 2
+
 public class BnbToken {
-    let BNB_TOKEN_TYPE_BEP2 = 1
-    let BNB_TOKEN_TYPE_MINI = 2
     
     var symbol: String = ""
     var original_symbol: String = ""
