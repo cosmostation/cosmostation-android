@@ -909,6 +909,7 @@
     <string name="error_select_account_to_recipient">Please select account to receive</string>
     <string name="error_no_more_faucet">Alreay have enought test coin.</string>
     <string name="error_no_more_debt_kava">Cannot issue USDX. Maximum network USDX capacity has been reached.\n%1$s / %2$s</string>
+    <string name="error_bnb_mini_amount">If you have a BEP8 token balance less than 1, you must send the entire amount in order to make transactions</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

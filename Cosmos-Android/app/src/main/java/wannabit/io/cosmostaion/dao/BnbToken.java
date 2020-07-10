@@ -28,7 +28,7 @@ public class BnbToken implements Parcelable {
     @SerializedName("mintable")
     public boolean mintable;
 
-    public int type;
+    public int type = 0;
 
     public BnbToken() {
     }
@@ -53,6 +53,7 @@ public class BnbToken implements Parcelable {
         owner = in.readString();
         total_supply = in.readString();
         mintable = in.readByte() != 0;
+        type = in.readInt();
     }
 
     @Override
@@ -68,6 +69,7 @@ public class BnbToken implements Parcelable {
         dest.writeString(owner);
         dest.writeString(total_supply);
         dest.writeByte((byte) (mintable ? 1 : 0));
+        dest.writeInt(type);
     }
 
     public static final Creator<BnbToken> CREATOR = new Creator<BnbToken>() {
