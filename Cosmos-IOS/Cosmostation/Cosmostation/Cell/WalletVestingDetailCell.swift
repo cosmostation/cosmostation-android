@@ -49,4 +49,12 @@ class WalletVestingDetailCell: UITableViewCell {
         vestingAmount3.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         vestingAmount4.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.vestingLayer4.isHidden = true
+        self.vestingLayer3.isHidden = true
+        self.vestingLayer2.isHidden = true
+        self.vestingLayer1.isHidden = true
+    }
 }

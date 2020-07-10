@@ -21,44 +21,44 @@
                         <rect key="frame" x="12" y="4" width="467" height="271"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Vesting Unlock Schedule" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUX-Nt-ast">
-                                <rect key="frame" x="12" y="16" width="151" height="164.5"/>
+                                <rect key="frame" x="12" y="16" width="151" height="180.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l4O-Eh-FIw">
-                                <rect key="frame" x="167" y="90.5" width="6.5" height="16"/>
+                                <rect key="frame" x="167" y="98.5" width="6.5" height="16"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12345" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AtK-KJ-dgl">
-                                <rect key="frame" x="415" y="91" width="36" height="14.5"/>
+                                <rect key="frame" x="415" y="99" width="36" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5V0-cx-zfj">
-                                <rect key="frame" x="12" y="192.5" width="443" height="0.5"/>
+                                <rect key="frame" x="12" y="208.5" width="443" height="0.5"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="iys-p8-Bns"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ruF-D2-fjA">
-                                <rect key="frame" x="12" y="205" width="443" height="50"/>
+                                <rect key="frame" x="12" y="221" width="443" height="34"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbB-rk-fMV">
-                                        <rect key="frame" x="0.0" y="0.0" width="443" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="443" height="34"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WL5-Lg-lEc">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WL5-Lg-lEc">
                                                 <rect key="frame" x="0.0" y="0.0" width="26.5" height="14.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="1day after" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87U-is-C9W">
-                                                <rect key="frame" x="0.0" y="16.5" width="52" height="33.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" text="1day after" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87U-is-C9W">
+                                                <rect key="frame" x="0.0" y="16.5" width="52" height="13.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -77,20 +77,21 @@
                                             <constraint firstAttribute="bottom" secondItem="87U-is-C9W" secondAttribute="bottom" id="LH0-jT-xhi"/>
                                             <constraint firstItem="v7Z-fE-sD1" firstAttribute="top" secondItem="YbB-rk-fMV" secondAttribute="top" constant="4" id="W4N-CR-obJ"/>
                                             <constraint firstItem="87U-is-C9W" firstAttribute="top" secondItem="WL5-Lg-lEc" secondAttribute="bottom" constant="2" id="iQa-fJ-gF5"/>
+                                            <constraint firstAttribute="height" constant="34" id="uAn-ns-WDx"/>
                                             <constraint firstItem="87U-is-C9W" firstAttribute="leading" secondItem="WL5-Lg-lEc" secondAttribute="leading" id="v1n-ce-OfN"/>
                                             <constraint firstItem="WL5-Lg-lEc" firstAttribute="top" secondItem="YbB-rk-fMV" secondAttribute="top" id="yNo-dy-6wB"/>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V3o-Ck-QiA">
-                                        <rect key="frame" x="0.0" y="50" width="443" height="2"/>
+                                        <rect key="frame" x="0.0" y="34" width="443" height="34"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ms-kT-Exs">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ms-kT-Exs">
                                                 <rect key="frame" x="0.0" y="0.0" width="26.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="1day after" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAe-Zp-03e">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" text="1day after" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAe-Zp-03e">
                                                 <rect key="frame" x="0.0" y="2" width="52" height="0.0"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
@@ -111,19 +112,20 @@
                                             <constraint firstAttribute="trailing" secondItem="ve7-IN-yi9" secondAttribute="trailing" constant="4" id="W6q-3Z-Qo7"/>
                                             <constraint firstAttribute="bottom" secondItem="cAe-Zp-03e" secondAttribute="bottom" id="Y6F-nJ-aNK"/>
                                             <constraint firstItem="cAe-Zp-03e" firstAttribute="top" secondItem="3Ms-kT-Exs" secondAttribute="bottom" constant="2" id="aBI-3I-KnX"/>
+                                            <constraint firstAttribute="height" constant="34" id="qVm-05-K1M"/>
                                             <constraint firstItem="ve7-IN-yi9" firstAttribute="top" secondItem="V3o-Ck-QiA" secondAttribute="top" constant="4" id="vgj-al-7CR"/>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="60T-db-nEn">
-                                        <rect key="frame" x="0.0" y="50" width="443" height="2"/>
+                                        <rect key="frame" x="0.0" y="34" width="443" height="34"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WvR-KZ-rA8">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WvR-KZ-rA8">
                                                 <rect key="frame" x="0.0" y="0.0" width="26.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="1day after" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mr4-4j-dxs">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" text="1day after" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mr4-4j-dxs">
                                                 <rect key="frame" x="0.0" y="2" width="52" height="0.0"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
@@ -138,6 +140,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="2MH-xG-LnM"/>
                                             <constraint firstItem="WvR-KZ-rA8" firstAttribute="top" secondItem="60T-db-nEn" secondAttribute="top" id="2uQ-51-u8p"/>
                                             <constraint firstItem="Mr4-4j-dxs" firstAttribute="top" secondItem="WvR-KZ-rA8" secondAttribute="bottom" constant="2" id="Fsl-1g-D1h"/>
                                             <constraint firstAttribute="trailing" secondItem="79B-Ll-XfS" secondAttribute="trailing" constant="4" id="FyH-g6-umt"/>
@@ -148,15 +151,15 @@
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eqx-1F-lY7">
-                                        <rect key="frame" x="0.0" y="50" width="443" height="2"/>
+                                        <rect key="frame" x="0.0" y="34" width="443" height="34"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vH5-Ah-DQn">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vH5-Ah-DQn">
                                                 <rect key="frame" x="0.0" y="0.0" width="26.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="1day after" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7S-8m-hnx">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" text="1day after" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7S-8m-hnx">
                                                 <rect key="frame" x="0.0" y="2" width="52" height="0.0"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
@@ -178,18 +181,19 @@
                                             <constraint firstItem="vH5-Ah-DQn" firstAttribute="top" secondItem="Eqx-1F-lY7" secondAttribute="top" id="YLY-wF-umI"/>
                                             <constraint firstItem="S7S-8m-hnx" firstAttribute="top" secondItem="vH5-Ah-DQn" secondAttribute="bottom" constant="2" id="g0u-o8-4kl"/>
                                             <constraint firstAttribute="trailing" secondItem="05r-vu-DUM" secondAttribute="trailing" constant="4" id="i9t-PI-Gh9"/>
+                                            <constraint firstAttribute="height" constant="34" id="kTV-AD-zGs"/>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JlJ-tC-IAD">
-                                        <rect key="frame" x="0.0" y="50" width="443" height="2"/>
+                                        <rect key="frame" x="0.0" y="34" width="443" height="34"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVh-XG-uMl">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVh-XG-uMl">
                                                 <rect key="frame" x="0.0" y="0.0" width="26.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="1day after" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hp7-ok-mYX">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" text="1day after" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hp7-ok-mYX">
                                                 <rect key="frame" x="0.0" y="2" width="52" height="0.0"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
@@ -210,6 +214,7 @@
                                             <constraint firstItem="MVh-XG-uMl" firstAttribute="leading" secondItem="JlJ-tC-IAD" secondAttribute="leading" id="bwT-TR-dRz"/>
                                             <constraint firstAttribute="trailing" secondItem="Yzo-86-ktD" secondAttribute="trailing" constant="4" id="e3z-23-Pfw"/>
                                             <constraint firstItem="hp7-ok-mYX" firstAttribute="leading" secondItem="MVh-XG-uMl" secondAttribute="leading" id="h0t-Lz-Vrq"/>
+                                            <constraint firstAttribute="height" constant="34" id="hqu-kE-cLK"/>
                                             <constraint firstItem="Yzo-86-ktD" firstAttribute="top" secondItem="JlJ-tC-IAD" secondAttribute="top" constant="4" id="kXE-bE-zmD"/>
                                         </constraints>
                                     </view>
