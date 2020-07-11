@@ -181,9 +181,6 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         return result
     }
     
-    
-    
-    
     public static var readableTypeIdentifiersForItemProvider: [String] {
         return [(kUTTypeData) as String]
     }
@@ -197,8 +194,6 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
             fatalError("Err")
         }
     }
-
-
 
     public static var writableTypeIdentifiersForItemProvider: [String]{
         return [(kUTTypeData) as String]
