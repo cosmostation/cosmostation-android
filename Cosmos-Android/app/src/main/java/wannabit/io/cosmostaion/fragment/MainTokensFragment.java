@@ -303,7 +303,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalIovAmount, 6, 6));
-            mTotalValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalIovAmount));
+            mTotalValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalIovAmount));
 
         }  else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
             BigDecimal totalBandAmount = BigDecimal.ZERO;
