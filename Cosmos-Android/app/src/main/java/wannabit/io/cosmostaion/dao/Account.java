@@ -15,6 +15,8 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+
 public class Account {
     public Long     id;
     public String   uuid;
@@ -95,7 +97,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
                 result = balance.balance;
                 break;
             }
@@ -235,7 +237,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_IOV)) {
+            if(balance.symbol.equals(TOKEN_IOV)) {
                 result = balance.balance;
                 break;
             }

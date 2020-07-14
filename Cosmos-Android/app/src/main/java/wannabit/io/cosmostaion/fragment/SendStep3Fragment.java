@@ -37,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 
 public class SendStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -274,7 +275,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 } else {
                     Fee fee = new Fee();
                     Coin gasCoin = new Coin();
-                    gasCoin.denom = BaseConstant.COSMOS_ATOM;
+                    gasCoin.denom = BaseConstant.TOKEN_ATOM;
                     gasCoin.amount = mFeeAmount.toPlainString();
                     ArrayList<Coin> amount = new ArrayList<>();
                     amount.add(gasCoin);
@@ -320,7 +321,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.COSMOS_IOV;
+                gasCoin.denom = TOKEN_IOV;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);

@@ -74,7 +74,7 @@ public class Dialog_SendType extends DialogFragment {
 //        mTypeAtom.setText(WDp.DpAtom(getContext(), getArguments().getString("chain")));
 //        mTypePhoton.setText(WDp.DpPoton(getContext(), getArguments().getString("chain")));
 //
-//        if(getArguments().getBoolean(BaseConstant.COSMOS_ATOM)) {
+//        if(getArguments().getBoolean(BaseConstant.TOKEN_ATOM)) {
 //            WLog.w("Atom ok");
 //            mAtom.setVisibility(View.VISIBLE);
 //        } else {
@@ -98,7 +98,7 @@ public class Dialog_SendType extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("coin", BaseConstant.COSMOS_ATOM);
+                resultIntent.putExtra("coin", BaseConstant.TOKEN_ATOM);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                 getDialog().dismiss();
             }

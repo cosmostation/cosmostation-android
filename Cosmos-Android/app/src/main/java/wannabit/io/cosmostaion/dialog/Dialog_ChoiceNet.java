@@ -16,13 +16,14 @@ import wannabit.io.cosmostaion.base.BaseChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
 public class Dialog_ChoiceNet extends DialogFragment {
 
 
-    private LinearLayout mIovLayer, mKavaTestLayer, mBinanaceTestLayer;
-    private LinearLayout mMain, mIris, mBinance, mKava, mIov, mBinanaceTest, mKavaTest, mTest12k, mTest13k;
+    private LinearLayout mIovLayer, mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer;
+    private LinearLayout mMain, mIris, mBinance, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mTest12k, mTest13k;
     private LinearLayout mBandLayer, mBand;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
@@ -51,6 +52,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mBinanaceTest = view.findViewById(R.id.bnb_test_net);
         mKavaTestLayer = view.findViewById(R.id.kava_test_layer);
         mKavaTest = view.findViewById(R.id.kava_test_net);
+        mIovTestLayer = view.findViewById(R.id.iov_test_layer);
+        mIovTest = view.findViewById(R.id.iov_test_net);
         mTest12k = view.findViewById(R.id.gaia_12k);
         mTest13k = view.findViewById(R.id.gaia_13k);
 
@@ -102,6 +105,14 @@ public class Dialog_ChoiceNet extends DialogFragment {
             });
         }
 
+        mBand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BAND_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
         if (BaseChain.SUPPORT_CHAINS().contains(BNB_TEST)) {
             mBinanaceTestLayer.setVisibility(View.VISIBLE);
             mBinanaceTest.setOnClickListener(new View.OnClickListener() {
@@ -124,13 +135,16 @@ public class Dialog_ChoiceNet extends DialogFragment {
             });
         }
 
-        mBand.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BAND_MAIN);
-                getDialog().dismiss();
-            }
-        });
+        if (BaseChain.SUPPORT_CHAINS().contains(IOV_TEST)) {
+            mIovTestLayer.setVisibility(View.VISIBLE);
+            mIovTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((BaseActivity)getActivity()).onChoiceNet(IOV_TEST);
+                    getDialog().dismiss();
+                }
+            });
+        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);

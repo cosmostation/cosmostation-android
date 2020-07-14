@@ -42,6 +42,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
@@ -85,15 +86,6 @@ public class WKey {
         }
     }
 
-//    public static byte[] getHDSeed(String seed) {
-//        try {
-//            byte[] entropy     = WUtil.HexStringToByteArray(seed);
-//            return MnemonicCode.toSeed(MnemonicCode.INSTANCE.toMnemonic(entropy), "");
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
-
     public static byte[] getByteHdSeedFromWords(ArrayList<String> words) {
         return getHDSeed(toEntropy(words));
     }
@@ -113,18 +105,25 @@ public class WKey {
     public static List<ChildNumber> getParentPath(BaseChain chain, boolean newBip) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             if (newBip) {
                 return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(459, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             } else {
                 return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             }
+
         } else if (chain.equals(BAND_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(494, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
+        } else if (chain.equals(IOV_TEST)) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(494, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
         }
-        return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+        return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(234, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
 
     public static DeterministicKey getKeyWithPathfromEntropy(BaseChain chain, String entropy, int path, boolean newBip44) {
@@ -209,7 +208,8 @@ public class WKey {
 
     public static String getDpAddress(BaseChain chain, String pubHex) {
         String result       = null;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) || chain.equals(BNB_TEST) || chain.equals(KAVA_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
+                chain.equals(BNB_TEST) || chain.equals(KAVA_TEST) || chain.equals(IOV_TEST)) {
             MessageDigest digest = Sha256.getSha256Digest();
             byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
 
@@ -233,6 +233,8 @@ public class WKey {
                     result = bech32Encode("band".getBytes(), converted);
                 } else if (chain.equals(BNB_TEST)){
                     result = bech32Encode("tbnb".getBytes(), converted);
+                } else if (chain.equals(IOV_TEST)){
+                    result = bech32Encode("star".getBytes(), converted);
                 }
 
             } catch (Exception e) {
@@ -294,6 +296,8 @@ public class WKey {
             return bech32Encode("kava".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BAND_MAIN)) {
             return bech32Encode("band".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(IOV_TEST)) {
+            return bech32Encode("star".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
@@ -308,6 +312,8 @@ public class WKey {
             return bech32Encode("kavavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BAND_MAIN)) {
             return bech32Encode("bandvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(IOV_TEST)) {
+            return bech32Encode("starvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
@@ -320,7 +326,8 @@ public class WKey {
 
     public static String getDpAddressWithPath(String seed, BaseChain chain, int path, Boolean newBip) {
         String result = "";
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN)|| chain.equals(BAND_MAIN) || chain.equals(BNB_TEST) || chain.equals(KAVA_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN)|| chain.equals(BAND_MAIN) ||
+                chain.equals(BNB_TEST) || chain.equals(KAVA_TEST) || chain.equals(IOV_TEST)) {
             //using Secp256k1
             DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain, newBip), true, true,  new ChildNumber(path));
             result =  getDpAddress(chain, childKey.getPublicKeyAsHex());

@@ -50,7 +50,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
@@ -272,7 +272,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         }
 
 
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) && mBalance.symbol.equals(COSMOS_ATOM) ||
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) && mBalance.symbol.equals(TOKEN_ATOM) ||
                 mBaseChain.equals(BaseChain.COSMOS_MAIN) && (IS_TEST && mBalance.symbol.equals(COSMOS_MUON))) {
             mAtomCard.setVisibility(View.VISIBLE);
             mAtomAction.setVisibility(View.GONE);
@@ -288,11 +288,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
             BigDecimal totalAmount = WDp.getAllAtom(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
             mTvAtomTotal.setText(WDp.getDpAmount(this, totalAmount, 6, mBaseChain));
-            mTvAtomAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, COSMOS_ATOM));
+            mTvAtomAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, TOKEN_ATOM));
             mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));
             mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
             mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
-            mTvAtomRewards.setText(WDp.getDpAllRewardAmount(this, mRewards, mBaseChain, COSMOS_ATOM));
+            mTvAtomRewards.setText(WDp.getDpAllRewardAmount(this, mRewards, mBaseChain, TOKEN_ATOM));
             mTvAtomValue.setText(WDp.getValueOfAtom(this, getBaseDao(), totalAmount));
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mBalance.symbol.equals(COSMOS_IRIS_ATTO)) {

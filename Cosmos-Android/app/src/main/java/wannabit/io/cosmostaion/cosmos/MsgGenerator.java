@@ -1,10 +1,8 @@
 package wannabit.io.cosmostaion.cosmos;
 
-import android.content.Context;
 import android.util.Base64;
 
 import com.binance.dex.api.client.domain.broadcast.HtltReq;
-import com.binance.dex.api.client.domain.broadcast.TransactionOption;
 import com.binance.dex.api.client.encoding.message.Token;
 import com.github.orogvany.bip32.wallet.HdAddress;
 import com.google.protobuf.ByteString;
@@ -15,8 +13,6 @@ import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable;
 import net.i2p.crypto.eddsa.spec.EdDSAParameterSpec;
 import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.RandomUtils;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -26,12 +22,10 @@ import java.security.MessageDigest;
 import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
@@ -53,10 +47,10 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_TEST_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 public class MsgGenerator {
@@ -104,12 +98,12 @@ public class MsgGenerator {
         if (sendDecimalPart >= 0) {
             sendCoin.setFractional(sendDecimalPart);
         }
-        sendCoin.setTicker(COSMOS_IOV);
+        sendCoin.setTicker(TOKEN_IOV);
 
         long feeDecimalPart = Long.parseLong(fee.amount.get(0).amount);
         coin.Codec.Coin.Builder sendFee = coin.Codec.Coin.newBuilder();
         sendFee.setFractional(feeDecimalPart);
-        sendFee.setTicker(COSMOS_IOV);
+        sendFee.setTicker(TOKEN_IOV);
 
         cash.Codec.FeeInfo.Builder sendFeeInfo = cash.Codec.FeeInfo.newBuilder();
         sendFeeInfo.setPayer(WKey.getIovByteStringfromDpAddress(fromAddr));

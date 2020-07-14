@@ -34,7 +34,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 
@@ -165,10 +165,10 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (BondingState bond:mBondings) {
-                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_ATOM).compareTo(BigDecimal.ONE) >= 0) {
+                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_ATOM).compareTo(BigDecimal.ONE) >= 0) {
                     if (WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
                         toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_ATOM));
+                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_ATOM));
                     }
                 }
             }
@@ -178,7 +178,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, COSMOS_ATOM);
+            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, TOKEN_ATOM);
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(mMyValidators.subList(0,16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();

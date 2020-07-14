@@ -17,7 +17,6 @@ import java.nio.ByteBuffer;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -47,28 +46,24 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
-import wannabit.io.cosmostaion.model.type.Tally;
-import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
-import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResLcdProposalVoted;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
@@ -79,6 +74,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_PlainT
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SystemHaltProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_TokenAdditionProposal;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 
 public class WUtil {
 
@@ -336,7 +333,8 @@ public class WUtil {
     public static ArrayList<BondingState> getBondingFromLcds(long accountId, ArrayList<ResLcdBonding> list, BaseChain chain) {
         long time = System.currentTimeMillis();
         ArrayList<BondingState> result = new ArrayList<>();
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) ||
+                chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.IOV_TEST)) {
             for(ResLcdBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
@@ -389,7 +387,8 @@ public class WUtil {
     public static ArrayList<UnBondingState> getUnbondingFromLcds(Context c, BaseChain chain, long accountId, ArrayList<ResLcdUnBonding> list) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) ||
+                chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.IOV_TEST)) {
             for(ResLcdUnBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
@@ -851,8 +850,8 @@ public class WUtil {
             @Override
             public int compare(Balance o1, Balance o2) {
                 if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_ATOM)) return -1;
-                    if(o2.symbol.equals(COSMOS_ATOM)) return 1;
+                    if(o1.symbol.equals(TOKEN_ATOM)) return -1;
+                    if(o2.symbol.equals(TOKEN_ATOM)) return 1;
 
                 } else if (chain.equals(BaseChain.IRIS_MAIN)) {
                     if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
@@ -868,8 +867,8 @@ public class WUtil {
                     return o2.balance.movePointLeft(WUtil.getKavaCoinDecimal(o2.symbol)).compareTo(o1.balance.movePointLeft(WUtil.getKavaCoinDecimal(o1.symbol)));
 
                 } else if (chain.equals(IOV_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_IOV)) return -1;
-                    if(o2.symbol.equals(COSMOS_IOV)) return 1;
+                    if(o1.symbol.equals(TOKEN_IOV)) return -1;
+                    if(o2.symbol.equals(TOKEN_IOV)) return 1;
 
                 } else if (chain.equals(BAND_MAIN)) {
                     if(o1.symbol.equals(COSMOS_BAND)) return -1;
@@ -886,8 +885,8 @@ public class WUtil {
             @Override
             public int compare(Balance o1, Balance o2) {
                 if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_ATOM)) return -1;
-                    if(o2.symbol.equals(COSMOS_ATOM)) return 1;
+                    if(o1.symbol.equals(TOKEN_ATOM)) return -1;
+                    if(o2.symbol.equals(TOKEN_ATOM)) return 1;
 
                 } else if (chain.equals(BaseChain.IRIS_MAIN)) {
                     if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
@@ -902,8 +901,8 @@ public class WUtil {
                     if(o2.symbol.equals(COSMOS_KAVA)) return 1;
 
                 } else if (chain.equals(IOV_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_IOV)) return -1;
-                    if(o2.symbol.equals(COSMOS_IOV)) return 1;
+                    if(o1.symbol.equals(TOKEN_IOV)) return -1;
+                    if(o2.symbol.equals(TOKEN_IOV)) return 1;
 
                 } else if (chain.equals(BAND_MAIN)) {
                     if(o1.symbol.equals(COSMOS_BAND)) return -1;
@@ -1192,7 +1191,7 @@ public class WUtil {
     public static IovToken getIovMainToken(ArrayList<IovToken> all) {
         if (all == null) return null;
         for (IovToken token:all) {
-            if (token.tokenTicker.equals(COSMOS_IOV)) {
+            if (token.tokenTicker.equals(TOKEN_IOV)) {
                 return token;
             }
         }

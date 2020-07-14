@@ -259,7 +259,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin atom = new Coin(BaseConstant.COSMOS_ATOM, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin atom = new Coin(BaseConstant.TOKEN_ATOM, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
                 getSActivity().mReDelegateAmount = atom;
                 return true;
 

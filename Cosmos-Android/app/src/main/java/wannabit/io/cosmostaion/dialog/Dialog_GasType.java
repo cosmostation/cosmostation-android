@@ -62,7 +62,7 @@ public class Dialog_GasType extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("coin", BaseConstant.COSMOS_ATOM);
+                resultIntent.putExtra("coin", BaseConstant.TOKEN_ATOM);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                 getDialog().dismiss();
             }

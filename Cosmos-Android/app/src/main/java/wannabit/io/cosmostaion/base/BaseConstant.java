@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -257,7 +257,7 @@ public class BaseConstant {
     public final static int ERROR_CODE_BROADCAST            = 8004;
 
 
-    public final static String COSMOS_ATOM          = "uatom";
+    public final static String TOKEN_ATOM           = "uatom";
     public final static String COSMOS_MUON          = "muon";
     public final static String COSMOS_PHOTON        = "photon";
     public final static String COSMOS_PHOTINO       = "photino";
@@ -265,7 +265,8 @@ public class BaseConstant {
     public final static String COSMOS_IRIS_ATTO     = "iris-atto";
     public final static String COSMOS_BNB           = "BNB";
     public final static String COSMOS_KAVA          = "ukava";
-    public final static String COSMOS_IOV           = "IOV";
+    public final static String TOKEN_IOV            = "uiov";
+    public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String COSMOS_BAND          = "uband";
 
 
@@ -279,6 +280,7 @@ public class BaseConstant {
     public final static String KEY_IOV_PATH         = "44'/234'/";
     public final static String KEY_NEW_KAVA_PATH    = "44'/459'/0'/0/";
     public final static String KEY_BAND_PATH        = "44'/494'/0'/0/";
+    public final static String KEY_NEW_IOV_PATH     = "44'/234'/0'/0/";
     public final static String characterFilter  = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 

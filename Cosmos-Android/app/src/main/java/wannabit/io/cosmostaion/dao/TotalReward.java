@@ -18,7 +18,7 @@ public class TotalReward {
     public BigDecimal getAtomAmount() {
         BigDecimal result = BigDecimal.ZERO;
         for(Coin coin:coins) {
-            if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
+            if(coin.denom.equals(BaseConstant.TOKEN_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
                 result = new BigDecimal(coin.amount);
                 break;
             }

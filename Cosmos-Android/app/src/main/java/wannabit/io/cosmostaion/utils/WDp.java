@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -32,7 +31,6 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
-import wannabit.io.cosmostaion.dao.TotalReward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.KavaCDP;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
@@ -51,14 +49,14 @@ import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFUNDED;
@@ -172,7 +170,7 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(symbol), WUtil.getKavaCoinDecimal(symbol)));
 
         } else if (chain.equals(BaseChain.IOV_MAIN)) {
-            if (symbol.equals(COSMOS_IOV)) {
+            if (symbol.equals(TOKEN_IOV)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
 
             } else {
@@ -350,7 +348,7 @@ public class WDp {
     public static BigDecimal getAvailableCoin(ArrayList<Balance> balances, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
-            if (denom.equals(COSMOS_ATOM) && IS_TEST) {
+            if (denom.equals(TOKEN_ATOM) && IS_TEST) {
                 if (balance.symbol.equalsIgnoreCase(COSMOS_MUON)) {
                     sum = balance.balance;
                 }
@@ -400,7 +398,8 @@ public class WDp {
     public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         if (bondings == null || bondings.size() == 0) return sum;
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN)|| chain.equals(BaseChain.KAVA_TEST)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) ||
+                chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.IOV_TEST)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
@@ -443,7 +442,7 @@ public class WDp {
     public static BigDecimal getAllAtom(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
                 sum = sum.add(balance.balance);
             }
         }
@@ -459,7 +458,7 @@ public class WDp {
         }
         if (rewards != null) {
             for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(COSMOS_ATOM));
+                sum = sum.add(reward.getRewardAmount(TOKEN_ATOM));
             }
         }
         return sum;
@@ -661,6 +660,24 @@ public class WDp {
             return result;
         }
 
+    }
+
+    public static SpannableString getValueOfIov(Context c, BaseData dao, BigDecimal totalAmount) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if(dao.getCurrency() == 5) {
+//            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBandTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+//            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBandTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        }
     }
 
     public static SpannableString getDpRawDollor(Context c, String price, int scale) {
@@ -1386,7 +1403,7 @@ public class WDp {
             return c.getResources().getColor(R.color.colorBnb);
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             return c.getResources().getColor(R.color.colorKava);
-        } else if (chain.equals(BaseChain.IOV_MAIN)) {
+        } else if (chain.equals(BaseChain.IOV_MAIN) || chain.equals(BaseChain.IOV_TEST)) {
             return c.getResources().getColor(R.color.colorIov);
         } else if (chain.equals(BaseChain.BAND_MAIN)) {
             return c.getResources().getColor(R.color.colorBand);
@@ -1438,7 +1455,7 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorKava));
             textview.setText(c.getString(R.string.s_kava));
 
-        } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN)) {
+        } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN) || BaseChain.getChain(chain).equals(BaseChain.IOV_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIov));
             textview.setText(c.getString(R.string.s_iov));
 
@@ -1457,7 +1474,7 @@ public class WDp {
             return c.getString(R.string.s_bnb);
         } else if (BaseChain.getChain(chain).equals(BaseChain.KAVA_MAIN) || BaseChain.getChain(chain).equals(BaseChain.KAVA_TEST)) {
             return c.getString(R.string.s_kava);
-        } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN)) {
+        } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN) || BaseChain.getChain(chain).equals(BaseChain.IOV_TEST)) {
             return c.getString(R.string.s_iov);
         } else if (BaseChain.getChain(chain).equals(BaseChain.BAND_MAIN)) {
             return c.getString(R.string.s_band);
@@ -1688,12 +1705,16 @@ public class WDp {
             txtView.setText(c.getString(R.string.str_kava_net_test_2));
 
         } else if (chain.equals(BaseChain.IOV_MAIN)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_img));
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_chain_img));
             txtView.setText(c.getString(R.string.str_iov_net_2));
 
         } else if (chain.equals(BaseChain.BAND_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.band_chain_img));
             txtView.setText(c.getString(R.string.str_band_chain_2));
+
+        } else if (chain.equals(BaseChain.IOV_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_testnet_img));
+            txtView.setText(c.getString(R.string.str_iov_net_test_2));
 
         }
         txtView.setTextColor(getChainColor(c, chain));

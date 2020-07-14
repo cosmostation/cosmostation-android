@@ -269,7 +269,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin coin = new Coin(BaseConstant.COSMOS_ATOM, amountTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(BaseConstant.TOKEN_ATOM, amountTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 

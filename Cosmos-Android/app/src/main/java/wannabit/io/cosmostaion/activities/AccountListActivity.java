@@ -217,7 +217,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 } else if (chain.equals(BaseChain.IOV_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
-                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_chain_img));
                     holder.chainName.setText(getString(R.string.str_iov));
 
                 } else if (chain.equals(BaseChain.BAND_MAIN)) {
@@ -237,6 +237,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
                     holder.chainName.setText(getString(R.string.str_kava_test));
+
+                } else if (chain.equals(BaseChain.IOV_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_testnet_img));
+                    holder.chainName.setText(getString(R.string.str_iov_test));
 
                 }
             }

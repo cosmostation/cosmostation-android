@@ -1,10 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -52,24 +48,22 @@ import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
 
@@ -311,6 +305,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
             mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
 
+        } else if (mBaseChain.equals(BaseChain.IOV_TEST)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_testnet_img));
+            mToolbarChainName.setText(getString(R.string.str_iov_net_test));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIov));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
+            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
+
         }
 
         if (mContentsPager != null) {
@@ -412,7 +413,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     hasbalance  = true;
                 }
             } else {
-                if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ZERO) > 0) {
+                if (WDp.getAvailableCoin(balances, TOKEN_ATOM).compareTo(BigDecimal.ZERO) > 0) {
                     hasbalance  = true;
                 }
             }
@@ -430,10 +431,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("bnbToken", WUtil.getBnbMainToken(getBaseDao().mBnbTokens));
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_IOV).compareTo(new BigDecimal("500000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("500000000")) > 0) {
                 hasbalance  = true;
             }
-            intent.putExtra("iovDenom", COSMOS_IOV);
+            intent.putExtra("iovDenom", TOKEN_IOV);
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
@@ -697,7 +698,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 } else if (chain.equals(BaseChain.IOV_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
-                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_chain_img));
                     holder.chainName.setText(getString(R.string.str_iov));
 
                 } else if (chain.equals(BaseChain.BAND_MAIN)) {
@@ -717,6 +718,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
                     holder.chainName.setText(getString(R.string.str_kava_test));
+
+                } else if (chain.equals(BaseChain.IOV_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_testnet_img));
+                    holder.chainName.setText(getString(R.string.str_iov_test));
 
                 }
             }

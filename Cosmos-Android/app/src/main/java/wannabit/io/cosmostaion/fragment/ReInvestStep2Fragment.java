@@ -229,7 +229,7 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
             if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.COSMOS_ATOM;
+                gasCoin.denom = BaseConstant.TOKEN_ATOM;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);

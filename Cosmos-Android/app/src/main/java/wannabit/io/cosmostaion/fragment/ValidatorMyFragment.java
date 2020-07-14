@@ -37,7 +37,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
@@ -165,7 +165,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 final RewardWithdrawHolder holder       = (RewardWithdrawHolder)viewHolder;
                 WDp.DpMainDenom(getContext(), getMainActivity().mAccount.baseChain, holder.itemTvDenom);
                 if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain), COSMOS_ATOM));
+                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_ATOM));
 
                 } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemTvAllRewards.setText(WDp.getDpAllIrisRewardAmount(getContext(), mIrisRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
@@ -199,7 +199,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
                 if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain), COSMOS_ATOM));
+                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_ATOM));
                     try {
                         Picasso.get().load(COSMOS_VAL_URL+validator.operator_address+".png")
                                 .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
@@ -338,7 +338,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     public void onSortValidator() {
         if (getBaseDao().getMyValSorting() == 2){
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                WUtil.onSortByReward(mMyValidators, mRewards, COSMOS_ATOM);
+                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_ATOM);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 WUtil.onSortIrisByReward(mMyValidators, mIrisRewards);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {

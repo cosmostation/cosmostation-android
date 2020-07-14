@@ -79,6 +79,16 @@ public class UnBondingStateTask extends CommonTask {
                     }
                 }
 
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_TEST)) {
+                Response<ResLcdUnBondings> response = ApiClient.getIovTestChain(mApp).getUnBondingList(mAccount.address).execute();
+                if(response.isSuccessful()) {
+                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.IOV_TEST, mAccount.id, response.body().result));
+                    } else {
+                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
+                    }
+                }
+
             }
             mResult.isSuccess = true;
 

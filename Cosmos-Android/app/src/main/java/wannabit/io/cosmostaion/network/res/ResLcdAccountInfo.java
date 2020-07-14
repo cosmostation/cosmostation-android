@@ -22,8 +22,8 @@ public class ResLcdAccountInfo {
         @SerializedName("coins")
         public ArrayList<Coin> coins;
 
-        @SerializedName("public_key")
-        public Pub_key public_key;
+//        @SerializedName("public_key")
+//        public Pub_key public_key;
 
         @SerializedName("account_number")
         public String account_number;

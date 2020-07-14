@@ -221,6 +221,21 @@ public class ApiClient {
         return service_band;
     }
 
+    //Service for IOV testnet
+    private static IovChain service_iov_test = null;
+    public static IovChain getIovTestChain(Context c) {
+        if (service_iov_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_iov_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_iov_test = retrofit.create(IovChain.class);
+            }
+        }
+        return service_iov_test;
+    }
+
     //Services for Band api
     private static BandApi api_band = null;
     public static BandApi getBandApi(Context c) {

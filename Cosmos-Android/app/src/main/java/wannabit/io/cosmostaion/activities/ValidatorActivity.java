@@ -64,7 +64,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
@@ -198,7 +198,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ZERO) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_ATOM).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
 
@@ -843,7 +843,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
                 if (mReward != null) {
-                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(COSMOS_ATOM), 6, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(TOKEN_ATOM), 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
                     holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }

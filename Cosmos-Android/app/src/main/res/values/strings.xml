@@ -30,6 +30,9 @@
     <string name="url_rest_iov_main" translatable="false">https://bnsapi.iov.one/</string>
     <string name="url_rpc_iov_main" translatable="false">https://rpc-iov-mainnet.cosmostation.io/</string>
 
+    <string name="url_lcd_iov_test" translatable="false">https://iovnscli-rest-api.cluster-galaxynet.iov.one/</string>
+    <string name="url_api_iovtest" translatable="false"></string>
+
     <string name="url_lcd_band_main" translatable="false">https://lcd-band.cosmostation.io/</string>
     <string name="url_api_band_main" translatable="false">https://api-band-wenchang-mainnet.cosmostation.io/</string>
 
@@ -79,6 +82,7 @@
     <string name="str_band_main_net">BAND Mainnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
     <string name="str_kava_test_net">KAVA Testnet</string>
+    <string name="str_iov_test_net">IOV Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
@@ -255,6 +259,8 @@
     <string name="str_kava_net_2" translatable="false">KAVA Chain</string>
     <string name="str_kava_net_test" translatable="false">(KAVA Test Chain)</string>
     <string name="str_kava_net_test_2" translatable="false">KAVA Test Chain</string>
+    <string name="str_iov_net_test" translatable="false">(IOV Test Chain)</string>
+    <string name="str_iov_net_test_2" translatable="false">IOV Test Chain</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_iris" translatable="false">IRIS</string>
     <string name="str_binance" translatable="false">BINANCE</string>
@@ -263,6 +269,7 @@
     <string name="str_kava" translatable="false">KAVA</string>
     <string name="str_band" translatable="false">BAND</string>
     <string name="str_kava_test" translatable="false">KAVA TEST</string>
+    <string name="str_iov_test" translatable="false">IOV TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
