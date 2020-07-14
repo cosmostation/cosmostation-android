@@ -62,8 +62,10 @@ import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -756,7 +758,8 @@ public class WUtil {
             public int compare(Validator o1, Validator o2) {
                 if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
                 if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-                if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) || chain.equals(BAND_MAIN)) {
+                if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)
+                        || chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
                     if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
                     else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
                     else return 0;
@@ -874,6 +877,10 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_BAND)) return -1;
                     if(o2.symbol.equals(TOKEN_BAND)) return 1;
 
+                } else if (chain.equals(IOV_TEST)) {
+                    if(o1.symbol.equals(TOKEN_IOV_TEST)) return -1;
+                    if(o2.symbol.equals(TOKEN_IOV_TEST)) return 1;
+
                 }
                 return o2.balance.compareTo(o1.balance);
             }
@@ -907,6 +914,10 @@ public class WUtil {
                 } else if (chain.equals(BAND_MAIN)) {
                     if(o1.symbol.equals(TOKEN_BAND)) return -1;
                     if(o2.symbol.equals(TOKEN_BAND)) return 1;
+
+                } else if (chain.equals(IOV_TEST)) {
+                    if(o1.symbol.equals(TOKEN_IOV_TEST)) return -1;
+                    if(o2.symbol.equals(TOKEN_IOV_TEST)) return 1;
 
                 }
                 return o1.symbol.compareTo(o2.symbol);
@@ -1053,7 +1064,8 @@ public class WUtil {
     }
 
     public static int getMaxMemoSize(BaseChain chain) {
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) ||
+                chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST)) {
             return BaseConstant.MEMO_ATOM;
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {

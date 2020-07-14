@@ -49,6 +49,15 @@ import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -67,22 +76,18 @@ public class WDp {
     public static SpannableString getDpAmount(Context c, BigDecimal input, int point, BaseChain chain) {
         SpannableString result;
         BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.BAND_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
+                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             amount = amount.divide(new BigDecimal("1000000000000000000"), 18, BigDecimal.ROUND_DOWN);
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
-        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
-            result = new SpannableString(getDecimalFormat(c, point).format(amount));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-
-        } else if (chain.equals(BaseChain.IOV_MAIN)) {
-            amount = amount.divide(new BigDecimal("1000000000"), 9, BigDecimal.ROUND_DOWN);
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -112,11 +117,11 @@ public class WDp {
 
 
     public static void showCoinDp(Context c, Coin coin, TextView denomTv, TextView amountTv, BaseChain chain) {
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             if (coin.denom.equals(TOKEN_IRIS_ATTO)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
@@ -125,7 +130,7 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
 
 
-        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             if (coin.denom.equals(TOKEN_KAVA)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
@@ -134,7 +139,7 @@ public class WDp {
             //TODO need check decimal with denom's type
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), WUtil.getKavaCoinDecimal(coin), WUtil.getKavaCoinDecimal(coin)));
 
-        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             if (coin.denom.equals(TOKEN_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
@@ -142,18 +147,18 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 8, 8));
 
-        } else if (chain.equals(BaseChain.BAND_MAIN)) {
+        } else if (chain.equals(BAND_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
         }
     }
 
     public static void showCoinDp(Context c, String symbol, String amount, TextView denomTv, TextView amountTv, BaseChain chain) {
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             if (symbol.equals(TOKEN_IRIS_ATTO)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
@@ -162,7 +167,7 @@ public class WDp {
             //TODO need check decimal with denom's type
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
-        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             if (symbol.equals(TOKEN_KAVA)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
@@ -170,7 +175,7 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(symbol), WUtil.getKavaCoinDecimal(symbol)));
 
-        } else if (chain.equals(BaseChain.IOV_MAIN)) {
+        } else if (chain.equals(IOV_MAIN)) {
             if (symbol.equals(TOKEN_IOV)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
 
@@ -179,7 +184,7 @@ public class WDp {
 
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 9, 9));
-        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             if (symbol.equals(TOKEN_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
 
@@ -189,7 +194,7 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
 
-        } else if (chain.equals(BaseChain.BAND_MAIN)) {
+        } else if (chain.equals(BAND_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }
@@ -399,12 +404,12 @@ public class WDp {
     public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         if (bondings == null || bondings.size() == 0) return sum;
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) ||
-                chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.IOV_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
+                chain.equals(KAVA_TEST) || chain.equals(IOV_TEST)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
@@ -1111,23 +1116,23 @@ public class WDp {
     }
 
     public static String getPath(BaseChain chain, int position, boolean newBip) {
-        if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+        if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return BaseConstant.KEY_BNB_PATH + String.valueOf(position);
 
-        } else if (chain.equals(BaseChain.IOV_MAIN)) {
+        } else if (chain.equals(IOV_MAIN)) {
             return BaseConstant.KEY_IOV_PATH + String.valueOf(position) +"'";
 
-        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             if (newBip) {
                 return BaseConstant.KEY_NEW_KAVA_PATH + String.valueOf(position);
             } else {
                 return BaseConstant.KEY_PATH + String.valueOf(position);
             }
 
-        } else if (chain.equals(BaseChain.BAND_MAIN)) {
+        } else if (chain.equals(BAND_MAIN)) {
             return BaseConstant.KEY_BAND_PATH + String.valueOf(position);
 
-        } else if (chain.equals(BaseChain.IOV_TEST)) {
+        } else if (chain.equals(IOV_TEST)) {
             return BaseConstant.KEY_NEW_IOV_PATH + String.valueOf(position);
 
         } else {
@@ -1228,7 +1233,7 @@ public class WDp {
     public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
-            if(chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.IRIS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.BAND_MAIN)) {
+            if(chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(BAND_MAIN)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 21);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
@@ -1429,17 +1434,17 @@ public class WDp {
     }
 
     public static int getChainColor(Context c, BaseChain chain) {
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN)) {
             return c.getResources().getColor(R.color.colorAtom);
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             return c.getResources().getColor(R.color.colorIris);
-        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return c.getResources().getColor(R.color.colorBnb);
-        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             return c.getResources().getColor(R.color.colorKava);
-        } else if (chain.equals(BaseChain.IOV_MAIN) || chain.equals(BaseChain.IOV_TEST)) {
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return c.getResources().getColor(R.color.colorIov);
-        } else if (chain.equals(BaseChain.BAND_MAIN)) {
+        } else if (chain.equals(BAND_MAIN)) {
             return c.getResources().getColor(R.color.colorBand);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
@@ -1447,70 +1452,74 @@ public class WDp {
     }
 
     public static ColorStateList getTabColor(Context c, BaseChain chain) {
-        if(chain.equals(BaseChain.COSMOS_MAIN)) {
+        if(chain.equals(COSMOS_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
-        } else if(chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if(chain.equals(IRIS_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iris);
-        } else if(chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        } else if(chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_kava);
-        } else if(chain.equals(BaseChain.BAND_MAIN)) {
+        } else if(chain.equals(BAND_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_band);
+        } else if(chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iov);
         }
         return null;
     }
 
     public static ColorStateList getChainTintColor(Context c, BaseChain chain) {
-        if(chain.equals(BaseChain.COSMOS_MAIN)) {
+        if(chain.equals(COSMOS_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorAtom);
-        } else if(chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if(chain.equals(IRIS_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorIris);
-        } else if(chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        } else if(chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             return c.getResources().getColorStateList(R.color.colorKava);
-        } else if(chain.equals(BaseChain.BAND_MAIN)) {
+        } else if(chain.equals(BAND_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorBand);
+        } else if(chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            return c.getResources().getColorStateList(R.color.colorIov);
         }
         return null;
     }
 
     public static void DpMainDenom(Context c, String chain, TextView textview) {
-        if (BaseChain.getChain(chain).equals(BaseChain.COSMOS_MAIN)) {
+        if (BaseChain.getChain(chain).equals(COSMOS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorAtom));
             textview.setText(c.getString(R.string.s_atom));
 
-        } else if (BaseChain.getChain(chain).equals(BaseChain.IRIS_MAIN)) {
+        } else if (BaseChain.getChain(chain).equals(IRIS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIris));
             textview.setText(c.getString(R.string.s_iris));
 
-        } else if (BaseChain.getChain(chain).equals(BaseChain.BNB_MAIN) || BaseChain.getChain(chain).equals(BaseChain.BNB_TEST)) {
+        } else if (BaseChain.getChain(chain).equals(BNB_MAIN) || BaseChain.getChain(chain).equals(BNB_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBnb));
             textview.setText(c.getString(R.string.s_bnb));
 
-        } else if (BaseChain.getChain(chain).equals(BaseChain.KAVA_MAIN) || BaseChain.getChain(chain).equals(BaseChain.KAVA_TEST)) {
+        } else if (BaseChain.getChain(chain).equals(KAVA_MAIN) || BaseChain.getChain(chain).equals(KAVA_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorKava));
             textview.setText(c.getString(R.string.s_kava));
 
-        } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN) || BaseChain.getChain(chain).equals(BaseChain.IOV_TEST)) {
+        } else if (BaseChain.getChain(chain).equals(IOV_MAIN) || BaseChain.getChain(chain).equals(IOV_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIov));
             textview.setText(c.getString(R.string.s_iov));
 
-        } else if (BaseChain.getChain(chain).equals(BaseChain.BAND_MAIN)) {
+        } else if (BaseChain.getChain(chain).equals(BAND_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBand));
             textview.setText(c.getString(R.string.s_band));
         }
     }
 
     public static String getDpMainDenom(Context c, String chain) {
-        if (BaseChain.getChain(chain).equals(BaseChain.COSMOS_MAIN)) {
+        if (BaseChain.getChain(chain).equals(COSMOS_MAIN)) {
             return c.getString(R.string.s_atom);
-        } else if (BaseChain.getChain(chain).equals(BaseChain.IRIS_MAIN)) {
+        } else if (BaseChain.getChain(chain).equals(IRIS_MAIN)) {
             return c.getString(R.string.s_iris);
-        } else if (BaseChain.getChain(chain).equals(BaseChain.BNB_MAIN) || BaseChain.getChain(chain).equals(BaseChain.BNB_TEST)) {
+        } else if (BaseChain.getChain(chain).equals(BNB_MAIN) || BaseChain.getChain(chain).equals(BNB_TEST)) {
             return c.getString(R.string.s_bnb);
-        } else if (BaseChain.getChain(chain).equals(BaseChain.KAVA_MAIN) || BaseChain.getChain(chain).equals(BaseChain.KAVA_TEST)) {
+        } else if (BaseChain.getChain(chain).equals(KAVA_MAIN) || BaseChain.getChain(chain).equals(KAVA_TEST)) {
             return c.getString(R.string.s_kava);
-        } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN) || BaseChain.getChain(chain).equals(BaseChain.IOV_TEST)) {
+        } else if (BaseChain.getChain(chain).equals(IOV_MAIN) || BaseChain.getChain(chain).equals(IOV_TEST)) {
             return c.getString(R.string.s_iov);
-        } else if (BaseChain.getChain(chain).equals(BaseChain.BAND_MAIN)) {
+        } else if (BaseChain.getChain(chain).equals(BAND_MAIN)) {
             return c.getString(R.string.s_band);
         }
         return "";
@@ -1714,39 +1723,39 @@ public class WDp {
     }
 
     public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.cosmos_wh_main));
             txtView.setText(c.getString(R.string.str_cosmos_hub_2));
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iris_wh));
             txtView.setText(c.getString(R.string.str_iris_net_2));
 
-        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+        } else if (chain.equals(BNB_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binance_ch_img));
             txtView.setText(c.getString(R.string.str_binance_net_2));
 
-        } else if (chain.equals(BaseChain.BNB_TEST)) {
+        } else if (chain.equals(BNB_TEST)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binancetestnet));
             txtView.setText(c.getString(R.string.str_binance_test_net_2));
 
-        } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (chain.equals(KAVA_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_img));
             txtView.setText(c.getString(R.string.str_kava_net_2));
 
-        } else if (chain.equals(BaseChain.KAVA_TEST)) {
+        } else if (chain.equals(KAVA_TEST)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_test_img));
             txtView.setText(c.getString(R.string.str_kava_net_test_2));
 
-        } else if (chain.equals(BaseChain.IOV_MAIN)) {
+        } else if (chain.equals(IOV_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_chain_img));
             txtView.setText(c.getString(R.string.str_iov_net_2));
 
-        } else if (chain.equals(BaseChain.BAND_MAIN)) {
+        } else if (chain.equals(BAND_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.band_chain_img));
             txtView.setText(c.getString(R.string.str_band_chain_2));
 
-        } else if (chain.equals(BaseChain.IOV_TEST)) {
+        } else if (chain.equals(IOV_TEST)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_testnet_img));
             txtView.setText(c.getString(R.string.str_iov_net_test_2));
 

@@ -1059,7 +1059,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
             }
 
-        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward) || v.equals(mBtnBandDeleagte)) {
+        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward) || v.equals(mBtnBandDeleagte) || v.equals(mBtnIovStake)) {
             Intent validators = new Intent(getMainActivity(), ValidatorListActivity.class);
             validators.putExtra("myValidators", getMainActivity().mMyValidators);
             validators.putExtra("topValidators", getMainActivity().mTopValidators);
@@ -1113,9 +1113,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mBtnKavaCdp)) {
             startActivity(new Intent(getMainActivity(), KavaCdpListActivity.class));
-
-        } else if (v.equals(mBtnIovStake)) {
-            Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnIovVote)) {
             Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();

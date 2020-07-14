@@ -151,10 +151,13 @@ public enum BaseChain {
 
         } else if (fromChain.equals(KAVA_TEST)) {
             result.add(BNB_TEST);
+
         } else if (fromChain.equals(KAVA_MAIN)) {
             result.add(BNB_MAIN);
+
         } else if (fromChain.equals(BNB_MAIN)) {
             result.add(KAVA_MAIN);
+
         }
         return result;
     }
