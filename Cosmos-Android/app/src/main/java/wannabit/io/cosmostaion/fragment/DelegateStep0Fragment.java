@@ -277,7 +277,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(18).setScale(18, RoundingMode.CEILING)) > 0) return false;
-                Coin coin = new Coin(BaseConstant.COSMOS_IRIS_ATTO, amountTemp.multiply(new BigDecimal("1000000000000000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(BaseConstant.TOKEN_IRIS_ATTO, amountTemp.multiply(new BigDecimal("1000000000000000000")).setScale(0).toPlainString());
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 
@@ -285,7 +285,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin coin = new Coin(BaseConstant.COSMOS_KAVA, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(BaseConstant.TOKEN_KAVA, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 
@@ -293,7 +293,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin coin = new Coin(BaseConstant.COSMOS_BAND, amountTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(BaseConstant.TOKEN_BAND, amountTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 

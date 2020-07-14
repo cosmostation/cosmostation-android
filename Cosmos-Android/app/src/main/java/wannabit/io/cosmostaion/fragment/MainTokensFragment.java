@@ -42,11 +42,11 @@ import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -240,7 +240,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             BigDecimal totalAtomAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_ATOM) || (IS_TEST && balance.symbol.equals(COSMOS_MUON))) {
+                if (balance.symbol.equals(TOKEN_ATOM) || (IS_TEST && balance.symbol.equals(TOKEN_MUON))) {
                     totalAtomAmount = totalAtomAmount.add(WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
                 } else {
 
@@ -252,7 +252,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal totalIrisAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
-                if (balance.symbol.equals(COSMOS_IRIS_ATTO)) {
+                if (balance.symbol.equals(TOKEN_IRIS_ATTO)) {
                     totalIrisAmount = totalIrisAmount.add(WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, getMainActivity().mAllValidators));
                 } else {
 
@@ -264,7 +264,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             BigDecimal totalBnbAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
-                if (balance.symbol.equals(COSMOS_BNB)) {
+                if (balance.symbol.equals(TOKEN_BNB)) {
                     totalBnbAmount = totalBnbAmount.add(balance.getAllBnbBalance());
                 } else {
                     ResBnbTic tic = mBnbTics.get(WUtil.getBnbTicSymbol(balance.symbol));
@@ -279,11 +279,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             BigDecimal totalKavaAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
-                if (balance.symbol.equals(COSMOS_KAVA)) {
+                if (balance.symbol.equals(TOKEN_KAVA)) {
                     totalKavaAmount = totalKavaAmount.add(WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
                 } else {
                     BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
-                    BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(COSMOS_KAVA), RoundingMode.DOWN).movePointRight(WUtil.getKavaCoinDecimal(COSMOS_KAVA));
+                    BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN).movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA));
                     totalKavaAmount = totalKavaAmount.add(convertedKavaAmount);
                 }
             }
@@ -303,7 +303,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }  else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
             BigDecimal totalBandAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
-                if (balance.symbol.equals(COSMOS_BAND)) {
+                if (balance.symbol.equals(TOKEN_BAND)) {
                     totalBandAmount = totalBandAmount.add(WDp.getAllBand(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
                 }
             }
@@ -384,7 +384,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onBindCosmosItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_ATOM) || (IS_TEST && balance.symbol.equals(COSMOS_MUON))) {
+        if (balance.symbol.equals(TOKEN_ATOM) || (IS_TEST && balance.symbol.equals(TOKEN_MUON))) {
             holder.itemSymbol.setText(getString(R.string.str_atom_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.COSMOS_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
@@ -422,7 +422,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             Picasso.get().cancelRequest(holder.itemImg);
 
             BigDecimal amount = BigDecimal.ZERO;
-            if (balance.symbol.equals(COSMOS_IRIS_ATTO)) {
+            if (balance.symbol.equals(TOKEN_IRIS_ATTO)) {
                 amount = WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, getMainActivity().mAllValidators);
                 holder.itemBalance.setText(WDp.getDpAmount(getContext(), amount, 6, getMainActivity().mBaseChain));
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
@@ -460,7 +460,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             Picasso.get().cancelRequest(holder.itemImg);
 
             BigDecimal amount = BigDecimal.ZERO;
-            if (balance.symbol.equals(COSMOS_BNB)) {
+            if (balance.symbol.equals(TOKEN_BNB)) {
                 amount = balance.getAllBnbBalance();
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.BNB_MAIN));
@@ -495,7 +495,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onBindKavaItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
-        if (balance.symbol.equals(COSMOS_KAVA)) {
+        if (balance.symbol.equals(TOKEN_KAVA)) {
             holder.itemSymbol.setText(getString(R.string.str_kava_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.KAVA_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
@@ -527,8 +527,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, WUtil.getKavaCoinDecimal(balance.symbol), 6));
             BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
-            BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(COSMOS_KAVA), RoundingMode.DOWN);
-            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(COSMOS_KAVA))));
+            BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
+            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
 
         }
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -545,7 +545,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onBindKavaTestItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
-        if (balance.symbol.equals(COSMOS_KAVA)) {
+        if (balance.symbol.equals(TOKEN_KAVA)) {
             holder.itemSymbol.setText(getString(R.string.str_kava_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.KAVA_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
@@ -577,8 +577,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, WUtil.getKavaCoinDecimal(balance.symbol), 6));
             BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
-            BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(COSMOS_KAVA), RoundingMode.DOWN);
-            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(COSMOS_KAVA))));
+            BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
+            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
 
         }
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -618,7 +618,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onBindBandItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
-        if (balance.symbol.equals(COSMOS_BAND)) {
+        if (balance.symbol.equals(TOKEN_BAND)) {
             holder.itemSymbol.setText(getString(R.string.str_band_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.BAND_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
@@ -658,7 +658,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         mBnbTics.clear();
         for (int i = 0; i < mBalances.size(); i ++) {
             final int position = i;
-            if (!mBalances.get(position).symbol.equals(COSMOS_BNB)) {
+            if (!mBalances.get(position).symbol.equals(TOKEN_BNB)) {
                 final String ticSymbol = WUtil.getBnbTicSymbol(mBalances.get(position).symbol);
                 ResBnbTic tic = mBnbTics.get(ticSymbol);
                 if (tic == null) {

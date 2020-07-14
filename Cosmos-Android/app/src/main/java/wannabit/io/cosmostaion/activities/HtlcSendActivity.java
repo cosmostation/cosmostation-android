@@ -29,7 +29,7 @@ import wannabit.io.cosmostaion.fragment.HtlcSendStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_BEP3;
 
@@ -43,7 +43,7 @@ public class HtlcSendActivity extends BaseActivity {
     private ViewPager               mViewPager;
     private HtlcSendPageAdapter     mPageAdapter;
 
-    public String                   mSendDenom = COSMOS_BNB;        //now only support bnb bep3
+    public String                   mSendDenom = TOKEN_BNB;        //now only support bnb bep3
     public ArrayList<Coin>          mToSendCoins;
     public BaseChain                mRecipientChain;
     public Account                  mRecipientAccount;
@@ -155,7 +155,7 @@ public class HtlcSendActivity extends BaseActivity {
     public Fee onInitSendFee() {
         if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
             Coin gasCoin = new Coin();
-            gasCoin.denom = BaseConstant.COSMOS_BNB;
+            gasCoin.denom = BaseConstant.TOKEN_BNB;
             gasCoin.amount = FEE_BNB_SEND;
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
@@ -163,7 +163,7 @@ public class HtlcSendActivity extends BaseActivity {
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             Coin gasCoin = new Coin();
-            gasCoin.denom = BaseConstant.COSMOS_KAVA;
+            gasCoin.denom = BaseConstant.TOKEN_KAVA;
             gasCoin.amount = "0";
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
@@ -176,7 +176,7 @@ public class HtlcSendActivity extends BaseActivity {
     public Fee onInitClaimFee() {
         if (mRecipientChain.equals(BaseChain.BNB_MAIN) || mRecipientChain.equals(BaseChain.BNB_TEST)) {
             Coin gasCoin = new Coin();
-            gasCoin.denom = BaseConstant.COSMOS_BNB;
+            gasCoin.denom = BaseConstant.TOKEN_BNB;
             gasCoin.amount = FEE_BNB_SEND;
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
@@ -184,7 +184,7 @@ public class HtlcSendActivity extends BaseActivity {
 
         } else if (mRecipientChain.equals(BaseChain.KAVA_MAIN) || mRecipientChain.equals(BaseChain.KAVA_TEST)) {
             Coin gasCoin = new Coin();
-            gasCoin.denom = BaseConstant.COSMOS_KAVA;
+            gasCoin.denom = BaseConstant.TOKEN_KAVA;
             gasCoin.amount = "0";
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);

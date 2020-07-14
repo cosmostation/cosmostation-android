@@ -20,9 +20,9 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class SendStep4Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -107,7 +107,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
 
-            if (getSActivity().mIrisToken.base_token.id.equals(COSMOS_IRIS)) {
+            if (getSActivity().mIrisToken.base_token.id.equals(TOKEN_IRIS)) {
                 mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorIris));
                 mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorIris));
                 mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorIris));
@@ -139,7 +139,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, 8, getSActivity().mBaseChain));
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 8, getSActivity().mBaseChain));
 
-            if (getSActivity().mBnbToken.symbol.equals(COSMOS_BNB)) {
+            if (getSActivity().mBnbToken.symbol.equals(TOKEN_BNB)) {
                 mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorBnb));
                 mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorBnb));
                 mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorBnb));
@@ -165,7 +165,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mDpDecimal = WUtil.getKavaCoinDecimal(getSActivity().mKavaDenom);
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-            if (getSActivity().mKavaDenom.equals(COSMOS_KAVA)) {
+            if (getSActivity().mKavaDenom.equals(TOKEN_KAVA)) {
                 WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomSendAmount);
                 WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomCurrentAmount);
                 WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomRemainAmount);

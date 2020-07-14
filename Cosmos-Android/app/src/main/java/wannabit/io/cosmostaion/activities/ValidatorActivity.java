@@ -65,9 +65,9 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_IMG_URL;
@@ -203,17 +203,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
                 hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (WDp.getDelegableAmount(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
+            if (WDp.getDelegableAmount(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_BAND).compareTo(BigDecimal.ZERO) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_BAND).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
 
@@ -271,7 +271,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("520000000000000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("520000000000000000")) > 0) {
                 hasbalance  = true;
             }
             if (mIrisRedelegateState != null && mIrisRedelegateState.size() > 0) {
@@ -334,7 +334,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             hasbalance  = true;
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
                 hasbalance  = true;
             }
         }
@@ -383,7 +383,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
                 hasbalance  = true;
             }
         }
@@ -434,7 +434,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
                 hasbalance  = true;
             }
 
@@ -925,7 +925,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
                 if (mReward != null) {
-                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(COSMOS_KAVA), 6, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(TOKEN_KAVA), 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
                     holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
@@ -964,7 +964,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
                 if (mReward != null) {
-                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(COSMOS_BAND), 6, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(TOKEN_BAND), 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
                     holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }

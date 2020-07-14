@@ -38,7 +38,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 
@@ -226,7 +226,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
                         if(response.isSuccessful() && response.body() != null && response.body().balances != null) {
                             for (ResBnbAccountInfo.BnbBalance balance:response.body().balances) {
-                                if (balance.symbol.equals(BaseConstant.COSMOS_BNB)) {
+                                if (balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
                                     holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.free), 0, 8));
                                     break;
                                 }
@@ -244,7 +244,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
                         ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
-                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, COSMOS_KAVA), 6, 6));
+                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, TOKEN_KAVA), 6, 6));
                     }
 
                     @Override
@@ -294,7 +294,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
                         if(response.isSuccessful() && response.body() != null && response.body().balances != null) {
                             for (ResBnbAccountInfo.BnbBalance balance:response.body().balances) {
-                                if (balance.symbol.equals(BaseConstant.COSMOS_BNB)) {
+                                if (balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
                                     holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.free), 0, 8));
                                     break;
                                 }
@@ -312,7 +312,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
                         ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
-                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, COSMOS_KAVA), 6, 6));
+                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, TOKEN_KAVA), 6, 6));
 
                     }
 

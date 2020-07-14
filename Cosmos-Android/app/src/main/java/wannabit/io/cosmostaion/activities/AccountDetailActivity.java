@@ -36,8 +36,8 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 
 
@@ -148,7 +148,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             hasbalance  = true;
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
                 hasbalance  = true;
             }
 

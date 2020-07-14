@@ -267,7 +267,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(18).setScale(18, RoundingMode.DOWN)) > 0) return false;
-                Coin coin = new Coin(BaseConstant.COSMOS_IRIS_ATTO, atomTemp.multiply(new BigDecimal("1000000000000000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(BaseConstant.TOKEN_IRIS_ATTO, atomTemp.multiply(new BigDecimal("1000000000000000000")).setScale(0).toPlainString());
                 getSActivity().mReDelegateAmount = coin;
                 return true;
 
@@ -275,7 +275,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin kava = new Coin(BaseConstant.COSMOS_KAVA, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin kava = new Coin(BaseConstant.TOKEN_KAVA, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
                 getSActivity().mReDelegateAmount = kava;
                 return true;
 
@@ -283,7 +283,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin band = new Coin(BaseConstant.COSMOS_BAND, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin band = new Coin(BaseConstant.TOKEN_BAND, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
                 getSActivity().mReDelegateAmount = band;
                 return true;
 

@@ -258,16 +258,16 @@ public class BaseConstant {
 
 
     public final static String TOKEN_ATOM           = "uatom";
-    public final static String COSMOS_MUON          = "muon";
+    public final static String TOKEN_MUON           = "muon";
     public final static String COSMOS_PHOTON        = "photon";
     public final static String COSMOS_PHOTINO       = "photino";
-    public final static String COSMOS_IRIS          = "iris";
-    public final static String COSMOS_IRIS_ATTO     = "iris-atto";
-    public final static String COSMOS_BNB           = "BNB";
-    public final static String COSMOS_KAVA          = "ukava";
+    public final static String TOKEN_IRIS           = "iris";
+    public final static String TOKEN_IRIS_ATTO      = "iris-atto";
+    public final static String TOKEN_BNB            = "BNB";
+    public final static String TOKEN_KAVA           = "ukava";
     public final static String TOKEN_IOV            = "uiov";
     public final static String TOKEN_IOV_TEST       = "uvoi";
-    public final static String COSMOS_BAND          = "uband";
+    public final static String TOKEN_BAND           = "uband";
 
 
     //TODO HardCoding!!

@@ -62,11 +62,11 @@ import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_ParameterProposal;
@@ -244,7 +244,7 @@ public class WUtil {
 
                 if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
                     for (Coin coin : lcd.result.value.coins) {
-                        if (coin.denom.equals(COSMOS_KAVA)) {
+                        if (coin.denom.equals(TOKEN_KAVA)) {
                             dpBalance = new BigDecimal(coin.amount);
 
                             if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
@@ -280,7 +280,7 @@ public class WUtil {
 
                             Balance temp = new Balance();
                             temp.accountId = accountId;
-                            temp.symbol = COSMOS_KAVA;
+                            temp.symbol = TOKEN_KAVA;
                             temp.balance = dpBalance;
                             temp.frozen = delegatedVesting;
                             temp.locked = dpVesting;
@@ -854,16 +854,16 @@ public class WUtil {
                     if(o2.symbol.equals(TOKEN_ATOM)) return 1;
 
                 } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
-                    if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
+                    if(o1.symbol.equals(TOKEN_IRIS_ATTO)) return -1;
+                    if(o2.symbol.equals(TOKEN_IRIS_ATTO)) return 1;
 
                 } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
-                    if(o1.symbol.equals(COSMOS_BNB)) return -1;
-                    if(o2.symbol.equals(COSMOS_BNB)) return 1;
+                    if(o1.symbol.equals(TOKEN_BNB)) return -1;
+                    if(o2.symbol.equals(TOKEN_BNB)) return 1;
 
                 } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
-                    if(o1.symbol.equals(COSMOS_KAVA)) return -1;
-                    if(o2.symbol.equals(COSMOS_KAVA)) return 1;
+                    if(o1.symbol.equals(TOKEN_KAVA)) return -1;
+                    if(o2.symbol.equals(TOKEN_KAVA)) return 1;
                     return o2.balance.movePointLeft(WUtil.getKavaCoinDecimal(o2.symbol)).compareTo(o1.balance.movePointLeft(WUtil.getKavaCoinDecimal(o1.symbol)));
 
                 } else if (chain.equals(IOV_MAIN)) {
@@ -871,8 +871,8 @@ public class WUtil {
                     if(o2.symbol.equals(TOKEN_IOV)) return 1;
 
                 } else if (chain.equals(BAND_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_BAND)) return -1;
-                    if(o2.symbol.equals(COSMOS_BAND)) return 1;
+                    if(o1.symbol.equals(TOKEN_BAND)) return -1;
+                    if(o2.symbol.equals(TOKEN_BAND)) return 1;
 
                 }
                 return o2.balance.compareTo(o1.balance);
@@ -889,24 +889,24 @@ public class WUtil {
                     if(o2.symbol.equals(TOKEN_ATOM)) return 1;
 
                 } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
-                    if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
+                    if(o1.symbol.equals(TOKEN_IRIS_ATTO)) return -1;
+                    if(o2.symbol.equals(TOKEN_IRIS_ATTO)) return 1;
 
                 } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
-                    if(o1.symbol.equals(COSMOS_BNB)) return -1;
-                    if(o2.symbol.equals(COSMOS_BNB)) return 1;
+                    if(o1.symbol.equals(TOKEN_BNB)) return -1;
+                    if(o2.symbol.equals(TOKEN_BNB)) return 1;
 
                 } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
-                    if(o1.symbol.equals(COSMOS_KAVA)) return -1;
-                    if(o2.symbol.equals(COSMOS_KAVA)) return 1;
+                    if(o1.symbol.equals(TOKEN_KAVA)) return -1;
+                    if(o2.symbol.equals(TOKEN_KAVA)) return 1;
 
                 } else if (chain.equals(IOV_MAIN)) {
                     if(o1.symbol.equals(TOKEN_IOV)) return -1;
                     if(o2.symbol.equals(TOKEN_IOV)) return 1;
 
                 } else if (chain.equals(BAND_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_BAND)) return -1;
-                    if(o2.symbol.equals(COSMOS_BAND)) return 1;
+                    if(o1.symbol.equals(TOKEN_BAND)) return -1;
+                    if(o2.symbol.equals(TOKEN_BAND)) return 1;
 
                 }
                 return o1.symbol.compareTo(o2.symbol);
@@ -918,8 +918,8 @@ public class WUtil {
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
             public int compare(Balance o1, Balance o2) {
-                if(o1.symbol.equals(COSMOS_BNB)) return -1;
-                if(o2.symbol.equals(COSMOS_BNB)) return 1;
+                if(o1.symbol.equals(TOKEN_BNB)) return -1;
+                if(o2.symbol.equals(TOKEN_BNB)) return 1;
 
                 ResBnbTic tic1 = tics.get(WUtil.getBnbTicSymbol(o1.symbol));
                 ResBnbTic tic2 = tics.get(WUtil.getBnbTicSymbol(o2.symbol));
@@ -938,8 +938,8 @@ public class WUtil {
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
             public int compare(Balance o1, Balance o2) {
-                if(o1.symbol.equals(COSMOS_KAVA)) return -1;
-                if(o2.symbol.equals(COSMOS_KAVA)) return 1;
+                if(o1.symbol.equals(TOKEN_KAVA)) return -1;
+                if(o2.symbol.equals(TOKEN_KAVA)) return 1;
 
                 return o2.kavaTokenDollorValue(prices).compareTo(o1.kavaTokenDollorValue(prices));
             }
@@ -952,8 +952,8 @@ public class WUtil {
             @Override
             public int compare(Coin o1, Coin o2) {
                 if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
-                    if(o1.denom.equals(COSMOS_KAVA)) return -1;
-                    if(o2.denom.equals(COSMOS_KAVA)) return 1;
+                    if(o1.denom.equals(TOKEN_KAVA)) return -1;
+                    if(o2.denom.equals(TOKEN_KAVA)) return 1;
                     else return 0;
                 } else {
                     return 0;
@@ -1108,7 +1108,7 @@ public class WUtil {
     }
 
     public static int getKavaCoinDecimal(Coin coin) {
-        if (coin.denom.equalsIgnoreCase(COSMOS_KAVA)) {
+        if (coin.denom.equalsIgnoreCase(TOKEN_KAVA)) {
             return 6;
         } else if (coin.denom.equalsIgnoreCase("xrp")) {
             return 6;
@@ -1124,7 +1124,7 @@ public class WUtil {
     }
 
     public static int getKavaCoinDecimal(String denom) {
-        if (denom.equalsIgnoreCase(COSMOS_KAVA)) {
+        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
             return 6;
         } else if (denom.equalsIgnoreCase("xrp")) {
             return 6;
@@ -1151,7 +1151,7 @@ public class WUtil {
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
         if (all == null) return null;
         for (BnbToken token:all) {
-            if (token.original_symbol.equals(COSMOS_BNB)) {
+            if (token.original_symbol.equals(TOKEN_BNB)) {
                 return token;
             }
         }
@@ -1171,7 +1171,7 @@ public class WUtil {
     public static IrisToken getIrisMainToken(ArrayList<IrisToken> all) {
         if (all == null) return null;
         for (IrisToken token:all) {
-            if (token.base_token.id.equals(COSMOS_IRIS)) {
+            if (token.base_token.id.equals(TOKEN_IRIS)) {
                 return token;
             }
         }
@@ -1245,10 +1245,10 @@ public class WUtil {
 
     public static String getBnbTicSymbol(String symbol) {
         if (isBnbBaseMarketToken(symbol)) {
-            return COSMOS_BNB + "_" + symbol;
+            return TOKEN_BNB + "_" + symbol;
 
         } else {
-            return symbol + "_"+COSMOS_BNB;
+            return symbol + "_"+TOKEN_BNB;
         }
     }
 

@@ -55,11 +55,11 @@ import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -409,7 +409,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             if (IS_TEST) {
-                if (WDp.getAvailableCoin(balances, COSMOS_MUON).compareTo(BigDecimal.ZERO) > 0) {
+                if (WDp.getAvailableCoin(balances, TOKEN_MUON).compareTo(BigDecimal.ZERO) > 0) {
                     hasbalance  = true;
                 }
             } else {
@@ -419,13 +419,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("irisToken", WUtil.getIrisMainToken(mIrisTokens));
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("bnbToken", WUtil.getBnbMainToken(getBaseDao().mBnbTokens));
@@ -437,13 +437,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("iovDenom", TOKEN_IOV);
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
-            intent.putExtra("kavaDenom", COSMOS_KAVA);
+            intent.putExtra("kavaDenom", TOKEN_KAVA);
 
         } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_BAND).compareTo(BigDecimal.ZERO) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_BAND).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
 

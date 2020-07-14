@@ -58,10 +58,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -573,7 +573,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal totalAmount = WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, getMainActivity().mAllValidators);
             mTvIrisTotal.setText(WDp.getDpAllIris(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
-            mTvIrisAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_IRIS_ATTO));
+            mTvIrisAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_IRIS_ATTO));
             mTvIrisDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvIrisUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvIrisRewards.setText(WDp.getDpAllIrisRewardAmount(getContext(), getMainActivity().mIrisReward, getMainActivity().mBaseChain));
@@ -605,8 +605,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             try {
-                if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB) != null) {
-                    Balance bnbToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB);
+                if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, TOKEN_BNB) != null) {
+                    Balance bnbToken = WUtil.getTokenBalance(getMainActivity().mBalances, TOKEN_BNB);
                     BigDecimal totalAmount = bnbToken.locked.add(bnbToken.balance);
                     mTvBnbBalance.setText(WDp.getDpAmount(getContext(), bnbToken.balance, 6, getMainActivity().mBaseChain));
                     mTvBnbLocked.setText(WDp.getDpAmount(getContext(), bnbToken.locked, 6, getMainActivity().mBaseChain));
@@ -644,11 +644,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             mTvKavaTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
-            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
-            mTvKavaVesting.setText(WDp.getDpVestedCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
+            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_KAVA));
+            mTvKavaVesting.setText(WDp.getDpVestedCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_KAVA));
             mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
-            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, COSMOS_KAVA));
+            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, TOKEN_KAVA));
             mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
             mBtnKavaCdp.setVisibility(View.VISIBLE);
@@ -676,10 +676,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-            BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, COSMOS_BAND);
+            BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_BAND);
             BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, BAND_MAIN);
             BigDecimal unbondingAmount = WDp.getUnbondingAmount(getMainActivity().mUnbondings);
-            BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, COSMOS_BAND);
+            BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, TOKEN_BAND);
             BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
 
             mBandTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -716,11 +716,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
             BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             mTvKavaTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
-            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
-            mTvKavaVesting.setText(WDp.getDpVestedCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
+            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_KAVA));
+            mTvKavaVesting.setText(WDp.getDpVestedCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_KAVA));
             mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
-            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, COSMOS_KAVA));
+            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, TOKEN_KAVA));
             mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
             mBtnKavaCdp.setVisibility(View.VISIBLE);

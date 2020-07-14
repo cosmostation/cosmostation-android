@@ -97,7 +97,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM) || balance.symbol.equals(BaseConstant.TOKEN_MUON)) {
                 result = balance.balance;
                 break;
             }
@@ -125,7 +125,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_IRIS_ATTO)) {
                 result = balance.balance;
                 break;
             }
@@ -139,7 +139,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_BNB)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
                 result = balance.balance;
                 break;
             }
@@ -153,7 +153,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_BNB)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
                 result = balance.balance.movePointRight(8);
                 break;
             }
@@ -195,7 +195,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_KAVA)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_KAVA)) {
                 result = balance.balance;
                 break;
             }
@@ -209,7 +209,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_KAVA)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_KAVA)) {
                 result = balance.balance.add(balance.locked);
                 break;
             }
@@ -251,7 +251,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_BAND)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_BAND)) {
                 result = balance.balance;
                 break;
             }

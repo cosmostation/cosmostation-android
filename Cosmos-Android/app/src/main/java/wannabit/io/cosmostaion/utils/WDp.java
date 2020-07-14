@@ -50,11 +50,11 @@ import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
@@ -116,7 +116,7 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-            if (coin.denom.equals(COSMOS_IRIS_ATTO)) {
+            if (coin.denom.equals(TOKEN_IRIS_ATTO)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
@@ -125,7 +125,7 @@ public class WDp {
 
 
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
-            if (coin.denom.equals(COSMOS_KAVA)) {
+            if (coin.denom.equals(TOKEN_KAVA)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
@@ -134,7 +134,7 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), WUtil.getKavaCoinDecimal(coin), WUtil.getKavaCoinDecimal(coin)));
 
         } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
-            if (coin.denom.equals(COSMOS_BNB)) {
+            if (coin.denom.equals(TOKEN_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
@@ -153,7 +153,7 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-            if (symbol.equals(COSMOS_IRIS_ATTO)) {
+            if (symbol.equals(TOKEN_IRIS_ATTO)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
@@ -162,7 +162,7 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
-            if (symbol.equals(COSMOS_KAVA)) {
+            if (symbol.equals(TOKEN_KAVA)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
@@ -179,7 +179,7 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 9, 9));
         } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
-            if (symbol.equals(COSMOS_BNB)) {
+            if (symbol.equals(TOKEN_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
 
             } else {
@@ -349,7 +349,7 @@ public class WDp {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
             if (denom.equals(TOKEN_ATOM) && IS_TEST) {
-                if (balance.symbol.equalsIgnoreCase(COSMOS_MUON)) {
+                if (balance.symbol.equalsIgnoreCase(TOKEN_MUON)) {
                     sum = balance.balance;
                 }
             } else {
@@ -442,7 +442,7 @@ public class WDp {
     public static BigDecimal getAllAtom(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM) || balance.symbol.equals(BaseConstant.TOKEN_MUON)) {
                 sum = sum.add(balance.balance);
             }
         }
@@ -467,7 +467,7 @@ public class WDp {
     public static BigDecimal getAllKava(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if (balance.symbol.equals(BaseConstant.COSMOS_KAVA)) {
+            if (balance.symbol.equals(BaseConstant.TOKEN_KAVA)) {
                 sum = sum.add(balance.balance);
                 sum = sum.add(balance.locked);
             }
@@ -484,7 +484,7 @@ public class WDp {
         }
         if (rewards != null) {
             for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(COSMOS_KAVA));
+                sum = sum.add(reward.getRewardAmount(TOKEN_KAVA));
             }
         }
         return sum;
@@ -497,7 +497,7 @@ public class WDp {
     public static BigDecimal getAllIris(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if(balance.symbol.equals(COSMOS_IRIS_ATTO)) {
+            if(balance.symbol.equals(TOKEN_IRIS_ATTO)) {
                 sum = sum.add(balance.balance);
             }
         }
@@ -518,7 +518,7 @@ public class WDp {
     public static BigDecimal getAllBand(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if(balance.symbol.equals(COSMOS_BAND)) {
+            if(balance.symbol.equals(TOKEN_BAND)) {
                 sum = sum.add(balance.balance);
             }
         }
@@ -534,7 +534,7 @@ public class WDp {
         }
         if (rewards != null) {
             for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(COSMOS_BAND));
+                sum = sum.add(reward.getRewardAmount(TOKEN_BAND));
             }
         }
         return sum;

@@ -32,8 +32,8 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
@@ -265,7 +265,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 if(IS_TEST) {
                     Fee fee = new Fee();
                     Coin gasCoin = new Coin();
-                    gasCoin.denom = BaseConstant.COSMOS_MUON;
+                    gasCoin.denom = BaseConstant.TOKEN_MUON;
                     gasCoin.amount = mFeeAmount.toPlainString();
                     ArrayList<Coin> amount = new ArrayList<>();
                     amount.add(gasCoin);
@@ -287,7 +287,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.COSMOS_IRIS_ATTO;
+                gasCoin.denom = BaseConstant.TOKEN_IRIS_ATTO;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
@@ -299,7 +299,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 //TODO no need Fee set!!;
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.COSMOS_BNB;
+                gasCoin.denom = BaseConstant.TOKEN_BNB;
                 gasCoin.amount = FEE_BNB_SEND;
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
@@ -310,7 +310,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.COSMOS_KAVA;
+                gasCoin.denom = BaseConstant.TOKEN_KAVA;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
@@ -332,7 +332,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = COSMOS_BAND;
+                gasCoin.denom = TOKEN_BAND;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
@@ -543,7 +543,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             compareAmount = mToSend.add(mFeeAmount);
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (getSActivity().mKavaDenom.equals(COSMOS_KAVA)) {
+            if (getSActivity().mKavaDenom.equals(TOKEN_KAVA)) {
                 compareAmount = mToSend.add(mFeeAmount);
             } else {
                 compareAmount = mFeeAmount;

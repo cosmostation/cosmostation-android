@@ -55,7 +55,7 @@ public class Dialog_SendType extends DialogFragment {
             mPhotino.setVisibility(View.GONE);
         } else {
             mAtom.setVisibility(View.GONE);
-            if(getArguments().getBoolean(BaseConstant.COSMOS_MUON))  mMuon.setVisibility(View.VISIBLE);
+            if(getArguments().getBoolean(BaseConstant.TOKEN_MUON))  mMuon.setVisibility(View.VISIBLE);
             else mMuon.setVisibility(View.GONE);
 
             if(getArguments().getBoolean(BaseConstant.COSMOS_PHOTINO))  mBtnPhotino.setVisibility(View.VISIBLE);
@@ -108,7 +108,7 @@ public class Dialog_SendType extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("coin", BaseConstant.COSMOS_MUON);
+                resultIntent.putExtra("coin", BaseConstant.TOKEN_MUON);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                 getDialog().dismiss();
             }

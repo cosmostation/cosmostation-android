@@ -38,7 +38,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 
 public class BaseData {
@@ -700,7 +700,7 @@ public class BaseData {
                     }
 
                 } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-                    if (WDp.getAvailableCoin(account.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
+                    if (WDp.getAvailableCoin(account.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
                         result.add(account);
                     }
                 }

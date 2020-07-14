@@ -240,7 +240,7 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.COSMOS_IRIS_ATTO;
+                gasCoin.denom = BaseConstant.TOKEN_IRIS_ATTO;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
@@ -251,7 +251,7 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.COSMOS_KAVA;
+                gasCoin.denom = BaseConstant.TOKEN_KAVA;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
@@ -262,7 +262,7 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
             } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.COSMOS_BAND;
+                gasCoin.denom = BaseConstant.TOKEN_BAND;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
