@@ -36,7 +36,8 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.BAND_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -44,7 +45,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 
 public class ValidatorMyFragment extends BaseFragment implements View.OnClickListener {
 
@@ -229,7 +230,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
                     holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_KAVA));
                     try {
-                        Picasso.get().load(KAVA_IMG_URL+validator.operator_address+".png")
+                        Picasso.get().load(KAVA_VAL_URL+validator.operator_address+".png")
                                 .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                                 .into(holder.itemAvatar);
                     } catch (Exception e){}
@@ -238,7 +239,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
                     holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_BAND));
                     try {
-                        Picasso.get().load(BAND_IMG_URL+validator.operator_address+".png")
+                        Picasso.get().load(BAND_VAL_URL+validator.operator_address+".png")
                                 .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                                 .into(holder.itemAvatar);
                     } catch (Exception e){}
@@ -246,11 +247,11 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
                     holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV));
-//                    try {
-//                        Picasso.get().load(KAVA_IMG_URL+validator.operator_address+".png")
-//                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-//                                .into(holder.itemAvatar);
-//                    } catch (Exception e){}
+                    try {
+                        Picasso.get().load(IOV_VAL_URL+validator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
 
                 } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));

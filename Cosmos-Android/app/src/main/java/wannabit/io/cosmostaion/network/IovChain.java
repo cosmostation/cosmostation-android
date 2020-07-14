@@ -24,9 +24,14 @@ import wannabit.io.cosmostaion.network.res.ResIovSubmitTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
+import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdRewardFromVal;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleUnBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdValidators;
+import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
 import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -61,14 +66,13 @@ public interface IovChain {
 
 
         //new version for IOV
+
+
         @GET("/auth/accounts/{address}")
         Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
 
         @GET("/txs/{hash}")
         Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
-
-        @GET("/blocks/{height}")
-        Call<ResBlockInfo> getSearchBlock(@Path("height") String height);
 
         @GET("/staking/validators?status=bonded")
         Call<ResLcdValidators> getValidatorDetailList();
@@ -88,8 +92,6 @@ public interface IovChain {
         @GET("/distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
         Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
 
-
-
         @GET("/minting/inflation")
         Call<ResLcdInflation> getInflation();
 
@@ -98,4 +100,28 @@ public interface IovChain {
 
         @GET("/staking/pool")
         Call<ResStakingPool> getStakingPool();
+
+        @GET("/distribution/delegators/{address}/withdraw_address")
+        Call<ResLcdWithDrawAddress> getWithdrawAddress(@Path("address") String address);
+
+
+        @GET("/staking/validators/{validatorAddr}")
+        Call<ResLcdSingleValidator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
+
+        @GET("/staking/delegators/{address}/delegations/{validatorAddr}")
+        Call<ResLcdSingleBonding> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+        @GET("/staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
+        Call<ResLcdSingleUnBonding> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+        @GET("/staking/redelegations")
+        Call<ResLcdRedelegate> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
+
+        @GET("/staking/redelegations")
+        Call<ResLcdRedelegate> getRedelegateAllHistory(@Query("delegator") String delegator, @Query("validator_from") String validator_from, @Query("validator_to") String validator_to);
+
+
+        //Broadcast Tx
+        @POST("/txs")
+        Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 }

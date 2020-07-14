@@ -61,6 +61,13 @@ public class SingleSelfBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
+            } else if (mChain.equals(BaseChain.IOV_TEST)) {
+                Response<ResLcdSingleBonding> response = ApiClient.getIovTestChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
             }
 
         } catch (Exception e) {
