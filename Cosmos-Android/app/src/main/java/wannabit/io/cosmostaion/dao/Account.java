@@ -276,8 +276,8 @@ public class Account {
             } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
 
-            } else if (chain.equals(BaseChain.IOV_MAIN)) {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
+            } else if (chain.equals(BaseChain.IOV_MAIN) || chain.equals(BaseChain.IOV_TEST)) {
+                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
 
             } else if (chain.equals(BaseChain.BAND_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
