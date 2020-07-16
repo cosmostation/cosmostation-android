@@ -17,10 +17,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.fragment.RewardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep1Fragment;
@@ -36,7 +33,20 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_IRIS_REWARD;
 
 public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
@@ -79,7 +89,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         mTvStep.setText(getString(R.string.str_reward_step_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mBaseChain = getChain(mAccount.baseChain);
 
         mPageAdapter = new RewardPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -167,10 +177,8 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
     private void onFetchReward() {
         if(mTaskCount > 0) return;
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)
-                || mBaseChain.equals(BaseChain.KAVA_MAIN)
-                || mBaseChain.equals(BaseChain.KAVA_TEST)
-                || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)
+                || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
             mTaskCount = mValidators.size() + 1;
             mRewards.clear();
             for(Validator val:mValidators) {
@@ -178,7 +186,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
             }
             new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (mBaseChain.equals(IRIS_MAIN)) {
             mTaskCount = 2;
             new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -189,7 +197,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
     public void onStartReward() {
         Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_REWARD);
+        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REWARD);
         intent.putExtra("validators", mValidators);
         intent.putExtra("memo", mRewardMemo);
         //TODO testcode
@@ -204,15 +212,15 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if(isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
+        if (result.taskType == TASK_FETCH_SINGLE_REWARD) {
             Reward reward = (Reward)result.resultData;
             if(reward != null)
                 onUpdateReward(reward);
 
-        } else if (result.taskType == BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS) {
+        } else if (result.taskType == TASK_FETCH_WITHDRAW_ADDRESS) {
             mWithdrawAddress = (String)result.resultData;
 
-        } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
+        } else if (result.taskType == TASK_IRIS_REWARD) {
             mIrisReward = (ResLcdIrisReward)result.resultData;
 
         }

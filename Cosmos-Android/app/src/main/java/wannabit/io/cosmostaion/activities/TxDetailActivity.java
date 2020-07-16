@@ -28,7 +28,6 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -45,10 +44,19 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC_CLIAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC_REFUND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_TRANSFER;
@@ -60,7 +68,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_VAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_SEND_CHECK;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_COMMISSION;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_DELEGATE;
@@ -71,6 +79,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY;
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
@@ -81,6 +90,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_INCENTIVE_
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResKavaSwapInfo.STATUS_EXPIRED;
 
@@ -134,10 +144,10 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain  = BaseChain.getChain(mAccount.baseChain);
+        mBaseChain  = getChain(mAccount.baseChain);
         mIsGen      = getIntent().getBooleanExtra("isGen", false);
         mIsSuccess  = getIntent().getBooleanExtra("isSuccess", false);
-        mErrorCode  = getIntent().getIntExtra("errorCode", BaseConstant.ERROR_CODE_UNKNOWN);
+        mErrorCode  = getIntent().getIntExtra("errorCode", ERROR_CODE_UNKNOWN);
         mErrorMsg   = getIntent().getStringExtra("errorMsg");
         mTxHash     = getIntent().getStringExtra("txHash");
         mBnbTime    = getIntent().getStringExtra("bnbTime");
@@ -201,7 +211,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         mLoadingLayer.setVisibility(View.GONE);
         mControlLayer2.setVisibility(View.VISIBLE);
 
-        if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+        if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             if (mResBnbTxInfo != null) {
                 mTxDetailAdapter.notifyDataSetChanged();
                 mTxRecyclerView.setVisibility(View.VISIBLE);
@@ -223,17 +233,17 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         } else if (v.equals(mShareBtn)) {
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://irishub.mintscan.io/txs/" + mResTxInfo.hash);
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (mBaseChain.equals(BNB_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://binance.mintscan.io/txs/" + mResBnbTxInfo.hash);
-            } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (mBaseChain.equals(BNB_TEST)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://testnet-explorer.binance.org/tx/" + mResBnbTxInfo.hash);
-            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (mBaseChain.equals(KAVA_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://kava.mintscan.io/txs/" + mResTxInfo.txhash);
-            } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (mBaseChain.equals(KAVA_TEST)) {
                 return;
             }
             shareIntent.setType("text/plain");
@@ -247,7 +257,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return;
             }
 
-            if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+            if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 if (WDp.getAvailableCoin(mAccount.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) < 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
@@ -388,7 +398,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         @Override
         public int getItemCount() {
-            if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+            if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 if (mResBnbTxInfo != null && mResBnbTxInfo.tx.value.msg != null) {
                     return mResBnbTxInfo.tx.value.msg.size() + 1;
                 }
@@ -407,7 +417,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return TYPE_TX_COMMON;
 
             } else {
-                if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+                if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                     if (mResBnbTxInfo.getMsgType(position - 1).equals(BNB_MSG_TYPE_HTLC)) {
                         return TYPE_TX_HTLC_CREATE;
                     } else if (mResBnbTxInfo.getMsgType(position - 1).equals(BNB_MSG_TYPE_HTLC_CLIAM)) {
@@ -504,7 +514,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeUsedDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeLimitDenom);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                 if (mResTxInfo.isSuccess()) {
                     holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
                     holder.itemStatusTxt.setText(R.string.str_success_c);
@@ -524,7 +535,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemHash.setText(mResTxInfo.txhash);
                 holder.itemMemo.setText(mResTxInfo.tx.value.memo);
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 if (mResTxInfo.isIrisSuccess()) {
                     holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
                     holder.itemStatusTxt.setText(R.string.str_success_c);
@@ -547,7 +558,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemHash.setText(mResTxInfo.hash);
                 holder.itemMemo.setText(mResTxInfo.tx.value.memo);
 
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
                 holder.itemStatusTxt.setText(R.string.str_success_c);
                 holder.itemHeight.setText(mResBnbTxInfo.height);
@@ -566,18 +577,20 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                    if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                    if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN)) {
                         webintent.putExtra("txid", mResTxInfo.txhash);
-                    } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                    } else if (mBaseChain.equals(IRIS_MAIN)) {
                         webintent.putExtra("txid", mResTxInfo.hash);
-                    } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                    } else if (mBaseChain.equals(BNB_MAIN)) {
                         webintent.putExtra("txid", mResBnbTxInfo.hash);
-                    } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+                    } else if (mBaseChain.equals(BNB_TEST)) {
                         webintent.putExtra("txid", mResBnbTxInfo.hash);
-                    } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                    } else if (mBaseChain.equals(KAVA_TEST)) {
                         return;
-                    } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                    } else if (mBaseChain.equals(BAND_MAIN)) {
                         webintent.putExtra("txid", mResTxInfo.txhash);
+                    } else {
+                        return;
                     }
                     webintent.putExtra("chain", mBaseChain.getChain());
                     webintent.putExtra("goMain", mIsGen);
@@ -590,7 +603,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindTransfer(RecyclerView.ViewHolder viewHolder, int position) {
             final TxTransferHolder holder = (TxTransferHolder)viewHolder;
             holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 ArrayList<Coin> toDpCoin = new ArrayList<>();
                 if (msg.type.equals(COSMOS_MSG_TYPE_TRANSFER2))  {
@@ -644,7 +658,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     }
                 }
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemFromAddress.setText(msg.value.inputs.get(0).address);
                 holder.itemToAddress.setText(msg.value.outputs.get(0).address);
@@ -682,7 +696,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     }
                 }
 
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 final Msg msg = mResBnbTxInfo.getMsg(position - 1);
                 holder.itemFromAddress.setText(msg.value.inputs.get(0).address);
                 holder.itemToAddress.setText(msg.value.outputs.get(0).address);
@@ -711,7 +725,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom2);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom3);
             holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemInputAddress0.setText(msg.value.inputs.get(0).address);
                 holder.itemInputAmount0.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(0).coins.get(0).amount), 6, mBaseChain));
@@ -758,14 +773,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     }
                 }
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemInputAddress0.setText(msg.value.inputs.get(0).address);
                 holder.itemInputAmount0.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.inputs.get(0).coins.get(0).amount), 18, 18));
                 holder.itemOutputAddress0.setText(msg.value.outputs.get(0).address);
                 holder.itemOutputAmount0.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.outputs.get(0).coins.get(0).amount), 18, 18));
-
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
             }
         }
@@ -775,7 +788,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemDelegateAmountDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemAutoRewardAmountDenom);
             holder.itemDelegateImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_address);
                 holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
@@ -786,14 +800,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
                 }
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_addr);
                 holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_addr);
                 holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.delegation.amount), 18, 18));
-
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
             }
         }
@@ -803,7 +815,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemUnDelegateAmountDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemAutoRewardAmountDenom);
             holder.itemUndelegateImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemUnDelegator.setText(msg.value.delegator_address);
                 holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
@@ -814,14 +827,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
                 }
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemUnDelegator.setText(msg.value.delegator_addr);
                 holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_addr);
                 holder.itemUndelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.shares_amount), 18, 18));
-
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
             }
         }
@@ -831,7 +842,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemReDelegateAmountDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemAutoRewardAmountDenom);
             holder.itemRedelegateImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemReDelegator.setText(msg.value.delegator_address);
                 holder.itemFromValidator.setText(msg.value.validator_src_address);
@@ -844,7 +856,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
                 }
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemReDelegator.setText(msg.value.delegator_addr);
                 holder.itemFromValidator.setText(msg.value.validator_src_addr);
@@ -853,8 +865,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_addr, mAllValidators, true));
                 holder.itemRedelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.shares_amount), 18, 18));
 
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-
             }
         }
 
@@ -862,22 +872,21 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             final TxRewardHolder holder = (TxRewardHolder)viewHolder;
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemRewardAmountDenom);
             holder.itemRewardImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_address);
                 holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_address);
                 holder.itemRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleReward(msg.value.validator_address, position - 1), 6, mBaseChain));
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_addr);
                 holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_addr);
                 holder.itemRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleRewardIris(), 18, 18));
 
-
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
             }
         }
@@ -886,7 +895,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             final TxRewardAllHolder holder = (TxRewardAllHolder)viewHolder;
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemRewardAllAmountDenom);
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_addr);
                 holder.itemRewardValidatorCnt.setText( " (" + String.valueOf(mResTxInfo.rewardValidatorsIris().size()) + ")");
@@ -942,17 +951,16 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindAddress(RecyclerView.ViewHolder viewHolder, int position) {
             final TxAddressHolder holder = (TxAddressHolder)viewHolder;
             holder.itemAddressImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_address);
                 holder.itemWithdrawAddress.setText(msg.value.withdraw_address);
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_addr);
                 holder.itemWithdrawAddress.setText(msg.value.withdraw_addr);
-
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
             }
         }
@@ -960,19 +968,18 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindVote(RecyclerView.ViewHolder viewHolder, int position) {
             final TxVoteHolder holder = (TxVoteHolder)viewHolder;
             holder.itemVoteImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.voter);
                 holder.itemProposalId.setText(msg.value.proposal_id);
                 holder.itemOpinion.setText(msg.value.option);
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.voter);
                 holder.itemProposalId.setText(msg.value.proposal_id);
                 holder.itemOpinion.setText(msg.value.option);
-
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
             }
         }
@@ -981,13 +988,14 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             final TxCommissionHolder holder = (TxCommissionHolder)viewHolder;
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemCommissionAmountDenom);
             holder.itemCommissionImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemCommissionValidator.setText(msg.value.validator_address);
                 holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
                 holder.itemCommissionAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleCommission(position - 1), 6, 6));
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemCommissionValidator.setText(msg.value.validator_addr);
                 holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
@@ -998,7 +1006,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindPostPrice(RecyclerView.ViewHolder viewHolder, int position) {
             final TxPostPriceHolder holder = (TxPostPriceHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemPoster.setText(msg.value.from);
                 holder.itemMakerId.setText(msg.value.market_id);
@@ -1011,7 +1019,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindCreateCdp(RecyclerView.ViewHolder viewHolder, int position) {
             final TxCreateCdpHolder holder = (TxCreateCdpHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
                 WDp.showCoinDp(getBaseContext(), msg.value.collateral, holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
@@ -1024,7 +1032,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindDepositCdp(RecyclerView.ViewHolder viewHolder, int position) {
             final TxDepositCdpHolder holder = (TxDepositCdpHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemOwner.setText(msg.value.owner);
                 holder.itemDepositor.setText(msg.value.depositor);
@@ -1036,7 +1044,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindWithdrawCdp(RecyclerView.ViewHolder viewHolder, int position) {
             final TxWithdrawCdpHolder holder = (TxWithdrawCdpHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemOwner.setText(msg.value.owner);
                 holder.itemDepositor.setText(msg.value.depositor);
@@ -1047,7 +1055,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindDrawDebtCdp(RecyclerView.ViewHolder viewHolder, int position) {
             final TxDrawDebtCdpHolder holder = (TxDrawDebtCdpHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
                 holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
@@ -1058,7 +1066,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindRepayDebtCdp(RecyclerView.ViewHolder viewHolder, int position) {
             final TxRepayDebtCdpHolder holder = (TxRepayDebtCdpHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
                 holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
@@ -1070,7 +1078,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindCreateHTLC(RecyclerView.ViewHolder viewHolder, int position) {
             final TxCreateHtlcHolder holder = (TxCreateHtlcHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 Coin sendCoin = msg.value.getCoins().get(0);
                 holder.itemSendDenom.setText(sendCoin.denom.toUpperCase());
@@ -1084,7 +1092,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     mRefundBtn.setVisibility(View.VISIBLE);
                     mSwapId = mResTxInfo.simpleSwapId();
                 }
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 final Msg msg = mResBnbTxInfo.getMsg(position - 1);
                 if (mAccount.address.equals(msg.value.from)) {
                     holder.itemMsgTitle.setText(getString(R.string.tx_send_htlc2));
@@ -1121,7 +1129,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindClaimHTLC(RecyclerView.ViewHolder viewHolder, int position) {
             final TxClaimHtlcHolder holder = (TxClaimHtlcHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 Coin receiveCoin = mResTxInfo.simpleSwapCoin();
                 try {
@@ -1134,7 +1142,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemRandomNumber.setText(msg.value.random_number);
                 holder.itemSwapId.setText(msg.value.swap_id);
 
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 final Msg msg = mResBnbTxInfo.getMsg(position - 1);
                 holder.itemAmountLayer.setVisibility(View.GONE);
                 holder.itemClaimer.setText(msg.value.from);
@@ -1147,7 +1155,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindRefundHTLC(RecyclerView.ViewHolder viewHolder, int position) {
             final TxRefundHtlcHolder holder = (TxRefundHtlcHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 Coin refundCoin = mResTxInfo.simpleRefund();
                 try {
@@ -1158,7 +1166,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemFromAddr.setText(msg.value.from);
                 holder.itemSwapId.setText(msg.value.swap_id);
 
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 final Msg msg = mResBnbTxInfo.getMsg(position - 1);
                 holder.itemAmountLayer.setVisibility(View.GONE);
                 holder.itemFromAddr.setText(msg.value.from);
@@ -1169,7 +1177,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindIncentive(RecyclerView.ViewHolder viewHolder, int position) {
             final TxIncentiveHolder holder = (TxIncentiveHolder)viewHolder;
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
                 holder.itemDenom.setText(msg.value.denom.toUpperCase());
@@ -1701,7 +1709,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     private int FetchCnt = 0;
     private void onFetchTx(String hash) {
         WLog.w("hash "+ hash);
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN)) {
             ApiClient.getCosmosChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
@@ -1729,12 +1737,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (IS_SHOWLOG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
 
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (mBaseChain.equals(IRIS_MAIN)) {
             ApiClient.getIrisChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
@@ -1762,12 +1770,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (IS_SHOWLOG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (mBaseChain.equals(BNB_MAIN)) {
             ApiClient.getBnbChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
@@ -1802,12 +1810,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("BNB onFailure");
-                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (IS_SHOWLOG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
 
-        } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (mBaseChain.equals(BNB_TEST)) {
             ApiClient.getBnbTestChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
@@ -1841,12 +1849,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("BNB onFailure");
-                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (IS_SHOWLOG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (mBaseChain.equals(KAVA_MAIN)) {
             ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
@@ -1879,12 +1887,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (IS_SHOWLOG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (mBaseChain.equals(KAVA_TEST)) {
             ApiClient.getKavaTestChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
@@ -1917,12 +1925,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (IS_SHOWLOG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
 
-        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (mBaseChain.equals(BAND_MAIN)) {
             ApiClient.getBandChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
@@ -1950,7 +1958,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (IS_SHOWLOG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
@@ -1983,7 +1991,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (IS_SHOWLOG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
@@ -2016,7 +2024,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if (IS_SHOWLOG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
@@ -2030,7 +2038,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     private void onFetchHtlcStatus(String swapId) {
 //        WLog.w("onFetchHtlcStatus "  +swapId);
         if (!TextUtils.isEmpty(swapId)) {
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mBaseChain.equals(KAVA_MAIN)) {
                 ApiClient.getKavaChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResKavaSwapInfo>() {
                     @Override
                     public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
@@ -2047,7 +2055,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     }
                 });
 
-            } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (mBaseChain.equals(KAVA_TEST)) {
                 ApiClient.getKavaTestChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResKavaSwapInfo>() {
                     @Override
                     public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
@@ -2064,7 +2072,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     }
                 });
 
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (mBaseChain.equals(BNB_MAIN)) {
                 ApiClient.getBnbChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResBnbSwapInfo>() {
                     @Override
                     public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
@@ -2082,7 +2090,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     }
                 });
 
-            } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (mBaseChain.equals(BNB_TEST)) {
                 ApiClient.getBnbTestChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResBnbSwapInfo>() {
                     @Override
                     public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
@@ -2108,7 +2116,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void onFetchBnbNodeInfo() {
-        if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        if (mBaseChain.equals(BNB_MAIN)) {
             ApiClient.getBnbChain(getBaseContext()).getNodeInfo().enqueue(new Callback<ResBnbNodeInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbNodeInfo> call, Response<ResBnbNodeInfo> response) {
@@ -2125,7 +2133,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 }
             });
 
-        } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (mBaseChain.equals(BNB_TEST)) {
             ApiClient.getBnbTestChain(getBaseContext()).getNodeInfo().enqueue(new Callback<ResBnbNodeInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbNodeInfo> call, Response<ResBnbNodeInfo> response) {

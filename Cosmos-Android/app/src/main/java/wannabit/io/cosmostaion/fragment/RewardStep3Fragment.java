@@ -22,6 +22,14 @@ import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+
 public class RewardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView        mTvRewardAmount;
@@ -77,19 +85,19 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         BigDecimal rewardSum    = BigDecimal.ZERO;
         BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
             for (Reward reward:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
             }
-            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, getSActivity().mBaseChain));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
                 mTvGoalLayer.setVisibility(View.GONE);
                 mExpectedLayer.setVisibility(View.VISIBLE);
 
                 BigDecimal currentAtom      = getSActivity().mAccount.getAtomBalance();
                 BigDecimal expectedAtom     = currentAtom.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expectedAtom, 6, getSActivity().mBaseChain));
+                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAtom, 6, 6));
                 BigDecimal expectedPrice = BigDecimal.ZERO;
                 if(getBaseDao().getCurrency() != 5) {
                     expectedPrice = expectedAtom.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
@@ -103,9 +111,9 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 mExpectedLayer.setVisibility(View.GONE);
             }
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), getSActivity().getIrisRewardSum(), 18, getSActivity().mBaseChain));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), getSActivity().getIrisRewardSum(), 18, 18));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 18, 18));
             if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
                 mTvGoalLayer.setVisibility(View.GONE);
             } else {
@@ -113,19 +121,19 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             }
             mExpectedLayer.setVisibility(View.GONE);
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             for (Reward reward:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
             }
-            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, getSActivity().mBaseChain));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
                 mTvGoalLayer.setVisibility(View.GONE);
                 mExpectedLayer.setVisibility(View.VISIBLE);
 
                 BigDecimal currentKava      = getSActivity().mAccount.getKavaBalance();
                 BigDecimal expectedKava     = currentKava.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expectedKava, 6, getSActivity().mBaseChain));
+                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedKava, 6, 6));
                 BigDecimal expectedPrice = BigDecimal.ZERO;
                 if(getBaseDao().getCurrency() != 5) {
                     expectedPrice = expectedKava.multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
@@ -139,19 +147,45 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 mExpectedLayer.setVisibility(View.GONE);
             }
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
             for (Reward reward:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
             }
-            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, getSActivity().mBaseChain));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
                 mTvGoalLayer.setVisibility(View.GONE);
                 mExpectedLayer.setVisibility(View.VISIBLE);
 
                 BigDecimal currentBand     = getSActivity().mAccount.getBandBalance();
                 BigDecimal expectedBand    = currentBand.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expectedBand, 6, getSActivity().mBaseChain));
+                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedBand, 6, 6));
+                BigDecimal expectedPrice = BigDecimal.ZERO;
+                if(getBaseDao().getCurrency() != 5) {
+                    expectedPrice = expectedBand.multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                } else {
+                    expectedPrice = expectedBand.multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                }
+                mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+            } else {
+                mTvGoalLayer.setVisibility(View.VISIBLE);
+                mExpectedLayer.setVisibility(View.GONE);
+            }
+
+        } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
+            for (Reward reward:getSActivity().mRewards) {
+                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+            }
+            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                mTvGoalLayer.setVisibility(View.GONE);
+                mExpectedLayer.setVisibility(View.VISIBLE);
+
+                BigDecimal currentBand     = getSActivity().mAccount.getIovBalance();
+                BigDecimal expectedBand    = currentBand.add(rewardSum).subtract(feeAmount);
+                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedBand, 6, 6));
                 BigDecimal expectedPrice = BigDecimal.ZERO;
                 if(getBaseDao().getCurrency() != 5) {
                     expectedPrice = expectedBand.multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
@@ -198,10 +232,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     }
 
     private boolean onCheckValidateRewardAndFee() {
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
-                || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)
-                || getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
+                getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
             BigDecimal rewardSum    = BigDecimal.ZERO;
             BigDecimal feeAtom      = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
             for (Reward reward:getSActivity().mRewards) {
@@ -209,7 +241,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             }
             return feeAtom.compareTo(rewardSum) < 0;
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             BigDecimal rewardSum    = getSActivity().getIrisRewardSum();
             BigDecimal feeAtom      = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
             return feeAtom.compareTo(rewardSum) < 0;

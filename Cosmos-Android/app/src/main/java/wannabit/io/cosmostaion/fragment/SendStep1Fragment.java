@@ -300,7 +300,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
-                
+
             }
 
         } else if (v.equals(mAddMax)) {

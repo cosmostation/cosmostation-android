@@ -335,6 +335,8 @@ public class BaseConstant {
     public final static String FEE_IOV_GAS_RATE_AVERAGE         = "10";
     public final static String FEE_IOV_GAS_AMOUNT_SEND          = "100000";
     public final static String FEE_IOV_GAS_AMOUNT_STAKE         = "200000";
+    public final static String FEE_IOV_GAS_AMOUNT_REDELEGATE    = "300000";
+    public final static String FEE_IOV_GAS_AMOUNT_REINVEST      = "300000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";

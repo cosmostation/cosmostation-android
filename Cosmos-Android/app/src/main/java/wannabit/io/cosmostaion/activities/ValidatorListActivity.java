@@ -36,6 +36,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
@@ -286,12 +288,10 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                     }
                 }
             }
-
             if (toClaimValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-
             WUtil.onSortByOnlyReward(toClaimValidators, mRewards, TOKEN_BAND);
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(mMyValidators.subList(0,16));
@@ -302,6 +302,57 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
+
+        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            //only collect over 1.5 iov
+            if (mRewards == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            BigDecimal rewardSum = BigDecimal.ZERO;
+            for (BondingState bond:mBondings) {
+                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_IOV).compareTo(new BigDecimal("1500000")) >= 0) {
+                    if (WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
+                        toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
+                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_BAND));
+                    }
+                }
+            }
+            if (toClaimValidators.size() == 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, TOKEN_IOV);
+            if (toClaimValidators.size() >= 17) {
+                toClaimValidators = new ArrayList<>(mMyValidators.subList(0,16));
+                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+            }
+
+        } else if (mBaseChain.equals(BaseChain.IOV_TEST)) {
+            //only collect over 1.5 iov
+            if (mRewards == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            BigDecimal rewardSum = BigDecimal.ZERO;
+            for (BondingState bond:mBondings) {
+                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_IOV_TEST).compareTo(new BigDecimal("1500000")) >= 0) {
+                    if (WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
+                        toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
+                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_BAND));
+                    }
+                }
+            }
+            if (toClaimValidators.size() == 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, TOKEN_IOV_TEST);
+            if (toClaimValidators.size() >= 17) {
+                toClaimValidators = new ArrayList<>(mMyValidators.subList(0,16));
+                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+            }
+
         }
 
         Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);
