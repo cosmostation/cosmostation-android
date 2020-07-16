@@ -32,6 +32,7 @@
 
     <string name="url_lcd_iov_test" translatable="false">https://iovnscli-rest-api.cluster-galaxynet.iov.one/</string>
     <string name="url_api_iovtest" translatable="false"></string>
+    <string name="url_test_iov_faucet" translatable="false">https://faucet.cluster-galaxynet.iov.one/</string>
 
     <string name="url_lcd_band_main" translatable="false">https://lcd-band.cosmostation.io/</string>
     <string name="url_api_band_main" translatable="false">https://api-band-wenchang-mainnet.cosmostation.io/</string>

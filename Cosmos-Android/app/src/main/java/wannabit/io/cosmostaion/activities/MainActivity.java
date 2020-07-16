@@ -55,6 +55,10 @@ import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -209,13 +213,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 if (position != 0) mFloatBtn.hide();
                 else if (!mFloatBtn.isShown()) mFloatBtn.show();
 
-                if (position != 1 || !(mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BNB_TEST))) {
+                if (position != 1 || !(mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BNB_TEST) || mBaseChain.equals(IOV_TEST))) {
                     mFaucetBtn.hide();
                 } else if (!mFaucetBtn.isShown()) {
                     mFaucetBtn.show();
                 }
 
-                if (position != 1 || !(mBaseChain.equals(BaseChain.KAVA_MAIN )) || mAccount.accountNumber > 0) {
+                if (position != 1 || !(mBaseChain.equals(KAVA_MAIN)) || mAccount.accountNumber > 0) {
                     mAirDropBtn.hide();
                 } else {
                     mAirDropBtn.show();
@@ -274,7 +278,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (mBaseChain.equals(KAVA_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
             mToolbarChainName.setText(getString(R.string.str_kava_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKava));
@@ -292,14 +296,14 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBand));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBand));
 
-        } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (mBaseChain.equals(BNB_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));
             mToolbarChainName.setText(getString(R.string.str_binance_test_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
             mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (mBaseChain.equals(KAVA_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
             mToolbarChainName.setText(getString(R.string.str_kava_net_test));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKava));
@@ -317,13 +321,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         if (mContentsPager != null) {
             if (mContentsPager.getCurrentItem() == 1 &&
-                    (mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BNB_TEST))) {
+                    (mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BNB_TEST) || mBaseChain.equals(IOV_TEST))) {
                 if (!mFaucetBtn.isShown()) mFaucetBtn.show();
             } else {
                 mFaucetBtn.hide();
             }
 
-            if (mContentsPager.getCurrentItem() == 1 && mBaseChain.equals(BaseChain.KAVA_MAIN) && mAccount.accountNumber <= 0) {
+            if (mContentsPager.getCurrentItem() == 1 && mBaseChain.equals(KAVA_MAIN) && mAccount.accountNumber <= 0) {
                 if (!mAirDropBtn.isShown()) mAirDropBtn.show();
             } else {
                 mAirDropBtn.hide();
@@ -425,7 +429,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
             intent.putExtra("irisToken", WUtil.getIrisMainToken(mIrisTokens));
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
                 hasbalance  = true;
             }
@@ -437,7 +441,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
             intent.putExtra("iovDenom", TOKEN_IOV);
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
@@ -463,7 +467,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onGetFaucet() {
-        if (mBaseChain.equals(BaseChain.BNB_TEST)) {
+        if (mBaseChain.equals(BNB_TEST)) {
             if (mAccount.getBnbBalance().compareTo(new BigDecimal("2")) > 0) {
                 Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
                 return;
@@ -496,7 +500,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             });
 
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (mBaseChain.equals(KAVA_TEST)) {
             if (mAccount.getKavaBalance().compareTo(new BigDecimal("5000000")) > 0) {
                 Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
                 return;
@@ -504,6 +508,38 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
             onShowWaitDialog();
             ApiClient.getKavaTestFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
+                @Override
+                public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                    if (response.isSuccessful()) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                onHideWaitDialog();
+                                onFetchAllData();
+                            }
+                        },6000);
+
+                    } else {
+                        onHideWaitDialog();
+                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JSONObject> call, Throwable t) {
+                    onHideWaitDialog();
+                    Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else if (mBaseChain.equals(IOV_TEST)) {
+            if (mAccount.getKavaBalance().compareTo(new BigDecimal("1000000000")) > 0) {
+                Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            onShowWaitDialog();
+            ApiClient.getIovTestFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
                 @Override
                 public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
                     if (response.isSuccessful()) {
@@ -566,7 +602,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onShowTestNetWarnIfNeed() {
-        if (mBaseChain.equals(BaseChain.BNB_TEST) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        if (mBaseChain.equals(BNB_TEST) || mBaseChain.equals(KAVA_TEST)) {
             if (mToShowTestWarn) {
                 mToShowTestWarn = false;
                 if(getBaseDao().getKavaWarn()) {
@@ -695,7 +731,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
                     holder.chainName.setText(getString(R.string.str_binance));
 
-                } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+                } else if (chain.equals(KAVA_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
@@ -713,13 +749,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
                     holder.chainName.setText(getString(R.string.str_band));
 
-                } else if (chain.equals(BaseChain.BNB_TEST)) {
+                } else if (chain.equals(BNB_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));
                     holder.chainName.setText(getString(R.string.str_binance_test));
 
-                } else if (chain.equals(BaseChain.KAVA_TEST)) {
+                } else if (chain.equals(KAVA_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));

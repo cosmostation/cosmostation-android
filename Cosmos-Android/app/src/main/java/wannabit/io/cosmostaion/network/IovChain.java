@@ -124,4 +124,9 @@ public interface IovChain {
         //Broadcast Tx
         @POST("/txs")
         Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
+
+
+
+        @GET("/credit")
+        Call<JSONObject> getFaucet(@Query("address") String address);
 }
