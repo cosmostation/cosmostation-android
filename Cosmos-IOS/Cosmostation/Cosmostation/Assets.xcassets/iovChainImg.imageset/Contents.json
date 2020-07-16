@@ -2,18 +2,18 @@
   "images" : [
     {
       "scale" : "1x",
-      "idiom" : "universal",
-      "filename" : "iovTokenImg.png"
+      "filename" : "iovChainImg.png",
+      "idiom" : "universal"
     },
     {
-      "filename" : "iovTokenImg@2x.png",
       "idiom" : "universal",
+      "filename" : "iovChainImg@2x.png",
       "scale" : "2x"
     },
     {
-      "filename" : "iovTokenImg@3x.png",
+      "idiom" : "universal",
       "scale" : "3x",
-      "idiom" : "universal"
+      "filename" : "iovChainImg@3x.png"
     }
   ],
   "info" : {

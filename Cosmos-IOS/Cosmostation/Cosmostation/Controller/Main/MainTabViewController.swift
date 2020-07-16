@@ -177,7 +177,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             print("NO ACCOUNT ERROR!!!!")
             return
         }
-        mChainType = ChainType(rawValue: mAccount.account_base_chain)
+        mChainType = WUtils.getChainType(mAccount.account_base_chain)
     }
     
     func onFetchAccountData() -> Bool {

@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -521,9 +521,9 @@ let TRANS_BG_COLOR_KAVA2                    = UIColor.init(hexString: "ff554f", 
 let COLOR_KAVA                              = UIColor.init(hexString: "FF564F")
 let COLOR_KAVA_DARK                         = UIColor.init(hexString: "631D1B")
 
-let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "46d7cb", alpha: 0.15)
-let COLOR_IOV                               = UIColor.init(hexString: "35C1B3")
-let COLOR_IOV_DARK                          = UIColor.init(hexString: "065048")
+let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "6e7cde", alpha: 0.15)
+let COLOR_IOV                               = UIColor.init(hexString: "6e7cde")
+let COLOR_IOV_DARK                          = UIColor.init(hexString: "2c367e")
 
 let TRANS_BG_COLOR_BAND                     = UIColor.init(hexString: "5286FF", alpha: 0.15)
 let TRANS_BG_COLOR_BAND2                    = UIColor.init(hexString: "5286FF", alpha: 0.4)
@@ -547,6 +547,7 @@ enum ChainType: String {
     case BAND_MAIN
     case BINANCE_TEST
     case KAVA_TEST
+    case IOV_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
@@ -558,6 +559,7 @@ enum ChainType: String {
         result.append(BAND_MAIN)
         result.append(BINANCE_TEST)
         result.append(KAVA_TEST)
+        result.append(IOV_TEST)
         return result
     }
     
@@ -592,15 +594,17 @@ let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
 let CHAIN_BAND_S = "SUPPORT_CHAIN_BAND_MAIN"
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
+let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
 
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "iris-atto"
 let IRIS_DP_DENOM = "iris"
 let BNB_MAIN_DENOM = "BNB"
-let IOV_MAIN_DENOM = "IOV"
+let IOV_MAIN_DENOM = "uiov"
 let KAVA_MAIN_DENOM = "ukava"
 let BAND_MAIN_DENOM = "uband"
+let IOV_TEST_DENOM = "uvoi"
 
 let Font_17_body = UIFont(name: "Helvetica-Light", size: 17)!
 let Font_15_subTitle = UIFont(name: "Helvetica-Light", size: 15)!

@@ -1529,14 +1529,12 @@ class WUtils {
             return COLOR_IRIS
         } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             return COLOR_BNB
-        } else if (chain == ChainType.KAVA_MAIN) {
+        } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
             return COLOR_KAVA
-        } else if (chain == ChainType.IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             return COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND
-        } else if (chain == ChainType.KAVA_TEST) {
-            return COLOR_KAVA
         }
         return COLOR_ATOM
     }
@@ -1554,7 +1552,7 @@ class WUtils {
             return COLOR_IOV_DARK
         } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND_DARK
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST) {
             return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
@@ -1573,7 +1571,7 @@ class WUtils {
             return TRANS_BG_COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return TRANS_BG_COLOR_BAND
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST) {
             return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
@@ -1588,7 +1586,7 @@ class WUtils {
             return "BNB"
         } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
             return "KAVA"
-        } else if (chain == ChainType.IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             return "IOV"
         } else if (chain == ChainType.BAND_MAIN) {
             return "BAND"
@@ -1609,7 +1607,7 @@ class WUtils {
         } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
            label.text = "KAVA"
            label.textColor = COLOR_KAVA
-        } else if (chain == ChainType.IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             label.text = "IOV"
             label.textColor = COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
@@ -1635,6 +1633,8 @@ class WUtils {
             return ChainType.KAVA_TEST
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return ChainType.BINANCE_TEST
+        } else if (chainS == CHAIN_IOV_TEST_S) {
+            return ChainType.IOV_TEST
         }
         return ChainType.COSMOS_MAIN
     }
@@ -1680,6 +1680,8 @@ class WUtils {
             return "Binance-Chain-Nile"
         } else if (type == CHAIN_KAVA_TEST_S) {
             return "kava-testnet-6000"
+        } else if (type == CHAIN_IOV_TEST_S) {
+            return "iovns-galaxynet"
         }
         return "cosmoshub-3"
     }

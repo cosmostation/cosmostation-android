@@ -145,7 +145,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
-                    cell?.chainImg.image = UIImage(named: "iovImg")
+                    cell?.chainImg.image = UIImage(named: "iovChainImg")
                     cell?.chainName.text = "IOV"
                     
                 } else if (selectedChain == ChainType.BAND_MAIN) {
@@ -168,6 +168,14 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "kavaTestImg")
                     cell?.chainName.text = "KAVA TEST"
+                    
+                } else if (selectedChain == ChainType.IOV_TEST) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "iovTestnetImg")
+                    cell?.chainName.text = "IOV TEST"
+                    
                 }
             }
             return cell!
