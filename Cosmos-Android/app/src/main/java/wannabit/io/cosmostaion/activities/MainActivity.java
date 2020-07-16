@@ -533,7 +533,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             });
 
         } else if (mBaseChain.equals(IOV_TEST)) {
-            if (mAccount.getKavaBalance().compareTo(new BigDecimal("1000000000")) > 0) {
+            if (mAccount.getIovBalance().compareTo(new BigDecimal("1000000000")) > 0) {
                 Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
                 return;
             }
