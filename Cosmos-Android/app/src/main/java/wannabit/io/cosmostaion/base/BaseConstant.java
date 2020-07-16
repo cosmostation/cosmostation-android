@@ -31,6 +31,8 @@ public class BaseConstant {
     public final static String PRE_KAVA_UP_DOWN_24          = "PRE_KAVA_UP_DOWN_24";
     public final static String PRE_BAND_TIC                 = "PRE_BAND_TIC";
     public final static String PRE_BAND_UP_DOWN_24          = "PRE_BAND_UP_DOWN_24";
+    public final static String PRE_IOV_TIC                  = "PRE_IOV_TIC";
+    public final static String PRE_IOV_UP_DOWN_24           = "PRE_IOV_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -330,11 +332,13 @@ public class BaseConstant {
     public final static String FEE_BEP3_SEND_MIN        = "0.1";
     public final static String FEE_BEP3_SEND_CHECK      = "0.100375";
 
-    public final static String FEE_IOV_SEND = "0.500000000";
+    public final static String FEE_IOV_GAS_RATE_AVERAGE         = "10";
+    public final static String FEE_IOV_GAS_AMOUNT_SEND          = "100000";
+    public final static String FEE_IOV_GAS_AMOUNT_STAKE         = "200000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";
-    public final static String CGC_BNB = "binancecoin";
+    public final static String CGC_BNB  = "binancecoin";
     public final static String CGC_KAVA = "kava";
     public final static String CGC_BAND = "band-protocol";
     public final static int CMC_ATOM = 3794;
@@ -356,6 +360,7 @@ public class BaseConstant {
     public final static String KAVA_COIN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
     public final static String KAVA_CDP_MARKET_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
     public final static String BAND_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+    //TODO update url for IOV
     public final static String IOV_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
 
 }

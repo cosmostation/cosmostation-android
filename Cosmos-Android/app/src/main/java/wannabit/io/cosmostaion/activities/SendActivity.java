@@ -96,7 +96,7 @@ public class SendActivity extends BaseActivity {
             if (mIrisToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (mBnbToken == null) onBackPressed();
-        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
+        } else if (mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
             if (TextUtils.isEmpty(mIovDenom)) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (TextUtils.isEmpty(mKavaDenom)) onBackPressed();

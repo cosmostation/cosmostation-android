@@ -139,6 +139,16 @@ public class WDp {
             //TODO need check decimal with denom's type
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), WUtil.getKavaCoinDecimal(coin), WUtil.getKavaCoinDecimal(coin)));
 
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            if (coin.denom.equals(TOKEN_IOV) || coin.denom.equals(TOKEN_IOV_TEST)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+
+            } else {
+                denomTv.setText(coin.denom.toUpperCase());
+
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             if (coin.denom.equals(TOKEN_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -175,15 +185,16 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(symbol), WUtil.getKavaCoinDecimal(symbol)));
 
-        } else if (chain.equals(IOV_MAIN)) {
-            if (symbol.equals(TOKEN_IOV)) {
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            if (symbol.equals(TOKEN_IOV) || symbol.equals(TOKEN_IOV_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
 
             } else {
                 denomTv.setText(symbol.toUpperCase());
 
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 9, 9));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             if (symbol.equals(TOKEN_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -197,6 +208,7 @@ public class WDp {
         } else if (chain.equals(BAND_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
         }
     }
 

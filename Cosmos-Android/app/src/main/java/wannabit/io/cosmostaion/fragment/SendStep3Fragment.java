@@ -23,8 +23,6 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Fee_Description;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -32,12 +30,34 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_AMOUNT_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_AMOUNT_HALF;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_RATE_LOW;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IRIS_GAS_AMOUNT_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
 
 public class SendStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -111,7 +131,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
         mNextBtn.setOnClickListener(this);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvGasType);
 
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
             mBtnGasType.setOnClickListener(this);
             mSpeedLayer.setOnClickListener(this);
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
@@ -135,7 +155,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             });
             mSeekBarGas.setProgress(0);
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -143,9 +163,9 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
 
-            mGasAmount.setText(BaseConstant.FEE_IRIS_GAS_AMOUNT_SEND);
-            mGasRate.setText(WDp.getDpString(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE, 6));
-            mFeeAmount = new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_SEND).multiply(new BigDecimal(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
+            mGasAmount.setText(FEE_IRIS_GAS_AMOUNT_SEND);
+            mGasRate.setText(WDp.getDpString(FEE_IRIS_GAS_RATE_AVERAGE, 6));
+            mFeeAmount = new BigDecimal(FEE_IRIS_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -154,7 +174,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mGasFeeAmount.setText(WDp.getDpString(WDp.attoToIris(mFeeAmount).setScale(1).toPlainString(), 2));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
             mFeeLayer1.setVisibility(View.VISIBLE);
             mFeeLayer2.setVisibility(View.GONE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -170,7 +190,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             }
             mMinFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             mBtnGasType.setOnClickListener(this);
             mSpeedLayer.setOnClickListener(this);
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
@@ -194,7 +214,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             });
             mSeekBarGas.setProgress(0);
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
             mFeeLayer1.setVisibility(View.VISIBLE);
             mFeeLayer2.setVisibility(View.GONE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -202,11 +222,16 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iov));
 
-            mMinFeeAmount.setText(WDp.getDpString(FEE_IOV_SEND, 9));
-            mFeeAmount = new BigDecimal(FEE_IOV_SEND).movePointRight(9);
+            mFeeAmount = new BigDecimal(FEE_IOV_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_IOV_GAS_RATE_AVERAGE)).setScale(0);
+            if(getBaseDao().getCurrency() != 5) {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).setScale(8, RoundingMode.DOWN);
+            }
+            mMinFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mMinFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
             mBtnGasType.setOnClickListener(this);
             mSpeedLayer.setOnClickListener(this);
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
@@ -237,17 +262,17 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
             mAvailable  = getSActivity().mAccount.getAtomBalance();
             mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
             onUpdateFeeLayer();
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             mAvailable  = getSActivity().mAccount.getKavaBalance();
             mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
             onUpdateFeeLayer();
 
-        } else  if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else  if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
             mAvailable  = getSActivity().mAccount.getBandBalance();
             mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
             onUpdateFeeLayer();
@@ -261,64 +286,64 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 if(IS_TEST) {
                     Fee fee = new Fee();
                     Coin gasCoin = new Coin();
-                    gasCoin.denom = BaseConstant.TOKEN_MUON;
+                    gasCoin.denom = TOKEN_MUON;
                     gasCoin.amount = mFeeAmount.toPlainString();
                     ArrayList<Coin> amount = new ArrayList<>();
                     amount.add(gasCoin);
                     fee.amount = amount;
-                    fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
+                    fee.gas = FEE_GAS_AMOUNT_HALF;
                     getSActivity().mTargetFee = fee;
                 } else {
                     Fee fee = new Fee();
                     Coin gasCoin = new Coin();
-                    gasCoin.denom = BaseConstant.TOKEN_ATOM;
+                    gasCoin.denom = TOKEN_ATOM;
                     gasCoin.amount = mFeeAmount.toPlainString();
                     ArrayList<Coin> amount = new ArrayList<>();
                     amount.add(gasCoin);
                     fee.amount = amount;
-                    fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
+                    fee.gas = FEE_GAS_AMOUNT_HALF;
                     getSActivity().mTargetFee = fee;
                 }
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.TOKEN_IRIS_ATTO;
+                gasCoin.denom = TOKEN_IRIS_ATTO;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_IRIS_GAS_AMOUNT_SEND;
+                fee.gas = FEE_IRIS_GAS_AMOUNT_SEND;
                 getSActivity().mTargetFee = fee;
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
                 //TODO no need Fee set!!;
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.TOKEN_BNB;
+                gasCoin.denom = TOKEN_BNB;
                 gasCoin.amount = FEE_BNB_SEND;
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_GAS_AMOUNT_AVERAGE;
+                fee.gas = FEE_GAS_AMOUNT_AVERAGE;
                 getSActivity().mTargetFee = fee;
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.TOKEN_KAVA;
+                gasCoin.denom = TOKEN_KAVA;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND;
+                fee.gas = FEE_KAVA_GAS_AMOUNT_SEND;
                 getSActivity().mTargetFee = fee;
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = TOKEN_IOV;
@@ -326,10 +351,10 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_GAS_AMOUNT_AVERAGE;
+                fee.gas = FEE_IOV_GAS_AMOUNT_SEND;
                 getSActivity().mTargetFee = fee;
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = TOKEN_BAND;
@@ -337,7 +362,18 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
+                fee.gas = FEE_GAS_AMOUNT_HALF;
+                getSActivity().mTargetFee = fee;
+
+            } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = TOKEN_IOV_TEST;
+                gasCoin.amount = mFeeAmount.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = FEE_IOV_GAS_AMOUNT_SEND;
                 getSActivity().mTargetFee = fee;
 
             }
@@ -356,7 +392,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private void onUpdateFeeLayer() {
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
             if(mSeekBarGas.getProgress() == 0) {
                 mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.bycicle_img));
                 mSpeedMsg.setText(getString(R.string.str_fee_speed_title_0));
@@ -379,10 +415,10 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_HALF);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_LOW, 4));
+                mGasAmount.setText(FEE_GAS_AMOUNT_HALF);
+                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_LOW, 4));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
+                mFeeAmount = new BigDecimal(FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(FEE_GAS_RATE_LOW)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -397,10 +433,10 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_HALF);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
+                mGasAmount.setText(FEE_GAS_AMOUNT_HALF);
+                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_AVERAGE, 3));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+                mFeeAmount = new BigDecimal(FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(FEE_GAS_RATE_AVERAGE)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -415,7 +451,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             WLog.w("mFeeAmount "    + mFeeAmount.toPlainString());
 
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             if(mSeekBarGas.getProgress() == 0) {
                 mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.bycicle_img));
                 mSpeedMsg.setText(getString(R.string.str_fee_speed_title_0));
@@ -438,10 +474,10 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_LOW, 4));
+                mGasAmount.setText(FEE_KAVA_GAS_AMOUNT_SEND);
+                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_LOW, 4));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
+                mFeeAmount = new BigDecimal(FEE_KAVA_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_GAS_RATE_LOW)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -456,10 +492,10 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
+                mGasAmount.setText(FEE_KAVA_GAS_AMOUNT_SEND);
+                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_AVERAGE, 3));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+                mFeeAmount = new BigDecimal(FEE_KAVA_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_GAS_RATE_AVERAGE)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -474,7 +510,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             WLog.w("mFeeAmount "    + mFeeAmount.toPlainString());
 
 
-        }if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        }if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
             if(mSeekBarGas.getProgress() == 0) {
                 mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.bycicle_img));
                 mSpeedMsg.setText(getString(R.string.str_fee_speed_title_0));
@@ -497,10 +533,10 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_HALF);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_LOW, 4));
+                mGasAmount.setText(FEE_GAS_AMOUNT_HALF);
+                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_LOW, 4));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
+                mFeeAmount = new BigDecimal(FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(FEE_GAS_RATE_LOW)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -515,10 +551,10 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_HALF);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
+                mGasAmount.setText(FEE_GAS_AMOUNT_HALF);
+                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_AVERAGE, 3));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+                mFeeAmount = new BigDecimal(FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(FEE_GAS_RATE_AVERAGE)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -539,16 +575,16 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
 
     private void onPayableFee() {
         BigDecimal compareAmount = BigDecimal.ZERO;
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
             compareAmount = mToSend.add(mFeeAmount);
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             if (getSActivity().mKavaDenom.equals(TOKEN_KAVA)) {
                 compareAmount = mToSend.add(mFeeAmount);
             } else {
                 compareAmount = mFeeAmount;
             }
-        } else if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
             compareAmount = mToSend.add(mFeeAmount);
         }
 

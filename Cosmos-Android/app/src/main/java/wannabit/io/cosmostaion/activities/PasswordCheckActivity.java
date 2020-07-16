@@ -155,14 +155,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mSwapId = getIntent().getStringExtra("swapId");
         mClaimDenom = getIntent().getStringExtra("denom");
 
-//        if (getIntent().getStringExtra("toChain") != null)
-//            mRecipientChain = BaseChain.getChain(getIntent().getStringExtra("toChain"));
-//        if (getIntent().getStringExtra("recipientId") != null)
-//            mRecipientAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("recipientId"));
-//        mSendFee = getIntent().getParcelableExtra("sendFee");
-//        mClaimFee = getIntent().getParcelableExtra("claimFee");
-
-
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck  = getIntent().getLongExtra("checkid", -1);
 

@@ -5,7 +5,16 @@ import android.content.Context;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
 public class ApiClient {
 
@@ -206,21 +215,6 @@ public class ApiClient {
         return service_iov;
     }
 
-    //Rest for Band main net
-    private static BandChain service_band = null;
-    public static BandChain getBandChain(Context c) {
-        if (service_band == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_band_main))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_band = retrofit.create(BandChain.class);
-            }
-        }
-        return service_band;
-    }
-
     //Service for IOV testnet
     private static IovChain service_iov_test = null;
     public static IovChain getIovTestChain(Context c) {
@@ -234,6 +228,21 @@ public class ApiClient {
             }
         }
         return service_iov_test;
+    }
+
+    //Rest for Band main net
+    private static BandChain service_band = null;
+    public static BandChain getBandChain(Context c) {
+        if (service_band == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_band_main))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_band = retrofit.create(BandChain.class);
+            }
+        }
+        return service_band;
     }
 
     //Services for Band api
@@ -316,5 +325,6 @@ public class ApiClient {
         }
         return coingeckoService;
     }
+
 
 }

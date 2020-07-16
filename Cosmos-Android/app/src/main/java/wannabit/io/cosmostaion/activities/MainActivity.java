@@ -57,6 +57,7 @@ import wannabit.io.cosmostaion.widget.TintableImageView;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
@@ -447,6 +448,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 hasbalance  = true;
             }
 
+        } else if (mBaseChain.equals(BaseChain.IOV_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("1000000")) > 0) {
+                hasbalance  = true;
+            }
+            intent.putExtra("iovDenom", TOKEN_IOV_TEST);
         }
 
         if (!hasbalance) {

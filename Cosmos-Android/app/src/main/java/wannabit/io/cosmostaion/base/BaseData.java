@@ -332,6 +332,32 @@ public class BaseData {
         }
     }
 
+    public void setLastIovTic(Double price) {
+        getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_TIC, ""+price).commit();
+    }
+
+    public double getLastIovTic() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_IOV_TIC, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastIovUpDown(Double price) {
+        getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_UP_DOWN_24, ""+price).commit();
+    }
+
+    public double getLastIovUpDown() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_IOV_UP_DOWN_24, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
 
 
     public void setValSorting(int sort) {

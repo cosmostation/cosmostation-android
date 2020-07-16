@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.utils;
 
 import android.util.Base64;
 
-import com.binance.dex.api.client.domain.broadcast.HtltReq;
 import com.github.orogvany.bip32.Network;
 import com.github.orogvany.bip32.wallet.CoinType;
 import com.github.orogvany.bip32.wallet.HdAddress;
@@ -46,7 +45,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_DEPUTY;
 
 public class WKey {
 
@@ -119,7 +117,7 @@ public class WKey {
         } else if (chain.equals(BAND_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(494, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
-        } else if (chain.equals(IOV_TEST)) {
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(234, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         }
@@ -208,48 +206,48 @@ public class WKey {
 
     public static String getDpAddress(BaseChain chain, String pubHex) {
         String result       = null;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(BNB_TEST) || chain.equals(KAVA_TEST) || chain.equals(IOV_TEST)) {
-            MessageDigest digest = Sha256.getSha256Digest();
-            byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
+        MessageDigest digest = Sha256.getSha256Digest();
+        byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
 
-            RIPEMD160Digest digest2 = new RIPEMD160Digest();
-            digest2.update(hash, 0, hash.length);
+        RIPEMD160Digest digest2 = new RIPEMD160Digest();
+        digest2.update(hash, 0, hash.length);
 
-            byte[] hash3 = new byte[digest2.getDigestSize()];
-            digest2.doFinal(hash3, 0);
+        byte[] hash3 = new byte[digest2.getDigestSize()];
+        digest2.doFinal(hash3, 0);
 
-            try {
-                byte[] converted = convertBits(hash3, 8,5,true);
-                if (chain.equals(COSMOS_MAIN)) {
-                    result = bech32Encode("cosmos".getBytes(), converted);
-                } else if (chain.equals(IRIS_MAIN)){
-                    result = bech32Encode("iaa".getBytes(), converted);
-                } else if (chain.equals(BNB_MAIN)){
-                    result = bech32Encode("bnb".getBytes(), converted);
-                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)){
-                    result = bech32Encode("kava".getBytes(), converted);
-                } else if (chain.equals(BAND_MAIN)){
-                    result = bech32Encode("band".getBytes(), converted);
-                } else if (chain.equals(BNB_TEST)){
-                    result = bech32Encode("tbnb".getBytes(), converted);
-                } else if (chain.equals(IOV_TEST)){
-                    result = bech32Encode("star".getBytes(), converted);
-                }
-
-            } catch (Exception e) {
-                WLog.w("Secp256k1 genDPAddress Error");
+        try {
+            byte[] converted = convertBits(hash3, 8,5,true);
+            if (chain.equals(COSMOS_MAIN)) {
+                result = bech32Encode("cosmos".getBytes(), converted);
+            } else if (chain.equals(IRIS_MAIN)){
+                result = bech32Encode("iaa".getBytes(), converted);
+            } else if (chain.equals(BNB_MAIN)){
+                result = bech32Encode("bnb".getBytes(), converted);
+            } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)){
+                result = bech32Encode("kava".getBytes(), converted);
+            } else if (chain.equals(BAND_MAIN)){
+                result = bech32Encode("band".getBytes(), converted);
+            } else if (chain.equals(BNB_TEST)){
+                result = bech32Encode("tbnb".getBytes(), converted);
+            } else if (chain.equals(IOV_MAIN) ||chain.equals(IOV_TEST)){
+                result = bech32Encode("star".getBytes(), converted);
             }
 
-        } else if (chain.equals(IOV_MAIN)) {
-            try {
-                byte[] converted = WKey.convertBits(WUtil.HexStringToByteArray(pubHex), 8,5,true);
-                result = bech32Encode("iov".getBytes(), converted);
-            } catch (Exception e) {
-                WLog.w("ed25519 genDPAddress Error");
-            }
+        } catch (Exception e) {
+            WLog.w("Secp256k1 genDPAddress Error");
         }
         return result;
+
+
+        //Deprecated ed255519 for IOV
+//        if (chain.equals(IOV_MAIN)) {
+//            try {
+//                byte[] converted = WKey.convertBits(WUtil.HexStringToByteArray(pubHex), 8,5,true);
+//                result = bech32Encode("iov".getBytes(), converted);
+//            } catch (Exception e) {
+//                WLog.w("ed25519 genDPAddress Error");
+//            }
+//        }
     }
 
 
@@ -325,24 +323,21 @@ public class WKey {
     }
 
     public static String getDpAddressWithPath(String seed, BaseChain chain, int path, Boolean newBip) {
-        String result = "";
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN)|| chain.equals(BAND_MAIN) ||
-                chain.equals(BNB_TEST) || chain.equals(KAVA_TEST) || chain.equals(IOV_TEST)) {
-            //using Secp256k1
-            DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain, newBip), true, true,  new ChildNumber(path));
-            result =  getDpAddress(chain, childKey.getPublicKeyAsHex());
+        DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain, newBip), true, true,  new ChildNumber(path));
+        return getDpAddress(chain, childKey.getPublicKeyAsHex());
 
-        } else if (chain.equals(IOV_MAIN)) {
-            //using ed25519
-            HdKeyGenerator hdKeyGenerator = new HdKeyGenerator();
-            HdAddress master = hdKeyGenerator.getAddressFromSeed(WUtil.HexStringToByteArray(seed), Network.mainnet, CoinType.semux);
-            HdAddress child = hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(master, 44, true), 234, true), path, true);
-
-            result = getIovDpAddress(child);
-        }
-        return result;
+        //Deprecated ed255519 for IOV
+//        if (chain.equals(IOV_MAIN)) {
+//            //using ed25519
+//            HdKeyGenerator hdKeyGenerator = new HdKeyGenerator();
+//            HdAddress master = hdKeyGenerator.getAddressFromSeed(WUtil.HexStringToByteArray(seed), Network.mainnet, CoinType.semux);
+//            HdAddress child = hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(master, 44, true), 234, true), path, true);
+//
+//            result = getIovDpAddress(child);
+//        }
     }
 
+    //not using
     public static String getIovDpAddress(HdAddress address) {
         byte[] pre = (BaseConstant.IOV_KEY_TYPE).getBytes(StandardCharsets.US_ASCII);
         byte[] post = Arrays.copyOfRange(address.getPublicKey().getPublicKey(), 1, address.getPublicKey().getPublicKey().length);
@@ -352,10 +347,10 @@ public class WKey {
         System.arraycopy(post, 0, data, pre.length, post.length);
 
         byte[] hash = Arrays.copyOfRange(Sha256.getSha256Digest().digest(data), 0, 20);
-//        WLog.w("hash " +  WUtil.ByteArrayToHexString(hash));
         return getDpAddress(IOV_MAIN, WUtil.ByteArrayToHexString(hash));
     }
 
+    //not using
     public static ByteString getIovByteStringfromDpAddress(String address) {
         try {
             HrpAndData hrpAndData = WKey.bech32Decode(address);
@@ -370,6 +365,7 @@ public class WKey {
         return null;
     }
 
+    //not using
     public static String getIovDpAddressFromByteString(ByteString byteString) {
         return getDpAddress(IOV_MAIN, WUtil.ByteArrayToHexString(byteString.toByteArray()));
     }
@@ -577,6 +573,7 @@ public class WKey {
         }
     }
 
+    //not using
     public static byte[] getIovInSig(bnsd.Codec.Tx requestTx, int nonce) {
         byte[] chainB = IOV_MAIN.getChain().getBytes(Charset.forName("UTF-8"));
         byte[] versionB = new byte[] {(byte)0, (byte)0xCA, (byte)0xFE, (byte)0 };

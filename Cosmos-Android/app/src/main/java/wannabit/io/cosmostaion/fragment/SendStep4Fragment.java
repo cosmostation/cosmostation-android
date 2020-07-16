@@ -14,12 +14,19 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -82,7 +89,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
     public void onRefreshTab() {
         BigDecimal toSendAmount   = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
         BigDecimal feeAmount      = new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount);
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
             mDpDecimal = 6;
             mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorAtom));
             mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorAtom));
@@ -98,7 +105,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, getSActivity().mBaseChain));
             mRemainingPrice.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             mDpDecimal = getSActivity().mIrisToken.base_token.decimal;
             mDenomSendAmount.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
             mDenomCurrentAmount.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
@@ -130,7 +137,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount), getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
             }
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
             mDpDecimal = 8;
             mDenomSendAmount.setText(getSActivity().mBnbToken.original_symbol.toUpperCase());
             mDenomCurrentAmount.setText(getSActivity().mBnbToken.original_symbol.toUpperCase());
@@ -162,7 +169,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount), 8, getSActivity().mBaseChain));
             }
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             mDpDecimal = WUtil.getKavaCoinDecimal(getSActivity().mKavaDenom);
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
             if (getSActivity().mKavaDenom.equals(TOKEN_KAVA)) {
@@ -190,8 +197,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 WDp.showCoinDp(getContext(), getSActivity().mKavaDenom, currentAvai.subtract(toSendAmount).toPlainString(), mDenomRemainAmount, mRemainingBalance, getSActivity().mBaseChain);
             }
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            mDpDecimal = 9;
+        } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
+            mDpDecimal = 6;
             WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomSendAmount);
             WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomCurrentAmount);
             WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomRemainAmount);
@@ -206,7 +213,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), mDpDecimal, mDpDecimal));
             mRemainingPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
             mDpDecimal = 6;
             mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorBand));
             mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorBand));

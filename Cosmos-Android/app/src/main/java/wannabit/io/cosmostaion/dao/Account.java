@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 
 public class Account {
     public Long     id;
@@ -237,7 +238,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(TOKEN_IOV)) {
+            if(balance.symbol.equals(TOKEN_IOV) || balance.symbol.equals(TOKEN_IOV_TEST)) {
                 result = balance.balance;
                 break;
             }
