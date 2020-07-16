@@ -435,12 +435,12 @@ final class BaseData : NSObject{
         let allAccounts = selectAllAccounts()
         for account in allAccounts {
             if (WUtils.getChainType(account.account_base_chain) == chain && account.account_has_private) {
-                if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
                     if (WUtils.getTokenAmount(account.account_balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.000375")).rawValue >= 0) {
                         result.append(account)
                     }
                     
-                } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
                     if (account.account_account_numner > 0) {
                         result.append(account)
                     }

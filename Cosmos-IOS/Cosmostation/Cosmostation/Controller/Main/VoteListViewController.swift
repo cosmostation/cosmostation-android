@@ -63,18 +63,18 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN) {
             return self.mProposals.count
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             return self.mIrisProposals.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN) {
             return onBindProposal(tableView, indexPath)
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             return onBindIrisProposal(tableView, indexPath)
         } else {
             let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
@@ -130,7 +130,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             let proposal = mProposals[indexPath.row]
             if (Int(proposal.id)! >= 25) {
                 let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
@@ -144,14 +144,14 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 present(safariViewController, animated: true, completion: nil)
             }
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             let proposal = mIrisProposals[indexPath.row]
             let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
             voteDetailsVC.proposalId = proposal.value!.basicProposal!.proposal_id
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(voteDetailsVC, animated: true)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.KAVA_MAIN) {
             let proposal = mProposals[indexPath.row]
             if (Int(proposal.id)! >= 3) {
                 let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
@@ -169,7 +169,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     @objc func onFetchProposals() {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             let url = CSS_LCD_URL_PROPOSALS;
             let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
             request.responseJSON { (response) in
@@ -190,7 +190,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.onUpdateViews()
             }
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             let url = IRIS_LCD_URL_PROPOSALS;
             let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
             request.responseJSON { (response) in
@@ -209,7 +209,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 self.onUpdateViews()
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.KAVA_MAIN) {
             let url = KAVA_PROPOSALS;
             let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
             request.responseJSON { (response) in
@@ -233,15 +233,15 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func sortProposals() {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             self.mProposals.sort{
                 return Int($0.id)! < Int($1.id)! ? false : true
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             self.mIrisProposals.sort {
                 return Int($0.value!.basicProposal!.proposal_id)! < Int($1.value!.basicProposal!.proposal_id)! ? false : true
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.KAVA_MAIN) {
             self.mProposals.sort{
                 return Int($0.id)! < Int($1.id)! ? false : true
             }

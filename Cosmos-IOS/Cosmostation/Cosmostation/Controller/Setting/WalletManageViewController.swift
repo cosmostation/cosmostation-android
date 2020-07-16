@@ -113,56 +113,56 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                 
             } else {
                 let selectedChain = ChainType.SUPPRT_CHAIN()[indexPath.row - 1]
-                if (selectedChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (selectedChain == ChainType.COSMOS_MAIN) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "cosmosWhMain")
                     cell?.chainName.text = "COSMOS"
                     
-                } else if (selectedChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                } else if (selectedChain == ChainType.IRIS_MAIN) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "irisWh")
                     cell?.chainName.text = "IRIS"
                     
-                } else if (selectedChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                } else if (selectedChain == ChainType.BINANCE_MAIN) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "binanceChImg")
                     cell?.chainName.text = "BINANCE"
                     
-                } else if (selectedChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                } else if (selectedChain == ChainType.KAVA_MAIN) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "kavaImg")
                     cell?.chainName.text = "KAVA"
                     
-                } else if (selectedChain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+                } else if (selectedChain == ChainType.IOV_MAIN) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "iovImg")
                     cell?.chainName.text = "IOV"
                     
-                } else if (selectedChain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                } else if (selectedChain == ChainType.BAND_MAIN) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "bandChainImg")
                     cell?.chainName.text = "BAND"
                     
-                } else if (selectedChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                } else if (selectedChain == ChainType.BINANCE_TEST) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "binancetestnet")
                     cell?.chainName.text = "BINANCE TEST"
                     
-                }  else if (selectedChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                }  else if (selectedChain == ChainType.KAVA_TEST) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true

@@ -133,7 +133,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         let msg = mSendTxInfo?.getMsgs()[0]
         cell?.sendImg.image = cell?.sendImg.image?.withRenderingMode(.alwaysTemplate)
         cell?.sendImg.tintColor = WUtils.getChainColor(chainType!)
-        if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (self.chainType == ChainType.BINANCE_MAIN || self.chainType == ChainType.BINANCE_TEST) {
             cell?.blockHeightLabel.text = mSendTxInfo?.height
             cell?.txHashLabel.text = mSendTxInfo?.hash
             cell?.memoLabel.text = mSendTxInfo?.tx?.value.memo
@@ -151,7 +151,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             cell?.recipientLabel.text = msg?.value.recipient_other_chain
             cell?.randomHashLabel.text = msg?.value.random_number_hash
             
-        } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
             cell?.blockHeightLabel.text = mSendTxInfo?.height
             cell?.txHashLabel.text = mSendTxInfo?.txhash
             cell?.memoLabel.text = mSendTxInfo?.tx?.value.memo
@@ -177,7 +177,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         let msg = mClaimTxInfo?.getMsgs()[0]
         cell?.claimImg.image = cell?.claimImg.image?.withRenderingMode(.alwaysTemplate)
         cell?.claimImg.tintColor = WUtils.getChainColor(mHtlcToChain!)
-        if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (self.mHtlcToChain == ChainType.BINANCE_MAIN || self.mHtlcToChain == ChainType.BINANCE_TEST) {
             cell?.blockHeightLabel.text = mClaimTxInfo?.height
             cell?.txHashLabel.text = mClaimTxInfo?.hash
             cell?.memoLabel.text = mClaimTxInfo?.tx?.value.memo
@@ -193,7 +193,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             cell?.swapIdLabel.text = msg?.value.swap_id
             
             
-        } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (self.mHtlcToChain == ChainType.KAVA_MAIN || self.mHtlcToChain == ChainType.KAVA_TEST) {
             cell?.blockHeightLabel.text = mClaimTxInfo?.height
             cell?.txHashLabel.text = mClaimTxInfo?.txhash
             cell?.memoLabel.text = mClaimTxInfo?.tx?.value.memo
@@ -231,9 +231,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     func onCheckCreateHtlcSwap() {
 //        print("onCheckCreateHtlcSwap")
         var url: String?
-        if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (self.chainType == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account!.account_address
-        } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (self.chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account!.account_address
         } else {
             onCreateHtlcSwap()
@@ -243,7 +243,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: self.account!)
                         //TODO error handle
@@ -273,7 +273,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 return
             }
             
-            if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            if (self.chainType == ChainType.BINANCE_MAIN) {
                 let binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
                 let pKey = WKey.getHDKeyFromWords(words, self.account!)
                 let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
@@ -322,7 +322,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     }
                 }
                 
-            } else if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            } else if (self.chainType == ChainType.BINANCE_TEST) {
                 let binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
                 let pKey = WKey.getHDKeyFromWords(words, self.account!)
                 let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
@@ -371,7 +371,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     }
                 }
                 
-            } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                 var stdTx:StdTx!
                 do {
                     let pKey = WKey.getHDKeyFromWords(words, self.account!)
@@ -436,9 +436,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     do {
                         let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                         var url: String?
-                        if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                        if (self.chainType! == ChainType.KAVA_MAIN) {
                             url = KAVA_BORAD_TX
-                        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                        } else if (self.chainType! == ChainType.KAVA_TEST) {
                             url = KAVA_TEST_BORAD_TX
                         }
                         let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
@@ -475,22 +475,22 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         onUpdateProgress(1)
 //        print("onFetchSwapId ", mSwapFetchCnt)
         var url = ""
-        if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        if (self.mHtlcToChain == ChainType.BINANCE_MAIN) {
             let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_DEPUTY, self.account!.account_address)
             url = BNB_URL_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("BINANCE_MAIN swapId url ", url) }
             
-        } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (self.mHtlcToChain == ChainType.BINANCE_TEST) {
             let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_TEST_DEPUTY, self.account!.account_address)
             url = BNB_TEST_URL_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("BINANCE_TEST swapId url ", url) }
             
-        } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
             let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_DEPUTY, self.account!.account_address)
             url = KAVA_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("KAVA_MAIN swapId url ", url) }
             
-        } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
             let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_DEPUTY, self.account!.account_address)
             url = KAVA_TEST_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("KAVA_TEST swapId url ", url) }
@@ -539,9 +539,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         onUpdateProgress(2)
 //        print("onCheckClaimHtlcSwap")
         var url: String?
-        if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + mHtlcToAccount!.account_address
-        } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + mHtlcToAccount!.account_address
         } else {
             onClaimHtlcSwap()
@@ -551,7 +551,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                if (self.mHtlcToChain == ChainType.KAVA_MAIN || self.mHtlcToChain == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: self.mHtlcToAccount!)
                         //TODO error handle
@@ -583,7 +583,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 return
             }
             
-            if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            if (self.mHtlcToChain == ChainType.BINANCE_MAIN) {
                 let binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
                 let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
                 let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
@@ -617,7 +617,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     }
                 }
                 
-            } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            } else if (self.mHtlcToChain == ChainType.BINANCE_TEST) {
                 let binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
                 let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
                 let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
@@ -651,13 +651,13 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     }
                 }
                 
-            } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (self.mHtlcToChain == ChainType.KAVA_MAIN || self.mHtlcToChain == ChainType.KAVA_TEST) {
                 do {
                     let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
                     var swapId: String = "";
-                    if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
                         swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_DEPUTY, self.account!.account_address)
-                    } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
                         swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_DEPUTY, self.account!.account_address)
                     }
                     let msg = MsgGenerator.genClaimAtomicSwap(self.mHtlcToAccount!.account_address,
@@ -710,9 +710,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     do {
                         let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                         var url: String?
-                        if (self.mHtlcToChain! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                        if (self.mHtlcToChain! == ChainType.KAVA_MAIN) {
                             url = KAVA_BORAD_TX
-                        } else if (self.mHtlcToChain! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                        } else if (self.mHtlcToChain! == ChainType.KAVA_TEST) {
                             url = KAVA_TEST_BORAD_TX
                         }
                         let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
@@ -747,16 +747,16 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
 //        print("onFetchSendTx")
         var url = ""
         var request:DataRequest?
-        if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        if (self.chainType == ChainType.BINANCE_MAIN) {
             url = BNB_URL_TX + mSendHash!
             request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-        } else if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (self.chainType == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_TX + mSendHash!
             request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-        } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (self.chainType == ChainType.KAVA_MAIN) {
             url = KAVA_TX + mSendHash!
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (self.chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_TX + mSendHash!
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         }
@@ -787,16 +787,16 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
 //        print("onFetchClaimTx")
         var url = ""
         var request:DataRequest?
-        if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        if (self.mHtlcToChain == ChainType.BINANCE_MAIN) {
             url = BNB_URL_TX + mClaimHash!
             request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-        } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (self.mHtlcToChain == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_TX + mClaimHash!
             request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-        } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
             url = KAVA_TX + mClaimHash!
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        } else if (self.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
             url = KAVA_TEST_TX + mClaimHash!
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         }

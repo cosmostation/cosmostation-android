@@ -26,12 +26,12 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             mDpDecimal = 8;
             minAvailable = NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)
             minAvailableAmount.attributedText = WUtils.displayAmount2(minAvailable.stringValue, minAvailableAmount.font, 0, mDpDecimal)
             maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!).subtracting(NSDecimalNumber.init(string: "0.000375"))
-            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
                 if (maxAvailable.compare(pageHolderVC.mSwapRemainCap).rawValue > 0) {
                     maxAvailable = pageHolderVC.mSwapRemainCap
                 }
@@ -40,7 +40,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             availableDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
             availableDenom.textColor = COLOR_BNB
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mHtlcDenom!)
             minAvailable = NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN).multiplying(byPowerOf10: mDpDecimal)
             minAvailableAmount.attributedText = WUtils.displayAmount2(minAvailable.stringValue, minAvailableAmount.font, mDpDecimal, mDpDecimal)
@@ -87,7 +87,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             textField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             return
         }
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             if (userInput.compare(maxAvailable).rawValue > 0) {
                 textField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
@@ -97,7 +97,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
                 return
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
                 textField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
@@ -115,11 +115,11 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
         if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.stringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             if (userInput.compare(maxAvailable).rawValue > 0) { return false }
             if (userInput.compare(NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)).rawValue < 0) {return false}
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) { return false }
             if (userInput.compare(NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)).rawValue < 0) {return false}
         }
@@ -141,12 +141,12 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
         if(isValiadAmount()) {
             let userInput = WUtils.stringToDecimal((AmountInput.text?.trimmingCharacters(in: .whitespaces))!)
             var toSendCoin:Coin?
-            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
-                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN ||
+                pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
                 toSendCoin = Coin.init(pageHolderVC.mHtlcDenom!, userInput.stringValue)
                 
-            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
+                pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                 toSendCoin = Coin.init(pageHolderVC.mHtlcDenom!.lowercased(), userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
                 
             }
@@ -211,13 +211,13 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
     }
     
     @IBAction func onClickHalf(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN ||
+            pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2), withBehavior: WUtils.getDivideHandler(mDpDecimal))
             AmountInput.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             AmountInput.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
         }
@@ -225,15 +225,15 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
     }
     
     @IBAction func onClickMax(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN ||
+            pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             AmountInput.text = WUtils.DecimalToLocalString(maxAvailable, mDpDecimal)
             if (pageHolderVC.mBnbToken?.symbol == BNB_MAIN_DENOM) {
                 self.showMaxWarnning()
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             AmountInput.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
         }

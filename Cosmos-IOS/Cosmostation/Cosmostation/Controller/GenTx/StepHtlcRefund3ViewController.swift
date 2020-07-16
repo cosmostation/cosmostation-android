@@ -46,14 +46,14 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
         WUtils.setDenomTitle(pageHolderVC.chainType!, feeAmountDenom)
         memoLabel.text = pageHolderVC.mMemo
         
-        if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (self.chainType! == ChainType.BINANCE_MAIN || self.chainType! == ChainType.BINANCE_TEST) {
             feeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, feeAmountLabel.font, 0, 8)
             swapIdLabel.text = pageHolderVC.mHtlcRefundSwapId!
             refundToLabel.text = pageHolderVC.mBnbSwapInfo?.fromAddr
             let coin = pageHolderVC.mBnbSwapInfo?.getSendCoin()
             WUtils.showCoinDp(coin!, refundAmountDenom, refundAmountLabel, chainType!)
             
-        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (self.chainType! == ChainType.KAVA_MAIN || self.chainType! == ChainType.KAVA_TEST) {
             feeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, feeAmountLabel.font, 6, 6)
             swapIdLabel.text = pageHolderVC.mHtlcRefundSwapId!
             refundToLabel.text = pageHolderVC.mKavaSwapInfo?.result.sender
@@ -80,9 +80,9 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
-            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
                 self.onGenBnbRefund()
             }
         }
@@ -91,9 +91,9 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -133,7 +133,7 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
-                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
@@ -171,9 +171,9 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     var url: String?
-                    if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
                         url = KAVA_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    } else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX
                     }
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
@@ -193,8 +193,8 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
                         }
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
+                                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                                     txResult["type"] = TASK_TYPE_HTLC_REFUND
                                     self.onStartTxDetail(txResult)
                                 }
@@ -221,7 +221,7 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
             var wallet = Wallet()
             var txResult = [String:Any]()
             
-            if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
                 //For Binance main-net refund
                 binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
                 pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)

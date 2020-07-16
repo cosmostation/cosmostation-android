@@ -118,49 +118,49 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     func onShowChainType() {
         let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         let cosmosAction = UIAlertAction(title: NSLocalizedString("chain_title_cosmos", comment: ""), style: .default, handler: { _ in
-            self.chainType = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
+            self.chainType = ChainType.COSMOS_MAIN
             self.onGenNewKey()
         })
         cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let irisAction = UIAlertAction(title: NSLocalizedString("chain_title_iris", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.SUPPORT_CHAIN_IRIS_MAIN
+            self.chainType = ChainType.IRIS_MAIN
             self.onGenNewKey()
         })
         irisAction.setValue(UIImage(named: "irisWh")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let bnbAction = UIAlertAction(title: NSLocalizedString("chain_title_bnb", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
+            self.chainType = ChainType.BINANCE_MAIN
             self.onGenNewKey()
         })
         bnbAction.setValue(UIImage(named: "binanceChImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let kavaAction = UIAlertAction(title: NSLocalizedString("chain_title_kava", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.SUPPORT_CHAIN_KAVA_MAIN
+            self.chainType = ChainType.KAVA_MAIN
             self.onGenNewKey()
         })
         kavaAction.setValue(UIImage(named: "kavaImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
+            self.chainType = ChainType.IOV_MAIN
             self.onGenNewKey()
         })
         iovAction.setValue(UIImage(named: "iovImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let bandAction = UIAlertAction(title: NSLocalizedString("chain_title_band", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.SUPPORT_CHAIN_BAND_MAIN
+            self.chainType = ChainType.BAND_MAIN
             self.onGenNewKey()
         })
         bandAction.setValue(UIImage(named: "bandChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let bnbTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_bnb", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.SUPPORT_CHAIN_BINANCE_TEST
+            self.chainType = ChainType.BINANCE_TEST
             self.onGenNewKey()
         })
         bnbTestAction.setValue(UIImage(named: "binancetestnet")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let kavaTestAction = UIAlertAction(title: NSLocalizedString("chain_title_kava_test", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.SUPPORT_CHAIN_KAVA_TEST
+            self.chainType = ChainType.KAVA_TEST
             self.onGenNewKey()
         })
         kavaTestAction.setValue(UIImage(named: "kavaTestImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
@@ -169,14 +169,14 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
         showAlert.addAction(kavaAction)
-        if (ChainType.SUPPRT_CHAIN().contains(ChainType.SUPPORT_CHAIN_IOV_MAIN)) {
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_MAIN)) {
             showAlert.addAction(iovAction)
         }
         showAlert.addAction(bandAction)
-        if (ChainType.SUPPRT_CHAIN().contains(ChainType.SUPPORT_CHAIN_BINANCE_TEST)) {
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.BINANCE_TEST)) {
             showAlert.addAction(bnbTestAction)
         }
-        if (ChainType.SUPPRT_CHAIN().contains(ChainType.SUPPORT_CHAIN_KAVA_TEST)) {
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.KAVA_TEST)) {
             showAlert.addAction(kavaTestAction)
         }
         self.present(showAlert, animated: true, completion: nil)
@@ -281,8 +281,8 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                 newAccount.account_path = "0"
                 newAccount.account_m_size = 24
                 newAccount.account_import_time = Date().millisecondsSince1970
-                if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                    chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                if (chain == ChainType.KAVA_MAIN ||
+                    chain == ChainType.KAVA_TEST) {
                     newAccount.account_new_bip44 = true
                 }
                 insertResult = BaseData.instance.insertAccount(newAccount)

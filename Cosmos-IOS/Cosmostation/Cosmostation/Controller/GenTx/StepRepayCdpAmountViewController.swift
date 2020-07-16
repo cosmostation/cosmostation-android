@@ -398,9 +398,9 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
     
     func onFetchCdpParam() {
         var url: String?
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_CDP_PARAM
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_CDP_PARAM
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -424,9 +424,9 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
     
     func onFetchKavaPrice(_ market:String) {
         var url: String?
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_TOKEN_PRICE + market
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_TOKEN_PRICE + market
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -449,9 +449,9 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
     
     func onFetchOwenCdp(_ account:Account, _ denom:String) {
         var url: String?
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_CDP_OWEN + account.account_address + "/" + denom
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + denom
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -475,9 +475,9 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
     
     func onFetchCdpDeposit(_ account:Account, _ denom:String) {
         var url: String?
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_CDP_DEPOSIT + account.account_address + "/" + denom
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_CDP_DEPOSIT + account.account_address + "/" + denom
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);

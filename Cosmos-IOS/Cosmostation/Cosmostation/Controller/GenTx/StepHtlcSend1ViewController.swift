@@ -34,9 +34,9 @@ class StepHtlcSend1ViewController: BaseViewController, SBCardPopupDelegate {
                                    WUtils.getChainName(pageHolderVC!.mHtlcToChain!))
         
         toAddressImg.image = toAddressImg.image?.withRenderingMode(.alwaysTemplate)
-        if (pageHolderVC.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.mHtlcToChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (pageHolderVC.mHtlcToChain == ChainType.BINANCE_MAIN || pageHolderVC.mHtlcToChain == ChainType.BINANCE_TEST) {
             toAddressImg.tintColor = COLOR_BNB
-        } else if (pageHolderVC.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.mHtlcToChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.mHtlcToChain == ChainType.KAVA_MAIN || pageHolderVC.mHtlcToChain == ChainType.KAVA_TEST) {
             toAddressImg.tintColor = COLOR_KAVA
         }
         self.toAccountList = BaseData.instance.selectAllAccountsByHtlcClaim(pageHolderVC.mHtlcToChain)

@@ -44,20 +44,20 @@ class WKey {
         let masterKey = getMasterKeyFromWords(m)
         let chainType = WUtils.getChainType(account.account_base_chain)
         
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (account.account_new_bip44) {
                 return try! masterKey.derived(at: 44, hardened: true).derived(at: 459, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             } else {
                 return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             }
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 494, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             
         } else {
@@ -67,31 +67,31 @@ class WKey {
     
     static func getPubToDpAddress(_ pubHex:String, _ chain:ChainType) -> String {
         var result = ""
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
-            chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
-            chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chain == ChainType.SUPPORT_CHAIN_BAND_MAIN ||
-            chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST ||
-            chain == ChainType.SUPPORT_CHAIN_KAVA_TEST ) {
+        if (chain == ChainType.COSMOS_MAIN ||
+            chain == ChainType.IRIS_MAIN ||
+            chain == ChainType.BINANCE_MAIN ||
+            chain == ChainType.KAVA_MAIN ||
+            chain == ChainType.BAND_MAIN ||
+            chain == ChainType.BINANCE_TEST ||
+            chain == ChainType.KAVA_TEST ) {
             let sha256 = Crypto.sha256(Data.fromHex(pubHex)!)
             let ripemd160 = Crypto.ripemd160(sha256)
             
-            if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (chain == ChainType.COSMOS_MAIN) {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
-            } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (chain == ChainType.IRIS_MAIN) {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "iaa", program: ripemd160)
-            } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            } else if (chain == ChainType.BINANCE_MAIN) {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "bnb", program: ripemd160)
-            } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "kava", program: ripemd160)
-            } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            } else if (chain == ChainType.BAND_MAIN) {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "band", program: ripemd160)
-            } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            } else if (chain == ChainType.BINANCE_TEST) {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "tbnb", program: ripemd160)
             }
             
-        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN) {
             let sha256 = Array(([UInt8](Crypto.sha256(Data.fromHex(pubHex)!)))[0..<20])
             result = try! SegwitAddrCoder.shared.encode2(hrp: "iov", program: Data(bytes: sha256))
         }
@@ -101,20 +101,20 @@ class WKey {
     static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType, _ newbip:Bool) -> String {
         do {
             var childKey:HDPrivateKey?
-            if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
-            } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
-            } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
                 if (newbip) {
                     childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 459, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 } else {
                     childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 }
                 
-            } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            } else if (chain == ChainType.BAND_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 494, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
             } else {
@@ -127,18 +127,18 @@ class WKey {
     }
     
     static func getDpAddressPath(_ mnemonic: [String], _ path:Int, _ chain:ChainType, _ newbip:Bool) -> String {
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
-            chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
-            chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            chain == ChainType.SUPPORT_CHAIN_BAND_MAIN ||
-            chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST ||
-            chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chain == ChainType.COSMOS_MAIN ||
+            chain == ChainType.IRIS_MAIN ||
+            chain == ChainType.BINANCE_MAIN ||
+            chain == ChainType.KAVA_MAIN ||
+            chain == ChainType.BAND_MAIN ||
+            chain == ChainType.BINANCE_TEST ||
+            chain == ChainType.KAVA_TEST) {
             //using Secp256k1
             let maskerKey = getMasterKeyFromWords(mnemonic)
             return WKey.getHDKeyDpAddressWithPath(maskerKey, path: path, chain: chain, newbip)
             
-        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN) {
             //using ed25519
             
             let path = IOV_BASE_PATH.appending(String(path)).appending("'")
@@ -218,13 +218,13 @@ class WKey {
         guard let (_, data) = try? bech32.decode(opAddress) else {
             return result
         }
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN) {
             result = bech32.encode("cosmos", values: data)
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             result = bech32.encode("iaa", values: data)
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
             result = bech32.encode("kava", values: data)
-        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chain == ChainType.BAND_MAIN) {
             result = bech32.encode("band", values: data)
         }
         return result

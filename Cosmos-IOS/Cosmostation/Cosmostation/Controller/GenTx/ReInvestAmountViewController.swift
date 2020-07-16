@@ -29,10 +29,10 @@ class ReInvestAmountViewController: BaseViewController {
         WUtils.setDenomTitle(pageHolderVC.chainType!, rewardDenomLabel)
         
         self.loadingImg.onStartAnimation()
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.KAVA_TEST || pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             self.onFetchReward(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address)
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             self.onFetchIrisReward(pageHolderVC.mAccount!)
         }
     }
@@ -55,21 +55,21 @@ class ReInvestAmountViewController: BaseViewController {
     }
     
     func updateView() {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN && self.pageHolderVC.mReinvestReward != nil) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN && self.pageHolderVC.mReinvestReward != nil) {
             rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, 6)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             self.loadingImg.isHidden = true
             self.controlLayer.isHidden = false
             self.cardView.isHidden = false
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 18, 18)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             self.loadingImg.isHidden = true
             self.controlLayer.isHidden = false
             self.cardView.isHidden = false
             
-        } else if ((pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) &&
+        } else if ((pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) &&
             self.pageHolderVC.mReinvestReward != nil) {
             rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, 6)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
@@ -77,7 +77,7 @@ class ReInvestAmountViewController: BaseViewController {
             self.controlLayer.isHidden = false
             self.cardView.isHidden = false
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN && self.pageHolderVC.mReinvestReward != nil) {
+        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN && self.pageHolderVC.mReinvestReward != nil) {
             rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, 6)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             self.loadingImg.isHidden = true
@@ -91,13 +91,13 @@ class ReInvestAmountViewController: BaseViewController {
 
     func onFetchReward(_ accountAddr: String, _ validatorAddr:String) {
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
             url = CSS_LCD_URL_REWARD_FROM_VAL + accountAddr + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_REWARD_FROM_VAL + accountAddr + BAND_REWARD_FROM_VAL_TAIL + validatorAddr
         }
         
@@ -105,7 +105,7 @@ class ReInvestAmountViewController: BaseViewController {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.updateView()
@@ -119,7 +119,7 @@ class ReInvestAmountViewController: BaseViewController {
                         }
                     }
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.updateView()
@@ -133,7 +133,7 @@ class ReInvestAmountViewController: BaseViewController {
                         }
                     }
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.updateView()

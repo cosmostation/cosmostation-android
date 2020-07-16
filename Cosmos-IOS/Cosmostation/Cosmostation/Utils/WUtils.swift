@@ -168,12 +168,12 @@ class WUtils {
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST || chain == ChainType.BAND_MAIN) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
             }
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 let shareAmount = stringToDecimalNoLocale(bondinginfo.shares).multiplying(byPowerOf10: 18)
@@ -186,14 +186,14 @@ class WUtils {
     
     static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST || chain == ChainType.BAND_MAIN) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 for entry in unbondinginfo.entries {
                     result.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
                 }
             }
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 let unbondingBalance = stringToDecimalNoLocale(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
@@ -616,11 +616,11 @@ class WUtils {
         var formatted: String?
         if (amount == NSDecimalNumber.zero) {
             formatted = nf.string(from: NSDecimalNumber.zero)
-        } else if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST || chain == ChainType.BAND_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             formatted = nf.string(from: amount.rounding(accordingToBehavior: handler))
         }
 
@@ -1041,14 +1041,14 @@ class WUtils {
         nf.numberStyle = .decimal
         var formatted = ""
         var endIndex: String.Index?
-        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST || baseChain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN ||
+            baseChain == ChainType.KAVA_TEST || baseChain == ChainType.BAND_MAIN) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"), withBehavior: handler12)) ?? "0"
             
             endIndex = formatted.index(formatted.endIndex, offsetBy: -12)
-        } else if (baseChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (baseChain == ChainType.IRIS_MAIN) {
             nf.minimumFractionDigits = 18
             nf.maximumFractionDigits = 18
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000000000000000"), withBehavior: handler18)) ?? "0"
@@ -1073,13 +1073,13 @@ class WUtils {
         nf.numberStyle = .decimal
         var formatted = ""
         var endIndex: String.Index?
-        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST || baseChain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN ||
+            baseChain == ChainType.KAVA_TEST || baseChain == ChainType.BAND_MAIN) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"), withBehavior: handler12)) ?? "0"
             endIndex = formatted.index(formatted.endIndex, offsetBy: -12)
-        } else if (baseChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (baseChain == ChainType.IRIS_MAIN) {
             nf.minimumFractionDigits = 18
             nf.maximumFractionDigits = 18
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000000000000000"), withBehavior: handler18)) ?? "0"
@@ -1376,7 +1376,7 @@ class WUtils {
     }
     
     static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             if (coin.denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1385,7 +1385,7 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             if (coin.denom == IRIS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1394,7 +1394,7 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 18, 18)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             if (coin.denom == BNB_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1403,7 +1403,7 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 8, 8)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (coin.denom == KAVA_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1412,7 +1412,7 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, getKavaCoinDecimal(coin.denom), getKavaCoinDecimal(coin.denom))
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             if (coin.denom == BAND_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1424,7 +1424,7 @@ class WUtils {
     }
     
     static func showCoinDp(_ denom:String, _ amount:String, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             if (denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1433,7 +1433,7 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             if (denom == IRIS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1442,7 +1442,7 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 18, 18)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             if (denom == BNB_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1451,7 +1451,7 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 8, 8)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (denom == KAVA_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1460,7 +1460,7 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, getKavaCoinDecimal(denom), getKavaCoinDecimal(denom))
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             if (denom == BAND_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1523,96 +1523,96 @@ class WUtils {
     
     
     static func getChainColor(_ chain:ChainType) -> UIColor {
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN) {
             return COLOR_ATOM
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             return COLOR_IRIS
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             return COLOR_BNB
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chain == ChainType.KAVA_MAIN) {
             return COLOR_KAVA
-        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN) {
             return COLOR_IOV
-        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chain == ChainType.KAVA_TEST) {
             return COLOR_KAVA
         }
         return COLOR_ATOM
     }
     
     static func getChainDarkColor(_ chain:ChainType) -> UIColor {
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN) {
             return COLOR_ATOM_DARK
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             return COLOR_IRIS_DARK
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chain == ChainType.BINANCE_MAIN) {
             return COLOR_BNB_DARK
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chain == ChainType.KAVA_MAIN) {
             return COLOR_KAVA_DARK
-        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN) {
             return COLOR_IOV_DARK
-        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND_DARK
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST) {
             return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
     }
     
     static func getChainBg(_ chain:ChainType) -> UIColor {
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN) {
             return TRANS_BG_COLOR_COSMOS
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             return TRANS_BG_COLOR_IRIS
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chain == ChainType.BINANCE_MAIN) {
             return TRANS_BG_COLOR_BNB
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chain == ChainType.KAVA_MAIN) {
             return TRANS_BG_COLOR_KAVA
-        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN) {
             return TRANS_BG_COLOR_IOV
-        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chain == ChainType.BAND_MAIN) {
             return TRANS_BG_COLOR_BAND
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST) {
             return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
     }
     
     static func getMainDenom(_ chain:ChainType) -> String {
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN) {
             return "ATOM"
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             return "IRIS"
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             return "BNB"
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
             return "KAVA"
-        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN) {
             return "IOV"
-        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chain == ChainType.BAND_MAIN) {
             return "BAND"
         }
         return ""
     }
     
     static func setDenomTitle(_ chain:ChainType, _ label:UILabel) {
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN) {
             label.text = "ATOM"
             label.textColor = COLOR_ATOM
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             label.text = "IRIS"
             label.textColor = COLOR_IRIS
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             label.text = "BNB"
             label.textColor = COLOR_BNB
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
            label.text = "KAVA"
            label.textColor = COLOR_KAVA
-        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN) {
             label.text = "IOV"
             label.textColor = COLOR_IOV
-        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chain == ChainType.BAND_MAIN) {
             label.text = "BAND"
             label.textColor = COLOR_BAND
         }
@@ -1620,23 +1620,23 @@ class WUtils {
     
     static func getChainType(_ chainS:String) -> ChainType {
         if (chainS == CHAIN_COSMOS_S ) {
-            return ChainType.SUPPORT_CHAIN_COSMOS_MAIN
+            return ChainType.COSMOS_MAIN
         } else if (chainS == CHAIN_IRIS_S) {
-            return ChainType.SUPPORT_CHAIN_IRIS_MAIN
+            return ChainType.IRIS_MAIN
         } else if (chainS == CHAIN_BINANCE_S) {
-            return ChainType.SUPPORT_CHAIN_BINANCE_MAIN
+            return ChainType.BINANCE_MAIN
         } else if (chainS == CHAIN_KAVA_S) {
-           return ChainType.SUPPORT_CHAIN_KAVA_MAIN
+           return ChainType.KAVA_MAIN
         } else if (chainS == CHAIN_IOV_S) {
-            return ChainType.SUPPORT_CHAIN_IOV_MAIN
+            return ChainType.IOV_MAIN
         } else if (chainS == CHAIN_BAND_S) {
-            return ChainType.SUPPORT_CHAIN_BAND_MAIN
+            return ChainType.BAND_MAIN
         } else if (chainS == CHAIN_KAVA_TEST_S) {
-            return ChainType.SUPPORT_CHAIN_KAVA_TEST
+            return ChainType.KAVA_TEST
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
-            return ChainType.SUPPORT_CHAIN_BINANCE_TEST
+            return ChainType.BINANCE_TEST
         }
-        return ChainType.SUPPORT_CHAIN_COSMOS_MAIN
+        return ChainType.COSMOS_MAIN
     }
     
     static func getChainTypeInt(_ chainS:String) -> Int {
@@ -1892,35 +1892,35 @@ class WUtils {
     }
     
     static func dpChainInfo(_ chain: ChainType, _ img: UIImageView?, _ label: UILabel) {
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN) {
             label.text = NSLocalizedString("chain_title_cosmos", comment: "")
             label.textColor = COLOR_ATOM
             img?.image = UIImage(named: "cosmosWhMain")
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             label.text = NSLocalizedString("chain_title_iris", comment: "")
             label.textColor = COLOR_IRIS
             img?.image = UIImage(named: "irisWh")
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chain == ChainType.BINANCE_MAIN) {
             label.text = NSLocalizedString("chain_title_bnb", comment: "")
             label.textColor = COLOR_BNB
             img?.image = UIImage(named: "binanceChImg")
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chain == ChainType.KAVA_MAIN) {
             label.text = NSLocalizedString("chain_title_kava", comment: "")
            label.textColor = COLOR_KAVA
            img?.image = UIImage(named: "kavaImg")
-        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN) {
             label.text = NSLocalizedString("chain_title_iov", comment: "")
             label.textColor = COLOR_IOV
             img?.image = UIImage(named: "iovImg")
-        } else if (chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chain == ChainType.BAND_MAIN) {
             label.text = NSLocalizedString("chain_title_band", comment: "")
             label.textColor = COLOR_BAND
             img?.image = UIImage(named: "bandChainImg")
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chain == ChainType.BINANCE_TEST) {
             label.text = NSLocalizedString("chain_title_test_bnb", comment: "")
             label.textColor = COLOR_BNB
             img?.image = UIImage(named: "binancetestnet")
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chain == ChainType.KAVA_TEST) {
             label.text = NSLocalizedString("chain_title_kava_test", comment: "")
             label.textColor = COLOR_KAVA
             img?.image = UIImage(named: "kavaTestImg")

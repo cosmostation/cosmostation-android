@@ -66,25 +66,25 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         cardInfo.backgroundColor = WUtils.getChainBg(chainType!)
         cardReward.backgroundColor = WUtils.getChainBg(chainType!)
         chainName.text = WUtils.getChainName(account!.account_base_chain)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             chainImg.image = UIImage(named: "cosmosWhMain")
             keyPath.text = BASE_PATH.appending(account!.account_path)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             chainImg.image = UIImage(named: "irisWh")
             keyPath.text = BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.BINANCE_MAIN) {
             chainImg.image = UIImage(named: "binanceChImg")
             keyPath.text = BNB_BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.KAVA_MAIN) {
             chainImg.image = UIImage(named: "kavaImg")
             if (account!.account_new_bip44) {
                 keyPath.text = KAVA_BASE_PATH.appending(account!.account_path)
@@ -95,21 +95,21 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chainType == ChainType.IOV_MAIN) {
             chainImg.image = UIImage(named: "iovImg")
             keyPath.text = IOV_BASE_PATH.appending(account!.account_path).appending("'")
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_TEST) {
             chainImg.image = UIImage(named: "binancetestnet")
             keyPath.text = BNB_BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_TEST) {
             chainImg.image = UIImage(named: "kavaTestImg")
             if (account!.account_new_bip44) {
                 keyPath.text = KAVA_BASE_PATH.appending(account!.account_path)
@@ -120,7 +120,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             chainImg.image = UIImage(named: "bandChainImg")
             keyPath.text = BAND_BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
@@ -277,7 +277,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         }
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.IRIS_MAIN) {
             if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.init(string: "80000000000000000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
@@ -303,9 +303,9 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-            if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.BAND_MAIN) {
                 txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
-            } else if (self.chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (self.chainType == ChainType.IRIS_MAIN) {
                 txVC.mType = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
             }
             self.navigationItem.title = ""
@@ -380,15 +380,15 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
     func onFetchRewardAddress(_ accountAddr: String) {
         var url = ""
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.IRIS_MAIN) {
             request.responseString { (response) in
                 switch response.result {
                 case .success(let res):
@@ -407,7 +407,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):

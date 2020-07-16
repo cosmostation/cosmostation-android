@@ -39,10 +39,10 @@ class StepFeeViewController: BaseViewController {
         WUtils.setDenomTitle(pageHolderVC.chainType!, feeTypeDenomLabel)
         feeSlider.tintColor = WUtils.getChainColor(pageHolderVC.chainType!)
         
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+            pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             
             let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapFeeType(sender:)))
             self.feeTypeCardView.addGestureRecognizer(gesture)
@@ -51,7 +51,7 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.imageTap (_:))))
             self.speedImg.isUserInteractionEnabled = true
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             self.minFeeCardView.isHidden = true
             self.rateFeeCardView.isHidden = false
             
@@ -69,7 +69,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 3, pageHolderVC.chainType!)
             self.rateFeePriceLabel.attributedText = WUtils.dpIrisValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             self.minFeeCardView.isHidden = false
             self.rateFeeCardView.isHidden = true
             
@@ -83,7 +83,7 @@ class StepFeeViewController: BaseViewController {
             self.minFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, minFeeAmountLabel.font, 0, 8)
             self.minFeePriceLabel.attributedText  = WUtils.dpBnbValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             self.minFeeCardView.isHidden = false
             self.rateFeeCardView.isHidden = true
             
@@ -209,7 +209,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, minFeeAmountLabel.font, 6, 6)
         }
         
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
             if (TESTNET) {
                 available = WUtils.getTokenAmount(pageHolderVC.mBalances, "muon");
             } else {
@@ -223,7 +223,7 @@ class StepFeeViewController: BaseViewController {
                 return false
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             available = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM);
             toSpend = getSpendAmount()
             if (pageHolderVC.mKavaSendDenom == KAVA_MAIN_DENOM) {
@@ -242,7 +242,7 @@ class StepFeeViewController: BaseViewController {
                 }
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             available = WUtils.getTokenAmount(pageHolderVC.mBalances, BAND_MAIN_DENOM);
             toSpend = getSpendAmount()
             if (toSpend.adding(feeAmount).compare(available).rawValue > 0) {
@@ -259,7 +259,7 @@ class StepFeeViewController: BaseViewController {
     }
     
     @IBAction func onClickNext(_ sender: Any) {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
             if (NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
             if (self.updateView(Int(feeSlider!.value))) {
                 feeCoin = Coin.init(COSMOS_MAIN_DENOM, feeAmount.stringValue)
@@ -278,7 +278,7 @@ class StepFeeViewController: BaseViewController {
                 pageHolderVC.onNextPage()
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             if (NSDecimalNumber.init(string: "1000000000000000000").compare(feeAmount).rawValue < 0) {return}
             feeCoin = Coin.init(IRIS_MAIN_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
@@ -295,7 +295,7 @@ class StepFeeViewController: BaseViewController {
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             //Notice! useless but make format!
             feeCoin = Coin.init(BNB_MAIN_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
@@ -312,7 +312,7 @@ class StepFeeViewController: BaseViewController {
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             if (self.updateView(Int(feeSlider!.value))) {
                 feeCoin = Coin.init(KAVA_MAIN_DENOM, feeAmount.stringValue)
                 var fee = Fee.init()
@@ -329,7 +329,7 @@ class StepFeeViewController: BaseViewController {
                 self.nextBtn.isUserInteractionEnabled = false
                 pageHolderVC.onNextPage()
             }
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             //TODO NOTICE NO need Fee set!!;
             feeCoin = Coin.init(IOV_MAIN_DENOM, feeAmount.multiplying(byPowerOf10: 9).stringValue)
             var fee = Fee.init()
@@ -346,7 +346,7 @@ class StepFeeViewController: BaseViewController {
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             if (NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
             if (self.updateView(Int(feeSlider!.value))) {
                 feeCoin = Coin.init(BAND_MAIN_DENOM, feeAmount.stringValue)
@@ -376,7 +376,7 @@ class StepFeeViewController: BaseViewController {
     
     func getEstimateGasAmount() -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
@@ -404,7 +404,7 @@ class StepFeeViewController: BaseViewController {
                 
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
             if (pageHolderVC.mType == IRIS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
@@ -428,11 +428,11 @@ class StepFeeViewController: BaseViewController {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             //Notice! useless but make format!
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
         
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
             if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
@@ -471,7 +471,7 @@ class StepFeeViewController: BaseViewController {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_HIGH))
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))

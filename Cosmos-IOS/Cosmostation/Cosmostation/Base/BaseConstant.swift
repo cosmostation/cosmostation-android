@@ -539,25 +539,25 @@ let COLOR_WC_TRADE_SELL                     = UIColor.init(hexString: "FF2745")
 
 
 enum ChainType: String {
-    case SUPPORT_CHAIN_COSMOS_MAIN
-    case SUPPORT_CHAIN_IRIS_MAIN
-    case SUPPORT_CHAIN_BINANCE_MAIN
-    case SUPPORT_CHAIN_KAVA_MAIN
-    case SUPPORT_CHAIN_IOV_MAIN
-    case SUPPORT_CHAIN_BAND_MAIN
-    case SUPPORT_CHAIN_BINANCE_TEST
-    case SUPPORT_CHAIN_KAVA_TEST
+    case COSMOS_MAIN
+    case IRIS_MAIN
+    case BINANCE_MAIN
+    case KAVA_MAIN
+    case IOV_MAIN
+    case BAND_MAIN
+    case BINANCE_TEST
+    case KAVA_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
-        result.append(SUPPORT_CHAIN_COSMOS_MAIN)
-        result.append(SUPPORT_CHAIN_IRIS_MAIN)
-        result.append(SUPPORT_CHAIN_BINANCE_MAIN)
-        result.append(SUPPORT_CHAIN_KAVA_MAIN)
-//        result.append(SUPPORT_CHAIN_IOV_MAIN)
-        result.append(SUPPORT_CHAIN_BAND_MAIN)
-        result.append(SUPPORT_CHAIN_BINANCE_TEST)
-        result.append(SUPPORT_CHAIN_KAVA_TEST)
+        result.append(COSMOS_MAIN)
+        result.append(IRIS_MAIN)
+        result.append(BINANCE_MAIN)
+        result.append(KAVA_MAIN)
+//        result.append(IOV_MAIN)
+        result.append(BAND_MAIN)
+        result.append(BINANCE_TEST)
+        result.append(KAVA_TEST)
         return result
     }
     
@@ -567,17 +567,17 @@ enum ChainType: String {
     
     static func getHtlcSendable(_ chain: ChainType) -> Array<ChainType> {
         var result = Array<ChainType>()
-        if (chain == SUPPORT_CHAIN_BINANCE_TEST) {
-            result.append(SUPPORT_CHAIN_KAVA_TEST)
+        if (chain == BINANCE_TEST) {
+            result.append(KAVA_TEST)
             
-        } else if (chain == SUPPORT_CHAIN_KAVA_TEST) {
-            result.append(SUPPORT_CHAIN_BINANCE_TEST)
+        } else if (chain == KAVA_TEST) {
+            result.append(BINANCE_TEST)
             
-        } else if (chain == SUPPORT_CHAIN_BINANCE_MAIN) {
-            result.append(SUPPORT_CHAIN_KAVA_MAIN)
+        } else if (chain == BINANCE_MAIN) {
+            result.append(KAVA_MAIN)
             
-        } else if (chain == SUPPORT_CHAIN_KAVA_MAIN) {
-            result.append(SUPPORT_CHAIN_BINANCE_MAIN)
+        } else if (chain == KAVA_MAIN) {
+            result.append(BINANCE_MAIN)
             
         }
         return result

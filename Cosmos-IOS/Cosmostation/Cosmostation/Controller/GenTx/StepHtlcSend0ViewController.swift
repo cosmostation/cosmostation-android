@@ -54,7 +54,7 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     }
     
     @IBAction func onClickNext(_ sender: UIButton) {
-        if (pageHolderVC.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        if (pageHolderVC.chainType == ChainType.BINANCE_MAIN) {
             onCheckSwapSupply()
         } else {
             self.btnCancel.isUserInteractionEnabled = false

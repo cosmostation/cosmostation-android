@@ -104,7 +104,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     
     
     func onSetValidatorItem(_ cell: OtherValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
             let url = COSMOS_VAL_URL + validator.operator_address + ".png"
@@ -115,7 +115,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 cell.validatorImg.image = image
             }
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, chainType!)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
             let url = IRIS_VAL_URL + validator.operator_address + ".png"
@@ -125,7 +125,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 cell.validatorImg.image = image
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
             let url = KAVA_IMG_URL + validator.operator_address + ".png"
@@ -135,7 +135,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 cell.validatorImg.image = image
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
             let url = BAND_IMG_URL + validator.operator_address + ".png"
@@ -161,13 +161,13 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         }
         
         if mainTabVC.mMyValidators.first(where: {$0.operator_address == validator.operator_address}) != nil {
-            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (chainType == ChainType.COSMOS_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
-            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (chainType == ChainType.IRIS_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
-            } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            } else if (chainType == ChainType.BAND_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
             }
         } else {

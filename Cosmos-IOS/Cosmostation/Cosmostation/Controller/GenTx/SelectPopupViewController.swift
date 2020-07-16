@@ -84,11 +84,11 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             cell?.keyStatusImg.image = cell?.keyStatusImg.image?.withRenderingMode(.alwaysTemplate)
             cell?.accountAddress.text = account.account_address
             WUtils.setDenomTitle(toChain!, cell!.accountDenom)
-            if (toChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || toChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            if (toChain == ChainType.BINANCE_MAIN || toChain == ChainType.BINANCE_TEST) {
                 cell?.keyStatusImg.tintColor = COLOR_BNB
                 cell!.accountBalance.attributedText = WUtils.displayAmount2(WUtils.getTokenAmount(account.account_balances, BNB_MAIN_DENOM).stringValue, cell!.accountBalance.font, 0, 8)
                 
-            } else if (toChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || toChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (toChain == ChainType.KAVA_MAIN || toChain == ChainType.KAVA_TEST) {
                 cell?.keyStatusImg.tintColor = COLOR_KAVA
                 cell!.accountBalance.attributedText = WUtils.displayAmount2(WUtils.getTokenAmount(account.account_balances, KAVA_MAIN_DENOM).stringValue, cell!.accountBalance.font, 6, 6)
             }

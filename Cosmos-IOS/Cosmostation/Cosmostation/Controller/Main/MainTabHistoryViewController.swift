@@ -47,13 +47,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.refresher.tintColor = UIColor.white
         self.historyTableView.addSubview(refresher)
         
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
             onFetchHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
     }
@@ -74,34 +74,34 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         }
         
         titleChainName.textColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Chain)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.KAVA_MAIN) {
             titleChainImg.image = UIImage(named: "kavaImg")
             titleChainName.text = "(KAVA Chain)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chainType! == ChainType.IOV_MAIN) {
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
-        }  else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        }  else if (chainType! == ChainType.BAND_MAIN) {
             titleChainImg.image = UIImage(named: "bandChainImg")
             titleChainName.text = "(Band Chain)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Test)"
             titleAlarmBtn.isHidden = true
-        }  else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        }  else if (chainType! == ChainType.KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(KAVA Test)"
             titleAlarmBtn.isHidden = true
@@ -124,42 +124,42 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onRequestFetch() {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
             onFetchHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
             return self.mHistories.count
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return self.mBnbHistories.count
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN) {
             return self.mApiHistories.count
         }
         return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             return onSetCosmosItems(tableView, indexPath);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             return onSetIrisItem(tableView, indexPath);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.KAVA_MAIN) {
             return onSetKavaItem(tableView, indexPath);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return onSetBnbItem(tableView, indexPath);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chainType == ChainType.IOV_MAIN) {
             return onSetIovItem(tableView, indexPath);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_TEST) {
             return onSetKavaItem(tableView, indexPath);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             return onSetBandItem(tableView, indexPath);
         }
         return onSetEmptyItem(tableView, indexPath);
@@ -251,7 +251,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             let history = mHistories[indexPath.row]
             let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
             txDetailVC.mIsGen = false
@@ -260,7 +260,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(txDetailVC, animated: true)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             let history = mHistories[indexPath.row]
             let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
             txDetailVC.mIsGen = false
@@ -269,7 +269,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(txDetailVC, animated: true)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.BINANCE_MAIN) {
             let bnbHistory = mBnbHistories[indexPath.row]
             if (bnbHistory.txType == "HTL_TRANSFER" || bnbHistory.txType == "CLAIM_HTL" || bnbHistory.txType == "REFUND_HTL" || bnbHistory.txType == "TRANSFER") {
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
@@ -286,7 +286,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                 present(safariViewController, animated: true, completion: nil)
             }
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             let history = mApiHistories[indexPath.row]
             let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
             txDetailVC.mIsGen = false
@@ -295,7 +295,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(txDetailVC, animated: true)
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_TEST) {
             let bnbHistory = mBnbHistories[indexPath.row]
             if (bnbHistory.txType == "HTL_TRANSFER" || bnbHistory.txType == "CLAIM_HTL" || bnbHistory.txType == "REFUND_HTL" || bnbHistory.txType == "TRANSFER") {
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
@@ -312,7 +312,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                 present(safariViewController, animated: true, completion: nil)
             }
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             let history = mApiHistories[indexPath.row]
             let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
             txDetailVC.mIsGen = false
@@ -326,11 +326,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     func onFetchHistory(_ address:String) {
         var query = ""
         var url = ""
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\", \"tx.value.msg.value.proposer\"]}}}"
             url = CSS_ES_PROXY_COSMOS
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.address\", \"tx.value.msg.value.owner\", \"tx.value.msg.value.banker\", \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.proposer\", \"tx.value.msg.value.dest_address\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.author\", \"tx.value.msg.value.consumer\", \"tx.value.msg.value.trustee\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\"]}}}"
             url = IRIS_ES_PROXY_IRIS
             
@@ -374,9 +374,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchBnbHistory(_ address:String) {
         var url = ""
-        if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        if (chainType == ChainType.BINANCE_MAIN) {
             url = BNB_URL_HISTORY
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_HISTORY
         }
         let request = Alamofire.request(url, method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970], encoding: URLEncoding.default, headers: [:])
@@ -408,11 +408,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchApiHistory(_ address:String) {
         var url: String?
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_API_HISTORY + address
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_API_TEST_HISTORY + address
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_API_HISTORY + address
         }
         print("url ", url)
@@ -420,7 +420,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST || self.chainType == ChainType.BAND_MAIN) {
                     self.mApiHistories.removeAll()
                     guard let histories = res as? Array<NSDictionary> else {
                         if (SHOW_LOG) { print("no history!!") }

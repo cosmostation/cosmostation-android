@@ -118,22 +118,22 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 }
                 
             } else if(indexPath.row == 2) {
-                if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (chainType == ChainType.COSMOS_MAIN) {
                     guard let url = URL(string: "https://www.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
                     present(safariViewController, animated: true, completion: nil)
                     
-                } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                } else if (chainType == ChainType.IRIS_MAIN) {
                     guard let url = URL(string: "https://irishub.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
                     present(safariViewController, animated: true, completion: nil)
                     
-                } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                } else if (chainType == ChainType.BINANCE_MAIN) {
                     guard let url = URL(string: "https://binance.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
                     present(safariViewController, animated: true, completion: nil)
                     
-                } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                } else if (chainType == ChainType.KAVA_MAIN) {
                     guard let url = URL(string: "https://kava.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
                     present(safariViewController, animated: true, completion: nil)

@@ -118,7 +118,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     
     
     func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
             if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
@@ -135,7 +135,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.validatorImg.image = image
             }
 
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, chainType!)
             if (mainTabVC!.mIrisStakePool != nil) {
                 let provisions = NSDecimalNumber.init(string: mainTabVC.mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
@@ -152,7 +152,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.validatorImg.image = image
             }
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
             if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
@@ -169,7 +169,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.validatorImg.image = image
             }
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
             if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
@@ -200,13 +200,13 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         }
 
         if mainTabVC.mMyValidators.first(where: {$0.operator_address == validator.operator_address}) != nil {
-            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (chainType == ChainType.COSMOS_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
-            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (chainType == ChainType.IRIS_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
-            } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            } else if (chainType == ChainType.BAND_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
             }
         } else {
@@ -282,13 +282,13 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             if (!$0.jailed && $1.jailed) {
                 return true
             }
-            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (chainType == ChainType.COSMOS_MAIN) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
-            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (chainType == ChainType.IRIS_MAIN) {
                 return Double($0.commission.rate)! < Double($1.commission.rate)!
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
-            } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+            } else if (chainType == ChainType.BAND_MAIN) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
             }
             return false
