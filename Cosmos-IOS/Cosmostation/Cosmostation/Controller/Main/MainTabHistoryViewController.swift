@@ -90,7 +90,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainName.text = "(KAVA Chain)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.IOV_MAIN) {
-            titleChainImg.image = UIImage(named: "iovImg")
+            titleChainImg.image = UIImage(named: "iovChainImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
         }  else if (chainType! == ChainType.BAND_MAIN) {
@@ -104,6 +104,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         }  else if (chainType! == ChainType.KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(KAVA Test)"
+            titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.IOV_TEST) {
+            titleChainImg.image = UIImage(named: "iovTestnetImg")
+            titleChainName.text = "(IOV Test)"
             titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in

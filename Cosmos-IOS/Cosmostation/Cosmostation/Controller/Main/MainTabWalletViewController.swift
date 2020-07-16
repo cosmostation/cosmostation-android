@@ -95,7 +95,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainName.text = "(KAVA Chain)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.IOV_MAIN) {
-            titleChainImg.image = UIImage(named: "iovImg")
+            titleChainImg.image = UIImage(named: "iovChainImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.BAND_MAIN) {
@@ -109,6 +109,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(KAVA Test)"
+            titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.IOV_TEST) {
+            titleChainImg.image = UIImage(named: "iovTestnetImg")
+            titleChainName.text = "(IOV Test)"
             titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
@@ -139,7 +143,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             floaty.buttonColor = COLOR_BNB
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             floaty.buttonColor = COLOR_KAVA
-        } else if (chainType! == ChainType.IOV_MAIN) {
+        } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
             floaty.buttonColor = COLOR_IOV
         } else if (chainType! == ChainType.BAND_MAIN) {
             floaty.buttonColor = COLOR_BAND
@@ -171,13 +175,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 5;
         } else if  (chainType == ChainType.KAVA_MAIN) {
             return 7
-        } else if (chainType == ChainType.BINANCE_MAIN ||
-            chainType == ChainType.IOV_MAIN ||
-            chainType == ChainType.BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return 4;
         } else if (chainType == ChainType.KAVA_TEST) {
             return 7
         } else if (chainType == ChainType.BAND_MAIN) {
+            return 5;
+        } else if (chainType == ChainType.IOV_MAIN  || chainType == ChainType.IOV_TEST ) {
             return 5;
         } else {
             return 0;
@@ -197,8 +201,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetBandItem(tableView, indexPath);
         } else if (chainType == ChainType.KAVA_TEST) {
             return onSetKavaTestItem(tableView, indexPath);
-        } else {
+        } else if (chainType == ChainType.IOV_MAIN) {
             return onSetIovItems(tableView, indexPath);
+        } else if (chainType == ChainType.IOV_TEST) {
+            return onSetIovTestItems(tableView, indexPath);
+        } else {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            return cell!
         }
     }
     
@@ -844,38 +853,15 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletIovCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
-            let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.totalAmount.font, 9, 6)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.availableAmount.font, 9, 6)
-            //TODO deposit, rewardand value not support yet
-            cell?.depositedAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.depositedAmount.font, 9, 6)
-            cell?.rewardAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.rewardAmount.font, 9, 6)
-            cell?.totalValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.totalValue.font)
-            cell?.actionDeposit = {
-                self.onClickIovDeposit()
-            }
-            cell?.actionNameService = {
-                self.onClickIovNameservice()
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalIov.multiplying(byPowerOf10: -9).stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.updownImg.image = nil
-            cell?.perPrice.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.perPrice.font)
-            cell?.updownPercent.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.updownPercent.font)
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionTapPricel = { }
             return cell!
             
         } else {
             let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "iovmainImg")
+            cell?.guideImg.image = UIImage(named: "iovImg")
             cell?.guideTitle.text = NSLocalizedString("send_guide_title_iov", comment: "")
             cell?.guideMsg.text = NSLocalizedString("send_guide_msg_iov", comment: "")
             cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iov", comment: ""), for: .normal)
@@ -968,6 +954,94 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.guideMsg.text = NSLocalizedString("send_guide_msg_band", comment: "")
             cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_band", comment: ""), for: .normal)
             cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_band", comment: ""), for: .normal)
+            cell?.actionGuide1 = {
+                self.onClickGuide1()
+            }
+            cell?.actionGuide2 = {
+                self.onClickGuide2()
+            }
+            return cell!
+        }
+    }
+    
+    func onSetIovTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            if (mainTabVC.mAccount.account_has_private) {
+                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
+                cell?.keyState.tintColor = COLOR_IOV
+            }
+            cell?.dpAddress.text = mainTabVC.mAccount.account_address
+            cell?.dpAddress.adjustsFontSizeToFitWidth = true
+            cell?.actionShare = {
+                self.onClickActionShare()
+            }
+            cell?.actionWebLink = {
+//                self.onClickActionLink()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell:WalletIovCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
+//            let totalAmount = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+//            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, BAND_MAIN_DENOM, chainType!)   //mainTabVC.mAccount.getBandBalance()
+//            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
+//            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
+//            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, BAND_MAIN_DENOM, chainType!)
+//
+//            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
+//            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
+//            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
+//            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
+//            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
+//            cell?.totalValue.attributedText = WUtils.dpAtomValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+//            cell?.actionDelegate = {
+//                self.onClickValidatorList()
+//            }
+//            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+//            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+//            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+//            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
+//            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+//                cell?.updownImg.image = UIImage(named: "priceUp")
+//                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+//            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+//                cell?.updownImg.image = UIImage(named: "priceDown")
+//                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+//            } else {
+//                cell?.updownImg.image = nil
+//                cell?.updownPercent.text = ""
+//            }
+//            cell?.buySeparator.isHidden = true
+//            cell?.buyBtn.isHidden = true
+//            cell?.buyConstraint.priority = .defaultLow
+//            cell?.noBuyConstraint.priority = .defaultHigh
+//            cell?.actionTapPricel = {
+//                self.onClickMarketInfo()
+//            }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+//            if (mainTabVC!.mInflation != nil) {
+//                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
+//            }
+//            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
+//                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+//            }
+            return cell!
+            
+        } else {
+            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.guideImg.image = UIImage(named: "iovImg")
+            cell?.guideTitle.text = NSLocalizedString("send_guide_title_iov", comment: "")
+            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_iov", comment: "")
+            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iov", comment: ""), for: .normal)
+            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_iov", comment: ""), for: .normal)
             cell?.actionGuide1 = {
                 self.onClickGuide1()
             }

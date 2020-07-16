@@ -97,7 +97,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             
         } else if (chainType == ChainType.IOV_MAIN) {
             chainImg.image = UIImage(named: "iovImg")
-            keyPath.text = IOV_BASE_PATH.appending(account!.account_path).appending("'")
+            keyPath.text = IOV_BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow

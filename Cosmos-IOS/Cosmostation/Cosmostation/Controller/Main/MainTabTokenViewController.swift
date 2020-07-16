@@ -109,7 +109,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             kavaOracle.isHidden = false
             totalCard.backgroundColor = TRANS_BG_COLOR_KAVA
         } else if (chainType! == ChainType.IOV_MAIN) {
-            titleChainImg.image = UIImage(named: "iovImg")
+            titleChainImg.image = UIImage(named: "iovChainImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
@@ -131,6 +131,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainName.text = "(KAVA Test)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = false
+            totalCard.backgroundColor = COLOR_BG_GRAY
+        } else if (chainType! == ChainType.IOV_TEST) {
+            titleChainImg.image = UIImage(named: "iovTestnetImg")
+            titleChainName.text = "(IOV Test)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
             totalCard.backgroundColor = COLOR_BG_GRAY
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
