@@ -63,7 +63,7 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
             sendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, sendAmountLabel.font, 0, 8)
             sendFeeLabel.attributedText = WUtils.displayAmount2(sendFeeAmount.stringValue, sendFeeLabel.font, 0, 8)
             
-            recipientChainLabel.text = WUtils.getChainName(pageHolderVC.mHtlcToChain!)
+            recipientChainLabel.text = WUtils.getChainId(pageHolderVC.mHtlcToChain!)
             recipientAddressLabel.text = pageHolderVC.mHtlcToAccount?.account_address
             
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
@@ -73,7 +73,7 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
             sendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, sendAmountLabel.font, WUtils.getKavaCoinDecimal(pageHolderVC.mToSendAmount[0].denom), WUtils.getKavaCoinDecimal(pageHolderVC.mToSendAmount[0].denom))
             sendFeeLabel.attributedText = WUtils.displayAmount2(sendFeeAmount.stringValue, sendFeeLabel.font, 6, 6)
             
-            recipientChainLabel.text = WUtils.getChainName(pageHolderVC.mHtlcToChain!)
+            recipientChainLabel.text = WUtils.getChainId(pageHolderVC.mHtlcToChain!)
             claimAddress.text = pageHolderVC.mHtlcToAccount?.account_address
             
         }

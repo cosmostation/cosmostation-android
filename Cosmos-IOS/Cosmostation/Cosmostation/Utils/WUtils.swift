@@ -1639,6 +1639,29 @@ class WUtils {
         return ChainType.COSMOS_MAIN
     }
     
+    static func getChainDBName(_ chain:ChainType) -> String {
+        if (chain == ChainType.COSMOS_MAIN) {
+            return CHAIN_COSMOS_S
+        } else if (chain == ChainType.IRIS_MAIN) {
+            return CHAIN_IRIS_S
+        } else if (chain == ChainType.BINANCE_MAIN) {
+            return CHAIN_BINANCE_S
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return CHAIN_KAVA_S
+        } else if (chain == ChainType.IOV_MAIN) {
+            return CHAIN_IOV_S
+        } else if (chain == ChainType.BAND_MAIN) {
+            return CHAIN_BAND_S
+        } else if (chain == ChainType.BINANCE_TEST) {
+            return CHAIN_BINANCE_TEST_S
+        } else if (chain == ChainType.KAVA_TEST) {
+            return CHAIN_KAVA_TEST_S
+        } else if (chain == ChainType.IOV_TEST) {
+            return CHAIN_IOV_TEST_S
+        }
+        return ""
+    }
+    
     static func getChainTypeInt(_ chainS:String) -> Int {
         if (chainS == CHAIN_COSMOS_S ) {
             return 1
@@ -1663,32 +1686,55 @@ class WUtils {
         return ""
     }
     
-    static func getChainName(_ type:String) -> String {
-        if (type == CHAIN_COSMOS_S) {
+    static func getChainId(_ chainS:String) -> String {
+        if (chainS == CHAIN_COSMOS_S) {
             return "cosmoshub-3"
-        } else if (type == CHAIN_IRIS_S) {
+        } else if (chainS == CHAIN_IRIS_S) {
             return "irishub"
-        } else if (type == CHAIN_BINANCE_S) {
+        } else if (chainS == CHAIN_BINANCE_S) {
             return "Binance-Chain-Tigris"
-        } else if (type == CHAIN_KAVA_S) {
+        } else if (chainS == CHAIN_KAVA_S) {
             return "kava-3"
-        } else if (type == CHAIN_IOV_S) {
+        } else if (chainS == CHAIN_IOV_S) {
             return "iov-mainnet"
-        } else if (type == CHAIN_BAND_S) {
+        } else if (chainS == CHAIN_BAND_S) {
             return "band-wenchang-mainnet"
-        } else if (type == CHAIN_BINANCE_TEST_S) {
+        } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
-        } else if (type == CHAIN_KAVA_TEST_S) {
+        } else if (chainS == CHAIN_KAVA_TEST_S) {
             return "kava-testnet-6000"
-        } else if (type == CHAIN_IOV_TEST_S) {
+        } else if (chainS == CHAIN_IOV_TEST_S) {
             return "iovns-galaxynet"
         }
-        return "cosmoshub-3"
+        return ""
     }
     
-    static func getChainName(_ chain:ChainType) -> String {
-        return getChainName(chain.rawValue)
+    static func getChainId(_ chain:ChainType) -> String {
+        if (chain == ChainType.COSMOS_MAIN) {
+            return "cosmoshub-3"
+        } else if (chain == ChainType.IRIS_MAIN) {
+            return "irishub"
+        } else if (chain == ChainType.BINANCE_MAIN) {
+            return "Binance-Chain-Tigris"
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return "kava-3"
+        } else if (chain == ChainType.IOV_MAIN) {
+            return "iov-mainnet"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return "band-wenchang-mainnet"
+        } else if (chain == ChainType.BINANCE_TEST) {
+            return "Binance-Chain-Nile"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return "kava-testnet-6000"
+        } else if (chain == ChainType.IOV_TEST) {
+            return "iovns-galaxynet"
+        }
+        return ""
     }
+    
+//    static func getChainName(_ chain:ChainType) -> String {
+//        return getChainName(getChainDBName(chain))
+//    }
     
     static func clearBackgroundColor(of view: UIView) {
         if let effectsView = view as? UIVisualEffectView {

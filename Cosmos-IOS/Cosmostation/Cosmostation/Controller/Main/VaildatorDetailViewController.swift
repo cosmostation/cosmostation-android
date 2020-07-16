@@ -251,7 +251,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
-            let url = KAVA_IMG_URL + mValidator!.operator_address + ".png"
+            let url = KAVA_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
                     return
@@ -262,7 +262,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else if (chainType == ChainType.BAND_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
-            let url = BAND_IMG_URL + mValidator!.operator_address + ".png"
+            let url = BAND_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
                     return
@@ -367,7 +367,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
-            let url = KAVA_IMG_URL + mValidator!.operator_address + ".png"
+            let url = KAVA_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
                     return
@@ -378,7 +378,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else if (chainType == ChainType.BAND_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
-            let url = BAND_IMG_URL + mValidator!.operator_address + ".png"
+            let url = BAND_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
                     return

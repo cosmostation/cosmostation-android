@@ -134,6 +134,21 @@ class AddAddressViewController: BaseViewController {
                 return;
             }
             
+        } else if (userInput.starts(with: "star")) {
+            if (!ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_TEST)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                return;
+                
+            }
+            if (WKey.isValidateBech32(userInput)) {
+                self.onGenWatchAccount(ChainType.IOV_TEST, userInput)
+                return;
+            } else {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                self.addAddressInputText.text = ""
+                return;
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
             self.addAddressInputText.text = ""
@@ -147,7 +162,7 @@ class AddAddressViewController: BaseViewController {
         DispatchQueue.global().async {
             let newAccount = Account.init(isNew: true)
             newAccount.account_address = address
-            newAccount.account_base_chain = chain.rawValue
+            newAccount.account_base_chain = WUtils.getChainDBName(chain)
             newAccount.account_has_private = false
             newAccount.account_from_mnemonic = false
             newAccount.account_import_time = Date().millisecondsSince1970

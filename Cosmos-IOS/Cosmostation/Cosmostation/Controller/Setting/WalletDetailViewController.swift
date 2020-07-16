@@ -65,7 +65,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         pushSwitch.onTintColor = WUtils.getChainColor(chainType!)
         cardInfo.backgroundColor = WUtils.getChainBg(chainType!)
         cardReward.backgroundColor = WUtils.getChainBg(chainType!)
-        chainName.text = WUtils.getChainName(account!.account_base_chain)
+        chainName.text = WUtils.getChainId(account!.account_base_chain)
         if (chainType == ChainType.COSMOS_MAIN) {
             chainImg.image = UIImage(named: "cosmosWhMain")
             keyPath.text = BASE_PATH.appending(account!.account_path)

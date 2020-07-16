@@ -78,7 +78,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 } else {
                     cell?.valCommissionLabel.text = "?? %"
                 }
-                let url = KAVA_IMG_URL + validator.operator_address + ".png"
+                let url = KAVA_VAL_URL + validator.operator_address + ".png"
                 cell!.valImg.af_setImage(withURL: URL(string: url)!)
                 
             } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
@@ -90,7 +90,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 } else {
                     cell?.valCommissionLabel.text = "?? %"
                 }
-                let url = BAND_IMG_URL + validator.operator_address + ".png"
+                let url = BAND_VAL_URL + validator.operator_address + ".png"
                 cell!.valImg.af_setImage(withURL: URL(string: url)!)
             }
 

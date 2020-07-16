@@ -161,7 +161,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             } else {
                 cell.commissionLabel.text = "-"
             }
-            let url = KAVA_IMG_URL + validator.operator_address + ".png"
+            let url = KAVA_VAL_URL + validator.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
                     return
@@ -178,7 +178,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             } else {
                 cell.commissionLabel.text = "-"
             }
-            let url = BAND_IMG_URL + validator.operator_address + ".png"
+            let url = BAND_VAL_URL + validator.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
                     return

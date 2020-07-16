@@ -174,7 +174,7 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 
                 if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
                     self.pageHolderVC.chainType! == ChainType.KAVA_TEST || self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
+                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
                                                            String(self.pageHolderVC.mAccount!.account_account_numner),
                                                            String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                            msgList,
@@ -212,7 +212,7 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                                                                self.pageHolderVC.mToReDelegateAmount!)
                     msgToSignList.append(msgTosign)
                     
-                    let irisStdMsg = MsgGenerator.getIrisToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
+                    let irisStdMsg = MsgGenerator.getIrisToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
                                                            String(self.pageHolderVC.mAccount!.account_account_numner),
                                                            String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                            msgToSignList,

@@ -42,11 +42,15 @@ let KAVA_API                            = "https://api-kava-3.cosmostation.io/";
 
 let KAVA_TEST_URL                       = "https://lcd-kava-testnet-6000.cosmostation.io/";
 let KAVA_TEST_API                       = "https://api-kava-testnet-6000.cosmostation.io/";
-
+let KAVA_TEST_FAUCET                    = "https://faucet-kava-3.cosmostation.io/claim/";
 
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
 let IOV_REST_URL                        = "https://bnsapi.iov.one/";
 let IOV_RPC_URL                         = "https://rpc-iov-mainnet.cosmostation.io/";
+
+let IOV_TEST_URL                        = "https://iovnscli-rest-api.cluster-galaxynet.iov.one/";
+let IOV_TEST_API                        = "";
+let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.one/";
 
 let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band-wenchang-mainnet.cosmostation.io/";
@@ -155,7 +159,6 @@ let KAVA_CHECK_SUPPLY                   = KAVA_URL + "supply/total";
 
 let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
 let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
-let KAVA_FAUCET                         = "https://faucet-kava-3.cosmostation.io/claim/";
 
 
 //KAVA_TEST_URL
@@ -185,20 +188,8 @@ let KAVA_TEST_CHECK_SWAPID              = KAVA_TEST_URL + "bep3/swap/";
 let KAVA_TEST_INCENTIVE_PARAM           = KAVA_TEST_URL + "incentive/parameters";
 let KAVA_TEST_MY_INCENTIVE              = KAVA_TEST_URL + "incentive/claims/";
 
-
-
 let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
-let KAVA_TEST_FAUCET                    = "https://faucet-kava-testnet-6000.cosmostation.io/claim/";
-
-let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
-let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
-let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
-
-let IOV_REST_URL_BALANCE                = IOV_REST_URL + "cash/balances";
-let IOV_REST_URL_NONCE                  = IOV_REST_URL + "nonce/address/";
-let IOV_REST_URL_TX_SUBMIT              = IOV_REST_URL + "tx/submit";
-
 
 
 
@@ -210,8 +201,6 @@ let BAND_BONDING                        = BAND_URL + "staking/delegators/";
 let BAND_BONDING_TAIL                   = "/delegations";
 let BAND_UNBONDING                      = BAND_URL + "staking/delegators/";
 let BAND_UNBONDING_TAIL                 = "/unbonding_delegations";
-//let CSS_LCD_URL_REWARD_ALL              = CSS_LCD_URL + "distribution/delegators/";
-//let CSS_LCD_URL_REWARD_ALL_TAIL         = "/rewards";
 let BAND_REWARD_FROM_VAL                = BAND_URL + "distribution/delegators/";
 let BAND_REWARD_FROM_VAL_TAIL           = "/rewards/";
 let BAND_REWARD_ADDRESS                 = BAND_URL + "distribution/delegators/";
@@ -228,6 +217,39 @@ let BAND_API_HISTORY                    = BAND_API + "v1/account/txs/";
 let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";
 
 
+
+let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
+let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
+let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
+
+let IOV_REST_URL_BALANCE                = IOV_REST_URL + "cash/balances";
+let IOV_REST_URL_NONCE                  = IOV_REST_URL + "nonce/address/";
+let IOV_REST_URL_TX_SUBMIT              = IOV_REST_URL + "tx/submit";
+
+
+
+let IOV_TEST_TX                         = IOV_TEST_URL + "txs/";
+let IOV_TEST_VALIDATORS                 = IOV_TEST_URL + "staking/validators";
+let IOV_TEST_ACCOUNT_INFO               = IOV_TEST_URL + "auth/accounts/";
+let IOV_TEST_BONDING                    = IOV_TEST_URL + "staking/delegators/";
+let IOV_TEST_BONDING_TAIL               = "/delegations";
+let IOV_TEST_UNBONDING                  = IOV_TEST_URL + "staking/delegators/";
+let IOV_TEST_UNBONDING_TAIL             = "/unbonding_delegations";
+let IOV_TEST_REWARD_FROM_VAL            = IOV_TEST_URL + "distribution/delegators/";
+let IOV_TEST_REWARD_FROM_VAL_TAIL       = "/rewards/";
+let IOV_TEST_REWARD_ADDRESS             = IOV_TEST_URL + "distribution/delegators/";
+let IOV_TEST_REWARD_ADDRESS_TAIL        = "/withdraw_address";
+let IOV_TEST_REDELEGATION               = IOV_TEST_URL + "staking/redelegations";
+let IOV_TEST_INFLATION                  = IOV_TEST_URL + "minting/inflation";
+let IOV_TEST_PROVISIONS                 = IOV_TEST_URL + "minting/annual-provisions";
+let IOV_TEST_STAKING_POOL               = IOV_TEST_URL + "staking/pool";
+//let IOV_TEST_PROPOSALS               = IOV_TEST_URL + "gov/proposals";
+//let IOV_TEST_PROPOSALS_TALLY_TAIL    = "/tally";
+let IOV_TEST_BORAD_TX                   = IOV_TEST_URL + "txs";
+
+
+
+
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let IRIS_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "iris/v1/getTxsByAddr";
 let KAVA_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "kava/v1/getTxsByAddr";
@@ -235,13 +257,17 @@ let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 let KEY_BASE_URL_USER_INFO              = KEY_BASE_URL + "_/api/1.0/user/lookup.json";
 
-let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
+
 let COSMOS_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
 let IRIS_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
-let KAVA_IMG_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
+let KAVA_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
+let BAND_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+//TODO
+let IOV_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+
+let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
 let KAVA_CDP_MARKET_IMG_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
-let BAND_IMG_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
 
 
 //DB for Account
@@ -416,7 +442,7 @@ let PASSWORD_RESUKT_OK_FOR_DELETE           = 3
 let BASE_PATH                               = "m/44'/118'/0'/0/"
 let BNB_BASE_PATH                           = "m/44'/714'/0'/0/"
 let KAVA_BASE_PATH                          = "m/44'/459'/0'/0/"
-let IOV_BASE_PATH                           = "m/44'/234'/"
+let IOV_BASE_PATH                           = "m/44'/234'/0'/0/"
 let BAND_BASE_PATH                          = "m/44'/494'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";

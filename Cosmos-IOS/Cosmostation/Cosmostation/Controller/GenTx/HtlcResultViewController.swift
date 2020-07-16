@@ -392,7 +392,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     var msgList = Array<Msg>()
                     msgList.append(msg)
                     
-                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.account!.account_base_chain),
+                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.account!.account_base_chain),
                                                            String(self.account!.account_account_numner),
                                                            String(self.account!.account_sequence_number),
                                                            msgList,
@@ -667,7 +667,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     var msgList = Array<Msg>()
                     msgList.append(msg)
                     
-                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.mHtlcToAccount!.account_base_chain),
+                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.mHtlcToAccount!.account_base_chain),
                                                            String(self.mHtlcToAccount!.account_account_numner),
                                                            String(self.mHtlcToAccount!.account_sequence_number),
                                                            msgList,

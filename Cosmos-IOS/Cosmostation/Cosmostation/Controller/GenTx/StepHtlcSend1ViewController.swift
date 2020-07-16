@@ -31,7 +31,7 @@ class StepHtlcSend1ViewController: BaseViewController, SBCardPopupDelegate {
     
     func updateView() {
         self.warnMsg.text = String(format: NSLocalizedString("error_can_not_bep3_account_msg", comment: ""),
-                                   WUtils.getChainName(pageHolderVC!.mHtlcToChain!))
+                                   WUtils.getChainId(pageHolderVC!.mHtlcToChain!))
         
         toAddressImg.image = toAddressImg.image?.withRenderingMode(.alwaysTemplate)
         if (pageHolderVC.mHtlcToChain == ChainType.BINANCE_MAIN || pageHolderVC.mHtlcToChain == ChainType.BINANCE_TEST) {
@@ -76,9 +76,9 @@ class StepHtlcSend1ViewController: BaseViewController, SBCardPopupDelegate {
 
         } else {
             let title = String(format: NSLocalizedString("no_account", comment: ""),
-                                    WUtils.getChainName(pageHolderVC!.mHtlcToChain!))
+                                    WUtils.getChainId(pageHolderVC!.mHtlcToChain!))
             let msg = String(format: NSLocalizedString("error_can_not_bep3_account_msg", comment: ""),
-                                    WUtils.getChainName(pageHolderVC!.mHtlcToChain!))
+                                    WUtils.getChainId(pageHolderVC!.mHtlcToChain!))
             let noAccountAlert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = NSTextAlignment.left

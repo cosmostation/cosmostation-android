@@ -447,6 +447,7 @@
 "chain_title_band" = "Band Mainnet";
 "chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
+"chain_title_iov_test" = "IOV Testnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";
 

@@ -194,13 +194,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
             cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
-            let url = KAVA_IMG_URL + validator.operator_address + ".png"
+            let url = KAVA_VAL_URL + validator.operator_address + ".png"
             cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
             cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
-            let url = BAND_IMG_URL + validator.operator_address + ".png"
+            let url = BAND_VAL_URL + validator.operator_address + ".png"
             cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         }

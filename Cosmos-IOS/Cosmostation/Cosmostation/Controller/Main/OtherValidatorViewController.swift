@@ -128,7 +128,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
-            let url = KAVA_IMG_URL + validator.operator_address + ".png"
+            let url = KAVA_VAL_URL + validator.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
                     return
@@ -138,7 +138,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.BAND_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
-            let url = BAND_IMG_URL + validator.operator_address + ".png"
+            let url = BAND_VAL_URL + validator.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
                     return

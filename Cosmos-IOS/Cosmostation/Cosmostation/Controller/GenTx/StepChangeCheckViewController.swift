@@ -177,7 +177,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                 msgList.append(msg)
                 
                 
-                let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
+                let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),
                                                        String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                        msgList,

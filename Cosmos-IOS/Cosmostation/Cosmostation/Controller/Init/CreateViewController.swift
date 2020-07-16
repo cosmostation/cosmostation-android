@@ -145,7 +145,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             self.chainType = ChainType.IOV_MAIN
             self.onGenNewKey()
         })
-        iovAction.setValue(UIImage(named: "iovImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        iovAction.setValue(UIImage(named: "iovChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let bandAction = UIAlertAction(title: NSLocalizedString("chain_title_band", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.BAND_MAIN
@@ -165,6 +165,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         kavaTestAction.setValue(UIImage(named: "kavaTestImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let iovTestAction = UIAlertAction(title: NSLocalizedString("chain_title_iov_test", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.IOV_TEST
+            self.onGenNewKey()
+        })
+        iovTestAction.setValue(UIImage(named: "iovTestnetImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
@@ -178,6 +184,9 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         }
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.KAVA_TEST)) {
             showAlert.addAction(kavaTestAction)
+        }
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_TEST)) {
+            showAlert.addAction(iovTestAction)
         }
         self.present(showAlert, animated: true, completion: nil)
     }
@@ -219,7 +228,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                     }
                 }
 
-                if(self.checkedPassword) {
+                if (self.checkedPassword) {
                     self.warningMsgLabel.text = NSLocalizedString("password_msg2", comment: "")
                     self.nextBtn.setTitle(NSLocalizedString("create_wallet", comment: ""), for: .normal)
                 } else {
@@ -275,14 +284,14 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             var insertResult :Int64 = -1
             if(keyResult) {
                 newAccount.account_address = self.dpAddress!
-                newAccount.account_base_chain = chain.rawValue
+//                newAccount.account_base_chain = chain.rawValue
+                newAccount.account_base_chain = WUtils.getChainDBName(chain)
                 newAccount.account_has_private = true
                 newAccount.account_from_mnemonic = true
                 newAccount.account_path = "0"
                 newAccount.account_m_size = 24
                 newAccount.account_import_time = Date().millisecondsSince1970
-                if (chain == ChainType.KAVA_MAIN ||
-                    chain == ChainType.KAVA_TEST) {
+                if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
                     newAccount.account_new_bip44 = true
                 }
                 insertResult = BaseData.instance.insertAccount(newAccount)

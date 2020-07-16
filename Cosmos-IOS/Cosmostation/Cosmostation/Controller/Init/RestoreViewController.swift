@@ -180,6 +180,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         kavaTestAction.setValue(UIImage(named: "kavaTestImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let iovTestAction = UIAlertAction(title: NSLocalizedString("chain_title_iov_test", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.IOV_TEST
+            self.initViewUpdate()
+        })
+        iovTestAction.setValue(UIImage(named: "iovTestnetImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
@@ -193,6 +199,9 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         }
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.KAVA_TEST)) {
             showAlert.addAction(kavaTestAction)
+        }
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_TEST)) {
+            showAlert.addAction(iovTestAction)
         }
         self.present(showAlert, animated: true, completion: nil)
     }
@@ -305,7 +314,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             self.mNemonicInputs[mCurrentPosition].text = subText
             updateCollectionView()
         } else {
-            if(mCurrentPosition > 0) {
+            if (mCurrentPosition > 0) {
                 mCurrentPosition = mCurrentPosition - 1
             } else {
                 self.navigationController?.popViewController(animated: true)
