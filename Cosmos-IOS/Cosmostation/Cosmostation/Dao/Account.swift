@@ -143,7 +143,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
     func getIovBalance() -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
         for balance in self.account_balances {
-            if (balance.balance_denom == IOV_MAIN_DENOM) {
+            if (balance.balance_denom == IOV_MAIN_DENOM || balance.balance_denom == IOV_TEST_DENOM) {
                 result = WUtils.stringToDecimalNoLocale(balance.balance_amount)
             }
         }

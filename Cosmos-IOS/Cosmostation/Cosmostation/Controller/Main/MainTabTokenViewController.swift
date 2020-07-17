@@ -193,7 +193,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             onFetchBandTokenPrice()
+            
+        } else if (chainType! == ChainType.IOV_MAIN) {
+            onFetchIovTokenPrice()
+            
+        } else if (chainType! == ChainType.IOV_TEST) {
+            onFetchIovTokenPrice()
+            updateFloaty()
+            
         }
+        
     }
     
     func updateFloaty() {
@@ -217,6 +226,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let floaty = Floaty()
             floaty.buttonImage = UIImage.init(named: "faucetBtn")
             floaty.buttonColor = COLOR_BNB
+            floaty.fabDelegate = self
+            self.view.addSubview(floaty)
+            
+        } else if (chainType! == ChainType.IOV_TEST) {
+            let floaty = Floaty()
+            floaty.buttonImage = UIImage.init(named: "faucetBtn")
+            floaty.buttonColor = COLOR_IOV
             floaty.fabDelegate = self
             self.view.addSubview(floaty)
             
@@ -285,7 +301,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allBnb.stringValue, totalAmount.font, 0, 6)
             totalValue.attributedText = WUtils.dpBnbValue(allBnb, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.KAVA_MAIN) {
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             var allKava = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
                 if (balance.balance_denom == KAVA_MAIN_DENOM) {
@@ -298,30 +314,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             totalAmount.attributedText = WUtils.displayAmount2(allKava.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allKava, BaseData.instance.getLastPrice(), totalValue.font)
-            
-        } else if (chainType! == ChainType.KAVA_TEST) {
-            var allKava = NSDecimalNumber.zero
-            for balance in mainTabVC.mBalances {
-                if (balance.balance_denom == KAVA_MAIN_DENOM) {
-                    allKava = allKava.adding(WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator))
-                } else {
-                    let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice)
-                    let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(6))
-                    allKava = allKava.adding(convertedKavaAmount.multiplying(byPowerOf10: 6))
-                }
-            }
-            totalAmount.attributedText = WUtils.displayAmount2(allKava.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpAtomValue(allKava, BaseData.instance.getLastPrice(), totalValue.font)
-            
-        } else if (chainType! == ChainType.IOV_MAIN) {
-            let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, totalAmount.font, 9, 6)
-            totalValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, totalValue.font)
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             let allBand = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allBand, BaseData.instance.getLastPrice(), totalValue.font)
+            
+        } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
+            let allIov = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            totalAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), totalValue.font)
             
         }
     }
@@ -341,7 +343,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetKavaItems(tableView, indexPath)
         } else if (chainType! == ChainType.KAVA_TEST) {
             return onSetKavaTestItems(tableView, indexPath)
-        } else if (chainType! == ChainType.IOV_MAIN) {
+        } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
             return onSetIovItems(tableView, indexPath)
         } else if (chainType! == ChainType.BAND_MAIN) {
             return onSetBandItems(tableView, indexPath)
@@ -533,17 +535,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func onSetIovItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
-        if (balance.balance_denom == IOV_MAIN_DENOM) {
+        if (balance.balance_denom == IOV_MAIN_DENOM || balance.balance_denom == IOV_TEST_DENOM) {
             cell?.tokenImg.image = UIImage(named: "iovTokenImg")
-            cell?.tokenSymbol.text = IOV_MAIN_DENOM
+            cell?.tokenSymbol.text = "IOV"
             cell?.tokenSymbol.textColor = COLOR_IOV
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = balance.balance_denom
-            
-            let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.tokenAmount.font!, 9, 6)
-            //TODO zero value for iov
-            cell?.tokenValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.tokenValue.font)
+            cell?.tokenDescription.text = "IOV Chain Native Token"
+                        
+            let allIov = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, cell!.tokenAmount.font!, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             
         } else { }
         return cell!
@@ -610,6 +611,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.onUpdateTotalCard()
     }
     
+    func onFetchIovTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    
     func onRequestFaucet() {
         if (chainType! == ChainType.BINANCE_TEST) {
             if (mainTabVC.mAccount.getBnbBalance().compare(NSDecimalNumber.init(value: 2)).rawValue > 0) {
@@ -674,6 +680,26 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
             }
             
+        } else if (chainType! == ChainType.IOV_TEST) {
+            if (mainTabVC.mAccount.getIovBalance().compare(NSDecimalNumber.init(value: 1000000000)).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
+                return
+            }
+            self.showWaittingAlert()
+            let request = Alamofire.request(IOV_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
+                        self.onRequestFetch()
+                        self.hideWaittingAlert()
+                    })
+
+                case .failure(let error):
+                    self.onShowToast(error.localizedDescription)
+                    self.hideWaittingAlert()
+                }
+            }
         }
     }
     
@@ -769,6 +795,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
         }
+        
+//        else if (chainType! == ChainType.BAND_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_TEST) {
+//
+//        }
     }
     
     func sortByAmount() {
@@ -804,6 +838,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.getAllAmountBnbToken().compare($1.getAllAmountBnbToken()).rawValue > 0 ? true : false
             }
+            
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == KAVA_MAIN_DENOM) {
@@ -814,7 +849,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return WUtils.stringToDecimal($0.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($0.balance_denom)).compare(WUtils.stringToDecimal($1.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($1.balance_denom))).rawValue > 0 ? true : false
             }
+            
         }
+        
+//        else if (chainType! == ChainType.BAND_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_TEST) {
+//
+//        }
     }
     
     func sortByValue() {
@@ -841,6 +885,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.kavaTokenDollorValue(BaseData.instance.mKavaPrice).compare($1.kavaTokenDollorValue(BaseData.instance.mKavaPrice)).rawValue > 0 ? true : false
             }
         }
+        
+//        else if (chainType! == ChainType.BAND_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_TEST) {
+//
+//        }
         
     }
 }

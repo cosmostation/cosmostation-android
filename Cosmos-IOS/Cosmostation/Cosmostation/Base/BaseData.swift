@@ -173,7 +173,11 @@ final class BaseData : NSObject{
     
     func getLastDollorPrice() -> NSDecimalNumber {
         let doubleValue = getMarketTic()?.value(forKeyPath: getPriceDollorPath()) as? Double
-        return NSDecimalNumber.init(string: String(doubleValue!))
+        if (doubleValue != nil) {
+            return NSDecimalNumber.init(string: String(doubleValue!))
+        } else {
+            return NSDecimalNumber.zero
+        }
     }
     
     func get24hPrice() -> Double? {

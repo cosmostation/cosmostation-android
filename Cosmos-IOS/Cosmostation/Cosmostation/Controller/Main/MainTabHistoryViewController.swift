@@ -55,6 +55,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BAND_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+            self.comingLabel.isHidden = false
         }
     }
     
@@ -136,6 +138,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BAND_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+            self.comingLabel.isHidden = false
         }
     }
 

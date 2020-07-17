@@ -51,7 +51,7 @@ let IOV_RPC_URL                         = "https://rpc-iov-mainnet.cosmostation.
 
 let IOV_TEST_URL                        = "https://iovnscli-rest-api.cluster-galaxynet.iov.one/";
 let IOV_TEST_API                        = "";
-let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.one/";
+let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.one/credit?address=";
 
 let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band-wenchang-mainnet.cosmostation.io/";
