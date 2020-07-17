@@ -1013,6 +1013,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             parameters = [:]
         } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
             //TODO No price info for IOV
+            BaseData.instance.setPriceTicCgc(nil)
             return
         }
         let request = Alamofire.request(url!, method: .get,  parameters: parameters, encoding: URLEncoding.default, headers: [:]);
@@ -1030,7 +1031,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
             case .failure(let error):
-                if(showMsg) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
+                if (showMsg) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
                 if (SHOW_LOG) { print("onFetchPriceTic ", error) }
             }
             NotificationCenter.default.post(name: Notification.Name("onPriceFetchDone"), object: nil, userInfo: nil)

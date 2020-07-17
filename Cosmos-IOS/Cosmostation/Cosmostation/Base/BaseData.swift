@@ -96,7 +96,7 @@ final class BaseData : NSObject{
         return UserDefaults.standard.bool(forKey: KEY_ACCOUNT_REFRESH_ALL)
     }
     
-    func setPriceTicCgc(_ tic :NSDictionary) {
+    func setPriceTicCgc(_ tic :NSDictionary?) {
         let encodedData = NSKeyedArchiver.archivedData(withRootObject: tic)
         UserDefaults.standard.setValue(encodedData, forKey: KEY_PRICE_TIC_CGC)
     }
