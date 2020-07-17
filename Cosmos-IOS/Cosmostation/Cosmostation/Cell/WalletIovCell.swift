@@ -10,6 +10,7 @@ import UIKit
 
 class WalletIovCell: UITableViewCell {
     
+    @IBOutlet weak var rootCardView: CardView!
     @IBOutlet weak var totalAmount: UILabel!
     @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var availableAmount: UILabel!

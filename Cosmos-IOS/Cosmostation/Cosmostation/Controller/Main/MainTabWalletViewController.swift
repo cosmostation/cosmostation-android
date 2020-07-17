@@ -167,7 +167,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @objc func onPriceFetchDone(_ notification: NSNotification) {
-        print("onPriceFetchDone")
+        self.walletTableView.reloadData()
     }
     
     
@@ -990,6 +990,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletIovCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
+            cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
             let totalAmount = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, IOV_TEST_DENOM, chainType!)
             let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
@@ -1482,7 +1483,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.IOV_MAIN) {
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "500000000")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
@@ -1495,6 +1496,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 return
             }
             txVC.mType = BAND_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.IOV_TEST) {
+            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mIovSendDenom = IOV_TEST_DENOM
+            txVC.mType = IOV_MSG_TYPE_TRANSFER
             
         } else {
             return

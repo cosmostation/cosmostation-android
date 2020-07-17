@@ -256,7 +256,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onPriceFetchDone(_ notification: NSNotification) {
-        print("onPriceFetchDone")
+        self.updateView()
     }
     
     @objc func onStartSort() {

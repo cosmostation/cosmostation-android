@@ -253,6 +253,7 @@
                 <outlet property="availableAmount" destination="mhh-Sg-VXL" id="S9l-u6-kuA"/>
                 <outlet property="delegatedAmount" destination="1Z2-rO-SPh" id="Szx-5C-AoJ"/>
                 <outlet property="rewardAmount" destination="iXw-gQ-oKJ" id="Uv3-VN-62S"/>
+                <outlet property="rootCardView" destination="5bS-n7-rXB" id="aBk-lD-OCH"/>
                 <outlet property="totalAmount" destination="b3v-p6-TFf" id="1tI-CS-3Eh"/>
                 <outlet property="totalValue" destination="b12-mU-85f" id="cjC-ct-0rw"/>
                 <outlet property="unbondingAmount" destination="H83-xW-qX2" id="koc-0Z-P31"/>

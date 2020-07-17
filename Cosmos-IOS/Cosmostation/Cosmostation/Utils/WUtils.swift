@@ -39,9 +39,7 @@ class WUtils {
     
     static func getAccountWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Account {
         let result = account
-        if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT ||
-            accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY ||
-            accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) {
+        if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) {
             result.account_address = accountInfo.value.address
             result.account_sequence_number = Int64(accountInfo.value.sequence) ?? 0
             result.account_account_numner = Int64(accountInfo.value.account_number) ?? 0
