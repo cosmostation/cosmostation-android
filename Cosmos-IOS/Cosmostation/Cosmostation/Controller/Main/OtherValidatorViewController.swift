@@ -42,18 +42,24 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceFetchDone(_:)), name: Notification.Name("onPriceFetchDone"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.onSorting), name: Notification.Name("onSorting"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("onPriceFetchDone"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onSorting"), object: nil)
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
         self.onSorting()
         self.refresher.endRefreshing()
+    }
+    
+    @objc func onPriceFetchDone(_ notification: NSNotification) {
+        print("onPriceFetchDone")
     }
     
     @objc func onSorting() {

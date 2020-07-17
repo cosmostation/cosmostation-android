@@ -152,6 +152,6 @@ class MainTabSettingViewController: BaseViewController {
     }
     
     @objc func onRefreshPrice(_ notification: NSNotification) {
-        mainTabVC.onFetchPriceTic(false)
+        mainTabVC.onFetchPriceTic(true)
     }
 }

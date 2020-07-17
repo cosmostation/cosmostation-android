@@ -45,6 +45,7 @@ let KAVA_TEST_API                       = "https://api-kava-testnet-6000.cosmost
 let KAVA_TEST_FAUCET                    = "https://faucet-kava-3.cosmostation.io/claim/";
 
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
+let IOV_API                             = "";
 let IOV_REST_URL                        = "https://bnsapi.iov.one/";
 let IOV_RPC_URL                         = "https://rpc-iov-mainnet.cosmostation.io/";
 
@@ -226,6 +227,26 @@ let IOV_REST_URL_BALANCE                = IOV_REST_URL + "cash/balances";
 let IOV_REST_URL_NONCE                  = IOV_REST_URL + "nonce/address/";
 let IOV_REST_URL_TX_SUBMIT              = IOV_REST_URL + "tx/submit";
 
+
+
+let IOV_TX                              = IOV_URL + "txs/";
+let IOV_VALIDATORS                      = IOV_URL + "staking/validators";
+let IOV_ACCOUNT_INFO                    = IOV_URL + "auth/accounts/";
+let IOV_BONDING                         = IOV_URL + "staking/delegators/";
+let IOV_BONDING_TAIL                    = "/delegations";
+let IOV_UNBONDING                       = IOV_URL + "staking/delegators/";
+let IOV_UNBONDING_TAIL                  = "/unbonding_delegations";
+let IOV_REWARD_FROM_VAL                 = IOV_URL + "distribution/delegators/";
+let IOV_REWARD_FROM_VAL_TAIL            = "/rewards/";
+let IOV_REWARD_ADDRESS                  = IOV_URL + "distribution/delegators/";
+let IOV_REWARD_ADDRESS_TAIL             = "/withdraw_address";
+let IOV_REDELEGATION                    = IOV_URL + "staking/redelegations";
+let IOV_INFLATION                       = IOV_URL + "minting/inflation";
+let IOV_PROVISIONS                      = IOV_URL + "minting/annual-provisions";
+let IOV_STAKING_POOL                    = IOV_URL + "staking/pool";
+//let IOV_PROPOSALS               = IOV_URL + "gov/proposals";
+//let IOV_PROPOSALS_TALLY_TAIL    = "/tally";
+let IOV_BORAD_TX                        = IOV_URL + "txs";
 
 
 let IOV_TEST_TX                         = IOV_TEST_URL + "txs/";
