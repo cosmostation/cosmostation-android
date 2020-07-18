@@ -191,6 +191,23 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 cell.validatorImg.image = image
             }
+            
+        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+            cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
+            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
+            } else {
+                cell.commissionLabel.text = "-"
+            }
+            let url = IOV_VAL_URL + validator.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell.validatorImg.image = image
+            }
         }
         
         cell.monikerLabel.text = validator.description.moniker
@@ -214,6 +231,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
             } else if (chainType == ChainType.BAND_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
+            } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
             }
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY
@@ -295,6 +314,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
             } else if (chainType == ChainType.BAND_MAIN) {
+                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
+            } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
             }
             return false

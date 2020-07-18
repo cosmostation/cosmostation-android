@@ -131,6 +131,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 cell.validatorImg.image = image
             }
+            
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
@@ -141,10 +142,22 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 cell.validatorImg.image = image
             }
+            
         } else if (chainType == ChainType.BAND_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
             let url = BAND_VAL_URL + validator.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell.validatorImg.image = image
+            }
+            
+        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+            cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
+            cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
+            let url = IOV_VAL_URL + validator.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
                     return
@@ -175,6 +188,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
             } else if (chainType == ChainType.BAND_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
+            } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
             }
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY

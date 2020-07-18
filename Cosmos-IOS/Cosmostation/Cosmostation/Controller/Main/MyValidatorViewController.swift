@@ -109,6 +109,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell?.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
             } else if (chainType == ChainType.BAND_MAIN) {
                 cell?.cardView.backgroundColor = TRANS_BG_COLOR_BAND
+            } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+                cell?.cardView.backgroundColor = TRANS_BG_COLOR_IOV
             }
             return cell!
             
@@ -209,6 +211,11 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             let url = BAND_VAL_URL + validator.operator_address + ".png"
             cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
+        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+            cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
+            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
+            let url = IOV_VAL_URL + validator.operator_address + ".png"
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
         }
     }
     
@@ -238,6 +245,20 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         } else if (chainType == ChainType.BAND_MAIN) {
             if(mainTabVC.mRewardList.count > 0) {
                 cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, BAND_MAIN_DENOM, chainType!)
+            } else {
+                cell.totalRewardLabel.attributedText = WUtils.displayAmount("0", cell.totalRewardLabel.font, 6, chainType!)
+            }
+            
+        } else if (chainType == ChainType.IOV_MAIN) {
+            if(mainTabVC.mRewardList.count > 0) {
+                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, IOV_MAIN_DENOM, chainType!)
+            } else {
+                cell.totalRewardLabel.attributedText = WUtils.displayAmount("0", cell.totalRewardLabel.font, 6, chainType!)
+            }
+            
+        } else if (chainType == ChainType.IOV_TEST) {
+            if(mainTabVC.mRewardList.count > 0) {
+                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, IOV_TEST_DENOM, chainType!)
             } else {
                 cell.totalRewardLabel.attributedText = WUtils.displayAmount("0", cell.totalRewardLabel.font, 6, chainType!)
             }
@@ -306,6 +327,15 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
+            
+        } else if (chainType == ChainType.IOV_MAIN) {
+            //TODO
+            return
+            
+        } else if (chainType == ChainType.IOV_TEST) {
+            //TODO
+            return
+                   
         }
         var myBondedValidator = Array<Validator>()
         for validator in self.mainTabVC.mAllValidator {
@@ -396,10 +426,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func sortByReward() {
-        if (chainType == ChainType.COSMOS_MAIN ||
-            chainType == ChainType.KAVA_MAIN ||
-            chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.BAND_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
+            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             mainTabVC.mMyValidators.sort{
                 if ($0.jailed && !$1.jailed) {
                     return false
