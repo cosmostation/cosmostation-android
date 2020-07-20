@@ -59,7 +59,7 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "feeImg")
             self.speedMsg.text = NSLocalizedString("fee_speed_iris_title", comment: "")
             
-            let gasAmount = getEstimateGasAmount()
+            let gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count)
             let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_IRIS_AVERAGE)
             self.rateFeeGasAmountLabel.text = gasAmount.stringValue
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 6)
@@ -91,7 +91,7 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "feeImg")
             self.speedMsg.text = NSLocalizedString("fee_speed_iov_title", comment: "")
             
-            let gasAmount = getEstimateGasAmount()
+            let gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count)
             let gasRate = NSDecimalNumber.init(string: IOV_GAS_FEE_RATE_AVERAGE)
             self.rateFeeGasAmountLabel.text = gasAmount.stringValue
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 2)
@@ -186,7 +186,7 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "car")
             self.speedMsg.text = NSLocalizedString("fee_speed_title_1", comment: "")
             
-            let gasAmount = getEstimateGasAmount()
+            let gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count)
             let gasRate = NSDecimalNumber.init(string: String(GAS_FEE_RATE_LOW))
             self.rateFeeGasAmountLabel.text = gasAmount.stringValue
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 4)
@@ -200,7 +200,7 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "roket")
             self.speedMsg.text = NSLocalizedString("fee_speed_title_2", comment: "")
             
-            let gasAmount = getEstimateGasAmount()
+            let gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count)
             let gasRate = NSDecimalNumber.init(string: String(GAS_FEE_RATE_AVERAGE))
             self.rateFeeGasAmountLabel.text = gasAmount.stringValue
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 3)
@@ -264,7 +264,7 @@ class StepFeeViewController: BaseViewController {
             if (self.updateView(Int(feeSlider!.value))) {
                 feeCoin = Coin.init(COSMOS_MAIN_DENOM, feeAmount.stringValue)
                 var fee = Fee.init()
-                let estGas = getEstimateGasAmount().stringValue
+                let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
                 fee.gas = estGas
                 
                 var estAmount: Array<Coin> = Array<Coin>()
@@ -282,7 +282,7 @@ class StepFeeViewController: BaseViewController {
             if (NSDecimalNumber.init(string: "1000000000000000000").compare(feeAmount).rawValue < 0) {return}
             feeCoin = Coin.init(IRIS_MAIN_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
-            let estGas = getEstimateGasAmount().stringValue
+            let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
             fee.gas = estGas
             
             var estAmount: Array<Coin> = Array<Coin>()
@@ -299,7 +299,7 @@ class StepFeeViewController: BaseViewController {
             //Notice! useless but make format!
             feeCoin = Coin.init(BNB_MAIN_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
-            let estGas = getEstimateGasAmount().stringValue
+            let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
             fee.gas = estGas
             
             var estAmount: Array<Coin> = Array<Coin>()
@@ -316,7 +316,7 @@ class StepFeeViewController: BaseViewController {
             if (self.updateView(Int(feeSlider!.value))) {
                 feeCoin = Coin.init(KAVA_MAIN_DENOM, feeAmount.stringValue)
                 var fee = Fee.init()
-                let estGas = getEstimateGasAmount().stringValue
+                let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
                 fee.gas = estGas
                 
                 var estAmount: Array<Coin> = Array<Coin>()
@@ -332,7 +332,7 @@ class StepFeeViewController: BaseViewController {
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             feeCoin = Coin.init(IOV_TEST_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
-            let estGas = getEstimateGasAmount().stringValue
+            let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
             fee.gas = estGas
             
             var estAmount: Array<Coin> = Array<Coin>()
@@ -350,7 +350,7 @@ class StepFeeViewController: BaseViewController {
             if (self.updateView(Int(feeSlider!.value))) {
                 feeCoin = Coin.init(BAND_MAIN_DENOM, feeAmount.stringValue)
                 var fee = Fee.init()
-                let estGas = getEstimateGasAmount().stringValue
+                let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
                 fee.gas = estGas
                 
                 var estAmount: Array<Coin> = Array<Coin>()
@@ -366,7 +366,7 @@ class StepFeeViewController: BaseViewController {
         } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
             feeCoin = Coin.init(IOV_TEST_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
-            let estGas = getEstimateGasAmount().stringValue
+            let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
             fee.gas = estGas
             
             var estAmount: Array<Coin> = Array<Coin>()
@@ -385,164 +385,7 @@ class StepFeeViewController: BaseViewController {
         self.beforeBtn.isUserInteractionEnabled = true
         self.nextBtn.isUserInteractionEnabled = true
     }
-    
-    
-    
-    func getEstimateGasAmount() -> NSDecimalNumber {
-        var result = NSDecimalNumber.zero
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-            if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == KAVA_MSG_TYPE_TRANSFER) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                result = WUtils.getGasAmountForRewards()[pageHolderVC.mRewardTargetValidators.count - 1]
-                
-            } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
-                
-            } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-                
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
-            if (pageHolderVC.mType == IRIS_MSG_TYPE_DELEGATE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
-                
-            } else if (pageHolderVC.mType == IRIS_MSG_TYPE_TRANSFER) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_SEND))
-                
-            } else if (pageHolderVC.mType == IRIS_MSG_TYPE_WITHDRAW || pageHolderVC.mType == IRIS_MSG_TYPE_WITHDRAW_ALL) {
-                result = (NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_MUX).multiplying(by: NSDecimalNumber.init(value: pageHolderVC.mRewardTargetValidators.count))).adding(NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_BASE))
-                
-            } else if (pageHolderVC.mType == IRIS_MSG_TYPE_WITHDRAW_MIDIFY) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REWARD_BASE))
-                
-            } else if (pageHolderVC.mType == IRIS_MSG_TYPE_REDELEGATE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
-                
-            } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_LOW))
-                           
-            } else {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-            //Notice! useless but make format!
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-        
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
-            if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
-                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REDELEGATE))
-                
-            } else if (pageHolderVC.mType == KAVA_MSG_TYPE_TRANSFER) {
-                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_SEND))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                result = WUtils.getGasAmountForKavaRewards()[pageHolderVC.mRewardTargetValidators.count - 1]
-                
-            } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REINVEST))
-                
-            } else if (pageHolderVC.mType == KAVA_MSG_TYPE_CREATE_CDP ||
-                        pageHolderVC.mType == KAVA_MSG_TYPE_DEPOSIT_CDP ||
-                        pageHolderVC.mType == KAVA_MSG_TYPE_WITHDRAW_CDP ||
-                        pageHolderVC.mType == KAVA_MSG_TYPE_DRAWDEBT_CDP ||
-                        pageHolderVC.mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
-                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_CDP))
-                
-            } else if (pageHolderVC.mType == TASK_TYPE_HTLC_REFUND) {
-                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_BEP3))
-                
-            } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
-                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_LOW))
-                
-            } else if (pageHolderVC.mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
-                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_HIGH))
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-            if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == KAVA_MSG_TYPE_TRANSFER) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                result = WUtils.getGasAmountForRewards()[pageHolderVC.mRewardTargetValidators.count - 1]
-                
-            } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
-                
-            } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-                
-            }
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_STAKE))
-            if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
-                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_STAKE))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_STAKE))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REDELEGATE))
-                
-            } else if (pageHolderVC.mType == IOV_MSG_TYPE_TRANSFER) {
-                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_SEND))
-                
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                result = WUtils.getGasAmountForKavaRewards()[pageHolderVC.mRewardTargetValidators.count - 1]
-
-            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
-                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_LOW))
-
-            } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REINVEST))
-
-            } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
-                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_LOW))
-
-            }
-        }
-        return result
-    }
-    
+ 
     func getSpendAmount() -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
         if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
