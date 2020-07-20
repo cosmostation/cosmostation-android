@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.task.SingleFetchTask;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -20,6 +19,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_NETWORK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS;
 
 public class CheckWithdrawAddressTask extends CommonTask {
 
@@ -27,7 +28,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
 
     public CheckWithdrawAddressTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);
-        this.mResult.taskType = BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS;
+        this.mResult.taskType = TASK_FETCH_WITHDRAW_ADDRESS;
         this.mAccount = account;
     }
 
@@ -38,7 +39,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getCosmosChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
                     return mResult;
                 }
                 if(response.body() != null && response.body().result != null) {
@@ -50,7 +51,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
                 Response<String> response = ApiClient.getIrisChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
                     return mResult;
                 }
                 if(response.body() != null) {
@@ -62,7 +63,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getKavaChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
                     return mResult;
                 }
                 if(response.body() != null && response.body().result != null) {
@@ -74,7 +75,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getKavaTestChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
                     return mResult;
                 }
                 if(response.body() != null && response.body().result != null) {
@@ -86,7 +87,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getBandChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
                     return mResult;
                 }
                 if(response.body() != null && response.body().result != null) {
@@ -98,7 +99,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getIovChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
                     return mResult;
                 }
                 if(response.body() != null && response.body().result != null) {
@@ -110,7 +111,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getIovTestChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
                     return mResult;
                 }
                 if(response.body() != null && response.body().result != null) {

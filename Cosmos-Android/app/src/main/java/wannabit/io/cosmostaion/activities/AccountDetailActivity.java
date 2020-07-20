@@ -45,6 +45,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
@@ -161,9 +163,19 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 hasbalance  = true;
             }
 
+        } else if (mBaseChain.equals(IOV_MAIN)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("1000000")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else if (mBaseChain.equals(IOV_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("1000000")) > 0) {
+                hasbalance  = true;
+            }
+
         }
 
-        if(!hasbalance){
+        if (!hasbalance){
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -249,7 +261,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardAlarm.setVisibility(View.GONE);
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            mCardRewardAddress.setVisibility(View.GONE);
+            mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
 
         } else if (mBaseChain.equals(IOV_TEST)) {
@@ -258,7 +270,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardAlarm.setVisibility(View.GONE);
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            mCardRewardAddress.setVisibility(View.GONE);
+            mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_testnet_img));
 
         }
