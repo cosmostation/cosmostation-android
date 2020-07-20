@@ -50,36 +50,40 @@ class MainTabSettingViewController: BaseViewController {
         }
         
         titleChainName.textColor = WUtils.getChainColor(chainType!)
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Chain)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.KAVA_MAIN) {
             titleChainImg.image = UIImage(named: "kavaImg")
             titleChainName.text = "(KAVA Chain)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-            titleChainImg.image = UIImage(named: "iovImg")
+        } else if (chainType == ChainType.IOV_MAIN) {
+            titleChainImg.image = UIImage(named: "iovChainImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
-        }  else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        }  else if (chainType! == ChainType.BAND_MAIN) {
             titleChainImg.image = UIImage(named: "bandChainImg")
             titleChainName.text = "(Band Chain)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Test)"
             titleAlarmBtn.isHidden = true
-        }  else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        }  else if (chainType! == ChainType.KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(KAVA Test)"
+            titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.IOV_TEST) {
+            titleChainImg.image = UIImage(named: "iovTestnetImg")
+            titleChainName.text = "(IOV Test)"
             titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
@@ -148,6 +152,6 @@ class MainTabSettingViewController: BaseViewController {
     }
     
     @objc func onRefreshPrice(_ notification: NSNotification) {
-        mainTabVC.onFetchPriceTic(false)
+        mainTabVC.onFetchPriceTic(true)
     }
 }

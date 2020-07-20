@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -42,11 +42,16 @@ let KAVA_API                            = "https://api-kava-3.cosmostation.io/";
 
 let KAVA_TEST_URL                       = "https://lcd-kava-testnet-6000.cosmostation.io/";
 let KAVA_TEST_API                       = "https://api-kava-testnet-6000.cosmostation.io/";
-
+let KAVA_TEST_FAUCET                    = "https://faucet-kava-3.cosmostation.io/claim/";
 
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
+let IOV_API                             = "";
 let IOV_REST_URL                        = "https://bnsapi.iov.one/";
 let IOV_RPC_URL                         = "https://rpc-iov-mainnet.cosmostation.io/";
+
+let IOV_TEST_URL                        = "https://iovnscli-rest-api.cluster-galaxynet.iov.one/";
+let IOV_TEST_API                        = "";
+let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.one/credit?address=";
 
 let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band-wenchang-mainnet.cosmostation.io/";
@@ -155,7 +160,6 @@ let KAVA_CHECK_SUPPLY                   = KAVA_URL + "supply/total";
 
 let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
 let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
-let KAVA_FAUCET                         = "https://faucet-kava-3.cosmostation.io/claim/";
 
 
 //KAVA_TEST_URL
@@ -185,20 +189,8 @@ let KAVA_TEST_CHECK_SWAPID              = KAVA_TEST_URL + "bep3/swap/";
 let KAVA_TEST_INCENTIVE_PARAM           = KAVA_TEST_URL + "incentive/parameters";
 let KAVA_TEST_MY_INCENTIVE              = KAVA_TEST_URL + "incentive/claims/";
 
-
-
 let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
-let KAVA_TEST_FAUCET                    = "https://faucet-kava-testnet-6000.cosmostation.io/claim/";
-
-let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
-let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
-let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
-
-let IOV_REST_URL_BALANCE                = IOV_REST_URL + "cash/balances";
-let IOV_REST_URL_NONCE                  = IOV_REST_URL + "nonce/address/";
-let IOV_REST_URL_TX_SUBMIT              = IOV_REST_URL + "tx/submit";
-
 
 
 
@@ -210,8 +202,6 @@ let BAND_BONDING                        = BAND_URL + "staking/delegators/";
 let BAND_BONDING_TAIL                   = "/delegations";
 let BAND_UNBONDING                      = BAND_URL + "staking/delegators/";
 let BAND_UNBONDING_TAIL                 = "/unbonding_delegations";
-//let CSS_LCD_URL_REWARD_ALL              = CSS_LCD_URL + "distribution/delegators/";
-//let CSS_LCD_URL_REWARD_ALL_TAIL         = "/rewards";
 let BAND_REWARD_FROM_VAL                = BAND_URL + "distribution/delegators/";
 let BAND_REWARD_FROM_VAL_TAIL           = "/rewards/";
 let BAND_REWARD_ADDRESS                 = BAND_URL + "distribution/delegators/";
@@ -228,6 +218,59 @@ let BAND_API_HISTORY                    = BAND_API + "v1/account/txs/";
 let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";
 
 
+
+let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
+let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
+let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
+
+let IOV_REST_URL_BALANCE                = IOV_REST_URL + "cash/balances";
+let IOV_REST_URL_NONCE                  = IOV_REST_URL + "nonce/address/";
+let IOV_REST_URL_TX_SUBMIT              = IOV_REST_URL + "tx/submit";
+
+
+
+let IOV_TX                              = IOV_URL + "txs/";
+let IOV_VALIDATORS                      = IOV_URL + "staking/validators";
+let IOV_ACCOUNT_INFO                    = IOV_URL + "auth/accounts/";
+let IOV_BONDING                         = IOV_URL + "staking/delegators/";
+let IOV_BONDING_TAIL                    = "/delegations";
+let IOV_UNBONDING                       = IOV_URL + "staking/delegators/";
+let IOV_UNBONDING_TAIL                  = "/unbonding_delegations";
+let IOV_REWARD_FROM_VAL                 = IOV_URL + "distribution/delegators/";
+let IOV_REWARD_FROM_VAL_TAIL            = "/rewards/";
+let IOV_REWARD_ADDRESS                  = IOV_URL + "distribution/delegators/";
+let IOV_REWARD_ADDRESS_TAIL             = "/withdraw_address";
+let IOV_REDELEGATION                    = IOV_URL + "staking/redelegations";
+let IOV_INFLATION                       = IOV_URL + "minting/inflation";
+let IOV_PROVISIONS                      = IOV_URL + "minting/annual-provisions";
+let IOV_STAKING_POOL                    = IOV_URL + "staking/pool";
+//let IOV_PROPOSALS               = IOV_URL + "gov/proposals";
+//let IOV_PROPOSALS_TALLY_TAIL    = "/tally";
+let IOV_BORAD_TX                        = IOV_URL + "txs";
+
+
+let IOV_TEST_TX                         = IOV_TEST_URL + "txs/";
+let IOV_TEST_VALIDATORS                 = IOV_TEST_URL + "staking/validators";
+let IOV_TEST_ACCOUNT_INFO               = IOV_TEST_URL + "auth/accounts/";
+let IOV_TEST_BONDING                    = IOV_TEST_URL + "staking/delegators/";
+let IOV_TEST_BONDING_TAIL               = "/delegations";
+let IOV_TEST_UNBONDING                  = IOV_TEST_URL + "staking/delegators/";
+let IOV_TEST_UNBONDING_TAIL             = "/unbonding_delegations";
+let IOV_TEST_REWARD_FROM_VAL            = IOV_TEST_URL + "distribution/delegators/";
+let IOV_TEST_REWARD_FROM_VAL_TAIL       = "/rewards/";
+let IOV_TEST_REWARD_ADDRESS             = IOV_TEST_URL + "distribution/delegators/";
+let IOV_TEST_REWARD_ADDRESS_TAIL        = "/withdraw_address";
+let IOV_TEST_REDELEGATION               = IOV_TEST_URL + "staking/redelegations";
+let IOV_TEST_INFLATION                  = IOV_TEST_URL + "minting/inflation";
+let IOV_TEST_PROVISIONS                 = IOV_TEST_URL + "minting/annual-provisions";
+let IOV_TEST_STAKING_POOL               = IOV_TEST_URL + "staking/pool";
+//let IOV_TEST_PROPOSALS               = IOV_TEST_URL + "gov/proposals";
+//let IOV_TEST_PROPOSALS_TALLY_TAIL    = "/tally";
+let IOV_TEST_BORAD_TX                   = IOV_TEST_URL + "txs";
+
+
+
+
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let IRIS_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "iris/v1/getTxsByAddr";
 let KAVA_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "kava/v1/getTxsByAddr";
@@ -235,13 +278,17 @@ let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 let KEY_BASE_URL_USER_INFO              = KEY_BASE_URL + "_/api/1.0/user/lookup.json";
 
-let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
+
 let COSMOS_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
 let IRIS_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
-let KAVA_IMG_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
+let KAVA_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
+let BAND_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+//TODO
+let IOV_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+
+let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
 let KAVA_CDP_MARKET_IMG_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
-let BAND_IMG_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
 
 
 //DB for Account
@@ -416,7 +463,7 @@ let PASSWORD_RESUKT_OK_FOR_DELETE           = 3
 let BASE_PATH                               = "m/44'/118'/0'/0/"
 let BNB_BASE_PATH                           = "m/44'/714'/0'/0/"
 let KAVA_BASE_PATH                          = "m/44'/459'/0'/0/"
-let IOV_BASE_PATH                           = "m/44'/234'/"
+let IOV_BASE_PATH                           = "m/44'/234'/0'/0/"
 let BAND_BASE_PATH                          = "m/44'/494'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";
@@ -495,6 +542,13 @@ let KAVA_GAS_FEE_AMOUNT_BEP3                = "200000"
 let KAVA_GAS_FEE_AMOUNT_HIGH                = "350000"
 
 
+let IOV_GAS_FEE_RATE_AVERAGE                = "10"
+let IOV_GAS_AMOUNT_SEND                     = "100000"
+let IOV_GAS_AMOUNT_STAKE                    = "200000"
+let IOV_GAS_AMOUNT_REDELEGATE               = "300000"
+let IOV_GAS_AMOUNT_REINVEST                 = "300000"
+let IOV_GAS_AMOUNT_LOW                      = "100000"
+
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"
 
 
@@ -521,9 +575,10 @@ let TRANS_BG_COLOR_KAVA2                    = UIColor.init(hexString: "ff554f", 
 let COLOR_KAVA                              = UIColor.init(hexString: "FF564F")
 let COLOR_KAVA_DARK                         = UIColor.init(hexString: "631D1B")
 
-let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "46d7cb", alpha: 0.15)
-let COLOR_IOV                               = UIColor.init(hexString: "35C1B3")
-let COLOR_IOV_DARK                          = UIColor.init(hexString: "065048")
+let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "6e7cde", alpha: 0.15)
+let TRANS_BG_COLOR_IOV2                     = UIColor.init(hexString: "6e7cde", alpha: 0.4)
+let COLOR_IOV                               = UIColor.init(hexString: "6e7cde")
+let COLOR_IOV_DARK                          = UIColor.init(hexString: "2c367e")
 
 let TRANS_BG_COLOR_BAND                     = UIColor.init(hexString: "5286FF", alpha: 0.15)
 let TRANS_BG_COLOR_BAND2                    = UIColor.init(hexString: "5286FF", alpha: 0.4)
@@ -539,25 +594,27 @@ let COLOR_WC_TRADE_SELL                     = UIColor.init(hexString: "FF2745")
 
 
 enum ChainType: String {
-    case SUPPORT_CHAIN_COSMOS_MAIN
-    case SUPPORT_CHAIN_IRIS_MAIN
-    case SUPPORT_CHAIN_BINANCE_MAIN
-    case SUPPORT_CHAIN_KAVA_MAIN
-    case SUPPORT_CHAIN_IOV_MAIN
-    case SUPPORT_CHAIN_BAND_MAIN
-    case SUPPORT_CHAIN_BINANCE_TEST
-    case SUPPORT_CHAIN_KAVA_TEST
+    case COSMOS_MAIN
+    case IRIS_MAIN
+    case BINANCE_MAIN
+    case KAVA_MAIN
+    case IOV_MAIN
+    case BAND_MAIN
+    case BINANCE_TEST
+    case KAVA_TEST
+    case IOV_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
-        result.append(SUPPORT_CHAIN_COSMOS_MAIN)
-        result.append(SUPPORT_CHAIN_IRIS_MAIN)
-        result.append(SUPPORT_CHAIN_BINANCE_MAIN)
-        result.append(SUPPORT_CHAIN_KAVA_MAIN)
-//        result.append(SUPPORT_CHAIN_IOV_MAIN)
-        result.append(SUPPORT_CHAIN_BAND_MAIN)
-        result.append(SUPPORT_CHAIN_BINANCE_TEST)
-        result.append(SUPPORT_CHAIN_KAVA_TEST)
+        result.append(COSMOS_MAIN)
+        result.append(IRIS_MAIN)
+        result.append(BINANCE_MAIN)
+        result.append(KAVA_MAIN)
+//        result.append(IOV_MAIN)
+        result.append(BAND_MAIN)
+        result.append(BINANCE_TEST)
+        result.append(KAVA_TEST)
+        result.append(IOV_TEST)
         return result
     }
     
@@ -567,17 +624,17 @@ enum ChainType: String {
     
     static func getHtlcSendable(_ chain: ChainType) -> Array<ChainType> {
         var result = Array<ChainType>()
-        if (chain == SUPPORT_CHAIN_BINANCE_TEST) {
-            result.append(SUPPORT_CHAIN_KAVA_TEST)
+        if (chain == BINANCE_TEST) {
+            result.append(KAVA_TEST)
             
-        } else if (chain == SUPPORT_CHAIN_KAVA_TEST) {
-            result.append(SUPPORT_CHAIN_BINANCE_TEST)
+        } else if (chain == KAVA_TEST) {
+            result.append(BINANCE_TEST)
             
-        } else if (chain == SUPPORT_CHAIN_BINANCE_MAIN) {
-            result.append(SUPPORT_CHAIN_KAVA_MAIN)
+        } else if (chain == BINANCE_MAIN) {
+            result.append(KAVA_MAIN)
             
-        } else if (chain == SUPPORT_CHAIN_KAVA_MAIN) {
-            result.append(SUPPORT_CHAIN_BINANCE_MAIN)
+        } else if (chain == KAVA_MAIN) {
+            result.append(BINANCE_MAIN)
             
         }
         return result
@@ -592,15 +649,17 @@ let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
 let CHAIN_BAND_S = "SUPPORT_CHAIN_BAND_MAIN"
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
+let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
 
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "iris-atto"
 let IRIS_DP_DENOM = "iris"
 let BNB_MAIN_DENOM = "BNB"
-let IOV_MAIN_DENOM = "IOV"
+let IOV_MAIN_DENOM = "uiov"
 let KAVA_MAIN_DENOM = "ukava"
 let BAND_MAIN_DENOM = "uband"
+let IOV_TEST_DENOM = "uvoi"
 
 let Font_17_body = UIFont(name: "Helvetica-Light", size: 17)!
 let Font_15_subTitle = UIFont(name: "Helvetica-Light", size: 15)!

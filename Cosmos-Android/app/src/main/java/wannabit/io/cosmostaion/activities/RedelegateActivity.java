@@ -43,7 +43,9 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class RedelegateActivity extends BaseActivity implements TaskListener {
@@ -138,7 +140,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         mViewPager.setCurrentItem(0);
         onFetchReward();
 
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN) && (WDp.getVestedCoin(mAccount.balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0)) {
+        if (mBaseChain.equals(KAVA_MAIN) && (WDp.getVestedCoin(mAccount.balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0)) {
             Dialog_VestingAccount dialog = Dialog_VestingAccount.newInstance(null);
             dialog.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -195,7 +197,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
 
     public void onStartRedelegate() {
         Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REDELEGATE);
         intent.putExtra("fromValidator", mFromValidator);
         intent.putExtra("toValidator", mToValidator);
         intent.putExtra("rAmount", mReDelegateAmount);

@@ -30,7 +30,7 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 
 public class HtlcRefundStep2Fragment extends BaseFragment implements View.OnClickListener {
@@ -169,7 +169,7 @@ public class HtlcRefundStep2Fragment extends BaseFragment implements View.OnClic
                 //TODO no need Fee set!!;
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.COSMOS_BNB;
+                gasCoin.denom = BaseConstant.TOKEN_BNB;
                 gasCoin.amount = FEE_BNB_SEND;
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
@@ -180,7 +180,7 @@ public class HtlcRefundStep2Fragment extends BaseFragment implements View.OnClic
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.COSMOS_KAVA;
+                gasCoin.denom = BaseConstant.TOKEN_KAVA;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);

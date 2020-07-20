@@ -119,13 +119,13 @@
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
 "send_guide_btn1_kava" = "About USDX";
-"send_guide_btn1_iov" = "Home";
+"send_guide_btn1_iov" = "Star Name";
 "send_guide_btn1_band" = "Home";
 "send_guide_btn2_cosmos" = "도움말";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
 "send_guide_btn2_kava" = "Blog";
-"send_guide_btn2_iov" = "Star Name";
+"send_guide_btn2_iov" = "Blog";
 "send_guide_btn2_band" = "Blog";
 "name" = "이름";
 "amount" = "수량";
@@ -450,6 +450,7 @@
 "chain_title_band" = "Band Mainnet";
 "chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
+"chain_title_iov_test" = "IOV Testnet";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";
 

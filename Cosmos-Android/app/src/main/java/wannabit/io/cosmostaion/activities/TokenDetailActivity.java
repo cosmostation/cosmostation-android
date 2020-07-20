@@ -50,12 +50,12 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
@@ -272,8 +272,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         }
 
 
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) && mBalance.symbol.equals(COSMOS_ATOM) ||
-                mBaseChain.equals(BaseChain.COSMOS_MAIN) && (IS_TEST && mBalance.symbol.equals(COSMOS_MUON))) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) && mBalance.symbol.equals(TOKEN_ATOM) ||
+                mBaseChain.equals(BaseChain.COSMOS_MAIN) && (IS_TEST && mBalance.symbol.equals(TOKEN_MUON))) {
             mAtomCard.setVisibility(View.VISIBLE);
             mAtomAction.setVisibility(View.GONE);
             mAtomTransfer.setVisibility(View.VISIBLE);
@@ -288,14 +288,14 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
             BigDecimal totalAmount = WDp.getAllAtom(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
             mTvAtomTotal.setText(WDp.getDpAmount(this, totalAmount, 6, mBaseChain));
-            mTvAtomAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, COSMOS_ATOM));
+            mTvAtomAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, TOKEN_ATOM));
             mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));
             mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
             mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
-            mTvAtomRewards.setText(WDp.getDpAllRewardAmount(this, mRewards, mBaseChain, COSMOS_ATOM));
+            mTvAtomRewards.setText(WDp.getDpAllRewardAmount(this, mRewards, mBaseChain, TOKEN_ATOM));
             mTvAtomValue.setText(WDp.getValueOfAtom(this, getBaseDao(), totalAmount));
 
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mBalance.symbol.equals(COSMOS_IRIS_ATTO)) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mBalance.symbol.equals(TOKEN_IRIS_ATTO)) {
             mIrisCard.setVisibility(View.VISIBLE);
             mIrisAction.setVisibility(View.GONE);
             mIrisTransfer.setVisibility(View.VISIBLE);
@@ -307,7 +307,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
 
             mTvIrisTotal.setText(WDp.getDpAmount(this, WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward, mAllValidators), 18, mBaseChain));
-            mTvIrisAvailable.setText(WDp.getDpAmount(this, WDp.getAvailableCoin(mBalances, COSMOS_IRIS_ATTO), 18, mBaseChain));
+            mTvIrisAvailable.setText(WDp.getDpAmount(this, WDp.getAvailableCoin(mBalances, TOKEN_IRIS_ATTO), 18, mBaseChain));
             mTvIrisDelegated.setText(WDp.getDpAmount(this, WDp.getAllDelegatedAmount(mBondings, mAllValidators, mBaseChain), 18, mBaseChain));
             mTvIrisUnBonding.setText(WDp.getDpAmount(this, WDp.getUnbondingAmount(mUnbondings), 18, mBaseChain));
             mTvIrisRewards.setText(WDp.getDpAmount(this, mIrisReward.getSimpleIrisReward(), 18, mBaseChain));
@@ -315,7 +315,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             BigDecimal totalAmount = WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward, mAllValidators);
             mTvIrisValue.setText(WDp.getValueOfIris(this, getBaseDao(), totalAmount));
 
-        } else if ((mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) && mBalance.symbol.equals(COSMOS_BNB)) {
+        } else if ((mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) && mBalance.symbol.equals(TOKEN_BNB)) {
             mBnbCard.setVisibility(View.VISIBLE);
             mBnbAction.setVisibility(View.GONE);
             mBnbTransfer.setVisibility(View.VISIBLE);
@@ -345,7 +345,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvBnbValue.setText(WDp.getValueOfBnb(this, getBaseDao(), BigDecimal.ZERO));
             }
 
-        } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST))&& mBalance.symbol.equals(COSMOS_KAVA)) {
+        } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST))&& mBalance.symbol.equals(TOKEN_KAVA)) {
             mKavaCard.setVisibility(View.VISIBLE);
             mKavaAction.setVisibility(View.GONE);
             mKavaTransfer.setVisibility(View.VISIBLE);
@@ -364,11 +364,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
             BigDecimal totalAmount = WDp.getAllKava(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
             mTvKavaTotal.setText(WDp.getDpAmount(this, totalAmount, 6, mBaseChain));
-            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, COSMOS_KAVA));
+            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, TOKEN_KAVA));
             mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));
             mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
-            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(this, mRewards, mBaseChain, COSMOS_KAVA));
-            mTvKavaVesting.setText(WDp.getDpVestedCoin(this, mBalances, mBaseChain, COSMOS_KAVA));
+            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(this, mRewards, mBaseChain, TOKEN_KAVA));
+            mTvKavaVesting.setText(WDp.getDpVestedCoin(this, mBalances, mBaseChain, TOKEN_KAVA));
             mTvKavaValue.setText(WDp.getValueOfKava(this, getBaseDao(), totalAmount));
 
         } else {
@@ -422,8 +422,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvTokenTotal.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
                 mTvTokenAvailable.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
                 BigDecimal tokenTotalValue = mBalance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
-                BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(COSMOS_KAVA), RoundingMode.DOWN);
-                mTvTokenValue.setText(WDp.getValueOfKava(this, getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(COSMOS_KAVA))));
+                BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
+                mTvTokenValue.setText(WDp.getValueOfKava(this, getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
                 mTokenRewardLayer.setVisibility(View.GONE);
                 try {
                     Picasso.get().load(KAVA_COIN_IMG_URL+mBalance.symbol+".png")
@@ -569,7 +569,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         } else if (v.equals(mBtnSendKava)) {
             if (onCheckSendable()) {
                 Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
-                intent.putExtra("kavaDenom", COSMOS_KAVA);
+                intent.putExtra("kavaDenom", TOKEN_KAVA);
                 startActivity(intent);
             }
 
@@ -622,16 +622,16 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             hasbalance  = true;
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
                 hasbalance  = true;
             }
-            if (!mIrisToken.base_token.symbol.equals(COSMOS_IRIS)) {
+            if (!mIrisToken.base_token.symbol.equals(TOKEN_IRIS)) {
                 Toast.makeText(getBaseContext(), R.string.error_iris_token_not_yet, Toast.LENGTH_SHORT).show();
                 return false;
             }
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
                 hasbalance  = true;
             }
         }

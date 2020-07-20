@@ -31,8 +31,18 @@ public class AccountInfo {
         
         init(_ dictionary: [String: Any]) {
             self.address = dictionary["address"] as? String ?? ""
-            self.account_number = dictionary["account_number"] as? String ?? ""
-            self.sequence = dictionary["sequence"] as? String ?? ""
+            if let accountNumber = dictionary["account_number"] as? String {
+                self.account_number = accountNumber
+            }
+            if let accountNumber = dictionary["account_number"] as? Int64 {
+                self.account_number = String(accountNumber)
+            }
+            if let seQuence = dictionary["sequence"] as? String {
+                self.sequence = seQuence
+            }
+            if let seQuence = dictionary["sequence"] as? Int64 {
+                self.sequence = String(seQuence)
+            }
             
             if let pkey = dictionary["public_key"] as? [String : Any] {
                 self.public_key = PublicKey.init(pkey)

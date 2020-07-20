@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -31,6 +31,8 @@ public class BaseConstant {
     public final static String PRE_KAVA_UP_DOWN_24          = "PRE_KAVA_UP_DOWN_24";
     public final static String PRE_BAND_TIC                 = "PRE_BAND_TIC";
     public final static String PRE_BAND_UP_DOWN_24          = "PRE_BAND_UP_DOWN_24";
+    public final static String PRE_IOV_TIC                  = "PRE_IOV_TIC";
+    public final static String PRE_IOV_UP_DOWN_24           = "PRE_IOV_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -257,16 +259,17 @@ public class BaseConstant {
     public final static int ERROR_CODE_BROADCAST            = 8004;
 
 
-    public final static String COSMOS_ATOM          = "uatom";
-    public final static String COSMOS_MUON          = "muon";
+    public final static String TOKEN_ATOM           = "uatom";
+    public final static String TOKEN_MUON           = "muon";
     public final static String COSMOS_PHOTON        = "photon";
     public final static String COSMOS_PHOTINO       = "photino";
-    public final static String COSMOS_IRIS          = "iris";
-    public final static String COSMOS_IRIS_ATTO     = "iris-atto";
-    public final static String COSMOS_BNB           = "BNB";
-    public final static String COSMOS_KAVA          = "ukava";
-    public final static String COSMOS_IOV           = "IOV";
-    public final static String COSMOS_BAND          = "uband";
+    public final static String TOKEN_IRIS           = "iris";
+    public final static String TOKEN_IRIS_ATTO      = "iris-atto";
+    public final static String TOKEN_BNB            = "BNB";
+    public final static String TOKEN_KAVA           = "ukava";
+    public final static String TOKEN_IOV            = "uiov";
+    public final static String TOKEN_IOV_TEST       = "uvoi";
+    public final static String TOKEN_BAND           = "uband";
 
 
     //TODO HardCoding!!
@@ -279,6 +282,7 @@ public class BaseConstant {
     public final static String KEY_IOV_PATH         = "44'/234'/";
     public final static String KEY_NEW_KAVA_PATH    = "44'/459'/0'/0/";
     public final static String KEY_BAND_PATH        = "44'/494'/0'/0/";
+    public final static String KEY_NEW_IOV_PATH     = "44'/234'/0'/0/";
     public final static String characterFilter  = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -328,11 +332,16 @@ public class BaseConstant {
     public final static String FEE_BEP3_SEND_MIN        = "0.1";
     public final static String FEE_BEP3_SEND_CHECK      = "0.100375";
 
-    public final static String FEE_IOV_SEND = "0.500000000";
+    public final static String FEE_IOV_GAS_RATE_AVERAGE         = "10";
+    public final static String FEE_IOV_GAS_AMOUNT_SEND          = "100000";
+    public final static String FEE_IOV_GAS_AMOUNT_STAKE         = "200000";
+    public final static String FEE_IOV_GAS_AMOUNT_REDELEGATE    = "300000";
+    public final static String FEE_IOV_GAS_AMOUNT_REINVEST      = "300000";
+    public final static String FEE_IOV_GAS_AMOUNT_LOW           = "100000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";
-    public final static String CGC_BNB = "binancecoin";
+    public final static String CGC_BNB  = "binancecoin";
     public final static String CGC_KAVA = "kava";
     public final static String CGC_BAND = "band-protocol";
     public final static int CMC_ATOM = 3794;
@@ -350,9 +359,11 @@ public class BaseConstant {
     public final static String TOKEN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
     public final static String COSMOS_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
     public final static String IRIS_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
-    public final static String KAVA_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
+    public final static String KAVA_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
     public final static String KAVA_COIN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
     public final static String KAVA_CDP_MARKET_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
-    public final static String BAND_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+    public final static String BAND_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+    //TODO update url for IOV
+    public final static String IOV_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
 
 }

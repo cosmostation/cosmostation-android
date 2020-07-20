@@ -311,21 +311,25 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func onFetchTopValidatorsInfo() {
         var url: String?
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             url = CSS_LCD_URL_VALIDATORS
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_VALIDATORS
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_VALIDATORS
+        } else if (chainType == ChainType.IOV_MAIN) {
+            url = IOV_VALIDATORS
+        } else if (chainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                    self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
+                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                              print("no validators!!")

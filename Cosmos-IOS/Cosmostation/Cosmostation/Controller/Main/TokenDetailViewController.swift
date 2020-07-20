@@ -69,53 +69,53 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         dpAddress.adjustsFontSizeToFitWidth = true
         if (account?.account_has_private == true) {
             keyState.image = keyState.image?.withRenderingMode(.alwaysTemplate)
-            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (chainType == ChainType.COSMOS_MAIN) {
                 keyState.tintColor = COLOR_ATOM
-            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (chainType == ChainType.IRIS_MAIN) {
                 keyState.tintColor = COLOR_IRIS
-            } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
                 keyState.tintColor = COLOR_BNB
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 keyState.tintColor = COLOR_KAVA
             }
         }
     }
     
     @objc func onRequestFetch() {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
             onFetchHistory(account!.account_address, balance!.balance_denom);
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_MAIN ||
+            chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(account!.account_address, bnbToken!.symbol);
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             onFetchApiHistory(account!.account_address, balance!.balance_denom)
         }
     }
 
     @IBAction func onClickWebLink(_ sender: UIButton) {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
             guard let url = URL(string: "https://www.mintscan.io/account/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN) {
             guard let url = URL(string: "https://irishub.mintscan.io/account/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.BINANCE_MAIN) {
             guard let url = URL(string: "https://binance.mintscan.io/account/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.KAVA_MAIN) {
             guard let url = URL(string: "https://kava.mintscan.io/account/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_TEST) {
             guard let url = URL(string: "https://testnet-explorer.binance.org/address/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
@@ -134,11 +134,11 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
             return mHistories.count + 1
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return mBnbHistories.count + 1
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             return mApiHistories.count + 1
         }
         return 0
@@ -146,20 +146,20 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN && balance?.balance_denom == COSMOS_MAIN_DENOM) {
+            if (chainType == ChainType.COSMOS_MAIN && balance?.balance_denom == COSMOS_MAIN_DENOM) {
                 return onSetCosmosItems(tableView, indexPath);
                 
-            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN && balance?.balance_denom == IRIS_MAIN_DENOM) {
+            } else if (chainType == ChainType.IRIS_MAIN && balance?.balance_denom == IRIS_MAIN_DENOM) {
                 return onSetIrisItem(tableView, indexPath);
                 
-            } else if ((chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) &&
+            } else if ((chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) &&
                 balance?.balance_denom == BNB_MAIN_DENOM) {
                 return onSetBnbItem(tableView, indexPath);
                 
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN && balance?.balance_denom == KAVA_MAIN_DENOM) {
+            } else if (chainType == ChainType.KAVA_MAIN && balance?.balance_denom == KAVA_MAIN_DENOM) {
                 return onSetKavaItem(tableView, indexPath);
                 
-            }  else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST && balance?.balance_denom == KAVA_MAIN_DENOM) {
+            }  else if (chainType == ChainType.KAVA_TEST && balance?.balance_denom == KAVA_MAIN_DENOM) {
                 return onSetKavaTestItem(tableView, indexPath);
                 
             } else {
@@ -167,16 +167,16 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             
         } else {
-            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (chainType == ChainType.COSMOS_MAIN) {
                 return onSetCosmosHistoryItems(tableView, indexPath);
                 
-            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (chainType == ChainType.IRIS_MAIN) {
                 return onSetIrisHistoryItem(tableView, indexPath);
                 
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            } else if (chainType == ChainType.KAVA_MAIN) {
                 return onSetKavaHistoryItem(tableView, indexPath);
                 
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (chainType == ChainType.KAVA_TEST) {
                 return onSetKavaHistoryItem(tableView, indexPath);
                 
             } else {
@@ -191,7 +191,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.row > 0) {
-            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (chainType == ChainType.COSMOS_MAIN) {
                 let history = mHistories[indexPath.row - 1]
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false
@@ -200,19 +200,19 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(txDetailVC, animated: true)
                 
-            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (chainType == ChainType.IRIS_MAIN) {
                 let history = mHistories[indexPath.row - 1]
                 guard let url = URL(string: "https://irishub.mintscan.io/txs/" + history._source.hash) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 present(safariViewController, animated: true, completion: nil)
                 
-            } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            } else if (chainType == ChainType.BINANCE_MAIN) {
                 let bnbHistory = mBnbHistories[indexPath.row - 1]
                 guard let url = URL(string: "https://binance.mintscan.io/txs/" + bnbHistory.txHash) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 present(safariViewController, animated: true, completion: nil)
                            
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 let history = mApiHistories[indexPath.row - 1]
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false
@@ -221,7 +221,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(txDetailVC, animated: true)
                 
-            } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+            } else if (chainType == ChainType.BINANCE_TEST) {
                 let bnbHistory = mBnbHistories[indexPath.row - 1]
                 guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
                 let safariViewController = SFSafariViewController(url: url)
@@ -292,7 +292,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.actionSendBep3 = {
                 self.onClickBep3Send(BNB_MAIN_DENOM)
             }
-            if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            if (chainType == ChainType.BINANCE_MAIN) {
                 cell?.BtnBuyBnb.isHidden = false
                 cell?.actionBuy = {
                     self.onBuyCoin()
@@ -362,10 +362,10 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetCustomTokenItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:TokenDetailHeaderCustomCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderCustomCell") as? TokenDetailHeaderCustomCell
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             //TODO not this case yet!
 
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN && irisToken != nil) {
+        } else if (chainType == ChainType.IRIS_MAIN && irisToken != nil) {
             cell?.tokenInfoBtn.isHidden = true
             cell?.tokenSymbol.text = irisToken?.base_token?.symbol.uppercased()
             cell?.tokenName.text = balance?.balance_denom
@@ -376,7 +376,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_iris_token_yet", comment: ""))
             }
 
-        } else if ((chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) && bnbToken != nil) {
+        } else if ((chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) && bnbToken != nil) {
             cell?.tokenInfoBtn.isHidden = false
             cell?.tokenSymbol.text = bnbToken?.original_symbol.uppercased()
             cell?.tokenName.text = bnbToken?.symbol
@@ -386,7 +386,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             let url = TOKEN_IMG_URL + bnbToken!.original_symbol + ".png"
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.actionTokenInfo = {
-                if (self.chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                if (self.chainType == ChainType.BINANCE_MAIN) {
                     guard let url = URL(string: "https://binance.mintscan.io/assets/" + self.bnbToken!.symbol) else { return }
                     let safariViewController = SFSafariViewController(url: url)
                     self.present(safariViewController, animated: true, completion: nil)
@@ -399,7 +399,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.actionSend  = {
                 self.onSendToken()
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell?.tokenInfoBtn.isHidden = true
             cell?.tokenSymbol.text = balance!.balance_denom.uppercased()
             cell?.tokenName.text = balance?.balance_denom
@@ -497,16 +497,16 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     func onFetchHistory(_ address:String, _ symbol:String) {
         var query = ""
         var url = ""
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
             query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.amount.denom\", \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
             print("query ", query)
             url = CSS_ES_PROXY_COSMOS
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.IRIS_MAIN) {
             query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
             print("query ", query)
             url = IRIS_ES_PROXY_IRIS
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.KAVA_MAIN) {
             query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.amount.denom\", \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
             print("query ", query)
             url = KAVA_ES_PROXY_IRIS
@@ -544,9 +544,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onFetchBnbHistory(_ address:String, _ symbol:String) {
         var url = ""
-        if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        if (chainType == ChainType.BINANCE_MAIN) {
             url = BNB_URL_HISTORY
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_HISTORY
         }
         let request = Alamofire.request(url, method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970, "txAsset":symbol], encoding: URLEncoding.default, headers: [:])
@@ -574,9 +574,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onFetchApiHistory(_ address:String, _ symbol:String) {
         var url: String?
-        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_API_TRANS_HISTORY + address
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_API_TEST_TRANS_HISTORY + address
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["denom":balance!.balance_denom], encoding: URLEncoding.default, headers: [:]);
@@ -584,7 +584,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             switch response.result {
             case .success(let res):
                 print("res ", res)
-                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                if (self.chainType == ChainType.KAVA_TEST || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.BAND_MAIN) {
                     self.mApiHistories.removeAll()
                     guard let histories = res as? Array<NSDictionary> else {
                         print("no history!!")
@@ -613,14 +613,14 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
             if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
             txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN) {
             if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "200000000000000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
@@ -628,7 +628,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             txVC.mIrisToken = self.irisToken
             txVC.mType = IRIS_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.000375")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
@@ -636,7 +636,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             txVC.mBnbToken = self.bnbToken
             txVC.mType = BNB_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
@@ -674,13 +674,13 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: FEE_BEP3_SEND_CHECK)).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             print("", WUtils.getTokenAmount(balances, BNB_MAIN_DENOM))
             if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).multiplying(byPowerOf10: -8).compare(NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
@@ -733,11 +733,11 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onStartMoonpaySignature(_ fiat:String) {
         var query = "?apiKey=" + MOON_PAY_PUBLICK
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
             query = query + "&currencyCode=atom";
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.BINANCE_MAIN) {
             query = query + "&currencyCode=bnb";
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.KAVA_MAIN) {
             query = query + "&currencyCode=kava";
         }
         query = query + "&walletAddress=" + account!.account_address + "&baseCurrencyCode=" + fiat;

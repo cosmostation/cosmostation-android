@@ -43,7 +43,7 @@
                 android:visibility="gone"/>
 
             <TextView
-                android:id="@+id/band_notyet"
+                android:id="@+id/text_notyet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"

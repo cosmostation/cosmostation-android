@@ -21,8 +21,6 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
@@ -52,9 +50,38 @@ import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
+
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
 
 public class PasswordCheckActivity extends BaseActivity implements KeyboardListener, TaskListener {
 
@@ -122,11 +149,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mAdapter = new KeyboardPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
 
-        mPurpose = getIntent().getIntExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+        mPurpose = getIntent().getIntExtra(CONST_PW_PURPOSE, CONST_PW_SIMPLE_CHECK);
 
-        if (mPurpose != BaseConstant.CONST_PW_SIMPLE_CHECK) {
+        if (mPurpose != CONST_PW_SIMPLE_CHECK) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-            mBaseChain = BaseChain.getChain(mAccount.baseChain);
+            mBaseChain = getChain(mAccount.baseChain);
         }
         mTargetAddress = getIntent().getStringExtra("toAddress");
         mTargetCoins = getIntent().getParcelableArrayListExtra("amount");
@@ -154,14 +181,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mCdpDenom = getIntent().getStringExtra("cdp_denom");
         mSwapId = getIntent().getStringExtra("swapId");
         mClaimDenom = getIntent().getStringExtra("denom");
-
-//        if (getIntent().getStringExtra("toChain") != null)
-//            mRecipientChain = BaseChain.getChain(getIntent().getStringExtra("toChain"));
-//        if (getIntent().getStringExtra("recipientId") != null)
-//            mRecipientAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("recipientId"));
-//        mSendFee = getIntent().getParcelableExtra("sendFee");
-//        mClaimFee = getIntent().getParcelableExtra("claimFee");
-
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck  = getIntent().getLongExtra("checkid", -1);
@@ -235,13 +254,13 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
 
     private void onFinishInput() {
-        if (mPurpose == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+        if (mPurpose == CONST_PW_SIMPLE_CHECK) {
             onShowWaitDialog();
             new CheckPasswordTask(getBaseApplication(), this).execute(mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_SEND) {
+        } else if (mPurpose == CONST_PW_TX_SIMPLE_SEND) {
             onShowWaitDialog();
-            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_MAIN) || BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_TEST)) {
+            if (getChain(mAccount.baseChain).equals(BNB_MAIN) || getChain(mAccount.baseChain).equals(BNB_TEST)) {
                 new SimpleBnbSendTask(getBaseApplication(),
                         this,
                         mAccount,
@@ -260,7 +279,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
 
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE) {
+        } else if (mPurpose == CONST_PW_TX_SIMPLE_DELEGATE) {
             onShowWaitDialog();
             new SimpleDelegateTask(getBaseApplication(),
                     this,
@@ -270,7 +289,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE) {
+        } else if (mPurpose == CONST_PW_TX_SIMPLE_UNDELEGATE) {
             onShowWaitDialog();
             new SimpleUndelegateTask(getBaseApplication(),
                     this,
@@ -280,7 +299,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_REWARD) {
+        } else if (mPurpose == CONST_PW_TX_SIMPLE_REWARD) {
             onShowWaitDialog();
             new SimpleRewardTask(getBaseApplication(),
                     this,
@@ -289,15 +308,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_DELETE_ACCOUNT) {
+        } else if (mPurpose == CONST_PW_DELETE_ACCOUNT) {
             onShowWaitDialog();
             new DeleteUserTask(getBaseApplication(), this).execute(mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_CHECK_MNEMONIC) {
+        } else if (mPurpose == CONST_PW_CHECK_MNEMONIC) {
             onShowWaitDialog();
             new CheckMnemonicTask(getBaseApplication(), this, getBaseDao().onSelectAccount(""+mIdToCheck)).execute(mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE) {
+        } else if (mPurpose == CONST_PW_TX_SIMPLE_REDELEGATE) {
             onShowWaitDialog();
             new SimpleRedelegateTask(getBaseApplication(),
                     this,
@@ -308,7 +327,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+        } else if (mPurpose == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
             onShowWaitDialog();
             new SimpleChangeRewardAddressTask(getBaseApplication(),
                     this,
@@ -317,7 +336,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_REINVEST) {
+        } else if (mPurpose == CONST_PW_TX_REINVEST) {
             onShowWaitDialog();
             new ReInvestTask(getBaseApplication(),
                     this,
@@ -327,7 +346,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_VOTE) {
+        } else if (mPurpose == CONST_PW_TX_VOTE) {
             onShowWaitDialog();
             new SimpleVoteTask(getBaseApplication(),
                     this,
@@ -337,7 +356,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_CREATE_CDP) {
+        } else if (mPurpose == CONST_PW_TX_CREATE_CDP) {
             onShowWaitDialog();
             new SimpleCreateCdpTask(getBaseApplication(),
                     this,
@@ -348,7 +367,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_REPAY_CDP) {
+        } else if (mPurpose == CONST_PW_TX_REPAY_CDP) {
             onShowWaitDialog();
             new SimpleRepayCdpTask(getBaseApplication(),
                     this,
@@ -359,7 +378,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP) {
+        } else if (mPurpose == CONST_PW_TX_DRAW_DEBT_CDP) {
             onShowWaitDialog();
             new SimpleDrawBetCdpTask(getBaseApplication(),
                     this,
@@ -370,7 +389,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_DEPOSIT_CDP) {
+        } else if (mPurpose == CONST_PW_TX_DEPOSIT_CDP) {
             onShowWaitDialog();
             new SimpleDepositCdpTask(getBaseApplication(),
                     this,
@@ -381,7 +400,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_WITHDRAW_CDP) {
+        } else if (mPurpose == CONST_PW_TX_WITHDRAW_CDP) {
             onShowWaitDialog();
             new SimpleWithdrawCdpTask(getBaseApplication(),
                     this,
@@ -392,16 +411,16 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_HTLS_REFUND) {
+        } else if (mPurpose == CONST_PW_TX_HTLS_REFUND) {
             onShowWaitDialog();
-            if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+            if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 new SimpleBnbHtlcRefundTask(getBaseApplication(),
                         this,
                         mAccount,
                         mSwapId,
                         mTargetMemo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 new SimpleHtlcRefundTask(getBaseApplication(),
                         this,
                         mAccount,
@@ -410,7 +429,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                         mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
             }
 
-        } else if (mPurpose == BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE) {
+        } else if (mPurpose == CONST_PW_TX_CLAIM_INCENTIVE) {
             new SimpleClaimIncentiveTask(getBaseApplication(),
                     this,
                     mAccount,
@@ -419,14 +438,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         }
-
-//        else if (mPurpose == BaseConstant.CONST_PW_TX_HTLS_SWAP) {
-//            onShowWaitDialog();
-//            new HtlcSwapTask(getBaseApplication(), this,
-//                    mAccount, mRecipientAccount, mTargetCoins, mSendFee,
-//                    mClaimFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-//
-//        }
     }
 
     private void onShakeView() {
@@ -466,7 +477,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         onHideWaitDialog();
-        if (result.taskType == BaseConstant.TASK_PASSWORD_CHECK) {
+        if (result.taskType == TASK_PASSWORD_CHECK) {
             if(result.isSuccess) {
                 setResult(Activity.RESULT_OK, getIntent());
                 finish();
@@ -477,7 +488,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
             }
 
-        } else if (result.taskType == BaseConstant.TASK_DELETE_USER) {
+        } else if (result.taskType == TASK_DELETE_USER) {
             if(result.isSuccess) {
                 onDeleteAccount(mIdToDelete);
             } else {
@@ -487,7 +498,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
             }
 
-        } else if (result.taskType == BaseConstant.TASK_CHECK_MNEMONIC) {
+        } else if (result.taskType == TASK_CHECK_MNEMONIC) {
             if(result.isSuccess) {
                 Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicCheckActivity.class);
                 checkintent.putExtra("checkid", mIdToCheck);
@@ -501,12 +512,12 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
 
         } else {
-            if (!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
+            if (!result.isSuccess && result.errorCode == ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;
             }
 
-            if ((mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) && result.taskType == BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND) {
+            if ((mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) && result.taskType == TASK_GEN_TX_BNB_HTLC_REFUND) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
                 txIntent.putExtra("isGen", true);
                 txIntent.putExtra("isSuccess", result.isSuccess);

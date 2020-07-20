@@ -14,9 +14,16 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ReInvestActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
+
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
 public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -61,11 +68,12 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         if(getSActivity().mReinvestCoin != null) {
             BigDecimal rewardSum = new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN);
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) ||
-                    getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST) || getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
-                mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, getSActivity().mBaseChain));
-            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 18, getSActivity().mBaseChain));
+            if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
+                    getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+
+            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 18, 18));
             }
             mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
 

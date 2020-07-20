@@ -43,15 +43,15 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:RestorePathCell? = tableView.dequeueReusableCell(withIdentifier:"RestorePathCell") as? RestorePathCell
         cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
         WUtils.setDenomTitle(userChain!, cell!.denomTitle)
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (userChain == ChainType.COSMOS_MAIN || userChain == ChainType.IRIS_MAIN) {
             cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
-        } else if (userChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || userChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (userChain == ChainType.BINANCE_MAIN || userChain == ChainType.BINANCE_TEST) {
             cell?.pathLabel.text = BNB_BASE_PATH.appending(String(indexPath.row))
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-            cell?.pathLabel.text = IOV_BASE_PATH.appending(String(indexPath.row)).appending("'")
-        } else if (userChain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
-            cell?.pathLabel.text = BAND_BASE_PATH.appending(String(indexPath.row)).appending("'")
-        } else if (userChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || userChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (userChain == ChainType.IOV_MAIN || userChain == ChainType.IOV_TEST) {
+            cell?.pathLabel.text = IOV_BASE_PATH.appending(String(indexPath.row))
+        } else if (userChain == ChainType.BAND_MAIN) {
+            cell?.pathLabel.text = BAND_BASE_PATH.appending(String(indexPath.row))
+        } else if (userChain == ChainType.KAVA_MAIN || userChain == ChainType.KAVA_TEST) {
             if (self.usingBip44) {
                 cell?.pathLabel.text = KAVA_BASE_PATH.appending(String(indexPath.row))
             } else {
@@ -64,7 +64,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             
             DispatchQueue.main.async(execute: {
                 cell?.addressLabel.text = address
-                let tempAccount = BaseData.instance.selectExistAccount(address: address, chain: self.userChain!.rawValue)
+                let tempAccount = BaseData.instance.selectExistAccount(address: address, chain: WUtils.getChainDBName(self.userChain!))
                 if (tempAccount == nil) {
                     cell?.stateLabel.text = NSLocalizedString("ready", comment: "")
                     cell?.stateLabel.textColor = UIColor.white
@@ -79,7 +79,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                 }
                 
-                if (self.userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (self.userChain == ChainType.COSMOS_MAIN) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
                     let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
@@ -100,7 +100,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         }
                     }
                     
-                } else if (self.userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                } else if (self.userChain == ChainType.IRIS_MAIN) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
                     let request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
@@ -120,7 +120,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         }
                     }
                     
-                } else if (self.userChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                } else if (self.userChain == ChainType.BINANCE_MAIN) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
                     let request = Alamofire.request(BNB_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
@@ -140,7 +140,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         }
                     }
                     
-                } else if (self.userChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                } else if (self.userChain == ChainType.KAVA_MAIN) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
                     let request = Alamofire.request(KAVA_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
@@ -152,36 +152,36 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             let tempAccount = Account.init(isNew: true)
                             tempAccount.account_id = -1
                             let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info))
-                            cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, KAVA_MAIN_DENOM, ChainType.SUPPORT_CHAIN_KAVA_MAIN)
+                            cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, KAVA_MAIN_DENOM, ChainType.KAVA_MAIN)
                             
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                         }
                     }
                     
-                } else if (self.userChain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 9)
-                    let request = Alamofire.request(IOV_REST_URL_BALANCE, method: .get, parameters: ["address":address], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let info = res as? [String : Any] else {
-                                return
-                            }
-                            let iovBalanceInfo = IovBalanceInfo.init(info)
-                            for coin in iovBalanceInfo.coins {
-                                if (coin.ticker == IOV_MAIN_DENOM) {
-                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.getDpAmount(IOV_MAIN_DENOM), cell!.denomAmount.font!, 0, 9)
-                                    break
-                                }
-                            }
-                            
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
+                } else if (self.userChain == ChainType.IOV_MAIN) {
+//                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 9)
+//                    let request = Alamofire.request(IOV_REST_URL_BALANCE, method: .get, parameters: ["address":address], encoding: URLEncoding.default, headers: [:])
+//                    request.responseJSON { (response) in
+//                        switch response.result {
+//                        case .success(let res):
+//                            guard let info = res as? [String : Any] else {
+//                                return
+//                            }
+//                            let iovBalanceInfo = IovBalanceInfo.init(info)
+//                            for coin in iovBalanceInfo.coins {
+//                                if (coin.ticker == IOV_MAIN_DENOM) {
+//                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.getDpAmount(IOV_MAIN_DENOM), cell!.denomAmount.font!, 0, 9)
+//                                    break
+//                                }
+//                            }
+//
+//                        case .failure(let error):
+//                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+//                        }
+//                    }
                     
-                } else if (self.userChain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+                } else if (self.userChain == ChainType.BAND_MAIN) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
                     let request = Alamofire.request(BAND_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
@@ -200,7 +200,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         }
                     }
                     
-                } else if (self.userChain == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+                } else if (self.userChain == ChainType.BINANCE_TEST) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
                     let request = Alamofire.request(BNB_TEST_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
@@ -220,7 +220,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             }
                     }
                     
-                } else if (self.userChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                } else if (self.userChain == ChainType.KAVA_TEST) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
                     let request = Alamofire.request(KAVA_TEST_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
@@ -233,13 +233,31 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                                 let tempAccount = Account.init(isNew: true)
                                 tempAccount.account_id = -1
                                 let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info))
-                                cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, KAVA_MAIN_DENOM, ChainType.SUPPORT_CHAIN_KAVA_TEST)
+                                cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, KAVA_MAIN_DENOM, ChainType.KAVA_TEST)
                                 
                             case .failure(let error):
                                 if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                             }
                     }
                     
+                } else if (self.userChain == ChainType.IOV_TEST) {
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
+                    let request = Alamofire.request(IOV_TEST_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    request.responseJSON { (response) in
+                        switch response.result {
+                        case .success(let res):
+                            guard let responseData = res as? NSDictionary,
+                                let info = responseData.object(forKey: "result") as? [String : Any] else {
+                                    return
+                            }
+                            let accountInfo = AccountInfo.init(info)
+                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
+                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
+                            }
+                        case .failure(let error):
+                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                        }
+                    }
                 }
             });
         }
@@ -277,7 +295,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             var insertResult :Int64 = -1
             if(keyResult) {
                 newAccount.account_address = WKey.getDpAddressPath(mnemonic, path, chain, newBip)
-                newAccount.account_base_chain = chain.rawValue
+                newAccount.account_base_chain = WUtils.getChainDBName(chain)
                 newAccount.account_has_private = true
                 newAccount.account_from_mnemonic = true
                 newAccount.account_path = String(path)
@@ -312,7 +330,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 resource = resource + " " + word
             }
             
-            let existedAccount = BaseData.instance.selectExistAccount(address: WKey.getDpAddressPath(mnemonic, path, chain, newBip), chain: chain.rawValue)
+            let existedAccount = BaseData.instance.selectExistAccount(address: WKey.getDpAddressPath(mnemonic, path, chain, newBip), chain: WUtils.getChainDBName(chain))
             let keyResult = KeychainWrapper.standard.set(resource, forKey: existedAccount!.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
             var updateResult :Int64 = -1
             if(keyResult) {

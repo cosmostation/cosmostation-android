@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -34,9 +35,12 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
 
@@ -165,10 +169,10 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (BondingState bond:mBondings) {
-                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_ATOM).compareTo(BigDecimal.ONE) >= 0) {
+                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_ATOM).compareTo(BigDecimal.ONE) >= 0) {
                     if (WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
                         toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_ATOM));
+                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_ATOM));
                     }
                 }
             }
@@ -178,7 +182,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, COSMOS_ATOM);
+            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, TOKEN_ATOM);
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(mMyValidators.subList(0,16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
@@ -225,7 +229,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
             boolean hasbalance = false;
             for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(estimateFee)) > 0)) {
+                if(balance.symbol.equals(BaseConstant.TOKEN_IRIS_ATTO) && ((balance.balance.compareTo(estimateFee)) > 0)) {
                     hasbalance  = true;
                 }
             }
@@ -247,10 +251,10 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (BondingState bond:mBondings) {
-                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_KAVA).compareTo(BigDecimal.ONE) >= 0) {
+                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_KAVA).compareTo(BigDecimal.ONE) >= 0) {
                     if (WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
                         toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_KAVA));
+                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_KAVA));
                     }
                 }
             }
@@ -260,7 +264,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, COSMOS_KAVA);
+            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, TOKEN_KAVA);
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(mMyValidators.subList(0,16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
@@ -279,20 +283,18 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (BondingState bond:mBondings) {
-                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_BAND).compareTo(BigDecimal.ONE) >= 0) {
+                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_BAND).compareTo(BigDecimal.ONE) >= 0) {
                     if (WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
                         toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_BAND));
+                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_BAND));
                     }
                 }
             }
-
             if (toClaimValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, COSMOS_BAND);
+            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, TOKEN_BAND);
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(mMyValidators.subList(0,16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
@@ -302,6 +304,77 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
+
+        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            //only collect over 1.5 iov
+            if (mRewards == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            BigDecimal rewardSum = BigDecimal.ZERO;
+            for (BondingState bond:mBondings) {
+                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_IOV).compareTo(new BigDecimal("1500000")) >= 0) {
+                    if (WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
+                        toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
+                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_BAND));
+                    }
+                }
+            }
+            if (toClaimValidators.size() == 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, TOKEN_IOV);
+            if (toClaimValidators.size() >= 17) {
+                toClaimValidators = new ArrayList<>(mMyValidators.subList(0,16));
+                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+            }
+
+            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
+            BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
+            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(FEE_IOV_GAS_RATE_AVERAGE)).setScale(0);
+            BigDecimal available = mAccount.getIovBalance();
+
+            if (available.compareTo(estimateFeeAmount) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+        } else if (mBaseChain.equals(BaseChain.IOV_TEST)) {
+            //only collect over 1.5 iov
+            if (mRewards == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            BigDecimal rewardSum = BigDecimal.ZERO;
+            for (BondingState bond:mBondings) {
+                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_IOV_TEST).compareTo(new BigDecimal("1500000")) >= 0) {
+                    if (WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
+                        toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
+                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_BAND));
+                    }
+                }
+            }
+            if (toClaimValidators.size() == 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, TOKEN_IOV_TEST);
+            if (toClaimValidators.size() >= 17) {
+                toClaimValidators = new ArrayList<>(mMyValidators.subList(0,16));
+                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+            }
+
+            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
+            BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
+            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(FEE_IOV_GAS_RATE_AVERAGE)).setScale(0);
+            BigDecimal available = mAccount.getIovBalance();
+
+            if (available.compareTo(estimateFeeAmount) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
         }
 
         Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);

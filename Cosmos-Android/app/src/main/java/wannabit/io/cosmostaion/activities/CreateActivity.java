@@ -124,7 +124,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
         } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-        } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+        } else if (mChain.equals(BaseChain.IOV_MAIN) || mChain.equals(BaseChain.IOV_TEST)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
         } else if (mChain.equals(BaseChain.BAND_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
@@ -140,7 +140,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_bnb));
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_kava));
-            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+            } else if (mChain.equals(BaseChain.IOV_MAIN) || mChain.equals(BaseChain.IOV_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iov));
             } else if (mChain.equals(BaseChain.BAND_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_band));

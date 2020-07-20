@@ -36,11 +36,11 @@ import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
 
@@ -144,7 +144,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
                 } else if (mChain.equals(BaseChain.KAVA_MAIN) || mChain.equals(BaseChain.KAVA_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-                } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+                } else if (mChain.equals(BaseChain.IOV_MAIN) || mChain.equals(BaseChain.IOV_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
                 } else if (mChain.equals(BaseChain.BAND_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
@@ -165,7 +165,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
                     } else if (mChain.equals(BaseChain.KAVA_MAIN)|| mChain.equals(BaseChain.KAVA_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-                    } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+                    } else if (mChain.equals(BaseChain.IOV_MAIN) || mChain.equals(BaseChain.IOV_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
                     } else if (mChain.equals(BaseChain.BAND_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
@@ -196,7 +196,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
                                 holder.atomAmount.setText(WDp.getDpAmount2(getBaseContext(), balance.get(0).balance, 6, 6));
-                        } else { }
+                        }
                     }
                     @Override
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
@@ -212,7 +212,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
                                 holder.irisAmount.setText(WDp.getDpAmount2(getBaseContext(), balance.get(0).balance, 18, 18));
-                        } else { }
+                        }
                     }
                     @Override
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
@@ -226,12 +226,12 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
                         if(response.isSuccessful() && response.body() != null && response.body().balances != null) {
                             for (ResBnbAccountInfo.BnbBalance balance:response.body().balances) {
-                                if (balance.symbol.equals(BaseConstant.COSMOS_BNB)) {
+                                if (balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
                                     holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.free), 0, 8));
                                     break;
                                 }
                             }
-                        } else { }
+                        }
                     }
                     @Override
                     public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) { }
@@ -244,7 +244,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
                         ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
-                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, COSMOS_KAVA), 6, 6));
+                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, TOKEN_KAVA), 6, 6));
                     }
 
                     @Override
@@ -259,12 +259,12 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onResponse(Call<ResIovBalance> call, Response<ResIovBalance> response) {
                         if(response.isSuccessful() && response.body() != null && response.body().coins != null) {
                             for (ResIovBalance.IovCoin coin:response.body().coins) {
-                                if (coin.ticker.equals(COSMOS_IOV)) {
-                                    holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(coin.getDpAmount(COSMOS_IOV)), 0, 9));
+                                if (coin.ticker.equals(TOKEN_IOV)) {
+                                    holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(coin.getDpAmount(TOKEN_IOV)), 0, 9));
                                     break;
                                 }
                             }
-                        } else { }
+                        }
                     }
                     @Override
                     public void onFailure(Call<ResIovBalance> call, Throwable t) { }
@@ -280,7 +280,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
                                 holder.bandAmount.setText(WDp.getDpAmount2(getBaseContext(), balance.get(0).balance, 6, 6));
-                        } else { }
+                        }
                     }
                     @Override
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
@@ -294,12 +294,12 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
                         if(response.isSuccessful() && response.body() != null && response.body().balances != null) {
                             for (ResBnbAccountInfo.BnbBalance balance:response.body().balances) {
-                                if (balance.symbol.equals(BaseConstant.COSMOS_BNB)) {
+                                if (balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
                                     holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.free), 0, 8));
                                     break;
                                 }
                             }
-                        } else { }
+                        }
                     }
                     @Override
                     public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) { }
@@ -312,7 +312,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
                         ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
-                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, COSMOS_KAVA), 6, 6));
+                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, TOKEN_KAVA), 6, 6));
 
                     }
 
@@ -320,6 +320,21 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) { }
                 });
 
+            } else if (mChain.equals(BaseChain.IOV_TEST)) {
+                holder.iovLayer.setVisibility(View.VISIBLE);
+                holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                ApiClient.getIovTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
+                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
+                                holder.bandAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_IOV_TEST), 6, 6));
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
+                });
             }
 
         }

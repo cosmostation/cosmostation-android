@@ -18,11 +18,18 @@ import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.UndelegateActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
 public class UndelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -93,10 +100,8 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                     mAmountInput.setSelection(1);
                 }
 
-                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
-                        || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                        || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)
-                        || getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)
+                        || getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
                     if(es.equals("0.000000")) {
                         mAmountInput.setText("0.00000");
                         mAmountInput.setSelection(7);
@@ -124,7 +129,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                             mAmountInput.setSelection(mAmountInput.getText().length());
                         } catch (Exception e) { }
                     }
-                } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                     if(es.equals("0.000000000000000000")) {
                         mAmountInput.setText("0.00000000000000000");
                         mAmountInput.setSelection(19);
@@ -165,16 +170,19 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
         mMaxAvailable = getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator);
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 18, 18));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
+
+        } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         }
@@ -226,22 +234,18 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
-                    || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                    || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)
-                    || getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)
+                    || getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
-            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
             }
 
         } else if (v.equals(mAddMax)) {
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
-                    || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                    || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)
-                    || getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)
+                    || getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
-            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
             }
 
@@ -253,35 +257,51 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
     private boolean isValidateUnDelegateAmount() {
         try {
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin coin = new Coin(BaseConstant.COSMOS_ATOM, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(BaseConstant.TOKEN_ATOM, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
                 getSActivity().mUnDelegateAmount = coin;
                 return true;
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(18).setScale(18, RoundingMode.DOWN)) > 0) return false;
-                Coin coin = new Coin(BaseConstant.COSMOS_IRIS_ATTO, atomTemp.multiply(new BigDecimal("1000000000000000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(BaseConstant.TOKEN_IRIS_ATTO, atomTemp.multiply(new BigDecimal("1000000000000000000")).setScale(0).toPlainString());
                 getSActivity().mUnDelegateAmount = coin;
                 return true;
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
                 BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin coin = new Coin(BaseConstant.COSMOS_KAVA, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(BaseConstant.TOKEN_KAVA, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
                 getSActivity().mUnDelegateAmount = coin;
                 return true;
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
                 BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin coin = new Coin(BaseConstant.COSMOS_BAND, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(BaseConstant.TOKEN_BAND, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                getSActivity().mUnDelegateAmount = coin;
+                return true;
+
+            } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
+                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
+                Coin coin = new Coin(BaseConstant.TOKEN_IOV, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                getSActivity().mUnDelegateAmount = coin;
+                return true;
+
+            } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
+                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
+                Coin coin = new Coin(BaseConstant.TOKEN_IOV_TEST, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
                 getSActivity().mUnDelegateAmount = coin;
                 return true;
 

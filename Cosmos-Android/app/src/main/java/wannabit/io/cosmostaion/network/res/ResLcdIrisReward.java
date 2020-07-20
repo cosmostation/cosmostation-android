@@ -125,7 +125,7 @@ public class ResLcdIrisReward implements Parcelable {
         if(delegations != null && delegations.size() > 0) {
             for (Delegations delegation:delegations) {
                 for(Coin reward:delegation.reward) {
-                    if(reward.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                    if(reward.denom.equals(BaseConstant.TOKEN_IRIS_ATTO)) {
                         sum = sum.add(new BigDecimal(reward.amount));
                     }
                 }
@@ -140,7 +140,7 @@ public class ResLcdIrisReward implements Parcelable {
             for (Delegations delegation:delegations) {
                 if (delegation.validator.equals(valOpAddress)) {
                     for (Coin reward:delegation.reward) {
-                        if(reward.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                        if(reward.denom.equals(BaseConstant.TOKEN_IRIS_ATTO)) {
                             sum = sum.add(new BigDecimal(reward.amount));
                         }
                     }

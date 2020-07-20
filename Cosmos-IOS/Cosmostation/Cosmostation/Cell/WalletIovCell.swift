@@ -10,25 +10,32 @@ import UIKit
 
 class WalletIovCell: UITableViewCell {
     
+    @IBOutlet weak var rootCardView: CardView!
     @IBOutlet weak var totalAmount: UILabel!
     @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var availableAmount: UILabel!
-    @IBOutlet weak var depositedAmount: UILabel!
+    @IBOutlet weak var delegatedAmount: UILabel!
+    @IBOutlet weak var unbondingAmount: UILabel!
     @IBOutlet weak var rewardAmount: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
         availableAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
-        depositedAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        delegatedAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        unbondingAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         rewardAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
-    var actionDeposit: (() -> Void)? = nil
+    var actionDelegate: (() -> Void)? = nil
+    var actionVote: (() -> Void)? = nil
     var actionNameService: (() -> Void)? = nil
     
-    @IBAction func onClickDeposite(_ sender: UIButton) {
-        actionDeposit?()
+    @IBAction func onClickDelegate(_ sender: UIButton) {
+        actionDelegate?()
+    }
+    @IBAction func onClickVote(_ sender: UIButton) {
+        actionVote?()
     }
     @IBAction func onClickNameService(_ sender: UIButton) {
         actionNameService?()

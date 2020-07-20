@@ -28,11 +28,8 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
         (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().backgroundColor = UIColor.white
         (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().setTitleColor(UIColor.black, for: .normal)
         
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+            pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             memoCntLabel.text = "0/255 byte"
         } else {
             memoCntLabel.text = "0/100 byte"
@@ -69,11 +66,8 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         let byteArray = [UInt8](textView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+            pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             memoCntLabel.text = String(byteArray.count) + "/255 byte"
             if (byteArray.count > 255) {
                 self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
@@ -92,11 +86,8 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
     
     func isValiadMemoSize() -> Bool {
         let byteArray = [UInt8](memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+            pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             if (byteArray.count > 255) {
                 return false
             }

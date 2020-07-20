@@ -11,6 +11,7 @@
     <string name="str_band_main_net">밴드 메인넷</string>
     <string name="str_bnb_test_net">바이낸스 테스트넷</string>
     <string name="str_kava_test_net">카바 테스트넷</string>
+    <string name="str_iov_test_net">아이오비 테스트넷</string>
 
 
     <string name="str_ok">OK</string>

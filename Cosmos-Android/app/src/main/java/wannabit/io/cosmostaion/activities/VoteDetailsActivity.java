@@ -42,7 +42,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_IRIS_VOTE_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MY_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_DETAIL;
@@ -167,7 +167,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(mBalances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("80000000000000000")) <= 0) {
+                if (WDp.getAvailableCoin(mBalances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("80000000000000000")) <= 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }

@@ -30,7 +30,15 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResIovOriginAddress;
 import wannabit.io.cosmostaion.utils.WKey;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
@@ -116,7 +124,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
 
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 if (userInput.startsWith("cosmos") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
@@ -124,7 +132,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     Toast.makeText(getContext(), R.string.error_invalid_cosmos_address, Toast.LENGTH_SHORT).show();
                 }
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 if (userInput.startsWith("iaa") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
@@ -132,35 +140,39 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     Toast.makeText(getContext(), R.string.error_invalid_iris_address, Toast.LENGTH_SHORT).show();
                 }
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(BNB_MAIN)) {
                 if (userInput.startsWith("bnb") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_bnb_address, Toast.LENGTH_SHORT).show();
                 }
-            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+
+            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
                 if (userInput.startsWith("kava") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_kava_address, Toast.LENGTH_SHORT).show();
                 }
-            } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
-                if (userInput.startsWith("iov") && WKey.isValidBech32(userInput)) {
+
+            } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
+                if (userInput.startsWith("star") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_iov_address, Toast.LENGTH_SHORT).show();
                 }
-            } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+
+            } else if (getSActivity().mBaseChain.equals(BNB_TEST)) {
                 if (userInput.startsWith("tbnb") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_bnb_address, Toast.LENGTH_SHORT).show();
                 }
-            } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+
+            } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
                 if (userInput.startsWith("band") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();

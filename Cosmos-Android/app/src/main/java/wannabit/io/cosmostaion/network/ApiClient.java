@@ -5,7 +5,16 @@ import android.content.Context;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
 public class ApiClient {
 
@@ -176,7 +185,7 @@ public class ApiClient {
         return api_kava_test;
     }
 
-    //Faucet for KAVATest net
+    //Faucet for KAVATest
     private static KavaChain service_kava_test_faucet = null;
     public static KavaChain getKavaTestFaucet(Context c) {
         if (service_kava_test_faucet == null) {
@@ -204,6 +213,36 @@ public class ApiClient {
             }
         }
         return service_iov;
+    }
+
+    //Service for IOV testnet
+    private static IovChain service_iov_test = null;
+    public static IovChain getIovTestChain(Context c) {
+        if (service_iov_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_iov_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_iov_test = retrofit.create(IovChain.class);
+            }
+        }
+        return service_iov_test;
+    }
+
+    //Faucet for IOV Test
+    private static IovChain service_iov_test_faucet = null;
+    public static IovChain getIovTestFaucet(Context c) {
+        if (service_iov_test_faucet == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_test_iov_faucet))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_iov_test_faucet = retrofit.create(IovChain.class);
+            }
+        }
+        return service_iov_test_faucet;
     }
 
     //Rest for Band main net
@@ -301,5 +340,6 @@ public class ApiClient {
         }
         return coingeckoService;
     }
+
 
 }

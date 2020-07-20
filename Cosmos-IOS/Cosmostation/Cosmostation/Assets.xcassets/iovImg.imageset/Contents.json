@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "scale" : "1x",
       "filename" : "iovImg.png",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "scale" : "1x"
     },
     {
-      "scale" : "2x",
+      "idiom" : "universal",
       "filename" : "iovImg@2x.png",
-      "idiom" : "universal"
+      "scale" : "2x"
     },
     {
-      "scale" : "3x",
+      "idiom" : "universal",
       "filename" : "iovImg@3x.png",
-      "idiom" : "universal"
+      "scale" : "3x"
     }
   ],
   "info" : {

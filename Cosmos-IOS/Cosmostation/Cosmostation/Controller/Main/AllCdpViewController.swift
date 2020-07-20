@@ -45,11 +45,13 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceFetchDone(_:)), name: Notification.Name("onPriceFetchDone"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("onPriceFetchDone"), object: nil)
     }
     
     @objc func onRequestFetch() {
@@ -63,6 +65,10 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
         allCdpCntLabel.text = String(mAllCdp.count)
         self.allCdpTableView.reloadData()
         self.refresher.endRefreshing()
+    }
+    
+    @objc func onPriceFetchDone(_ notification: NSNotification) {
+        print("onPriceFetchDone")
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,7 +101,7 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
         let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
         cdpDetailVC.hidesBottomBarWhenPushed = true
         cdpDetailVC.cDenom = cParam.denom
-        if (self.mainTabVC.mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (self.mainTabVC.mChainType == ChainType.KAVA_MAIN) {
             cdpDetailVC.mMarketID = cParam.spot_market_id
         } else {
             cdpDetailVC.mMarketID = cParam.market_id

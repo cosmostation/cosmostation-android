@@ -68,6 +68,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceFetchDone(_:)), name: Notification.Name("onPriceFetchDone"), object: nil)
         self.updateTitle()
         self.updateView()
     }
@@ -75,6 +76,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("onPriceFetchDone"), object: nil)
     }
     
     func updateTitle() {
@@ -85,52 +87,58 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             titleWalletName.text = mainTabVC.mAccount.account_nick_name
         }
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_COSMOS
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_IRIS
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Chain)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_BNB
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.KAVA_MAIN) {
             titleChainImg.image = UIImage(named: "kavaImg")
             titleChainName.text = "(KAVA Chain)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = false
             totalCard.backgroundColor = TRANS_BG_COLOR_KAVA
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-            titleChainImg.image = UIImage(named: "iovImg")
+        } else if (chainType! == ChainType.IOV_MAIN) {
+            titleChainImg.image = UIImage(named: "iovChainImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_IOV
-        }  else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        }  else if (chainType! == ChainType.BAND_MAIN) {
             titleChainImg.image = UIImage(named: "bandChainImg")
             titleChainName.text = "(Band Chain)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_BAND
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Test)"
             kavaOracle.isHidden = true
             titleAlarmBtn.isHidden = true
             totalCard.backgroundColor = COLOR_BG_GRAY
-        }  else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        }  else if (chainType! == ChainType.KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(KAVA Test)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = false
+            totalCard.backgroundColor = COLOR_BG_GRAY
+        } else if (chainType! == ChainType.IOV_TEST) {
+            titleChainImg.image = UIImage(named: "iovTestnetImg")
+            titleChainName.text = "(IOV Test)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
             totalCard.backgroundColor = COLOR_BG_GRAY
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
@@ -163,33 +171,42 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
         self.onUpdateTotalCard();
         self.tokenTableView.reloadData()
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
             onFetchCosmosTokenPrice()
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN) {
             onFetchIrisTokenPrice()
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType! == ChainType.BINANCE_MAIN) {
             onFetchBnbTokenPrice()
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.KAVA_MAIN) {
             onFetchKavaTokenPrice()
             updateFloaty()
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_TEST) {
             updateFloaty()
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.KAVA_TEST) {
             onFetchKavaTokenPrice()
             updateFloaty()
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType! == ChainType.BAND_MAIN) {
             onFetchBandTokenPrice()
+            
+        } else if (chainType! == ChainType.IOV_MAIN) {
+            onFetchIovTokenPrice()
+            
+        } else if (chainType! == ChainType.IOV_TEST) {
+            onFetchIovTokenPrice()
+            updateFloaty()
+            
         }
+        
     }
     
     func updateFloaty() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType! == ChainType.KAVA_MAIN) {
             if (mainTabVC.mAccount.account_account_numner <= 0 && mainTabVC.mAccount.account_has_private) {
                 let floaty = Floaty()
                 floaty.buttonImage = UIImage.init(named: "airdropBtn")
@@ -198,17 +215,24 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 self.view.addSubview(floaty)
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.KAVA_TEST) {
             let floaty = Floaty()
             floaty.buttonImage = UIImage.init(named: "faucetBtn")
             floaty.buttonColor = COLOR_KAVA
             floaty.fabDelegate = self
             self.view.addSubview(floaty)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_TEST) {
             let floaty = Floaty()
             floaty.buttonImage = UIImage.init(named: "faucetBtn")
             floaty.buttonColor = COLOR_BNB
+            floaty.fabDelegate = self
+            self.view.addSubview(floaty)
+            
+        } else if (chainType! == ChainType.IOV_TEST) {
+            let floaty = Floaty()
+            floaty.buttonImage = UIImage.init(named: "faucetBtn")
+            floaty.buttonColor = COLOR_IOV
             floaty.fabDelegate = self
             self.view.addSubview(floaty)
             
@@ -231,6 +255,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.refresher.endRefreshing()
     }
     
+    @objc func onPriceFetchDone(_ notification: NSNotification) {
+        self.updateView()
+    }
+    
     @objc func onStartSort() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil))
@@ -251,17 +279,17 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onUpdateTotalCard() {
         self.tokenCnt.text = String(mainTabVC.mBalances.count)
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
             let allAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN) {
             let allIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.dpAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, totalAmount.font, 6, chainType!)
             totalValue.attributedText = WUtils.dpIrisValue(allIris, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             var allBnb = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
                 if (balance.balance_denom == BNB_MAIN_DENOM) {
@@ -273,7 +301,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allBnb.stringValue, totalAmount.font, 0, 6)
             totalValue.attributedText = WUtils.dpBnbValue(allBnb, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             var allKava = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
                 if (balance.balance_denom == KAVA_MAIN_DENOM) {
@@ -287,29 +315,15 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allKava.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allKava, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            var allKava = NSDecimalNumber.zero
-            for balance in mainTabVC.mBalances {
-                if (balance.balance_denom == KAVA_MAIN_DENOM) {
-                    allKava = allKava.adding(WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator))
-                } else {
-                    let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice)
-                    let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(6))
-                    allKava = allKava.adding(convertedKavaAmount.multiplying(byPowerOf10: 6))
-                }
-            }
-            totalAmount.attributedText = WUtils.displayAmount2(allKava.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpAtomValue(allKava, BaseData.instance.getLastPrice(), totalValue.font)
-            
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-            let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, totalAmount.font, 9, 6)
-            totalValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, totalValue.font)
-            
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType! == ChainType.BAND_MAIN) {
             let allBand = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allBand, BaseData.instance.getLastPrice(), totalValue.font)
+            
+        } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
+            let allIov = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            totalAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), totalValue.font)
             
         }
     }
@@ -319,19 +333,19 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
             return onSetCosmosItems(tableView, indexPath)
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN) {
             return onSetIrisItems(tableView, indexPath)
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             return onSetBnbItems(tableView, indexPath)
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.KAVA_MAIN) {
             return onSetKavaItems(tableView, indexPath)
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.KAVA_TEST) {
             return onSetKavaTestItems(tableView, indexPath)
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
             return onSetIovItems(tableView, indexPath)
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType! == ChainType.BAND_MAIN) {
             return onSetBandItems(tableView, indexPath)
         }
         return onSetCosmosItems(tableView, indexPath)
@@ -345,29 +359,29 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
         tokenDetailVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
             tokenDetailVC.allValidator = mainTabVC.mAllValidator
             tokenDetailVC.allRewards = mainTabVC.mRewardList
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN) {
             tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
             tokenDetailVC.allValidator = mainTabVC.mAllValidator
             tokenDetailVC.irisToken = WUtils.getIrisToken(mainTabVC.mIrisTokenList, mainTabVC.mBalances[indexPath.row])
             tokenDetailVC.irisRewards = mainTabVC.mIrisRewards
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
             tokenDetailVC.bnbToken = WUtils.getBnbToken(BaseData.instance.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
             tokenDetailVC.bnbTic = WUtils.getTicData(WUtils.getBnbTicSymbol(mainTabVC.mBalances[indexPath.row].balance_denom), mBnbTics)
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chainType! == ChainType.IOV_MAIN) {
             //TODO IOV toekn details
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        } else if (chainType! == ChainType.BAND_MAIN) {
             //TODO IOV toekn details
             
         }
@@ -521,17 +535,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func onSetIovItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
-        if (balance.balance_denom == IOV_MAIN_DENOM) {
+        if (balance.balance_denom == IOV_MAIN_DENOM || balance.balance_denom == IOV_TEST_DENOM) {
             cell?.tokenImg.image = UIImage(named: "iovTokenImg")
-            cell?.tokenSymbol.text = IOV_MAIN_DENOM
+            cell?.tokenSymbol.text = "IOV"
             cell?.tokenSymbol.textColor = COLOR_IOV
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = balance.balance_denom
-            
-            let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.tokenAmount.font!, 9, 6)
-            //TODO zero value for iov
-            cell?.tokenValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.tokenValue.font)
+            cell?.tokenDescription.text = "IOV Chain Native Token"
+                        
+            let allIov = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, cell!.tokenAmount.font!, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             
         } else { }
         return cell!
@@ -598,8 +611,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.onUpdateTotalCard()
     }
     
+    func onFetchIovTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    
     func onRequestFaucet() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (chainType! == ChainType.BINANCE_TEST) {
             if (mainTabVC.mAccount.getBnbBalance().compare(NSDecimalNumber.init(value: 2)).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
                 return
@@ -620,7 +638,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.KAVA_TEST) {
             if (mainTabVC.mAccount.getKavaBalance().compare(NSDecimalNumber.init(value: 5000000)).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
                 return
@@ -641,13 +659,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.KAVA_MAIN) {
             if (mainTabVC.mAccount.account_account_numner > 0) {
                 self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
                 return
             }
             self.showWaittingAlert()
-            let request = Alamofire.request(KAVA_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            let request = Alamofire.request(KAVA_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
@@ -662,6 +680,26 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
             }
             
+        } else if (chainType! == ChainType.IOV_TEST) {
+            if (mainTabVC.mAccount.getIovBalance().compare(NSDecimalNumber.init(value: 1000000000)).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
+                return
+            }
+            self.showWaittingAlert()
+            let request = Alamofire.request(IOV_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
+                        self.onRequestFetch()
+                        self.hideWaittingAlert()
+                    })
+
+                case .failure(let error):
+                    self.onShowToast(error.localizedDescription)
+                    self.hideWaittingAlert()
+                }
+            }
         }
     }
     
@@ -714,7 +752,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByName() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == COSMOS_MAIN_DENOM) {
                     return true
@@ -725,7 +763,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == IRIS_MAIN_DENOM) {
                     return true
@@ -736,7 +774,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) {
                     return true
@@ -746,7 +784,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.balance_denom < $1.balance_denom
             }
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == KAVA_MAIN_DENOM) {
                     return true
@@ -757,10 +795,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
         }
+        
+//        else if (chainType! == ChainType.BAND_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_TEST) {
+//
+//        }
     }
     
     func sortByAmount() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == COSMOS_MAIN_DENOM) {
                     return true
@@ -771,7 +817,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return WUtils.stringToDecimal($0.balance_amount).compare(WUtils.stringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == IRIS_MAIN_DENOM) {
                     return true
@@ -782,7 +828,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return WUtils.stringToDecimal($0.balance_amount).compare(WUtils.stringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) {
                     return true
@@ -792,7 +838,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.getAllAmountBnbToken().compare($1.getAllAmountBnbToken()).rawValue > 0 ? true : false
             }
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == KAVA_MAIN_DENOM) {
                     return true
@@ -802,13 +849,22 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return WUtils.stringToDecimal($0.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($0.balance_denom)).compare(WUtils.stringToDecimal($1.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($1.balance_denom))).rawValue > 0 ? true : false
             }
+            
         }
+        
+//        else if (chainType! == ChainType.BAND_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_TEST) {
+//
+//        }
     }
     
     func sortByValue() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType! == ChainType.SUPPORT_CHAIN_BINANCE_TEST) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN) {
+        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) {
                     return true
@@ -818,7 +874,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol($0.balance_denom), mBnbTics)).compare($1.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol($1.balance_denom), mBnbTics))).rawValue > 0 ? true : false
             }
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             mainTabVC.mBalances.sort {
                 if ($0.balance_denom == KAVA_MAIN_DENOM) {
                     return true
@@ -829,6 +885,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.kavaTokenDollorValue(BaseData.instance.mKavaPrice).compare($1.kavaTokenDollorValue(BaseData.instance.mKavaPrice)).rawValue > 0 ? true : false
             }
         }
+        
+//        else if (chainType! == ChainType.BAND_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_MAIN) {
+//
+//        } else if (chainType! == ChainType.IOV_TEST) {
+//
+//        }
         
     }
 }

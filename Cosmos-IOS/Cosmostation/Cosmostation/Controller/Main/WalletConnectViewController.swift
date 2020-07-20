@@ -170,7 +170,7 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
         let pubKeyString = extendPKey.publicKey().raw.dataToHexString()
     
         var bnbWallet = Wallet()
-        if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        if (chainType == ChainType.BINANCE_MAIN) {
             bnbWallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
         } else {
             bnbWallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)

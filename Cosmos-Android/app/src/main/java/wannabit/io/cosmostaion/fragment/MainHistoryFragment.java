@@ -52,7 +52,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private RecyclerView                    mRecyclerView;
     private LinearLayout                    mEmptyHistory;
     private HistoryAdapter                  mHistoryAdapter;
-    private TextView                        mBandNot;
+    private TextView                        mNotYet;
 
     private ArrayList<ResHistory.InnerHits> mHistory = new ArrayList<>();
     private ArrayList<BnbHistory>           mBnbHistory = new ArrayList<>();
@@ -76,8 +76,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
         mEmptyHistory           = rootView.findViewById(R.id.empty_history);
-        mBandNot                = rootView.findViewById(R.id.band_notyet);
-        mBandNot.setOnClickListener(new View.OnClickListener() {
+        mNotYet                 = rootView.findViewById(R.id.text_notyet);
+        mNotYet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
@@ -141,7 +141,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     }
 
     private void onFetchHistory() {
-        mBandNot.setVisibility(View.GONE);
+        mNotYet.setVisibility(View.GONE);
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, getMainActivity().mBaseChain);
@@ -159,10 +159,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            mApiTxHistory.clear();
-            mEmptyHistory.setVisibility(View.VISIBLE);
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
+            mEmptyHistory.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
+            mNotYet.setVisibility(View.VISIBLE);
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

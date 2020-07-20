@@ -16,7 +16,8 @@ class MsgGenerator {
     static func genDelegateMsg(_ fromAddress: String, _ toValAddress: String, _ amount: Coin, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             let data = try? JSONEncoder().encode(amount)
@@ -29,7 +30,7 @@ class MsgGenerator {
             msg.type = COSMOS_MSG_TYPE_DELEGATE
             msg.value = value
             
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             value.delegator_addr = fromAddress
             value.validator_addr = toValAddress
             value.delegation = amount
@@ -43,7 +44,8 @@ class MsgGenerator {
     static func genUndelegateMsg(_ fromAddress: String, _ toValAddress: String, _ amount: Coin, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             let data = try? JSONEncoder().encode(amount)
@@ -56,7 +58,7 @@ class MsgGenerator {
             msg.type = COSMOS_MSG_TYPE_UNDELEGATE2
             msg.value = value
             
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             value.delegator_addr = fromAddress
             value.validator_addr = toValAddress
             
@@ -71,14 +73,15 @@ class MsgGenerator {
     static func genGetRewardMsg(_ fromAddress: String, _ toValAddress: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             
             msg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL
             msg.value = value
             
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             value.delegator_addr = fromAddress
             value.validator_addr = toValAddress
             
@@ -102,7 +105,8 @@ class MsgGenerator {
     static func genGetSendMsg(_ fromAddress: String, _ toAddress: String, _ amount: Array<Coin>, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             value.from_address = fromAddress
             value.to_address = toAddress
             let data = try? JSONEncoder().encode(amount)
@@ -115,7 +119,7 @@ class MsgGenerator {
             msg.type = COSMOS_MSG_TYPE_TRANSFER2
             msg.value = value
             
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             let input = InOutPut.init(fromAddress, amount)
             var inputs: Array<InOutPut> = Array<InOutPut>()
             inputs.append(input)
@@ -136,7 +140,8 @@ class MsgGenerator {
     static func genGetRedelegateMsg(_ address: String, _ fromValAddress: String, _ toValAddress: String, _ amount: Coin, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             value.delegator_address = address
             value.validator_src_address = fromValAddress
             value.validator_dst_address = toValAddress
@@ -150,7 +155,7 @@ class MsgGenerator {
             msg.type = COSMOS_MSG_TYPE_REDELEGATE2
             msg.value = value
             
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             value.delegator_addr = address
             value.validator_src_addr = fromValAddress
             value.validator_dst_addr = toValAddress
@@ -177,14 +182,14 @@ class MsgGenerator {
     static func genGetModifyRewardAddressMsg(_ requestAddress: String, _ newRewardAddress: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_BAND_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             value.delegator_address = requestAddress
             value.withdraw_address = newRewardAddress
             
             msg.type = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
             msg.value = value
             
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             value.delegator_addr = requestAddress
             value.withdraw_addr = newRewardAddress
             
@@ -197,7 +202,7 @@ class MsgGenerator {
     static func genGetVoteMsg(_ fromAddress: String, _ proposalId: String, _ opinion: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
             value.proposal_id = proposalId
             value.voter = fromAddress
             value.option = opinion
@@ -205,7 +210,7 @@ class MsgGenerator {
             msg.type = COSMOS_MSG_TYPE_VOTE
             msg.value = value
             
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN) {
             value.proposal_id = proposalId
             value.voter = fromAddress
             value.option = opinion
@@ -279,7 +284,7 @@ class MsgGenerator {
                                  _ sendCoin: Array<Coin>, _ timeStamp: Int64, _ randomNumberHash: String) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (fromChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (fromChain == ChainType.KAVA_MAIN) {
             value.from = fromAccount.account_address
             value.to = KAVA_DEPUTY
             value.sender_other_chain = BNB_DEPUTY
@@ -294,7 +299,7 @@ class MsgGenerator {
             
             value.height_span = "250"
             
-        } else  if (fromChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else  if (fromChain == ChainType.KAVA_TEST) {
             value.from = fromAccount.account_address
             value.to = KAVA_TEST_DEPUTY
             value.sender_other_chain = BNB_TEST_DEPUTY

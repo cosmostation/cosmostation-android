@@ -38,7 +38,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 
 public class BaseData {
@@ -325,6 +325,32 @@ public class BaseData {
 
     public double getLastBandUpDown() {
         String priceS = getSharedPreferences().getString(BaseConstant.PRE_BAND_UP_DOWN_24, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastIovTic(Double price) {
+        getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_TIC, ""+price).commit();
+    }
+
+    public double getLastIovTic() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_IOV_TIC, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastIovUpDown(Double price) {
+        getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_UP_DOWN_24, ""+price).commit();
+    }
+
+    public double getLastIovUpDown() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_IOV_UP_DOWN_24, "0");
         try {
             return Double.parseDouble(priceS);
         }catch (Exception e) {
@@ -700,7 +726,7 @@ public class BaseData {
                     }
 
                 } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-                    if (WDp.getAvailableCoin(account.balances, COSMOS_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
+                    if (WDp.getAvailableCoin(account.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
                         result.add(account);
                     }
                 }
