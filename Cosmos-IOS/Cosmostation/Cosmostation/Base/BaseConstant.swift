@@ -547,6 +547,7 @@ let IOV_GAS_AMOUNT_SEND                     = "100000"
 let IOV_GAS_AMOUNT_STAKE                    = "200000"
 let IOV_GAS_AMOUNT_REDELEGATE               = "300000"
 let IOV_GAS_AMOUNT_REINVEST                 = "300000"
+let IOV_GAS_AMOUNT_LOW                      = "100000"
 
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"
 

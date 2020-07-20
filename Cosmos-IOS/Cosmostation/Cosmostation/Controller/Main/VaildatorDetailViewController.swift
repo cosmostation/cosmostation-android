@@ -1520,7 +1520,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
                 }
-                if (rewardSum.compare(NSDecimalNumber.one).rawValue < 0) {
+                if (rewardSum.compare(NSDecimalNumber.init(string: "1500000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return
                 }
@@ -1541,7 +1541,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
                 }
-                if (rewardSum.compare(NSDecimalNumber.one).rawValue < 0) {
+                if (rewardSum.compare(NSDecimalNumber.init(string: "1500000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return
                 }

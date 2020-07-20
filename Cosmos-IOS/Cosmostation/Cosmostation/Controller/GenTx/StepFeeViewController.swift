@@ -529,18 +529,16 @@ class StepFeeViewController: BaseViewController {
             } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
                 result = WUtils.getGasAmountForKavaRewards()[pageHolderVC.mRewardTargetValidators.count - 1]
 
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_LOW))
+
+            } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REINVEST))
+
+            } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_LOW))
+
             }
-            
-//            else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
-//                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-//
-//            } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-//                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
-//
-//            } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
-//                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-//
-//            }
         }
         return result
     }
