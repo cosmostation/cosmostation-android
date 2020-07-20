@@ -422,8 +422,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             
             let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
             let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: IOV_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler6)
-            let avaibale = mainTabVC.mAccount.getIovBalance()
-            if (avaibale.compare(estimatedFeeAmount).rawValue < 0) {
+            let available = mainTabVC.mAccount.getIovBalance()
+            if (available.compare(estimatedFeeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -460,14 +460,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             
             let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
             let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: IOV_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler6)
-            let avaibale = mainTabVC.mAccount.getIovBalance()
-            if (avaibale.compare(estimatedFeeAmount).rawValue < 0) {
+            let available = mainTabVC.mAccount.getIovBalance()
+            if (available.compare(estimatedFeeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
                    
         }
-        
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mRewardTargetValidators = toClaimValidator

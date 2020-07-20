@@ -638,8 +638,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN ||
-            chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
+            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell?.delegatorLabel.text = msg?.value.delegator_address
             cell?.widthrawAddressLabel.text = msg?.value.withdraw_address
             
@@ -656,8 +656,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN ||
-            chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
+            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell?.voterLabel.text = msg?.value.voter
             cell?.proposalIdLabel.text = msg?.value.proposal_id
             cell?.opinionLabel.text = msg?.value.option
@@ -677,8 +677,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN ||
-            chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
+            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell?.validatorLabel.text = msg?.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_address!, true)
             cell?.commissionAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleCommission(position - 1).stringValue, cell!.commissionAmountLabel.font!, 6, 6)

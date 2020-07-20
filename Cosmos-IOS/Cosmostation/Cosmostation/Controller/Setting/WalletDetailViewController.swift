@@ -310,7 +310,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-            if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.BAND_MAIN) {
+            if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
                 txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
             } else if (self.chainType == ChainType.IRIS_MAIN) {
                 txVC.mType = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
@@ -323,7 +323,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
     }
-    
     
     @IBAction func onClickActionBtn(_ sender: Any) {
         if(self.account!.account_has_private) {
@@ -393,6 +392,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.IOV_MAIN) {
+            url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         if (chainType == ChainType.IRIS_MAIN) {
@@ -414,7 +417,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN ||
+            chainType == ChainType.IOV_TEST) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
