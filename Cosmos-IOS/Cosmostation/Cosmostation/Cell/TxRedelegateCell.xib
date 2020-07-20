@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,7 +40,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wox-tF-eNl">
-                                <rect key="frame" x="16" y="81" width="6" height="14.5"/>
+                                <rect key="frame" x="16" y="81" width="264" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -52,7 +52,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VS6-IL-ZPs">
-                                <rect key="frame" x="16" y="132" width="6" height="14.5"/>
+                                <rect key="frame" x="16" y="132" width="264" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -70,7 +70,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hok-Ha-QNx">
-                                <rect key="frame" x="16" y="197" width="6" height="14.5"/>
+                                <rect key="frame" x="16" y="197" width="264" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -144,6 +144,7 @@
                             <constraint firstItem="eKt-IE-ceH" firstAttribute="leading" secondItem="YuR-la-7QM" secondAttribute="leading" id="CAP-dl-2OX"/>
                             <constraint firstItem="jVN-l7-RoT" firstAttribute="leading" secondItem="YuR-la-7QM" secondAttribute="leading" id="El8-Q4-xuq"/>
                             <constraint firstAttribute="bottom" secondItem="jVN-l7-RoT" secondAttribute="bottom" priority="750" constant="16" id="Ewj-Ao-Lfr"/>
+                            <constraint firstAttribute="trailing" secondItem="hok-Ha-QNx" secondAttribute="trailing" constant="16" id="F5T-Pt-m2t"/>
                             <constraint firstItem="YnX-s3-mVE" firstAttribute="leading" secondItem="YuR-la-7QM" secondAttribute="leading" id="FaC-5I-XkN"/>
                             <constraint firstItem="6fj-st-S4E" firstAttribute="centerY" secondItem="YuR-la-7QM" secondAttribute="centerY" id="Gsr-11-EHx"/>
                             <constraint firstItem="dAl-rr-bSf" firstAttribute="leading" secondItem="YuR-la-7QM" secondAttribute="leading" id="Hzf-jZ-aVV"/>
@@ -155,12 +156,14 @@
                             <constraint firstItem="xpf-xT-oRc" firstAttribute="leading" secondItem="EFu-pd-1MO" secondAttribute="leading" constant="16" id="SpM-OP-kNR"/>
                             <constraint firstItem="jVN-l7-RoT" firstAttribute="top" secondItem="73P-B2-usZ" secondAttribute="bottom" constant="16" id="Umf-eN-ggw"/>
                             <constraint firstItem="Wox-tF-eNl" firstAttribute="top" secondItem="Uxm-Ql-Aku" secondAttribute="bottom" constant="6" id="Wa7-nC-KKS"/>
+                            <constraint firstAttribute="trailing" secondItem="VS6-IL-ZPs" secondAttribute="trailing" constant="16" id="cCz-Jb-B1b"/>
                             <constraint firstAttribute="trailing" secondItem="xpf-xT-oRc" secondAttribute="trailing" constant="16" id="e6B-4O-NWZ"/>
                             <constraint firstItem="YnX-s3-mVE" firstAttribute="top" secondItem="Wox-tF-eNl" secondAttribute="bottom" constant="16" id="eLl-z8-ZOX"/>
                             <constraint firstItem="xpf-xT-oRc" firstAttribute="top" secondItem="jVN-l7-RoT" secondAttribute="bottom" constant="16" id="kuH-hy-XVE"/>
                             <constraint firstItem="YuR-la-7QM" firstAttribute="top" secondItem="EFu-pd-1MO" secondAttribute="top" constant="16" id="liW-yk-by4"/>
                             <constraint firstItem="73P-B2-usZ" firstAttribute="top" secondItem="hok-Ha-QNx" secondAttribute="bottom" id="n34-Yc-4ga"/>
                             <constraint firstItem="VS6-IL-ZPs" firstAttribute="top" secondItem="YnX-s3-mVE" secondAttribute="bottom" constant="6" id="pLe-be-jBI"/>
+                            <constraint firstAttribute="trailing" secondItem="Wox-tF-eNl" secondAttribute="trailing" constant="16" id="ppF-bQ-wpw"/>
                             <constraint firstAttribute="bottom" secondItem="xpf-xT-oRc" secondAttribute="bottom" constant="16" id="sqW-IP-Woo"/>
                             <constraint firstItem="YuR-la-7QM" firstAttribute="leading" secondItem="EFu-pd-1MO" secondAttribute="leading" constant="16" id="tqK-cv-BGl"/>
                             <constraint firstItem="VS6-IL-ZPs" firstAttribute="leading" secondItem="YuR-la-7QM" secondAttribute="leading" id="uwU-Nh-Eed"/>
