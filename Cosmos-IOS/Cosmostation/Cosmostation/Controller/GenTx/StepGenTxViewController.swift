@@ -319,13 +319,17 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             url = KAVA_TEST_VALIDATORS
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_VALIDATORS
+        } else if (chainType == ChainType.IOV_MAIN) {
+            url = IOV_VALIDATORS
+        } else if (chainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN ||
-                    self.chainType == ChainType.KAVA_TEST || self.chainType == ChainType.BAND_MAIN) {
+                if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
+                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                              print("no validators!!")

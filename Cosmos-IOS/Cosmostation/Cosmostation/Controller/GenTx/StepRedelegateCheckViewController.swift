@@ -36,8 +36,8 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
     func onUpdateView() {
         let toRedelegateAmount = WUtils.stringToDecimal(pageHolderVC.mToReDelegateAmount!.amount)
         let feeAmout = WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.KAVA_TEST || pageHolderVC.chainType! == ChainType.BAND_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             redelegateAmountLabel.attributedText = WUtils.displayAmount(toRedelegateAmount.stringValue, redelegateAmountLabel.font, 6, pageHolderVC.chainType!)
             redelegateFeeLabel.attributedText = WUtils.displayAmount(feeAmout.stringValue, redelegateFeeLabel.font, 6, pageHolderVC.chainType!)
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
@@ -90,6 +90,10 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
+            url = IOV_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            url = IOV_TEST_ACCOUNT_INFO + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -132,7 +136,7 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
                     self.onGenRedelegateTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
+                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {
                             _ = BaseData.instance.deleteBalance(account: account)
@@ -172,8 +176,8 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
-                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST || self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+                    self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
                                                            String(self.pageHolderVC.mAccount!.account_account_numner),
                                                            String(self.pageHolderVC.mAccount!.account_sequence_number),
@@ -265,6 +269,10 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                         url = KAVA_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
                         url = BAND_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_MAIN) {
+                        url = IOV_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                        url = IOV_TEST_BORAD_TX
                     }
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.validate()

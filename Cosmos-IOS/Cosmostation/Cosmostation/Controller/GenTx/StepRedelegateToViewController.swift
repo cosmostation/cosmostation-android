@@ -92,6 +92,18 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 }
                 let url = BAND_VAL_URL + validator.operator_address + ".png"
                 cell!.valImg.af_setImage(withURL: URL(string: url)!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                cell?.valPowerLabel.attributedText  =  WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, 6, 6)
+                if (self.pageHolderVC.mStakingPool != nil && self.pageHolderVC.mProvision != nil) {
+                    let provisions = NSDecimalNumber.init(string: self.pageHolderVC.mProvision)
+                    let bonded_tokens = NSDecimalNumber.init(string: self.pageHolderVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell!.valCommissionLabel.font)
+                } else {
+                    cell?.valCommissionLabel.text = "?? %"
+                }
+                let url = IOV_VAL_URL + validator.operator_address + ".png"
+                cell!.valImg.af_setImage(withURL: URL(string: url)!)
             }
 
             cell?.rootCard.needBorderUpdate = false
@@ -128,6 +140,14 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 cell?.rootCard.layer.borderColor = UIColor(hexString: "#7A8388").cgColor
                 cell?.rootCard.clipsToBounds = true
                 
+            } else if (validator.operator_address == checkedValidator?.operator_address &&
+                (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST)) {
+                cell?.valCheckedImg.image = cell?.valCheckedImg.image?.withRenderingMode(.alwaysTemplate)
+                cell?.valCheckedImg.tintColor = COLOR_IOV
+                cell?.rootCard.backgroundColor = UIColor.clear
+                cell?.rootCard.layer.borderWidth = 1
+                cell?.rootCard.layer.borderColor = UIColor(hexString: "#7A8388").cgColor
+                cell?.rootCard.clipsToBounds = true
             } else {
                 cell?.valCheckedImg.image = UIImage.init(named: "checkOff")
                 cell?.rootCard.backgroundColor = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
@@ -161,6 +181,9 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
             } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
                 cell?.valCheckedImg.image = cell?.valCheckedImg.image?.withRenderingMode(.alwaysTemplate)
                 cell?.valCheckedImg.tintColor = COLOR_BAND
+            } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                cell?.valCheckedImg.image = cell?.valCheckedImg.image?.withRenderingMode(.alwaysTemplate)
+                cell?.valCheckedImg.tintColor = COLOR_IOV
             }
             cell?.rootCard.backgroundColor = UIColor.clear
             cell?.rootCard.layer.borderWidth = 1
@@ -194,8 +217,8 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     
     @IBAction func onClickNext(_ sender: UIButton) {
         if(self.checkedValidator != nil && self.checkedValidator?.operator_address != nil) {
-            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                pageHolderVC.chainType! == ChainType.KAVA_TEST || pageHolderVC.chainType! == ChainType.BAND_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+                pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
                 self.onFetchRedelegateState(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address, self.checkedValidator!.operator_address)
                 
             } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
@@ -236,14 +259,18 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
             url = KAVA_TEST_REDELEGATION;
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_REDELEGATION;
+        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
+            url = IOV_REDELEGATION;
+        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            url = IOV_TEST_REDELEGATION;
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["delegator":address, "validator_from":from, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 print("res ", res)
-                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST || self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+                    self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
                     if let clearResult = res as? NSDictionary, let msg = clearResult["error"] as? String {
                         if(clearResult["error"] != nil && msg.contains("no redelegation found")) {
                             self.goNextPage()

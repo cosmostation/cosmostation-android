@@ -263,8 +263,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenSendTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                     guard  let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
