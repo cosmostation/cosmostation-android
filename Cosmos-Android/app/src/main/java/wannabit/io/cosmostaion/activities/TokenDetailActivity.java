@@ -696,14 +696,44 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent webintent = new Intent(TokenDetailActivity.this, WebActivity.class);
-                        webintent.putExtra("txid", source.hash);
-                        webintent.putExtra("chain", mBaseChain.getChain());
-                        startActivity(webintent);
+                        Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                        txDetail.putExtra("txHash", source.hash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
+
                     }
                 });
 
-            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                final BnbHistory history = mBnbHistory.get(position);
+                viewHolder.historyType.setText(history.txType);
+                viewHolder.historyType.setText(WDp.DpBNBTxType(getBaseContext(), history, mAccount.address));
+                viewHolder.history_time.setText(WDp.getTimeformat(getBaseContext(), history.timeStamp));
+                viewHolder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), history.timeStamp));
+                viewHolder.history_block.setText(history.blockHeight + " block");
+                viewHolder.historySuccess.setVisibility(View.GONE);
+                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (history.txType.equals("HTL_TRANSFER") || history.txType.equals("CLAIM_HTL") || history.txType.equals("REFUND_HTL")) {
+                            Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                            txDetail.putExtra("txHash", history.txHash);
+                            txDetail.putExtra("isGen", false);
+                            txDetail.putExtra("isSuccess", true);
+                            txDetail.putExtra("bnbTime", history.timeStamp);
+                            startActivity(txDetail);
+
+                        } else {
+                            Intent webintent = new Intent(getBaseContext(), WebActivity.class);
+                            webintent.putExtra("txid", history.txHash);
+                            webintent.putExtra("chain", mBaseChain.getChain());
+                            startActivity(webintent);
+                        }
+                    }
+                });
+
+            } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
                 final BnbHistory history = mBnbHistory.get(position);
                 viewHolder.historyType.setText(history.txType);
                 viewHolder.historyType.setText(WDp.DpBNBTxType(getBaseContext(), history, mAccount.address));
