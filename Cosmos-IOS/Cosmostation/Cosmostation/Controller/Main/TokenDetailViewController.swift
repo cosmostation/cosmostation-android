@@ -202,15 +202,29 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 
             } else if (chainType == ChainType.IRIS_MAIN) {
                 let history = mHistories[indexPath.row - 1]
-                guard let url = URL(string: "https://irishub.mintscan.io/txs/" + history._source.hash) else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                present(safariViewController, animated: true, completion: nil)
+                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+                txDetailVC.mIsGen = false
+                txDetailVC.mTxHash = history._source.hash
+                txDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(txDetailVC, animated: true)
                 
             } else if (chainType == ChainType.BINANCE_MAIN) {
                 let bnbHistory = mBnbHistories[indexPath.row - 1]
-                guard let url = URL(string: "https://binance.mintscan.io/txs/" + bnbHistory.txHash) else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                present(safariViewController, animated: true, completion: nil)
+                if (bnbHistory.txType == "HTL_TRANSFER" || bnbHistory.txType == "CLAIM_HTL" || bnbHistory.txType == "REFUND_HTL" || bnbHistory.txType == "TRANSFER") {
+                    let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+                    txDetailVC.mIsGen = false
+                    txDetailVC.mTxHash = bnbHistory.txHash
+                    txDetailVC.mBnbTime = bnbHistory.timeStamp
+                    txDetailVC.hidesBottomBarWhenPushed = true
+                    self.navigationItem.title = ""
+                    self.navigationController?.pushViewController(txDetailVC, animated: true)
+                    
+                } else {
+                    guard let url = URL(string: "https://binance.mintscan.io/txs/" + bnbHistory.txHash) else { return }
+                    let safariViewController = SFSafariViewController(url: url)
+                    present(safariViewController, animated: true, completion: nil)
+                }
                            
             } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 let history = mApiHistories[indexPath.row - 1]

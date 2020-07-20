@@ -787,9 +787,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.navigationController?.pushViewController(txDetailVC, animated: true)
 
             } else if (chainType == ChainType.IRIS_MAIN) {
-                guard let url = URL(string: "https://irishub.mintscan.io/txs/" + history._source.hash) else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                present(safariViewController, animated: true, completion: nil)
+                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+                txDetailVC.mIsGen = false
+                txDetailVC.mTxHash = history._source.hash
+                txDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(txDetailVC, animated: true)
 
             }
             
