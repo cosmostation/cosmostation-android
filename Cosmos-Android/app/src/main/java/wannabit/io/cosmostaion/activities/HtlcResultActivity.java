@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Error;
 import wannabit.io.cosmostaion.dialog.Dialog_MoreSwapWait;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -123,6 +124,11 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         } else {
             onStartMainActivity(0);
         }
+    }
+
+    public void onFinishWithError() {
+        onStartMainActivity(0);
+
     }
 
     @Override
@@ -338,14 +344,13 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                     if(response.isSuccessful() && response.body() != null) {
                         mResSendBnbTxInfo = response.body();
                     }
-                    onUpdateView();
+                    onUpdateSendView();
                 }
 
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("onFetchSendTx BNB onFailure");
                     if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
-                    onUpdateView();
                 }
             });
 
@@ -358,14 +363,13 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                     if(response.isSuccessful() && response.body() != null) {
                         mResSendBnbTxInfo = response.body();
                     }
-                    onUpdateView();
+                    onUpdateSendView();
                 }
 
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("onFetchSendTx BNB onFailure");
                     if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
-                    onUpdateView();
                 }
             });
 
@@ -377,16 +381,14 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                     WLog.w("onFetchSendTx " + response.toString());
                     if(response.isSuccessful() && response.body() != null) {
                         mResSendTxInfo = response.body();
-                        onUpdateView();
                     }
-                    onUpdateView();
+                    onUpdateSendView();
                 }
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
                     WLog.w("onFetchSendTx KAVA onFailure");
                     if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
-                    onUpdateView();
                 }
             });
 
@@ -398,16 +400,14 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                     WLog.w("onFetchSendTx " + response.toString());
                     if(response.isSuccessful() && response.body() != null) {
                         mResSendTxInfo = response.body();
-                        onUpdateView();
                     }
-                    onUpdateView();
+                    onUpdateSendView();
                 }
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
                     WLog.w("onFetchSendTx KAVA onFailure");
                     if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
-                    onUpdateView();
                 }
             });
 
@@ -686,20 +686,29 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 onCheckSwapId(mExpectedSwapId);
 
             } else {
-                //TODO ERROR MESSAGE!
+                Bundle bundle = new Bundle();
+                bundle.putString("msg", getString(R.string.str_swap_error_msg_create));
+                bundle.putString("error", result.errorMsg);
+                Dialog_Htlc_Error swapError = Dialog_Htlc_Error.newInstance(bundle);
+                swapError.setCancelable(false);
+                getSupportFragmentManager().beginTransaction().add(swapError, "dialog").commitNowAllowingStateLoss();
 
             }
         } else if (result.taskType == TASK_GEN_TX_HTLC_CLAIM) {
             if (result.isSuccess) {
                 WLog.w("CLAIM HTLC HASH " + result.resultData.toString());
                 mClaimTxHash = result.resultData.toString();
-
                 onUpdateProgress(3);
                 onFetchSendTx(mCreateTxHash);
                 onFetchClaimTx(mClaimTxHash);
 
             } else {
-                //TODO ERROR MESSAGE!
+                Bundle bundle = new Bundle();
+                bundle.putString("msg", getString(R.string.str_swap_error_msg_claim));
+                bundle.putString("error", result.errorMsg);
+                Dialog_Htlc_Error swapError = Dialog_Htlc_Error.newInstance(bundle);
+                swapError.setCancelable(false);
+                getSupportFragmentManager().beginTransaction().add(swapError, "dialog").commitNowAllowingStateLoss();
 
             }
         }
