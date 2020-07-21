@@ -522,7 +522,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 } else {
                     holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.fail_ic));
                     holder.itemStatusTxt.setText(R.string.str_failed_c);
-                    holder.itemFailTxt.setText(mResTxInfo.failMessage());
+                    if (mResTxInfo.failMessage().replace("\u00A0", "").startsWith("atomicswapnotfound")) {
+                        holder.itemFailTxt.setText("atomic swap not found");
+                    } else {
+                        holder.itemFailTxt.setText(mResTxInfo.failMessage());
+                    }
                     holder.itemFailTxt.setVisibility(View.VISIBLE);
                 }
                 holder.itemHeight.setText(mResTxInfo.height);

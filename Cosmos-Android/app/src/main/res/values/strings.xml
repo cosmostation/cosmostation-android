@@ -825,7 +825,6 @@
     <string name="str_swap_error_title">Swap Tx Error</string>
     <string name="str_swap_error_msg_create">Sorry!\nAn error occurred while sending during swap Tx. Please check below.</string>
     <string name="str_swap_error_msg_claim">Sorry!\nAn error occurred while claim during swap Tx. Please check below.</string>
-
     <string name="str_app_unlock_title">Unlock Cosmostation</string>
     <string name="str_app_unlock_msg1">Please insert PIN number for unlock</string>
     <string name="str_app_unlock_msg2">Please insert PIN number or using fingerprint for unlock</string>
