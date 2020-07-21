@@ -244,7 +244,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else {
                 cell?.statusImg.image = UIImage(named: "failIc")
                 cell?.statusLabel.text = NSLocalizedString("tx_fail", comment: "")
-                cell?.errorMsg.text = mTxInfo?.failMsg()
+                if let bool = mTxInfo?.failMsg().starts(with: "atomic swap not found"), bool {
+                    cell?.errorMsg.text = "atomic swap not found"
+                } else {
+                    cell?.errorMsg.text = mTxInfo?.failMsg()
+                }
                 cell?.errorMsg.isHidden = false
                 cell?.errorConstraint.priority = .defaultHigh
                 cell?.successConstraint.priority = .defaultLow
