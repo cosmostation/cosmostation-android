@@ -11,6 +11,7 @@ public class TaskResult {
 
     public Object       resultData;
     public String       resultData2;
+    public String       resultData3;
 
     public TaskResult() {
         this.isSuccess = false;

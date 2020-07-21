@@ -26,24 +26,27 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_MoreSwapWait;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
-import wannabit.io.cosmostaion.task.ProgressTaskListener;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcSwapTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcClaimTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcCreateTask;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CLAIM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
 
-public class HtlcResultActivity extends BaseActivity implements View.OnClickListener, ProgressTaskListener {
+public class HtlcResultActivity extends BaseActivity implements View.OnClickListener {
     private Toolbar             mToolbar;
     private NestedScrollView    mTxScrollView;
     private CardView            mErrorCardView;
@@ -59,7 +62,11 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     private Fee                 mSendFee;
     private Fee                 mClaimFee;
 
-    private TaskResult          mResult;
+
+    private String              mExpectedSwapId;
+    private String              mRandomNumber;
+    private String              mCreateTxHash;
+    private String              mClaimTxHash;
     private ResBnbTxInfo        mResSendBnbTxInfo;
     private ResBnbTxInfo        mResReceiveBnbTxInfo;
     private ResTxInfo           mResSendTxInfo;
@@ -95,10 +102,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         mClaimFee = getIntent().getParcelableExtra("claimFee");
 
         mLoadingProgress.setText(getString(R.string.str_htlc_loading_progress_0));
-        new HtlcSwapTask(getBaseApplication(), this,
-                mAccount, mRecipientAccount, mTargetCoins, mSendFee,
-                mClaimFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
+        onCreateHTLC();
     }
 
     @Override
@@ -134,25 +138,11 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     }
 
     private void onUpdateView() {
-        mTaskCount--;
-        if (mTaskCount <= 0) {
-            mLoadingLayer.setVisibility(View.GONE);
-            mControlLayer.setVisibility(View.VISIBLE);
-            if (mResult.isSuccess) {
-                onUpdateSendView();
-                onUpdateClaimView();
-                mTxScrollView.setVisibility(View.VISIBLE);
-
-            } else {
-                if(mResult.errorCode == ERROR_CODE_BROADCAST) {
-                    mErrorMsgTv.setText(getString(R.string.error_network));
-                } else {
-                    mErrorMsgTv.setText("error code : " + mResult.errorCode + "\n" + mResult.errorMsg);
-                }
-                mErrorCardView.setVisibility(View.VISIBLE);
-            }
-        }
-
+        onUpdateSendView();
+        onUpdateClaimView();
+        mLoadingLayer.setVisibility(View.GONE);
+        mControlLayer.setVisibility(View.VISIBLE);
+        mTxScrollView.setVisibility(View.VISIBLE);
     }
 
     private void onUpdateProgress(int progress) {
@@ -437,7 +427,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                         mResReceiveBnbTxInfo = response.body();
                         onUpdateView();
                     } else {
-                        if (ClaimFetchCnt < 5) {
+                        if (ClaimFetchCnt < 20) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -470,7 +460,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                         mResReceiveBnbTxInfo = response.body();
                         onUpdateView();
                     } else {
-                        if (ClaimFetchCnt < 5) {
+                        if (ClaimFetchCnt < 20) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -503,7 +493,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                         mResReceiveTxInfo = response.body();
                         onUpdateView();
                     } else {
-                        if (ClaimFetchCnt < 5) {
+                        if (ClaimFetchCnt < 20) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -536,7 +526,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                         mResReceiveTxInfo = response.body();
                         onUpdateView();
                     } else {
-                        if (ClaimFetchCnt < 5) {
+                        if (ClaimFetchCnt < 20) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -564,27 +554,155 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
 
 
-    private int mTaskCount = 0;
-    @Override
-    public void onTaskResponse(TaskResult result) {
-        if (result.taskType == TASK_GEN_TX_HTLC_SWAP) {
-            mResult = result;
-            if (mResult.isSuccess) {
-                mTaskCount = 2;
-                onUpdateProgress(3);
-                onFetchSendTx(result.resultData2);
-                onFetchClaimTx((String)result.resultData);
+    //Create HTLC TX
+    private void onCreateHTLC() {
+        new HtlcCreateTask(getBaseApplication(), this, mAccount, mRecipientAccount, mBaseChain, mRecipientChain, mTargetCoins, mSendFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-            } else {
-                onUpdateView();
-            }
+    }
+
+    //Check HTLC SWAP ID
+    private int SwapFetchCnt = 0;
+    private void onCheckSwapId(String expectedSwapId) {
+        if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
+            ApiClient.getKavaChain(this).getSwapById(expectedSwapId).enqueue(new Callback<ResKavaSwapInfo>() {
+                @Override
+                public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
+                    if (response.isSuccessful() && response.body() != null && response.body().result != null) {
+                        onClaimHTLC();
+                    } else {
+                        onHandleNotfound(expectedSwapId);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResKavaSwapInfo> call, Throwable t) {
+                    onHandleNotfound(expectedSwapId);
+                }
+            });
+
+        } else if (mRecipientChain.equals(BaseChain.KAVA_TEST)) {
+            ApiClient.getKavaTestChain(this).getSwapById(expectedSwapId).enqueue(new Callback<ResKavaSwapInfo>() {
+                @Override
+                public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
+                    if (response.isSuccessful() && response.body() != null && response.body().result != null) {
+                        onClaimHTLC();
+                    } else {
+                        onHandleNotfound(expectedSwapId);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResKavaSwapInfo> call, Throwable t) {
+                    onHandleNotfound(expectedSwapId);
+
+                }
+            });
+
+        } else if (mRecipientChain.equals(BaseChain.BNB_MAIN)) {
+            ApiClient.getBnbChain(this).getSwapById(expectedSwapId).enqueue(new Callback<ResBnbSwapInfo>() {
+                @Override
+                public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
+                    if (response.isSuccessful() && response.body() != null && response.body().swapId != null) {
+                        onClaimHTLC();
+                    } else {
+                        onHandleNotfound(expectedSwapId);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResBnbSwapInfo> call, Throwable t) {
+                    onHandleNotfound(expectedSwapId);
+
+                }
+            });
+
+        } else if (mRecipientChain.equals(BaseChain.BNB_TEST)) {
+            ApiClient.getBnbTestChain(this).getSwapById(expectedSwapId).enqueue(new Callback<ResBnbSwapInfo>() {
+                @Override
+                public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
+                    if (response.isSuccessful() && response.body() != null && response.body().swapId != null) {
+                        onClaimHTLC();
+                    } else {
+                        onHandleNotfound(expectedSwapId);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResBnbSwapInfo> call, Throwable t) {
+                    onHandleNotfound(expectedSwapId);
+
+                }
+            });
+
         }
     }
 
+    //Claim HTLC TX
+    private void onClaimHTLC() {
+        onUpdateProgress(2);
+        new HtlcClaimTask(getBaseApplication(), this, mRecipientAccount, mRecipientChain, mClaimFee, mExpectedSwapId, mRandomNumber).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+    }
+
+    private void onHandleNotfound(String expectedSwapId) {
+        if (SwapFetchCnt < 10) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    SwapFetchCnt++;
+                    onCheckSwapId(expectedSwapId);
+                }
+            }, 6000);
+        } else {
+            onShowMoreSwapWait();
+        }
+    }
+
+    //SWAP ID LOOP CHECK
+    private void onShowMoreSwapWait() {
+        Dialog_MoreSwapWait waitSwapMore = Dialog_MoreSwapWait.newInstance(null);
+        waitSwapMore.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(waitSwapMore, "dialog").commitNowAllowingStateLoss();
+
+    }
+
+    public void onWaitSwapMore() {
+        SwapFetchCnt = 0;
+        onCheckSwapId(mExpectedSwapId);
+
+    }
+
     @Override
-    public void onTaskProgress(Integer progress) {
-        WLog.w("onTaskProgress " + progress);
-        onUpdateProgress(progress);
+    public void onTaskResponse(TaskResult result) {
+        if (result.taskType == TASK_GEN_TX_HTLC_CREATE) {
+            if (result.isSuccess) {
+                WLog.w("Create HTLC HASH " + result.resultData.toString());
+                WLog.w("Expected SwapID " + result.resultData2);
+                WLog.w("RandomNumber SwapID " + result.resultData3);
+                mCreateTxHash = result.resultData.toString();
+                mExpectedSwapId = result.resultData2;
+                mRandomNumber = result.resultData3;
+                onUpdateProgress(1);
+                onCheckSwapId(mExpectedSwapId);
+
+            } else {
+                //TODO ERROR MESSAGE!
+
+            }
+        } else if (result.taskType == TASK_GEN_TX_HTLC_CLAIM) {
+            if (result.isSuccess) {
+                WLog.w("CLAIM HTLC HASH " + result.resultData.toString());
+                mClaimTxHash = result.resultData.toString();
+
+                onUpdateProgress(3);
+                onFetchSendTx(mCreateTxHash);
+                onFetchClaimTx(mClaimTxHash);
+
+            } else {
+                //TODO ERROR MESSAGE!
+
+            }
+        }
     }
 
 }

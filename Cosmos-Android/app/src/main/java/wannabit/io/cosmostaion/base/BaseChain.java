@@ -134,8 +134,8 @@ public enum BaseChain {
 //        result.add(IOV_MAIN);
         result.add(BAND_MAIN);
 
-        result.add(BNB_TEST);
-        result.add(KAVA_TEST);
+//        result.add(BNB_TEST);
+//        result.add(KAVA_TEST);
         result.add(IOV_TEST);
         return result;
     }
