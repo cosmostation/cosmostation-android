@@ -82,6 +82,8 @@
 "reward_address_warnning_title" = "Double Check!";
 "more_wait_title" = "Result Display Delayed";
 "more_wait_msg" = "The transaction you requested has been successfully broadcasted to the blockchain. However, there is a delay in displaying the result. Please press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.";
+"more_wait_swap_title" = "Check SwapID Delayed";
+"more_wait_swap_msg" = "Tried to swap normally in the sending chain. However, the relay ID has not been found yet.\n\nIf you press the \"Wait\" button, it will continue to search for swap IDs and perform the swap function.\nIf you click the \"Close\" button, you can return to the original wallet after a certain period of time.";
 "fee_speed_title_0" = "Only a handful of validators will process this Tx.";
 "fee_speed_title_1" = "A few validators include \"Cosmostation\" will process this Tx.";
 "fee_speed_title_2" = "Most validators will process this Tx.";

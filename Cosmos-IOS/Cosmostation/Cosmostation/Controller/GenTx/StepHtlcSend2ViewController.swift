@@ -31,6 +31,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             minAvailable = NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)
             minAvailableAmount.attributedText = WUtils.displayAmount2(minAvailable.stringValue, minAvailableAmount.font, 0, mDpDecimal)
             maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!).subtracting(NSDecimalNumber.init(string: "0.000375"))
+//            if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
                 if (maxAvailable.compare(pageHolderVC.mSwapRemainCap).rawValue > 0) {
                     maxAvailable = pageHolderVC.mSwapRemainCap

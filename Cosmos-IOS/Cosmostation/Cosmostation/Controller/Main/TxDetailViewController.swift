@@ -842,7 +842,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             let receiveCoin = mTxInfo!.simpleSwapCoin()
-            if (receiveCoin != nil) {
+            if (receiveCoin != nil && !receiveCoin!.denom.isEmpty) {
                 cell?.claimAmount.attributedText = WUtils.displayAmount2(receiveCoin!.amount, cell!.claimAmount.font!, WUtils.getKavaCoinDecimal(receiveCoin!.denom), WUtils.getKavaCoinDecimal(receiveCoin!.denom))
                 cell?.claimDenom.text = receiveCoin!.denom.uppercased()
             }
@@ -1070,7 +1070,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         }
-//        print("txdetail url ", request?.request?.url)
+        print("txdetail url ", request?.request?.url)
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):

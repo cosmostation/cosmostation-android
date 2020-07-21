@@ -199,7 +199,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             cell?.memoLabel.text = mClaimTxInfo?.tx?.value.memo
             
             let receiveCoin = mClaimTxInfo!.simpleSwapCoin()
-            if (receiveCoin != nil) {
+            if (receiveCoin != nil && !receiveCoin!.denom.isEmpty) {
                 cell?.receivedAmountLabel.attributedText = WUtils.displayAmount2(receiveCoin!.amount, cell!.receivedAmountLabel.font!, WUtils.getKavaCoinDecimal(receiveCoin!.denom), WUtils.getKavaCoinDecimal(receiveCoin!.denom))
                 cell?.receivedDenom.text = receiveCoin!.denom.uppercased()
             }
@@ -504,33 +504,27 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 self.mSwapFetchCnt = self.mSwapFetchCnt - 1
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     if (self.mSwapFetchCnt > 0) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
                             self.onFetchSwapId()
                         })
                     } else {
-                        //Sometimes check swapid didn't callback!!
-                        self.onCheckClaimHtlcSwap()
+                        self.onShowMoreSwapWait()
                     }
                     return
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {
-                    self.onCheckClaimHtlcSwap()
-                })
-                
-                
+                self.onCheckClaimHtlcSwap()
+
+            
             case .failure(let error):
                 if(SHOW_LOG) { print("onFetchSwapId failure", error , " ", self.mSwapFetchCnt) }
                 self.mSwapFetchCnt = self.mSwapFetchCnt - 1
                 if (self.mSwapFetchCnt > 0) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
                         self.onFetchSwapId()
                     })
                 } else {
-//                    self.onUpdateView(error.localizedDescription)
-                    //Sometimes check swapid didn't callback!!
-                    self.onCheckClaimHtlcSwap()
+                    self.onShowMoreSwapWait()
                 }
-                return
             }
         }
     }
@@ -740,7 +734,18 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         }
     }
     
-    
+    func onShowMoreSwapWait() {
+        let noticeAlert = UIAlertController(title: NSLocalizedString("more_wait_swap_title", comment: ""), message: NSLocalizedString("more_wait_swap_msg", comment: ""), preferredStyle: .alert)
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+            self.onStartMainTab()
+        }))
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("wait", comment: ""), style: .default, handler: { _ in
+            self.mSwapFetchCnt = 10
+            self.onFetchSwapId()
+        }))
+        self.present(noticeAlert, animated: true, completion: nil)
+    }
     
     
     func onFetchSendTx() {
@@ -781,7 +786,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         
     }
     
-    var mClaimTxFetchCnt = 6
+    var mClaimTxFetchCnt = 10
     func onFetchClaimTx() {
         onUpdateProgress(3)
 //        print("onFetchClaimTx")
@@ -807,7 +812,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 self.mClaimTxFetchCnt = self.mClaimTxFetchCnt - 1
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     if (self.mClaimTxFetchCnt > 0) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3000), execute: {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
                             self.onFetchClaimTx()
                         })
                     }
@@ -819,7 +824,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             case .failure(let error):
                 self.mClaimTxFetchCnt = self.mClaimTxFetchCnt - 1
                 if (self.mClaimTxFetchCnt > 0) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3000), execute: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
                         self.onFetchClaimTx()
                     })
                 } else {

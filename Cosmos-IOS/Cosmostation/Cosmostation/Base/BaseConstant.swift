@@ -186,6 +186,7 @@ let KAVA_TEST_CDP_DEPOSIT               = KAVA_TEST_URL + "cdp/cdps/cdp/deposits
 let KAVA_TEST_TOKEN_PRICE_PARAM         = KAVA_TEST_URL + "pricefeed/parameters";
 let KAVA_TEST_TOKEN_PRICE               = KAVA_TEST_URL + "pricefeed/price/";
 let KAVA_TEST_CHECK_SWAPID              = KAVA_TEST_URL + "bep3/swap/";
+let KAVA_TEST_CHECK_SWAP_SUPPLY         = KAVA_TEST_URL + "bep3/supplies";
 let KAVA_TEST_INCENTIVE_PARAM           = KAVA_TEST_URL + "incentive/parameters";
 let KAVA_TEST_MY_INCENTIVE              = KAVA_TEST_URL + "incentive/claims/";
 
@@ -612,8 +613,8 @@ enum ChainType: String {
         result.append(KAVA_MAIN)
 //        result.append(IOV_MAIN)
         result.append(BAND_MAIN)
-        result.append(BINANCE_TEST)
-        result.append(KAVA_TEST)
+//        result.append(BINANCE_TEST)
+//        result.append(KAVA_TEST)
         result.append(IOV_TEST)
         return result
     }

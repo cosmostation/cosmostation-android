@@ -54,7 +54,7 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     }
     
     @IBAction func onClickNext(_ sender: UIButton) {
-        if (pageHolderVC.chainType == ChainType.BINANCE_MAIN) {
+        if (pageHolderVC.chainType == ChainType.BINANCE_MAIN || pageHolderVC.chainType == ChainType.BINANCE_TEST) {
             onCheckSwapSupply()
         } else {
             self.btnCancel.isUserInteractionEnabled = false
@@ -96,7 +96,13 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     }
     
     func onCheckSwapSupply() {
-        let request = Alamofire.request(KAVA_CHECK_SWAP_SUPPLY, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        var url: String?
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
+            url = KAVA_CHECK_SWAP_SUPPLY
+        } else if (pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+            url = KAVA_TEST_CHECK_SWAP_SUPPLY
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
