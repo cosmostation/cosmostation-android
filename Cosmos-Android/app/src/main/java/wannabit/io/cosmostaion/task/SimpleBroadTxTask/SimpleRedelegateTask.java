@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
 import org.bitcoinj.crypto.DeterministicKey;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -159,8 +160,8 @@ public class SimpleRedelegateTask extends CommonTask {
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(singleRedeleMsg);
 
-            ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mReDelegateMemo, deterministicKey);
             if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mReDelegateMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -184,12 +185,13 @@ public class SimpleRedelegateTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getIrisBraodcaseReq2(mAccount, msgs, mFees, mReDelegateMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
                     if (response.body().hash != null) {
                         mResult.resultData = response.body().hash;
                     }
-                    if(response.body().check_tx.code != null) {
+                    if (response.body().check_tx.code != null) {
                         mResult.errorCode = response.body().check_tx.code;
                         mResult.errorMsg = response.body().raw_log;
                         return mResult;
@@ -201,6 +203,7 @@ public class SimpleRedelegateTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mReDelegateMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -218,6 +221,7 @@ public class SimpleRedelegateTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mReDelegateMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -235,6 +239,7 @@ public class SimpleRedelegateTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mReDelegateMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getBandChain(mApp).broadTx(reqBroadCast).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -252,6 +257,7 @@ public class SimpleRedelegateTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mReDelegateMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getIovChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -269,6 +275,7 @@ public class SimpleRedelegateTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mReDelegateMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getIovTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
