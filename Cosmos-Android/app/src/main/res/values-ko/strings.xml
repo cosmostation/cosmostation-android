@@ -714,7 +714,7 @@
     하지만 결과값을 보여주는데 시간이 지연되고 있습니다.
     "기다리기" 버튼을 눌러 현재 화면에서 결과값을 확인하거나, "닫기" 버튼을 눌러 잠시 후에 History 탭에서 결과를 확인하세요.]]></string>
     <string name="str_more_wait_swap_title">스왑아이디 확인 지연</string>
-    <string name="str_more_wait_swap_msg">보내는 체인에서 정상적으로 스왑을 시도하였습니다. 하지만 릴레이어가 아직 스왑아이디가 검색되지 않습니다. \"기다리기\" 버튼을 누르시면 계속해서 스왑아이디를 검색하며 스왑 기능을 진행합니다. \"닫기\" 버튼을 누르시면 일정시간 이후 원래 지갑으로 원복 하실 수 있습니다.</string>
+    <string name="str_more_wait_swap_msg">보내는 체인에서 정상적으로 스왑을 시도하였지만, 스왑아이디가 검색되지 않습니다. \"기다리기\" 버튼을 누르시면 계속해서 스왑아이디를 검색하며 스왑 기능을 진행합니다. \"닫기\" 버튼을 누르시면 일정 시간 이후 원래 지갑으로 토큰이 반환됩니다.</string>
     <string name="str_swap_error_title">스왑 Tx 에러</string>
     <string name="str_swap_error_msg_create">죄송합니다. \n스왑 Tx중 보내기 중 에러가 발생하였습니다. 아래 내용을 확인해 주세요.</string>
     <string name="str_swap_error_msg_claim">죄송합니다. \n스왑 Tx 받기 중 에러가 발생하였습니다. 아래 내용을 확인해 주세요.</string>
