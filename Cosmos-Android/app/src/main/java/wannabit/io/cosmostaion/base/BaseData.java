@@ -992,7 +992,7 @@ public class BaseData {
     }
 
     public void onUpdateBalances(long accountId,  ArrayList<Balance> balances) {
-        if(balances == null || balances.size() == 0) {
+        if (balances == null || balances.size() == 0) {
             onDeleteBalance(""+accountId);
             return;
         }

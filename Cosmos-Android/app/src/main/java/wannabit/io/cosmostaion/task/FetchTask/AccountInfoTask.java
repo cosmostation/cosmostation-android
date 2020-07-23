@@ -47,6 +47,8 @@ public class AccountInfoTask extends CommonTask {
                 if(response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
+                } else {
+                    mApp.getBaseDao().onDeleteBalance(""+mAccount.id);
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
@@ -69,6 +71,8 @@ public class AccountInfoTask extends CommonTask {
                 if(response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
+                } else {
+                    mApp.getBaseDao().onDeleteBalance(""+mAccount.id);
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_TEST)) {
