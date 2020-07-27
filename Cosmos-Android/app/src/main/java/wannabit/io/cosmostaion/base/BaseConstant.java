@@ -124,6 +124,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_BNB_MINI_TOKENS                  = 2078;
     public final static int TASK_GEN_TX_HTLC_CREATE                     = 2079;
     public final static int TASK_GEN_TX_HTLC_CLAIM                      = 2080;
+    public final static int TASK_FETCH_BNB_FEES                         = 2081;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;

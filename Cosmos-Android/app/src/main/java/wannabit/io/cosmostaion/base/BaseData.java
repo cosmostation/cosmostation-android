@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
@@ -38,8 +39,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 public class BaseData {
 
@@ -57,6 +58,20 @@ public class BaseData {
     public ArrayList<ResKavaIncentiveReward.KavaUnclaimedIncentiveReward>   mKavaUnClaimedIncentiveRewards = new ArrayList<>();
 
     public ArrayList<BnbToken>                                              mBnbTokens = new ArrayList<>();
+    public ArrayList<ResBnbFee>                                             mBnbFees = new ArrayList<>();
+
+
+    public BigDecimal getBnbTransferFee() {
+        BigDecimal result =  BigDecimal.ZERO;
+        for (ResBnbFee fee: mBnbFees) {
+            if (fee.fixed_fee_params != null) {
+                if (fee.fixed_fee_params.msg_type.equals("send")) {
+                    result = new BigDecimal(fee.fixed_fee_params.fee).movePointLeft(8);
+                }
+            }
+        }
+        return result;
+    }
 
     public BaseData(BaseApplication apps) {
         this.mApp = apps;

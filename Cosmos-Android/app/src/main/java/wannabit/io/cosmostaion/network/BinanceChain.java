@@ -9,16 +9,13 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResBnbHistories;
 import wannabit.io.cosmostaion.network.res.ResBnbNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
-import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
-import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface BinanceChain {
 
@@ -51,4 +48,7 @@ public interface BinanceChain {
 
     @GET("/api/v1/mini/tokens")
     Call<ArrayList<BnbToken>> getMiniTokens(@Query("limit") String limit);
+
+    @GET("/api/v1/fees")
+    Call<ArrayList<ResBnbFee>> getFees();
 }
