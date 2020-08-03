@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResLcdKavaAccountInfo {
     @SerializedName("height")
@@ -68,7 +67,6 @@ public class ResLcdKavaAccountInfo {
                 long cTime = Calendar.getInstance().getTime().getTime();
                 for (int i = 0; i < vesting_periods.size(); i ++) {
                     long unlockTime = getUnLockTime(i);
-//                    WLog.w("lTime " + unlockTime);
                     if (cTime < unlockTime) {
                         result = result + 1;
                     }
@@ -105,6 +103,17 @@ public class ResLcdKavaAccountInfo {
                 }
             }
             return result;
+        }
+
+        public long getCVestingUnLockTime(int position) {
+            int totalVesting = vesting_periods.size();
+            int remainVestingCnt = getCVestingCnt();
+            long result = this.start_time;
+            for (int i = 0; i <= (totalVesting - remainVestingCnt + position); i ++) {
+                result = result + vesting_periods.get(i).length;
+            }
+            return result * 1000;
+
         }
 
         public VestingPeriod getCVestingPeriod(int position) {
