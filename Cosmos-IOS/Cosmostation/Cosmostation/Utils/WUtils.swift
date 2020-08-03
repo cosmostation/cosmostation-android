@@ -1764,7 +1764,7 @@ class WUtils {
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (chainS == CHAIN_KAVA_TEST_S) {
-            return "kava-testnet-6000"
+            return "kava-testnet-8000"
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return "iovns-galaxynet"
         }
@@ -1787,7 +1787,7 @@ class WUtils {
         } else if (chain == ChainType.BINANCE_TEST) {
             return "Binance-Chain-Nile"
         } else if (chain == ChainType.KAVA_TEST) {
-            return "kava-testnet-6000"
+            return "kava-testnet-8000"
         } else if (chain == ChainType.IOV_TEST) {
             return "iovns-galaxynet"
         }

@@ -40,9 +40,9 @@ let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 let KAVA_URL                            = "https://lcd-kava-3.cosmostation.io/";
 let KAVA_API                            = "https://api-kava-3.cosmostation.io/";
 
-let KAVA_TEST_URL                       = "https://lcd-kava-testnet-6000.cosmostation.io/";
-let KAVA_TEST_API                       = "https://api-kava-testnet-6000.cosmostation.io/";
-let KAVA_TEST_FAUCET                    = "https://faucet-kava-3.cosmostation.io/claim/";
+let KAVA_TEST_URL                       = "https://lcd-kava-testnet-8000.cosmostation.io/";
+let KAVA_TEST_API                       = "https://api-kava-testnet-8000.cosmostation.io/";
+let KAVA_TEST_FAUCET                    = "https://faucet-kava-testnet-8000.cosmostation.io/faucet/";
 
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
 let IOV_API                             = "";
@@ -615,7 +615,7 @@ enum ChainType: String {
         result.append(BAND_MAIN)
         
         result.append(BINANCE_TEST)
-//        result.append(KAVA_TEST)
+        result.append(KAVA_TEST)
         result.append(IOV_TEST)
         return result
     }

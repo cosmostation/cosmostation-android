@@ -86,8 +86,13 @@ class AddAddressViewController: BaseViewController {
             
         } else if (userInput.starts(with: "kava")) {
             if (WKey.isValidateBech32(userInput)) {
-                self.onShowKavaChainSelect(userInput)
-                return;
+                if (ChainType.SUPPRT_CHAIN().contains(ChainType.KAVA_TEST)) {
+                    self.onShowKavaChainSelect(userInput)
+                    return;
+                } else {
+                    self.onGenWatchAccount(ChainType.KAVA_MAIN, userInput)
+                    return;
+                }
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
                 self.addAddressInputText.text = ""
@@ -98,7 +103,6 @@ class AddAddressViewController: BaseViewController {
             if (!ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_MAIN)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
                 return;
-                
             }
             if (WKey.isValidateBech32(userInput)) {
                 self.onGenWatchAccount(ChainType.IOV_MAIN, userInput)

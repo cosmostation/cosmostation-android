@@ -45,9 +45,16 @@ public class ApiHistory {
                 self.fee = Fee.init(feedata)
             }
             
-            let rawMsgs = dictionary["messages"] as! Array<NSDictionary>
-            for rawMsg in rawMsgs {
-                self.msg.append(Msg(rawMsg as! [String : Any]))
+            if let rawMsgs = dictionary["messages"] as? Array<NSDictionary> {
+                for rawMsg in rawMsgs {
+                    self.msg.append(Msg(rawMsg as! [String : Any]))
+                }
+            }
+            
+            if let rawMsgs = dictionary["msg"] as? Array<NSDictionary> {
+                for rawMsg in rawMsgs {
+                    self.msg.append(Msg(rawMsg as! [String : Any]))
+                }
             }
             
             
