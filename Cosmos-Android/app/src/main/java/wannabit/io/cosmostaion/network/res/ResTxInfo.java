@@ -2,21 +2,14 @@ package wannabit.io.cosmostaion.network.res;
 
 import android.text.TextUtils;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResTxInfo {
     @SerializedName("height")
@@ -128,9 +121,9 @@ public class ResTxInfo {
                 if (event.type.equals("transfer")) {
                     for (int i = 0; i < event.attributes.size(); i ++) {
                         if (event.attributes.get(i).key.equals("recipient") && event.attributes.get(i).value.equals(Addr)) {
-                            if (i+1 < event.attributes.size() && event.attributes.get(i+1) != null && event.attributes.get(i+1).key.equals("amount")) {
-                                if (event.attributes.get(i+1).value != null) {
-                                    String temp = event.attributes.get(i+1).value.replaceAll("[^0-9]", "");
+                            for (int j = i; j < event.attributes.size(); j ++) {
+                                if (event.attributes.get(j).key.equals("amount") && event.attributes.get(j).value != null) {
+                                    String temp = event.attributes.get(j).value.replaceAll("[^0-9]", "");
                                     result = new BigDecimal(temp);
                                 }
                             }
