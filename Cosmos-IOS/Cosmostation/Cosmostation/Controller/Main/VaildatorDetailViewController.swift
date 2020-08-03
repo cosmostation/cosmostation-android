@@ -1081,6 +1081,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.mApiHistories.removeAll()
                 guard let histories = res as? Array<NSDictionary> else {
                     print("no history!!")
+                    self.onFetchFinished()
                     return;
                 }
                 for rawHistory in histories {
