@@ -24,7 +24,7 @@ public enum BaseChain {
     KAVA_TEST_LEGACY5("kava-testnet-5000"),
     KAVA_TEST_LEGACY6("kava-testnet-6000"),
     KAVA_TEST_3("kava-3-test"),
-    KAVA_TEST("kava-testnet-6000"),
+    KAVA_TEST("kava-testnet-8000"),
     IOV_TEST("iovns-galaxynet");
 
     private final String chainName;
@@ -135,7 +135,7 @@ public enum BaseChain {
         result.add(BAND_MAIN);
 
         result.add(BNB_TEST);
-//        result.add(KAVA_TEST);
+        result.add(KAVA_TEST);
         result.add(IOV_TEST);
         return result;
     }

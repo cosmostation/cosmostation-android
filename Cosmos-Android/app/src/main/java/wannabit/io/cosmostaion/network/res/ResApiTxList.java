@@ -28,7 +28,7 @@ public class ResApiTxList {
         @SerializedName("tx_hash")
         public String tx_hash;
 
-        @SerializedName("messages")
+        @SerializedName(value="messages", alternate={"msg"})
         public ArrayList<Msg> messages;
 
         @SerializedName("fee")

@@ -125,6 +125,7 @@ public class ResTxInfo {
                                 if (event.attributes.get(j).key.equals("amount") && event.attributes.get(j).value != null) {
                                     String temp = event.attributes.get(j).value.replaceAll("[^0-9]", "");
                                     result = new BigDecimal(temp);
+                                    break;
                                 }
                             }
                         }
