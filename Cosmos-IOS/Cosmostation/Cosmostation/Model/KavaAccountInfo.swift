@@ -69,6 +69,16 @@ public class KavaAccountInfo {
             return result
         }
         
+        func getCVestingUnLockTime(_ position:Int) -> Int64 {
+            let totalVesting = value.vesting_periods.count
+            let remainVestingCnt = getCVestingCnt();
+            var result: Int64 = value.start_time
+            for i in 0..<(totalVesting - remainVestingCnt + position + 1) {
+                result = result + value.vesting_periods[i].length
+            }
+            return result * 1000
+        }
+        
         func getCVestingPeriod(_ position:Int) -> VestingPeriod {
             return getCVestingPeriods()[position]
         }

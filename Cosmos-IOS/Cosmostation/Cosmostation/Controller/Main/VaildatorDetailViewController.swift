@@ -525,23 +525,23 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (chainType == ChainType.IRIS_MAIN) {
             if (mBonding != nil) {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 18, chainType!)
+                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 18, 18)
             } else {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 18, chainType!)
+                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 18, 18)
             }
             if (mUnbondings.count > 0) {
                 var unbondSum = NSDecimalNumber.zero
                 for unbonding in mUnbondings {
                     unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
                 }
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 18, chainType!)
+                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondSum.stringValue, cell!.myUndelegateAmount.font, 18, 18)
             } else {
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 18, chainType!)
+                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 18, 18)
             }
             if (mIrisRewards != nil) {
-                cell!.myRewardAmount.attributedText = WUtils.displayAmount((mIrisRewards?.getPerValReward(valOp: mValidator!.operator_address).stringValue)!, cell!.myRewardAmount.font, 18, chainType!)
+                cell!.myRewardAmount.attributedText = WUtils.displayAmount2((mIrisRewards?.getPerValReward(valOp: mValidator!.operator_address).stringValue)!, cell!.myRewardAmount.font, 18, 18)
             } else {
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 18, chainType!)
+                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 18, 18)
             }
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -907,7 +907,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                         return
                     }
                     let bondinginfo = BondingInfo(rawData)
-                    let shareAmount = WUtils.stringToDecimal(bondinginfo.shares).multiplying(byPowerOf10: 18)
+                    let shareAmount = WUtils.stringToDecimalNoLocale(bondinginfo.shares).multiplying(byPowerOf10: 18)
                     self.mBonding = Bonding(account.account_id, bondinginfo.validator_addr, shareAmount.stringValue, Date().millisecondsSince1970)
                 }
                 
@@ -957,8 +957,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                         return
                     }
                     let unbondinginfo = UnbondingInfo(rawData)
-                    let unbondingBalance = WUtils.stringToDecimal(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
-                    let initialBalance = WUtils.stringToDecimal(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
+                    let unbondingBalance = WUtils.stringToDecimalNoLocale(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
+                    let initialBalance = WUtils.stringToDecimalNoLocale(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
                     self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_addr, unbondinginfo.creation_height, WUtils.nodeTimeToInt64(input: unbondinginfo.min_time).millisecondsSince1970, initialBalance.stringValue, unbondingBalance.stringValue, Date().millisecondsSince1970))
                 }
                 

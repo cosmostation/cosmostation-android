@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -613,7 +613,8 @@ enum ChainType: String {
         result.append(KAVA_MAIN)
 //        result.append(IOV_MAIN)
         result.append(BAND_MAIN)
-//        result.append(BINANCE_TEST)
+        
+        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
         result.append(IOV_TEST)
         return result

@@ -600,32 +600,32 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.vestingCntLabel.text = "(" + String(mKavaAccount.getCVestingCnt()) + ")"
             cell?.vestingTotalAmount.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingSum().stringValue, cell!.vestingTotalAmount.font!, 6, 6)
             if (mKavaAccount.getCVestingCnt() > 0) {
-                cell?.vestingTime0.text = WUtils.longTimetoString(input: mKavaAccount.getUnLockTime(0))
-                cell?.vestingGap0.text = WUtils.getUnbondingTimeleft(mKavaAccount.getUnLockTime(0))
+                cell?.vestingTime0.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(0))
+                cell?.vestingGap0.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(0))
                 cell?.vestingAmount0.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(0).stringValue, cell!.vestingAmount0.font!, 6, 6)
             }
             if (mKavaAccount.getCVestingCnt() > 1) {
                 cell?.vestingLayer1.isHidden = false
-                cell?.vestingTime1.text = WUtils.longTimetoString(input: mKavaAccount.getUnLockTime(1))
-                cell?.vestingGap1.text = WUtils.getUnbondingTimeleft(mKavaAccount.getUnLockTime(1))
+                cell?.vestingTime1.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(1))
+                cell?.vestingGap1.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(1))
                 cell?.vestingAmount1.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(1).stringValue, cell!.vestingAmount1.font!, 6, 6)
             }
             if (mKavaAccount.getCVestingCnt() > 2) {
                 cell?.vestingLayer2.isHidden = false
-                cell?.vestingTime2.text = WUtils.longTimetoString(input: mKavaAccount.getUnLockTime(2))
-                cell?.vestingGap2.text = WUtils.getUnbondingTimeleft(mKavaAccount.getUnLockTime(2))
+                cell?.vestingTime2.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(2))
+                cell?.vestingGap2.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(2))
                 cell?.vestingAmount2.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(2).stringValue, cell!.vestingAmount2.font!, 6, 6)
             }
             if (mKavaAccount.getCVestingCnt() > 3) {
                 cell?.vestingLayer3.isHidden = false
-                cell?.vestingTime3.text = WUtils.longTimetoString(input: mKavaAccount.getUnLockTime(3))
-                cell?.vestingGap3.text = WUtils.getUnbondingTimeleft(mKavaAccount.getUnLockTime(3))
+                cell?.vestingTime3.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(3))
+                cell?.vestingGap3.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(3))
                 cell?.vestingAmount3.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(3).stringValue, cell!.vestingAmount3.font!, 6, 6)
             }
             if (mKavaAccount.getCVestingCnt() > 4) {
                 cell?.vestingLayer4.isHidden = false
-                cell?.vestingTime4.text = WUtils.longTimetoString(input: mKavaAccount.getUnLockTime(4))
-                cell?.vestingGap4.text = WUtils.getUnbondingTimeleft(mKavaAccount.getUnLockTime(4))
+                cell?.vestingTime4.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(4))
+                cell?.vestingGap4.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(4))
                 cell?.vestingAmount4.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(4).stringValue, cell!.vestingAmount4.font!, 6, 6)
             }
             return cell!
