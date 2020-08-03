@@ -140,8 +140,11 @@ public struct TxInfo {
                 if let attributes = event.attributes {
                     for i in 0...attributes.count - 1 {
                         if (attributes[i].key == "recipient" && attributes[i].value == Addr) {
-                            if let value = attributes[i + 1].value {
-                                aReward = NSDecimalNumber.init(string: value.filter{ $0.isNumber })
+                            for j in i...attributes.count - 1 {
+                                if (attributes[j].key == "amount" && attributes[j].value != nil) {
+                                    aReward = NSDecimalNumber.init(string: attributes[j].value!.filter{ $0.isNumber })
+                                    break;
+                                }
                             }
                         }
                     }
