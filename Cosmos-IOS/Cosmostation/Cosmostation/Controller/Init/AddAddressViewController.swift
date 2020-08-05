@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddAddressViewController: BaseViewController {
+class AddAddressViewController: BaseViewController, QrScannerDelegate {
 
     @IBOutlet weak var addAddressMsgLabel: UILabel!
     @IBOutlet weak var addAddressInputText: AddressInputTextField!
@@ -30,6 +30,16 @@ class AddAddressViewController: BaseViewController {
     
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
+    }
+    
+    @IBAction func onClickScan(_ sender: UIButton) {
+        let qrScanVC = QRScanViewController(nibName: "QRScanViewController", bundle: nil)
+        qrScanVC.hidesBottomBarWhenPushed = true
+        qrScanVC.resultDelegate = self
+        self.navigationItem.title = ""
+        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+        self.navigationController?.pushViewController(qrScanVC, animated: false)
+        
     }
     
     @IBAction func onClickPaste(_ sender: Any) {
@@ -199,5 +209,9 @@ class AddAddressViewController: BaseViewController {
         showAlert.addAction(kavaAction)
         showAlert.addAction(kavaTestAction)
         self.present(showAlert, animated: true, completion: nil)
+    }
+    
+    func scannedAddress(result: String) {
+        self.addAddressInputText.text = result.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
 }

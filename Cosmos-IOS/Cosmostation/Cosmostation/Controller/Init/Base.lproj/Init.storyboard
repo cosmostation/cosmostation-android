@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T4X-xR-oqI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T4X-xR-oqI">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -2601,11 +2601,34 @@ To make transaction can add private information with later.</string>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="done" smartInsertDeleteType="no"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhT-Bm-zNt">
+                                <rect key="frame" x="240" y="159.33333333333334" width="75" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="WCb-Pk-kdo"/>
+                                    <constraint firstAttribute="height" constant="30" id="eG0-6f-Omn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <state key="normal" title=" Scan" image="qrIc"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.80000000000000004"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onClickScan:" destination="aKk-rD-wQP" eventType="touchUpInside" id="MEw-tO-10S"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3wZ-2n-AYU">
-                                <rect key="frame" x="333" y="159.33333333333334" width="65" height="30"/>
+                                <rect key="frame" x="323" y="159.33333333333334" width="75" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="7ha-RZ-O3g"/>
-                                    <constraint firstAttribute="width" constant="65" id="SId-Pm-h4b"/>
+                                    <constraint firstAttribute="width" constant="75" id="SId-Pm-h4b"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <state key="normal" title="Paste" image="copyIc"/>
@@ -2688,11 +2711,13 @@ To make transaction can add private information with later.</string>
                             <constraint firstItem="T58-EU-w1Y" firstAttribute="top" secondItem="wmm-FO-ZWf" secondAttribute="top" id="QTE-tg-D3y"/>
                             <constraint firstItem="MM3-VO-KQW" firstAttribute="trailing" secondItem="WW3-aL-nwf" secondAttribute="trailing" constant="16" id="Vcv-aZ-qSs"/>
                             <constraint firstItem="5iO-aj-ihM" firstAttribute="leading" secondItem="MM3-VO-KQW" secondAttribute="leading" constant="16" id="Y4R-2l-LgL"/>
+                            <constraint firstItem="3wZ-2n-AYU" firstAttribute="leading" secondItem="NhT-Bm-zNt" secondAttribute="trailing" constant="8" id="dYh-5X-Z6M"/>
                             <constraint firstItem="MM3-VO-KQW" firstAttribute="bottom" secondItem="5iO-aj-ihM" secondAttribute="bottom" constant="16" id="iMk-WP-XgR"/>
                             <constraint firstItem="MM3-VO-KQW" firstAttribute="trailing" secondItem="5iO-aj-ihM" secondAttribute="trailing" constant="16" id="n0K-dz-OtT"/>
                             <constraint firstItem="WW3-aL-nwf" firstAttribute="leading" secondItem="MM3-VO-KQW" secondAttribute="leading" constant="16" id="oB1-az-uGf"/>
                             <constraint firstItem="MM3-VO-KQW" firstAttribute="trailing" secondItem="3wZ-2n-AYU" secondAttribute="trailing" constant="16" id="qCt-pa-bsE"/>
                             <constraint firstItem="T58-EU-w1Y" firstAttribute="width" secondItem="wmm-FO-ZWf" secondAttribute="width" id="rMj-iQ-13c"/>
+                            <constraint firstItem="NhT-Bm-zNt" firstAttribute="centerY" secondItem="3wZ-2n-AYU" secondAttribute="centerY" id="tIs-e3-iNZ"/>
                             <constraint firstItem="T58-EU-w1Y" firstAttribute="leading" secondItem="wmm-FO-ZWf" secondAttribute="leading" id="yzY-Ca-4XV"/>
                             <constraint firstItem="T58-EU-w1Y" firstAttribute="height" secondItem="wmm-FO-ZWf" secondAttribute="height" id="zJd-2c-d7v"/>
                         </constraints>
@@ -2705,7 +2730,7 @@ To make transaction can add private information with later.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eye-XK-hDh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2222" y="1670"/>
+            <point key="canvasLocation" x="2221.739130434783" y="1669.4196428571429"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qOt-XG-MuT">
@@ -2744,6 +2769,7 @@ To make transaction can add private information with later.</string>
         <image name="cosmostationLogo" width="129" height="46"/>
         <image name="mnemonicsIc" width="25" height="25"/>
         <image name="passwordDelete" width="33" height="23"/>
+        <image name="qrIc" width="18" height="18"/>
         <image name="warning_ic" width="38" height="38"/>
     </resources>
 </document>
