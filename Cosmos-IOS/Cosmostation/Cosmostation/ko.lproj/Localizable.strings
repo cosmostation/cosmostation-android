@@ -193,7 +193,6 @@
 "str_bep3_bnb_cap_over" = "현재 스왑 가능한 BNB가 모두 소진되었습니다.\n\nKava 정책에 따라 최대 스왑 가능 수량이 정해집니다.\n\n스왑 가능한 최대 수량에 관련된 문의는 아래 공식 Kava 커뮤니티 채널에 문의하세요.\n\nhttps://t.me/kavalabs";
 "str_bep3_bnb_cap" = "현재 네트워크에 남은 스왑 가능 수량은 %@ 입니다.\n\nKava 정책에 따라 최대 스왑 가능 수량이 정해집니다.\n\n스왑 가능한 최대 수량에 관련된 문의는 아래 공식 Kava 커뮤니티 채널에 문의하세요. \n\nhttps://t.me/kavalabs";
 
-
 "current_price_format" = "%@ 현재 가격";
 "liquidation_price_format" = "%@ 청산 가격";
 "debt_value_format" = "%@ 부채 가치";

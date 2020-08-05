@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -660,11 +660,11 @@
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="done" smartInsertDeleteType="no"/>
                             </textField>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="aAg-bK-IdZ">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aAg-bK-IdZ">
                                 <rect key="frame" x="16" y="82" width="288" height="35"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OM-sA-lLw">
-                                        <rect key="frame" x="0.0" y="0.0" width="136" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="140" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="a41-st-ORA"/>
                                         </constraints>
@@ -712,7 +712,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-zM-WC2">
-                                        <rect key="frame" x="152" y="0.0" width="136" height="35"/>
+                                        <rect key="frame" x="148" y="0.0" width="140" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="3vk-C8-FcJ"/>
                                         </constraints>
@@ -6035,7 +6035,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" smartInsertDeleteType="no"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/255" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FP5-q9-8gZ">
                                 <rect key="frame" x="268.5" y="152" width="35.5" height="16.5"/>
@@ -6043,6 +6043,80 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pLZ-HK-tVh">
+                                <rect key="frame" x="16" y="184.5" width="288" height="35"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9l-cV-uUK">
+                                        <rect key="frame" x="0.0" y="0.0" width="140" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="jZP-CA-4xM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title=" QR Code" image="qrIc">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickQrCode:" destination="qMc-La-yOh" eventType="touchUpInside" id="fHT-Zf-YQA"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cW-D3-pXO">
+                                        <rect key="frame" x="144" y="0.0" width="0.0" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="O0D-Tc-8mE"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title=" Recent" image="listIc">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jK-Bg-pNt">
+                                        <rect key="frame" x="148" y="0.0" width="140" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="cO0-v2-WCa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title=" Paste" image="copyIc">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickPaste:" destination="qMc-La-yOh" eventType="touchUpInside" id="oCu-xm-yEa"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Tev-WE-aWr">
                                 <rect key="frame" x="16" y="502" width="288" height="50"/>
                                 <subviews>
@@ -6096,24 +6170,50 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     </button>
                                 </subviews>
                             </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning_ic" translatesAutoresizingMaskIntoConstraints="NO" id="ZyX-o6-0Ek">
+                                <rect key="frame" x="143" y="393.5" width="34" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="DAD-3w-0Wy"/>
+                                    <constraint firstAttribute="width" constant="34" id="SpB-dT-IAz"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="40t-Br-EId">
+                                <rect key="frame" x="44" y="431.5" width="232" height="41.5"/>
+                                <string key="text">Please check your memo.
+Some exchanges or wallets may require a specific memo for deposits.</string>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="40t-Br-EId" secondAttribute="bottom" constant="95" id="5BS-WD-K8N"/>
                             <constraint firstItem="Ame-QD-GDb" firstAttribute="bottom" secondItem="Tev-WE-aWr" secondAttribute="bottom" constant="16" id="AwM-dM-DgF"/>
                             <constraint firstItem="Tev-WE-aWr" firstAttribute="leading" secondItem="Ame-QD-GDb" secondAttribute="leading" constant="16" id="Bem-Dc-t30"/>
                             <constraint firstItem="Ame-QD-GDb" firstAttribute="trailing" secondItem="Tev-WE-aWr" secondAttribute="trailing" constant="16" id="COe-Ec-MXE"/>
                             <constraint firstItem="Ame-QD-GDb" firstAttribute="trailing" secondItem="ATl-gU-X6y" secondAttribute="trailing" constant="16" id="Kia-iR-FJw"/>
                             <constraint firstItem="FP5-q9-8gZ" firstAttribute="top" secondItem="ATl-gU-X6y" secondAttribute="bottom" constant="8" id="MFF-bH-qHz"/>
                             <constraint firstItem="ATl-gU-X6y" firstAttribute="leading" secondItem="Ame-QD-GDb" secondAttribute="leading" constant="16" id="SC3-4Q-pYM"/>
+                            <constraint firstItem="pLZ-HK-tVh" firstAttribute="leading" secondItem="Ame-QD-GDb" secondAttribute="leading" constant="16" id="SaY-2c-W6f"/>
+                            <constraint firstItem="Ame-QD-GDb" firstAttribute="trailing" secondItem="pLZ-HK-tVh" secondAttribute="trailing" constant="16" id="Zli-NJ-Jmc"/>
                             <constraint firstItem="FP5-q9-8gZ" firstAttribute="trailing" secondItem="ATl-gU-X6y" secondAttribute="trailing" id="dvj-7w-awl"/>
+                            <constraint firstItem="40t-Br-EId" firstAttribute="leading" secondItem="Ame-QD-GDb" secondAttribute="leading" constant="44" id="f8d-Qt-nOJ"/>
+                            <constraint firstItem="ZyX-o6-0Ek" firstAttribute="centerX" secondItem="Ame-QD-GDb" secondAttribute="centerX" id="kG7-V0-iww"/>
+                            <constraint firstItem="40t-Br-EId" firstAttribute="top" secondItem="ZyX-o6-0Ek" secondAttribute="bottom" constant="4" id="kh4-fa-SlM"/>
                             <constraint firstItem="ATl-gU-X6y" firstAttribute="top" secondItem="Ame-QD-GDb" secondAttribute="top" constant="16" id="mKG-pG-1mg"/>
+                            <constraint firstItem="pLZ-HK-tVh" firstAttribute="top" secondItem="FP5-q9-8gZ" secondAttribute="bottom" constant="16" id="q4M-Ha-wWA"/>
+                            <constraint firstItem="Ame-QD-GDb" firstAttribute="trailing" secondItem="40t-Br-EId" secondAttribute="trailing" constant="44" id="rsk-dO-2zV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ame-QD-GDb"/>
                     </view>
                     <connections>
                         <outlet property="beforeBtn" destination="N0r-0y-KxQ" id="v5r-2F-8GS"/>
+                        <outlet property="emptyMemoIcon" destination="ZyX-o6-0Ek" id="y2z-e0-mU8"/>
+                        <outlet property="emptyMemoMsg" destination="40t-Br-EId" id="dQK-tG-NUI"/>
                         <outlet property="memoCntLabel" destination="FP5-q9-8gZ" id="aTy-Om-QJG"/>
+                        <outlet property="memoControlLayer" destination="pLZ-HK-tVh" id="QA5-Oh-MiO"/>
                         <outlet property="memoInputTextView" destination="ATl-gU-X6y" id="z3o-hi-inB"/>
                         <outlet property="nextBtn" destination="o0K-uG-YwI" id="7Fr-DE-Eeq"/>
                     </connections>
