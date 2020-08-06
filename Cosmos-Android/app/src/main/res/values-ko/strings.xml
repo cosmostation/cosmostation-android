@@ -743,6 +743,7 @@
     <string name="str_cdp_warn_msg">CDP는 담보물의 가치변동에 따라 청산의 위험이 있습니다. CDP 개설, 상환, 청산을 포함한 모든 결정 권한과 책임은 사용자에게 있습니다. Cosmostation 지갑은 청산과 청산 위험에 대한 알람은 별도로 제공되지 않습니다.</string>
     <string name="str_delegate_warn_title">위임에 관해서</string>
     <string name="str_delegate_warn_msg">신중하게 검증인을 선택하세요.\n\n사용자는 자신을 대신해 노드를 운영할 검증인을 선택하여 위임함으로써 위임에 대한 리워드를 받을 수 있지만, 위임한 검증인의 노드에 문제가 발생 시 위임자 또한 지분의 일부가 삭감될 수 있습니다.\n\n위임 해제시, 네트워크에 따라 일정 기간의 언본딩 기간이 소요됩니다. 해제 기간동안 요청한 수량은 어떠한 거래도 할 수 없으며, 위임에 대한 리워드도 지급되지 않습니다.</string>
+    <string name="str_memo_warn">메모 기입을 확인 바랍니다.\n특정 거래소 또는 지갑은 메모 입력을 요구합니다.</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>

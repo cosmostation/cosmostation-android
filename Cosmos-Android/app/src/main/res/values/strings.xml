@@ -850,6 +850,7 @@
     <string name="str_cdp_warn_msg">CDP risks liquidation due to changes in the value of collateral. The user is responsible for all decisions and responsibilities, including the opening, reimbursement and liquidation of the CDP. \n\nThe Cosmostation wallet does not provide separate alarms for liquidation and liquidation risk.</string>
     <string name="str_delegate_warn_title">Delegate Notice</string>
     <string name="str_delegate_warn_msg">Please perform careful due diligence on validators before delegating.\n\nUsers can receive staking rewards for delegating to a validator to operate a node on their behalf. If a problem occurs with the selected validators node, you may also lose a portion of your delegated stake.\n\nWhen you undelegate, there will be an unbonding period specific to the network. For tokens in "unbonding" state, you will not be able to accumulate staking rewards or make transactions.</string>
+    <string name="str_memo_warn">Please check your memo.\nSome exchanges or wallets may require a specific memo for deposits.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
