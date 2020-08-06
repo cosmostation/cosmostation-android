@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receive_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Supply;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -99,9 +100,8 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
-            if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                //check bep3 limit!!
-                onCheckSwapSupply();
+            if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+                onCheckSwapParam();
             } else {
                 getSActivity().mRecipientChain = mToChain;
                 getSActivity().onNextStep();
@@ -124,6 +124,25 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
                 getSActivity().onNextStep();
             }
         }
+    }
+
+    private void onCheckSwapParam() {
+        ApiClient.getKavaChain(getContext()).getSwapParams().enqueue(new Callback<ResKavaBep3Param>() {
+            @Override
+            public void onResponse(Call<ResKavaBep3Param> call, Response<ResKavaBep3Param> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                } else {
+                    getSActivity().mMaxOnce = new BigDecimal(response.body().result.max_amount);
+                    onCheckSwapSupply();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResKavaBep3Param> call, Throwable t) {
+                Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void onCheckSwapSupply() {
@@ -151,6 +170,8 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             }
         });
     }
+
+
 
 
     private HtlcSendActivity getSActivity() {

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -50,6 +51,7 @@ public class HtlcSendActivity extends BaseActivity {
     public Fee                      mSendFee;
     public Fee                      mClaimFee;
     public Coin                     mRemainCap;
+    public BigDecimal               mMaxOnce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

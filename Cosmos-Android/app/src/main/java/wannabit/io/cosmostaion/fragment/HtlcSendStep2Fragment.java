@@ -106,6 +106,11 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
                    mMaxAvailable = remainCap;
                }
             }
+
+            if (mMaxAvailable.compareTo(getSActivity().mMaxOnce.movePointLeft(mDecimal)) > 0) {
+                mMaxAvailable = getSActivity().mMaxOnce.movePointLeft(mDecimal);
+            }
+
             mDenomTitle.setText(getSActivity().mSendDenom.toUpperCase());
             mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
             mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, 0, 8));
@@ -116,6 +121,10 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             setDpDecimals(mDecimal);
             mMinAvailable = new BigDecimal(FEE_BEP3_SEND_MIN).movePointRight(mDecimal);
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mSendDenom);
+            if (mMaxAvailable.compareTo(new BigDecimal("10000")) > 0) {
+                mMaxAvailable = new BigDecimal("10000");
+            }
+
             mDenomTitle.setText(getSActivity().mSendDenom.toUpperCase());
             mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, mDecimal, mDecimal));
             mMaxAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDecimal, mDecimal));
