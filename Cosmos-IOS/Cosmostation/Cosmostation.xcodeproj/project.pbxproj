@@ -161,6 +161,7 @@
 		2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */; };
 		2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */; };
 		2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */; };
+		28869DA424DC1ADA00D6D2AC /* KavaSwapParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28869DA324DC1ADA00D6D2AC /* KavaSwapParam.swift */; };
 		2888B7FC246BC17300B2EB4A /* BnbNodeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B7FB246BC17300B2EB4A /* BnbNodeInfo.swift */; };
 		2888B7FE246BC83A00B2EB4A /* BnbSwapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B7FD246BC83A00B2EB4A /* BnbSwapInfo.swift */; };
 		2888B800246BCA3200B2EB4A /* KavaSwapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B7FF246BCA3200B2EB4A /* KavaSwapInfo.swift */; };
@@ -553,6 +554,7 @@
 		2876AD62240CE966005B33F4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletUnbondingInfoCellTableViewCell.strings; sourceTree = "<group>"; };
 		2877B8F9240E2A0200EFE369 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TxDetailViewController.xib; sourceTree = "<group>"; };
 		2877B8FC240E2A0E00EFE369 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/TxDetailViewController.strings; sourceTree = "<group>"; };
+		28869DA324DC1ADA00D6D2AC /* KavaSwapParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapParam.swift; sourceTree = "<group>"; };
 		2888B7FB246BC17300B2EB4A /* BnbNodeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbNodeInfo.swift; sourceTree = "<group>"; };
 		2888B7FD246BC83A00B2EB4A /* BnbSwapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbSwapInfo.swift; sourceTree = "<group>"; };
 		2888B7FF246BCA3200B2EB4A /* KavaSwapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapInfo.swift; sourceTree = "<group>"; };
@@ -1209,6 +1211,7 @@
 				28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */,
 				2868559D2498C2D10099D18F /* KavaSwapSupply.swift */,
 				2868559F2498DBBF0099D18F /* KavaSupply.swift */,
+				28869DA324DC1ADA00D6D2AC /* KavaSwapParam.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1873,6 +1876,7 @@
 				28474EF6241E06E200AF5A81 /* Result.results.pb.swift in Sources */,
 				289DF178242DDF3800433CF4 /* CdpDetailTopCell.swift in Sources */,
 				E1F7F63223421394000E597F /* IrisToken.swift in Sources */,
+				28869DA424DC1ADA00D6D2AC /* KavaSwapParam.swift in Sources */,
 				E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */,
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
 				28474ECD241E06AF00AF5A81 /* TxDepositCdpCell.swift in Sources */,

@@ -55,7 +55,7 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     
     @IBAction func onClickNext(_ sender: UIButton) {
         if (pageHolderVC.chainType == ChainType.BINANCE_MAIN || pageHolderVC.chainType == ChainType.BINANCE_TEST) {
-            onCheckSwapSupply()
+            onCheckSwapParam()
         } else {
             self.btnCancel.isUserInteractionEnabled = false
             self.btnNext.isUserInteractionEnabled = false
@@ -91,6 +91,33 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
         } else {
             self.toChain = self.toChainList[result]
             self.updateView()
+        }
+        
+    }
+    
+    func onCheckSwapParam() {
+        var url: String?
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
+            url = KAVA_CHECK_SWAP_PARAM
+        } else if (pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+            url = KAVA_TEST_CHECK_SWAP_PARAM
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+                case .success(let res):
+                    guard let info = res as? [String : Any] else {
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return
+                    }
+                    let param = KavaSwapParam.init(info)
+                    self.pageHolderVC.mSwapMaxOnce = param.getMaxOnce()
+                    self.onCheckSwapSupply()
+                    
+                case .failure(let error):
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
         }
         
     }
