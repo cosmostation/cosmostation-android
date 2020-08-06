@@ -2602,13 +2602,13 @@ To make transaction can add private information with later.</string>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="done" smartInsertDeleteType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhT-Bm-zNt">
-                                <rect key="frame" x="240" y="159.33333333333334" width="75" height="30"/>
+                                <rect key="frame" x="170" y="159.33333333333334" width="110" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="75" id="WCb-Pk-kdo"/>
+                                    <constraint firstAttribute="width" constant="110" id="WCb-Pk-kdo"/>
                                     <constraint firstAttribute="height" constant="30" id="eG0-6f-Omn"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
-                                <state key="normal" title=" Scan" image="qrIc"/>
+                                <state key="normal" title=" QR Scan" image="qrIc"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="0.80000000000000004"/>
@@ -2625,10 +2625,10 @@ To make transaction can add private information with later.</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3wZ-2n-AYU">
-                                <rect key="frame" x="323" y="159.33333333333334" width="75" height="30"/>
+                                <rect key="frame" x="288" y="159.33333333333334" width="110" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="7ha-RZ-O3g"/>
-                                    <constraint firstAttribute="width" constant="75" id="SId-Pm-h4b"/>
+                                    <constraint firstAttribute="width" constant="110" id="SId-Pm-h4b"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <state key="normal" title="Paste" image="copyIc"/>

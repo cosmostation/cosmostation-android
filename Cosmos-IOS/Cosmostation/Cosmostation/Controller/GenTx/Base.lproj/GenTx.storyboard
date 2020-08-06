@@ -661,20 +661,20 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="done" smartInsertDeleteType="no"/>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aAg-bK-IdZ">
-                                <rect key="frame" x="16" y="82" width="288" height="35"/>
+                                <rect key="frame" x="120" y="82" width="184" height="35"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OM-sA-lLw">
-                                        <rect key="frame" x="0.0" y="0.0" width="140" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="88" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="a41-st-ORA"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title=" QR Code" image="qrIc">
+                                        <state key="normal" title=" QR Scan" image="qrIc">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.5"/>
+                                                <real key="value" value="0.80000000000000004"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="8"/>
@@ -688,7 +688,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPo-J2-K4w">
-                                        <rect key="frame" x="144" y="0.0" width="0.0" height="35"/>
+                                        <rect key="frame" x="92" y="0.0" width="0.0" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="pqy-Gc-lxm"/>
                                         </constraints>
@@ -712,7 +712,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-zM-WC2">
-                                        <rect key="frame" x="148" y="0.0" width="140" height="35"/>
+                                        <rect key="frame" x="96" y="0.0" width="88" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="3vk-C8-FcJ"/>
                                         </constraints>
@@ -722,7 +722,7 @@
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.5"/>
+                                                <real key="value" value="0.80000000000000004"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="8"/>
@@ -796,7 +796,7 @@
                             <constraint firstItem="bF3-6L-krq" firstAttribute="leading" secondItem="Bu6-C4-2Lx" secondAttribute="leading" constant="16" id="29t-xd-H7m"/>
                             <constraint firstItem="Bu6-C4-2Lx" firstAttribute="trailing" secondItem="bF3-6L-krq" secondAttribute="trailing" constant="16" id="8In-1x-24U"/>
                             <constraint firstItem="Bu6-C4-2Lx" firstAttribute="bottom" secondItem="Bty-U1-VmQ" secondAttribute="bottom" constant="16" id="IGc-KU-g9h"/>
-                            <constraint firstItem="aAg-bK-IdZ" firstAttribute="leading" secondItem="Bu6-C4-2Lx" secondAttribute="leading" constant="16" id="RDd-vM-3OX"/>
+                            <constraint firstItem="aAg-bK-IdZ" firstAttribute="leading" secondItem="Bu6-C4-2Lx" secondAttribute="leading" constant="120" id="RDd-vM-3OX"/>
                             <constraint firstItem="bF3-6L-krq" firstAttribute="top" secondItem="Bu6-C4-2Lx" secondAttribute="top" constant="16" id="YXv-zk-hP0"/>
                             <constraint firstItem="aAg-bK-IdZ" firstAttribute="top" secondItem="bF3-6L-krq" secondAttribute="bottom" constant="16" id="onu-gi-Ybf"/>
                             <constraint firstItem="Bu6-C4-2Lx" firstAttribute="trailing" secondItem="Bty-U1-VmQ" secondAttribute="trailing" constant="16" id="q7a-6x-yIc"/>
@@ -1195,15 +1195,15 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="done" smartInsertDeleteType="no"/>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ync-7Z-nqq">
-                                <rect key="frame" x="16" y="78" width="288" height="35"/>
+                                <rect key="frame" x="120" y="78" width="184" height="35"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYs-yc-sJp">
-                                        <rect key="frame" x="0.0" y="0.0" width="139" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="87" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="B1R-9I-3Em"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title=" QR Code" image="qrIc">
+                                        <state key="normal" title=" QR Scan" image="qrIc">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -1222,7 +1222,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCC-Cm-jBy">
-                                        <rect key="frame" x="144" y="0.0" width="0.0" height="35"/>
+                                        <rect key="frame" x="92" y="0.0" width="0.0" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="EkN-tE-5a1"/>
                                         </constraints>
@@ -1243,7 +1243,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zdf-Zt-L83">
-                                        <rect key="frame" x="149" y="0.0" width="139" height="35"/>
+                                        <rect key="frame" x="97" y="0.0" width="87" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="cby-Kn-b93"/>
                                         </constraints>
@@ -1357,7 +1357,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Ync-7Z-nqq" firstAttribute="leading" secondItem="Hfj-Dy-i1C" secondAttribute="leading" constant="16" id="442-LV-O1o"/>
+                            <constraint firstItem="Ync-7Z-nqq" firstAttribute="leading" secondItem="Hfj-Dy-i1C" secondAttribute="leading" constant="120" id="442-LV-O1o"/>
                             <constraint firstItem="Hfj-Dy-i1C" firstAttribute="trailing" secondItem="BuF-xY-530" secondAttribute="trailing" constant="16" id="6UR-3L-pji"/>
                             <constraint firstItem="bOz-sp-8fD" firstAttribute="top" secondItem="Hfj-Dy-i1C" secondAttribute="top" constant="16" id="Inj-GS-xRe"/>
                             <constraint firstItem="Ync-7Z-nqq" firstAttribute="top" secondItem="bOz-sp-8fD" secondAttribute="bottom" constant="12" id="LOo-cF-ag7"/>
@@ -6044,20 +6044,20 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pLZ-HK-tVh">
-                                <rect key="frame" x="16" y="184.5" width="288" height="35"/>
+                                <rect key="frame" x="120" y="184.5" width="184" height="35"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9l-cV-uUK">
-                                        <rect key="frame" x="0.0" y="0.0" width="140" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="88" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="jZP-CA-4xM"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title=" QR Code" image="qrIc">
+                                        <state key="normal" title=" QR Scan" image="qrIc">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.5"/>
+                                                <real key="value" value="0.80000000000000004"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="8"/>
@@ -6071,7 +6071,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cW-D3-pXO">
-                                        <rect key="frame" x="144" y="0.0" width="0.0" height="35"/>
+                                        <rect key="frame" x="92" y="0.0" width="0.0" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="O0D-Tc-8mE"/>
                                         </constraints>
@@ -6092,7 +6092,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jK-Bg-pNt">
-                                        <rect key="frame" x="148" y="0.0" width="140" height="35"/>
+                                        <rect key="frame" x="96" y="0.0" width="88" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="cO0-v2-WCa"/>
                                         </constraints>
@@ -6102,7 +6102,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.5"/>
+                                                <real key="value" value="0.80000000000000004"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="8"/>
@@ -6196,7 +6196,7 @@ Some exchanges or wallets may require a specific memo for deposits.</string>
                             <constraint firstItem="Ame-QD-GDb" firstAttribute="trailing" secondItem="ATl-gU-X6y" secondAttribute="trailing" constant="16" id="Kia-iR-FJw"/>
                             <constraint firstItem="FP5-q9-8gZ" firstAttribute="top" secondItem="ATl-gU-X6y" secondAttribute="bottom" constant="8" id="MFF-bH-qHz"/>
                             <constraint firstItem="ATl-gU-X6y" firstAttribute="leading" secondItem="Ame-QD-GDb" secondAttribute="leading" constant="16" id="SC3-4Q-pYM"/>
-                            <constraint firstItem="pLZ-HK-tVh" firstAttribute="leading" secondItem="Ame-QD-GDb" secondAttribute="leading" constant="16" id="SaY-2c-W6f"/>
+                            <constraint firstItem="pLZ-HK-tVh" firstAttribute="leading" secondItem="Ame-QD-GDb" secondAttribute="leading" constant="120" id="SaY-2c-W6f"/>
                             <constraint firstItem="Ame-QD-GDb" firstAttribute="trailing" secondItem="pLZ-HK-tVh" secondAttribute="trailing" constant="16" id="Zli-NJ-Jmc"/>
                             <constraint firstItem="FP5-q9-8gZ" firstAttribute="trailing" secondItem="ATl-gU-X6y" secondAttribute="trailing" id="dvj-7w-awl"/>
                             <constraint firstItem="40t-Br-EId" firstAttribute="leading" secondItem="Ame-QD-GDb" secondAttribute="leading" constant="44" id="f8d-Qt-nOJ"/>
