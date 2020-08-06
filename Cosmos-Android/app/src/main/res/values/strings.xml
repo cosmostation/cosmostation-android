@@ -794,7 +794,7 @@
     <string name="str_sorting_by_reward">By Reward</string>
     <string name="str_sorting_by_amount">By Amount</string>
     <string name="str_sorting_by_value">By Value</string>
-    <string name="str_qr_code">QR code</string>
+    <string name="str_qr_code">QR Scan</string>
     <string name="str_recent">Recent</string>
     <string name="str_fee_free_title">Fee Free Event</string>
     <string name="str_fee_free_msg">To commemorate the launch of the main net, \nwe will hold a free 3-week event.</string>

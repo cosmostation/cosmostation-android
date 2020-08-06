@@ -690,7 +690,7 @@
     <string name="str_sorting_by_reward">내 이자 수량으로 정렬</string>
     <string name="str_sorting_by_amount">수량으로 정렬</string>
     <string name="str_sorting_by_value">금액로 정렬</string>
-    <string name="str_qr_code">QR 코드</string>
+    <string name="str_qr_code">QR 스캔</string>
     <string name="str_recent">최근 목록</string>
     <string name="str_fee_free_title">Tx 수수료 무료 </string>
     <string name="str_fee_free_msg">Tx 수수료 무료 이벤트가 진행중 입니다.</string>
