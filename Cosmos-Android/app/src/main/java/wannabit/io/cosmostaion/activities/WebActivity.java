@@ -102,8 +102,6 @@ public class WebActivity extends BaseActivity {
 
         } else if (mBasechain.equals(BaseChain.BAND_MAIN)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorBand));
-            String newUA= "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
-            mWebview.getSettings().setUserAgentString(newUA);
             if (!TextUtils.isEmpty(mTxid))
                 mWebview.loadUrl("https://cosmoscan.io/tx/"+mTxid);
             else if (!TextUtils.isEmpty(mAddress))
