@@ -137,6 +137,11 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                     guard let url = URL(string: "https://kava.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
                     present(safariViewController, animated: true, completion: nil)
+                    
+                } else if (chainType == ChainType.BAND_MAIN) {
+                    guard let url = URL(string: "https://cosmoscan.io/") else { return }
+                    let safariViewController = SFSafariViewController(url: url)
+                    present(safariViewController, animated: true, completion: nil)
                 }
                 
             } else if(indexPath.row == 3) {

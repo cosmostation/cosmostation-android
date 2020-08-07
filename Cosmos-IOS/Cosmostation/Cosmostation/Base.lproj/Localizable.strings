@@ -133,7 +133,8 @@
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
-"mintscan_explorer" = "Mintscan Explorer";
+//"mintscan_explorer" = "Mintscan Explorer";
+"mintscan_explorer" = "Explorer";
 "binanace_explorer" = "Binance Explorer";
 "disconnected" = "Disconnected";
 "wc_alert_title" = "Wallet Connect";

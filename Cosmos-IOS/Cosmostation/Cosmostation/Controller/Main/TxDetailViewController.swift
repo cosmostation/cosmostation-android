@@ -981,9 +981,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             present(safariViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.BAND_MAIN) {
-//            guard let url = URL(string: "https://cosmoscan.io/tx/" + mTxInfo!.txhash!) else { return }
-//            var safariViewController = SFSafariViewController(url: url)
-//            present(safariViewController, animated: true, completion: nil)
+            guard let url = URL(string: "https://cosmoscan.io/tx/" + mTxInfo!.txhash!) else { return }
+            var safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     

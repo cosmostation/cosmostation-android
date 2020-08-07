@@ -132,7 +132,8 @@
 "name" = "이름";
 "amount" = "수량";
 "value" = "금액";
-"mintscan_explorer" = "민트스켄 익스플로러";
+//"mintscan_explorer" = "민트스켄 익스플로러";
+"mintscan_explorer" = "익스플로러";
 "binanace_explorer" = "바이낸스 익스플로러";
 "disconnected" = "연결 해제됨";
 "wc_alert_title" = "지갑 연결";
