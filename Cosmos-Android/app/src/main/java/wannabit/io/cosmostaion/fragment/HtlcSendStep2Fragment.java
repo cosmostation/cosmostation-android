@@ -121,8 +121,8 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             setDpDecimals(mDecimal);
             mMinAvailable = new BigDecimal(FEE_BEP3_SEND_MIN).movePointRight(mDecimal);
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mSendDenom);
-            if (mMaxAvailable.compareTo(new BigDecimal("10000")) > 0) {
-                mMaxAvailable = new BigDecimal("10000");
+            if (mMaxAvailable.compareTo(new BigDecimal("10000000000")) > 0) {
+                mMaxAvailable = new BigDecimal("10000000000");
             }
 
             mDenomTitle.setText(getSActivity().mSendDenom.toUpperCase());
