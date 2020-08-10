@@ -88,8 +88,10 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             var rewardSum = NSDecimalNumber.zero
             for delegation in pageHolderVC.mIrisRewards!.delegations {
                 for validator in pageHolderVC.mRewardTargetValidators {
-                    if (validator.operator_address == delegation.validator && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
-                        rewardSum = rewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
+                    if (validator.operator_address == delegation.validator) {
+                        if (delegation.reward.count > 0 && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
+                            rewardSum = rewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
+                        }
                     }
                 }
             }
@@ -144,8 +146,10 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             var rewardSum = NSDecimalNumber.zero
             for delegation in pageHolderVC.mIrisRewards!.delegations {
                 for validator in pageHolderVC.mRewardTargetValidators {
-                    if (validator.operator_address == delegation.validator && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
-                        rewardSum = rewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
+                    if (validator.operator_address == delegation.validator) {
+                        if (delegation.reward.count > 0 && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
+                            rewardSum = rewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
+                        }
                     }
                 }
             }
