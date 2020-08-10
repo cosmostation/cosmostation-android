@@ -61,6 +61,8 @@ public class SendStep2Fragment extends BaseFragment implements View.OnClickListe
         mBtnQr = rootView.findViewById(R.id.btn_qr);
         mBtnPaste = rootView.findViewById(R.id.btn_paste);
         mBtnHistory = rootView.findViewById(R.id.btn_history);
+        mBtnQr.setVisibility(View.VISIBLE);
+        mBtnPaste.setVisibility(View.VISIBLE);
         mBtnHistory.setVisibility(View.GONE);
 
         mBeforeBtn.setOnClickListener(this);
