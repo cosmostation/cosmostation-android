@@ -736,9 +736,7 @@ public class BaseData {
         for (Account account:AllAccount) {
             if (BaseChain.getChain(account.baseChain).equals(chain) && account.hasPrivateKey) {
                 if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-                    if (account.accountNumber > 0) {
-                        result.add(account);
-                    }
+                    result.add(account);
 
                 } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
                     if (WDp.getAvailableCoin(account.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
