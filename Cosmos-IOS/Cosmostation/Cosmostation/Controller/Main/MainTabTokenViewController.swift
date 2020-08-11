@@ -665,7 +665,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return
             }
             self.showWaittingAlert()
-            print("url ", KAVA_FAUCET +  mainTabVC.mAccount.account_address)
             let request = Alamofire.request(KAVA_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             request.responseJSON { (response) in
                 switch response.result {

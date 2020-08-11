@@ -445,9 +445,7 @@ final class BaseData : NSObject{
                     }
                     
                 } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
-                    if (account.account_account_numner > 0) {
-                        result.append(account)
-                    }
+                    result.append(account)
                 }
             }
         }
