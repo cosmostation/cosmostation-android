@@ -32,6 +32,9 @@ import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResOkDeposit;
+import wannabit.io.cosmostaion.network.res.ResOkTokenList;
+import wannabit.io.cosmostaion.network.res.ResOkWithdraw;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -48,6 +51,8 @@ public class BaseData {
     private SharedPreferences   mSharedPreferences;
     private SQLiteDatabase      mSQLiteDatabase;
     public ArrayList<Validator> mAllValidators = new ArrayList<>();
+    public ArrayList<Validator> mTopValidators = new ArrayList<>();
+    public ArrayList<Validator> mOtherValidators = new ArrayList<>();
 
     //COMMON DATA
     public ResLcdKavaAccountInfo.Result                                     mKavaAccount;
@@ -60,6 +65,9 @@ public class BaseData {
     public ArrayList<BnbToken>                                              mBnbTokens = new ArrayList<>();
     public ArrayList<ResBnbFee>                                             mBnbFees = new ArrayList<>();
 
+    public ResOkDeposit                                                     mOkDeposit;
+    public ResOkWithdraw                                                    mOkWithdraw;
+    public ResOkTokenList                                                   mOkTokenList;
 
     public BigDecimal getBnbTransferFee() {
         BigDecimal result =  BigDecimal.ZERO;

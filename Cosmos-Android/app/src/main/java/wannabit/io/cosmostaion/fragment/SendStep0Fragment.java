@@ -39,6 +39,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
@@ -178,6 +179,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_band_address, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
+                if (userInput.startsWith("okchain") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_ok_address, Toast.LENGTH_SHORT).show();
                 }
 
             }

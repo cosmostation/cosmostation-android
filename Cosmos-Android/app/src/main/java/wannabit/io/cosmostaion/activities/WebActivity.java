@@ -107,6 +107,15 @@ public class WebActivity extends BaseActivity {
             else if (!TextUtils.isEmpty(mAddress))
                 mWebview.loadUrl("https://cosmoscan.io/account/"+mAddress);
 
+        } else if (mBasechain.equals(BaseChain.OK_TEST)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl("https://www.oklink.com/okchain-test/tx/"+mTxid);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl("https://www.oklink.com/okchain-test/address/"+mAddress);
+            else if (!TextUtils.isEmpty(mAsset))
+                mWebview.loadUrl("https://www.oklink.com/okchain-test/token/"+mAsset);
+
         }
 
         mShare.setOnClickListener(new View.OnClickListener() {

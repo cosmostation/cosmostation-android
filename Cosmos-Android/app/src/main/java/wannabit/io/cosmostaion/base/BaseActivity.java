@@ -84,6 +84,9 @@ import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaPriceParam;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
+import wannabit.io.cosmostaion.network.res.ResOkDeposit;
+import wannabit.io.cosmostaion.network.res.ResOkTokenList;
+import wannabit.io.cosmostaion.network.res.ResOkWithdraw;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
@@ -101,6 +104,10 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaPriceParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
+import wannabit.io.cosmostaion.task.FetchTask.OkAccountTokenTask;
+import wannabit.io.cosmostaion.task.FetchTask.OkDepositTask;
+import wannabit.io.cosmostaion.task.FetchTask.OkTokenListTask;
+import wannabit.io.cosmostaion.task.FetchTask.OkWithdrawTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnbondedValidatorInfoTask;
@@ -125,6 +132,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIV
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_PRICE_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_ACCOUNT_TOKEN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_DEPOSIT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_TOKEN_LIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -564,6 +575,21 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
+            mTaskCount = 8;
+            getBaseDao().mOkDeposit = null;
+            getBaseDao().mOkWithdraw = null;
+            getBaseDao().mOkTokenList = null;
+            new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnbondedValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new OkAccountTokenTask(getBaseApplication(), this, mAccount, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new OkTokenListTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new OkDepositTask(getBaseApplication(), this, mAccount, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new OkWithdrawTask(getBaseApplication(), this, mAccount, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
         onPriceTic(BaseChain.getChain(mAccount.baseChain));
 //        return true;
@@ -594,20 +620,20 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) ||
                     mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
-                if(temp != null) {
-                    mTopValidators = temp;
-                }
+                if (temp != null) { mTopValidators = temp; }
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mTopValidators = WUtil.getIrisTops(temp);
                 mOtherValidators = WUtil.getIrisOthers(temp);
+            } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
+                if (temp != null) { mTopValidators = temp; }
             }
 
-        } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_VALIDATOR ||
-                result.taskType == BaseConstant.TASK_FETCH_UNBONDED_VALIDATOR) {
+        } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_VALIDATOR || result.taskType == BaseConstant.TASK_FETCH_UNBONDED_VALIDATOR) {
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
-            if(temp != null) {
+            if (temp != null) {
                 mOtherValidators.addAll(temp);
             }
+
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
@@ -747,6 +773,33 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mBnbFees = (ArrayList<ResBnbFee>)result.resultData;
             }
+
+        } else if (result.taskType == TASK_FETCH_OK_ACCOUNT_TOKEN) {
+            if (result.isSuccess) {
+                mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+                mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                WLog.w("TASK_FETCH_OK_ACCOUNT_TOKEN " + mBalances.size());
+            }
+
+        } else if (result.taskType == TASK_FETCH_OK_DEPOSIT) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mOkDeposit = (ResOkDeposit)result.resultData;
+                WLog.w("TASK_FETCH_OK_DEPOSIT " + getBaseDao().mOkDeposit.delegator_address);
+
+
+            }
+
+        } else if (result.taskType == TASK_FETCH_OK_WITHDRAW) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mOkWithdraw = ((ResOkWithdraw)result.resultData);
+                WLog.w("TASK_FETCH_OK_WITHDRAW " + getBaseDao().mOkWithdraw.delegator_address);
+            }
+
+        } else if (result.taskType == TASK_FETCH_OK_TOKEN_LIST) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mOkTokenList = ((ResOkTokenList)result.resultData);
+                WLog.w("TASK_FETCH_OK_TOKEN_LIST " + getBaseDao().mOkTokenList.data.size());
+            }
         }
 
 
@@ -802,6 +855,14 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             WLog.w("mInflation " + mInflation);
             WLog.w("mProvisions " + mProvisions);
             WLog.w("mBondedToken " + mBondedToken);
+
+        } else if (mTaskCount == 0 && (mBaseChain.equals(BaseChain.OK_TEST))) {
+            getBaseDao().mTopValidators = mTopValidators;
+            getBaseDao().mOtherValidators = mOtherValidators;
+
+            WLog.w("TopValidators " + mTopValidators.size());
+            WLog.w("OtherValidators " + mOtherValidators.size());
+
         }
         if (mTaskCount == 0 && mFetchCallback != null) {
             mFetchCallback.fetchFinished();

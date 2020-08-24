@@ -276,6 +276,23 @@ public class ApiClient {
     }
 
 
+
+    //Services for OkTest chain
+    private static OkChain service_ok_test = null;
+    public static OkChain getOkTestChain(Context c) {
+        if (service_ok_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_ok_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_ok_test = retrofit.create(OkChain.class);
+            }
+        }
+        return service_ok_test;
+    }
+
+
     private static CosmosEsService service_cosmos_es = null;
     public static CosmosEsService getCosmosEs(Context c) {
         if (service_cosmos_es == null ) {

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_validator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginBottom="2dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="1.5dp"
+        app:cardBackgroundColor="@color/colorTransBg"
+        app:cardUseCompatPadding="true" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_72">
+            <LinearLayout
+                android:id="@+id/views_validator"
+                android:layout_width="@dimen/space_72"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_2"
+                android:orientation="vertical"
+                android:gravity="center">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/avatar_validator"
+                        android:layout_width="@dimen/space_50"
+                        android:layout_height="@dimen/space_50"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/validator_none_img"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/colorGray3"/>
+                    <ImageView
+                        android:id="@+id/avatar_validator_revoke"
+                        android:layout_width="@dimen/space_50"
+                        android:layout_height="@dimen/space_50"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/jailed_img"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line_validator"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/views_validator"
+                android:background="@color/colorGray3"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginBottom="@dimen/space_10"/>
+
+            <ImageView
+                android:id="@+id/arrow_validator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_next_gr"
+                android:layout_marginRight="@dimen/space_8"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/line_validator"
+                android:layout_toLeftOf="@+id/arrow_validator"
+                android:layout_marginLeft="@dimen/space_12"
+                android:layout_marginRight="@dimen/space_6"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/moniker_validator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        style="@style/font_ss_12_white"
+                        android:text="moniker"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_6">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/delegate_power_validator"
+                        style="@style/font_ss_11_gray1"
+                        android:text="@string/str_voting_power"/>
+                    <TextView
+                        android:id="@+id/delegate_power_validator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        style="@style/font_ss_11_gray1"
+                        android:text="-"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/subTitle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/delegate_commission_validator"
+                        style="@style/font_ss_11_gray1"
+                        android:text="@string/str_commission"/>
+                    <TextView
+                        android:id="@+id/delegate_commission_validator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        style="@style/font_ss_11_gray1"
+                        android:text="-"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

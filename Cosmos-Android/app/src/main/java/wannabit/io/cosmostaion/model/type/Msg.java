@@ -220,6 +220,28 @@ public class Msg {
         public Boolean cross_chain;
 
 
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("transfers")
+        public ArrayList<OkTransfer> transfers;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("quantity")
+        public Coin quantity;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("validator_addresses")
+        public ArrayList<String> validator_addresses;
+
+
+    }
+
+    public class OkTransfer {
+        @SerializedName("to")
+        public String to;
+
+        @SerializedName("coins")
+        public ArrayList<Coin> coins;
     }
 
 }

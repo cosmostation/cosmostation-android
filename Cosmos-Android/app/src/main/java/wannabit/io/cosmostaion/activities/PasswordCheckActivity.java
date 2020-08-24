@@ -37,6 +37,9 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
@@ -67,6 +70,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
@@ -125,6 +131,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mSwapId;
     private String                      mClaimDenom;
 
+    private Coin                        mOkStakeCoin;
+    private ArrayList<String>           mOKVoteValidator = new ArrayList<>();
+
+
     private long                        mIdToDelete;
     private long                        mIdToCheck;
 
@@ -181,6 +191,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mCdpDenom = getIntent().getStringExtra("cdp_denom");
         mSwapId = getIntent().getStringExtra("swapId");
         mClaimDenom = getIntent().getStringExtra("denom");
+        mOkStakeCoin = getIntent().getParcelableExtra("stakeAmount");
+        mOKVoteValidator = getIntent().getStringArrayListExtra("voteVal");
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck  = getIntent().getLongExtra("checkid", -1);
@@ -434,6 +446,33 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     this,
                     mAccount,
                     mClaimDenom,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {
+            new SimpleOkDepositTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mBaseChain,
+                    mOkStakeCoin,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_OK_WITHDRAW) {
+            new SimpleOkWithdrawTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mBaseChain,
+                    mOkStakeCoin,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_OK_DIRECT_VOTE) {
+            new SimpleOkDirectVoteTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mBaseChain,
+                    mOKVoteValidator,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 

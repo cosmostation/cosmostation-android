@@ -163,9 +163,19 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            }  else if (mUserInput.startsWith("star")) {
+            } else if (mUserInput.startsWith("star")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(BaseChain.IOV_TEST, mUserInput);
+                    return;
+
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            } else if (mUserInput.startsWith("okchain")) {
+                if (WKey.isValidBech32(mUserInput)) {
+                    onGenNewAccount(BaseChain.OK_TEST, mUserInput);
                     return;
 
                 } else {

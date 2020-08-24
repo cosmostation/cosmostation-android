@@ -25,7 +25,8 @@ public enum BaseChain {
     KAVA_TEST_LEGACY6("kava-testnet-6000"),
     KAVA_TEST_3("kava-3-test"),
     KAVA_TEST("kava-testnet-8000"),
-    IOV_TEST("iovns-galaxynet");
+    IOV_TEST("iovns-galaxynet"),
+    OK_TEST("okchain");
 
     private final String chainName;
 
@@ -75,6 +76,9 @@ public enum BaseChain {
         if (chainName.equals(BaseChain.IOV_TEST.chainName)) {
             return IOV_TEST;
         }
+        if (chainName.equals(BaseChain.OK_TEST.chainName)) {
+            return OK_TEST;
+        }
         return null;
     }
 
@@ -122,6 +126,9 @@ public enum BaseChain {
         if (chain.equals(IOV_TEST.getChain())) {
             return IOV_TEST.getChain();
         }
+        if (chain.equals(OK_TEST.getChain())) {
+            return OK_TEST.getChain();
+        }
         return null;
     }
 
@@ -137,6 +144,7 @@ public enum BaseChain {
 //        result.add(BNB_TEST);
 //        result.add(KAVA_TEST);
         result.add(IOV_TEST);
+        result.add(OK_TEST);
         return result;
     }
 

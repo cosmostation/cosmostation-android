@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -125,6 +125,13 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_HTLC_CREATE                     = 2079;
     public final static int TASK_GEN_TX_HTLC_CLAIM                      = 2080;
     public final static int TASK_FETCH_BNB_FEES                         = 2081;
+    public final static int TASK_FETCH_OK_DEPOSIT                       = 2082;
+    public final static int TASK_FETCH_OK_WITHDRAW                      = 2083;
+    public final static int TASK_FETCH_OK_ACCOUNT_TOKEN                 = 2084;
+    public final static int TASK_FETCH_OK_TOKEN_LIST                    = 2085;
+    public final static int TASK_GEN_TX_OK_DEPOSIT                      = 2086;
+    public final static int TASK_GEN_TX_OK_WITHDRAW                     = 2087;
+    public final static int TASK_GEN_TX_OK_DIRECT_VOTE                  = 2088;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -195,6 +202,13 @@ public class BaseConstant {
     public final static String BNB_MSG_TYPE_HTLC_CLIAM                      = "tokens/ClaimHTLTMsg";
     public final static String BNB_MSG_TYPE_HTLC_REFUND                     = "tokens/RefundHTLTMsg";
 
+
+    public final static String OK_MSG_TYPE_TRANSFER                         = "okchain/token/MsgTransfer";
+    public final static String OK_MSG_TYPE_MULTI_TRANSFER                   = "okchain/token/MsgMultiTransfer";
+    public final static String OK_MSG_TYPE_DEPOSIT                          = "okchain/staking/MsgDelegate";
+    public final static String OK_MSG_TYPE_WITHDRAW                         = "okchain/staking/MsgUnDelegate";
+    public final static String OK_MSG_TYPE_DIRECT_VOTE                      = "okchain/staking/MsgVote";
+
     public final static String IOV_KIND_SEND                                = "bcp/send";
 
 
@@ -223,6 +237,9 @@ public class BaseConstant {
 //    public final static int CONST_PW_TX_HTLS_SWAP                           = 5018;
     public final static int CONST_PW_TX_HTLS_REFUND                         = 5019;
     public final static int CONST_PW_TX_CLAIM_INCENTIVE                     = 5020;
+    public final static int CONST_PW_TX_OK_DEPOSIT                          = 5021;
+    public final static int CONST_PW_TX_OK_WITHDRAW                         = 5022;
+    public final static int CONST_PW_TX_OK_DIRECT_VOTE                      = 5023;
 
 
     public final static int TX_TYPE_UNKNOWN                 = 3000;
@@ -273,6 +290,7 @@ public class BaseConstant {
     public final static String TOKEN_IOV            = "uiov";
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_BAND           = "uband";
+    public final static String TOKEN_OK_TEST        = "tokt";
 
 
     //TODO HardCoding!!
@@ -286,6 +304,7 @@ public class BaseConstant {
     public final static String KEY_NEW_KAVA_PATH    = "44'/459'/0'/0/";
     public final static String KEY_BAND_PATH        = "44'/494'/0'/0/";
     public final static String KEY_NEW_IOV_PATH     = "44'/234'/0'/0/";
+    public final static String KEY_NEW_OK_PATH      = "44'/996'/0'/0/";
     public final static String characterFilter  = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -341,6 +360,12 @@ public class BaseConstant {
     public final static String FEE_IOV_GAS_AMOUNT_REDELEGATE    = "300000";
     public final static String FEE_IOV_GAS_AMOUNT_REINVEST      = "300000";
     public final static String FEE_IOV_GAS_AMOUNT_LOW           = "100000";
+
+    public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.00000001";
+    public final static String FEE_OK_GAS_AMOUNT_SEND           = "200000";
+    public final static String FEE_OK_GAS_AMOUNT_STAKE          = "100000";
+    public final static String FEE_OK_GAS_AMOUNT_VOTE           = "150000";
+    public final static String FEE_OK_GAS_AMOUNT_VOTE_MUX       = "40000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";

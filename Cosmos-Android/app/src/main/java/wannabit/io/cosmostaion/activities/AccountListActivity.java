@@ -244,6 +244,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_testnet_img));
                     holder.chainName.setText(getString(R.string.str_iov_test));
 
+                } else if (chain.equals(BaseChain.OK_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_testnet_img));
+                    holder.chainName.setText(getString(R.string.str_ok_test));
+
                 }
             }
 

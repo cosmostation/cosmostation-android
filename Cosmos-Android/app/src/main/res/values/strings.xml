@@ -37,6 +37,10 @@
     <string name="url_lcd_band_main" translatable="false">https://lcd-band.cosmostation.io/</string>
     <string name="url_api_band_main" translatable="false">https://api-band-wenchang-mainnet.cosmostation.io/</string>
 
+
+    <string name="url_lcd_ok_test" translatable="false">https://lcd-okchain-testnet.cosmostation.io/</string>
+    <string name="url_api_ok_test" translatable="false"></string>
+
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
     <string name="str_atom_c" translatable="false">ATOM</string>
@@ -44,6 +48,7 @@
     <string name="str_kava_c" translatable="false">KAVA</string>
     <string name="str_iov_c" translatable="false">IOV</string>
     <string name="str_band_c" translatable="false">BAND</string>
+    <string name="str_ok_c" translatable="false">OKT</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
@@ -84,6 +89,7 @@
     <string name="str_bnb_test_net">Binance Testnet</string>
     <string name="str_kava_test_net">KAVA Testnet</string>
     <string name="str_iov_test_net">IOV Testnet</string>
+    <string name="str_ok_test_net">OK Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
@@ -211,6 +217,8 @@
     <string name="str_guide_iov">Star Name</string>
     <string name="str_faq_band">Home Page</string>
     <string name="str_guide_band">Blog</string>
+    <string name="str_faq_ok">Market</string>
+    <string name="str_guide_ok">Communities</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -262,6 +270,8 @@
     <string name="str_kava_net_test_2" translatable="false">KAVA Test Chain</string>
     <string name="str_iov_net_test" translatable="false">(IOV Test Chain)</string>
     <string name="str_iov_net_test_2" translatable="false">IOV Test Chain</string>
+    <string name="str_ok_net_test" translatable="false">(OK Test Chain)</string>
+    <string name="str_ok_net_test_2" translatable="false">OK Test Chain</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_iris" translatable="false">IRIS</string>
     <string name="str_binance" translatable="false">BINANCE</string>
@@ -271,6 +281,7 @@
     <string name="str_band" translatable="false">BAND</string>
     <string name="str_kava_test" translatable="false">KAVA TEST</string>
     <string name="str_iov_test" translatable="false">IOV TEST</string>
+    <string name="str_ok_test" translatable="false">OK TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -332,6 +343,8 @@
     <string name="str_max_available_undelegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_redelegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_send_amount"><![CDATA[Max Available : ]]></string>
+    <string name="str_max_available_deposit_amount"><![CDATA[Max Available :  ]]></string>
+    <string name="str_max_available_withdraw_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_available_send_amount"><![CDATA[Available : ]]></string>
     <string name="str_tx_error_description">Transaction request failed. \nPlease check the error code and message.</string>
     <string name="str_success_loading">Transaction request submitted successfully. \nAfter a few moments, the full results will be displayed.\n(Pending times depends on Tx fee.)</string>
@@ -341,11 +354,13 @@
     <string name="str_front_guide_title_kava"><![CDATA[KAVA CHAIN]]></string>
     <string name="str_front_guide_title_iov"><![CDATA[IOV MAINNET]]></string>
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
+    <string name="str_front_guide_title_ok"><![CDATA[OK CHAIN]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
     <string name="str_front_guide_msg_iov">Built on Tendermint, IOV builds a fast, secure and decentralized universal name service.</string>
+    <string name="str_front_guide_msg_ok">OKChain is a decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
@@ -362,6 +377,7 @@
     <string name="str_fee_speed_title_bnb">Support fixed transfer fee for Bianace dex.</string>
     <string name="str_fee_speed_title_kava">Support fixed transfer fee for KAVA Chain.\nSoon update for custom fees.</string>
     <string name="str_fee_speed_title_iov">Support fixed transfer fee for IOV Chain.</string>
+    <string name="str_fee_speed_title_ok">Support fixed transfer fee for OK Chain.</string>
     <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
     <string name="str_fee_description_title_2">Tx fee rate 0.025</string>
@@ -762,7 +778,7 @@
     <string name="str_only_observe_title">No Private Key.</string>
     <string name="str_only_observe_msg">This account has only address with watch mode.\nYou need add mnemonics for generate transaction.</string>
     <string name="str_all_validators">All Validators</string>
-    <string name="str_top_100_validators">All</string>
+    <string name="str_top_100_validators">Top</string>
     <string name="str_other_validators">Others</string>
     <string name="str_my_validators">My</string>
     <string name="str_withdraw_all">Claim all Rewards</string>
@@ -781,8 +797,11 @@
     <string name="str_available">Available</string>
     <string name="str_vesting">Vesting</string>
     <string name="str_locked">Locked</string>
-    <string name="str_deposited">Deposited</string>
-    <string name="str_deposite">Deposite</string>
+    <string name="str_deposited">Deposit</string>
+    <string name="str_deposit">Deposit</string>
+    <string name="str_withdraw">Withdraw</string>
+    <string name="str_withdrawing">Withdrawing</string>
+    <string name="str_vote_for_validator">Vote for Validator</string>
     <string name="str_name_service">Name Service</string>
     <string name="str_promotion_title">START DELEGATING FOR REWARDS</string>
     <string name="str_sorting_s">Sorting</string>
@@ -839,7 +858,7 @@
     <string name="str_name">Name</string>
     <string name="str_amount">Amount</string>
     <string name="str_value">Value</string>
-    <string name="str_full_name">Full Name(Denom)</string>
+    <string name="str_full_name">Detail</string>
     <string name="str_vesting_title">Vesting Account</string>
     <string name="str_vesting_msg">Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
@@ -851,6 +870,33 @@
     <string name="str_delegate_warn_title">Delegate Notice</string>
     <string name="str_delegate_warn_msg">Please perform careful due diligence on validators before delegating.\n\nUsers can receive staking rewards for delegating to a validator to operate a node on their behalf. If a problem occurs with the selected validators node, you may also lose a portion of your delegated stake.\n\nWhen you undelegate, there will be an unbonding period specific to the network. For tokens in "unbonding" state, you will not be able to accumulate staking rewards or make transactions.</string>
     <string name="str_memo_warn">Please check your memo.\nSome exchanges or wallets may require a specific memo for deposits.</string>
+    <string name="str_ok_stake_deposit_step_0">Insert amount to deposit</string>
+    <string name="str_ok_stake_deposit_step_1">Insert memo (optional)</string>
+    <string name="str_ok_stake_deposit_step_2">Select transaction fee</string>
+    <string name="str_ok_stake_deposit_step_3">Check transaction detail</string>
+    <string name="str_ok_stake_withdraw_step_0">Insert amount to withdraw</string>
+    <string name="str_ok_stake_withdraw_step_1">Insert memo (optional))</string>
+    <string name="str_ok_stake_withdraw_step_2">Select transaction fee</string>
+    <string name="str_ok_stake_withdraw_step_3">Check transaction detail</string>
+    <string name="str_ok_direct_vote_0">Select validator to vote</string>
+    <string name="str_ok_direct_vote_1">Insert memo (optional))</string>
+    <string name="str_ok_direct_vote_2">Select transaction fee</string>
+    <string name="str_ok_direct_vote_3">Check transaction detail</string>
+    <string name="str_ok_deposit_amount">Deposit Amount</string>
+    <string name="str_ok_withdraw_amount">Withdraw Amount</string>
+    <string name="str_deposit_warn_title">Deposit Notice</string>
+    <string name="str_vote_direct">Direct vote to Validator</string>
+    <string name="str_vote_agent">Indirect vote with Agent</string>
+    <string name="str_validator_vote"><![CDATA[Validators & Vote]]></string>
+    <string name="str_ok_deposit_c">DEPOSIT</string>
+    <string name="str_ok_withdraw_c">WITHDRAW</string>
+    <string name="str_ok_direct_vote_c">VOTE FOR VALIDATOR</string>
+    <string name="str_ok_direct_vote">Vote for Validator</string>
+    <string name="str_vote_to_validator">Vote to</string>
+    <string name="error_max_30_validator">You can select Max 30 Validators.</string>
+    <string name="error_min_1_validator">Please select more than 1 validator</string>
+
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -870,10 +916,13 @@
     <string name="error_already_imported_address">This address is already imported.</string>
     <string name="error_import_errer">Cannot add this address.</string>
     <string name="error_not_enough_to_delegate">Not enough balance to delegate</string>
+    <string name="error_not_enough_to_deposit">Not enough balance to deposit</string>
+    <string name="error_not_enough_to_withdraw">Not enough deposit to withdraw</string>
     <string name="error_not_enough_budget">Insufficient available balance.\nUnder minimum tx fee.</string>
     <string name="error_not_enough_budget_bep3">Insufficient available balance.</string>
     <string name="error_not_enough_reward_all">Insufficient available balance.\nUnder minimum tx fee.</string>
     <string name="error_not_enough_reward">Not enough rewards to Claim</string>
+    <string name="error_not_enough_balance_to_vote">Insufficient available balance.\nneed 0.1</string>
     <string name="error_small_reward">Rewards are too small.</string>
     <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed. \nPlease refer to the history.</string>
     <string name="error_vesting_time">Token transfer is locked for three weeks following mainnet launch.</string>
@@ -899,6 +948,7 @@
     <string name="error_invalid_iov_address">Invalid Iov Address.</string>
     <string name="error_invalid_kava_address">Invalid Kava Address.</string>
     <string name="error_invalid_band_address">Invalid Band Address.</string>
+    <string name="error_invalid_ok_address">Invalid OK Chain Address.</string>
     <string name="error_invalid_star_name">Invalid Start Name.</string>
     <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
     <string name="error_iris_vote_only_validator">This proposal can only vote on validators.</string>
@@ -934,6 +984,7 @@
     <string name="s_iov">IOV</string>
     <string name="s_kava">KAVA</string>
     <string name="s_band">BAND</string>
+    <string name="s_tok">TOKT</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

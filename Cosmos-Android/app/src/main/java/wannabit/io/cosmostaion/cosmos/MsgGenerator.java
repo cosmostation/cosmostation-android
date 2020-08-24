@@ -52,6 +52,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_TEST_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
@@ -86,6 +87,14 @@ public class MsgGenerator {
             value.outputs = outputs;
 
             result.type = BaseConstant.IRIS_MSG_TYPE_TRANSFER;
+            result.value = value;
+
+        } else if (chain.equals(OK_TEST)) {
+            value.from_address = fromAddr;
+            value.to_address = toAddr;
+            value.amount = coins;
+
+            result.type = BaseConstant.OK_MSG_TYPE_TRANSFER;
             result.value = value;
 
         }
@@ -534,7 +543,45 @@ public class MsgGenerator {
         return result;
     }
 
+    public static Msg genOkDeposit(String delegator, Coin coin, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(OK_TEST)) {
+            value.delegator_address = delegator;
+            value.quantity = coin;
 
+            result.type = BaseConstant.OK_MSG_TYPE_DEPOSIT;
+            result.value = value;
+        }
+        return result;
+    }
+
+    public static Msg genOkWithdraw(String delegator, Coin coin, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(OK_TEST)) {
+            value.delegator_address = delegator;
+            value.quantity = coin;
+
+            result.type = BaseConstant.OK_MSG_TYPE_WITHDRAW;
+            result.value = value;
+        }
+        return result;
+    }
+
+    public static Msg genOkVote(String delegator, ArrayList<String> toVals, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(OK_TEST)) {
+            value.delegator_address = delegator;
+            value.validator_addresses = toVals;
+
+            result.type = BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
+            result.value = value;
+        }
+        return result;
+
+    }
 
 
 
@@ -628,6 +675,7 @@ public class MsgGenerator {
                 msgs,
                 fee,
                 memo);
+//        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
 
         String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
 //        WLog.w("signatureTx " + signatureTx);
@@ -651,7 +699,7 @@ public class MsgGenerator {
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+//        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
 
         return reqBroadCast;

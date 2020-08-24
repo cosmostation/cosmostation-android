@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -34,6 +35,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.broadcast.ok.OKValidatorListActivity;
+import wannabit.io.cosmostaion.activities.broadcast.ok.StakeDepositActivity;
+import wannabit.io.cosmostaion.activities.broadcast.ok.StakeWithdrawActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -50,6 +54,7 @@ import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -59,6 +64,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -69,6 +75,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
 
@@ -213,7 +220,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 if (position != 0) mFloatBtn.hide();
                 else if (!mFloatBtn.isShown()) mFloatBtn.show();
 
-                if (position != 1 || !(mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BNB_TEST) || mBaseChain.equals(IOV_TEST))) {
+                if (position != 1 || !(mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BNB_TEST) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
                     mFaucetBtn.hide();
                 } else if (!mFaucetBtn.isShown()) {
                     mFaucetBtn.show();
@@ -317,11 +324,18 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
             mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
 
+        } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_testnet_img));
+            mToolbarChainName.setText(getString(R.string.str_ok_net_test));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorOK));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
+            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
+
         }
 
         if (mContentsPager != null) {
             if (mContentsPager.getCurrentItem() == 1 &&
-                    (mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BNB_TEST) || mBaseChain.equals(IOV_TEST))) {
+                    (mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BNB_TEST) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
                 if (!mFaucetBtn.isShown()) mFaucetBtn.show();
             } else {
                 mFaucetBtn.hide();
@@ -457,6 +471,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 hasbalance  = true;
             }
             intent.putExtra("iovDenom", TOKEN_IOV_TEST);
+
+        } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(new BigDecimal("0.002")) > 0) {
+                hasbalance  = true;
+            }
+            intent.putExtra("okDenom", TOKEN_OK_TEST);
+
         }
 
         if (!hasbalance) {
@@ -564,6 +585,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 }
             });
 
+        } else if (mBaseChain.equals(OK_TEST)) {
+            Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/drawdex"));
+            startActivity(guideIntent);
         }
 
     }
@@ -602,7 +626,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onShowTestNetWarnIfNeed() {
-        if (mBaseChain.equals(BNB_TEST) || mBaseChain.equals(KAVA_TEST)) {
+        if (mBaseChain.equals(BNB_TEST) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST)) {
             if (mToShowTestWarn) {
                 mToShowTestWarn = false;
                 if(getBaseDao().getKavaWarn()) {
@@ -617,6 +641,66 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onSetKavaWarn() {
         getBaseDao().setKavaWarn();
     }
+
+    public void onStartOkDeposit() {
+        if(mAccount == null) return;
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasbalance = false;
+        if (mBaseChain.equals(BaseChain.OK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(new BigDecimal("0.001")) > 0) {
+                hasbalance  = true;
+            }
+        }
+        if (!hasbalance) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_deposit, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(getBaseContext(), StakeDepositActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void onStartOkWithdraw() {
+        if(mAccount == null) return;
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasbalance = false;
+        if (mBaseChain.equals(BaseChain.OK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(new BigDecimal("0.001")) > 0) {
+                hasbalance  = true;
+            }
+        }
+        if (!hasbalance) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_deposit, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (WDp.getOkDepositCoin(getBaseDao().mOkDeposit).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_withdraw, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(getBaseContext(), StakeWithdrawActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void onStartOkVote() {
+        WLog.w("onStartOkVote");
+        Intent intent = new Intent(getBaseContext(), OKValidatorListActivity.class);
+        startActivity(intent);
+
+    }
+
 
     @Override
     public void fetchFinished() {
@@ -766,6 +850,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_testnet_img));
                     holder.chainName.setText(getString(R.string.str_iov_test));
+
+                } else if (chain.equals(BaseChain.OK_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_testnet_img));
+                    holder.chainName.setText(getString(R.string.str_ok_test));
 
                 }
             }

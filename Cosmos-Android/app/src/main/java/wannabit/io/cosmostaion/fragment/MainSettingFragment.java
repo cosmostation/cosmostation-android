@@ -203,6 +203,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cosmoscan.io/"));
                 startActivity(intent);
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.oklink.com/okchain-test/"));
+                startActivity(intent);
+
             }
 
 

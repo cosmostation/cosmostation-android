@@ -36,23 +36,26 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
+import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
+import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 public class MainTokensFragment extends BaseFragment implements View.OnClickListener {
 
@@ -227,6 +230,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             onUpdateTotalCard();
 
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            onUpdateTotalCard();
+
         }
         mTokenSize.setText(""+mBalances.size());
         if (mBalances != null && mBalances.size() > 0) {
@@ -305,7 +312,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalIovAmount, 6, 6));
             mTotalValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalIovAmount));
 
-        }  else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
             BigDecimal totalBandAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_BAND)) {
@@ -314,6 +321,18 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBandAmount, 6, 6));
             mTotalValue.setText(WDp.getValueOfBand(getContext(), getBaseDao(), totalBandAmount));
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+            BigDecimal totalOkAmount = BigDecimal.ZERO;
+            for (Balance balance:mBalances) {
+                if (balance.symbol.equals(TOKEN_OK_TEST)) {
+                    totalOkAmount = totalOkAmount.add(WDp.getAllOk(balance, getBaseDao().mOkDeposit, getBaseDao().mOkWithdraw));
+                } else {
+
+                }
+            }
+            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalOkAmount, 0, 6));
+            mTotalValue.setText(WDp.getValueOfOk(getContext(), getBaseDao(), totalOkAmount));
 
         }
 
@@ -360,6 +379,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindIovItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 onBindBandItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+                onBindOkItem(viewHolder, position);
+
             }
         }
 
@@ -648,6 +670,44 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 //                startActivity(intent);
             }
         });
+    }
+
+    private void onBindOkItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = mBalances.get(position);
+        final OkToken token = WUtil.getOkToken(getBaseDao().mOkTokenList, balance.symbol);
+        if (balance.symbol.equals(TOKEN_OK_TEST)) {
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.OK_TEST));
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
+            BigDecimal totalAmount = WDp.getAllOk(balance, getBaseDao().mOkDeposit, getBaseDao().mOkWithdraw);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+            holder.itemValue.setText(WDp.getValueOfOk(getContext(), getBaseDao(), totalAmount));
+
+        } else  {
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance.add(balance.locked), 0, 6));
+            holder.itemValue.setText(WDp.getValueOfOk(getContext(), getBaseDao(), BigDecimal.ZERO));
+
+        }
+
+        if (token != null) {
+            holder.itemInnerSymbol.setText("(" + token.symbol + ")");
+            holder.itemFullName.setText(token.description);
+            holder.itemSymbol.setText(token.original_symbol.toUpperCase());
+        }
+
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
+                intent.putExtra("okDenom", balance.symbol);
+                startActivity(intent);
+            }
+        });
+
+
+
+
     }
 
 

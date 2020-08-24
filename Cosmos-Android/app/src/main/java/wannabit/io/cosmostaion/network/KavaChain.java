@@ -169,7 +169,7 @@ public interface KavaChain {
 
 
 
-    @GET("/claim/{address}")
+    @GET("/faucet/{address}")
     Call<JSONObject> getFaucet(@Path("address") String address);
 
 }
