@@ -62,7 +62,7 @@ public class GenerateAccountTask extends CommonTask {
         if (BaseChain.COSMOS_MAIN.equals(mBaseChain) || BaseChain.IRIS_MAIN.equals(mBaseChain) ||
                 BaseChain.BNB_MAIN.equals(mBaseChain) || BaseChain.KAVA_MAIN.equals(mBaseChain) ||
                 BaseChain.BAND_MAIN.equals(mBaseChain) || BaseChain.BNB_TEST.equals(mBaseChain) ||
-                BaseChain.KAVA_TEST.equals(mBaseChain) || BaseChain.IOV_TEST.equals(mBaseChain)) {
+                BaseChain.KAVA_TEST.equals(mBaseChain) || BaseChain.IOV_TEST.equals(mBaseChain) || BaseChain.OK_TEST.equals(mBaseChain)) {
             DeterministicKey    dKey            = WKey.getKeyWithPathfromEntropy(mBaseChain, entropy, Integer.parseInt(path), mKavaNewPath);
             EncResult           encR            = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, entropy, false);
             newAccount.address                  = WKey.getDpAddress(mBaseChain, dKey.getPublicKeyAsHex());

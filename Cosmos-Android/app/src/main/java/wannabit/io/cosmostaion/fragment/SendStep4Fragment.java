@@ -27,11 +27,13 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 public class SendStep4Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -244,6 +246,41 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 6, 6));
             mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, 6));
             mRemainingPrice.setText(WDp.getValueOfBand(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
+
+        } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
+            mDpDecimal = 8;
+            mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 0, 8));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 8));
+
+            mDenomSendAmount.setText(getSActivity().mOkDenom.toUpperCase());
+            mDenomCurrentAmount.setText(getSActivity().mOkDenom.toUpperCase());
+            mDenomRemainAmount.setText(getSActivity().mOkDenom.toUpperCase());
+
+            if (getSActivity().mOkDenom.equals(TOKEN_OK_TEST)) {
+                mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorOK));
+                mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorOK));
+                mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorOK));
+                mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 0, 8));
+                mTotalPrice.setText(WDp.getValueOfOk(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
+
+                BigDecimal currentAvai  = getSActivity().mAccount.getTokenBalance(TOKEN_OK_TEST);
+                mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 0, 8));
+                mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 0, 8));
+                mRemainingPrice.setText(WDp.getValueOfOk(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
+
+            } else {
+                mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorWhite));
+                mTotalSpendLayer.setVisibility(View.GONE);
+                mTotalPrice.setVisibility(View.GONE);
+                mRemainingPrice.setVisibility(View.GONE);
+
+                BigDecimal currentAvai  = getSActivity().mAccount.getTokenBalance(getSActivity().mOkDenom);
+                mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 0, 8));
+                mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount), 0, 8));
+
+            }
 
         }
 

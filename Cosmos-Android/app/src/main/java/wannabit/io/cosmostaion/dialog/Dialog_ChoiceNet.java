@@ -18,12 +18,13 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class Dialog_ChoiceNet extends DialogFragment {
 
 
-    private LinearLayout mIovLayer, mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer;
-    private LinearLayout mMain, mIris, mBinance, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mTest12k, mTest13k;
+    private LinearLayout mIovLayer, mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer;
+    private LinearLayout mMain, mIris, mBinance, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mTest12k, mTest13k;
     private LinearLayout mBandLayer, mBand;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
@@ -54,6 +55,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mKavaTest = view.findViewById(R.id.kava_test_net);
         mIovTestLayer = view.findViewById(R.id.iov_test_layer);
         mIovTest = view.findViewById(R.id.iov_test_net);
+        mOKTestLayer = view.findViewById(R.id.ok_test_layer);
+        mOKTest = view.findViewById(R.id.ok_test_net);
         mTest12k = view.findViewById(R.id.gaia_12k);
         mTest13k = view.findViewById(R.id.gaia_13k);
 
@@ -141,6 +144,17 @@ public class Dialog_ChoiceNet extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     ((BaseActivity)getActivity()).onChoiceNet(IOV_TEST);
+                    getDialog().dismiss();
+                }
+            });
+        }
+
+        if (BaseChain.SUPPORT_CHAINS().contains(OK_TEST)) {
+            mOKTestLayer.setVisibility(View.VISIBLE);
+            mOKTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((BaseActivity)getActivity()).onChoiceNet(OK_TEST);
                     getDialog().dismiss();
                 }
             });

@@ -76,7 +76,6 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onPostResume() {
-        WLog.w("onPostResume");
         super.onPostResume();
         if (mChain == null) {
             Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
@@ -124,11 +123,11 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
         } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-        } else if (mChain.equals(BaseChain.IOV_MAIN) || mChain.equals(BaseChain.IOV_TEST)) {
+        } else if (mChain.equals(BaseChain.IOV_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
         } else if (mChain.equals(BaseChain.BAND_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
-        } else if (mChain.equals(BaseChain.BNB_TEST) || mChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (mChain.equals(BaseChain.BNB_TEST) || mChain.equals(BaseChain.KAVA_TEST) || mChain.equals(BaseChain.IOV_TEST) || mChain.equals(BaseChain.OK_TEST)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
         }
         for(int i = 0; i < mWordsLayer.length; i++) {
@@ -140,11 +139,11 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_bnb));
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_kava));
-            } else if (mChain.equals(BaseChain.IOV_MAIN) || mChain.equals(BaseChain.IOV_TEST)) {
+            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iov));
             } else if (mChain.equals(BaseChain.BAND_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_band));
-            } else if (mChain.equals(BaseChain.BNB_TEST) || mChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (mChain.equals(BaseChain.BNB_TEST) || mChain.equals(BaseChain.KAVA_TEST) || mChain.equals(BaseChain.IOV_TEST) || mChain.equals(BaseChain.OK_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_darkgray));
             }
         }

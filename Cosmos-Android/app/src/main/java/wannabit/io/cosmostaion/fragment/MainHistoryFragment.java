@@ -80,11 +80,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mNotYet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-//                txDetail.putExtra("txHash", "957E0A7DEA27EBA98438D126967A2FDB4CC26F52D436A4511A3292B44AD21A92");
-//                txDetail.putExtra("isGen", false);
-//                txDetail.putExtra("isSuccess", true);
-//                startActivity(txDetail);
+                Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                txDetail.putExtra("txHash", "42527E847E119F9FB1C5EB57C5BEB7747AA11D8CDC76A773C435964C2E063190");
+                txDetail.putExtra("isGen", false);
+                txDetail.putExtra("isSuccess", true);
+                startActivity(txDetail);
             }
         });
 
@@ -167,6 +167,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+            mEmptyHistory.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.GONE);
+            mNotYet.setVisibility(View.VISIBLE);
         }
     }
 

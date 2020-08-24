@@ -45,6 +45,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
 
     private Toolbar                     mToolbar;
+    private TextView                    mToolbarTitle;
     private ViewPager                   mValidatorPager;
     private TabLayout                   mValidatorTapLayer;
     private ValidatorPageAdapter        mPageAdapter;
@@ -54,6 +55,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validator_list);
         mToolbar            = findViewById(R.id.tool_bar);
+        mToolbarTitle       = findViewById(R.id.toolbar_title);
         mValidatorTapLayer  = findViewById(R.id.validator_tab);
         mValidatorPager     = findViewById(R.id.validator_view_pager);
 

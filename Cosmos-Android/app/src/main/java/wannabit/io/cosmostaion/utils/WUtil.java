@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.IovToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
+import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -59,10 +60,13 @@ import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
+import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
+import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -78,6 +82,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_System
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_TokenAdditionProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 public class WUtil {
 
@@ -321,6 +326,24 @@ public class WUtil {
         }
         return result;
     }
+
+    public static ArrayList<Balance> getBalancesFromOkLcd(long accountId, ResOkAccountToken lcd) {
+        long time = System.currentTimeMillis();
+        ArrayList<Balance> result = new ArrayList<>();
+        if (lcd.data != null && lcd.data.currencies != null && lcd.data.currencies.size() > 0) {
+            for(ResOkAccountToken.OkCurrency currency : lcd.data.currencies) {
+                Balance temp = new Balance();
+                temp.accountId = accountId;
+                temp.symbol = currency.symbol;
+                temp.balance = new BigDecimal(currency.available);
+                temp.locked = new BigDecimal(currency.locked);
+                temp.fetchTime = time;
+                result.add(temp);
+            }
+        }
+        return result;
+    }
+
 
     public static Balance getTokenBalance(ArrayList<Balance> list, String symbol) {
         for (Balance balance:list) {
@@ -688,6 +711,30 @@ public class WUtil {
         });
     }
 
+    public static void onSortByOKValidatorPower(ArrayList<Validator> validators) {
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+
+                if (Double.parseDouble(o1.delegator_shares) > Double.parseDouble(o2.delegator_shares)) return -1;
+                else if (Double.parseDouble(o1.delegator_shares) < Double.parseDouble(o2.delegator_shares)) return 1;
+                else return 0;
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
+
+
     public static void onSortByDelegate(final long userId, ArrayList<Validator> validators, final BaseData dao) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
@@ -881,6 +928,10 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_IOV_TEST)) return -1;
                     if(o2.symbol.equals(TOKEN_IOV_TEST)) return 1;
 
+                } else if (chain.equals(OK_TEST)) {
+                    if(o1.symbol.equals(TOKEN_OK_TEST)) return -1;
+                    if(o2.symbol.equals(TOKEN_OK_TEST)) return 1;
+
                 }
                 return o2.balance.compareTo(o1.balance);
             }
@@ -918,6 +969,10 @@ public class WUtil {
                 } else if (chain.equals(IOV_TEST)) {
                     if(o1.symbol.equals(TOKEN_IOV_TEST)) return -1;
                     if(o2.symbol.equals(TOKEN_IOV_TEST)) return 1;
+
+                } else if (chain.equals(OK_TEST)) {
+                    if(o1.symbol.equals(TOKEN_OK_TEST)) return -1;
+                    if(o2.symbol.equals(TOKEN_OK_TEST)) return 1;
 
                 }
                 return o1.symbol.compareTo(o2.symbol);
@@ -966,6 +1021,11 @@ public class WUtil {
                     if(o1.denom.equals(TOKEN_KAVA)) return -1;
                     if(o2.denom.equals(TOKEN_KAVA)) return 1;
                     else return 0;
+                } else if (chain.equals(OK_TEST)) {
+                    if(o1.denom.equals(TOKEN_OK_TEST)) return -1;
+                    if(o2.denom.equals(TOKEN_OK_TEST)) return 1;
+                    else return 0;
+
                 } else {
                     return 0;
                 }
@@ -1065,7 +1125,7 @@ public class WUtil {
 
     public static int getMaxMemoSize(BaseChain chain) {
         if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) ||
-                chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST)) {
+                chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST) || chain.equals(OK_TEST)) {
             return BaseConstant.MEMO_ATOM;
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
@@ -1174,6 +1234,16 @@ public class WUtil {
         if (all == null || balance == null) return null;
         for (IrisToken token:all) {
             if(balance.symbol.split("-")[0].equals(token.base_token.id)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
+    public static OkToken getOkToken(ResOkTokenList okTokenList, String denom) {
+        if (okTokenList == null || okTokenList.data == null || TextUtils.isEmpty(denom)) return null;
+        for (OkToken token:okTokenList.data) {
+            if (token.symbol.equals(denom)) {
                 return token;
             }
         }

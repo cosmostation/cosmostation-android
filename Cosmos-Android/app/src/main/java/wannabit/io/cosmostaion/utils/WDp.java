@@ -46,6 +46,8 @@ import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResOkDeposit;
+import wannabit.io.cosmostaion.network.res.ResOkWithdraw;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
@@ -58,6 +60,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -67,6 +70,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFUNDED;
@@ -160,6 +164,15 @@ public class WDp {
         } else if (chain.equals(BAND_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
+        } else if (chain.equals(OK_TEST)) {
+            if (coin.denom.equals(TOKEN_OK_TEST)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 0, 8));
+
         }
     }
 
@@ -379,6 +392,32 @@ public class WDp {
         return sum;
     }
 
+    public static BigDecimal getLockedCoin(ArrayList<Balance> balances, String denom) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Balance balance : balances) {
+            if (balance.symbol.equalsIgnoreCase(denom)) {
+                sum = balance.locked;
+            }
+        }
+        return sum;
+    }
+
+    public static BigDecimal getOkDepositCoin(ResOkDeposit deposit) {
+        BigDecimal sum = BigDecimal.ZERO;
+        if (deposit != null && !TextUtils.isEmpty(deposit.tokens)) {
+            sum = new BigDecimal(deposit.tokens);
+        }
+        return sum;
+    }
+
+    public static BigDecimal getOkWithdrawingCoin(ResOkWithdraw withdraw) {
+        BigDecimal sum = BigDecimal.ZERO;
+        if (withdraw != null && !TextUtils.isEmpty(withdraw.quantity)) {
+            sum = new BigDecimal(withdraw.quantity);
+        }
+        return sum;
+    }
+
     public static BigDecimal getDelegableAmount(ArrayList<Balance> balances, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
@@ -484,13 +523,13 @@ public class WDp {
 
     public static BigDecimal getAllKava(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
+        for (Balance balance : balances) {
             if (balance.symbol.equals(BaseConstant.TOKEN_KAVA)) {
                 sum = sum.add(balance.balance);
                 sum = sum.add(balance.locked);
             }
         }
-        if(bondings != null) {
+        if (bondings != null) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
@@ -514,20 +553,20 @@ public class WDp {
 
     public static BigDecimal getAllIris(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
+        for (Balance balance : balances) {
             if(balance.symbol.equals(TOKEN_IRIS_ATTO)) {
                 sum = sum.add(balance.balance);
             }
         }
-        if(bondings != null) {
+        if (bondings != null) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
         }
-        for(UnBondingState unbonding : unbondings) {
+        for (UnBondingState unbonding : unbondings) {
             sum = sum.add(unbonding.balance);
         }
-        if(reward != null) {
+        if (reward != null) {
             sum = sum.add(reward.getSimpleIrisReward());
         }
         return sum;
@@ -540,7 +579,7 @@ public class WDp {
                 sum = sum.add(balance.balance);
             }
         }
-        if(bondings != null) {
+        if (bondings != null) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
@@ -565,7 +604,7 @@ public class WDp {
                 sum = sum.add(balance.balance);
             }
         }
-        if(bondings != null) {
+        if (bondings != null) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
@@ -581,6 +620,18 @@ public class WDp {
                 sum = sum.add(reward.getRewardAmount(TOKEN_IOV_TEST));
             }
         }
+        return sum;
+    }
+
+    public static BigDecimal getAllOk(Balance balance, ResOkDeposit deposit, ResOkWithdraw withdraw) {
+        BigDecimal sum = BigDecimal.ZERO;
+        if (balance != null) {
+            sum = sum.add(balance.balance);
+            sum = sum.add(balance.locked);
+        }
+        sum = sum.add(getOkDepositCoin(deposit));
+        sum = sum.add(getOkWithdrawingCoin(withdraw));
+
         return sum;
     }
 
@@ -707,6 +758,24 @@ public class WDp {
     }
 
     public static SpannableString getValueOfIov(Context c, BaseData dao, BigDecimal totalAmount) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if(dao.getCurrency() == 5) {
+//            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBandTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+//            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBandTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        }
+    }
+
+    public static SpannableString getValueOfOk(Context c, BaseData dao, BigDecimal totalAmount) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         if(dao.getCurrency() == 5) {
 //            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBandTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
@@ -1147,6 +1216,9 @@ public class WDp {
         } else if (chain.equals(IOV_TEST)) {
             return BaseConstant.KEY_NEW_IOV_PATH + String.valueOf(position);
 
+        } else if (chain.equals(OK_TEST)) {
+            return BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position);
+
         } else {
             return BaseConstant.KEY_PATH + String.valueOf(position);
 
@@ -1245,7 +1317,7 @@ public class WDp {
     public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
-            if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(BAND_MAIN)) {
+            if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(BAND_MAIN) || chain.equals(OK_TEST)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 21);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
@@ -1473,7 +1545,9 @@ public class WDp {
             return c.getResources().getColor(R.color.colorIov);
         } else if (chain.equals(BAND_MAIN)) {
             return c.getResources().getColor(R.color.colorBand);
-        } else {
+        } else if (chain.equals(OK_TEST)) {
+            return c.getResources().getColor(R.color.colorOK);
+        }  else {
             return c.getResources().getColor(R.color.colorGray0);
         }
     }
@@ -1489,6 +1563,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_band);
         } else if(chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iov);
+        } else if(chain.equals(OK_TEST)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ok);
         }
         return null;
     }
@@ -1504,6 +1580,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorBand);
         } else if(chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return c.getResources().getColorStateList(R.color.colorIov);
+        } else if(chain.equals(OK_TEST)) {
+            return c.getResources().getColorStateList(R.color.colorOK);
         }
         return null;
     }
@@ -1532,6 +1610,10 @@ public class WDp {
         } else if (BaseChain.getChain(chain).equals(BAND_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBand));
             textview.setText(c.getString(R.string.s_band));
+
+        } else if (BaseChain.getChain(chain).equals(OK_TEST)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorOK));
+            textview.setText(c.getString(R.string.s_tok));
         }
     }
 
@@ -1548,6 +1630,8 @@ public class WDp {
             return c.getString(R.string.s_iov);
         } else if (BaseChain.getChain(chain).equals(BAND_MAIN)) {
             return c.getString(R.string.s_band);
+        } else if (BaseChain.getChain(chain).equals(OK_TEST)) {
+            return c.getString(R.string.s_tok);
         }
         return "";
 
@@ -1785,6 +1869,10 @@ public class WDp {
         } else if (chain.equals(IOV_TEST)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_testnet_img));
             txtView.setText(c.getString(R.string.str_iov_net_test_2));
+
+        } else if (chain.equals(OK_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.okex_testnet_img));
+            txtView.setText(c.getString(R.string.str_ok_net_test_2));
 
         }
         txtView.setTextColor(getChainColor(c, chain));

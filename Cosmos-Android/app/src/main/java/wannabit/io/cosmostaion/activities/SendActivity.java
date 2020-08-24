@@ -64,6 +64,7 @@ public class SendActivity extends BaseActivity {
     public HashMap<String, ResBnbTic>   mBnbTics = new HashMap<>();
     public String                       mKavaDenom;
     public String                       mIovDenom;
+    public String                       mOkDenom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class SendActivity extends BaseActivity {
         mBnbTics = (HashMap<String, ResBnbTic>)getIntent().getSerializableExtra("bnbTics");
         mKavaDenom = getIntent().getStringExtra("kavaDenom");
         mIovDenom = getIntent().getStringExtra("iovDenom");
+        mOkDenom = getIntent().getStringExtra("okDenom");
 
         mTvStep.setText(getString(R.string.str_send_step_0));
 
@@ -100,6 +102,9 @@ public class SendActivity extends BaseActivity {
             if (TextUtils.isEmpty(mIovDenom)) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (TextUtils.isEmpty(mKavaDenom)) onBackPressed();
+        } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
+            if (TextUtils.isEmpty(mOkDenom)) onBackPressed();
+
         }
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());

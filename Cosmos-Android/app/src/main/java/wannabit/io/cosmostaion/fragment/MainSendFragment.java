@@ -46,10 +46,13 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Warning;
+import wannabit.io.cosmostaion.dialog.Dialog_OK_Stake_Type;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -57,6 +60,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -65,10 +69,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 
 public class MainSendFragment extends BaseFragment implements View.OnClickListener {
-    public final static int WALLET_CONNECT = 6013;
+    public final static int WALLET_CONNECT  = 6013;
+    public final static int OK_STAKE_TYPE   = 6014;
 
 
     private SwipeRefreshLayout  mSwipeRefreshLayout;
@@ -77,18 +83,22 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private ImageView           mKeyState;
     private TextView            mAddress;
 
-    private CardView            mAtomCard, mIrisCard, mBnbCard, mKavaCard, mIovCard, mBandCard;
+    private CardView            mAtomCard, mIrisCard, mBnbCard, mKavaCard, mIovCard, mBandCard, mOkCard;
 
     private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomAvailable,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
     private RelativeLayout      mBtnAtomReward, mBtnAtomVote;
+
     private TextView            mTvIrisTotal, mTvIrisValue, mTvIrisAvailable,
                                 mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
     private RelativeLayout      mBtnIrisReward, mBtnIrisVote;
+
     private TextView            mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
     private RelativeLayout      mBtnBnbConnect, mBtnBep3Send;
+
     private TextView            mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVesting,
                                 mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards;
+
     private RelativeLayout      mBtnKavaReward, mBtnKavaVote, mBtnKavaCdp;
     private TextView            mTvIovTotal, mTvIovValue, mTvIovAvailable, mTvIovDelegated, mTvIovUnBonding, mTvIovRewards;
     private RelativeLayout      mBtnIovStake, mBtnIovVote, mBtnIovNameService;
@@ -96,6 +106,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mBandTotalAmount, mBandTotalValue;
     private TextView            mBandAvailable, mBandDelegate, mBandUnBonding, mBandRewards;
     private RelativeLayout      mBtnBandDeleagte;
+
+    private TextView            mOkTotalAmount, mOkTotalValue;
+    private TextView            mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
+    private RelativeLayout      mBtnOkDeposit, mBtnOkWithdraw, mBtnOkVote;
 
 
     private CardView            mUndelegateCard;
@@ -214,6 +228,17 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBandRewards            = mBandCard.findViewById(R.id.band_reward);
         mBtnBandDeleagte        = mBandCard.findViewById(R.id.btn_band_delegate);
 
+        mOkCard                 = rootView.findViewById(R.id.card_ok);
+        mOkTotalAmount          = mOkCard.findViewById(R.id.ok_total_amount);
+        mOkTotalValue           = mOkCard.findViewById(R.id.ok_total_value);
+        mOkAvailable            = mOkCard.findViewById(R.id.ok_available);
+        mOkLocked               = mOkCard.findViewById(R.id.ok_locked);
+        mOkDeposit              = mOkCard.findViewById(R.id.ok_deposit);
+        mOkWithdrawing          = mOkCard.findViewById(R.id.ok_withdrawing);
+        mBtnOkDeposit           = mOkCard.findViewById(R.id.btn_ok_deposit);
+        mBtnOkWithdraw          = mOkCard.findViewById(R.id.btn_ok_withdraw);
+        mBtnOkVote              = mOkCard.findViewById(R.id.btn_ok_vote);
+
         mUndelegateCard         = rootView.findViewById(R.id.card_undelegate);
         mUndelegateCnt          = mUndelegateCard.findViewById(R.id.undelegate_count);
         mUndelegateLayer0       = mUndelegateCard.findViewById(R.id.undelegate_detail_layer0);
@@ -328,6 +353,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnIovVote.setOnClickListener(this);
         mBtnIovNameService.setOnClickListener(this);
         mBtnBandDeleagte.setOnClickListener(this);
+        mBtnOkDeposit.setOnClickListener(this);
+        mBtnOkWithdraw.setOnClickListener(this);
+        mBtnOkVote.setOnClickListener(this);
         mBtnParticipate.setOnClickListener(this);
 
         return rootView;
@@ -396,6 +424,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.GONE);
+            mOkCard.setVisibility(View.GONE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mMintCards.setVisibility(View.VISIBLE);
             if (SUPPORT_MOONPAY) {
@@ -419,6 +448,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.GONE);
+            mOkCard.setVisibility(View.GONE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
@@ -438,6 +468,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.GONE);
+            mOkCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
             mBtnBep3Send.setVisibility(View.VISIBLE);
             if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
@@ -467,6 +498,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.VISIBLE);
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.GONE);
+            mOkCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
@@ -496,6 +528,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.VISIBLE);
             mBandCard.setVisibility(View.GONE);
+            mOkCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
             if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
@@ -520,6 +553,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.VISIBLE);
+            mOkCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
 
@@ -532,6 +566,33 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideMsg.setText(R.string.str_front_guide_msg_band);
             mGuideBtn.setText(R.string.str_faq_band);
             mFaqBtn.setText(R.string.str_guide_band);
+
+        } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+            mAtomCard.setVisibility(View.GONE);
+            mIrisCard.setVisibility(View.GONE);
+            mBnbCard.setVisibility(View.GONE);
+            mKavaCard.setVisibility(View.GONE);
+            mIovCard.setVisibility(View.GONE);
+            mBandCard.setVisibility(View.GONE);
+            mOkCard.setVisibility(View.VISIBLE);
+            mMintCards.setVisibility(View.GONE);
+            mBuyLayer.setVisibility(View.GONE);
+
+            if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+                mOkCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            } else {
+                mOkCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
+            }
+
+            if (getMainActivity().mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorOK), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
+            mGuideImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_img));
+            mGuideTitle.setText(R.string.str_front_guide_title_ok);
+            mGuideMsg.setText(R.string.str_front_guide_msg_ok);
+            mGuideBtn.setText(R.string.str_faq_ok);
+            mFaqBtn.setText(R.string.str_guide_ok);
 
         }
 
@@ -807,6 +868,31 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
+        } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+            BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_OK_TEST);
+            BigDecimal lockedAmount = WDp.getLockedCoin(getMainActivity().mBalances, TOKEN_OK_TEST);
+            BigDecimal depositAmount = WDp.getOkDepositCoin(getBaseDao().mOkDeposit);
+            BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(getBaseDao().mOkWithdraw);
+            BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
+
+            mOkTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+            mOkAvailable.setText(WDp.getDpAmount2(getContext(), availableAmount, 0, 6));
+            mOkLocked.setText(WDp.getDpAmount2(getContext(), lockedAmount, 0, 6));
+            mOkDeposit.setText(WDp.getDpAmount2(getContext(), depositAmount, 0, 6));
+            mOkWithdrawing.setText(WDp.getDpAmount2(getContext(), withdrawAmount, 0, 6));
+            mOkTotalValue.setText(WDp.getValueOfOk(getContext(), getBaseDao(), totalAmount));
+            getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
+
+            try {
+                mPerPrice.setText(WDp.getPriceDp(getContext(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mUpDownPrice.setText(WDp.getPriceUpDown(BigDecimal.ZERO));
+                mUpDownImg.setVisibility(View.GONE);
+
+            } catch (Exception e) {
+                mPerPrice.setText("???");
+                mUpDownPrice.setText("???");
+                mUpDownImg.setVisibility(View.GONE);
+            }
         }
 
         // Show Undelegate detail list at most 5 for ordered by completing time
@@ -974,12 +1060,16 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/registration/"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://iov.one/"));
                 startActivity(guideIntent);
 
             } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://bandprotocol.com/"));
+                startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/"));
                 startActivity(guideIntent);
 
             }
@@ -1006,12 +1096,16 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/kava-labs"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.starname.network/"));
                 startActivity(guideIntent);
 
             } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/bandprotocol"));
+                startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/community"));
                 startActivity(guideIntent);
 
             }
@@ -1122,6 +1216,21 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnParticipate)) {
             getMainActivity().onStartIncentiveClaim();
 
+        } else if (v.equals(mBtnOkDeposit)) {
+            if (getBaseDao().mTopValidators == null && getBaseDao().mTopValidators.size() == 0) return;
+            getMainActivity().onStartOkDeposit();
+
+        } else if (v.equals(mBtnOkWithdraw)) {
+            if (getBaseDao().mTopValidators == null && getBaseDao().mTopValidators.size() == 0) return;
+            getMainActivity().onStartOkWithdraw();
+
+        } else if (v.equals(mBtnOkVote)) {
+            if (getBaseDao().mTopValidators == null && getBaseDao().mTopValidators.size() == 0) return;
+            Dialog_OK_Stake_Type dialog = Dialog_OK_Stake_Type.newInstance(null);
+            dialog.setTargetFragment(MainSendFragment.this, OK_STAKE_TYPE);
+            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+
         }
 
     }
@@ -1132,12 +1241,20 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             wcIntent.putExtra("wcUrl", data.getStringExtra("wcUrl"));
             startActivity(wcIntent);
 
-        } else  if (requestCode == WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
             Intent intent = new Intent(getMainActivity(), PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
             intent.putExtra("wcUrl", data.getStringExtra("wcUrl"));
             startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
             getMainActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
+        } else if (requestCode == OK_STAKE_TYPE && resultCode == Activity.RESULT_OK) {
+            if (data.getIntExtra("type", -1) == 0) {
+                getMainActivity().onStartOkVote();
+            } else if  (data.getIntExtra("type", -1) == 1) {
+                //TODO indirect vote
+            }
+
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);

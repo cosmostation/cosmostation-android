@@ -32,6 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class MnemonicCheckActivity extends BaseActivity {
 
@@ -76,7 +77,7 @@ public class MnemonicCheckActivity extends BaseActivity {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
         } else if (BaseChain.getChain(toCheck.baseChain).equals(BAND_MAIN)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
-        } else if (BaseChain.getChain(toCheck.baseChain).equals(BNB_TEST) || BaseChain.getChain(toCheck.baseChain).equals(KAVA_TEST) || BaseChain.getChain(toCheck.baseChain).equals(IOV_TEST)) {
+        } else if (BaseChain.getChain(toCheck.baseChain).equals(BNB_TEST) || BaseChain.getChain(toCheck.baseChain).equals(KAVA_TEST) || BaseChain.getChain(toCheck.baseChain).equals(IOV_TEST) || BaseChain.getChain(toCheck.baseChain).equals(OK_TEST)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
 
         }
@@ -95,7 +96,7 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iov));
             } else if (BaseChain.getChain(toCheck.baseChain).equals(BAND_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_band));
-            } else if (BaseChain.getChain(toCheck.baseChain).equals(BNB_TEST) || BaseChain.getChain(toCheck.baseChain).equals(KAVA_TEST) || BaseChain.getChain(toCheck.baseChain).equals(IOV_TEST)) {
+            } else if (BaseChain.getChain(toCheck.baseChain).equals(BNB_TEST) || BaseChain.getChain(toCheck.baseChain).equals(KAVA_TEST) || BaseChain.getChain(toCheck.baseChain).equals(IOV_TEST) || BaseChain.getChain(toCheck.baseChain).equals(OK_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_darkgray));
             }
             if(i >= mWords.size()) mWordsLayer[i].setVisibility(View.INVISIBLE);

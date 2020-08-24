@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
 
@@ -148,6 +149,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
                 } else if (mChain.equals(BaseChain.BAND_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+                } else if (mChain.equals(BaseChain.OK_TEST)) {
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
                 }
             } else  {
                 if(temp.hasPrivateKey) {
@@ -169,6 +172,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
                     } else if (mChain.equals(BaseChain.BAND_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+                    } else if (mChain.equals(BaseChain.OK_TEST)) {
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
                     }
                 }
             }
@@ -335,6 +340,23 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
+
+            } else if (mChain.equals(BaseChain.OK_TEST)) {
+                holder.okLayer.setVisibility(View.VISIBLE);
+                holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
+                ApiClient.getOkTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
+                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
+                                holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_OK_TEST), 0, 8));
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
+                });
+
             }
 
         }
@@ -346,8 +368,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         public class NewWalletHolder extends RecyclerView.ViewHolder {
             CardView cardNewWallet;
-            RelativeLayout atomLayer, photonLayer, irisLayer, bnbLayer, kavaLayer, iovLayer, bandLayer;
-            TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount, bnbAmount, kavaAmount, iovAmount, bandAmount;
+            RelativeLayout atomLayer, photonLayer, irisLayer, bnbLayer, kavaLayer, iovLayer, bandLayer, okLayer;
+            TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount, bnbAmount, kavaAmount, iovAmount, bandAmount, okAmount;
 
             public NewWalletHolder(View v) {
                 super(v);
@@ -369,6 +391,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 iovAmount           = itemView.findViewById(R.id.iov_amount);
                 bandLayer           = itemView.findViewById(R.id.band_layer);
                 bandAmount          = itemView.findViewById(R.id.band_amount);
+                okLayer             = itemView.findViewById(R.id.ok_layer);
+                okAmount            = itemView.findViewById(R.id.ok_amount);
             }
         }
     }
