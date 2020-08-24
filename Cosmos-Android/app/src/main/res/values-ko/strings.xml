@@ -132,8 +132,8 @@
     <string name="str_guide_bnb">Blog</string>
     <string name="str_faq_kava">About USDX</string>
     <string name="str_guide_kava">Blog</string>
-    <string name="str_faq_iov">Home Page</string>
-    <string name="str_guide_iov">Star Name</string>
+    <string name="str_faq_iov">Star Name</string>
+    <string name="str_guide_iov">Blog</string>
     <string name="str_faq_band">Home Page</string>
     <string name="str_guide_band">Blog</string>
     <string name="str_faq_ok">Market</string>
@@ -665,7 +665,7 @@
     <string name="str_only_observe_title">관찰 모드 지갑</string>
     <string name="str_only_observe_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.</string>
     <string name="str_all_validators">모든 검증인</string>
-    <string name="str_top_100_validators">상 위검증인</string>
+    <string name="str_top_100_validators">상위 검증인</string>
     <string name="str_other_validators">기타 노드</string>
     <string name="str_my_validators">나의 검증인</string>
     <string name="str_withdraw_all">이자 모두 받기</string>
@@ -858,6 +858,7 @@
     <string name="error_bnb_mini_amount">BEP8는 최소 전송 금액은 1보다 커야 합니다. 토큰 잔고가 1 미만인 경우, 전체 금액 전송만 가능합니다.</string>
     <string name="error_max_30_validator">최대 30명의 검증인을 선택하실 수 있습니다.</string>
     <string name="error_min_1_validator">1개 이상의 검증인을 선택해주세요.</string>
+    <string name="error_only_deposit_can_vote">예금이 없습니다.\n먼저 예금을 해주세요.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

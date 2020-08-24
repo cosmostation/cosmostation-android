@@ -80,11 +80,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mNotYet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-                txDetail.putExtra("txHash", "42527E847E119F9FB1C5EB57C5BEB7747AA11D8CDC76A773C435964C2E063190");
-                txDetail.putExtra("isGen", false);
-                txDetail.putExtra("isSuccess", true);
-                startActivity(txDetail);
+//                Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+//                txDetail.putExtra("txHash", "42527E847E119F9FB1C5EB57C5BEB7747AA11D8CDC76A773C435964C2E063190");
+//                txDetail.putExtra("isGen", false);
+//                txDetail.putExtra("isSuccess", true);
+//                startActivity(txDetail);
             }
         });
 

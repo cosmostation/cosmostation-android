@@ -1061,7 +1061,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 startActivity(guideIntent);
 
             } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://iov.one/"));
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.starname.network/"));
                 startActivity(guideIntent);
 
             } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
@@ -1097,7 +1097,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 startActivity(guideIntent);
 
             } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.starname.network/"));
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/iov-internet-of-values"));
                 startActivity(guideIntent);
 
             } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {

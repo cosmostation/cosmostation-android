@@ -73,8 +73,10 @@ public class OKVoteDirectActivity extends BaseActivity {
         WUtil.onSortByOKValidatorPower(mAllValidators);
         mOkDeposit = getBaseDao().mOkDeposit;
 
-        for (String valOp:mOkDeposit.validator_address) {
-            mValAddesses.add(valOp);
+        if (mOkDeposit != null && mOkDeposit.validator_address != null) {
+            for (String valOp:mOkDeposit.validator_address) {
+                mValAddesses.add(valOp);
+            }
         }
 
         mPageAdapter = new DirectVotePageAdapter(getSupportFragmentManager());

@@ -213,8 +213,8 @@
     <string name="str_guide_bnb">Blog</string>
     <string name="str_faq_kava">About USDX</string>
     <string name="str_guide_kava">Blog</string>
-    <string name="str_faq_iov">Home Page</string>
-    <string name="str_guide_iov">Star Name</string>
+    <string name="str_faq_iov">Star Name</string>
+    <string name="str_guide_iov">Blog</string>
     <string name="str_faq_band">Home Page</string>
     <string name="str_guide_band">Blog</string>
     <string name="str_faq_ok">Market</string>
@@ -893,8 +893,6 @@
     <string name="str_ok_direct_vote_c">VOTE FOR VALIDATOR</string>
     <string name="str_ok_direct_vote">Vote for Validator</string>
     <string name="str_vote_to_validator">Vote to</string>
-    <string name="error_max_30_validator">You can select Max 30 Validators.</string>
-    <string name="error_min_1_validator">Please select more than 1 validator</string>
 
 
 
@@ -974,6 +972,9 @@
     <string name="error_no_more_faucet">Alreay have enought test coin.</string>
     <string name="error_no_more_debt_kava">Cannot issue USDX. Maximum network USDX capacity has been reached.\n%1$s / %2$s</string>
     <string name="error_bnb_mini_amount">Minimum amount required for BEP8 transactions is 1 token. If your balance is less than 1, you must send the entire amount.</string>
+    <string name="error_max_30_validator">You can select Max 30 Validators.</string>
+    <string name="error_min_1_validator">Please select more than 1 validator</string>
+    <string name="error_only_deposit_can_vote">No deposit amount.\ndeposit first.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

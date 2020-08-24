@@ -146,7 +146,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
                             }
                             getSActivity().mValAddesses.remove(validator.operator_address);
                         } else {
-                            if (getSActivity().mValAddesses.size() > 30) {
+                            if (getSActivity().mValAddesses.size() > 29) {
                                 Toast.makeText(getContext(), R.string.error_max_30_validator, Toast.LENGTH_SHORT).show();
                                 return;
                             }

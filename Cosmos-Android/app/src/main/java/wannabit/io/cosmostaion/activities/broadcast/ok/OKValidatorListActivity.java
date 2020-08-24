@@ -139,6 +139,13 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
             Toast.makeText(getBaseContext(), R.string.error_not_enough_balance_to_vote, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        BigDecimal depositAmount = WDp.getOkDepositCoin(getBaseDao().mOkDeposit);
+        if (depositAmount.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_only_deposit_can_vote, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(getBaseContext(), OKVoteDirectActivity.class);
         startActivity(intent);
     }
