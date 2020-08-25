@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -589,6 +589,11 @@ let TRANS_BG_COLOR_BAND2                    = UIColor.init(hexString: "5286FF", 
 let COLOR_BAND                              = UIColor.init(hexString: "516FFA")
 let COLOR_BAND_DARK                         = UIColor.init(hexString: "2A3C8B")
 
+let TRANS_BG_COLOR_OK                       = UIColor.init(hexString: "88bdf3", alpha: 0.15)
+let TRANS_BG_COLOR_OK2                      = UIColor.init(hexString: "88bdf3", alpha: 0.4)
+let COLOR_OK                                = UIColor.init(hexString: "88bdf3")
+let COLOR_OK_DARK                           = UIColor.init(hexString: "45678b")
+
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
 let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
@@ -604,9 +609,11 @@ enum ChainType: String {
     case KAVA_MAIN
     case IOV_MAIN
     case BAND_MAIN
+    
     case BINANCE_TEST
     case KAVA_TEST
     case IOV_TEST
+    case OK_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
@@ -620,6 +627,7 @@ enum ChainType: String {
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
         result.append(IOV_TEST)
+        result.append(OK_TEST)
         return result
     }
     
@@ -655,6 +663,7 @@ let CHAIN_BAND_S = "SUPPORT_CHAIN_BAND_MAIN"
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
+let CHAIN_OK_TEST_S = "SUPPORT_CHAIN_OK_TEST"
 
 
 let COSMOS_MAIN_DENOM = "uatom"
@@ -665,6 +674,7 @@ let IOV_MAIN_DENOM = "uiov"
 let KAVA_MAIN_DENOM = "ukava"
 let BAND_MAIN_DENOM = "uband"
 let IOV_TEST_DENOM = "uvoi"
+let OK_TEST_DENOM = "tokt"
 
 let Font_17_body = UIFont(name: "Helvetica-Light", size: 17)!
 let Font_15_subTitle = UIFont(name: "Helvetica-Light", size: 15)!
