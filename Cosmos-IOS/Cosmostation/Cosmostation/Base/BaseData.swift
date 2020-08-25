@@ -17,6 +17,9 @@ final class BaseData : NSObject{
     
     var database: Connection!
     var mAllValidator = Array<Validator>()
+    var mTopValidator = Array<Validator>()
+    var mOtherValidator = Array<Validator>()
+    var mMyValidator = Array<Validator>()
     
     var mKavaAccountResult = KavaAccountInfo.KavaAccountResult.init()
     var mCdpParam = CdpParam.init()
@@ -26,6 +29,10 @@ final class BaseData : NSObject{
     var mUnClaimedIncentiveRewards = Array<KavaIncentiveReward.UnClaimedIncentiveReward>()
     
     var mBnbTokenList = Array<BnbToken>()
+    
+    var mOkTokenList = OkTokenList.init();
+    var mOkDeposit = OkDeposit.init();
+    var mOkWithdraw = OkWithdraw.init();
     
     public override init() {
         super.init();

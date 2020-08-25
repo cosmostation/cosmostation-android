@@ -57,6 +57,8 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             } else {
                 cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
             }
+        } else if (userChain == ChainType.OK_TEST) {
+            cell?.pathLabel.text = OK_BASE_PATH.appending(String(indexPath.row))
         }
         
         DispatchQueue.global().async {
@@ -69,7 +71,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     cell?.stateLabel.text = NSLocalizedString("ready", comment: "")
                     cell?.stateLabel.textColor = UIColor.white
                 } else {
-                    if(tempAccount!.account_has_private) {
+                    if (tempAccount!.account_has_private) {
                         cell?.stateLabel.text = NSLocalizedString("imported", comment: "")
                         cell?.stateLabel.textColor = UIColor.init(hexString: "7A7f88")
                         cell?.rootCardView.backgroundColor = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
@@ -101,7 +103,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                     
                 } else if (self.userChain == ChainType.IRIS_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 18, 18)
                     let request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
                         switch response.result {
@@ -111,9 +113,9 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             }
                             let accountInfo = AccountInfo.init(info)
                             if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 18, 6)
+                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 18, 18)
                             } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 18, 6)
+                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 18, 18)
                             }
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
@@ -121,7 +123,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                     
                 } else if (self.userChain == ChainType.BINANCE_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 8)
                     let request = Alamofire.request(BNB_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
                         switch response.result {
@@ -132,7 +134,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             let bnbAccountInfo = BnbAccountInfo.init(info)
                             for bnbBalance in bnbAccountInfo.balances {
                                 if (bnbBalance.symbol == BNB_MAIN_DENOM) {
-                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(bnbBalance.free, cell!.denomAmount.font!, 0, 6)
+                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(bnbBalance.free, cell!.denomAmount.font!, 0, 8)
                                 }
                             }
                         case .failure(let error):
@@ -201,7 +203,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                     
                 } else if (self.userChain == ChainType.BINANCE_TEST) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 8)
                     let request = Alamofire.request(BNB_TEST_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
                         switch response.result {
@@ -212,7 +214,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                                 let bnbAccountInfo = BnbAccountInfo.init(info)
                                 for bnbBalance in bnbAccountInfo.balances {
                                     if (bnbBalance.symbol == BNB_MAIN_DENOM) {
-                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(bnbBalance.free, cell!.denomAmount.font!, 0, 6)
+                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(bnbBalance.free, cell!.denomAmount.font!, 0, 8)
                                     }
                                 }
                             case .failure(let error):
@@ -254,6 +256,25 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
                                 cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
                             }
+                        case .failure(let error):
+                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                        }
+                    }
+                    
+                } else if (self.userChain == ChainType.OK_TEST) {
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 8)
+                    let request = Alamofire.request(OK_TEST_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    request.responseJSON { (response) in
+                        switch response.result {
+                        case .success(let res):
+                            guard let info = res as? [String : Any] else {
+                                return
+                            }
+                            let accountInfo = AccountInfo.init(info)
+                            let balances = WUtils.getBalancesWithAccountInfo(accountInfo)
+                            let available = WUtils.getTokenAmount(balances, OK_TEST_DENOM)
+                            cell?.denomAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.denomAmount.font!, 0, 8)
+                            
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                         }

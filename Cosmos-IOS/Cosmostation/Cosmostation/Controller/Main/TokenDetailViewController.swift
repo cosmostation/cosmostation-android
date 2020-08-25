@@ -520,10 +520,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
             print("query ", query)
             url = IRIS_ES_PROXY_IRIS
-        } else if (chainType == ChainType.KAVA_MAIN) {
-            query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.amount.denom\", \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
-            print("query ", query)
-            url = KAVA_ES_PROXY_IRIS
         }
         let data = query.data(using: .utf8)
         do {

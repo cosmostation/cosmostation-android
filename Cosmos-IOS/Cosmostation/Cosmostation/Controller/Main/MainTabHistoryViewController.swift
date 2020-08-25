@@ -57,6 +57,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             self.comingLabel.isHidden = false
+        } else if (chainType == ChainType.OK_TEST) {
+            self.comingLabel.isHidden = false
         }
     }
     
@@ -111,6 +113,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "iovTestnetImg")
             titleChainName.text = "(IOV Test)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.OK_TEST) {
+            titleChainImg.image = UIImage(named: "okexTestnetImg")
+            titleChainName.text = "(OK Test Chain)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -139,6 +145,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.BAND_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+            self.comingLabel.isHidden = false
+        } else if (chainType == ChainType.OK_TEST) {
             self.comingLabel.isHidden = false
         }
     }

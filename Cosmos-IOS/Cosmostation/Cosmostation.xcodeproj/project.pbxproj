@@ -57,6 +57,13 @@
 		283A80DC24514AB8008FF813 /* RiskCheckPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80DE24514AB8008FF813 /* RiskCheckPopupViewController.xib */; };
 		283A80E124514BD0008FF813 /* CdpDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80E324514BD0008FF813 /* CdpDetailViewController.xib */; };
 		283A80E6245158FB008FF813 /* HtlcResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80E8245158FB008FF813 /* HtlcResultViewController.xib */; };
+		283D2EA424F52FE700247424 /* OkToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EA324F52FE700247424 /* OkToken.swift */; };
+		283D2EA624F5308900247424 /* OkTokenList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EA524F5308900247424 /* OkTokenList.swift */; };
+		283D2EA824F5388C00247424 /* OkAccountToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EA724F5388C00247424 /* OkAccountToken.swift */; };
+		283D2EAA24F56AEE00247424 /* OkDeposit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EA924F56AEE00247424 /* OkDeposit.swift */; };
+		283D2EAC24F56AFF00247424 /* OkWithdraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EAB24F56AFF00247424 /* OkWithdraw.swift */; };
+		283D2EAF24F5742000247424 /* WalletOkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EAD24F5742000247424 /* WalletOkCell.swift */; };
+		283D2EB024F5742000247424 /* WalletOkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283D2EAE24F5742000247424 /* WalletOkCell.xib */; };
 		2842AB57242C1DD900248EEB /* CdpListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB56242C1DD900248EEB /* CdpListViewController.swift */; };
 		2842AB59242C1DFC00248EEB /* MyCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */; };
 		2842AB5B242C1E0900248EEB /* AllCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */; };
@@ -448,6 +455,13 @@
 		283A80E524514BD3008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CdpDetailViewController.strings; sourceTree = "<group>"; };
 		283A80E7245158FB008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HtlcResultViewController.xib; sourceTree = "<group>"; };
 		283A80EA24515901008FF813 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HtlcResultViewController.strings; sourceTree = "<group>"; };
+		283D2EA324F52FE700247424 /* OkToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkToken.swift; sourceTree = "<group>"; };
+		283D2EA524F5308900247424 /* OkTokenList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkTokenList.swift; sourceTree = "<group>"; };
+		283D2EA724F5388C00247424 /* OkAccountToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkAccountToken.swift; sourceTree = "<group>"; };
+		283D2EA924F56AEE00247424 /* OkDeposit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkDeposit.swift; sourceTree = "<group>"; };
+		283D2EAB24F56AFF00247424 /* OkWithdraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkWithdraw.swift; sourceTree = "<group>"; };
+		283D2EAD24F5742000247424 /* WalletOkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletOkCell.swift; sourceTree = "<group>"; };
+		283D2EAE24F5742000247424 /* WalletOkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletOkCell.xib; sourceTree = "<group>"; };
 		2842AB56242C1DD900248EEB /* CdpListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpListViewController.swift; sourceTree = "<group>"; };
 		2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCdpViewController.swift; sourceTree = "<group>"; };
 		2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCdpViewController.swift; sourceTree = "<group>"; };
@@ -1134,6 +1148,7 @@
 				E148A38E22F01DEF00A56A3F /* IrisRewards.swift */,
 				E1F7F63123421394000E597F /* IrisToken.swift */,
 				E1F7F633234311F8000E597F /* BnbToken.swift */,
+				283D2EA324F52FE700247424 /* OkToken.swift */,
 			);
 			path = Dao;
 			sourceTree = "<group>";
@@ -1212,6 +1227,10 @@
 				2868559D2498C2D10099D18F /* KavaSwapSupply.swift */,
 				2868559F2498DBBF0099D18F /* KavaSupply.swift */,
 				28869DA324DC1ADA00D6D2AC /* KavaSwapParam.swift */,
+				283D2EA524F5308900247424 /* OkTokenList.swift */,
+				283D2EA724F5388C00247424 /* OkAccountToken.swift */,
+				283D2EA924F56AEE00247424 /* OkDeposit.swift */,
+				283D2EAB24F56AFF00247424 /* OkWithdraw.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1293,6 +1312,8 @@
 				E126CF982387A5C9002A546F /* WalletIovCell.xib */,
 				28663BED248A4FB000080311 /* WalletBandCell.swift */,
 				28663BEE248A4FB000080311 /* WalletBandCell.xib */,
+				283D2EAD24F5742000247424 /* WalletOkCell.swift */,
+				283D2EAE24F5742000247424 /* WalletOkCell.xib */,
 				2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */,
 				2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */,
 				28A209DD248897F400C2C078 /* WalletVestingDetailCell.swift */,
@@ -1569,6 +1590,7 @@
 				E177490122842724003D8CD1 /* MyValidatorCell.xib in Resources */,
 				E126CFAF2387A799002A546F /* TokenDetailHeaderBnbCell.xib in Resources */,
 				E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */,
+				283D2EB024F5742000247424 /* WalletOkCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1642,6 +1664,7 @@
 				2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */,
 				28474EF7241E06E200AF5A81 /* Paychan.codec.pb.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
+				283D2EAC24F56AFF00247424 /* OkWithdraw.swift in Sources */,
 				2888B7FC246BC17300B2EB4A /* BnbNodeInfo.swift in Sources */,
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
 				286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */,
@@ -1662,10 +1685,12 @@
 				E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */,
 				2800CF982471A004003C3EF1 /* CosmosProposer.swift in Sources */,
 				E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */,
+				283D2EAA24F56AEE00247424 /* OkDeposit.swift in Sources */,
 				E1827E2A2256298300BC0350 /* ValidatorDetailHistoryHeader.swift in Sources */,
 				28474F04241E06E200AF5A81 /* Batch.codec.pb.swift in Sources */,
 				28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */,
 				28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */,
+				283D2EA424F52FE700247424 /* OkToken.swift in Sources */,
 				28474ED5241E06AF00AF5A81 /* TxRepayCdpCell.swift in Sources */,
 				E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */,
 				E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */,
@@ -1691,6 +1716,7 @@
 				285A33E2244862670052BD3D /* HtlcResultViewController.swift in Sources */,
 				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
 				2842AB72242C7C8A00248EEB /* CdpListAllCell.swift in Sources */,
+				283D2EA824F5388C00247424 /* OkAccountToken.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				28617A7B243198D0006D66EA /* StepCreateCpdAmountViewController.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
@@ -1762,6 +1788,7 @@
 				28474EFA241E06E200AF5A81 /* Cash.codec.pb.swift in Sources */,
 				E17B214423470950001743D6 /* TokenDetailHeaderBnbCell.swift in Sources */,
 				E1F1CF08239F5737004EF8A2 /* Vote.swift in Sources */,
+				283D2EA624F5308900247424 /* OkTokenList.swift in Sources */,
 				28572ED82457CBCB00A7E447 /* IovNonce.swift in Sources */,
 				E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */,
 				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
@@ -1850,6 +1877,7 @@
 				E19A322022547EA100A05E41 /* AddViewController.swift in Sources */,
 				2868559E2498C2D10099D18F /* KavaSwapSupply.swift in Sources */,
 				E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */,
+				283D2EAF24F5742000247424 /* WalletOkCell.swift in Sources */,
 				E10492152347C5D900A2980F /* WalletConnectImageView.swift in Sources */,
 				E17748E82283D0F4003D8CD1 /* GuideCategory.swift in Sources */,
 				2845D887246FB96E007CD497 /* CosmosVote.swift in Sources */,

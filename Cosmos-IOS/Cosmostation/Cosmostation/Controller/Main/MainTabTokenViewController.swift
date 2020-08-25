@@ -140,6 +140,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = COLOR_BG_GRAY
+        } else if (chainType! == ChainType.OK_TEST) {
+            titleChainImg.image = UIImage(named: "okexTestnetImg")
+            titleChainName.text = "(OK Test Chain)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = COLOR_BG_GRAY
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -201,6 +207,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             onFetchIovTokenPrice()
             updateFloaty()
             
+        } else if (chainType! == ChainType.OK_TEST) {
+            onFetchOkTokenPrice()
+            updateFloaty()
+            
         }
         
     }
@@ -236,6 +246,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             floaty.fabDelegate = self
             self.view.addSubview(floaty)
             
+        } else if (chainType! == ChainType.OK_TEST) {
+            let floaty = Floaty()
+            floaty.buttonImage = UIImage.init(named: "faucetBtn")
+            floaty.buttonColor = COLOR_OK
+            floaty.fabDelegate = self
+            self.view.addSubview(floaty)
         }
     }
     
@@ -325,6 +341,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), totalValue.font)
             
+        } else if (chainType! == ChainType.OK_TEST) {
+            let allOk = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkDeposit, BaseData.instance.mOkWithdraw)
+            totalAmount.attributedText = WUtils.displayAmount2(allOk.stringValue, totalAmount.font, 0, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(allOk, BaseData.instance.getLastPrice(), 0, totalValue.font)
+            
+            
         }
     }
     
@@ -347,6 +369,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetIovItems(tableView, indexPath)
         } else if (chainType! == ChainType.BAND_MAIN) {
             return onSetBandItems(tableView, indexPath)
+        } else if (chainType! == ChainType.OK_TEST) {
+            return onSetOkItems(tableView, indexPath)
         }
         return onSetCosmosItems(tableView, indexPath)
     }
@@ -384,6 +408,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (chainType! == ChainType.BAND_MAIN) {
             //TODO IOV toekn details
             
+        } else if (chainType! == ChainType.OK_TEST) {
+            //TODO OK toekn details
         }
         
     }
@@ -571,6 +597,36 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
+    func onSetOkItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        let okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList, balance.balance_denom)
+        if (balance.balance_denom == OK_TEST_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "okexTokenImg")
+            cell?.tokenSymbol.textColor = COLOR_OK
+            let tokenAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkDeposit, BaseData.instance.mOkWithdraw)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(tokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(tokenAmount, BaseData.instance.getLastPrice(), 0, cell!.tokenValue.font)
+            
+        } else {
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, balance.balance_denom)
+            let lockedAmount = WUtils.lockedAmount(mainTabVC.mBalances, balance.balance_denom)
+            let tokenAmount = availableAmount.adding(lockedAmount)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(tokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(tokenAmount, BaseData.instance.getLastPrice(), 0, cell!.tokenValue.font)
+            
+        }
+        if (okToken != nil) {
+            cell?.tokenSymbol.text = okToken?.original_symbol.uppercased()
+            cell?.tokenDescription.text = okToken?.description
+            cell?.tokenTitle.text = "(" + okToken!.symbol + ")"
+        }
+        
+        return cell!
+    }
+    
     func onFetchCosmosTokenPrice() {
         self.onUpdateTotalCard()
     }
@@ -612,6 +668,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchIovTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    func onFetchOkTokenPrice() {
         self.onUpdateTotalCard()
     }
     
@@ -700,6 +760,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     self.hideWaittingAlert()
                 }
             }
+            
+        } else if (chainType! == ChainType.OK_TEST) {
+            guard let url = URL(string: "https://www.okex.com/drawdex") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
@@ -794,6 +859,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.balance_denom < $1.balance_denom
             }
+        } else if (chainType! == ChainType.OK_TEST) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == OK_TEST_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == OK_TEST_DENOM){
+                    return false
+                }
+                return $0.balance_denom < $1.balance_denom
+            }
         }
         
 //        else if (chainType! == ChainType.BAND_MAIN) {
@@ -850,6 +925,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return WUtils.stringToDecimal($0.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($0.balance_denom)).compare(WUtils.stringToDecimal($1.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($1.balance_denom))).rawValue > 0 ? true : false
             }
             
+        } else if (chainType! == ChainType.OK_TEST) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == OK_TEST_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == OK_TEST_DENOM){
+                    return false
+                }
+                return WUtils.stringToDecimal($0.balance_amount).adding(WUtils.stringToDecimal($0.balance_locked)).stringValue > WUtils.stringToDecimal($1.balance_amount).adding(WUtils.stringToDecimal($1.balance_locked)).stringValue
+            }
         }
         
 //        else if (chainType! == ChainType.BAND_MAIN) {
@@ -884,6 +969,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.kavaTokenDollorValue(BaseData.instance.mKavaPrice).compare($1.kavaTokenDollorValue(BaseData.instance.mKavaPrice)).rawValue > 0 ? true : false
             }
+        } else if (chainType! == ChainType.OK_TEST) {
+            
         }
         
 //        else if (chainType! == ChainType.BAND_MAIN) {
