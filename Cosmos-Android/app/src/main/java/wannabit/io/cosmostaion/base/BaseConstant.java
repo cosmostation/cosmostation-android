@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -205,9 +205,9 @@ public class BaseConstant {
 
     public final static String OK_MSG_TYPE_TRANSFER                         = "okchain/token/MsgTransfer";
     public final static String OK_MSG_TYPE_MULTI_TRANSFER                   = "okchain/token/MsgMultiTransfer";
-    public final static String OK_MSG_TYPE_DEPOSIT                          = "okchain/staking/MsgDelegate";
-    public final static String OK_MSG_TYPE_WITHDRAW                         = "okchain/staking/MsgUnDelegate";
-    public final static String OK_MSG_TYPE_DIRECT_VOTE                      = "okchain/staking/MsgVote";
+    public final static String OK_MSG_TYPE_DEPOSIT                          = "okchain/staking/MsgDeposit";
+    public final static String OK_MSG_TYPE_WITHDRAW                         = "okchain/staking/MsgWithdraw";
+    public final static String OK_MSG_TYPE_DIRECT_VOTE                      = "okchain/staking/MsgAddShares";
 
     public final static String IOV_KIND_SEND                                = "bcp/send";
 

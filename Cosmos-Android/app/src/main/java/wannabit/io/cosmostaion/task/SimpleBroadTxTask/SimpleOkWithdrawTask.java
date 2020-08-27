@@ -73,9 +73,9 @@ public class SimpleOkWithdrawTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg incentiveMsg = MsgGenerator.genOkWithdraw(mAccount.address, mDepositCoin, mBaseChain);
+            Msg withdrawMsg = MsgGenerator.genOkWithdraw(mAccount.address, mDepositCoin, mBaseChain);
             ArrayList<Msg> msgs= new ArrayList<>();
-            msgs.add(incentiveMsg);
+            msgs.add(withdrawMsg);
 
             if (getChain(mAccount.baseChain).equals(OK_TEST)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
