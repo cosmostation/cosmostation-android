@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="272" id="KGk-i7-Jjw" customClass="TxOkDirectVoteCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="529" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="529" height="272"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPp-ho-stJ" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                        <rect key="frame" x="12" y="4" width="505" height="264"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="txproposal" translatesAutoresizingMaskIntoConstraints="NO" id="OIK-Gn-zWo">
+                                <rect key="frame" x="16" y="16" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="6Ny-qi-3WV"/>
+                                    <constraint firstAttribute="width" constant="28" id="bEo-ER-XyI"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vote for Validator" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvJ-Zi-3vp">
+                                <rect key="frame" x="50" y="21" width="119" height="18"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Voter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLs-8b-Mwl">
+                                <rect key="frame" x="16" y="60" width="30.5" height="15"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqD-hZ-NoD">
+                                <rect key="frame" x="16" y="81" width="6" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Vote to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cl3-vQ-EJE">
+                                <rect key="frame" x="16" y="111.5" width="40.5" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSe-0Q-XoY">
+                                <rect key="frame" x="16" y="132" width="473" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="bqD-hZ-NoD" firstAttribute="top" secondItem="bLs-8b-Mwl" secondAttribute="bottom" constant="6" id="37N-we-Da7"/>
+                            <constraint firstItem="cl3-vQ-EJE" firstAttribute="top" secondItem="bqD-hZ-NoD" secondAttribute="bottom" constant="16" id="5RO-qp-9Oy"/>
+                            <constraint firstItem="bLs-8b-Mwl" firstAttribute="leading" secondItem="OIK-Gn-zWo" secondAttribute="leading" id="9Co-Uv-R2f"/>
+                            <constraint firstItem="oSe-0Q-XoY" firstAttribute="top" secondItem="cl3-vQ-EJE" secondAttribute="bottom" constant="6" id="Dda-ma-2sz"/>
+                            <constraint firstItem="bvJ-Zi-3vp" firstAttribute="leading" secondItem="OIK-Gn-zWo" secondAttribute="trailing" constant="6" id="MWD-lD-vfY"/>
+                            <constraint firstItem="bLs-8b-Mwl" firstAttribute="top" secondItem="OIK-Gn-zWo" secondAttribute="bottom" constant="16" id="Nq6-LO-ySE"/>
+                            <constraint firstAttribute="trailing" secondItem="oSe-0Q-XoY" secondAttribute="trailing" constant="16" id="Qfb-gE-AjQ"/>
+                            <constraint firstItem="OIK-Gn-zWo" firstAttribute="top" secondItem="SPp-ho-stJ" secondAttribute="top" constant="16" id="Yep-au-VpT"/>
+                            <constraint firstItem="OIK-Gn-zWo" firstAttribute="leading" secondItem="SPp-ho-stJ" secondAttribute="leading" constant="16" id="Zaq-db-KGz"/>
+                            <constraint firstItem="cl3-vQ-EJE" firstAttribute="leading" secondItem="OIK-Gn-zWo" secondAttribute="leading" id="ken-M4-Jkc"/>
+                            <constraint firstAttribute="bottom" secondItem="oSe-0Q-XoY" secondAttribute="bottom" constant="20" id="nYe-jR-QZG"/>
+                            <constraint firstItem="oSe-0Q-XoY" firstAttribute="leading" secondItem="OIK-Gn-zWo" secondAttribute="leading" id="qZ5-qz-t5Q"/>
+                            <constraint firstItem="bqD-hZ-NoD" firstAttribute="leading" secondItem="OIK-Gn-zWo" secondAttribute="leading" id="w9L-TA-Tla"/>
+                            <constraint firstItem="bvJ-Zi-3vp" firstAttribute="centerY" secondItem="OIK-Gn-zWo" secondAttribute="centerY" id="ye8-3k-yzz"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.29999999999999999"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="SPp-ho-stJ" secondAttribute="bottom" constant="4" id="6CS-EE-mAp"/>
+                    <constraint firstItem="SPp-ho-stJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="C6a-a4-AQb"/>
+                    <constraint firstAttribute="trailing" secondItem="SPp-ho-stJ" secondAttribute="trailing" constant="12" id="Qdb-XC-wwx"/>
+                    <constraint firstItem="SPp-ho-stJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="RGt-F5-04R"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="txIcon" destination="OIK-Gn-zWo" id="zXc-eF-RQA"/>
+                <outlet property="txLabel" destination="bvJ-Zi-3vp" id="AvE-0w-u3L"/>
+                <outlet property="validatorList" destination="oSe-0Q-XoY" id="zI2-H5-rsx"/>
+                <outlet property="voterLabel" destination="bqD-hZ-NoD" id="lml-Va-crc"/>
+            </connections>
+            <point key="canvasLocation" x="290.57971014492756" y="229.6875"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="txproposal" width="28" height="28"/>
+    </resources>
+</document>

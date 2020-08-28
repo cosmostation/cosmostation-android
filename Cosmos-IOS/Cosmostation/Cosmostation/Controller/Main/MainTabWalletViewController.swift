@@ -1108,15 +1108,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
             
             cell?.actionDeposit = {
-                print("actionDeposit")
+                self.onClickOkDeposit()
             }
             cell?.actionWithdraw = {
-                print("actionWithdraw")
+                self.onClickOkWithdraw()
             }
             cell?.actionVote = {
-                print("actionVote")
+                self.onClickOkVote()
             }
-            
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.stringValue)
             return cell!
             
@@ -1246,6 +1245,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://cosmoscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
+            
+        } else if (chainType! == ChainType.OK_TEST) {
+            guard let url = URL(string: "https://www.oklink.com/okchain-test/address/" + mainTabVC.mAccount.account_address) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
@@ -1329,6 +1333,69 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    func onClickOkDeposit() {
+        if (!mainTabVC.mAccount.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        if (chainType! == ChainType.OK_TEST) {
+            if (WUtils.getTokenAmount(mainTabVC.mBalances, OK_TEST_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_to_deposit", comment: ""))
+                return
+            }
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = OK_MSG_TYPE_DEPOSIT
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    func onClickOkWithdraw() {
+        if (!mainTabVC.mAccount.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        if (chainType! == ChainType.OK_TEST) {
+            if (WUtils.getTokenAmount(mainTabVC.mBalances, OK_TEST_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+        }
+        if (WUtils.okDepositAmount(BaseData.instance.mOkDeposit).compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_to_withdraw", comment: ""))
+            return
+            
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = OK_MSG_TYPE_WITHDRAW
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+        
+    }
+    
+    func onClickOkVote() {
+        let okVoteTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        okVoteTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("str_vote_direct", comment: ""), style: .default, handler: { [weak okVoteTypeAlert] (_) in
+            let okValidatorListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "OkValidatorListViewController") as! OkValidatorListViewController
+            okValidatorListVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(okValidatorListVC, animated: true)
+            
+        }))
+        okVoteTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("str_vote_agent", comment: ""), style: .default, handler: { [weak okVoteTypeAlert] (_) in
+            self.onShowToast(NSLocalizedString("prepare", comment: ""))
+        }))
+        self.present(okVoteTypeAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            okVoteTypeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+        
     }
     
     func onClickGuide1() {
@@ -1611,6 +1678,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             txVC.mIovSendDenom = IOV_TEST_DENOM
             txVC.mType = IOV_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.OK_TEST) {
+            if (WUtils.getTokenAmount(balances, OK_TEST_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mOkSendDenom = OK_TEST_DENOM
+            txVC.mType = OK_MSG_TYPE_TRANSFER
             
         } else {
             return

@@ -409,7 +409,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             //TODO IOV toekn details
             
         } else if (chainType! == ChainType.OK_TEST) {
-            //TODO OK toekn details
+            tokenDetailVC.okDenom = mainTabVC.mBalances[indexPath.row].balance_denom
+            self.navigationController?.pushViewController(tokenDetailVC, animated: true)
         }
         
     }

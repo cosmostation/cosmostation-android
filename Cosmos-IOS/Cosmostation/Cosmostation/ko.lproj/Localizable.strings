@@ -90,6 +90,7 @@
 "fee_speed_bnb_title" = "현재 바이낸스는 고정 수수료를 지원합니다.";
 "fee_speed_kava_title" = "현재 카바는 고정 전송 수수료를 지원합니다.";
 "fee_speed_iov_title" = "현재 아이오비는 고정 전송 수수료를 지원합니다.";
+"fee_speed_ok_title" = "현재 오케이체인은 고정 전송 수수료를 지원합니다.";
 "fee_description_title_0" = "Tx 수수료 0.000001 ATOM";
 "fee_description_title_1" = "Tx 수수료 비율 0.0025";
 "fee_description_title_2" = "Tx 수수료 비율 0.025";
@@ -263,6 +264,22 @@
 "incentive_participate_step_2" = "Tx 수수료를 선택하세요";
 "incentive_participate_step_3" = "입력하신 정보를 확인하세요";
 
+"str_ok_stake_deposit_step_0" = "예금 수량을 설정하세요";
+"str_ok_stake_deposit_step_1" = "메모를 입력하세요 (선택사항)";
+"str_ok_stake_deposit_step_2" = "Tx 수수료를 선택하세요";
+"str_ok_stake_deposit_step_3" = "입력하신 정보를 확인하세요";
+"str_ok_stake_withdraw_step_0" = "출금 수량을 설정하세요";
+"str_ok_stake_withdraw_step_1" = "메모를 입력하세요 (선택사항)";
+"str_ok_stake_withdraw_step_2" = "Tx 수수료를 선택하세요";
+"str_ok_stake_withdraw_step_3" = "입력하신 정보를 확인하세요";
+"str_ok_direct_vote_0" = "검증인을 선택하세요";
+"str_ok_direct_vote_1" = "메모를 입력하세요 (선택사항)";
+"str_ok_direct_vote_2" = "Tx 수수료를 선택하세요";
+"str_ok_direct_vote_3" = "입력하신 정보를 확인하세요";
+"str_vote_direct" = "검증인에게 직접 투표";
+"str_vote_agent" = "대리인을 통한 간접 투표";
+
+
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";
@@ -316,6 +333,9 @@
 "title_interchain_swap" = "인터체인 보내기 & 받기";
 "title_interchain_refund" = "인터체인 환불하기";
 "title_participate_incentive" = "Crypto Payday 참여";
+"title_ok_deposit" = "예금";
+"title_ok_withdraw" = "출금";
+"title_ok_vote" = "검증인 투표";
 
 "proposal_type_basic" = "기본";
 "proposal_type_parameter" = "파라미터 변경";
@@ -385,6 +405,11 @@
 "error_no_more_faucet" = "이미 충분한 테스트 코인이 있네요.";
 "error_no_more_debt_kava" = "USDX를 더 이상 발행할 수 없습니다. 시스템에서 지원가능한 모든 USDX가 발행되었습니다.\n%@ / %@";
 "error_bnb_mini_amount" = "BEP8는 최소 전송 금액은 1보다 커야 합니다. 토큰 잔고가 1 미만인 경우, 전체 금액 전송만 가능합니다.";
+"error_not_enough_to_deposit" = "예금 할 수량이 충분하지 않습니다.";
+"error_not_enough_to_withdraw" = "출금 할 수량이 충분하지 않습니다.";
+"error_only_deposit_can_vote" = "예금이 없습니다.\n먼저 예금을 해주세요.";
+"error_min_1_validator" = "1개 이상의 검증인을 선택해주세요.";
+"error_max_30_validator" = "최대 30명의 검증인을 선택하실 수 있습니다.";
 
 
 

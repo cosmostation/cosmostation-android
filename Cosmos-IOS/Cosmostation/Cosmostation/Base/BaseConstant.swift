@@ -285,6 +285,7 @@ let OK_TEST_TOKEN_LIST                  = OK_TEST_URL + "tokens";
 let OK_TEST_DEPOSIT                     = OK_TEST_URL + "staking/delegators/";
 let OK_TEST_WITHDRAW                    = OK_TEST_URL + "staking/delegators/";
 let OK_TEST_WITHDRAW_TAIL               = "/unbonding_delegations";
+let OK_TEST_BORAD_TX                    = OK_TEST_URL + "txs";
 
 
 
@@ -453,6 +454,7 @@ let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
 let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 
+
 //TODO check 
 let BNB_DEPUTY                              = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn"
 let KAVA_DEPUTY                             = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6"
@@ -461,6 +463,13 @@ let KAVA_TEST_DEPUTY                        = "kava1tfvn5t8qwngqd2q427za2mel48pc
 
 let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
 let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
+
+
+let OK_MSG_TYPE_TRANSFER                    = "okchain/token/MsgTransfer";
+let OK_MSG_TYPE_MULTI_TRANSFER              = "okchain/token/MsgMultiTransfer";
+let OK_MSG_TYPE_DEPOSIT                     = "okchain/staking/MsgDeposit";
+let OK_MSG_TYPE_WITHDRAW                    = "okchain/staking/MsgWithdraw";
+let OK_MSG_TYPE_DIRECT_VOTE                 = "okchain/staking/MsgAddShares";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
@@ -569,6 +578,15 @@ let IOV_GAS_AMOUNT_REINVEST                 = "300000"
 let IOV_GAS_AMOUNT_LOW                      = "100000"
 
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"
+
+
+let GAS_FEE_RATE_OK                         = "0.0000001"
+let OK_GAS_AMOUNT_SEND                      = "200000"
+let OK_GAS_AMOUNT_STAKE                     = "100000"
+let OK_GAS_AMOUNT_STAKE_MUX                 = "20000"
+let OK_GAS_AMOUNT_VOTE                      = "200000"
+let OK_GAS_AMOUNT_VOTE_MUX                  = "50000"
+
 
 
 let COLOR_BG_GRAY                           = UIColor.init(hexString: "2E2E2E", alpha: 0.4)

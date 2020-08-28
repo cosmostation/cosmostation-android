@@ -10,7 +10,6 @@ import UIKit
 
 class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
     
-
     @IBOutlet weak var mTargetAddressTextField: AddressInputTextField!
     @IBOutlet weak var controlLayer: UIStackView!
     @IBOutlet weak var CancelBtn: UIButton!
@@ -107,6 +106,12 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
             
         } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
             if (!userInput!.starts(with: "star") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.OK_TEST) {
+            if (!userInput!.starts(with: "okchain") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }

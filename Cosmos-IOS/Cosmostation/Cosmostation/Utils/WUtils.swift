@@ -700,6 +700,15 @@ class WUtils {
         return attributedString1
     }
     
+    static func getFormattedNumber(_ amount: NSDecimalNumber, _ dpPoint:Int16) -> String {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = Int(dpPoint)
+        nf.numberStyle = .decimal
+        
+        var formatted = nf.string(from: amount)
+        return formatted!
+    }
+    
     static func dpTokenAvailable(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for balance in balances {
@@ -1542,6 +1551,14 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.OK_TEST) {
+            if (coin.denom == OK_TEST_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 0, 8)
         }
     }
     
@@ -1609,6 +1626,14 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.OK_TEST) {
+            if (denom == OK_TEST_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 0, 8)
         }
     }
     
@@ -1858,7 +1883,7 @@ class WUtils {
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return "iovns-galaxynet"
         } else if (chainS == CHAIN_OK_TEST_S) {
-            return "okchain"
+            return "okchain-testnet1"
         }
         return ""
     }
@@ -1883,7 +1908,7 @@ class WUtils {
         } else if (chain == ChainType.IOV_TEST) {
             return "iovns-galaxynet"
         } else if (chain == ChainType.OK_TEST) {
-            return "okchain"
+            return "okchain-testnet1"
         }
         return ""
     }
@@ -2025,6 +2050,15 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REINVEST))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_LOW))
+            }
+        } else if (chain == ChainType.OK_TEST) {
+            result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))
+            if (type == OK_MSG_TYPE_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))
+            } else if (type == OK_MSG_TYPE_DEPOSIT || type == OK_MSG_TYPE_WITHDRAW) {
+                result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE))
+            } else if (type == OK_MSG_TYPE_DIRECT_VOTE) {
+                result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE))
             }
         }
         return result

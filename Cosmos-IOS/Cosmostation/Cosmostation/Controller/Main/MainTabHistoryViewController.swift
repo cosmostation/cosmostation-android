@@ -59,7 +59,26 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             self.comingLabel.isHidden = false
         } else if (chainType == ChainType.OK_TEST) {
             self.comingLabel.isHidden = false
+            self.historyTableView.isHidden = true
         }
+        
+        self.comingLabel.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(testClick(tapGestureRecognizer:)))
+        self.comingLabel.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func testClick(tapGestureRecognizer: UITapGestureRecognizer) {
+//        let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+//        txDetailVC.mIsGen = false
+//        txDetailVC.mTxHash = "61A71DAF4AD4583073E2996D1BFCC259203C8E5F5DD63998121B6129720B372B" //ST
+//        txDetailVC.mTxHash = "2BC85C6F383DBA55E866ACD865581E564212D95932A22EE7F84E81BE3D33A26B" //MT
+//        txDetailVC.mTxHash = "94B1018C82C9C2B8CF0C726D9B195F3B767A3A2098A2805A08079F0B44417161" //DP
+//        txDetailVC.mTxHash = "5D28BEF4B29F9B417D176FECDB1C23412F5256FAD8C7D6999FF84C806BED1CC7" //WT
+//        txDetailVC.mTxHash = "42527E847E119F9FB1C5EB57C5BEB7747AA11D8CDC76A773C435964C2E063190" //VOTE
+//
+//        txDetailVC.hidesBottomBarWhenPushed = true
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(txDetailVC, animated: true)
     }
     
     

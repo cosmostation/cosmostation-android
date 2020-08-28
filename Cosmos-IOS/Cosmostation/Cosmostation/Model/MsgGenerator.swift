@@ -133,6 +133,19 @@ class MsgGenerator {
             
             msg.type = IRIS_MSG_TYPE_TRANSFER
             msg.value = value
+            
+        } else if (chain == ChainType.OK_TEST) {
+            value.from_address = fromAddress
+            value.to_address = toAddress
+            let data = try? JSONEncoder().encode(amount)
+            do {
+                value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+            } catch {
+                print(error)
+            }
+            
+            msg.type = OK_MSG_TYPE_TRANSFER
+            msg.value = value
         }
         return msg
     }
@@ -222,7 +235,6 @@ class MsgGenerator {
         return msg
     }
     
-//    static func genGetCreatCdpMsg(_ sender: String, _ collateral: Array<Coin>, _ principal: Array<Coin>) -> Msg {
     static func genGetCreatCdpMsg(_ sender: String, _ collateral: Coin, _ principal: Coin) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
@@ -351,6 +363,35 @@ class MsgGenerator {
         return msg
     }
     
+    static func genOkDepositMsg(_ delegator: String, _ coin: Coin) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.delegator_address = delegator;
+        value.quantity = coin;
+        msg.type = OK_MSG_TYPE_DEPOSIT;
+        msg.value = value;
+        return msg
+    }
+    
+    static func genOkWithdarwMsg(_ delegator: String, _ coin: Coin) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.delegator_address = delegator;
+        value.quantity = coin;
+        msg.type = OK_MSG_TYPE_WITHDRAW;
+        msg.value = value;
+        return msg
+    }
+    
+    static func genOkVote(_ delegator: String, _ toVals: Array<String>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.delegator_address = delegator;
+        value.validator_addresses = toVals;
+        msg.type = OK_MSG_TYPE_DIRECT_VOTE;
+        msg.value = value;
+        return msg
+    }
     
     static func genSignedTx(_ msgs: Array<Msg>, _ fee: Fee, _ memo: String, _ signatures: Array<Signature>) -> StdTx {
         let stdTx = StdTx.init()
