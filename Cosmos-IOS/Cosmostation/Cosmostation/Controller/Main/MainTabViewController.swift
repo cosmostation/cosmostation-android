@@ -276,15 +276,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStakingPool()
             
         } else if (mChainType == ChainType.OK_TEST) {
-            self.mFetchCnt = 8
+            self.mFetchCnt = 6
             BaseData.instance.mOkDeposit = OkDeposit.init()
             BaseData.instance.mOkWithdraw = OkWithdraw.init()
             BaseData.instance.mOkTokenList = OkTokenList.init()
             
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            
+            onFetchOkValidatorsInfo()
             onFetchAccountInfo(mAccount)
             onFetchOkAccountTokens(mAccount)
             onFetchOkTokenList()
@@ -350,9 +347,15 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 
-                mAllValidator.removeAll()
-                mAllValidator.append(contentsOf: mTopValidators)
-                mAllValidator.append(contentsOf: mOtherValidators)
+                mTopValidators.removeAll()
+                mOtherValidators.removeAll()
+                for validator in mAllValidator {
+                    if (validator.status == validator.BONDED) {
+                        mTopValidators.append(validator)
+                    } else {
+                        mOtherValidators.append(validator)
+                    }
+                }
                 
             }
             
@@ -425,30 +428,17 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_VALIDATORS
         } else if (mChainType == ChainType.IOV_TEST) {
             url = IOV_TEST_VALIDATORS
-        } else if (mChainType == ChainType.OK_TEST) {
-            url = OK_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.mChainType == ChainType.OK_TEST) {
-                    guard let validators = res as? Array<NSDictionary> else {
-                        self.onFetchFinished()
-                        return
-                    }
-                    for validator in validators {
-                        self.mTopValidators.append(Validator(validator as! [String : Any]))
-                    }
-                    
-                } else {
-                    guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                        self.onFetchFinished()
-                        return
-                    }
-                    for validator in validators {
-                        self.mTopValidators.append(Validator(validator as! [String : Any]))
-                    }
+                guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for validator in validators {
+                    self.mTopValidators.append(Validator(validator as! [String : Any]))
                 }
                 
             case .failure(let error):
@@ -579,6 +569,31 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
         }
     }
+    
+    func onFetchOkValidatorsInfo() {
+        var url: String?
+        if (mChainType == ChainType.OK_TEST) {
+            url = OK_TEST_VALIDATORS
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: ["status":"all"], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let validators = res as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for validator in validators {
+                    self.mAllValidator.append(Validator(validator as! [String : Any]))
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
     
     func onFetchAccountInfo(_ account: Account) {
         var url: String?
