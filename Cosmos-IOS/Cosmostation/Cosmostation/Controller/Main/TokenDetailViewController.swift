@@ -722,7 +722,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.OK_TEST) {
-            if (WUtils.getTokenAmount(balances, OK_TEST_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, OK_TEST_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
