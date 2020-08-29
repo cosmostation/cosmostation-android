@@ -31,7 +31,7 @@
     <string name="url_rpc_iov_main" translatable="false">https://rpc-iov-mainnet.cosmostation.io/</string>
 
     <string name="url_lcd_iov_test" translatable="false">https://iovnscli-rest-api.cluster-galaxynet.iov.one/</string>
-    <string name="url_api_iovtest" translatable="false"></string>
+    <string name="url_api_iov_test" translatable="false"></string>
     <string name="url_test_iov_faucet" translatable="false">https://faucet.cluster-galaxynet.iov.one/</string>
 
     <string name="url_lcd_band_main" translatable="false">https://lcd-band.cosmostation.io/</string>
@@ -360,7 +360,7 @@
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
     <string name="str_front_guide_msg_iov">Built on Tendermint, IOV builds a fast, secure and decentralized universal name service.</string>
-    <string name="str_front_guide_msg_ok">OKChain is a decentralized exchange powered by Tendermint.</string>
+    <string name="str_front_guide_msg_ok">OK Chain is a decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
@@ -920,7 +920,7 @@
     <string name="error_not_enough_budget_bep3">Insufficient available balance.</string>
     <string name="error_not_enough_reward_all">Insufficient available balance.\nUnder minimum tx fee.</string>
     <string name="error_not_enough_reward">Not enough rewards to Claim</string>
-    <string name="error_not_enough_balance_to_vote">Insufficient available balance.\nneed 0.1</string>
+    <string name="error_not_enough_balance_to_vote">Insufficient available balance.</string>
     <string name="error_small_reward">Rewards are too small.</string>
     <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed. \nPlease refer to the history.</string>
     <string name="error_vesting_time">Token transfer is locked for three weeks following mainnet launch.</string>
@@ -973,7 +973,7 @@
     <string name="error_no_more_debt_kava">Cannot issue USDX. Maximum network USDX capacity has been reached.\n%1$s / %2$s</string>
     <string name="error_bnb_mini_amount">Minimum amount required for BEP8 transactions is 1 token. If your balance is less than 1, you must send the entire amount.</string>
     <string name="error_max_30_validator">You can select Max 30 Validators.</string>
-    <string name="error_min_1_validator">Please select more than 1 validator</string>
+    <string name="error_min_1_validator">Please select more than 1 validator.</string>
     <string name="error_only_deposit_can_vote">No deposit amount.\ndeposit first.</string>
 
     <string name="s_atom">ATOM</string>

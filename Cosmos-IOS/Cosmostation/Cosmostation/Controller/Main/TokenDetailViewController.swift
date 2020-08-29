@@ -23,6 +23,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     var irisRewards:IrisRewards?
     var bnbToken:BnbToken?
     var bnbTic:NSMutableDictionary?
+    var okDenom:String?
+    var okToken:OkToken?
     
     var refresher: UIRefreshControl!
     var mHistories = Array<History.InnerHits>()
@@ -33,6 +35,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         chainType = WUtils.getChainType(account!.account_base_chain)
+        balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         
         self.tokenDetailTableView.delegate = self
         self.tokenDetailTableView.dataSource = self
@@ -42,6 +45,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderIrisCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderIrisCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderBnbCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderBnbCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderKavaCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderOkCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderOkCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderCustomCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderCustomCell")
         self.tokenDetailTableView.rowHeight = UITableView.automaticDimension
         self.tokenDetailTableView.estimatedRowHeight = UITableView.automaticDimension
@@ -77,6 +81,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 keyState.tintColor = COLOR_BNB
             } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 keyState.tintColor = COLOR_KAVA
+            } else if (chainType == ChainType.OK_TEST) {
+                keyState.tintColor = COLOR_OK
             }
         }
     }
@@ -85,12 +91,15 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
             onFetchHistory(account!.account_address, balance!.balance_denom);
             
-        } else if (chainType == ChainType.BINANCE_MAIN ||
-            chainType == ChainType.BINANCE_TEST) {
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(account!.account_address, bnbToken!.symbol);
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             onFetchApiHistory(account!.account_address, balance!.balance_denom)
+            
+        } else if (chainType == ChainType.OK_TEST) {
+            self.refresher.endRefreshing()
+            
         }
     }
 
@@ -120,6 +129,10 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
+        } else if (chainType! == ChainType.OK_TEST) {
+            guard let url = URL(string: "https://www.oklink.com/okchain-test/address/" + account!.account_address) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
@@ -140,6 +153,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             return mBnbHistories.count + 1
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             return mApiHistories.count + 1
+        } else if (chainType == ChainType.OK_TEST) {
+            return 1
         }
         return 0
     }
@@ -159,8 +174,11 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             } else if (chainType == ChainType.KAVA_MAIN && balance?.balance_denom == KAVA_MAIN_DENOM) {
                 return onSetKavaItem(tableView, indexPath);
                 
-            }  else if (chainType == ChainType.KAVA_TEST && balance?.balance_denom == KAVA_MAIN_DENOM) {
+            } else if (chainType == ChainType.KAVA_TEST && balance?.balance_denom == KAVA_MAIN_DENOM) {
                 return onSetKavaTestItem(tableView, indexPath);
+                
+            } else if (chainType == ChainType.OK_TEST && self.okDenom == OK_TEST_DENOM) {
+                return onSetOkItem(tableView, indexPath);
                 
             } else {
                 return onSetCustomTokenItem(tableView, indexPath);
@@ -373,6 +391,32 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         return cell!
     }
     
+    func onSetOkItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        let cell:TokenDetailHeaderOkCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderOkCell") as? TokenDetailHeaderOkCell
+        cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
+        let totalAmount = WUtils.getAllOkt(balances, BaseData.instance.mOkDeposit, BaseData.instance.mOkWithdraw)
+        let availableAmount = WUtils.availableAmount(balances, OK_TEST_DENOM)
+        let lockedAmount = WUtils.lockedAmount(balances, OK_TEST_DENOM)
+        let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkDeposit)
+        let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkWithdraw)
+        
+        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 8)
+        cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 8)
+        cell?.lockedAmount.attributedText = WUtils.displayAmount2(lockedAmount.stringValue, cell!.lockedAmount.font, 0, 8)
+        cell?.depositAmount.attributedText = WUtils.displayAmount2(depositAmount.stringValue, cell!.depositAmount.font, 0, 8)
+        cell?.withdrawAmount.attributedText = WUtils.displayAmount2(withdrawAmount.stringValue, cell!.withdrawAmount.font, 0, 8)
+        cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
+        
+        cell?.actionSend  = {
+            self.onSendToken()
+        }
+        cell?.actionReceive = {
+            self.onRecieveToken()
+        }
+        
+        return cell!
+    }
+    
     
     func onSetCustomTokenItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:TokenDetailHeaderCustomCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderCustomCell") as? TokenDetailHeaderCustomCell
@@ -445,6 +489,29 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             } else {
                 cell?.btnBep3Send.isHidden = true
             }
+            
+        } else if (chainType == ChainType.OK_TEST && okDenom != nil) {
+            cell?.tokenInfoBtn.isHidden = false
+            okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList, okDenom!)
+            cell?.tokenSymbol.text = okToken?.original_symbol.uppercased()
+            cell?.tokenName.text = okToken?.description
+            
+            let available = WUtils.availableAmount(balances, okToken!.original_symbol)
+            let locked = WUtils.lockedAmount(balances, okToken!.original_symbol)
+            let total = available.adding(locked)
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, cell!.totalAmount.font, 0, 8)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.availableAmount.font, 0, 8)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
+            
+            cell?.actionTokenInfo = {
+                guard let url = URL(string: "https://www.oklink.com/okchain-test/token/" + self.okToken!.symbol) else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                self.present(safariViewController, animated: true, completion: nil)
+            }
+            cell?.actionSend  = {
+                self.onSendToken()
+            }
+            
         }
         cell?.actionReceive = {
             self.onRecieveToken()
@@ -520,10 +587,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
             print("query ", query)
             url = IRIS_ES_PROXY_IRIS
-        } else if (chainType == ChainType.KAVA_MAIN) {
-            query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.amount.denom\", \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
-            print("query ", query)
-            url = KAVA_ES_PROXY_IRIS
         }
         let data = query.data(using: .utf8)
         do {
@@ -657,6 +720,14 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             txVC.mKavaSendDenom = self.balance?.balance_denom
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.OK_TEST) {
+            if (WUtils.getTokenAmount(balances, OK_TEST_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mOkSendDenom = okDenom
+            txVC.mType = OK_MSG_TYPE_TRANSFER
         }
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""

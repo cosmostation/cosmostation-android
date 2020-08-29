@@ -36,6 +36,7 @@ class TransactionViewController: UIViewController {
     
     var mKavaSendDenom: String?
     var mIovSendDenom: String?
+    var mOkSendDenom: String?
     
     var mProposeId: String?
     var mProposalTitle: String?
@@ -68,7 +69,7 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "step1Img")
             self.titleLabel.text =  NSLocalizedString("title_redelegate", comment: "")
             
-        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER) {
+        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER) {
             stepDescription.text = NSLocalizedString("send_step_1", comment: "")
             stepImg.image = UIImage.init(named: "step1Img")
             self.titleLabel.text =  NSLocalizedString("title_send", comment: "")
@@ -133,6 +134,21 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_participate_incentive", comment: "")
             
+        } else if (mType == OK_MSG_TYPE_DEPOSIT) {
+            stepDescription.text = NSLocalizedString("str_ok_stake_deposit_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_ok_deposit", comment: "")
+            
+        } else if (mType == OK_MSG_TYPE_WITHDRAW) {
+            stepDescription.text = NSLocalizedString("str_ok_stake_withdraw_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_ok_withdraw", comment: "")
+            
+        } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
+            stepDescription.text = NSLocalizedString("str_ok_direct_vote_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_ok_vote", comment: "")
+            
         }
         
         self.titleLabel.adjustsFontSizeToFitWidth = true
@@ -177,6 +193,7 @@ class TransactionViewController: UIViewController {
             StepVc.mProposer = self.mProposer
             StepVc.mKavaSendDenom = self.mKavaSendDenom
             StepVc.mIovSendDenom = self.mIovSendDenom
+            StepVc.mOkSendDenom = self.mOkSendDenom
             StepVc.cDenom = self.cDenom
             StepVc.mMarketID = self.mMarketID
             StepVc.mHtlcDenom = self.mHtlcDenom
@@ -200,7 +217,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step1Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_1", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step1Img")
                     stepDescription.text = NSLocalizedString("send_step_1", comment: "")
                     
@@ -252,6 +269,18 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("incentive_participate_step_0", comment: "")
                     
+                } else if (mType == OK_MSG_TYPE_DEPOSIT) {
+                    stepDescription.text = NSLocalizedString("str_ok_stake_deposit_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == OK_MSG_TYPE_WITHDRAW) {
+                    stepDescription.text = NSLocalizedString("str_ok_stake_withdraw_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
+                    stepDescription.text = NSLocalizedString("str_ok_direct_vote_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
                 }
                 
                 
@@ -268,7 +297,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step2Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_2", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step2Img")
                     stepDescription.text = NSLocalizedString("send_step_2", comment: "")
                     
@@ -320,6 +349,18 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("incentive_participate_step_1", comment: "")
                     
+                } else if (mType == OK_MSG_TYPE_DEPOSIT) {
+                    stepDescription.text = NSLocalizedString("str_ok_stake_deposit_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == OK_MSG_TYPE_WITHDRAW) {
+                    stepDescription.text = NSLocalizedString("str_ok_stake_withdraw_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
+                    stepDescription.text = NSLocalizedString("str_ok_direct_vote_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
                 }
                 
                 
@@ -336,7 +377,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step3Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_3", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step3Img")
                     stepDescription.text = NSLocalizedString("send_step_3", comment: "")
                     
@@ -388,6 +429,18 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("incentive_participate_step_2", comment: "")
                     
+                } else if (mType == OK_MSG_TYPE_DEPOSIT) {
+                    stepDescription.text = NSLocalizedString("str_ok_stake_deposit_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == OK_MSG_TYPE_WITHDRAW) {
+                    stepDescription.text = NSLocalizedString("str_ok_stake_withdraw_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
+                    stepDescription.text = NSLocalizedString("str_ok_direct_vote_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
                 }
                 
                 
@@ -404,7 +457,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step4Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_4", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step4Img")
                     stepDescription.text = NSLocalizedString("send_step_4", comment: "")
                     
@@ -456,10 +509,22 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("incentive_participate_step_3", comment: "")
                     
+                } else if (mType == OK_MSG_TYPE_DEPOSIT) {
+                    stepDescription.text = NSLocalizedString("str_ok_stake_deposit_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == OK_MSG_TYPE_WITHDRAW) {
+                    stepDescription.text = NSLocalizedString("str_ok_stake_withdraw_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
+                    stepDescription.text = NSLocalizedString("str_ok_direct_vote_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
                 }
                 
             } else if (step == 4) {
-                if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER) {
+                if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step5Img")
                     stepDescription.text = NSLocalizedString("send_step_5", comment: "")
                 } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE) {

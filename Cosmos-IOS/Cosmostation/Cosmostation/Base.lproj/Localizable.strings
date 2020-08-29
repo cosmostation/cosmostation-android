@@ -91,6 +91,7 @@
 "fee_speed_bnb_title" = "Support fixed fee for Binance Chain";
 "fee_speed_kava_title" = "Support fixed transfer fee for KAVA now";
 "fee_speed_iov_title" = "Support fixed amount fee for IOV.";
+"fee_speed_ok_title" = "Support fixed amount fee for OK Chain.";
 "fee_description_title_0" = "Tx fee 0.000001 ATOM";
 "fee_description_title_1" = "Tx fee rate 0.0025";
 "fee_description_title_2" = "Tx fee rate 0.025";
@@ -118,18 +119,22 @@
 "send_guide_msg_iov" = "Built on Tendermint, IOV builds a fast, secure and decentralized universal name service.";
 "send_guide_title_band" = "BAND PROTOCOL";
 "send_guide_msg_band" = "Cross-chain oracle platform based on Tendermint. Aggregates and connects real-world data and APIs to smart contracts.";
+"send_guide_title_ok" = "OK CHAIN";
+"send_guide_msg_ok" = "OK Chain is a decentralized exchange powered by Tendermint.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
 "send_guide_btn1_kava" = "About USDX";
 "send_guide_btn1_iov" = "Star Name";
 "send_guide_btn1_band" = "Home";
+"send_guide_btn1_ok" = "Market";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
 "send_guide_btn2_kava" = "Blog";
 "send_guide_btn2_iov" = "Blog";
 "send_guide_btn2_band" = "Blog";
+"send_guide_btn2_ok" = "Communities";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
@@ -259,6 +264,21 @@
 "incentive_participate_step_2" = "Select transaction fee";
 "incentive_participate_step_3" = "Check transaction detail";
 
+"str_ok_stake_deposit_step_0" = "Insert amount to deposit";
+"str_ok_stake_deposit_step_1" = "Insert memo (optional)";
+"str_ok_stake_deposit_step_2" = "Select transaction fee";
+"str_ok_stake_deposit_step_3" = "Check transaction detail";
+"str_ok_stake_withdraw_step_0" = "Insert amount to withdraw";
+"str_ok_stake_withdraw_step_1" = "Insert memo (optional)";
+"str_ok_stake_withdraw_step_2" = "Select transaction fee";
+"str_ok_stake_withdraw_step_3" = "Check transaction detail";
+"str_ok_direct_vote_0" = "Select validator to vote";
+"str_ok_direct_vote_1" = "Insert memo (optional)";
+"str_ok_direct_vote_2" = "Select transaction fee";
+"str_ok_direct_vote_3" = "Check transaction detail";
+"str_vote_direct" = "Direct vote to Validator";
+"str_vote_agent" = "Indirect vote with Agent";
+
 "clear_all" = "Clear All";
 "delete" = "Delete";
 "close" = "Close";
@@ -311,6 +331,9 @@
 "title_interchain_swap" = "Interchain Send & Claim";
 "title_interchain_refund" = "Interchain Refund";
 "title_participate_incentive" = "Crypto Payday Participate";
+"title_ok_deposit" = "Deposit";
+"title_ok_withdraw" = "Withdraw";
+"title_ok_vote" = "Vote for Validator";
 
 "proposal_type_basic" = "Basic";
 "proposal_type_parameter" = "Parameter";
@@ -368,6 +391,11 @@
 "error_not_enought_withdraw_asset" = "Cannot withdraw collateral now.";
 "error_can_not_draw_debt" = "Cannot more loan now.";
 "error_no_more_faucet" = "Alreay have enought test coin.";
+"error_not_enough_to_deposit" = "Not enough balance to deposit.";
+"error_not_enough_to_withdraw" = "Not enough deposit to withdraw.";
+"error_only_deposit_can_vote" = "No deposit amount.\ndeposit first.";
+"error_min_1_validator" = "Please select more than 1 validator.";
+"error_max_30_validator" = "You can select Max 30 Validators.";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";
@@ -450,6 +478,7 @@
 "chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
 "chain_title_iov_test" = "IOV Testnet";
+"chain_title_ok_test" = "OK Testnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";
 

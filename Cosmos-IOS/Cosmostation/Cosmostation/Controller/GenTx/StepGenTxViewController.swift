@@ -79,6 +79,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     var mKavaSendDenom: String?
     var mIovSendDenom: String?
+    var mOkSendDenom: String?
     
     var cDenom: String?
     var pDenom: String?
@@ -97,7 +98,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mSwapRemainCap: NSDecimalNumber = NSDecimalNumber.zero
     var mSwapMaxOnce: NSDecimalNumber = NSDecimalNumber.zero
     
-
+    var mOkToDeposit = Coin.init()
+    var mOkToWithdraw = Coin.init()
+    var mOkVoteValidators: Array<String> = Array<String>()
     
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
@@ -112,7 +115,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepUndelegateCheckViewController")]
             
-        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER) {
+        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER) {
             return [self.newVc(viewController: "StepSendAddressViewController"),
                     self.newVc(viewController: "StepSendAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
@@ -192,6 +195,24 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepIncentive3ViewController")]
             
+        }else if (mType == OK_MSG_TYPE_DEPOSIT) {
+            return [self.newVc(viewController: "StepOkDepositAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepOkDepositCheckViewController")]
+            
+        } else if (mType == OK_MSG_TYPE_WITHDRAW) {
+            return [self.newVc(viewController: "StepOkWithdrawAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepOkWithdrawCheckViewController")]
+            
+        } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
+            return [self.newVc(viewController: "StepOkVoteToViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepOkVoteCheckViewController")]
+
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
@@ -199,6 +220,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepRewardCheckViewController")]
             
         }
+        
         
     }()
     
@@ -219,6 +241,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         } else if (mType == IRIS_MSG_TYPE_REDELEGATE) {
             self.irisValidatorPage = 1;
             self.onFetchIrisValidatorsInfo(irisValidatorPage)
+        } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
+            self.mOkVoteValidators = BaseData.instance.mOkDeposit.validator_address
         }
             
         self.dataSource = self
@@ -265,7 +289,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func onNextPage() {
         disableBounce = false
-        if((currentIndex <= 3 && (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == IRIS_MSG_TYPE_REDELEGATE || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER)) || currentIndex <= 2) {
+        if((currentIndex <= 3 && (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == IRIS_MSG_TYPE_REDELEGATE || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER)) || currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1
                 let value:[String: Int] = ["step": self.currentIndex ]

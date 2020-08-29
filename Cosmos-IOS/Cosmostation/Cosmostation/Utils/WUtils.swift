@@ -79,16 +79,35 @@ class WUtils {
             accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY ||
             accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) {
             for coin in accountInfo.value.coins {
-                result.append(Balance.init( account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
+                result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
             }
             
         } else {
             for coin in accountInfo.value.BaseVestingAccount.BaseAccount.coins {
-                result.append(Balance.init( account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
+                result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
             }
         }
         return result
     }
+    
+    static func getBalancesWithAccountInfo(_ accountInfo: AccountInfo) -> Array<Balance> {
+        var result = Array<Balance>()
+        if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT ||
+            accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY ||
+            accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) {
+            for coin in accountInfo.value.coins {
+                result.append(Balance.init(-1, coin.denom, coin.amount, Date().millisecondsSince1970))
+            }
+            
+        } else {
+            for coin in accountInfo.value.BaseVestingAccount.BaseAccount.coins {
+                result.append(Balance.init(-1, coin.denom, coin.amount, Date().millisecondsSince1970))
+            }
+        }
+        return result
+    }
+    
+    
     
     static func getBalancesWithBnbAccountInfo(_ account: Account, _ accountInfo: BnbAccountInfo) -> Array<Balance> {
         var result = Array<Balance>()
@@ -152,6 +171,14 @@ class WUtils {
                 }
 
             })
+        }
+        return result;
+    }
+    
+    static func getBalancesWithOkAccountInfo(_ account: Account, _ accountToken: OkAccountToken) -> Array<Balance> {
+        var result = Array<Balance>()
+        for okBalance in accountToken.data.currencies {
+             result.append(Balance(account.account_id, okBalance.symbol, okBalance.available, Date().millisecondsSince1970, "0", okBalance.locked))
         }
         return result;
     }
@@ -673,6 +700,15 @@ class WUtils {
         return attributedString1
     }
     
+    static func getFormattedNumber(_ amount: NSDecimalNumber, _ dpPoint:Int16) -> String {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = Int(dpPoint)
+        nf.numberStyle = .decimal
+        
+        var formatted = nf.string(from: amount)
+        return formatted!
+    }
+    
     static func dpTokenAvailable(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for balance in balances {
@@ -683,7 +719,7 @@ class WUtils {
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
     
-    static func availableAmount(_ balances:Array<Balance>, _ symbol:String, _ chain:ChainType) -> NSDecimalNumber {
+    static func availableAmount(_ balances:Array<Balance>, _ symbol:String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == symbol) {
@@ -691,6 +727,24 @@ class WUtils {
             }
         }
         return amount;
+    }
+    
+    static func lockedAmount(_ balances:Array<Balance>, _ symbol:String) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == symbol) {
+                amount = stringToDecimal(balance.balance_locked)
+            }
+        }
+        return amount;
+    }
+    
+    static func okDepositAmount(_ deposit:OkDeposit) -> NSDecimalNumber {
+        return stringToDecimal(deposit.tokens)
+    }
+    
+    static func okWithdrawAmount(_ withdraw:OkWithdraw) -> NSDecimalNumber {
+        return stringToDecimal(withdraw.quantity)
     }
     
     static func dpVestingCoin(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
@@ -848,6 +902,19 @@ class WUtils {
             return dpValue(NSDecimalNumber.zero, font)
         }
         return dpValue(NSDecimalNumber(value: price!), font)
+    }
+    
+    static func dpTokenValue(_ amount: NSDecimalNumber, _ price:Double?, _ divide:Int16, _ font:UIFont) -> NSMutableAttributedString {
+        if (price == nil) {
+            return dpValue(NSDecimalNumber.zero, font)
+        }
+        var result = NSDecimalNumber.zero
+        if (BaseData.instance.getCurrency() == 5) {
+            result = NSDecimalNumber(value: price!).multiplying(byPowerOf10: -divide).multiplying(by: amount, withBehavior: WUtils.handler8)
+        } else {
+            result = NSDecimalNumber(value: price!).multiplying(byPowerOf10: -divide).multiplying(by: amount, withBehavior: WUtils.handler2Down)
+        }
+        return dpValue(result, font)
     }
     
     static func dpValue(_ amount: NSDecimalNumber, _ font:UIFont) -> NSMutableAttributedString {
@@ -1240,6 +1307,19 @@ class WUtils {
         return amount
     }
     
+    static func getAllOkt(_ balances:Array<Balance>, _ deposit:OkDeposit, _ withdraw:OkWithdraw) -> NSDecimalNumber {
+        var sum = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == OK_TEST_DENOM) {
+                sum = sum.adding(stringToDecimal(balance.balance_amount))
+                sum = sum.adding(stringToDecimal(balance.balance_locked))
+            }
+        }
+        sum = sum.adding(stringToDecimal(deposit.tokens))
+        sum = sum.adding(stringToDecimal(withdraw.quantity))
+        return sum
+    }
+    
     static func getAllIris(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:IrisRewards?, _ validators:Array<Validator>) ->  NSDecimalNumber {
         var sum = NSDecimalNumber.zero
         for balance in balances {
@@ -1247,7 +1327,6 @@ class WUtils {
                 sum = stringToDecimal(balance.balance_amount)
             }
         }
-        
         for bonding in bondings {
             sum = sum.adding(bonding.getBondingAmount(validators))
         }
@@ -1327,6 +1406,15 @@ class WUtils {
         for bnbToken in bnbTokens {
             if (bnbToken.symbol == BNB_MAIN_DENOM) {
                 return bnbToken
+            }
+        }
+        return nil
+    }
+    
+    static func getOkToken(_ okTokenList:OkTokenList, _ symbol:String) -> OkToken? {
+        for okToken in okTokenList.data {
+            if (okToken.symbol == symbol) {
+                return okToken
             }
         }
         return nil
@@ -1463,6 +1551,14 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.OK_TEST) {
+            if (coin.denom == OK_TEST_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 0, 8)
         }
     }
     
@@ -1530,6 +1626,14 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.OK_TEST) {
+            if (denom == OK_TEST_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 0, 8)
         }
     }
     
@@ -1597,6 +1701,8 @@ class WUtils {
             return COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND
+        } else if (chain == ChainType.OK_TEST) {
+            return COLOR_OK
         }
         return COLOR_ATOM
     }
@@ -1614,7 +1720,7 @@ class WUtils {
             return COLOR_IOV_DARK
         } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND_DARK
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OK_TEST) {
             return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
@@ -1633,7 +1739,7 @@ class WUtils {
             return TRANS_BG_COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return TRANS_BG_COLOR_BAND
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OK_TEST) {
             return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
@@ -1652,6 +1758,8 @@ class WUtils {
             return "IOV"
         } else if (chain == ChainType.BAND_MAIN) {
             return "BAND"
+        } else if (chain == ChainType.OK_TEST) {
+            return "TOKT"
         }
         return ""
     }
@@ -1675,6 +1783,9 @@ class WUtils {
         } else if (chain == ChainType.BAND_MAIN) {
             label.text = "BAND"
             label.textColor = COLOR_BAND
+        } else if (chain == ChainType.OK_TEST) {
+            label.text = "TOKT"
+            label.textColor = COLOR_OK
         }
     }
     
@@ -1697,6 +1808,8 @@ class WUtils {
             return ChainType.BINANCE_TEST
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return ChainType.IOV_TEST
+        } else if (chainS == CHAIN_OK_TEST_S) {
+            return ChainType.OK_TEST
         }
         return ChainType.COSMOS_MAIN
     }
@@ -1720,6 +1833,8 @@ class WUtils {
             return CHAIN_KAVA_TEST_S
         } else if (chain == ChainType.IOV_TEST) {
             return CHAIN_IOV_TEST_S
+        } else if (chain == ChainType.OK_TEST) {
+            return CHAIN_OK_TEST_S
         }
         return ""
     }
@@ -1767,6 +1882,8 @@ class WUtils {
             return "kava-testnet-8000"
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return "iovns-galaxynet"
+        } else if (chainS == CHAIN_OK_TEST_S) {
+            return "okchain-testnet1"
         }
         return ""
     }
@@ -1790,6 +1907,8 @@ class WUtils {
             return "kava-testnet-8000"
         } else if (chain == ChainType.IOV_TEST) {
             return "iovns-galaxynet"
+        } else if (chain == ChainType.OK_TEST) {
+            return "okchain-testnet1"
         }
         return ""
     }
@@ -1931,6 +2050,15 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REINVEST))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_LOW))
+            }
+        } else if (chain == ChainType.OK_TEST) {
+            result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))
+            if (type == OK_MSG_TYPE_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))
+            } else if (type == OK_MSG_TYPE_DEPOSIT || type == OK_MSG_TYPE_WITHDRAW) {
+                result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE))
+            } else if (type == OK_MSG_TYPE_DIRECT_VOTE) {
+                result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE))
             }
         }
         return result

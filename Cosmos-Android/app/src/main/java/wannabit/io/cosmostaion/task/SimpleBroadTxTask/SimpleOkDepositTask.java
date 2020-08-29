@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -46,7 +47,7 @@ public class SimpleOkDepositTask extends CommonTask {
         this.mDepositCoin = coin;
         this.mMemo = memo;
         this.mFees = fees;
-        this.mResult.taskType   = TASK_GEN_TX_OK_DEPOSIT;
+        this.mResult.taskType = TASK_GEN_TX_OK_DEPOSIT;
     }
 
     @Override
@@ -73,9 +74,9 @@ public class SimpleOkDepositTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg incentiveMsg = MsgGenerator.genOkDeposit(mAccount.address, mDepositCoin, mBaseChain);
+            Msg depositMsg = MsgGenerator.genOkDeposit(mAccount.address, mDepositCoin, mBaseChain);
             ArrayList<Msg> msgs= new ArrayList<>();
-            msgs.add(incentiveMsg);
+            msgs.add(depositMsg);
 
             if (getChain(mAccount.baseChain).equals(OK_TEST)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);

@@ -65,6 +65,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxHtlcClaimCell", bundle: nil), forCellReuseIdentifier: "TxHtlcClaimCell")
         self.txTableView.register(UINib(nibName: "TxHtlcRefundCell", bundle: nil), forCellReuseIdentifier: "TxHtlcRefundCell")
         self.txTableView.register(UINib(nibName: "TxIncentiveTableViewCell", bundle: nil), forCellReuseIdentifier: "TxIncentiveTableViewCell")
+        
+        self.txTableView.register(UINib(nibName: "TxOkStakeCell", bundle: nil), forCellReuseIdentifier: "TxOkStakeCell")
+        self.txTableView.register(UINib(nibName: "TxOkDirectVoteCell", bundle: nil), forCellReuseIdentifier: "TxOkDirectVoteCell")
+        
+        
         self.txTableView.register(UINib(nibName: "TxUnknownCell", bundle: nil), forCellReuseIdentifier: "TxUnknownCell")
         self.txTableView.rowHeight = UITableView.automaticDimension
         self.txTableView.estimatedRowHeight = UITableView.automaticDimension
@@ -73,7 +78,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.loadingMsg.isHidden = false
             self.loadingImg.onStartAnimation()
             if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+                chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OK_TEST) {
                 guard let txHash = mBroadCaseResult?["txhash"] as? String  else {
                     self.onStartMainTab()
                     return
@@ -176,7 +181,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else if (msg?.type == COSMOS_MSG_TYPE_WITHDRAW_VAL || msg?.type == IRIS_MSG_TYPE_COMMISSION) {
                 return onBindCommission(tableView, indexPath.row)
                 
-            } else if (msg?.type == COSMOS_MSG_TYPE_TRANSFER || msg?.type == COSMOS_MSG_TYPE_TRANSFER2 || msg?.type == COSMOS_MSG_TYPE_TRANSFER3 || msg?.type == IRIS_MSG_TYPE_TRANSFER) {
+            } else if (msg?.type == COSMOS_MSG_TYPE_TRANSFER || msg?.type == COSMOS_MSG_TYPE_TRANSFER2 || msg?.type == COSMOS_MSG_TYPE_TRANSFER3 || msg?.type == IRIS_MSG_TYPE_TRANSFER || msg?.type == OK_MSG_TYPE_TRANSFER || msg?.type == OK_MSG_TYPE_MULTI_TRANSFER) {
                 if ((msg?.value.inputs != nil && (msg?.value.inputs!.count)! > 1) ||  (msg?.value.outputs != nil && (msg?.value.outputs!.count)! > 1)) {
                     //No case yet!
                     return onBindMultiTransfer(tableView, indexPath.row)
@@ -215,6 +220,12 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
             } else if (msg?.type == IRIS_MSG_TYPE_WITHDRAW_ALL) {
                 return onBindGetRewardAll(tableView, indexPath.row)
+                
+            } else if (msg?.type == OK_MSG_TYPE_DEPOSIT || msg?.type == OK_MSG_TYPE_WITHDRAW) {
+                return onBindOkStake(tableView, indexPath.row)
+                
+            } else if (msg?.type == OK_MSG_TYPE_DIRECT_VOTE) {
+                return onBindOkDirectVote(tableView, indexPath.row)
                 
             } else {
                 let cell:TxUnknownCell? = tableView.dequeueReusableCell(withIdentifier:"TxUnknownCell") as? TxUnknownCell
@@ -309,6 +320,32 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.memoLabel.text = mTxInfo!.tx?.value.memo
             cell?.feeAmountLabel.attributedText = WUtils.displayAmount2("0.000375", cell!.feeAmountLabel.font!, 0, 8)
             
+        } else if (chainType == ChainType.OK_TEST) {
+            cell?.feeLayer.isHidden = false
+            cell?.usedFeeLayer.isHidden = true
+            cell?.limitFeeLayer.isHidden = true
+            if (mTxInfo!.isSuccess()) {
+                cell?.statusImg.image = UIImage(named: "successIc")
+                cell?.statusLabel.text = NSLocalizedString("tx_success", comment: "")
+                cell?.errorMsg.isHidden = true
+                cell?.errorConstraint.priority = .defaultLow
+                cell?.successConstraint.priority = .defaultHigh
+            } else {
+                cell?.statusImg.image = UIImage(named: "failIc")
+                cell?.statusLabel.text = NSLocalizedString("tx_fail", comment: "")
+                cell?.errorMsg.text = mTxInfo?.failMsg()
+                cell?.errorMsg.isHidden = false
+                cell?.errorConstraint.priority = .defaultHigh
+                cell?.successConstraint.priority = .defaultLow
+            }
+            cell?.heightLabel.text = mTxInfo!.height
+            cell?.msgCntLabel.text = String(mTxInfo!.getMsgs().count)
+            cell?.gasAmountLabel.text = mTxInfo!.gas_used! + " / " + mTxInfo!.gas_wanted!
+            cell?.timeLabel.text = WUtils.txTimetoString(input: mTxInfo!.timestamp!)
+            cell?.timeGapLabel.text = WUtils.txTimeGap(input: mTxInfo!.timestamp!)
+            cell?.hashLabel.text = mTxInfo!.txhash
+            cell?.memoLabel.text = mTxInfo!.tx?.value.memo
+            cell?.feeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleFee().stringValue, cell!.feeAmountLabel.font!, 0, 8)
         }
         cell?.actionHashCheck = {
             self.onClickExplorer()
@@ -436,24 +473,37 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OK_TEST) {
             var coins :[Coin]?
             if (msg?.type == COSMOS_MSG_TYPE_TRANSFER3) {
                 cell?.fromLabel.text = msg?.value.inputs![0].address
                 cell?.toLabel.text = msg?.value.outputs![0].address
                 if (self.account?.account_address == msg?.value.inputs![0].address) {
                     cell?.txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
-                } else if (self.account?.account_address == msg?.value.outputs![0].address) {
+                }
+                if (self.account?.account_address == msg?.value.outputs![0].address) {
                     cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
                 }
                 coins = msg?.value.inputs?[0].coins
+                
+            } else if (msg?.type == OK_MSG_TYPE_MULTI_TRANSFER) {
+                cell?.fromLabel.text = msg?.value.from
+                cell?.toLabel.text = msg?.value.transfers?[0].to
+                if (self.account?.account_address == msg?.value.from) {
+                    cell?.txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
+                }
+                if (self.account?.account_address == msg?.value.transfers?[0].to) {
+                    cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
+                }
+                coins = msg?.value.transfers?[0].coins
                 
             } else {
                 cell?.fromLabel.text = msg?.value.from_address
                 cell?.toLabel.text = msg?.value.to_address
                 if (self.account?.account_address == msg?.value.from_address) {
                     cell?.txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
-                } else if (self.account?.account_address == msg?.value.to_address) {
+                }
+                if (self.account?.account_address == msg?.value.to_address) {
                     cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
                 }
                 coins = msg?.value.getAmounts()
@@ -907,6 +957,43 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
+    func onBindOkStake(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
+        let cell:TxOkStakeCell? = tableView.dequeueReusableCell(withIdentifier:"TxOkStakeCell") as? TxOkStakeCell
+        let msg = mTxInfo?.getMsg(position - 1)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (msg?.type == OK_MSG_TYPE_DEPOSIT) {
+            cell?.txIcon.image = UIImage(named: "txDepositCdp")
+            cell?.txLabel.text = NSLocalizedString("title_ok_deposit", comment: "")
+        } else {
+            cell?.txIcon.image = UIImage(named: "txWithdrawCdp")
+            cell?.txLabel.text = NSLocalizedString("title_ok_withdraw", comment: "")
+        }
+        cell?.delegatorLabel.text = msg?.value.delegator_address
+        WUtils.showCoinDp(msg!.value.quantity!, cell!.stakeDenom, cell!.stakeAmount, chainType!)
+        return cell!
+    }
+    
+    func onBindOkDirectVote(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
+        let cell:TxOkDirectVoteCell? = tableView.dequeueReusableCell(withIdentifier:"TxOkDirectVoteCell") as? TxOkDirectVoteCell
+        let msg = mTxInfo?.getMsg(position - 1)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        cell?.voterLabel.text = msg?.value.delegator_address
+        
+        var monikers = ""
+        let validators = msg?.value.validator_addresses
+        for validator in validators! {
+            for allVal in BaseData.instance.mAllValidator {
+                if (allVal.operator_address == validator) {
+                    monikers = monikers + allVal.description.moniker + ", "
+                }
+            }
+        }
+        cell?.validatorList.text = monikers
+        return cell!
+    }
+    
     
     func onBindUnknown(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:TxUnknownCell? = tableView.dequeueReusableCell(withIdentifier:"TxUnknownCell") as? TxUnknownCell
@@ -1073,6 +1160,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             url = IOV_TEST_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
+        } else if (self.chainType! == ChainType.OK_TEST) {
+            url = OK_TEST_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         }
         request!.responseJSON { (response) in
             switch response.result {
@@ -1258,6 +1348,16 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 return false
             })
             
+        } else if (chainType! == ChainType.OK_TEST) {
+            return coins.sorted(by: {
+                if ($0.denom == OK_TEST_DENOM) {
+                    return true
+                }
+                if ($1.denom == OK_TEST_DENOM) {
+                    return false
+                }
+                return false
+            })
         }
         return coins
     }

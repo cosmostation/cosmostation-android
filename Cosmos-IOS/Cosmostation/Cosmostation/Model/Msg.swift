@@ -96,6 +96,10 @@ public struct Msg: Codable {
         var cross_chain: Bool?
         var denom: String?
         
+        var transfers: Array<OkTransfer>?
+        var quantity: Coin?
+        var validator_addresses: Array<String>?
+        
         
         enum CodingKeys: String, CodingKey {
             case inputs
@@ -142,6 +146,10 @@ public struct Msg: Codable {
             case height_span
             case cross_chain
             case denom
+            
+            case transfers
+            case quantity
+            case validator_addresses
             
         }
         
@@ -352,6 +360,24 @@ public struct Msg: Codable {
             }
             if let denom =  dictionary["denom"] as? String {
                 self.denom = denom
+            }
+            
+            
+            
+            if let rawTransfers = dictionary["transfers"] as? Array<NSDictionary> {
+                self.transfers =  Array<OkTransfer>()
+                for rawTransfer in rawTransfers {
+                    self.transfers?.append(OkTransfer(rawTransfer as! [String : Any]))
+                }
+            }
+            if let rawQuantity = dictionary["quantity"] as? [String : Any] {
+                self.quantity = Coin(rawQuantity)
+            }
+            if let vAddresses = dictionary["validator_addresses"] as? Array<String> {
+                self.validator_addresses =  Array<String>()
+                for vAddresse in vAddresses {
+                    self.validator_addresses?.append(vAddresse)
+                }
             }
         }
         

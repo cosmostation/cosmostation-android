@@ -275,6 +275,23 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             
+        } else if (mChainType == ChainType.OK_TEST) {
+            self.mFetchCnt = 8
+            BaseData.instance.mOkDeposit = OkDeposit.init()
+            BaseData.instance.mOkWithdraw = OkWithdraw.init()
+            BaseData.instance.mOkTokenList = OkTokenList.init()
+            
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            
+            onFetchAccountInfo(mAccount)
+            onFetchOkAccountTokens(mAccount)
+            onFetchOkTokenList()
+            
+            onFetchOkDeposit(mAccount)
+            onFetchOkWithdraw(mAccount)
+            
         }
         onFetchPriceTic(false)
         return true
@@ -325,40 +342,63 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }  else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-//                if (mBnbTokenList.count <= 0) {
-//                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
-//                }
                 NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
                 self.hideWaittingAlert()
                 return
                 
-            } else if (mChainType == ChainType.IOV_MAIN) {
+            } else if (mChainType == ChainType.OK_TEST) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-                NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
-                self.hideWaittingAlert()
-                return
+                
+                mAllValidator.removeAll()
+                mAllValidator.append(contentsOf: mTopValidators)
+                mAllValidator.append(contentsOf: mOtherValidators)
                 
             }
             
-            self.mMyValidators.removeAll()
-            for validator in mAllValidator {
-                var mine = false;
-                for bonding in mBondingList {
-                    if(bonding.bonding_v_address == validator.operator_address) {
-                        mine = true;
-                        break;
+            if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.KAVA_MAIN ||
+                mChainType == ChainType.KAVA_TEST || mChainType == ChainType.BAND_MAIN || mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
+                self.mMyValidators.removeAll()
+                for validator in mAllValidator {
+                    var mine = false;
+                    for bonding in mBondingList {
+                        if (bonding.bonding_v_address == validator.operator_address) {
+                            mine = true;
+                            break;
+                        }
+                    }
+                    for unbonding in mUnbondingList {
+                        if (unbonding.unbonding_v_address == validator.operator_address) {
+                            mine = true;
+                            break;
+                        }
+                    }
+                    if (mine) {
+                        self.mMyValidators.append(validator)
                     }
                 }
-                for unbonding in mUnbondingList {
-                    if(unbonding.unbonding_v_address == validator.operator_address) {
-                        mine = true;
-                        break;
+                
+            } else if (mChainType == ChainType.OK_TEST) {
+                self.mMyValidators.removeAll()
+                for validator in mAllValidator {
+                    for myVal in BaseData.instance.mOkDeposit.validator_address {
+                        if (validator.operator_address == myVal) {
+                            self.mMyValidators.append(validator)
+                        }
                     }
                 }
-                if (mine) {
-                    self.mMyValidators.append(validator)
-                }
+//                print("OK_TEST mAllValidator ", mAllValidator.count)
+//                print("OK_TEST mTopValidators ", mTopValidators.count)
+//                print("OK_TEST mOtherValidators ", mOtherValidators.count)
+//                print("OK_TEST mMyValidators ", mMyValidators.count)
+//                print("OK_TEST mAccount ", mAccount.account_address)
+//                print("OK_TEST mBalances ", mBalances.count)
+                
+                BaseData.instance.mAllValidator = mAllValidator
+                BaseData.instance.mTopValidator = mTopValidators
+                BaseData.instance.mOtherValidator = mOtherValidators
+                BaseData.instance.mMyValidator = mMyValidators
+                
             }
             
             if (mAllValidator.count <= 0) {
@@ -385,21 +425,32 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_VALIDATORS
         } else if (mChainType == ChainType.IOV_TEST) {
             url = IOV_TEST_VALIDATORS
+        } else if (mChainType == ChainType.OK_TEST) {
+            url = OK_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let responseData = res as? NSDictionary,
-                    let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                if (self.mChainType == ChainType.OK_TEST) {
+                    guard let validators = res as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return
+                    }
+                    for validator in validators {
+                        self.mTopValidators.append(Validator(validator as! [String : Any]))
+                    }
+                    
+                } else {
+                    guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    for validator in validators {
+                        self.mTopValidators.append(Validator(validator as! [String : Any]))
+                    }
                 }
-                self.mTopValidators.removeAll()
-                for validator in validators {
-                    self.mTopValidators.append(Validator(validator as! [String : Any]))
-                }
-
+                
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
             }
@@ -421,18 +472,30 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_VALIDATORS
         } else if (mChainType == ChainType.IOV_TEST) {
             url = IOV_TEST_VALIDATORS
+        } else if (mChainType == ChainType.OK_TEST) {
+            url = OK_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let responseData = res as? NSDictionary,
-                    let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                if (self.mChainType == ChainType.OK_TEST) {
+                    guard let validators = res as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return
-                }
-                for validator in validators {
-                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                    }
+                    for validator in validators {
+                        self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                    }
+                    
+                } else {
+                    guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    for validator in validators {
+                        self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                    }
                 }
                 
             case .failure(let error):
@@ -456,18 +519,30 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_VALIDATORS
         } else if (mChainType == ChainType.IOV_TEST) {
             url = IOV_TEST_VALIDATORS
+        } else if (mChainType == ChainType.OK_TEST) {
+            url = OK_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonding"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let responseData = res as? NSDictionary,
-                    let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                if (self.mChainType == ChainType.OK_TEST) {
+                    guard let validators = res as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return
-                }
-                for validator in validators {
-                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                    }
+                    for validator in validators {
+                        self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                    }
+                    
+                } else {
+                    guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    for validator in validators {
+                        self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                    }
                 }
                 
             case .failure(let error):
@@ -525,6 +600,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.IOV_TEST) {
             url = IOV_TEST_ACCOUNT_INFO + account.account_address
+        } else if (mChainType == ChainType.OK_TEST) {
+            url = OK_TEST_ACCOUNT_INFO + account.account_address
         }
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -573,6 +650,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, kavaAccountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, kavaAccountInfo))
                     
+                } else if (self.mChainType == ChainType.OK_TEST) {
+                    guard let info = res as? [String : Any] else {
+                        _ = BaseData.instance.deleteBalance(account: account)
+                        self.onFetchFinished()
+                        return
+                    }
+                    let accountInfo = AccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
                 }
                 
             case .failure(let error):
@@ -1015,6 +1100,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             //TODO No price info for IOV
             BaseData.instance.setPriceTicCgc(nil)
             return
+        } else if (mChainType == ChainType.OK_TEST) {
+            //TODO No price info for OK
+            BaseData.instance.setPriceTicCgc(nil)
+            return
         }
         let request = Alamofire.request(url!, method: .get,  parameters: parameters, encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -1096,7 +1185,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    
     func onFetchIncentiveParam() {
         var url: String?
         if (mChainType == ChainType.KAVA_MAIN) {
@@ -1149,7 +1237,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onFetchFinished()
         }
     }
-    
     
     func onFetchPriceParam() {
         var url: String?
@@ -1209,6 +1296,98 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
+    func onFetchOkAccountTokens(_ account: Account) {
+        var url: String?
+        if (mChainType == ChainType.OK_TEST) {
+            url = OK_TEST_ACCOUNT_TOKENS  + account.account_address
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let accountTokens = res as? [String : Any] else {
+                    _ = BaseData.instance.deleteBalance(account: account)
+                    self.onFetchFinished()
+                    return
+                }
+                let okAccountToken = OkAccountToken.init(accountTokens)
+                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithOkAccountInfo(account, okAccountToken))
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchOkAccountTokens ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchOkDeposit(_ account: Account) {
+        var url: String?
+        if (mChainType == ChainType.OK_TEST) {
+            url = OK_TEST_DEPOSIT  + account.account_address
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mOkDeposit = OkDeposit.init(info)
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchOkDeposit ", error) }
+            }
+            self.onFetchFinished()
+        }
+        
+    }
+    
+    func onFetchOkWithdraw(_ account: Account) {
+        var url: String?
+        if (mChainType == ChainType.OK_TEST) {
+            url = OK_TEST_WITHDRAW  + account.account_address + OK_TEST_WITHDRAW_TAIL
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mOkWithdraw = OkWithdraw.init(info)
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchOkWithdraw ", error) }
+            }
+            self.onFetchFinished()
+        }
+        
+    }
+    
+    func onFetchOkTokenList() {
+        var url: String?
+        if (mChainType == ChainType.OK_TEST) {
+            url = OK_TEST_TOKEN_LIST
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let tokenList = res as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mOkTokenList = OkTokenList.init(tokenList)
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchOkTokenList ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
     
     func onShowToast(_ text:String) {
         var style = ToastStyle()
@@ -1250,7 +1429,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         self.present(warnAlert, animated: true, completion: nil)
     }
     
-    public func hideWaittingAlert(){
+    public func hideWaittingAlert() {
         if (waitAlert != nil) {
             waitAlert?.dismiss(animated: true, completion: nil)
         }

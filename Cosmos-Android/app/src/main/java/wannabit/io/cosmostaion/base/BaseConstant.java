@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -205,9 +205,9 @@ public class BaseConstant {
 
     public final static String OK_MSG_TYPE_TRANSFER                         = "okchain/token/MsgTransfer";
     public final static String OK_MSG_TYPE_MULTI_TRANSFER                   = "okchain/token/MsgMultiTransfer";
-    public final static String OK_MSG_TYPE_DEPOSIT                          = "okchain/staking/MsgDelegate";
-    public final static String OK_MSG_TYPE_WITHDRAW                         = "okchain/staking/MsgUnDelegate";
-    public final static String OK_MSG_TYPE_DIRECT_VOTE                      = "okchain/staking/MsgVote";
+    public final static String OK_MSG_TYPE_DEPOSIT                          = "okchain/staking/MsgDeposit";
+    public final static String OK_MSG_TYPE_WITHDRAW                         = "okchain/staking/MsgWithdraw";
+    public final static String OK_MSG_TYPE_DIRECT_VOTE                      = "okchain/staking/MsgAddShares";
 
     public final static String IOV_KIND_SEND                                = "bcp/send";
 
@@ -361,11 +361,12 @@ public class BaseConstant {
     public final static String FEE_IOV_GAS_AMOUNT_REINVEST      = "300000";
     public final static String FEE_IOV_GAS_AMOUNT_LOW           = "100000";
 
-    public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.00000001";
+    public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.0000001";
     public final static String FEE_OK_GAS_AMOUNT_SEND           = "200000";
     public final static String FEE_OK_GAS_AMOUNT_STAKE          = "100000";
-    public final static String FEE_OK_GAS_AMOUNT_VOTE           = "150000";
-    public final static String FEE_OK_GAS_AMOUNT_VOTE_MUX       = "40000";
+    public final static String FEE_OK_GAS_AMOUNT_STAKE_MUX      = "20000";
+    public final static String FEE_OK_GAS_AMOUNT_VOTE           = "200000";
+    public final static String FEE_OK_GAS_AMOUNT_VOTE_MUX       = "50000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";

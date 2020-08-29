@@ -15,6 +15,7 @@ class BaseViewController: UIViewController {
     
     var account:Account?
     var chainType:ChainType?
+    var balances = Array<Balance>()
     var waitAlert: UIAlertController?
 
     override func viewDidLoad() {

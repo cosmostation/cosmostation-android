@@ -13,7 +13,7 @@
 "9nd-sQ-sZ2.text" = "--";
 
 /* Class = "UILabel"; text = "Name"; ObjectID = "LNa-6J-FA2"; */
-"LNa-6J-FA2.text" = "토큰 이름";
+"LNa-6J-FA2.text" = "상세";
 
 /* Class = "UILabel"; text = "Available"; ObjectID = "QNy-8A-Ifn"; */
 "QNy-8A-Ifn.text" = "사용 가능 수량";

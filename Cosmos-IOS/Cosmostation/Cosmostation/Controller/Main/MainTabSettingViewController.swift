@@ -85,6 +85,10 @@ class MainTabSettingViewController: BaseViewController {
             titleChainImg.image = UIImage(named: "iovTestnetImg")
             titleChainName.text = "(IOV Test)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.OK_TEST) {
+            titleChainImg.image = UIImage(named: "okexTestnetImg")
+            titleChainName.text = "(OK Test Chain)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {

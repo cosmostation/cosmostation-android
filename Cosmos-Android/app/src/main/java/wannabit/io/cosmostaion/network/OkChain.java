@@ -41,7 +41,7 @@ public interface OkChain {
     @GET("/staking/validators?status=unbonded")
     Call<ArrayList<Validator>> getUnBondedValidatorDetailList();
 
-    @GET("/staking/delegators//{address}")
+    @GET("/staking/delegators/{address}")
     Call<ResOkDeposit> getDepositInfo(@Path("address") String address);
 
     @GET("/staking/delegators/{address}/unbonding_delegations")

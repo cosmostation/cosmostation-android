@@ -166,6 +166,12 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
                     cell?.chainImg.image = UIImage(named: "iovTestnetImg")
                     cell?.chainName.text = "IOV TEST"
                     
+                } else if (selectedChain == ChainType.OK_TEST) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "okexTestnetImg")
+                    cell?.chainName.text = "OK TEST"
                 }
                 
             }

@@ -39,7 +39,7 @@ let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 
 let KAVA_URL                            = "https://lcd-kava-3.cosmostation.io/";
 let KAVA_API                            = "https://api-kava-3.cosmostation.io/";
-let KAVA_FAUCET                         = "https://faucet-kava-3.cosmostation.io/claim/";
+let KAVA_FAUCET                         = "https://faucet-kava-3.cosmostation.io/faucet/";
 
 let KAVA_TEST_URL                       = "https://lcd-kava-testnet-8000.cosmostation.io/";
 let KAVA_TEST_API                       = "https://api-kava-testnet-8000.cosmostation.io/";
@@ -57,6 +57,9 @@ let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.
 let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band-wenchang-mainnet.cosmostation.io/";
 
+let OK_TEST_URL                        = "https://lcd-okchain-testnet.cosmostation.io/";
+let OK_TEST_API                        = "";
+
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
@@ -68,6 +71,8 @@ let CSS_VERSION                         = CSS_URL + "v1/app/version/ios";
 let CSS_PUSH_UPDATE                     = CSS_URL + "v1/account/update";
 let CSS_MOON_PAY                        = CSS_URL + "v1/sign/moonpay";
 
+
+//COSMOS_URL
 let CSS_LCD_URL_BLOCK                   = CSS_LCD_URL + "blocks/";
 let CSS_LCD_URL_TX                      = CSS_LCD_URL + "txs/";
 let CSS_LCD_URL_VALIDATORS              = CSS_LCD_URL + "staking/validators";
@@ -91,6 +96,8 @@ let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "gov/proposals";
 let CSS_LCD_URL_PROPOSALS_TALLY_TAIL    = "/tally";
 let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
 
+
+//IRIS_URL
 let IRIS_LCD_URL_ACCOUNT_INFO           = IRIS_LCD_URL + "bank/accounts/";
 let IRIS_LCD_URL_VALIDATORS             = IRIS_LCD_URL + "stake/validators";
 let IRIS_LCD_URL_BONDING                = IRIS_LCD_URL + "stake/delegators/";
@@ -109,6 +116,8 @@ let IRIS_LCD_URL_REDELEGATION           = IRIS_LCD_URL + "stake/delegators/";
 let IRIS_LCD_URL_REDELEGATION_TAIL      = "/redelegations";
 let IRIS_LCD_URL_TOKENS                 = IRIS_LCD_URL + "asset/tokens";
 
+
+//BNB_URL
 let BNB_URL_NODE_INFO                   = BNB_URL + "api/v1/node-info";
 let BNB_URL_ACCOUNT_INFO                = BNB_URL + "api/v1/account/";
 let BNB_URL_TOKENS                      = BNB_URL + "api/v1/tokens";
@@ -118,6 +127,8 @@ let BNB_URL_HISTORY                     = BNB_URL + "api/v1/transactions";
 let BNB_URL_TX                          = BNB_URL + "api/v1/tx/";
 let BNB_URL_CHECK_SWAPID                = BNB_URL + "api/v1/atomic-swaps/";
 
+
+//BNB_TEST_URL
 let BNB_TEST_URL_NODE_INFO              = BNB_TEST_URL + "api/v1/node-info";
 let BNB_TEST_URL_ACCOUNT_INFO           = BNB_TEST_URL + "api/v1/account/";
 let BNB_TEST_URL_TOKENS                 = BNB_TEST_URL + "api/v1/tokens";
@@ -197,8 +208,7 @@ let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
 
 
-
-//let CSS_LCD_URL_BLOCK                   = CSS_LCD_URL + "blocks/";
+//BAND_TEST_URL
 let BAND_TX                             = BAND_URL + "txs/";
 let BAND_VALIDATORS                     = BAND_URL + "staking/validators";
 let BAND_ACCOUNT_INFO                   = BAND_URL + "auth/accounts/";
@@ -214,15 +224,13 @@ let BAND_REDELEGATION                   = BAND_URL + "staking/redelegations";
 let BAND_INFLATION                      = BAND_URL + "minting/inflation";
 let BAND_PROVISIONS                     = BAND_URL + "minting/annual-provisions";
 let BAND_STAKING_POOL                   = BAND_URL + "staking/pool";
-//let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "gov/proposals";
-//let CSS_LCD_URL_PROPOSALS_TALLY_TAIL    = "/tally";
 let BAND_BORAD_TX                       = BAND_URL + "txs";
 
 let BAND_API_HISTORY                    = BAND_API + "v1/account/txs/";
 let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";
 
 
-
+//IOV_URL
 let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
 let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
 let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
@@ -230,8 +238,6 @@ let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
 let IOV_REST_URL_BALANCE                = IOV_REST_URL + "cash/balances";
 let IOV_REST_URL_NONCE                  = IOV_REST_URL + "nonce/address/";
 let IOV_REST_URL_TX_SUBMIT              = IOV_REST_URL + "tx/submit";
-
-
 
 let IOV_TX                              = IOV_URL + "txs/";
 let IOV_VALIDATORS                      = IOV_URL + "staking/validators";
@@ -248,11 +254,10 @@ let IOV_REDELEGATION                    = IOV_URL + "staking/redelegations";
 let IOV_INFLATION                       = IOV_URL + "minting/inflation";
 let IOV_PROVISIONS                      = IOV_URL + "minting/annual-provisions";
 let IOV_STAKING_POOL                    = IOV_URL + "staking/pool";
-//let IOV_PROPOSALS               = IOV_URL + "gov/proposals";
-//let IOV_PROPOSALS_TALLY_TAIL    = "/tally";
 let IOV_BORAD_TX                        = IOV_URL + "txs";
 
 
+//IOV_TEST_URL
 let IOV_TEST_TX                         = IOV_TEST_URL + "txs/";
 let IOV_TEST_VALIDATORS                 = IOV_TEST_URL + "staking/validators";
 let IOV_TEST_ACCOUNT_INFO               = IOV_TEST_URL + "auth/accounts/";
@@ -268,16 +273,26 @@ let IOV_TEST_REDELEGATION               = IOV_TEST_URL + "staking/redelegations"
 let IOV_TEST_INFLATION                  = IOV_TEST_URL + "minting/inflation";
 let IOV_TEST_PROVISIONS                 = IOV_TEST_URL + "minting/annual-provisions";
 let IOV_TEST_STAKING_POOL               = IOV_TEST_URL + "staking/pool";
-//let IOV_TEST_PROPOSALS               = IOV_TEST_URL + "gov/proposals";
-//let IOV_TEST_PROPOSALS_TALLY_TAIL    = "/tally";
 let IOV_TEST_BORAD_TX                   = IOV_TEST_URL + "txs";
+
+
+//OK_TEST_URL
+let OK_TEST_TX                          = OK_TEST_URL + "txs/";
+let OK_TEST_VALIDATORS                  = OK_TEST_URL + "staking/validators";
+let OK_TEST_ACCOUNT_INFO                = OK_TEST_URL + "auth/accounts/";
+let OK_TEST_ACCOUNT_TOKENS              = OK_TEST_URL + "accounts/";
+let OK_TEST_TOKEN_LIST                  = OK_TEST_URL + "tokens";
+let OK_TEST_DEPOSIT                     = OK_TEST_URL + "staking/delegators/";
+let OK_TEST_WITHDRAW                    = OK_TEST_URL + "staking/delegators/";
+let OK_TEST_WITHDRAW_TAIL               = "/unbonding_delegations";
+let OK_TEST_BORAD_TX                    = OK_TEST_URL + "txs";
+
 
 
 
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let IRIS_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "iris/v1/getTxsByAddr";
-let KAVA_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "kava/v1/getTxsByAddr";
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 let KEY_BASE_URL_USER_INFO              = KEY_BASE_URL + "_/api/1.0/user/lookup.json";
@@ -439,6 +454,7 @@ let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
 let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 
+
 //TODO check 
 let BNB_DEPUTY                              = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn"
 let KAVA_DEPUTY                             = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6"
@@ -447,6 +463,13 @@ let KAVA_TEST_DEPUTY                        = "kava1tfvn5t8qwngqd2q427za2mel48pc
 
 let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
 let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
+
+
+let OK_MSG_TYPE_TRANSFER                    = "okchain/token/MsgTransfer";
+let OK_MSG_TYPE_MULTI_TRANSFER              = "okchain/token/MsgMultiTransfer";
+let OK_MSG_TYPE_DEPOSIT                     = "okchain/staking/MsgDeposit";
+let OK_MSG_TYPE_WITHDRAW                    = "okchain/staking/MsgWithdraw";
+let OK_MSG_TYPE_DIRECT_VOTE                 = "okchain/staking/MsgAddShares";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
@@ -469,6 +492,7 @@ let BNB_BASE_PATH                           = "m/44'/714'/0'/0/"
 let KAVA_BASE_PATH                          = "m/44'/459'/0'/0/"
 let IOV_BASE_PATH                           = "m/44'/234'/0'/0/"
 let BAND_BASE_PATH                          = "m/44'/494'/0'/0/"
+let OK_BASE_PATH                            = "m/44'/996'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";
 let FEE_ATOM_MID                            = "2000";
@@ -554,6 +578,15 @@ let IOV_GAS_AMOUNT_REINVEST                 = "300000"
 let IOV_GAS_AMOUNT_LOW                      = "100000"
 
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"
+
+
+let GAS_FEE_RATE_OK                         = "0.0000001"
+let OK_GAS_AMOUNT_SEND                      = "200000"
+let OK_GAS_AMOUNT_STAKE                     = "100000"
+let OK_GAS_AMOUNT_STAKE_MUX                 = "20000"
+let OK_GAS_AMOUNT_VOTE                      = "200000"
+let OK_GAS_AMOUNT_VOTE_MUX                  = "50000"
+
 
 
 let COLOR_BG_GRAY                           = UIColor.init(hexString: "2E2E2E", alpha: 0.4)

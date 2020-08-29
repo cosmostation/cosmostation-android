@@ -136,7 +136,7 @@ public class StakeDepositFragmentStep0 extends BaseFragment implements View.OnCl
         super.onResume();
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mAvailableDenom);
         if (getSActivity().mBaseChain.equals(OK_TEST)) {
-            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK_TEST).subtract(new BigDecimal("0.001"));
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK_TEST).subtract(BigDecimal.ONE);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, 8));
         }
     }

@@ -40,6 +40,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletKavaIncentiveCell", bundle: nil), forCellReuseIdentifier: "WalletKavaIncentiveCell")
         self.walletTableView.register(UINib(nibName: "WalletIovCell", bundle: nil), forCellReuseIdentifier: "WalletIovCell")
         self.walletTableView.register(UINib(nibName: "WalletBandCell", bundle: nil), forCellReuseIdentifier: "WalletBandCell")
+        self.walletTableView.register(UINib(nibName: "WalletOkCell", bundle: nil), forCellReuseIdentifier: "WalletOkCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletVestingDetailCell", bundle: nil), forCellReuseIdentifier: "WalletVestingDetailCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
@@ -116,6 +117,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "iovTestnetImg")
             titleChainName.text = "(IOV Test)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.OK_TEST) {
+            titleChainImg.image = UIImage(named: "okexTestnetImg")
+            titleChainName.text = "(OK Test Chain)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -149,6 +154,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             floaty.buttonColor = COLOR_IOV
         } else if (chainType! == ChainType.BAND_MAIN) {
             floaty.buttonColor = COLOR_BAND
+        } else if (chainType! == ChainType.OK_TEST) {
+            floaty.buttonColor = COLOR_OK
         }
         floaty.fabDelegate = self
         self.view.addSubview(floaty)
@@ -190,6 +197,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 5;
         } else if (chainType == ChainType.IOV_MAIN  || chainType == ChainType.IOV_TEST ) {
             return 5;
+        } else if (chainType == ChainType.OK_TEST) {
+            return 4;
         } else {
             return 0;
         }
@@ -212,6 +221,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetIovItems(tableView, indexPath);
         } else if (chainType == ChainType.IOV_TEST) {
             return onSetIovTestItems(tableView, indexPath);
+        } else if (chainType == ChainType.OK_TEST) {
+            return onSetOkTestItems(tableView, indexPath);
         } else {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             return cell!
@@ -260,7 +271,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell:WalletCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
             let totalAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAtom.stringValue, cell!.totalAmount.font!, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpAtomValue(totalAtom, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAtom, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
             cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, COSMOS_MAIN_DENOM, chainType!)
             cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
             cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
@@ -385,7 +396,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell:WalletIrisCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
             let totalIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalIris.stringValue, cell!.totalAmount.font!, 18, 6)
-            cell?.totalValue.attributedText = WUtils.dpIrisValue(totalIris, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalIris, BaseData.instance.getLastPrice(), 18, cell!.totalValue.font)
             cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, IRIS_MAIN_DENOM, chainType!)
             cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
             cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
@@ -471,27 +482,24 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 1) {
             let cell:WalletBnbCell? = tableView.dequeueReusableCell(withIdentifier:"WalletBnbCell") as? WalletBnbCell
             cell?.bnbCard.backgroundColor = WUtils.getChainBg(chainType!)
-            var totalBnb = NSDecimalNumber.zero
-            if let balance = WUtils.getTokenBalace(mainTabVC.mBalances, BNB_MAIN_DENOM) {
-                totalBnb = WUtils.getAllBnb(balance)
-                cell?.totalAmount.attributedText = WUtils.displayAmount2(totalBnb.stringValue, cell!.totalAmount.font, 0, 6)
-                cell?.totalValue.attributedText = WUtils.dpBnbValue(totalBnb, BaseData.instance.getLastPrice(), cell!.totalValue.font)
-                cell?.availableAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.availableAmount.font, 0, 6)
-                cell?.lockedAmount.attributedText = WUtils.displayAmount2(balance.balance_locked, cell!.lockedAmount.font, 0, 6)
-            } else {
-                cell?.totalAmount.attributedText = WUtils.displayAmount2(totalBnb.stringValue, cell!.totalAmount.font, 0, 6)
-                cell?.totalValue.attributedText = WUtils.dpBnbValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), cell!.totalValue.font)
-                cell?.availableAmount.attributedText = WUtils.displayAmount2("0", cell!.availableAmount.font, 0, 6)
-                cell?.lockedAmount.attributedText = WUtils.displayAmount2("0", cell!.lockedAmount.font, 0, 6)
-            }
+            cell?.btnBep3.isHidden = false
+            
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, BNB_MAIN_DENOM)
+            let lockedAmount = WUtils.lockedAmount(mainTabVC.mBalances, BNB_MAIN_DENOM)
+            let totalAmount = availableAmount.adding(lockedAmount)
+            
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 8)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 8)
+            cell?.lockedAmount.attributedText = WUtils.displayAmount2(lockedAmount.stringValue, cell!.lockedAmount.font, 0, 8)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
+            
             cell?.actionWC = {
                 self.onClickWalletConect()
             }
-            cell?.btnBep3.isHidden = false
             cell?.actionBep3 = {
                 self.onClickBep3Send(BNB_MAIN_DENOM)
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalBnb.stringValue)
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -572,7 +580,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.totalAmount.font!, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalKava, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
             cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
             cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
             cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
@@ -715,7 +723,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.totalAmount.font!, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalKava, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
             cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
             cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
             cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
@@ -903,7 +911,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 1) {
             let cell:WalletBandCell? = tableView.dequeueReusableCell(withIdentifier:"WalletBandCell") as? WalletBandCell
             let totalAmount = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, BAND_MAIN_DENOM, chainType!)   //mainTabVC.mAccount.getBandBalance()
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, BAND_MAIN_DENOM)   //mainTabVC.mAccount.getBandBalance()
             let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
             let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
             let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, BAND_MAIN_DENOM, chainType!)
@@ -913,7 +921,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
             cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
             cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpAtomValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
             cell?.actionDelegate = {
                 self.onClickValidatorList()
             }
@@ -992,7 +1000,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell:WalletIovCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
             cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
             let totalAmount = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, IOV_TEST_DENOM, chainType!)
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, IOV_TEST_DENOM)
             let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
             let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
             let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, IOV_TEST_DENOM, chainType!)
@@ -1002,7 +1010,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
             cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
             cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpAtomValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
             cell?.actionDelegate = {
                 self.onClickValidatorList()
             }
@@ -1056,6 +1064,92 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.guideMsg.text = NSLocalizedString("send_guide_msg_iov", comment: "")
             cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iov", comment: ""), for: .normal)
             cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_iov", comment: ""), for: .normal)
+            cell?.actionGuide1 = {
+                self.onClickGuide1()
+            }
+            cell?.actionGuide2 = {
+                self.onClickGuide2()
+            }
+            return cell!
+        }
+    }
+    
+    func onSetOkTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            if (mainTabVC.mAccount.account_has_private) {
+                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
+                cell?.keyState.tintColor = COLOR_OK
+            }
+            cell?.dpAddress.text = mainTabVC.mAccount.account_address
+            cell?.dpAddress.adjustsFontSizeToFitWidth = true
+            cell?.actionShare = {
+                self.onClickActionShare()
+            }
+            cell?.actionWebLink = {
+                self.onClickActionLink()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell:WalletOkCell? = tableView.dequeueReusableCell(withIdentifier:"WalletOkCell") as? WalletOkCell
+            cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
+            let totalAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkDeposit, BaseData.instance.mOkWithdraw)
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, OK_TEST_DENOM)
+            let lockedAmount = WUtils.lockedAmount(mainTabVC.mBalances, OK_TEST_DENOM)
+            let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkDeposit)
+            let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkWithdraw)
+            
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 8)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 8)
+            cell?.lockedAmount.attributedText = WUtils.displayAmount2(lockedAmount.stringValue, cell!.lockedAmount.font, 0, 8)
+            cell?.depositAmount.attributedText = WUtils.displayAmount2(depositAmount.stringValue, cell!.depositAmount.font, 0, 8)
+            cell?.withdrawAmount.attributedText = WUtils.displayAmount2(withdrawAmount.stringValue, cell!.withdrawAmount.font, 0, 8)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
+            
+            cell?.actionDeposit = {
+                self.onClickOkDeposit()
+            }
+            cell?.actionWithdraw = {
+                self.onClickOkWithdraw()
+            }
+            cell?.actionVote = {
+                self.onClickOkVote()
+            }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.stringValue)
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
+            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                cell?.updownImg.image = UIImage(named: "priceUp")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                cell?.updownImg.image = UIImage(named: "priceDown")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else {
+                cell?.updownImg.image = nil
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(NSDecimalNumber.zero, font: cell!.updownPercent.font)
+            }
+            cell?.buySeparator.isHidden = true
+            cell?.buyBtn.isHidden = true
+            cell?.buyConstraint.priority = .defaultLow
+            cell?.noBuyConstraint.priority = .defaultHigh
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
+            }
+            return cell!
+            
+        } else {
+            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.guideImg.image = UIImage(named: "okexImg")
+            cell?.guideTitle.text = NSLocalizedString("send_guide_title_ok", comment: "")
+            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_ok", comment: "")
+            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_ok", comment: ""), for: .normal)
+            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_ok", comment: ""), for: .normal)
             cell?.actionGuide1 = {
                 self.onClickGuide1()
             }
@@ -1151,6 +1245,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://cosmoscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
+            
+        } else if (chainType! == ChainType.OK_TEST) {
+            guard let url = URL(string: "https://www.oklink.com/okchain-test/address/" + mainTabVC.mAccount.account_address) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
@@ -1236,6 +1335,69 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.pushViewController(txVC, animated: true)
     }
     
+    func onClickOkDeposit() {
+        if (!mainTabVC.mAccount.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        if (chainType! == ChainType.OK_TEST) {
+            if (WUtils.getTokenAmount(mainTabVC.mBalances, OK_TEST_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_to_deposit", comment: ""))
+                return
+            }
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = OK_MSG_TYPE_DEPOSIT
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    func onClickOkWithdraw() {
+        if (!mainTabVC.mAccount.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        if (chainType! == ChainType.OK_TEST) {
+            if (WUtils.getTokenAmount(mainTabVC.mBalances, OK_TEST_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+        }
+        if (WUtils.okDepositAmount(BaseData.instance.mOkDeposit).compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_to_withdraw", comment: ""))
+            return
+            
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = OK_MSG_TYPE_WITHDRAW
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+        
+    }
+    
+    func onClickOkVote() {
+        let okVoteTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        okVoteTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("str_vote_direct", comment: ""), style: .default, handler: { [weak okVoteTypeAlert] (_) in
+            let okValidatorListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "OkValidatorListViewController") as! OkValidatorListViewController
+            okValidatorListVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(okValidatorListVC, animated: true)
+            
+        }))
+        okVoteTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("str_vote_agent", comment: ""), style: .default, handler: { [weak okVoteTypeAlert] (_) in
+            self.onShowToast(NSLocalizedString("prepare", comment: ""))
+        }))
+        self.present(okVoteTypeAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            okVoteTypeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+        
+    }
+    
     func onClickGuide1() {
         if (chainType! == ChainType.COSMOS_MAIN) {
             if(Locale.current.languageCode == "ko") {
@@ -1273,6 +1435,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
+        } else if (chainType! == ChainType.OK_TEST) {
+            guard let url = URL(string: "https://www.okex.com/") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
         
     }
@@ -1314,6 +1480,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
+        } else if (chainType! == ChainType.OK_TEST) {
+            guard let url = URL(string: "https://www.okex.com/community") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
@@ -1508,6 +1678,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             txVC.mIovSendDenom = IOV_TEST_DENOM
             txVC.mType = IOV_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.OK_TEST) {
+            if (WUtils.getTokenAmount(balances, OK_TEST_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mOkSendDenom = OK_TEST_DENOM
+            txVC.mType = OK_MSG_TYPE_TRANSFER
             
         } else {
             return
