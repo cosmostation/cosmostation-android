@@ -1056,7 +1056,7 @@ public class WUtil {
         });
     }
 
-    public static ArrayList<Validator> getIrisTops(ArrayList<Validator> allValidators) {
+    public static ArrayList<Validator> getTopVals(ArrayList<Validator> allValidators) {
         ArrayList<Validator> result = new ArrayList<>();
         for(Validator v:allValidators) {
             if(v.status == Validator.BONDED) {
@@ -1067,7 +1067,7 @@ public class WUtil {
 
     }
 
-    public static ArrayList<Validator> getIrisOthers(ArrayList<Validator> allValidators) {
+    public static ArrayList<Validator> getOthersVals(ArrayList<Validator> allValidators) {
         ArrayList<Validator> result = new ArrayList<>();
         for(Validator v:allValidators) {
             if(v.status != Validator.BONDED) {

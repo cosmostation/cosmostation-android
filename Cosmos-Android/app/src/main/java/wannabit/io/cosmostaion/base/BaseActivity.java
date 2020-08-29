@@ -576,13 +576,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
-            mTaskCount = 8;
+            mTaskCount = 6;
             getBaseDao().mOkDeposit = null;
             getBaseDao().mOkWithdraw = null;
             getBaseDao().mOkTokenList = null;
             new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnbondedValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new OkAccountTokenTask(getBaseApplication(), this, mAccount, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -618,14 +616,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 return;
             }
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) ||
-                    mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
                 if (temp != null) { mTopValidators = temp; }
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                mTopValidators = WUtil.getIrisTops(temp);
-                mOtherValidators = WUtil.getIrisOthers(temp);
-            } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
-                if (temp != null) { mTopValidators = temp; }
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.OK_TEST)) {
+                mTopValidators = WUtil.getTopVals(temp);
+                mOtherValidators = WUtil.getOthersVals(temp);
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_VALIDATOR || result.taskType == BaseConstant.TASK_FETCH_UNBONDED_VALIDATOR) {
@@ -633,7 +628,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (temp != null) {
                 mOtherValidators.addAll(temp);
             }
-
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
@@ -686,7 +680,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     getBaseDao().mBnbTokens.add(token);
                 }
             }
-            WLog.w("TASK_FETCH_BNB_TOKENS : " + getBaseDao().mBnbTokens.size());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_MINI_TOKENS) {
             ArrayList<BnbToken> tempTokens = (ArrayList<BnbToken>)result.resultData;
@@ -696,7 +689,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     getBaseDao().mBnbTokens.add(token);
                 }
             }
-            WLog.w("TASK_FETCH_BNB_MINI_TOKENS : " + getBaseDao().mBnbTokens.size());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_IRIS_TOKENS) {
             mIrisTokens = (ArrayList<IrisToken>)result.resultData;
@@ -778,27 +770,21 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess) {
                 mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
                 mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                WLog.w("TASK_FETCH_OK_ACCOUNT_TOKEN " + mBalances.size());
             }
 
         } else if (result.taskType == TASK_FETCH_OK_DEPOSIT) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mOkDeposit = (ResOkDeposit)result.resultData;
-                WLog.w("TASK_FETCH_OK_DEPOSIT " + getBaseDao().mOkDeposit.delegator_address);
-
-
             }
 
         } else if (result.taskType == TASK_FETCH_OK_WITHDRAW) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mOkWithdraw = ((ResOkWithdraw)result.resultData);
-                WLog.w("TASK_FETCH_OK_WITHDRAW " + getBaseDao().mOkWithdraw.delegator_address);
             }
 
         } else if (result.taskType == TASK_FETCH_OK_TOKEN_LIST) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mOkTokenList = ((ResOkTokenList)result.resultData);
-                WLog.w("TASK_FETCH_OK_TOKEN_LIST " + getBaseDao().mOkTokenList.data.size());
             }
         }
 
@@ -809,30 +795,30 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST))) {
             for(Validator top:mTopValidators) {
                 boolean already = false;
-                for(BondingState bond:mBondings) {
+                for (BondingState bond:mBondings) {
                     if(bond.validatorAddress.equals(top.operator_address)) {
                         already = true;
                         break;
                     }
                 }
-                for(UnBondingState unbond:mUnbondings) {
+                for (UnBondingState unbond:mUnbondings) {
                     if(unbond.validatorAddress.equals(top.operator_address) && !already) {
                         already = true;
                         break;
                     }
                 }
-                if(already) mMyValidators.add(top);
+                if (already) mMyValidators.add(top);
             }
 
-            for(Validator other:mOtherValidators) {
+            for (Validator other:mOtherValidators) {
                 boolean already = false;
-                for(BondingState bond:mBondings) {
+                for (BondingState bond:mBondings) {
                     if(bond.validatorAddress.equals(other.operator_address)) {
                         already = true;
                         break;
                     }
                 }
-                for(UnBondingState unbond:mUnbondings) {
+                for (UnBondingState unbond:mUnbondings) {
                     if(unbond.validatorAddress.equals(other.operator_address) && !already) {
                         already = true;
                         break;
@@ -844,24 +830,29 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             mAllValidators.addAll(mOtherValidators);
             getBaseDao().setAllValidators(mAllValidators);
 
-            WLog.w("MyValidators " + mMyValidators.size());
-            WLog.w("TopValidators " + mTopValidators.size());
-            WLog.w("OtherValidators " + mOtherValidators.size());
-
-            WLog.w("mBondings " + mBondings.size());
-            WLog.w("mUnbondings " + mUnbondings.size());
-            WLog.w("mRewards " + mRewards.size());
-
-            WLog.w("mInflation " + mInflation);
-            WLog.w("mProvisions " + mProvisions);
-            WLog.w("mBondedToken " + mBondedToken);
+//            WLog.w("MyValidators " + mMyValidators.size());
+//            WLog.w("TopValidators " + mTopValidators.size());
+//            WLog.w("OtherValidators " + mOtherValidators.size());
+//
+//            WLog.w("mBondings " + mBondings.size());
+//            WLog.w("mUnbondings " + mUnbondings.size());
+//            WLog.w("mRewards " + mRewards.size());
+//
+//            WLog.w("mInflation " + mInflation);
+//            WLog.w("mProvisions " + mProvisions);
+//            WLog.w("mBondedToken " + mBondedToken);
 
         } else if (mTaskCount == 0 && (mBaseChain.equals(BaseChain.OK_TEST))) {
             getBaseDao().mTopValidators = mTopValidators;
             getBaseDao().mOtherValidators = mOtherValidators;
 
-            WLog.w("TopValidators " + mTopValidators.size());
-            WLog.w("OtherValidators " + mOtherValidators.size());
+            mAllValidators.addAll(mTopValidators);
+            mAllValidators.addAll(mOtherValidators);
+            getBaseDao().mAllValidators = mAllValidators;
+
+//            WLog.w("TopValidators " + mTopValidators.size());
+//            WLog.w("OtherValidators " + mOtherValidators.size());
+//            WLog.w("mAllValidators " + mAllValidators.size());
 
         }
         if (mTaskCount == 0 && mFetchCallback != null) {
