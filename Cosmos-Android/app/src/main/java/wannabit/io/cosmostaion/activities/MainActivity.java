@@ -473,7 +473,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("iovDenom", TOKEN_IOV_TEST);
 
         } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(new BigDecimal("0.002")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(new BigDecimal("0.02")) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("okDenom", TOKEN_OK_TEST);
@@ -653,7 +653,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.OK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(new BigDecimal("0.001")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(BigDecimal.ONE) > 0) {
                 hasbalance  = true;
             }
         }
@@ -677,7 +677,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.OK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(new BigDecimal("0.001")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(BigDecimal.ONE) > 0) {
                 hasbalance  = true;
             }
         }

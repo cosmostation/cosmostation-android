@@ -80,9 +80,7 @@ public class SimpleOkDepositTask extends CommonTask {
 
             if (getChain(mAccount.baseChain).equals(OK_TEST)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
-                WLog.w("TASK_GEN_TX_OK_DEPOSIT : " +  WUtil.prettyPrinter(reqBroadCast));
                 Response<ResBroadTx> response = ApiClient.getOkTestChain(mApp).broadTx(reqBroadCast).execute();
-                WLog.w("response : " +  WUtil.prettyPrinter(response));
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;

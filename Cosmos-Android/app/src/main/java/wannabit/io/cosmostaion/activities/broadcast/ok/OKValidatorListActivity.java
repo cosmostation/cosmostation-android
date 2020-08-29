@@ -131,7 +131,7 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.OK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(new BigDecimal("0.1")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(BigDecimal.ONE) > 0) {
                 hasbalance  = true;
             }
         }

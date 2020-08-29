@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.broadcast.ok.StakeWithdrawActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -24,6 +25,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_STAKE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_STAKE_MUX;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_VOTE_MUX;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
@@ -54,6 +57,7 @@ public class StakeWithdrawFragment2 extends BaseFragment implements View.OnClick
     private BigDecimal      mAvailable      = BigDecimal.ZERO;
     private BigDecimal      mFeeAmount      = BigDecimal.ZERO;
     private BigDecimal      mFeePrice       = BigDecimal.ZERO;
+    private BigDecimal      mEstimateGasAmount  = BigDecimal.ZERO;
 
     public static StakeWithdrawFragment2 newInstance(Bundle bundle) {
         StakeWithdrawFragment2 fragment = new StakeWithdrawFragment2();
@@ -103,9 +107,14 @@ public class StakeWithdrawFragment2 extends BaseFragment implements View.OnClick
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_ok));
 
-            mGasAmount.setText(FEE_OK_GAS_AMOUNT_STAKE);
+            int myValidatorCnt = 0;
+            if (getBaseDao().mOkDeposit != null && getBaseDao().mOkDeposit.validator_address != null) {
+                myValidatorCnt = getBaseDao().mOkDeposit.validator_address.size();
+            }
+            mEstimateGasAmount = (new BigDecimal(FEE_OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.FEE_OK_GAS_AMOUNT_STAKE));
+            mGasAmount.setText(mEstimateGasAmount.toPlainString());
             mGasRate.setText(WDp.getDpString(FEE_OK_GAS_RATE_AVERAGE, 8));
-            mFeeAmount = new BigDecimal(FEE_OK_GAS_AMOUNT_STAKE).multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE)).setScale(8);
+            mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE)).setScale(8);
 
             mGasFeeAmount.setText(mFeeAmount.toPlainString());
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -133,7 +142,7 @@ public class StakeWithdrawFragment2 extends BaseFragment implements View.OnClick
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = FEE_OK_GAS_AMOUNT_STAKE;
+                fee.gas = mEstimateGasAmount.toPlainString();
                 getSActivity().mFee = fee;
 
             }

@@ -361,11 +361,12 @@ public class BaseConstant {
     public final static String FEE_IOV_GAS_AMOUNT_REINVEST      = "300000";
     public final static String FEE_IOV_GAS_AMOUNT_LOW           = "100000";
 
-    public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.00000001";
+    public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.0000001";
     public final static String FEE_OK_GAS_AMOUNT_SEND           = "200000";
     public final static String FEE_OK_GAS_AMOUNT_STAKE          = "100000";
-    public final static String FEE_OK_GAS_AMOUNT_VOTE           = "150000";
-    public final static String FEE_OK_GAS_AMOUNT_VOTE_MUX       = "40000";
+    public final static String FEE_OK_GAS_AMOUNT_STAKE_MUX      = "20000";
+    public final static String FEE_OK_GAS_AMOUNT_VOTE           = "200000";
+    public final static String FEE_OK_GAS_AMOUNT_VOTE_MUX       = "50000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";

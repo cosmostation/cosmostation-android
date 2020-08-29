@@ -804,7 +804,7 @@
     <string name="error_not_enough_budget">사용 가능 수량이 충분하지 않습니다.\n이용 가능 수량이 최소 수수료 이하 입니다.</string>
     <string name="error_not_enough_reward_all">사용 가능 수량이 충분하지 않습니다.\n이용 가능 수량이 최소 수수료 이하 입니다.</string>
     <string name="error_not_enough_reward">요청할 이자가 충분하지 않습니다.</string>
-    <string name="error_not_enough_balance_to_vote">사용 가능 수량이 충분하지 않습니다.\n0.1이상 수수료가 필요합니다.</string>
+    <string name="error_not_enough_balance_to_vote">사용 가능 수량이 충분하지 않습니다.</string>
     <string name="error_small_reward">현재 이자가 너무 적습니다.</string>
     <string name="error_tx_time_out">블록 체인이 너무 바빠서 시간이 초과되었습니다. \ n요청한 트랜잭션이 수행되었을 것입니다. \ n히스토리를 참조하십시오.</string>
     <string name="error_vesting_time">아직 전송이 활성화 되지 않았습니다.</string>
