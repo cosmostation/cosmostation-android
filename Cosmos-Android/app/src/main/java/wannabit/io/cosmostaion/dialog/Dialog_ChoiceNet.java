@@ -95,18 +95,13 @@ public class Dialog_ChoiceNet extends DialogFragment {
             }
         });
 
-
-
-        if (BaseChain.SUPPORT_CHAINS().contains(IOV_MAIN)) {
-            mIovLayer.setVisibility(View.VISIBLE);
-            mIov.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IOV_MAIN);
-                    getDialog().dismiss();
-                }
-            });
-        }
+        mIov.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IOV_MAIN);
+                getDialog().dismiss();
+            }
+        });
 
         mBand.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -258,22 +259,21 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
             } else if (mChain.equals(BaseChain.IOV_MAIN)) {
                 holder.iovLayer.setVisibility(View.VISIBLE);
-                holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 9));
-                ApiClient.getIovChain(getBaseContext()).getBalance(address).enqueue(new Callback<ResIovBalance>() {
+                holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                ApiClient.getIovChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
-                    public void onResponse(Call<ResIovBalance> call, Response<ResIovBalance> response) {
-                        if(response.isSuccessful() && response.body() != null && response.body().coins != null) {
-                            for (ResIovBalance.IovCoin coin:response.body().coins) {
-                                if (coin.ticker.equals(TOKEN_IOV)) {
-                                    holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(coin.getDpAmount(TOKEN_IOV)), 0, 9));
-                                    break;
-                                }
+                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
+                            if(balance != null && balance.size() > 0 && balance.get(0) != null) {
+                                holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_IOV), 6, 6));
                             }
                         }
                     }
                     @Override
-                    public void onFailure(Call<ResIovBalance> call, Throwable t) { }
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) {}
                 });
+
 
             } else if (mChain.equals(BaseChain.BAND_MAIN)) {
                 holder.bandLayer.setVisibility(View.VISIBLE);
@@ -334,7 +334,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         if (response.isSuccessful() && response.body() != null) {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.bandAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_IOV_TEST), 6, 6));
+                                holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_IOV_TEST), 6, 6));
                         }
                     }
                     @Override

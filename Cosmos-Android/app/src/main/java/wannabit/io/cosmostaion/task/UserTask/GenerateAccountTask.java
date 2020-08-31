@@ -58,37 +58,19 @@ public class GenerateAccountTask extends CommonTask {
 
 
     private Account onGenAccount(String entropy, String path, String msize) {
-        Account newAccount      = Account.getNewInstance();
-        if (BaseChain.COSMOS_MAIN.equals(mBaseChain) || BaseChain.IRIS_MAIN.equals(mBaseChain) ||
-                BaseChain.BNB_MAIN.equals(mBaseChain) || BaseChain.KAVA_MAIN.equals(mBaseChain) ||
-                BaseChain.BAND_MAIN.equals(mBaseChain) || BaseChain.BNB_TEST.equals(mBaseChain) ||
-                BaseChain.KAVA_TEST.equals(mBaseChain) || BaseChain.IOV_TEST.equals(mBaseChain) || BaseChain.OK_TEST.equals(mBaseChain)) {
-            DeterministicKey    dKey            = WKey.getKeyWithPathfromEntropy(mBaseChain, entropy, Integer.parseInt(path), mKavaNewPath);
-            EncResult           encR            = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, entropy, false);
-            newAccount.address                  = WKey.getDpAddress(mBaseChain, dKey.getPublicKeyAsHex());
-            newAccount.baseChain                = mBaseChain.getChain();
-            newAccount.hasPrivateKey            = true;
-            newAccount.resource                 = encR.getEncDataString();
-            newAccount.spec                     = encR.getIvDataString();
-            newAccount.fromMnemonic             = true;
-            newAccount.path                     = path;
-            newAccount.msize                    = Integer.parseInt(msize);
-            newAccount.importTime               = System.currentTimeMillis();
-            newAccount.newBip44                 = mKavaNewPath;
-
-        } else if (BaseChain.IOV_MAIN.equals(mBaseChain)) {
-            HdAddress dKey = WKey.getEd25519KeyWithPathfromEntropy(mBaseChain, entropy, Integer.parseInt(path));
-            EncResult encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, entropy, false);
-            newAccount.address                  = WKey.getIovDpAddress(dKey);
-            newAccount.baseChain                = mBaseChain.getChain();
-            newAccount.hasPrivateKey            = true;
-            newAccount.resource                 = encR.getEncDataString();
-            newAccount.spec                     = encR.getIvDataString();
-            newAccount.fromMnemonic             = true;
-            newAccount.path                     = path;
-            newAccount.msize                    = Integer.parseInt(msize);
-            newAccount.importTime               = System.currentTimeMillis();
-        }
+        Account newAccount          = Account.getNewInstance();
+        DeterministicKey dKey       = WKey.getKeyWithPathfromEntropy(mBaseChain, entropy, Integer.parseInt(path), mKavaNewPath);
+        EncResult encR              = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, entropy, false);
+        newAccount.address          = WKey.getDpAddress(mBaseChain, dKey.getPublicKeyAsHex());
+        newAccount.baseChain        = mBaseChain.getChain();
+        newAccount.hasPrivateKey    = true;
+        newAccount.resource         = encR.getEncDataString();
+        newAccount.spec             = encR.getIvDataString();
+        newAccount.fromMnemonic     = true;
+        newAccount.path             = path;
+        newAccount.msize            = Integer.parseInt(msize);
+        newAccount.importTime       = System.currentTimeMillis();
+        newAccount.newBip44         = mKavaNewPath;
         return newAccount;
 
     }

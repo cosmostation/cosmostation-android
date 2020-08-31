@@ -2,14 +2,7 @@ package wannabit.io.cosmostaion.utils;
 
 import android.util.Base64;
 
-import com.github.orogvany.bip32.Network;
-import com.github.orogvany.bip32.wallet.CoinType;
-import com.github.orogvany.bip32.wallet.HdAddress;
-import com.github.orogvany.bip32.wallet.HdKeyGenerator;
 import com.google.common.collect.ImmutableList;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.protobuf.ByteString;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.ChildNumber;
@@ -21,9 +14,7 @@ import org.bitcoinj.crypto.MnemonicException;
 import org.bouncycastle.crypto.digests.RIPEMD160Digest;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -33,8 +24,6 @@ import java.util.List;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
-import wannabit.io.cosmostaion.model.IrisStdSignMsg;
-import wannabit.io.cosmostaion.model.StdSignMsg;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
@@ -48,6 +37,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class WKey {
+
+    private static final String CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l";
 
     public static byte[] getEntropy() {
         byte[] seed = new byte[32];
@@ -94,7 +85,7 @@ public class WKey {
     }
 
     public static boolean isValidStringHdSeedFromWords(ArrayList<String> words) {
-        if(getByteHdSeedFromWords(words) == null) {
+        if (getByteHdSeedFromWords(words) == null) {
             return false;
         } else {
             return true;
@@ -131,12 +122,6 @@ public class WKey {
     public static DeterministicKey getKeyWithPathfromEntropy(BaseChain chain, String entropy, int path, boolean newBip44) {
         DeterministicKey masterKey      = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
         return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, newBip44), true, true,  new ChildNumber(path));
-    }
-
-    public static HdAddress getEd25519KeyWithPathfromEntropy(BaseChain chain, String entropy, int path) {
-        HdKeyGenerator hdKeyGenerator = new HdKeyGenerator();
-        HdAddress master = hdKeyGenerator.getAddressFromSeed(getHDSeed(WUtil.HexStringToByteArray(entropy)), Network.mainnet, CoinType.semux);
-        return hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(master, 44, true), 234, true), path, true);
     }
 
     public static boolean isMnemonicWord(String word) {
@@ -181,33 +166,6 @@ public class WKey {
         return result;
     }
 
-
-
-    final  static String COSMOS_PRE_PUB_KEY = "eb5ae98721";
-    final  static String COSMOS_PRE_PRI_KEY = "e1b0f79b20";
-
-
-    public static String getCosmosUserDpAddress(String pubHex) {
-        String result       = null;
-        MessageDigest digest = Sha256.getSha256Digest();
-        byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
-
-        RIPEMD160Digest digest2 = new RIPEMD160Digest();
-        digest2.update(hash, 0, hash.length);
-
-        byte[] hash3 = new byte[digest2.getDigestSize()];
-        digest2.doFinal(hash3, 0);
-
-        try {
-            byte[] converted = convertBits(hash3, 8,5,true);
-            result = bech32Encode("cosmos".getBytes(), converted);
-        } catch (Exception e) {
-            WLog.w("getCosmosUserDpAddress Error");
-        }
-
-        return result;
-    }
-
     public static String getDpAddress(BaseChain chain, String pubHex) {
         String result       = null;
         MessageDigest digest = Sha256.getSha256Digest();
@@ -243,52 +201,6 @@ public class WKey {
             WLog.w("Secp256k1 genDPAddress Error");
         }
         return result;
-
-
-        //Deprecated ed255519 for IOV
-//        if (chain.equals(IOV_MAIN)) {
-//            try {
-//                byte[] converted = WKey.convertBits(WUtil.HexStringToByteArray(pubHex), 8,5,true);
-//                result = bech32Encode("iov".getBytes(), converted);
-//            } catch (Exception e) {
-//                WLog.w("ed25519 genDPAddress Error");
-//            }
-//        }
-    }
-
-
-
-
-    public static String getCosmosUserDpPubKey(String pubHex) {
-        String result       = null;
-        String sumHex       = COSMOS_PRE_PUB_KEY + pubHex;
-        byte[] sumHexByte   = WUtil.HexStringToByteArray(sumHex);
-        try {
-            byte[] converted = convertBits(sumHexByte, 8,5,true);
-            result = bech32Encode("cosmospub".getBytes(), converted);
-        } catch (Exception e) {
-            WLog.w("getCosmosUserDpPubKey Error");
-
-        }
-        return result;
-    }
-
-    public static String getCosmosDpPubToDpAddress(String dpPubKey) {
-        String result = null;
-        try {
-            HrpAndData hrpAndData = WKey.bech32Decode(dpPubKey);
-            byte[] converted = WKey.convertBits(hrpAndData.data, 5, 8, false);
-            result = getCosmosUserDpAddress(WUtil.ByteArrayToHexString(converted).replace(COSMOS_PRE_PUB_KEY, ""));
-
-        } catch (Exception e) {
-            WLog.w("getCosmosDpPubToDpAddress Error");
-        }
-
-        return result;
-    }
-
-    public static String convertDpAddressToDpOpAddress(String dpAddress) {
-        return bech32Encode("cosmosvaloper".getBytes(), bech32Decode(dpAddress).data);
     }
 
     public static String convertDpOpAddressToDpAddress(String dpOpAddress, BaseChain chain) {
@@ -300,7 +212,7 @@ public class WKey {
             return bech32Encode("kava".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BAND_MAIN)) {
             return bech32Encode("band".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(IOV_TEST)) {
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return bech32Encode("star".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OK_TEST)) {
             return bech32Encode("okchain".getBytes(), bech32Decode(dpOpAddress).data);
@@ -318,7 +230,7 @@ public class WKey {
             return bech32Encode("kavavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BAND_MAIN)) {
             return bech32Encode("bandvaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(IOV_TEST)) {
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return bech32Encode("starvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OK_TEST)) {
             return bech32Encode("okchainvaloper".getBytes(), bech32Decode(dpOpAddress).data);
@@ -335,53 +247,7 @@ public class WKey {
     public static String getDpAddressWithPath(String seed, BaseChain chain, int path, Boolean newBip) {
         DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain, newBip), true, true,  new ChildNumber(path));
         return getDpAddress(chain, childKey.getPublicKeyAsHex());
-
-        //Deprecated ed255519 for IOV
-//        if (chain.equals(IOV_MAIN)) {
-//            //using ed25519
-//            HdKeyGenerator hdKeyGenerator = new HdKeyGenerator();
-//            HdAddress master = hdKeyGenerator.getAddressFromSeed(WUtil.HexStringToByteArray(seed), Network.mainnet, CoinType.semux);
-//            HdAddress child = hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(master, 44, true), 234, true), path, true);
-//
-//            result = getIovDpAddress(child);
-//        }
     }
-
-    //not using
-    public static String getIovDpAddress(HdAddress address) {
-        byte[] pre = (BaseConstant.IOV_KEY_TYPE).getBytes(StandardCharsets.US_ASCII);
-        byte[] post = Arrays.copyOfRange(address.getPublicKey().getPublicKey(), 1, address.getPublicKey().getPublicKey().length);
-
-        byte[] data = new byte[pre.length + post.length];
-        System.arraycopy(pre, 0, data, 0, pre.length);
-        System.arraycopy(post, 0, data, pre.length, post.length);
-
-        byte[] hash = Arrays.copyOfRange(Sha256.getSha256Digest().digest(data), 0, 20);
-        return getDpAddress(IOV_MAIN, WUtil.ByteArrayToHexString(hash));
-    }
-
-    //not using
-    public static ByteString getIovByteStringfromDpAddress(String address) {
-        try {
-            HrpAndData hrpAndData = WKey.bech32Decode(address);
-            WLog.w("data " +  WUtil.ByteArrayToHexString(hrpAndData.data));
-            byte[] converted = WKey.convertBits(hrpAndData.data, 5, 8, false);
-            WLog.w("converted " +  WUtil.ByteArrayToHexString(converted));
-            return ByteString.copyFrom(converted);
-
-        } catch (Exception e) {
-            WLog.w("getIovByteStringfromDpAddress Error");
-        }
-        return null;
-    }
-
-    //not using
-    public static String getIovDpAddressFromByteString(ByteString byteString) {
-        return getDpAddress(IOV_MAIN, WUtil.ByteArrayToHexString(byteString.toByteArray()));
-    }
-
-
-    private static final String CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l";
 
     public static byte[] convertBits(byte[] data, int frombits, int tobits, boolean pad) throws Exception {
         int acc = 0;
@@ -583,29 +449,6 @@ public class WKey {
         }
     }
 
-    //not using
-    public static byte[] getIovInSig(bnsd.Codec.Tx requestTx, int nonce) {
-        byte[] chainB = IOV_MAIN.getChain().getBytes(Charset.forName("UTF-8"));
-        byte[] versionB = new byte[] {(byte)0, (byte)0xCA, (byte)0xFE, (byte)0 };
-        byte[] nonceB = ByteBuffer.allocate(Long.BYTES).putLong(nonce).array();
-        byte[] txB = requestTx.toByteArray();
-        byte[] chainSize4 = ByteBuffer.allocate(Integer.BYTES).putInt(chainB.length).array();
-        byte[] chainSize1 = Arrays.copyOfRange(chainSize4,chainSize4.length-1, chainSize4.length);
-
-        byte[] inSig = new byte[versionB.length + chainSize1.length + chainB.length + nonceB.length + txB.length];
-        System.arraycopy(versionB, 0, inSig, 0, versionB.length);
-        System.arraycopy(chainSize1, 0, inSig, versionB.length, chainSize1.length);
-        System.arraycopy(chainB, 0, inSig, versionB.length + chainSize1.length, chainB.length);
-        System.arraycopy(nonceB, 0, inSig, versionB.length + chainSize1.length + chainB.length, nonceB.length);
-        System.arraycopy(txB, 0, inSig, versionB.length + chainSize1.length + chainB.length + nonceB.length, txB.length);
-
-
-
-        WLog.w("txB " + WUtil.ByteArrayToHexString(txB));
-
-        return inSig;
-    }
-
     public static String getSwapId(byte[] randomNumberHash, String sender, String otherchainSender) throws Exception{
         byte[] s = convertBits(bech32Decode(sender).data, 5, 8, false);
         byte[] rhs = new byte[randomNumberHash.length + s.length];
@@ -621,23 +464,5 @@ public class WKey {
 
         byte[] expectedSwapIdSha = Sha256.getSha256Digest().digest(expectedSwapId);
         return WUtil.ByteArrayToHexString(expectedSwapIdSha);
-    }
-
-
-
-
-    public static byte[] getStdSignMsgToSignByte(StdSignMsg stdSignMsg) {
-        Gson Presenter = new GsonBuilder().create();
-        return Presenter.toJson(stdSignMsg).getBytes(Charset.forName("UTF-8"));
-    }
-
-//    public static byte[] getMsgToSignByte(Msg msg) {
-//        Gson Presenter = new GsonBuilder().create();
-//        return Presenter.toJson(msg).getBytes(Charset.forName("UTF-8"));
-//    }
-
-    public static byte[] getIrisStdSignMsgToSignByte(IrisStdSignMsg msg) {
-        Gson Presenter = new GsonBuilder().create();
-        return Presenter.toJson(msg).getBytes(Charset.forName("UTF-8"));
     }
 }

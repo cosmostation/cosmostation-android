@@ -359,7 +359,7 @@ public class WUtil {
         long time = System.currentTimeMillis();
         ArrayList<BondingState> result = new ArrayList<>();
         if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) ||
-                chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.IOV_TEST)) {
+                chain.equals(BaseChain.KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(BaseChain.IOV_TEST)) {
             for(ResLcdBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
@@ -413,7 +413,7 @@ public class WUtil {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
         if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) ||
-                chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.IOV_TEST)) {
+                chain.equals(BaseChain.KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(BaseChain.IOV_TEST)) {
             for(ResLcdUnBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))

@@ -21,12 +21,14 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dialog.Dialog_Choice_Iov;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Kava;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
 import wannabit.io.cosmostaion.utils.WKey;
 
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
 public class WatchingAccountAddActivity extends BaseActivity implements View.OnClickListener, TaskListener {
@@ -133,10 +135,18 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } else if (mUserInput.startsWith("iov")) {
+            } else if (mUserInput.startsWith("star")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BaseChain.IOV_MAIN, mUserInput);
-                    return;
+                    if (BaseChain.SUPPORT_CHAINS().contains(IOV_TEST)) {
+                        Dialog_Choice_Iov dialog = Dialog_Choice_Iov.newInstance(null);
+                        dialog.setCancelable(false);
+                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                        return;
+
+                    } else {
+                        onGenNewAccount(BaseChain.IOV_MAIN, mUserInput);
+                        return;
+                    }
 
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
@@ -156,16 +166,6 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
             } else if (mUserInput.startsWith("band")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(BaseChain.BAND_MAIN, mUserInput);
-                    return;
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mUserInput.startsWith("star")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BaseChain.IOV_TEST, mUserInput);
                     return;
 
                 } else {

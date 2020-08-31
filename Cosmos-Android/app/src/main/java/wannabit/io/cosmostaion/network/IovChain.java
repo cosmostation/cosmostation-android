@@ -46,28 +46,26 @@ public interface IovChain {
 //
 //    @GET("/tokens")
 //    Call<ResIovToken> getTokens();
-
-        @GET("/cash/balances")
-        Call<ResIovBalance> getBalance(@Query("address") String address);
-
-
-        @GET("/nonce/address/{address}")
-        Call<ResIovNonce> getNonce(@Path("address") String address);
-
-        @GET("/username/resolve//{starname}")
-        Call<ResIovOriginAddress> getOriginAddress(@Path("starname") String starname);
-
-        //Broadcast Tx
-        @POST("/tx/submit")
-        Call<ResIovSubmitTx> broadTx(@Body RequestBody data);
+//
+//        @GET("/cash/balances")
+//        Call<ResIovBalance> getBalance(@Query("address") String address);
+//
+//
+//        @GET("/nonce/address/{address}")
+//        Call<ResIovNonce> getNonce(@Path("address") String address);
+//
+//        @GET("/username/resolve//{starname}")
+//        Call<ResIovOriginAddress> getOriginAddress(@Path("starname") String starname);
+//
+//        //Broadcast Tx
+//        @POST("/tx/submit")
+//        Call<ResIovSubmitTx> broadTx(@Body RequestBody data);
 
 
 
 
 
         //new version for IOV
-
-
         @GET("/auth/accounts/{address}")
         Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
 
