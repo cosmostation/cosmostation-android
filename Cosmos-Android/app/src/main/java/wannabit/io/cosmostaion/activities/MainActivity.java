@@ -292,7 +292,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_chain_img));
             mToolbarChainName.setText(getString(R.string.str_iov_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIov));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));

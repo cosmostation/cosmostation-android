@@ -611,7 +611,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 return;
             }
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) ||
+                    mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
                 if (temp != null) { mTopValidators = temp; }
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.OK_TEST)) {
                 mTopValidators = WUtil.getTopVals(temp);
@@ -627,7 +628,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) ||
-                    mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
+                    mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
                 mTaskCount = mTaskCount + mBondings.size();
                 mRewards.clear();
                 for(BondingState bonding:mBondings) {
@@ -656,7 +657,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_FETCH_STAKING_POOL) {
             try {
                 if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) ||
-                        mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
+                        mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
                     mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
                 }
             } catch (Exception e) {}
@@ -787,7 +788,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         mMyValidators.clear();
         if (mTaskCount == 0 &&
                 (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) ||
-                        mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST))) {
+                        mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST))) {
             for(Validator top:mTopValidators) {
                 boolean already = false;
                 for (BondingState bond:mBondings) {
@@ -825,17 +826,17 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             mAllValidators.addAll(mOtherValidators);
             getBaseDao().setAllValidators(mAllValidators);
 
-//            WLog.w("MyValidators " + mMyValidators.size());
-//            WLog.w("TopValidators " + mTopValidators.size());
-//            WLog.w("OtherValidators " + mOtherValidators.size());
-//
-//            WLog.w("mBondings " + mBondings.size());
-//            WLog.w("mUnbondings " + mUnbondings.size());
-//            WLog.w("mRewards " + mRewards.size());
-//
-//            WLog.w("mInflation " + mInflation);
-//            WLog.w("mProvisions " + mProvisions);
-//            WLog.w("mBondedToken " + mBondedToken);
+            WLog.w("MyValidators " + mMyValidators.size());
+            WLog.w("TopValidators " + mTopValidators.size());
+            WLog.w("OtherValidators " + mOtherValidators.size());
+
+            WLog.w("mBondings " + mBondings.size());
+            WLog.w("mUnbondings " + mUnbondings.size());
+            WLog.w("mRewards " + mRewards.size());
+
+            WLog.w("mInflation " + mInflation);
+            WLog.w("mProvisions " + mProvisions);
+            WLog.w("mBondedToken " + mBondedToken);
 
         } else if (mTaskCount == 0 && (mBaseChain.equals(BaseChain.OK_TEST))) {
             getBaseDao().mTopValidators = mTopValidators;

@@ -121,8 +121,6 @@ public class CheckWithdrawAddressTask extends CommonTask {
 
             }
 
-
-
         } catch (Exception e) {
             WLog.w("CheckWithdrawAddressTask Error " + e.getMessage());
         }

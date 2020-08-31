@@ -455,8 +455,7 @@ public class WDp {
     public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         if (bondings == null || bondings.size() == 0) return sum;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) || chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
@@ -1200,9 +1199,6 @@ public class WDp {
         if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return BaseConstant.KEY_BNB_PATH + String.valueOf(position);
 
-        } else if (chain.equals(IOV_MAIN)) {
-            return BaseConstant.KEY_IOV_PATH + String.valueOf(position) +"'";
-
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             if (newBip) {
                 return BaseConstant.KEY_NEW_KAVA_PATH + String.valueOf(position);
@@ -1213,8 +1209,8 @@ public class WDp {
         } else if (chain.equals(BAND_MAIN)) {
             return BaseConstant.KEY_BAND_PATH + String.valueOf(position);
 
-        } else if (chain.equals(IOV_TEST)) {
-            return BaseConstant.KEY_NEW_IOV_PATH + String.valueOf(position);
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            return BaseConstant.KEY_IOV_PATH + String.valueOf(position);
 
         } else if (chain.equals(OK_TEST)) {
             return BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position);

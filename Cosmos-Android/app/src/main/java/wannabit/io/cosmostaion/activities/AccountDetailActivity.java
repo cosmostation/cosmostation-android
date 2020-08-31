@@ -164,7 +164,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 hasbalance  = true;
             }
 
-        } else if (mBaseChain.equals(IOV_MAIN)) {
+        }  else if (mBaseChain.equals(IOV_MAIN)) {
             if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("1000000")) > 0) {
                 hasbalance  = true;
             }
@@ -235,7 +235,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardAlarm.setVisibility(View.GONE);
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
-            mCardRewardAddress.setVisibility(View.GONE);
+            mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_chain_img));
 
         } else if (mBaseChain.equals(BAND_MAIN)) {
