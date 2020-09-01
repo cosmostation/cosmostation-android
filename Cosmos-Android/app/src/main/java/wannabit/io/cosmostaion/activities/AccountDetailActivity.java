@@ -165,12 +165,12 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         }  else if (mBaseChain.equals(IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("1000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("100000")) > 0) {
                 hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(IOV_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("1000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("100000")) > 0) {
                 hasbalance  = true;
             }
 

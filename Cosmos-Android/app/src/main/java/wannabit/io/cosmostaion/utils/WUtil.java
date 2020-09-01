@@ -394,17 +394,13 @@ public class WUtil {
         if(!TextUtils.isEmpty(lcd.validator_address))
             valAddress = lcd.validator_address;
 
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) ||
+                chain.equals(BaseChain.KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(BaseChain.IOV_TEST)) {
             return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares).movePointRight(18), System.currentTimeMillis());
 
-        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
-            return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
-
-        } else if (chain.equals(BaseChain.BAND_MAIN)) {
-            return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
         }
         return null;
     }
@@ -458,7 +454,6 @@ public class WUtil {
         return result;
     }
 
-    //TODO check multi unbonding with one validator
     public static ArrayList<UnBondingState> getUnbondingFromLcd(Context c, long accountId, ResLcdUnBonding lcd) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();

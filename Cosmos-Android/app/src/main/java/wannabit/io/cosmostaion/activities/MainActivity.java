@@ -450,7 +450,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("bnbToken", WUtil.getBnbMainToken(getBaseDao().mBnbTokens));
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("500000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("100000")) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("iovDenom", TOKEN_IOV);
@@ -467,7 +467,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
 
         } else if (mBaseChain.equals(BaseChain.IOV_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("1000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("100000")) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("iovDenom", TOKEN_IOV_TEST);

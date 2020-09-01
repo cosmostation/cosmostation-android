@@ -91,7 +91,13 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            Dialog_Delegate_Warning dialog = Dialog_Delegate_Warning.newInstance();
+            Bundle bundle = new Bundle();
+            if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
+                bundle.putInt("day", 3);
+            } else {
+                bundle.putInt("day", 21);
+            }
+            Dialog_Delegate_Warning dialog = Dialog_Delegate_Warning.newInstance(bundle);
             dialog.setTargetFragment(DelegateStep3Fragment.this, SELECT_DELEGATE_CHECK);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 

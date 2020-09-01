@@ -353,7 +353,7 @@ public class BaseConstant {
     public final static String FEE_BEP3_SEND_MIN        = "0.1";
     public final static String FEE_BEP3_SEND_CHECK      = "0.100375";
 
-    public final static String FEE_IOV_GAS_RATE_AVERAGE         = "10";
+    public final static String FEE_IOV_GAS_RATE_AVERAGE         = "1";
     public final static String FEE_IOV_GAS_AMOUNT_SEND          = "100000";
     public final static String FEE_IOV_GAS_AMOUNT_STAKE         = "200000";
     public final static String FEE_IOV_GAS_AMOUNT_REDELEGATE    = "300000";
@@ -391,7 +391,6 @@ public class BaseConstant {
     public final static String KAVA_COIN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
     public final static String KAVA_CDP_MARKET_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
     public final static String BAND_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
-    //TODO update url for IOV
-    public final static String IOV_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+    public final static String IOV_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
 
 }
