@@ -138,8 +138,8 @@ public enum BaseChain {
         result.add(COSMOS_MAIN);
         result.add(IRIS_MAIN);
         result.add(BNB_MAIN);
-        result.add(KAVA_MAIN);
         result.add(IOV_MAIN);
+        result.add(KAVA_MAIN);
         result.add(BAND_MAIN);
 
 //        result.add(BNB_TEST);

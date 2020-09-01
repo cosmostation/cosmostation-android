@@ -88,6 +88,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 return;
             }
 
+            /*
             //Check Support IOV starname service
             if (BaseChain.SUPPORT_CHAINS().contains(IOV_MAIN) && userInput.contains("*")) {
                 getSActivity().onShowWaitDialog();
@@ -123,6 +124,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 });
                 return;
             }
+            */
 
 
             if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
