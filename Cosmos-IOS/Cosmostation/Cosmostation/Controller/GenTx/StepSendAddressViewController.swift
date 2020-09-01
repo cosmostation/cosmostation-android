@@ -86,8 +86,8 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-            if (!userInput!.starts(with: "iov") || !WKey.isValidateBech32(userInput!)) {
+        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.OK_TEST) {
+            if (!userInput!.starts(with: "star") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
@@ -100,12 +100,6 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
             
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             if (!userInput!.starts(with: "band") || !WKey.isValidateBech32(userInput!)) {
-                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
-                return;
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            if (!userInput!.starts(with: "star") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }

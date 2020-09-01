@@ -150,17 +150,17 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         bnbAction.setValue(UIImage(named: "binanceChImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
-        let kavaAction = UIAlertAction(title: NSLocalizedString("chain_title_kava", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.KAVA_MAIN
-            self.initViewUpdate()
-        })
-        kavaAction.setValue(UIImage(named: "kavaImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
-        
         let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.IOV_MAIN
             self.initViewUpdate()
         })
         iovAction.setValue(UIImage(named: "iovImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        let kavaAction = UIAlertAction(title: NSLocalizedString("chain_title_kava", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.KAVA_MAIN
+            self.initViewUpdate()
+        })
+        kavaAction.setValue(UIImage(named: "kavaImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let bandAction = UIAlertAction(title: NSLocalizedString("chain_title_band", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.BAND_MAIN
@@ -195,11 +195,10 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
+        showAlert.addAction(iovAction)
         showAlert.addAction(kavaAction)
-        if (ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_MAIN)) {
-            showAlert.addAction(iovAction)
-        }
         showAlert.addAction(bandAction)
+        
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.BINANCE_TEST)) {
             showAlert.addAction(bnbTestAction)
         }

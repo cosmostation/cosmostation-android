@@ -31,7 +31,6 @@ let KEY_KAVA_TESTNET_WARN               = "KEY_KAVA_TESTNET_WARN"
 
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 let CSS_LCD_URL                         = "https://lcd-cosmos-app.cosmostation.io/";
-//let CSS_LCD_URL                         = "https://lcd-cosmos-testnet.cosmostation.io/";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 
 let BNB_URL                             = "https://dex.binance.org/";
@@ -45,17 +44,18 @@ let KAVA_TEST_URL                       = "https://lcd-kava-testnet-8000.cosmost
 let KAVA_TEST_API                       = "https://api-kava-testnet-8000.cosmostation.io/";
 let KAVA_TEST_FAUCET                    = "https://faucet-kava-testnet-8000.cosmostation.io/faucet/";
 
-let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
+
+let IOV_URL                             = "https://lcd-iov.cosmostation.io/";
 let IOV_API                             = "";
-let IOV_REST_URL                        = "https://bnsapi.iov.one/";
-let IOV_RPC_URL                         = "https://rpc-iov-mainnet.cosmostation.io/";
 
 let IOV_TEST_URL                        = "https://iovnscli-rest-api.cluster-galaxynet.iov.one/";
 let IOV_TEST_API                        = "";
 let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.one/credit?address=";
 
+
 let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band-wenchang-mainnet.cosmostation.io/";
+
 
 let OK_TEST_URL                        = "https://lcd-okchain-testnet.cosmostation.io/";
 let OK_TEST_API                        = "";
@@ -231,13 +231,13 @@ let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";
 
 
 //IOV_URL
-let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
-let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
-let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
+let IOV_URL_BALANCE                     = "";
+let IOV_URL_NONCE                       = "";
+let IOV_URL_ADDRESS_INFO                = "";
 
-let IOV_REST_URL_BALANCE                = IOV_REST_URL + "cash/balances";
-let IOV_REST_URL_NONCE                  = IOV_REST_URL + "nonce/address/";
-let IOV_REST_URL_TX_SUBMIT              = IOV_REST_URL + "tx/submit";
+let IOV_REST_URL_BALANCE                = "";
+let IOV_REST_URL_NONCE                  = "";
+let IOV_REST_URL_TX_SUBMIT              = "";
 
 let IOV_TX                              = IOV_URL + "txs/";
 let IOV_VALIDATORS                      = IOV_URL + "staking/validators";
@@ -302,8 +302,7 @@ let COSMOS_VAL_URL                      = "https://raw.githubusercontent.com/cos
 let IRIS_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
 let KAVA_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
 let BAND_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
-//TODO
-let IOV_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+let IOV_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -570,7 +569,7 @@ let KAVA_GAS_FEE_AMOUNT_BEP3                = "200000"
 let KAVA_GAS_FEE_AMOUNT_HIGH                = "350000"
 
 
-let IOV_GAS_FEE_RATE_AVERAGE                = "10"
+let IOV_GAS_FEE_RATE_AVERAGE                = "1"
 let IOV_GAS_AMOUNT_SEND                     = "100000"
 let IOV_GAS_AMOUNT_STAKE                    = "200000"
 let IOV_GAS_AMOUNT_REDELEGATE               = "300000"
@@ -653,8 +652,8 @@ enum ChainType: String {
         result.append(COSMOS_MAIN)
         result.append(IRIS_MAIN)
         result.append(BINANCE_MAIN)
+        result.append(IOV_MAIN)
         result.append(KAVA_MAIN)
-//        result.append(IOV_MAIN)
         result.append(BAND_MAIN)
         
 //        result.append(BINANCE_TEST)

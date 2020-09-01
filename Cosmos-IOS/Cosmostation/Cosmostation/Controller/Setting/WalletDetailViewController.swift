@@ -295,6 +295,18 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+            
+        } else if (chainType == ChainType.IOV_MAIN) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
+        } else if (chainType == ChainType.IOV_TEST) {
+            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
         }
         
         let title = NSLocalizedString("reward_address_notice_title", comment: "")

@@ -1037,6 +1037,13 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.IOV_MAIN) {
+            let text = "https://big-dipper.iov-mainnet-2.iov.one/transactions/" + mTxInfo!.txhash!
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
         }
         
     }
@@ -1069,8 +1076,14 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (self.chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://cosmoscan.io/tx/" + mTxInfo!.txhash!) else { return }
-            var safariViewController = SFSafariViewController(url: url)
+            let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.IOV_MAIN) {
+            guard let url = URL(string: "https://big-dipper.iov-mainnet-2.iov.one/transactions/" + mTxInfo!.txhash!) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
         }
     }
     
@@ -1155,6 +1168,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         } else if (self.chainType! == ChainType.IOV_MAIN) {
+            url = IOV_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         } else if (self.chainType! == ChainType.IOV_TEST) {
             url = IOV_TEST_TX + txHash

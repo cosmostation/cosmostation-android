@@ -49,12 +49,12 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             mDpDecimal = 6
-            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, IOV_MAIN_DENOM).subtracting(NSDecimalNumber(string: "2000000"))
+            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, IOV_MAIN_DENOM).subtracting(NSDecimalNumber(string: "200000"))
             availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
             mDpDecimal = 6
-            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, IOV_TEST_DENOM).subtracting(NSDecimalNumber(string: "2000000"))
+            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, IOV_TEST_DENOM).subtracting(NSDecimalNumber(string: "200000"))
             availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
             
         }

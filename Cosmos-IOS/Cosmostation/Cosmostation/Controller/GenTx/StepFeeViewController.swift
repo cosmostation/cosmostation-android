@@ -353,7 +353,7 @@ class StepFeeViewController: BaseViewController {
                 pageHolderVC.onNextPage()
             }
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-            feeCoin = Coin.init(IOV_TEST_DENOM, feeAmount.stringValue)
+            feeCoin = Coin.init(IOV_MAIN_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
             let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
             fee.gas = estGas

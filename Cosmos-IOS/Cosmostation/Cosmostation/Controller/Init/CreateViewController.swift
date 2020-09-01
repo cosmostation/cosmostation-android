@@ -135,17 +135,17 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         bnbAction.setValue(UIImage(named: "binanceChImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
-        let kavaAction = UIAlertAction(title: NSLocalizedString("chain_title_kava", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.KAVA_MAIN
-            self.onGenNewKey()
-        })
-        kavaAction.setValue(UIImage(named: "kavaImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
-        
         let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.IOV_MAIN
             self.onGenNewKey()
         })
         iovAction.setValue(UIImage(named: "iovChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        let kavaAction = UIAlertAction(title: NSLocalizedString("chain_title_kava", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.KAVA_MAIN
+            self.onGenNewKey()
+        })
+        kavaAction.setValue(UIImage(named: "kavaImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let bandAction = UIAlertAction(title: NSLocalizedString("chain_title_band", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.BAND_MAIN
@@ -180,11 +180,10 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
+        showAlert.addAction(iovAction)
         showAlert.addAction(kavaAction)
-        if (ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_MAIN)) {
-            showAlert.addAction(iovAction)
-        }
         showAlert.addAction(bandAction)
+        
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.BINANCE_TEST)) {
             showAlert.addAction(bnbTestAction)
         }
@@ -293,7 +292,6 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             var insertResult :Int64 = -1
             if(keyResult) {
                 newAccount.account_address = self.dpAddress!
-//                newAccount.account_base_chain = chain.rawValue
                 newAccount.account_base_chain = WUtils.getChainDBName(chain)
                 newAccount.account_has_private = true
                 newAccount.account_from_mnemonic = true

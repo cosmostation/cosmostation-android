@@ -93,10 +93,6 @@ class WKey {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "okchain", program: ripemd160)
         }
         return result
-//        if (chain == ChainType.IOV_MAIN) {
-//            let sha256 = Array(([UInt8](Crypto.sha256(Data.fromHex(pubHex)!)))[0..<20])
-//            result = try! SegwitAddrCoder.shared.encode2(hrp: "iov", program: Data(bytes: sha256))
-//        }
     }
 
     static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType, _ newbip:Bool) -> String {
@@ -135,63 +131,9 @@ class WKey {
     }
     
     static func getDpAddressPath(_ mnemonic: [String], _ path:Int, _ chain:ChainType, _ newbip:Bool) -> String {
-        //using Secp256k1
         let maskerKey = getMasterKeyFromWords(mnemonic)
         return WKey.getHDKeyDpAddressWithPath(maskerKey, path: path, chain: chain, newbip)
-//        if (chain == ChainType.IOV_MAIN) {
-//            //using ed25519
-//
-//            let path = IOV_BASE_PATH.appending(String(path)).appending("'")
-//            let cKey = deriveForPath(path, mnemonic)
-//
-//            let pre: [UInt8] = Array("sigs/ed25519/".utf8)
-//            let post: [UInt8] = Ed25519.calcPublicKey(secretKey: cKey!.key)
-//            let result = pre + post
-//            return getPubToDpAddress(result.toHexString(), chain)
-//
-//        }
     }
-    
-    //no using
-    static func isEd25519ValidPath(path: String) -> Bool {
-        guard let regex = try? NSRegularExpression(pattern: "^m(\\/[0-9]+')+$", options: .caseInsensitive) else { fatalError() }
-        let matches = regex.matches(in: path, options: [], range: NSRange(location: 0, length: path.count))
-        return matches.count > 0
-    }
-    
-    //no using
-    static func deriveForPath(_ path: String, _ m: [String]) -> Ed25519Key? {
-        guard isEd25519ValidPath(path: path) else { return nil }
-        var key = getMasterEd25519KeyFromWord(m)
-        let segments = path.components(separatedBy: "/")
-        for segment in segments[1...] {
-            guard var i = UInt32(segment.replacingOccurrences(of: "'", with: "")) else { return nil}
-            i = i + (0b1 << 31)
-            guard let k = key else { return nil }
-            key = k.derive(index: i)
-        }
-        return key
-    }
-    
-
-//    static func getCosmosDpAddress(key hdKey:HDPrivateKey) -> String {
-//        let sha256 = Crypto.sha256(hdKey.privateKey().publicKey().raw)
-//        let ripemd160 = Crypto.ripemd160(sha256)
-//        return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
-//    }
-//
-//    static func getCosmosDpAddressWithPath(_ masterKey:HDPrivateKey, _ path:Int) -> String {
-//        do {
-//            let childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-//            let sha256 = Crypto.sha256(childKey.privateKey().publicKey().raw)
-//            let ripemd160 = Crypto.ripemd160(sha256)
-//            return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
-//
-//        } catch {
-//            return ""
-//        }
-//    }
-    
     
     static func isValidateAddress(_ address:String) -> Bool {
         if(address.count != 45 && !address.starts(with: "cosmos")) {
