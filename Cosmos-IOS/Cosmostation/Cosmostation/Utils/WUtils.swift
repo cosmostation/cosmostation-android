@@ -183,14 +183,6 @@ class WUtils {
         return result;
     }
     
-    static func getBalancesWithIov(_ account: Account, _ balanceInfo: IovBalanceInfo) -> Array<Balance> {
-        var result = Array<Balance>()
-        for iovCoin in balanceInfo.coins {
-            result.append(Balance.init(account.account_id, iovCoin.ticker, iovCoin.getAmount(iovCoin.ticker).stringValue, Date().millisecondsSince1970))
-        }
-        return result;
-    }
-    
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
@@ -1861,6 +1853,13 @@ class WUtils {
             }
         }
         return ""
+    }
+    
+    //TODO check confirm starname regular express
+    static func isValidStarName(_ starname: String) -> Bool {
+        let starNameRegEx = "[0-9a-z.-]{1,64}+\\*[a-z0-9.-]{2,16}"
+        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
+        return starNamePred.evaluate(with: starname)
     }
     
     static func getChainId(_ chainS:String) -> String {

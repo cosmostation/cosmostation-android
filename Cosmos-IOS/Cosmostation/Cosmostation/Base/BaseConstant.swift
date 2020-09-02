@@ -255,6 +255,7 @@ let IOV_INFLATION                       = IOV_URL + "minting/inflation";
 let IOV_PROVISIONS                      = IOV_URL + "minting/annual-provisions";
 let IOV_STAKING_POOL                    = IOV_URL + "staking/pool";
 let IOV_BORAD_TX                        = IOV_URL + "txs";
+let IOV_CHECK_WITH_STARNAME             = IOV_URL + "starname/query/resolve";
 
 
 //IOV_TEST_URL
@@ -274,6 +275,7 @@ let IOV_TEST_INFLATION                  = IOV_TEST_URL + "minting/inflation";
 let IOV_TEST_PROVISIONS                 = IOV_TEST_URL + "minting/annual-provisions";
 let IOV_TEST_STAKING_POOL               = IOV_TEST_URL + "staking/pool";
 let IOV_TEST_BORAD_TX                   = IOV_TEST_URL + "txs";
+//let IOV_TEST_CHECK_WITH_STARNAME        = IOV_URL + "starname/query/resolve";
 
 
 //OK_TEST_URL

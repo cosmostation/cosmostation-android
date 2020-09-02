@@ -198,6 +198,9 @@
 "str_bep3_unavailable_title" = "BNB-BEP3 스왑 불가";
 "str_bep3_bnb_cap_over" = "현재 스왑 가능한 BNB가 모두 소진되었습니다.\n\nKava 정책에 따라 최대 스왑 가능 수량이 정해집니다.\n\n스왑 가능한 최대 수량에 관련된 문의는 아래 공식 Kava 커뮤니티 채널에 문의하세요.\n\nhttps://t.me/kavalabs";
 "str_bep3_bnb_cap" = "현재 네트워크에 남은 스왑 가능 수량은 %@ 입니다.\n\nKava 정책에 따라 최대 스왑 가능 수량이 정해집니다.\n\n스왑 가능한 최대 수량에 관련된 문의는 아래 공식 Kava 커뮤니티 채널에 문의하세요. \n\nhttps://t.me/kavalabs";
+"str_starname_confirm_title" = "스타네임 주소 사용";
+"str_starname_confirm_msg" = "매칭된 주소를 찾았습니다. 이 주소로 전송을 진행하시겠습니까? \n\n\n%@\n\n%@";
+
 
 "current_price_format" = "%@ 현재 가격";
 "liquidation_price_format" = "%@ 청산 가격";
@@ -410,6 +413,9 @@
 "error_only_deposit_can_vote" = "예금이 없습니다.\n먼저 예금을 해주세요.";
 "error_min_1_validator" = "1개 이상의 검증인을 선택해주세요.";
 "error_max_30_validator" = "최대 30명의 검증인을 선택하실 수 있습니다.";
+"error_invalide_starname" = "등록되지 않은 스타네임 입니다.";
+"error_no_mattched_starname" = "유효한 스타네임 이지만, 현재 체인에 등록된 유효한 주소가 없습니다.";
+"error_starname_self_send" = "유효한 스타네임 이지만, 자기 자신의 주소로는 송금할 수 없습니다.";
 
 
 

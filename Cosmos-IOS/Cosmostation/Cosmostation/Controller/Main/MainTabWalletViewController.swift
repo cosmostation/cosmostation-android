@@ -887,7 +887,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
             }
             cell?.actionNameService = {
-                self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+                self.onClickIovNameservice()
             }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
             return cell!
@@ -1070,7 +1070,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
             }
             cell?.actionNameService = {
-                self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+                self.onClickIovNameservice()
             }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
             return cell!
@@ -1364,12 +1364,24 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.pushViewController(txVC, animated: true)
     }
     
-    func onClickIovDeposit() {
-        self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
-    }
-    
     func onClickIovNameservice() {
-        self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+        if (chainType! == ChainType.IOV_MAIN) {
+            let url = "https://lcd-iov.cosmostation.io/starname/query/resolve"
+            let request = Alamofire.request(url, method: .post, parameters: [ "starname" : "benjamin*iov" ], encoding: JSONEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                print("success ", res)
+                    
+                case .failure(let error):
+                    print("failure ", error)
+                }
+            }
+            
+        } else {
+            self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+            return
+        }
     }
     
     func onClickCdp() {
