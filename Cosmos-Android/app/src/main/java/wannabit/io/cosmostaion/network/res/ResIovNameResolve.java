@@ -29,7 +29,7 @@ public class ResIovNameResolve {
                     }
 
                 } else if (chain.equals(BaseChain.BNB_MAIN)) {
-                    if (resource.uri.equals("asset:bnb") && resource.resource.startsWith("bnb")) {
+                    if (resource.uri.equals("asset:busd") && resource.resource.startsWith("bnb")) {
                         return  resource.resource;
                     }
 
