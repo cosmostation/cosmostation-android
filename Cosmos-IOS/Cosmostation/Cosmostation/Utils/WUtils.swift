@@ -1857,7 +1857,7 @@ class WUtils {
     
     //TODO check confirm starname regular express
     static func isValidStarName(_ starname: String) -> Bool {
-        let starNameRegEx = "[0-9a-z.-]{1,64}+\\*[a-z0-9.-]{2,16}"
+        let starNameRegEx = "[0-9a-z.-]{0,64}+\\*[a-z0-9.-]{3,16}"
         let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
         return starNamePred.evaluate(with: starname)
     }
