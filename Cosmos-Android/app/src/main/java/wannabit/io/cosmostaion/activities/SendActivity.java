@@ -170,8 +170,8 @@ public class SendActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        onHideKeyboard();
         if(mViewPager.getCurrentItem() > 0) {
-            onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -179,11 +179,10 @@ public class SendActivity extends BaseActivity {
     }
 
     public void onNextStep() {
+        onHideKeyboard();
         if(mViewPager.getCurrentItem() < 4) {
-            onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
-
     }
 
     public void onBeforeStep() {

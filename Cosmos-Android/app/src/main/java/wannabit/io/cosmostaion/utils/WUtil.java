@@ -1409,4 +1409,16 @@ public class WUtil {
         buffer.putLong(x);
         return buffer.array();
     }
+
+    public static boolean isValidStarName(String starname) {
+        boolean result = false;
+        String regex = "[0-9a-z.-]{1,64}+\\*[a-z0-9.-]{2,16}";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(starname);
+        if (m.matches()) {
+            result = true;
+        }
+        return result;
+    }
+
 }

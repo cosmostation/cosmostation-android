@@ -15,9 +15,11 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.req.ReqCheckStarname;
 import wannabit.io.cosmostaion.network.res.ResBlockInfo;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResIovBalance;
+import wannabit.io.cosmostaion.network.res.ResIovNameResolve;
 import wannabit.io.cosmostaion.network.res.ResIovNonce;
 import wannabit.io.cosmostaion.network.res.ResIovOriginAddress;
 import wannabit.io.cosmostaion.network.res.ResIovSubmitTx;
@@ -122,6 +124,11 @@ public interface IovChain {
         //Broadcast Tx
         @POST("/txs")
         Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
+
+        //Check Starname
+        @POST("/starname/query/resolve")
+        Call<ResIovNameResolve> getStarnameAddress(@Body ReqCheckStarname data);
+
 
 
 

@@ -357,7 +357,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnOkWithdraw.setOnClickListener(this);
         mBtnOkVote.setOnClickListener(this);
         mBtnParticipate.setOnClickListener(this);
-
         return rootView;
     }
 
