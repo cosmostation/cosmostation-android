@@ -660,7 +660,7 @@ enum ChainType: String {
         
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
-        result.append(IOV_TEST)
+//        result.append(IOV_TEST)
         result.append(OK_TEST)
         return result
     }

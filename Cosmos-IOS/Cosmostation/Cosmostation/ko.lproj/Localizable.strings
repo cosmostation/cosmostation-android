@@ -119,7 +119,7 @@
 "send_guide_title_band" = "밴드 프로토콜";
 "send_guide_msg_band" = "Tendermint를 기반으로 하는 크로스 체인 오라클 플랫폼입니다. 밴드 프로토콜은 실제 데이터와 API를 스마트 계약으로 통합하여 제공합니다.";
 "send_guide_title_ok" = "오케이 체인";
-"send_guide_msg_ok" = "OK Chain은 Tendermint를 기반으로 하는 탈 중앙화 거래소 플랫폼 입니다.";
+"send_guide_msg_ok" = "OK Chain은 Tendermint를 기반으로 하는 퍼블릭 탈 중앙화 거래소 플랫폼 입니다.";
 "send_guide_btn1_cosmos" = "가이드";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";

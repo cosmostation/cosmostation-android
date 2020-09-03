@@ -538,7 +538,7 @@
 "bDP-a8-F01.text" = "-";
 
 /* Class = "UITextField"; placeholder = "Recipient Address"; ObjectID = "bF3-6L-krq"; */
-"bF3-6L-krq.placeholder" = "수취인 주소";
+"bF3-6L-krq.placeholder" = "스타네임 또는 수취인 주소";
 
 /* Class = "UITextField"; placeholder = "To Change Reward Address"; ObjectID = "bOz-sp-8fD"; */
 "bOz-sp-8fD.placeholder" = "새 이자 지급 주소";
@@ -1018,3 +1018,10 @@
 
 "6jK-Bg-pNt.normalTitle" = " 붙여넣기";
 "40t-Br-EId.text" = "메모 기입을 확인 바랍니다.\n특정 거래소 또는 지갑은 메모 입력을 요구합니다.";
+"xQD-Jk-TJF.text" = "*starname 서비스를 지원합니다";
+"RDB-jO-44g.text" = "복잡한 주소 대신 *starname만으로 쉽고 안전하게 자산을 전송할 수 있는 IOV의 온체인 서비스 입니다.";
+
+
+
+
+
