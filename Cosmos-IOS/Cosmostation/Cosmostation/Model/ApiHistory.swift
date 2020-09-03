@@ -39,7 +39,14 @@ public class ApiHistory {
             self.height = dictionary["height"] as? Int64 ?? -1
             self.tx_hash = dictionary["tx_hash"] as? String ?? ""
             self.memo = dictionary["memo"] as? String ?? ""
-            self.time = dictionary["time"] as? String ?? ""
+            self.time = dictionary["timestamp"] as? String ?? ""
+            
+            if let rawTime = dictionary["time"] as? String {
+                self.time = rawTime
+            }
+            if let rawTime = dictionary["timestamp"] as? String {
+                self.time = rawTime
+            }
             
             if let feedata = dictionary["fee"] as? [String : Any] {
                 self.fee = Fee.init(feedata)

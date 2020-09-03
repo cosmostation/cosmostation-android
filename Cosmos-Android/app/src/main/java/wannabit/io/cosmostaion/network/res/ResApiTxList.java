@@ -37,7 +37,7 @@ public class ResApiTxList {
         @SerializedName("memo")
         public String memo;
 
-        @SerializedName("time")
+        @SerializedName(value="time", alternate={"timestamp"})
         public String time;
 
         @SerializedName("logs")
