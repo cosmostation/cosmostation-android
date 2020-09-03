@@ -363,7 +363,7 @@
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
     <string name="str_front_guide_msg_iov">Built on Tendermint, IOV builds a fast, secure and decentralized universal name service.</string>
-    <string name="str_front_guide_msg_ok">OK Chain is a decentralized exchange powered by Tendermint.</string>
+    <string name="str_front_guide_msg_ok">OK Chain is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
