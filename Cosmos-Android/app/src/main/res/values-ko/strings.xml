@@ -778,6 +778,10 @@
     <string name="str_ok_direct_vote_c">검증인 투표</string>
     <string name="str_ok_direct_vote">검증인 투표</string>
     <string name="str_vote_to_validator">선택한 검증인</string>
+    <string name="str_support_starname_title">*starname 서비스를 지원합니다</string>
+    <string name="str_support_starname_msg">복잡한 주소 대신 *starname만으로 쉽고 안전하게 자산을 전송할 수 있는 IOV의 온체인 서비스 입니다.</string>
+    <string name="str_starname_confirm_title">스타네임 주소 사용</string>
+    <string name="str_starname_confirm_msg">매칭된 주소를 찾았습니다. 이 주소로 전송을 진행하시겠습니까? \n\n\n%1$s\n\n%2$s</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -859,6 +863,9 @@
     <string name="error_max_30_validator">최대 30명의 검증인을 선택하실 수 있습니다.</string>
     <string name="error_min_1_validator">1개 이상의 검증인을 선택해주세요.</string>
     <string name="error_only_deposit_can_vote">예금이 없습니다.\n먼저 예금을 해주세요.</string>
+    <string name="error_invalide_starname">등록되지 않은 스타네임 입니다.</string>
+    <string name="error_no_mattched_starname">유효한 스타네임 이지만, 현재 체인에 등록된 유효한 주소가 없습니다.</string>
+    <string name="error_starname_self_send">유효한 스타네임 이지만, 자기 자신의 주소로는 송금할 수 없습니다.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

@@ -33,6 +33,11 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
 
     @IBAction func onClickConfirm(_ sender: Any) {
         let popupVC = DelegateWarnPopup(nibName: "DelegateWarnPopup", bundle: nil)
+        if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            popupVC.warnImgType = 3
+        } else {
+            popupVC.warnImgType = 21
+        }
         let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
         cardPopup.resultDelegate = self
         cardPopup.show(onViewController: self)

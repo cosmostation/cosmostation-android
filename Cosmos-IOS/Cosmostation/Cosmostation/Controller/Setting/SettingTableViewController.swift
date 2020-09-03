@@ -133,6 +133,11 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                     let safariViewController = SFSafariViewController(url: url)
                     present(safariViewController, animated: true, completion: nil)
                     
+                } else if (chainType == ChainType.IOV_MAIN) {
+                    guard let url = URL(string: "https://big-dipper.iov-mainnet-2.iov.one") else { return }
+                    let safariViewController = SFSafariViewController(url: url)
+                    present(safariViewController, animated: true, completion: nil)
+                    
                 } else if (chainType == ChainType.KAVA_MAIN) {
                     guard let url = URL(string: "https://kava.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
@@ -169,7 +174,10 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 present(safariViewController, animated: true, completion: nil)
                 
             } else if(indexPath.row == 2) {
-                onShowToast(self.versionLabel.text!)
+                let urlAppStore = URL(string: "itms-apps://itunes.apple.com/app/id1459830339")
+                if(UIApplication.shared.canOpenURL(urlAppStore!)) {
+                    UIApplication.shared.open(urlAppStore!, options: [:], completionHandler: nil)
+                }
             }
         }
     }

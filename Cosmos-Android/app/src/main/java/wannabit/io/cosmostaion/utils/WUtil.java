@@ -359,7 +359,7 @@ public class WUtil {
         long time = System.currentTimeMillis();
         ArrayList<BondingState> result = new ArrayList<>();
         if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) ||
-                chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.IOV_TEST)) {
+                chain.equals(BaseChain.KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(BaseChain.IOV_TEST)) {
             for(ResLcdBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
@@ -394,17 +394,13 @@ public class WUtil {
         if(!TextUtils.isEmpty(lcd.validator_address))
             valAddress = lcd.validator_address;
 
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) ||
+                chain.equals(BaseChain.KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(BaseChain.IOV_TEST)) {
             return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares).movePointRight(18), System.currentTimeMillis());
 
-        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
-            return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
-
-        } else if (chain.equals(BaseChain.BAND_MAIN)) {
-            return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
         }
         return null;
     }
@@ -413,7 +409,7 @@ public class WUtil {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
         if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.BAND_MAIN) ||
-                chain.equals(BaseChain.KAVA_TEST) || chain.equals(BaseChain.IOV_TEST)) {
+                chain.equals(BaseChain.KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(BaseChain.IOV_TEST)) {
             for(ResLcdUnBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
@@ -458,7 +454,6 @@ public class WUtil {
         return result;
     }
 
-    //TODO check multi unbonding with one validator
     public static ArrayList<UnBondingState> getUnbondingFromLcd(Context c, long accountId, ResLcdUnBonding lcd) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
@@ -1414,4 +1409,16 @@ public class WUtil {
         buffer.putLong(x);
         return buffer.array();
     }
+
+    public static boolean isValidStarName(String starname) {
+        boolean result = false;
+        String regex = "[0-9a-z.-]{0,64}+\\*[a-z0-9.-]{3,16}";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(starname);
+        if (m.matches()) {
+            result = true;
+        }
+        return result;
+    }
+
 }

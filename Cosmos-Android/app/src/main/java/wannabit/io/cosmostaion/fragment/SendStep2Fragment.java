@@ -135,7 +135,6 @@ public class SendStep2Fragment extends BaseFragment implements View.OnClickListe
             }
         });
         mMemoWranLayer.setVisibility(View.VISIBLE);
-
         return rootView;
     }
 

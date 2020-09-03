@@ -256,6 +256,10 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return;
             } else if (mBaseChain.equals(OK_TEST)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.oklink.com/okchain-test/tx/" + mResTxInfo.txhash);
+            } else if (mBaseChain.equals(BAND_MAIN)) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://cosmoscan.io/tx/" + mResTxInfo.txhash);
+            } else if (mBaseChain.equals(IOV_MAIN)) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://big-dipper.iov-mainnet-2.iov.one/transactions/" + mResTxInfo.txhash);
             }
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
@@ -632,20 +636,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                    if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN)) {
+                    if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(OK_TEST) || mBaseChain.equals(IOV_MAIN)) {
                         webintent.putExtra("txid", mResTxInfo.txhash);
                     } else if (mBaseChain.equals(IRIS_MAIN)) {
                         webintent.putExtra("txid", mResTxInfo.hash);
-                    } else if (mBaseChain.equals(BNB_MAIN)) {
+                    } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                         webintent.putExtra("txid", mResBnbTxInfo.hash);
-                    } else if (mBaseChain.equals(BNB_TEST)) {
-                        webintent.putExtra("txid", mResBnbTxInfo.hash);
-                    } else if (mBaseChain.equals(KAVA_TEST)) {
-                        return;
-                    } else if (mBaseChain.equals(BAND_MAIN)) {
-                        webintent.putExtra("txid", mResTxInfo.txhash);
-                    } else if (mBaseChain.equals(OK_TEST)) {
-                        webintent.putExtra("txid", mResTxInfo.txhash);
                     } else {
                         return;
                     }

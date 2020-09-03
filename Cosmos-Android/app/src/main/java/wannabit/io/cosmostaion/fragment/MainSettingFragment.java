@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 import java.util.Locale;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
@@ -31,11 +24,6 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
-import wannabit.io.cosmostaion.dialog.Dialog_Market;
-import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResCmcTic;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -197,18 +185,20 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://kava.mintscan.io/"));
                 startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://testnet-explorer.binance.org/"));
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://big-dipper.iov-mainnet-2.iov.one/"));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cosmoscan.io/"));
+                startActivity(intent);
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://testnet-explorer.binance.org/"));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.oklink.com/okchain-test/"));
                 startActivity(intent);
 
             }
-
 
         } else if (v.equals(mBtnHomepage)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
@@ -228,7 +218,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnVersion)) {
-
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://details?id=" + getMainActivity().getPackageName()));
+            startActivity(intent);
         }
 
     }

@@ -23,9 +23,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 public class Dialog_ChoiceNet extends DialogFragment {
 
 
-    private LinearLayout mIovLayer, mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer;
+    private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer;
     private LinearLayout mMain, mIris, mBinance, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mTest12k, mTest13k;
-    private LinearLayout mBandLayer, mBand;
+    private LinearLayout mBand;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -47,7 +47,6 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mIris = view.findViewById(R.id.iris_net);
         mBinance = view.findViewById(R.id.binance_net);
         mKava = view.findViewById(R.id.kava_net);
-        mIovLayer = view.findViewById(R.id.iov_layer);
         mIov = view.findViewById(R.id.iov_net);
         mBinanaceTestLayer = view.findViewById(R.id.bnb_test_layer);
         mBinanaceTest = view.findViewById(R.id.bnb_test_net);
@@ -60,7 +59,6 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mTest12k = view.findViewById(R.id.gaia_12k);
         mTest13k = view.findViewById(R.id.gaia_13k);
 
-        mBandLayer = view.findViewById(R.id.band_layer);
         mBand = view.findViewById(R.id.band_chain);
 
         mMain.setOnClickListener(new View.OnClickListener() {
@@ -95,18 +93,13 @@ public class Dialog_ChoiceNet extends DialogFragment {
             }
         });
 
-
-
-        if (BaseChain.SUPPORT_CHAINS().contains(IOV_MAIN)) {
-            mIovLayer.setVisibility(View.VISIBLE);
-            mIov.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IOV_MAIN);
-                    getDialog().dismiss();
-                }
-            });
-        }
+        mIov.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IOV_MAIN);
+                getDialog().dismiss();
+            }
+        });
 
         mBand.setOnClickListener(new View.OnClickListener() {
             @Override

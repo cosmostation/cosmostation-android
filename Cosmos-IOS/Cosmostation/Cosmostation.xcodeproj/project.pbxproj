@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2800CF9624719EC4003C3EF1 /* Tally.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800CF9524719EC4003C3EF1 /* Tally.swift */; };
 		2800CF982471A004003C3EF1 /* CosmosProposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800CF972471A004003C3EF1 /* CosmosProposer.swift */; };
+		28089AA424FF8FC4007E9C40 /* IovNameResolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28089AA324FF8FC4007E9C40 /* IovNameResolve.swift */; };
 		2815AA70243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA6F243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift */; };
 		2815AA72243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA71243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift */; };
 		2815AA7424349DE2008B23AA /* StepRepayCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */; };
@@ -133,7 +134,6 @@
 		2852D7702477E41A00D11DC4 /* KavaIncentiveParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D76F2477E41A00D11DC4 /* KavaIncentiveParam.swift */; };
 		2852D7732477E83400D11DC4 /* WalletKavaIncentiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D7712477E83400D11DC4 /* WalletKavaIncentiveCell.swift */; };
 		2852D7742477E83400D11DC4 /* WalletKavaIncentiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2852D7722477E83400D11DC4 /* WalletKavaIncentiveCell.xib */; };
-		28572ED82457CBCB00A7E447 /* IovNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28572ED72457CBCB00A7E447 /* IovNonce.swift */; };
 		285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */; };
 		285A33CF2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33CE2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift */; };
 		285A33D12446CDAB0052BD3D /* StepHtlcSend2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33D02446CDAB0052BD3D /* StepHtlcSend2ViewController.swift */; };
@@ -358,7 +358,6 @@
 		E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E19A32272254AE8500A05E41 /* ManageHeader.xib */; };
 		E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A32292254AFE100A05E41 /* ManageAccountCell.swift */; };
 		E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */; };
-		E1A699582366D424004CA274 /* IovBalanceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A699572366D424004CA274 /* IovBalanceInfo.swift */; };
 		E1A6995B2366E8CC004CA274 /* WalletIovCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A699592366E8CC004CA274 /* WalletIovCell.swift */; };
 		E1A82DD1224220910097CAEE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD0224220910097CAEE /* Account.swift */; };
 		E1A82DD3224222E00097CAEE /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD2224222E00097CAEE /* Password.swift */; };
@@ -415,6 +414,7 @@
 /* Begin PBXFileReference section */
 		2800CF9524719EC4003C3EF1 /* Tally.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tally.swift; sourceTree = "<group>"; };
 		2800CF972471A004003C3EF1 /* CosmosProposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmosProposer.swift; sourceTree = "<group>"; };
+		28089AA324FF8FC4007E9C40 /* IovNameResolve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovNameResolve.swift; sourceTree = "<group>"; };
 		2815AA6F243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDrawDebtCdpAmountViewController.swift; sourceTree = "<group>"; };
 		2815AA71243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDrawDebtCdpCheckViewController.swift; sourceTree = "<group>"; };
 		2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRepayCdpAmountViewController.swift; sourceTree = "<group>"; };
@@ -548,7 +548,6 @@
 		2852D76F2477E41A00D11DC4 /* KavaIncentiveParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveParam.swift; sourceTree = "<group>"; };
 		2852D7712477E83400D11DC4 /* WalletKavaIncentiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKavaIncentiveCell.swift; sourceTree = "<group>"; };
 		2852D7722477E83400D11DC4 /* WalletKavaIncentiveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletKavaIncentiveCell.xib; sourceTree = "<group>"; };
-		28572ED72457CBCB00A7E447 /* IovNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovNonce.swift; sourceTree = "<group>"; };
 		285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend0ViewController.swift; sourceTree = "<group>"; };
 		285A33CE2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend1ViewController.swift; sourceTree = "<group>"; };
 		285A33D02446CDAB0052BD3D /* StepHtlcSend2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend2ViewController.swift; sourceTree = "<group>"; };
@@ -812,7 +811,6 @@
 		E19A32272254AE8500A05E41 /* ManageHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageHeader.xib; sourceTree = "<group>"; };
 		E19A32292254AFE100A05E41 /* ManageAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAccountCell.swift; sourceTree = "<group>"; };
 		E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageAccountCell.xib; sourceTree = "<group>"; };
-		E1A699572366D424004CA274 /* IovBalanceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovBalanceInfo.swift; sourceTree = "<group>"; };
 		E1A699592366E8CC004CA274 /* WalletIovCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletIovCell.swift; sourceTree = "<group>"; };
 		E1A82DD0224220910097CAEE /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		E1A82DD2224222E00097CAEE /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
@@ -1250,8 +1248,6 @@
 				E1406FBF2260643200D9440C /* BlockInfo.swift */,
 				E1406FC12260654F00D9440C /* TxInfo.swift */,
 				E17748E72283D0F4003D8CD1 /* GuideCategory.swift */,
-				E1A699572366D424004CA274 /* IovBalanceInfo.swift */,
-				28572ED72457CBCB00A7E447 /* IovNonce.swift */,
 				28D14E6D2418B7F0002CD42E /* ApiHistory.swift */,
 				2842AB5C242C2D4D00248EEB /* Cdp.swift */,
 				2842AB5E242C2F1800248EEB /* CdpOwen.swift */,
@@ -1276,6 +1272,7 @@
 				283D2EA924F56AEE00247424 /* OkDeposit.swift */,
 				283D2EAB24F56AFF00247424 /* OkWithdraw.swift */,
 				28B4302924F76AD500BD7BB2 /* OkTransfer.swift */,
+				28089AA324FF8FC4007E9C40 /* IovNameResolve.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1842,7 +1839,6 @@
 				2842AB63242C37F300248EEB /* CdpDeposits.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
 				2868559B24989ACD0099D18F /* DelegateWarnPopup.swift in Sources */,
-				E1A699582366D424004CA274 /* IovBalanceInfo.swift in Sources */,
 				28474EFB241E06E200AF5A81 /* Cron.codec.pb.swift in Sources */,
 				E1271B0A224C943C0083AF17 /* RestoreViewController.swift in Sources */,
 				28B4303E24F7EE1F00BD7BB2 /* StepOkDepositCheckViewController.swift in Sources */,
@@ -1851,7 +1847,6 @@
 				E17B214423470950001743D6 /* TokenDetailHeaderBnbCell.swift in Sources */,
 				E1F1CF08239F5737004EF8A2 /* Vote.swift in Sources */,
 				283D2EA624F5308900247424 /* OkTokenList.swift in Sources */,
-				28572ED82457CBCB00A7E447 /* IovNonce.swift in Sources */,
 				E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */,
 				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
 				28B4304A24F8B38500BD7BB2 /* OkOtherValidatorViewController.swift in Sources */,
@@ -1861,6 +1856,7 @@
 				E171A073225B08CE00C5756C /* StepDelegateCheckViewController.swift in Sources */,
 				E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */,
 				28617A7F24329433006D66EA /* StepDepositCdpAmountViewController.swift in Sources */,
+				28089AA424FF8FC4007E9C40 /* IovNameResolve.swift in Sources */,
 				E10492132347B41000A2980F /* WalletConnectViewController.swift in Sources */,
 				282FF34D23F50E010028CC66 /* TxRedelegateCell.swift in Sources */,
 				E1FD233C233E1C44009327FE /* WalletGuideCell.swift in Sources */,

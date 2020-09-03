@@ -91,6 +91,13 @@ public class WebActivity extends BaseActivity {
             else
                 mWebview.loadUrl("https://kava.mintscan.io");
 
+        } else if (mBasechain.equals(BaseChain.IOV_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl("https://big-dipper.iov-mainnet-2.iov.one/transactions/"+mTxid);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl("https://big-dipper.iov-mainnet-2.iov.one/account/"+mAddress);
+
         } else if (mBasechain.equals(BaseChain.BNB_TEST)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
             if (!TextUtils.isEmpty(mTxid))

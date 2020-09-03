@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -300,10 +300,9 @@ public class BaseConstant {
 
     public final static String KEY_PATH             = "44'/118'/0'/0/";
     public final static String KEY_BNB_PATH         = "44'/714'/0'/0/";
-    public final static String KEY_IOV_PATH         = "44'/234'/";
+    public final static String KEY_IOV_PATH         = "44'/234'/0'/0/";
     public final static String KEY_NEW_KAVA_PATH    = "44'/459'/0'/0/";
     public final static String KEY_BAND_PATH        = "44'/494'/0'/0/";
-    public final static String KEY_NEW_IOV_PATH     = "44'/234'/0'/0/";
     public final static String KEY_NEW_OK_PATH      = "44'/996'/0'/0/";
     public final static String characterFilter  = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
@@ -354,7 +353,7 @@ public class BaseConstant {
     public final static String FEE_BEP3_SEND_MIN        = "0.1";
     public final static String FEE_BEP3_SEND_CHECK      = "0.100375";
 
-    public final static String FEE_IOV_GAS_RATE_AVERAGE         = "10";
+    public final static String FEE_IOV_GAS_RATE_AVERAGE         = "1";
     public final static String FEE_IOV_GAS_AMOUNT_SEND          = "100000";
     public final static String FEE_IOV_GAS_AMOUNT_STAKE         = "200000";
     public final static String FEE_IOV_GAS_AMOUNT_REDELEGATE    = "300000";
@@ -392,7 +391,6 @@ public class BaseConstant {
     public final static String KAVA_COIN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
     public final static String KAVA_CDP_MARKET_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
     public final static String BAND_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
-    //TODO update url for IOV
-    public final static String IOV_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+    public final static String IOV_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
 
 }

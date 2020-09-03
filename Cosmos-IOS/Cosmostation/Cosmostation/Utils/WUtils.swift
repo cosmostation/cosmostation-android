@@ -183,14 +183,6 @@ class WUtils {
         return result;
     }
     
-    static func getBalancesWithIov(_ account: Account, _ balanceInfo: IovBalanceInfo) -> Array<Balance> {
-        var result = Array<Balance>()
-        for iovCoin in balanceInfo.coins {
-            result.append(Balance.init(account.account_id, iovCoin.ticker, iovCoin.getAmount(iovCoin.ticker).stringValue, Date().millisecondsSince1970))
-        }
-        return result;
-    }
-    
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
@@ -289,13 +281,13 @@ class WUtils {
         return localFormatter.string(from: fullDate)
     }
     
-    static func unbondingDateFromNow() -> String {
+    static func unbondingDateFromNow(_ date:Int) -> String {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
         
         let afterDate = Calendar.current.date(
             byAdding: .day,
-            value: +21,
+            value: +date,
             to: Date())
         return localFormatter.string(from: afterDate!)
     }
@@ -1863,6 +1855,13 @@ class WUtils {
         return ""
     }
     
+    //TODO check confirm starname regular express
+    static func isValidStarName(_ starname: String) -> Bool {
+        let starNameRegEx = "[0-9a-z.-]{0,64}+\\*[a-z0-9.-]{3,16}"
+        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
+        return starNamePred.evaluate(with: starname)
+    }
+    
     static func getChainId(_ chainS:String) -> String {
         if (chainS == CHAIN_COSMOS_S) {
             return "cosmoshub-3"
@@ -1873,7 +1872,7 @@ class WUtils {
         } else if (chainS == CHAIN_KAVA_S) {
             return "kava-3"
         } else if (chainS == CHAIN_IOV_S) {
-            return "iov-mainnet"
+            return "iov-mainnet-2"
         } else if (chainS == CHAIN_BAND_S) {
             return "band-wenchang-mainnet"
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
@@ -1898,7 +1897,7 @@ class WUtils {
         } else if (chain == ChainType.KAVA_MAIN) {
             return "kava-3"
         } else if (chain == ChainType.IOV_MAIN) {
-            return "iov-mainnet"
+            return "iov-mainnet-2"
         } else if (chain == ChainType.BAND_MAIN) {
             return "band-wenchang-mainnet"
         } else if (chain == ChainType.BINANCE_TEST) {

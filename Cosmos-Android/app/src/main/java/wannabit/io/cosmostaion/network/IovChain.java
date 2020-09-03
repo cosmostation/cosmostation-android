@@ -15,9 +15,11 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.req.ReqCheckStarname;
 import wannabit.io.cosmostaion.network.res.ResBlockInfo;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResIovBalance;
+import wannabit.io.cosmostaion.network.res.ResIovNameResolve;
 import wannabit.io.cosmostaion.network.res.ResIovNonce;
 import wannabit.io.cosmostaion.network.res.ResIovOriginAddress;
 import wannabit.io.cosmostaion.network.res.ResIovSubmitTx;
@@ -46,28 +48,26 @@ public interface IovChain {
 //
 //    @GET("/tokens")
 //    Call<ResIovToken> getTokens();
-
-        @GET("/cash/balances")
-        Call<ResIovBalance> getBalance(@Query("address") String address);
-
-
-        @GET("/nonce/address/{address}")
-        Call<ResIovNonce> getNonce(@Path("address") String address);
-
-        @GET("/username/resolve//{starname}")
-        Call<ResIovOriginAddress> getOriginAddress(@Path("starname") String starname);
-
-        //Broadcast Tx
-        @POST("/tx/submit")
-        Call<ResIovSubmitTx> broadTx(@Body RequestBody data);
+//
+//        @GET("/cash/balances")
+//        Call<ResIovBalance> getBalance(@Query("address") String address);
+//
+//
+//        @GET("/nonce/address/{address}")
+//        Call<ResIovNonce> getNonce(@Path("address") String address);
+//
+//        @GET("/username/resolve//{starname}")
+//        Call<ResIovOriginAddress> getOriginAddress(@Path("starname") String starname);
+//
+//        //Broadcast Tx
+//        @POST("/tx/submit")
+//        Call<ResIovSubmitTx> broadTx(@Body RequestBody data);
 
 
 
 
 
         //new version for IOV
-
-
         @GET("/auth/accounts/{address}")
         Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
 
@@ -124,6 +124,11 @@ public interface IovChain {
         //Broadcast Tx
         @POST("/txs")
         Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
+
+        //Check Starname
+        @POST("/starname/query/resolve")
+        Call<ResIovNameResolve> getStarnameAddress(@Body ReqCheckStarname data);
+
 
 
 

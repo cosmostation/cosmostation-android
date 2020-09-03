@@ -10,14 +10,12 @@ public enum BaseChain {
     COSMOS_LEGACY3("cosmoshub-3"),
     COSMOS_MAIN("cosmoshub-3"),
     IRIS_MAIN("irishub"),
-    IOV_MAIN("iov-mainnet"),
+    IOV_MAIN("iov-mainnet-2"),
     BNB_MAIN("Binance-Chain-Tigris"),
     KAVA_LEGACY1("kava-1"),
     KAVA_LEGACY2("kava-2"),
     KAVA_MAIN("kava-3"),
     BAND_MAIN("band-wenchang-mainnet"),
-
-
 
     BNB_TEST("Binance-Chain-Nile"),
     KAVA_TEST_LEGACY4("kava-testnet-4000"),
@@ -140,13 +138,13 @@ public enum BaseChain {
         result.add(COSMOS_MAIN);
         result.add(IRIS_MAIN);
         result.add(BNB_MAIN);
+        result.add(IOV_MAIN);
         result.add(KAVA_MAIN);
-//        result.add(IOV_MAIN);
         result.add(BAND_MAIN);
 
 //        result.add(BNB_TEST);
 //        result.add(KAVA_TEST);
-        result.add(IOV_TEST);
+//        result.add(IOV_TEST);
         result.add(OK_TEST);
         return result;
     }

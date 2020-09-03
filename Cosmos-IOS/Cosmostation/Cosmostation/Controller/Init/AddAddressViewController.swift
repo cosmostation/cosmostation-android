@@ -56,10 +56,6 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
     
     @IBAction func onClickNext(_ sender: Any) {
         let userInput = self.addAddressInputText.text?.trimmingCharacters(in: .whitespaces) ?? ""
-        if (BaseData.instance.isDupleAccount(userInput)) {
-            self.onShowToast(NSLocalizedString("error_duple_address", comment: ""))
-            return
-        }
         if (userInput.starts(with: "cosmos")) {
             if (userInput.starts(with: "cosmosvaloper")) {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
@@ -109,14 +105,15 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
                    
-        } else if (userInput.starts(with: "iov")) {
-            if (!ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_MAIN)) {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                return;
-            }
+        } else if (userInput.starts(with: "star")) {
             if (WKey.isValidateBech32(userInput)) {
-                self.onGenWatchAccount(ChainType.IOV_MAIN, userInput)
-                return;
+                if (ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_TEST)) {
+                    self.onShowIovChainSelect(userInput)
+                    return;
+                } else {
+                    self.onGenWatchAccount(ChainType.IOV_MAIN, userInput)
+                    return;
+                }
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
                 self.addAddressInputText.text = ""
@@ -148,21 +145,6 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (userInput.starts(with: "star")) {
-            if (!ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_TEST)) {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                return;
-                
-            }
-            if (WKey.isValidateBech32(userInput)) {
-                self.onGenWatchAccount(ChainType.IOV_TEST, userInput)
-                return;
-            } else {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                self.addAddressInputText.text = ""
-                return;
-            }
-            
         } else if (userInput.starts(with: "okchain")) {
             if (!ChainType.SUPPRT_CHAIN().contains(ChainType.OK_TEST)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
@@ -187,6 +169,10 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
     }
     
     func onGenWatchAccount(_ chain:ChainType, _ address: String) {
+        if (BaseData.instance.isDupleAccount(address, WUtils.getChainDBName(chain))) {
+            self.onShowToast(NSLocalizedString("error_duple_address", comment: ""))
+            return
+        }
         self.showWaittingAlert()
         DispatchQueue.global().async {
             let newAccount = Account.init(isNew: true)
@@ -223,6 +209,22 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
         
         showAlert.addAction(kavaAction)
         showAlert.addAction(kavaTestAction)
+        self.present(showAlert, animated: true, completion: nil)
+    }
+    
+    func onShowIovChainSelect(_ input:String) {
+        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.IOV_MAIN, input)
+        })
+        iovAction.setValue(UIImage(named: "iovChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        let iovTestAction = UIAlertAction(title: NSLocalizedString("chain_title_iov_test", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.IOV_TEST, input)
+        })
+        iovTestAction.setValue(UIImage(named: "iovTestnetImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        showAlert.addAction(iovAction)
+        showAlert.addAction(iovTestAction)
         self.present(showAlert, animated: true, completion: nil)
     }
     

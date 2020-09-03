@@ -269,13 +269,12 @@
             android:minHeight="@dimen/space_40"
             android:layout_marginTop="12dp"
             android:background="@drawable/btn_trans_with_border"
-            android:clickable="true"
-            android:visibility="gone">
+            android:clickable="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableLeft="@drawable/ic_name_ic"
+                android:drawableLeft="@drawable/name_ic"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
                 style="@style/font_ss_12_white"

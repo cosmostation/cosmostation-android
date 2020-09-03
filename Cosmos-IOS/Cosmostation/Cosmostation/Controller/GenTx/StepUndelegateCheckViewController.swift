@@ -66,7 +66,11 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
         }
         targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
         memoLabel.text = pageHolderVC.mMemo
-        expectedDateLabel.text = WUtils.unbondingDateFromNow() + " (21days after)"
+        if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            expectedDateLabel.text = WUtils.unbondingDateFromNow(3) + " (3days after)"
+        } else {
+            expectedDateLabel.text = WUtils.unbondingDateFromNow(21) + " (21days after)"
+        }
     }
 
     func passwordResponse(result: Int) {

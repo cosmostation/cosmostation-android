@@ -206,7 +206,7 @@ public class ApiClient {
         if (service_iov == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_rest_iov_main))
+                        .baseUrl(c.getString(R.string.url_lcd_iov_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 service_iov = retrofit.create(IovChain.class);

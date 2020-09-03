@@ -229,12 +229,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("2000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
                 hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(IOV_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("2000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
                 hasbalance  = true;
             }
 
@@ -307,7 +307,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("3000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("300000")) > 0) {
                 hasbalance  = true;
             }
             if (mRedelegates == null || mRedelegates.size() > 0) {
@@ -318,7 +318,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(IOV_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("3000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) > 0) {
                 hasbalance  = true;
             }
             if (mRedelegates == null || mRedelegates.size() > 0) {
@@ -383,12 +383,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("2000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
                 hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(IOV_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("2000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
                 hasbalance  = true;
             }
         }
@@ -442,11 +442,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("1500000")) <= 0) {
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("150000")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("1500000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("150000")) > 0) {
                 hasbalance  = true;
             }
 
@@ -455,11 +455,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("1500000")) <= 0) {
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("150000")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("1500000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("150000")) > 0) {
                 hasbalance  = true;
             }
         }
@@ -515,11 +515,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("3000000")) <= 0) {
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("300000")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("3000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("300000")) > 0) {
                 hasbalance  = true;
             }
 
@@ -528,11 +528,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("3000000")) <= 0) {
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("300000")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("3000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) > 0) {
                 hasbalance  = true;
             }
 

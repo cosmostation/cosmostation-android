@@ -357,7 +357,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnOkWithdraw.setOnClickListener(this);
         mBtnOkVote.setOnClickListener(this);
         mBtnParticipate.setOnClickListener(this);
-
         return rootView;
     }
 
@@ -1032,6 +1031,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mBtnWebDetail)) {
             if (getMainActivity().mBaseChain.equals(KAVA_TEST)) { return; }
+            if (getMainActivity().mBaseChain.equals(IOV_TEST)) { return; }
             Intent webintent = new Intent(getMainActivity(), WebActivity.class);
             webintent.putExtra("address", getMainActivity().mAccount.address);
             webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
@@ -1040,7 +1040,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mGuideBtn)) {
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_ko.pdf"));
                     startActivity(guideIntent);
                 } else {
@@ -1076,7 +1076,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mFaqBtn)) {
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
                     startActivity(guideIntent);
                 } else {
@@ -1229,7 +1229,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             Dialog_OK_Stake_Type dialog = Dialog_OK_Stake_Type.newInstance(null);
             dialog.setTargetFragment(MainSendFragment.this, OK_STAKE_TYPE);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
 
         }
 

@@ -4,12 +4,17 @@ import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -27,8 +32,10 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResIovOriginAddress;
+import wannabit.io.cosmostaion.network.req.ReqCheckStarname;
+import wannabit.io.cosmostaion.network.res.ResIovNameResolve;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
@@ -46,6 +53,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     private EditText        mAddressInput;
     private Button          mCancel, mNextBtn;
+    private LinearLayout    mStarNameLayer;
     private LinearLayout    mBtnQr, mBtnPaste, mBtnHistory;
 
     public static SendStep0Fragment newInstance(Bundle bundle) {
@@ -65,6 +73,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mAddressInput = rootView.findViewById(R.id.receiver_account);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mCancel = rootView.findViewById(R.id.btn_cancel);
+        mStarNameLayer = rootView.findViewById(R.id.starname_layer);
 
         mBtnQr = rootView.findViewById(R.id.btn_qr);
         mBtnPaste = rootView.findViewById(R.id.btn_paste);
@@ -76,6 +85,36 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mBtnQr.setOnClickListener(this);
         mBtnPaste.setOnClickListener(this);
         mBtnHistory.setOnClickListener(this);
+
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            private boolean alreadyOpen;
+            private final int defaultKeyboardHeightDP = 100;
+            private final int EstimatedKeyboardDP = defaultKeyboardHeightDP + (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? 48 : 0);
+            private final Rect rect = new Rect();
+
+            @Override
+            public void onGlobalLayout() {
+                int estimatedKeyboardHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, EstimatedKeyboardDP, rootView.getResources().getDisplayMetrics());
+                rootView.getWindowVisibleDisplayFrame(rect);
+                int heightDiff = rootView.getRootView().getHeight() - (rect.bottom - rect.top);
+                boolean isShown = heightDiff >= estimatedKeyboardHeight;
+                if (isShown == alreadyOpen) {
+                    return;
+                }
+                alreadyOpen = isShown;
+                if (alreadyOpen) {
+                    mStarNameLayer.setVisibility(View.GONE);
+                } else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mStarNameLayer.setVisibility(View.VISIBLE);
+                        }
+                    },100);
+                }
+            }
+        });
+        mStarNameLayer.setVisibility(View.VISIBLE);
         return rootView;
     }
 
@@ -83,47 +122,17 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         if (v.equals(mNextBtn)) {
             String userInput = mAddressInput.getText().toString().trim();
+
+            if (WUtil.isValidStarName(userInput)) {
+                //TODO gogo starname
+                onCheckNameService(userInput, getSActivity().mBaseChain);
+                return;
+            }
+
             if (getSActivity().mAccount.address.equals(userInput)) {
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            //Check Support IOV starname service
-            if (BaseChain.SUPPORT_CHAINS().contains(IOV_MAIN) && userInput.contains("*")) {
-                getSActivity().onShowWaitDialog();
-                ApiClient.getIovChain(getSActivity()).getOriginAddress(userInput).enqueue(new Callback<ResIovOriginAddress>() {
-                    @Override
-                    public void onResponse(Call<ResIovOriginAddress> call, Response<ResIovOriginAddress> response) {
-                        getSActivity().onHideWaitDialog();
-                        if(response.isSuccessful() && response.body() != null) {
-                            String originAddress = response.body().getOriginAddress(getSActivity().mBaseChain);
-                            if (!TextUtils.isEmpty(originAddress)) {
-                                Bundle bundle = new Bundle();
-                                bundle.putString("starname", userInput);
-                                bundle.putString("originAddress", originAddress);
-                                Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
-                                dialog.setCancelable(true);
-                                dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
-                            } else {
-                                Toast.makeText(getContext(), R.string.error_invalid_star_name, Toast.LENGTH_SHORT).show();
-                            }
-
-                        } else {
-                            Toast.makeText(getContext(), R.string.error_invalid_star_name, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResIovOriginAddress> call, Throwable t) {
-                        getSActivity().onHideWaitDialog();
-                        Toast.makeText(getContext(), R.string.error_invalid_star_name, Toast.LENGTH_SHORT).show();
-                    }
-                });
-                return;
-            }
-
 
             if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 if (userInput.startsWith("cosmos") && WKey.isValidBech32(userInput)) {
@@ -247,5 +256,45 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 super.onActivityResult(requestCode, resultCode, data);
             }
         }
+    }
+
+    private void onCheckNameService(String userInput, BaseChain chain) {
+        ReqCheckStarname req = new ReqCheckStarname(userInput);
+        ApiClient.getIovChain(getContext()).getStarnameAddress(req).enqueue(new Callback<ResIovNameResolve>() {
+            @Override
+            public void onResponse(Call<ResIovNameResolve> call, Response<ResIovNameResolve> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ResIovNameResolve nameResolve = response.body();
+                    final String matchAddress = nameResolve.getAddressWithChain(chain);
+                    if (TextUtils.isEmpty(matchAddress)) {
+                        Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (getSActivity().mAccount.address.equals(matchAddress)) {
+                        Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("starname", userInput);
+                    bundle.putString("originAddress", matchAddress);
+                    Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
+                    dialog.setCancelable(true);
+                    dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                    getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalide_starname, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResIovNameResolve> call, Throwable t) {
+                Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
+        });
+
     }
 }
