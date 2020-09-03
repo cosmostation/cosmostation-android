@@ -695,9 +695,10 @@ class WUtils {
     static func getFormattedNumber(_ amount: NSDecimalNumber, _ dpPoint:Int16) -> String {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = Int(dpPoint)
+        nf.locale = Locale(identifier: "en_US")
         nf.numberStyle = .decimal
         
-        var formatted = nf.string(from: amount)
+        let formatted = nf.string(from: amount)
         return formatted!
     }
     
