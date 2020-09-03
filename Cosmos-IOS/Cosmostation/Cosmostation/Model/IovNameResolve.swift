@@ -33,7 +33,7 @@ public struct IovNameResolve: Codable {
                 }
                 
             } else if (chain == ChainType.BINANCE_MAIN) {
-                if (nameResource.uri == "asset:busd" && nameResource.resource.starts(with: "bnb")) {
+                if (nameResource.uri == "asset:bnb" && nameResource.resource.starts(with: "bnb")) {
                     return nameResource.resource
                 }
                 
