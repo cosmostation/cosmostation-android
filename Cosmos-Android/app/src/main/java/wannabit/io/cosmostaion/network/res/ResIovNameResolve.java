@@ -43,6 +43,11 @@ public class ResIovNameResolve {
                         return  resource.resource;
                     }
 
+                } else if (chain.equals(BaseChain.BAND_MAIN)) {
+                    if (resource.uri.equals("asset:band") && resource.resource.startsWith("band")) {
+                        return  resource.resource;
+                    }
+
                 }
             }
         }
