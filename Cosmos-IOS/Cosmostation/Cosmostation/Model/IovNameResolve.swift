@@ -47,6 +47,11 @@ public struct IovNameResolve: Codable {
                     return nameResource.resource
                 }
                 
+            } else if (chain == ChainType.BAND_MAIN) {
+                if (nameResource.uri == "asset:band" && nameResource.resource.starts(with: "band")) {
+                    return nameResource.resource
+                }
+                
             }
         }
         return nil
