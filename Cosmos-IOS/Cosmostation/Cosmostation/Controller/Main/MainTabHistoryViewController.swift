@@ -47,7 +47,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.refresher.tintColor = UIColor.white
         self.historyTableView.addSubview(refresher)
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.IRIS_MAIN) {
             onFetchHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
@@ -66,22 +68,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(testClick(tapGestureRecognizer:)))
         self.comingLabel.addGestureRecognizer(tapGesture)
     }
-    
+
     @objc func testClick(tapGestureRecognizer: UITapGestureRecognizer) {
-//        let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-//        txDetailVC.mIsGen = false
-//        txDetailVC.mTxHash = "61A71DAF4AD4583073E2996D1BFCC259203C8E5F5DD63998121B6129720B372B" //ST
-//        txDetailVC.mTxHash = "2BC85C6F383DBA55E866ACD865581E564212D95932A22EE7F84E81BE3D33A26B" //MT
-//        txDetailVC.mTxHash = "94B1018C82C9C2B8CF0C726D9B195F3B767A3A2098A2805A08079F0B44417161" //DP
-//        txDetailVC.mTxHash = "5D28BEF4B29F9B417D176FECDB1C23412F5256FAD8C7D6999FF84C806BED1CC7" //WT
-//        txDetailVC.mTxHash = "42527E847E119F9FB1C5EB57C5BEB7747AA11D8CDC76A773C435964C2E063190" //VOTE
-//
-//        txDetailVC.hidesBottomBarWhenPushed = true
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(txDetailVC, animated: true)
     }
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -155,7 +145,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onRequestFetch() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.IRIS_MAIN) {
             onFetchHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
@@ -171,7 +163,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
+            return self.mApiHistories.count
+        } else if (chainType == ChainType.IRIS_MAIN) {
             return self.mHistories.count
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return self.mBnbHistories.count
@@ -202,12 +196,12 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.timestamp)
-        cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.timestamp)
-        cell?.txBlockLabel.text = String(history._source.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mainTabVC.mAccount.account_address)
-        if (history._source.allResult) {
+        let history = mApiHistories[indexPath.row]
+        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
+        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
+        cell?.txBlockLabel.text = String(history.height) + " block"
+        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
+        if (history.isSuccess) {
             cell?.txResultLabel.isHidden = true
         } else {
             cell?.txResultLabel.isHidden = false
@@ -287,10 +281,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (chainType == ChainType.COSMOS_MAIN) {
-            let history = mHistories[indexPath.row]
+            let history = mApiHistories[indexPath.row]
             let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
             txDetailVC.mIsGen = false
-            txDetailVC.mTxHash = history._source.hash
+            txDetailVC.mTxHash = history.tx_hash
             txDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(txDetailVC, animated: true)
@@ -361,14 +355,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     func onFetchHistory(_ address:String) {
         var query = ""
         var url = ""
-        if (chainType == ChainType.COSMOS_MAIN) {
-            query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\", \"tx.value.msg.value.proposer\"]}}}"
-            url = CSS_ES_PROXY_COSMOS
-            
-        } else if (chainType == ChainType.IRIS_MAIN) {
+        if (chainType == ChainType.IRIS_MAIN) {
             query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.address\", \"tx.value.msg.value.owner\", \"tx.value.msg.value.banker\", \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.proposer\", \"tx.value.msg.value.dest_address\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.author\", \"tx.value.msg.value.consumer\", \"tx.value.msg.value.trustee\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\"]}}}"
             url = IRIS_ES_PROXY_IRIS
-            
         }
         
         let data = query.data(using: .utf8)
@@ -443,19 +432,21 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchApiHistory(_ address:String) {
         var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
+            url = COSMOS_API_HISTORY + address
+        } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_API_HISTORY + address
         } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_API_TEST_HISTORY + address
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_API_HISTORY + address
         }
-        print("url ", url)
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+//        print("url ", url)
+        let request = Alamofire.request(url!, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST || self.chainType == ChainType.BAND_MAIN) {
+                if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST || self.chainType == ChainType.BAND_MAIN) {
                     self.mApiHistories.removeAll()
                     guard let histories = res as? Array<NSDictionary> else {
                         if (SHOW_LOG) { print("no history!!") }

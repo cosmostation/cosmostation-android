@@ -142,7 +142,7 @@ class StepRewardViewController: BaseViewController {
     func onFetchEachReward(_ accountAddr: String, _ validatorAddr:String) {
         var url: String?
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_REWARD_FROM_VAL + accountAddr + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + validatorAddr
+            url = COSMOS_URL_REWARD_FROM_VAL + accountAddr + COSMOS_URL_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
@@ -230,7 +230,7 @@ class StepRewardViewController: BaseViewController {
     func onFetchRewardAddress(_ accountAddr: String) {
         var url = ""
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+            url = COSMOS_URL_REWARD_ADDRESS + accountAddr + COSMOS_URL_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {

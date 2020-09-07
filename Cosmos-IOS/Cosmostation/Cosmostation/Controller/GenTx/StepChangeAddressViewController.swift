@@ -108,7 +108,7 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
     func onFetchRewardAddress(_ accountAddr: String) {
         var url = ""
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+            url = COSMOS_URL_REWARD_ADDRESS + accountAddr + COSMOS_URL_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {

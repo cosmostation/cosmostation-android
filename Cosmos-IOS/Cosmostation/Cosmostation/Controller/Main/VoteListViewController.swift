@@ -170,7 +170,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     @objc func onFetchProposals() {
         if (chainType == ChainType.COSMOS_MAIN) {
-            let url = CSS_LCD_URL_PROPOSALS;
+            let url = COSMOS_URL_PROPOSALS;
             let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
             request.responseJSON { (response) in
                 switch response.result {

@@ -417,7 +417,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchTopValidatorsInfo() {
         var url: String?
         if (mChainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_VALIDATORS
+            url = COSMOS_URL_VALIDATORS
         } else if (mChainType == ChainType.KAVA_MAIN) {
             url = KAVA_VALIDATORS
         } else if (mChainType == ChainType.KAVA_TEST) {
@@ -451,7 +451,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchUnbondedValidatorsInfo() {
         var url: String?
         if (mChainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_VALIDATORS
+            url = COSMOS_URL_VALIDATORS
         } else if (mChainType == ChainType.KAVA_MAIN) {
             url = KAVA_VALIDATORS
         } else if (mChainType == ChainType.KAVA_TEST) {
@@ -498,7 +498,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchUnbondingValidatorsInfo() {
         var url: String?
         if (mChainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_VALIDATORS
+            url = COSMOS_URL_VALIDATORS
         } else if (mChainType == ChainType.KAVA_MAIN) {
             url = KAVA_VALIDATORS
         } else if (mChainType == ChainType.KAVA_TEST) {
@@ -598,7 +598,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchAccountInfo(_ account: Account) {
         var url: String?
         if (mChainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_ACCOUNT_INFO + account.account_address
+            url = COSMOS_URL_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.BINANCE_MAIN ) {
@@ -685,7 +685,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchBondingInfo(_ account: Account) {
         var url: String?
         if (mChainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL
+            url = COSMOS_URL_BONDING + account.account_address + COSMOS_URL_BONDING_TAIL
         } else if (mChainType == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_BONDING + account.account_address + IRIS_LCD_URL_BONDING_TAIL
         } else if (mChainType == ChainType.KAVA_MAIN) {
@@ -741,7 +741,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchUnbondingInfo(_ account: Account) {
         var url: String?
         if (mChainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL
+            url = COSMOS_URL_UNBONDING + account.account_address + COSMOS_URL_UNBONDING_TAIL
         } else if (mChainType == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_UNBONDING + account.account_address + IRIS_LCD_URL_UNBONDING_TAIL
         } else if (mChainType == ChainType.KAVA_MAIN) {
@@ -810,7 +810,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchEachReward(_ accountAddr: String, _ validatorAddr:String) {
         var url: String?
         if (mChainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_REWARD_FROM_VAL + accountAddr + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + validatorAddr
+            url = COSMOS_URL_REWARD_FROM_VAL + accountAddr + COSMOS_URL_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (mChainType == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (mChainType == ChainType.KAVA_TEST) {
@@ -865,7 +865,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchInflation() {
         var url: String?
         if (mChainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_INFLATION
+            url = COSMOS_URL_INFLATION
         } else if (mChainType == ChainType.KAVA_MAIN) {
             url = KAVA_INFLATION
         } else if (mChainType == ChainType.KAVA_TEST) {
@@ -900,7 +900,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchProvision() {
         var url: String?
         if (mChainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_PROVISIONS
+            url = COSMOS_URL_PROVISIONS
         } else if (mChainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROVISIONS
         } else if (mChainType == ChainType.KAVA_TEST) {
@@ -935,7 +935,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchStakingPool() {
         var url: String?
         if (mChainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_STAKING_POOL
+            url = COSMOS_URL_STAKING_POOL
         } else if (mChainType == ChainType.KAVA_MAIN) {
             url = KAVA_STAKING_POOL
         } else if (mChainType == ChainType.KAVA_TEST) {

@@ -81,7 +81,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSignleBondingInfo(account!, mValidator!)
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            onFetchHistory(account!, mValidator!, "0", "100")
+            onFetchApiHistory(account!, mValidator!)
             
         } else if (chainType == ChainType.IRIS_MAIN) {
             mUnbondings.removeAll()
@@ -178,7 +178,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else {
-            if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN) {
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN) {
                 if (mApiHistories.count > 0) {
                     return mApiHistories.count
                 } else {
@@ -721,7 +721,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onSetHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN) {
             if (mApiHistories.count > 0) {
                 let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
                 let history = mApiHistories[indexPath.row]
@@ -742,7 +742,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else {
-            if(mHistories.count > 0) {
+            if (mHistories.count > 0) {
                 let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
                 let history = mHistories[indexPath.row]
                 
@@ -778,15 +778,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 1 && mHistories.count > 0) {
             let history = mHistories[indexPath.row]
-            if (chainType == ChainType.COSMOS_MAIN) {
-                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-                txDetailVC.mIsGen = false
-                txDetailVC.mTxHash = history._source.hash
-                txDetailVC.hidesBottomBarWhenPushed = true
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(txDetailVC, animated: true)
-
-            } else if (chainType == ChainType.IRIS_MAIN) {
+            if (chainType == ChainType.IRIS_MAIN) {
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false
                 txDetailVC.mTxHash = history._source.hash
@@ -798,7 +790,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (indexPath.section == 1 && mApiHistories.count > 0) {
             let history = mApiHistories[indexPath.row]
-            if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN) {
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN) {
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false
                 txDetailVC.mTxHash = history.tx_hash
@@ -824,7 +816,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func onFetchValidatorInfo(_ validator: Validator) {
         var url: String?
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_VALIDATORS + "/" + validator.operator_address
+            url = COSMOS_URL_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.KAVA_MAIN) {
@@ -869,7 +861,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func onFetchSignleBondingInfo(_ account: Account, _ validator: Validator) {
         var url: String?
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
+            url = COSMOS_URL_BONDING + account.account_address + COSMOS_URL_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_BONDING + account.account_address + IRIS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.KAVA_MAIN) {
@@ -921,7 +913,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func onFetchSignleUnBondingInfo(_ account: Account, _ validator: Validator) {
         var url: String?
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
+            url = COSMOS_URL_UNBONDING + account.account_address + COSMOS_URL_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_UNBONDING + account.account_address + IRIS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.KAVA_MAIN) {
@@ -972,7 +964,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func onFetchRewardInfo(_ account: Account, _ validator: Validator) {
         var url: String?
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_REWARD_FROM_VAL + account.account_address + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
+            url = COSMOS_URL_REWARD_FROM_VAL + account.account_address + COSMOS_URL_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_FROM_VAL + account.account_address + KAVA_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.KAVA_TEST) {
@@ -1031,11 +1023,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func onFetchHistory(_ account: Account, _ validator: Validator, _ from:String, _ size:String) {
         var query = ""
         var url = ""
-        if (chainType == ChainType.COSMOS_MAIN) {
-            query = "{\"from\" : " + from + ",\"query\" : { \"bool\" : { \"must\" : [ { \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\" ], \"query\" : \"" + account.account_address + "\" } }, { \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.validator_address\", \"tx.value.msg.value.validator_dst_address\", \"tx.value.msg.value.validator_src_address\" ], \"query\" : \"" + validator.operator_address + "\"} } ] }  }, \"size\": " + size + ",\"sort\" : [ {  \"height\" : {  \"order\" : \"desc\" } } ] }"
-            
-            url = CSS_ES_PROXY_COSMOS
-        } else if (chainType == ChainType.IRIS_MAIN) {
+        if (chainType == ChainType.IRIS_MAIN) {
             query = "{\"from\" : " + from + ",\"query\" : { \"bool\" : { \"must\" : [ { \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\" ], \"query\" : \"" + account.account_address + "\" } }, {  \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.validator_addr\", \"tx.value.msg.value.validator_address\", \"tx.value.msg.value.val_operator_addr\", \"tx.value.msg.value.validator_dst_addr\", \"tx.value.msg.value.validator_src_addr\", \"result.tags.key\" ], \"query\" : \"" + validator.operator_address + "\"  } } ]  } },  \"size\": " + size + ",\"sort\" : [ { \"height\" : {  \"order\" : \"desc\" } } ] }"
             url = IRIS_ES_PROXY_IRIS
         }
@@ -1067,7 +1055,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onFetchApiHistory(_ account: Account, _ validator: Validator) {
         var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN) {
+            url = COSMOS_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_API_TEST_HISTORY + account.account_address + "/" + validator.operator_address
@@ -1099,7 +1089,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func onFetchSelfBondRate(_ address: String, _ vAddress: String) {
         var url: String?
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_BONDING + address + CSS_LCD_URL_BONDING_TAIL + "/" + vAddress
+            url = COSMOS_URL_BONDING + address + COSMOS_URL_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_BONDING + address + IRIS_LCD_URL_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.KAVA_MAIN) {
@@ -1144,7 +1134,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func onFetchRedelegatedState(_ address: String, _ to: String) {
         var url: String?
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_REDELEGATION;
+            url = COSMOS_URL_REDELEGATION;
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_REDELEGATION;
         } else if (chainType == ChainType.KAVA_TEST) {
@@ -1206,7 +1196,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func onFetchRewardAddress(_ accountAddr: String) {
         var url = ""
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+            url = COSMOS_URL_REWARD_ADDRESS + accountAddr + COSMOS_URL_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.KAVA_MAIN) {

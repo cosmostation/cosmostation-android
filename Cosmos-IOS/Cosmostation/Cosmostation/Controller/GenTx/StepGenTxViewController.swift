@@ -337,7 +337,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     func onFetchTopValidatorsInfo() {
         var url: String?
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_VALIDATORS
+            url = COSMOS_URL_VALIDATORS
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_VALIDATORS
         } else if (chainType == ChainType.KAVA_TEST) {

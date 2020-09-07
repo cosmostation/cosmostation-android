@@ -30,7 +30,9 @@ let KEY_FCM_TOKEN                       = "KEY_FCM_TOKEN"
 let KEY_KAVA_TESTNET_WARN               = "KEY_KAVA_TESTNET_WARN"
 
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
-let CSS_LCD_URL                         = "https://lcd-cosmos-app.cosmostation.io/";
+let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";
+let COSMOS_API                          = "https://api.cosmostation.io/";
+
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 
 let BNB_URL                             = "https://dex.binance.org/";
@@ -73,28 +75,31 @@ let CSS_MOON_PAY                        = CSS_URL + "v1/sign/moonpay";
 
 
 //COSMOS_URL
-let CSS_LCD_URL_BLOCK                   = CSS_LCD_URL + "blocks/";
-let CSS_LCD_URL_TX                      = CSS_LCD_URL + "txs/";
-let CSS_LCD_URL_VALIDATORS              = CSS_LCD_URL + "staking/validators";
-let CSS_LCD_URL_ACCOUNT_INFO            = CSS_LCD_URL + "auth/accounts/";
-let CSS_LCD_URL_BONDING                 = CSS_LCD_URL + "staking/delegators/";
-let CSS_LCD_URL_BONDING_TAIL            = "/delegations";
-let CSS_LCD_URL_UNBONDING               = CSS_LCD_URL + "staking/delegators/";
-let CSS_LCD_URL_UNBONDING_TAIL          = "/unbonding_delegations";
-let CSS_LCD_URL_REWARD_ALL              = CSS_LCD_URL + "distribution/delegators/";
-let CSS_LCD_URL_REWARD_ALL_TAIL         = "/rewards";
-let CSS_LCD_URL_REWARD_FROM_VAL         = CSS_LCD_URL + "distribution/delegators/";
-let CSS_LCD_URL_REWARD_FROM_VAL_TAIL    = "/rewards/";
-let CSS_LCD_URL_REWARD_ADDRESS          = CSS_LCD_URL + "distribution/delegators/";
-let CSS_LCD_URL_REWARD_ADDRESS_TAIL     = "/withdraw_address";
-let CSS_LCD_URL_REDELEGATION            = CSS_LCD_URL + "staking/redelegations";
-let CSS_LCD_URL_INFLATION               = CSS_LCD_URL + "minting/inflation";
-let CSS_LCD_URL_PROVISIONS              = CSS_LCD_URL + "minting/annual-provisions";
-let CSS_LCD_URL_MINT                    = CSS_LCD_URL + "minting/parameters";
-let CSS_LCD_URL_STAKING_POOL            = CSS_LCD_URL + "staking/pool";
-let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "gov/proposals";
-let CSS_LCD_URL_PROPOSALS_TALLY_TAIL    = "/tally";
-let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
+let COSMOS_URL_BLOCK                    = COSMOS_URL + "blocks/";
+let COSMOS_URL_TX                       = COSMOS_URL + "txs/";
+let COSMOS_URL_VALIDATORS               = COSMOS_URL + "staking/validators";
+let COSMOS_URL_ACCOUNT_INFO             = COSMOS_URL + "auth/accounts/";
+let COSMOS_URL_BONDING                  = COSMOS_URL + "staking/delegators/";
+let COSMOS_URL_BONDING_TAIL             = "/delegations";
+let COSMOS_URL_UNBONDING                = COSMOS_URL + "staking/delegators/";
+let COSMOS_URL_UNBONDING_TAIL           = "/unbonding_delegations";
+let COSMOS_URL_REWARD_ALL               = COSMOS_URL + "distribution/delegators/";
+let COSMOS_URL_REWARD_ALL_TAIL          = "/rewards";
+let COSMOS_URL_REWARD_FROM_VAL          = COSMOS_URL + "distribution/delegators/";
+let COSMOS_URL_REWARD_FROM_VAL_TAIL     = "/rewards/";
+let COSMOS_URL_REWARD_ADDRESS           = COSMOS_URL + "distribution/delegators/";
+let COSMOS_URL_REWARD_ADDRESS_TAIL      = "/withdraw_address";
+let COSMOS_URL_REDELEGATION             = COSMOS_URL + "staking/redelegations";
+let COSMOS_URL_INFLATION                = COSMOS_URL + "minting/inflation";
+let COSMOS_URL_PROVISIONS               = COSMOS_URL + "minting/annual-provisions";
+let COSMOS_URL_MINT                     = COSMOS_URL + "minting/parameters";
+let COSMOS_URL_STAKING_POOL             = COSMOS_URL + "staking/pool";
+let COSMOS_URL_PROPOSALS                = COSMOS_URL + "gov/proposals";
+let COSMOS_URL_PROPOSALS_TALLY_TAIL     = "/tally";
+let COSMOS_URL_BORAD_TX                 = COSMOS_URL + "txs";
+
+let COSMOS_API_HISTORY                  = COSMOS_API + "v1/account/txs/";
+let COSMOS_API_TRANS_HISTORY            = COSMOS_API + "v1/account/transfer_txs/";
 
 
 //IRIS_URL

@@ -242,7 +242,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     func onFetchProposalDetail(_ id: String) {
         var url = ""
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_PROPOSALS + "/" + id
+            url = COSMOS_URL_PROPOSALS + "/" + id
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id
         }
@@ -267,7 +267,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     func onFetchTally(_ id: String) {
         var url = ""
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_PROPOSALS + "/" + id + "/" + CSS_LCD_URL_PROPOSALS_TALLY_TAIL
+            url = COSMOS_URL_PROPOSALS + "/" + id + "/" + COSMOS_URL_PROPOSALS_TALLY_TAIL
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id + "/" + KAVA_PROPOSALS_TALLY_TAIL
         }
@@ -292,7 +292,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     func onFetchMyVote(_ id: String, _ address: String) {
         var url = ""
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_PROPOSALS + "/" + id +  "/votes/" + address
+            url = COSMOS_URL_PROPOSALS + "/" + id +  "/votes/" + address
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/votes/" + address
         }
@@ -318,7 +318,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     func onFetchProposer(_ id: String) {
         var url = ""
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_PROPOSALS + "/" + id +  "/proposer"
+            url = COSMOS_URL_PROPOSALS + "/" + id +  "/proposer"
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/proposer"
         }
@@ -343,7 +343,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     func onFetchVoteList(_ id: String) {
         var url = ""
         if (chainType == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_PROPOSALS + "/" + id +  "/votes"
+            url = COSMOS_URL_PROPOSALS + "/" + id +  "/votes"
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/votes"
         }

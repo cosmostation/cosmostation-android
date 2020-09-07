@@ -83,7 +83,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 
                 if (self.userChain == ChainType.COSMOS_MAIN) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    let request = Alamofire.request(COSMOS_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):

@@ -112,7 +112,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
         self.showWaittingAlert()
         var url: String?
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-             url = CSS_LCD_URL_ACCOUNT_INFO + account.account_address
+             url = COSMOS_URL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
@@ -273,7 +273,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
 //                    print("params ", params)
                     var url: String?
                     if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                        url = CSS_LCD_URL_BORAD_TX
+                        url = COSMOS_URL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
                         url = IRIS_LCD_URL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {

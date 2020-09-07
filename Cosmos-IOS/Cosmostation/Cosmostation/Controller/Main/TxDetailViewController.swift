@@ -1140,7 +1140,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         var url = ""
         var request:DataRequest?
         if (self.chainType! == ChainType.COSMOS_MAIN) {
-            url = CSS_LCD_URL_TX + txHash
+            url = COSMOS_URL_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         } else if (self.chainType! == ChainType.IRIS_MAIN) {

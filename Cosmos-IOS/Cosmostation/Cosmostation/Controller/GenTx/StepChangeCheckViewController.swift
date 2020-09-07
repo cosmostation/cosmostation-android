@@ -104,7 +104,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
         self.showWaittingAlert()
         var url: String?
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-             url = CSS_LCD_URL_ACCOUNT_INFO + account.account_address
+             url = COSMOS_URL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
@@ -225,7 +225,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     var url = "";
                     if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                        url = CSS_LCD_URL_BORAD_TX
+                        url = COSMOS_URL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
                         url = IRIS_LCD_URL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
