@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,11 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,11 +36,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_REINVEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_UNKNOWN;
 
 
 public class MainHistoryFragment extends BaseFragment implements TaskListener {
@@ -144,9 +136,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mNotYet.setVisibility(View.GONE);
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, getMainActivity().mBaseChain);
-            new HistoryTask(getBaseApplication(), this, req, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
+            new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             ReqTx req = new ReqTx(0, 1, true, getMainActivity().mAccount.address, getMainActivity().mBaseChain);
@@ -234,32 +224,24 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                final ResHistory.Source source = mHistory.get(position)._source;
-                if(!source.isSuccess()) {
-                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
-                } else {
+                final ResApiTxList.Data tx = mApiTxHistory.get(position);
+                if (tx.logs != null) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
+                } else {
+                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
                 }
-                viewHolder.historyType.setText(WDp.DpTxType(getContext(), source.tx.value.msg, getMainActivity().mAccount.address));
-                viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.timestamp));
-                viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), source.timestamp));
-                viewHolder.history_block.setText(source.height + " block");
+                viewHolder.historyType.setText(WDp.DpTxType(getContext(), tx.messages, getMainActivity().mAccount.address));
+                viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), tx.time));
+                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), tx.time));
+                viewHolder.history_block.setText("" + tx.height + " block");
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int TxType = WDp.getHistoryDpType(source.tx.value.msg, getMainActivity().mAccount.address);
-                        if (TxType > TX_TYPE_UNKNOWN && TxType <= TX_TYPE_REINVEST) {
-                            Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-                            txDetail.putExtra("txHash", source.hash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
-                        } else {
-                            Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                            webintent.putExtra("txid", source.hash);
-                            webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                            startActivity(webintent);
-                        }
+                        Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                        txDetail.putExtra("txHash", tx.tx_hash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
                     }
                 });
 
@@ -391,14 +373,13 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) ||
-                    getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+                return mApiTxHistory.size();
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 return mHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) ||
-                    getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
                 return mBnbHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) ||
-                    getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 return mApiTxHistory.size();
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 return mApiTxHistory.size();

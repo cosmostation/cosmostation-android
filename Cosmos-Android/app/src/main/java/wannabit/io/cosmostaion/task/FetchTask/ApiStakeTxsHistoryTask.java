@@ -32,6 +32,13 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getCosmosApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
             } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
             } else if (mChain.equals(BaseChain.BNB_MAIN)) {
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {

@@ -9,7 +9,9 @@
     <string name="url_css" translatable="false">https://api-wallet.cosmostation.io/</string>
 
 
-    <string name="url_lcd_main" translatable="false">https://lcd-cosmos-app.cosmostation.io/</string>
+    <string name="url_lcd_cosmos_main" translatable="false">https://lcd-cosmos-app.cosmostation.io/</string>
+    <string name="url_api_cosmos_main" translatable="false">https://api.cosmostation.io/</string>
+
     <string name="url_lcd_main_iris" translatable="false">https://lcd-iris.cosmostation.io/</string>
     <string name="url_es_proxy" translatable="false">https://app-es.cosmostation.io/</string>
 

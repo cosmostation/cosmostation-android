@@ -71,16 +71,16 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_UNKNOWN;
 
@@ -566,9 +566,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
         mTaskCount++;
         if (mBaseChain.equals(COSMOS_MAIN)) {
-            ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
-//            WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
-            new ValHistoryTask(getBaseApplication(), this, req, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(IRIS_MAIN)) {
             ReqTxVal req = new ReqTxVal(0, 1, true, mAccount.address, mValidator.operator_address);
@@ -688,7 +686,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 onBindAction(viewHolder);
 
             } else if (getItemViewType(position) == TYPE_HISTORY) {
-                if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN)) {
+                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN)) {
                     onBindApiHistory(viewHolder, position);
                 } else {
                     onBindHistory(viewHolder, position);
@@ -1305,8 +1303,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         @Override
         public int getItemCount() {
             if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
-                if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) ||
-                        mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
+                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                        mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                     if(mApiTxHistory.size() > 0) {
                         return mApiTxHistory.size() + 2;
                     } else {
@@ -1322,8 +1320,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
             } else {
-                if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) ||
-                        mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
+                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                        mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                     if(mApiTxHistory.size() > 0) {
                         return mApiTxHistory.size() + 3;
                     } else {

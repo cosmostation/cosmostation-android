@@ -5,16 +5,6 @@ import android.content.Context;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
 public class ApiClient {
 
@@ -39,7 +29,7 @@ public class ApiClient {
         if (service_cosmos == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_main))
+                        .baseUrl(c.getString(R.string.url_lcd_cosmos_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 service_cosmos = retrofit.create(CosmosChain.class);
@@ -47,6 +37,23 @@ public class ApiClient {
         }
         return service_cosmos;
     }
+
+    //Services for Cosmos api
+    private static HistoryApi api_cosmos = null;
+    public static HistoryApi getCosmosApi(Context c) {
+        if (api_cosmos == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_cosmos_main))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_cosmos = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_cosmos;
+    }
+
+
 
     //Services for Iris main net
     private static IrisChain service_iris = null;
@@ -125,15 +132,15 @@ public class ApiClient {
     }
 
     //Services for KAVA api
-    private static KavaApi api_kava = null;
-    public static KavaApi getKavaApi(Context c) {
+    private static HistoryApi api_kava = null;
+    public static HistoryApi getKavaApi(Context c) {
         if (api_kava == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_kava_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                api_kava = retrofit.create(KavaApi.class);
+                api_kava = retrofit.create(HistoryApi.class);
             }
         }
         return api_kava;
@@ -171,15 +178,15 @@ public class ApiClient {
     }
 
     //Services for KAVATest api
-    private static KavaApi api_kava_test = null;
-    public static KavaApi getKavaTestApi(Context c) {
+    private static HistoryApi api_kava_test = null;
+    public static HistoryApi getKavaTestApi(Context c) {
         if (api_kava_test == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_kava_test))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                api_kava_test = retrofit.create(KavaApi.class);
+                api_kava_test = retrofit.create(HistoryApi.class);
             }
         }
         return api_kava_test;
@@ -261,15 +268,15 @@ public class ApiClient {
     }
 
     //Services for Band api
-    private static BandApi api_band = null;
-    public static BandApi getBandApi(Context c) {
+    private static HistoryApi api_band = null;
+    public static HistoryApi getBandApi(Context c) {
         if (api_band == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_band_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                api_band = retrofit.create(BandApi.class);
+                api_band = retrofit.create(HistoryApi.class);
             }
         }
         return api_band;

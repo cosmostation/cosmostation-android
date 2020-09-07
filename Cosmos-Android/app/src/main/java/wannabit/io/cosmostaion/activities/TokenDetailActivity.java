@@ -508,8 +508,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void onFetchTokenHistory() {
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            ReqTxToken req = new ReqTxToken(0, 0, true, mAccount.address, mBalance.symbol);
-            new TokenHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             ReqTxToken req = new ReqTxToken(0, 1, true, mAccount.address, mBalance.symbol);
@@ -736,32 +735,24 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                final ResHistory.Source source = mHistory.get(position)._source;
-                if(!source.isSuccess()) {
-                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
-                } else {
+                final ResApiTxList.Data tx = mApiTxHistory.get(position);
+                if (tx.logs != null) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
+                } else {
+                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
                 }
-                viewHolder.historyType.setText(WDp.DpTxType(getBaseContext(), source.tx.value.msg, mAccount.address));
-                viewHolder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.timestamp));
-                viewHolder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.timestamp));
-                viewHolder.history_block.setText(source.height + " block");
+                viewHolder.historyType.setText(WDp.DpTxType(getBaseContext(), tx.messages, mAccount.address));
+                viewHolder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), tx.time));
+                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), tx.time));
+                viewHolder.history_block.setText("" + tx.height + " block");
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int TxType = WDp.getHistoryDpType(source.tx.value.msg, mAccount.address);
-                        if (TxType > TX_TYPE_UNKNOWN && TxType <= TX_TYPE_REINVEST) {
-                            Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
-                            txDetail.putExtra("txHash", source.hash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
-                        } else {
-                            Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                            webintent.putExtra("txid", source.hash);
-                            webintent.putExtra("chain", mBaseChain.getChain());
-                            startActivity(webintent);
-                        }
+                        Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                        txDetail.putExtra("txHash", tx.tx_hash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
                     }
                 });
 
@@ -860,7 +851,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public int getItemCount() {
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+                return mApiTxHistory.size();
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 return mHistory.size();
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
                 return mBnbHistory.size();
