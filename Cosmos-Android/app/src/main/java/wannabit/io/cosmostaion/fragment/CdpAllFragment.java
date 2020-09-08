@@ -115,11 +115,7 @@ public class CdpAllFragment extends BaseFragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getMainActivity(), KavaCdpDetailActivity.class);
                     intent.putExtra("denom", param.denom);
-                    if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                        intent.putExtra("marketId", param.spot_market_id);
-                    } else {
-                        intent.putExtra("marketId", param.market_id);
-                    }
+                    intent.putExtra("marketId", param.liquidation_market_id);
                     startActivity(intent);
                 }
             });

@@ -348,6 +348,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
         }
 
+        // make syn more smooth with wallet change action
+        if (mContentsPager != null && mContentsPager.getCurrentItem() == 2) {
+            mPageAdapter.mCurrentFragment.onRefreshTab();
+        }
+
         onUpdateTitle();
         onFetchAllData();
         onShowTestNetWarnIfNeed();
