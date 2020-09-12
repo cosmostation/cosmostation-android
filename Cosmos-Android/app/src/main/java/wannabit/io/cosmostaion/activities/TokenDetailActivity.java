@@ -652,7 +652,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnWebDetail)) {
-            if (mBaseChain.equals(BaseChain.KAVA_TEST)) { return; }
             Intent webintent = new Intent(this, WebActivity.class);
             webintent.putExtra("address", mAccount.address);
             webintent.putExtra("chain", mBaseChain.getChain());

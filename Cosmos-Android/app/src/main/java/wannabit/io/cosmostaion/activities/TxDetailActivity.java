@@ -253,7 +253,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (mBaseChain.equals(KAVA_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://kava.mintscan.io/txs/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(KAVA_TEST)) {
-                return;
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://kava-testnet-9000.mintscan.io/txs/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(OK_TEST)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.oklink.com/okchain-test/tx/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(BAND_MAIN)) {
@@ -636,7 +636,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                    if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(OK_TEST) || mBaseChain.equals(IOV_MAIN)) {
+                    if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(OK_TEST) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(KAVA_TEST) ) {
                         webintent.putExtra("txid", mResTxInfo.txhash);
                     } else if (mBaseChain.equals(IRIS_MAIN)) {
                         webintent.putExtra("txid", mResTxInfo.hash);
