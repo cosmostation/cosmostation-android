@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.network.res.ResCdpList;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
+import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
@@ -22,6 +23,7 @@ import wannabit.io.cosmostaion.network.res.ResKavaPriceParam;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply2;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
@@ -171,5 +173,15 @@ public interface KavaChain {
 
     @GET("/faucet/{address}")
     Call<JSONObject> getFaucet(@Path("address") String address);
+
+
+
+    //For Kava testnet 9000
+    @GET("/bep3/parameters")
+    Call<ResKavaBep3Param2> getSwapParams2();
+
+    @GET("/bep3/supplies")
+    Call<ResKavaSwapSupply2> getSupplies2();
+
 
 }

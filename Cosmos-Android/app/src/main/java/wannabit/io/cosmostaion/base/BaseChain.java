@@ -3,6 +3,12 @@ package wannabit.io.cosmostaion.base;
 import java.util.ArrayList;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
 
 public enum BaseChain {
     COSMOS_LEGACY1("cosmoshub-1"),
@@ -169,6 +175,25 @@ public enum BaseChain {
         } else if (fromChain.equals(BNB_MAIN)) {
             result.add(KAVA_MAIN);
 
+        }
+        return result;
+    }
+
+    public static ArrayList<String>  getHtlcSwappableCoin(BaseChain fromChain) {
+        ArrayList<String> result = new ArrayList<>();
+        if (fromChain.equals(BNB_MAIN)) {
+            result.add(TOKEN_HTLC_BINANCE_BNB);
+
+        } else if (fromChain.equals(KAVA_MAIN)) {
+            result.add(TOKEN_HTLC_KAVA_BNB);
+
+        } else if (fromChain.equals(BNB_TEST)) {
+            result.add(TOKEN_HTLC_BINANCE_TEST_BNB);
+            result.add(TOKEN_HTLC_BINANCE_TEST_BTC);
+
+        } else if (fromChain.equals(KAVA_TEST)) {
+            result.add(TOKEN_HTLC_KAVA_TEST_BNB);
+            result.add(TOKEN_HTLC_KAVA_TEST_BTC);
         }
         return result;
     }

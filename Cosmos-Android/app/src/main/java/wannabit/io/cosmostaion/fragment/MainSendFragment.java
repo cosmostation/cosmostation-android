@@ -56,6 +56,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
@@ -64,6 +66,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
@@ -1195,7 +1201,15 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             .check();
 
         } else if (v.equals(mBtnBep3Send)) {
-            getMainActivity().onStartHTLCSendActivity();
+            if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
+                getMainActivity().onStartHTLCSendActivity(TOKEN_HTLC_BINANCE_BNB);
+            } else if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
+                getMainActivity().onStartHTLCSendActivity(TOKEN_HTLC_BINANCE_TEST_BNB);
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+                getMainActivity().onStartHTLCSendActivity(TOKEN_HTLC_KAVA_BNB);
+            } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+                getMainActivity().onStartHTLCSendActivity(TOKEN_HTLC_KAVA_TEST_BNB);
+            }
 
         } else if (v.equals(mBuyCoinBtn)) {
             if (getMainActivity().mAccount.hasPrivateKey) {

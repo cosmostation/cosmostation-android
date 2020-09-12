@@ -123,8 +123,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_SEND_CHECK;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_SEND_MIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_FEES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
@@ -136,6 +135,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_TOKEN_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
 
@@ -261,7 +261,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
 
-    public void onStartHTLCSendActivity() {
+    public void onStartHTLCSendActivity(String sendDenom) {
+//        WLog.w("onStartHTLCSendActivity " + mBaseChain.getChain() + " " + sendDenom);
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
@@ -270,25 +271,19 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             return;
         }
 
-        boolean hasbalance = false;
-        Intent intent = new Intent(getBaseContext(), HtlcSendActivity.class);
+        boolean hasbalance = true;
         if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
-            if (WDp.getAvailableCoin(mAccount.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BEP3_SEND_CHECK)) > 0) {
-                hasbalance  = true;
+            if (WDp.getAvailableCoin(mAccount.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) <= 0) {
+                hasbalance  = false;
             }
-
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (WDp.getAvailableCoin(mAccount.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BEP3_SEND_MIN).movePointRight(8)) > 0) {
-                hasbalance  = true;
-            }
-
-        } else {
-            return;
         }
         if (!hasbalance) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget_bep3, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        Intent intent = new Intent(getBaseContext(), HtlcSendActivity.class);
+        intent.putExtra("toSwapDenom", sendDenom);
         startActivity(intent);
     }
 

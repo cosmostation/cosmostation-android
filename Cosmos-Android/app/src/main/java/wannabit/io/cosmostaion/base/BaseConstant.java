@@ -293,6 +293,16 @@ public class BaseConstant {
     public final static String TOKEN_OK_TEST        = "tokt";
 
 
+    //HTLC swap support Token Types
+    public final static String TOKEN_HTLC_BINANCE_BNB               = "BNB";
+    public final static String TOKEN_HTLC_KAVA_BNB                  = "bnb";
+
+    public final static String TOKEN_HTLC_BINANCE_TEST_BNB          = "BNB";
+    public final static String TOKEN_HTLC_BINANCE_TEST_BTC          = "BTCB-101";
+    public final static String TOKEN_HTLC_KAVA_TEST_BNB             = "bnb";
+    public final static String TOKEN_HTLC_KAVA_TEST_BTC             = "btcb";
+
+
     //TODO HardCoding!!
     public final static long COSMOS_UNBONDING_TIME = 1814400000;
     public final static long COSMOS_UNBONDING_DAY = 3;
@@ -348,10 +358,8 @@ public class BaseConstant {
     public final static String FEE_IRIS_GAS_AMOUNT_REWARD_MUX   = "5000";
     public final static String FEE_IRIS_GAS_AMOUNT_VOTE         = "10000";
 
-    public final static String FEE_BNB_SEND             = "0.000375";
-    public final static String FEE_BEP3_RELAY_FEE       = "0.00001";
-    public final static String FEE_BEP3_SEND_MIN        = "0.1";
-    public final static String FEE_BEP3_SEND_CHECK      = "0.100375";
+    public final static String FEE_BNB_SEND                     = "0.000375";
+    public final static String FEE_BEP3_RELAY_FEE               = "0.00001";
 
     public final static String FEE_IOV_GAS_RATE_AVERAGE         = "1";
     public final static String FEE_IOV_GAS_AMOUNT_SEND          = "100000";
@@ -378,10 +386,12 @@ public class BaseConstant {
     public final static int CMC_KAVA = 4846;
 
 
-    public final static String BNB_DEPUTY = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
-    public final static String KAVA_DEPUTY = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
-    public final static String BNB_TEST_DEPUTY = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
-    public final static String KAVA_TEST_DEPUTY = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl";
+    public final static String BINANCE_MAIN_BNB_DEPUTY = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
+    public final static String KAVA_MAIN_BNB_DEPUTY = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
+    public final static String BINANCE_TEST_BNB_DEPUTY = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
+    public final static String KAVA_TEST_BNB_DEPUTY = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl";
+    public final static String BINANCE_TEST_BTC_DEPUTY = "tbnb1dmn2xgnc8kcxn4s0ts5llu9ry3ulp2nlhuh5fz";
+    public final static String KAVA_TEST_BTC_DEPUTY = "kava1kla4wl0ccv7u85cemvs3y987hqk0afcv7vue84";
 
 
     public final static String TOKEN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";

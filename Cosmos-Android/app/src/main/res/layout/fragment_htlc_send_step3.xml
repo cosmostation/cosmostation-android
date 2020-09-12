@@ -86,7 +86,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str_fees"
+                            android:text="@string/str_send_fee"
                             style="@style/font_ss_12_gray1"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -195,7 +195,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str_to_receive_amount"
+                            android:text="@string/str_expected_receive_amount"
                             style="@style/font_ss_12_gray1"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -259,7 +259,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str_fees"
+                            android:text="@string/str_claim_fee"
                             style="@style/font_ss_12_gray1"/>
                         <LinearLayout
                             android:layout_width="wrap_content"

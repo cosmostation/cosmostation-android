@@ -90,10 +90,10 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         super.onRefreshTab();
         mToAccountList = getSActivity().getBaseDao().onSelectAccountsByHtlcClaim(getSActivity().mRecipientChain);
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.BNB_TEST)) {
-            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), getSActivity().mRecipientChain.getChain(), WDp.getDpMainDenom(getContext(), getSActivity().mRecipientChain.getChain())));
+            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain)));
 
         }  else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.KAVA_TEST)) {
-            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg2), getSActivity().mRecipientChain.getChain()));
+            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg2), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain)));
         }
     }
 
@@ -121,12 +121,12 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
 
             } else {
                 Bundle bundle = new Bundle();
-                String title = String.format(getString(R.string.error_can_not_bep3_account_title), getSActivity().mRecipientChain.getChain());
+                String title = String.format(getString(R.string.error_can_not_bep3_account_title), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 String msg = "";
                 if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.BNB_TEST)) {
-                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg), getSActivity().mRecipientChain.getChain(), WDp.getDpMainDenom(getContext(), getSActivity().mRecipientChain.getChain()));
+                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.KAVA_TEST)) {
-                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg2), getSActivity().mRecipientChain.getChain());
+                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg2), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 }
                 bundle.putString("title", title);
                 bundle.putString("msg", msg);
@@ -135,7 +135,6 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
             }
-
         }
     }
 

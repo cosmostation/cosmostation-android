@@ -365,5 +365,4 @@ public class ApiClient {
         return coingeckoService;
     }
 
-
 }

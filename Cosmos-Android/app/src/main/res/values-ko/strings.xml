@@ -65,8 +65,10 @@
     <string name="str_fees">Tx 수수료</string>
     <string name="str_fees_c">Tx 수수료</string>
     <string name="str_to_send_amount">전송 수량</string>
-    <string name="str_to_receive_amount">받을 수량</string>
+    <string name="str_expected_receive_amount">최종 수신 수량</string>
     <string name="str_relay_fee">Relay 수수료</string>
+    <string name="str_claim_fee">Claim Tx 수수료</string>
+    <string name="str_send_fee">Send Tx 수수료</string>
     <string name="str_total_spend_amount">지출 총량</string>
     <string name="str_current_available">현재 사용 가능 수량</string>
     <string name="str_remaining_available">전송 후 사용 가능 수량</string>
@@ -405,6 +407,7 @@
     <string name="str_warn_testnet_title">테스트넷 경고</string>
     <string name="str_warn_testnet_msg"><![CDATA[선택하신 지갑은 테스트넷을 위한 지갑입니다\n(해당 지갑의 토큰은 실제 가치가 없습니다).\n\n코스모스테이션은 사용자들이 각 체인의 고유한 기능들을 메인넷에 반영되기 이전에 확인하고 사용해 볼 수 있는 기회를 제공하기 위해 테스트넷을 지원합니다. 해당 테스트넷에 대한 지원은 언제든 중단될 수 있습니다.]]></string>
     <string name="str_interchain">인터체인 전송</string>
+    <string name="str_to_swap_coin">전송 코인</string>
     <string name="str_source_chain">출발 체인</string>
     <string name="str_destination_chain">도착 체인</string>
     <string name="str_create_interchain_send">인터체인 보내기 정보</string>
@@ -424,6 +427,7 @@
     <string name="str_this_total_reward">이번 주 총 인센티브 수량</string>
     <string name="str_lock_time">잠금 시간</string>
     <string name="str_vesting_schedule">베스팅 풀림 정보</string>
+    <string name="str_relayer_status">릴레이어 현황</string>
 
 
     <string name="str_min_collateral_rate">최소 담보 비율</string>
@@ -550,11 +554,14 @@
     <string name="str_bep3_cap_status">스왑 용량 정보</string>
     <string name="str_bep3_available_title">BNB-BEP3 스왑 가능</string>
     <string name="str_bep3_unavailable_title">BNB-BEP3 스왑 불가</string>
+    <string name="str_bep3_max_once">1회 최대 전송 가능량</string>
     <string name="str_bep3_system_max">시스템 최대 지원량</string>
     <string name="str_bep3_current_cap">현재 이용량</string>
-    <string name="str_bep3_remain_cap">남은 량</string>
+    <string name="str_bep3_remain_cap">남은 전송 가능량</string>
     <string name="str_bep3_bnb_cap_over">현재 스왑 가능한 BNB가 모두 소진되었습니다.\n\nKava 정책에 따라 최대 스왑 가능 수량이 정해집니다.\n\n스왑 가능한 최대 수량에 관련된 문의는 아래 공식 Kava 커뮤니티 채널에 문의하세요.\n\nhttps://t.me/kavalabs</string>
     <string name="str_bep3_bnb_cap">현재 네트워크에 남은 스왑 가능 수량은 %1$s 입니다.\n\nKava 정책에 따라 최대 스왑 가능 수량이 정해집니다.\n\n스왑 가능한 최대 수량에 관련된 문의는 아래 공식 Kava 커뮤니티 채널에 문의하세요. \n\nhttps://t.me/kavalabs</string>
+    <string name="str_select_to_send_coin">보낼 코인 종류를 선택하세요</string>
+
 
     <string name="str_create_cdp_step_1">USDX 발행을 위해 담보물을 설정하세요</string>
     <string name="str_create_cdp_step_2">메모를 입력하세요 (선택사항)</string>
@@ -854,9 +861,9 @@
     <string name="error_can_not_draw_debt">더 이상 빌리면 위험합니다.</string>
     <string name="error_not_enought_principal_asset">USDX가 충분하지 않아 상환할 수 없습니다.</string>
     <string name="error_can_not_repay">지금은 상환할 수 없습니다. USDX가 더 필요합니다.</string>
-    <string name="error_can_not_bep3_account_title">%1$s 계정이 없습니다.</string>
-    <string name="error_can_not_bep3_account_msg">이 기능을 사용하기 위해서는, \n%1$s 지갑과 트랜젝션 수수료로 사용될 약간의 %2$s가 필요합니다.</string>
-    <string name="error_can_not_bep3_account_msg2">이 기능을 사용하기 위해서는, \n%1$s 지갑이 필요합니다.</string>
+    <string name="error_can_not_bep3_account_title">수신 가능한 %1$s 지갑 없음</string>
+    <string name="error_can_not_bep3_account_msg">인터체인 수신 받을 수 있는 %1$s의 유효한(개인키 포함) 지갑이 필요합니다. 수신할 지갑은 인터체인 받기용 수수료 0.000375BNB 이상의 발란스를 가지고 있는 지갑이어야 합니다.</string>
+    <string name="error_can_not_bep3_account_msg2">인터체인 수신 받을 수 있는 %1$s의 유효한(개인키 포함) 지갑이 필요합니다.</string>
     <string name="error_select_account_to_recipient">받을 계정을 선택해 주세요.</string>
     <string name="error_no_more_faucet">이미 충분한 테스트 코인이 있네요.</string>
     <string name="error_no_more_debt_kava">USDX를 더 이상 발행할 수 없습니다. 시스템에서 지원가능한 모든 USDX가 발행되었습니다.\n%1$s / %2$s</string>
@@ -867,6 +874,8 @@
     <string name="error_invalide_starname">등록되지 않은 스타네임 입니다.</string>
     <string name="error_no_mattched_starname">유효한 스타네임 이지만, 현재 체인에 등록된 유효한 주소가 없습니다.</string>
     <string name="error_starname_self_send">유효한 스타네임 이지만, 자기 자신의 주소로는 송금할 수 없습니다.</string>
+    <string name="error_bep3_supply_full">현재 스왑 가능한 수량이 모두 소진되었습니다.</string>
+    <string name="error_bep3_under_min_amount">최소 0.00001보다 많이 보낼 수 있습니다.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

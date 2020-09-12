@@ -174,4 +174,17 @@ public class ResKavaSwapSupply {
             }
         };
     }
+
+
+    public BigDecimal getRemainCap(String denom, BigDecimal supplyLimit) {
+        BigDecimal remain = BigDecimal.ZERO;
+        try {
+            KavaSwapSupply supply = getSwapSupply(denom);
+            BigDecimal incoming_supply = new BigDecimal(supply.incoming_supply.amount);
+            BigDecimal current_supply = new BigDecimal(supply.current_supply.amount);
+            remain = supplyLimit.subtract(current_supply).subtract(incoming_supply);
+
+        }catch (Exception e) {}
+        return remain;
+    }
 }

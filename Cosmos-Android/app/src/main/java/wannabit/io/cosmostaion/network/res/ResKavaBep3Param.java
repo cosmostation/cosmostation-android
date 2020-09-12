@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class ResKavaBep3Param {
@@ -50,5 +51,31 @@ public class ResKavaBep3Param {
 
         @SerializedName("active")
         public boolean active;
+    }
+
+    public KavaBep3SupportAsset getSupportedSwapAsset(String denom) {
+        for (KavaBep3SupportAsset asset:result.supported_assets) {
+            if (denom.equalsIgnoreCase(asset.denom)) {
+                return asset;
+            }
+        }
+        return null;
+    }
+
+    public BigDecimal getSupportedSwapAssetLimit(String denom) {
+        BigDecimal limit = BigDecimal.ZERO;
+        try {
+            limit = new BigDecimal(getSupportedSwapAsset(denom).limit);
+        } catch (Exception e) {}
+        return limit;
+
+    }
+
+    public BigDecimal getSupportedSwapAssetMaxOnce(String denom) {
+        BigDecimal once = BigDecimal.ZERO;
+        try {
+            once = new BigDecimal(result.max_amount);
+        } catch (Exception e) {}
+        return once;
     }
 }

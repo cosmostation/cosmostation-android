@@ -1821,6 +1821,42 @@ public class WDp {
         return result;
     }
 
+    public static String getDpChainName(Context c, BaseChain chain) {
+        if (chain.equals(COSMOS_MAIN)) {
+            return c.getString(R.string.str_cosmos_hub_2);
+
+        } else if (chain.equals(IRIS_MAIN)) {
+            return c.getString(R.string.str_iris_net_2);
+
+        } else if (chain.equals(BNB_MAIN)) {
+            return c.getString(R.string.str_binance_net_2);
+
+        } else if (chain.equals(KAVA_MAIN)) {
+            return c.getString(R.string.str_kava_net_2);
+
+        } else if (chain.equals(IOV_MAIN)) {
+            return c.getString(R.string.str_iov_net_2);
+
+        } else if (chain.equals(BAND_MAIN)) {
+            return c.getString(R.string.str_band_chain_2);
+
+        } else if (chain.equals(BNB_TEST)) {
+            return c.getString(R.string.str_binance_test_net_2);
+
+        } else if (chain.equals(KAVA_TEST)) {
+            return c.getString(R.string.str_kava_net_test_2);
+
+        } else if (chain.equals(IOV_TEST)) {
+            return c.getString(R.string.str_iov_net_test_2);
+
+        } else if (chain.equals(OK_TEST)) {
+            return c.getString(R.string.str_ok_net_test_2);
+
+        }
+        return "";
+
+    }
+
     public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
         if (chain.equals(COSMOS_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.cosmos_wh_main));
@@ -1864,8 +1900,69 @@ public class WDp {
 
         }
         txtView.setTextColor(getChainColor(c, chain));
+    }
 
+    public static void onDpChain2(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
+        if (chain.equals(COSMOS_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.cosmos_wh_main));
+            txtView.setText(c.getString(R.string.str_cosmos_hub_2));
 
+        } else if (chain.equals(IRIS_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iris_wh));
+            txtView.setText(c.getString(R.string.str_iris_net_2));
+
+        } else if (chain.equals(BNB_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binance_ch_img));
+            txtView.setText(c.getString(R.string.str_binance_net_2));
+
+        } else if (chain.equals(BNB_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binancetestnet));
+            txtView.setText(c.getString(R.string.str_binance_test_net_2));
+
+        } else if (chain.equals(KAVA_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_img));
+            txtView.setText(c.getString(R.string.str_kava_net_2));
+
+        } else if (chain.equals(KAVA_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_test_img));
+            txtView.setText(c.getString(R.string.str_kava_net_test_2));
+
+        } else if (chain.equals(IOV_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_chain_img));
+            txtView.setText(c.getString(R.string.str_iov_net_2));
+
+        } else if (chain.equals(BAND_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.band_chain_img));
+            txtView.setText(c.getString(R.string.str_band_chain_2));
+
+        } else if (chain.equals(IOV_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_testnet_img));
+            txtView.setText(c.getString(R.string.str_iov_net_test_2));
+
+        } else if (chain.equals(OK_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.okex_testnet_img));
+            txtView.setText(c.getString(R.string.str_ok_net_test_2));
+
+        }
+    }
+
+    public static void onDpSwapChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
+        if (chain.equals(BNB_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binance_ch_img));
+            txtView.setText(c.getString(R.string.str_binance));
+
+        } else if (chain.equals(BNB_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binancetestnet));
+            txtView.setText(c.getString(R.string.str_binance));
+
+        } else if (chain.equals(KAVA_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_img));
+            txtView.setText(c.getString(R.string.str_kava));
+
+        } else if (chain.equals(KAVA_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_test_img));
+            txtView.setText(c.getString(R.string.str_kava));
+        }
     }
 
     public static String getKavaHtlcStatus(Context c, ResTxInfo resTxInfo, ResKavaSwapInfo resKavaSwapInfo) {

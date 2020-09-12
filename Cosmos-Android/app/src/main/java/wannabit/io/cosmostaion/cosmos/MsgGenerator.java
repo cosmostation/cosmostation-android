@@ -53,11 +53,17 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.BNB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BNB_TEST_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BTC_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_BTC_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
@@ -335,8 +341,8 @@ public class MsgGenerator {
         Msg.Value value = new Msg.Value();
         if (fromChain.equals(KAVA_MAIN)) {
             value.from = fromAccount.address;
-            value.to = KAVA_DEPUTY;
-            value.sender_other_chain = BNB_DEPUTY;
+            value.to = KAVA_MAIN_BNB_DEPUTY;
+            value.sender_other_chain = BINANCE_MAIN_BNB_DEPUTY;
             value.recipient_other_chain = toAccount.address;
 
             value.random_number_hash = WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase();
@@ -348,15 +354,20 @@ public class MsgGenerator {
             result.value = value;
 
         } else if (fromChain.equals(KAVA_TEST)) {
+            if (sendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
+                value.to = KAVA_TEST_BNB_DEPUTY;
+                value.sender_other_chain = BINANCE_TEST_BNB_DEPUTY;
+            } else if (sendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
+                value.to = KAVA_TEST_BTC_DEPUTY;
+                value.sender_other_chain = BINANCE_TEST_BTC_DEPUTY;
+            }
             value.from = fromAccount.address;
-            value.to = KAVA_TEST_DEPUTY;
-            value.sender_other_chain = BNB_TEST_DEPUTY;
             value.recipient_other_chain = toAccount.address;
 
             value.random_number_hash = WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase();
             value.timestamp = String.valueOf(timestamp);
             value.amount = sendCoins;
-            value.height_span = "500";
+            value.height_span = "250";
 
             result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
             result.value = value;
@@ -399,9 +410,9 @@ public class MsgGenerator {
         Coin toSendCoin = sendCoins.get(0);
         if (fromChain.equals(BaseChain.BNB_MAIN)) {
             if (toChain.equals(KAVA_MAIN)) {
-                htltReq.setRecipient(BNB_DEPUTY);
+                htltReq.setRecipient(BINANCE_MAIN_BNB_DEPUTY);
                 htltReq.setRecipientOtherChain(toAccount.address);
-                htltReq.setSenderOtherChain(KAVA_DEPUTY);
+                htltReq.setSenderOtherChain(KAVA_MAIN_BNB_DEPUTY);
                 htltReq.setTimestamp(timestamp);
                 htltReq.setRandomNumberHash(Sha256.getSha256Digest().digest(originData));
                 Token token = new Token();
@@ -422,9 +433,14 @@ public class MsgGenerator {
                 //NO case
 
             } else if (toChain.equals(KAVA_TEST)) {
-                htltReq.setRecipient(BNB_TEST_DEPUTY);
+                if (sendCoins.get(0).denom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
+                    htltReq.setRecipient(BINANCE_TEST_BNB_DEPUTY);
+                    htltReq.setSenderOtherChain(KAVA_TEST_BNB_DEPUTY);
+                }  else if (sendCoins.get(0).denom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
+                    htltReq.setRecipient(BINANCE_TEST_BTC_DEPUTY);
+                    htltReq.setSenderOtherChain(KAVA_TEST_BTC_DEPUTY);
+                }
                 htltReq.setRecipientOtherChain(toAccount.address);
-                htltReq.setSenderOtherChain(KAVA_TEST_DEPUTY);
                 htltReq.setTimestamp(timestamp);
                 htltReq.setRandomNumberHash(Sha256.getSha256Digest().digest(originData));
                 Token token = new Token();

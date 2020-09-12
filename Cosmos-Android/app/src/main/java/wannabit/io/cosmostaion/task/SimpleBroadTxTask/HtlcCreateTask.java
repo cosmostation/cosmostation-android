@@ -39,13 +39,19 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.BNB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BNB_TEST_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BTC_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_BTC_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
 
 public class HtlcCreateTask extends CommonTask {
 
@@ -98,7 +104,7 @@ public class HtlcCreateTask extends CommonTask {
                 HtltReq htltReq = MsgGenerator.getBnbHtlcCreateMsg(mSendChain, mReceiveChain, mSendAccount, mReceiveAccount, mToSendCoins, timestamp, originData);
                 mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
                 mRandomNumberHash = htltReq.getRandomNumberHash();
-                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_DEPUTY, mSendAccount.address).toUpperCase();
+                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_MAIN_BNB_DEPUTY, mSendAccount.address).toUpperCase();
                 WLog.w("BNB_MAIN mRandomNumberHash " + mRandomNumberHash);
                 WLog.w("BNB_MAIN mRandomNumber " + mRandomNumber);
                 WLog.w("BNB_MAIN Send mExpectedSwapId " + mExpectedSwapId);
@@ -145,7 +151,11 @@ public class HtlcCreateTask extends CommonTask {
                 HtltReq htltReq = MsgGenerator.getBnbHtlcCreateMsg(mSendChain, mReceiveChain, mSendAccount, mReceiveAccount, mToSendCoins, timestamp, originData);
                 mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
                 mRandomNumberHash = htltReq.getRandomNumberHash();
-                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_TEST_DEPUTY, mSendAccount.address).toUpperCase();
+                if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_TEST_BNB_DEPUTY, mSendAccount.address).toUpperCase();
+                } else if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_TEST_BTC_DEPUTY, mSendAccount.address).toUpperCase();
+                }
                 WLog.w("BNB_TEST mRandomNumberHash " + mRandomNumberHash);
                 WLog.w("BNB_TEST mRandomNumber " + mRandomNumber);
                 WLog.w("BNB_TEST Send mExpectedSwapId " + mExpectedSwapId);
@@ -191,7 +201,7 @@ public class HtlcCreateTask extends CommonTask {
 
                 mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
                 mRandomNumberHash = WUtil.HexStringToByteArray(createSwapMsg.value.random_number_hash);
-                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BNB_DEPUTY, mSendAccount.address).toUpperCase();
+                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_MAIN_BNB_DEPUTY, mSendAccount.address).toUpperCase();
                 ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey);
                 WLog.w("KAVA_MAIN mRandomNumber " + mRandomNumber);
                 WLog.w("KAVA_MAIN Send mExpectedSwapId " + mExpectedSwapId);
@@ -244,7 +254,12 @@ public class HtlcCreateTask extends CommonTask {
 
                 mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
                 mRandomNumberHash = WUtil.HexStringToByteArray(createSwapMsg.value.random_number_hash);
-                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BNB_TEST_DEPUTY, mSendAccount.address).toUpperCase();
+                if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_TEST_BNB_DEPUTY, mSendAccount.address).toUpperCase();
+                } else if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_TEST_BTC_DEPUTY, mSendAccount.address).toUpperCase();
+                }
+
                 ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey);
                 WLog.w("KAVA_TEST mRandomNumber " + mRandomNumber);
                 WLog.w("KAVA_TEST Send mExpectedSwapId " + mExpectedSwapId);

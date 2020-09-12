@@ -228,7 +228,6 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             memoTv.setText(mResSendTxInfo.tx.value.memo);
 
             Coin sendCoin = msg.value.getCoins().get(0);
-//            WDp.showCoinDp(getBaseContext(), sendCoin, sendDenom, sendAmount, mBaseChain);
             sendDenom.setText(sendCoin.denom.toUpperCase());
             sendAmount.setText(WDp.getDpAmount2(this, new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(sendCoin.denom), WUtil.getKavaCoinDecimal(sendCoin.denom)));
 
@@ -563,6 +562,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     //Check HTLC SWAP ID
     private int SwapFetchCnt = 0;
     private void onCheckSwapId(String expectedSwapId) {
+//        WLog.w("onCheckSwapId " + SwapFetchCnt + " " + expectedSwapId);
         if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             ApiClient.getKavaChain(this).getSwapById(expectedSwapId).enqueue(new Callback<ResKavaSwapInfo>() {
                 @Override

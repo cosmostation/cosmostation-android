@@ -53,6 +53,8 @@
     <string name="str_iov_c" translatable="false">IOV</string>
     <string name="str_band_c" translatable="false">BAND</string>
     <string name="str_ok_c" translatable="false">OKT</string>
+    <string name="str_bnb_c" translatable="false">BNB</string>
+    <string name="str_btc_c" translatable="false">BTC</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
@@ -150,8 +152,10 @@
     <string name="str_fees">Fee</string>
     <string name="str_fees_c">FEE</string>
     <string name="str_to_send_amount">Send Amount</string>
-    <string name="str_to_receive_amount">Receive Amount</string>
+    <string name="str_expected_receive_amount">Final Receive Amount</string>
     <string name="str_relay_fee">Relay Fee</string>
+    <string name="str_claim_fee">Claim Tx Fee</string>
+    <string name="str_send_fee">Send Tx Fee</string>
     <string name="str_total_spend_amount">Total Spend</string>
     <string name="str_current_available">Current Available</string>
     <string name="str_remaining_available">Remaining Available</string>
@@ -519,6 +523,7 @@
     <string name="str_warn_testnet_title">Testnet Warning</string>
     <string name="str_warn_testnet_msg"><![CDATA[This wallet is for testnet\n(Tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use new feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
     <string name="str_interchain">Interchain Transfer</string>
+    <string name="str_to_swap_coin">Send Coin</string>
     <string name="str_source_chain">Source Chain</string>
     <string name="str_destination_chain">Destination Chain</string>
     <string name="str_create_interchain_send">Create Interchain Send</string>
@@ -538,6 +543,7 @@
     <string name="str_this_total_reward">This Round Total Reward</string>
     <string name="str_lock_time">Lock Time</string>
     <string name="str_vesting_schedule">Vesting Unlock Schedule</string>
+    <string name="str_relayer_status">Relayer Status</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
@@ -664,12 +670,13 @@
     <string name="str_bep3_cap_status">Swap Cap Information</string>
     <string name="str_bep3_available_title">BNB-BEP3 swap available</string>
     <string name="str_bep3_unavailable_title">BNB-BEP3 swap unavailable</string>
-    <string name="str_bep3_system_max">System Max</string>
+    <string name="str_bep3_max_once">Max amount per transfer</string>
+    <string name="str_bep3_system_max">System Max Cap</string>
     <string name="str_bep3_current_cap">Current Cap</string>
     <string name="str_bep3_remain_cap">Remaining Cap</string>
     <string name="str_bep3_bnb_cap_over">The total amount of BNB available for swap has reached its network capacity.\n\nThe maximum swap capacity is determined through Kava policies <![CDATA[&]]> governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\n\nhttps://t.me/kavalabs</string>
     <string name="str_bep3_bnb_cap">Current remaining swap capacity is %1$s\n\nThe maximum swap capacity is determined through Kava policies <![CDATA[&]]> governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\nhttps://t.me/kavalabs</string>
-
+    <string name="str_select_to_send_coin">Select To Send Coin Type</string>
 
 
     <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
@@ -974,9 +981,9 @@
     <string name="error_can_not_draw_debt">Cannot more loan now.</string>
     <string name="error_not_enought_principal_asset">Not enough USDX to repay.</string>
     <string name="error_can_not_repay">Cannot repay now. You need more USDX to Repay.</string>
-    <string name="error_can_not_bep3_account_title">No %1$s Account</string>
-    <string name="error_can_not_bep3_account_msg">In order to user this feature,\nyou must create a %1$s account and deposit a small amount of %2$s to be used as transaction fee.</string>
-    <string name="error_can_not_bep3_account_msg2">In order to user this feature,\nyou must create a %1$s account wallet.</string>
+    <string name="error_can_not_bep3_account_title">No valid account at %1$s</string>
+    <string name="error_can_not_bep3_account_msg">In order to receive interchain transfer,\nyou must create a valid(with private key) %1$s account and deposit at least 0.000375BNB for claim transaction fee.</string>
+    <string name="error_can_not_bep3_account_msg2">In order to receive interchain transfer,\nyou must create a valid(with private key) %1$s account wallet.</string>
     <string name="error_select_account_to_recipient">Please select account to receive</string>
     <string name="error_no_more_faucet">Alreay have enought test coin.</string>
     <string name="error_no_more_debt_kava">Cannot issue USDX. Maximum network USDX capacity has been reached.\n%1$s / %2$s</string>
@@ -987,6 +994,8 @@
     <string name="error_invalide_starname">Unregistered star name.</string>
     <string name="error_no_mattched_starname">Valide starname, but there is no mattching address with this chain.</string>
     <string name="error_starname_self_send">Valide starname, but self sending is not support.</string>
+    <string name="error_bep3_supply_full">The swap has reached its network capacity.</string>
+    <string name="error_bep3_under_min_amount">Need more than 0.00001 balance for Interchain send</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

@@ -29,10 +29,11 @@ import wannabit.io.cosmostaion.fragment.HtlcSendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcSendStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_BEP3;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 public class HtlcSendActivity extends BaseActivity {
 
@@ -44,14 +45,16 @@ public class HtlcSendActivity extends BaseActivity {
     private ViewPager               mViewPager;
     private HtlcSendPageAdapter     mPageAdapter;
 
-    public String                   mSendDenom = TOKEN_BNB;        //now only support bnb bep3
+    public String                   mToSwapDenom = TOKEN_BNB;
     public ArrayList<Coin>          mToSendCoins;
     public BaseChain                mRecipientChain;
     public Account                  mRecipientAccount;
     public Fee                      mSendFee;
     public Fee                      mClaimFee;
-    public Coin                     mRemainCap;
-    public BigDecimal               mMaxOnce;
+
+    public BigDecimal               mTotalCap = BigDecimal.ZERO;
+    public BigDecimal               mRemainCap = BigDecimal.ZERO;
+    public BigDecimal               mMaxOnce = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,8 @@ public class HtlcSendActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mToSwapDenom = getIntent().getStringExtra("toSwapDenom");
+//        WLog.w("toSwapDenom "+ mToSwapDenom);
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_htlc_send_step_1));
@@ -256,5 +261,9 @@ public class HtlcSendActivity extends BaseActivity {
             intent.putExtra("claimFee", mClaimFee);
             startActivity(intent);
         }
+    }
+
+    public BigDecimal getAvailable() {
+        return mAccount.getTokenBalance(mToSwapDenom);
     }
 }

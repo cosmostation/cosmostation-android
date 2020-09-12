@@ -1185,6 +1185,8 @@ public class WUtil {
             return 6;
         } else if (coin.denom.equalsIgnoreCase("bnb")) {
             return 8;
+        } else if (coin.denom.equalsIgnoreCase("btcb")) {
+            return 8;
         }
         return 0;
 
@@ -1201,6 +1203,8 @@ public class WUtil {
             return 6;
         } else if (denom.equalsIgnoreCase("bnb")) {
             return 8;
+        } else if (denom.equalsIgnoreCase("btcb")) {
+            return 8;
         }
         return 100;
     }
@@ -1214,6 +1218,17 @@ public class WUtil {
         }
         return null;
     }
+
+    public static BnbToken getBnbToken(ArrayList<BnbToken> all, String symbol) {
+        if (all == null || symbol == null) return null;
+        for (BnbToken token:all) {
+            if (token.symbol.equals(symbol)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
         if (all == null) return null;

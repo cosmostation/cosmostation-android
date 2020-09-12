@@ -51,19 +51,20 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_REINVEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_UNKNOWN;
 
 public class TokenDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -433,7 +434,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTokenRewardLayer.setVisibility(View.GONE);
                 mTokenImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
 
-            } else if ((mBaseChain.equals(BaseChain.BNB_MAIN) || (mBaseChain.equals(BaseChain.BNB_TEST))) && mBnbToken != null) {
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN) && mBnbToken != null) {
                 mTokenLink.setVisibility(View.VISIBLE);
                 mBtnTokenDetail.setOnClickListener(this);
                 mTvTokenSymbol.setText(mBnbToken.original_symbol);
@@ -455,7 +456,35 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                             .into(mTokenImg);
                 } catch (Exception e) {}
 
-            } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN) || (mBaseChain.equals(BaseChain.KAVA_TEST)) && mBalance != null)) {
+            } else if (mBaseChain.equals(BaseChain.BNB_TEST) && mBnbToken != null) {
+                mTokenLink.setVisibility(View.VISIBLE);
+                mBtnTokenDetail.setOnClickListener(this);
+                mTvTokenSymbol.setText(mBnbToken.original_symbol);
+                mTvTokenDenom.setText(mBnbToken.symbol);
+                mTvTokenTotal.setText(WDp.getDpAmount(this, mBalance.getAllBnbBalance(), 8, mBaseChain));
+
+                BigDecimal amount = BigDecimal.ZERO;
+                ResBnbTic tic = mBnbTics.get(WUtil.getBnbTicSymbol(mBalance.symbol));
+                if (tic != null) {
+                    amount = mBalance.exchangeToBnbAmount(tic);
+                }
+
+                mTvTokenValue.setText(WDp.getValueOfBnb(this, getBaseDao(), amount));
+                mTvTokenAvailable.setText(WDp.getDpAmount(this, mBalance.balance, 8, mBaseChain));
+                mTokenRewardLayer.setVisibility(View.GONE);
+                try {
+                    Picasso.get().load(TOKEN_IMG_URL+mBnbToken.original_symbol+".png")
+                            .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                            .into(mTokenImg);
+                } catch (Exception e) {}
+                if (mBalance.symbol.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
+                    mBtnBep3Send.setVisibility(View.VISIBLE);
+                    mBtnBep3Send.setOnClickListener(this);
+                } else {
+                    mBtnBep3Send.setVisibility(View.GONE);
+                }
+
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) && mBalance != null) {
                 mTokenLink.setVisibility(View.GONE);
                 mTvTokenSymbol.setText(mBalance.symbol.toUpperCase());
                 mTvTokenDenom.setText(mBalance.symbol);
@@ -472,7 +501,34 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                             .into(mTokenImg);
 
                 } catch (Exception e) { }
-                if (mBalance.symbol.equals("bnb")) {
+                if (mBalance.symbol.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
+                    mBtnBep3Send.setVisibility(View.VISIBLE);
+                    mBtnBep3Send.setOnClickListener(this);
+                } else if (mBalance.symbol.equals("usdx")) {
+                    mTokenLink.setVisibility(View.VISIBLE);
+                    mBtnTokenDetail.setOnClickListener(this);
+                } else {
+                    mBtnBep3Send.setVisibility(View.GONE);
+                }
+
+            } else if (mBaseChain.equals(BaseChain.KAVA_TEST) && mBalance != null) {
+                mTokenLink.setVisibility(View.GONE);
+                mTvTokenSymbol.setText(mBalance.symbol.toUpperCase());
+                mTvTokenDenom.setText(mBalance.symbol);
+
+                mTvTokenTotal.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
+                mTvTokenAvailable.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
+                BigDecimal tokenTotalValue = mBalance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
+                BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
+                mTvTokenValue.setText(WDp.getValueOfKava(this, getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
+                mTokenRewardLayer.setVisibility(View.GONE);
+                try {
+                    Picasso.get().load(KAVA_COIN_IMG_URL+mBalance.symbol+".png")
+                            .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                            .into(mTokenImg);
+
+                } catch (Exception e) { }
+                if (mBalance.symbol.equals(TOKEN_HTLC_KAVA_TEST_BNB) || mBalance.symbol.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
                     mBtnBep3Send.setVisibility(View.VISIBLE);
                     mBtnBep3Send.setOnClickListener(this);
                 } else if (mBalance.symbol.equals("usdx")) {
@@ -519,10 +575,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString(), mBnbToken.symbol);
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-//            ReqTxToken req = new ReqTxToken(0, 0, true, mAccount.address, mBalance.symbol);
-//            new TokenHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
 
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
             new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -680,7 +733,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 onShowBuyWarnNoKey();
             }
         } else if (v.equals(mBtnInterChain) || v.equals(mBtnBep3Send)) {
-            onStartHTLCSendActivity();
+            onStartHTLCSendActivity(mBalance.symbol);
         }
     }
 
