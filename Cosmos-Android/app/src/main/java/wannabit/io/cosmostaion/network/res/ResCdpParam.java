@@ -19,13 +19,21 @@ public class ResCdpParam {
     public Result result;
 
 
-
     public class Result {
         @SerializedName("surplus_auction_threshold")
         public String surplus_auction_threshold;
 
+        @SerializedName("surplus_auction_lot")
+        public String surplus_auction_lot;
+
         @SerializedName("debt_auction_threshold")
         public String debt_auction_threshold;
+
+        @SerializedName("debt_auction_lot")
+        public String debt_auction_lot;
+
+        @SerializedName("savings_distribution_frequency")
+        public String savings_distribution_frequency;
 
         @SerializedName("circuit_breaker")
         public Boolean circuit_breaker;
@@ -79,11 +87,17 @@ public class ResCdpParam {
 
         @SerializedName("debt_floor")
         public String debt_floor;
+
+        @SerializedName("savings_rate")
+        public String savings_rate;
     }
 
     public class KavaCollateralParam {
         @SerializedName("denom")
         public String denom;
+
+        @SerializedName("type")
+        public String type;
 
         @SerializedName("liquidation_ratio")
         public String liquidation_ratio;
@@ -106,10 +120,6 @@ public class ResCdpParam {
         @SerializedName("conversion_factor")
         public String conversion_factor;
 
-
-        @SerializedName("market_id")
-        public String market_id;
-
         @SerializedName("spot_market_id")
         public String spot_market_id;
 
@@ -117,10 +127,10 @@ public class ResCdpParam {
         public String liquidation_market_id;
 
         public String getDpMarketId() {
+//            if (!TextUtils.isEmpty(spot_market_id))
+//                return spot_market_id.split(":")[0].toUpperCase() + " : " + spot_market_id.split(":")[1].toUpperCase() + "X";
             if (!TextUtils.isEmpty(spot_market_id))
-                return spot_market_id.split(":")[0].toUpperCase() + " : " + spot_market_id.split(":")[1].toUpperCase() + "X";
-            if (!TextUtils.isEmpty(market_id))
-                return market_id.split(":")[0].toUpperCase() + " : " + market_id.split(":")[1].toUpperCase() + "X";
+                return spot_market_id.split(":")[0].toUpperCase() + " : " + spot_market_id.split(":")[1].toUpperCase();
             return "";
         }
 
@@ -139,8 +149,6 @@ public class ResCdpParam {
         public String getImagePath() {
             if (!TextUtils.isEmpty(spot_market_id))
                 return spot_market_id.replace(":","")   +".png";
-            if (!TextUtils.isEmpty(market_id))
-                return market_id.replace(":","")   +".png";
             return "";
         }
     }

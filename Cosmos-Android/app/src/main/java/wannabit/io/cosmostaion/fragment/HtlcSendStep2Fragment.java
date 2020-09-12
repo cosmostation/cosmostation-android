@@ -100,7 +100,6 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
 
     }
 
-    //TODO 피보단 높아야 한다~~
     private void onUpdateInitInfo() {
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
             mDecimal = 8;

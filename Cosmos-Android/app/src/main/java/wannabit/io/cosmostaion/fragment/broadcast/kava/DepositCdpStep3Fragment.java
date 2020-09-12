@@ -117,10 +117,10 @@ public class DepositCdpStep3Fragment extends BaseFragment implements View.OnClic
     }
 
     private ResCdpParam.KavaCollateralParam getCParam() {
-        return getSActivity().getCParam();
+        return getSActivity().mCollateralParam;
     }
 
     private ResKavaMarketPrice.Result getPrice() {
-        return getSActivity().mTokenPrice;
+        return getSActivity().mKavaTokenPrice;
     }
 }

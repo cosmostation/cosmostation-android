@@ -22,6 +22,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Map;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.KavaCdpDetailActivity;
@@ -120,33 +121,33 @@ public class CdpMyFragment extends BaseFragment {
             } else {
                 final MyCdpHolder holder = (MyCdpHolder)viewHolder;
                 final ResCdpOwnerStatus.MyCDP status = mMyOwenCdp.get(position);
-                final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(status.getMarketId());
+                final ResCdpParam.KavaCollateralParam collateralParam = getBaseDao().mKavaCdpParams.getCollateralParamByDenom(status.getDenom());
+                final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(collateralParam.liquidation_market_id);
                 final int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
-                final ResCdpParam.KavaCollateralParam param = getMainActivity().mCdpParam.getCollateralParamByDenom(status.getDenom());
 
                 final BigDecimal currentPrice = new BigDecimal(price.price);
-                final BigDecimal liquidationPrice = status.getLiquidationPrice(getContext(), param);
+                final BigDecimal liquidationPrice = status.getLiquidationPrice(getContext(), collateralParam);
                 final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
 //            WLog.w("currentPrice " +  currentPrice);
 //            WLog.w("liquidationPrice " +  liquidationPrice);
 //            WLog.w("riskRate " +  riskRate);
 
-                holder.itemTitleMarket.setText(param.getDpMarketId());
+                holder.itemTitleMarket.setText(collateralParam.getDpMarketId());
                 holder.itemDebtValueTitle.setText(String.format(getString(R.string.str_debt_value), status.getPDenom().toUpperCase()));
                 holder.itemCollateralValueTitle.setText(String.format(getString(R.string.str_collateral_value_title3), status.getDenom().toUpperCase()));
 
                 final BigDecimal debtValue = status.getPrincipalAmount();
                 final BigDecimal feeValue = status.getAccumulatedFees();
-                final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), debtValue.add(feeValue), param, status.cdp);
+                final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), debtValue.add(feeValue), collateralParam, status.cdp);
                 final BigDecimal totalDebtValue = debtValue.add(feeValue).add(hiddenFeeValue);
                 holder.itemDebtValue.setText(WDp.getDpRawDollor(getContext(), totalDebtValue.movePointLeft(denomPDecimal), 2));
 
                 final BigDecimal currentCollateralValue = new BigDecimal(status.collateral_value.amount);
                 holder.itemCollateralValue.setText(WDp.getDpRawDollor(getContext(), currentCollateralValue.movePointLeft(denomPDecimal), 2));
 
-                holder.itemStabilityFee.setText(WDp.getPercentDp(param.getDpStabilityFee(), 2));
-                holder.itemLiquidationPenalty.setText(WDp.getPercentDp(param.getDpLiquidationPenalty(), 2));
+                holder.itemStabilityFee.setText(WDp.getPercentDp(collateralParam.getDpStabilityFee(), 2));
+                holder.itemLiquidationPenalty.setText(WDp.getPercentDp(collateralParam.getDpLiquidationPenalty(), 2));
 
                 holder.itemCurrentPriceTitle.setText(String.format(getString(R.string.str_current_title3), status.getDenom().toUpperCase()));
                 holder.itemCurrentPrice.setText(WDp.getDpRawDollor(getContext(), currentPrice, 4));
@@ -156,7 +157,7 @@ public class CdpMyFragment extends BaseFragment {
 
                 WDp.DpRiskRate(getContext(), riskRate, holder.itemRiskScore,  holder.itemImgRisk);
                 try {
-                    Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  status.getImagePath()).fit().into(holder.itemImgMarket);
+                    Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  collateralParam.getImagePath()).fit().into(holder.itemImgMarket);
 
                 } catch (Exception e) { }
 
@@ -164,8 +165,8 @@ public class CdpMyFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getMainActivity(), KavaCdpDetailActivity.class);
-                        intent.putExtra("denom", status.getDenom());
-                        intent.putExtra("marketId", status.getMarketId());
+                        intent.putExtra("denom", collateralParam.denom);
+                        intent.putExtra("marketId", collateralParam.liquidation_market_id);
                         startActivity(intent);
                     }
                 });

@@ -6,6 +6,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
+import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -17,14 +18,14 @@ public class KavaCdpByOwnerTask extends CommonTask {
 
     private BaseChain mChain;
     private String mAddress;
-    private String mDenom;
+    private ResCdpParam.KavaCollateralParam mParam;
 
-    public KavaCdpByOwnerTask(BaseApplication app, TaskListener listener, BaseChain chain, String address, String denom) {
+    public KavaCdpByOwnerTask(BaseApplication app, TaskListener listener, BaseChain chain, String address, ResCdpParam.KavaCollateralParam param) {
         super(app, listener);
         this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
         this.mChain = chain;
         this.mAddress = address;
-        this.mDenom = denom;
+        this.mParam = param;
 
     }
 
@@ -32,19 +33,19 @@ public class KavaCdpByOwnerTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                Response<ResCdpOwnerStatus> response = ApiClient.getKavaChain(mApp).getCdpStatusByOwner(mAddress, mDenom).execute();
+                Response<ResCdpOwnerStatus> response = ApiClient.getKavaChain(mApp).getCdpStatusByOwner(mAddress, mParam.denom).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
-                    mResult.resultData2 = mDenom;
+                    mResult.resultData2 = mParam.denom;
                     mResult.isSuccess = true;
 
                 }
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ResCdpOwnerStatus> response = ApiClient.getKavaTestChain(mApp).getCdpStatusByOwner(mAddress, mDenom).execute();
+                Response<ResCdpOwnerStatus> response = ApiClient.getKavaTestChain(mApp).getCdpStatusByOwner(mAddress, mParam.type).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
-                    mResult.resultData2 = mDenom;
+                    mResult.resultData2 = mParam.denom;
                     mResult.isSuccess = true;
 
                 }

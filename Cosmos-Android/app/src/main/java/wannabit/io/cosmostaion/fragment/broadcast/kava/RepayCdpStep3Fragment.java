@@ -122,6 +122,6 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
     }
 
     private ResCdpParam.KavaCollateralParam getCParam() {
-        return getSActivity().getCParam();
+        return getSActivity().mCollateralParam;
     }
 }

@@ -97,16 +97,16 @@ public class CdpAllFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull AllCdpHolder holder, int position) {
-            final ResCdpParam.KavaCollateralParam param = mKavaCollateralParam.get(position);
+            final ResCdpParam.KavaCollateralParam collateralParam = mKavaCollateralParam.get(position);
 
-            holder.itemTitleMarket.setText(param.getDpMarketId());
-            holder.itemCollateralRate.setText(WDp.getPercentDp(param.getDpLiquidationRatio(), 2));
-            holder.itemStabilityFee.setText(WDp.getPercentDp(param.getDpStabilityFee(), 2));
-            holder.itemLiquidationPenalty.setText(WDp.getPercentDp(param.getDpLiquidationPenalty(), 2));
+            holder.itemTitleMarket.setText(collateralParam.getDpMarketId());
+            holder.itemCollateralRate.setText(WDp.getPercentDp(collateralParam.getDpLiquidationRatio(), 2));
+            holder.itemStabilityFee.setText(WDp.getPercentDp(collateralParam.getDpStabilityFee(), 2));
+            holder.itemLiquidationPenalty.setText(WDp.getPercentDp(collateralParam.getDpLiquidationPenalty(), 2));
 
             Picasso.get().cancelRequest(holder.itemImgMarket);
             try {
-                Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  param.getImagePath())
+                Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  collateralParam.getImagePath())
                         .fit().into(holder.itemImgMarket);
 
             } catch (Exception e) { }
@@ -114,8 +114,8 @@ public class CdpAllFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getMainActivity(), KavaCdpDetailActivity.class);
-                    intent.putExtra("denom", param.denom);
-                    intent.putExtra("marketId", param.liquidation_market_id);
+                    intent.putExtra("denom", collateralParam.denom);
+                    intent.putExtra("marketId", collateralParam.liquidation_market_id);
                     startActivity(intent);
                 }
             });

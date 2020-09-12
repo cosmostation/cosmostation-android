@@ -1125,7 +1125,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
-                holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
+                if (!TextUtils.isEmpty(msg.value.cdp_denom)) {
+                    holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
+                } else if (!TextUtils.isEmpty(msg.value.collateral_type)) {
+                    holder.itemCdpDenom.setText(msg.value.collateral_type.toUpperCase());
+                }
                 WDp.showCoinDp(getBaseContext(), msg.value.principal, holder.itemPrincipalDenom, holder.itemPrincipalAmount, mBaseChain);
             }
         }
@@ -1136,9 +1140,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
-                holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
+                if (!TextUtils.isEmpty(msg.value.cdp_denom)) {
+                    holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
+                } else if (!TextUtils.isEmpty(msg.value.collateral_type)) {
+                    holder.itemCdpDenom.setText(msg.value.collateral_type.toUpperCase());
+                }
                 WDp.showCoinDp(getBaseContext(), msg.value.payment, holder.itemPaymentDenom, holder.itemPaymentAmount, mBaseChain);
-
             }
         }
 

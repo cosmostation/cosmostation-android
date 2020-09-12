@@ -116,7 +116,7 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
     }
 
     private ResCdpParam.KavaCollateralParam getCParam() {
-        return getSActivity().getCParam();
+        return getSActivity().mCollateralParam;
     }
 
 }

@@ -138,7 +138,7 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
     }
 
     private ResCdpParam.KavaCollateralParam getCParam() {
-        return getSActivity().getCParam();
+        return getSActivity().mCollateralParam;
     }
 
     private ResKavaMarketPrice.Result getPrice() {

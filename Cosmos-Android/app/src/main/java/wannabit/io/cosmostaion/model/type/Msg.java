@@ -177,6 +177,10 @@ public class Msg {
         @SerializedName("denom")
         public String denom;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("collateral_type")
+        public String collateral_type;
+
 
 
         @JsonInclude(JsonInclude.Include.NON_NULL)

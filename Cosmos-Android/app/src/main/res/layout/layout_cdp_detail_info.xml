@@ -306,5 +306,54 @@
                 android:text="-"/>
         </RelativeLayout>
 
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray3"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginBottom="@dimen/space_16"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/str_max_global_debt"
+                style="@style/font_ss_12_gray1"/>
+            <TextView
+                android:id="@+id/max_debt_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                style="@style/font_ssl_14_white"
+                android:gravity="right"
+                android:text="-"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/str_remain_debt"
+                style="@style/font_ss_12_gray1"/>
+            <TextView
+                android:id="@+id/remain_debt_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                style="@style/font_ssl_14_white"
+                android:gravity="right"
+                android:text="-"/>
+        </RelativeLayout>
+
     </LinearLayout>
 </android.support.v7.widget.CardView>

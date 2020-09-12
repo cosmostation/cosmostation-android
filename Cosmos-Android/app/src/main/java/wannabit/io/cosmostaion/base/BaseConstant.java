@@ -132,6 +132,7 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_OK_DEPOSIT                      = 2086;
     public final static int TASK_GEN_TX_OK_WITHDRAW                     = 2087;
     public final static int TASK_GEN_TX_OK_DIRECT_VOTE                  = 2088;
+    public final static int TASK_FETCH_KAVA_TOTAL_SUPPLY                = 2089;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -345,7 +346,7 @@ public class BaseConstant {
     public final static String FEE_KAVA_GAS_AMOUNT_AVERAGE      = "250000";
     public final static String FEE_KAVA_GAS_AMOUNT_REINVEST     = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_REDELEGATE   = "300000";
-    public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "300000";
+    public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "400000";
     public final static String FEE_KAVA_GAS_AMOUNT_BEP3         = "200000";
     public final static String FEE_KAVA_GAS_AMOUNT_HIGH         = "350000";
 

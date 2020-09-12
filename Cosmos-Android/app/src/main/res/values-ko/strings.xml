@@ -469,6 +469,8 @@
     <string name="str_principal_repay">USDX 상환</string>
     <string name="str_star_name_service">스타네임 서비스</string>
     <string name="str_star_name">스타네임</string>
+    <string name="str_max_global_debt">총 발행가능 USDX</string>
+    <string name="str_remain_debt">추가 발행가능 USDX</string>
 
 
     <string name="str_deposit_amount">추가 담보물 수량</string>
@@ -866,7 +868,7 @@
     <string name="error_can_not_bep3_account_msg2">인터체인 수신 받을 수 있는 %1$s의 유효한(개인키 포함) 지갑이 필요합니다.</string>
     <string name="error_select_account_to_recipient">받을 계정을 선택해 주세요.</string>
     <string name="error_no_more_faucet">이미 충분한 테스트 코인이 있네요.</string>
-    <string name="error_no_more_debt_kava">USDX를 더 이상 발행할 수 없습니다. 시스템에서 지원가능한 모든 USDX가 발행되었습니다.\n%1$s / %2$s</string>
+    <string name="error_no_more_debt_kava">USDX를 더 이상 발행할 수 없습니다. 시스템에서 지원가능한 모든 USDX가 발행되었습니다.</string>
     <string name="error_bnb_mini_amount">BEP8는 최소 전송 금액은 1보다 커야 합니다. 토큰 잔고가 1 미만인 경우, 전체 금액 전송만 가능합니다.</string>
     <string name="error_max_30_validator">최대 30명의 검증인을 선택하실 수 있습니다.</string>
     <string name="error_min_1_validator">1개 이상의 검증인을 선택해주세요.</string>

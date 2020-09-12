@@ -711,7 +711,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 if (cdpParam != null && cdpParam.collateral_params != null && cdpParam.collateral_params.size() > 0) {
                     mTaskCount = mTaskCount + cdpParam.collateral_params.size();
                     for (ResCdpParam.KavaCollateralParam param:getBaseDao().mKavaCdpParams.collateral_params) {
-                        new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, param.denom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, param).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
                 }
             }

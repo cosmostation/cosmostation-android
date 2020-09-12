@@ -342,7 +342,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
     }
 
     private ResCdpParam.KavaCollateralParam getCParam() {
-        return getSActivity().getCParam();
+        return getSActivity().mCollateralParam;
     }
 
     private ResCdpOwnerStatus.MyCDP getOwenCdp() {
@@ -350,7 +350,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
     }
 
     private ResKavaMarketPrice.Result getPrice() {
-        return getSActivity().mTokenPrice;
+        return getSActivity().mKavaTokenPrice;
     }
 
     private void setDpDecimals(int deciaml) {

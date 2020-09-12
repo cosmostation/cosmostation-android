@@ -116,10 +116,10 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
     }
 
     private ResCdpParam.KavaCollateralParam getCParam() {
-        return getSActivity().getCParam();
+        return getSActivity().mCollateralParam;
     }
 
     private ResKavaMarketPrice.Result getPrice() {
-        return getSActivity().mTokenPrice;
+        return getSActivity().mKavaTokenPrice;
     }
 }

@@ -127,6 +127,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mOwner;
     private String                      mDepositor;
     private String                      mCdpDenom;
+    private String                      mCollateralType;
 
     private String                      mSwapId;
     private String                      mClaimDenom;
@@ -189,6 +190,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mCdpDenom = getIntent().getStringExtra("cdp_denom");
         mDepositor = getIntent().getStringExtra("depositor");
         mCdpDenom = getIntent().getStringExtra("cdp_denom");
+        mCollateralType = getIntent().getStringExtra("collateralType");
         mSwapId = getIntent().getStringExtra("swapId");
         mClaimDenom = getIntent().getStringExtra("denom");
         mOkStakeCoin = getIntent().getParcelableExtra("stakeAmount");
@@ -377,7 +379,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mCollateralCoin,
                     mPrincipalCoin,
                     mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetFee,
+                    mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REPAY_CDP) {
             onShowWaitDialog();
@@ -388,7 +391,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mPaymentCoin,
                     mCdpDenom,
                     mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetFee,
+                    mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DRAW_DEBT_CDP) {
             onShowWaitDialog();
@@ -399,7 +403,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mPrincipalCoin,
                     mCdpDenom,
                     mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetFee,
+                    mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DEPOSIT_CDP) {
             onShowWaitDialog();
@@ -410,7 +415,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mDepositor,
                     mCollateralCoin,
                     mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetFee,
+                    mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_WITHDRAW_CDP) {
             onShowWaitDialog();
@@ -421,7 +427,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mDepositor,
                     mCollateralCoin,
                     mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetFee,
+                    mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_HTLS_REFUND) {
             onShowWaitDialog();

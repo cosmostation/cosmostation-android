@@ -51,7 +51,7 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
 
     public ResCdpParam.Result                           mCdpParam;
     public HashMap<String, ResKavaMarketPrice.Result>   mKavaTokenPrices = new HashMap<>();
-    public HashMap<String, ResCdpOwnerStatus.MyCDP>    mMyOwenCdps = new HashMap<>();
+    public HashMap<String, ResCdpOwnerStatus.MyCDP>     mMyOwenCdps = new HashMap<>();
 
     //not need yet!!!
     public HashMap<String, ArrayList<ResCdpDepositStatus.Result>>      mMyDepositedCdp;
@@ -145,14 +145,14 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
                 final ResCdpParam.Result cdpParam = (ResCdpParam.Result)result.resultData;
                 getBaseDao().mKavaCdpParams = cdpParam;
                 getBaseDao().mKavaTokenPrices.clear();
-                WLog.w("cdpParam " + cdpParam.collateral_params.size());
+                WLog.w("cdpParam.collateral_params.size :  " + cdpParam.collateral_params.size());
                 if (cdpParam != null && cdpParam.collateral_params != null && cdpParam.collateral_params.size() > 0) {
                     mTaskCount = mTaskCount + (cdpParam.collateral_params.size() * 2);
                     for (ResCdpParam.KavaCollateralParam param:getBaseDao().mKavaCdpParams.collateral_params) {
                         WLog.w("spot_market_id " + param.spot_market_id);
                         WLog.w("liquidation_market_id " + param.liquidation_market_id);
                         new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), param.liquidation_market_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                        new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, param.denom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, param).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
                 }
             }
@@ -161,6 +161,7 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 final ResKavaMarketPrice.Result price = (ResKavaMarketPrice.Result)result.resultData;
                 getBaseDao().mKavaTokenPrices.put(price.market_id, price);
+                WLog.w("mKavaTokenPrices put " + price.market_id + " " + price.price);
             }
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
             if (result.isSuccess && result.resultData != null) {
@@ -172,7 +173,7 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
             mCdpParam = getBaseDao().mKavaCdpParams;
             mKavaTokenPrices = getBaseDao().mKavaTokenPrices;
             if (mCdpParam == null || mKavaTokenPrices == null || mKavaTokenPrices.size() == 0) {
-                WLog.w("ERROR");
+                WLog.e("ERROR No cdp param data");
                 onBackPressed();
                 return;
             }

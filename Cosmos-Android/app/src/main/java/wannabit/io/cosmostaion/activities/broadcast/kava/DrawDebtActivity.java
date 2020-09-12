@@ -36,12 +36,10 @@ import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
@@ -57,18 +55,19 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
     private ViewPager                   mViewPager;
     private DrawDebtCdpPageAdapter      mPageAdapter;
 
-    private String                      mMarketDenom;
-    private String                      mMaketId;
-    public Coin                         mPrincipal = new Coin();
-    public String                       mMemo;
-    public Fee                          mFee;
+    private String                          mMarketDenom;
+    private String                          mMaketId;
+    public ResCdpParam.Result               mCdpParam;
+    public ResKavaMarketPrice.Result        mKavaTokenPrice;
+    public ResCdpParam.KavaCollateralParam  mCollateralParam;
+    public ResCdpOwnerStatus.MyCDP          mMyOwenCdp;
+    private ResCdpDepositStatus             mMyDeposits;
 
-    public ResCdpParam.Result           mCdpParam;
-    public ResKavaMarketPrice.Result    mTokenPrice;
-    public ResCdpOwnerStatus.MyCDP      mMyOwenCdp;
-    private ResCdpDepositStatus         mMyDeposits;
+    public Coin                             mPrincipal = new Coin();
+    public String                           mMemo;
+    public Fee                              mFee;
 
-    public BigDecimal                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mMoreAddedLoanAmount;
+    public BigDecimal                       mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mMoreAddedLoanAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +92,19 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mBalances = mAccount.getBalances();
 
+        mMarketDenom = getIntent().getStringExtra("denom");
+        mMaketId = getIntent().getStringExtra("marketId");
+        mCdpParam = getBaseDao().mKavaCdpParams;
+        mCollateralParam = mCdpParam.getCollateralParamByDenom(mMarketDenom);
+        if (mCdpParam == null || mCollateralParam == null) {
+            WLog.e("ERROR No cdp param data");
+            onBackPressed();
+            return;
+        }
+
         mPageAdapter = new DrawDebtCdpPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
-
-        mMarketDenom = getIntent().getStringExtra("denom");
-        mMaketId = getIntent().getStringExtra("marketId");
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -179,7 +185,8 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP);
         intent.putExtra("sender", mAccount.address);
         intent.putExtra("principalCoin", mPrincipal);
-        intent.putExtra("cdp_denom", getCParam().denom);
+        intent.putExtra("cdp_denom", mCollateralParam.denom);
+        intent.putExtra("collateralType", mCollateralParam.type);
         intent.putExtra("fee", mFee);
         intent.putExtra("memo", mMemo);
         startActivity(intent);
@@ -187,13 +194,13 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
 
     }
 
-    public ResCdpParam.Result getCDPParam() {
-        return mCdpParam;
-    }
-
-    public ResCdpParam.KavaCollateralParam getCParam() {
-        return mCdpParam.getCollateralParamByDenom(mMarketDenom);
-    }
+//    public ResCdpParam.Result getCDPParam() {
+//        return mCdpParam;
+//    }
+//
+//    public ResCdpParam.KavaCollateralParam getCParam() {
+//        return mCdpParam.getCollateralParamByDenom(mMarketDenom);
+//    }
 
     private class DrawDebtCdpPageAdapter extends FragmentPagerAdapter {
 
@@ -241,34 +248,26 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
     public void onFetchCdpInfo() {
         onShowWaitDialog();
         if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mTaskCount = 3;
-            new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            mTaskCount = 2;
             new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mMarketDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
+            new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
-
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         mTaskCount--;
-        if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
+        if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
-                mCdpParam = (ResCdpParam.Result)result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
-            if (result.isSuccess && result.resultData != null) {
-                mTokenPrice = (ResKavaMarketPrice.Result)result.resultData;
+                mKavaTokenPrice = (ResKavaMarketPrice.Result)result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
             if (result.isSuccess && result.resultData != null) {
                 mMyOwenCdp = (ResCdpOwnerStatus.MyCDP)result.resultData;
                 mTaskCount = mTaskCount + 1;
-                new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mMarketDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_DEPOSIT) {
@@ -279,7 +278,7 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
 
         if (mTaskCount == 0) {
             onHideWaitDialog();
-            if (mCdpParam == null || mTokenPrice == null || mMyOwenCdp == null) {
+            if (mCdpParam == null || mKavaTokenPrice == null || mMyOwenCdp == null) {
                 WLog.w("ERROR");
                 Toast.makeText(getBaseContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
                 onBackPressed();

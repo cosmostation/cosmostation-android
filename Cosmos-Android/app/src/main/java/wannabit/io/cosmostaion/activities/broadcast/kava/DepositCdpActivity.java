@@ -56,19 +56,19 @@ public class DepositCdpActivity extends BaseActivity {
     private ViewPager                   mViewPager;
     private DepositCdpPageAdapter       mPageAdapter;
 
-    private String                      mMarketDenom;
-    private String                      mMaketId;
+    private String                          mMarketDenom;
+    private String                          mMaketId;
+    public ResCdpParam.Result               mCdpParam;
+    public ResKavaMarketPrice.Result        mKavaTokenPrice;
+    public ResCdpParam.KavaCollateralParam  mCollateralParam;
+    public ResCdpOwnerStatus.MyCDP          mMyOwenCdp;
+    private ResCdpDepositStatus             mMyDeposits;
 
-    public Coin                         mCollateral = new Coin();
-    public String                       mMemo;
-    public Fee                          mFee;
+    public Coin                             mCollateral = new Coin();
+    public String                           mMemo;
+    public Fee                              mFee;
 
-    public ResCdpParam.Result           mCdpParam;
-    public ResKavaMarketPrice.Result    mTokenPrice;
-    public ResCdpOwnerStatus.MyCDP      mMyOwenCdp;
-    private ResCdpDepositStatus         mMyDeposits;
-
-    public BigDecimal                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mTotalDepositAmount;
+    public BigDecimal                       mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mTotalDepositAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +95,13 @@ public class DepositCdpActivity extends BaseActivity {
 
         mMarketDenom = getIntent().getStringExtra("denom");
         mMaketId = getIntent().getStringExtra("marketId");
+        mCdpParam = getBaseDao().mKavaCdpParams;
+        mCollateralParam = mCdpParam.getCollateralParamByDenom(mMarketDenom);
+        if (mCdpParam == null || mCollateralParam == null) {
+            WLog.e("ERROR No cdp param data");
+            onBackPressed();
+            return;
+        }
 
         mPageAdapter = new DepositCdpPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -183,16 +190,12 @@ public class DepositCdpActivity extends BaseActivity {
         //TODO only support self owen CDP now
         intent.putExtra("owner", mAccount.address);
         intent.putExtra("collateralCoin", mCollateral);
+        intent.putExtra("collateralType", mCollateralParam.type);
         intent.putExtra("fee", mFee);
         intent.putExtra("memo", mMemo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
-    }
-
-
-    public ResCdpParam.KavaCollateralParam getCParam() {
-        return mCdpParam.getCollateralParamByDenom(mMarketDenom);
     }
 
     public BigDecimal getcAvailable() {
@@ -245,34 +248,26 @@ public class DepositCdpActivity extends BaseActivity {
     public void onFetchCdpInfo() {
         onShowWaitDialog();
         if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mTaskCount = 3;
-            new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            mTaskCount = 2;
             new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mMarketDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
+            new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
-
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         mTaskCount--;
-        if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
+        if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
-                mCdpParam = (ResCdpParam.Result)result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
-            if (result.isSuccess && result.resultData != null) {
-                mTokenPrice = (ResKavaMarketPrice.Result)result.resultData;
+                mKavaTokenPrice = (ResKavaMarketPrice.Result)result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
             if (result.isSuccess && result.resultData != null) {
                 mMyOwenCdp = (ResCdpOwnerStatus.MyCDP)result.resultData;
                 mTaskCount = mTaskCount + 1;
-                new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mMarketDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_DEPOSIT) {
@@ -283,7 +278,7 @@ public class DepositCdpActivity extends BaseActivity {
 
         if (mTaskCount == 0) {
             onHideWaitDialog();
-            if (mCdpParam == null || mTokenPrice == null || mMyOwenCdp == null) {
+            if (mCdpParam == null || mKavaTokenPrice == null || mMyOwenCdp == null) {
                 WLog.w("ERROR");
                 Toast.makeText(getBaseContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
                 onBackPressed();

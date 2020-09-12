@@ -37,10 +37,11 @@ public class SimpleWithdrawCdpTask extends CommonTask {
     private String          mDepositor;
     private String          mMemo;
     private Fee             mFees;
+    private String          mCollateralType;
 
     public SimpleWithdrawCdpTask(BaseApplication app, TaskListener listener,
                                 Account account, String owner, String depositor,
-                                 Coin collateral, String memo, Fee fees) {
+                                 Coin collateral, String memo, Fee fees, String collateralType) {
         super(app, listener);
         this.mAccount = account;
         this.mCollateral = collateral;
@@ -48,6 +49,7 @@ public class SimpleWithdrawCdpTask extends CommonTask {
         this.mDepositor = depositor;
         this.mMemo = memo;
         this.mFees = fees;
+        this.mCollateralType = collateralType;
         this.mResult.taskType   = TASK_GEN_TX_WITHDRAW_CDP;
     }
 
@@ -91,7 +93,7 @@ public class SimpleWithdrawCdpTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg withdrawCdpMsg = MsgGenerator.genWithdrawCdpMsg(mOwner, mCollateral, mDepositor, BaseChain.getChain(mAccount.baseChain));
+            Msg withdrawCdpMsg = MsgGenerator.genWithdrawCdpMsg(mOwner, mCollateral, mDepositor, mCollateralType, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(withdrawCdpMsg);
 

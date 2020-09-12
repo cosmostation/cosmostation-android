@@ -48,12 +48,14 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaTotalSupplyTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOTAL_SUPPLY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
@@ -88,6 +90,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     private TextView            mInfoCollateralRate, mInfoStabilityFee, mInfoLiquidationPenalty,
                                 mInfoCurrentPriceTitle, mInfoCurrentPrice, mInfoLiquidationPriceTitle, mInfoLiquidationPrice;
     private RelativeLayout      mInfoLiquidationPriceLayer;
+    private TextView            mInfoMaxDebtAmount, mInfoRemainDebtAmount;
 
 
     private ImageView           mEmptyCollateralImg, mEmptyPrincipalImg;
@@ -131,6 +134,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     private ResKavaMarketPrice.Result   mKavaTokenPrice;
     private ResCdpOwnerStatus.MyCDP     mMyOwenCdp;
     private ResCdpDepositStatus         mMyDeposits;
+    private ResKavaSupply               mKavaTotalSupply;
 
     private String                      mMarketDenom;
     private String                      mMaketId;
@@ -173,6 +177,8 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         mInfoLiquidationPriceLayer      = mCdpInfoCard.findViewById(R.id.liquidation_price_layer);
         mInfoLiquidationPriceTitle      = mCdpInfoCard.findViewById(R.id.liquidation_price_title);
         mInfoLiquidationPrice           = mCdpInfoCard.findViewById(R.id.liquidation_price);
+        mInfoMaxDebtAmount              = mCdpInfoCard.findViewById(R.id.max_debt_amount);
+        mInfoRemainDebtAmount           = mCdpInfoCard.findViewById(R.id.remain_debt_amount);
 
         mMyCard                         = findViewById(R.id.card_cdp_my);
         mMyCollateralImg                = mMyCard.findViewById(R.id.collateral_icon);
@@ -228,6 +234,15 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
         mMarketDenom = getIntent().getStringExtra("denom");
         mMaketId = getIntent().getStringExtra("marketId");
+        WLog.w("mMarketDenom " + mMarketDenom);
+        WLog.w("mMaketId " + mMaketId);
+        mCdpParam = getBaseDao().mKavaCdpParams;
+        mCollateralParam = mCdpParam.getCollateralParamByDenom(mMarketDenom);
+        if (mCdpParam == null || mCollateralParam == null) {
+            WLog.e("ERROR No cdp param data");
+            onBackPressed();
+            return;
+        }
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -256,14 +271,13 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     BigDecimal pAvailable = BigDecimal.ZERO;
     BigDecimal kAvailable = BigDecimal.ZERO;
     BigDecimal currentPrice = BigDecimal.ZERO;
-    ResCdpParam.KavaCollateralParam cParam;
+    BigDecimal globalDebtAmount = BigDecimal.ZERO;
+    BigDecimal currentDebtAmount = BigDecimal.ZERO;
+    ResCdpParam.KavaCollateralParam mCollateralParam;
 
     private void onUpdateView() {
-        cParam = mCdpParam.getCollateralParamByDenom(mMarketDenom);
-        if (cParam == null || mKavaTokenPrice == null) {onBackPressed();}
-
-        cDenom = cParam.denom;
-        pDenom = cParam.debt_limit.denom;
+        cDenom = mCollateralParam.denom;
+        pDenom = mCollateralParam.debt_limit.denom;
         cAvailable = WUtil.getTokenBalance(mBalances, cDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, cDenom).balance;
         pAvailable = WUtil.getTokenBalance(mBalances, pDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, pDenom).balance;
         kAvailable = WUtil.getTokenBalance(mBalances, TOKEN_KAVA) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, TOKEN_KAVA).balance;
@@ -289,7 +303,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mInfoCollateralRateView.setVisibility(View.VISIBLE);
             mInfoLiquidationPriceLayer.setVisibility(View.VISIBLE);
 
-            mLiquidationPrice = mMyOwenCdp.getLiquidationPrice(getBaseContext(), cParam);
+            mLiquidationPrice = mMyOwenCdp.getLiquidationPrice(getBaseContext(), mCollateralParam);
             mRiskRate = new BigDecimal(100).subtract((currentPrice.subtract(mLiquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
             WDp.DpRiskRate(getBaseContext(), mRiskRate, mInfoRiskScore, mInfoImgRisk);
 
@@ -302,7 +316,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
             final BigDecimal debtValue = new BigDecimal(mMyOwenCdp.cdp.principal.amount);
             final BigDecimal feeValue = mMyOwenCdp.getAccumulatedFees();
-            final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getBaseContext(), debtValue.add(feeValue), cParam, mMyOwenCdp.cdp);
+            final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getBaseContext(), debtValue.add(feeValue), mCollateralParam, mMyOwenCdp.cdp);
             final BigDecimal totalDebtValue = debtValue.add(feeValue).add(hiddenFeeValue);
             mInfoDebtValue.setText(WDp.getDpRawDollor(getBaseContext(), totalDebtValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
 
@@ -313,24 +327,27 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), mLiquidationPrice, 4));
         }
 
-        mInfoEmptyCollateralRate.setText(WDp.getPercentDp(cParam.getDpLiquidationRatio(), 2));
-        mInfoCollateralRate.setText(WDp.getPercentDp(cParam.getDpLiquidationRatio(), 2));
-        mInfoStabilityFee.setText(WDp.getPercentDp(cParam.getDpStabilityFee(), 2));
-        mInfoLiquidationPenalty.setText(WDp.getPercentDp(cParam.getDpLiquidationPenalty(), 2));
+        mInfoEmptyCollateralRate.setText(WDp.getPercentDp(mCollateralParam.getDpLiquidationRatio(), 2));
+        mInfoCollateralRate.setText(WDp.getPercentDp(mCollateralParam.getDpLiquidationRatio(), 2));
+        mInfoStabilityFee.setText(WDp.getPercentDp(mCollateralParam.getDpStabilityFee(), 2));
+        mInfoLiquidationPenalty.setText(WDp.getPercentDp(mCollateralParam.getDpLiquidationPenalty(), 2));
         mInfoCurrentPriceTitle.setText(String.format(getString(R.string.str_current_title3), cDenom.toUpperCase()));
         mInfoCurrentPrice.setText(WDp.getDpRawDollor(getBaseContext(), currentPrice, 4));
 
-        mInfoMarketId.setText(cParam.getDpMarketId());
+        mInfoMarketId.setText(mCollateralParam.getDpMarketId());
         try {
-            Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  cParam.getImagePath()).fit().into(mInfoMarketImg);
+            Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  mCollateralParam.getImagePath()).fit().into(mInfoMarketImg);
         } catch (Exception e) { }
 
+        mInfoMaxDebtAmount.setText(WDp.getDpAmount2(getBaseContext(), mCdpParam.getGlobalDebtAmount(), 6, 6));
+        mInfoRemainDebtAmount.setText(WDp.getDpAmount2(getBaseContext(), mCdpParam.getGlobalDebtAmount().subtract(mKavaTotalSupply.getDebtAmount()), 6, 6));
 
         mInfoMyLayer.setOnClickListener(this);
         mInfoEmptyLayer.setOnClickListener(this);
         mInfoCollateralRateLayer.setOnClickListener(this);
         mStabilityFeeLayer.setOnClickListener(this);
         mInfoLiquidationPenaltyLayer.setOnClickListener(this);
+
 
         mCdpInfoCard.setVisibility(View.VISIBLE);
     }
@@ -352,7 +369,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mMyTotalDepositValue.setText(WDp.getDpRawDollor(getBaseContext(), totalDepositValue, 2));
 
             mMyWithdrawableAmountTitle.setText(getString(R.string.str_expected_withdrawable_amount) + " " + cDenom.toUpperCase());
-            BigDecimal maxWithdrawableAmount = mMyOwenCdp.getWithdrawableAmount(getBaseContext(), cParam, currentPrice, selfDepositAmount);
+            BigDecimal maxWithdrawableAmount = mMyOwenCdp.getWithdrawableAmount(getBaseContext(), mCollateralParam, currentPrice, selfDepositAmount);
             BigDecimal maxWithdrawableValue = maxWithdrawableAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice);
             mMyWithdrawableAmount.setText(WDp.getDpAmount2(getBaseContext(), maxWithdrawableAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
             mMyWithdrawableValue.setText(WDp.getDpRawDollor(getBaseContext(), maxWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)), 2));
@@ -362,11 +379,11 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mMyLoadnedAmount.setText(WDp.getDpAmount2(getBaseContext(), debtValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
             mMyLoadedValue.setText(WDp.getDpRawDollor(getBaseContext(), debtValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
 
-            final BigDecimal totalFeeValue = mMyOwenCdp.getEstimatedTotalFee(getBaseContext(), cParam);
+            final BigDecimal totalFeeValue = mMyOwenCdp.getEstimatedTotalFee(getBaseContext(), mCollateralParam);
             mMyCdpFeeAmount.setText(WDp.getDpAmount2(getBaseContext(), totalFeeValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
             mMyCdpFeeValue.setText(WDp.getDpRawDollor(getBaseContext(), totalFeeValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
 
-            final BigDecimal moreDebtAmount = mMyOwenCdp.getMoreLoanableAmount(getBaseContext(), cParam);
+            final BigDecimal moreDebtAmount = mMyOwenCdp.getMoreLoanableAmount(getBaseContext(), mCollateralParam);
             mMyLoadableAmount.setText(WDp.getDpAmount2(getBaseContext(), moreDebtAmount, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
             mMyLoadableValue.setText(WDp.getDpRawDollor(getBaseContext(), moreDebtAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
 
@@ -374,7 +391,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mMyBtnWithdrawTxt.setText(String.format(getString(R.string.str_btn_text_withdraw), cDenom.toUpperCase()));
 
             mMyPrincipalDenom.setText(pDenom.toUpperCase());
-            mMyCollateralDenom.setText(cParam.denom.toUpperCase());
+            mMyCollateralDenom.setText(mCollateralParam.denom.toUpperCase());
 
             try {
                 Picasso.get().load(KAVA_COIN_IMG_URL + cDenom + ".png").fit().into(mMyCollateralImg);
@@ -399,12 +416,12 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     }
 
     private void onUpdateAssetView() {
-        mEmptyCollateralDenom.setText(cParam.denom.toUpperCase());
+        mEmptyCollateralDenom.setText(mCollateralParam.denom.toUpperCase());
         mEmptyCollateralAmount.setText(WDp.getDpAmount2(getBaseContext(), cAvailable, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
         BigDecimal collateralValue = cAvailable.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mEmptyCollateralValue.setText(WDp.getDpRawDollor(getBaseContext(), collateralValue, 2));
 
-        mEmptyPrincipalDenom.setText(cParam.debt_limit.denom.toUpperCase());
+        mEmptyPrincipalDenom.setText(mCollateralParam.debt_limit.denom.toUpperCase());
         mEmptyPrincipalAmount.setText(WDp.getDpAmount2(getBaseContext(), pAvailable, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
         BigDecimal principalValue = pAvailable.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)).setScale(2, RoundingMode.DOWN);
         mEmptyPrincipalValue.setText(WDp.getDpRawDollor(getBaseContext(), principalValue, 2));
@@ -492,32 +509,29 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
     private void onCheckStartCreateCdp() {
         if (!onCommonCheck()) return;
-
         BigDecimal principalMinAmount = new BigDecimal(mCdpParam.debt_param.debt_floor);
-        BigDecimal collateralMinAmount = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(cParam.liquidation_ratio)).divide(currentPrice, 0, RoundingMode.UP);
+        BigDecimal collateralMinAmount = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(mCollateralParam.liquidation_ratio)).divide(currentPrice, 0, RoundingMode.UP);
         if (collateralMinAmount.compareTo(cAvailable) > 0) {
             Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            onCheckSupply(KAVA_MSG_TYPE_CREATE_CDP);
+        if (!onCheckSupply()) {
+            Toast.makeText(getBaseContext(), R.string.error_no_more_debt_kava, Toast.LENGTH_SHORT).show();
+            return;
 
-        } else {
-            Intent intent = new Intent(KavaCdpDetailActivity.this, CreateCdpActivity.class);
-            intent.putExtra("denom", mMarketDenom);
-            intent.putExtra("marketId", mMaketId);
-            startActivity(intent);
         }
+        Intent intent = new Intent(KavaCdpDetailActivity.this, CreateCdpActivity.class);
+        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("marketId", mMaketId);
+        startActivity(intent);
     }
 
     private void onCheckStartDepositCdp() {
         if (!onCommonCheck()) return;
-
         if (cAvailable.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enought_deposit_asset, Toast.LENGTH_SHORT).show();
             return;
         }
-
         Intent intent = new Intent(this, DepositCdpActivity.class);
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
@@ -526,14 +540,12 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
     private void onCheckStartWithdrawCdp() {
         if (!onCommonCheck()) return;
-
         BigDecimal selfDepositAmount = mMyDeposits.getSelfDeposit(mAccount.address);
-        BigDecimal maxWithdrawableAmount = mMyOwenCdp.getWithdrawableAmount(getBaseContext(), cParam, currentPrice, selfDepositAmount);
+        BigDecimal maxWithdrawableAmount = mMyOwenCdp.getWithdrawableAmount(getBaseContext(), mCollateralParam, currentPrice, selfDepositAmount);
         if (maxWithdrawableAmount.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enought_withdraw_asset, Toast.LENGTH_SHORT).show();
             return;
         }
-
         Intent intent = new Intent(this, WithdrawCdpActivity.class);
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
@@ -542,35 +554,33 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
     private void onCheckStartDrawDebtCdp() {
         if (!onCommonCheck()) return;
-
-        if (mMyOwenCdp.getMoreLoanableAmount(getBaseContext(), cParam).compareTo(BigDecimal.ZERO) <= 0) {
+        if (mMyOwenCdp.getMoreLoanableAmount(getBaseContext(), mCollateralParam).compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_can_not_draw_debt, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            onCheckSupply(KAVA_MSG_TYPE_DRAWDEBT_CDP);
+        if (!onCheckSupply()) {
+            Toast.makeText(getBaseContext(), R.string.error_no_more_debt_kava, Toast.LENGTH_SHORT).show();
+            return;
 
-        } else {
-            Intent intent = new Intent(KavaCdpDetailActivity.this, DrawDebtActivity.class);
-            intent.putExtra("denom", mMarketDenom);
-            intent.putExtra("marketId", mMaketId);
-            startActivity(intent);
         }
+        Intent intent = new Intent(KavaCdpDetailActivity.this, DrawDebtActivity.class);
+        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("marketId", mMaketId);
+        startActivity(intent);
+
     }
 
     private void onCheckStartRepayCdp() {
         if (!onCommonCheck()) return;
-
         if (pAvailable.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enought_principal_asset, Toast.LENGTH_SHORT).show();
             return;
         }
-
         boolean repayAll = true;
         boolean repayPart = true;
         BigDecimal debtFloor = new BigDecimal(mCdpParam.debt_param.debt_floor);
         BigDecimal rawDebt =  mMyOwenCdp.getPrincipalAmount();
-        BigDecimal totalDebt =  mMyOwenCdp.getEstimatedTotalDebt(getBaseContext(), cParam);
+        BigDecimal totalDebt =  mMyOwenCdp.getEstimatedTotalDebt(getBaseContext(), mCollateralParam);
         if (totalDebt.compareTo(pAvailable) > 0) { repayAll = false; }
         if (rawDebt.compareTo(debtFloor) <= 0) { repayPart = false; }
         if (!repayAll && !repayPart) {
@@ -605,23 +615,17 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     public void onFetchCdpInfo() {
         if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mTaskCount = 3;
-            new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mMarketDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new KavaTotalSupplyTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
-
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         mTaskCount--;
-        if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
-            if (result.isSuccess && result.resultData != null) {
-                mCdpParam = (ResCdpParam.Result)result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
+        if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
                 mKavaTokenPrice = (ResKavaMarketPrice.Result)result.resultData;
             }
@@ -630,12 +634,17 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             if (result.isSuccess && result.resultData != null) {
                 mMyOwenCdp = (ResCdpOwnerStatus.MyCDP)result.resultData;
                 mTaskCount = mTaskCount + 1;
-                new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mMarketDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_DEPOSIT) {
             if (result.isSuccess && result.resultData != null) {
                 mMyDeposits = (ResCdpDepositStatus)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_FETCH_KAVA_TOTAL_SUPPLY) {
+            if (result.isSuccess) {
+                mKavaTotalSupply = (ResKavaSupply)result.resultData;
             }
         }
 
@@ -650,50 +659,11 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         }
     }
 
-
-    private void onCheckSupply(String msgType) {
-        ApiClient.getKavaChain(getBaseContext()).getSupply().enqueue(new Callback<ResKavaSupply>() {
-            @Override
-            public void onResponse(Call<ResKavaSupply> call, Response<ResKavaSupply> response) {
-                if (response.isSuccessful()) {
-                    WLog.w("GlobalDebtAmount " + mCdpParam.getGlobalDebtAmount());
-                    WLog.w("CurrentDebtAmount " + response.body().getDebtAmount());
-
-                    if (mCdpParam.getGlobalDebtAmount().compareTo(response.body().getDebtAmount()) <= 0 ) {
-                        String msg = String.format(String.format(getString(R.string.error_no_more_debt_kava),
-                                response.body().getDebtAmount().movePointLeft(6).toPlainString(),
-                                mCdpParam.getGlobalDebtAmount().movePointLeft(6).toPlainString()));
-                        Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        if (msgType.equals(KAVA_MSG_TYPE_CREATE_CDP)) {
-                            Intent intent = new Intent(KavaCdpDetailActivity.this, CreateCdpActivity.class);
-                            intent.putExtra("denom", mMarketDenom);
-                            intent.putExtra("marketId", mMaketId);
-                            startActivity(intent);
-
-                        } else  if (msgType.equals(KAVA_MSG_TYPE_DRAWDEBT_CDP)) {
-                            Intent intent = new Intent(KavaCdpDetailActivity.this, DrawDebtActivity.class);
-                            intent.putExtra("denom", mMarketDenom);
-                            intent.putExtra("marketId", mMaketId);
-                            startActivity(intent);
-                        }
-                    }
-
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResKavaSupply> call, Throwable t) {
-                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                return;
-            }
-        });
+    private boolean onCheckSupply() {
+        if (mCdpParam.getGlobalDebtAmount().compareTo(mKavaTotalSupply.getDebtAmount()) <= 0 ) {
+            return false;
+        }
+        return true;
     }
 
 

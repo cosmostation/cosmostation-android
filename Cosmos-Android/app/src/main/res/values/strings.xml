@@ -584,6 +584,8 @@
     <string name="str_principal_repay">Repay USDX</string>
     <string name="str_star_name_service">StarName Service</string>
     <string name="str_star_name">Starname</string>
+    <string name="str_max_global_debt">System max mintable USDX</string>
+    <string name="str_remain_debt">Remain mintable USDX</string>
 
     <string name="str_deposit_amount">Additional Collateral Amount</string>
     <string name="str_loan_amount">Loan Amount</string>
@@ -986,7 +988,7 @@
     <string name="error_can_not_bep3_account_msg2">In order to receive interchain transfer,\nyou must create a valid(with private key) %1$s account wallet.</string>
     <string name="error_select_account_to_recipient">Please select account to receive</string>
     <string name="error_no_more_faucet">Alreay have enought test coin.</string>
-    <string name="error_no_more_debt_kava">Cannot issue USDX. Maximum network USDX capacity has been reached.\n%1$s / %2$s</string>
+    <string name="error_no_more_debt_kava">Cannot issue USDX. Maximum network USDX capacity has been reached.</string>
     <string name="error_bnb_mini_amount">Minimum amount required for BEP8 transactions is 1 token. If your balance is less than 1, you must send the entire amount.</string>
     <string name="error_max_30_validator">You can select Max 30 Validators.</string>
     <string name="error_min_1_validator">Please select more than 1 validator.</string>
