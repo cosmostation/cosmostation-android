@@ -220,18 +220,17 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 if (position != 0) mFloatBtn.hide();
                 else if (!mFloatBtn.isShown()) mFloatBtn.show();
 
-                if (position != 1 || !(mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BNB_TEST) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
+                if (position != 1 || !(mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
                     mFaucetBtn.hide();
                 } else if (!mFaucetBtn.isShown()) {
                     mFaucetBtn.show();
                 }
 
-                if (position != 1 || !(mBaseChain.equals(KAVA_MAIN)) || mAccount.accountNumber > 0) {
-                    mAirDropBtn.hide();
-                } else {
-                    mAirDropBtn.show();
-                }
-
+//                if (position != 1 || !(mBaseChain.equals(KAVA_MAIN)) || mAccount.accountNumber > 0) {
+//                    mAirDropBtn.hide();
+//                } else {
+//                    mAirDropBtn.show();
+//                }
 
             }
         });
@@ -335,17 +334,17 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         if (mContentsPager != null) {
             if (mContentsPager.getCurrentItem() == 1 &&
-                    (mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BNB_TEST) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
+                    (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
                 if (!mFaucetBtn.isShown()) mFaucetBtn.show();
             } else {
                 mFaucetBtn.hide();
             }
 
-            if (mContentsPager.getCurrentItem() == 1 && mBaseChain.equals(KAVA_MAIN) && mAccount.accountNumber <= 0) {
-                if (!mAirDropBtn.isShown()) mAirDropBtn.show();
-            } else {
-                mAirDropBtn.hide();
-            }
+//            if (mContentsPager.getCurrentItem() == 1 && mBaseChain.equals(KAVA_MAIN) && mAccount.accountNumber <= 0) {
+//                if (!mAirDropBtn.isShown()) mAirDropBtn.show();
+//            } else {
+//                mAirDropBtn.hide();
+//            }
         }
 
         // make syn more smooth with wallet change action
@@ -493,72 +492,73 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onGetFaucet() {
-        if (mBaseChain.equals(BNB_TEST)) {
-            if (mAccount.getBnbBalance().compareTo(new BigDecimal("2")) > 0) {
-                Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            onShowWaitDialog();
-            ApiClient.getBnbTestFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
-                @Override
-                public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                    if (response.isSuccessful()) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                onHideWaitDialog();
-                                onFetchAllData();
-                            }
-                        },2000);
-
-                    } else {
-                        onHideWaitDialog();
-                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<JSONObject> call, Throwable t) {
-                    onHideWaitDialog();
-                    Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
-        } else if (mBaseChain.equals(KAVA_TEST)) {
-            if (mAccount.getKavaBalance().compareTo(new BigDecimal("5000000")) > 0) {
-                Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            onShowWaitDialog();
-            ApiClient.getKavaTestFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
-                @Override
-                public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                    if (response.isSuccessful()) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                onHideWaitDialog();
-                                onFetchAllData();
-                            }
-                        },6000);
-
-                    } else {
-                        onHideWaitDialog();
-                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<JSONObject> call, Throwable t) {
-                    onHideWaitDialog();
-                    Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } else if (mBaseChain.equals(IOV_TEST)) {
+//        if (mBaseChain.equals(BNB_TEST)) {
+//            if (mAccount.getBnbBalance().compareTo(new BigDecimal("2")) > 0) {
+//                Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            onShowWaitDialog();
+//            ApiClient.getBnbTestFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
+//                @Override
+//                public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+//                    if (response.isSuccessful()) {
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                onHideWaitDialog();
+//                                onFetchAllData();
+//                            }
+//                        },2000);
+//
+//                    } else {
+//                        onHideWaitDialog();
+//                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<JSONObject> call, Throwable t) {
+//                    onHideWaitDialog();
+//                    Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//
+//
+//        } else if (mBaseChain.equals(KAVA_TEST)) {
+//            if (mAccount.getKavaBalance().compareTo(new BigDecimal("5000000")) > 0) {
+//                Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            onShowWaitDialog();
+//            ApiClient.getKavaTestFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
+//                @Override
+//                public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+//                    if (response.isSuccessful()) {
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                onHideWaitDialog();
+//                                onFetchAllData();
+//                            }
+//                        },6000);
+//
+//                    } else {
+//                        onHideWaitDialog();
+//                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<JSONObject> call, Throwable t) {
+//                    onHideWaitDialog();
+//                    Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//
+//        } else
+        if (mBaseChain.equals(IOV_TEST)) {
             if (mAccount.getIovBalance().compareTo(new BigDecimal("1000000000")) > 0) {
                 Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
                 return;
@@ -598,36 +598,36 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onGetAirDrop() {
-        if (mAccount.accountNumber > 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        onShowWaitDialog();
-        ApiClient.getKavaFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
-            @Override
-            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                if (response.isSuccessful()) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            onHideWaitDialog();
-                            onFetchAllData();
-                        }
-                    },6000);
-
-                } else {
-                    onHideWaitDialog();
-                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JSONObject> call, Throwable t) {
-                onHideWaitDialog();
-                Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        if (mAccount.accountNumber > 0) {
+//            Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        onShowWaitDialog();
+//        ApiClient.getKavaFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
+//            @Override
+//            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+//                if (response.isSuccessful()) {
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            onHideWaitDialog();
+//                            onFetchAllData();
+//                        }
+//                    },6000);
+//
+//                } else {
+//                    onHideWaitDialog();
+//                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JSONObject> call, Throwable t) {
+//                onHideWaitDialog();
+//                Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     public void onShowTestNetWarnIfNeed() {
