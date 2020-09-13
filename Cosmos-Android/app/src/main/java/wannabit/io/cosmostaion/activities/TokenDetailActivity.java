@@ -491,7 +491,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
                 mTvTokenTotal.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
                 mTvTokenAvailable.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
-                BigDecimal tokenTotalValue = mBalance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
+                BigDecimal tokenTotalValue = mBalance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices, getBaseDao().mKavaCdpParams);
                 BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
                 mTvTokenValue.setText(WDp.getValueOfKava(this, getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
                 mTokenRewardLayer.setVisibility(View.GONE);
@@ -518,7 +518,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
                 mTvTokenTotal.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
                 mTvTokenAvailable.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
-                BigDecimal tokenTotalValue = mBalance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
+                BigDecimal tokenTotalValue = mBalance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices, getBaseDao().mKavaCdpParams);
                 BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
                 mTvTokenValue.setText(WDp.getValueOfKava(this, getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
                 mTokenRewardLayer.setVisibility(View.GONE);

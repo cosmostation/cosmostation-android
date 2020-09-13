@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
@@ -187,7 +188,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             WUtil.onSortingBnbTokenByValue(mBalances, mBnbTics);
         } else if (mOrder == ORDER_VALUE && (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST))) {
             mTokenSortType.setText(R.string.str_value);
-            WUtil.onSortingKavaTokenByValue(mBalances, getBaseDao().mKavaTokenPrices);
+            WUtil.onSortingKavaTokenByValue(mBalances, getBaseDao().mKavaTokenPrices, getBaseDao().mKavaCdpParams);
         }
         WDp.DpMainDenom(getMainActivity(), getMainActivity().mBaseChain.getChain(), mDenomTitle);
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
@@ -294,7 +295,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 if (balance.symbol.equals(TOKEN_KAVA)) {
                     totalKavaAmount = totalKavaAmount.add(WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
                 } else {
-                    BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
+                    BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices, getBaseDao().mKavaCdpParams);
                     BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN).movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA));
                     totalKavaAmount = totalKavaAmount.add(convertedKavaAmount);
                 }
@@ -553,7 +554,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             } catch (Exception e) { }
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
+            BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices, getBaseDao().mKavaCdpParams);
             BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
 
@@ -603,7 +604,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             } catch (Exception e) { }
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
+            WLog.w("kava tokeb " + balance.symbol + " " + balance.balance);
+            BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices, getBaseDao().mKavaCdpParams);
             BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
 

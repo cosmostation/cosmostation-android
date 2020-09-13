@@ -995,14 +995,14 @@ public class WUtil {
         });
     }
 
-    public static void onSortingKavaTokenByValue(ArrayList<Balance> balances, HashMap<String, ResKavaMarketPrice.Result> prices) {
+    public static void onSortingKavaTokenByValue(ArrayList<Balance> balances, HashMap<String, ResKavaMarketPrice.Result> prices, ResCdpParam.Result params) {
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
             public int compare(Balance o1, Balance o2) {
                 if(o1.symbol.equals(TOKEN_KAVA)) return -1;
                 if(o2.symbol.equals(TOKEN_KAVA)) return 1;
 
-                return o2.kavaTokenDollorValue(prices).compareTo(o1.kavaTokenDollorValue(prices));
+                return o2.kavaTokenDollorValue(prices, params).compareTo(o1.kavaTokenDollorValue(prices, params));
             }
         });
     }

@@ -8,6 +8,7 @@ import java.math.RoundingMode;
 import java.util.HashMap;
 
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
+import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -99,15 +100,16 @@ public class Balance implements Parcelable {
         }
     }
 
-    public BigDecimal kavaTokenDollorValue(HashMap<String, ResKavaMarketPrice.Result> prices) {
+    public BigDecimal kavaTokenDollorValue(HashMap<String, ResKavaMarketPrice.Result> prices, ResCdpParam.Result params) {
         if (symbol.equals("usdx")) {
             return balance.movePointLeft(WUtil.getKavaCoinDecimal(symbol));
 
         } else {
-            if (prices == null || prices.size() <= 0) {
+            if (prices == null || prices.size() <= 0 || params == null) {
                 return BigDecimal.ZERO;
             }
-            ResKavaMarketPrice.Result mMarketPrice = prices.get(symbol + ":usd:30");
+            ResCdpParam.KavaCollateralParam collateralParam = params.getCollateralParamByDenom(symbol);
+            ResKavaMarketPrice.Result mMarketPrice  = prices.get(collateralParam.liquidation_market_id);
             if (mMarketPrice == null) {
                 return BigDecimal.ZERO;
             } else {
