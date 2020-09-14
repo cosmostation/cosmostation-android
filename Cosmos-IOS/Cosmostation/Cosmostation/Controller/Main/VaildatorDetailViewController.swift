@@ -232,6 +232,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             guard let url = URL(string: self.mValidator!.description.website) else { return }
             if (UIApplication.shared.canOpenURL(url)) {
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 self.present(safariViewController, animated: true, completion: nil)
             }
         }
@@ -366,6 +367,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             guard let url = URL(string: self.mValidator!.description.website) else { return }
             if (UIApplication.shared.canOpenURL(url)) {
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 self.present(safariViewController, animated: true, completion: nil)
             }
         }

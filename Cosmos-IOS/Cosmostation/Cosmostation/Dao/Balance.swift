@@ -75,7 +75,7 @@ public class Balance {
         }
     }
     
-    func kavaTokenDollorValue(_ prices:[String:KavaTokenPrice]) -> NSDecimalNumber {
+    func kavaTokenDollorValue(_ prices: [String:KavaTokenPrice], _ cdpParam: CdpParam) -> NSDecimalNumber {
         if (balance_denom == "usdx"){
             return WUtils.stringToDecimalNoLocale(self.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(balance_denom))
             
@@ -83,9 +83,11 @@ public class Balance {
             if (prices.count <= 0) {
                 return NSDecimalNumber.zero
             }
-            guard let kavaPrice = prices[balance_denom + ":usd:30"] else {
+            
+            guard let collateralParam = cdpParam.result.getcParam(self.balance_denom), let kavaPrice = prices[collateralParam.liquidation_market_id] else {
                 return NSDecimalNumber.zero
             }
+            
             return WUtils.stringToDecimalNoLocale(self.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(balance_denom)).multiplying(by: NSDecimalNumber.init(string: kavaPrice.result.price), withBehavior: WUtils.handler6)
         }
     }

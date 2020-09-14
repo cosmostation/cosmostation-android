@@ -110,31 +110,37 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         if (chainType! == ChainType.COSMOS_MAIN) {
             guard let url = URL(string: "https://www.mintscan.io/account/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
             guard let url = URL(string: "https://irishub.mintscan.io/account/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.BINANCE_MAIN) {
             guard let url = URL(string: "https://binance.mintscan.io/account/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.KAVA_MAIN) {
             guard let url = URL(string: "https://kava.mintscan.io/account/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.BINANCE_TEST) {
             guard let url = URL(string: "https://testnet-explorer.binance.org/address/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.OK_TEST) {
             guard let url = URL(string: "https://www.oklink.com/okchain-test/address/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
         }
     }
@@ -246,6 +252,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 } else {
                     guard let url = URL(string: "https://binance.mintscan.io/txs/" + bnbHistory.txHash) else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     present(safariViewController, animated: true, completion: nil)
                 }
                            
@@ -262,6 +269,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 let bnbHistory = mBnbHistories[indexPath.row - 1]
                 guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
                 
             }
@@ -312,31 +320,28 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetBnbItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:TokenDetailHeaderBnbCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderBnbCell") as? TokenDetailHeaderBnbCell
-        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if let balance = WUtils.getTokenBalace(balances, BNB_MAIN_DENOM) {
-            let totalAmount = WUtils.getAllBnb(balance)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 6)
-            cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.availableAmount.font, 0, 6)
-            cell?.lockedAmount.attributedText = WUtils.displayAmount2(balance.balance_locked, cell!.lockedAmount.font, 0, 6)
-            cell?.actionSend  = {
-                self.onSendToken()
+        let totalAmount = WUtils.getAllBnb(balance)
+        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 6)
+        cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+        cell?.availableAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.availableAmount.font, 0, 6)
+        cell?.lockedAmount.attributedText = WUtils.displayAmount2(balance?.balance_locked, cell!.lockedAmount.font, 0, 6)
+        cell?.actionSend  = {
+            self.onSendToken()
+        }
+        cell?.actionRecieve = {
+            self.onRecieveToken()
+        }
+        cell?.BtnSendBep3.isHidden = false;
+        cell?.actionSendBep3 = {
+            self.onClickBep3Send(self.balance?.balance_denom)
+        }
+        if (chainType == ChainType.BINANCE_MAIN) {
+            cell?.BtnBuyBnb.isHidden = false
+            cell?.actionBuy = {
+                self.onBuyCoin()
             }
-            cell?.actionRecieve = {
-                self.onRecieveToken()
-            }
-            cell?.BtnSendBep3.isHidden = false;
-            cell?.actionSendBep3 = {
-                self.onClickBep3Send(BNB_MAIN_DENOM)
-            }
-            if (chainType == ChainType.BINANCE_MAIN) {
-                cell?.BtnBuyBnb.isHidden = false
-                cell?.actionBuy = {
-                    self.onBuyCoin()
-                }
-            } else {
-                cell?.BtnBuyBnb.isHidden = true
-            }
+        } else {
+            cell?.BtnBuyBnb.isHidden = true
         }
         return cell!
     }
@@ -451,16 +456,27 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 if (self.chainType == ChainType.BINANCE_MAIN) {
                     guard let url = URL(string: "https://binance.mintscan.io/assets/" + self.bnbToken!.symbol) else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     self.present(safariViewController, animated: true, completion: nil)
                 } else {
                     guard let url = URL(string: "https://testnet-explorer.binance.org/asset/" + self.bnbToken!.symbol) else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     self.present(safariViewController, animated: true, completion: nil)
                 }
             }
             cell?.actionSend  = {
                 self.onSendToken()
             }
+            if (balance?.balance_denom == TOKEN_HTLC_BINANCE_TEST_BTC) {
+                cell?.btnBep3Send.isHidden = false
+                cell?.actionBep3Send  = {
+                    self.onClickBep3Send(self.balance?.balance_denom)
+                }
+            } else {
+                cell?.btnBep3Send.isHidden = true
+            }
+            
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell?.tokenInfoBtn.isHidden = true
             cell?.tokenSymbol.text = balance!.balance_denom.uppercased()
@@ -468,7 +484,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.totalAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.totalAmount.font, WUtils.getKavaCoinDecimal(balance!.balance_denom), WUtils.getKavaCoinDecimal(balance!.balance_denom))
             cell?.availableAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.availableAmount.font, WUtils.getKavaCoinDecimal(balance!.balance_denom), WUtils.getKavaCoinDecimal(balance!.balance_denom))
             
-            let tokenTotalValue = balance!.kavaTokenDollorValue(BaseData.instance.mKavaPrice)
+            let tokenTotalValue = balance!.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam)
             let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
             cell?.totalValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.totalValue.font)
             let url = KAVA_COIN_IMG_URL + balance!.balance_denom + ".png"
@@ -476,17 +492,18 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.actionSend  = {
                 self.onSendToken()
             }
-            if (balance?.balance_denom.uppercased() == BNB_MAIN_DENOM) {
+            if (balance?.balance_denom == TOKEN_HTLC_KAVA_TEST_BNB || balance?.balance_denom == TOKEN_HTLC_KAVA_TEST_BTC) {
                 cell?.btnBep3Send.isHidden = false
                 cell?.actionBep3Send  = {
-                    self.onClickBep3Send(BNB_MAIN_DENOM)
+                    self.onClickBep3Send(self.balance?.balance_denom)
                 }
-                
-            } else if (balance?.balance_denom.uppercased() == "USDX") {
+
+            } else if (balance?.balance_denom == "usdx") {
                 cell?.tokenInfoBtn.isHidden = false
                 cell?.actionTokenInfo  = {
                     guard let url = URL(string: "https://www.kava.io/registration/") else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     self.present(safariViewController, animated: true, completion: nil)
                 }
                 
@@ -510,6 +527,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.actionTokenInfo = {
                 guard let url = URL(string: "https://www.oklink.com/okchain-test/token/" + self.okToken!.symbol) else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 self.present(safariViewController, animated: true, completion: nil)
             }
             cell?.actionSend  = {
@@ -760,7 +778,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func onClickBep3Send(_ denom: String) {
+    func onClickBep3Send(_ denom: String?) {
+        if (denom == nil) { return }
         if (!account!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
@@ -783,7 +802,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = TASK_TYPE_HTLC_SWAP
-        txVC.mHtlcDenom = denom
+        txVC.mHtlcDenom = denom!
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)

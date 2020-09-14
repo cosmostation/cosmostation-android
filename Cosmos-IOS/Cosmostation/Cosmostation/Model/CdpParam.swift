@@ -26,7 +26,10 @@ public class CdpParam {
     
     public class CdpParamResult {
         var surplus_auction_threshold: String = ""
+        var surplus_auction_lot: String = ""
         var debt_auction_threshold: String = ""
+        var debt_auction_lot: String = ""
+        var savings_distribution_frequency: String = ""
         var circuit_breaker: Bool = true
         var global_debt_limit: Coin?
         var debt_param: DebtParam?
@@ -39,8 +42,20 @@ public class CdpParam {
                 self.surplus_auction_threshold = surplus_auction_threshold
             }
             
+            if let surplus_auction_lot =  dictionary["surplus_auction_lot"] as? String {
+                self.surplus_auction_lot = surplus_auction_lot
+            }
+            
             if let debt_auction_threshold =  dictionary["debt_auction_threshold"] as? String {
                 self.debt_auction_threshold = debt_auction_threshold
+            }
+            
+            if let debt_auction_lot =  dictionary["debt_auction_lot"] as? String {
+                self.debt_auction_lot = debt_auction_lot
+            }
+            
+            if let savings_distribution_frequency =  dictionary["savings_distribution_frequency"] as? String {
+                self.savings_distribution_frequency = savings_distribution_frequency
             }
             
             if let circuit_breaker =  dictionary["circuit_breaker"] as? Bool {
@@ -83,6 +98,7 @@ public class CdpParam {
     
     public class CollateralParam {
         var denom: String = ""
+        var type: String = ""
         var liquidation_ratio: String = ""
         var debt_limit: Coin?
         var stability_fee: String = ""
@@ -90,8 +106,6 @@ public class CdpParam {
         var liquidation_penalty: String = ""
         var prefix: Int = 0
         var conversion_factor: String = ""
-        var market_id: String = ""
-        
         var spot_market_id: String = ""
         var liquidation_market_id: String = ""
         
@@ -100,6 +114,10 @@ public class CdpParam {
         init(_ dictionary: [String: Any]) {
             if let denom =  dictionary["denom"] as? String {
                 self.denom = denom
+            }
+            
+            if let type =  dictionary["type"] as? String {
+                self.type = type
             }
             
             if let liquidation_ratio =  dictionary["liquidation_ratio"] as? String {
@@ -131,10 +149,6 @@ public class CdpParam {
                 self.conversion_factor = conversion_factor
             }
             
-            if let market_id =  dictionary["market_id"] as? String {
-                self.market_id = market_id
-            }
-            
             if let spot_market_id =  dictionary["spot_market_id"] as? String {
                 self.spot_market_id = spot_market_id
             }
@@ -152,18 +166,12 @@ public class CdpParam {
             if (!spot_market_id.isEmpty) {
                 return spot_market_id.replacingOccurrences(of: ":", with: "")
             }
-            if (!market_id.isEmpty) {
-                return market_id.replacingOccurrences(of: ":", with: "")
-            }
             return ""
         }
         
         func getDpMarketId() -> String {
             if (!spot_market_id.isEmpty) {
                 return spot_market_id.split(separator: ":")[0].uppercased() + " : " + spot_market_id.split(separator: ":")[1].uppercased() + "X"
-            }
-            if (!market_id.isEmpty) {
-                return market_id.split(separator: ":")[0].uppercased() + " : " + market_id.split(separator: ":")[1].uppercased() + "X"
             }
             return ""
         }
@@ -191,6 +199,7 @@ public class CdpParam {
         var reference_asset: String = ""
         var conversion_factor: String = ""
         var debt_floor: String = ""
+        var savings_rate: String = ""
         
         init() {}
         
@@ -209,6 +218,10 @@ public class CdpParam {
             
             if let debt_floor =  dictionary["debt_floor"] as? String {
                 self.debt_floor = debt_floor
+            }
+            
+            if let savings_rate =  dictionary["savings_rate"] as? String {
+                self.savings_rate = savings_rate
             }
         }
     }

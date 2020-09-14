@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -42,9 +42,9 @@ let KAVA_URL                            = "https://lcd-kava-3.cosmostation.io/";
 let KAVA_API                            = "https://api-kava-3.cosmostation.io/";
 let KAVA_FAUCET                         = "https://faucet-kava-3.cosmostation.io/faucet/";
 
-let KAVA_TEST_URL                       = "https://lcd-kava-testnet-8000.cosmostation.io/";
-let KAVA_TEST_API                       = "https://api-kava-testnet-8000.cosmostation.io/";
-let KAVA_TEST_FAUCET                    = "https://faucet-kava-testnet-8000.cosmostation.io/faucet/";
+let KAVA_TEST_URL                       = "https://lcd-kava-testnet-9000.cosmostation.io/";
+let KAVA_TEST_API                       = "https://api-kava-testnet-9000.cosmostation.io/";
+let KAVA_TEST_FAUCET                    = "https://faucet-kava-testnet-9000.cosmostation.io/faucet/";
 
 
 let IOV_URL                             = "https://lcd-iov.cosmostation.io/";
@@ -460,16 +460,8 @@ let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
 let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 
-
-//TODO check 
-let BNB_DEPUTY                              = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn"
-let KAVA_DEPUTY                             = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6"
-let BNB_TEST_DEPUTY                         = "tbnb1mdvtph9y0agm4nx7dcl86t7nuvt5mtcul8zld6"
-let KAVA_TEST_DEPUTY                        = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl"
-
 let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
 let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
-
 
 let OK_MSG_TYPE_TRANSFER                    = "okchain/token/MsgTransfer";
 let OK_MSG_TYPE_MULTI_TRANSFER              = "okchain/token/MsgMultiTransfer";
@@ -593,6 +585,21 @@ let OK_GAS_AMOUNT_STAKE_MUX                 = "20000"
 let OK_GAS_AMOUNT_VOTE                      = "200000"
 let OK_GAS_AMOUNT_VOTE_MUX                  = "50000"
 
+// Constant for BEP3-Swap
+let BINANCE_MAIN_BNB_DEPUTY                 = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn"
+let KAVA_MAIN_BNB_DEPUTY                    = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6"
+let BINANCE_TEST_BNB_DEPUTY                 = "tbnb1mdvtph9y0agm4nx7dcl86t7nuvt5mtcul8zld6"
+let KAVA_TEST_BNB_DEPUTY                    = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl"
+let BINANCE_TEST_BTC_DEPUTY                 = "tbnb1dmn2xgnc8kcxn4s0ts5llu9ry3ulp2nlhuh5fz"
+let KAVA_TEST_BTC_DEPUTY                    = "kava1kla4wl0ccv7u85cemvs3y987hqk0afcv7vue84"
+
+let TOKEN_HTLC_BINANCE_BNB                  = "BNB"
+let TOKEN_HTLC_KAVA_BNB                     = "bnb"
+let TOKEN_HTLC_BINANCE_TEST_BNB             = "BNB"
+let TOKEN_HTLC_BINANCE_TEST_BTC             = "BTCB-101"
+let TOKEN_HTLC_KAVA_TEST_BNB                = "bnb"
+let TOKEN_HTLC_KAVA_TEST_BTC                = "btcb"
+
 
 
 let COLOR_BG_GRAY                           = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
@@ -656,17 +663,17 @@ enum ChainType: String {
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
-        result.append(COSMOS_MAIN)
-        result.append(IRIS_MAIN)
+//        result.append(COSMOS_MAIN)
+//        result.append(IRIS_MAIN)
         result.append(BINANCE_MAIN)
-        result.append(IOV_MAIN)
+//        result.append(IOV_MAIN)
         result.append(KAVA_MAIN)
-        result.append(BAND_MAIN)
+//        result.append(BAND_MAIN)
         
-//        result.append(BINANCE_TEST)
-//        result.append(KAVA_TEST)
+        result.append(BINANCE_TEST)
+        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
-        result.append(OK_TEST)
+//        result.append(OK_TEST)
         return result
     }
     
@@ -687,6 +694,26 @@ enum ChainType: String {
             
         } else if (chain == KAVA_MAIN) {
             result.append(BINANCE_MAIN)
+            
+        }
+        return result
+    }
+    
+    static func getHtlcSwappableCoin(_ chain: ChainType) -> Array<String> {
+        var result = Array<String>()
+        if (chain == BINANCE_MAIN) {
+            result.append(TOKEN_HTLC_BINANCE_BNB)
+            
+        } else if (chain == KAVA_MAIN) {
+            result.append(TOKEN_HTLC_KAVA_BNB)
+            
+        } else if (chain == BINANCE_TEST) {
+            result.append(TOKEN_HTLC_BINANCE_TEST_BNB)
+            result.append(TOKEN_HTLC_BINANCE_TEST_BTC)
+            
+        } else if (chain == KAVA_TEST) {
+            result.append(TOKEN_HTLC_KAVA_TEST_BNB)
+            result.append(TOKEN_HTLC_KAVA_TEST_BTC)
             
         }
         return result
@@ -714,6 +741,8 @@ let KAVA_MAIN_DENOM = "ukava"
 let BAND_MAIN_DENOM = "uband"
 let IOV_TEST_DENOM = "uvoi"
 let OK_TEST_DENOM = "tokt"
+
+
 
 let Font_17_body = UIFont(name: "Helvetica-Light", size: 17)!
 let Font_15_subTitle = UIFont(name: "Helvetica-Light", size: 15)!

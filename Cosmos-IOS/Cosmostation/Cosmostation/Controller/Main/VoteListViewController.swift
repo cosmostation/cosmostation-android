@@ -141,6 +141,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else {
                 guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.id) else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
             
@@ -162,6 +163,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else {
                 guard let url = URL(string: "https://kava.mintscan.io/proposals/" + proposal.id) else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
             

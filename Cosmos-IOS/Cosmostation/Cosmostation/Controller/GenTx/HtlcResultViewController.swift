@@ -296,8 +296,8 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     
                     let sendAmount = NSDecimalNumber.init(string: self.mHtlcToSendAmount[0].amount).multiplying(byPowerOf10: 8)
 //                    print("sendAmount ", sendAmount.int64Value)
-                    let bnbMsg = Message.createHtlc(toAddress: BNB_DEPUTY,
-                                                    otherFrom: KAVA_DEPUTY,
+                    let bnbMsg = Message.createHtlc(toAddress: BINANCE_MAIN_BNB_DEPUTY,
+                                                    otherFrom: KAVA_MAIN_BNB_DEPUTY,
                                                     otherTo: self.mHtlcToAccount!.account_address,
                                                     timestamp: self.mTimeStamp!,
                                                     randomNumberHash: self.mRandomNumberHash!,
@@ -345,8 +345,8 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     
                     let sendAmount = NSDecimalNumber.init(string: self.mHtlcToSendAmount[0].amount).multiplying(byPowerOf10: 8)
                     //                    print("sendAmount ", sendAmount.int64Value)
-                    let bnbMsg = Message.createHtlc(toAddress: BNB_TEST_DEPUTY,
-                                                    otherFrom: KAVA_TEST_DEPUTY,
+                    let bnbMsg = Message.createHtlc(toAddress: BINANCE_TEST_BNB_DEPUTY,
+                                                    otherFrom: KAVA_TEST_BNB_DEPUTY,
                                                     otherTo: self.mHtlcToAccount!.account_address,
                                                     timestamp: self.mTimeStamp!,
                                                     randomNumberHash: self.mRandomNumberHash!,
@@ -476,22 +476,22 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
 //        print("onFetchSwapId ", mSwapFetchCnt)
         var url = ""
         if (self.mHtlcToChain == ChainType.BINANCE_MAIN) {
-            let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_DEPUTY, self.account!.account_address)
+            let swapId = WKey.getSwapId(self.mRandomNumberHash!, BINANCE_MAIN_BNB_DEPUTY, self.account!.account_address)
             url = BNB_URL_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("BINANCE_MAIN swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.BINANCE_TEST) {
-            let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_TEST_DEPUTY, self.account!.account_address)
+            let swapId = WKey.getSwapId(self.mRandomNumberHash!, BINANCE_TEST_BNB_DEPUTY, self.account!.account_address)
             url = BNB_TEST_URL_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("BINANCE_TEST swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
-            let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_DEPUTY, self.account!.account_address)
+            let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_MAIN_BNB_DEPUTY, self.account!.account_address)
             url = KAVA_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("KAVA_MAIN swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
-            let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_DEPUTY, self.account!.account_address)
+            let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_BNB_DEPUTY, self.account!.account_address)
             url = KAVA_TEST_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("KAVA_TEST swapId url ", url) }
         }
@@ -589,7 +589,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         return
                     }
                     
-                    let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_DEPUTY, self.account!.account_address)
+                    let swapId = WKey.getSwapId(self.mRandomNumberHash!, BINANCE_MAIN_BNB_DEPUTY, self.account!.account_address)
                     if (SHOW_LOG) { print("swapId ", swapId) }
                     if (SHOW_LOG) { print("randomNumber ", self.mRandomNumber!) }
                     let bnbMsg = Message.claimHtlc(randomNumber: self.mRandomNumber!,
@@ -623,7 +623,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         return
                     }
                     
-                    let swapId = WKey.getSwapId(self.mRandomNumberHash!, BNB_TEST_DEPUTY, self.account!.account_address)
+                    let swapId = WKey.getSwapId(self.mRandomNumberHash!, BINANCE_TEST_BNB_DEPUTY, self.account!.account_address)
                     if (SHOW_LOG) { print("swapId ", swapId) }
                     if (SHOW_LOG) { print("randomNumber ", self.mRandomNumber!) }
                     let bnbMsg = Message.claimHtlc(randomNumber: self.mRandomNumber!,
@@ -650,9 +650,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
                     var swapId: String = "";
                     if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
-                        swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_DEPUTY, self.account!.account_address)
+                        swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_MAIN_BNB_DEPUTY, self.account!.account_address)
                     } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
-                        swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_DEPUTY, self.account!.account_address)
+                        swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_BNB_DEPUTY, self.account!.account_address)
                     }
                     let msg = MsgGenerator.genClaimAtomicSwap(self.mHtlcToAccount!.account_address,
                                                               swapId,

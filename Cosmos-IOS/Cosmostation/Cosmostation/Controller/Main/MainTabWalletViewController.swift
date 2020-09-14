@@ -1276,36 +1276,43 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         if (chainType! == ChainType.COSMOS_MAIN) {
             guard let url = URL(string: "https://www.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
             guard let url = URL(string: "https://irishub.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.BINANCE_MAIN) {
             guard let url = URL(string: "https://binance.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.IOV_MAIN) {
             guard let url = URL(string: "https://big-dipper.iov-mainnet-2.iov.one/account/" + mainTabVC.mAccount.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.KAVA_MAIN) {
             guard let url = URL(string: "https://kava.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://cosmoscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.OK_TEST) {
             guard let url = URL(string: "https://www.oklink.com/okchain-test/address/" + mainTabVC.mAccount.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
         }
     }
@@ -1434,14 +1441,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onClickOkVote() {
         let okVoteTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        okVoteTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("str_vote_direct", comment: ""), style: .default, handler: { [weak okVoteTypeAlert] (_) in
+        okVoteTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("str_vote_direct", comment: ""), style: .default, handler: { _ in
             let okValidatorListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "OkValidatorListViewController") as! OkValidatorListViewController
             okValidatorListVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(okValidatorListVC, animated: true)
-            
         }))
-        okVoteTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("str_vote_agent", comment: ""), style: .default, handler: { [weak okVoteTypeAlert] (_) in
+        okVoteTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("str_vote_agent", comment: ""), style: .default, handler: { _ in
             self.onShowToast(NSLocalizedString("prepare", comment: ""))
         }))
         self.present(okVoteTypeAlert, animated: true) {
@@ -1456,41 +1462,49 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             if(Locale.current.languageCode == "ko") {
                 guard let url = URL(string: "https://www.cosmostation.io/files/guide_KO.pdf") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             } else {
                 guard let url = URL(string: "https://www.cosmostation.io/files/guide_EN.pdf") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
             guard let url = URL(string: "https://www.irisnet.org") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.BINANCE_MAIN) {
             guard let url = URL(string: "https://www.binance.org") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             guard let url = URL(string: "https://www.kava.io/registration/") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://bandprotocol.com/") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
             guard let url = URL(string: "https://iov.one/") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.OK_TEST) {
             guard let url = URL(string: "https://www.okex.com/") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
         }
         
@@ -1501,41 +1515,49 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             if(Locale.current.languageCode == "ko") {
                 guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_ko.html") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             } else {
                 guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_en.html") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
 
         } else if (chainType! == ChainType.IRIS_MAIN) {
             guard let url = URL(string: "https://medium.com/irisnet-blog") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
 
         } else if (chainType! == ChainType.BINANCE_MAIN) {
             guard let url = URL(string: "https://medium.com/@binance") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
 
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             guard let url = URL(string: "https://medium.com/kava-labs") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://medium.com/bandprotocol") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
             guard let url = URL(string: "https://medium.com/iov-internet-of-values") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.OK_TEST) {
             guard let url = URL(string: "https://www.okex.com/community") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
         }
     }
@@ -1545,10 +1567,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             if (BaseData.instance.getMarket() == 0) {
                 guard let url = URL(string: "https://www.coingecko.com/en/coins/cosmos") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             } else {
                 guard let url = URL(string: "https://coinmarketcap.com/currencies/cosmos/") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
             
@@ -1556,10 +1580,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             if (BaseData.instance.getMarket() == 0) {
                 guard let url = URL(string: "https://www.coingecko.com/en/coins/irisnet") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             } else {
                 guard let url = URL(string: "https://coinmarketcap.com/currencies/irisnet") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
             
@@ -1567,10 +1593,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             if (BaseData.instance.getMarket() == 0) {
                 guard let url = URL(string: "https://www.coingecko.com/en/coins/binancecoin") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             } else {
                 guard let url = URL(string: "https://coinmarketcap.com/currencies/binance-coin") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
             
@@ -1578,16 +1606,19 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             if (BaseData.instance.getMarket() == 0) {
                 guard let url = URL(string: "https://www.coingecko.com/en/coins/kava") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             } else {
                 guard let url = URL(string: "https://coinmarketcap.com/currencies/kava") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/band-protocol") else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
         }
     }

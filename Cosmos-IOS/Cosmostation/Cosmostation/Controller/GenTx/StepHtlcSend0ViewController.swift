@@ -20,20 +20,47 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     @IBOutlet weak var toChainImg: UIImageView!
     @IBOutlet weak var toChainText: UILabel!
     
+    @IBOutlet weak var sendCoinCard: CardView!
+    @IBOutlet weak var sendCoinImg: UIImageView!
+    @IBOutlet weak var sendCoinTxt: UILabel!
+    @IBOutlet weak var sendCoinDenom: UILabel!
+    @IBOutlet weak var sendCoinAvailable: UILabel!
+    
+    @IBOutlet weak var RelayerMaxLayer: UIView!
+    @IBOutlet weak var RelayerReaminLayer: UIView!
+    @IBOutlet weak var oneTimeLimitAmount: UILabel!
+    @IBOutlet weak var oneTimeLimitDenom: UILabel!
+    @IBOutlet weak var systemMaxAmount: UILabel!
+    @IBOutlet weak var systemMaxDenom: UILabel!
+    @IBOutlet weak var systemReaminAmount: UILabel!
+    @IBOutlet weak var systemReaminDenom: UILabel!
+    
     var pageHolderVC: StepGenTxViewController!
     var toChainList = Array<ChainType>()
     var toChain: ChainType?
-    var swapSupply = KavaSwapSupply.SwapSupply.init()
+    var toSwapableCoinList = Array<String>()
+    var toSwapDenom: String?
+    
+    var kavaSwapParam = KavaSwapParam.init()
+    var kavaSwapSupply = KavaSwapSupply.init()
+    var kavaSwapParam2 = KavaSwapParam2.init()
+    var kavaSwapSupply2 = KavaSwapSupply2.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
         
         self.toChainCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onClickToChain (_:))))
+        self.sendCoinCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onClickToSendCoin (_:))))
         self.toChainList = ChainType.getHtlcSendable(pageHolderVC.chainType!)
         if (self.toChainList.count <= 0) { pageHolderVC.onBeforePage() }
         self.toChain = self.toChainList[0]
-        self.updateView()
+        
+        self.toSwapableCoinList = ChainType.getHtlcSwappableCoin(pageHolderVC.chainType!)
+        if (self.toSwapableCoinList.count <= 0) { pageHolderVC.onBeforePage() }
+        self.toSwapDenom = pageHolderVC.mHtlcDenom;
+        
+//        self.updateView()
     }
     
     func updateView() {
@@ -73,33 +100,37 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
         
     }
     
+    @objc func onClickToSendCoin (_ sender: UITapGestureRecognizer) {
+        print("onClickToSendCoin")
+    }
+    
     func SBCardPopupResponse(result: Int) {
-        if (result == -1) {
-            if (swapSupply.getRemainAmount().compare(NSDecimalNumber.zero).rawValue <= 0) {
-                self.btnCancel.isUserInteractionEnabled = false
-                self.btnNext.isUserInteractionEnabled = false
-                pageHolderVC.onBeforePage()
-                
-            } else {
-                self.btnCancel.isUserInteractionEnabled = false
-                self.btnNext.isUserInteractionEnabled = false
-                self.pageHolderVC.mHtlcToChain = self.toChain
-                self.pageHolderVC.mSwapRemainCap = self.swapSupply.getRemainAmount().multiplying(byPowerOf10: -8)
-                pageHolderVC.onNextPage()
-            }
-            
-        } else {
-            self.toChain = self.toChainList[result]
-            self.updateView()
-        }
+//        if (result == -1) {
+//            if (swapSupply.getRemainAmount().compare(NSDecimalNumber.zero).rawValue <= 0) {
+//                self.btnCancel.isUserInteractionEnabled = false
+//                self.btnNext.isUserInteractionEnabled = false
+//                pageHolderVC.onBeforePage()
+//                
+//            } else {
+//                self.btnCancel.isUserInteractionEnabled = false
+//                self.btnNext.isUserInteractionEnabled = false
+//                self.pageHolderVC.mHtlcToChain = self.toChain
+//                self.pageHolderVC.mSwapRemainCap = self.swapSupply.getRemainAmount().multiplying(byPowerOf10: -8)
+//                pageHolderVC.onNextPage()
+//            }
+//            
+//        } else {
+//            self.toChain = self.toChainList[result]
+//            self.updateView()
+//        }
         
     }
     
     func onCheckSwapParam() {
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_CHECK_SWAP_PARAM
-        } else if (pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.BINANCE_TEST || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_CHECK_SWAP_PARAM
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
@@ -110,10 +141,18 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))
                         return
                     }
-                    let param = KavaSwapParam.init(info)
-                    self.pageHolderVC.mSwapMaxOnce = param.getMaxOnce()
-                    self.onCheckSwapSupply()
-                    
+//                    let param = KavaSwapParam.init(info)
+//                    self.pageHolderVC.mSwapMaxOnce = param.getMaxOnce()
+//                    self.onCheckSwapSupply()
+                    if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+                        self.kavaSwapParam = KavaSwapParam.init(info)
+                        self.onCheckSwapSupply()
+                        
+                    }  else if (self.pageHolderVC.chainType! == ChainType.BINANCE_TEST || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                        self.kavaSwapParam2 = KavaSwapParam2.init(info)
+                        self.onCheckSwapSupply()
+                    }
+
                 case .failure(let error):
                     self.onShowToast(NSLocalizedString("error_network", comment: ""))
                     return
@@ -124,9 +163,9 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     
     func onCheckSwapSupply() {
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_CHECK_SWAP_SUPPLY
-        } else if (pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.BINANCE_TEST || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_CHECK_SWAP_SUPPLY
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
@@ -137,13 +176,22 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))
                         return
                     }
-                    let supply = KavaSwapSupply.init(info)
-                    self.swapSupply = supply.getSwapSupply("bnb")
-                    let popupVC = Bep3SupplyPopup(nibName: "Bep3SupplyPopup", bundle: nil)
-                    popupVC.swapSupply = self.swapSupply
-                    let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
-                    cardPopup.resultDelegate = self
-                    cardPopup.show(onViewController: self)
+                    if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+                        self.kavaSwapSupply = KavaSwapSupply.init(info)
+                        self.onCheckSwapSupply()
+                        
+                    }  else if (self.pageHolderVC.chainType! == ChainType.BINANCE_TEST || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                        self.kavaSwapSupply2 = KavaSwapSupply2.init(info)
+                        self.onCheckSwapSupply()
+                    }
+                    self.updateView()
+//                    let supply = KavaSwapSupply.init(info)
+//                    self.swapSupply = supply.getSwapSupply("bnb")
+//                    let popupVC = Bep3SupplyPopup(nibName: "Bep3SupplyPopup", bundle: nil)
+//                    popupVC.swapSupply = self.swapSupply
+//                    let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+//                    cardPopup.resultDelegate = self
+//                    cardPopup.show(onViewController: self)
                     
                 case .failure(let error):
                     self.onShowToast(NSLocalizedString("error_network", comment: ""))

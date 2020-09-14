@@ -1052,36 +1052,43 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (self.chainType! == ChainType.COSMOS_MAIN) {
             guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash!) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.IRIS_MAIN) {
             guard let url = URL(string: "https://irishub.mintscan.io/txs/" + mTxInfo!.hash!) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.BINANCE_MAIN) {
             guard let url = URL(string: "https://binance.mintscan.io/txs/" + mTxInfo!.hash!) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.BINANCE_TEST) {
             guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + mTxInfo!.hash!) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.KAVA_MAIN) {
             guard let url = URL(string: "https://kava.mintscan.io/txs/" + mTxInfo!.txhash!) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://cosmoscan.io/tx/" + mTxInfo!.txhash!) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.IOV_MAIN) {
             guard let url = URL(string: "https://big-dipper.iov-mainnet-2.iov.one/transactions/" + mTxInfo!.txhash!) else { return }
             let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
         }

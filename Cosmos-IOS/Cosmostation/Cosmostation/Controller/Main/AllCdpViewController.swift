@@ -101,11 +101,11 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
         let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
         cdpDetailVC.hidesBottomBarWhenPushed = true
         cdpDetailVC.cDenom = cParam.denom
-        if (self.mainTabVC.mChainType == ChainType.KAVA_MAIN) {
+//        if (self.mainTabVC.mChainType == ChainType.KAVA_MAIN) {
             cdpDetailVC.mMarketID = cParam.spot_market_id
-        } else {
-            cdpDetailVC.mMarketID = cParam.market_id
-        }
+//        } else {
+//            cdpDetailVC.mMarketID = cParam.market_id
+//        }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(cdpDetailVC, animated: true)
     }

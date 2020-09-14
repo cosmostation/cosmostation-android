@@ -90,10 +90,12 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 if(Locale.current.languageCode == "ko") {
                     guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_ko.html") else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     present(safariViewController, animated: true, completion: nil)
                 } else {
                     guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_en.html") else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     present(safariViewController, animated: true, completion: nil)
                 }
                 
@@ -121,37 +123,44 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 if (chainType == ChainType.COSMOS_MAIN) {
                     guard let url = URL(string: "https://www.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     present(safariViewController, animated: true, completion: nil)
                     
                 } else if (chainType == ChainType.IRIS_MAIN) {
                     guard let url = URL(string: "https://irishub.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     present(safariViewController, animated: true, completion: nil)
                     
                 } else if (chainType == ChainType.BINANCE_MAIN) {
                     guard let url = URL(string: "https://binance.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     present(safariViewController, animated: true, completion: nil)
                     
                 } else if (chainType == ChainType.IOV_MAIN) {
                     guard let url = URL(string: "https://big-dipper.iov-mainnet-2.iov.one") else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     present(safariViewController, animated: true, completion: nil)
                     
                 } else if (chainType == ChainType.KAVA_MAIN) {
                     guard let url = URL(string: "https://kava.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     present(safariViewController, animated: true, completion: nil)
                     
                 } else if (chainType == ChainType.BAND_MAIN) {
                     guard let url = URL(string: "https://cosmoscan.io/") else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     present(safariViewController, animated: true, completion: nil)
                 }
                 
             } else if(indexPath.row == 3) {
                 guard let url = URL(string: "https://www.cosmostation.io") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
             
@@ -160,10 +169,12 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 if(Locale.current.languageCode == "ko") {
                     guard let url = URL(string: "https://www.cosmostation.io/service_ko.html") else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     present(safariViewController, animated: true, completion: nil)
                 } else {
                     guard let url = URL(string: "https://www.cosmostation.io/service_en.html") else { return }
                     let safariViewController = SFSafariViewController(url: url)
+                    safariViewController.modalPresentationStyle = .popover
                     present(safariViewController, animated: true, completion: nil)
                 }
                 
@@ -171,6 +182,7 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
             } else if(indexPath.row == 1) {
                 guard let url = URL(string: "https://github.com/cosmostation/cosmostation-mobile") else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
                 
             } else if(indexPath.row == 2) {

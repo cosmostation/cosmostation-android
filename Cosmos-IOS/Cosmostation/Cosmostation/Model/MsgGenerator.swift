@@ -298,8 +298,8 @@ class MsgGenerator {
         var value = Msg.Value.init()
         if (fromChain == ChainType.KAVA_MAIN) {
             value.from = fromAccount.account_address
-            value.to = KAVA_DEPUTY
-            value.sender_other_chain = BNB_DEPUTY
+            value.to = KAVA_MAIN_BNB_DEPUTY
+            value.sender_other_chain = BINANCE_MAIN_BNB_DEPUTY
             value.recipient_other_chain = toAccount.account_address
             
             value.random_number_hash = randomNumberHash.uppercased()
@@ -313,8 +313,8 @@ class MsgGenerator {
             
         } else  if (fromChain == ChainType.KAVA_TEST) {
             value.from = fromAccount.account_address
-            value.to = KAVA_TEST_DEPUTY
-            value.sender_other_chain = BNB_TEST_DEPUTY
+            value.to = KAVA_TEST_BNB_DEPUTY
+            value.sender_other_chain = BINANCE_TEST_BNB_DEPUTY
             value.recipient_other_chain = toAccount.account_address
             
             value.random_number_hash = randomNumberHash.uppercased()

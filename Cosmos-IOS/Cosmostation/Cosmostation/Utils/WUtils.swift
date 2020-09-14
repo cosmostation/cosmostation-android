@@ -1879,7 +1879,7 @@ class WUtils {
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (chainS == CHAIN_KAVA_TEST_S) {
-            return "kava-testnet-8000"
+            return "kava-testnet-9000"
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return "iovns-galaxynet"
         } else if (chainS == CHAIN_OK_TEST_S) {
@@ -1904,7 +1904,7 @@ class WUtils {
         } else if (chain == ChainType.BINANCE_TEST) {
             return "Binance-Chain-Nile"
         } else if (chain == ChainType.KAVA_TEST) {
-            return "kava-testnet-8000"
+            return "kava-testnet-9000"
         } else if (chain == ChainType.IOV_TEST) {
             return "iovns-galaxynet"
         } else if (chain == ChainType.OK_TEST) {
@@ -2133,6 +2133,8 @@ class WUtils {
         } else if (denom.caseInsensitiveCompare("usdx") == .orderedSame) {
             return 6;
         } else if (denom.caseInsensitiveCompare("bnb") == .orderedSame) {
+            return 8;
+        } else if (denom.caseInsensitiveCompare("btcb") == .orderedSame) {
             return 8;
         }
         return 100;

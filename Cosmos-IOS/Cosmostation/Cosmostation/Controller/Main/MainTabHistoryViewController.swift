@@ -312,6 +312,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             } else {
                 guard let url = URL(string: "https://binance.mintscan.io/txs/" + bnbHistory.txHash) else { return }
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
             
@@ -336,8 +337,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                 self.navigationController?.pushViewController(txDetailVC, animated: true)
             } else {
                 guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
-                print("url ", url)
                 let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
             
