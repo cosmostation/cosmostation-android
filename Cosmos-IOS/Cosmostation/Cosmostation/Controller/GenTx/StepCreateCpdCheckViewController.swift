@@ -83,7 +83,7 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
         memoLabel.text = pageHolderVC.mMemo
     }
     
-    func SBCardPopupResponse(result: Int) {
+    func SBCardPopupResponse(type:Int, result: Int) {
         if (result == 1) {
             let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
             self.navigationItem.title = ""

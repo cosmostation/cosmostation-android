@@ -600,13 +600,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     func onFetchHistory(_ address:String, _ symbol:String) {
         var query = ""
         var url = ""
-//        if (chainType == ChainType.COSMOS_MAIN) {
-//            query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.amount.denom\", \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
-//            print("query ", query)
-//            url = CSS_ES_PROXY_COSMOS
-//
-//        } else
-            
         if (chainType == ChainType.IRIS_MAIN) {
             query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
             print("query ", query)
@@ -686,7 +679,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("res ", res)
+//                print("res ", res)
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_TEST || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.BAND_MAIN) {
                     self.mApiHistories.removeAll()
                     guard let histories = res as? Array<NSDictionary> else {

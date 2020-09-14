@@ -40,14 +40,47 @@ public class KavaSwapSupply2 {
             self.time_limited_current_supply =  Coin.init(dictionary["time_limited_current_supply"] as! [String : Any])
             self.time_elapsed = dictionary["time_elapsed"] as? String ?? ""
         }
+        
+        public func getIncomingAmount() -> NSDecimalNumber {
+            var result = NSDecimalNumber.zero
+            if (!incoming_supply.denom.isEmpty) {
+                result = NSDecimalNumber.init(string: incoming_supply.amount)
+            }
+            return result;
+        }
+        
+        public func getOutgoingAmount() -> NSDecimalNumber {
+            var result = NSDecimalNumber.zero
+            if (!outgoing_supply.denom.isEmpty) {
+                result = NSDecimalNumber.init(string: outgoing_supply.amount)
+            }
+            return result;
+        }
+        
+        public func getCurrentAmount() -> NSDecimalNumber {
+            var result = NSDecimalNumber.zero
+            if (!current_supply.denom.isEmpty) {
+                result = NSDecimalNumber.init(string: current_supply.amount)
+            }
+            return result;
+        }
     }
     
-    public func getSwapSupply(_ denom:String) -> SwapSupply2{
+    public func getSwapSupply(_ denom:String) -> SwapSupply2?{
         for supply in result {
             if (denom.lowercased().starts(with: supply.incoming_supply.denom.lowercased())) {
                 return supply
             }
         }
-        return SwapSupply2.init()
+        return nil
+    }
+    
+    
+    public func getRemainCap(_ denom: String, _ supplyLimit: NSDecimalNumber) -> NSDecimalNumber {
+        let swapSupply = getSwapSupply(denom)
+        if (swapSupply != nil) {
+            return supplyLimit.subtracting((swapSupply?.getCurrentAmount())!).subtracting((swapSupply?.getIncomingAmount())!)
+        }
+        return NSDecimalNumber.zero
     }
 }

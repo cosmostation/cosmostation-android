@@ -175,7 +175,7 @@ class StepDepositCdpAmountViewController: BaseViewController, UITextFieldDelegat
         }
     }
     
-    func SBCardPopupResponse(result: Int) {
+    func SBCardPopupResponse(type:Int, result: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
             if(result == 10) {
                 let cCoin = Coin.init(self.cDenom, self.toCAmount.stringValue)

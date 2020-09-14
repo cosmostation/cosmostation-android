@@ -2250,39 +2250,47 @@ class WUtils {
     static func dpChainInfo(_ chain: ChainType, _ img: UIImageView?, _ label: UILabel) {
         if (chain == ChainType.COSMOS_MAIN) {
             label.text = NSLocalizedString("chain_title_cosmos", comment: "")
-            label.textColor = COLOR_ATOM
             img?.image = UIImage(named: "cosmosWhMain")
         } else if (chain == ChainType.IRIS_MAIN) {
             label.text = NSLocalizedString("chain_title_iris", comment: "")
-            label.textColor = COLOR_IRIS
             img?.image = UIImage(named: "irisWh")
         } else if (chain == ChainType.BINANCE_MAIN) {
             label.text = NSLocalizedString("chain_title_bnb", comment: "")
-            label.textColor = COLOR_BNB
             img?.image = UIImage(named: "binanceChImg")
         } else if (chain == ChainType.KAVA_MAIN) {
             label.text = NSLocalizedString("chain_title_kava", comment: "")
-           label.textColor = COLOR_KAVA
            img?.image = UIImage(named: "kavaImg")
         } else if (chain == ChainType.IOV_MAIN) {
             label.text = NSLocalizedString("chain_title_iov", comment: "")
-            label.textColor = COLOR_IOV
             img?.image = UIImage(named: "iovImg")
         } else if (chain == ChainType.BAND_MAIN) {
             label.text = NSLocalizedString("chain_title_band", comment: "")
-            label.textColor = COLOR_BAND
             img?.image = UIImage(named: "bandChainImg")
         } else if (chain == ChainType.BINANCE_TEST) {
             label.text = NSLocalizedString("chain_title_test_bnb", comment: "")
-            label.textColor = COLOR_BNB
             img?.image = UIImage(named: "binancetestnet")
         } else if (chain == ChainType.KAVA_TEST) {
             label.text = NSLocalizedString("chain_title_kava_test", comment: "")
-            label.textColor = COLOR_KAVA
             img?.image = UIImage(named: "kavaTestImg")
         }
-        
     }
+    
+    static func onDpSwapChain(_ chain: ChainType, _ img: UIImageView?, _ label: UILabel) {
+        if (chain == ChainType.BINANCE_MAIN) {
+            label.text = "BINANCE"
+            img?.image = UIImage(named: "binanceChImg")
+        } else if (chain == ChainType.KAVA_MAIN) {
+            label.text = "KAVA"
+           img?.image = UIImage(named: "kavaImg")
+        } else if (chain == ChainType.BINANCE_TEST) {
+            label.text = "BINANCE"
+            img?.image = UIImage(named: "binancetestnet")
+        } else if (chain == ChainType.KAVA_TEST) {
+            label.text = "KAVA"
+            img?.image = UIImage(named: "kavaTestImg")
+        }
+    }
+    
     
     static func getKavaHtlcStatus(_ txInfo:TxInfo, _ swap:KavaSwapInfo?) -> String {
         if (!txInfo.isSuccess()) {

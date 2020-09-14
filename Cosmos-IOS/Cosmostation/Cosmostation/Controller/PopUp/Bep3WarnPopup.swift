@@ -21,7 +21,7 @@ class Bep3WarnPopup: BaseViewController, SBCardPopupContent {
         popupViewController?.close()
     }
     @IBAction func onClickContinue(_ sender: UIButton) {
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: 1)
+        popupViewController?.resultDelegate?.SBCardPopupResponse(type: 0, result: 1)
         popupViewController?.close()
     }
 }

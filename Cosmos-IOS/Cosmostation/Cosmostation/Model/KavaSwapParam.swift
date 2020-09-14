@@ -26,6 +26,7 @@ public class KavaSwapParam {
         var max_amount: String = ""
         var min_block_lock: String = ""
         var max_block_lock: String = ""
+        var supported_assets: Array<SwapSupportAsset> = Array<SwapSupportAsset>()
         
         init() {}
         
@@ -36,10 +37,46 @@ public class KavaSwapParam {
             self.max_amount = dictionary["max_amount"] as? String ?? ""
             self.min_block_lock = dictionary["min_block_lock"] as? String ?? ""
             self.max_block_lock = dictionary["max_block_lock"] as? String ?? ""
+            self.supported_assets.removeAll()
+            if let supportedAssets = dictionary["supported_assets"] as? Array<NSDictionary> {
+                for supportedAsset in supportedAssets {
+                    self.supported_assets.append(SwapSupportAsset(supportedAsset as! [String : Any]))
+                }
+            }
         }
     }
     
-    public func getMaxOnce() -> NSDecimalNumber {
+    public class SwapSupportAsset {
+        var denom: String = ""
+        var coin_id: String = ""
+        var limit: String = ""
+        var active: Bool = false
+        
+        init() {}
+        
+        init(_ dictionary: [String: Any]) {
+            self.denom = dictionary["denom"] as? String ?? ""
+            self.coin_id = dictionary["coin_id"] as? String ?? ""
+            self.limit = dictionary["limit"] as? String ?? ""
+            self.active = dictionary["active"] as? Bool ?? false
+        }
+        
+    }
+    
+    public func getSupportedSwapAsset(_ denom: String) -> SwapSupportAsset? {
+        for supportAsset in result.supported_assets {
+            if (denom.lowercased() == supportAsset.denom.lowercased()) {
+                return supportAsset
+            }
+        }
+        return nil
+    }
+    
+    public func getSupportedSwapAssetLimit(_ denom: String) -> NSDecimalNumber {
+        return NSDecimalNumber.init(string: getSupportedSwapAsset(denom)?.limit)
+    }
+    
+    public func getSupportedSwapAssetMaxOnce(_ denom: String) -> NSDecimalNumber {
         return NSDecimalNumber.init(string: result.max_amount)
     }
 }

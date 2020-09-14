@@ -26,7 +26,7 @@ public class KavaSwapSupply {
     
     public func getSwapSupply(_ denom:String) -> SwapSupply{
         for supply in result {
-            if (supply.denom == denom) {
+            if (supply.denom.lowercased() == denom.lowercased()) {
                 return supply
             }
         }
@@ -82,41 +82,13 @@ public class KavaSwapSupply {
             return result;
         }
         
-        public func getCurrentCapAmount() -> NSDecimalNumber {
-            if (getCurrentCap() != nil) {
-                return NSDecimalNumber.init(string: getCurrentCap()!.amount)
-            } else {
-                return NSDecimalNumber.zero
-            }
-            
-        }
-        
-        public func getRemainAmount() -> NSDecimalNumber {
-            if (getRemainCap() != nil) {
-                return NSDecimalNumber.init(string: getRemainCap()!.amount)
-            } else {
-                return NSDecimalNumber.zero
-            }
-        }
-        
-        
-        public func getCurrentCap() -> Coin? {
-            if (!supply_limit.denom.isEmpty) {
-                return Coin.init(supply_limit.denom, getIncomingAmount().adding(getOutgoingAmount()).adding(getCurrentAmount()).stringValue)
-            }
-            return nil
-        }
-        
-        public func getRemainCap() -> Coin? {
-            if (!supply_limit.denom.isEmpty) {
-                var remainAmount = getLimitAmount().subtracting(getIncomingAmount()).subtracting(getOutgoingAmount()).subtracting(getCurrentAmount())
-                if (remainAmount.compare(NSDecimalNumber.init(string: "10000000")).rawValue < 0) {
-                    remainAmount = NSDecimalNumber.zero
-                }
-                return Coin.init(supply_limit.denom, remainAmount.stringValue)
-            }
-            return nil
-        }
-        
     }
+    
+    public func getRemainCap(_ denom: String, _ supplyLimit: NSDecimalNumber) -> NSDecimalNumber {
+        var remainCap = NSDecimalNumber.zero
+        let swapSupply = getSwapSupply(denom)
+        remainCap = supplyLimit.subtracting(swapSupply.getCurrentAmount()).subtracting(swapSupply.getIncomingAmount())
+        return remainCap
+    }
+    
 }

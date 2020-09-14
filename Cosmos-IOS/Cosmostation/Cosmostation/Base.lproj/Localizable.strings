@@ -228,6 +228,7 @@
 "str_bep3_bnb_cap" = "Current remaining swap capacity is  %@\n\nThe maximum swap capacity is determined through Kava policies & governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\nhttps://t.me/kavalabs";
 "str_starname_confirm_title" = "StarName Found";
 "str_starname_confirm_msg" = "A matched address was found. Would you like to send to this address? \n\n\n%@\n\n%@";
+"str_select_to_send_coin" = "Select To Send Coin Type";
 
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";

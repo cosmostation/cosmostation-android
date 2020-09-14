@@ -297,7 +297,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         }
     }
     
-    func SBCardPopupResponse(result: Int) {
+    func SBCardPopupResponse(type:Int, result: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(490), execute: {
             var tagetVC:BaseViewController?
             if(result == 1) {

@@ -749,3 +749,8 @@ let Font_15_subTitle = UIFont(name: "Helvetica-Light", size: 15)!
 let Font_13_footnote = UIFont(name: "Helvetica-Light", size: 13)!
 let Font_12_caption1 = UIFont(name: "Helvetica-Light", size: 12)!
 let Font_11_caption2 = UIFont(name: "Helvetica-Light", size: 11)!
+
+
+let SELECT_POPUP_HTLC_TO_CHAIN = 0
+let SELECT_POPUP_HTLC_TO_COIN = 1
+let SELECT_POPUP_HTLC_TO_ACCOUNT = 2

@@ -80,4 +80,21 @@ public class KavaSwapParam2 {
             self.time_based_limit = dictionary["time_based_limit"] as? String ?? ""
         }
     }
+    
+    public func getSupportedSwapAsset(_ denom: String) -> KavaBep3AssetParam? {
+        for assetParam in result.asset_params {
+            if (denom.lowercased().starts(with: assetParam.denom.lowercased())) {
+                return assetParam
+            }
+        }
+        return nil
+    }
+    
+    public func getSupportedSwapAssetLimit(_ denom: String) -> NSDecimalNumber {
+        return NSDecimalNumber.init(string: getSupportedSwapAsset(denom)?.supply_limit.limit)
+    }
+    
+    public func getSupportedSwapAssetMaxOnce(_ denom: String) -> NSDecimalNumber {
+        return NSDecimalNumber.init(string: getSupportedSwapAsset(denom)?.max_swap_amount)
+    }
 }

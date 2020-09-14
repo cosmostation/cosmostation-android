@@ -12,6 +12,8 @@
 		28089AA424FF8FC4007E9C40 /* IovNameResolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28089AA324FF8FC4007E9C40 /* IovNameResolve.swift */; };
 		28129567250F5072007B217E /* KavaSwapParam2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28129566250F5072007B217E /* KavaSwapParam2.swift */; };
 		2812956B250F52C8007B217E /* KavaSwapSupply2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812956A250F52C8007B217E /* KavaSwapSupply2.swift */; };
+		2812956E250F81C3007B217E /* SelectCoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812956C250F81C3007B217E /* SelectCoinCell.swift */; };
+		2812956F250F81C3007B217E /* SelectCoinCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2812956D250F81C3007B217E /* SelectCoinCell.xib */; };
 		2815AA70243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA6F243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift */; };
 		2815AA72243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA71243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift */; };
 		2815AA7424349DE2008B23AA /* StepRepayCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */; };
@@ -419,6 +421,8 @@
 		28089AA324FF8FC4007E9C40 /* IovNameResolve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovNameResolve.swift; sourceTree = "<group>"; };
 		28129566250F5072007B217E /* KavaSwapParam2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapParam2.swift; sourceTree = "<group>"; };
 		2812956A250F52C8007B217E /* KavaSwapSupply2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapSupply2.swift; sourceTree = "<group>"; };
+		2812956C250F81C3007B217E /* SelectCoinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinCell.swift; sourceTree = "<group>"; };
+		2812956D250F81C3007B217E /* SelectCoinCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectCoinCell.xib; sourceTree = "<group>"; };
 		2815AA6F243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDrawDebtCdpAmountViewController.swift; sourceTree = "<group>"; };
 		2815AA71243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDrawDebtCdpCheckViewController.swift; sourceTree = "<group>"; };
 		2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRepayCdpAmountViewController.swift; sourceTree = "<group>"; };
@@ -1446,6 +1450,8 @@
 				283A80D92451436A008FF813 /* CdpDetailAssetsCell.xib */,
 				285A33D8244763290052BD3D /* SelectChainCell.swift */,
 				285A33D9244763290052BD3D /* SelectChainCell.xib */,
+				2812956C250F81C3007B217E /* SelectCoinCell.swift */,
+				2812956D250F81C3007B217E /* SelectCoinCell.xib */,
 				285A33DC2447633D0052BD3D /* SelectAccountCell.swift */,
 				285A33DD2447633D0052BD3D /* SelectAccountCell.xib */,
 				285A33E424486DA20052BD3D /* HtlcResultSentCell.swift */,
@@ -1638,6 +1644,7 @@
 				E103DAAF22812773006C2146 /* ValidatorDetailHistoryEmpty.xib in Resources */,
 				E103DAD3228143D0006C2146 /* WalletCheckViewController.xib in Resources */,
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
+				2812956F250F81C3007B217E /* SelectCoinCell.xib in Resources */,
 				28474ED6241E06AF00AF5A81 /* TxDepositCdpCell.xib in Resources */,
 				2868559024989A8F0099D18F /* Bep3SupplyPopup.xib in Resources */,
 				E126CF872387A4B4002A546F /* WalletIrisCell.xib in Resources */,
@@ -1798,6 +1805,7 @@
 				28474F09241E06E200AF5A81 /* Validators.codec.pb.swift in Sources */,
 				28617A812432944F006D66EA /* StepDepositCdpCheckViewController.swift in Sources */,
 				E19A32262254AE7A00A05E41 /* ManageHeader.swift in Sources */,
+				2812956E250F81C3007B217E /* SelectCoinCell.swift in Sources */,
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
 				28A209DF248897F400C2C078 /* WalletVestingDetailCell.swift in Sources */,

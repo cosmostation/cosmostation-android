@@ -68,7 +68,7 @@ class StepHtlcSend1ViewController: BaseViewController, SBCardPopupDelegate {
     @objc func onClickToAddress (_ sender: UITapGestureRecognizer) {
         if (self.toAccountList.count > 0) {
             let popupVC = SelectPopupViewController(nibName: "SelectPopupViewController", bundle: nil)
-            popupVC.type = popupVC.SELECT_POPUP_HTLC_ACCOUNT
+            popupVC.type = SELECT_POPUP_HTLC_TO_ACCOUNT
             popupVC.toChain = pageHolderVC.mHtlcToChain
             let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
             cardPopup.resultDelegate = self
@@ -100,7 +100,7 @@ class StepHtlcSend1ViewController: BaseViewController, SBCardPopupDelegate {
         }
     }
     
-    func SBCardPopupResponse(result: Int) {
+    func SBCardPopupResponse(type:Int, result: Int) {
         self.toAccount = self.toAccountList[result]
         self.toAddressImg.isHidden = false
         self.toAddressTxt.text = self.toAccount?.account_address

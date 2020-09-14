@@ -121,7 +121,7 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
         cardPopup.show(onViewController: self)
     }
     
-    func SBCardPopupResponse(result: Int) {
+    func SBCardPopupResponse(type:Int, result: Int) {
         if (result == 1) {
             self.btnBack.isUserInteractionEnabled = false
             self.btnConfirm.isUserInteractionEnabled = false

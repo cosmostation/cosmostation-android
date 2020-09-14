@@ -45,11 +45,11 @@ class WcTransferPopup: BaseViewController, SBCardPopupContent {
     
     @IBAction func onClickCancel(_ sender: UIButton) {
         popupViewController?.close()
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: -1)
+        popupViewController?.resultDelegate?.SBCardPopupResponse(type: 0, result: -1)
     }
     
     @IBAction func onClickConfirm(_ sender: UIButton) {
         popupViewController?.close()
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: 1)
+        popupViewController?.resultDelegate?.SBCardPopupResponse(type: 0, result: 1)
     }
 }

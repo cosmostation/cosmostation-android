@@ -467,7 +467,7 @@ public class SBCardPopupViewController: UIViewController {
 }
 
 protocol SBCardPopupDelegate{
-    func SBCardPopupResponse(result:Int)
+    func SBCardPopupResponse(type:Int, result:Int)
 }
 
 extension SBCardPopupViewController: UIGestureRecognizerDelegate {

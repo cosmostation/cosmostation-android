@@ -41,10 +41,15 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     var toSwapableCoinList = Array<String>()
     var toSwapDenom: String?
     
-    var kavaSwapParam = KavaSwapParam.init()
-    var kavaSwapSupply = KavaSwapSupply.init()
-    var kavaSwapParam2 = KavaSwapParam2.init()
-    var kavaSwapSupply2 = KavaSwapSupply2.init()
+    var kavaSwapParam: KavaSwapParam?
+    var kavaSwapSupply: KavaSwapSupply?
+    var kavaSwapParam2: KavaSwapParam2?
+    var kavaSwapSupply2: KavaSwapSupply2?
+    
+    var supplyLimit = NSDecimalNumber.zero
+    var supplyRemain = NSDecimalNumber.zero
+    var onetimeMax = NSDecimalNumber.zero
+    var availableAmount = NSDecimalNumber.zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,13 +64,90 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
         self.toSwapableCoinList = ChainType.getHtlcSwappableCoin(pageHolderVC.chainType!)
         if (self.toSwapableCoinList.count <= 0) { pageHolderVC.onBeforePage() }
         self.toSwapDenom = pageHolderVC.mHtlcDenom;
+        print("toSwapDenom ", toSwapDenom)
         
-//        self.updateView()
+        self.onCheckSwapParam()
+        self.updateView()
     }
     
     func updateView() {
-        WUtils.dpChainInfo(pageHolderVC.chainType!, fromChainImg, fromChainTxt)
-        WUtils.dpChainInfo(toChain!, toChainImg, toChainText)
+        WUtils.onDpSwapChain(pageHolderVC.chainType!, fromChainImg, fromChainTxt)
+        WUtils.onDpSwapChain(toChain!, toChainImg, toChainText)
+        sendCoinDenom.text = "(" + toSwapDenom! + ")"
+        if (pageHolderVC.chainType == ChainType.BINANCE_MAIN && kavaSwapParam != nil && kavaSwapSupply != nil) {
+            RelayerMaxLayer.isHidden = false
+            RelayerReaminLayer.isHidden = false
+            if (toSwapDenom == TOKEN_HTLC_BINANCE_BNB) {
+                sendCoinImg.image = UIImage(named: "bnbTokenImg")
+                self.onSetDpDenom("BNB")
+            }
+            availableAmount = pageHolderVC.mAccount!.getTokenBalance(toSwapDenom!)
+            supplyLimit = kavaSwapParam!.getSupportedSwapAssetLimit(toSwapDenom!)
+            supplyRemain = kavaSwapSupply!.getRemainCap(toSwapDenom!, supplyLimit)
+            onetimeMax = kavaSwapParam!.getSupportedSwapAssetMaxOnce(toSwapDenom!)
+            sendCoinAvailable.attributedText = WUtils.displayAmount2(availableAmount.stringValue, sendCoinAvailable.font, 0, 8)
+            
+        } else if (pageHolderVC.chainType == ChainType.BINANCE_TEST && kavaSwapParam2 != nil && kavaSwapSupply2 != nil) {
+            RelayerMaxLayer.isHidden = false
+            RelayerReaminLayer.isHidden = false
+            if (toSwapDenom == TOKEN_HTLC_BINANCE_TEST_BNB) {
+                sendCoinImg.image = UIImage(named: "bnbTokenImg")
+                self.onSetDpDenom("BNB")
+            } else if (toSwapDenom == TOKEN_HTLC_BINANCE_TEST_BTC) {
+                sendCoinImg.image = UIImage(named: "btcTokenImg")
+                self.onSetDpDenom("BTC")
+            }
+            availableAmount = pageHolderVC.mAccount!.getTokenBalance(toSwapDenom!)
+            supplyLimit = kavaSwapParam2!.getSupportedSwapAssetLimit(toSwapDenom!)
+            supplyRemain = kavaSwapSupply2!.getRemainCap(toSwapDenom!, supplyLimit)
+            onetimeMax = kavaSwapParam2!.getSupportedSwapAssetMaxOnce(toSwapDenom!)
+            sendCoinAvailable.attributedText = WUtils.displayAmount2(availableAmount.stringValue, sendCoinAvailable.font, 0, 8)
+            
+        } else if (pageHolderVC.chainType == ChainType.KAVA_MAIN && kavaSwapParam != nil && kavaSwapSupply != nil) {
+            RelayerMaxLayer.isHidden = true
+            RelayerReaminLayer.isHidden = true
+            if (toSwapDenom == TOKEN_HTLC_KAVA_BNB) {
+                sendCoinImg.image = UIImage(named: "bnbonKavaImg")
+                self.onSetDpDenom("BNB")
+            }
+            availableAmount = pageHolderVC.mAccount!.getTokenBalance(toSwapDenom!)
+            supplyLimit = kavaSwapParam!.getSupportedSwapAssetLimit(toSwapDenom!)
+            supplyRemain = kavaSwapSupply!.getRemainCap(toSwapDenom!, supplyLimit)
+            onetimeMax = kavaSwapParam!.getSupportedSwapAssetMaxOnce(toSwapDenom!)
+            sendCoinAvailable.attributedText = WUtils.displayAmount2(availableAmount.stringValue, sendCoinAvailable.font, 8, 8)
+            
+        } else if (pageHolderVC.chainType == ChainType.KAVA_TEST && kavaSwapParam2 != nil && kavaSwapSupply2 != nil) {
+            RelayerMaxLayer.isHidden = true
+            RelayerReaminLayer.isHidden = true
+            if (toSwapDenom == TOKEN_HTLC_KAVA_TEST_BNB) {
+                sendCoinImg.image = UIImage(named: "bnbonKavaImg")
+                self.onSetDpDenom("BNB")
+            } else if (toSwapDenom == TOKEN_HTLC_KAVA_TEST_BTC) {
+                sendCoinImg.image = UIImage(named: "btconKavaImg")
+                self.onSetDpDenom("BTC")
+            }
+            availableAmount = pageHolderVC.mAccount!.getTokenBalance(toSwapDenom!)
+            supplyLimit = kavaSwapParam2!.getSupportedSwapAssetLimit(toSwapDenom!)
+            supplyRemain = kavaSwapSupply2!.getRemainCap(toSwapDenom!, supplyLimit)
+            onetimeMax = kavaSwapParam2!.getSupportedSwapAssetMaxOnce(toSwapDenom!)
+            sendCoinAvailable.attributedText = WUtils.displayAmount2(availableAmount.stringValue, sendCoinAvailable.font, 8, 8)
+            
+        }
+        print("availableAmount ", availableAmount)
+        print("supplyLimit ", supplyLimit)
+        print("supplyRemain ", supplyRemain)
+        print("onetimeMax ", onetimeMax)
+        
+        oneTimeLimitAmount.attributedText = WUtils.displayAmount2(onetimeMax.stringValue, oneTimeLimitAmount.font, 8, 8)
+        systemMaxAmount.attributedText = WUtils.displayAmount2(supplyLimit.stringValue, systemMaxAmount.font, 8, 8)
+        systemReaminAmount.attributedText = WUtils.displayAmount2(supplyRemain.stringValue, systemReaminAmount.font, 8, 8)
+    }
+    
+    func onSetDpDenom(_ denom: String) {
+        sendCoinTxt.text = denom
+        oneTimeLimitDenom.text = denom
+        systemMaxDenom.text = denom
+        systemReaminDenom.text = denom
     }
     
     override func enableUserInteraction() {
@@ -81,19 +163,19 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     }
     
     @IBAction func onClickNext(_ sender: UIButton) {
-        if (pageHolderVC.chainType == ChainType.BINANCE_MAIN || pageHolderVC.chainType == ChainType.BINANCE_TEST) {
-            onCheckSwapParam()
-        } else {
-            self.btnCancel.isUserInteractionEnabled = false
-            self.btnNext.isUserInteractionEnabled = false
-            self.pageHolderVC.mHtlcToChain = self.toChain
-            pageHolderVC.onNextPage()
-        }
+//        if (pageHolderVC.chainType == ChainType.BINANCE_MAIN || pageHolderVC.chainType == ChainType.BINANCE_TEST) {
+//            onCheckSwapParam()
+//        } else {
+//            self.btnCancel.isUserInteractionEnabled = false
+//            self.btnNext.isUserInteractionEnabled = false
+//            self.pageHolderVC.mHtlcToChain = self.toChain
+//            pageHolderVC.onNextPage()
+//        }
     }
     
     @objc func onClickToChain (_ sender: UITapGestureRecognizer) {
         let popupVC = SelectPopupViewController(nibName: "SelectPopupViewController", bundle: nil)
-        popupVC.type = popupVC.SELECT_POPUP_HTLC_CHAIN
+        popupVC.type = SELECT_POPUP_HTLC_TO_CHAIN
         let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
         cardPopup.resultDelegate = self
         cardPopup.show(onViewController: self)
@@ -101,16 +183,30 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     }
     
     @objc func onClickToSendCoin (_ sender: UITapGestureRecognizer) {
-        print("onClickToSendCoin")
+        let popupVC = SelectPopupViewController(nibName: "SelectPopupViewController", bundle: nil)
+        popupVC.type = SELECT_POPUP_HTLC_TO_COIN
+        let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+        cardPopup.resultDelegate = self
+        cardPopup.show(onViewController: self)
     }
     
-    func SBCardPopupResponse(result: Int) {
+    func SBCardPopupResponse(type:Int, result: Int) {
+        if (type == SELECT_POPUP_HTLC_TO_CHAIN) {
+            self.toChain = self.toChainList[result]
+            self.updateView()
+            
+        } else if (type == SELECT_POPUP_HTLC_TO_COIN) {
+            self.toSwapDenom = self.toSwapableCoinList[result]
+            self.updateView()
+            
+        }
+        
 //        if (result == -1) {
 //            if (swapSupply.getRemainAmount().compare(NSDecimalNumber.zero).rawValue <= 0) {
 //                self.btnCancel.isUserInteractionEnabled = false
 //                self.btnNext.isUserInteractionEnabled = false
 //                pageHolderVC.onBeforePage()
-//                
+//
 //            } else {
 //                self.btnCancel.isUserInteractionEnabled = false
 //                self.btnNext.isUserInteractionEnabled = false
@@ -118,7 +214,7 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
 //                self.pageHolderVC.mSwapRemainCap = self.swapSupply.getRemainAmount().multiplying(byPowerOf10: -8)
 //                pageHolderVC.onNextPage()
 //            }
-//            
+//
 //        } else {
 //            self.toChain = self.toChainList[result]
 //            self.updateView()
@@ -141,9 +237,6 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))
                         return
                     }
-//                    let param = KavaSwapParam.init(info)
-//                    self.pageHolderVC.mSwapMaxOnce = param.getMaxOnce()
-//                    self.onCheckSwapSupply()
                     if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
                         self.kavaSwapParam = KavaSwapParam.init(info)
                         self.onCheckSwapSupply()
@@ -178,20 +271,11 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                     }
                     if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
                         self.kavaSwapSupply = KavaSwapSupply.init(info)
-                        self.onCheckSwapSupply()
                         
                     }  else if (self.pageHolderVC.chainType! == ChainType.BINANCE_TEST || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         self.kavaSwapSupply2 = KavaSwapSupply2.init(info)
-                        self.onCheckSwapSupply()
                     }
                     self.updateView()
-//                    let supply = KavaSwapSupply.init(info)
-//                    self.swapSupply = supply.getSwapSupply("bnb")
-//                    let popupVC = Bep3SupplyPopup(nibName: "Bep3SupplyPopup", bundle: nil)
-//                    popupVC.swapSupply = self.swapSupply
-//                    let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
-//                    cardPopup.resultDelegate = self
-//                    cardPopup.show(onViewController: self)
                     
                 case .failure(let error):
                     self.onShowToast(NSLocalizedString("error_network", comment: ""))

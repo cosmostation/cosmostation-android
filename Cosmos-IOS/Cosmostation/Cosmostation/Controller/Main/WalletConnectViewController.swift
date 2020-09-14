@@ -105,7 +105,7 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
         }
     }
     
-    func SBCardPopupResponse(result: Int) {
+    func SBCardPopupResponse(type:Int, result: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
             if(result == 1) {
                 self.signBnbOrder()

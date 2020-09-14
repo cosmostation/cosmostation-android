@@ -111,7 +111,7 @@ class RiskCheckPopupViewController: BaseViewController, SBCardPopupContent {
     }
     
     @IBAction func onClickContinue(_ sender: UIButton) {
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: 10)
+        popupViewController?.resultDelegate?.SBCardPopupResponse(type: 0, result: 10)
         popupViewController?.close()
     }
     

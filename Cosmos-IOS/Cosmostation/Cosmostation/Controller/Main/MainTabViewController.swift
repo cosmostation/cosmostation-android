@@ -141,7 +141,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func SBCardPopupResponse(result: Int) {
+    func SBCardPopupResponse(type:Int, result: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(490), execute: {
             let naviVC = self.selectedViewController as? UINavigationController
             var tagetVC:BaseViewController?

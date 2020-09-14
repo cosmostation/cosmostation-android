@@ -22,7 +22,7 @@ class CdpWarnPopup: BaseViewController, SBCardPopupContent {
     }
     
     @IBAction func onClickContinue(_ sender: UIButton) {
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: 1)
+        popupViewController?.resultDelegate?.SBCardPopupResponse(type: 0, result: 1)
         popupViewController?.close()
     }
     

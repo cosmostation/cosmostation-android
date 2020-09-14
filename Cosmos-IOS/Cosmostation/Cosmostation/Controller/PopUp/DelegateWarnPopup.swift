@@ -28,11 +28,11 @@ class DelegateWarnPopup: BaseViewController, SBCardPopupContent {
     }
 
     @IBAction func onClickCancel(_ sender: UIButton) {
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: -1)
+        popupViewController?.resultDelegate?.SBCardPopupResponse(type: 0, result: -1)
         popupViewController?.close()
     }
     @IBAction func onClickConfirm(_ sender: UIButton) {
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: 1)
+        popupViewController?.resultDelegate?.SBCardPopupResponse(type: 0, result: 1)
         popupViewController?.close()
     }
     

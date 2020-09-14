@@ -22,7 +22,7 @@ class AddViewController: BaseViewController, SBCardPopupContent {
     
     @IBAction func onClickImportMnemonic(_ sender: Any) {
 //        print("onClickImportMnemonic")
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: 2)
+        popupViewController?.resultDelegate?.SBCardPopupResponse(type: 0, result: 2)
         popupViewController?.close()
         
     }
@@ -30,13 +30,13 @@ class AddViewController: BaseViewController, SBCardPopupContent {
     
     @IBAction func onClickImportAddress(_ sender: Any) {
 //        print("onClickImportAddress")
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: 3)
+        popupViewController?.resultDelegate?.SBCardPopupResponse(type: 0, result: 3)
         popupViewController?.close()
     }
     
     @IBAction func onClickCreate(_ sender: Any) {
 //        print("onClickCreate")
-        popupViewController?.resultDelegate?.SBCardPopupResponse(result: 1)
+        popupViewController?.resultDelegate?.SBCardPopupResponse(type: 0, result: 1)
         popupViewController?.close()
     }
     
