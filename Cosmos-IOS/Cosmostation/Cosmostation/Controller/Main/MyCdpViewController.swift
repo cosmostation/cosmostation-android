@@ -99,42 +99,43 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
             return cell!
             
         } else {
-            let mCdp = mMyCdps[indexPath.row]
-            let cDenom = mCdp.result.cdp.getcDenom()
-            let pDenom = mCdp.result.cdp.getpDenom()
-            let cParam = mCdpParam.result.getcParam(cDenom)
-            let mPrice = mKavaPrice[mCdp.result.cdp.getcDenom() + ":usd:30"]
-            
-            if (SHOW_LOG) { print("getEstimatedTotalDebt ", mCdp.result.cdp.getEstimatedTotalDebt(cParam!)) }
-            
+            let mMyCdpStatus = mMyCdps[indexPath.row]
+            let mCollateralParam = mCdpParam.result.getcParam(mMyCdpStatus.getcDenom())
+            let mCDenom = mMyCdpStatus.getcDenom()
+            let mPDenom = mMyCdpStatus.getpDenom()
+            let mPrice = mKavaPrice[mCollateralParam!.liquidation_market_id]
+
+            if (SHOW_LOG) {
+                print("getEstimatedTotalDebt ", mMyCdpStatus.result.cdp.getEstimatedTotalDebt(mCollateralParam!))
+            }
+
             let currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
-            let liquidationPrice = mCdp.result.getLiquidationPrice(cDenom, pDenom, cParam!)
+            let liquidationPrice = mMyCdpStatus.result.getLiquidationPrice(mCDenom, mPDenom, mCollateralParam!)
             let riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
-            
+
             if (SHOW_LOG) {
                 print("currentPrice ", currentPrice)
                 print("liquidationPrice ", liquidationPrice)
                 print("riskRate ", riskRate)
             }
-            
+
             let cell:CdpLisyMyCell? = tableView.dequeueReusableCell(withIdentifier:"CdpLisyMyCell") as? CdpLisyMyCell
-            cell?.marketTitle.text = cParam!.getDpMarketId()
+            cell?.marketTitle.text = mCollateralParam!.getDpMarketId()
             WUtils.showRiskRate(riskRate, cell!.riskScore, _rateIamg: cell!.riskRateImg)
-            
-            cell?.debtValueTitle.text = String(format: NSLocalizedString("debt_value_format", comment: ""), pDenom.uppercased())
-            cell?.debtValue.attributedText = WUtils.getDPRawDollor(mCdp.result.getDpEstimatedTotalDebtValue(pDenom, cParam!).stringValue, 2, cell!.debtValue.font)
-            
-            cell?.collateralValueTitle.text = String(format: NSLocalizedString("collateral_value_format", comment: ""), cDenom.uppercased())
-            cell?.collateralValue.attributedText = WUtils.getDPRawDollor(mCdp.result.getDpCollateralValue(pDenom).stringValue, 2, cell!.collateralValue.font)
-            
-            cell?.currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), cDenom.uppercased())
+
+            cell?.debtValueTitle.text = String(format: NSLocalizedString("debt_value_format", comment: ""), mPDenom.uppercased())
+            cell?.debtValue.attributedText = WUtils.getDPRawDollor(mMyCdpStatus.result.getDpEstimatedTotalDebtValue(mPDenom, mCollateralParam!).stringValue, 2, cell!.debtValue.font)
+
+            cell?.collateralValueTitle.text = String(format: NSLocalizedString("collateral_value_format", comment: ""), mCDenom.uppercased())
+            cell?.collateralValue.attributedText = WUtils.getDPRawDollor(mMyCdpStatus.result.getDpCollateralValue(mPDenom).stringValue, 2, cell!.collateralValue.font)
+
+            cell?.currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), mCDenom.uppercased())
             cell?.currentPrice.attributedText = WUtils.getDPRawDollor(currentPrice.stringValue, 4, cell!.currentPrice.font)
-            
-            cell?.liquidationPriceTitle.text = String(format: NSLocalizedString("liquidation_price_format", comment: ""), cDenom.uppercased())
+
+            cell?.liquidationPriceTitle.text = String(format: NSLocalizedString("liquidation_price_format", comment: ""), mCDenom.uppercased())
             cell?.liquidationPrice.attributedText = WUtils.getDPRawDollor(liquidationPrice.stringValue, 4, cell!.liquidationPrice.font)
-            
-            
-            let url = KAVA_CDP_MARKET_IMG_URL + cParam!.getMarketImgPath() + ".png"
+
+            let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam!.getMarketImgPath() + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
                     return
@@ -149,11 +150,12 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
         if (mMyCdps.count < 1) {
             return
         } else {
-            let mCdp = mMyCdps[indexPath.row]
+            let mMyCdpStatus = mMyCdps[indexPath.row]
+            let mCollateralParam = mCdpParam.result.getcParam(mMyCdpStatus.getcDenom())
             let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
             cdpDetailVC.hidesBottomBarWhenPushed = true
-            cdpDetailVC.cDenom = mCdp.result.cdp.getcDenom()
-            cdpDetailVC.mMarketID = mCdp.result.cdp.getMarketId()
+            cdpDetailVC.mCDenom = mCollateralParam!.denom
+            cdpDetailVC.mMarketID = mCollateralParam!.spot_market_id
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(cdpDetailVC, animated: true)
         }

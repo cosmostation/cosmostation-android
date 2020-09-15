@@ -81,12 +81,12 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:CdpListAllCell? = tableView.dequeueReusableCell(withIdentifier:"CdpListAllCell") as? CdpListAllCell
-        let cParam = mAllCdp[indexPath.row]
-        cell?.marketTitle.text = cParam.getDpMarketId()
-        cell?.minCollateralRate.attributedText = WUtils.displayPercent(cParam.getDpLiquidationRatio(), font: cell!.minCollateralRate.font)
-        cell?.stabilityFee.attributedText = WUtils.displayPercent(cParam.getDpStabilityFee(), font: cell!.stabilityFee.font)
-        cell?.liquidationPenalty.attributedText = WUtils.displayPercent(cParam.getDpLiquidationPenalty(), font: cell!.liquidationPenalty.font)
-        let url = KAVA_CDP_MARKET_IMG_URL + cParam.getMarketImgPath() + ".png"
+        let mCollateralParam = mAllCdp[indexPath.row]
+        cell?.marketTitle.text = mCollateralParam.getDpMarketId()
+        cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationRatio(), font: cell!.minCollateralRate.font)
+        cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam.getDpStabilityFee(), font: cell!.stabilityFee.font)
+        cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationPenalty(), font: cell!.liquidationPenalty.font)
+        let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam.getMarketImgPath() + ".png"
         Alamofire.request(url, method: .get).responseImage { response  in
             guard let image = response.result.value else {
                 return
@@ -97,15 +97,11 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cParam = mAllCdp[indexPath.row]
+        let mCollateralParam = mAllCdp[indexPath.row]
         let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
         cdpDetailVC.hidesBottomBarWhenPushed = true
-        cdpDetailVC.cDenom = cParam.denom
-//        if (self.mainTabVC.mChainType == ChainType.KAVA_MAIN) {
-            cdpDetailVC.mMarketID = cParam.spot_market_id
-//        } else {
-//            cdpDetailVC.mMarketID = cParam.market_id
-//        }
+        cdpDetailVC.mCDenom = mCollateralParam.denom
+        cdpDetailVC.mMarketID = mCollateralParam.spot_market_id
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(cdpDetailVC, animated: true)
     }

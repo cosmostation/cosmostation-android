@@ -415,7 +415,7 @@
 "error_can_not_bep3_account_msg" = "In order to receive interchain transfer,\nyou must create a valid(with private key) %@ account and deposit at least 0.000375BNB for claim transaction fee.";
 "error_can_not_bep3_account_msg2" = "In order to receive interchain transfer,\nyou must create a valid(with private key) %@ account wallet.";
 "error_no_recipient_account" = "Please select account to receive";
-"error_no_more_debt_kava" = "Cannot issue USDX. Maximum network USDX capacity has been reached.\n%@ / %@";
+"error_no_more_debt_kava" = "Cannot issue USDX. Maximum network USDX capacity has been reached.";
 "error_bnb_mini_amount" = "Minimum amount required for BEP8 transactions is 1 token. If your balance is less than 1, you must send the entire amount.";
 "error_invalide_starname" = "Unregistered star name.";
 "error_no_mattched_starname" = "Valide starname, but there is no mattching address with this chain.";

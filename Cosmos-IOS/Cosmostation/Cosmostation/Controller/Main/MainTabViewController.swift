@@ -1144,7 +1144,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 BaseData.instance.mMyCdps.removeAll()
                 for collateralParam in cdpParam.result.collateral_params {
                     self.mFetchCnt = self.mFetchCnt + 1
-                    self.onFetchOwenCdp(account, collateralParam.denom)
+                    self.onFetchOwenCdp(account, collateralParam)
                 }
                 
             case .failure(let error):
@@ -1154,12 +1154,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchOwenCdp(_ account:Account, _ denom:String) {
+    func onFetchOwenCdp(_ account:Account, _ collateralParam: CdpParam.CollateralParam) {
         var url: String?
         if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_OWEN + account.account_address + "/" + denom
+            url = KAVA_CDP_OWEN + account.account_address + "/" + collateralParam.denom
         } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + denom
+            url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + collateralParam.type
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -1282,7 +1282,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 let priceParam = KavaTokenPrice.init(responseData)
                 BaseData.instance.mKavaPrice[priceParam.result.market_id] = priceParam
-                
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }

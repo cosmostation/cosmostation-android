@@ -171,7 +171,7 @@ public class CdpParam {
         
         func getDpMarketId() -> String {
             if (!spot_market_id.isEmpty) {
-                return spot_market_id.split(separator: ":")[0].uppercased() + " : " + spot_market_id.split(separator: ":")[1].uppercased() + "X"
+                return spot_market_id.split(separator: ":")[0].uppercased() + " : " + spot_market_id.split(separator: ":")[1].uppercased()
             }
             return ""
         }

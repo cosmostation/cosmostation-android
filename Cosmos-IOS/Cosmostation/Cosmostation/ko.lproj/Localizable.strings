@@ -407,7 +407,7 @@
 "error_can_not_bep3_account_msg2" = "인터체인 수신 받을 수 있는 %@의 유효한(개인키 포함) 지갑이 필요합니다.";
 "error_no_recipient_account" = "받을 계정을 선택해 주세요.";
 "error_no_more_faucet" = "이미 충분한 테스트 코인이 있네요.";
-"error_no_more_debt_kava" = "USDX를 더 이상 발행할 수 없습니다. 시스템에서 지원가능한 모든 USDX가 발행되었습니다.\n%@ / %@";
+"error_no_more_debt_kava" = "USDX를 더 이상 발행할 수 없습니다. 시스템에서 지원가능한 모든 USDX가 발행되었습니다.";
 "error_bnb_mini_amount" = "BEP8는 최소 전송 금액은 1보다 커야 합니다. 토큰 잔고가 1 미만인 경우, 전체 금액 전송만 가능합니다.";
 "error_not_enough_to_deposit" = "예금 할 수량이 충분하지 않습니다.";
 "error_not_enough_to_withdraw" = "출금 할 수량이 충분하지 않습니다.";

@@ -17,6 +17,8 @@ class CdpDetailTopCell: UITableViewCell {
     @IBOutlet weak var liquidationPenalty: UILabel!
     @IBOutlet weak var currentPriceTitle: UILabel!
     @IBOutlet weak var currentPrice: UILabel!
+    @IBOutlet weak var systemMax: UILabel!
+    @IBOutlet weak var remainCap: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,6 +27,8 @@ class CdpDetailTopCell: UITableViewCell {
         stabilityFee.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         liquidationPenalty.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         currentPrice.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        systemMax.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        remainCap.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
     var helpCollateralRate: (() -> Void)? = nil

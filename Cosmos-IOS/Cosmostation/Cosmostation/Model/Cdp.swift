@@ -48,10 +48,6 @@ public struct Cdp: Codable {
         return Int.init(id!)!
     }
     
-    public func getMarketId() -> String {
-        return collateral!.denom + ":usd:30"
-    }
-    
     public func getcDenom() -> String {
         return collateral!.denom
     }

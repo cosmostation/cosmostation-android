@@ -86,4 +86,12 @@ public class CdpOwen {
             return maxDebtValue
         }
     }
+    
+    public func getcDenom() -> String {
+        return result.cdp.getcDenom()
+    }
+    
+    public func getpDenom() -> String {
+        return result.cdp.getpDenom()
+    }
 }

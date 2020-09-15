@@ -208,6 +208,7 @@ let KAVA_TEST_CHECK_SWAP_PARAM          = KAVA_TEST_URL + "bep3/parameters";
 let KAVA_TEST_CHECK_SWAP_SUPPLY         = KAVA_TEST_URL + "bep3/supplies";
 let KAVA_TEST_INCENTIVE_PARAM           = KAVA_TEST_URL + "incentive/parameters";
 let KAVA_TEST_MY_INCENTIVE              = KAVA_TEST_URL + "incentive/claims/";
+let KAVA_TEST_CHECK_SUPPLY              = KAVA_TEST_URL + "supply/total";
 
 let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
