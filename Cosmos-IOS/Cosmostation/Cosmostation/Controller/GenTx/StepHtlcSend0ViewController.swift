@@ -133,10 +133,10 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
             sendCoinAvailable.attributedText = WUtils.displayAmount2(availableAmount.stringValue, sendCoinAvailable.font, 8, 8)
             
         }
-        print("availableAmount ", availableAmount)
-        print("supplyLimit ", supplyLimit)
-        print("supplyRemain ", supplyRemain)
-        print("onetimeMax ", onetimeMax)
+//        print("availableAmount ", availableAmount)
+//        print("supplyLimit ", supplyLimit)
+//        print("supplyRemain ", supplyRemain)
+//        print("onetimeMax ", onetimeMax)
         
         oneTimeLimitAmount.attributedText = WUtils.displayAmount2(onetimeMax.stringValue, oneTimeLimitAmount.font, 8, 8)
         systemMaxAmount.attributedText = WUtils.displayAmount2(supplyLimit.stringValue, systemMaxAmount.font, 8, 8)
@@ -163,14 +163,21 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     }
     
     @IBAction func onClickNext(_ sender: UIButton) {
-//        if (pageHolderVC.chainType == ChainType.BINANCE_MAIN || pageHolderVC.chainType == ChainType.BINANCE_TEST) {
-//            onCheckSwapParam()
-//        } else {
-//            self.btnCancel.isUserInteractionEnabled = false
-//            self.btnNext.isUserInteractionEnabled = false
-//            self.pageHolderVC.mHtlcToChain = self.toChain
-//            pageHolderVC.onNextPage()
-//        }
+        if (supplyLimit.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_bep3_supply_full", comment: ""))
+            
+        } else if (!onCheckMinMinBalance()) {
+            self.onShowToast(NSLocalizedString("error_bep3_under_min_amount", comment: ""))
+            
+        } else {
+            self.btnCancel.isUserInteractionEnabled = false
+            self.btnNext.isUserInteractionEnabled = false
+            self.pageHolderVC.mHtlcDenom = self.toSwapDenom
+            self.pageHolderVC.mHtlcToChain = self.toChain
+            self.pageHolderVC.mSwapRemainCap = self.supplyRemain
+            self.pageHolderVC.mSwapMaxOnce = self.onetimeMax
+            pageHolderVC.onNextPage()
+        }
     }
     
     @objc func onClickToChain (_ sender: UITapGestureRecognizer) {
@@ -198,28 +205,7 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
         } else if (type == SELECT_POPUP_HTLC_TO_COIN) {
             self.toSwapDenom = self.toSwapableCoinList[result]
             self.updateView()
-            
         }
-        
-//        if (result == -1) {
-//            if (swapSupply.getRemainAmount().compare(NSDecimalNumber.zero).rawValue <= 0) {
-//                self.btnCancel.isUserInteractionEnabled = false
-//                self.btnNext.isUserInteractionEnabled = false
-//                pageHolderVC.onBeforePage()
-//
-//            } else {
-//                self.btnCancel.isUserInteractionEnabled = false
-//                self.btnNext.isUserInteractionEnabled = false
-//                self.pageHolderVC.mHtlcToChain = self.toChain
-//                self.pageHolderVC.mSwapRemainCap = self.swapSupply.getRemainAmount().multiplying(byPowerOf10: -8)
-//                pageHolderVC.onNextPage()
-//            }
-//
-//        } else {
-//            self.toChain = self.toChainList[result]
-//            self.updateView()
-//        }
-        
     }
     
     func onCheckSwapParam() {
@@ -283,6 +269,20 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                 }
         }
         
+    }
+    
+    func onCheckMinMinBalance() -> Bool {
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+            if (availableAmount.compare(NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE)).rawValue > 0) {
+                return true
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+            if (availableAmount.compare(NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE).multiplying(byPowerOf10: -8) ).rawValue > 0) {
+                return true
+            }
+        }
+        return false
     }
     
 }

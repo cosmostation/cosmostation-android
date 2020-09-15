@@ -2275,6 +2275,27 @@ class WUtils {
         }
     }
     
+    static func dpChainName(_ chain: ChainType) -> String {
+        if (chain == ChainType.COSMOS_MAIN) {
+            return NSLocalizedString("chain_title_cosmos", comment: "")
+        } else if (chain == ChainType.IRIS_MAIN) {
+            return NSLocalizedString("chain_title_iris", comment: "")
+        } else if (chain == ChainType.BINANCE_MAIN) {
+            return NSLocalizedString("chain_title_bnb", comment: "")
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return NSLocalizedString("chain_title_kava", comment: "")
+        } else if (chain == ChainType.IOV_MAIN) {
+            return NSLocalizedString("chain_title_iov", comment: "")
+        } else if (chain == ChainType.BAND_MAIN) {
+            return NSLocalizedString("chain_title_band", comment: "")
+        } else if (chain == ChainType.BINANCE_TEST) {
+            return NSLocalizedString("chain_title_test_bnb", comment: "")
+        } else if (chain == ChainType.KAVA_TEST) {
+            return NSLocalizedString("chain_title_kava_test", comment: "")
+        }
+        return ""
+    }
+    
     static func onDpSwapChain(_ chain: ChainType, _ img: UIImageView?, _ label: UILabel) {
         if (chain == ChainType.BINANCE_MAIN) {
             label.text = "BINANCE"
@@ -2290,7 +2311,6 @@ class WUtils {
             img?.image = UIImage(named: "kavaTestImg")
         }
     }
-    
     
     static func getKavaHtlcStatus(_ txInfo:TxInfo, _ swap:KavaSwapInfo?) -> String {
         if (!txInfo.isSuccess()) {

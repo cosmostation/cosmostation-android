@@ -186,7 +186,7 @@
 "str_no_more_3day" = "3일간 숨기기";
 "select_destination_chain" = "체인 선택";
 "select_account" = "계정 선택";
-"no_account" = "%@ 계정이 없습니다.";
+"no_account" = "수신 가능한 %@ 지갑 없음";
 "testnet_warn_title" = "테스트넷 경고";
 "testnet_warn_msg" = "선택하신 지갑은 테스트넷을 위한 지갑입니다\n(해당 지갑의 토큰은 실제 가치가 없습니다).\n\n코스모스테이션은 사용자들이 각 체인의 고유한 기능들을 메인넷에 반영되기 이전에 확인하고 사용해 볼 수 있는 기회를 제공하기 위해 테스트넷을 지원합니다. 해당 테스트넷에 대한 지원은 언제든 중단될 수 있습니다.";
 "bep3_status_open" = "수신 대기";
@@ -403,7 +403,8 @@
 "error_not_enought_principal_asset" = "USDX가 충분하지 않아 상환할 수 없습니다.";
 "error_can_not_repay" = "지금은 상환할 수 없습니다. USDX가 더 필요합니다.";
 "error_circuit_breaker" = "서킷 브래이크 발동중";
-"error_can_not_bep3_account_msg" = "이 기능을 사용하기 위해서는, 유효한 \n%@ 지갑이 필요합니다.\n(지갑을 생성하신 후 에어드랍을 받으세요!)";
+"error_can_not_bep3_account_msg" = "인터체인 수신 받을 수 있는 %@의 유효한(개인키 포함) 지갑이 필요합니다. 수신할 지갑은 인터체인 받기용 수수료 0.000375BNB 이상의 발란스를 가지고 있는 지갑이어야 합니다.";
+"error_can_not_bep3_account_msg2" = "인터체인 수신 받을 수 있는 %@의 유효한(개인키 포함) 지갑이 필요합니다.";
 "error_no_recipient_account" = "받을 계정을 선택해 주세요.";
 "error_no_more_faucet" = "이미 충분한 테스트 코인이 있네요.";
 "error_no_more_debt_kava" = "USDX를 더 이상 발행할 수 없습니다. 시스템에서 지원가능한 모든 USDX가 발행되었습니다.\n%@ / %@";
@@ -416,6 +417,8 @@
 "error_invalide_starname" = "등록되지 않은 스타네임 입니다.";
 "error_no_mattched_starname" = "유효한 스타네임 이지만, 현재 체인에 등록된 유효한 주소가 없습니다.";
 "error_starname_self_send" = "유효한 스타네임 이지만, 자기 자신의 주소로는 송금할 수 없습니다.";
+"error_bep3_supply_full" = "현재 스왑 가능한 수량이 모두 소진되었습니다.";
+"error_bep3_under_min_amount" = "최소 0.00001보다 많이 보낼 수 있습니다.";
 
 
 

@@ -8,8 +8,8 @@
 
 import Foundation
 import ed25519swift
-import SwiftProtobuf
 import CryptoSwift
+import BinanceChain
 
 class MsgGenerator {
     
@@ -291,15 +291,57 @@ class MsgGenerator {
         return msg
     }
     
+    static func genCreateBnbSwapMsg(_ fromChain: ChainType, _ toChain: ChainType, _ fromAccount: Account, _ toAccount: Account,
+                                    _ sendCoin: Array<Coin>, _ timeStamp: Int64, _ randomNumberHash: String, _ wallet: Wallet) -> Message {
+        let sendAmount = NSDecimalNumber.init(string: sendCoin[0].amount).multiplying(byPowerOf10: 8)
+        if (fromChain == ChainType.BINANCE_MAIN) {
+            return Message.createHtlc(toAddress: BINANCE_MAIN_BNB_DEPUTY,
+                                      otherFrom: KAVA_MAIN_BNB_DEPUTY,
+                                      otherTo: toAccount.account_address,
+                                      timestamp: timeStamp,
+                                      randomNumberHash: randomNumberHash,
+                                      sendAmount: sendAmount.int64Value,
+                                      sendDenom: sendCoin[0].denom,
+                                      expectedIncom: sendAmount.stringValue + ":" + sendCoin[0].denom,
+                                      heightSpan: 10001,
+                                      crossChain: true,
+                                      memo: SWAP_MEMO_CREATE,
+                                      wallet: wallet)
+            
+        } else {
+            var bnb_duputy = ""
+            var btc_duputy = ""
+            if (sendCoin[0].denom == TOKEN_HTLC_BINANCE_TEST_BNB) {
+                bnb_duputy = BINANCE_TEST_BNB_DEPUTY
+                btc_duputy = KAVA_TEST_BNB_DEPUTY
+            } else if (sendCoin[0].denom  == TOKEN_HTLC_BINANCE_TEST_BTC) {
+                bnb_duputy = BINANCE_TEST_BTC_DEPUTY
+                btc_duputy = KAVA_TEST_BTC_DEPUTY
+            }
+            return Message.createHtlc(toAddress: bnb_duputy,
+                                      otherFrom: btc_duputy,
+                                      otherTo: toAccount.account_address,
+                                      timestamp: timeStamp,
+                                      randomNumberHash: randomNumberHash,
+                                      sendAmount: sendAmount.int64Value,
+                                      sendDenom: sendCoin[0].denom,
+                                      expectedIncom: sendAmount.stringValue + ":" + sendCoin[0].denom,
+                                      heightSpan: 10001,
+                                      crossChain: true,
+                                      memo: SWAP_MEMO_CREATE,
+                                      wallet: wallet)
+        }
+    }
+    
     
     static func genCreateSwapMsg(_ fromChain: ChainType, _ toChain: ChainType, _ fromAccount: Account, _ toAccount: Account,
                                  _ sendCoin: Array<Coin>, _ timeStamp: Int64, _ randomNumberHash: String) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (fromChain == ChainType.KAVA_MAIN) {
-            value.from = fromAccount.account_address
             value.to = KAVA_MAIN_BNB_DEPUTY
             value.sender_other_chain = BINANCE_MAIN_BNB_DEPUTY
+            value.from = fromAccount.account_address
             value.recipient_other_chain = toAccount.account_address
             
             value.random_number_hash = randomNumberHash.uppercased()
@@ -308,13 +350,17 @@ class MsgGenerator {
             do {
                 value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
             } catch { print(error) }
-            
             value.height_span = "250"
             
         } else  if (fromChain == ChainType.KAVA_TEST) {
+            if (sendCoin[0].denom == TOKEN_HTLC_KAVA_TEST_BNB) {
+                value.to = KAVA_TEST_BNB_DEPUTY
+                value.sender_other_chain = BINANCE_TEST_BNB_DEPUTY
+            } else if (sendCoin[0].denom  == TOKEN_HTLC_KAVA_TEST_BTC) {
+                value.to = KAVA_TEST_BTC_DEPUTY
+                value.sender_other_chain = BINANCE_TEST_BTC_DEPUTY
+            }
             value.from = fromAccount.account_address
-            value.to = KAVA_TEST_BNB_DEPUTY
-            value.sender_other_chain = BINANCE_TEST_BNB_DEPUTY
             value.recipient_other_chain = toAccount.account_address
             
             value.random_number_hash = randomNumberHash.uppercased()
@@ -323,8 +369,7 @@ class MsgGenerator {
             do {
                 value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
             } catch { print(error) }
-            
-            value.height_span = "500"
+            value.height_span = "250"
         }
         msg.type = KAVA_MSG_TYPE_CREATE_SWAP
         msg.value = value
@@ -438,6 +483,11 @@ class MsgGenerator {
         return stdSignedMsg
     }
     
+    
+    
+
+    
+    /*
     static func genIovSendTx(_ nonce:Int64, _ fromAddr:String, _ toAddr:String, _ sendCoins: Array<Coin>, _ fee:Fee,  _ memo:String, _ key:WKey.Ed25519Key) -> String {
         let sendAmount = NSDecimalNumber.init(string: sendCoins[0].amount).multiplying(byPowerOf10: -9)
         let interPart = WUtils.getQuotient(sendAmount.stringValue)
@@ -527,6 +577,7 @@ class MsgGenerator {
         
         return versionB + chainLenB + chainB + nonceB + txB!
     }
+     */
     
     static func byteArray<T>(from value: T) -> [UInt8] where T: FixedWidthInteger {
         withUnsafeBytes(of: value.bigEndian, Array.init)

@@ -30,6 +30,7 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
     @IBOutlet weak var claimAddress: UILabel!
     
     var pageHolderVC: StepGenTxViewController!
+    var mDpDecimal:Int16 = 8
     
     var relayerFee: NSDecimalNumber = NSDecimalNumber.zero
     
@@ -57,53 +58,67 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
         sendImg.tintColor = WUtils.getChainColor(pageHolderVC.chainType!)
         WUtils.setDenomTitle(pageHolderVC.chainType!, sendFeeDenom)
         if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-            sendAmountDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
-            sendAmountDenom.textColor = COLOR_BNB
-            
+            mDpDecimal = 8;
+            if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BNB) {
+                sendAmountDenom.text = "BNB"
+                sendAmountDenom.textColor = COLOR_BNB
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BTC) {
+                sendAmountDenom.text = "BTC"
+                sendAmountDenom.textColor = .white
+            }
             sendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, sendAmountLabel.font, 0, 8)
             sendFeeLabel.attributedText = WUtils.displayAmount2(sendFeeAmount.stringValue, sendFeeLabel.font, 0, 8)
-            
-            recipientChainLabel.text = WUtils.getChainId(pageHolderVC.mHtlcToChain!)
+            recipientChainLabel.text = WUtils.dpChainName(pageHolderVC.mHtlcToChain!)
             recipientAddressLabel.text = pageHolderVC.mHtlcToAccount?.account_address
             
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            sendAmountDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
-            sendAmountDenom.textColor = .white
-            
-            sendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, sendAmountLabel.font, WUtils.getKavaCoinDecimal(pageHolderVC.mToSendAmount[0].denom), WUtils.getKavaCoinDecimal(pageHolderVC.mToSendAmount[0].denom))
+            mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mHtlcDenom!)
+            if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_TEST_BNB) {
+                sendAmountDenom.text = "BNB"
+                sendAmountDenom.textColor = COLOR_BNB
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_TEST_BTC) {
+                sendAmountDenom.text = "BTC"
+                sendAmountDenom.textColor = .white
+            }
+            sendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, sendAmountLabel.font, mDpDecimal, mDpDecimal)
             sendFeeLabel.attributedText = WUtils.displayAmount2(sendFeeAmount.stringValue, sendFeeLabel.font, 6, 6)
-            
-            recipientChainLabel.text = WUtils.getChainId(pageHolderVC.mHtlcToChain!)
+            recipientChainLabel.text = WUtils.dpChainName(pageHolderVC.mHtlcToChain!)
             claimAddress.text = pageHolderVC.mHtlcToAccount?.account_address
-            
         }
         
         //set Claim layer's data
         claimImg.image = claimImg.image?.withRenderingMode(.alwaysTemplate)
         claimImg.tintColor = WUtils.getChainColor(pageHolderVC.mHtlcToChain!)
-        WUtils.setDenomTitle(pageHolderVC.mHtlcToChain!, claimFeeDenom)
         if (pageHolderVC.mHtlcToChain == ChainType.BINANCE_MAIN || pageHolderVC.mHtlcToChain == ChainType.BINANCE_TEST) {
-            claimFeeLabel.attributedText = WUtils.displayAmount2(claimFeeAmount.stringValue, claimFeeLabel.font, 0, 8)
+            receiveAmountDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
+            relayFeeDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
+            if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_TEST_BNB) {
+                receiveAmountDenom.textColor = COLOR_BNB
+                relayFeeDenom.textColor = COLOR_BNB
+            }
+            WUtils.setDenomTitle(pageHolderVC.mHtlcToChain!, claimFeeDenom)
+            
+            relayerFee = NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE).multiplying(byPowerOf10: mDpDecimal)
+            receiveAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.subtracting(relayerFee).stringValue , receiveAmountLabel.font, mDpDecimal, mDpDecimal)
+            relayFeeLabel.attributedText = WUtils.displayAmount2(relayerFee.stringValue, relayFeeLabel.font, mDpDecimal, mDpDecimal)
+            claimFeeLabel.attributedText = WUtils.displayAmount2(claimFeeAmount.stringValue, claimFeeLabel.font, 0, mDpDecimal)
             recipientAddressLabel.text = pageHolderVC.mHtlcToAccount?.account_address
             
-            relayFeeDenom.textColor = COLOR_BNB
-            receiveAmountDenom.textColor = COLOR_BNB
-            relayFeeDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
-            receiveAmountDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
-            relayerFee = NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE).multiplying(byPowerOf10: 8)
-            relayFeeLabel.attributedText = WUtils.displayAmount2(relayerFee.stringValue, relayFeeLabel.font, 8, 8)
-            receiveAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.subtracting(relayerFee).stringValue , receiveAmountLabel.font, 8, 8)
-            
-            
         } else if (pageHolderVC.mHtlcToChain == ChainType.KAVA_MAIN || pageHolderVC.mHtlcToChain == ChainType.KAVA_TEST) {
+            if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BNB) {
+                receiveAmountDenom.text = "BNB"
+                relayFeeDenom.text = "BNB"
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BTC) {
+                receiveAmountDenom.text = "BTC"
+                relayFeeDenom.text = "BTC"
+            }
+            WUtils.setDenomTitle(pageHolderVC.mHtlcToChain!, claimFeeDenom)
+            
+            relayerFee = NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE)
+            receiveAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.subtracting(relayerFee).stringValue , receiveAmountLabel.font, 0, 8)
+            relayFeeLabel.attributedText = WUtils.displayAmount2(relayerFee.stringValue, relayFeeLabel.font, 0, 8)
             claimFeeLabel.attributedText = WUtils.displayAmount2(claimFeeAmount.stringValue, claimFeeLabel.font, 6, 6)
             claimAddress.text = pageHolderVC.mHtlcToAccount?.account_address
-            
-            relayFeeDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
-            receiveAmountDenom.text = self.pageHolderVC.mHtlcDenom!.uppercased()
-            relayerFee = NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE)
-            relayFeeLabel.attributedText = WUtils.displayAmount2(relayerFee.stringValue, relayFeeLabel.font, 0, 8)
-            receiveAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.subtracting(relayerFee).stringValue , receiveAmountLabel.font, 0, 8)
         }
     }
     
@@ -135,15 +150,13 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
     }
     
     func onInitSendFee() {
-        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN ||
-            pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             let feeCoin = Coin.init(BNB_MAIN_DENOM, "0.000375")
             var tempList = Array<Coin>()
             tempList.append(feeCoin)
             pageHolderVC.mHtlcSendFee = Fee.init("", tempList)
             
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             let feeCoin = Coin.init(KAVA_MAIN_DENOM, "0")
             var tempList = Array<Coin>()
             tempList.append(feeCoin)
@@ -153,15 +166,13 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
     }
     
     func onInitClaimFee() {
-        if (pageHolderVC.mHtlcToChain == ChainType.BINANCE_MAIN ||
-            pageHolderVC.mHtlcToChain == ChainType.BINANCE_TEST) {
+        if (pageHolderVC.mHtlcToChain == ChainType.BINANCE_MAIN || pageHolderVC.mHtlcToChain == ChainType.BINANCE_TEST) {
             let feeCoin = Coin.init(BNB_MAIN_DENOM, "0.000375")
             var tempList = Array<Coin>()
             tempList.append(feeCoin)
             pageHolderVC.mHtlcClaimFee = Fee.init("", tempList)
             
-        } else if (pageHolderVC.mHtlcToChain == ChainType.KAVA_MAIN ||
-            pageHolderVC.mHtlcToChain == ChainType.KAVA_TEST) {
+        } else if (pageHolderVC.mHtlcToChain == ChainType.KAVA_MAIN || pageHolderVC.mHtlcToChain == ChainType.KAVA_TEST) {
             let feeCoin = Coin.init(KAVA_MAIN_DENOM, "0")
             var tempList = Array<Coin>()
             tempList.append(feeCoin)

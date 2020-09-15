@@ -843,9 +843,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            let denom = msg?.value.getAmounts()![0].denom
-            cell?.sendAmount.attributedText = WUtils.displayAmount2(msg?.value.getAmounts()![0].amount, cell!.sendAmount.font!, WUtils.getKavaCoinDecimal(denom!), WUtils.getKavaCoinDecimal(denom!))
-            cell?.sendDenom.text = denom!.uppercased()
+            WUtils.showCoinDp((msg?.value.getAmounts()![0])!, cell!.sendDenom, cell!.sendAmount, chainType!)
             cell?.senderLabel.text = msg?.value.from
             cell?.recipientLabel.text = msg?.value.recipient_other_chain
             cell?.randomHashLabel.text = msg?.value.random_number_hash
@@ -858,9 +856,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             }
             
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
-            WUtils.setDenomTitle(chainType!, cell!.sendDenom)
-            cell?.sendDenom.text = msg?.value.getAmounts()![0].denom
-            cell?.sendAmount.attributedText = WUtils.displayAmount2(msg?.value.getAmounts()![0].amount, cell!.sendAmount.font!, 8, 8)
+            WUtils.showCoinDp((msg?.value.getAmounts()![0])!, cell!.sendDenom, cell!.sendAmount, chainType!)
             if (self.account?.account_address == msg?.value.from) {
                 cell!.txTitle.text = NSLocalizedString("tx_send_htlc2", comment: "")
                 cell?.senderLabel.text = msg?.value.from

@@ -246,7 +246,6 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: self.account!)
-                        //TODO error handle
                         self.onUpdateView(NSLocalizedString("error_network", comment: ""))
                         return
                     }
@@ -258,7 +257,6 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 }
                 
             case .failure(let error):
-                //TODO error handle
                 self.onUpdateView(error.localizedDescription)
                 self.onShowToast(error.localizedDescription)
             }
@@ -293,22 +291,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         print("BINANCE_MAIN mRandomNumber ", self.mRandomNumber)
                         print("BINANCE_MAIN mRandomNumberHash ", self.mRandomNumberHash)
                     }
-                    
-                    let sendAmount = NSDecimalNumber.init(string: self.mHtlcToSendAmount[0].amount).multiplying(byPowerOf10: 8)
-//                    print("sendAmount ", sendAmount.int64Value)
-                    let bnbMsg = Message.createHtlc(toAddress: BINANCE_MAIN_BNB_DEPUTY,
-                                                    otherFrom: KAVA_MAIN_BNB_DEPUTY,
-                                                    otherTo: self.mHtlcToAccount!.account_address,
-                                                    timestamp: self.mTimeStamp!,
-                                                    randomNumberHash: self.mRandomNumberHash!,
-                                                    sendAmount: sendAmount.int64Value,
-                                                    sendDenom: BNB_MAIN_DENOM,
-                                                    expectedIncom: sendAmount.stringValue + ":" + BNB_MAIN_DENOM,
-                                                    heightSpan: 10001,
-                                                    crossChain: true,
-                                                    memo: "Create Atomic Swap via Cosmostation Wallet",
-                                                    wallet: wallet)
-                    
+                    let bnbMsg = MsgGenerator.genCreateBnbSwapMsg(self.chainType!, self.mHtlcToChain!, self.account!, self.mHtlcToAccount!, self.mHtlcToSendAmount, self.mTimeStamp!, self.mRandomNumberHash!, wallet)
                     binance.broadcast(message: bnbMsg, sync: true) { (response) in
                         if (SHOW_LOG) { print("onCreateHtlcSwap response", response.broadcast) }
                         if let error = response.error {
@@ -343,21 +326,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         print("BINANCE_TEST mRandomNumberHash ", self.mRandomNumberHash)
                     }
                     
-                    let sendAmount = NSDecimalNumber.init(string: self.mHtlcToSendAmount[0].amount).multiplying(byPowerOf10: 8)
-                    //                    print("sendAmount ", sendAmount.int64Value)
-                    let bnbMsg = Message.createHtlc(toAddress: BINANCE_TEST_BNB_DEPUTY,
-                                                    otherFrom: KAVA_TEST_BNB_DEPUTY,
-                                                    otherTo: self.mHtlcToAccount!.account_address,
-                                                    timestamp: self.mTimeStamp!,
-                                                    randomNumberHash: self.mRandomNumberHash!,
-                                                    sendAmount: sendAmount.int64Value,
-                                                    sendDenom: BNB_MAIN_DENOM,
-                                                    expectedIncom: sendAmount.stringValue + ":" + BNB_MAIN_DENOM,
-                                                    heightSpan: 10001,
-                                                    crossChain: true,
-                                                    memo: "Create Atomic Swap via Cosmostation Wallet",
-                                                    wallet: wallet)
-                    
+                    let bnbMsg = MsgGenerator.genCreateBnbSwapMsg(self.chainType!, self.mHtlcToChain!, self.account!, self.mHtlcToAccount!, self.mHtlcToSendAmount, self.mTimeStamp!, self.mRandomNumberHash!, wallet)
                     binance.broadcast(message: bnbMsg, sync: true) { (response) in
                         if (SHOW_LOG) { print("onCreateHtlcSwap response", response.broadcast) }
                         if let error = response.error {
@@ -385,19 +354,15 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         print("KAVA mRandomNumberHash ", self.mRandomNumberHash)
                     }
                     
-                    let msg = MsgGenerator.genCreateSwapMsg(self.chainType!, self.mHtlcToChain!,
-                                                            self.account!, self.mHtlcToAccount!,
-                                                            self.mHtlcToSendAmount, self.mTimeStamp!, self.mRandomNumberHash!)
-                    
+                    let msg = MsgGenerator.genCreateSwapMsg(self.chainType!, self.mHtlcToChain!, self.account!, self.mHtlcToAccount!, self.mHtlcToSendAmount, self.mTimeStamp!, self.mRandomNumberHash!)
                     var msgList = Array<Msg>()
                     msgList.append(msg)
-                    
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.account!.account_base_chain),
                                                            String(self.account!.account_account_numner),
                                                            String(self.account!.account_sequence_number),
                                                            msgList,
                                                            self.mHtlcSendFee!,
-                                                           "Create Atomic Swap via Cosmostation Wallet")
+                                                           SWAP_MEMO_CREATE)
                     
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
@@ -420,7 +385,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     var signatures: Array<Signature> = Array<Signature>()
                     signatures.append(genedSignature)
                     
-                    stdTx = MsgGenerator.genSignedTx(msgList, self.mHtlcSendFee!, "Create Atomic Swap via Cosmostation Wallet", signatures)
+                    stdTx = MsgGenerator.genSignedTx(msgList, self.mHtlcSendFee!, SWAP_MEMO_CREATE, signatures)
                     
                 } catch {
                     //TODO error handle
@@ -470,28 +435,28 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         }
     }
     
-    var mSwapFetchCnt = 10
+    var mSwapFetchCnt = 15
     func onFetchSwapId() {
         onUpdateProgress(1)
 //        print("onFetchSwapId ", mSwapFetchCnt)
         var url = ""
         if (self.mHtlcToChain == ChainType.BINANCE_MAIN) {
-            let swapId = WKey.getSwapId(self.mRandomNumberHash!, BINANCE_MAIN_BNB_DEPUTY, self.account!.account_address)
+            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
             url = BNB_URL_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("BINANCE_MAIN swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.BINANCE_TEST) {
-            let swapId = WKey.getSwapId(self.mRandomNumberHash!, BINANCE_TEST_BNB_DEPUTY, self.account!.account_address)
+            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
             url = BNB_TEST_URL_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("BINANCE_TEST swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
-            let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_MAIN_BNB_DEPUTY, self.account!.account_address)
+            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
             url = KAVA_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("KAVA_MAIN swapId url ", url) }
             
         } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
-            let swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_BNB_DEPUTY, self.account!.account_address)
+            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
             url = KAVA_TEST_CHECK_SWAPID + swapId
             if (SHOW_LOG) { print("KAVA_TEST swapId url ", url) }
         }
@@ -589,12 +554,12 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         return
                     }
                     
-                    let swapId = WKey.getSwapId(self.mRandomNumberHash!, BINANCE_MAIN_BNB_DEPUTY, self.account!.account_address)
+                    let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
                     if (SHOW_LOG) { print("swapId ", swapId) }
                     if (SHOW_LOG) { print("randomNumber ", self.mRandomNumber!) }
                     let bnbMsg = Message.claimHtlc(randomNumber: self.mRandomNumber!,
                                                    swapId: swapId,
-                                                   memo: "Claim Atomic Swap via Cosmostation Wallet",
+                                                   memo: SWAP_MEMO_CLAIM,
                                                    wallet: wallet)
                     
                     binance.broadcast(message: bnbMsg, sync: true) { (response) in
@@ -623,12 +588,12 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         return
                     }
                     
-                    let swapId = WKey.getSwapId(self.mRandomNumberHash!, BINANCE_TEST_BNB_DEPUTY, self.account!.account_address)
+                    let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
                     if (SHOW_LOG) { print("swapId ", swapId) }
                     if (SHOW_LOG) { print("randomNumber ", self.mRandomNumber!) }
                     let bnbMsg = Message.claimHtlc(randomNumber: self.mRandomNumber!,
                                                    swapId: swapId,
-                                                   memo: "Claim Atomic Swap via Cosmostation Wallet",
+                                                   memo: SWAP_MEMO_CLAIM,
                                                    wallet: wallet)
                     
                     binance.broadcast(message: bnbMsg, sync: true) { (response) in
@@ -648,12 +613,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             } else if (self.mHtlcToChain == ChainType.KAVA_MAIN || self.mHtlcToChain == ChainType.KAVA_TEST) {
                 do {
                     let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
-                    var swapId: String = "";
-                    if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
-                        swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_MAIN_BNB_DEPUTY, self.account!.account_address)
-                    } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
-                        swapId = WKey.getSwapId(self.mRandomNumberHash!, KAVA_TEST_BNB_DEPUTY, self.account!.account_address)
-                    }
+                    let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
                     let msg = MsgGenerator.genClaimAtomicSwap(self.mHtlcToAccount!.account_address,
                                                               swapId,
                                                               self.mRandomNumber!)
@@ -666,7 +626,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                                                            String(self.mHtlcToAccount!.account_sequence_number),
                                                            msgList,
                                                            self.mHtlcClaimFee!,
-                                                           "Claim Atomic Swap via Cosmostation Wallet")
+                                                           SWAP_MEMO_CLAIM)
                     
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
@@ -689,7 +649,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     var signatures: Array<Signature> = Array<Signature>()
                     signatures.append(genedSignature)
                     
-                    stdTx = MsgGenerator.genSignedTx(msgList, self.mHtlcClaimFee!, "Claim Atomic Swap via Cosmostation Wallet", signatures)
+                    stdTx = MsgGenerator.genSignedTx(msgList, self.mHtlcClaimFee!, SWAP_MEMO_CLAIM, signatures)
                     
                 } catch {
                     if(SHOW_LOG) { print(error) }
@@ -741,7 +701,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             self.onStartMainTab()
         }))
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("wait", comment: ""), style: .default, handler: { _ in
-            self.mSwapFetchCnt = 10
+            self.mSwapFetchCnt = 15
             self.onFetchSwapId()
         }))
         self.present(noticeAlert, animated: true, completion: nil)

@@ -195,7 +195,7 @@
 "after_liquidation_price_format" = "Expected Liquidation %@ Price";
 "select_destination_chain" = "Select Destination Chain";
 "select_account" = "Select Account";
-"no_account" = "No %@ Account";
+"no_account" = "No valid account at %@";
 "testnet_warn_title" = "Testnet Warning";
 "testnet_warn_msg" = "This wallet is for testnet\n(Tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use new feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.";
 
@@ -412,13 +412,16 @@
 "error_not_enought_principal_asset" = "Not enough USDX to repay.";
 "error_can_not_repay" = "Cannot repay now. You need more USDX to Repay.";
 "error_circuit_breaker" = "Now circuit breake";
-"error_can_not_bep3_account_msg" = "In order to user this feature,\nyou must create a %@ wallet\n Create wallet and get some airdrop!";
+"error_can_not_bep3_account_msg" = "In order to receive interchain transfer,\nyou must create a valid(with private key) %@ account and deposit at least 0.000375BNB for claim transaction fee.";
+"error_can_not_bep3_account_msg2" = "In order to receive interchain transfer,\nyou must create a valid(with private key) %@ account wallet.";
 "error_no_recipient_account" = "Please select account to receive";
 "error_no_more_debt_kava" = "Cannot issue USDX. Maximum network USDX capacity has been reached.\n%@ / %@";
 "error_bnb_mini_amount" = "Minimum amount required for BEP8 transactions is 1 token. If your balance is less than 1, you must send the entire amount.";
 "error_invalide_starname" = "Unregistered star name.";
 "error_no_mattched_starname" = "Valide starname, but there is no mattching address with this chain.";
 "error_starname_self_send" = "Valide starname, but self sending is not support.";
+"error_bep3_supply_full" = "The swap has reached its network capacity.";
+"error_bep3_under_min_amount" = "Need more than 0.00001 balance for Interchain send.";
 
 "currency_usd" = "USD";
 "currency_eur" = "EUR";

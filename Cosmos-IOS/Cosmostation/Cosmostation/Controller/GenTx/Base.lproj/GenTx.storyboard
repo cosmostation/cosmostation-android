@@ -5382,14 +5382,14 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                 </subviews>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning_ic" translatesAutoresizingMaskIntoConstraints="NO" id="kjc-l7-2VU">
-                                <rect key="frame" x="143" y="412" width="34" height="34"/>
+                                <rect key="frame" x="143" y="398.5" width="34" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="AiV-da-7FS"/>
                                     <constraint firstAttribute="width" constant="34" id="oT7-Jr-y5w"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KDA-Db-yrY">
-                                <rect key="frame" x="21" y="450" width="278" height="28"/>
+                                <rect key="frame" x="34" y="436.5" width="252" height="41.5"/>
                                 <string key="text">In order to user this feature,
 you must create a KAVA account and have history</string>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
@@ -5404,13 +5404,13 @@ you must create a KAVA account and have history</string>
                             <constraint firstItem="Ucz-R6-066" firstAttribute="leading" secondItem="mAa-ns-kDB" secondAttribute="leading" constant="16" id="Nq9-qC-Xkl"/>
                             <constraint firstItem="T7x-0J-45S" firstAttribute="top" secondItem="mAa-ns-kDB" secondAttribute="top" constant="16" id="PVf-1g-pyf"/>
                             <constraint firstItem="mAa-ns-kDB" firstAttribute="trailing" secondItem="Ucz-R6-066" secondAttribute="trailing" constant="16" id="RMS-GW-g8E"/>
-                            <constraint firstItem="KDA-Db-yrY" firstAttribute="leading" secondItem="mAa-ns-kDB" secondAttribute="leading" constant="21" id="Uwt-Fj-5Fe"/>
+                            <constraint firstItem="KDA-Db-yrY" firstAttribute="leading" secondItem="mAa-ns-kDB" secondAttribute="leading" constant="34" id="Uwt-Fj-5Fe"/>
                             <constraint firstItem="mAa-ns-kDB" firstAttribute="trailing" secondItem="IBl-ol-uVL" secondAttribute="trailing" constant="16" id="XHD-kM-qcI"/>
                             <constraint firstItem="Ucz-R6-066" firstAttribute="top" secondItem="KDA-Db-yrY" secondAttribute="bottom" constant="24" id="XUA-um-GQ7"/>
                             <constraint firstItem="kjc-l7-2VU" firstAttribute="centerX" secondItem="mAa-ns-kDB" secondAttribute="centerX" id="dBq-UZ-6Hi"/>
                             <constraint firstItem="KDA-Db-yrY" firstAttribute="top" secondItem="kjc-l7-2VU" secondAttribute="bottom" constant="4" id="oWn-c0-SSH"/>
                             <constraint firstItem="IBl-ol-uVL" firstAttribute="leading" secondItem="mAa-ns-kDB" secondAttribute="leading" constant="16" id="tfc-7t-NDF"/>
-                            <constraint firstItem="mAa-ns-kDB" firstAttribute="trailing" secondItem="KDA-Db-yrY" secondAttribute="trailing" constant="21" id="uAW-Xo-K3c"/>
+                            <constraint firstItem="mAa-ns-kDB" firstAttribute="trailing" secondItem="KDA-Db-yrY" secondAttribute="trailing" constant="34" id="uAW-Xo-K3c"/>
                             <constraint firstItem="mAa-ns-kDB" firstAttribute="bottom" secondItem="Ucz-R6-066" secondAttribute="bottom" constant="16" id="uyN-Co-UtZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mAa-ns-kDB"/>

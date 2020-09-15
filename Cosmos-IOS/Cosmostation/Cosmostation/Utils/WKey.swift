@@ -276,16 +276,49 @@ class WKey {
         return hash.hexEncodedString()
     }
     
-    
-    static func getSwapId(_ randomNumnerHash: String, _ sender: String, _ otherSender: String) -> String {
-        let senderData = getDatafromDpAddress(sender)
-        let otherSenderData = otherSender.data(using: .utf8)
-        let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
-        let hash = Crypto.sha256(Data.fromHex(add)!)
-        return hash.hexEncodedString()
+    static func getSwapId(_ toChain: ChainType, _ toSendCoin: Array<Coin>,  _ randomNumnerHash: String, _ otherSender: String) -> String {
+        if (toChain == ChainType.BINANCE_MAIN) {
+            let senderData = getDatafromDpAddress(BINANCE_MAIN_BNB_DEPUTY)
+            let otherSenderData = otherSender.data(using: .utf8)
+            let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
+            let hash = Crypto.sha256(Data.fromHex(add)!)
+            return hash.hexEncodedString()
+            
+        } else if (toChain == ChainType.KAVA_MAIN) {
+            let senderData = getDatafromDpAddress(KAVA_MAIN_BNB_DEPUTY)
+            let otherSenderData = otherSender.data(using: .utf8)
+            let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
+            let hash = Crypto.sha256(Data.fromHex(add)!)
+            return hash.hexEncodedString()
+            
+        } else if (toChain == ChainType.BINANCE_TEST) {
+            var senderData: Data?
+            if (toSendCoin[0].denom  == TOKEN_HTLC_KAVA_TEST_BNB) {
+                senderData = getDatafromDpAddress(BINANCE_TEST_BNB_DEPUTY)
+            } else if (toSendCoin[0].denom == TOKEN_HTLC_KAVA_TEST_BTC) {
+                senderData = getDatafromDpAddress(BINANCE_TEST_BTC_DEPUTY)
+            }
+            let otherSenderData = otherSender.data(using: .utf8)
+            let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
+            let hash = Crypto.sha256(Data.fromHex(add)!)
+            return hash.hexEncodedString()
+            
+        } else if (toChain == ChainType.KAVA_TEST) {
+            var senderData: Data?
+            if (toSendCoin[0].denom == TOKEN_HTLC_BINANCE_TEST_BNB) {
+                senderData = getDatafromDpAddress(KAVA_TEST_BNB_DEPUTY)
+            } else if (toSendCoin[0].denom == TOKEN_HTLC_BINANCE_TEST_BTC) {
+                senderData = getDatafromDpAddress(KAVA_TEST_BTC_DEPUTY)
+            }
+            let otherSenderData = otherSender.data(using: .utf8)
+            let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
+            let hash = Crypto.sha256(Data.fromHex(add)!)
+            return hash.hexEncodedString()
+            
+        } else {
+            return ""
+        }
     }
-    
-    
     
     
     
