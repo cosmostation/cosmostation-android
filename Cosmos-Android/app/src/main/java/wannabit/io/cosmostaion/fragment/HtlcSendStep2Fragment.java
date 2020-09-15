@@ -140,8 +140,6 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
             }
             mMaxAvailable = getSActivity().getAvailable();
-            mMinAvailable = BigDecimal.ONE;
-
             // check relayer capacity
             BigDecimal maxOnce = getSActivity().mMaxOnce;
             if (mMaxAvailable.compareTo(maxOnce) > 0) {

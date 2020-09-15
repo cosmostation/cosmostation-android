@@ -389,6 +389,7 @@ public class BaseConstant {
 
     public final static String BINANCE_MAIN_BNB_DEPUTY = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
     public final static String KAVA_MAIN_BNB_DEPUTY = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
+    //For 9000
     public final static String BINANCE_TEST_BNB_DEPUTY = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
     public final static String KAVA_TEST_BNB_DEPUTY = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl";
     public final static String BINANCE_TEST_BTC_DEPUTY = "tbnb1dmn2xgnc8kcxn4s0ts5llu9ry3ulp2nlhuh5fz";

@@ -372,7 +372,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             BigDecimal maxWithdrawableAmount = mMyOwenCdp.getWithdrawableAmount(getBaseContext(), mCollateralParam, currentPrice, selfDepositAmount);
             BigDecimal maxWithdrawableValue = maxWithdrawableAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice);
             mMyWithdrawableAmount.setText(WDp.getDpAmount2(getBaseContext(), maxWithdrawableAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
-            mMyWithdrawableValue.setText(WDp.getDpRawDollor(getBaseContext(), maxWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)), 2));
+            mMyWithdrawableValue.setText(WDp.getDpRawDollor(getBaseContext(), maxWithdrawableValue, 2));
 
 
             final BigDecimal debtValue = mMyOwenCdp.getPrincipalAmount();

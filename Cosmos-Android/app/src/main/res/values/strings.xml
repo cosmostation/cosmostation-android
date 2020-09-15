@@ -672,7 +672,7 @@
     <string name="str_bep3_cap_status">Swap Cap Information</string>
     <string name="str_bep3_available_title">BNB-BEP3 swap available</string>
     <string name="str_bep3_unavailable_title">BNB-BEP3 swap unavailable</string>
-    <string name="str_bep3_max_once">Max amount per transfer</string>
+    <string name="str_bep3_max_once">Swap Limit Per Transaction</string>
     <string name="str_bep3_system_max">System Max Cap</string>
     <string name="str_bep3_current_cap">Current Cap</string>
     <string name="str_bep3_remain_cap">Remaining Cap</string>
@@ -997,7 +997,7 @@
     <string name="error_no_mattched_starname">Valide starname, but there is no mattching address with this chain.</string>
     <string name="error_starname_self_send">Valide starname, but self sending is not support.</string>
     <string name="error_bep3_supply_full">The swap has reached its network capacity.</string>
-    <string name="error_bep3_under_min_amount">Need more than 0.00001 balance for Interchain send</string>
+    <string name="error_bep3_under_min_amount">Need more than 0.00001 balance for Interchain send.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>
