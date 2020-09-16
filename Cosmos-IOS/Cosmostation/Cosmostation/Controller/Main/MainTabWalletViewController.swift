@@ -1376,6 +1376,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickCdp() {
+        if (BaseData.instance.mCdpParam == nil) {
+            return
+        }
         let cdpListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "CdpListViewController") as! CdpListViewController
         cdpListVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""

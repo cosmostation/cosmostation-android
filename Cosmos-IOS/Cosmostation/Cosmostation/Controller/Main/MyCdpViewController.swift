@@ -36,7 +36,7 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
         self.refresher.tintColor = UIColor.white
         self.myCdpTableView.addSubview(refresher)
         
-        mCdpParam = BaseData.instance.mCdpParam
+        mCdpParam = BaseData.instance.mCdpParam!
         mMyCdps = BaseData.instance.mMyCdps
         sortByCdpId()
         mKavaPrice = BaseData.instance.mKavaPrice
@@ -72,7 +72,7 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        mCdpParam = BaseData.instance.mCdpParam
+        mCdpParam = BaseData.instance.mCdpParam!
         mMyCdps = BaseData.instance.mMyCdps
         mKavaPrice = BaseData.instance.mKavaPrice
         myCdpCntLabel.text = String(mMyCdps.count)
@@ -155,7 +155,7 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
             let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
             cdpDetailVC.hidesBottomBarWhenPushed = true
             cdpDetailVC.mCDenom = mCollateralParam!.denom
-            cdpDetailVC.mMarketID = mCollateralParam!.spot_market_id
+            cdpDetailVC.mMarketID = mCollateralParam!.liquidation_market_id
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(cdpDetailVC, animated: true)
         }

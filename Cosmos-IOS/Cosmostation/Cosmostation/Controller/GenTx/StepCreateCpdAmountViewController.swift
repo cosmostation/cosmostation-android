@@ -40,14 +40,16 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     var pageHolderVC: StepGenTxViewController!
     
     var isPrincipal:Bool = false
-    var cDenom: String = ""
-    var pDenom: String = ""
+    var mCDenom: String = ""
+    var mPDenom: String = ""
     var cDpDecimal:Int16 = 6
     var pDpDecimal:Int16 = 6
     var mMarketID: String = ""
-    var cdpParam:CdpParam?
-    var cParam: CdpParam.CollateralParam?
+    var mCdpParam:CdpParam?
+    var mCollateralParam: CdpParam.CollateralParam?
+    var mMyCdpStatus: CdpOwen?
     var mPrice: KavaTokenPrice?
+    
     var currentPrice: NSDecimalNumber = NSDecimalNumber.zero
     var liquidationPrice: NSDecimalNumber = NSDecimalNumber.zero
     var riskRate: NSDecimalNumber = NSDecimalNumber.zero
@@ -67,8 +69,10 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         
         pageHolderVC = self.parent as? StepGenTxViewController
-        cDenom = pageHolderVC.cDenom!
+        mCDenom = pageHolderVC.mCDenom!
         mMarketID = pageHolderVC.mMarketID!
+        mCdpParam = BaseData.instance.mCdpParam
+        mCollateralParam = mCdpParam?.result.getcParam(mCDenom)
         
         self.loadingImg.onStartAnimation()
         self.onFetchCdpData()
@@ -107,7 +111,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             toCAmount = WUtils.stringToDecimal(cAmountInput.text?.trimmingCharacters(in: .whitespaces)).multiplying(byPowerOf10: cDpDecimal)
             let toCValue = toCAmount.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
             cDepositValue.attributedText = WUtils.getDPRawDollor(toCValue.stringValue, 2, cDepositValue.font)
-            pMaxAmount = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.95")).multiplying(by: currentPrice).dividing(by: cParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
+            pMaxAmount = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.95")).multiplying(by: currentPrice).dividing(by: mCollateralParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
         
             pAvailabeMinLabel.attributedText = WUtils.displayAmount2(pMinAmount.stringValue, pAvailabeMinLabel.font!, pDpDecimal, pDpDecimal)
             pAvailabeMaxLabel.attributedText = WUtils.displayAmount2(pMaxAmount.stringValue, pAvailabeMinLabel.font!, pDpDecimal, pDpDecimal)
@@ -280,7 +284,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     }
     
     @IBAction func onClickP20(_ sender: UIButton) {
-        var calValue = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.2")).multiplying(by: currentPrice).dividing(by: cParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
+        var calValue = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.2")).multiplying(by: currentPrice).dividing(by: mCollateralParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
         if (calValue.compare(pMinAmount).rawValue < 0) {
             calValue = pMinAmount
             self.onShowToast(NSLocalizedString("error_less_than_min_principal", comment: ""))
@@ -291,7 +295,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     }
     
     @IBAction func onClickP50(_ sender: UIButton) {
-        var calValue = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.5")).multiplying(by: currentPrice).dividing(by: cParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
+        var calValue = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.5")).multiplying(by: currentPrice).dividing(by: mCollateralParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
         if (calValue.compare(pMinAmount).rawValue < 0) {
             calValue = pMinAmount
             self.onShowToast(NSLocalizedString("error_less_than_min_principal", comment: ""))
@@ -303,7 +307,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     }
     
     @IBAction func onClickP70(_ sender: UIButton) {
-        var calValue = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.7")).multiplying(by: currentPrice).dividing(by: cParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
+        var calValue = toCAmount.multiplying(byPowerOf10: pDpDecimal - cDpDecimal).multiplying(by: NSDecimalNumber.init(string: "0.7")).multiplying(by: currentPrice).dividing(by: mCollateralParam!.getLiquidationRatio(), withBehavior: WUtils.handler0Down)
         if (calValue.compare(pMinAmount).rawValue < 0) {
             calValue = pMinAmount
             self.onShowToast(NSLocalizedString("error_less_than_min_principal", comment: ""))
@@ -343,7 +347,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
                 view.endEditing(true)
                 let popupVC = RiskCheckPopupViewController(nibName: "RiskCheckPopupViewController", bundle: nil)
                 popupVC.type = popupVC.RISK_POPUP_CREATE
-                popupVC.cDenom = self.cDenom
+                popupVC.cDenom = self.mCDenom
                 popupVC.DNcurrentPrice = self.currentPrice
                 popupVC.DNliquidationPrice = self.liquidationPrice
                 popupVC.DNriskRate = self.riskRate
@@ -361,16 +365,17 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     func SBCardPopupResponse(type:Int, result: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
             if(result == 10) {
-                let cCoin = Coin.init(self.cDenom, self.toCAmount.stringValue)
+                let cCoin = Coin.init(self.mCDenom, self.toCAmount.stringValue)
                 self.pageHolderVC.mCollateral = cCoin
 
-                let pCoin = Coin.init(self.pDenom, self.toPAmount.stringValue)
+                let pCoin = Coin.init(self.mPDenom, self.toPAmount.stringValue)
                 self.pageHolderVC.mPrincipal = pCoin
 
                 self.pageHolderVC.currentPrice = self.currentPrice
                 self.pageHolderVC.liquidationPrice = self.liquidationPrice
                 self.pageHolderVC.riskRate = self.riskRate
-                self.pageHolderVC.pDenom = self.pDenom
+                self.pageHolderVC.pDenom = self.mPDenom
+                self.pageHolderVC.mCollateralParam = self.mCollateralParam
 
                 self.btnCancel.isUserInteractionEnabled = false
                 self.btnNext.isUserInteractionEnabled = false
@@ -403,7 +408,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
         toPAmount = userInput.multiplying(byPowerOf10: pDpDecimal)
         
         let collateralAmount = toCAmount.multiplying(byPowerOf10: -cDpDecimal)
-        let rawDebtAmount = toPAmount.multiplying(by: cParam!.getLiquidationRatio()).multiplying(byPowerOf10: -pDpDecimal)
+        let rawDebtAmount = toPAmount.multiplying(by: mCollateralParam!.getLiquidationRatio()).multiplying(byPowerOf10: -pDpDecimal)
         liquidationPrice = rawDebtAmount.dividing(by: collateralAmount, withBehavior: WUtils.getDivideHandler(pDpDecimal))
         riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
         
@@ -452,40 +457,43 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     
     var mFetchCnt = 0
     func onFetchCdpData() {
-        self.mFetchCnt = 2
-        onFetchCdpParam()
+        self.mFetchCnt = 1
         onFetchKavaPrice(self.mMarketID)
     }
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
-            if (cParam == nil || mPrice == nil) {
+            if (mCollateralParam == nil || mPrice == nil) {
                 print("ERROR");
                 return
             }
-            pDenom = cParam!.getpDenom()
+            mPDenom = mCollateralParam!.getpDenom()
             
-            cDpDecimal = WUtils.getKavaCoinDecimal(cDenom)
-            pDpDecimal = WUtils.getKavaCoinDecimal(pDenom)
+            cDpDecimal = WUtils.getKavaCoinDecimal(mCDenom)
+            pDpDecimal = WUtils.getKavaCoinDecimal(mPDenom)
             
-            pMinAmount = NSDecimalNumber.init(string: cdpParam!.result.debt_param?.debt_floor)
+            pMinAmount = NSDecimalNumber.init(string: mCdpParam!.result.debt_param?.debt_floor)
             currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
-            cMaxAmount = account!.getTokenBalance(cDenom)
-            cMinAmount = pMinAmount.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05263157895")).multiplying(by: cParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Up)
+            cMaxAmount = account!.getTokenBalance(mCDenom)
+            cMinAmount = pMinAmount.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05263157895")).multiplying(by: mCollateralParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Up)
+            print("currentPrice ", currentPrice)
+            print("pMinAmount ", pMinAmount)
+            print("cMinAmount ", cMinAmount)
+            print("cMaxAmount ", cMaxAmount)
             
             cAvailabeMinLabel.attributedText = WUtils.displayAmount2(cMinAmount.stringValue, cAvailabeMinLabel.font!, cDpDecimal, cDpDecimal)
             cAvailabeMaxLabel.attributedText = WUtils.displayAmount2(cMaxAmount.stringValue, cAvailabeMaxLabel.font!, cDpDecimal, cDpDecimal)
             
-            cDenomLabel.text = cDenom.uppercased()
-            cAvailableDenom.text = cDenom.uppercased()
-            pDenomLabel.text = pDenom.uppercased()
-            pAvailableDenom.text = pDenom.uppercased()
-            Alamofire.request(KAVA_COIN_IMG_URL + cDenom + ".png", method: .get).responseImage { response  in
+            cDenomLabel.text = mCDenom.uppercased()
+            cAvailableDenom.text = mCDenom.uppercased()
+            pDenomLabel.text = mPDenom.uppercased()
+            pAvailableDenom.text = mPDenom.uppercased()
+            Alamofire.request(KAVA_COIN_IMG_URL + mCDenom + ".png", method: .get).responseImage { response  in
                 guard let image = response.result.value else { return }
                 self.cDenomImg.image = image
             }
-            Alamofire.request(KAVA_COIN_IMG_URL + pDenom + ".png", method: .get).responseImage { response  in
+            Alamofire.request(KAVA_COIN_IMG_URL + mPDenom + ".png", method: .get).responseImage { response  in
                 guard let image = response.result.value else { return }
                 self.pDenomImg.image = image
             }
@@ -493,32 +501,6 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             onUpdateView()
             self.loadingImg.onStopAnimation()
             self.loadingImg.isHidden = true
-        }
-    }
-    
-    func onFetchCdpParam() {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_PARAM
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_PARAM
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let _ = responseData.object(forKey: "height") as? String else {
-                            self.onFetchFinished()
-                            return
-                    }
-                    self.cdpParam = CdpParam.init(responseData)
-                    self.cParam = self.cdpParam!.result.getcParam(self.cDenom)
-                    
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchCdpParam ", error) }
-                }
-            self.onFetchFinished()
         }
     }
     

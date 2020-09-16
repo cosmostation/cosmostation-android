@@ -42,7 +42,7 @@ class TransactionViewController: UIViewController {
     var mProposalTitle: String?
     var mProposer: String?
     
-    var cDenom: String?
+    var mCDenom: String?
     var mMarketID: String?
     
     var mHtlcDenom: String = BNB_MAIN_DENOM     //now only support bnb bep3
@@ -194,7 +194,7 @@ class TransactionViewController: UIViewController {
             StepVc.mKavaSendDenom = self.mKavaSendDenom
             StepVc.mIovSendDenom = self.mIovSendDenom
             StepVc.mOkSendDenom = self.mOkSendDenom
-            StepVc.cDenom = self.cDenom
+            StepVc.mCDenom = self.mCDenom
             StepVc.mMarketID = self.mMarketID
             StepVc.mHtlcDenom = self.mHtlcDenom
             StepVc.mHtlcRefundSwapId = self.mHtlcRefundSwapId

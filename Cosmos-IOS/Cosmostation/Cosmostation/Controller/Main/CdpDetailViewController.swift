@@ -313,7 +313,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_CREATE_CDP
-        txVC.cDenom = self.mCDenom
+        txVC.mCDenom = self.mCDenom
         txVC.mMarketID = self.mMarketID
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -328,7 +328,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_DEPOSIT_CDP
-        txVC.cDenom = mCDenom
+        txVC.mCDenom = mCDenom
         txVC.mMarketID = mMarketID
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -345,7 +345,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
          
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_WITHDRAW_CDP
-        txVC.cDenom = mCDenom
+        txVC.mCDenom = mCDenom
         txVC.mMarketID = mMarketID
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -364,7 +364,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_DRAWDEBT_CDP
-        txVC.cDenom = self.mCDenom
+        txVC.mCDenom = self.mCDenom
         txVC.mMarketID = self.mMarketID
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -390,7 +390,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_REPAYDEBT_CDP
-        txVC.cDenom = mCDenom
+        txVC.mCDenom = mCDenom
         txVC.mMarketID = mMarketID
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -415,7 +415,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             self.refresher.endRefreshing()
             return
         }
-        self.mFetchCnt = 3
+        self.mFetchCnt = 4
         onFetchOwenCdp(account!, self.mCollateralParam!)
         onFetchCdpDeposit(account!, self.mCollateralParam!)
         onFetchKavaPrice(self.mMarketID)

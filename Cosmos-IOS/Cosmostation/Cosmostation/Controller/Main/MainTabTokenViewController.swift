@@ -323,7 +323,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 if (balance.balance_denom == KAVA_MAIN_DENOM) {
                     allKava = allKava.adding(WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator))
                 } else {
-                    let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam)
+                    let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam!)
                     let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(6))
                     allKava = allKava.adding(convertedKavaAmount.multiplying(byPowerOf10: 6))
                 }
@@ -515,7 +515,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
             
-            let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam)
+            let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam!)
             let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             let url = KAVA_COIN_IMG_URL + balance.balance_denom + ".png"
@@ -550,7 +550,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
             
-            let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam)
+            let tokenTotalValue = balance.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam!)
             let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             let url = KAVA_COIN_IMG_URL + balance.balance_denom + ".png"
@@ -969,7 +969,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 if ($1.balance_denom == KAVA_MAIN_DENOM){
                     return false
                 }
-                return $0.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam).compare($1.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam)).rawValue > 0 ? true : false
+                return $0.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam!).compare($1.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam!)).rawValue > 0 ? true : false
             }
         } else if (chainType! == ChainType.OK_TEST) {
             

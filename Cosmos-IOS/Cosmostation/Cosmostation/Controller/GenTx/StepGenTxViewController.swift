@@ -81,9 +81,10 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mIovSendDenom: String?
     var mOkSendDenom: String?
     
-    var cDenom: String?
+    var mCDenom: String?
     var pDenom: String?
     var mMarketID: String?
+    var mCollateralParam: CdpParam.CollateralParam?
     
     var mHtlcDenom: String?
     var mHtlcToChain: ChainType?

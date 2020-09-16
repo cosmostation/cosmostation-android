@@ -59,7 +59,7 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
     }
     
     func onUpdateView() {
-        let cDenom = pageHolderVC.cDenom
+        let cDenom = pageHolderVC.mCDenom
         let cDpDecimal = WUtils.getKavaCoinDecimal(cDenom!)
 
         let cAmount = NSDecimalNumber.init(string: pageHolderVC.mCollateral.amount)
@@ -134,9 +134,11 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
             
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                let msg = MsgGenerator.genGetWithdrawCdpMsg(self.pageHolderVC.mAccount!.account_address,
-                                                           self.pageHolderVC.mAccount!.account_address,
-                                                           self.pageHolderVC.mCollateral)
+                let msg = MsgGenerator.genGetWithdrawCdpMsg(self.pageHolderVC.chainType!,
+                                                            self.pageHolderVC.mAccount!.account_address,
+                                                            self.pageHolderVC.mAccount!.account_address,
+                                                            self.pageHolderVC.mCollateral,
+                                                            self.pageHolderVC.mCollateralParam?.type)
                 
                 var msgList = Array<Msg>()
                 msgList.append(msg)

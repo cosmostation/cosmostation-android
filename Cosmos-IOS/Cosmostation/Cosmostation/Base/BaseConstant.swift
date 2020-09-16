@@ -564,7 +564,7 @@ let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"
 let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"
 let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "300000"
 let KAVA_GAS_FEE_AMOUNT_REINVEST            = "300000"
-let KAVA_GAS_FEE_AMOUNT_CDP                 = "300000"
+let KAVA_GAS_FEE_AMOUNT_CDP                 = "400000"
 let KAVA_GAS_FEE_AMOUNT_BEP3                = "200000"
 let KAVA_GAS_FEE_AMOUNT_HIGH                = "350000"
 
@@ -670,17 +670,17 @@ enum ChainType: String {
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
-//        result.append(COSMOS_MAIN)
-//        result.append(IRIS_MAIN)
+        result.append(COSMOS_MAIN)
+        result.append(IRIS_MAIN)
         result.append(BINANCE_MAIN)
-//        result.append(IOV_MAIN)
+        result.append(IOV_MAIN)
         result.append(KAVA_MAIN)
-//        result.append(BAND_MAIN)
+        result.append(BAND_MAIN)
         
         result.append(BINANCE_TEST)
         result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
-//        result.append(OK_TEST)
+        result.append(OK_TEST)
         return result
     }
     

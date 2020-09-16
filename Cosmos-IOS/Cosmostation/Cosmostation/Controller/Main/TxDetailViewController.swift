@@ -812,13 +812,15 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            let pDenom = msg?.value.principal!.denom
-            cell?.senderLabel.text = msg?.value.sender
+        if (chainType == ChainType.KAVA_MAIN) {
             cell?.coinTypeLabel.text = msg?.value.cdp_denom?.uppercased()
-            cell?.principalAmount.attributedText = WUtils.displayAmount2(msg?.value.principal!.amount, cell!.principalAmount.font!, WUtils.getKavaCoinDecimal(pDenom!), WUtils.getKavaCoinDecimal(pDenom!))
-            cell?.principalDenom.text = pDenom!.uppercased()
+        } else if (chainType == ChainType.KAVA_TEST) {
+            cell?.coinTypeLabel.text = msg?.value.collateral_type?.uppercased()
         }
+        let pDenom = msg?.value.principal!.denom
+        cell?.senderLabel.text = msg?.value.sender
+        cell?.principalAmount.attributedText = WUtils.displayAmount2(msg?.value.principal!.amount, cell!.principalAmount.font!, WUtils.getKavaCoinDecimal(pDenom!), WUtils.getKavaCoinDecimal(pDenom!))
+        cell?.principalDenom.text = pDenom!.uppercased()
         return cell!
     }
     
@@ -827,13 +829,15 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            let pDenom = msg?.value.payment!.denom
-            cell?.senderLabel.text = msg?.value.sender
+        if (chainType == ChainType.KAVA_MAIN) {
             cell?.coinTypeLabel.text = msg?.value.cdp_denom?.uppercased()
-            cell?.paymentAmount.attributedText = WUtils.displayAmount2(msg?.value.payment!.amount, cell!.paymentAmount.font!, WUtils.getKavaCoinDecimal(pDenom!), WUtils.getKavaCoinDecimal(pDenom!))
-            cell?.paymentDenom.text = pDenom!.uppercased()
+        } else if (chainType == ChainType.KAVA_TEST) {
+            cell?.coinTypeLabel.text = msg?.value.collateral_type?.uppercased()
         }
+        let pDenom = msg?.value.payment!.denom
+        cell?.senderLabel.text = msg?.value.sender
+        cell?.paymentAmount.attributedText = WUtils.displayAmount2(msg?.value.payment!.amount, cell!.paymentAmount.font!, WUtils.getKavaCoinDecimal(pDenom!), WUtils.getKavaCoinDecimal(pDenom!))
+        cell?.paymentDenom.text = pDenom!.uppercased()
         return cell!
     }
     

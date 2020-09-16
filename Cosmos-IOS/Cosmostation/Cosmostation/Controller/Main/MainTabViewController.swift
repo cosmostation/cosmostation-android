@@ -223,6 +223,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.KAVA_MAIN) {
             self.mFetchCnt = 13
+            BaseData.instance.mCdpParam = nil
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -234,7 +235,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchInflation()
             onFetchProvision()
             onFetchStakingPool()
-            
             onFetchCdpParam(mAccount)
             onFetchPriceParam()
             onFetchIncentiveParam()
@@ -243,6 +243,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.KAVA_TEST) {
             self.mFetchCnt = 13
+            BaseData.instance.mCdpParam = nil
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()

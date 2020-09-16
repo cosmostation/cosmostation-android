@@ -58,7 +58,7 @@ class StepDrawDebtCdpCheckViewController: BaseViewController, PasswordViewDelega
     }
     
     func onUpdateView() {
-        let cDenom = pageHolderVC.cDenom
+        let cDenom = pageHolderVC.mCDenom
         let pDenom = pageHolderVC.pDenom
         let pDpDecimal = WUtils.getKavaCoinDecimal(pDenom!)
         
@@ -134,9 +134,11 @@ class StepDrawDebtCdpCheckViewController: BaseViewController, PasswordViewDelega
             
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                let msg = MsgGenerator.genGetDrawDebtCdpMsg(self.pageHolderVC.mAccount!.account_address,
-                                                            self.pageHolderVC.cDenom!,
-                                                            self.pageHolderVC.mPrincipal)
+                let msg = MsgGenerator.genGetDrawDebtCdpMsg(self.pageHolderVC.chainType!,
+                                                            self.pageHolderVC.mAccount!.account_address,
+                                                            self.pageHolderVC.mCDenom!,
+                                                            self.pageHolderVC.mPrincipal,
+                                                            self.pageHolderVC.mCollateralParam?.type)
                 
                 var msgList = Array<Msg>()
                 msgList.append(msg)

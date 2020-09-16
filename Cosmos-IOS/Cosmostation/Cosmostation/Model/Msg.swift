@@ -82,6 +82,7 @@ public struct Msg: Codable {
         var collateral: Coin?
         var principal: Coin?
         var payment: Coin?
+        var collateral_type: String?
         
         var cdp_denom: String?
         var swap_id: String?
@@ -134,6 +135,7 @@ public struct Msg: Codable {
             case collateral
             case principal
             case payment
+            case collateral_type
             case cdp_denom
             case swap_id
             case random_number
@@ -321,8 +323,9 @@ public struct Msg: Codable {
             if let rawPayment = dictionary["payment"] as? [String : Any] {
                 self.payment = Coin(rawPayment)
             }
-            
-            
+            if let rawCollateralType = dictionary["collateral_type"] as? String {
+                self.collateral_type = rawCollateralType
+            }
             if let cdp_denom =  dictionary["cdp_denom"] as? String {
                 self.cdp_denom = cdp_denom
             }
