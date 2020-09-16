@@ -89,60 +89,60 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
         if (chainType! == ChainType.COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
-            titleChainName.text = "(Cosmos Hub)"
+            titleChainName.text = "(Cosmos Mainnet)"
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_COSMOS
         } else if (chainType! == ChainType.IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
-            titleChainName.text = "(Iris Hub)"
+            titleChainName.text = "(Iris Mainnet)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_IRIS
         } else if (chainType! == ChainType.BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
-            titleChainName.text = "(Binance Chain)"
+            titleChainName.text = "(Binance Mainnet)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_BNB
         } else if (chainType! == ChainType.KAVA_MAIN) {
             titleChainImg.image = UIImage(named: "kavaImg")
-            titleChainName.text = "(KAVA Chain)"
+            titleChainName.text = "(Kava Mainnet)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = false
             totalCard.backgroundColor = TRANS_BG_COLOR_KAVA
         } else if (chainType! == ChainType.IOV_MAIN) {
             titleChainImg.image = UIImage(named: "iovChainImg")
-            titleChainName.text = "(IOV Chain)"
+            titleChainName.text = "(Starname Mainnet)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_IOV
         }  else if (chainType! == ChainType.BAND_MAIN) {
             titleChainImg.image = UIImage(named: "bandChainImg")
-            titleChainName.text = "(Band Chain)"
+            titleChainName.text = "(Band Mainnet)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_BAND
         } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
-            titleChainName.text = "(Binance Test)"
+            titleChainName.text = "(Binance Testnet)"
             kavaOracle.isHidden = true
             titleAlarmBtn.isHidden = true
             totalCard.backgroundColor = COLOR_BG_GRAY
         }  else if (chainType! == ChainType.KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
-            titleChainName.text = "(KAVA Test)"
+            titleChainName.text = "(Kava Testnet)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = false
             totalCard.backgroundColor = COLOR_BG_GRAY
         } else if (chainType! == ChainType.IOV_TEST) {
             titleChainImg.image = UIImage(named: "iovTestnetImg")
-            titleChainName.text = "(IOV Test)"
+            titleChainName.text = "(Starname Testnet)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = COLOR_BG_GRAY
         } else if (chainType! == ChainType.OK_TEST) {
             titleChainImg.image = UIImage(named: "okexTestnetImg")
-            titleChainName.text = "(OK Test Chain)"
+            titleChainName.text = "(Okchain Testnet)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = COLOR_BG_GRAY
@@ -567,7 +567,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.text = "IOV"
             cell?.tokenSymbol.textColor = COLOR_IOV
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "IOV Chain Native Token"
+            cell?.tokenDescription.text = "Starname Chain Native Token"
                         
             let allIov = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, cell!.tokenAmount.font!, 6, 6)

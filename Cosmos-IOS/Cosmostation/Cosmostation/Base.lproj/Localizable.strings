@@ -115,8 +115,8 @@
 "send_guide_msg_bnb" = "Decentralized network of blockchains\npowered by Tendermint BFT and ABCI.";
 "send_guide_title_kava" = "KAVA CHAIN";
 "send_guide_msg_kava" = "First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.";
-"send_guide_title_iov" = "IOV MAINNET";
-"send_guide_msg_iov" = "Built on Tendermint, IOV builds a fast, secure and decentralized universal name service.";
+"send_guide_title_iov" = "Starname Service";
+"send_guide_msg_iov" = "Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.";
 "send_guide_title_band" = "BAND PROTOCOL";
 "send_guide_msg_band" = "Cross-chain oracle platform based on Tendermint. Aggregates and connects real-world data and APIs to smart contracts.";
 "send_guide_title_ok" = "OK CHAIN";

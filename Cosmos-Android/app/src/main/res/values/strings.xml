@@ -89,13 +89,13 @@
     <string name="str_cosmos_test_net_13k">COSMOS Testnet (GAIA 13k)</string>
     <string name="str_iris_main_net">IRIS Mainnet</string>
     <string name="str_bnb_main_net">Binance Mainnet</string>
-    <string name="str_iov_main_net">IOV Mainnet</string>
-    <string name="str_kava_main_net">KAVA Mainnet</string>
-    <string name="str_band_main_net">BAND Mainnet</string>
+    <string name="str_iov_main_net">Starname Mainnet</string>
+    <string name="str_kava_main_net">Kava Mainnet</string>
+    <string name="str_band_main_net">Band Mainnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
-    <string name="str_kava_test_net">KAVA Testnet</string>
-    <string name="str_iov_test_net">IOV Testnet</string>
-    <string name="str_ok_test_net">OK Testnet</string>
+    <string name="str_kava_test_net">Kava Testnet</string>
+    <string name="str_iov_test_net">Starname Testnet</string>
+    <string name="str_ok_test_net">Okchain Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
@@ -261,35 +261,35 @@
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
-    <string name="str_cosmos_hub" translatable="false">(Cosmos Hub)</string>
-    <string name="str_cosmos_hub_2" translatable="false">Cosmos Hub</string>
-    <string name="str_iris_net" translatable="false">(Iris Hub)</string>
-    <string name="str_iris_net_2" translatable="false">Iris Hub</string>
-    <string name="str_binance_net" translatable="false">(Binance Chain)</string>
-    <string name="str_binance_net_2" translatable="false">Binance Chain</string>
-    <string name="str_binance_test_net" translatable="false">(Binance Test Chain)</string>
-    <string name="str_binance_test_net_2" translatable="false">Binance Test Chain</string>
-    <string name="str_iov_net" translatable="false">(IOV Chain)</string>
-    <string name="str_iov_net_2" translatable="false">IOV Chain</string>
-    <string name="str_band_chain" translatable="false">(BAND Chain)</string>
-    <string name="str_band_chain_2" translatable="false">BAND Chain</string>
-    <string name="str_kava_net" translatable="false">(KAVA Chain)</string>
-    <string name="str_kava_net_2" translatable="false">KAVA Chain</string>
-    <string name="str_kava_net_test" translatable="false">(KAVA Test Chain)</string>
-    <string name="str_kava_net_test_2" translatable="false">KAVA Test Chain</string>
-    <string name="str_iov_net_test" translatable="false">(IOV Test Chain)</string>
-    <string name="str_iov_net_test_2" translatable="false">IOV Test Chain</string>
-    <string name="str_ok_net_test" translatable="false">(OK Test Chain)</string>
-    <string name="str_ok_net_test_2" translatable="false">OK Test Chain</string>
+    <string name="str_cosmos_hub" translatable="false">(Cosmos Mainnet)</string>
+    <string name="str_cosmos_hub_2" translatable="false">Cosmos Mainnet</string>
+    <string name="str_iris_net" translatable="false">(Iris Mainnet)</string>
+    <string name="str_iris_net_2" translatable="false">Iris Mainnet</string>
+    <string name="str_binance_net" translatable="false">(Binance Mainnet)</string>
+    <string name="str_binance_net_2" translatable="false">Binance Mainnet</string>
+    <string name="str_binance_test_net" translatable="false">(Binance Testnet)</string>
+    <string name="str_binance_test_net_2" translatable="false">Binance Testnet</string>
+    <string name="str_iov_net" translatable="false">(Starname Mainnet)</string>
+    <string name="str_iov_net_2" translatable="false">Starname Mainnet</string>
+    <string name="str_band_chain" translatable="false">(Band Mainnet)</string>
+    <string name="str_band_chain_2" translatable="false">Band Mainnet</string>
+    <string name="str_kava_net" translatable="false">(Kava Mainnet)</string>
+    <string name="str_kava_net_2" translatable="false">Kava Mainnet</string>
+    <string name="str_kava_net_test" translatable="false">(Kava Testnet)</string>
+    <string name="str_kava_net_test_2" translatable="false">Kava Testnet</string>
+    <string name="str_iov_net_test" translatable="false">(Starname Testnet)</string>
+    <string name="str_iov_net_test_2" translatable="false">Starname Testnet</string>
+    <string name="str_ok_net_test" translatable="false">(Okchain Testnet)</string>
+    <string name="str_ok_net_test_2" translatable="false">Okchain Testnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_iris" translatable="false">IRIS</string>
     <string name="str_binance" translatable="false">BINANCE</string>
     <string name="str_binance_test" translatable="false">BINANCE\nTEST</string>
-    <string name="str_iov" translatable="false">IOV</string>
+    <string name="str_iov" translatable="false">STARNAME</string>
     <string name="str_kava" translatable="false">KAVA</string>
     <string name="str_band" translatable="false">BAND</string>
     <string name="str_kava_test" translatable="false">KAVA TEST</string>
-    <string name="str_iov_test" translatable="false">IOV TEST</string>
+    <string name="str_iov_test" translatable="false">STARNAME TEST</string>
     <string name="str_ok_test" translatable="false">OK TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
@@ -361,14 +361,14 @@
     <string name="str_front_guide_title_iris"><![CDATA[IRIS HUB]]></string>
     <string name="str_front_guide_title_binance"><![CDATA[BINANCE CHAIN]]></string>
     <string name="str_front_guide_title_kava"><![CDATA[KAVA CHAIN]]></string>
-    <string name="str_front_guide_title_iov"><![CDATA[IOV MAINNET]]></string>
+    <string name="str_front_guide_title_iov"><![CDATA[Starname Service]]></string>
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
     <string name="str_front_guide_title_ok"><![CDATA[OK CHAIN]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
-    <string name="str_front_guide_msg_iov">Built on Tendermint, IOV builds a fast, secure and decentralized universal name service.</string>
+    <string name="str_front_guide_msg_iov">Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.</string>
     <string name="str_front_guide_msg_ok">OK Chain is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_current_reward_address">Current Reward Address</string>
@@ -385,8 +385,8 @@
     <string name="str_fee_speed_title_iris">Support fixed amount fee for Iris.\nIris Hub will refund the remaining gas fee after use.</string>
     <string name="str_fee_speed_title_bnb">Support fixed transfer fee for Bianace dex.</string>
     <string name="str_fee_speed_title_kava">Support fixed transfer fee for KAVA Chain.\nSoon update for custom fees.</string>
-    <string name="str_fee_speed_title_iov">Support fixed transfer fee for IOV Chain.</string>
-    <string name="str_fee_speed_title_ok">Support fixed transfer fee for OK Chain.</string>
+    <string name="str_fee_speed_title_iov">Support fixed transfer fee for Starname Chain.</string>
+    <string name="str_fee_speed_title_ok">Support fixed transfer fee for OKChain.</string>
     <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
     <string name="str_fee_description_title_2">Tx fee rate 0.025</string>

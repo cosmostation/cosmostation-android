@@ -146,7 +146,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "iovChainImg")
-                    cell?.chainName.text = "IOV"
+                    cell?.chainName.text = "STARNAME"
                     
                 } else if (selectedChain == ChainType.BAND_MAIN) {
                     cell?.chainImg.isHidden = false
@@ -174,7 +174,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "iovTestnetImg")
-                    cell?.chainName.text = "IOV TEST"
+                    cell?.chainName.text = "STARNAME TEST"
                     
                 } else if (selectedChain == ChainType.OK_TEST) {
                     cell?.chainImg.isHidden = false

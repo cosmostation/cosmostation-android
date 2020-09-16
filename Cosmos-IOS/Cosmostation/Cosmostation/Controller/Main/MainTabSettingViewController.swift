@@ -52,42 +52,42 @@ class MainTabSettingViewController: BaseViewController {
         titleChainName.textColor = WUtils.getChainColor(chainType!)
         if (chainType! == ChainType.COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
-            titleChainName.text = "(Cosmos Hub)"
+            titleChainName.text = "(Cosmos Mainnet)"
         } else if (chainType! == ChainType.IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
-            titleChainName.text = "(Iris Hub)"
+            titleChainName.text = "(Iris Mainnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType == ChainType.BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
-            titleChainName.text = "(Binance Chain)"
+            titleChainName.text = "(Binance Mainnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType == ChainType.KAVA_MAIN) {
             titleChainImg.image = UIImage(named: "kavaImg")
-            titleChainName.text = "(KAVA Chain)"
+            titleChainName.text = "(Kava Mainnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType == ChainType.IOV_MAIN) {
             titleChainImg.image = UIImage(named: "iovChainImg")
-            titleChainName.text = "(IOV Chain)"
+            titleChainName.text = "(Starname Mainnet)"
             titleAlarmBtn.isHidden = true
         }  else if (chainType! == ChainType.BAND_MAIN) {
             titleChainImg.image = UIImage(named: "bandChainImg")
-            titleChainName.text = "(Band Chain)"
+            titleChainName.text = "(Band Mainnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
-            titleChainName.text = "(Binance Test)"
+            titleChainName.text = "(Binance Testnet)"
             titleAlarmBtn.isHidden = true
         }  else if (chainType! == ChainType.KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
-            titleChainName.text = "(KAVA Test)"
+            titleChainName.text = "(Kava Testnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.IOV_TEST) {
             titleChainImg.image = UIImage(named: "iovTestnetImg")
-            titleChainName.text = "(IOV Test)"
+            titleChainName.text = "(Starname Testnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.OK_TEST) {
             titleChainImg.image = UIImage(named: "okexTestnetImg")
-            titleChainName.text = "(OK Test Chain)"
+            titleChainName.text = "(Okchain Testnet)"
             titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in

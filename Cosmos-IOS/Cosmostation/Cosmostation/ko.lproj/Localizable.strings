@@ -89,7 +89,7 @@
 "fee_speed_iris_title" = "현재 아이리스는 고정 Tx 수수료를 지원합니다.\n아이리스는 사용후 남은 가스비를 전액 반환합니다.";
 "fee_speed_bnb_title" = "현재 바이낸스는 고정 수수료를 지원합니다.";
 "fee_speed_kava_title" = "현재 카바는 고정 전송 수수료를 지원합니다.";
-"fee_speed_iov_title" = "현재 아이오비는 고정 전송 수수료를 지원합니다.";
+"fee_speed_iov_title" = "현재 스타네임은 고정 전송 수수료를 지원합니다.";
 "fee_speed_ok_title" = "현재 오케이체인은 고정 전송 수수료를 지원합니다.";
 "fee_description_title_0" = "Tx 수수료 0.000001 ATOM";
 "fee_description_title_1" = "Tx 수수료 비율 0.0025";
@@ -114,8 +114,8 @@
 "send_guide_msg_bnb" = "바이낸스가 구축한 Tendermint 기반의 \n빠르고 안전한 분산형 디지털 자산 거래소.";
 "send_guide_title_kava" = "KAVA CHAIN";
 "send_guide_msg_kava" = "Tendermint 기반의 레버리지, 헤지 및 CDP를 지원하는 최초의 인터 체인 DeFi 플랫폼.";
-"send_guide_title_iov" = "IOV MAINNET";
-"send_guide_msg_iov" = "Tendermint를 기반으로하는 IOV는 빠르고 안전하며 분산 된 범용 네이밍 서비스를 구축합니다.";
+"send_guide_title_iov" = "스타네임 서비스";
+"send_guide_msg_iov" = "Tendermint를 기반으로하는 Starname은 빠르고 안전하며 분산 된 범용 네이밍 서비스를 구축합니다.";
 "send_guide_title_band" = "밴드 프로토콜";
 "send_guide_msg_band" = "Tendermint를 기반으로 하는 크로스 체인 오라클 플랫폼입니다. 밴드 프로토콜은 실제 데이터와 API를 스마트 계약으로 통합하여 제공합니다.";
 "send_guide_title_ok" = "오케이 체인";
@@ -124,7 +124,7 @@
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
 "send_guide_btn1_kava" = "About USDX";
-"send_guide_btn1_iov" = "Star Name";
+"send_guide_btn1_iov" = "StarName";
 "send_guide_btn1_band" = "Home";
 "send_guide_btn1_ok" = "Market";
 "send_guide_btn2_cosmos" = "도움말";
@@ -482,16 +482,16 @@
 "tx_kava_incentive_reward" = "Crypto Payday\n참여";
 "tx_known" = "알 수 없음";
 
-"chain_title_cosmos" = "COSMOS Hub";
-"chain_title_iris" = "IRIS Hub";
-"chain_title_bnb" = "Binance Chain";
+"chain_title_cosmos" = "Cosmos Mainnet";
+"chain_title_iris" = "Iris Mainnet";
+"chain_title_bnb" = "Binance Mainnet";
 "chain_title_kava" = "Kava Mainnet";
-"chain_title_iov" = "IOV Mainnet";
+"chain_title_iov" = "Starname Mainnet";
 "chain_title_band" = "Band Mainnet";
 "chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
-"chain_title_iov_test" = "IOV Testnet";
-"chain_title_ok_test" = "OK Testnet";
+"chain_title_iov_test" = "Starname Testnet";
+"chain_title_ok_test" = "Okchain Testnet";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";
 
