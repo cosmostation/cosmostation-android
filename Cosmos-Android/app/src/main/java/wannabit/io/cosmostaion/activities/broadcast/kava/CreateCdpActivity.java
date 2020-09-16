@@ -268,7 +268,6 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 WLog.w("Already have this CDP!!!");
             }
-
         }
 
         if (mTaskCount == 0) {
