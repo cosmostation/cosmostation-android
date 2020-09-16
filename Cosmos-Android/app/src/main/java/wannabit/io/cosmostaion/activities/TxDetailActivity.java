@@ -1155,8 +1155,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 Coin sendCoin = msg.value.getCoins().get(0);
-                holder.itemSendDenom.setText(sendCoin.denom.toUpperCase());
-                holder.itemSendAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(sendCoin.denom), WUtil.getKavaCoinDecimal(sendCoin.denom)));
+                WDp.showCoinDp(getBaseContext(), sendCoin, holder.itemSendDenom, holder.itemSendAmount, mBaseChain);
                 holder.itemSender.setText(msg.value.from);
                 holder.itemRecipient.setText(msg.value.recipient_other_chain);
                 holder.itemRandomHash.setText(msg.value.random_number_hash);
@@ -1182,10 +1181,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemSender.setText(msg.value.from);
                     holder.itemRecipient.setText(msg.value.to);
                 }
-                //only support bnb
                 Coin sendCoin = msg.value.getCoins().get(0);
-                WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemSendDenom);
-                holder.itemSendAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(sendCoin.amount), 8, 8));
+                WDp.showCoinDp(getBaseContext(), sendCoin, holder.itemSendDenom, holder.itemSendAmount, mBaseChain);
                 holder.itemRandomHash.setText(msg.value.random_number_hash);
                 holder.itemExpectIncome.setText(msg.value.expected_income);
                 holder.itemStatus.setText(WDp.getBnbHtlcStatus(getBaseContext(), mResBnbSwapInfo, mResBnbNodeInfo));
