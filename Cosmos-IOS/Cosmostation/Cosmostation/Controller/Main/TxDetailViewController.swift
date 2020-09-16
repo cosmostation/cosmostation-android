@@ -1044,6 +1044,20 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.OK_TEST) {
+            let text = "https://www.oklink.com/okexchain-test/tx/" + mTxInfo!.txhash!
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.KAVA_TEST) {
+            let text = "https://kava-testnet-9000.mintscan.io/txs" + mTxInfo!.txhash!
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
         }
         
     }
@@ -1087,6 +1101,18 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (self.chainType! == ChainType.IOV_MAIN) {
             guard let url = URL(string: "https://big-dipper.iov-mainnet-2.iov.one/transactions/" + mTxInfo!.txhash!) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.OK_TEST) {
+            guard let url = URL(string: "https://www.oklink.com/okexchain-test/tx/" + mTxInfo!.txhash!) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.KAVA_TEST) {
+            guard let url = URL(string: "https://kava-testnet-9000.mintscan.io/txs/" + mTxInfo!.txhash!) else { return }
             let safariViewController = SFSafariViewController(url: url)
             safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)

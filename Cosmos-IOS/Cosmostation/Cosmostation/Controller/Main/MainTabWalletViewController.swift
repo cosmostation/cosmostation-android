@@ -1314,6 +1314,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let safariViewController = SFSafariViewController(url: url)
             safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
+            
+        } else if (chainType! == ChainType.KAVA_TEST) {
+            guard let url = URL(string: "https://kava-testnet-9000.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .popover
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
