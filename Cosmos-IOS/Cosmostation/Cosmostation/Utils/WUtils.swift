@@ -706,7 +706,7 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == symbol) {
-                amount = stringToDecimal(balance.balance_amount)
+                amount = stringToDecimalNoLocale(balance.balance_amount)
             }
         }
         return displayAmount(amount.stringValue, font, deciaml, chain);
@@ -716,7 +716,7 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == symbol) {
-                amount = stringToDecimal(balance.balance_amount)
+                amount = stringToDecimalNoLocale(balance.balance_amount)
             }
         }
         return amount;
@@ -726,25 +726,25 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == symbol) {
-                amount = stringToDecimal(balance.balance_locked)
+                amount = stringToDecimalNoLocale(balance.balance_locked)
             }
         }
         return amount;
     }
     
     static func okDepositAmount(_ deposit:OkDeposit) -> NSDecimalNumber {
-        return stringToDecimal(deposit.tokens)
+        return stringToDecimalNoLocale(deposit.tokens)
     }
     
     static func okWithdrawAmount(_ withdraw:OkWithdraw) -> NSDecimalNumber {
-        return stringToDecimal(withdraw.quantity)
+        return stringToDecimalNoLocale(withdraw.quantity)
     }
     
     static func dpVestingCoin(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == symbol) {
-                amount = stringToDecimal(balance.balance_locked)
+                amount = stringToDecimalNoLocale(balance.balance_locked)
             }
         }
         return displayAmount(amount.stringValue, font, deciaml, chain);
@@ -770,7 +770,7 @@ class WUtils {
     static func dpUnbondings(_ unbondings:Array<Unbonding>, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for unbonding in unbondings {
-            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+            amount = amount.adding(stringToDecimalNoLocale(unbonding.unbonding_balance))
         }
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
