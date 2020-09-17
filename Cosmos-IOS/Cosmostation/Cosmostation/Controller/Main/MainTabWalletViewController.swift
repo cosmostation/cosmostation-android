@@ -997,17 +997,22 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.updownImg.image = nil
                 cell?.updownPercent.text = ""
             }
-            cell?.buySeparator.isHidden = false
-            cell?.buyBtn.isHidden = false
-            cell?.buyBtn.setTitle(NSLocalizedString("buy_band", comment: ""), for: .normal)
-            cell?.buyConstraint.priority = .defaultHigh
-            cell?.noBuyConstraint.priority = .defaultLow
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-            cell?.actionBuy = {
-                self.onClickBuyCoin()
-            }
+            cell?.buySeparator.isHidden = true
+            cell?.buyBtn.isHidden = true
+            cell?.buyConstraint.priority = .defaultLow
+            cell?.noBuyConstraint.priority = .defaultHigh
+
+//            cell?.buySeparator.isHidden = false
+//            cell?.buyBtn.isHidden = false
+//            cell?.buyBtn.setTitle(NSLocalizedString("buy_band", comment: ""), for: .normal)
+//            cell?.buyConstraint.priority = .defaultHigh
+//            cell?.noBuyConstraint.priority = .defaultLow
+//            cell?.actionTapPricel = {
+//                self.onClickMarketInfo()
+//            }
+//            cell?.actionBuy = {
+//                self.onClickBuyCoin()
+//            }
             
             return cell!
             
