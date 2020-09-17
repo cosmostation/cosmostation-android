@@ -560,7 +560,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBandCard.setVisibility(View.VISIBLE);
             mOkCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
-            mBuyLayer.setVisibility(View.GONE);
+            if (SUPPORT_MOONPAY) {
+                mBuyLayer.setVisibility(View.VISIBLE);
+                mBuyCoinTv.setText(R.string.str_buy_band);
+            } else {
+                mBuyLayer.setVisibility(View.GONE);
+            }
 
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBand), android.graphics.PorterDuff.Mode.SRC_IN);

@@ -482,6 +482,7 @@
     <string name="str_buy_atom">Buy ATOM</string>
     <string name="str_buy_bnb">Buy BNB</string>
     <string name="str_buy_kava">Buy KAVA</string>
+    <string name="str_buy_band">Buy BAND</string>
     <string name="str_kava_testnet_msg"><![CDATA[This wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
     <string name="str_kava_cdp">CDP Market</string>
     <string name="str_buy_without_key_msg">After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?</string>

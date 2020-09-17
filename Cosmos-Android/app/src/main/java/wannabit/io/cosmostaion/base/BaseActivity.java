@@ -1066,6 +1066,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             query = query + "&currencyCode=bnb";
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             query = query + "&currencyCode=kava";
+        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            query = query + "&currencyCode=band";
         }
         query = query + "&walletAddress=" + mAccount.address + "&baseCurrencyCode=" + fiat;
         final String data = query;
@@ -1076,7 +1078,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 if (result.isSuccess) {
                     try {
                         String en = URLEncoder.encode((String)result.resultData, "UTF-8");
-                        WLog.w("en " + en);
                         Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse(getString(R.string.url_moon_pay) + data + "&signature=" + en));
                         startActivity(guideIntent);
                     }catch (Exception e) {
