@@ -61,7 +61,7 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
     
     
     func onUpdateView() {
-        let feeAmount = WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
+        let feeAmount = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             mOpinion.text = pageHolderVC.mVoteOpinion

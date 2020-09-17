@@ -111,7 +111,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onSetValidatorItem(_ cell: OtherValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         if (chainType == ChainType.COSMOS_MAIN) {
-            cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
+            cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
             let url = COSMOS_VAL_URL + validator.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
@@ -122,7 +122,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             }
             
         } else if (chainType == ChainType.IRIS_MAIN) {
-            cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, chainType!)
+            cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 0, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
             let url = IRIS_VAL_URL + validator.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
@@ -133,7 +133,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             }
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
+            cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
             let url = KAVA_VAL_URL + validator.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
@@ -144,7 +144,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             }
             
         } else if (chainType == ChainType.BAND_MAIN) {
-            cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
+            cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
             let url = BAND_VAL_URL + validator.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
@@ -155,7 +155,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             }
             
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-            cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
+            cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
             let url = IOV_VAL_URL + validator.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in

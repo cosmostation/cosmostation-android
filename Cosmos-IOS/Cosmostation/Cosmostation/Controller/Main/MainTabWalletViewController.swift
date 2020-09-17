@@ -54,6 +54,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         refresher.tintColor = UIColor.white
         walletTableView.addSubview(refresher)
+        
+//        print("aa", WUtils.localeStringToDecimal(FEE_ATOM_TINY))
     
         self.updateFloaty()
     }
@@ -488,9 +490,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let lockedAmount = WUtils.lockedAmount(mainTabVC.mBalances, BNB_MAIN_DENOM)
             let totalAmount = availableAmount.adding(lockedAmount)
             
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 8)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 8)
-            cell?.lockedAmount.attributedText = WUtils.displayAmount2(lockedAmount.stringValue, cell!.lockedAmount.font, 0, 8)
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 6)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 6)
+            cell?.lockedAmount.attributedText = WUtils.displayAmount2(lockedAmount.stringValue, cell!.lockedAmount.font, 0, 6)
             cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
             
             cell?.actionWC = {

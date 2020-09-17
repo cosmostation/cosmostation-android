@@ -49,9 +49,9 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
         onInitSendFee()
         onInitClaimFee()
         
-        let toSendAmount = WUtils.stringToDecimalNoLocale(pageHolderVC.mToSendAmount[0].amount)
-        let sendFeeAmount = WUtils.stringToDecimalNoLocale((pageHolderVC.mHtlcSendFee?.amount[0].amount)!)
-        let claimFeeAmount = WUtils.stringToDecimalNoLocale((pageHolderVC.mHtlcClaimFee?.amount[0].amount)!)
+        let toSendAmount = WUtils.plainStringToDecimal(pageHolderVC.mToSendAmount[0].amount)
+        let sendFeeAmount = WUtils.plainStringToDecimal((pageHolderVC.mHtlcSendFee?.amount[0].amount)!)
+        let claimFeeAmount = WUtils.plainStringToDecimal((pageHolderVC.mHtlcClaimFee?.amount[0].amount)!)
         
         //set Send layer's data
         sendImg.image = sendImg.image?.withRenderingMode(.alwaysTemplate)

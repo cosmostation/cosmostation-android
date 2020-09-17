@@ -32,7 +32,7 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
         toDepositAmountInput.delegate = self
         toDepositAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"), 1)
+        let dp = "+ " + WUtils.decimalNumberToLocaleString(NSDecimalNumber(string: "0.1"), 1)
         btn01.setTitle(dp, for: .normal)
     }
     
@@ -75,7 +75,7 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
             return
         }
         
-        let userInput = WUtils.stringToDecimal(text)
+        let userInput = WUtils.localeStringToDecimal(text)
         
         if (text.count > 1 && userInput == NSDecimalNumber.zero) {
             self.toDepositAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
@@ -93,7 +93,7 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
     func isValiadAmount() -> Bool {
         let text = toDepositAmountInput.text?.trimmingCharacters(in: .whitespaces)
         if (text == nil || text!.count == 0) { return false }
-        let userInput = WUtils.stringToDecimal(text!)
+        let userInput = WUtils.localeStringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
         if (userInput.compare(userAvailable).rawValue > 0) { return false }
         return true
@@ -107,7 +107,7 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
     
     @IBAction func onClickNext(_ sender: UIButton) {
         if (isValiadAmount()) {
-            let userInput = WUtils.stringToDecimal((toDepositAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
+            let userInput = WUtils.localeStringToDecimal((toDepositAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
             var toDepositCoin: Coin?
             if (pageHolderVC.chainType! == ChainType.OK_TEST) {
                 toDepositCoin = Coin.init(OK_TEST_DENOM, WUtils.getFormattedNumber(userInput, 8))
@@ -137,7 +137,7 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
             exist = NSDecimalNumber(string: toDepositAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "0.1"))
-        toDepositAmountInput.text = WUtils.DecimalToLocalString(added, 8)
+        toDepositAmountInput.text = WUtils.decimalNumberToLocaleString(added, 8)
         self.onUIupdate()
     }
     
@@ -147,7 +147,7 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
             exist = NSDecimalNumber(string: toDepositAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "1"))
-        toDepositAmountInput.text = WUtils.DecimalToLocalString(added, 8)
+        toDepositAmountInput.text = WUtils.decimalNumberToLocaleString(added, 8)
         self.onUIupdate()
     }
     
@@ -157,7 +157,7 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
             exist = NSDecimalNumber(string: toDepositAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "10"))
-        toDepositAmountInput.text = WUtils.DecimalToLocalString(added, 8)
+        toDepositAmountInput.text = WUtils.decimalNumberToLocaleString(added, 8)
         self.onUIupdate()
     }
     
@@ -167,17 +167,17 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
             exist = NSDecimalNumber(string: toDepositAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "100"))
-        toDepositAmountInput.text = WUtils.DecimalToLocalString(added, 8)
+        toDepositAmountInput.text = WUtils.decimalNumberToLocaleString(added, 8)
         self.onUIupdate()
     }
     
     @IBAction func onClickHalf(_ sender: UIButton) {
         let halfValue = userAvailable.dividing(by: NSDecimalNumber(2), withBehavior: WUtils.getDivideHandler(8))
-        toDepositAmountInput.text = WUtils.DecimalToLocalString(halfValue, 8)
+        toDepositAmountInput.text = WUtils.decimalNumberToLocaleString(halfValue, 8)
     }
     
     @IBAction func onClickMax(_ sender: UIButton) {
-        toDepositAmountInput.text = WUtils.DecimalToLocalString(userAvailable, 8)
+        toDepositAmountInput.text = WUtils.decimalNumberToLocaleString(userAvailable, 8)
         self.showMaxWarnning()
     }
     

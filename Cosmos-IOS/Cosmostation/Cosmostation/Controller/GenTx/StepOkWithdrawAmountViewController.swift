@@ -32,7 +32,7 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
         toWithdrawAmountInput.delegate = self
         toWithdrawAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"), 1)
+        let dp = "+ " + WUtils.decimalNumberToLocaleString(NSDecimalNumber(string: "0.1"), 1)
         btn01.setTitle(dp, for: .normal)
     }
     
@@ -75,7 +75,7 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
             return
         }
         
-        let userInput = WUtils.stringToDecimal(text)
+        let userInput = WUtils.localeStringToDecimal(text)
         
         if (text.count > 1 && userInput == NSDecimalNumber.zero) {
             self.toWithdrawAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
@@ -93,7 +93,7 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
     func isValiadAmount() -> Bool {
         let text = toWithdrawAmountInput.text?.trimmingCharacters(in: .whitespaces)
         if (text == nil || text!.count == 0) { return false }
-        let userInput = WUtils.stringToDecimal(text!)
+        let userInput = WUtils.localeStringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
         if (userInput.compare(userAvailable).rawValue > 0) { return false }
         return true
@@ -107,7 +107,7 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
     
     @IBAction func onClickNext(_ sender: UIButton) {
         if (isValiadAmount()) {
-            let userInput = WUtils.stringToDecimal((toWithdrawAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
+            let userInput = WUtils.localeStringToDecimal((toWithdrawAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
             var toWithdrawCoin: Coin?
             if (pageHolderVC.chainType! == ChainType.OK_TEST) {
                 toWithdrawCoin = Coin.init(OK_TEST_DENOM, WUtils.getFormattedNumber(userInput, 8))
@@ -136,7 +136,7 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
             exist = NSDecimalNumber(string: toWithdrawAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "0.1"))
-        toWithdrawAmountInput.text = WUtils.DecimalToLocalString(added, 8)
+        toWithdrawAmountInput.text = WUtils.decimalNumberToLocaleString(added, 8)
         self.onUIupdate()
     }
     
@@ -146,7 +146,7 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
             exist = NSDecimalNumber(string: toWithdrawAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "1"))
-        toWithdrawAmountInput.text = WUtils.DecimalToLocalString(added, 8)
+        toWithdrawAmountInput.text = WUtils.decimalNumberToLocaleString(added, 8)
         self.onUIupdate()
     }
     
@@ -156,7 +156,7 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
             exist = NSDecimalNumber(string: toWithdrawAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "10"))
-        toWithdrawAmountInput.text = WUtils.DecimalToLocalString(added, 8)
+        toWithdrawAmountInput.text = WUtils.decimalNumberToLocaleString(added, 8)
         self.onUIupdate()
     }
     
@@ -166,16 +166,16 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
             exist = NSDecimalNumber(string: toWithdrawAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "100"))
-        toWithdrawAmountInput.text = WUtils.DecimalToLocalString(added, 8)
+        toWithdrawAmountInput.text = WUtils.decimalNumberToLocaleString(added, 8)
         self.onUIupdate()
     }
     
     @IBAction func onClickHalf(_ sender: UIButton) {
         let halfValue = userAvailable.dividing(by: NSDecimalNumber(2), withBehavior: WUtils.getDivideHandler(8))
-        toWithdrawAmountInput.text = WUtils.DecimalToLocalString(halfValue, 8)
+        toWithdrawAmountInput.text = WUtils.decimalNumberToLocaleString(halfValue, 8)
     }
     
     @IBAction func onClickMax(_ sender: UIButton) {
-        toWithdrawAmountInput.text = WUtils.DecimalToLocalString(userAvailable, 8)
+        toWithdrawAmountInput.text = WUtils.decimalNumberToLocaleString(userAvailable, 8)
     }
 }

@@ -31,13 +31,13 @@ public class Bonding {
     }
 
     public func getBondingAmount(_ validator:Validator) -> NSDecimalNumber {
-        return (WUtils.stringToDecimalNoLocale(validator.tokens)).dividing(by: WUtils.stringToDecimalNoLocale(validator.delegator_shares)).multiplying(by: WUtils.stringToDecimalNoLocale(bonding_shares)).rounding(accordingToBehavior: WUtils.handler0Down)
+        return (WUtils.plainStringToDecimal(validator.tokens)).dividing(by: WUtils.plainStringToDecimal(validator.delegator_shares)).multiplying(by: WUtils.plainStringToDecimal(bonding_shares)).rounding(accordingToBehavior: WUtils.handler0Down)
     }
 
     public func getBondingAmount(_ validators:Array<Validator>) -> NSDecimalNumber {
         for v in validators {
             if(v.operator_address ==  bonding_v_address) {
-                return (WUtils.stringToDecimalNoLocale(v.tokens)).dividing(by: WUtils.stringToDecimalNoLocale(v.delegator_shares)).multiplying(by: WUtils.stringToDecimalNoLocale(bonding_shares)).rounding(accordingToBehavior: WUtils.handler0Down)
+                return (WUtils.plainStringToDecimal(v.tokens)).dividing(by: WUtils.plainStringToDecimal(v.delegator_shares)).multiplying(by: WUtils.plainStringToDecimal(bonding_shares)).rounding(accordingToBehavior: WUtils.handler0Down)
             }
         }
         return NSDecimalNumber.zero

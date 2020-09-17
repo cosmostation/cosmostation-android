@@ -135,11 +135,11 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
                 if(balance.balance_denom == COSMOS_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
                 }
             }
             
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
             expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
             
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
@@ -159,10 +159,10 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
                 if(balance.balance_denom == IRIS_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
                 }
             }
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
             expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.chainType!)
             
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
@@ -173,11 +173,11 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
                 if(balance.balance_denom == KAVA_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
                 }
             }
             
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
             expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
             
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
@@ -188,11 +188,11 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
                 if(balance.balance_denom == BAND_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
                 }
             }
             
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
             expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
             
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
@@ -203,11 +203,11 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
                 if(balance.balance_denom == IOV_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
                 }
             }
             
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
             expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
             
         } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
@@ -218,11 +218,11 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
                 if(balance.balance_denom == IOV_TEST_DENOM) {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
                 }
             }
             
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
             expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
         }
         

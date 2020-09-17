@@ -108,7 +108,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
             sender.layer.borderColor = UIColor.white.cgColor
             return
         }
-        let userInput = WUtils.stringToDecimal(text)
+        let userInput = WUtils.localeStringToDecimal(text)
         if (text.count > 1 && userInput == NSDecimalNumber.zero) {
             sender.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             return
@@ -137,7 +137,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
                 self.onShowToast(NSLocalizedString("error_less_than_min_principal", comment: ""))
             }
             calValue = calValue.multiplying(byPowerOf10: -pDpDecimal, withBehavior: WUtils.getDivideHandler(pDpDecimal))
-            pAmountInput.text = WUtils.DecimalToLocalString(calValue, pDpDecimal)
+            pAmountInput.text = WUtils.decimalNumberToLocaleString(calValue, pDpDecimal)
             AmountChanged(pAmountInput)
         } else {
             self.onShowToast(NSLocalizedString("str_cannot_repay_partially", comment: ""))
@@ -152,7 +152,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
                 self.onShowToast(NSLocalizedString("error_less_than_min_principal", comment: ""))
             }
             calValue = calValue.multiplying(byPowerOf10: -pDpDecimal, withBehavior: WUtils.getDivideHandler(pDpDecimal))
-            pAmountInput.text = WUtils.DecimalToLocalString(calValue, pDpDecimal)
+            pAmountInput.text = WUtils.decimalNumberToLocaleString(calValue, pDpDecimal)
             AmountChanged(pAmountInput)
         } else {
             self.onShowToast(NSLocalizedString("str_cannot_repay_partially", comment: ""))
@@ -162,7 +162,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
     @IBAction func onClickMax(_ sender: UIButton) {
         if (pMaxAmount.compare(NSDecimalNumber.zero).rawValue > 0) {
             let maxValue = pMaxAmount.multiplying(byPowerOf10: -pDpDecimal, withBehavior: WUtils.getDivideHandler(pDpDecimal))
-            pAmountInput.text = WUtils.DecimalToLocalString(maxValue, pDpDecimal)
+            pAmountInput.text = WUtils.decimalNumberToLocaleString(maxValue, pDpDecimal)
             AmountChanged(pAmountInput)
         } else {
             self.onShowToast(NSLocalizedString("str_cannot_repay_partially", comment: ""))
@@ -172,7 +172,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
     @IBAction func onClickAll(_ sender: UIButton) {
         if (pAllAmount.compare(NSDecimalNumber.zero).rawValue > 0) {
             let maxValue = pAllAmount.multiplying(byPowerOf10: -pDpDecimal, withBehavior: WUtils.getDivideHandler(pDpDecimal))
-            pAmountInput.text = WUtils.DecimalToLocalString(maxValue, pDpDecimal)
+            pAmountInput.text = WUtils.decimalNumberToLocaleString(maxValue, pDpDecimal)
             AmountChanged(pAmountInput)
         } else {
             self.onShowToast(String(format: NSLocalizedString("str_cannot_repay_all", comment: ""), self.mPDenom.uppercased()))
@@ -231,7 +231,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
     func isValiadPAmount() -> Bool {
         let text = pAmountInput.text?.trimmingCharacters(in: .whitespaces)
         if (text == nil || text!.count == 0) { return false }
-        let userInput = WUtils.stringToDecimal(text!)
+        let userInput = WUtils.localeStringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
         let userInputAmount = userInput.multiplying(byPowerOf10: pDpDecimal)
         if ((userInputAmount.compare(pMinAmount).rawValue < 0 || userInputAmount.compare(pMaxAmount).rawValue > 0) &&

@@ -891,7 +891,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 if ($1.balance_denom == COSMOS_MAIN_DENOM){
                     return false
                 }
-                return WUtils.stringToDecimal($0.balance_amount).compare(WUtils.stringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
+                return WUtils.localeStringToDecimal($0.balance_amount).compare(WUtils.localeStringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
             }
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
@@ -902,7 +902,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 if ($1.balance_denom == IRIS_MAIN_DENOM){
                     return false
                 }
-                return WUtils.stringToDecimal($0.balance_amount).compare(WUtils.stringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
+                return WUtils.localeStringToDecimal($0.balance_amount).compare(WUtils.localeStringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
             }
             
         } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
@@ -924,7 +924,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 if ($1.balance_denom == KAVA_MAIN_DENOM){
                     return false
                 }
-                return WUtils.stringToDecimal($0.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($0.balance_denom)).compare(WUtils.stringToDecimal($1.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($1.balance_denom))).rawValue > 0 ? true : false
+                return WUtils.localeStringToDecimal($0.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($0.balance_denom)).compare(WUtils.localeStringToDecimal($1.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($1.balance_denom))).rawValue > 0 ? true : false
             }
             
         } else if (chainType! == ChainType.OK_TEST) {
@@ -935,7 +935,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 if ($1.balance_denom == OK_TEST_DENOM){
                     return false
                 }
-                return WUtils.stringToDecimal($0.balance_amount).adding(WUtils.stringToDecimal($0.balance_locked)).stringValue > WUtils.stringToDecimal($1.balance_amount).adding(WUtils.stringToDecimal($1.balance_locked)).stringValue
+                return WUtils.localeStringToDecimal($0.balance_amount).adding(WUtils.localeStringToDecimal($0.balance_locked)).stringValue > WUtils.localeStringToDecimal($1.balance_amount).adding(WUtils.localeStringToDecimal($1.balance_locked)).stringValue
             }
         }
         

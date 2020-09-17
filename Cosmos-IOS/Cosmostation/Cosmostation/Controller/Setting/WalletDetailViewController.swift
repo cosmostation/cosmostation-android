@@ -291,7 +291,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if (chainType == ChainType.IRIS_MAIN) {
-            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.init(string: "80000000000000000")).rawValue <= 0) {
+            if (balances.count <= 0 || WUtils.localeStringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.init(string: "80000000000000000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }

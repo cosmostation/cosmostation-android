@@ -79,7 +79,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
         AmountInput.delegate = self
         AmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"), 1)
+        let dp = "+ " + WUtils.decimalNumberToLocaleString(NSDecimalNumber(string: "0.1"), 1)
         btnAdd01.setTitle(dp, for: .normal)
     }
     
@@ -107,7 +107,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             textField.layer.borderColor = UIColor.white.cgColor
             return
         }
-        let userInput = WUtils.stringToDecimal(text)
+        let userInput = WUtils.localeStringToDecimal(text)
         if (text.count > 1 && userInput == NSDecimalNumber.zero) {
             textField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             return
@@ -138,7 +138,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
     func isValiadAmount() -> Bool {
         let text = AmountInput.text?.trimmingCharacters(in: .whitespaces)
         if (text == nil || text!.count == 0) { return false }
-        let userInput = WUtils.stringToDecimal(text!)
+        let userInput = WUtils.localeStringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
         if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             if (userInput.compare(maxAvailable).rawValue > 0) { return false }
@@ -164,7 +164,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
     
     @IBAction func onClickNext(_ sender: UIButton) {
         if(isValiadAmount()) {
-            let userInput = WUtils.stringToDecimal((AmountInput.text?.trimmingCharacters(in: .whitespaces))!)
+            let userInput = WUtils.localeStringToDecimal((AmountInput.text?.trimmingCharacters(in: .whitespaces))!)
             var toSendCoin:Coin?
             if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
                 toSendCoin = Coin.init(pageHolderVC.mHtlcDenom!, userInput.stringValue)
@@ -199,7 +199,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             exist = NSDecimalNumber(string: AmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "0.1"))
-        AmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
+        AmountInput.text = WUtils.decimalNumberToLocaleString(added, mDpDecimal)
         textFieldDidChange(AmountInput)
     }
     
@@ -209,7 +209,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             exist = NSDecimalNumber(string: AmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "1"))
-        AmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
+        AmountInput.text = WUtils.decimalNumberToLocaleString(added, mDpDecimal)
         textFieldDidChange(AmountInput)
     }
     
@@ -219,7 +219,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             exist = NSDecimalNumber(string: AmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "10"))
-        AmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
+        AmountInput.text = WUtils.decimalNumberToLocaleString(added, mDpDecimal)
         textFieldDidChange(AmountInput)
     }
     
@@ -229,32 +229,32 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             exist = NSDecimalNumber(string: AmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "100"))
-        AmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
+        AmountInput.text = WUtils.decimalNumberToLocaleString(added, mDpDecimal)
         textFieldDidChange(AmountInput)
     }
     
     @IBAction func onClickHalf(_ sender: UIButton) {
         if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2), withBehavior: WUtils.getDivideHandler(mDpDecimal))
-            AmountInput.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
+            AmountInput.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-            AmountInput.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
+            AmountInput.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
         }
         textFieldDidChange(AmountInput)
     }
     
     @IBAction func onClickMax(_ sender: UIButton) {
         if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-            AmountInput.text = WUtils.DecimalToLocalString(maxAvailable, mDpDecimal)
+            AmountInput.text = WUtils.decimalNumberToLocaleString(maxAvailable, mDpDecimal)
             if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BNB) {
                 self.showMaxWarnning()
             }
             
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-            AmountInput.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
+            AmountInput.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
         }
         textFieldDidChange(AmountInput)
     }

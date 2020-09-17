@@ -194,7 +194,7 @@ class WUtils {
         } else if (chain == ChainType.IRIS_MAIN) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
-                let shareAmount = stringToDecimalNoLocale(bondinginfo.shares).multiplying(byPowerOf10: 18)
+                let shareAmount = plainStringToDecimal(bondinginfo.shares).multiplying(byPowerOf10: 18)
                 result.append(Bonding(account.account_id, bondinginfo.validator_addr, shareAmount.stringValue, Date().millisecondsSince1970))
             }
         }
@@ -215,8 +215,8 @@ class WUtils {
         } else if (chain == ChainType.IRIS_MAIN) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
-                let unbondingBalance = stringToDecimalNoLocale(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
-                let initialBalance = stringToDecimalNoLocale(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
+                let unbondingBalance = plainStringToDecimal(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
+                let initialBalance = plainStringToDecimal(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
                 result.append(Unbonding(account.account_id, unbondinginfo.validator_addr, unbondinginfo.creation_height, nodeTimeToInt64(input: unbondinginfo.min_time).millisecondsSince1970, initialBalance.stringValue, unbondingBalance.stringValue, Date().millisecondsSince1970))
             }
         }
@@ -555,7 +555,7 @@ class WUtils {
         return check
     }
     
-    static func DecimalToLocalString(_ input: NSDecimalNumber, _ deciaml:Int16) -> String {
+    static func decimalNumberToLocaleString(_ input: NSDecimalNumber, _ deciaml:Int16) -> String {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 0
         nf.maximumFractionDigits = Int(deciaml)
@@ -565,8 +565,7 @@ class WUtils {
         return nf.string(from: input)!
     }
     
-    
-    static func stringToDecimal(_ input: String?) -> NSDecimalNumber {
+    static func localeStringToDecimal(_ input: String?) -> NSDecimalNumber {
         let result = NSDecimalNumber(string: input, locale: Locale.current)
         if (NSDecimalNumber.notANumber == result) {
             return NSDecimalNumber.zero
@@ -575,7 +574,7 @@ class WUtils {
         }
     }
     
-    static func stringToDecimalNoLocale(_ input: String?) -> NSDecimalNumber {
+    static func plainStringToDecimal(_ input: String?) -> NSDecimalNumber {
         let result = NSDecimalNumber(string: input)
         if (NSDecimalNumber.notANumber == result) {
             return NSDecimalNumber.zero
@@ -584,52 +583,13 @@ class WUtils {
         }
     }
     
-    static func unDelegateFormat(_ amount: String) -> String {
-        let nf = NumberFormatter()
-        nf.minimumFractionDigits = 18
-        nf.maximumFractionDigits = 18
-        nf.numberStyle = .none
-        
-        let oriAmount = stringToDecimal(amount)
-        return  nf.string(from: oriAmount)!
-    }
-    
-    static func displayAmout(_ amount: String, _ font:UIFont, _ deciaml:Int) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.minimumFractionDigits = deciaml
-        nf.maximumFractionDigits = deciaml
-        nf.numberStyle = .decimal
-        
-        let amount = stringToDecimal(amount)
-        var formatted: String?
-        if(amount == NSDecimalNumber.zero) {
-            formatted = nf.string(from: NSDecimalNumber.zero)
-        } else {
-            formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler6))
-        }
-        let added       = formatted
-        let endIndex    = added!.index(added!.endIndex, offsetBy: -deciaml)
-        
-        let preString   = added![..<endIndex]
-        let postString  = added![endIndex...]
-        
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-        attributedString1.append(attributedString2)
-        return attributedString1
-    }
-    
     static func displayAmount(_ amount: String?, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = deciaml
         nf.maximumFractionDigits = deciaml
         nf.numberStyle = .decimal
 
-        let amount = stringToDecimal(amount)
+        let amount = localeStringToDecimal(amount)
         let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(deciaml), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
 
         var formatted: String?
@@ -666,7 +626,7 @@ class WUtils {
         nf.maximumFractionDigits = Int(dpPoint)
         nf.numberStyle = .decimal
         
-        let amount = stringToDecimalNoLocale(amount)
+        let amount = plainStringToDecimal(amount)
         let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(dpPoint), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
         
         var formatted: String?
@@ -706,7 +666,7 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == symbol) {
-                amount = stringToDecimalNoLocale(balance.balance_amount)
+                amount = plainStringToDecimal(balance.balance_amount)
             }
         }
         return displayAmount(amount.stringValue, font, deciaml, chain);
@@ -716,7 +676,7 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == symbol) {
-                amount = stringToDecimalNoLocale(balance.balance_amount)
+                amount = plainStringToDecimal(balance.balance_amount)
             }
         }
         return amount;
@@ -726,25 +686,25 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == symbol) {
-                amount = stringToDecimalNoLocale(balance.balance_locked)
+                amount = plainStringToDecimal(balance.balance_locked)
             }
         }
         return amount;
     }
     
     static func okDepositAmount(_ deposit:OkDeposit) -> NSDecimalNumber {
-        return stringToDecimalNoLocale(deposit.tokens)
+        return plainStringToDecimal(deposit.tokens)
     }
     
     static func okWithdrawAmount(_ withdraw:OkWithdraw) -> NSDecimalNumber {
-        return stringToDecimalNoLocale(withdraw.quantity)
+        return plainStringToDecimal(withdraw.quantity)
     }
     
     static func dpVestingCoin(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == symbol) {
-                amount = stringToDecimalNoLocale(balance.balance_locked)
+                amount = plainStringToDecimal(balance.balance_locked)
             }
         }
         return displayAmount(amount.stringValue, font, deciaml, chain);
@@ -770,7 +730,7 @@ class WUtils {
     static func dpUnbondings(_ unbondings:Array<Unbonding>, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for unbonding in unbondings {
-            amount = amount.adding(stringToDecimalNoLocale(unbonding.unbonding_balance))
+            amount = amount.adding(plainStringToDecimal(unbonding.unbonding_balance))
         }
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
@@ -778,7 +738,7 @@ class WUtils {
     static func unbondingAmount(_ unbondings:Array<Unbonding>, _ chain:ChainType) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for unbonding in unbondings {
-            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
         }
         return amount
     }
@@ -788,7 +748,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == symbol) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -800,7 +760,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == symbol) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1112,7 +1072,9 @@ class WUtils {
         } else if (baseChain == ChainType.IRIS_MAIN) {
             nf.minimumFractionDigits = 18
             nf.maximumFractionDigits = 18
+            
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000000000000000"), withBehavior: handler18)) ?? "0"
+            print("formatted ", formatted)
             endIndex = formatted.index(formatted.endIndex, offsetBy: -18)
         }
         
@@ -1189,8 +1151,8 @@ class WUtils {
         nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let selfDecimal = stringToDecimal(selfShare)
-        let totalDecimal = stringToDecimal(totalShare)
+        let selfDecimal = localeStringToDecimal(selfShare)
+        let totalDecimal = localeStringToDecimal(totalShare)
         
         let formatted   = nf.string(from: selfDecimal.multiplying(by: 100).dividing(by: totalDecimal, withBehavior: handler2))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
@@ -1213,7 +1175,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == denom) {
-                    rewardSum = rewardSum.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                    rewardSum = rewardSum.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1224,7 +1186,7 @@ class WUtils {
         var result = NSDecimalNumber.zero
         for reward in rewards {
             if (reward.reward_v_address == valOpAddr && reward.reward_amount.count > 0) {
-                result = stringToDecimal(reward.reward_amount[0].amount)
+                result = localeStringToDecimal(reward.reward_amount[0].amount)
                 break;
             }
         }
@@ -1235,19 +1197,19 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == COSMOS_MAIN_DENOM) {
-                amount = stringToDecimal(balance.balance_amount)
+                amount = localeStringToDecimal(balance.balance_amount)
             }
         }
         for bonding in bondings {
             amount = amount.adding(bonding.getBondingAmount(validators))
         }
         for unbonding in unbondings {
-            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
         }
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == COSMOS_MAIN_DENOM) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1258,19 +1220,19 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == BAND_MAIN_DENOM) {
-                amount = stringToDecimal(balance.balance_amount)
+                amount = localeStringToDecimal(balance.balance_amount)
             }
         }
         for bonding in bondings {
             amount = amount.adding(bonding.getBondingAmount(validators))
         }
         for unbonding in unbondings {
-            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
         }
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == BAND_MAIN_DENOM) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1281,19 +1243,19 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == IOV_MAIN_DENOM || balance.balance_denom == IOV_TEST_DENOM) {
-                amount = stringToDecimal(balance.balance_amount)
+                amount = localeStringToDecimal(balance.balance_amount)
             }
         }
         for bonding in bondings {
             amount = amount.adding(bonding.getBondingAmount(validators))
         }
         for unbonding in unbondings {
-            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
         }
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == IOV_MAIN_DENOM || coin.denom == IOV_TEST_DENOM) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1304,12 +1266,12 @@ class WUtils {
         var sum = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == OK_TEST_DENOM) {
-                sum = sum.adding(stringToDecimal(balance.balance_amount))
-                sum = sum.adding(stringToDecimal(balance.balance_locked))
+                sum = sum.adding(localeStringToDecimal(balance.balance_amount))
+                sum = sum.adding(localeStringToDecimal(balance.balance_locked))
             }
         }
-        sum = sum.adding(stringToDecimal(deposit.tokens))
-        sum = sum.adding(stringToDecimal(withdraw.quantity))
+        sum = sum.adding(localeStringToDecimal(deposit.tokens))
+        sum = sum.adding(localeStringToDecimal(withdraw.quantity))
         return sum
     }
     
@@ -1317,14 +1279,14 @@ class WUtils {
         var sum = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == IRIS_MAIN_DENOM) {
-                sum = stringToDecimal(balance.balance_amount)
+                sum = localeStringToDecimal(balance.balance_amount)
             }
         }
         for bonding in bondings {
             sum = sum.adding(bonding.getBondingAmount(validators))
         }
         for unbonding in unbondings {
-            sum = sum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+            sum = sum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
         }
         if (rewards != nil) {
             sum = sum.adding(rewards!.getSimpleIrisReward())
@@ -1336,7 +1298,7 @@ class WUtils {
         if (balance == nil) {
             return NSDecimalNumber.zero
         }
-        return stringToDecimalNoLocale(balance!.balance_amount).adding(stringToDecimalNoLocale(balance!.balance_locked))
+        return plainStringToDecimal(balance!.balance_amount).adding(plainStringToDecimal(balance!.balance_locked))
     }
     
     static func getAllKava(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
@@ -1344,8 +1306,8 @@ class WUtils {
         
         for balance in balances {
             if (balance.balance_denom == KAVA_MAIN_DENOM) {
-                amount = stringToDecimal(balance.balance_amount)
-                amount = amount.adding(stringToDecimal(balance.balance_locked))
+                amount = localeStringToDecimal(balance.balance_amount)
+                amount = amount.adding(localeStringToDecimal(balance.balance_locked))
             }
         }
         
@@ -1354,13 +1316,13 @@ class WUtils {
         }
         
         for unbonding in unbondings {
-            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
         }
         
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == KAVA_MAIN_DENOM) {
-                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1419,7 +1381,7 @@ class WUtils {
         nf.maximumFractionDigits = Int(deciaml)
         nf.numberStyle = .decimal
         
-        let amount = stringToDecimal(amount)
+        let amount = localeStringToDecimal(amount)
         let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(deciaml), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
         
         var formatted: String?
@@ -1460,7 +1422,7 @@ class WUtils {
         if (balances != nil) {
             balances!.forEach({ (balance) in
                 if (balance.balance_denom.caseInsensitiveCompare(symbol) == .orderedSame) {
-                    result = result.adding(WUtils.stringToDecimalNoLocale(balance.balance_amount))
+                    result = result.adding(WUtils.plainStringToDecimal(balance.balance_amount))
                 }
             })
         }
@@ -1472,8 +1434,8 @@ class WUtils {
         if (balances != nil) {
             balances!.forEach({ (balance) in
                 if (balance.balance_denom.caseInsensitiveCompare(symbol) == .orderedSame) {
-                    result = result.adding(WUtils.stringToDecimalNoLocale(balance.balance_amount))
-                    result = result.adding(WUtils.stringToDecimalNoLocale(balance.balance_locked))
+                    result = result.adding(WUtils.plainStringToDecimal(balance.balance_amount))
+                    result = result.adding(WUtils.plainStringToDecimal(balance.balance_locked))
                 }
             })
         }
@@ -2068,58 +2030,58 @@ class WUtils {
     
     static func getAtomFees() -> Array<NSDecimalNumber> {
         var atomFees = Array<NSDecimalNumber>()
-        atomFees.append(WUtils.stringToDecimal(FEE_ATOM_TINY))
-        atomFees.append(WUtils.stringToDecimal(FEE_ATOM_LOW))
-        atomFees.append(WUtils.stringToDecimal(FEE_ATOM_MID))
-        atomFees.append(WUtils.stringToDecimal(FEE_ATOM_HIGH))
+        atomFees.append(NSDecimalNumber.init(string: FEE_ATOM_TINY))
+        atomFees.append(NSDecimalNumber.init(string: FEE_ATOM_LOW))
+        atomFees.append(NSDecimalNumber.init(string: FEE_ATOM_MID))
+        atomFees.append(NSDecimalNumber.init(string: FEE_ATOM_HIGH))
         return atomFees
     }
     
     static func getGasAmountForRewards() -> Array<NSDecimalNumber> {
         var gasAmounts = Array<NSDecimalNumber>()
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_1))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_2))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_3))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_4))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_1))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_2))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_3))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_4))
         
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_5))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_6))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_7))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_8))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_5))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_6))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_7))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_8))
         
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_9))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_10))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_11))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_12))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_9))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_10))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_11))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_12))
         
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_13))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_14))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_15))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_16))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_13))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_14))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_15))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_REWARD_GAS_16))
         return gasAmounts
     }
     
     static func getGasAmountForKavaRewards() -> Array<NSDecimalNumber> {
         var gasAmounts = Array<NSDecimalNumber>()
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_1))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_2))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_3))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_4))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_1))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_2))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_3))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_4))
         
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_5))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_6))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_7))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_8))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_5))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_6))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_7))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_8))
         
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_9))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_10))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_11))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_12))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_9))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_10))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_11))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_12))
         
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_13))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_14))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_15))
-        gasAmounts.append(WUtils.stringToDecimal(FEE_KAVA_REWARD_GAS_16))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_13))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_14))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_15))
+        gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_16))
         return gasAmounts
     }
     
@@ -2140,16 +2102,16 @@ class WUtils {
         return 100;
     }
     
-    static func getQuotient(_ value:String) -> NSDecimalNumber {
-        let dividend = WUtils.stringToDecimal(value)
-        return dividend.dividing(by: NSDecimalNumber.one, withBehavior: getDivideHandler(0))
-    }
-    
-    static func getRemainder(_ value:String) -> NSDecimalNumber {
-        let dividend = WUtils.stringToDecimal(value)
-        let quotient = dividend.dividing(by: NSDecimalNumber.one, withBehavior: getDivideHandler(0))
-        return dividend.subtracting(quotient)
-    }
+//    static func getQuotient(_ value:String) -> NSDecimalNumber {
+//        let dividend = WUtils.localeStringToDecimal(value)
+//        return dividend.dividing(by: NSDecimalNumber.one, withBehavior: getDivideHandler(0))
+//    }
+//
+//    static func getRemainder(_ value:String) -> NSDecimalNumber {
+//        let dividend = WUtils.localeStringToDecimal(value)
+//        let quotient = dividend.dividing(by: NSDecimalNumber.one, withBehavior: getDivideHandler(0))
+//        return dividend.subtracting(quotient)
+//    }
     
     
     static func getMyIrisVote(_ votes: Array<Vote>, _ address: String) -> Vote? {
@@ -2178,7 +2140,7 @@ class WUtils {
         nf.numberStyle = .decimal
         
         let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(scale), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
-        let amount = stringToDecimalNoLocale(price).rounding(accordingToBehavior: handler)
+        let amount = plainStringToDecimal(price).rounding(accordingToBehavior: handler)
         
         let added       = "$ " + nf.string(from: amount)!
         let endIndex    = added.index(added.endIndex, offsetBy: -scale)

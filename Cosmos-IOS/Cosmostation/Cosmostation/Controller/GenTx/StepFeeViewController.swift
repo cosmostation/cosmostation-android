@@ -77,7 +77,7 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "feeImg")
             self.speedMsg.text = NSLocalizedString("fee_speed_bnb_title", comment: "")
             
-            feeAmount = WUtils.stringToDecimalNoLocale(GAS_FEE_BNB_TRANSFER)
+            feeAmount = WUtils.plainStringToDecimal(GAS_FEE_BNB_TRANSFER)
             self.minFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, minFeeAmountLabel.font, 0, 8)
             self.minFeePriceLabel.attributedText  = WUtils.dpBnbValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
             
@@ -433,13 +433,13 @@ class StepFeeViewController: BaseViewController {
     func getSpendAmount() -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
         if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
-            result = WUtils.stringToDecimal(pageHolderVC.mToDelegateAmount!.amount)
+            result = WUtils.localeStringToDecimal(pageHolderVC.mToDelegateAmount!.amount)
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == KAVA_MSG_TYPE_TRANSFER || pageHolderVC.mType == BAND_MSG_TYPE_TRANSFER ||
             pageHolderVC.mType == IOV_MSG_TYPE_TRANSFER) {
-            result = WUtils.stringToDecimal(pageHolderVC.mToSendAmount[0].amount)
+            result = WUtils.localeStringToDecimal(pageHolderVC.mToSendAmount[0].amount)
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {

@@ -61,7 +61,7 @@ public class Balance {
     }
     
     func getAllAmountBnbToken() -> NSDecimalNumber {
-        return WUtils.stringToDecimalNoLocale(self.balance_amount).adding(WUtils.stringToDecimalNoLocale(self.balance_locked))
+        return WUtils.plainStringToDecimal(self.balance_amount).adding(WUtils.plainStringToDecimal(self.balance_locked))
     }
     
     func exchangeBnbValue(_ tic:NSMutableDictionary?) -> NSDecimalNumber {
@@ -77,7 +77,7 @@ public class Balance {
     
     func kavaTokenDollorValue(_ prices: [String:KavaTokenPrice], _ cdpParam: CdpParam) -> NSDecimalNumber {
         if (balance_denom == "usdx"){
-            return WUtils.stringToDecimalNoLocale(self.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(balance_denom))
+            return WUtils.plainStringToDecimal(self.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(balance_denom))
             
         } else {
             if (prices.count <= 0) {
@@ -88,7 +88,7 @@ public class Balance {
                 return NSDecimalNumber.zero
             }
             
-            return WUtils.stringToDecimalNoLocale(self.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(balance_denom)).multiplying(by: NSDecimalNumber.init(string: kavaPrice.result.price), withBehavior: WUtils.handler6)
+            return WUtils.plainStringToDecimal(self.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal(balance_denom)).multiplying(by: NSDecimalNumber.init(string: kavaPrice.result.price), withBehavior: WUtils.handler6)
         }
     }
     

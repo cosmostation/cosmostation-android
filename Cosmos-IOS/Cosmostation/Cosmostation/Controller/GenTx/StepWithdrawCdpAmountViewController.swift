@@ -98,7 +98,7 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
             sender.layer.borderColor = UIColor.white.cgColor
             return
         }
-        let userInput = WUtils.stringToDecimal(text)
+        let userInput = WUtils.localeStringToDecimal(text)
         if (text.count > 1 && userInput == NSDecimalNumber.zero) {
             sender.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             return
@@ -121,31 +121,31 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
             exist = NSDecimalNumber(string: cAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "1"))
-        cAmountInput.text = WUtils.DecimalToLocalString(added, cDpDecimal)
+        cAmountInput.text = WUtils.decimalNumberToLocaleString(added, cDpDecimal)
         self.AmountChanged(cAmountInput)
     }
     
     @IBAction func onClickC1_4(_ sender: UIButton) {
         let calValue = cMaxWithdrawableAmount.multiplying(by: NSDecimalNumber.init(string: "0.25")).multiplying(byPowerOf10: -cDpDecimal, withBehavior: WUtils.getDivideHandler(cDpDecimal))
-        cAmountInput.text = WUtils.DecimalToLocalString(calValue, cDpDecimal)
+        cAmountInput.text = WUtils.decimalNumberToLocaleString(calValue, cDpDecimal)
         self.AmountChanged(cAmountInput)
     }
     
     @IBAction func onClickCHalf(_ sender: UIButton) {
         let calValue = cMaxWithdrawableAmount.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -cDpDecimal, withBehavior: WUtils.getDivideHandler(cDpDecimal))
-        cAmountInput.text = WUtils.DecimalToLocalString(calValue, cDpDecimal)
+        cAmountInput.text = WUtils.decimalNumberToLocaleString(calValue, cDpDecimal)
         self.AmountChanged(cAmountInput)
     }
     
     @IBAction func onClickC3_4(_ sender: UIButton) {
         let calValue = cMaxWithdrawableAmount.multiplying(by: NSDecimalNumber.init(string: "0.75")).multiplying(byPowerOf10: -cDpDecimal, withBehavior: WUtils.getDivideHandler(cDpDecimal))
-        cAmountInput.text = WUtils.DecimalToLocalString(calValue, cDpDecimal)
+        cAmountInput.text = WUtils.decimalNumberToLocaleString(calValue, cDpDecimal)
         self.AmountChanged(cAmountInput)
     }
     
     @IBAction func onClickCMax(_ sender: UIButton) {
         let maxValue = cMaxWithdrawableAmount.multiplying(byPowerOf10: -cDpDecimal, withBehavior: WUtils.getDivideHandler(cDpDecimal))
-        cAmountInput.text = WUtils.DecimalToLocalString(maxValue, cDpDecimal)
+        cAmountInput.text = WUtils.decimalNumberToLocaleString(maxValue, cDpDecimal)
         self.AmountChanged(cAmountInput)
     }
     
@@ -201,7 +201,7 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
     func isValiadCAmount() -> Bool {
         let text = cAmountInput.text?.trimmingCharacters(in: .whitespaces)
         if (text == nil || text!.count == 0) { return false }
-        let userInput = WUtils.stringToDecimal(text!)
+        let userInput = WUtils.localeStringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
         if (userInput.multiplying(byPowerOf10: cDpDecimal).compare(cMaxWithdrawableAmount).rawValue > 0 ||
             userInput.multiplying(byPowerOf10: cDpDecimal).compare(NSDecimalNumber.zero).rawValue < 0) {

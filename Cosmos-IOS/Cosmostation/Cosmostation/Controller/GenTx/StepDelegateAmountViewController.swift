@@ -61,12 +61,12 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         toDelegateAmountInput.delegate = self
         toDelegateAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"), 1)
+        let dp = "+ " + WUtils.decimalNumberToLocaleString(NSDecimalNumber(string: "0.1"), 1)
         btn01.setTitle(dp, for: .normal)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
             if ((self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) &&
-                WUtils.stringToDecimal(self.pageHolderVC.mBalances[0].balance_locked) != NSDecimalNumber.zero) {
+                WUtils.localeStringToDecimal(self.pageHolderVC.mBalances[0].balance_locked) != NSDecimalNumber.zero) {
                 self.showVestingWarnning()
             }
         })
@@ -133,7 +133,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             return
         }
         
-        let userInput = WUtils.stringToDecimal(text)
+        let userInput = WUtils.localeStringToDecimal(text)
         
         if (text.count > 1 && userInput == NSDecimalNumber.zero) {
             self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
@@ -160,7 +160,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
     func isValiadAmount() -> Bool {
         let text = toDelegateAmountInput.text?.trimmingCharacters(in: .whitespaces)
         if (text == nil || text!.count == 0) { return false }
-        let userInput = WUtils.stringToDecimal(text!)
+        let userInput = WUtils.localeStringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
             pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
@@ -182,7 +182,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
     
     @IBAction func onClickNext(_ sender: UIButton) {
         if (isValiadAmount()) {
-            let userInput = WUtils.stringToDecimal((toDelegateAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
+            let userInput = WUtils.localeStringToDecimal((toDelegateAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
             var coin:Coin?
             if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
                 coin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
@@ -223,7 +223,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: toDelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "0.1"))
-        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
+        toDelegateAmountInput.text = WUtils.decimalNumberToLocaleString(added, mDpDecimal)
         self.onUIupdate()
     }
     @IBAction func onClickAdd1(_ sender: UIButton) {
@@ -232,7 +232,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: toDelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "1"))
-        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
+        toDelegateAmountInput.text = WUtils.decimalNumberToLocaleString(added, mDpDecimal)
         self.onUIupdate()
     }
     @IBAction func onClickAdd10(_ sender: UIButton) {
@@ -241,7 +241,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: toDelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "10"))
-        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
+        toDelegateAmountInput.text = WUtils.decimalNumberToLocaleString(added, mDpDecimal)
         self.onUIupdate()
     }
     @IBAction func onClickAdd100(_ sender: UIButton) {
@@ -250,17 +250,17 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: toDelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "100"))
-        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
+        toDelegateAmountInput.text = WUtils.decimalNumberToLocaleString(added, mDpDecimal)
         self.onUIupdate()
     }
     @IBAction func onClickHalf(_ sender: UIButton) {
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
             pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            toDelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
+            toDelegateAmountInput.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            toDelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
+            toDelegateAmountInput.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
         }
         self.onUIupdate()
     }
@@ -268,11 +268,11 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
             pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
+            toDelegateAmountInput.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
             self.onUIupdate()
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
+            toDelegateAmountInput.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
             self.onUIupdate()
             self.showMaxWarnning()
         }

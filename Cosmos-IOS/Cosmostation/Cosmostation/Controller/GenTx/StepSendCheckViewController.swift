@@ -70,9 +70,9 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        let toSendAmount = WUtils.stringToDecimalNoLocale(pageHolderVC.mToSendAmount[0].amount)
+        let toSendAmount = WUtils.plainStringToDecimal(pageHolderVC.mToSendAmount[0].amount)
         let toSendDenom = pageHolderVC.mToSendAmount[0].denom
-        let feeAmount = WUtils.stringToDecimalNoLocale((pageHolderVC.mFee?.amount[0].amount)!)
+        let feeAmount = WUtils.plainStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         var currentAva = NSDecimalNumber.zero
         
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {

@@ -99,7 +99,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
             sender.layer.borderColor = UIColor.white.cgColor
             return
         }
-        let userInput = WUtils.stringToDecimal(text)
+        let userInput = WUtils.localeStringToDecimal(text)
         if (text.count > 1 && userInput == NSDecimalNumber.zero) {
             sender.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             return
@@ -123,7 +123,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
     
     @IBAction func onClickPMin(_ sender: UIButton) {
         let calValue = pMinAmount.multiplying(byPowerOf10: -pDpDecimal, withBehavior: WUtils.getDivideHandler(pDpDecimal))
-        pAmountInput.text = WUtils.DecimalToLocalString(calValue, pDpDecimal)
+        pAmountInput.text = WUtils.decimalNumberToLocaleString(calValue, pDpDecimal)
         AmountChangedP(pAmountInput)
     }
     
@@ -134,7 +134,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
             self.onShowToast(NSLocalizedString("error_less_than_min_principal", comment: ""))
         }
         calValue = calValue.multiplying(byPowerOf10: -pDpDecimal, withBehavior: WUtils.getDivideHandler(pDpDecimal))
-        pAmountInput.text = WUtils.DecimalToLocalString(calValue, pDpDecimal)
+        pAmountInput.text = WUtils.decimalNumberToLocaleString(calValue, pDpDecimal)
         AmountChangedP(pAmountInput)
     }
     
@@ -145,7 +145,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
             self.onShowToast(NSLocalizedString("error_less_than_min_principal", comment: ""))
         }
         calValue = calValue.multiplying(byPowerOf10: -pDpDecimal, withBehavior: WUtils.getDivideHandler(pDpDecimal))
-        pAmountInput.text = WUtils.DecimalToLocalString(calValue, pDpDecimal)
+        pAmountInput.text = WUtils.decimalNumberToLocaleString(calValue, pDpDecimal)
         AmountChangedP(pAmountInput)
     }
     
@@ -156,13 +156,13 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
             self.onShowToast(NSLocalizedString("error_less_than_min_principal", comment: ""))
         }
         calValue = calValue.multiplying(byPowerOf10: -pDpDecimal, withBehavior: WUtils.getDivideHandler(pDpDecimal))
-        pAmountInput.text = WUtils.DecimalToLocalString(calValue, pDpDecimal)
+        pAmountInput.text = WUtils.decimalNumberToLocaleString(calValue, pDpDecimal)
         AmountChangedP(pAmountInput)
     }
     
     @IBAction func onClickPMax(_ sender: UIButton) {
         let maxValue = pMaxAmount.multiplying(byPowerOf10: -pDpDecimal, withBehavior: WUtils.getDivideHandler(pDpDecimal))
-        pAmountInput.text = WUtils.DecimalToLocalString(maxValue, pDpDecimal)
+        pAmountInput.text = WUtils.decimalNumberToLocaleString(maxValue, pDpDecimal)
         AmountChangedP(pAmountInput)
     }
     
@@ -220,7 +220,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
     func isValiadPAmount() -> Bool {
         let text = pAmountInput.text?.trimmingCharacters(in: .whitespaces)
         if (text == nil || text!.count == 0) { return false }
-        let userInput = WUtils.stringToDecimal(text!)
+        let userInput = WUtils.localeStringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
         if (userInput.multiplying(byPowerOf10: pDpDecimal).compare(pMaxAmount).rawValue > 0 ||
             userInput.multiplying(byPowerOf10: pDpDecimal).compare(pMinAmount).rawValue < 0) {

@@ -31,7 +31,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onUpdateView() {
-        let feeAmout = WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
+        let feeAmout = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
             pageHolderVC.chainType! == ChainType.IOV_TEST) {
             rewardAddressChangeFee.attributedText = WUtils.displayAmount(feeAmout.stringValue, rewardAddressChangeFee.font, 6, pageHolderVC.chainType!)

@@ -238,7 +238,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         if (chainType == ChainType.COSMOS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = COSMOS_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
@@ -249,7 +249,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (chainType == ChainType.IRIS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: mValidator!.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell!.totalBondedAmount.font, 18, chainType!)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 0, 18)
             let url = IRIS_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
@@ -260,7 +260,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = KAVA_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
@@ -271,7 +271,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = BAND_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
@@ -281,7 +281,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = IOV_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
@@ -374,7 +374,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         
         if (chainType == ChainType.COSMOS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = COSMOS_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
@@ -385,7 +385,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (chainType == ChainType.IRIS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: mValidator!.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell!.totalBondedAmount.font, 18, chainType!)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 0, 18)
             let url = IRIS_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
@@ -396,7 +396,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = KAVA_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
@@ -407,7 +407,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = BAND_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
@@ -418,7 +418,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = IOV_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
@@ -512,7 +512,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             if (mUnbondings.count > 0) {
                 var unbondSum = NSDecimalNumber.zero
                 for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
                 }
                 cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
             } else {
@@ -534,7 +534,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             if (mUnbondings.count > 0) {
                 var unbondSum = NSDecimalNumber.zero
                 for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
                 }
                 cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondSum.stringValue, cell!.myUndelegateAmount.font, 18, 18)
             } else {
@@ -555,7 +555,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             if (mUnbondings.count > 0) {
                 var unbondSum = NSDecimalNumber.zero
                 for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
                 }
                 cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
             } else {
@@ -577,7 +577,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             if (mUnbondings.count > 0) {
                 var unbondSum = NSDecimalNumber.zero
                 for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
                 }
                 cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
             } else {
@@ -599,7 +599,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             if (mUnbondings.count > 0) {
                 var unbondSum = NSDecimalNumber.zero
                 for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
                 }
                 cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, 6)
             } else {
@@ -621,7 +621,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             if (mUnbondings.count > 0) {
                 var unbondSum = NSDecimalNumber.zero
                 for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
                 }
                 cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, 6)
             } else {
@@ -651,6 +651,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             if (mIrisStakePool != nil && mBonding != nil) {
                 let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"), withBehavior: WUtils.handler0Down)
                 let bonded_tokens = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
+//                print("provisions ", provisions)
+//                print("bonded_tokens ", bonded_tokens)
+//                print("(mBonding?.getBondingAmount(mValidator!))! ", (mBonding?.getBondingAmount(mValidator!))!)
+//                print("NSDecimalNumber.init(string: mValidator!.commission.rate)! ", NSDecimalNumber.init(string: mValidator!.commission.rate))
                 cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
                 cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
             } else {
@@ -901,7 +905,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                         return
                     }
                     let bondinginfo = BondingInfo(rawData)
-                    let shareAmount = WUtils.stringToDecimalNoLocale(bondinginfo.shares).multiplying(byPowerOf10: 18)
+                    let shareAmount = WUtils.plainStringToDecimal(bondinginfo.shares).multiplying(byPowerOf10: 18)
                     self.mBonding = Bonding(account.account_id, bondinginfo.validator_addr, shareAmount.stringValue, Date().millisecondsSince1970)
                 }
                 
@@ -951,8 +955,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                         return
                     }
                     let unbondinginfo = UnbondingInfo(rawData)
-                    let unbondingBalance = WUtils.stringToDecimalNoLocale(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
-                    let initialBalance = WUtils.stringToDecimalNoLocale(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
+                    let unbondingBalance = WUtils.plainStringToDecimal(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
+                    let initialBalance = WUtils.plainStringToDecimal(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
                     self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_addr, unbondinginfo.creation_height, WUtils.nodeTimeToInt64(input: unbondinginfo.min_time).millisecondsSince1970, initialBalance.stringValue, unbondingBalance.stringValue, Date().millisecondsSince1970))
                 }
                 

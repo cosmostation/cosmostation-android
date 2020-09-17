@@ -34,8 +34,8 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     func onUpdateView() {
-        let toRedelegateAmount = WUtils.stringToDecimal(pageHolderVC.mToReDelegateAmount!.amount)
-        let feeAmout = WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
+        let toRedelegateAmount = WUtils.localeStringToDecimal(pageHolderVC.mToReDelegateAmount!.amount)
+        let feeAmout = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
             pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             redelegateAmountLabel.attributedText = WUtils.displayAmount(toRedelegateAmount.stringValue, redelegateAmountLabel.font, 6, pageHolderVC.chainType!)
