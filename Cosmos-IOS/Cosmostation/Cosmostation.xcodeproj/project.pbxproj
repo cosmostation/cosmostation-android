@@ -315,13 +315,9 @@
 		E17748E82283D0F4003D8CD1 /* GuideCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17748E72283D0F4003D8CD1 /* GuideCategory.swift */; };
 		E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17748ED2284229B003D8CD1 /* GuideListTableViewCell.swift */; };
 		E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17748EE2284229B003D8CD1 /* GuideListTableViewCell.xib */; };
-		E17748F3228422BE003D8CD1 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17748F1228422BE003D8CD1 /* GuideViewController.swift */; };
-		E17748F4228422BE003D8CD1 /* GuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17748F2228422BE003D8CD1 /* GuideViewController.xib */; };
 		E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17748F722842628003D8CD1 /* ClaimRewardAllCell.xib */; };
 		E17748FA22842689003D8CD1 /* AllValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17748FC22842689003D8CD1 /* AllValidatorCell.xib */; };
 		E177490122842724003D8CD1 /* MyValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E177490322842724003D8CD1 /* MyValidatorCell.xib */; };
-		E1774908228523C5003D8CD1 /* GuideDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1774906228523C5003D8CD1 /* GuideDetailViewController.swift */; };
-		E1774909228523C5003D8CD1 /* GuideDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1774907228523C5003D8CD1 /* GuideDetailViewController.xib */; };
 		E17B213123470222001743D6 /* TokenDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B213023470222001743D6 /* TokenDetailViewController.swift */; };
 		E17B213C23470932001743D6 /* TokenDetailHeaderCosmosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B213A23470932001743D6 /* TokenDetailHeaderCosmosCell.swift */; };
 		E17B214023470941001743D6 /* TokenDetailHeaderIrisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B213E23470941001743D6 /* TokenDetailHeaderIrisCell.swift */; };
@@ -768,15 +764,11 @@
 		E17748E72283D0F4003D8CD1 /* GuideCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideCategory.swift; sourceTree = "<group>"; };
 		E17748ED2284229B003D8CD1 /* GuideListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListTableViewCell.swift; sourceTree = "<group>"; };
 		E17748EE2284229B003D8CD1 /* GuideListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideListTableViewCell.xib; sourceTree = "<group>"; };
-		E17748F1228422BE003D8CD1 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
-		E17748F2228422BE003D8CD1 /* GuideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideViewController.xib; sourceTree = "<group>"; };
 		E17748F622842628003D8CD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ClaimRewardAllCell.xib; sourceTree = "<group>"; };
 		E17748F92284263F003D8CD1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/ClaimRewardAllCell.strings; sourceTree = "<group>"; };
 		E17748FB22842689003D8CD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AllValidatorCell.xib; sourceTree = "<group>"; };
 		E1774900228426DC003D8CD1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/AllValidatorCell.strings; sourceTree = "<group>"; };
 		E177490222842724003D8CD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MyValidatorCell.xib; sourceTree = "<group>"; };
-		E1774906228523C5003D8CD1 /* GuideDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDetailViewController.swift; sourceTree = "<group>"; };
-		E1774907228523C5003D8CD1 /* GuideDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideDetailViewController.xib; sourceTree = "<group>"; };
 		E17B213023470222001743D6 /* TokenDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailViewController.swift; sourceTree = "<group>"; };
 		E17B213A23470932001743D6 /* TokenDetailHeaderCosmosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailHeaderCosmosCell.swift; sourceTree = "<group>"; };
 		E17B213E23470941001743D6 /* TokenDetailHeaderIrisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailHeaderIrisCell.swift; sourceTree = "<group>"; };
@@ -982,10 +974,6 @@
 				E103DAD022813248006C2146 /* WalletDetailViewController.xib */,
 				E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */,
 				E103DAD5228143D0006C2146 /* WalletCheckViewController.xib */,
-				E17748F1228422BE003D8CD1 /* GuideViewController.swift */,
-				E17748F2228422BE003D8CD1 /* GuideViewController.xib */,
-				E1774906228523C5003D8CD1 /* GuideDetailViewController.swift */,
-				E1774907228523C5003D8CD1 /* GuideDetailViewController.xib */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1569,7 +1557,6 @@
 				28474ED3241E06AF00AF5A81 /* TxCreateCdpCell.xib in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
 				283A80E6245158FB008FF813 /* HtlcResultViewController.xib in Resources */,
-				E1774909228523C5003D8CD1 /* GuideDetailViewController.xib in Resources */,
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				28B4303624F7766200BD7BB2 /* TxOkDirectVoteCell.xib in Resources */,
 				28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */,
@@ -1624,7 +1611,6 @@
 				283D2EB424F6250F00247424 /* TokenDetailHeaderOkCell.xib in Resources */,
 				28474ECC241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib in Resources */,
 				E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */,
-				E17748F4228422BE003D8CD1 /* GuideViewController.xib in Resources */,
 				282FF35623F518E00028CC66 /* TxMultiTransferCell.xib in Resources */,
 				E1CF42F123598AFE00907F45 /* ManageChainCell.xib in Resources */,
 				E1C3C89923B1E27800A693C0 /* NotificationView.xib in Resources */,
@@ -1793,7 +1779,6 @@
 				28474EF4241E06E200AF5A81 /* Coin.codec.pb.swift in Sources */,
 				28474F05241E06E200AF5A81 /* Crypto.models.pb.swift in Sources */,
 				E171A06F225B08B100C5756C /* StepMemoViewController.swift in Sources */,
-				E1774908228523C5003D8CD1 /* GuideDetailViewController.swift in Sources */,
 				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
 				E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */,
 				285A33E624486DA20052BD3D /* HtlcResultSentCell.swift in Sources */,
@@ -1906,7 +1891,6 @@
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
 				E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */,
 				283850202448A6B000E5DEF2 /* TxHtlcClaimCell.swift in Sources */,
-				E17748F3228422BE003D8CD1 /* GuideViewController.swift in Sources */,
 				E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */,
 				2842AB57242C1DD900248EEB /* CdpListViewController.swift in Sources */,
 				E1827E212256292900BC0350 /* ValidatorDetailMyActionCell.swift in Sources */,

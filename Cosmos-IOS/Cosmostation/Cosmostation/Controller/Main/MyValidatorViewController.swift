@@ -290,7 +290,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
             let estimatedGasAmount = (NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_MUX).multiplying(by: NSDecimalNumber.init(value: toClaimValidator.count))).adding(NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_BASE))
-            let estimatedFeeAmount = estimatedGasAmount.multiplying(byPowerOf10: 18).multiplying(by: NSDecimalNumber.init(string: GAS_FEE_RATE_IRIS_AVERAGE), withBehavior: WUtils.handler0)
+            let estimatedFeeAmount = estimatedGasAmount.multiplying(byPowerOf10: 18).multiplying(by: WUtils.plainStringToDecimal(GAS_FEE_RATE_IRIS_AVERAGE), withBehavior: WUtils.handler0)
             let balances = BaseData.instance.selectBalanceById(accountId: mainTabVC.mAccount!.account_id)
             if(balances.count <= 0 || WUtils.localeStringToDecimal(balances[0].balance_amount).compare(estimatedFeeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))

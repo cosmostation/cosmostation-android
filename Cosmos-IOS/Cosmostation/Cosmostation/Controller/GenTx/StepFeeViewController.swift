@@ -60,7 +60,7 @@ class StepFeeViewController: BaseViewController {
             self.speedMsg.text = NSLocalizedString("fee_speed_iris_title", comment: "")
             
             let gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count)
-            let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_IRIS_AVERAGE)
+            let gasRate = WUtils.plainStringToDecimal(GAS_FEE_RATE_IRIS_AVERAGE)
             self.rateFeeGasAmountLabel.text = gasAmount.stringValue
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 6)
             feeAmount = gasAmount.multiplying(byPowerOf10: 18).multiplying(by: gasRate, withBehavior: WUtils.handler0)

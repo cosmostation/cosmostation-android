@@ -198,7 +198,6 @@ class WUtils {
                 result.append(Bonding(account.account_id, bondinginfo.validator_addr, shareAmount.stringValue, Date().millisecondsSince1970))
             }
         }
-        
         return result
     }
     
@@ -220,7 +219,6 @@ class WUtils {
                 result.append(Unbonding(account.account_id, unbondinginfo.validator_addr, unbondinginfo.creation_height, nodeTimeToInt64(input: unbondinginfo.min_time).millisecondsSince1970, initialBalance.stringValue, unbondingBalance.stringValue, Date().millisecondsSince1970))
             }
         }
-        
         return result
     }
     
@@ -1730,8 +1728,8 @@ class WUtils {
             label.text = "BNB"
             label.textColor = COLOR_BNB
         } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
-           label.text = "KAVA"
-           label.textColor = COLOR_KAVA
+            label.text = "KAVA"
+            label.textColor = COLOR_KAVA
         } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             label.text = "IOV"
             label.textColor = COLOR_IOV
