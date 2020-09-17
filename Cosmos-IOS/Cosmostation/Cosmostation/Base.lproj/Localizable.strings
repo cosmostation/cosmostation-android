@@ -171,6 +171,7 @@
 "buy_atom" = "  Buy ATOM";
 "buy_bnb" = "  Buy BNB";
 "buy_kava" = "  Buy KAVA";
+"buy_band" = "  Buy BAND";
 "buy_without_key_title" = "No Private Key";
 "buy_without_key_msg" = "After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?";
 "buy_select_fiat_title" = "Select Fiat";

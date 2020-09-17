@@ -170,6 +170,7 @@
 "buy_atom" = "  ATOM 구입";
 "buy_bnb" = "  BNB 구입";
 "buy_kava" = "  KAVA 구입";
+"buy_band" = "  BAND 구입";
 "buy_without_key_title" = "관찰 모드 지갑";
 "buy_without_key_msg" = "구입 후 코인은 현재 지갑 주소로 송금받게 됩니다. 현재 지갑에 대한 권한이 없지만 계속 구입하시겠습니까?";
 "buy_select_fiat_title" = "통화 선택";

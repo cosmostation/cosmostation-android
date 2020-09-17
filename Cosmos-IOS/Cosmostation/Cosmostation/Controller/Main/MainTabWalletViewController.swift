@@ -997,13 +997,18 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.updownImg.image = nil
                 cell?.updownPercent.text = ""
             }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
+            cell?.buySeparator.isHidden = false
+            cell?.buyBtn.isHidden = false
+            cell?.buyBtn.setTitle(NSLocalizedString("buy_band", comment: ""), for: .normal)
+            cell?.buyConstraint.priority = .defaultHigh
+            cell?.noBuyConstraint.priority = .defaultLow
             cell?.actionTapPricel = {
                 self.onClickMarketInfo()
             }
+            cell?.actionBuy = {
+                self.onClickBuyCoin()
+            }
+            
             return cell!
             
         } else if (indexPath.row == 3) {
@@ -1679,11 +1684,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func onStartMoonpaySignature(_ fiat:String) {
         var query = "?apiKey=" + MOON_PAY_PUBLICK
         if (chainType! == ChainType.COSMOS_MAIN) {
-            query = query + "&currencyCode=atom";
+            query = query + "&currencyCode=atom"
         } else if (chainType! == ChainType.BINANCE_MAIN) {
-            query = query + "&currencyCode=bnb";
+            query = query + "&currencyCode=bnb"
         } else if (chainType! == ChainType.KAVA_MAIN) {
-            query = query + "&currencyCode=kava";
+            query = query + "&currencyCode=kava"
+        } else if (chainType! == ChainType.BAND_MAIN) {
+            query = query + "&currencyCode=band"
         }
         query = query + "&walletAddress=" + mainTabVC.mAccount.account_address + "&baseCurrencyCode=" + fiat;
         let param = ["api_key":query] as [String : Any]
