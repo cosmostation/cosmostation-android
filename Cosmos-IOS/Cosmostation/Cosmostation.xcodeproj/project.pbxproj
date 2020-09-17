@@ -103,33 +103,6 @@
 		28474ED4241E06AF00AF5A81 /* TxCreateCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC8241E06AF00AF5A81 /* TxCreateCdpCell.swift */; };
 		28474ED5241E06AF00AF5A81 /* TxRepayCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC9241E06AF00AF5A81 /* TxRepayCdpCell.swift */; };
 		28474ED6241E06AF00AF5A81 /* TxDepositCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474ECA241E06AF00AF5A81 /* TxDepositCdpCell.xib */; };
-		28474EF2241E06E200AF5A81 /* App.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474ED7241E06E100AF5A81 /* App.codec.pb.swift */; };
-		28474EF3241E06E200AF5A81 /* Currency.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474ED8241E06E100AF5A81 /* Currency.codec.pb.swift */; };
-		28474EF4241E06E200AF5A81 /* Coin.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474ED9241E06E100AF5A81 /* Coin.codec.pb.swift */; };
-		28474EF5241E06E200AF5A81 /* Distribution.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDA241E06E100AF5A81 /* Distribution.codec.pb.swift */; };
-		28474EF6241E06E200AF5A81 /* Result.results.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDB241E06E100AF5A81 /* Result.results.pb.swift */; };
-		28474EF7241E06E200AF5A81 /* Paychan.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDC241E06E100AF5A81 /* Paychan.codec.pb.swift */; };
-		28474EF8241E06E200AF5A81 /* Account.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDD241E06E100AF5A81 /* Account.codec.pb.swift */; };
-		28474EF9241E06E200AF5A81 /* Datamigration.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDE241E06E100AF5A81 /* Datamigration.codec.pb.swift */; };
-		28474EFA241E06E200AF5A81 /* Cash.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDF241E06E100AF5A81 /* Cash.codec.pb.swift */; };
-		28474EFB241E06E200AF5A81 /* Cron.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE0241E06E100AF5A81 /* Cron.codec.pb.swift */; };
-		28474EFC241E06E200AF5A81 /* Termdeposit.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE1241E06E100AF5A81 /* Termdeposit.codec.pb.swift */; };
-		28474EFD241E06E200AF5A81 /* Aswap.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE2241E06E100AF5A81 /* Aswap.codec.pb.swift */; };
-		28474EFE241E06E200AF5A81 /* Cmd.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE3241E06E100AF5A81 /* Cmd.codec.pb.swift */; };
-		28474EFF241E06E200AF5A81 /* Username.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE4241E06E100AF5A81 /* Username.codec.pb.swift */; };
-		28474F00241E06E200AF5A81 /* Msgfee.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE5241E06E100AF5A81 /* Msgfee.codec.pb.swift */; };
-		28474F01241E06E200AF5A81 /* Txfee.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE6241E06E100AF5A81 /* Txfee.codec.pb.swift */; };
-		28474F02241E06E200AF5A81 /* Escrow.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE7241E06E100AF5A81 /* Escrow.codec.pb.swift */; };
-		28474F03241E06E200AF5A81 /* Gov.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE8241E06E100AF5A81 /* Gov.codec.pb.swift */; };
-		28474F04241E06E200AF5A81 /* Batch.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE9241E06E100AF5A81 /* Batch.codec.pb.swift */; };
-		28474F05241E06E200AF5A81 /* Crypto.models.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEA241E06E100AF5A81 /* Crypto.models.pb.swift */; };
-		28474F06241E06E200AF5A81 /* Orm.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEB241E06E100AF5A81 /* Orm.codec.pb.swift */; };
-		28474F07241E06E200AF5A81 /* Multisig.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEC241E06E100AF5A81 /* Multisig.codec.pb.swift */; };
-		28474F08241E06E200AF5A81 /* Sigs.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EED241E06E200AF5A81 /* Sigs.codec.pb.swift */; };
-		28474F09241E06E200AF5A81 /* Validators.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEE241E06E200AF5A81 /* Validators.codec.pb.swift */; };
-		28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */; };
-		28474F0B241E06E200AF5A81 /* Qualityscore.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */; };
-		28474F0C241E06E200AF5A81 /* Preregistraion.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */; };
 		2848644E24A333CD0046E5C8 /* BottomLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2848644D24A333CD0046E5C8 /* BottomLineView.swift */; };
 		284B0F02247D5FD800B5A2D0 /* StepIncentive0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B0F01247D5FD800B5A2D0 /* StepIncentive0ViewController.swift */; };
 		284B0F04247D5FE800B5A2D0 /* StepIncentive3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B0F03247D5FE800B5A2D0 /* StepIncentive3ViewController.swift */; };
@@ -517,33 +490,6 @@
 		28474EC8241E06AF00AF5A81 /* TxCreateCdpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxCreateCdpCell.swift; sourceTree = "<group>"; };
 		28474EC9241E06AF00AF5A81 /* TxRepayCdpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxRepayCdpCell.swift; sourceTree = "<group>"; };
 		28474ECA241E06AF00AF5A81 /* TxDepositCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxDepositCdpCell.xib; sourceTree = "<group>"; };
-		28474ED7241E06E100AF5A81 /* App.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.codec.pb.swift; sourceTree = "<group>"; };
-		28474ED8241E06E100AF5A81 /* Currency.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.codec.pb.swift; sourceTree = "<group>"; };
-		28474ED9241E06E100AF5A81 /* Coin.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coin.codec.pb.swift; sourceTree = "<group>"; };
-		28474EDA241E06E100AF5A81 /* Distribution.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Distribution.codec.pb.swift; sourceTree = "<group>"; };
-		28474EDB241E06E100AF5A81 /* Result.results.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.results.pb.swift; sourceTree = "<group>"; };
-		28474EDC241E06E100AF5A81 /* Paychan.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paychan.codec.pb.swift; sourceTree = "<group>"; };
-		28474EDD241E06E100AF5A81 /* Account.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.codec.pb.swift; sourceTree = "<group>"; };
-		28474EDE241E06E100AF5A81 /* Datamigration.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datamigration.codec.pb.swift; sourceTree = "<group>"; };
-		28474EDF241E06E100AF5A81 /* Cash.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cash.codec.pb.swift; sourceTree = "<group>"; };
-		28474EE0241E06E100AF5A81 /* Cron.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cron.codec.pb.swift; sourceTree = "<group>"; };
-		28474EE1241E06E100AF5A81 /* Termdeposit.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Termdeposit.codec.pb.swift; sourceTree = "<group>"; };
-		28474EE2241E06E100AF5A81 /* Aswap.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aswap.codec.pb.swift; sourceTree = "<group>"; };
-		28474EE3241E06E100AF5A81 /* Cmd.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cmd.codec.pb.swift; sourceTree = "<group>"; };
-		28474EE4241E06E100AF5A81 /* Username.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Username.codec.pb.swift; sourceTree = "<group>"; };
-		28474EE5241E06E100AF5A81 /* Msgfee.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Msgfee.codec.pb.swift; sourceTree = "<group>"; };
-		28474EE6241E06E100AF5A81 /* Txfee.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Txfee.codec.pb.swift; sourceTree = "<group>"; };
-		28474EE7241E06E100AF5A81 /* Escrow.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Escrow.codec.pb.swift; sourceTree = "<group>"; };
-		28474EE8241E06E100AF5A81 /* Gov.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gov.codec.pb.swift; sourceTree = "<group>"; };
-		28474EE9241E06E100AF5A81 /* Batch.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Batch.codec.pb.swift; sourceTree = "<group>"; };
-		28474EEA241E06E100AF5A81 /* Crypto.models.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.models.pb.swift; sourceTree = "<group>"; };
-		28474EEB241E06E100AF5A81 /* Orm.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orm.codec.pb.swift; sourceTree = "<group>"; };
-		28474EEC241E06E100AF5A81 /* Multisig.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Multisig.codec.pb.swift; sourceTree = "<group>"; };
-		28474EED241E06E200AF5A81 /* Sigs.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sigs.codec.pb.swift; sourceTree = "<group>"; };
-		28474EEE241E06E200AF5A81 /* Validators.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validators.codec.pb.swift; sourceTree = "<group>"; };
-		28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration.codec.pb.swift; sourceTree = "<group>"; };
-		28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Qualityscore.codec.pb.swift; sourceTree = "<group>"; };
-		28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preregistraion.codec.pb.swift; sourceTree = "<group>"; };
 		2848644D24A333CD0046E5C8 /* BottomLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineView.swift; sourceTree = "<group>"; };
 		284B0F01247D5FD800B5A2D0 /* StepIncentive0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepIncentive0ViewController.swift; sourceTree = "<group>"; };
 		284B0F03247D5FE800B5A2D0 /* StepIncentive3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepIncentive3ViewController.swift; sourceTree = "<group>"; };
@@ -904,40 +850,6 @@
 			path = PopUp;
 			sourceTree = "<group>";
 		};
-		28AE9A91241B809400872349 /* ProtoIov */ = {
-			isa = PBXGroup;
-			children = (
-				28474EDD241E06E100AF5A81 /* Account.codec.pb.swift */,
-				28474ED7241E06E100AF5A81 /* App.codec.pb.swift */,
-				28474EE2241E06E100AF5A81 /* Aswap.codec.pb.swift */,
-				28474EE9241E06E100AF5A81 /* Batch.codec.pb.swift */,
-				28474EDF241E06E100AF5A81 /* Cash.codec.pb.swift */,
-				28474EE3241E06E100AF5A81 /* Cmd.codec.pb.swift */,
-				28474ED9241E06E100AF5A81 /* Coin.codec.pb.swift */,
-				28474EE0241E06E100AF5A81 /* Cron.codec.pb.swift */,
-				28474EEA241E06E100AF5A81 /* Crypto.models.pb.swift */,
-				28474ED8241E06E100AF5A81 /* Currency.codec.pb.swift */,
-				28474EDE241E06E100AF5A81 /* Datamigration.codec.pb.swift */,
-				28474EDA241E06E100AF5A81 /* Distribution.codec.pb.swift */,
-				28474EE7241E06E100AF5A81 /* Escrow.codec.pb.swift */,
-				28474EE8241E06E100AF5A81 /* Gov.codec.pb.swift */,
-				28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */,
-				28474EE5241E06E100AF5A81 /* Msgfee.codec.pb.swift */,
-				28474EEC241E06E100AF5A81 /* Multisig.codec.pb.swift */,
-				28474EEB241E06E100AF5A81 /* Orm.codec.pb.swift */,
-				28474EDC241E06E100AF5A81 /* Paychan.codec.pb.swift */,
-				28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */,
-				28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */,
-				28474EDB241E06E100AF5A81 /* Result.results.pb.swift */,
-				28474EED241E06E200AF5A81 /* Sigs.codec.pb.swift */,
-				28474EE1241E06E100AF5A81 /* Termdeposit.codec.pb.swift */,
-				28474EE6241E06E100AF5A81 /* Txfee.codec.pb.swift */,
-				28474EE4241E06E100AF5A81 /* Username.codec.pb.swift */,
-				28474EEE241E06E200AF5A81 /* Validators.codec.pb.swift */,
-			);
-			path = ProtoIov;
-			sourceTree = "<group>";
-		};
 		51090F06A9DC4E886F628890 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1084,7 +996,6 @@
 		E1945E26222E7C0600A1436F /* Cosmostation */ = {
 			isa = PBXGroup;
 			children = (
-				28AE9A91241B809400872349 /* ProtoIov */,
 				28B6AFE023D9863800063D9C /* GoogleService-Info.plist */,
 				E136D8A223039493001BEBB8 /* Cosmostation.entitlements */,
 				E1A82DF12244EC1C0097CAEE /* Cell */,
@@ -1709,11 +1620,9 @@
 				E1406FC02260643200D9440C /* BlockInfo.swift in Sources */,
 				E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */,
 				285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */,
-				28474F07241E06E200AF5A81 /* Multisig.codec.pb.swift in Sources */,
 				2842AB65242C396700248EEB /* KavaTokenPrice.swift in Sources */,
 				2852D7732477E83400D11DC4 /* WalletKavaIncentiveCell.swift in Sources */,
 				2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */,
-				28474EF7241E06E200AF5A81 /* Paychan.codec.pb.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				283D2EAC24F56AFF00247424 /* OkWithdraw.swift in Sources */,
 				2888B7FC246BC17300B2EB4A /* BnbNodeInfo.swift in Sources */,
@@ -1729,17 +1638,14 @@
 				E151B6492248583F0026B8C0 /* StdTx.swift in Sources */,
 				E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
-				28474EFE241E06E200AF5A81 /* Cmd.codec.pb.swift in Sources */,
 				28617A8524333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
 				285A33DA244763290052BD3D /* SelectChainCell.swift in Sources */,
-				28474EF3241E06E200AF5A81 /* Currency.codec.pb.swift in Sources */,
 				E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */,
 				2800CF982471A004003C3EF1 /* CosmosProposer.swift in Sources */,
 				E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */,
 				283D2EAA24F56AEE00247424 /* OkDeposit.swift in Sources */,
 				E1827E2A2256298300BC0350 /* ValidatorDetailHistoryHeader.swift in Sources */,
-				28474F04241E06E200AF5A81 /* Batch.codec.pb.swift in Sources */,
 				28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */,
 				28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */,
 				283D2EA424F52FE700247424 /* OkToken.swift in Sources */,
@@ -1762,7 +1668,6 @@
 				E1F1CF0C239F7D8D004EF8A2 /* VoteCheckViewController.swift in Sources */,
 				2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
-				28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */,
 				285A33D12446CDAB0052BD3D /* StepHtlcSend2ViewController.swift in Sources */,
 				2845D884246FAEED007CD497 /* VoteTallyTableViewCell.swift in Sources */,
 				284B0F02247D5FD800B5A2D0 /* StepIncentive0ViewController.swift in Sources */,
@@ -1774,10 +1679,7 @@
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				28617A7B243198D0006D66EA /* StepCreateCpdAmountViewController.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
-				28474EFF241E06E200AF5A81 /* Username.codec.pb.swift in Sources */,
 				2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */,
-				28474EF4241E06E200AF5A81 /* Coin.codec.pb.swift in Sources */,
-				28474F05241E06E200AF5A81 /* Crypto.models.pb.swift in Sources */,
 				E171A06F225B08B100C5756C /* StepMemoViewController.swift in Sources */,
 				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
 				E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */,
@@ -1787,7 +1689,6 @@
 				E151B64B224859E10026B8C0 /* StdSignMsg.swift in Sources */,
 				2845D880246FAED7007CD497 /* VoteInfoTableViewCell.swift in Sources */,
 				E191A57D237902C5002577BC /* WalletKavaCell.swift in Sources */,
-				28474F09241E06E200AF5A81 /* Validators.codec.pb.swift in Sources */,
 				28617A812432944F006D66EA /* StepDepositCdpCheckViewController.swift in Sources */,
 				E19A32262254AE7A00A05E41 /* ManageHeader.swift in Sources */,
 				2812956E250F81C3007B217E /* SelectCoinCell.swift in Sources */,
@@ -1805,7 +1706,6 @@
 				28ACF35E247E4531003C8812 /* KavaIncentiveReward.swift in Sources */,
 				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
 				2868558F24989A8F0099D18F /* Bep3SupplyPopup.swift in Sources */,
-				28474F03241E06E200AF5A81 /* Gov.codec.pb.swift in Sources */,
 				28B4302A24F76AD500BD7BB2 /* OkTransfer.swift in Sources */,
 				28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */,
 				E19A321922544EB500A05E41 /* DashedView.swift in Sources */,
@@ -1826,7 +1726,6 @@
 				289DF184242DDF8300433CF4 /* CdpDetailAssetsCell.swift in Sources */,
 				E151B647224850040026B8C0 /* Msg.swift in Sources */,
 				E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */,
-				28474F08241E06E200AF5A81 /* Sigs.codec.pb.swift in Sources */,
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
 				2888B7FE246BC83A00B2EB4A /* BnbSwapInfo.swift in Sources */,
 				28617A8324333B90006D66EA /* StepWithdrawCdpAmountViewController.swift in Sources */,
@@ -1839,10 +1738,8 @@
 				2842AB63242C37F300248EEB /* CdpDeposits.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
 				2868559B24989ACD0099D18F /* DelegateWarnPopup.swift in Sources */,
-				28474EFB241E06E200AF5A81 /* Cron.codec.pb.swift in Sources */,
 				E1271B0A224C943C0083AF17 /* RestoreViewController.swift in Sources */,
 				28B4303E24F7EE1F00BD7BB2 /* StepOkDepositCheckViewController.swift in Sources */,
-				28474EFA241E06E200AF5A81 /* Cash.codec.pb.swift in Sources */,
 				28B4304624F8B36600BD7BB2 /* OkMyValidatorViewController.swift in Sources */,
 				E17B214423470950001743D6 /* TokenDetailHeaderBnbCell.swift in Sources */,
 				E1F1CF08239F5737004EF8A2 /* Vote.swift in Sources */,
@@ -1867,7 +1764,6 @@
 				2815AA7624349DF2008B23AA /* StepRepayCdpCheckViewController.swift in Sources */,
 				E1827E18225620D000BC0350 /* VaildatorDetailViewController.swift in Sources */,
 				E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */,
-				28474F06241E06E200AF5A81 /* Orm.codec.pb.swift in Sources */,
 				2842AB6E242C5C7200248EEB /* CdpLisyMyCell.swift in Sources */,
 				283D2EB324F6250F00247424 /* TokenDetailHeaderOkCell.swift in Sources */,
 				E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */,
@@ -1881,7 +1777,6 @@
 				28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */,
 				282FF36123F532360028CC66 /* TxVoteCell.swift in Sources */,
 				282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */,
-				28474EF8241E06E200AF5A81 /* Account.codec.pb.swift in Sources */,
 				E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */,
 				E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */,
 				284B0F04247D5FE800B5A2D0 /* StepIncentive3ViewController.swift in Sources */,
@@ -1903,7 +1798,6 @@
 				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
 				285A33CF2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift in Sources */,
 				E14F7FB6227ADAA300FDDC75 /* QRScanViewController.swift in Sources */,
-				28474F01241E06E200AF5A81 /* Txfee.codec.pb.swift in Sources */,
 				2838501C2448A69D00E5DEF2 /* TxHtlcCreateCell.swift in Sources */,
 				2888B804246CE37200B2EB4A /* StepHtlcRefund3ViewController.swift in Sources */,
 				2815AA70243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift in Sources */,
@@ -1916,7 +1810,6 @@
 				E1F1CF0A239F7D7D004EF8A2 /* VoteSelectViewController.swift in Sources */,
 				E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */,
 				2812956B250F52C8007B217E /* KavaSwapSupply2.swift in Sources */,
-				28474EF9241E06E200AF5A81 /* Datamigration.codec.pb.swift in Sources */,
 				2848644E24A333CD0046E5C8 /* BottomLineView.swift in Sources */,
 				2842AB59242C1DFC00248EEB /* MyCdpViewController.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
@@ -1929,9 +1822,7 @@
 				E16FACB12361ADFA00372052 /* Bytes.swift in Sources */,
 				E1F1CF06239F53C5004EF8A2 /* IrisProposal.swift in Sources */,
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,
-				28474EFD241E06E200AF5A81 /* Aswap.codec.pb.swift in Sources */,
 				E1C3C89B23B1E3E400A693C0 /* NotificationView.swift in Sources */,
-				28474F02241E06E200AF5A81 /* Escrow.codec.pb.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
 				28474ED4241E06AF00AF5A81 /* TxCreateCdpCell.swift in Sources */,
 				285A33DE2447633D0052BD3D /* SelectAccountCell.swift in Sources */,
@@ -1944,7 +1835,6 @@
 				E17748E82283D0F4003D8CD1 /* GuideCategory.swift in Sources */,
 				2845D887246FB96E007CD497 /* CosmosVote.swift in Sources */,
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,
-				28474F00241E06E200AF5A81 /* Msgfee.codec.pb.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
 				E14FDC842373C52C00095C06 /* KavaAccountInfo.swift in Sources */,
@@ -1957,15 +1847,11 @@
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
 				28B4304424F8B34100BD7BB2 /* OkValidatorListViewController.swift in Sources */,
 				2888B802246CE35D00B2EB4A /* StepHtlcRefund0ViewController.swift in Sources */,
-				28474F0C241E06E200AF5A81 /* Preregistraion.codec.pb.swift in Sources */,
 				E17B214823470960001743D6 /* TokenDetailHeaderCustomCell.swift in Sources */,
 				2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
 				2845D87D246FAE16007CD497 /* VoteDetailsViewController.swift in Sources */,
 				E1A6995B2366E8CC004CA274 /* WalletIovCell.swift in Sources */,
-				28474F0B241E06E200AF5A81 /* Qualityscore.codec.pb.swift in Sources */,
-				28474EF5241E06E200AF5A81 /* Distribution.codec.pb.swift in Sources */,
-				28474EF6241E06E200AF5A81 /* Result.results.pb.swift in Sources */,
 				289DF178242DDF3800433CF4 /* CdpDetailTopCell.swift in Sources */,
 				E1F7F63223421394000E597F /* IrisToken.swift in Sources */,
 				28869DA424DC1ADA00D6D2AC /* KavaSwapParam.swift in Sources */,
@@ -1981,11 +1867,9 @@
 				E171A06D225B08A000C5756C /* StepDelegateAmountViewController.swift in Sources */,
 				2842AB61242C30AA00248EEB /* CdpParam.swift in Sources */,
 				E1A82DD1224220910097CAEE /* Account.swift in Sources */,
-				28474EFC241E06E200AF5A81 /* Termdeposit.codec.pb.swift in Sources */,
 				E1A82DE12244818C0097CAEE /* AccountInfo.swift in Sources */,
 				E1271B06224B874A0083AF17 /* AddAddressViewController.swift in Sources */,
 				2845D889246FBA39007CD497 /* CosmosTally.swift in Sources */,
-				28474EF2241E06E200AF5A81 /* App.codec.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2537,14 +2421,14 @@
 				CODE_SIGN_ENTITLEMENTS = Cosmostation/Cosmostation.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 66;
+				CURRENT_PROJECT_VERSION = 67;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.16;
+				MARKETING_VERSION = 1.3.17;
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2564,14 +2448,14 @@
 				CODE_SIGN_ENTITLEMENTS = Cosmostation/Cosmostation.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 66;
+				CURRENT_PROJECT_VERSION = 67;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.16;
+				MARKETING_VERSION = 1.3.17;
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -76,7 +76,7 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
             self.onShowToast(NSLocalizedString("error_self_send", comment: ""))
             return;
         }
-            
+        
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
             if (!userInput!.starts(with: "cosmos") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
@@ -95,14 +95,13 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             if (!userInput!.starts(with: "kava") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.OK_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             if (!userInput!.starts(with: "star") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
