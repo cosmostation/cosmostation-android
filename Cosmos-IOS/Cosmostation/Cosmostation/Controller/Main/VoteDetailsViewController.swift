@@ -175,18 +175,21 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.statusImg.image = mProposal?.getStatusImg()
             cell?.statusTitle.text = mProposal?.proposal_status
             cell?.proposalTitle.text = mProposal?.getTitle()
-            cell?.proposalTitle.adjustsFontSizeToFitWidth = true
             cell?.proposerLabel.text = self.mProposer
             cell?.proposalTypeLabel.text = String((mProposal?.content?.type)!.split(separator: "/").last!)
             cell?.voteStartTime.text = mProposal?.getStartTime()
             cell?.voteEndTime.text = mProposal?.getEndTime()
             cell?.voteDescription.text = mProposal?.content?.value.description
+            if (mProposal?.content?.value.amount?.count ?? 0 > 0) {
+                WUtils.showCoinDp((mProposal?.content?.value.amount![0])!, cell!.requestAmountDenom, cell!.requestAmount, chainType!)
+            } else {
+                cell!.requestAmountDenom.text = "N/A"
+            }
             
         } else if (chainType == ChainType.IRIS_MAIN && mIrisProposal != nil) {
             cell?.statusImg.image = mIrisProposal?.getStatusImg()
             cell?.statusTitle.text = mIrisProposal?.value?.basicProposal?.proposal_status
             cell?.proposalTitle.text = mIrisProposal?.getTitle()
-            cell?.proposalTitle.adjustsFontSizeToFitWidth = true
             cell?.proposerLabel.text = mIrisProposal?.value?.basicProposal?.proposer
             cell?.proposalTypeLabel.text = String((mIrisProposal?.type)!.split(separator: "/").last!)
             cell?.voteStartTime.text = mIrisProposal?.getStartTime()
@@ -206,11 +209,11 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     func onBindTally(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteTallyTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteTallyTableViewCell") as? VoteTallyTableViewCell
         if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN) && mTally != nil) {
-            cell?.onUpdateCards(mTally!, mVoters)
+            cell?.onUpdateCards(mTally!, mVoters, mProposal?.proposal_status)
             cell?.onCheckMyVote(mMyVote)
             
         } else if (chainType == ChainType.IRIS_MAIN && mIrisProposal != nil && mIrisProposal?.value?.basicProposal?.tally_result != nil) {
-            cell?.onUpdateCards((mIrisProposal?.value?.basicProposal?.tally_result)!, mVoters)
+            cell?.onUpdateCardIris((mIrisProposal?.value?.basicProposal?.tally_result)!, mVoters)
             cell?.onCheckMyVote(mMyVote)
         }
         return cell!

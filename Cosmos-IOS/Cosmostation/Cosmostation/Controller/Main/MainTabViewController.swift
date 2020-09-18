@@ -960,6 +960,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         return;
                 }
                 self.mStakingPool = stakingPool
+                BaseData.instance.mStakingPool = stakingPool
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchStakingPool ", error) }

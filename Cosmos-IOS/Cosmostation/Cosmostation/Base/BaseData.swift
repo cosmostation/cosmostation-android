@@ -21,6 +21,8 @@ final class BaseData : NSObject{
     var mOtherValidator = Array<Validator>()
     var mMyValidator = Array<Validator>()
     
+    var mStakingPool: NSDictionary?
+    
     var mKavaAccountResult = KavaAccountInfo.KavaAccountResult.init()
     var mCdpParam: CdpParam?
     var mKavaPrice = [String:KavaTokenPrice]()

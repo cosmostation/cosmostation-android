@@ -13,6 +13,8 @@ class VoteInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+        
+        requestAmount.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
  
     @IBOutlet weak var statusImg: UIImageView!
@@ -22,6 +24,8 @@ class VoteInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var proposalTypeLabel: UILabel!
     @IBOutlet weak var voteStartTime: UILabel!
     @IBOutlet weak var voteEndTime: UILabel!
+    @IBOutlet weak var requestAmount: UILabel!
+    @IBOutlet weak var requestAmountDenom: UILabel!
     @IBOutlet weak var voteDescription: UITextView!
     @IBOutlet weak var btnToggle: UIButton!
     

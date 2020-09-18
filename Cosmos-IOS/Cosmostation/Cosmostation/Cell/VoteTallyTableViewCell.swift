@@ -43,6 +43,8 @@ class VoteTallyTableViewCell: UITableViewCell {
     @IBOutlet weak var imgAbstain: UIImageView!
     @IBOutlet weak var cntAbstain: UILabel!
     
+    @IBOutlet weak var turnoutTitle: UILabel!
+    @IBOutlet weak var turnoutRate: UILabel!
     
     func onCheckMyVote (_ myVote:Vote?) {
         if (myVote == nil) { return }
@@ -73,7 +75,40 @@ class VoteTallyTableViewCell: UITableViewCell {
         }
     }
     
-    func onUpdateCards(_ tally:Tally, _ voters:Array<Vote>) {
+    func onUpdateCards(_ tally:Tally, _ voters:Array<Vote>, _ status: String?) {
+        progressYes.progress = tally.getYes().floatValue / 100
+        progressNo.progress = tally.getNo().floatValue / 100
+        progressVeto.progress = tally.getVeto().floatValue / 100
+        propressAbstain.progress = tally.getAbstain().floatValue / 100
+
+        percentYes.attributedText = WUtils.displayPercent(tally.getYes(), font: percentYes.font)
+        percentNo.attributedText = WUtils.displayPercent(tally.getNo(), font: percentYes.font)
+        percentVeto.attributedText = WUtils.displayPercent(tally.getVeto(), font: percentYes.font)
+        percentAbstain.attributedText = WUtils.displayPercent(tally.getAbstain(), font: percentYes.font)
+        
+        if (status == Proposal.PROPOSAL_VOTING) {
+            imgYes.isHidden = false
+            imgNo.isHidden = false
+            imgVeto.isHidden = false
+            imgAbstain.isHidden = false
+            cntYes.isHidden = false
+            cntNo.isHidden = false
+            cntVeto.isHidden = false
+            cntAbstain.isHidden = false
+
+            cntYes.text = WUtils.getIrisVoterTypeCnt(voters, Vote.OPTION_YES)
+            cntNo.text = WUtils.getIrisVoterTypeCnt(voters, Vote.OPTION_NO)
+            cntVeto.text = WUtils.getIrisVoterTypeCnt(voters, Vote.OPTION_VETO)
+            cntAbstain.text = WUtils.getIrisVoterTypeCnt(voters, Vote.OPTION_ABSTAIN)
+            
+            turnoutRate.isHidden = false
+            turnoutTitle.isHidden = false
+            turnoutRate.attributedText = WUtils.displayPercent(tally.getTurnout(), font: turnoutRate.font)
+            
+        }
+    }
+    
+    func onUpdateCardIris(_ tally:Tally, _ voters:Array<Vote>) {
         progressYes.progress = tally.getYes().floatValue / 100
         progressNo.progress = tally.getNo().floatValue / 100
         progressVeto.progress = tally.getVeto().floatValue / 100

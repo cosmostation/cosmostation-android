@@ -86,12 +86,21 @@ public class Proposal {
     public class Value {
         var title: String = ""
         var description: String = ""
+        var recipient: String = ""
+        var amount: Array<Coin>?
         
         init() {}
         
         init(_ dictionary: [String: Any]) {
             self.title = dictionary["title"] as? String ?? ""
             self.description = dictionary["description"] as? String ?? ""
+            self.recipient = dictionary["recipient"] as? String ?? ""
+            if let rawAmounts = dictionary["amount"] as? Array<NSDictionary> {
+                self.amount = Array<Coin>()
+                for rawAmount in rawAmounts {
+                    self.amount?.append(Coin(rawAmount as! [String : Any]))
+                }
+            }
         }
     }
     
