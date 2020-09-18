@@ -173,7 +173,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } else if (mUserInput.startsWith("okchain")) {
+            } else if (mUserInput.startsWith("okexchain")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(BaseChain.OK_TEST, mUserInput);
                     return;

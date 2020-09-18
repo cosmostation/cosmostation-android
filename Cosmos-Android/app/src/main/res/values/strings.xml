@@ -42,7 +42,7 @@
     <string name="url_api_band_main" translatable="false">https://api-band-wenchang-mainnet.cosmostation.io/</string>
 
 
-    <string name="url_lcd_ok_test" translatable="false">https://lcd-okchain-testnet.cosmostation.io/</string>
+    <string name="url_lcd_ok_test" translatable="false">https://lcd-okexchain-testnet1.cosmostation.io/</string>
     <string name="url_api_ok_test" translatable="false"></string>
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
@@ -95,7 +95,7 @@
     <string name="str_bnb_test_net">Binance Testnet</string>
     <string name="str_kava_test_net">Kava Testnet</string>
     <string name="str_iov_test_net">Starname Testnet</string>
-    <string name="str_ok_test_net">Okchain Testnet</string>
+    <string name="str_ok_test_net">Okex Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
@@ -279,8 +279,8 @@
     <string name="str_kava_net_test_2" translatable="false">Kava Testnet</string>
     <string name="str_iov_net_test" translatable="false">(Starname Testnet)</string>
     <string name="str_iov_net_test_2" translatable="false">Starname Testnet</string>
-    <string name="str_ok_net_test" translatable="false">(Okchain Testnet)</string>
-    <string name="str_ok_net_test_2" translatable="false">Okchain Testnet</string>
+    <string name="str_ok_net_test" translatable="false">(Okex Testnet)</string>
+    <string name="str_ok_net_test_2" translatable="false">Okex Testnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_iris" translatable="false">IRIS</string>
     <string name="str_binance" translatable="false">BINANCE</string>
@@ -290,7 +290,7 @@
     <string name="str_band" translatable="false">BAND</string>
     <string name="str_kava_test" translatable="false">KAVA TEST</string>
     <string name="str_iov_test" translatable="false">STARNAME TEST</string>
-    <string name="str_ok_test" translatable="false">OK TEST</string>
+    <string name="str_ok_test" translatable="false">OKEX TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -363,13 +363,13 @@
     <string name="str_front_guide_title_kava"><![CDATA[KAVA CHAIN]]></string>
     <string name="str_front_guide_title_iov"><![CDATA[Starname Service]]></string>
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
-    <string name="str_front_guide_title_ok"><![CDATA[OK CHAIN]]></string>
+    <string name="str_front_guide_title_ok"><![CDATA[OKEX CHAIN]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
     <string name="str_front_guide_msg_iov">Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.</string>
-    <string name="str_front_guide_msg_ok">OK Chain is a public decentralized exchange powered by Tendermint.</string>
+    <string name="str_front_guide_msg_ok">OKEX Chain is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
@@ -965,7 +965,7 @@
     <string name="error_invalid_iov_address">Invalid Iov Address.</string>
     <string name="error_invalid_kava_address">Invalid Kava Address.</string>
     <string name="error_invalid_band_address">Invalid Band Address.</string>
-    <string name="error_invalid_ok_address">Invalid OK Chain Address.</string>
+    <string name="error_invalid_ok_address">Invalid OKEX Chain Address.</string>
     <string name="error_invalid_star_name">Invalid Start Name.</string>
     <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
     <string name="error_iris_vote_only_validator">This proposal can only vote on validators.</string>

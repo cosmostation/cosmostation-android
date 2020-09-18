@@ -32,7 +32,8 @@ public enum BaseChain {
     KAVA_TEST("kava-testnet-9000"),
     IOV_TEST("iovns-galaxynet"),
     OK_TEST_LEGACY("okchain"),
-    OK_TEST("okchain-testnet1");
+    OK_TEST_LEGACY1("okchain-testnet1"),
+    OK_TEST("okexchain-testnet1");
 
     private final String chainName;
 
@@ -83,8 +84,7 @@ public enum BaseChain {
         if (chainName.equals(IOV_TEST.chainName)) {
             return IOV_TEST;
         }
-        if (chainName.equals(OK_TEST_LEGACY.chainName) ||
-                chainName.equals(OK_TEST.chainName)) {
+        if (chainName.equals(OK_TEST.chainName)) {
             return OK_TEST;
         }
         return null;
@@ -134,8 +134,7 @@ public enum BaseChain {
         if (chain.equals(IOV_TEST.chainName)) {
             return IOV_TEST.chainName;
         }
-        if (chain.equals(OK_TEST_LEGACY.chainName) ||
-                chain.equals(OK_TEST.chainName)) {
+        if (chain.equals(OK_TEST.chainName)) {
             return OK_TEST.chainName;
         }
         return null;

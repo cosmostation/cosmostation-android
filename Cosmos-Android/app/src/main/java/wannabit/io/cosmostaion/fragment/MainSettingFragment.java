@@ -195,7 +195,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://testnet-explorer.binance.org/"));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.oklink.com/okchain-test/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.oklink.com/okexchain-test/"));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://kava-testnet-9000.mintscan.io/"));

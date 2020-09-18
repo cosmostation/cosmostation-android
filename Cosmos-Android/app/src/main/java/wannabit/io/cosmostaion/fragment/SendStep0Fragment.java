@@ -191,7 +191,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
-                if (userInput.startsWith("okchain") && WKey.isValidBech32(userInput)) {
+                if (userInput.startsWith("okexchain") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {

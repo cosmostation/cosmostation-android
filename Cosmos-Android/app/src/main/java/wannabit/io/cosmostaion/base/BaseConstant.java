@@ -204,11 +204,11 @@ public class BaseConstant {
     public final static String BNB_MSG_TYPE_HTLC_REFUND                     = "tokens/RefundHTLTMsg";
 
 
-    public final static String OK_MSG_TYPE_TRANSFER                         = "okchain/token/MsgTransfer";
-    public final static String OK_MSG_TYPE_MULTI_TRANSFER                   = "okchain/token/MsgMultiTransfer";
-    public final static String OK_MSG_TYPE_DEPOSIT                          = "okchain/staking/MsgDeposit";
-    public final static String OK_MSG_TYPE_WITHDRAW                         = "okchain/staking/MsgWithdraw";
-    public final static String OK_MSG_TYPE_DIRECT_VOTE                      = "okchain/staking/MsgAddShares";
+    public final static String OK_MSG_TYPE_TRANSFER                         = "okexchain/token/MsgTransfer";
+    public final static String OK_MSG_TYPE_MULTI_TRANSFER                   = "okexchain/token/MsgMultiTransfer";
+    public final static String OK_MSG_TYPE_DEPOSIT                          = "okexchain/staking/MsgDeposit";
+    public final static String OK_MSG_TYPE_WITHDRAW                         = "okexchain/staking/MsgWithdraw";
+    public final static String OK_MSG_TYPE_DIRECT_VOTE                      = "okexchain/staking/MsgAddShares";
 
     public final static String IOV_KIND_SEND                                = "bcp/send";
 

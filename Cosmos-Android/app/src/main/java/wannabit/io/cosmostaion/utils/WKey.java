@@ -194,7 +194,7 @@ public class WKey {
             } else if (chain.equals(IOV_MAIN) ||chain.equals(IOV_TEST)){
                 result = bech32Encode("star".getBytes(), converted);
             } else if (chain.equals(OK_TEST)){
-                result = bech32Encode("okchain".getBytes(), converted);
+                result = bech32Encode("okexchain".getBytes(), converted);
             }
 
         } catch (Exception e) {
@@ -215,7 +215,7 @@ public class WKey {
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return bech32Encode("star".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OK_TEST)) {
-            return bech32Encode("okchain".getBytes(), bech32Decode(dpOpAddress).data);
+            return bech32Encode("okexchain".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
@@ -233,7 +233,7 @@ public class WKey {
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return bech32Encode("starvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OK_TEST)) {
-            return bech32Encode("okchainvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+            return bech32Encode("okexchainvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }

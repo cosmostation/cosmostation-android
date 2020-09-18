@@ -255,7 +255,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (mBaseChain.equals(KAVA_TEST)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://kava-testnet-9000.mintscan.io/txs/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(OK_TEST)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.oklink.com/okchain-test/tx/" + mResTxInfo.txhash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.oklink.com/okexchain-test/tx/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(BAND_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://cosmoscan.io/tx/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(IOV_MAIN)) {
