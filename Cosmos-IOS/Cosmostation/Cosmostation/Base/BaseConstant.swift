@@ -684,7 +684,10 @@ enum ChainType: String {
     }
     
     static func IS_SUPPORT_CHAIN(_ chainS: String) -> Bool {
-        return SUPPRT_CHAIN().contains(WUtils.getChainType(chainS))
+        if let chainS = WUtils.getChainType(chainS) {
+            return SUPPRT_CHAIN().contains(chainS)
+        }
+        return false
     }
     
     static func getHtlcSendable(_ chain: ChainType) -> Array<ChainType> {

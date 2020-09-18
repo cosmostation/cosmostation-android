@@ -1641,7 +1641,7 @@ class WUtils {
     
     
     
-    static func getChainColor(_ chain:ChainType) -> UIColor {
+    static func getChainColor(_ chain:ChainType?) -> UIColor {
         if (chain == ChainType.COSMOS_MAIN) {
             return COLOR_ATOM
         } else if (chain == ChainType.IRIS_MAIN) {
@@ -1717,7 +1717,7 @@ class WUtils {
         return ""
     }
     
-    static func setDenomTitle(_ chain:ChainType, _ label:UILabel) {
+    static func setDenomTitle(_ chain: ChainType?, _ label: UILabel) {
         if (chain == ChainType.COSMOS_MAIN) {
             label.text = "ATOM"
             label.textColor = COLOR_ATOM
@@ -1742,7 +1742,7 @@ class WUtils {
         }
     }
     
-    static func getChainType(_ chainS:String) -> ChainType {
+    static func getChainType(_ chainS:String) -> ChainType? {
         if (chainS == CHAIN_COSMOS_S ) {
             return ChainType.COSMOS_MAIN
         } else if (chainS == CHAIN_IRIS_S) {
@@ -1764,7 +1764,7 @@ class WUtils {
         } else if (chainS == CHAIN_OKEX_TEST_S) {
             return ChainType.OKEX_TEST
         }
-        return ChainType.COSMOS_MAIN
+        return nil
     }
     
     static func getChainDBName(_ chain:ChainType) -> String {
