@@ -480,15 +480,15 @@
 "tx_kava_incentive_reward" = "Crypto Payday\nParticipate";
 "tx_known" = "Unknown";
 
-"chain_title_cosmos" = "COSMOS Hub";
-"chain_title_iris" = "IRIS Hub";
-"chain_title_bnb" = "Binance Chain";
+"chain_title_cosmos" = "Cosmos Mainnet";
+"chain_title_iris" = "Iris Mainnet";
+"chain_title_bnb" = "Binance Mainnet";
 "chain_title_kava" = "Kava Mainnet";
-"chain_title_iov" = "IOV Mainnet";
+"chain_title_iov" = "Starname Mainnet";
 "chain_title_band" = "Band Mainnet";
 "chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
-"chain_title_iov_test" = "IOV Testnet";
-"chain_title_ok_test" = "OK Testnet";
+"chain_title_iov_test" = "Starname Testnet";
+"chain_title_okex_test" = "Okex Testnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";

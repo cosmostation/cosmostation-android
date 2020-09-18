@@ -75,8 +75,8 @@ class OkMyValidatorViewController: BaseViewController, UITableViewDelegate, UITa
             self.onShowAddMenomicDialog()
             return
         }
-        if (chainType! == ChainType.OK_TEST) {
-            if (WUtils.getTokenAmount(mainTabVC.mBalances, OK_TEST_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+        if (chainType! == ChainType.OKEX_TEST) {
+            if (WUtils.getTokenAmount(mainTabVC.mBalances, OKEX_TEST_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }

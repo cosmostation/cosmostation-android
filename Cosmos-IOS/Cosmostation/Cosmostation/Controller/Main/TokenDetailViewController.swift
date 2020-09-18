@@ -81,7 +81,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 keyState.tintColor = COLOR_BNB
             } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 keyState.tintColor = COLOR_KAVA
-            } else if (chainType == ChainType.OK_TEST) {
+            } else if (chainType == ChainType.OKEX_TEST) {
                 keyState.tintColor = COLOR_OK
             }
         }
@@ -100,7 +100,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             onFetchApiHistory(account!.account_address, balance!.balance_denom)
             
-        } else if (chainType == ChainType.OK_TEST) {
+        } else if (chainType == ChainType.OKEX_TEST) {
             self.refresher.endRefreshing()
             
         }
@@ -137,8 +137,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
             
-        } else if (chainType! == ChainType.OK_TEST) {
-            guard let url = URL(string: "https://www.oklink.com/okchain-test/address/" + account!.account_address) else { return }
+        } else if (chainType! == ChainType.OKEX_TEST) {
+            guard let url = URL(string: "https://www.oklink.com/okexchain-test/address/" + account!.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
             safariViewController.modalPresentationStyle = .popover
             present(safariViewController, animated: true, completion: nil)
@@ -164,7 +164,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             return mBnbHistories.count + 1
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             return mApiHistories.count + 1
-        } else if (chainType == ChainType.OK_TEST) {
+        } else if (chainType == ChainType.OKEX_TEST) {
             return 1
         }
         return 0
@@ -188,7 +188,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             } else if (chainType == ChainType.KAVA_TEST && balance?.balance_denom == KAVA_MAIN_DENOM) {
                 return onSetKavaTestItem(tableView, indexPath);
                 
-            } else if (chainType == ChainType.OK_TEST && self.okDenom == OK_TEST_DENOM) {
+            } else if (chainType == ChainType.OKEX_TEST && self.okDenom == OKEX_TEST_DENOM) {
                 return onSetOkItem(tableView, indexPath);
                 
             } else {
@@ -405,8 +405,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:TokenDetailHeaderOkCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderOkCell") as? TokenDetailHeaderOkCell
         cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
         let totalAmount = WUtils.getAllOkt(balances, BaseData.instance.mOkDeposit, BaseData.instance.mOkWithdraw)
-        let availableAmount = WUtils.availableAmount(balances, OK_TEST_DENOM)
-        let lockedAmount = WUtils.lockedAmount(balances, OK_TEST_DENOM)
+        let availableAmount = WUtils.availableAmount(balances, OKEX_TEST_DENOM)
+        let lockedAmount = WUtils.lockedAmount(balances, OKEX_TEST_DENOM)
         let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkDeposit)
         let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkWithdraw)
         
@@ -511,7 +511,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell?.btnBep3Send.isHidden = true
             }
             
-        } else if (chainType == ChainType.OK_TEST && okDenom != nil) {
+        } else if (chainType == ChainType.OKEX_TEST && okDenom != nil) {
             cell?.tokenInfoBtn.isHidden = false
             okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList, okDenom!)
             cell?.tokenSymbol.text = okToken?.original_symbol.uppercased()
@@ -525,7 +525,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
             
             cell?.actionTokenInfo = {
-                guard let url = URL(string: "https://www.oklink.com/okchain-test/token/" + self.okToken!.symbol) else { return }
+                guard let url = URL(string: "https://www.oklink.com/okexchain-test/token/" + self.okToken!.symbol) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 safariViewController.modalPresentationStyle = .popover
                 self.present(safariViewController, animated: true, completion: nil)
@@ -740,8 +740,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             txVC.mKavaSendDenom = self.balance?.balance_denom
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.OK_TEST) {
-            if (WUtils.getTokenAmount(balances, OK_TEST_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
+            if (WUtils.getTokenAmount(balances, OKEX_TEST_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
@@ -780,14 +780,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: FEE_BEP3_SEND_CHECK)).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            
-        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            print("", WUtils.getTokenAmount(balances, BNB_MAIN_DENOM))
-            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).multiplying(byPowerOf10: -8).compare(NSDecimalNumber.init(string: FEE_BEP3_SEND_MIN)).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: GAS_FEE_BNB_TRANSFER)).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }

@@ -186,8 +186,8 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         iovTestAction.setValue(UIImage(named: "iovTestnetImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
-        let okTestAction = UIAlertAction(title: NSLocalizedString("chain_title_ok_test", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.OK_TEST
+        let okTestAction = UIAlertAction(title: NSLocalizedString("chain_title_okex_test", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.OKEX_TEST
             self.initViewUpdate()
         })
         okTestAction.setValue(UIImage(named: "okexTestnetImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
@@ -208,7 +208,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_TEST)) {
             showAlert.addAction(iovTestAction)
         }
-        if (ChainType.SUPPRT_CHAIN().contains(ChainType.OK_TEST)) {
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.OKEX_TEST)) {
             showAlert.addAction(okTestAction)
         }
         self.present(showAlert, animated: true, completion: nil)

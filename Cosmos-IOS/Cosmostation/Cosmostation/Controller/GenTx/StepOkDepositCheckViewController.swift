@@ -51,7 +51,7 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.OK_TEST) {
+        if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             toDepositAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mOkToDeposit.amount, toDepositAmountLabel.font, 0, 8)
             feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 0, 8)
         }
@@ -79,14 +79,14 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.OK_TEST) {
-            url = OK_TEST_ACCOUNT_INFO + account.account_address
+        if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_ACCOUNT_INFO + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.OK_TEST) {
+                if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -119,7 +119,7 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
-                if (self.pageHolderVC.chainType! == ChainType.OK_TEST) {
+                if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
@@ -157,8 +157,8 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     var url: String?
-                    if (self.pageHolderVC.chainType! == ChainType.OK_TEST) {
-                        url = OK_TEST_BORAD_TX
+                    if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+                        url = OKEX_TEST_BORAD_TX
                     }
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in

@@ -25,7 +25,7 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
         pageHolderVC = self.parent as? StepGenTxViewController
         WUtils.setDenomTitle(pageHolderVC.chainType!, denomTitleLabel)
         
-        if (pageHolderVC.chainType! == ChainType.OK_TEST) {
+        if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             userAvailable = WUtils.okDepositAmount(BaseData.instance.mOkDeposit)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userAvailable.stringValue, availableAmountLabel.font, 0, 8)
         }
@@ -109,8 +109,8 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
         if (isValiadAmount()) {
             let userInput = WUtils.localeStringToDecimal((toWithdrawAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
             var toWithdrawCoin: Coin?
-            if (pageHolderVC.chainType! == ChainType.OK_TEST) {
-                toWithdrawCoin = Coin.init(OK_TEST_DENOM, WUtils.getFormattedNumber(userInput, 8))
+            if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+                toWithdrawCoin = Coin.init(OKEX_TEST_DENOM, WUtils.getFormattedNumber(userInput, 8))
             }
             
             self.pageHolderVC.mOkToWithdraw = toWithdrawCoin!

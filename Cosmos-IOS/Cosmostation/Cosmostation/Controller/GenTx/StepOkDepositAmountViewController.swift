@@ -25,8 +25,8 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
         pageHolderVC = self.parent as? StepGenTxViewController
         WUtils.setDenomTitle(pageHolderVC.chainType!, denomTitleLabel)
         
-        if (pageHolderVC.chainType! == ChainType.OK_TEST) {
-            userAvailable = WUtils.getTokenAmount(pageHolderVC.mBalances, OK_TEST_DENOM).subtracting(NSDecimalNumber.one)
+        if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+            userAvailable = WUtils.getTokenAmount(pageHolderVC.mBalances, OKEX_TEST_DENOM).subtracting(NSDecimalNumber.one)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userAvailable.stringValue, availableAmountLabel.font, 0, 8)
         }
         toDepositAmountInput.delegate = self
@@ -108,9 +108,11 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
     @IBAction func onClickNext(_ sender: UIButton) {
         if (isValiadAmount()) {
             let userInput = WUtils.localeStringToDecimal((toDepositAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
+            print("userInput ", userInput)
+            print("getFormattedNumber ", WUtils.getFormattedNumber(userInput, 8))
             var toDepositCoin: Coin?
-            if (pageHolderVC.chainType! == ChainType.OK_TEST) {
-                toDepositCoin = Coin.init(OK_TEST_DENOM, WUtils.getFormattedNumber(userInput, 8))
+            if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+                toDepositCoin = Coin.init(OKEX_TEST_DENOM, WUtils.getFormattedNumber(userInput, 8))
             }
             
             self.pageHolderVC.mOkToDeposit = toDepositCoin!

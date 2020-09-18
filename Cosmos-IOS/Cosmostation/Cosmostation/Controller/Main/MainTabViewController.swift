@@ -276,7 +276,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             
-        } else if (mChainType == ChainType.OK_TEST) {
+        } else if (mChainType == ChainType.OKEX_TEST) {
             self.mFetchCnt = 6
             BaseData.instance.mOkDeposit = OkDeposit.init()
             BaseData.instance.mOkWithdraw = OkWithdraw.init()
@@ -344,7 +344,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.hideWaittingAlert()
                 return
                 
-            } else if (mChainType == ChainType.OK_TEST) {
+            } else if (mChainType == ChainType.OKEX_TEST) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 
@@ -382,7 +382,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
                 
-            } else if (mChainType == ChainType.OK_TEST) {
+            } else if (mChainType == ChainType.OKEX_TEST) {
                 self.mMyValidators.removeAll()
                 for validator in mAllValidator {
                     for myVal in BaseData.instance.mOkDeposit.validator_address {
@@ -391,12 +391,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         }
                     }
                 }
-//                print("OK_TEST mAllValidator ", mAllValidator.count)
-//                print("OK_TEST mTopValidators ", mTopValidators.count)
-//                print("OK_TEST mOtherValidators ", mOtherValidators.count)
-//                print("OK_TEST mMyValidators ", mMyValidators.count)
-//                print("OK_TEST mAccount ", mAccount.account_address)
-//                print("OK_TEST mBalances ", mBalances.count)
+//                print("OKEX_TEST mAllValidator ", mAllValidator.count)
+//                print("OKEX_TEST mTopValidators ", mTopValidators.count)
+//                print("OKEX_TEST mOtherValidators ", mOtherValidators.count)
+//                print("OKEX_TEST mMyValidators ", mMyValidators.count)
+//                print("OKEX_TEST mAccount ", mAccount.account_address)
+//                print("OKEX_TEST mBalances ", mBalances.count)
                 
                 BaseData.instance.mAllValidator = mAllValidator
                 BaseData.instance.mTopValidator = mTopValidators
@@ -463,14 +463,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_VALIDATORS
         } else if (mChainType == ChainType.IOV_TEST) {
             url = IOV_TEST_VALIDATORS
-        } else if (mChainType == ChainType.OK_TEST) {
-            url = OK_TEST_VALIDATORS
+        } else if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.mChainType == ChainType.OK_TEST) {
+                if (self.mChainType == ChainType.OKEX_TEST) {
                     guard let validators = res as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return
@@ -510,14 +510,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_VALIDATORS
         } else if (mChainType == ChainType.IOV_TEST) {
             url = IOV_TEST_VALIDATORS
-        } else if (mChainType == ChainType.OK_TEST) {
-            url = OK_TEST_VALIDATORS
+        } else if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonding"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.mChainType == ChainType.OK_TEST) {
+                if (self.mChainType == ChainType.OKEX_TEST) {
                     guard let validators = res as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return
@@ -573,8 +573,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchOkValidatorsInfo() {
         var url: String?
-        if (mChainType == ChainType.OK_TEST) {
-            url = OK_TEST_VALIDATORS
+        if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"all"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -616,8 +616,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.IOV_TEST) {
             url = IOV_TEST_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.OK_TEST) {
-            url = OK_TEST_ACCOUNT_INFO + account.account_address
+        } else if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_ACCOUNT_INFO + account.account_address
         }
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -666,7 +666,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, kavaAccountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, kavaAccountInfo))
                     
-                } else if (self.mChainType == ChainType.OK_TEST) {
+                } else if (self.mChainType == ChainType.OKEX_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.onFetchFinished()
@@ -1096,7 +1096,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             //TODO No price info for IOV
             BaseData.instance.setPriceTicCgc(nil)
             return
-        } else if (mChainType == ChainType.OK_TEST) {
+        } else if (mChainType == ChainType.OKEX_TEST) {
             //TODO No price info for OK
             BaseData.instance.setPriceTicCgc(nil)
             return
@@ -1293,8 +1293,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchOkAccountTokens(_ account: Account) {
         var url: String?
-        if (mChainType == ChainType.OK_TEST) {
-            url = OK_TEST_ACCOUNT_TOKENS  + account.account_address
+        if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_ACCOUNT_TOKENS  + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -1317,8 +1317,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchOkDeposit(_ account: Account) {
         var url: String?
-        if (mChainType == ChainType.OK_TEST) {
-            url = OK_TEST_DEPOSIT  + account.account_address
+        if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_DEPOSIT  + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -1340,8 +1340,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchOkWithdraw(_ account: Account) {
         var url: String?
-        if (mChainType == ChainType.OK_TEST) {
-            url = OK_TEST_WITHDRAW  + account.account_address + OK_TEST_WITHDRAW_TAIL
+        if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_WITHDRAW  + account.account_address + OKEX_TEST_WITHDRAW_TAIL
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -1363,8 +1363,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchOkTokenList() {
         var url: String?
-        if (mChainType == ChainType.OK_TEST) {
-            url = OK_TEST_TOKEN_LIST
+        if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_TOKEN_LIST
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in

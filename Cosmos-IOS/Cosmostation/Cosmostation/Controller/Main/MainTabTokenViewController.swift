@@ -140,9 +140,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = COLOR_BG_GRAY
-        } else if (chainType! == ChainType.OK_TEST) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
             titleChainImg.image = UIImage(named: "okexTestnetImg")
-            titleChainName.text = "(Okchain Testnet)"
+            titleChainName.text = "(Okex Testnet)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = COLOR_BG_GRAY
@@ -207,7 +207,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             onFetchIovTokenPrice()
             updateFloaty()
             
-        } else if (chainType! == ChainType.OK_TEST) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
             onFetchOkTokenPrice()
             updateFloaty()
             
@@ -246,7 +246,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             floaty.fabDelegate = self
             self.view.addSubview(floaty)
             
-        } else if (chainType! == ChainType.OK_TEST) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
             let floaty = Floaty()
             floaty.buttonImage = UIImage.init(named: "faucetBtn")
             floaty.buttonColor = COLOR_OK
@@ -341,7 +341,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.OK_TEST) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
             let allOk = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkDeposit, BaseData.instance.mOkWithdraw)
             totalAmount.attributedText = WUtils.displayAmount2(allOk.stringValue, totalAmount.font, 0, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allOk, BaseData.instance.getLastPrice(), 0, totalValue.font)
@@ -369,7 +369,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetIovItems(tableView, indexPath)
         } else if (chainType! == ChainType.BAND_MAIN) {
             return onSetBandItems(tableView, indexPath)
-        } else if (chainType! == ChainType.OK_TEST) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
             return onSetOkItems(tableView, indexPath)
         }
         return onSetCosmosItems(tableView, indexPath)
@@ -408,7 +408,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (chainType! == ChainType.BAND_MAIN) {
             //TODO IOV toekn details
             
-        } else if (chainType! == ChainType.OK_TEST) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
             tokenDetailVC.okDenom = mainTabVC.mBalances[indexPath.row].balance_denom
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
         }
@@ -602,7 +602,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
         let okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList, balance.balance_denom)
-        if (balance.balance_denom == OK_TEST_DENOM) {
+        if (balance.balance_denom == OKEX_TEST_DENOM) {
             cell?.tokenImg.image = UIImage(named: "okexTokenImg")
             cell?.tokenSymbol.textColor = COLOR_OK
             let tokenAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkDeposit, BaseData.instance.mOkWithdraw)
@@ -762,7 +762,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
             }
             
-        } else if (chainType! == ChainType.OK_TEST) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
             guard let url = URL(string: "https://www.okex.com/drawdex") else { return }
             let safariViewController = SFSafariViewController(url: url)
             safariViewController.modalPresentationStyle = .popover
@@ -861,12 +861,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.balance_denom < $1.balance_denom
             }
-        } else if (chainType! == ChainType.OK_TEST) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == OK_TEST_DENOM) {
+                if ($0.balance_denom == OKEX_TEST_DENOM) {
                     return true
                 }
-                if ($1.balance_denom == OK_TEST_DENOM){
+                if ($1.balance_denom == OKEX_TEST_DENOM){
                     return false
                 }
                 return $0.balance_denom < $1.balance_denom
@@ -927,12 +927,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return WUtils.localeStringToDecimal($0.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($0.balance_denom)).compare(WUtils.localeStringToDecimal($1.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($1.balance_denom))).rawValue > 0 ? true : false
             }
             
-        } else if (chainType! == ChainType.OK_TEST) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == OK_TEST_DENOM) {
+                if ($0.balance_denom == OKEX_TEST_DENOM) {
                     return true
                 }
-                if ($1.balance_denom == OK_TEST_DENOM){
+                if ($1.balance_denom == OKEX_TEST_DENOM){
                     return false
                 }
                 return WUtils.localeStringToDecimal($0.balance_amount).adding(WUtils.localeStringToDecimal($0.balance_locked)).stringValue > WUtils.localeStringToDecimal($1.balance_amount).adding(WUtils.localeStringToDecimal($1.balance_locked)).stringValue
@@ -971,7 +971,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam!).compare($1.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam!)).rawValue > 0 ? true : false
             }
-        } else if (chainType! == ChainType.OK_TEST) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
             
         }
         

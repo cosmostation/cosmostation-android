@@ -492,6 +492,6 @@
 "chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
 "chain_title_iov_test" = "Starname Testnet";
-"chain_title_ok_test" = "Okchain Testnet";
+"chain_title_okex_test" = "Okex Testnet";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";

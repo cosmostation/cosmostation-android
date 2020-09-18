@@ -656,7 +656,7 @@ class WUtils {
         nf.locale = Locale(identifier: "en_US")
         nf.numberStyle = .decimal
         
-        let formatted = nf.string(from: amount)
+        let formatted = nf.string(from: amount)?.replacingOccurrences(of: ",", with: "" )
         return formatted!
     }
     
@@ -1263,7 +1263,7 @@ class WUtils {
     static func getAllOkt(_ balances:Array<Balance>, _ deposit:OkDeposit, _ withdraw:OkWithdraw) -> NSDecimalNumber {
         var sum = NSDecimalNumber.zero
         for balance in balances {
-            if (balance.balance_denom == OK_TEST_DENOM) {
+            if (balance.balance_denom == OKEX_TEST_DENOM) {
                 sum = sum.adding(localeStringToDecimal(balance.balance_amount))
                 sum = sum.adding(localeStringToDecimal(balance.balance_locked))
             }
@@ -1504,8 +1504,8 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
-        } else if (chainType == ChainType.OK_TEST) {
-            if (coin.denom == OK_TEST_DENOM) {
+        } else if (chainType == ChainType.OKEX_TEST) {
+            if (coin.denom == OKEX_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white
@@ -1579,8 +1579,8 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
-        } else if (chainType == ChainType.OK_TEST) {
-            if (denom == OK_TEST_DENOM) {
+        } else if (chainType == ChainType.OKEX_TEST) {
+            if (denom == OKEX_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white
@@ -1654,7 +1654,7 @@ class WUtils {
             return COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND
-        } else if (chain == ChainType.OK_TEST) {
+        } else if (chain == ChainType.OKEX_TEST) {
             return COLOR_OK
         }
         return COLOR_ATOM
@@ -1673,7 +1673,7 @@ class WUtils {
             return COLOR_IOV_DARK
         } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND_DARK
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OK_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST) {
             return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
@@ -1692,7 +1692,7 @@ class WUtils {
             return TRANS_BG_COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return TRANS_BG_COLOR_BAND
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OK_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST) {
             return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
@@ -1711,7 +1711,7 @@ class WUtils {
             return "IOV"
         } else if (chain == ChainType.BAND_MAIN) {
             return "BAND"
-        } else if (chain == ChainType.OK_TEST) {
+        } else if (chain == ChainType.OKEX_TEST) {
             return "TOKT"
         }
         return ""
@@ -1736,7 +1736,7 @@ class WUtils {
         } else if (chain == ChainType.BAND_MAIN) {
             label.text = "BAND"
             label.textColor = COLOR_BAND
-        } else if (chain == ChainType.OK_TEST) {
+        } else if (chain == ChainType.OKEX_TEST) {
             label.text = "TOKT"
             label.textColor = COLOR_OK
         }
@@ -1761,8 +1761,8 @@ class WUtils {
             return ChainType.BINANCE_TEST
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return ChainType.IOV_TEST
-        } else if (chainS == CHAIN_OK_TEST_S) {
-            return ChainType.OK_TEST
+        } else if (chainS == CHAIN_OKEX_TEST_S) {
+            return ChainType.OKEX_TEST
         }
         return ChainType.COSMOS_MAIN
     }
@@ -1786,8 +1786,8 @@ class WUtils {
             return CHAIN_KAVA_TEST_S
         } else if (chain == ChainType.IOV_TEST) {
             return CHAIN_IOV_TEST_S
-        } else if (chain == ChainType.OK_TEST) {
-            return CHAIN_OK_TEST_S
+        } else if (chain == ChainType.OKEX_TEST) {
+            return CHAIN_OKEX_TEST_S
         }
         return ""
     }
@@ -1842,8 +1842,8 @@ class WUtils {
             return "kava-testnet-9000"
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return "iovns-galaxynet"
-        } else if (chainS == CHAIN_OK_TEST_S) {
-            return "okchain-testnet1"
+        } else if (chainS == CHAIN_OKEX_TEST_S) {
+            return "okexchain-testnet1"
         }
         return ""
     }
@@ -1867,8 +1867,8 @@ class WUtils {
             return "kava-testnet-9000"
         } else if (chain == ChainType.IOV_TEST) {
             return "iovns-galaxynet"
-        } else if (chain == ChainType.OK_TEST) {
-            return "okchain-testnet1"
+        } else if (chain == ChainType.OKEX_TEST) {
+            return "okexchain-testnet1"
         }
         return ""
     }
@@ -2011,7 +2011,7 @@ class WUtils {
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_LOW))
             }
-        } else if (chain == ChainType.OK_TEST) {
+        } else if (chain == ChainType.OKEX_TEST) {
             result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))
             if (type == OK_MSG_TYPE_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))

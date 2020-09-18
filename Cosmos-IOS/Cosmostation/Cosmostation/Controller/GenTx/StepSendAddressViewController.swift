@@ -119,8 +119,8 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.OK_TEST) {
-            if (!userInput!.starts(with: "okchain") || !WKey.isValidateBech32(userInput!)) {
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+            if (!userInput!.starts(with: "okexchain") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }

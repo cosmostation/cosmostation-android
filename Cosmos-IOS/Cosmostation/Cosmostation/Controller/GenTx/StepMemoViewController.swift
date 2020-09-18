@@ -98,7 +98,7 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerD
     func textViewDidChange(_ textView: UITextView) {
         let byteArray = [UInt8](textView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OK_TEST) {
+            chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST) {
             memoCntLabel.text = String(byteArray.count) + "/255 byte"
             if (byteArray.count > 255) {
                 self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
@@ -118,7 +118,7 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerD
     func isValiadMemoSize() -> Bool {
         let byteArray = [UInt8](memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OK_TEST) {
+            chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST) {
             if (byteArray.count > 255) {
                 return false
             }

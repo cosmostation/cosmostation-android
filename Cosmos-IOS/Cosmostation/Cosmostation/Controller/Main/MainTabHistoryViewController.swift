@@ -59,7 +59,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             self.comingLabel.isHidden = false
-        } else if (chainType == ChainType.OK_TEST) {
+        } else if (chainType == ChainType.OKEX_TEST) {
             self.comingLabel.isHidden = false
             self.historyTableView.isHidden = true
         }
@@ -122,9 +122,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "iovTestnetImg")
             titleChainName.text = "(Starname Testnet)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.OK_TEST) {
+        } else if (chainType! == ChainType.OKEX_TEST) {
             titleChainImg.image = UIImage(named: "okexTestnetImg")
-            titleChainName.text = "(Okchain Testnet)"
+            titleChainName.text = "(Okex Testnet)"
             titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
@@ -157,7 +157,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             self.comingLabel.isHidden = false
-        } else if (chainType == ChainType.OK_TEST) {
+        } else if (chainType == ChainType.OKEX_TEST) {
             self.comingLabel.isHidden = false
         }
     }

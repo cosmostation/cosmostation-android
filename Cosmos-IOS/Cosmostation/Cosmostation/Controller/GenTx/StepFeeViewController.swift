@@ -99,7 +99,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
             self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
             
-        } else if (pageHolderVC.chainType! == ChainType.OK_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             self.minFeeCardView.isHidden = true
             self.rateFeeCardView.isHidden = false
             
@@ -402,8 +402,8 @@ class StepFeeViewController: BaseViewController {
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
             
-        } else if (pageHolderVC.chainType! == ChainType.OK_TEST) {
-            feeCoin = Coin.init(OK_TEST_DENOM, WUtils.getFormattedNumber(feeAmount, 8))
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+            feeCoin = Coin.init(OKEX_TEST_DENOM, WUtils.getFormattedNumber(feeAmount, 8))
             var fee = Fee.init()
             var estGas = ""
             if ((pageHolderVC.mType == OK_MSG_TYPE_DEPOSIT || pageHolderVC.mType == OK_MSG_TYPE_WITHDRAW) && BaseData.instance.mOkDeposit.validator_address.count > 0) {

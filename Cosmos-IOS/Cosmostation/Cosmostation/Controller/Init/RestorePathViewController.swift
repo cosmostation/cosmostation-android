@@ -57,7 +57,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             } else {
                 cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
             }
-        } else if (userChain == ChainType.OK_TEST) {
+        } else if (userChain == ChainType.OKEX_TEST) {
             cell?.pathLabel.text = OK_BASE_PATH.appending(String(indexPath.row))
         }
         
@@ -258,9 +258,9 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         }
                     }
                     
-                } else if (self.userChain == ChainType.OK_TEST) {
+                } else if (self.userChain == ChainType.OKEX_TEST) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 8)
-                    let request = Alamofire.request(OK_TEST_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    let request = Alamofire.request(OKEX_TEST_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):
@@ -269,7 +269,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             }
                             let accountInfo = AccountInfo.init(info)
                             let balances = WUtils.getBalancesWithAccountInfo(accountInfo)
-                            let available = WUtils.getTokenAmount(balances, OK_TEST_DENOM)
+                            let available = WUtils.getTokenAmount(balances, OKEX_TEST_DENOM)
                             cell?.denomAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.denomAmount.font!, 0, 8)
                             
                         case .failure(let error):

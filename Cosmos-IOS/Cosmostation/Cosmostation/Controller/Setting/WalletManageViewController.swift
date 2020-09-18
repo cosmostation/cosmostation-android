@@ -176,12 +176,12 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainImg.image = UIImage(named: "iovTestnetImg")
                     cell?.chainName.text = "STARNAME TEST"
                     
-                } else if (selectedChain == ChainType.OK_TEST) {
+                } else if (selectedChain == ChainType.OKEX_TEST) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "okexTestnetImg")
-                    cell?.chainName.text = "OK TEST"
+                    cell?.chainName.text = "OKEX TEST"
                 }
             }
             return cell!

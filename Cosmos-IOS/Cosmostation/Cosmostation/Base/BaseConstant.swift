@@ -59,8 +59,8 @@ let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band-wenchang-mainnet.cosmostation.io/";
 
 
-let OK_TEST_URL                        = "https://lcd-okchain-testnet.cosmostation.io/";
-let OK_TEST_API                        = "";
+let OKEX_TEST_URL                        = "https://lcd-okexchain-testnet1.cosmostation.io/";
+let OKEX_TEST_API                        = "";
 
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
@@ -284,16 +284,16 @@ let IOV_TEST_BORAD_TX                   = IOV_TEST_URL + "txs";
 //let IOV_TEST_CHECK_WITH_STARNAME        = IOV_URL + "starname/query/resolve";
 
 
-//OK_TEST_URL
-let OK_TEST_TX                          = OK_TEST_URL + "txs/";
-let OK_TEST_VALIDATORS                  = OK_TEST_URL + "staking/validators";
-let OK_TEST_ACCOUNT_INFO                = OK_TEST_URL + "auth/accounts/";
-let OK_TEST_ACCOUNT_TOKENS              = OK_TEST_URL + "accounts/";
-let OK_TEST_TOKEN_LIST                  = OK_TEST_URL + "tokens";
-let OK_TEST_DEPOSIT                     = OK_TEST_URL + "staking/delegators/";
-let OK_TEST_WITHDRAW                    = OK_TEST_URL + "staking/delegators/";
-let OK_TEST_WITHDRAW_TAIL               = "/unbonding_delegations";
-let OK_TEST_BORAD_TX                    = OK_TEST_URL + "txs";
+//OKEX_TEST_URL
+let OKEX_TEST_TX                          = OKEX_TEST_URL + "txs/";
+let OKEX_TEST_VALIDATORS                  = OKEX_TEST_URL + "staking/validators";
+let OKEX_TEST_ACCOUNT_INFO                = OKEX_TEST_URL + "auth/accounts/";
+let OKEX_TEST_ACCOUNT_TOKENS              = OKEX_TEST_URL + "accounts/";
+let OKEX_TEST_TOKEN_LIST                  = OKEX_TEST_URL + "tokens";
+let OKEX_TEST_DEPOSIT                     = OKEX_TEST_URL + "staking/delegators/";
+let OKEX_TEST_WITHDRAW                    = OKEX_TEST_URL + "staking/delegators/";
+let OKEX_TEST_WITHDRAW_TAIL               = "/unbonding_delegations";
+let OKEX_TEST_BORAD_TX                    = OKEX_TEST_URL + "txs";
 
 
 
@@ -464,11 +464,11 @@ let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
 let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
 
-let OK_MSG_TYPE_TRANSFER                    = "okchain/token/MsgTransfer";
-let OK_MSG_TYPE_MULTI_TRANSFER              = "okchain/token/MsgMultiTransfer";
-let OK_MSG_TYPE_DEPOSIT                     = "okchain/staking/MsgDeposit";
-let OK_MSG_TYPE_WITHDRAW                    = "okchain/staking/MsgWithdraw";
-let OK_MSG_TYPE_DIRECT_VOTE                 = "okchain/staking/MsgAddShares";
+let OK_MSG_TYPE_TRANSFER                    = "okexchain/token/MsgTransfer";
+let OK_MSG_TYPE_MULTI_TRANSFER              = "okexchain/token/MsgMultiTransfer";
+let OK_MSG_TYPE_DEPOSIT                     = "okexchain/staking/MsgDeposit";
+let OK_MSG_TYPE_WITHDRAW                    = "okexchain/staking/MsgWithdraw";
+let OK_MSG_TYPE_DIRECT_VOTE                 = "okexchain/staking/MsgAddShares";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
@@ -556,7 +556,6 @@ let GAS_FEE_AMOUNT_IRIS_REWARD_MUX          = "5000"
 let GAS_FEE_BNB_TRANSFER                    = "0.000375"
 let FEE_BEP3_RELAY_FEE                      = "0.00001"
 let FEE_BEP3_SEND_MIN                       = "0.10000"
-let FEE_BEP3_SEND_CHECK                     = "0.100375"
 
 let KAVA_GAS_FEE_AMOUNT_LOW                 = "150000"
 let KAVA_GAS_FEE_AMOUNT_SEND                = "200000"
@@ -666,7 +665,7 @@ enum ChainType: String {
     case BINANCE_TEST
     case KAVA_TEST
     case IOV_TEST
-    case OK_TEST
+    case OKEX_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
@@ -680,7 +679,7 @@ enum ChainType: String {
         result.append(BINANCE_TEST)
         result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
-        result.append(OK_TEST)
+        result.append(OKEX_TEST)
         return result
     }
     
@@ -736,7 +735,7 @@ let CHAIN_BAND_S = "SUPPORT_CHAIN_BAND_MAIN"
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
-let CHAIN_OK_TEST_S = "SUPPORT_CHAIN_OK_TEST"
+let CHAIN_OKEX_TEST_S = "SUPPORT_CHAIN_OKEX_TEST"
 
 
 let COSMOS_MAIN_DENOM = "uatom"
@@ -747,7 +746,7 @@ let IOV_MAIN_DENOM = "uiov"
 let KAVA_MAIN_DENOM = "ukava"
 let BAND_MAIN_DENOM = "uband"
 let IOV_TEST_DENOM = "uvoi"
-let OK_TEST_DENOM = "tokt"
+let OKEX_TEST_DENOM = "tokt"
 
 
 
