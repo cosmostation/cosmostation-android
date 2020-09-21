@@ -302,7 +302,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/votes/" + address
         }
-        print("url ", url)
+//        print("url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
