@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Tally;
@@ -42,7 +43,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_IRIS_VOTE_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MY_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_DETAIL;
@@ -50,6 +50,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_PROP
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_TALLY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_VOTED;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_IRIS_PROPOSAL_DETAIL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.model.type.Proposal.PROPOSAL_VOTING;
 
 public class VoteDetailsActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -140,7 +142,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                if (!mProposal.proposal_status.equals(Proposal.PROPOSAL_VOTING)) {
+                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -151,7 +153,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                if (!mIrisProposal.value.basicProposal.proposal_status.equals(Proposal.PROPOSAL_VOTING)) {
+                if (!mIrisProposal.value.basicProposal.proposal_status.equals(PROPOSAL_VOTING)) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -301,6 +303,11 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 holder.itemStartTime.setText(mProposal.getStartTime(getBaseContext()));
                 holder.itemFinishTime.setText(mProposal.getEndTime(getBaseContext()));
                 holder.itemMsg.setText(mProposal.content.value.description);
+                if (mProposal.content.value.amount != null) {
+                    ArrayList<Coin> requestCoin = mProposal.content.value.amount;
+                    WDp.showCoinDp(getBaseContext(), requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount, mBaseChain);
+                    holder.itemRequestLayer.setVisibility(View.VISIBLE);
+                }
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mIrisProposal != null) {
                 holder.itemStatusImg.setImageDrawable(mIrisProposal.getStatusImg(getBaseContext()));
@@ -343,12 +350,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
             if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) && mTally != null) {
                 tally = mTally;
-
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mIrisProposal != null && mIrisProposal.hasTally()) {
-                tally = mIrisProposal.value.basicProposal.tally_result ;
-            }
-
-            if (tally != null) {
                 holder.itemYesProgress.setProgress(tally.getYesPer().intValue());
                 holder.itemNoProgress.setProgress(tally.getNoPer().intValue());
                 holder.itemVetoProgress.setProgress(tally.getVetoPer().intValue());
@@ -359,34 +360,48 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 holder.itemVetoRate.setText(WDp.getDpString(tally.getVetoPer().toPlainString() + "%", 3));
                 holder.itemAbstainRate.setText(WDp.getDpString(tally.getAbstainPer().toPlainString() + "%", 3));
 
-                holder.itemYesCnt.setText(""+ WUtil.getVoterTypeCnt(mVotes, Vote.OPTION_YES));
-                holder.itemNoCnt.setText(""+WUtil.getVoterTypeCnt(mVotes, Vote.OPTION_NO));
-                holder.itemVetoCnt.setText(""+WUtil.getVoterTypeCnt(mVotes, Vote.OPTION_VETO));
-                holder.itemAbstainCnt.setText(""+WUtil.getVoterTypeCnt(mVotes, Vote.OPTION_ABSTAIN));
+                if (mProposal != null && mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
+                    onDisplayVote(holder);
+                    holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
+                    holder.itemTurnout.setText(WDp.getDpString(tally.getTurnout(getBaseDao().mStakingPool).toPlainString() + "%", 3));
+                }
 
-                if (mMyVote != null) {
-                    holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
-                    holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
-                    holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
-                    holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mIrisProposal != null && mIrisProposal.hasTally()) {
+                tally = mIrisProposal.value.basicProposal.tally_result ;
+                holder.itemYesProgress.setProgress(tally.getYesPer().intValue());
+                holder.itemNoProgress.setProgress(tally.getNoPer().intValue());
+                holder.itemVetoProgress.setProgress(tally.getVetoPer().intValue());
+                holder.itemAbstainProgress.setProgress(tally.getAbstainPer().intValue());
 
-                    if (mMyVote.option.equals(Vote.OPTION_YES)) {
-                        holder.itemYesDone.setVisibility(View.VISIBLE);
-                        holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                holder.itemYesRate.setText(WDp.getDpString(tally.getYesPer().toPlainString() + "%", 3));
+                holder.itemNoRate.setText(WDp.getDpString(tally.getNoPer().toPlainString() + "%", 3));
+                holder.itemVetoRate.setText(WDp.getDpString(tally.getVetoPer().toPlainString() + "%", 3));
+                holder.itemAbstainRate.setText(WDp.getDpString(tally.getAbstainPer().toPlainString() + "%", 3));
+                onDisplayVote(holder);
+            }
 
-                    } else if (mMyVote.option.equals(Vote.OPTION_NO)) {
-                        holder.itemNoDone.setVisibility(View.VISIBLE);
-                        holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+            if (mMyVote != null) {
+                holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+                holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+                holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+                holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
 
-                    } else if (mMyVote.option.equals(Vote.OPTION_VETO)) {
-                        holder.itemVetoDone.setVisibility(View.VISIBLE);
-                        holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                if (mMyVote.option.equals(Vote.OPTION_YES)) {
+                    holder.itemYesDone.setVisibility(View.VISIBLE);
+                    holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_voted));
 
-                    } else if (mMyVote.option.equals(Vote.OPTION_ABSTAIN)) {
-                        holder.itemAbstainDone.setVisibility(View.VISIBLE);
-                        holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                } else if (mMyVote.option.equals(Vote.OPTION_NO)) {
+                    holder.itemNoDone.setVisibility(View.VISIBLE);
+                    holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
 
-                    }
+                } else if (mMyVote.option.equals(Vote.OPTION_VETO)) {
+                    holder.itemVetoDone.setVisibility(View.VISIBLE);
+                    holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+
+                } else if (mMyVote.option.equals(Vote.OPTION_ABSTAIN)) {
+                    holder.itemAbstainDone.setVisibility(View.VISIBLE);
+                    holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+
                 }
             }
 
@@ -399,6 +414,21 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             startActivity(webintent);
         }
 
+        private void onDisplayVote(VoteTallyHolder holder) {
+            holder.itemYesCnt.setText(""+ WUtil.getVoterTypeCnt(mVotes, Vote.OPTION_YES));
+            holder.itemNoCnt.setText(""+WUtil.getVoterTypeCnt(mVotes, Vote.OPTION_NO));
+            holder.itemVetoCnt.setText(""+WUtil.getVoterTypeCnt(mVotes, Vote.OPTION_VETO));
+            holder.itemAbstainCnt.setText(""+WUtil.getVoterTypeCnt(mVotes, Vote.OPTION_ABSTAIN));
+            holder.itemYesCnt.setVisibility(View.VISIBLE);
+            holder.itemNoCnt.setVisibility(View.VISIBLE);
+            holder.itemVetoCnt.setVisibility(View.VISIBLE);
+            holder.itemAbstainCnt.setVisibility(View.VISIBLE);
+            holder.itemYesCntImg.setVisibility(View.VISIBLE);
+            holder.itemNoCntImg.setVisibility(View.VISIBLE);
+            holder.itemVetoCntImg.setVisibility(View.VISIBLE);
+            holder.itemAbstainCntImg.setVisibility(View.VISIBLE);
+        }
+
 
 
         public class VoteInfoHolder extends RecyclerView.ViewHolder {
@@ -407,6 +437,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             private ImageView itemWebBtn;
             private TextView itemTitle, itemProposer, itemType, itemStartTime, itemFinishTime, itemMsg;
             private ImageView itemExpendBtn;
+            private RelativeLayout itemRequestLayer;
+            private TextView itemRequestAmount, itemRequestAmountDenom;
 
             public VoteInfoHolder(@NonNull View itemView) {
                 super(itemView);
@@ -420,6 +452,9 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 itemFinishTime = itemView.findViewById(R.id.vote_endTime);
                 itemMsg = itemView.findViewById(R.id.vote_msg);
                 itemExpendBtn = itemView.findViewById(R.id.vote_btn_expend);
+                itemRequestLayer = itemView.findViewById(R.id.request_amount_layer);
+                itemRequestAmount = itemView.findViewById(R.id.request_amount);
+                itemRequestAmountDenom = itemView.findViewById(R.id.request_amount_denom);
             }
         }
 
@@ -429,6 +464,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             private ProgressBar itemYesProgress, itemNoProgress, itemVetoProgress, itemAbstainProgress;
             private TextView itemYesRate, itemYesCnt, itemNoRate, itemNoCnt, itemVetoRate, itemVetoCnt, itemAbstainRate, itemAbstainCnt;
             private ImageView itemYesCntImg, itemNoCntImg, itemVetoCntImg, itemAbstainCntImg;
+            private RelativeLayout itemTurnoutLayer;
+            private TextView itemTurnout;
 
             public VoteTallyHolder(@NonNull View itemView) {
                 super(itemView);
@@ -456,6 +493,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 itemNoCntImg = itemView.findViewById(R.id.vote_no_cnt_img);
                 itemVetoCntImg = itemView.findViewById(R.id.vote_veto_cnt_img);
                 itemAbstainCntImg = itemView.findViewById(R.id.vote_abstain_cnt_img);
+                itemTurnoutLayer = itemView.findViewById(R.id.turnout_layer);
+                itemTurnout = itemView.findViewById(R.id.current_turnout);
             }
         }
     }

@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkDeposit;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkWithdraw;
+import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -53,6 +54,8 @@ public class BaseData {
     public ArrayList<Validator> mAllValidators = new ArrayList<>();
     public ArrayList<Validator> mTopValidators = new ArrayList<>();
     public ArrayList<Validator> mOtherValidators = new ArrayList<>();
+    public ResStakingPool       mStakingPool;
+
 
     //COMMON DATA
     public ResLcdKavaAccountInfo.Result                                     mKavaAccount;

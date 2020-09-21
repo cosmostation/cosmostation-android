@@ -49,6 +49,12 @@ public class Proposal {
 
         @SerializedName("description")
         public String description;
+
+        @SerializedName("recipient")
+        public String recipient;
+
+        @SerializedName("amount")
+        public ArrayList<Coin> amount;
     }
 
 

@@ -461,6 +461,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         mFetchCallback = callback;
         mOtherValidators.clear();
         mAllValidators.clear();
+        getBaseDao().mStakingPool = null;
 
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mTaskCount = 9;
@@ -654,6 +655,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) ||
                         mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
                     mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
+                    getBaseDao().mStakingPool = (ResStakingPool)result.resultData;
                 }
             } catch (Exception e) {}
 

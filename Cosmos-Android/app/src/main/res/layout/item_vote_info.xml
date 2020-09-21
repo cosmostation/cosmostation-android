@@ -163,6 +163,44 @@
                     style="@style/font_ss_12_white"/>
             </RelativeLayout>
 
+
+            <RelativeLayout
+                android:id="@+id/request_amount_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginLeft="@dimen/space_16"
+                android:layout_marginRight="@dimen/space_16"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/request_amount_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_request_amount"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/request_amount_title">
+                    <TextView
+                        android:id="@+id/request_amount_denom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="ATOM"
+                        style="@style/font_ss_12_atom"/>
+                    <TextView
+                        android:id="@+id/request_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/request_amount_denom"
+                        android:layout_toLeftOf="@+id/request_amount_denom"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="-"
+                        style="@style/font_ss_12_white"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
