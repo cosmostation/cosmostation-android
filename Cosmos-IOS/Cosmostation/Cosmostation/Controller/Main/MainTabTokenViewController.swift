@@ -146,6 +146,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = COLOR_BG_GRAY
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            titleChainImg.image = UIImage(named: "certikTestnetImg")
+            titleChainName.text = "(Certik Testnet)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = COLOR_BG_GRAY
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {

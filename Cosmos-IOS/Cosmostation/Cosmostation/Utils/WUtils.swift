@@ -186,7 +186,7 @@ class WUtils {
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
@@ -204,7 +204,7 @@ class WUtils {
     static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 for entry in unbondinginfo.entries {
@@ -1512,6 +1512,15 @@ class WUtils {
                 denomLabel.text = coin.denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 0, 8)
+            
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            if (coin.denom == CERTIK_TEST_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
         }
     }
     
@@ -1587,6 +1596,15 @@ class WUtils {
                 denomLabel.text = denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 0, 8)
+            
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            if (denom == CERTIK_TEST_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
         }
     }
     
@@ -1656,6 +1674,8 @@ class WUtils {
             return COLOR_BAND
         } else if (chain == ChainType.OKEX_TEST) {
             return COLOR_OK
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return COLOR_CERTIK
         }
         return COLOR_ATOM
     }
@@ -1673,7 +1693,7 @@ class WUtils {
             return COLOR_IOV_DARK
         } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND_DARK
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
@@ -1692,7 +1712,7 @@ class WUtils {
             return TRANS_BG_COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return TRANS_BG_COLOR_BAND
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
@@ -1713,6 +1733,8 @@ class WUtils {
             return "BAND"
         } else if (chain == ChainType.OKEX_TEST) {
             return "TOKT"
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return "CTK"
         }
         return ""
     }
@@ -1739,6 +1761,9 @@ class WUtils {
         } else if (chain == ChainType.OKEX_TEST) {
             label.text = "TOKT"
             label.textColor = COLOR_OK
+        } else if (chain == ChainType.CERTIK_TEST) {
+            label.text = "CTK"
+            label.textColor = COLOR_CERTIK
         }
     }
     
@@ -1763,6 +1788,8 @@ class WUtils {
             return ChainType.IOV_TEST
         } else if (chainS == CHAIN_OKEX_TEST_S) {
             return ChainType.OKEX_TEST
+        } else if (chainS == CHAIN_CERTIK_TEST_S) {
+            return ChainType.CERTIK_TEST
         }
         return nil
     }
@@ -1788,6 +1815,8 @@ class WUtils {
             return CHAIN_IOV_TEST_S
         } else if (chain == ChainType.OKEX_TEST) {
             return CHAIN_OKEX_TEST_S
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return CHAIN_CERTIK_TEST_S
         }
         return ""
     }
@@ -1844,6 +1873,8 @@ class WUtils {
             return "iovns-galaxynet"
         } else if (chainS == CHAIN_OKEX_TEST_S) {
             return "okexchain-testnet1"
+        } else if (chainS == CHAIN_CERTIK_TEST_S) {
+            return "shentu-incentivized-3"
         }
         return ""
     }
@@ -1869,6 +1900,8 @@ class WUtils {
             return "iovns-galaxynet"
         } else if (chain == ChainType.OKEX_TEST) {
             return "okexchain-testnet1"
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return "shentu-incentivized-3"
         }
         return ""
     }

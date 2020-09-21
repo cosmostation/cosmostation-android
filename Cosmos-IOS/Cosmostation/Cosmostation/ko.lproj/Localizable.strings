@@ -493,5 +493,6 @@
 "chain_title_kava_test" = "Kava Testnet";
 "chain_title_iov_test" = "Starname Testnet";
 "chain_title_okex_test" = "Okex Testnet";
+"chain_title_certik_test" = "Certik Testnet";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";

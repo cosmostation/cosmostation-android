@@ -126,6 +126,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "okexTestnetImg")
             titleChainName.text = "(Okex Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            titleChainImg.image = UIImage(named: "certikTestnetImg")
+            titleChainName.text = "(Certik Testnet)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
