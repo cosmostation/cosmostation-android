@@ -60,6 +60,7 @@
     <string name="str_starname_recipient_address">스타네임 또는 수취인 주소</string>
     <string name="str_recipient_chain">수취인 체인</string>
     <string name="str_claim_address">수신 요청 주소</string>
+    <string name="str_done">완료</string>
     <string name="str_dismiss">닫기</string>
     <string name="str_memo">메모</string>
     <string name="str_fees">Tx 수수료</string>
