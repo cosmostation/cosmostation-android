@@ -124,8 +124,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             String userInput = mAddressInput.getText().toString().trim();
 
             if (WUtil.isValidStarName(userInput)) {
-                //TODO gogo starname
-                onCheckNameService(userInput, getSActivity().mBaseChain);
+                onCheckNameService(userInput.toLowerCase(), getSActivity().mBaseChain);
                 return;
             }
 
