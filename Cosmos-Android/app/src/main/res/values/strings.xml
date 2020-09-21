@@ -147,6 +147,7 @@
     <string name="str_starname_recipient_address">StarName or Recipient Address</string>
     <string name="str_recipient_chain">Recipient Chain</string>
     <string name="str_claim_address">Claim Address</string>
+    <string name="str_done">Done</string>
     <string name="str_dismiss">Dismiss</string>
     <string name="str_memo">Memo</string>
     <string name="str_fees">Fee</string>
