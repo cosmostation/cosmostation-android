@@ -314,6 +314,9 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+        } else {
+            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
+            return
         }
         
         let title = NSLocalizedString("reward_address_notice_title", comment: "")

@@ -386,7 +386,7 @@
 "error_redelegation_limitted" = "You have redelegated to this validator in the past 21 days.";
 "error_max_account_over" = "Max account is 5.";
 "error_iris_token_yet" = "Iris token sending will support soon!";
-"error_kava_yet" = "Support soon!";
+"error_support_soon" = "Support soon!";
 "error_kava_vesting_account" = "Vesting account. Please use cli for correct Tx.";
 "error_send_disable" = "Token transfer is locked.";
 "error_not_voting_not" = "Can not vote now.";

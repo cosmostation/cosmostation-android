@@ -477,8 +477,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
                    
         } else if (chainType == ChainType.CERTIK_TEST) {
-            //TODO
+            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
             return
+            
+        } else {
+            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
+            return
+            
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController

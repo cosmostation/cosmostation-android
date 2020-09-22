@@ -1414,6 +1414,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else {
+            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
         }
         
@@ -1477,6 +1478,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else {
+            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
         }
         
@@ -1536,6 +1538,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
             
         } else {
+            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
         }
     }
@@ -1692,6 +1695,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
         } else {
+            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
         }
         
@@ -1831,6 +1835,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else {
+            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
         }
         self.onFetchRewardAddress(account!.account_address)
