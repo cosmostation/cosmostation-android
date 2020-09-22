@@ -153,6 +153,8 @@
 		2888B800246BCA3200B2EB4A /* KavaSwapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B7FF246BCA3200B2EB4A /* KavaSwapInfo.swift */; };
 		2888B802246CE35D00B2EB4A /* StepHtlcRefund0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B801246CE35D00B2EB4A /* StepHtlcRefund0ViewController.swift */; };
 		2888B804246CE37200B2EB4A /* StepHtlcRefund3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B803246CE37200B2EB4A /* StepHtlcRefund3ViewController.swift */; };
+		288A14DD25199A9800E17808 /* WalletCertikCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288A14DB25199A9800E17808 /* WalletCertikCell.swift */; };
+		288A14E125199C6200E17808 /* WalletCertikCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 288A14E325199C6200E17808 /* WalletCertikCell.xib */; };
 		28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908F6823F69BD100164030 /* EdgeInsetLabel.swift */; };
 		289DF170242DD90300433CF4 /* CdpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */; };
 		289DF178242DDF3800433CF4 /* CdpDetailTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */; };
@@ -542,6 +544,9 @@
 		2888B7FF246BCA3200B2EB4A /* KavaSwapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapInfo.swift; sourceTree = "<group>"; };
 		2888B801246CE35D00B2EB4A /* StepHtlcRefund0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcRefund0ViewController.swift; sourceTree = "<group>"; };
 		2888B803246CE37200B2EB4A /* StepHtlcRefund3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcRefund3ViewController.swift; sourceTree = "<group>"; };
+		288A14DB25199A9800E17808 /* WalletCertikCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCertikCell.swift; sourceTree = "<group>"; };
+		288A14E225199C6200E17808 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletCertikCell.xib; sourceTree = "<group>"; };
+		288A14E725199C6500E17808 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletCertikCell.strings; sourceTree = "<group>"; };
 		28908F6823F69BD100164030 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
 		289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailViewController.swift; sourceTree = "<group>"; };
 		289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailTopCell.swift; sourceTree = "<group>"; };
@@ -1265,6 +1270,8 @@
 				28663BEE248A4FB000080311 /* WalletBandCell.xib */,
 				283D2EAD24F5742000247424 /* WalletOkCell.swift */,
 				283D2EAE24F5742000247424 /* WalletOkCell.xib */,
+				288A14DB25199A9800E17808 /* WalletCertikCell.swift */,
+				288A14E325199C6200E17808 /* WalletCertikCell.xib */,
 				2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */,
 				2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */,
 				28A209DD248897F400C2C078 /* WalletVestingDetailCell.swift */,
@@ -1493,6 +1500,7 @@
 				2842AB6F242C5C7200248EEB /* CdpLisyMyCell.xib in Resources */,
 				E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */,
 				E103DACE22813248006C2146 /* WalletDetailViewController.xib in Resources */,
+				288A14E125199C6200E17808 /* WalletCertikCell.xib in Resources */,
 				282FF35223F5172E0028CC66 /* TxTransferCell.xib in Resources */,
 				283A80C324513F6F008FF813 /* CdpListAllCell.xib in Resources */,
 				E126CFA02387A643002A546F /* WalletInflationCell.xib in Resources */,
@@ -1735,6 +1743,7 @@
 				E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */,
 				282FF35923F52FD40028CC66 /* TxRewardCell.swift in Sources */,
 				2868559724989AB80099D18F /* CdpWarnPopup.swift in Sources */,
+				288A14DD25199A9800E17808 /* WalletCertikCell.swift in Sources */,
 				2842AB63242C37F300248EEB /* CdpDeposits.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
 				2868559B24989ACD0099D18F /* DelegateWarnPopup.swift in Sources */,
@@ -1973,6 +1982,15 @@
 				2877B8FC240E2A0E00EFE369 /* ko */,
 			);
 			name = TxDetailViewController.xib;
+			sourceTree = "<group>";
+		};
+		288A14E325199C6200E17808 /* WalletCertikCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				288A14E225199C6200E17808 /* Base */,
+				288A14E725199C6500E17808 /* ko */,
+			);
+			name = WalletCertikCell.xib;
 			sourceTree = "<group>";
 		};
 		E103DAA52281266D006C2146 /* ValidatorDetailCell.xib */ = {

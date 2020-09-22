@@ -62,6 +62,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.OKEX_TEST) {
             self.comingLabel.isHidden = false
             self.historyTableView.isHidden = true
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            self.comingLabel.isHidden = false
+            self.historyTableView.isHidden = true
         }
         
         self.comingLabel.isUserInteractionEnabled = true
@@ -162,6 +165,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             self.comingLabel.isHidden = false
         } else if (chainType == ChainType.OKEX_TEST) {
+            self.comingLabel.isHidden = false
+        } else if (chainType == ChainType.CERTIK_TEST) {
             self.comingLabel.isHidden = false
         }
     }

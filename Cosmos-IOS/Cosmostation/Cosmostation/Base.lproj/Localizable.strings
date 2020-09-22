@@ -119,8 +119,10 @@
 "send_guide_msg_iov" = "Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.";
 "send_guide_title_band" = "BAND PROTOCOL";
 "send_guide_msg_band" = "Cross-chain oracle platform based on Tendermint. Aggregates and connects real-world data and APIs to smart contracts.";
-"send_guide_title_ok" = "OK CHAIN";
-"send_guide_msg_ok" = "OK Chain is a public decentralized exchange powered by Tendermint.";
+"send_guide_title_ok" = "OKEX CHAIN";
+"send_guide_msg_ok" = "Okex Chain is a public decentralized exchange powered by Tendermint.";
+"send_guide_title_certik" = "CERTIK";
+"send_guide_msg_certik" = "Okex Chain is a public decentralized exchange powered by Tendermint.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -128,6 +130,7 @@
 "send_guide_btn1_iov" = "Star Name";
 "send_guide_btn1_band" = "Home";
 "send_guide_btn1_ok" = "Market";
+"send_guide_btn1_certik" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -135,6 +138,7 @@
 "send_guide_btn2_iov" = "Blog";
 "send_guide_btn2_band" = "Blog";
 "send_guide_btn2_ok" = "Communities";
+"send_guide_btn2_certik" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";

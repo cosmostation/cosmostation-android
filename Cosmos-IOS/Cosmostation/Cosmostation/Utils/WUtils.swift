@@ -594,7 +594,7 @@ class WUtils {
         if (amount == NSDecimalNumber.zero) {
             formatted = nf.string(from: NSDecimalNumber.zero)
         } else if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
@@ -1218,19 +1218,19 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == BAND_MAIN_DENOM) {
-                amount = localeStringToDecimal(balance.balance_amount)
+                amount = NSDecimalNumber.init(string: balance.balance_amount)
             }
         }
         for bonding in bondings {
             amount = amount.adding(bonding.getBondingAmount(validators))
         }
         for unbonding in unbondings {
-            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
+            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
         }
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == BAND_MAIN_DENOM) {
-                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1241,19 +1241,42 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == IOV_MAIN_DENOM || balance.balance_denom == IOV_TEST_DENOM) {
-                amount = localeStringToDecimal(balance.balance_amount)
+                amount = NSDecimalNumber.init(string: balance.balance_amount)
             }
         }
         for bonding in bondings {
             amount = amount.adding(bonding.getBondingAmount(validators))
         }
         for unbonding in unbondings {
-            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
+            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
         }
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == IOV_MAIN_DENOM || coin.denom == IOV_TEST_DENOM) {
-                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
+                }
+            }
+        }
+        return amount
+    }
+    
+    static func getAllCertik(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == CERTIK_TEST_DENOM) {
+                amount = NSDecimalNumber.init(string: balance.balance_amount)
+            }
+        }
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        for unbonding in unbondings {
+            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
+        }
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == CERTIK_TEST_DENOM) {
+                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }

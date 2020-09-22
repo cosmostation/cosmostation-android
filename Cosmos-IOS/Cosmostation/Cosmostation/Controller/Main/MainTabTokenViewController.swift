@@ -217,6 +217,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             onFetchOkTokenPrice()
             updateFloaty()
             
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            onFetchCertikTokenPrice()
         }
         
     }
@@ -352,6 +354,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allOk.stringValue, totalAmount.font, 0, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allOk, BaseData.instance.getLastPrice(), 0, totalValue.font)
             
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            let allCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            totalAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(allCtk, BaseData.instance.getLastPrice(), 0, totalValue.font)
             
         }
     }
@@ -377,6 +383,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetBandItems(tableView, indexPath)
         } else if (chainType! == ChainType.OKEX_TEST) {
             return onSetOkItems(tableView, indexPath)
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            return onSetCertikItems(tableView, indexPath)
         }
         return onSetCosmosItems(tableView, indexPath)
     }
@@ -409,14 +417,17 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
         } else if (chainType! == ChainType.IOV_MAIN) {
-            //TODO IOV toekn details
+            //TODO IOV tokens details
             
         } else if (chainType! == ChainType.BAND_MAIN) {
-            //TODO IOV toekn details
+            //TODO Band tokens details
             
         } else if (chainType! == ChainType.OKEX_TEST) {
             tokenDetailVC.okDenom = mainTabVC.mBalances[indexPath.row].balance_denom
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+            
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            //TODO Certik tokens details
         }
         
     }
@@ -630,7 +641,27 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenDescription.text = okToken?.description
             cell?.tokenTitle.text = "(" + okToken!.symbol + ")"
         }
-        
+        return cell!
+    }
+    
+    func onSetCertikItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == CERTIK_TEST_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "certikTokenImg")
+            cell?.tokenSymbol.text = "CTK"
+            cell?.tokenSymbol.textColor = COLOR_CERTIK
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenDescription.text = "Certik Chain Native Token"
+            let allCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allCtk, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
         return cell!
     }
     
@@ -679,6 +710,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchOkTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    func onFetchCertikTokenPrice() {
         self.onUpdateTotalCard()
     }
     
