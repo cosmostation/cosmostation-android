@@ -97,10 +97,6 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         if let validator = self.mainTabVC.mOtherValidators[indexPath.row] as? Validator {
             let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
             validatorDetailVC.mValidator = validator
-            validatorDetailVC.mInflation = mainTabVC.mInflation
-            validatorDetailVC.mProvision = mainTabVC.mProvision
-            validatorDetailVC.mStakingPool = mainTabVC.mStakingPool
-            validatorDetailVC.mIrisStakePool = mainTabVC.mIrisStakePool
             validatorDetailVC.mIsTop100 = mainTabVC.mTopValidators.contains(where: {$0.operator_address == validator.operator_address})
             validatorDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
@@ -164,6 +160,17 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 cell.validatorImg.image = image
             }
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
+            cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
+            let url = CERTIK_VAL_URL + validator.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell.validatorImg.image = image
+            }
+            
         }
         
         cell.monikerLabel.text = validator.description.moniker
@@ -190,6 +197,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
             } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
+            } else if (chainType == ChainType.CERTIK_TEST) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
             }
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY

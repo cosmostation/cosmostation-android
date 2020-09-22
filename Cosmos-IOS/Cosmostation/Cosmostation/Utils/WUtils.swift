@@ -1061,7 +1061,7 @@ class WUtils {
         var formatted = ""
         var endIndex: String.Index?
         if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN || baseChain == ChainType.KAVA_TEST ||
-            baseChain == ChainType.BAND_MAIN || baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST) {
+            baseChain == ChainType.BAND_MAIN || baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"), withBehavior: handler12)) ?? "0"
@@ -1095,7 +1095,7 @@ class WUtils {
         var formatted = ""
         var endIndex: String.Index?
         if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN || baseChain == ChainType.KAVA_TEST ||
-            baseChain == ChainType.BAND_MAIN || baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST) {
+            baseChain == ChainType.BAND_MAIN || baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"), withBehavior: handler12)) ?? "0"

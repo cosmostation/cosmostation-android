@@ -29,10 +29,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mPriceTic: NSDictionary?
     var mFetchCnt = 0
     
-    var mInflation: String?
-    var mProvision: String?
-    var mStakingPool: NSDictionary?
-    var mIrisStakePool: NSDictionary?
     var mIrisTokenList = Array<IrisToken>()
     
 //    var mBnbTokenList = Array<BnbToken>()
@@ -896,7 +892,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_INFLATION
         }
-        self.mInflation = nil
+        BaseData.instance.mInflation = nil
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -907,7 +903,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         self.onFetchFinished()
                         return;
                 }
-                self.mInflation = inflation.replacingOccurrences(of: "\"", with: "")
+                BaseData.instance.mInflation = inflation.replacingOccurrences(of: "\"", with: "")
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchInflation ", error) }
@@ -933,7 +929,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_PROVISIONS
         }
-        self.mProvision = nil
+        BaseData.instance.mProvision = nil
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -944,7 +940,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         self.onFetchFinished()
                         return;
                 }
-                self.mProvision = provisions.replacingOccurrences(of: "\"", with: "")
+                BaseData.instance.mProvision = provisions.replacingOccurrences(of: "\"", with: "")
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchProvision ", error) }
@@ -970,7 +966,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_STAKING_POOL
         }
-        self.mStakingPool = nil
+        BaseData.instance.mStakingPool = nil
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -981,7 +977,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         self.onFetchFinished()
                         return;
                 }
-                self.mStakingPool = stakingPool
                 BaseData.instance.mStakingPool = stakingPool
                 
             case .failure(let error):
@@ -993,12 +988,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchIrisPool() {
         let url = IRIS_LCD_URL_STAKING_POOL
+        BaseData.instance.mIrisStakePool = nil
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 if let irisStakePool = res as? NSDictionary {
-                    self.mIrisStakePool = irisStakePool
+                    BaseData.instance.mIrisStakePool = irisStakePool
                 }
             case .failure(let error):
                 if (SHOW_LOG) { print("irisStakePool ", error) }

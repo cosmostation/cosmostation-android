@@ -57,6 +57,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         refresher.tintColor = UIColor.white
         validatorDetailTableView.addSubview(refresher)
         
+        self.mInflation = BaseData.instance.mInflation
+        self.mProvision = BaseData.instance.mProvision
+        self.mStakingPool = BaseData.instance.mStakingPool
+        self.mIrisStakePool = BaseData.instance.mIrisStakePool
+        
         self.loadingImg.onStartAnimation()
         self.onFech()
         
@@ -132,6 +137,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            mUnbondings.removeAll()
+            mRewards.removeAll()
+            mFetchCnt = 4
+            onFetchValidatorInfo(mValidator!)
+            onFetchSignleBondingInfo(account!, mValidator!)
+            onFetchSignleUnBondingInfo(account!, mValidator!)
+            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
         }
         
     }
@@ -140,13 +153,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         self.mFetchCnt = self.mFetchCnt - 1
 //        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
-//            print("onFetchFinished mBonding ", mBonding)
-//            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
-//            print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
-//            print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
-//            print("onFetchFinished mUnbondings ", mUnbondings.count)
-//            print("onFetchFinished mRewards ", mRewards.count)
-//            print("onFetchFinished mHistories ", mHistories.count)
+            print("onFetchFinished mBonding ", mBonding)
+            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
+            print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
+            print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
+            print("onFetchFinished mUnbondings ", mUnbondings.count)
+            print("onFetchFinished mRewards ", mRewards.count)
+            print("onFetchFinished mHistories ", mHistories.count)
 
             if((mBonding != nil && NSDecimalNumber.init(string: mBonding?.bonding_shares) != NSDecimalNumber.zero) || mUnbondings.count > 0) {
                 mMyValidator = true
@@ -279,10 +292,22 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 cell!.validatorImg.image = image
             }
+            
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = IOV_VAL_URL + mValidator!.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell!.validatorImg.image = image
+            }
+            
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
+            let url = CERTIK_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
                 guard let image = response.result.value else {
                     return
@@ -342,6 +367,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell!.avergaeYield.text = "?? %"
             }
             
+        } else if (mIsTop100 && chainType == ChainType.CERTIK_TEST) {
+            if (mStakingPool != nil && mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
+            } else {
+                cell!.avergaeYield.text = "?? %"
+            }
         } else {
             cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
             cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
@@ -426,6 +459,17 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 cell!.validatorImg.image = image
             }
+            
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
+            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
+            let url = CERTIK_VAL_URL + mValidator!.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell!.validatorImg.image = image
+            }
         }
         
         if (mSelfBondingShare != nil) {
@@ -473,6 +517,16 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (mIsTop100 && (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST)) {
+            if (mStakingPool != nil && mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
+
+            } else {
+                cell!.avergaeYield.text = "?? %"
+            }
+            
+        } else if (mIsTop100 && chainType == ChainType.CERTIK_TEST) {
             if (mStakingPool != nil && mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
@@ -634,6 +688,27 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, 6)
             }
             
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            if (mBonding != nil) {
+                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, 6)
+            } else {
+                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, 6)
+            }
+            if (mUnbondings.count > 0) {
+                var unbondSum = NSDecimalNumber.zero
+                for unbonding in mUnbondings {
+                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
+                }
+                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, 6)
+            } else {
+                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, 6)
+            }
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, CERTIK_TEST_DENOM)
+                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(rewardSum.stringValue, cell!.myRewardAmount.font, 6, 6)
+            } else {
+                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, 6)
+            }
         }
         
         if (mIsTop100 && chainType == ChainType.COSMOS_MAIN) {
@@ -686,6 +761,17 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (mIsTop100 && (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST)) {
+            if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
+                let provisions = NSDecimalNumber.init(string: mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
+                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
+            } else {
+                cell!.myDailyReturns.text = "-"
+                cell!.myMonthlyReturns.text = "-"
+            }
+            
+        } else if (mIsTop100 && chainType == ChainType.CERTIK_TEST) {
             if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
                 let provisions = NSDecimalNumber.init(string: mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
@@ -835,13 +921,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_VALIDATORS + "/" + validator.operator_address
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_VALIDATORS + "/" + validator.operator_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
+                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let validator = responseData.object(forKey: "result") as? NSDictionary else {
                         self.onFetchFinished()
@@ -880,13 +968,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_BONDING + account.account_address + IOV_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_BONDING + account.account_address + IOV_TEST_BONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_BONDING + account.account_address + CERTIK_TEST_BONDING_TAIL + "/" + validator.operator_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
+                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawData = responseData.object(forKey: "result") as? [String : Any] else {
                         self.onFetchFinished()
@@ -932,13 +1022,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_UNBONDING + account.account_address + IOV_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_UNBONDING + account.account_address + IOV_TEST_UNBONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_UNBONDING + account.account_address + CERTIK_TEST_UNBONDING_TAIL + "/" + validator.operator_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
+                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawData = responseData.object(forKey: "result") as? [String : Any] else {
                         self.onFetchFinished()
@@ -981,13 +1073,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_REWARD_FROM_VAL + account.account_address + IOV_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_FROM_VAL + account.account_address + IOV_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_REWARD_FROM_VAL + account.account_address + CERTIK_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
+                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.onFetchFinished()
@@ -1108,13 +1202,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_BONDING + address + IOV_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_BONDING + address + IOV_TEST_BONDING_TAIL + "/" + vAddress
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_BONDING + address + CERTIK_TEST_BONDING_TAIL + "/" + vAddress
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
+                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawData = responseData.object(forKey: "result") as? [String : Any] else {
                         self.onFetchFinished()
@@ -1151,13 +1247,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_REDELEGATION;
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REDELEGATION;
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_REDELEGATION;
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["delegator":address, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
+                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     if let responseData = res as? NSDictionary,
                         let redelegateHistories = responseData.object(forKey: "result") as? Array<NSDictionary> {
                         if (redelegateHistories.count > 0) {
@@ -1215,6 +1313,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_REWARD_ADDRESS + accountAddr + CERTIK_TEST_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         
@@ -1239,7 +1339,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
             }
         } else if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-            self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
+            self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):

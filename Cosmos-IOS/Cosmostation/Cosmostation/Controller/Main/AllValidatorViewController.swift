@@ -19,8 +19,18 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     
+    var mInflation: String?
+    var mProvision: String?
+    var mStakingPool: NSDictionary?
+    var mIrisStakePool: NSDictionary?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mInflation = BaseData.instance.mInflation
+        self.mProvision = BaseData.instance.mProvision
+        self.mStakingPool = BaseData.instance.mStakingPool
+        self.mIrisStakePool = BaseData.instance.mIrisStakePool
+        
         self.allValidatorTableView.delegate = self
         self.allValidatorTableView.dataSource = self
         self.allValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -57,6 +67,10 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
+        self.mInflation = BaseData.instance.mInflation
+        self.mProvision = BaseData.instance.mProvision
+        self.mStakingPool = BaseData.instance.mStakingPool
+        self.mIrisStakePool = BaseData.instance.mIrisStakePool
         self.onSorting()
         self.refresher.endRefreshing()
     }
@@ -110,10 +124,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         if let validator = self.mainTabVC.mTopValidators[indexPath.row] as? Validator {
             let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
             validatorDetailVC.mValidator = validator
-            validatorDetailVC.mInflation = mainTabVC.mInflation
-            validatorDetailVC.mProvision = mainTabVC.mProvision
-            validatorDetailVC.mStakingPool = mainTabVC.mStakingPool
-            validatorDetailVC.mIrisStakePool = mainTabVC.mIrisStakePool
             validatorDetailVC.mIsTop100 = mainTabVC.mTopValidators.contains(where: {$0.operator_address == validator.operator_address})
             validatorDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
@@ -126,9 +136,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         if (chainType == ChainType.COSMOS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: self.mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
                 cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
             } else {
                 cell.commissionLabel.text = "-"
@@ -143,9 +153,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
 
         } else if (chainType == ChainType.IRIS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, chainType!)
-            if (mainTabVC!.mIrisStakePool != nil) {
-                let provisions = NSDecimalNumber.init(string: mainTabVC.mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
-                let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
+            if (self.mIrisStakePool != nil) {
+                let provisions = NSDecimalNumber.init(string: self.mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
+                let bonded_tokens = NSDecimalNumber.init(string: self.mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
                 cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.rate), font: cell.commissionLabel.font)
             } else {
                 cell.commissionLabel.text = "-"
@@ -160,9 +170,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: self.mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
                 cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
             } else {
                 cell.commissionLabel.text = "-"
@@ -177,9 +187,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: self.mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
                 cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
             } else {
                 cell.commissionLabel.text = "-"
@@ -194,9 +204,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: self.mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
                 cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
             } else {
                 cell.commissionLabel.text = "-"
@@ -208,6 +218,24 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 cell.validatorImg.image = image
             }
+            
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: self.mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
+            } else {
+                cell.commissionLabel.text = "-"
+            }
+            let url = CERTIK_VAL_URL + validator.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell.validatorImg.image = image
+            }
+            
         }
         
         cell.monikerLabel.text = validator.description.moniker
@@ -233,6 +261,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
             } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
+            } else if (chainType == ChainType.CERTIK_TEST) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
             }
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY
@@ -316,6 +346,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             } else if (chainType == ChainType.BAND_MAIN) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
             } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
+            } else if (chainType == ChainType.CERTIK_TEST) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
             }
             return false

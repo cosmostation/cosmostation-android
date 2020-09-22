@@ -315,6 +315,7 @@ let CERTIK_TEST_PROVISIONS                  = CERTIK_TEST_URL + "minting/annual-
 let CERTIK_TEST_STAKING_POOL                = CERTIK_TEST_URL + "staking/pool";
 let CERTIK_TEST_REWARD_ADDRESS              = CERTIK_TEST_URL + "distribution/delegators/";
 let CERTIK_TEST_REWARD_ADDRESS_TAIL         = "/withdraw_address";
+let CERTIK_TEST_REDELEGATION                = CERTIK_TEST_URL + "staking/redelegations";
 
 
 
@@ -332,6 +333,7 @@ let IRIS_VAL_URL                        = "https://raw.githubusercontent.com/cos
 let KAVA_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
 let BAND_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
 let IOV_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
+let CERTIK_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/certik/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
