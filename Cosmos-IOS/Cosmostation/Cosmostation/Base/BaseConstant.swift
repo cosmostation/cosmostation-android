@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -316,6 +316,7 @@ let CERTIK_TEST_STAKING_POOL                = CERTIK_TEST_URL + "staking/pool";
 let CERTIK_TEST_REWARD_ADDRESS              = CERTIK_TEST_URL + "distribution/delegators/";
 let CERTIK_TEST_REWARD_ADDRESS_TAIL         = "/withdraw_address";
 let CERTIK_TEST_REDELEGATION                = CERTIK_TEST_URL + "staking/redelegations";
+let CERTIK_TEST_BORAD_TX                    = CERTIK_TEST_URL + "txs";
 
 
 
@@ -493,6 +494,8 @@ let OK_MSG_TYPE_DEPOSIT                     = "okexchain/staking/MsgDeposit";
 let OK_MSG_TYPE_WITHDRAW                    = "okexchain/staking/MsgWithdraw";
 let OK_MSG_TYPE_DIRECT_VOTE                 = "okexchain/staking/MsgAddShares";
 
+let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
+
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
@@ -607,6 +610,12 @@ let OK_GAS_AMOUNT_STAKE                     = "100000"
 let OK_GAS_AMOUNT_STAKE_MUX                 = "20000"
 let OK_GAS_AMOUNT_VOTE                      = "200000"
 let OK_GAS_AMOUNT_VOTE_MUX                  = "50000"
+
+
+let CETIK_GAS_FEE_RATE_AVERAGE              = "0.1"
+let CETIK_GAS_AMOUNT_SEND                   = "100000"
+let CETIK_GAS_AMOUNT_STAKE                  = "200000"
+
 
 // Constant for BEP3-Swap
 let BINANCE_MAIN_BNB_DEPUTY                 = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn"

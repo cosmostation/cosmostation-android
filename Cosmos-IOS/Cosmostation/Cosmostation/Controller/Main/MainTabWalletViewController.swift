@@ -1828,6 +1828,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mOkSendDenom = OKEX_TEST_DENOM
             txVC.mType = OK_MSG_TYPE_TRANSFER
             
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            if (WUtils.getTokenAmount(balances, CERTIK_TEST_DENOM).compare(NSDecimalNumber.init(string: "10000")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mCertikSendDenom = CERTIK_TEST_DENOM
+            txVC.mType = CERTIK_MSG_TYPE_TRANSFER
         } else {
             return
         }

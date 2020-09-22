@@ -90,7 +90,8 @@
 "fee_speed_bnb_title" = "현재 바이낸스는 고정 수수료를 지원합니다.";
 "fee_speed_kava_title" = "현재 카바는 고정 전송 수수료를 지원합니다.";
 "fee_speed_iov_title" = "현재 스타네임은 고정 전송 수수료를 지원합니다.";
-"fee_speed_ok_title" = "현재 오케이체인은 고정 전송 수수료를 지원합니다.";
+"fee_speed_ok_title" = "현재 오케이이엑스 체인은 고정 전송 수수료를 지원합니다.";
+"fee_speed_certik_title" = "현재 써틱 체인은 고정 전송 수수료를 지원합니다.";
 "fee_description_title_0" = "Tx 수수료 0.000001 ATOM";
 "fee_description_title_1" = "Tx 수수료 비율 0.0025";
 "fee_description_title_2" = "Tx 수수료 비율 0.025";

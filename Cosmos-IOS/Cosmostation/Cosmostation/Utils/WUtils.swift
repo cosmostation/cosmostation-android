@@ -2076,6 +2076,19 @@ class WUtils {
             } else if (type == OK_MSG_TYPE_DIRECT_VOTE) {
                 result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE))
             }
+        } else if (chain == ChainType.CERTIK_TEST) {
+            result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_SEND))
+            if (type == CERTIK_MSG_TYPE_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_SEND))
+            } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_STAKE))
+            }
+            
+//            else if (type == OK_MSG_TYPE_DEPOSIT || type == OK_MSG_TYPE_WITHDRAW) {
+//                result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE))
+//            } else if (type == OK_MSG_TYPE_DIRECT_VOTE) {
+//                result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE))
+//            }
         }
         return result
     }
