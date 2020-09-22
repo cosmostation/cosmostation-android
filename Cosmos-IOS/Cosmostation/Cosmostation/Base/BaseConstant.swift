@@ -313,6 +313,8 @@ let CERTIK_TEST_REWARD_FROM_VAL_TAIL        = "/rewards/";
 let CERTIK_TEST_INFLATION                   = CERTIK_TEST_URL + "minting/inflation";
 let CERTIK_TEST_PROVISIONS                  = CERTIK_TEST_URL + "minting/annual-provisions";
 let CERTIK_TEST_STAKING_POOL                = CERTIK_TEST_URL + "staking/pool";
+let CERTIK_TEST_REWARD_ADDRESS              = CERTIK_TEST_URL + "distribution/delegators/";
+let CERTIK_TEST_REWARD_ADDRESS_TAIL         = "/withdraw_address";
 
 
 

@@ -140,6 +140,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
+            
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            chainImg.image = UIImage(named: "certikTestnetImg")
+            keyPath.text = BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
         }
         importDate.text = WUtils.longTimetoString(input:account!.account_import_time)
         
@@ -414,6 +421,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_REWARD_ADDRESS + accountAddr + CERTIK_TEST_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         if (chainType == ChainType.IRIS_MAIN) {
@@ -436,7 +445,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 }
             }
         } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN ||
-            chainType == ChainType.IOV_TEST) {
+            chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
