@@ -100,6 +100,7 @@
     <string name="str_kava_test_net">Kava Testnet</string>
     <string name="str_iov_test_net">Starname Testnet</string>
     <string name="str_ok_test_net">Okex Testnet</string>
+    <string name="str_certik_test_net">Certik Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
@@ -288,6 +289,8 @@
     <string name="str_iov_net_test_2" translatable="false">Starname Testnet</string>
     <string name="str_ok_net_test" translatable="false">(Okex Testnet)</string>
     <string name="str_ok_net_test_2" translatable="false">Okex Testnet</string>
+    <string name="str_certik_chain_test" translatable="false">(Certik Testnet)</string>
+    <string name="str_certik_chain_test_2" translatable="false">Certik Testnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_iris" translatable="false">IRIS</string>
     <string name="str_binance" translatable="false">BINANCE</string>
@@ -1008,16 +1011,17 @@
     <string name="error_bep3_supply_full">The swap has reached its network capacity.</string>
     <string name="error_bep3_under_min_amount">Need more than 0.00001 balance for Interchain send.</string>
 
-    <string name="s_atom">ATOM</string>
-    <string name="s_photon">PHOTON</string>
-    <string name="s_muon">MUON</string>
-    <string name="s_photino">PHOTINO</string>
-    <string name="s_iris">IRIS</string>
-    <string name="s_bnb">BNB</string>
-    <string name="s_iov">IOV</string>
-    <string name="s_kava">KAVA</string>
-    <string name="s_band">BAND</string>
-    <string name="s_tok">TOKT</string>
+    <string name="s_atom" translatable="false">ATOM</string>
+    <string name="s_photon" translatable="false">PHOTON</string>
+    <string name="s_muon" translatable="false">MUON</string>
+    <string name="s_photino" translatable="false">PHOTINO</string>
+    <string name="s_iris" translatable="false">IRIS</string>
+    <string name="s_bnb" translatable="false">BNB</string>
+    <string name="s_iov" translatable="false">IOV</string>
+    <string name="s_kava" translatable="false">KAVA</string>
+    <string name="s_band" translatable="false">BAND</string>
+    <string name="s_tok" translatable="false">TOKT</string>
+    <string name="s_ctk" translatable="false">CTK</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

@@ -28,8 +28,18 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
 import wannabit.io.cosmostaion.utils.WKey;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
 
 public class WatchingAccountAddActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -89,7 +99,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
 
                 } else if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BaseChain.COSMOS_MAIN, mUserInput);
+                    onGenNewAccount(COSMOS_MAIN, mUserInput);
                     return;
 
                 } else {
@@ -99,7 +109,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("iaa")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BaseChain.IRIS_MAIN, mUserInput);
+                    onGenNewAccount(IRIS_MAIN, mUserInput);
                     return;
 
                 } else {
@@ -109,7 +119,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("bnb")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BaseChain.BNB_MAIN, mUserInput);
+                    onGenNewAccount(BNB_MAIN, mUserInput);
                     return;
 
                 } else {
@@ -119,14 +129,14 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("kava")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    if (BaseChain.SUPPORT_CHAINS().contains(KAVA_TEST)) {
+                    if (SUPPORT_CHAINS().contains(KAVA_TEST)) {
                         Dialog_Choice_Kava dialog = Dialog_Choice_Kava.newInstance(null);
                         dialog.setCancelable(false);
                         getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                         return;
 
                     } else {
-                        onGenNewAccount(BaseChain.KAVA_MAIN, mUserInput);
+                        onGenNewAccount(KAVA_MAIN, mUserInput);
                         return;
                     }
 
@@ -137,14 +147,14 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("star")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    if (BaseChain.SUPPORT_CHAINS().contains(IOV_TEST)) {
+                    if (SUPPORT_CHAINS().contains(IOV_TEST)) {
                         Dialog_Choice_Iov dialog = Dialog_Choice_Iov.newInstance(null);
                         dialog.setCancelable(false);
                         getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                         return;
 
                     } else {
-                        onGenNewAccount(BaseChain.IOV_MAIN, mUserInput);
+                        onGenNewAccount(IOV_MAIN, mUserInput);
                         return;
                     }
 
@@ -155,7 +165,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("tbnb")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BaseChain.BNB_TEST, mUserInput);
+                    onGenNewAccount(BNB_TEST, mUserInput);
                     return;
 
                 } else {
@@ -165,7 +175,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("band")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BaseChain.BAND_MAIN, mUserInput);
+                    onGenNewAccount(BAND_MAIN, mUserInput);
                     return;
 
                 } else {
@@ -175,7 +185,17 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("okexchain")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BaseChain.OK_TEST, mUserInput);
+                    onGenNewAccount(OK_TEST, mUserInput);
+                    return;
+
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            } else if (mUserInput.startsWith("certik")) {
+                if (WKey.isValidBech32(mUserInput)) {
+                    onGenNewAccount(CERTIK_TEST, mUserInput);
                     return;
 
                 } else {

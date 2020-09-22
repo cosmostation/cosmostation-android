@@ -292,6 +292,7 @@ public class BaseConstant {
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_BAND           = "uband";
     public final static String TOKEN_OK_TEST        = "tokt";
+    public final static String TOKEN_CERTIK_TEST    = "uctk";
 
 
     //HTLC swap support Token Types

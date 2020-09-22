@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
@@ -23,8 +24,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 public class Dialog_ChoiceNet extends DialogFragment {
 
 
-    private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer;
-    private LinearLayout mMain, mIris, mBinance, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mTest12k, mTest13k;
+    private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer;
+    private LinearLayout mMain, mIris, mBinance, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
     private LinearLayout mBand;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
@@ -56,6 +57,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mIovTest = view.findViewById(R.id.iov_test_net);
         mOKTestLayer = view.findViewById(R.id.ok_test_layer);
         mOKTest = view.findViewById(R.id.ok_test_net);
+        mCertikTestLayer = view.findViewById(R.id.certik_test_layer);
+        mCertikTest = view.findViewById(R.id.certik_test_net);
         mTest12k = view.findViewById(R.id.gaia_12k);
         mTest13k = view.findViewById(R.id.gaia_13k);
 
@@ -148,6 +151,17 @@ public class Dialog_ChoiceNet extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     ((BaseActivity)getActivity()).onChoiceNet(OK_TEST);
+                    getDialog().dismiss();
+                }
+            });
+        }
+
+        if (BaseChain.SUPPORT_CHAINS().contains(CERTIK_TEST)) {
+            mCertikTestLayer.setVisibility(View.VISIBLE);
+            mCertikTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((BaseActivity)getActivity()).onChoiceNet(CERTIK_TEST);
                     getDialog().dismiss();
                 }
             });

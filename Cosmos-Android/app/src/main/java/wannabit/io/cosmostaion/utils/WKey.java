@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.crypto.Sha256;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -93,7 +94,7 @@ public class WKey {
     }
 
     public static List<ChildNumber> getParentPath(BaseChain chain, boolean newBip) {
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(CERTIK_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
@@ -195,6 +196,8 @@ public class WKey {
                 result = bech32Encode("star".getBytes(), converted);
             } else if (chain.equals(OK_TEST)){
                 result = bech32Encode("okexchain".getBytes(), converted);
+            } else if (chain.equals(CERTIK_TEST)){
+                result = bech32Encode("certik".getBytes(), converted);
             }
 
         } catch (Exception e) {
@@ -216,6 +219,8 @@ public class WKey {
             return bech32Encode("star".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OK_TEST)) {
             return bech32Encode("okexchain".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(CERTIK_TEST)) {
+            return bech32Encode("certik".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
@@ -234,6 +239,8 @@ public class WKey {
             return bech32Encode("starvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OK_TEST)) {
             return bech32Encode("okexchainvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(CERTIK_TEST)) {
+            return bech32Encode("certikvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }

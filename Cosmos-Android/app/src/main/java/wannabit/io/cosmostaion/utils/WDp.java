@@ -54,6 +54,7 @@ import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -1535,7 +1536,9 @@ public class WDp {
             return c.getResources().getColor(R.color.colorBand);
         } else if (chain.equals(OK_TEST)) {
             return c.getResources().getColor(R.color.colorOK);
-        }  else {
+        } else if (chain.equals(CERTIK_TEST)) {
+            return c.getResources().getColor(R.color.colorCertik);
+        } else {
             return c.getResources().getColor(R.color.colorGray0);
         }
     }
@@ -1570,6 +1573,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorIov);
         } else if(chain.equals(OK_TEST)) {
             return c.getResources().getColorStateList(R.color.colorOK);
+        } else if (chain.equals(CERTIK_TEST)) {
+            return c.getResources().getColorStateList(R.color.colorCertik);
         }
         return null;
     }
@@ -1602,6 +1607,10 @@ public class WDp {
         } else if (BaseChain.getChain(chain).equals(OK_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorOK));
             textview.setText(c.getString(R.string.s_tok));
+
+        } else if (BaseChain.getChain(chain).equals(CERTIK_TEST)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorCertik));
+            textview.setText(c.getString(R.string.s_ctk));
         }
     }
 
@@ -1620,6 +1629,8 @@ public class WDp {
             return c.getString(R.string.s_band);
         } else if (BaseChain.getChain(chain).equals(OK_TEST)) {
             return c.getString(R.string.s_tok);
+        } else if (BaseChain.getChain(chain).equals(CERTIK_TEST)) {
+            return c.getString(R.string.s_ctk);
         }
         return "";
 
@@ -1852,6 +1863,9 @@ public class WDp {
         } else if (chain.equals(OK_TEST)) {
             return c.getString(R.string.str_ok_net_test_2);
 
+        } else if (chain.equals(CERTIK_TEST)) {
+            return c.getString(R.string.str_certik_chain_test_2);
+
         }
         return "";
 
@@ -1942,6 +1956,10 @@ public class WDp {
         } else if (chain.equals(OK_TEST)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.okex_testnet_img));
             txtView.setText(c.getString(R.string.str_ok_net_test_2));
+
+        } else if (chain.equals(CERTIK_TEST)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.certik_testnet_img));
+            txtView.setText(c.getString(R.string.str_certik_chain_test_2));
 
         }
     }

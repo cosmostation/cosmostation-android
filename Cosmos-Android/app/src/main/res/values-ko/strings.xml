@@ -13,6 +13,7 @@
     <string name="str_kava_test_net">카바 테스트넷</string>
     <string name="str_iov_test_net">스타네임 테스트넷</string>
     <string name="str_ok_test_net">오케이엑스 테스트넷</string>
+    <string name="str_certik_test_net">써틱 테스트넷</string>
 
 
     <string name="str_ok">OK</string>
@@ -882,17 +883,6 @@
     <string name="error_starname_self_send">유효한 스타네임 이지만, 자기 자신의 주소로는 송금할 수 없습니다.</string>
     <string name="error_bep3_supply_full">현재 스왑 가능한 수량이 모두 소진되었습니다.</string>
     <string name="error_bep3_under_min_amount">최소 0.00001보다 많이 보낼 수 있습니다.</string>
-
-    <string name="s_atom">ATOM</string>
-    <string name="s_photon">PHOTON</string>
-    <string name="s_muon">MUON</string>
-    <string name="s_photino">PHOTINO</string>
-    <string name="s_iris">IRIS</string>
-    <string name="s_bnb">BNB</string>
-    <string name="s_iov">IOV</string>
-    <string name="s_kava">KAVA</string>
-    <string name="s_band">BAND</string>
-    <string name="s_tok">TOKT</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>
