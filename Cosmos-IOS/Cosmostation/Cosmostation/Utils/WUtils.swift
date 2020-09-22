@@ -2080,9 +2080,17 @@ class WUtils {
             result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_SEND))
             if (type == CERTIK_MSG_TYPE_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_SEND))
-            } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
+            } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForKavaRewards()[valCnt - 1]
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_REDELEGATE))
+                
             }
+//            else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+//                result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_STAKE))
+//            }
             
 //            else if (type == OK_MSG_TYPE_DEPOSIT || type == OK_MSG_TYPE_WITHDRAW) {
 //                result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE))

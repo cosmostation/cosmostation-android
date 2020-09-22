@@ -45,7 +45,7 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             let data = try? JSONEncoder().encode(amount)
@@ -74,7 +74,7 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             
@@ -167,7 +167,7 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             value.delegator_address = address
             value.validator_src_address = fromValAddress
             value.validator_dst_address = toValAddress

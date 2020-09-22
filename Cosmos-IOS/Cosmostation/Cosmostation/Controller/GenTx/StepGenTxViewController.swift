@@ -62,10 +62,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var totalDepositAmount: NSDecimalNumber?
     var totalLoanAmount: NSDecimalNumber?
     
-    var mProvision: String?
-    var mStakingPool: NSDictionary?
-    
-    var mIrisStakePool: NSDictionary?
     var mirisRedelegate: Array<NSDictionary>?
     
     var mIrisToken: IrisToken?
@@ -351,7 +347,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_VALIDATORS
         } else if (chainType == ChainType.CERTIK_TEST) {
-            url = OKEX_TEST_VALIDATORS
+            url = CERTIK_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in

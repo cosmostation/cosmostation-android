@@ -1528,6 +1528,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
             
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            if (WUtils.getTokenAmount(balances, CERTIK_TEST_DENOM).compare(NSDecimalNumber.init(string: "30000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
+            
         } else {
             return
         }
@@ -1536,14 +1543,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func onStartRedelegate() {
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mTargetValidator = mValidator
-        txVC.mInflation = mInflation
-        txVC.mProvision = mProvision
-        txVC.mStakingPool = mStakingPool
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         } else if (chainType == ChainType.IRIS_MAIN) {
-            txVC.mIrisStakePool = mIrisStakePool
             txVC.mirisRedelegate = mIrisRedelegate
             txVC.mType = IRIS_MSG_TYPE_REDELEGATE
         }
@@ -1672,6 +1675,22 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, CERTIK_TEST_DENOM)
+                if (rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if (rewardSum.compare(NSDecimalNumber.init(string: "15000")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
         } else {
             return
         }
@@ -1681,7 +1700,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         validators.append(mValidator!)
         txVC.mRewardTargetValidators = validators
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         } else if (chainType == ChainType.IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_WITHDRAW

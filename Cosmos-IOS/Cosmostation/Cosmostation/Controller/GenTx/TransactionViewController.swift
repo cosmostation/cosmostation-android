@@ -22,12 +22,6 @@ class TransactionViewController: UIViewController {
     var mTargetValidator: Validator?
     var mType: String?
     var mRewardTargetValidators = Array<Validator>()
-    
-    var mInflation: String?
-    var mProvision: String?
-    var mStakingPool: NSDictionary?
-    
-    var mIrisStakePool: NSDictionary?
     var mirisRedelegate: Array<NSDictionary>?
     
     var mIrisToken: IrisToken?
@@ -182,9 +176,6 @@ class TransactionViewController: UIViewController {
             StepVc.mType = self.mType
             StepVc.mTargetValidator = self.mTargetValidator
             StepVc.mRewardTargetValidators = self.mRewardTargetValidators
-            StepVc.mProvision = self.mProvision
-            StepVc.mStakingPool = self.mStakingPool
-            StepVc.mIrisStakePool = self.mIrisStakePool
             StepVc.mirisRedelegate = self.mirisRedelegate
             StepVc.mIrisToken = self.mIrisToken
             StepVc.mBnbToken = self.mBnbToken

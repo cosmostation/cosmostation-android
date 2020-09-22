@@ -615,6 +615,7 @@ let OK_GAS_AMOUNT_VOTE_MUX                  = "50000"
 let CETIK_GAS_FEE_RATE_AVERAGE              = "0.1"
 let CETIK_GAS_AMOUNT_SEND                   = "100000"
 let CETIK_GAS_AMOUNT_STAKE                  = "200000"
+let CETIK_GAS_AMOUNT_REDELEGATE             = "300000"
 
 
 // Constant for BEP3-Swap
