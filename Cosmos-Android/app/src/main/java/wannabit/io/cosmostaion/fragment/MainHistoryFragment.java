@@ -23,7 +23,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
@@ -36,6 +35,18 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 
 public class MainHistoryFragment extends BaseFragment implements TaskListener {
@@ -105,7 +116,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             if (getMainActivity().mAccount.pushAlarm) {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
             } else {
@@ -135,32 +146,38 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private void onFetchHistory() {
         mNotYet.setVisibility(View.GONE);
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
             ReqTx req = new ReqTx(0, 1, true, getMainActivity().mAccount.address, getMainActivity().mBaseChain);
             new HistoryTask(getBaseApplication(), this, req, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 //            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
             new HistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(KAVA_TEST) || getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
             mEmptyHistory.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
             mNotYet.setVisibility(View.VISIBLE);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
             mEmptyHistory.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
             mNotYet.setVisibility(View.VISIBLE);
+
+        } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+            mEmptyHistory.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.GONE);
+            mNotYet.setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -223,7 +240,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);
                 if (tx.logs != null) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
@@ -245,7 +262,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 });
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 final ResHistory.Source source = mHistory.get(position)._source;
                 if(source.result.Code > 0) {
                     viewHolder.historySuccess.setVisibility(View.VISIBLE);
@@ -268,7 +285,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 });
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
                 final BnbHistory history = mBnbHistory.get(position);
                 viewHolder.historyType.setText(WDp.DpBNBTxType(getContext(), history, getMainActivity().mAccount.address));
                 viewHolder.history_time.setText(WDp.getTimeformat(getContext(), history.timeStamp));
@@ -297,7 +314,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 });
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
                 final BnbHistory history = mBnbHistory.get(position);
                 viewHolder.historyType.setText(WDp.DpBNBTxType(getContext(), history, getMainActivity().mAccount.address));
                 viewHolder.history_time.setText(WDp.getTimeformat(getContext(), history.timeStamp));
@@ -325,7 +342,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 });
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);
                 if (tx.logs != null) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
@@ -347,7 +364,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 });
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);
                 if (tx.logs != null) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
@@ -373,15 +390,15 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 return mApiTxHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 return mHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
                 return mBnbHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 return mApiTxHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 return mApiTxHistory.size();
             }
             return 0;

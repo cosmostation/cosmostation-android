@@ -59,6 +59,7 @@
     <string name="str_ok_c" translatable="false">OKT</string>
     <string name="str_bnb_c" translatable="false">BNB</string>
     <string name="str_btc_c" translatable="false">BTC</string>
+    <string name="str_ctk_c" translatable="false">CTK</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
@@ -236,6 +237,8 @@
     <string name="str_guide_band">Blog</string>
     <string name="str_faq_ok">Market</string>
     <string name="str_guide_ok">Communities</string>
+    <string name="str_faq_certik">Home</string>
+    <string name="str_guide_certik">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -375,6 +378,7 @@
     <string name="str_front_guide_title_iov"><![CDATA[Starname Service]]></string>
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
     <string name="str_front_guide_title_ok"><![CDATA[OKEX CHAIN]]></string>
+    <string name="str_front_guide_title_certik"><![CDATA[CERTIK CHAIN]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -382,6 +386,7 @@
     <string name="str_front_guide_msg_iov">Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.</string>
     <string name="str_front_guide_msg_ok">OKEX Chain is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
+    <string name="str_front_guide_msg_certik"><![CDATA[A public platform based on the Certik Foundation\'s unique Formal Verification security system.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>

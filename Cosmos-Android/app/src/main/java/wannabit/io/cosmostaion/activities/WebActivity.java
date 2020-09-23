@@ -136,6 +136,13 @@ public class WebActivity extends BaseActivity {
             else
                 mWebview.loadUrl("https://kava-testnet-9000.mintscan.io");
 
+        } else if (mBasechain.equals(BaseChain.CERTIK_TEST)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl("https://explorer.certik.foundation/transactions/"+mTxid);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl("https://explorer.certik.foundation/accounts/"+mAddress);
+
         }
 
         mShare.setOnClickListener(new View.OnClickListener() {

@@ -66,6 +66,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
@@ -456,7 +457,7 @@ public class WDp {
     public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         if (bondings == null || bondings.size() == 0) return sum;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) || chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) || chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_TEST)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
@@ -632,6 +633,31 @@ public class WDp {
         sum = sum.add(getOkDepositCoin(deposit));
         sum = sum.add(getOkWithdrawingCoin(withdraw));
 
+        return sum;
+    }
+
+    public static BigDecimal getAllCtk(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Balance balance : balances) {
+            if(balance.symbol.equals(TOKEN_CERTIK_TEST)) {
+                sum = sum.add(balance.balance);
+            }
+        }
+        if (bondings != null) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+            }
+        }
+        if (unbondings != null) {
+            for(UnBondingState unbonding : unbondings) {
+                sum = sum.add(unbonding.balance);
+            }
+        }
+        if (rewards != null) {
+            for(Reward reward : rewards) {
+                sum = sum.add(reward.getRewardAmount(TOKEN_CERTIK_TEST));
+            }
+        }
         return sum;
     }
 
@@ -1872,51 +1898,6 @@ public class WDp {
     }
 
     public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
-        if (chain.equals(COSMOS_MAIN)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.cosmos_wh_main));
-            txtView.setText(c.getString(R.string.str_cosmos_hub_2));
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iris_wh));
-            txtView.setText(c.getString(R.string.str_iris_net_2));
-
-        } else if (chain.equals(BNB_MAIN)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binance_ch_img));
-            txtView.setText(c.getString(R.string.str_binance_net_2));
-
-        } else if (chain.equals(BNB_TEST)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binancetestnet));
-            txtView.setText(c.getString(R.string.str_binance_test_net_2));
-
-        } else if (chain.equals(KAVA_MAIN)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_img));
-            txtView.setText(c.getString(R.string.str_kava_net_2));
-
-        } else if (chain.equals(KAVA_TEST)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_test_img));
-            txtView.setText(c.getString(R.string.str_kava_net_test_2));
-
-        } else if (chain.equals(IOV_MAIN)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_chain_img));
-            txtView.setText(c.getString(R.string.str_iov_net_2));
-
-        } else if (chain.equals(BAND_MAIN)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.band_chain_img));
-            txtView.setText(c.getString(R.string.str_band_chain_2));
-
-        } else if (chain.equals(IOV_TEST)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_testnet_img));
-            txtView.setText(c.getString(R.string.str_iov_net_test_2));
-
-        } else if (chain.equals(OK_TEST)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.okex_testnet_img));
-            txtView.setText(c.getString(R.string.str_ok_net_test_2));
-
-        }
-        txtView.setTextColor(getChainColor(c, chain));
-    }
-
-    public static void onDpChain2(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
         if (chain.equals(COSMOS_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.cosmos_wh_main));
             txtView.setText(c.getString(R.string.str_cosmos_hub_2));

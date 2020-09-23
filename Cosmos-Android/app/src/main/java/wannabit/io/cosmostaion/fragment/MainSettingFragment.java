@@ -25,6 +25,17 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
     public final static int SELECT_CURRENCY = 9034;
@@ -52,7 +63,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             if (getMainActivity().mAccount.pushAlarm) {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
             } else {
@@ -173,32 +184,35 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(telegram);
 
         } else if (v.equals(mBtnExplore)) {
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.mintscan.io/"));
                 startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://irishub.mintscan.io/"));
                 startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://binance.mintscan.io/"));
                 startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://kava.mintscan.io/"));
                 startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://big-dipper.iov-mainnet-2.iov.one/"));
                 startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cosmoscan.io/"));
                 startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://testnet-explorer.binance.org/"));
                 startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.oklink.com/okexchain-test/"));
                 startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://kava-testnet-9000.mintscan.io/"));
+                startActivity(intent);
+            } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://explorer.certik.foundation/"));
                 startActivity(intent);
             }
 

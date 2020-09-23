@@ -58,14 +58,18 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
@@ -89,7 +93,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private ImageView           mKeyState;
     private TextView            mAddress;
 
-    private CardView            mAtomCard, mIrisCard, mBnbCard, mKavaCard, mIovCard, mBandCard, mOkCard;
+    private CardView            mAtomCard, mIrisCard, mBnbCard, mKavaCard, mIovCard, mBandCard, mOkCard, mCertikCard;
 
     private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomAvailable,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
@@ -116,6 +120,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mOkTotalAmount, mOkTotalValue;
     private TextView            mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
     private RelativeLayout      mBtnOkDeposit, mBtnOkWithdraw, mBtnOkVote;
+
+    private TextView            mTvCertikTotal, mTvCertikValue, mTvCertikAvailable, mTvCertikDelegated, mTvCertikUnBonding, mTvCertikRewards;
+    private RelativeLayout      mBtnCertikReward, mBtnCertikVote;
 
 
     private CardView            mUndelegateCard;
@@ -245,6 +252,17 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnOkWithdraw          = mOkCard.findViewById(R.id.btn_ok_withdraw);
         mBtnOkVote              = mOkCard.findViewById(R.id.btn_ok_vote);
 
+        mCertikCard             = rootView.findViewById(R.id.card_certik);
+        mTvCertikTotal          = mCertikCard.findViewById(R.id.dash_certik_amount);
+        mTvCertikValue          = mCertikCard.findViewById(R.id.dash_certik_value);
+        mTvCertikAvailable      = mCertikCard.findViewById(R.id.dash_certik_available);
+        mTvCertikDelegated      = mCertikCard.findViewById(R.id.dash_certik_delegate);
+        mTvCertikUnBonding      = mCertikCard.findViewById(R.id.dash_certik_unbonding);
+        mTvCertikRewards        = mCertikCard.findViewById(R.id.dash_certik_reward);
+        mBtnCertikReward        = mCertikCard.findViewById(R.id.btn_certik_reward);
+        mBtnCertikVote          = mCertikCard.findViewById(R.id.btn_certik_vote);
+
+
         mUndelegateCard         = rootView.findViewById(R.id.card_undelegate);
         mUndelegateCnt          = mUndelegateCard.findViewById(R.id.undelegate_count);
         mUndelegateLayer0       = mUndelegateCard.findViewById(R.id.undelegate_detail_layer0);
@@ -363,6 +381,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnOkWithdraw.setOnClickListener(this);
         mBtnOkVote.setOnClickListener(this);
         mBtnParticipate.setOnClickListener(this);
+        mBtnCertikReward.setOnClickListener(this);
+        mBtnCertikVote.setOnClickListener(this);
         return rootView;
     }
 
@@ -375,7 +395,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             if (getMainActivity().mAccount.pushAlarm) {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
             } else {
@@ -422,7 +442,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mAddress.setText(getMainActivity().mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             mAtomCard.setVisibility(View.VISIBLE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.GONE);
@@ -430,6 +450,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.GONE);
             mOkCard.setVisibility(View.GONE);
+            mCertikCard.setVisibility(View.GONE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mMintCards.setVisibility(View.VISIBLE);
             if (SUPPORT_MOONPAY) {
@@ -446,7 +467,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_guide);
             mFaqBtn.setText(R.string.str_faq);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.VISIBLE);
             mBnbCard.setVisibility(View.GONE);
@@ -454,6 +475,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.GONE);
             mOkCard.setVisibility(View.GONE);
+            mCertikCard.setVisibility(View.GONE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
@@ -466,7 +488,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_faq_iris);
             mFaqBtn.setText(R.string.str_guide_iris);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.VISIBLE);
@@ -474,14 +496,15 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.GONE);
             mOkCard.setVisibility(View.GONE);
+            mCertikCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
             mBtnBep3Send.setVisibility(View.VISIBLE);
-            if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
                 mBnbCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             } else {
                 mBnbCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             }
-            if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BNB_MAIN)) {
                 mBuyLayer.setVisibility(View.VISIBLE);
                 mBuyCoinTv.setText(R.string.str_buy_bnb);
             } else {
@@ -496,7 +519,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_faq_bnb);
             mFaqBtn.setText(R.string.str_guide_bnb);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.GONE);
@@ -504,6 +527,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.GONE);
             mOkCard.setVisibility(View.GONE);
+            mCertikCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
@@ -511,7 +535,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             } else {
                 mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             }
-            if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
                 mBuyLayer.setVisibility(View.VISIBLE);
                 mBuyCoinTv.setText(R.string.str_buy_kava);
             } else {
@@ -534,6 +558,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIovCard.setVisibility(View.VISIBLE);
             mBandCard.setVisibility(View.GONE);
             mOkCard.setVisibility(View.GONE);
+            mCertikCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
             if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
@@ -559,6 +584,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.VISIBLE);
             mOkCard.setVisibility(View.GONE);
+            mCertikCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
 //            if (SUPPORT_MOONPAY) {
@@ -586,10 +612,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIovCard.setVisibility(View.GONE);
             mBandCard.setVisibility(View.GONE);
             mOkCard.setVisibility(View.VISIBLE);
+            mCertikCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
             mBuyLayer.setVisibility(View.GONE);
 
-            if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+            if (getMainActivity().mBaseChain.equals(OK_TEST)) {
                 mOkCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             } else {
                 mOkCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
@@ -605,11 +632,39 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_faq_ok);
             mFaqBtn.setText(R.string.str_guide_ok);
 
+        } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+            mAtomCard.setVisibility(View.GONE);
+            mIrisCard.setVisibility(View.GONE);
+            mBnbCard.setVisibility(View.GONE);
+            mKavaCard.setVisibility(View.GONE);
+            mIovCard.setVisibility(View.GONE);
+            mBandCard.setVisibility(View.GONE);
+            mOkCard.setVisibility(View.GONE);
+            mCertikCard.setVisibility(View.VISIBLE);
+            mMintCards.setVisibility(View.VISIBLE);
+            mBuyLayer.setVisibility(View.GONE);
+
+            if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                mCertikCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            } else {
+                mCertikCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+            }
+
+            if (getMainActivity().mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorCertik), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
+            mGuideImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_img));
+            mGuideTitle.setText(R.string.str_front_guide_title_certik);
+            mGuideMsg.setText(R.string.str_front_guide_msg_certik);
+            mGuideBtn.setText(R.string.str_faq_certik);
+            mFaqBtn.setText(R.string.str_guide_certik);
+
         }
 
         mMarket.setText("("+getBaseDao().getMarketString(getContext())+")");
 
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             mTvAtomTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             mTvAtomAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_ATOM));
@@ -642,7 +697,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
             BigDecimal totalAmount = WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, getMainActivity().mAllValidators);
             mTvIrisTotal.setText(WDp.getDpAllIris(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvIrisAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_IRIS_ATTO));
@@ -675,7 +730,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
             try {
                 if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, TOKEN_BNB) != null) {
                     Balance bnbToken = WUtil.getTokenBalance(getMainActivity().mBalances, TOKEN_BNB);
@@ -713,7 +768,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
             BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             mTvKavaTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_KAVA));
@@ -904,10 +959,39 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownPrice.setText("???");
                 mUpDownImg.setVisibility(View.GONE);
             }
+
+        } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+            BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_CERTIK_TEST);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, CERTIK_TEST);
+            BigDecimal unbondingAmount = WDp.getUnbondingAmount(getMainActivity().mUnbondings);
+            BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, TOKEN_CERTIK_TEST);
+            BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
+
+            mTvCertikTotal.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            mTvCertikAvailable.setText(WDp.getDpAmount2(getContext(), availableAmount, 6, 6));
+            mTvCertikDelegated.setText(WDp.getDpAmount2(getContext(), delegateAmount, 6, 6));
+            mTvCertikUnBonding.setText(WDp.getDpAmount2(getContext(), unbondingAmount, 6, 6));
+            mTvCertikRewards.setText(WDp.getDpAmount2(getContext(), rewardAmount, 6, 6));
+            mTvCertikValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalAmount));
+            getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
+
+            try {
+                mPerPrice.setText(WDp.getPriceDp(getContext(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mUpDownPrice.setText(WDp.getPriceUpDown(BigDecimal.ZERO));
+                mUpDownImg.setVisibility(View.GONE);
+
+                mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
+                mYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+
+            } catch (Exception e) {
+                mPerPrice.setText("???");
+                mUpDownPrice.setText("???");
+                mUpDownImg.setVisibility(View.GONE);
+            }
         }
 
         // Show Undelegate detail list at most 5 for ordered by completing time
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             mUndelegateLayer1.setVisibility(View.GONE);
             mUndelegateLayer2.setVisibility(View.GONE);
             mUndelegateLayer3.setVisibility(View.GONE);
@@ -1050,7 +1134,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             startActivity(webintent);
 
         } else if (v.equals(mGuideBtn)) {
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_ko.pdf"));
                     startActivity(guideIntent);
@@ -1059,15 +1143,15 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     startActivity(guideIntent);
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.irisnet.org/"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.binance.org"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/registration/"));
                 startActivity(guideIntent);
 
@@ -1083,10 +1167,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/"));
                 startActivity(guideIntent);
 
+            } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/"));
+                startActivity(guideIntent);
+
             }
 
         } else if (v.equals(mFaqBtn)) {
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
                     startActivity(guideIntent);
@@ -1095,15 +1183,15 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     startActivity(guideIntent);
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/irisnet-blog"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@binance"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/kava-labs"));
                 startActivity(guideIntent);
 
@@ -1119,10 +1207,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/community"));
                 startActivity(guideIntent);
 
+            } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/blog"));
+                startActivity(guideIntent);
+
             }
 
         } else if (v.equals(mPriceLayer)) {
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 if (getBaseDao().getMarket() == 0) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/cosmos"));
                     startActivity(guideIntent);
@@ -1131,7 +1223,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     startActivity(guideIntent);
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 if (getBaseDao().getMarket() == 0) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/irisnet"));
                     startActivity(guideIntent);
@@ -1140,7 +1232,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     startActivity(guideIntent);
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
                 if (getBaseDao().getMarket() == 0) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/binancecoin"));
                     startActivity(guideIntent);
@@ -1149,7 +1241,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     startActivity(guideIntent);
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 if (getBaseDao().getMarket() == 0) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/kava"));
                     startActivity(guideIntent);
@@ -1157,13 +1249,13 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://coinmarketcap.com/currencies/kava"));
                     startActivity(guideIntent);
                 }
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/band-protocol"));
                 startActivity(guideIntent);
 
             }
 
-        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward) || v.equals(mBtnBandDeleagte) || v.equals(mBtnIovStake)) {
+        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward) || v.equals(mBtnBandDeleagte) || v.equals(mBtnIovStake) || v.equals(mBtnCertikReward)) {
             Intent validators = new Intent(getMainActivity(), ValidatorListActivity.class);
             validators.putExtra("myValidators", getMainActivity().mMyValidators);
             validators.putExtra("topValidators", getMainActivity().mTopValidators);
@@ -1175,7 +1267,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             validators.putExtra("irisreward", getMainActivity().mIrisReward);
             startActivity(validators);
 
-        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote)) {
+        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote) || v.equals(mBtnCertikVote)) {
             if (getMainActivity().mBaseChain.equals(KAVA_TEST)) return;
             Intent proposals = new Intent(getMainActivity(), VoteListActivity.class);
             startActivity(proposals);
