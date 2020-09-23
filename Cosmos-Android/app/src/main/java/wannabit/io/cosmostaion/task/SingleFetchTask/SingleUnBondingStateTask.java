@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -81,6 +82,13 @@ public class SingleUnBondingStateTask extends CommonTask {
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(IOV_TEST)) {
                 Response<ResLcdSingleUnBonding> response = ApiClient.getIovTestChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body().result));
+                    mResult.isSuccess = true;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
+                Response<ResLcdSingleUnBonding> response = ApiClient.getCertikTestChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body().result));
                     mResult.isSuccess = true;
