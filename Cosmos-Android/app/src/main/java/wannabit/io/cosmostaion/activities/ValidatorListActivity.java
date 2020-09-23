@@ -384,7 +384,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         startActivity(claimReward);
     }
 
-
     public void onFetchAllData() {
         onFetchAccountInfo(this);
     }

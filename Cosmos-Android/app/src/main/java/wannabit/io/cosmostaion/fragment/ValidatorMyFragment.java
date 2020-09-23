@@ -36,10 +36,21 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -51,11 +62,11 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
     public final static int SELECT_MY_VALIDATOR_SORTING = 6003;
 
-    private SwipeRefreshLayout      mSwipeRefreshLayout;
-    private RecyclerView            mRecyclerView;
-    private MyValidatorAdapter      mMyValidatorAdapter;
-    private TextView                mValidatorSize, mSortType;
-    private LinearLayout            mBtnSort;
+    private SwipeRefreshLayout          mSwipeRefreshLayout;
+    private RecyclerView                mRecyclerView;
+    private MyValidatorAdapter          mMyValidatorAdapter;
+    private TextView                    mValidatorSize, mSortType;
+    private LinearLayout                mBtnSort;
 
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Reward>           mRewards = new ArrayList<>();
@@ -154,38 +165,43 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
             if (getItemViewType(position) == TYPE_PROMOTION) {
                 RewardPromotionHolder holder = (RewardPromotionHolder)viewHolder;
-                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+                } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
                 }
 
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
                 final RewardWithdrawHolder holder       = (RewardWithdrawHolder)viewHolder;
                 WDp.DpMainDenom(getContext(), getMainActivity().mAccount.baseChain, holder.itemTvDenom);
-                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_ATOM));
+                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_ATOM));
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                    holder.itemTvAllRewards.setText(WDp.getDpAllIrisRewardAmount(getContext(), mIrisRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+                    holder.itemTvAllRewards.setText(WDp.getDpAllIrisRewardAmount(getContext(), mIrisRewards, getChain(getMainActivity().mAccount.baseChain)));
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_KAVA));
+                } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_KAVA));
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
-                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_BAND));
+                } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
+                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_BAND));
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
-                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV));
+                } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
+                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV));
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
-                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV_TEST));
+                } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
+                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV_TEST));
+
+                } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_CERTIK_TEST));
 
                 }
 
@@ -203,59 +219,68 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
                 BondingState bonding = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, validator.operator_address);
                 if(bonding != null && bonding.getBondingAmount(validator) != null) {
-                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAmount(validator), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAmount(validator), 6, getChain(getMainActivity().mAccount.baseChain)));
                 } else {
-                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getChain(getMainActivity().mAccount.baseChain)));
                 }
 
-                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_ATOM));
+                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_ATOM));
                     try {
-                        Picasso.get().load(COSMOS_VAL_URL+validator.operator_address+".png")
+                        Picasso.get().load(COSMOS_VAL_URL + validator.operator_address + ".png")
                                 .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                                 .into(holder.itemAvatar);
                     } catch (Exception e){}
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-                    holder.itemTvReward.setText(WDp.getIrisValidatorReward(getContext(), mIrisRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvReward.setText(WDp.getIrisValidatorReward(getContext(), mIrisRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain)));
                     try {
-                        Picasso.get().load(IRIS_VAL_URL+validator.operator_address+".png")
+                        Picasso.get().load(IRIS_VAL_URL + validator.operator_address + ".png")
                                 .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                                 .into(holder.itemAvatar);
                     } catch (Exception e){}
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_KAVA));
+                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_KAVA));
                     try {
-                        Picasso.get().load(KAVA_VAL_URL+validator.operator_address+".png")
+                        Picasso.get().load(KAVA_VAL_URL + validator.operator_address + ".png")
                                 .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                                 .into(holder.itemAvatar);
                     } catch (Exception e){}
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
-                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_BAND));
+                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_BAND));
                     try {
-                        Picasso.get().load(BAND_VAL_URL+validator.operator_address+".png")
+                        Picasso.get().load(BAND_VAL_URL + validator.operator_address + ".png")
                                 .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                                 .into(holder.itemAvatar);
                     } catch (Exception e){}
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+                } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
-                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV));
+                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV));
                     try {
-                        Picasso.get().load(IOV_VAL_URL+validator.operator_address+".png")
+                        Picasso.get().load(IOV_VAL_URL + validator.operator_address + ".png")
                                 .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                                 .into(holder.itemAvatar);
                     } catch (Exception e){}
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
-                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV_TEST));
+                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV_TEST));
+
+                } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_CERTIK_TEST));
+                    try {
+                        Picasso.get().load(CERTIK_VAL_URL + validator.operator_address + ".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
 
                 }
 
@@ -281,7 +306,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 for(UnBondingState unbond:unBondingStates) {
                     unBondSum = unBondSum.add(unbond.balance);
                 }
-                holder.itemTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), unBondSum, 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                holder.itemTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), unBondSum, 6, getChain(getMainActivity().mAccount.baseChain)));
 
             }
         }
@@ -361,23 +386,26 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
     public void onSortValidator() {
         if (getBaseDao().getMyValSorting() == 2){
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_ATOM);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 WUtil.onSortIrisByReward(mMyValidators, mIrisRewards);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_KAVA);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_BAND);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
                 WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_IOV);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
                 WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_IOV_TEST);
+
+            } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_CERTIK_TEST);
 
             }
             mSortType.setText(getString(R.string.str_sorting_by_reward));

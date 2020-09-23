@@ -83,7 +83,7 @@ public class WDp {
         SpannableString result;
         BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_TEST)) {
             amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
@@ -1582,6 +1582,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iov);
         } else if(chain.equals(OK_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ok);
+        } else if(chain.equals(CERTIK_TEST)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_certik);
         }
         return null;
     }
