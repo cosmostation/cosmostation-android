@@ -652,7 +652,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.text = "CTK"
             cell?.tokenSymbol.textColor = COLOR_CERTIK
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "Certik Chain Native Token"
+            cell?.tokenDescription.text = "Certik Staking Token"
             let allCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allCtk, BaseData.instance.getLastPrice(), cell!.tokenValue.font)

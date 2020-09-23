@@ -68,7 +68,7 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
     @IBAction func onClickNext(_ sender: Any) {
         let userInput = mTargetAddressTextField.text?.trimmingCharacters(in: .whitespaces)
         if (WUtils.isValidStarName(userInput!.lowercased())) {
-            self.onCheckNameservice(userInput!)
+            self.onCheckNameservice(userInput!.lowercased())
             return;
         }
         

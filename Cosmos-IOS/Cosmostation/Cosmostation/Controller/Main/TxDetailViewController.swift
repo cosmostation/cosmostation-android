@@ -1053,7 +1053,14 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.present(activityViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.KAVA_TEST) {
-            let text = "https://kava-testnet-9000.mintscan.io/txs" + mTxInfo!.txhash!
+            let text = "https://kava-testnet-9000.mintscan.io/txs/" + mTxInfo!.txhash!
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.CERTIK_TEST) {
+            let text = "https://explorer.certik.foundation/transactions/" + mTxInfo!.txhash!
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
