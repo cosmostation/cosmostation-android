@@ -286,6 +286,9 @@ public class Account {
             } else if (chain.equals(BaseChain.OK_TEST)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
 
+            } else if (chain.equals(BaseChain.CERTIK_TEST)) {
+                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
+
             } else {
                 return WDp.getDpAmount2(c, BigDecimal.ZERO, 6, 6);
             }

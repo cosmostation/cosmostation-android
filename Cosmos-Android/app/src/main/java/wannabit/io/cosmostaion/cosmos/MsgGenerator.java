@@ -46,6 +46,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -101,6 +102,14 @@ public class MsgGenerator {
             value.amount = coins;
 
             result.type = BaseConstant.OK_MSG_TYPE_TRANSFER;
+            result.value = value;
+
+        } else if (chain.equals(CERTIK_TEST)) {
+            value.from_address = fromAddr;
+            value.to_address = toAddr;
+            value.amount = coins;
+
+            result.type = BaseConstant.CERTIK_MSG_TYPE_TRANSFER;
             result.value = value;
 
         }

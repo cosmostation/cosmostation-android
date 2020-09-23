@@ -35,11 +35,13 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqCheckStarname;
 import wannabit.io.cosmostaion.network.res.ResIovNameResolve;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -123,7 +125,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         if (v.equals(mNextBtn)) {
             String userInput = mAddressInput.getText().toString().trim();
 
-            if (WUtil.isValidStarName(userInput)) {
+            if (WUtil.isValidStarName(userInput.toLowerCase())) {
                 onCheckNameService(userInput.toLowerCase(), getSActivity().mBaseChain);
                 return;
             }
@@ -138,7 +140,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_cosmos_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
@@ -146,7 +148,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_iris_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(BNB_MAIN)) {
@@ -154,7 +156,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_bnb_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
@@ -162,7 +164,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_kava_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
@@ -170,7 +172,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_iov_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(BNB_TEST)) {
@@ -178,7 +180,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_bnb_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
@@ -186,7 +188,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_band_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
@@ -194,7 +196,15 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_ok_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                if (userInput.startsWith("certik") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             }

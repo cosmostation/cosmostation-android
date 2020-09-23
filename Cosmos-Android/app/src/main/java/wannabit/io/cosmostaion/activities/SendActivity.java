@@ -65,6 +65,7 @@ public class SendActivity extends BaseActivity {
     public String                       mKavaDenom;
     public String                       mIovDenom;
     public String                       mOkDenom;
+    public String                       mCertikDenom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,7 @@ public class SendActivity extends BaseActivity {
         mKavaDenom = getIntent().getStringExtra("kavaDenom");
         mIovDenom = getIntent().getStringExtra("iovDenom");
         mOkDenom = getIntent().getStringExtra("okDenom");
+        mCertikDenom = getIntent().getStringExtra("certikDenom");
 
         mTvStep.setText(getString(R.string.str_send_step_0));
 
@@ -104,6 +106,8 @@ public class SendActivity extends BaseActivity {
             if (TextUtils.isEmpty(mKavaDenom)) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
             if (TextUtils.isEmpty(mOkDenom)) onBackPressed();
+        } else if (mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+            if (TextUtils.isEmpty(mCertikDenom)) onBackPressed();
 
         }
 

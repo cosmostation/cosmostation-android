@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -41,6 +42,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_AMOUNT_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_AMOUNT_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_AMOUNT_HALF;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_RATE_AVERAGE;
@@ -56,6 +59,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
@@ -219,21 +223,19 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mSeekBarGas.setProgress(0);
 
         } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-            mFeeLayer1.setVisibility(View.VISIBLE);
-            mFeeLayer2.setVisibility(View.GONE);
+            mFeeLayer1.setVisibility(View.GONE);
+            mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
 
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iov));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_certik));
 
+            mGasAmount.setText(FEE_IOV_GAS_AMOUNT_SEND);
+            mGasRate.setText(WDp.getDpString(FEE_IOV_GAS_RATE_AVERAGE, 3));
             mFeeAmount = new BigDecimal(FEE_IOV_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_IOV_GAS_RATE_AVERAGE)).setScale(0);
-            if(getBaseDao().getCurrency() != 5) {
-                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).setScale(2, RoundingMode.DOWN);
-            } else {
-                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).setScale(8, RoundingMode.DOWN);
-            }
-            mMinFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
-            mMinFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
+            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
         } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
             mBtnGasType.setOnClickListener(this);
@@ -272,6 +274,21 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mFeeAmount = new BigDecimal(FEE_OK_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE)).setScale(8);
 
             mGasFeeAmount.setText(mFeeAmount.toPlainString());
+            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+        } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+            mFeeLayer1.setVisibility(View.GONE);
+            mFeeLayer2.setVisibility(View.VISIBLE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_certik));
+
+            mGasAmount.setText(FEE_CERTIK_GAS_AMOUNT_SEND);
+            mGasRate.setText(WDp.getDpString(FEE_CERTIK_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = new BigDecimal(FEE_CERTIK_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_CERTIK_GAS_RATE_AVERAGE)).setScale(0);
+
+            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
         }
@@ -404,6 +421,17 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_OK_GAS_AMOUNT_SEND;
+                getSActivity().mTargetFee = fee;
+
+            } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = TOKEN_CERTIK_TEST;
+                gasCoin.amount = mFeeAmount.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = FEE_CERTIK_GAS_AMOUNT_SEND;
                 getSActivity().mTargetFee = fee;
 
             }

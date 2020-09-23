@@ -176,6 +176,10 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 0, 8));
 
+        } else if (chain.equals(CERTIK_TEST)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         }
     }
 
@@ -222,6 +226,18 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
 
         } else if (chain.equals(BAND_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(OK_TEST)) {
+            if (symbol.equals(TOKEN_OK_TEST)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 8));
+
+        } else if (chain.equals(CERTIK_TEST)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 

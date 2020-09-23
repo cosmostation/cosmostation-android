@@ -278,7 +278,8 @@
     <string name="str_fee_speed_title_bnb">현재 바이낸스는 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_kava">현재 카바는 고정 전송 수수료를 지원합니다.\n다양한 트랜잭션 수수료 설정을 지원하겠습니다.</string>
     <string name="str_fee_speed_title_iov">현재 스타네임은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_ok">현재 오케이체인은 고정 전송 수수료를 지원합니다.</string>
+    <string name="str_fee_speed_title_ok">현재 오케이이엑스  체인은 고정 전송 수수료를 지원합니다.</string>
+    <string name="str_fee_speed_title_certik">현재 써틱 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_description_title_0">트랜잭션 수수료 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">트랜잭션 수수료 비율 0.0025</string>
     <string name="str_fee_description_title_2">트랜잭션 수수료 비율 0.025</string>
@@ -847,13 +848,7 @@
     <string name="error_max_account_over">최대 5개의 지갑이 등록 가능합니다.</string>
     <string name="error_reward_address_changed_msg">이자 지급 주소가 변경된 계정입니다. 이자 즉시 위임 기능을 사용하실 수 없습니다.</string>
     <string name="error_no_password">PIN 번호가 설정되지 않았습니다.</string>
-    <string name="error_invalid_cosmos_address">유효한 코스모스 주소가 아닙니다.</string>
-    <string name="error_invalid_iris_address">유효한 아이리스 주소가 아닙니다.</string>
-    <string name="error_invalid_bnb_address">유효한 바이낸스 주소가 아닙니다.</string>
-    <string name="error_invalid_iov_address">유효한 스타네임 주소가 아닙니다.</string>
-    <string name="error_invalid_kava_address">유효한 카바 주소가 아닙니다.</string>
-    <string name="error_invalid_band_address">유효한 밴드 주소가 아닙니다.</string>
-    <string name="error_invalid_ok_address">유효한 오케이 주소가 아닙니다.</string>
+    <string name="error_invalid_address_target">유효한 주소가 아닙니다.</string>
     <string name="error_invalid_star_name">유효한 스타 네임이 아닙니다.</string>
     <string name="error_iris_token_not_yet">아이리스 토큰 전송은 조만간 지원하겠습니다.</string>
     <string name="error_iris_vote_only_validator">이 제안은 벨리데이터만 투표가 가능합니다.</string>

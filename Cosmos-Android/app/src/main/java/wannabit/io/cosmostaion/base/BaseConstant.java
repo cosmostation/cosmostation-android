@@ -210,7 +210,8 @@ public class BaseConstant {
     public final static String OK_MSG_TYPE_WITHDRAW                         = "okexchain/staking/MsgWithdraw";
     public final static String OK_MSG_TYPE_DIRECT_VOTE                      = "okexchain/staking/MsgAddShares";
 
-    public final static String IOV_KIND_SEND                                = "bcp/send";
+
+    public final static String CERTIK_MSG_TYPE_TRANSFER                     = "bank/MsgSend";
 
 
     public final static String COSMOS_KEY_TYPE_PUBLIC                       = "tendermint/PubKeySecp256k1";
@@ -363,7 +364,7 @@ public class BaseConstant {
     public final static String FEE_BNB_SEND                     = "0.000375";
     public final static String FEE_BEP3_RELAY_FEE               = "0.00001";
 
-    public final static String FEE_IOV_GAS_RATE_AVERAGE         = "1";
+    public final static String FEE_IOV_GAS_RATE_AVERAGE         = "1.00";
     public final static String FEE_IOV_GAS_AMOUNT_SEND          = "100000";
     public final static String FEE_IOV_GAS_AMOUNT_STAKE         = "200000";
     public final static String FEE_IOV_GAS_AMOUNT_REDELEGATE    = "300000";
@@ -376,6 +377,11 @@ public class BaseConstant {
     public final static String FEE_OK_GAS_AMOUNT_STAKE_MUX      = "20000";
     public final static String FEE_OK_GAS_AMOUNT_VOTE           = "200000";
     public final static String FEE_OK_GAS_AMOUNT_VOTE_MUX       = "50000";
+
+    public final static String FEE_CERTIK_GAS_RATE_AVERAGE      = "0.10";
+    public final static String FEE_CERTIK_GAS_AMOUNT_SEND       = "100000";
+    public final static String FEE_CERTIK_GAS_AMOUNT_STAKE      = "200000";
+    public final static String FEE_CERTIK_GAS_AMOUNT_REDELEGATE = "300000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";

@@ -402,7 +402,8 @@
     <string name="str_fee_speed_title_bnb">Support fixed transfer fee for Bianace dex.</string>
     <string name="str_fee_speed_title_kava">Support fixed transfer fee for KAVA Chain.\nSoon update for custom fees.</string>
     <string name="str_fee_speed_title_iov">Support fixed transfer fee for Starname Chain.</string>
-    <string name="str_fee_speed_title_ok">Support fixed transfer fee for OKChain.</string>
+    <string name="str_fee_speed_title_ok">Support fixed transfer fee for Okex Chain.</string>
+    <string name="str_fee_speed_title_certik">Support fixed transfer fee for Certik Chain.</string>
     <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
     <string name="str_fee_description_title_2">Tx fee rate 0.025</string>
@@ -975,13 +976,7 @@
     <string name="error_max_account_over">Max account is 5.</string>
     <string name="error_reward_address_changed_msg">This account has changed its reward address.\nYou can user re-invest feature after reset your reward address to self.</string>
     <string name="error_no_password">PIN number not set</string>
-    <string name="error_invalid_cosmos_address">Invalid Cosmos Address.</string>
-    <string name="error_invalid_iris_address">Invalid Iris Address.</string>
-    <string name="error_invalid_bnb_address">Invalid Binance Address.</string>
-    <string name="error_invalid_iov_address">Invalid Iov Address.</string>
-    <string name="error_invalid_kava_address">Invalid Kava Address.</string>
-    <string name="error_invalid_band_address">Invalid Band Address.</string>
-    <string name="error_invalid_ok_address">Invalid OKEX Chain Address.</string>
+    <string name="error_invalid_address_target">Invalid Address.</string>
     <string name="error_invalid_star_name">Invalid Start Name.</string>
     <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
     <string name="error_iris_vote_only_validator">This proposal can only vote on validators.</string>

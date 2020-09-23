@@ -73,6 +73,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -494,6 +495,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 hasbalance  = true;
             }
             intent.putExtra("okDenom", TOKEN_OK_TEST);
+
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("10000")) > 0) {
+                hasbalance  = true;
+            }
+            intent.putExtra("certikDenom", TOKEN_CERTIK_TEST);
 
         }
 
