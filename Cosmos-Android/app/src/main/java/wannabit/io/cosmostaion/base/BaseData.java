@@ -53,6 +53,7 @@ public class BaseData {
     private SharedPreferences   mSharedPreferences;
     private SQLiteDatabase      mSQLiteDatabase;
     public ArrayList<Validator> mAllValidators = new ArrayList<>();
+    public ArrayList<Validator> mMyValidators = new ArrayList<>();
     public ArrayList<Validator> mTopValidators = new ArrayList<>();
     public ArrayList<Validator> mOtherValidators = new ArrayList<>();
     public ResStakingPool       mStakingPool;
@@ -605,14 +606,6 @@ public class BaseData {
         values.put("resource",  password.resource);
         values.put("spec",      password.spec);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_PASSWORD, null, values);
-    }
-
-    public ArrayList<Validator> getAllValidators() {
-        return mAllValidators;
-    }
-
-    public void setAllValidators(ArrayList<Validator> mAllValidators) {
-        this.mAllValidators = mAllValidators;
     }
 
     //    public ArrayList<Mnemonic> onSelectMnemonics() {

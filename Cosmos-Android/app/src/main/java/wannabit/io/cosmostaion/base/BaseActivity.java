@@ -60,7 +60,6 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
-import wannabit.io.cosmostaion.dao.IovToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
@@ -77,7 +76,6 @@ import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
-import wannabit.io.cosmostaion.network.res.ResIovAddressInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
@@ -161,16 +159,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public ArrayList<BondingState>          mBondings = new ArrayList<>();
     public ArrayList<UnBondingState>        mUnbondings = new ArrayList<>();
     public ArrayList<Reward>                mRewards = new ArrayList<>();
+
+
+    public ResStakingPool                   mStakingPool;
+    public ResLcdIrisPool                   mIrisStakingPool;
     public BigDecimal                       mInflation = BigDecimal.ZERO;
     public BigDecimal                       mProvisions = BigDecimal.ZERO;
-    public BigDecimal                       mBondedToken = BigDecimal.ZERO;
 
     public ResLcdIrisReward                 mIrisReward;
-    public ResLcdIrisPool                   mIrisPool;
     public ArrayList<IrisToken>             mIrisTokens = new ArrayList<>();
-
-    public ResIovAddressInfo                mIovAddressInfo;
-    public ArrayList<IovToken>              mIovTokens = new ArrayList<>();
 
     protected int                           mTaskCount;
     private FetchCallBack                   mFetchCallback;
@@ -664,13 +661,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_INFLATION) {
             try {
-                mInflation = new BigDecimal((String)result.resultData);
+                this.mInflation = new BigDecimal((String)result.resultData);
                 getBaseDao().mInflation = new BigDecimal((String)result.resultData);
             } catch (Exception e) {}
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_PROVISIONS) {
             try {
-                mProvisions = new BigDecimal((String)result.resultData);
+                this.mProvisions = new BigDecimal((String)result.resultData);
                 getBaseDao().mProvisions = new BigDecimal((String)result.resultData);
             } catch (Exception e) {}
 
@@ -678,16 +675,16 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             try {
                 if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
                         mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST)) {
-                    mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
+                    this.mStakingPool = (ResStakingPool)result.resultData;
                     getBaseDao().mStakingPool = (ResStakingPool)result.resultData;
                 }
             } catch (Exception e) {}
 
         } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
-            mIrisReward = (ResLcdIrisReward)result.resultData;
+            this.mIrisReward = (ResLcdIrisReward)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_IRIS_POOL) {
-            mIrisPool = (ResLcdIrisPool)result.resultData;
+            this.mIrisStakingPool = (ResLcdIrisPool)result.resultData;
             getBaseDao().mIrisStakingPool = (ResLcdIrisPool)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_TOKENS) {
@@ -827,7 +824,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
             mAllValidators.addAll(mTopValidators);
             mAllValidators.addAll(mOtherValidators);
-            getBaseDao().setAllValidators(mAllValidators);
+            getBaseDao().mAllValidators = this.mAllValidators;
+            getBaseDao().mMyValidators = this.mMyValidators;
+            getBaseDao().mTopValidators = this.mTopValidators;
+            getBaseDao().mOtherValidators = this.mOtherValidators;
 
             WLog.w("MyValidators " + mMyValidators.size());
             WLog.w("TopValidators " + mTopValidators.size());
@@ -839,7 +839,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
             WLog.w("mInflation " + mInflation);
             WLog.w("mProvisions " + mProvisions);
-            WLog.w("mBondedToken " + mBondedToken);
+//            WLog.w("mStakingPool " + mStakingPool);
+//            WLog.w("mIrisStakingPool " + mIrisStakingPool);
 
         } else if (mTaskCount == 0 && (mBaseChain.equals(BaseChain.OK_TEST))) {
             getBaseDao().mTopValidators = mTopValidators;
@@ -847,7 +848,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
             mAllValidators.addAll(mTopValidators);
             mAllValidators.addAll(mOtherValidators);
-            getBaseDao().mAllValidators = mAllValidators;
+            getBaseDao().mAllValidators = this.mAllValidators;
+            getBaseDao().mTopValidators = this.mTopValidators;
+            getBaseDao().mOtherValidators = this.mOtherValidators;
 
 //            WLog.w("TopValidators " + mTopValidators.size());
 //            WLog.w("OtherValidators " + mOtherValidators.size());
@@ -860,8 +863,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     private void onUpdateReward(Reward reward) {
-        if(mRewards == null) mRewards = new ArrayList<>();
-        if(mRewards.size() == 0) {
+        if (mRewards == null) mRewards = new ArrayList<>();
+        if (mRewards.size() == 0) {
             mRewards.add(reward);
         } else {
             int match = -1;

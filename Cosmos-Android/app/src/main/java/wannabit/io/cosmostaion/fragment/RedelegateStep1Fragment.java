@@ -158,8 +158,8 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             final Validator validator  = mToValidators.get(position);
             if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
-                if (getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
+                if (getSActivity().mStakingPool != null && getSActivity().mProvisions != null) {
+                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mStakingPool, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
                 }
                 try {
                     Picasso.get().load(COSMOS_VAL_URL+validator.operator_address+".png")
@@ -169,7 +169,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, getSActivity().mBaseChain));
-                holder.itemTvCommission.setText(WDp.getIrisYieldString(getSActivity().mIrisPool, new BigDecimal(validator.commission.rate)));
+                holder.itemTvCommission.setText(WDp.getIrisYieldString(getSActivity().mIrisStakingPool, new BigDecimal(validator.commission.rate)));
                 try {
                     Picasso.get().load(IRIS_VAL_URL+validator.operator_address+".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
@@ -178,8 +178,8 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
-                if (getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
+                if (getSActivity().mStakingPool != null && getSActivity().mProvisions != null) {
+                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mStakingPool, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
                 }
                 try {
                     Picasso.get().load(KAVA_VAL_URL+validator.operator_address+".png")
@@ -189,8 +189,8 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
-                if (getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
+                if (getSActivity().mStakingPool != null && getSActivity().mProvisions != null) {
+                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mStakingPool, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
                 }
                 try {
                     Picasso.get().load(BAND_VAL_URL+validator.operator_address+".png")
@@ -200,8 +200,8 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
-                if (getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
+                if (getSActivity().mStakingPool != null && getSActivity().mProvisions != null) {
+                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mStakingPool, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
                 }
                 try {
                     Picasso.get().load(IOV_VAL_URL+validator.operator_address+".png")

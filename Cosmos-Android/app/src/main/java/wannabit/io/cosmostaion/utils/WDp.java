@@ -48,6 +48,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkDeposit;
 import wannabit.io.cosmostaion.network.res.ResOkWithdraw;
+import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
@@ -289,9 +290,11 @@ public class WDp {
         return result;
     }
 
-    public static SpannableString getYieldString(BigDecimal bonded, BigDecimal provision, BigDecimal commission) {
+    public static SpannableString getYieldString(ResStakingPool pool, BigDecimal provision, BigDecimal commission) {
         BigDecimal result = BigDecimal.ZERO;
+        BigDecimal bonded = BigDecimal.ZERO;
         try {
+            bonded = new BigDecimal(pool.result.bonded_tokens);
             result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).divide(bonded, 2, RoundingMode.HALF_UP);
 
         }catch (Exception e) {}
@@ -309,18 +312,11 @@ public class WDp {
         return getPercentDp(result);
     }
 
-    public static BigDecimal getDailyReturn(BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
-        BigDecimal result = BigDecimal.ZERO;
-        try {
-            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("365000000")), 12, RoundingMode.HALF_UP);
-
-        }catch (Exception e) {}
-        return result;
-    }
-
-    public static SpannableString getDailyReturn(Context c, BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
+    public static SpannableString getDailyReturn(Context c, ResStakingPool pool, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
         BigDecimal value = BigDecimal.ZERO;
+        BigDecimal bonded = BigDecimal.ZERO;
         try {
+            bonded = new BigDecimal(pool.result.bonded_tokens);
             value = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("365000000")), 12, RoundingMode.DOWN);
 
         }catch (Exception e) {}
@@ -331,19 +327,11 @@ public class WDp {
         return result;
     }
 
-
-    public static BigDecimal getMonthlyReturn(BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
-        BigDecimal result = BigDecimal.ZERO;
-        try {
-            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.DOWN);
-
-        }catch (Exception e) {}
-        return result;
-    }
-
-    public static SpannableString getMonthlyReturn(Context c, BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
+    public static SpannableString getMonthlyReturn(Context c, ResStakingPool pool, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
         BigDecimal value = BigDecimal.ZERO;
+        BigDecimal bonded = BigDecimal.ZERO;
         try {
+            bonded = new BigDecimal(pool.result.bonded_tokens);
             value = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.DOWN);
 
         }catch (Exception e) {}

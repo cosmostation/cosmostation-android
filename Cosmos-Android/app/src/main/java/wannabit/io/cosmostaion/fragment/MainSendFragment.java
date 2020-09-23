@@ -688,7 +688,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
 
             } catch (Exception e) {
                 mTvAtomValue.setText("???");
@@ -721,7 +721,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(new BigDecimal("4")));
-                mYield.setText(WDp.getIrisYieldString(getMainActivity().mIrisPool, BigDecimal.ZERO));
+                mYield.setText(WDp.getIrisYieldString(getMainActivity().mIrisStakingPool, BigDecimal.ZERO));
 
             } catch (Exception e) {
                 mTvIrisValue.setText("???");
@@ -794,7 +794,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
 
             } catch (Exception e) {
                 mPerPrice.setText("???");
@@ -831,7 +831,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
 
             } catch (Exception e) {
                 mTvAtomValue.setText("???");
@@ -866,7 +866,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
 
             } catch (Exception e) {
                 mPerPrice.setText("???");
@@ -896,7 +896,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
 
             } catch (Exception e) {
                 mPerPrice.setText("???");
@@ -926,7 +926,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
 
             } catch (Exception e) {
                 mPerPrice.setText("???");
@@ -981,7 +981,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
 
             } catch (Exception e) {
                 mPerPrice.setText("???");
@@ -1257,13 +1257,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward) || v.equals(mBtnBandDeleagte) || v.equals(mBtnIovStake) || v.equals(mBtnCertikReward)) {
             Intent validators = new Intent(getMainActivity(), ValidatorListActivity.class);
-            validators.putExtra("myValidators", getMainActivity().mMyValidators);
-            validators.putExtra("topValidators", getMainActivity().mTopValidators);
-            validators.putExtra("otherValidators", getMainActivity().mOtherValidators);
-            validators.putExtra("bondedToken", getMainActivity().mBondedToken.toPlainString());
-            validators.putExtra("provisions", getMainActivity().mProvisions.toPlainString());
             validators.putExtra("rewards", getMainActivity().mRewards);
-            validators.putExtra("irispool", getMainActivity().mIrisPool);
             validators.putExtra("irisreward", getMainActivity().mIrisReward);
             startActivity(validators);
 

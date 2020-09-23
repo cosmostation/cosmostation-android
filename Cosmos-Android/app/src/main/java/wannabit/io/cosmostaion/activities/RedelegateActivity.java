@@ -15,15 +15,12 @@ import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_VestingAccount;
 import wannabit.io.cosmostaion.fragment.RedelegateStep0Fragment;
@@ -34,19 +31,17 @@ import wannabit.io.cosmostaion.fragment.RedelegateStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class RedelegateActivity extends BaseActivity implements TaskListener {
 
@@ -67,9 +62,6 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     public String                           mReDelegateMemo;
     public Fee                              mReDelegateFee;
 
-    public BigDecimal                       mProvisions = BigDecimal.ZERO;
-    public BigDecimal                       mBondedToken = BigDecimal.ZERO;
-    public ResLcdIrisPool                   mIrisPool;
     public ArrayList<ResLcdIrisRedelegate>  mIrisRedelegateState;
 
     private int                             mTaskCount;
@@ -96,10 +88,11 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
+        mStakingPool = getBaseDao().mStakingPool;
+        mIrisStakingPool = getBaseDao().mIrisStakingPool;
+        mProvisions = getBaseDao().mProvisions;
+
         mFromValidator          = getIntent().getParcelableExtra("validator");
-        mBondedToken            = new BigDecimal(getIntent().getStringExtra("bondedToken"));
-        mProvisions             = new BigDecimal(getIntent().getStringExtra("provisions"));
-        mIrisPool               = getIntent().getParcelableExtra("irispool");
         mIrisRedelegateState    = getIntent().getParcelableArrayListExtra("irisReState");
         mBondingState           = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
 
