@@ -29,6 +29,7 @@ public class ApiHistory {
         var time: String = ""
         var fee: Fee = Fee.init()
         var msg: Array<Msg> = Array<Msg>()
+        var result: Result = Result.init()
         
         var isSuccess: Bool = true
         
@@ -64,6 +65,9 @@ public class ApiHistory {
                 }
             }
             
+            if let rawResult = dictionary["result"] as? [String : Any] {
+                self.result = Result.init(rawResult)
+            }
             
 //            if let logs = dictionary["logs"] as? NSDictionary {
 //                if let check = logs.object(forKey: "log") as? String {
@@ -132,6 +136,10 @@ public class ApiHistory {
                         }
                     }
                 }
+            }
+            
+            if let rawResult = dictionary["result"] as? [String : Any] {
+                self.result = Result.init(rawResult)
             }
         }
     }

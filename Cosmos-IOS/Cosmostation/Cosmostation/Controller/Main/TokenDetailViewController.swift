@@ -27,7 +27,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     var okToken:OkToken?
     
     var refresher: UIRefreshControl!
-    var mHistories = Array<History.InnerHits>()
     var mApiHistories = Array<ApiHistory.HistoryData>()
     var mBnbHistories = Array<BnbHistory>()
     
@@ -92,7 +91,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             onFetchApiHistory(account!.account_address, balance!.balance_denom)
             
         } else if (chainType == ChainType.IRIS_MAIN) {
-            onFetchHistory(account!.account_address, balance!.balance_denom);
+            onFetchApiHistory(account!.account_address, balance!.balance_denom)
+//            onFetchHistory(account!.account_address, balance!.balance_denom);
             
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(account!.account_address, bnbToken!.symbol);
@@ -156,10 +156,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
             return mApiHistories.count + 1
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            return mHistories.count + 1
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return mBnbHistories.count + 1
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -220,20 +218,11 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.row > 0) {
-            if (chainType == ChainType.COSMOS_MAIN) {
-                let history = mHistories[indexPath.row - 1]
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+                let history = mApiHistories[indexPath.row - 1]
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false
-                txDetailVC.mTxHash = history._source.hash
-                txDetailVC.hidesBottomBarWhenPushed = true
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(txDetailVC, animated: true)
-                
-            } else if (chainType == ChainType.IRIS_MAIN) {
-                let history = mHistories[indexPath.row - 1]
-                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-                txDetailVC.mIsGen = false
-                txDetailVC.mTxHash = history._source.hash
+                txDetailVC.mTxHash = history.tx_hash
                 txDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(txDetailVC, animated: true)
@@ -558,12 +547,12 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetIrisHistoryItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mHistories[indexPath.row - 1]
-        cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.time)
-        cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
-        cell?.txBlockLabel.text = String(history._source.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, account!.account_address)
-        if(history._source.result.code > 0) {
+        let history = mApiHistories[indexPath.row - 1]
+        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
+        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
+        cell?.txBlockLabel.text = String(history.height) + " block"
+        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
+        if (history.result.code > 0) {
             cell?.txResultLabel.isHidden = false
         } else {
             cell?.txResultLabel.isHidden = true
@@ -595,45 +584,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.txResultLabel.isHidden = false
         }
         return cell!
-    }
-    
-    func onFetchHistory(_ address:String, _ symbol:String) {
-        var query = ""
-        var url = ""
-        if (chainType == ChainType.IRIS_MAIN) {
-            query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
-            print("query ", query)
-            url = IRIS_ES_PROXY_IRIS
-        }
-        let data = query.data(using: .utf8)
-        do {
-            let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-            let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
-            request.validate().responseJSON { response in
-                switch response.result {
-                case .success(let res):
-                    self.mHistories.removeAll()
-                    guard let history = res as? [String : Any] else {
-                        print("no history!!")
-                        return;
-                    }
-                    
-                    let rawHistory = History.init(history)
-                    self.mHistories = rawHistory.hits.hits
-
-                    if (self.mHistories.count > 0) {
-                        self.tokenDetailTableView.reloadData()
-                    }
-                    
-                case .failure(let error):
-                    print("error ", error)
-                }
-            }
-            
-        } catch {
-            print(error)
-        }
-        self.refresher.endRefreshing()
     }
     
     func onFetchBnbHistory(_ address:String, _ symbol:String) {
@@ -670,28 +620,27 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         var url: String?
         if (chainType == ChainType.COSMOS_MAIN) {
             url = COSMOS_API_TRANS_HISTORY + address
+        } else if (chainType == ChainType.IRIS_MAIN) {
+            url = IRIS_API_TRANS_HISTORY + address
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_API_TRANS_HISTORY + address
         } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_API_TEST_TRANS_HISTORY + address
+            url = KAVA_TEST_API_TRANS_HISTORY + address
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["denom":balance!.balance_denom], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("res ", res)
-                if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_TEST || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.BAND_MAIN) {
-                    self.mApiHistories.removeAll()
-                    guard let histories = res as? Array<NSDictionary> else {
-                        print("no history!!")
-                        return;
-                    }
-                    for rawHistory in histories {
-                        self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
-                    }
-                    if (self.mApiHistories.count > 0) {
-                        self.tokenDetailTableView.reloadData()
-                    }
+                self.mApiHistories.removeAll()
+                guard let histories = res as? Array<NSDictionary> else {
+                    print("no history!!")
+                    return;
+                }
+                for rawHistory in histories {
+                    self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
+                }
+                if (self.mApiHistories.count > 0) {
+                    self.tokenDetailTableView.reloadData()
                 }
                 
             case .failure(let error):

@@ -34,6 +34,7 @@ let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.i
 let COSMOS_API                          = "https://api.cosmostation.io/";
 
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
+let IRIS_API                            = "https://api-iris.cosmostation.io/";
 
 let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
@@ -66,10 +67,8 @@ let OKEX_TEST_API                       = "";
 let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostation.io/";
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
 
-let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
-let KEY_BASE_URL                        = "https://keybase.io/";
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
 
@@ -124,6 +123,9 @@ let IRIS_LCD_URL_REWARD_ADDRESS_TAIL    = "/withdraw-address";
 let IRIS_LCD_URL_REDELEGATION           = IRIS_LCD_URL + "stake/delegators/";
 let IRIS_LCD_URL_REDELEGATION_TAIL      = "/redelegations";
 let IRIS_LCD_URL_TOKENS                 = IRIS_LCD_URL + "asset/tokens";
+
+let IRIS_API_HISTORY                    = IRIS_API + "v1/account/txs/";
+let IRIS_API_TRANS_HISTORY              = IRIS_API + "v1/account/transfer_txs/";
 
 
 //BNB_URL
@@ -214,8 +216,8 @@ let KAVA_TEST_INCENTIVE_PARAM           = KAVA_TEST_URL + "incentive/parameters"
 let KAVA_TEST_MY_INCENTIVE              = KAVA_TEST_URL + "incentive/claims/";
 let KAVA_TEST_CHECK_SUPPLY              = KAVA_TEST_URL + "supply/total";
 
-let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
-let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
+let KAVA_TEST_API_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
+let KAVA_TEST_API_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
 
 
 //BAND_TEST_URL
@@ -324,11 +326,8 @@ let CERTIK_TEST_API_TRANS_HISTORY           = CERTIK_TEST_API + "v1/account/tran
 
 
 
-let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
-let IRIS_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "iris/v1/getTxsByAddr";
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
-let KEY_BASE_URL_USER_INFO              = KEY_BASE_URL + "_/api/1.0/user/lookup.json";
 
 
 let COSMOS_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";

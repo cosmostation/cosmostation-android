@@ -1072,7 +1072,6 @@ class WUtils {
             nf.maximumFractionDigits = 18
             
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000000000000000"), withBehavior: handler18)) ?? "0"
-            print("formatted ", formatted)
             endIndex = formatted.index(formatted.endIndex, offsetBy: -18)
         }
         

@@ -21,7 +21,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     var mUnbondings = Array<Unbonding>()
     var mRewards = Array<Reward>()
     var mIrisRewards: IrisRewards?
-    var mHistories = Array<History.InnerHits>()
     var mApiHistories = Array<ApiHistory.HistoryData>()
     var mSelfBondingShare: String?
     var mFetchCnt = 0
@@ -96,7 +95,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             onFetchIrisReward(account!)
-            onFetchHistory(account!, mValidator!, "0", "100")
+            onFetchApiHistory(account!, mValidator!)
             
         } else if (chainType == ChainType.KAVA_MAIN) {
             mUnbondings.removeAll()
@@ -154,13 +153,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         self.mFetchCnt = self.mFetchCnt - 1
 //        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
-            print("onFetchFinished mBonding ", mBonding)
-            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
-            print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
-            print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
-            print("onFetchFinished mUnbondings ", mUnbondings.count)
-            print("onFetchFinished mRewards ", mRewards.count)
-            print("onFetchFinished mHistories ", mHistories.count)
+//            print("onFetchFinished mBonding ", mBonding)
+//            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
+//            print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
+//            print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
+//            print("onFetchFinished mUnbondings ", mUnbondings.count)
+//            print("onFetchFinished mRewards ", mRewards.count)
 
             if((mBonding != nil && NSDecimalNumber.init(string: mBonding?.bonding_shares) != NSDecimalNumber.zero) || mUnbondings.count > 0) {
                 mMyValidator = true
@@ -192,18 +190,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else {
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_TEST) {
-                if (mApiHistories.count > 0) {
-                    return mApiHistories.count
-                } else {
-                    return 1
-                }
+            if (mApiHistories.count > 0) {
+                return mApiHistories.count
             } else {
-                if (mHistories.count > 0) {
-                    return mHistories.count
-                } else {
-                    return 1
-                }
+                return 1
             }
         }
     }
@@ -814,10 +804,21 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onSetHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_TEST) {
-            if (mApiHistories.count > 0) {
-                let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-                let history = mApiHistories[indexPath.row]
+        if (mApiHistories.count > 0) {
+            let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+            let history = mApiHistories[indexPath.row]
+            if (chainType == ChainType.IRIS_MAIN) {
+                cell?.txBlockLabel.text = String(history.height) + " block"
+                cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
+                cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
+                cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
+                if (history.result.code > 0) {
+                    cell?.txResultLabel.isHidden = false
+                } else {
+                    cell?.txResultLabel.isHidden = true
+                }
+                
+            } else {
                 cell?.txBlockLabel.text = String(history.height) + " block"
                 cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
                 cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
@@ -827,70 +828,23 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 } else {
                     cell?.txResultLabel.isHidden = false
                 }
-                return cell!
-                
-            } else {
-                let cell:ValidatorDetailHistoryEmpty? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailHistoryEmpty") as? ValidatorDetailHistoryEmpty
-                return cell!
             }
-            
+            return cell!
         } else {
-            if (mHistories.count > 0) {
-                let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-                let history = mHistories[indexPath.row]
-                
-                cell?.txBlockLabel.text = String(history._source.height) + " block"
-                cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, account!.account_address)
-                if (chainType == ChainType.COSMOS_MAIN) {
-                    cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.timestamp)
-                    cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.timestamp)
-                    if(history._source.allResult) {
-                        cell?.txResultLabel.isHidden = true
-                    } else {
-                        cell?.txResultLabel.isHidden = false
-                    }
-                } else if (chainType == ChainType.IRIS_MAIN) {
-                    cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.time)
-                    cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
-                    if(history._source.result.code > 0) {
-                        cell?.txResultLabel.isHidden = false
-                    } else {
-                        cell?.txResultLabel.isHidden = true
-                    }
-                }
-                return cell!
-                
-            } else {
-                let cell:ValidatorDetailHistoryEmpty? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailHistoryEmpty") as? ValidatorDetailHistoryEmpty
-                return cell!
-            }
+            let cell:ValidatorDetailHistoryEmpty? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailHistoryEmpty") as? ValidatorDetailHistoryEmpty
+            return cell!
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section == 1 && mHistories.count > 0) {
-            let history = mHistories[indexPath.row]
-            if (chainType == ChainType.IRIS_MAIN) {
-                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-                txDetailVC.mIsGen = false
-                txDetailVC.mTxHash = history._source.hash
-                txDetailVC.hidesBottomBarWhenPushed = true
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(txDetailVC, animated: true)
-
-            }
-            
-        } else if (indexPath.section == 1 && mApiHistories.count > 0) {
+        if (indexPath.section == 1 && mApiHistories.count > 0) {
             let history = mApiHistories[indexPath.row]
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_TEST) {
-                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-                txDetailVC.mIsGen = false
-                txDetailVC.mTxHash = history.tx_hash
-                txDetailVC.hidesBottomBarWhenPushed = true
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(txDetailVC, animated: true)
-            }
+            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+            txDetailVC.mIsGen = false
+            txDetailVC.mTxHash = history.tx_hash
+            txDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(txDetailVC, animated: true)
         }
     }
     
@@ -1121,47 +1075,16 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
     }
     
-    func onFetchHistory(_ account: Account, _ validator: Validator, _ from:String, _ size:String) {
-        var query = ""
-        var url = ""
-        if (chainType == ChainType.IRIS_MAIN) {
-            query = "{\"from\" : " + from + ",\"query\" : { \"bool\" : { \"must\" : [ { \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\" ], \"query\" : \"" + account.account_address + "\" } }, {  \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.validator_addr\", \"tx.value.msg.value.validator_address\", \"tx.value.msg.value.val_operator_addr\", \"tx.value.msg.value.validator_dst_addr\", \"tx.value.msg.value.validator_src_addr\", \"result.tags.key\" ], \"query\" : \"" + validator.operator_address + "\"  } } ]  } },  \"size\": " + size + ",\"sort\" : [ { \"height\" : {  \"order\" : \"desc\" } } ] }"
-            url = IRIS_ES_PROXY_IRIS
-        }
-//        print("query ", query)
-        let data = query.data(using: .utf8)
-        do {
-            let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-            let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
-            request.responseJSON { response in
-                switch response.result {
-                case .success(let res):
-                    guard let history = res as? [String : Any] else {
-                        self.onFetchFinished()
-                        return;
-                    }
-                    let rawHistory = History.init(history)
-                    self.mHistories.removeAll()
-                    self.mHistories = rawHistory.hits.hits
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHistory ", error) }
-                }
-                self.onFetchFinished()
-            }
-            
-        } catch {
-            print(error)
-        }
-    }
-    
     func onFetchApiHistory(_ account: Account, _ validator: Validator) {
         var url: String?
         if (chainType == ChainType.COSMOS_MAIN) {
             url = COSMOS_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.IRIS_MAIN) {
+            url = IRIS_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_API_TEST_HISTORY + account.account_address + "/" + validator.operator_address
+            url = KAVA_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_TEST) {
