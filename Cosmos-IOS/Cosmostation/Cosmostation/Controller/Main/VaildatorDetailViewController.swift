@@ -1462,27 +1462,26 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
-        } else if (chainType == ChainType.IOV_MAIN) {
+        }
+        
+        if (chainType == ChainType.IOV_MAIN) {
             if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "200000")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             
         } else if (chainType == ChainType.IOV_TEST) {
             if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "200000")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             
         } else if (chainType == ChainType.CERTIK_TEST) {
             if (WUtils.getTokenAmount(balances, CERTIK_TEST_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             
-        } else {
-            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
-            return
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
