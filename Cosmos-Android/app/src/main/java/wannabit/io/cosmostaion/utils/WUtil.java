@@ -837,7 +837,7 @@ public class WUtil {
                     else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
                     else return 0;
 
-                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(CERTIK_TEST)) {
                     if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
                     else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
                     else return 0;

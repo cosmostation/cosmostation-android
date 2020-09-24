@@ -142,6 +142,8 @@ public class WebActivity extends BaseActivity {
                 mWebview.loadUrl("https://explorer.certik.foundation/transactions/"+mTxid);
             else if (!TextUtils.isEmpty(mAddress))
                 mWebview.loadUrl("https://explorer.certik.foundation/accounts/"+mAddress);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl("https://explorer.certik.foundation/governance/proposals/"+mVoteId);
 
         }
 
