@@ -130,6 +130,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             @Override
             public void onRefresh() {
                 onInitFetch();
+                onFetchValHistory();
 
             }
         });
@@ -599,7 +600,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchValHistory() {
-        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(IOV_MAIN)) {
+        if (mBaseChain.equals(IOV_TEST)) {
             return;
         }
         mTaskCount++;
@@ -609,14 +610,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         } else if (mBaseChain.equals(IRIS_MAIN)) {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-//            ReqTxVal req = new ReqTxVal(0, 1, true, mAccount.address, mValidator.operator_address);
-//            WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
-//            new ValHistoryTask(getBaseApplication(), this, req, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
         } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BAND_MAIN)) {
+            new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(IOV_MAIN)) {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(CERTIK_TEST)) {
@@ -727,7 +727,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 onBindAction(viewHolder);
 
             } else if (getItemViewType(position) == TYPE_HISTORY) {
-                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
+                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
                     onBindApiHistory(viewHolder, position);
                 } else {
                     onBindIrisApiHistory(viewHolder, position);
@@ -1306,39 +1306,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         private void onBindIrisApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
-//            final HistoryHolder holder = (HistoryHolder)viewHolder;
-//            final ResHistory.Source source;
-//            if (mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
-//                source = mApiTxHistory.get(position - 2)._source;
-//            } else {
-//                source = mApiTxHistory.get(position - 3)._source;
-//            }
-//
-//            holder.historyType.setText(WDp.DpTxType(getBaseContext(), source.tx.value.msg, mAccount.address));
-//            holder.history_block.setText(source.height + " block");
-//
-//            if (mBaseChain.equals(IRIS_MAIN)) {
-//                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time));
-//                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.time));
-//                if(source.result.Code > 0) {
-//                    holder.historySuccess.setVisibility(View.VISIBLE);
-//                } else {
-//                    holder.historySuccess.setVisibility(View.GONE);
-//                }
-//                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
-//                        txDetail.putExtra("txHash", source.hash);
-//                        txDetail.putExtra("isGen", false);
-//                        txDetail.putExtra("isSuccess", true);
-//                        startActivity(txDetail);
-//                    }
-//                });
-//            }
-
-
-
             final HistoryHolder holder = (HistoryHolder)viewHolder;
             final ResApiTxList.Data tx;
             if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {

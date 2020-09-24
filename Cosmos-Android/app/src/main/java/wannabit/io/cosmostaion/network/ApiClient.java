@@ -239,6 +239,21 @@ public class ApiClient {
         return service_iov;
     }
 
+    //Services for IOV api
+    private static HistoryApi api_iov = null;
+    public static HistoryApi getIovApi(Context c) {
+        if (api_iov == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_iov_main))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_iov = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_iov;
+    }
+
     //Service for IOV testnet
     private static IovChain service_iov_test = null;
     public static IovChain getIovTestChain(Context c) {

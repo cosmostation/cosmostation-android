@@ -148,9 +148,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            ReqTx req = new ReqTx(0, 1, true, getMainActivity().mAccount.address, getMainActivity().mBaseChain);
-//            new HistoryTask(getBaseApplication(), this, req, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
 
         } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
             new HistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
@@ -158,15 +155,13 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         } else if (getMainActivity().mBaseChain.equals(KAVA_TEST) || getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
-            mEmptyHistory.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.GONE);
-            mNotYet.setVisibility(View.VISIBLE);
+        } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
+            new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(OK_TEST) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
             mEmptyHistory.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
             mNotYet.setVisibility(View.VISIBLE);
@@ -223,7 +218,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
             if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST) ||
-                    getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST) ) {
+                    getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST) ) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);
                 if (tx.logs != null) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
@@ -306,7 +301,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mBnbHistory.size();
             } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 return mApiTxHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 return mApiTxHistory.size();
             }
             return 0;

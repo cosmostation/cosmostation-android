@@ -657,7 +657,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(getString(R.string.str_iov_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IOV_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("IOV Chain Native Token");
+            holder.itemFullName.setText("Starname Native Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
 
             BigDecimal totalAmount = WDp.getAllIov(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);

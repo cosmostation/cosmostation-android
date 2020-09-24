@@ -13,7 +13,7 @@
 
 
     <string name="url_lcd_iris_main" translatable="false">https://lcd-iris.cosmostation.io/</string>
-    <string name="url_api_iris_main" translatable="false">https://api-iris.cosmostation.io</string>
+    <string name="url_api_iris_main" translatable="false">https://api-iris.cosmostation.io/</string>
 
 
     <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
@@ -31,7 +31,7 @@
 
 
     <string name="url_lcd_iov_main" translatable="false">https://lcd-iov.cosmostation.io/</string>
-    <string name="url_api_iov_main" translatable="false"></string>
+    <string name="url_api_iov_main" translatable="false">https://api-iov.cosmostation.io/</string>
 
     <string name="url_lcd_iov_test" translatable="false">https://iovnscli-rest-api.cluster-galaxynet.iov.one/</string>
     <string name="url_api_iov_test" translatable="false"></string>
