@@ -382,7 +382,7 @@ class WUtils {
             }
         }
         
-        if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER || msgs[0].type == COSMOS_MSG_TYPE_TRANSFER2 || msgs[0].type == IRIS_MSG_TYPE_TRANSFER) {
+        if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER || msgs[0].type == COSMOS_MSG_TYPE_TRANSFER2 || msgs[0].type == IRIS_MSG_TYPE_TRANSFER || msgs[0].type == CERTIK_MSG_TYPE_TRANSFER) {
             if (msgs[0].value.from_address != nil && msgs[0].value.from_address == myaddress) {
                 resultMsg = NSLocalizedString("tx_send", comment: "")
             } else if (msgs[0].value.to_address != nil && msgs[0].value.to_address == myaddress) {

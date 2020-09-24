@@ -64,7 +64,7 @@ let OKEX_TEST_API                       = "";
 
 
 let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostation.io/";
-let CERTIK_TEST_API                     = "";
+let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
 
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
@@ -319,7 +319,8 @@ let CERTIK_TEST_REDELEGATION                = CERTIK_TEST_URL + "staking/redeleg
 let CERTIK_TEST_BORAD_TX                    = CERTIK_TEST_URL + "txs";
 let CERTIK_TEST_PROPOSALS                   = CERTIK_TEST_URL + "gov/proposals";
 
-
+let CERTIK_TEST_API_HISTORY                 = CERTIK_TEST_API + "v1/account/txs/";
+let CERTIK_TEST_API_TRANS_HISTORY           = CERTIK_TEST_API + "v1/account/transfer_txs/";
 
 
 
