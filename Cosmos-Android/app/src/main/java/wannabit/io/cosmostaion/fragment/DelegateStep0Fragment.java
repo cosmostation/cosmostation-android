@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -40,6 +41,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
@@ -115,7 +117,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 }
 
                 if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
-                        getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
+                        getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
                     if(es.equals("0.000000")) {
                         mAmountInput.setText("0.00000");
                         mAmountInput.setSelection(7);
@@ -204,6 +206,10 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mMaxAvailable = getSActivity().mAccount.getIovBalance().subtract(new BigDecimal("200000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
+        } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_CERTIK_TEST).subtract(new BigDecimal("20000"));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
+
         }
     }
 
@@ -213,7 +219,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(isValidateDelegateAmount()) {
+            if (isValidateDelegateAmount()) {
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
@@ -253,7 +259,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mAddHalf)) {
             if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
-                    getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
+                    getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
@@ -265,6 +271,9 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
+                onShowEmptyBlanaceWarnDialog();
+            } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
                 onShowEmptyBlanaceWarnDialog();
             }
 
@@ -281,7 +290,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin coin = new Coin(TOKEN_ATOM, amountTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(TOKEN_ATOM, amountTemp.movePointRight(6).setScale(0).toPlainString());
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 
@@ -289,7 +298,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(18).setScale(18, RoundingMode.CEILING)) > 0) return false;
-                Coin coin = new Coin(TOKEN_IRIS_ATTO, amountTemp.multiply(new BigDecimal("1000000000000000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(TOKEN_IRIS_ATTO, amountTemp.movePointRight(18).setScale(0).toPlainString());
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 
@@ -297,7 +306,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin coin = new Coin(TOKEN_KAVA, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(TOKEN_KAVA, sendTemp.movePointRight(6).setScale(0).toPlainString());
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 
@@ -305,7 +314,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin coin = new Coin(TOKEN_BAND, amountTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(TOKEN_BAND, amountTemp.movePointRight(6).setScale(0).toPlainString());
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 
@@ -313,7 +322,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin coin = new Coin(TOKEN_IOV, amountTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(TOKEN_IOV, amountTemp.movePointRight(6).setScale(0).toPlainString());
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 
@@ -321,7 +330,15 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin coin = new Coin(TOKEN_IOV_TEST, amountTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                Coin coin = new Coin(TOKEN_IOV_TEST, amountTemp.movePointRight(6).setScale(0).toPlainString());
+                getSActivity().mToDelegateAmount = coin;
+                return true;
+
+            } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
+                Coin coin = new Coin(TOKEN_CERTIK_TEST, amountTemp.movePointRight(6).setScale(0).toPlainString());
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 

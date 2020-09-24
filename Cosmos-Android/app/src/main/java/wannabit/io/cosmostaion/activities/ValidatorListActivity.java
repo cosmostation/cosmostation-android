@@ -372,6 +372,9 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);

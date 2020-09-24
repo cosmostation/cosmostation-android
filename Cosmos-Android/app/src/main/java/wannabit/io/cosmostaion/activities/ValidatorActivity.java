@@ -233,6 +233,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 hasbalance  = true;
             }
 
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("20000")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!hasbalance) {
@@ -323,6 +331,20 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("30000")) > 0) {
+                hasbalance  = true;
+            }
+            if (mRedelegates == null || mRedelegates.size() > 0) {
+                Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!hasbalance) {
@@ -352,7 +374,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
+                mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST)) {
             if (mUnBondingStates != null && mUnBondingStates.size() >= 7){
                 Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
                 return;
@@ -383,6 +405,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
                 hasbalance  = true;
             }
+
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("20000")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!hasbalance) {
@@ -454,6 +485,23 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("150000")) > 0) {
                 hasbalance  = true;
             }
+
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("15000")) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("15000")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!hasbalance) {
@@ -528,6 +576,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 hasbalance  = true;
             }
 
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!hasbalance) {
