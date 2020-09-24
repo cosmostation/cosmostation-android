@@ -317,6 +317,7 @@ let CERTIK_TEST_REWARD_ADDRESS              = CERTIK_TEST_URL + "distribution/de
 let CERTIK_TEST_REWARD_ADDRESS_TAIL         = "/withdraw_address";
 let CERTIK_TEST_REDELEGATION                = CERTIK_TEST_URL + "staking/redelegations";
 let CERTIK_TEST_BORAD_TX                    = CERTIK_TEST_URL + "txs";
+let CERTIK_TEST_PROPOSALS                   = CERTIK_TEST_URL + "gov/proposals";
 
 
 

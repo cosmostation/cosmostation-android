@@ -383,7 +383,7 @@
 "error_network" = "Network Error.";
 "error_redelegate_no_to_address" = "Please select your new validator to redelegate.";
 "error_same_reward_address" = "This address is already registered as your claim reward address.";
-"error_redelegation_limitted" = "You have redelegated to this validator in the past 21 days.";
+"error_redelegation_limitted" = "You have redelegated to this validator in the past certain period set by the system.";
 "error_max_account_over" = "Max account is 5.";
 "error_iris_token_yet" = "Iris token sending will support soon!";
 "error_support_soon" = "Support soon!";

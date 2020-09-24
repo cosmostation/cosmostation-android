@@ -583,7 +583,7 @@
 "d4I-CR-BEn.text" = "재위임";
 
 /* Class = "UILabel"; text = "For the next 21 days, you will not be able to redelegate from the validator you are redelegating to."; ObjectID = "dLd-8A-sR0"; */
-"dLd-8A-sR0.text" = "재위임을 받을 검증인에서 다시 재위임을 하는것은 21일간 불가능 합니다.";
+"dLd-8A-sR0.text" = "재위임을 받을 검증인에서 다시 재위임을 하는것은 시스템이 설정한 일정 기간 동안 불가능 합니다.";
 
 /* Class = "UILabel"; text = "Rewards are accumulated each block.\nThe actual amount of rewards you receive may be equal to or greater than what is displayed now."; ObjectID = "dRg-i3-PJK"; */
 "dRg-i3-PJK.text" = "이자는 매 블럭 마다 증가합니다. 실제로 받게되는 이자량은 지금 표시되는 것보다 같거나 많을 수 있습니다.";
