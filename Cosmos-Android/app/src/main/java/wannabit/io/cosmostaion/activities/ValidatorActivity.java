@@ -39,16 +39,13 @@ import wannabit.io.cosmostaion.dialog.Dialog_RedelegationLimited;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Redelegate;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.req.ReqTxVal;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
-import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRedelegateStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
-import wannabit.io.cosmostaion.task.FetchTask.ValHistoryTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRedelegateStateTask;
@@ -83,8 +80,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_REINVEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_UNKNOWN;
 
 public class ValidatorActivity extends BaseActivity implements TaskListener {
 
@@ -99,7 +94,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private BondingState                    mBondingState;
     private ArrayList<UnBondingState>       mUnBondingStates;
     private Reward                          mReward;
-    private ArrayList<ResHistory.InnerHits> mTx = new ArrayList<>();
+//    private ArrayList<ResHistory.InnerHits> mTx = new ArrayList<>();
     private ArrayList<ResApiTxList.Data>    mApiTxHistory = new ArrayList<>();
 
     private SpannableString                 mSelfBondingRate;
@@ -612,9 +607,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(IRIS_MAIN)) {
-            ReqTxVal req = new ReqTxVal(0, 1, true, mAccount.address, mValidator.operator_address);
+            new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+//            ReqTxVal req = new ReqTxVal(0, 1, true, mAccount.address, mValidator.operator_address);
 //            WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
-            new ValHistoryTask(getBaseApplication(), this, req, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            new ValHistoryTask(getBaseApplication(), this, req, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -662,11 +659,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             mReward = (Reward)result.resultData;
 
-        } else if (result.taskType == BaseConstant.TASK_FETCH_VAL_HISTORY) {
-            ArrayList<ResHistory.InnerHits> hits = (ArrayList<ResHistory.InnerHits>)result.resultData;
-            if(hits != null && hits.size() > 0) {
-                mTx = hits;
-            }
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REDELEGATE) {
             if (result.isSuccess) {
                 mRedelegates = (ArrayList<Redelegate>)result.resultData;
@@ -738,7 +730,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
                     onBindApiHistory(viewHolder, position);
                 } else {
-                    onBindHistory(viewHolder, position);
+                    onBindIrisApiHistory(viewHolder, position);
                 }
             }
 
@@ -1313,37 +1305,67 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             });
         }
 
-        private void onBindHistory(RecyclerView.ViewHolder viewHolder, int position) {
+        private void onBindIrisApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
+//            final HistoryHolder holder = (HistoryHolder)viewHolder;
+//            final ResHistory.Source source;
+//            if (mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
+//                source = mApiTxHistory.get(position - 2)._source;
+//            } else {
+//                source = mApiTxHistory.get(position - 3)._source;
+//            }
+//
+//            holder.historyType.setText(WDp.DpTxType(getBaseContext(), source.tx.value.msg, mAccount.address));
+//            holder.history_block.setText(source.height + " block");
+//
+//            if (mBaseChain.equals(IRIS_MAIN)) {
+//                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time));
+//                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.time));
+//                if(source.result.Code > 0) {
+//                    holder.historySuccess.setVisibility(View.VISIBLE);
+//                } else {
+//                    holder.historySuccess.setVisibility(View.GONE);
+//                }
+//                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+//                        txDetail.putExtra("txHash", source.hash);
+//                        txDetail.putExtra("isGen", false);
+//                        txDetail.putExtra("isSuccess", true);
+//                        startActivity(txDetail);
+//                    }
+//                });
+//            }
+
+
+
             final HistoryHolder holder = (HistoryHolder)viewHolder;
-            final ResHistory.Source source;
+            final ResApiTxList.Data tx;
             if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
-                source = mTx.get(position - 2)._source;
+                tx = mApiTxHistory.get(position - 2);
             } else {
-                source = mTx.get(position - 3)._source;
+                tx = mApiTxHistory.get(position - 3);
             }
-
-            holder.historyType.setText(WDp.DpTxType(getBaseContext(), source.tx.value.msg, mAccount.address));
-            holder.history_block.setText(source.height + " block");
-
-            if (mBaseChain.equals(IRIS_MAIN)) {
-                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time));
-                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.time));
-                if(source.result.Code > 0) {
-                    holder.historySuccess.setVisibility(View.VISIBLE);
-                } else {
-                    holder.historySuccess.setVisibility(View.GONE);
+            if(tx.result.Code > 0) {
+                holder.historySuccess.setVisibility(View.VISIBLE);
+            } else {
+                holder.historySuccess.setVisibility(View.GONE);
+            }
+            holder.historyType.setText(WDp.DpTxType(getBaseContext(), tx.messages, mAccount.address));
+            holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), tx.time));
+            holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), tx.time));
+            holder.history_block.setText("" + tx.height + " block");
+            holder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                    txDetail.putExtra("txHash", tx.tx_hash);
+                    txDetail.putExtra("isGen", false);
+                    txDetail.putExtra("isSuccess", true);
+                    startActivity(txDetail);
                 }
-                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
-                        txDetail.putExtra("txHash", source.hash);
-                        txDetail.putExtra("isGen", false);
-                        txDetail.putExtra("isSuccess", true);
-                        startActivity(txDetail);
-                    }
-                });
-            }
+            });
+
         }
 
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
@@ -1394,7 +1416,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     return TYPE_HISTORY_HEADER;
                 }
             }
-            if(mTx.size() > 0 || mApiTxHistory.size() > 0) {
+            if (mApiTxHistory.size() > 0) {
                 return TYPE_HISTORY;
             }
             return TYPE_HISTORY_EMPTY;
@@ -1403,38 +1425,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         @Override
         public int getItemCount() {
             if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
-                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                        mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST)) {
-                    if(mApiTxHistory.size() > 0) {
-                        return mApiTxHistory.size() + 2;
-                    } else {
-                        return 3;
-                    }
-
-                }  else {
-                    if(mTx.size() > 0) {
-                        return mTx.size() + 2;
-                    } else {
-                        return 3;
-                    }
+                if(mApiTxHistory.size() > 0) {
+                    return mApiTxHistory.size() + 2;
+                } else {
+                    return 3;
                 }
 
             } else {
-                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                        mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST)) {
-                    if(mApiTxHistory.size() > 0) {
-                        return mApiTxHistory.size() + 3;
-                    } else {
-                        return 4;
-                    }
-
-                }  else {
-                    if(mTx.size() > 0) {
-                        return mTx.size() + 3;
-                    } else {
-                        return 4;
-                    }
-
+                if(mApiTxHistory.size() > 0) {
+                    return mApiTxHistory.size() + 3;
+                } else {
+                    return 4;
                 }
             }
         }

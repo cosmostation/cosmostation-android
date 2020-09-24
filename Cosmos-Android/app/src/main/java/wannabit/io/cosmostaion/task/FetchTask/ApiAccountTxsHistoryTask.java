@@ -38,6 +38,14 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getIrisApi(mApp).getAccountTxs(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
             } else if (mChain.equals(BaseChain.BNB_MAIN)) {
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaApi(mApp).getAccountTxs(mAddress, "50").execute();

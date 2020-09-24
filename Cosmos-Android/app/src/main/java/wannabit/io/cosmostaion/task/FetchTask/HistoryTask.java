@@ -8,7 +8,6 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqTx;
 import wannabit.io.cosmostaion.network.res.ResBnbHistories;
-import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -29,27 +28,7 @@ public class HistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-                Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getTx(mReq).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().hits.hits;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
-                Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getIrisTx(mReq).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().hits.hits;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(BaseChain.BNB_MAIN)) {
+            if (mChain.equals(BaseChain.BNB_MAIN)) {
                 Response<ResBnbHistories> response = null;
                 if (strings.length == 3) {
                     response = ApiClient.getBnbChain(mApp).getHistory(strings[0], strings[1], strings[2]).execute();
@@ -64,16 +43,6 @@ public class HistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
                 mResult.taskType = BaseConstant.TASK_FETCH_BNB_HISTORY;
-
-            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getKavaTx(mReq).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().hits.hits;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
 
             } else if (mChain.equals(BaseChain.BNB_TEST)) {
                 Response<ResBnbHistories> response = null;

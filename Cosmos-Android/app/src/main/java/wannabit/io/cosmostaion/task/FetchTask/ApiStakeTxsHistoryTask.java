@@ -40,6 +40,13 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
             } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getIrisApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
             } else if (mChain.equals(BaseChain.BNB_MAIN)) {
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();

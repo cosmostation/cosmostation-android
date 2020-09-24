@@ -161,7 +161,7 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if(mWebview.canGoBack()) {
+        if (mWebview.canGoBack()) {
             mWebview.goBack();
         } else {
             if(mGoMain) {

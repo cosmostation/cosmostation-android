@@ -12,6 +12,7 @@ import java.util.List;
 
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.model.type.Result;
 
 public class ResApiTxList {
 
@@ -43,6 +44,9 @@ public class ResApiTxList {
         @SerializedName("logs")
         @Expose
         public Object logs;
+
+        @SerializedName("result")
+        public Result result;
 
         public boolean isSuccess() {
             boolean result = true;

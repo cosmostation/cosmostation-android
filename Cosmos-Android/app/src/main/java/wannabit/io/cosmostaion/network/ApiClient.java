@@ -61,7 +61,7 @@ public class ApiClient {
         if (service_iris == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_main_iris))
+                        .baseUrl(c.getString(R.string.url_lcd_iris_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 service_iris = retrofit.create(IrisChain.class);
@@ -69,6 +69,23 @@ public class ApiClient {
         }
         return service_iris;
     }
+
+    //Services for Iris api
+    private static HistoryApi api_iris = null;
+    public static HistoryApi getIrisApi(Context c) {
+        if (api_iris == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_iris_main))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_iris = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_iris;
+    }
+
+
 
     //Services for Binance net
     private static BinanceChain service_binance = null;
@@ -333,41 +350,6 @@ public class ApiClient {
     }
 
 
-
-
-
-    private static CosmosEsService service_cosmos_es = null;
-    public static CosmosEsService getCosmosEs(Context c) {
-        if (service_cosmos_es == null ) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_es_proxy))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_cosmos_es = retrofit.create(CosmosEsService.class);
-            }
-        }
-        return service_cosmos_es;
-    }
-
-
-
-
-
-//    private static KeyBaseService service_keybase = null;
-//    public static KeyBaseService getKeybaseService(Context c) {
-//        if (service_keybase == null) {
-//            synchronized (ApiClient.class) {
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .baseUrl(c.getString(R.string.url_keybase))
-//                        .client(WUtil.getUnsafeOkHttpClient().build())
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//                service_keybase = retrofit.create(KeyBaseService.class);
-//            }
-//        }
-//        return service_keybase;
-//    }
 
     private static MarketCapService marketCapService = null;
     public static MarketCapService getCMCClient(Context c) {

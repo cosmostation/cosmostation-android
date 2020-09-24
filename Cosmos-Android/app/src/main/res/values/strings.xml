@@ -4,7 +4,6 @@
 
     <string name="url_coinmarketcap" translatable="false">https://api.coinmarketcap.com/</string>
     <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>
-    <string name="url_keybase" translatable="false">https://keybase.io/</string>
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
     <string name="url_css" translatable="false">https://api-wallet.cosmostation.io/</string>
 
@@ -12,8 +11,9 @@
     <string name="url_lcd_cosmos_main" translatable="false">https://lcd-cosmos-app.cosmostation.io/</string>
     <string name="url_api_cosmos_main" translatable="false">https://api.cosmostation.io/</string>
 
-    <string name="url_lcd_main_iris" translatable="false">https://lcd-iris.cosmostation.io/</string>
-    <string name="url_es_proxy" translatable="false">https://app-es.cosmostation.io/</string>
+
+    <string name="url_lcd_iris_main" translatable="false">https://lcd-iris.cosmostation.io/</string>
+    <string name="url_api_iris_main" translatable="false">https://api-iris.cosmostation.io</string>
 
 
     <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
