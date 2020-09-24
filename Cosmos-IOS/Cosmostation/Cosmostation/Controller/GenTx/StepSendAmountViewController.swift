@@ -82,6 +82,11 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 maxAvailable = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mOkSendDenom!)
                 mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 0, mDpDecimal)
             }
+            
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+            mDpDecimal = 6
+            maxAvailable = pageHolderVC.mAccount!.getTokenBalance(CERTIK_TEST_DENOM).subtracting(NSDecimalNumber.init(string: "10000"))
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
         }
         
         mTargetAmountTextField.delegate = self
@@ -182,6 +187,11 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 return
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
+                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
         }
         self.mTargetAmountTextField.layer.borderColor = UIColor.white.cgColor
     }
@@ -238,6 +248,11 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 self.onShowToast(NSLocalizedString("error_amount", comment: ""))
                 return false
             }
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+            if (userInput.compare(maxAvailable).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_amount", comment: ""))
+                return false
+            }
         }
         return true
     }
@@ -272,6 +287,9 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 
             } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
                 toSendCoin = Coin.init(pageHolderVC.mOkSendDenom!, WUtils.getFormattedNumber(userInput, 8))
+                
+            } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                toSendCoin = Coin.init(CERTIK_TEST_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
             }
             
             var tempList = Array<Coin>()
@@ -364,6 +382,11 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2), withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
+            
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+            let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
+            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
+            
         }
         self.onUIupdate()
     }
@@ -402,6 +425,13 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxAvailable, mDpDecimal)
             if (pageHolderVC.mOkSendDenom == OKEX_TEST_DENOM) {
+                self.showMaxWarnning()
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
+            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
+            if (pageHolderVC.mCertikSendDenom == CERTIK_TEST_DENOM) {
                 self.showMaxWarnning()
             }
         }

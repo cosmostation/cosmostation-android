@@ -59,8 +59,12 @@ let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band-wenchang-mainnet.cosmostation.io/";
 
 
-let OKEX_TEST_URL                        = "https://lcd-okexchain-testnet1.cosmostation.io/";
-let OKEX_TEST_API                        = "";
+let OKEX_TEST_URL                       = "https://lcd-okexchain-testnet1.cosmostation.io/";
+let OKEX_TEST_API                       = "";
+
+
+let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostation.io/";
+let CERTIK_TEST_API                     = "";
 
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
@@ -296,6 +300,26 @@ let OKEX_TEST_WITHDRAW_TAIL               = "/unbonding_delegations";
 let OKEX_TEST_BORAD_TX                    = OKEX_TEST_URL + "txs";
 
 
+//CERTIC_TEST_URL
+let CERTIK_TEST_TX                          = CERTIK_TEST_URL + "txs/";
+let CERTIK_TEST_VALIDATORS                  = CERTIK_TEST_URL + "staking/validators";
+let CERTIK_TEST_ACCOUNT_INFO                = CERTIK_TEST_URL + "auth/accounts/";
+let CERTIK_TEST_BONDING                     = CERTIK_TEST_URL + "staking/delegators/";
+let CERTIK_TEST_BONDING_TAIL                = "/delegations";
+let CERTIK_TEST_UNBONDING                   = CERTIK_TEST_URL + "staking/delegators/";
+let CERTIK_TEST_UNBONDING_TAIL              = "/unbonding_delegations";
+let CERTIK_TEST_REWARD_FROM_VAL             = CERTIK_TEST_URL + "distribution/delegators/";
+let CERTIK_TEST_REWARD_FROM_VAL_TAIL        = "/rewards/";
+let CERTIK_TEST_INFLATION                   = CERTIK_TEST_URL + "minting/inflation";
+let CERTIK_TEST_PROVISIONS                  = CERTIK_TEST_URL + "minting/annual-provisions";
+let CERTIK_TEST_STAKING_POOL                = CERTIK_TEST_URL + "staking/pool";
+let CERTIK_TEST_REWARD_ADDRESS              = CERTIK_TEST_URL + "distribution/delegators/";
+let CERTIK_TEST_REWARD_ADDRESS_TAIL         = "/withdraw_address";
+let CERTIK_TEST_REDELEGATION                = CERTIK_TEST_URL + "staking/redelegations";
+let CERTIK_TEST_BORAD_TX                    = CERTIK_TEST_URL + "txs";
+let CERTIK_TEST_PROPOSALS                   = CERTIK_TEST_URL + "gov/proposals";
+
+
 
 
 
@@ -311,6 +335,7 @@ let IRIS_VAL_URL                        = "https://raw.githubusercontent.com/cos
 let KAVA_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
 let BAND_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
 let IOV_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
+let CERTIK_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/certik/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -470,6 +495,8 @@ let OK_MSG_TYPE_DEPOSIT                     = "okexchain/staking/MsgDeposit";
 let OK_MSG_TYPE_WITHDRAW                    = "okexchain/staking/MsgWithdraw";
 let OK_MSG_TYPE_DIRECT_VOTE                 = "okexchain/staking/MsgAddShares";
 
+let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
+
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
@@ -585,6 +612,13 @@ let OK_GAS_AMOUNT_STAKE_MUX                 = "20000"
 let OK_GAS_AMOUNT_VOTE                      = "200000"
 let OK_GAS_AMOUNT_VOTE_MUX                  = "50000"
 
+
+let CETIK_GAS_FEE_RATE_AVERAGE              = "0.1"
+let CETIK_GAS_AMOUNT_SEND                   = "100000"
+let CETIK_GAS_AMOUNT_STAKE                  = "200000"
+let CETIK_GAS_AMOUNT_REDELEGATE             = "300000"
+
+
 // Constant for BEP3-Swap
 let BINANCE_MAIN_BNB_DEPUTY                 = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn"
 let KAVA_MAIN_BNB_DEPUTY                    = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6"
@@ -646,6 +680,11 @@ let TRANS_BG_COLOR_OK2                      = UIColor.init(hexString: "88bdf3", 
 let COLOR_OK                                = UIColor.init(hexString: "88bdf3")
 let COLOR_OK_DARK                           = UIColor.init(hexString: "45678b")
 
+let TRANS_BG_COLOR_CERTIK                   = UIColor.init(hexString: "E1AA4C", alpha: 0.15)
+let TRANS_BG_COLOR_CERTIK2                  = UIColor.init(hexString: "E1AA4C", alpha: 0.4)
+let COLOR_CERTIK                            = UIColor.init(hexString: "E1AA4C")
+let COLOR_CERTIK_DARK                       = UIColor.init(hexString: "59441E")
+
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
 let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
@@ -666,6 +705,7 @@ enum ChainType: String {
     case KAVA_TEST
     case IOV_TEST
     case OKEX_TEST
+    case CERTIK_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
@@ -680,6 +720,7 @@ enum ChainType: String {
         result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
         result.append(OKEX_TEST)
+        result.append(CERTIK_TEST)
         return result
     }
     
@@ -739,6 +780,7 @@ let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
 let CHAIN_OKEX_TEST_S = "SUPPORT_CHAIN_OKEX_TEST"
+let CHAIN_CERTIK_TEST_S = "SUPPORT_CHAIN_CERTIK_TEST"
 
 
 let COSMOS_MAIN_DENOM = "uatom"
@@ -750,7 +792,7 @@ let KAVA_MAIN_DENOM = "ukava"
 let BAND_MAIN_DENOM = "uband"
 let IOV_TEST_DENOM = "uvoi"
 let OKEX_TEST_DENOM = "tokt"
-
+let CERTIK_TEST_DENOM = "uctk"
 
 
 let Font_17_body = UIFont(name: "Helvetica-Light", size: 17)!

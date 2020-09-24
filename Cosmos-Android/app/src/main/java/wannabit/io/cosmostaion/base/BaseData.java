@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkDeposit;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
@@ -52,9 +53,13 @@ public class BaseData {
     private SharedPreferences   mSharedPreferences;
     private SQLiteDatabase      mSQLiteDatabase;
     public ArrayList<Validator> mAllValidators = new ArrayList<>();
+    public ArrayList<Validator> mMyValidators = new ArrayList<>();
     public ArrayList<Validator> mTopValidators = new ArrayList<>();
     public ArrayList<Validator> mOtherValidators = new ArrayList<>();
     public ResStakingPool       mStakingPool;
+    public ResLcdIrisPool       mIrisStakingPool;
+    public BigDecimal           mInflation = BigDecimal.ZERO;
+    public BigDecimal           mProvisions = BigDecimal.ZERO;
 
 
     //COMMON DATA
@@ -601,14 +606,6 @@ public class BaseData {
         values.put("resource",  password.resource);
         values.put("spec",      password.spec);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_PASSWORD, null, values);
-    }
-
-    public ArrayList<Validator> getAllValidators() {
-        return mAllValidators;
-    }
-
-    public void setAllValidators(ArrayList<Validator> mAllValidators) {
-        this.mAllValidators = mAllValidators;
     }
 
     //    public ArrayList<Mnemonic> onSelectMnemonics() {

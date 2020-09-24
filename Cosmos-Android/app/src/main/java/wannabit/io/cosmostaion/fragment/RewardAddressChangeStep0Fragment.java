@@ -77,7 +77,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_cosmos_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -85,7 +85,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_iris_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
@@ -93,7 +93,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_kava_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
@@ -101,7 +101,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_band_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN) || getSActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
@@ -109,7 +109,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_iov_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
             } else {

@@ -89,14 +89,11 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
             if(indexPath.row == 0) {
                 if(Locale.current.languageCode == "ko") {
                     guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_ko.html") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
+                    self.onShowSafariWeb(url)
+                    
                 } else {
                     guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_en.html") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
+                    self.onShowSafariWeb(url)
                 }
                 
             } else if(indexPath.row == 1) {
@@ -122,75 +119,56 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
             } else if(indexPath.row == 2) {
                 if (chainType == ChainType.COSMOS_MAIN) {
                     guard let url = URL(string: "https://www.mintscan.io") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
+                    self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.IRIS_MAIN) {
                     guard let url = URL(string: "https://irishub.mintscan.io") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
+                    self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.BINANCE_MAIN) {
                     guard let url = URL(string: "https://binance.mintscan.io") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
+                    self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.IOV_MAIN) {
                     guard let url = URL(string: "https://big-dipper.iov-mainnet-2.iov.one") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
+                    self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.KAVA_MAIN) {
                     guard let url = URL(string: "https://kava.mintscan.io") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
+                    self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.BAND_MAIN) {
                     guard let url = URL(string: "https://cosmoscan.io/") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
+                    self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.KAVA_TEST) {
                     guard let url = URL(string: "https://kava-testnet-9000.mintscan.io") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
+                    self.onShowSafariWeb(url)
                     
+                } else if (chainType == ChainType.CERTIK_TEST) {
+                    guard let url = URL(string: "https://explorer.certik.foundation/") else { return }
+                    self.onShowSafariWeb(url)
                 }
                 
             } else if(indexPath.row == 3) {
                 guard let url = URL(string: "https://www.cosmostation.io") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             }
             
         } else if (indexPath.section == 3) {
             if(indexPath.row == 0) {
                 if(Locale.current.languageCode == "ko") {
                     guard let url = URL(string: "https://www.cosmostation.io/service_ko.html") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
+                    self.onShowSafariWeb(url)
                 } else {
                     guard let url = URL(string: "https://www.cosmostation.io/service_en.html") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
+                    self.onShowSafariWeb(url)
                 }
                 
                 
             } else if(indexPath.row == 1) {
                 guard let url = URL(string: "https://github.com/cosmostation/cosmostation-mobile") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
                 
             } else if(indexPath.row == 2) {
                 let urlAppStore = URL(string: "itms-apps://itunes.apple.com/app/id1459830339")
@@ -340,4 +318,11 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
             NotificationCenter.default.post(name: Notification.Name("refreshPrice"), object: nil, userInfo: nil)
         }
     }
+    
+    func onShowSafariWeb(_ url: URL) {
+        let safariViewController = SFSafariViewController(url: url)
+        safariViewController.modalPresentationStyle = .popover
+        present(safariViewController, animated: true, completion: nil)
+    }
+    
 }

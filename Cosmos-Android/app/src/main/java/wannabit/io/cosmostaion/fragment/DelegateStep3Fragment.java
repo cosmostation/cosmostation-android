@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Delegate_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -72,7 +73,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         BigDecimal toDeleagteAmount = new BigDecimal(getSActivity().mToDelegateAmount.amount);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount);
         if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
-                getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
+                getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
             mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAmount, 6, getSActivity().mBaseChain));
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
 
@@ -94,6 +95,8 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
             Bundle bundle = new Bundle();
             if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
                 bundle.putInt("day", 3);
+            } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                bundle.putInt("day", 14);
             } else {
                 bundle.putInt("day", 21);
             }
@@ -101,9 +104,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
             dialog.setTargetFragment(DelegateStep3Fragment.this, SELECT_DELEGATE_CHECK);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
-
         }
-
     }
 
     @Override

@@ -28,7 +28,7 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
         
         userDelegated = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address)!.getBondingAmount(pageHolderVC.mTargetValidator!)
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             mDpDecimal = 6
             availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 6, mDpDecimal)
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
@@ -55,7 +55,7 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
             
             
             if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-                pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                 if let index = text.range(of: ".")?.upperBound {
                     if(text.substring(from: index).count > 5 && range.length == 0) {
                         return false
@@ -121,7 +121,7 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
         let userInput = WUtils.localeStringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             if (userInput.multiplying(by: 1000000).compare(userDelegated).rawValue > 0) {
                 return false
             }
@@ -156,6 +156,8 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
                 coin = Coin.init(IOV_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
             } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
                 coin = Coin.init(IOV_TEST_DENOM, userInput.multiplying(by: 1000000).stringValue)
+            } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                coin = Coin.init(CERTIK_TEST_DENOM, userInput.multiplying(by: 1000000).stringValue)
             }
             pageHolderVC.mToReDelegateAmount = coin
             self.btnCancel.isUserInteractionEnabled = false
@@ -220,7 +222,7 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
     
     @IBAction func onClickHalf(_ sender: UIButton) {
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             let halfValue = userDelegated.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
             redelegateInputTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
@@ -232,7 +234,7 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
     
     @IBAction func onClickMax(_ sender: UIButton) {
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             let maxValue = userDelegated.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
             redelegateInputTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {

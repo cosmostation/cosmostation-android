@@ -90,7 +90,8 @@
 "fee_speed_bnb_title" = "현재 바이낸스는 고정 수수료를 지원합니다.";
 "fee_speed_kava_title" = "현재 카바는 고정 전송 수수료를 지원합니다.";
 "fee_speed_iov_title" = "현재 스타네임은 고정 전송 수수료를 지원합니다.";
-"fee_speed_ok_title" = "현재 오케이체인은 고정 전송 수수료를 지원합니다.";
+"fee_speed_ok_title" = "현재 오케이이엑스 체인은 고정 전송 수수료를 지원합니다.";
+"fee_speed_certik_title" = "현재 써틱 체인은 고정 전송 수수료를 지원합니다.";
 "fee_description_title_0" = "Tx 수수료 0.000001 ATOM";
 "fee_description_title_1" = "Tx 수수료 비율 0.0025";
 "fee_description_title_2" = "Tx 수수료 비율 0.025";
@@ -118,8 +119,10 @@
 "send_guide_msg_iov" = "Tendermint를 기반으로하는 Starname은 빠르고 안전하며 분산 된 범용 네이밍 서비스를 구축합니다.";
 "send_guide_title_band" = "밴드 프로토콜";
 "send_guide_msg_band" = "Tendermint를 기반으로 하는 크로스 체인 오라클 플랫폼입니다. 밴드 프로토콜은 실제 데이터와 API를 스마트 계약으로 통합하여 제공합니다.";
-"send_guide_title_ok" = "오케이 체인";
-"send_guide_msg_ok" = "OK Chain은 Tendermint를 기반으로 하는 퍼블릭 탈 중앙화 거래소 플랫폼 입니다.";
+"send_guide_title_ok" = "오케이이엑스 체인";
+"send_guide_msg_ok" = "Okex Chain은 Tendermint를 기반으로 하는 퍼블릭 탈 중앙화 거래소 플랫폼 입니다.";
+"send_guide_title_certik" = "써틱 체인";
+"send_guide_msg_certik" = "Certik Foundation의 고유 한 공식 검증 보안 시스템을 기반으로하는 공용 플랫폼입니다. Certik은 보안 중심 체인에서 스마트 계약 실행 및 상호 작용을 허용합니다.";
 "send_guide_btn1_cosmos" = "가이드";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -127,6 +130,7 @@
 "send_guide_btn1_iov" = "StarName";
 "send_guide_btn1_band" = "Home";
 "send_guide_btn1_ok" = "Market";
+"send_guide_btn1_certik" = "Home";
 "send_guide_btn2_cosmos" = "도움말";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -134,6 +138,7 @@
 "send_guide_btn2_iov" = "Blog";
 "send_guide_btn2_band" = "Blog";
 "send_guide_btn2_ok" = "Communities";
+"send_guide_btn2_certik" = "Blog";
 "name" = "이름";
 "amount" = "수량";
 "value" = "금액";
@@ -378,13 +383,13 @@
 "error_network" = "네트워크 에러.";
 "error_redelegate_no_to_address" = "재위임할 검증인을 선택해 주세요.";
 "error_same_reward_address" = "이미 등록된 이자 주소와 동일합니다.";
-"error_redelegation_limitted" = "이 검증인은 이미 재위임을 받은 기록이 있습니다.\n기존 재위임이 완전히 완료된 후(21일 후) 이 검증인으로부터 재위임을 신청할 수 있습니다.";
+"error_redelegation_limitted" = "이 검증인은 이미 재위임을 받은 기록이 있습니다.\n기존 재위임이 완전히 완료된 후(시스템이 설정한 일정 기간) 이 검증인으로부터 재위임을 신청할 수 있습니다.";
 "error_max_account_over" = "최대 5개의 지갑이 등록 가능합니다.";
 "error_reward_address_changed_title" = "이자 지급 주소 변경됨";
 "error_reward_address_changed_msg" = "이자 지급 주소가 변경된 계정입니다. 이자 즉시 위임 기능을 사용하실 수 없습니다.";
 "error_iris_token_yet" = "아이리스 토큰 전송은 더 많은 테스트 후에 지원하겠습니다.";
 "error_duple_address" = "이미 등록된 주소입니다.";
-"error_kava_yet" = "더 많은 테스트 후에 지원하겠습니다.";
+"error_support_soon" = "더 많은 테스트 후에 지원하겠습니다.";
 "error_kava_vesting_account" = "베스팅 계정입니다. 정확한 Tx를 위해 cli를 사용하세요.";
 "error_send_disable" = "아직 전송이 활성화 되지 않았습니다.";
 "error_not_voting_not" = "지금은 투표할 수 없습니다..";
@@ -493,5 +498,6 @@
 "chain_title_kava_test" = "Kava Testnet";
 "chain_title_iov_test" = "Starname Testnet";
 "chain_title_okex_test" = "Okex Testnet";
+"chain_title_certik_test" = "Certik Testnet";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";

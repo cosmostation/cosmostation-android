@@ -160,6 +160,21 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
+        } else if (userInput.starts(with: "certik")) {
+            if (!ChainType.SUPPRT_CHAIN().contains(ChainType.CERTIK_TEST)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                return;
+                
+            }
+            if (WKey.isValidateBech32(userInput)) {
+                self.onGenWatchAccount(ChainType.CERTIK_TEST, userInput)
+                return;
+            } else {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                self.addAddressInputText.text = ""
+                return;
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
             self.addAddressInputText.text = ""

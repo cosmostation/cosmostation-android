@@ -300,6 +300,23 @@ public class ApiClient {
     }
 
 
+
+
+    //Services for Certik chain
+    private static CertikChain service_certik_test = null;
+    public static CertikChain getCertikTestChain(Context c) {
+        if (service_certik_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_certik_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_certik_test = retrofit.create(CertikChain.class);
+            }
+        }
+        return service_certik_test;
+    }
+
     private static CosmosEsService service_cosmos_es = null;
     public static CosmosEsService getCosmosEs(Context c) {
         if (service_cosmos_es == null ) {

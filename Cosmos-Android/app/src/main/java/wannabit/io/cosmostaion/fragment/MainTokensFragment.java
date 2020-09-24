@@ -45,11 +45,23 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -132,7 +144,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             if (getMainActivity().mAccount.pushAlarm) {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
             } else {
@@ -183,55 +195,59 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else if (mOrder == ORDER_AMOUNT) {
             mTokenSortType.setText(R.string.str_amount);
             WUtil.onSortingTokenByAmount(mBalances, getMainActivity().mBaseChain);
-        } else if (mOrder == ORDER_VALUE && (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST))) {
+        } else if (mOrder == ORDER_VALUE && (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST))) {
             mTokenSortType.setText(R.string.str_value);
             WUtil.onSortingBnbTokenByValue(mBalances, mBnbTics);
-        } else if (mOrder == ORDER_VALUE && (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST))) {
+        } else if (mOrder == ORDER_VALUE && (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST))) {
             mTokenSortType.setText(R.string.str_value);
             WUtil.onSortingKavaTokenByValue(mBalances, getBaseDao().mKavaTokenPrices, getBaseDao().mKavaCdpParams);
         }
         WDp.DpMainDenom(getMainActivity(), getMainActivity().mBaseChain.getChain(), mDenomTitle);
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             onUpdateTotalCard();
             onFetchCosmosTokenPrice();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             onUpdateTotalCard();
             onFetchIrisTokenPrice();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             onUpdateTotalCard();
             onFetchBnbTokenPrice();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             onUpdateTotalCard();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
             onUpdateTotalCard();
             onFetchIovTokenPrice();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
             onUpdateTotalCard();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             onUpdateTotalCard();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             onUpdateTotalCard();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             onUpdateTotalCard();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            onUpdateTotalCard();
+
+        } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             onUpdateTotalCard();
 
@@ -250,7 +266,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onUpdateTotalCard() {
-        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             BigDecimal totalAtomAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_ATOM) || (IS_TEST && balance.symbol.equals(TOKEN_MUON))) {
@@ -262,7 +278,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAtomAmount, 6, 6));
             mTotalValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), totalAtomAmount));
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
             BigDecimal totalIrisAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_IRIS_ATTO)) {
@@ -274,7 +290,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalIrisAmount, 18, 6));
             mTotalValue.setText(WDp.getValueOfIris(getContext(), getBaseDao(), totalIrisAmount));
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
             BigDecimal totalBnbAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_BNB)) {
@@ -289,7 +305,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBnbAmount, 0, 6));
             mTotalValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), totalBnbAmount));
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
             BigDecimal totalKavaAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_KAVA)) {
@@ -303,7 +319,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalKavaAmount, 6, 6));
             mTotalValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalKavaAmount));
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
             BigDecimal totalIovAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_IOV) || balance.symbol.equals(TOKEN_IOV_TEST) ) {
@@ -313,7 +329,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalIovAmount, 6, 6));
             mTotalValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalIovAmount));
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
             BigDecimal totalBandAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_BAND)) {
@@ -323,7 +339,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBandAmount, 6, 6));
             mTotalValue.setText(WDp.getValueOfBand(getContext(), getBaseDao(), totalBandAmount));
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
             BigDecimal totalOkAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_OK_TEST)) {
@@ -335,9 +351,19 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalOkAmount, 0, 6));
             mTotalValue.setText(WDp.getValueOfOk(getContext(), getBaseDao(), totalOkAmount));
 
+        } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+            BigDecimal totalCtkAmount = BigDecimal.ZERO;
+            for (Balance balance:mBalances) {
+                if (balance.symbol.equals(TOKEN_CERTIK_TEST) ) {
+                    totalCtkAmount = totalCtkAmount.add(WDp.getAllCtk(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
+                }
+            }
+            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalCtkAmount, 6, 6));
+            mTotalValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalCtkAmount));
+
         }
 
-        if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
             mKavaOracle.setVisibility(View.VISIBLE);
         } else {
             mKavaOracle.setVisibility(View.GONE);
@@ -366,22 +392,24 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public void onBindViewHolder(@NonNull AssetHolder viewHolder, int position) {
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 onBindCosmosItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 onBindIrisItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
                 onBindBnbItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
                 onBindKavaItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 onBindKavaTestItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                 onBindIovItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 onBindBandItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
                 onBindOkItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                onBindCertikItem(viewHolder, position);
 
             }
         }
@@ -414,7 +442,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         final Balance balance = mBalances.get(position);
         if (balance.symbol.equals(TOKEN_ATOM) || (IS_TEST && balance.symbol.equals(TOKEN_MUON))) {
             holder.itemSymbol.setText(getString(R.string.str_atom_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.COSMOS_MAIN));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("Cosmos Hub Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
@@ -454,7 +482,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 amount = WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, getMainActivity().mAllValidators);
                 holder.itemBalance.setText(WDp.getDpAmount(getContext(), amount, 6, getMainActivity().mBaseChain));
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
-                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IRIS_MAIN));
+                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IRIS_MAIN));
                 holder.itemValue.setText(WDp.getValueOfIris(getContext(), getBaseDao(), amount));
             } else {
                 holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.balance, 6, getMainActivity().mBaseChain));
@@ -491,7 +519,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             if (balance.symbol.equals(TOKEN_BNB)) {
                 amount = balance.getAllBnbBalance();
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
-                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.BNB_MAIN));
+                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
 
             } else {
                 holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -525,7 +553,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         final Balance balance = mBalances.get(position);
         if (balance.symbol.equals(TOKEN_KAVA)) {
             holder.itemSymbol.setText(getString(R.string.str_kava_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.KAVA_MAIN));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("Kava Chain Native Token");
             Picasso.get().cancelRequest(holder.itemImg);
@@ -575,7 +603,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         final Balance balance = mBalances.get(position);
         if (balance.symbol.equals(TOKEN_KAVA)) {
             holder.itemSymbol.setText(getString(R.string.str_kava_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.KAVA_MAIN));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("Kava Chain Native Token");
             Picasso.get().cancelRequest(holder.itemImg);
@@ -627,7 +655,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         final Balance balance = mBalances.get(position);
         if (balance.symbol.equals(TOKEN_IOV) || balance.symbol.equals(TOKEN_IOV_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_iov_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IOV_MAIN));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IOV_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("IOV Chain Native Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
@@ -651,7 +679,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         final Balance balance = mBalances.get(position);
         if (balance.symbol.equals(TOKEN_BAND)) {
             holder.itemSymbol.setText(getString(R.string.str_band_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.BAND_MAIN));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BAND_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("Band Chain Native Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
@@ -678,7 +706,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         final Balance balance = mBalances.get(position);
         final OkToken token = WUtil.getOkToken(getBaseDao().mOkTokenList, balance.symbol);
         if (balance.symbol.equals(TOKEN_OK_TEST)) {
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.OK_TEST));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), OK_TEST));
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
             BigDecimal totalAmount = WDp.getAllOk(balance, getBaseDao().mOkDeposit, getBaseDao().mOkWithdraw);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
@@ -706,10 +734,30 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 startActivity(intent);
             }
         });
+    }
 
+    private void onBindCertikItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_CERTIK_TEST)) {
+            holder.itemSymbol.setText(getString(R.string.str_ctk_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERTIK_TEST));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Certik Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_token_img));
 
+            BigDecimal totalAmount = WDp.getAllCtk(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalAmount));
+        } else {
+            //TODO no case yet
 
-
+        }
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO no  yet
+            }
+        });
     }
 
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.type.Redelegate;
@@ -15,6 +14,15 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
+
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 public class SingleRedelegateStateTask extends CommonTask {
 
@@ -31,9 +39,9 @@ public class SingleRedelegateStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
+            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getCosmosChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
                         mResult.resultData = response.body().result;
                         mResult.isSuccess = true;
@@ -43,9 +51,9 @@ public class SingleRedelegateStateTask extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
+            } else if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getKavaChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
                         mResult.resultData = response.body().result;
                         mResult.isSuccess = true;
@@ -55,9 +63,9 @@ public class SingleRedelegateStateTask extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_TEST)) {
+            } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdRedelegate> response = ApiClient.getKavaTestChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
                         mResult.resultData = response.body().result;
                         mResult.isSuccess = true;
@@ -67,9 +75,9 @@ public class SingleRedelegateStateTask extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BAND_MAIN)) {
+            } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getBandChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
                         mResult.resultData = response.body().result;
                         mResult.isSuccess = true;
@@ -79,9 +87,9 @@ public class SingleRedelegateStateTask extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_MAIN)) {
+            } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getIovChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
                         mResult.resultData = response.body().result;
                         mResult.isSuccess = true;
@@ -91,9 +99,21 @@ public class SingleRedelegateStateTask extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_TEST)) {
+            } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
                 Response<ResLcdRedelegate> response = ApiClient.getIovTestChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
+                    if(response.body() != null && response.body().result != null) {
+                        mResult.resultData = response.body().result;
+                        mResult.isSuccess = true;
+                    } else {
+                        mResult.resultData = new ArrayList<Redelegate>();
+                        mResult.isSuccess = true;
+                    }
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
+                Response<ResLcdRedelegate> response = ApiClient.getCertikTestChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
+                if (response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
                         mResult.resultData = response.body().result;
                         mResult.isSuccess = true;
@@ -104,7 +124,6 @@ public class SingleRedelegateStateTask extends CommonTask {
                 }
 
             }
-
 
         } catch (Exception e) {
             WLog.w("SingleUnBondingStateTask Error " + e.getMessage());

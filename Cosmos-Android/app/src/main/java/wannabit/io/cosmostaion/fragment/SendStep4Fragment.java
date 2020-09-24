@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -281,6 +282,18 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount), 0, 8));
 
             }
+
+        } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+            mDpDecimal = 6;
+            mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 6, 6));
+            mTotalPrice.setText(WDp.getValueOfBand(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
+
+            BigDecimal currentAvai  = getSActivity().mAccount.getTokenBalance(getSActivity().mCertikDenom);
+            mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 6, 6));
+            mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, 6));
+            mRemainingPrice.setText(WDp.getValueOfBand(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
 
         }
 

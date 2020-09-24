@@ -17,7 +17,7 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             let data = try? JSONEncoder().encode(amount)
@@ -45,7 +45,7 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             let data = try? JSONEncoder().encode(amount)
@@ -74,7 +74,7 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             
@@ -146,6 +146,19 @@ class MsgGenerator {
             
             msg.type = OK_MSG_TYPE_TRANSFER
             msg.value = value
+            
+        } else if (chain == ChainType.CERTIK_TEST) {
+            value.from_address = fromAddress
+            value.to_address = toAddress
+            let data = try? JSONEncoder().encode(amount)
+            do {
+                value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+            } catch {
+                print(error)
+            }
+            
+            msg.type = CERTIK_MSG_TYPE_TRANSFER
+            msg.value = value
         }
         return msg
     }
@@ -154,7 +167,7 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             value.delegator_address = address
             value.validator_src_address = fromValAddress
             value.validator_dst_address = toValAddress

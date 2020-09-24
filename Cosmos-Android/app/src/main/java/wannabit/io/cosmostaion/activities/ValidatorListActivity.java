@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.fragment.ValidatorAllFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorOtherFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -66,23 +67,20 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mMyValidators = getIntent().getParcelableArrayListExtra("myValidators");
-        mTopValidators = getIntent().getParcelableArrayListExtra("topValidators");
-        mOtherValidators = getIntent().getParcelableArrayListExtra("otherValidators");
-        mBondedToken = new BigDecimal(getIntent().getStringExtra("bondedToken"));
-        mProvisions = new BigDecimal(getIntent().getStringExtra("provisions"));
+        mAllValidators = getBaseDao().mAllValidators;
+        mTopValidators = getBaseDao().mTopValidators;
+        mOtherValidators = getBaseDao().mOtherValidators;
+        mMyValidators = getBaseDao().mMyValidators;
+        mStakingPool = getBaseDao().mStakingPool;
+        mIrisStakingPool = getBaseDao().mIrisStakingPool;
+        mProvisions = getBaseDao().mProvisions;
+        mInflation = getBaseDao().mInflation;
+
+
         mRewards = getIntent().getParcelableArrayListExtra("rewards");
-        mIrisPool = getIntent().getParcelableExtra("irispool");
         mIrisReward = getIntent().getParcelableExtra("irisreward");
         mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
         WLog.w("mBondings "+mBondings.size());
-
-        for (Validator v: mMyValidators){
-            mAllValidators.add(v);
-        }
-        for (Validator v: mOtherValidators){
-            mAllValidators.add(v);
-        }
 
         mPageAdapter = new ValidatorPageAdapter(getSupportFragmentManager());
         mValidatorPager.setAdapter(mPageAdapter);
@@ -147,9 +145,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     public void onStartValidatorDetail(Validator validator) {
         Intent intent = new Intent(ValidatorListActivity.this, ValidatorActivity.class);
         intent.putExtra("validator", validator);
-        intent.putExtra("bondedToken", mBondedToken.toPlainString());
-        intent.putExtra("provisions", mProvisions.toPlainString());
-        intent.putExtra("irispool", mIrisPool);
         startActivity(intent);
     }
 
@@ -377,6 +372,9 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);
@@ -384,14 +382,22 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         startActivity(claimReward);
     }
 
-
     public void onFetchAllData() {
         onFetchAccountInfo(this);
     }
 
     @Override
     public void fetchFinished() {
-        if(!isFinishing()) {
+        if (!isFinishing()) {
+            mAllValidators = getBaseDao().mAllValidators;
+            mTopValidators = getBaseDao().mTopValidators;
+            mOtherValidators = getBaseDao().mOtherValidators;
+            mMyValidators = getBaseDao().mMyValidators;
+            mStakingPool = getBaseDao().mStakingPool;
+            mIrisStakingPool = getBaseDao().mIrisStakingPool;
+            mProvisions = getBaseDao().mProvisions;
+            mInflation = getBaseDao().mInflation;
+
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }

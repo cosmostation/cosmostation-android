@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -45,11 +46,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 
 
@@ -174,6 +173,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 hasbalance  = true;
             }
 
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
+
         }
 
         if (!hasbalance){
@@ -283,6 +286,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setVisibility(View.GONE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_testnet_img));
 
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setVisibility(View.VISIBLE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_testnet_img));
+
         }
 
         new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -386,14 +398,14 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnRewardAddressChange)) {
-            if(!mAccount.hasPrivateKey) {
+            if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 add.setCancelable(true);
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
 
-            if(TextUtils.isEmpty(mRewardAddress.getText().toString())) {
+            if (TextUtils.isEmpty(mRewardAddress.getText().toString())) {
                 Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 return;
             }

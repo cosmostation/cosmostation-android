@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.task.SingleFetchTask;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import retrofit2.Response;
@@ -16,6 +14,8 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
+
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 public class SingleAllRedelegateState extends CommonTask {
 
@@ -34,7 +34,7 @@ public class SingleAllRedelegateState extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
+            if (getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getCosmosChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
@@ -46,7 +46,7 @@ public class SingleAllRedelegateState extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
+            } else if (getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getKavaChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
@@ -58,7 +58,7 @@ public class SingleAllRedelegateState extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_TEST)) {
+            } else if (getChain(mAccount.baseChain).equals(BaseChain.KAVA_TEST)) {
                 Response<ResLcdRedelegate> response = ApiClient.getKavaTestChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
@@ -70,7 +70,7 @@ public class SingleAllRedelegateState extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BAND_MAIN)) {
+            } else if (getChain(mAccount.baseChain).equals(BaseChain.BAND_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getBandChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
@@ -82,7 +82,7 @@ public class SingleAllRedelegateState extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_MAIN)) {
+            } else if (getChain(mAccount.baseChain).equals(BaseChain.IOV_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getIovChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
@@ -94,8 +94,20 @@ public class SingleAllRedelegateState extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_TEST)) {
+            } else if (getChain(mAccount.baseChain).equals(BaseChain.IOV_TEST)) {
                 Response<ResLcdRedelegate> response = ApiClient.getIovTestChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
+                if(response.isSuccessful()) {
+                    if(response.body() != null && response.body().result != null) {
+                        mResult.resultData = response.body().result;
+                        mResult.isSuccess = true;
+                    } else {
+                        mResult.resultData = new ArrayList<Redelegate>();
+                        mResult.isSuccess = true;
+                    }
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(BaseChain.CERTIK_TEST)) {
+                Response<ResLcdRedelegate> response = ApiClient.getCertikTestChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
                         mResult.resultData = response.body().result;

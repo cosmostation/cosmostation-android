@@ -68,7 +68,7 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
     @IBAction func onClickNext(_ sender: Any) {
         let userInput = mTargetAddressTextField.text?.trimmingCharacters(in: .whitespaces)
         if (WUtils.isValidStarName(userInput!.lowercased())) {
-            self.onCheckNameservice(userInput!)
+            self.onCheckNameservice(userInput!.lowercased())
             return;
         }
         
@@ -121,6 +121,12 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
             
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             if (!userInput!.starts(with: "okexchain") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+            if (!userInput!.starts(with: "certik") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }

@@ -16,6 +16,15 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+
 public class UnBondingStateTask extends CommonTask {
 
     private Account mAccount;
@@ -29,71 +38,81 @@ public class UnBondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getCosmosChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.COSMOS_MAIN, mAccount.id, response.body().result));
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, COSMOS_MAIN, mAccount.id, response.body().result));
                     } else {
                         mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
                 Response<ArrayList<ResLcdUnBonding>> response = ApiClient.getIrisChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.IRIS_MAIN, mAccount.id, response.body()));
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, IRIS_MAIN, mAccount.id, response.body()));
                     } else {
                         mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getKavaChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.KAVA_MAIN, mAccount.id, response.body().result));
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, KAVA_MAIN, mAccount.id, response.body().result));
                     } else {
                         mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BAND_MAIN)) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BAND_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getBandChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.COSMOS_MAIN, mAccount.id, response.body().result));
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BAND_MAIN, mAccount.id, response.body().result));
                     } else {
                         mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_TEST)) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdUnBondings> response = ApiClient.getKavaTestChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.KAVA_MAIN, mAccount.id, response.body().result));
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, KAVA_TEST, mAccount.id, response.body().result));
                     } else {
                         mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_MAIN)) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(IOV_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getIovChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.IOV_MAIN, mAccount.id, response.body().result));
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, IOV_MAIN, mAccount.id, response.body().result));
                     } else {
                         mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_TEST)) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(IOV_TEST)) {
                 Response<ResLcdUnBondings> response = ApiClient.getIovTestChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.IOV_TEST, mAccount.id, response.body().result));
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, IOV_TEST, mAccount.id, response.body().result));
+                    } else {
+                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
+                    }
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
+                Response<ResLcdUnBondings> response = ApiClient.getCertikTestChain(mApp).getUnBondingList(mAccount.address).execute();
+                if(response.isSuccessful()) {
+                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, CERTIK_TEST, mAccount.id, response.body().result));
                     } else {
                         mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }

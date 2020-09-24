@@ -19,6 +19,7 @@
     <color name="colorTransBg7">#24ff554f</color>
     <color name="colorTransBg8">#245286FF</color>
     <color name="colorTransBg9">#2488BDF3</color>
+    <color name="colorTransBg10">#24E1AA4C</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -57,6 +58,9 @@
 
     <color name="colorOK">#88BDF3</color>
     <color name="colorOK2">#45678B</color>
+
+    <color name="colorCertik">#E1AA4C</color>
+    <color name="colorCertik2">#59441E</color>
 
 
     <color name="colorRed">#f31963</color>

@@ -250,6 +250,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_testnet_img));
                     holder.chainName.setText(getString(R.string.str_ok_test));
 
+                } else if (chain.equals(BaseChain.CERTIK_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_testnet_img));
+                    holder.chainName.setText(getString(R.string.str_certik_test));
+
                 }
             }
 

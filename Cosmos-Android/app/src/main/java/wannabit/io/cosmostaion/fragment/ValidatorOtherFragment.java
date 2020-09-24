@@ -23,13 +23,22 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
@@ -116,50 +125,60 @@ public class ValidatorOtherFragment extends BaseFragment {
         public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
             final Validator validator  = mOtherValidators.get(position);
 
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.commission_rates.rate));
                 try {
-                    Picasso.get().load(COSMOS_VAL_URL+validator.operator_address+".png")
+                    Picasso.get().load(COSMOS_VAL_URL + validator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.rate));
                 try {
-                    Picasso.get().load(IRIS_VAL_URL+validator.operator_address+".png")
+                    Picasso.get().load(IRIS_VAL_URL + validator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.commission_rates.rate));
                 try {
-                    Picasso.get().load(KAVA_VAL_URL+validator.operator_address+".png")
+                    Picasso.get().load(KAVA_VAL_URL + validator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.commission_rates.rate));
                 try {
-                    Picasso.get().load(BAND_VAL_URL+validator.operator_address+".png")
+                    Picasso.get().load(BAND_VAL_URL + validator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.commission_rates.rate));
                 try {
-                    Picasso.get().load(IOV_VAL_URL+validator.operator_address+".png")
+                    Picasso.get().load(IOV_VAL_URL + validator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
+
+            }else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
+                holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.commission_rates.rate));
+                try {
+                    Picasso.get().load(CERTIK_VAL_URL + validator.operator_address + ".png")
+                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                            .into(holder.itemAvatar);
+                } catch (Exception e){}
+
             }
 
             holder.itemTvMoniker.setText(validator.description.moniker);
@@ -181,16 +200,18 @@ public class ValidatorOtherFragment extends BaseFragment {
             }
 
             if(checkIsMyValidator(mMyValidators, validator.description.moniker)) {
-                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+                } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
                 }
             } else {
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
@@ -198,7 +219,7 @@ public class ValidatorOtherFragment extends BaseFragment {
         }
 
 
-        private boolean checkIsMyValidator(ArrayList<Validator> userList, final String targetName){
+        private boolean checkIsMyValidator(ArrayList<Validator> userList, final String targetName) {
             return FluentIterable.from(userList).anyMatch(new Predicate<Validator>() {
                 @Override
                 public boolean apply(@Nullable Validator input) {

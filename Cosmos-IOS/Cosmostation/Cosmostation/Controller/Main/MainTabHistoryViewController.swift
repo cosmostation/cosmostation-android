@@ -62,6 +62,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.OKEX_TEST) {
             self.comingLabel.isHidden = false
             self.historyTableView.isHidden = true
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            self.comingLabel.isHidden = false
+            self.historyTableView.isHidden = true
         }
         
         self.comingLabel.isUserInteractionEnabled = true
@@ -70,6 +73,12 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
 
     @objc func testClick(tapGestureRecognizer: UITapGestureRecognizer) {
+//        let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+//        txDetailVC.mIsGen = false
+//        txDetailVC.mTxHash = "10F21372AB218F0040AC3406D5FE583174DA4EC977056C5225C4418E1177CBE5"
+//        txDetailVC.hidesBottomBarWhenPushed = true
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(txDetailVC, animated: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -126,6 +135,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "okexTestnetImg")
             titleChainName.text = "(Okex Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            titleChainImg.image = UIImage(named: "certikTestnetImg")
+            titleChainName.text = "(Certik Testnet)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -158,6 +171,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             self.comingLabel.isHidden = false
         } else if (chainType == ChainType.OKEX_TEST) {
+            self.comingLabel.isHidden = false
+        } else if (chainType == ChainType.CERTIK_TEST) {
             self.comingLabel.isHidden = false
         }
     }

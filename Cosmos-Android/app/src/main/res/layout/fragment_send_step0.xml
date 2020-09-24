@@ -21,7 +21,7 @@
                 android:layout_height="@dimen/space_50"
                 android:hint="@string/str_starname_recipient_address"
                 android:textCursorDrawable="@drawable/white_cursor"
-                android:maxLength="46"
+                android:maxLength="60"
                 android:textColorHint="@color/colorGray4"
                 android:background="@drawable/edittext_box"
                 android:paddingLeft="@dimen/space_16"

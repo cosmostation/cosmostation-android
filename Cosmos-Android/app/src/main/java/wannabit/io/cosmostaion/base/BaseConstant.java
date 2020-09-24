@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -93,10 +93,10 @@ public class BaseConstant {
     public final static int TASK_FETCH_PROPOSAL_VOTED                   = 2047;
     public final static int TASK_FETCH_PROPOSAL_PROPOSER                = 2048;
     public final static int TASK_FETCH_PROPOSAL_TALLY                   = 2049;
-    public final static int TASK_FETCH_IOV_BALANCE                      = 2050;
-    public final static int TASK_FETCH_IOV_NONCE                        = 2051;
-    public final static int TASK_FETCH_IOV_ADDRESS_INFO                 = 2052;
-    public final static int TASK_FETCH_IOV_TOKENS                       = 2053;
+//    public final static int TASK_FETCH_IOV_BALANCE                      = 2050;
+//    public final static int TASK_FETCH_IOV_NONCE                        = 2051;
+//    public final static int TASK_FETCH_IOV_ADDRESS_INFO                 = 2052;
+//    public final static int TASK_FETCH_IOV_TOKENS                       = 2053;
     public final static int TASK_FETCH_IRIS_VOTE_LIST                   = 2054;
     public final static int TASK_IRIS_PROPOSAL_DETAIL                   = 2055;
     public final static int TASK_GEN_TX_SIMPLE_VOTE                     = 2056;
@@ -210,7 +210,8 @@ public class BaseConstant {
     public final static String OK_MSG_TYPE_WITHDRAW                         = "okexchain/staking/MsgWithdraw";
     public final static String OK_MSG_TYPE_DIRECT_VOTE                      = "okexchain/staking/MsgAddShares";
 
-    public final static String IOV_KIND_SEND                                = "bcp/send";
+
+    public final static String CERTIK_MSG_TYPE_TRANSFER                     = "bank/MsgSend";
 
 
     public final static String COSMOS_KEY_TYPE_PUBLIC                       = "tendermint/PubKeySecp256k1";
@@ -292,6 +293,7 @@ public class BaseConstant {
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_BAND           = "uband";
     public final static String TOKEN_OK_TEST        = "tokt";
+    public final static String TOKEN_CERTIK_TEST    = "uctk";
 
 
     //HTLC swap support Token Types
@@ -362,7 +364,7 @@ public class BaseConstant {
     public final static String FEE_BNB_SEND                     = "0.000375";
     public final static String FEE_BEP3_RELAY_FEE               = "0.00001";
 
-    public final static String FEE_IOV_GAS_RATE_AVERAGE         = "1";
+    public final static String FEE_IOV_GAS_RATE_AVERAGE         = "1.00";
     public final static String FEE_IOV_GAS_AMOUNT_SEND          = "100000";
     public final static String FEE_IOV_GAS_AMOUNT_STAKE         = "200000";
     public final static String FEE_IOV_GAS_AMOUNT_REDELEGATE    = "300000";
@@ -375,6 +377,11 @@ public class BaseConstant {
     public final static String FEE_OK_GAS_AMOUNT_STAKE_MUX      = "20000";
     public final static String FEE_OK_GAS_AMOUNT_VOTE           = "200000";
     public final static String FEE_OK_GAS_AMOUNT_VOTE_MUX       = "50000";
+
+    public final static String FEE_CERTIK_GAS_RATE_AVERAGE      = "0.10";
+    public final static String FEE_CERTIK_GAS_AMOUNT_SEND       = "100000";
+    public final static String FEE_CERTIK_GAS_AMOUNT_STAKE      = "200000";
+    public final static String FEE_CERTIK_GAS_AMOUNT_REDELEGATE = "300000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";
@@ -404,5 +411,6 @@ public class BaseConstant {
     public final static String KAVA_CDP_MARKET_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
     public final static String BAND_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
     public final static String IOV_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
+    public final static String CERTIK_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/certik/";
 
 }

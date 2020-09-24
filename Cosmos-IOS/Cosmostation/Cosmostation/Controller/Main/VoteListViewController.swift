@@ -63,7 +63,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.CERTIK_TEST) {
             return self.mProposals.count
         } else if (chainType == ChainType.IRIS_MAIN) {
             return self.mIrisProposals.count
@@ -72,7 +72,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.CERTIK_TEST) {
             return onBindProposal(tableView, indexPath)
         } else if (chainType == ChainType.IRIS_MAIN) {
             return onBindIrisProposal(tableView, indexPath)
@@ -140,9 +140,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
             } else {
                 guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.id) else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             }
             
         } else if (chainType == ChainType.IRIS_MAIN) {
@@ -162,11 +160,13 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
             } else {
                 guard let url = URL(string: "https://kava.mintscan.io/proposals/" + proposal.id) else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             }
             
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            let proposal = mProposals[indexPath.row]
+            guard let url = URL(string: "https://explorer.certik.foundation/governance/proposals/" + proposal.id) else { return }
+            self.onShowSafariWeb(url)
         }
     }
     
@@ -231,6 +231,27 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 self.onUpdateViews()
             }
+            
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            let url = CERTIK_TEST_PROPOSALS;
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                            self.onUpdateViews()
+                            return
+                    }
+                    self.mProposals.removeAll()
+                    for proposal in proposals {
+                        self.mProposals.append(Proposal(proposal as! [String : Any]))
+                    }
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchProposals ", error) }
+                }
+                self.onUpdateViews()
+            }
         }
     }
     
@@ -243,7 +264,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.mIrisProposals.sort {
                 return Int($0.value!.basicProposal!.proposal_id)! < Int($1.value!.basicProposal!.proposal_id)! ? false : true
             }
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.CERTIK_TEST) {
             self.mProposals.sort{
                 return Int($0.id)! < Int($1.id)! ? false : true
             }

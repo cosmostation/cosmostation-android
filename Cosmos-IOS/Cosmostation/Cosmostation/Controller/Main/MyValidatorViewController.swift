@@ -111,6 +111,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell?.cardView.backgroundColor = TRANS_BG_COLOR_BAND
             } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
                 cell?.cardView.backgroundColor = TRANS_BG_COLOR_IOV
+            } else if (chainType == ChainType.CERTIK_TEST) {
+                cell?.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
             }
             return cell!
             
@@ -143,10 +145,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             if let validator = self.mainTabVC.mMyValidators[indexPath.row] as? Validator {
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
                 validatorDetailVC.mValidator = validator
-                validatorDetailVC.mInflation = mainTabVC.mInflation
-                validatorDetailVC.mProvision = mainTabVC.mProvision
-                validatorDetailVC.mStakingPool = mainTabVC.mStakingPool
-                validatorDetailVC.mIrisStakePool = mainTabVC.mIrisStakePool
                 validatorDetailVC.mIsTop100 = mainTabVC.mTopValidators.contains(where: {$0.operator_address == validator.operator_address})
                 validatorDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
@@ -216,6 +214,12 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
             let url = IOV_VAL_URL + validator.operator_address + ".png"
             cell.validatorImg.af_setImage(withURL: URL(string: url)!)
+            
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            cell.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
+            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
+            let url = CERTIK_VAL_URL + validator.operator_address + ".png"
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
         }
     }
     
@@ -263,6 +267,12 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell.totalRewardLabel.attributedText = WUtils.displayAmount("0", cell.totalRewardLabel.font, 6, chainType!)
             }
             
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            if(mainTabVC.mRewardList.count > 0) {
+                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, CERTIK_TEST_DENOM, chainType!)
+            } else {
+                cell.totalRewardLabel.attributedText = WUtils.displayAmount("0", cell.totalRewardLabel.font, 6, chainType!)
+            }
         }
         cell.delegate = self
     }
@@ -466,6 +476,14 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
                    
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
+            return
+            
+        } else {
+            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
+            return
+            
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
@@ -535,7 +553,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func sortByReward() {
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+            chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
             mainTabVC.mMyValidators.sort{
                 if ($0.jailed && !$1.jailed) {
                     return false

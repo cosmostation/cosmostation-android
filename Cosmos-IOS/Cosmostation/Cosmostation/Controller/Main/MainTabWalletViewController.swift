@@ -23,11 +23,20 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     var mainTabVC: MainTabViewController!
     var wcURL:String?
+    
+    var mInflation: String?
+    var mProvision: String?
+    var mStakingPool: NSDictionary?
+    var mIrisStakePool: NSDictionary?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
+        self.mInflation = BaseData.instance.mInflation
+        self.mProvision = BaseData.instance.mProvision
+        self.mStakingPool = BaseData.instance.mStakingPool
+        self.mIrisStakePool = BaseData.instance.mIrisStakePool
         
         self.walletTableView.delegate = self
         self.walletTableView.dataSource = self
@@ -41,6 +50,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletIovCell", bundle: nil), forCellReuseIdentifier: "WalletIovCell")
         self.walletTableView.register(UINib(nibName: "WalletBandCell", bundle: nil), forCellReuseIdentifier: "WalletBandCell")
         self.walletTableView.register(UINib(nibName: "WalletOkCell", bundle: nil), forCellReuseIdentifier: "WalletOkCell")
+        self.walletTableView.register(UINib(nibName: "WalletCertikCell", bundle: nil), forCellReuseIdentifier: "WalletCertikCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletVestingDetailCell", bundle: nil), forCellReuseIdentifier: "WalletVestingDetailCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
@@ -123,6 +133,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "okexTestnetImg")
             titleChainName.text = "(Okex Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            titleChainImg.image = UIImage(named: "certikTestnetImg")
+            titleChainName.text = "(Certik Testnet)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -144,26 +158,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func updateFloaty() {
         let floaty = Floaty()
         floaty.buttonImage = UIImage.init(named: "sendImg")
-        if (chainType! == ChainType.COSMOS_MAIN) {
-            floaty.buttonColor = COLOR_ATOM
-        } else if (chainType! == ChainType.IRIS_MAIN) {
-            floaty.buttonColor = COLOR_IRIS
-        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            floaty.buttonColor = COLOR_BNB
-        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            floaty.buttonColor = COLOR_KAVA
-        } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
-            floaty.buttonColor = COLOR_IOV
-        } else if (chainType! == ChainType.BAND_MAIN) {
-            floaty.buttonColor = COLOR_BAND
-        } else if (chainType! == ChainType.OKEX_TEST) {
-            floaty.buttonColor = COLOR_OK
-        }
+        floaty.buttonColor =  WUtils.getChainColor(chainType)
         floaty.fabDelegate = self
         self.view.addSubview(floaty)
     }
 
-    
     @objc func onRequestFetch() {
         if (!mainTabVC.onFetchAccountData()) {
             self.refresher.endRefreshing()
@@ -171,6 +170,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
+        self.mInflation = BaseData.instance.mInflation
+        self.mProvision = BaseData.instance.mProvision
+        self.mStakingPool = BaseData.instance.mStakingPool
+        self.mIrisStakePool = BaseData.instance.mIrisStakePool
         self.walletTableView.reloadData()
         self.refresher.endRefreshing()
     }
@@ -178,7 +181,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     @objc func onPriceFetchDone(_ notification: NSNotification) {
         self.walletTableView.reloadData()
     }
-    
     
     func emptyFloatySelected(_ floaty: Floaty) {
         self.onClickMainSend()
@@ -201,6 +203,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 5;
         } else if (chainType == ChainType.OKEX_TEST) {
             return 4;
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            return 5;
         } else {
             return 0;
         }
@@ -225,6 +229,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetIovTestItems(tableView, indexPath);
         } else if (chainType == ChainType.OKEX_TEST) {
             return onSetOkTestItems(tableView, indexPath);
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            return onSetCertikTestItems(tableView, indexPath);
         } else {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             return cell!
@@ -352,11 +358,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 4) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (mainTabVC!.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
+            if (self.mInflation != nil) {
+                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
             }
-            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
             }
             return cell!
             
@@ -439,9 +445,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: "0.04"), font: cell!.infaltionLabel.font)
-            if (mainTabVC!.mIrisStakePool != nil) {
-                let provisions = NSDecimalNumber.init(string: mainTabVC.mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
-                let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
+            if (self.mIrisStakePool != nil) {
+                let provisions = NSDecimalNumber.init(string: self.mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
+                let bonded_tokens = NSDecimalNumber.init(string: self.mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
                 cell?.yieldLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.zero, font: cell!.yieldLabel.font)
             }
             return cell!
@@ -678,11 +684,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 5) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (mainTabVC!.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
+            if (self.mInflation != nil) {
+                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
             }
-            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
             }
             return cell!
             
@@ -824,11 +830,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 5) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (mainTabVC!.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
+            if (self.mInflation != nil) {
+                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
             }
-            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
             }
             return cell!
             
@@ -920,11 +926,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (mainTabVC!.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
+            if (self.mInflation != nil) {
+                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
             }
-            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
             }
             return cell!
             
@@ -1018,11 +1024,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (mainTabVC!.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
+            if (self.mInflation != nil) {
+                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
             }
-            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
             }
             return cell!
             
@@ -1113,11 +1119,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (mainTabVC!.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
+            if (self.mInflation != nil) {
+                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
             }
-            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
             }
             return cell!
             
@@ -1224,6 +1230,93 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    func onSetCertikTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            if (mainTabVC.mAccount.account_has_private) {
+                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
+                cell?.keyState.tintColor = COLOR_CERTIK
+            }
+            cell?.dpAddress.text = mainTabVC.mAccount.account_address
+            cell?.dpAddress.adjustsFontSizeToFitWidth = true
+            cell?.actionShare = {
+                self.onClickActionShare()
+            }
+            cell?.actionWebLink = {
+                self.onClickActionLink()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell:WalletCertikCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCertikCell") as? WalletCertikCell
+            cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
+            let totalCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalCtk.stringValue, cell!.totalAmount.font!, 6, 6)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalCtk, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
+            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, CERTIK_TEST_DENOM, chainType!)
+            cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
+            cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
+            cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, CERTIK_TEST_DENOM, chainType!)
+            cell?.actionDelegate = {
+                self.onClickValidatorList()
+            }
+            cell?.actionVote = {
+                self.onClickVoteList()
+            }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalCtk.multiplying(byPowerOf10: -6).stringValue)
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
+            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                cell?.updownImg.image = UIImage(named: "priceUp")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                cell?.updownImg.image = UIImage(named: "priceDown")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else {
+                cell?.updownImg.image = nil
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(NSDecimalNumber.zero, font: cell!.updownPercent.font)
+            }
+            cell?.buySeparator.isHidden = true
+            cell?.buyBtn.isHidden = true
+            cell?.buyConstraint.priority = .defaultLow
+            cell?.noBuyConstraint.priority = .defaultHigh
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            if (self.mInflation != nil) {
+                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
+            }
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            }
+            return cell!
+            
+        } else {
+            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.guideImg.image = UIImage(named: "certikImg")
+            cell?.guideTitle.text = NSLocalizedString("send_guide_title_certik", comment: "")
+            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_certik", comment: "")
+            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_certik", comment: ""), for: .normal)
+            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_certik", comment: ""), for: .normal)
+            cell?.actionGuide1 = {
+                self.onClickGuide1()
+            }
+            cell?.actionGuide2 = {
+                self.onClickGuide2()
+            }
+            return cell!
+        }
+    }
+    
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.onShowAccountSwicth()
     }
@@ -1287,51 +1380,39 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func onClickActionLink() {
         if (chainType! == ChainType.COSMOS_MAIN) {
             guard let url = URL(string: "https://www.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
             guard let url = URL(string: "https://irishub.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BINANCE_MAIN) {
             guard let url = URL(string: "https://binance.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.IOV_MAIN) {
             guard let url = URL(string: "https://big-dipper.iov-mainnet-2.iov.one/account/" + mainTabVC.mAccount.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.KAVA_MAIN) {
             guard let url = URL(string: "https://kava.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://cosmoscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.OKEX_TEST) {
             guard let url = URL(string: "https://www.oklink.com/okexchain-test/address/" + mainTabVC.mAccount.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.KAVA_TEST) {
             guard let url = URL(string: "https://kava-testnet-9000.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            guard let url = URL(string: "https://explorer.certik.foundation/accounts/" + mainTabVC.mAccount.account_address) else { return }
+            self.onShowSafariWeb(url)
         }
     }
     
@@ -1477,51 +1558,39 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         if (chainType! == ChainType.COSMOS_MAIN) {
             if(Locale.current.languageCode == "ko") {
                 guard let url = URL(string: "https://www.cosmostation.io/files/guide_KO.pdf") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             } else {
                 guard let url = URL(string: "https://www.cosmostation.io/files/guide_EN.pdf") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             }
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
             guard let url = URL(string: "https://www.irisnet.org") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BINANCE_MAIN) {
             guard let url = URL(string: "https://www.binance.org") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             guard let url = URL(string: "https://www.kava.io/registration/") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://bandprotocol.com/") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
             guard let url = URL(string: "https://iov.one/") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.OKEX_TEST) {
             guard let url = URL(string: "https://www.okex.com/") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            guard let url = URL(string: "https://www.certik.foundation/") else { return }
+            self.onShowSafariWeb(url)
         }
         
     }
@@ -1530,51 +1599,39 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         if (chainType! == ChainType.COSMOS_MAIN) {
             if(Locale.current.languageCode == "ko") {
                 guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_ko.html") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             } else {
                 guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_en.html") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             }
 
         } else if (chainType! == ChainType.IRIS_MAIN) {
             guard let url = URL(string: "https://medium.com/irisnet-blog") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
 
         } else if (chainType! == ChainType.BINANCE_MAIN) {
             guard let url = URL(string: "https://medium.com/@binance") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
 
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             guard let url = URL(string: "https://medium.com/kava-labs") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://medium.com/bandprotocol") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
             guard let url = URL(string: "https://medium.com/iov-internet-of-values") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.OKEX_TEST) {
             guard let url = URL(string: "https://www.okex.com/community") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            guard let url = URL(string: "https://www.certik.foundation/blog") else { return }
+            self.onShowSafariWeb(url)
         }
     }
     
@@ -1582,60 +1639,42 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         if (chainType! == ChainType.COSMOS_MAIN) {
             if (BaseData.instance.getMarket() == 0) {
                 guard let url = URL(string: "https://www.coingecko.com/en/coins/cosmos") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             } else {
                 guard let url = URL(string: "https://coinmarketcap.com/currencies/cosmos/") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             }
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
             if (BaseData.instance.getMarket() == 0) {
                 guard let url = URL(string: "https://www.coingecko.com/en/coins/irisnet") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             } else {
                 guard let url = URL(string: "https://coinmarketcap.com/currencies/irisnet") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             }
             
         } else if (chainType! == ChainType.BINANCE_MAIN) {
             if (BaseData.instance.getMarket() == 0) {
                 guard let url = URL(string: "https://www.coingecko.com/en/coins/binancecoin") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             } else {
                 guard let url = URL(string: "https://coinmarketcap.com/currencies/binance-coin") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             }
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             if (BaseData.instance.getMarket() == 0) {
                 guard let url = URL(string: "https://www.coingecko.com/en/coins/kava") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             } else {
                 guard let url = URL(string: "https://coinmarketcap.com/currencies/kava") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
+                self.onShowSafariWeb(url)
             }
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/band-protocol") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            self.onShowSafariWeb(url)
         }
     }
     
@@ -1789,6 +1828,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mOkSendDenom = OKEX_TEST_DENOM
             txVC.mType = OK_MSG_TYPE_TRANSFER
             
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            if (WUtils.getTokenAmount(balances, CERTIK_TEST_DENOM).compare(NSDecimalNumber.init(string: "10000")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mCertikSendDenom = CERTIK_TEST_DENOM
+            txVC.mType = CERTIK_MSG_TYPE_TRANSFER
         } else {
             return
         }

@@ -186,7 +186,7 @@ class WUtils {
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
@@ -204,7 +204,7 @@ class WUtils {
     static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 for entry in unbondinginfo.entries {
@@ -594,7 +594,7 @@ class WUtils {
         if (amount == NSDecimalNumber.zero) {
             formatted = nf.string(from: NSDecimalNumber.zero)
         } else if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
@@ -1061,7 +1061,7 @@ class WUtils {
         var formatted = ""
         var endIndex: String.Index?
         if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN || baseChain == ChainType.KAVA_TEST ||
-            baseChain == ChainType.BAND_MAIN || baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST) {
+            baseChain == ChainType.BAND_MAIN || baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"), withBehavior: handler12)) ?? "0"
@@ -1095,7 +1095,7 @@ class WUtils {
         var formatted = ""
         var endIndex: String.Index?
         if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN || baseChain == ChainType.KAVA_TEST ||
-            baseChain == ChainType.BAND_MAIN || baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST) {
+            baseChain == ChainType.BAND_MAIN || baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"), withBehavior: handler12)) ?? "0"
@@ -1218,19 +1218,19 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == BAND_MAIN_DENOM) {
-                amount = localeStringToDecimal(balance.balance_amount)
+                amount = NSDecimalNumber.init(string: balance.balance_amount)
             }
         }
         for bonding in bondings {
             amount = amount.adding(bonding.getBondingAmount(validators))
         }
         for unbonding in unbondings {
-            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
+            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
         }
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == BAND_MAIN_DENOM) {
-                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1241,19 +1241,42 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == IOV_MAIN_DENOM || balance.balance_denom == IOV_TEST_DENOM) {
-                amount = localeStringToDecimal(balance.balance_amount)
+                amount = NSDecimalNumber.init(string: balance.balance_amount)
             }
         }
         for bonding in bondings {
             amount = amount.adding(bonding.getBondingAmount(validators))
         }
         for unbonding in unbondings {
-            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
+            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
         }
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == IOV_MAIN_DENOM || coin.denom == IOV_TEST_DENOM) {
-                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
+                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
+                }
+            }
+        }
+        return amount
+    }
+    
+    static func getAllCertik(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == CERTIK_TEST_DENOM) {
+                amount = NSDecimalNumber.init(string: balance.balance_amount)
+            }
+        }
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        for unbonding in unbondings {
+            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
+        }
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == CERTIK_TEST_DENOM) {
+                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
         }
@@ -1512,6 +1535,15 @@ class WUtils {
                 denomLabel.text = coin.denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 0, 8)
+            
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            if (coin.denom == CERTIK_TEST_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
         }
     }
     
@@ -1587,6 +1619,15 @@ class WUtils {
                 denomLabel.text = denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 0, 8)
+            
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            if (denom == CERTIK_TEST_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
         }
     }
     
@@ -1656,6 +1697,8 @@ class WUtils {
             return COLOR_BAND
         } else if (chain == ChainType.OKEX_TEST) {
             return COLOR_OK
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return COLOR_CERTIK
         }
         return COLOR_ATOM
     }
@@ -1673,7 +1716,7 @@ class WUtils {
             return COLOR_IOV_DARK
         } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND_DARK
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
@@ -1692,7 +1735,7 @@ class WUtils {
             return TRANS_BG_COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return TRANS_BG_COLOR_BAND
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
@@ -1713,6 +1756,8 @@ class WUtils {
             return "BAND"
         } else if (chain == ChainType.OKEX_TEST) {
             return "TOKT"
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return "CTK"
         }
         return ""
     }
@@ -1739,6 +1784,9 @@ class WUtils {
         } else if (chain == ChainType.OKEX_TEST) {
             label.text = "TOKT"
             label.textColor = COLOR_OK
+        } else if (chain == ChainType.CERTIK_TEST) {
+            label.text = "CTK"
+            label.textColor = COLOR_CERTIK
         }
     }
     
@@ -1763,6 +1811,8 @@ class WUtils {
             return ChainType.IOV_TEST
         } else if (chainS == CHAIN_OKEX_TEST_S) {
             return ChainType.OKEX_TEST
+        } else if (chainS == CHAIN_CERTIK_TEST_S) {
+            return ChainType.CERTIK_TEST
         }
         return nil
     }
@@ -1788,6 +1838,8 @@ class WUtils {
             return CHAIN_IOV_TEST_S
         } else if (chain == ChainType.OKEX_TEST) {
             return CHAIN_OKEX_TEST_S
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return CHAIN_CERTIK_TEST_S
         }
         return ""
     }
@@ -1844,6 +1896,8 @@ class WUtils {
             return "iovns-galaxynet"
         } else if (chainS == CHAIN_OKEX_TEST_S) {
             return "okexchain-testnet1"
+        } else if (chainS == CHAIN_CERTIK_TEST_S) {
+            return "shentu-incentivized-3"
         }
         return ""
     }
@@ -1869,6 +1923,8 @@ class WUtils {
             return "iovns-galaxynet"
         } else if (chain == ChainType.OKEX_TEST) {
             return "okexchain-testnet1"
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return "shentu-incentivized-3"
         }
         return ""
     }
@@ -2020,6 +2076,27 @@ class WUtils {
             } else if (type == OK_MSG_TYPE_DIRECT_VOTE) {
                 result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE))
             }
+        } else if (chain == ChainType.CERTIK_TEST) {
+            result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_SEND))
+            if (type == CERTIK_MSG_TYPE_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_SEND))
+            } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForKavaRewards()[valCnt - 1]
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_REDELEGATE))
+                
+            }
+//            else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+//                result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_STAKE))
+//            }
+            
+//            else if (type == OK_MSG_TYPE_DEPOSIT || type == OK_MSG_TYPE_WITHDRAW) {
+//                result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE))
+//            } else if (type == OK_MSG_TYPE_DIRECT_VOTE) {
+//                result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE))
+//            }
         }
         return result
     }

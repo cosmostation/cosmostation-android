@@ -10,6 +10,7 @@ import UIKit
 import Toast_Swift
 import QRCode
 import Alamofire
+import SafariServices
 
 class BaseViewController: UIViewController {
     
@@ -189,6 +190,12 @@ class BaseViewController: UIViewController {
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func onShowSafariWeb(_ url: URL) {
+        let safariViewController = SFSafariViewController(url: url)
+        safariViewController.modalPresentationStyle = .popover
+        present(safariViewController, animated: true, completion: nil)
     }
     
     

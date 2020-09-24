@@ -91,7 +91,8 @@
 "fee_speed_bnb_title" = "Support fixed fee for Binance Chain";
 "fee_speed_kava_title" = "Support fixed transfer fee for KAVA now";
 "fee_speed_iov_title" = "Support fixed amount fee for IOV.";
-"fee_speed_ok_title" = "Support fixed amount fee for OK Chain.";
+"fee_speed_ok_title" = "Support fixed amount fee for Okex Chain.";
+"fee_speed_certik_title" = "Support fixed amount fee for Certik Chain.";
 "fee_description_title_0" = "Tx fee 0.000001 ATOM";
 "fee_description_title_1" = "Tx fee rate 0.0025";
 "fee_description_title_2" = "Tx fee rate 0.025";
@@ -119,8 +120,10 @@
 "send_guide_msg_iov" = "Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.";
 "send_guide_title_band" = "BAND PROTOCOL";
 "send_guide_msg_band" = "Cross-chain oracle platform based on Tendermint. Aggregates and connects real-world data and APIs to smart contracts.";
-"send_guide_title_ok" = "OK CHAIN";
-"send_guide_msg_ok" = "OK Chain is a public decentralized exchange powered by Tendermint.";
+"send_guide_title_ok" = "OKEX CHAIN";
+"send_guide_msg_ok" = "Okex Chain is a public decentralized exchange powered by Tendermint.";
+"send_guide_title_certik" = "CERTIK CHAIN";
+"send_guide_msg_certik" = "A public platform based on the Certik Foundation's unique Formal Verification security system.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -128,6 +131,7 @@
 "send_guide_btn1_iov" = "Star Name";
 "send_guide_btn1_band" = "Home";
 "send_guide_btn1_ok" = "Market";
+"send_guide_btn1_certik" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -135,6 +139,7 @@
 "send_guide_btn2_iov" = "Blog";
 "send_guide_btn2_band" = "Blog";
 "send_guide_btn2_ok" = "Communities";
+"send_guide_btn2_certik" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
@@ -378,10 +383,10 @@
 "error_network" = "Network Error.";
 "error_redelegate_no_to_address" = "Please select your new validator to redelegate.";
 "error_same_reward_address" = "This address is already registered as your claim reward address.";
-"error_redelegation_limitted" = "You have redelegated to this validator in the past 21 days.";
+"error_redelegation_limitted" = "You have redelegated to this validator in the past certain period set by the system.";
 "error_max_account_over" = "Max account is 5.";
 "error_iris_token_yet" = "Iris token sending will support soon!";
-"error_kava_yet" = "Support soon!";
+"error_support_soon" = "Support soon!";
 "error_kava_vesting_account" = "Vesting account. Please use cli for correct Tx.";
 "error_send_disable" = "Token transfer is locked.";
 "error_not_voting_not" = "Can not vote now.";
@@ -490,5 +495,6 @@
 "chain_title_kava_test" = "Kava Testnet";
 "chain_title_iov_test" = "Starname Testnet";
 "chain_title_okex_test" = "Okex Testnet";
+"chain_title_certik_test" = "Certik Testnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";

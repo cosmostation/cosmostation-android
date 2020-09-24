@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -43,6 +44,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
@@ -183,6 +185,13 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
             }
 
+        } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+            mDpDecimal = 6;
+            setDpDecimals(mDpDecimal);
+            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mCertikDenom).subtract(new BigDecimal("10000"));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
+
         }
         onAddAmountWatcher();
     }
@@ -234,7 +243,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
                         if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) ||
                                 getSActivity().mBaseChain.equals(KAVA_TEST) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(BaseChain.IOV_TEST) ||
-                                getSActivity().mBaseChain.equals(BAND_MAIN)) {
+                                getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
                             if(inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             } else {
@@ -321,6 +330,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2"), 8, RoundingMode.DOWN).toPlainString());
 
+            } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
+
             }
 
         } else if (v.equals(mAddMax)) {
@@ -355,6 +367,12 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
                 if (getSActivity().mOkDenom.equals(TOKEN_OK_TEST)) {
+                    onShowEmptyBlanaceWarnDialog();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
+                if (getSActivity().mCertikDenom.equals(TOKEN_CERTIK_TEST)) {
                     onShowEmptyBlanaceWarnDialog();
                 }
 
@@ -454,6 +472,14 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
                 Coin token = new Coin(getSActivity().mOkDenom, sendTemp.setScale(8).toPlainString());
                 mToSendCoins.add(token);
+                return true;
+
+            } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
+                Coin certik = new Coin(getSActivity().mCertikDenom, sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
+                mToSendCoins.add(certik);
                 return true;
 
             }

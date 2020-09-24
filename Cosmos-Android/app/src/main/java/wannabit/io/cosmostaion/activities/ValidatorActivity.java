@@ -43,7 +43,6 @@ import wannabit.io.cosmostaion.network.req.ReqTxVal;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
@@ -64,6 +63,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -71,12 +71,14 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
@@ -104,12 +106,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private int                             mTaskCount;
     private ArrayList<Redelegate>           mRedelegates;
-
-    public BigDecimal                       mBondedToken = BigDecimal.ZERO;
-    public BigDecimal                       mProvisions = BigDecimal.ZERO;
-
     public ResLcdIrisReward                 mIrisReward;
-    public ResLcdIrisPool                   mIrisPool;
     public ArrayList<ResLcdIrisRedelegate>  mIrisRedelegateState;
 
     @Override
@@ -124,12 +121,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain      = BaseChain.getChain(mAccount.baseChain);
         mValidator      = getIntent().getParcelableExtra("validator");
-        mBondedToken    = new BigDecimal(getIntent().getStringExtra("bondedToken"));
-        mProvisions     = new BigDecimal(getIntent().getStringExtra("provisions"));
 
-        if (getIntent().getParcelableExtra("irispool") != null) {
-            mIrisPool = getIntent().getParcelableExtra("irispool");
-        }
+        mStakingPool = getBaseDao().mStakingPool;
+        mIrisStakingPool = getBaseDao().mIrisStakingPool;
+        mProvisions = getBaseDao().mProvisions;
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -177,7 +172,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onInitFetch() {
         if(mTaskCount > 0) return;
         if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
+                mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST)) {
             mTaskCount = 5;
             new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -238,6 +233,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 hasbalance  = true;
             }
 
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("20000")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!hasbalance) {
@@ -328,6 +331,20 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("30000")) > 0) {
+                hasbalance  = true;
+            }
+            if (mRedelegates == null || mRedelegates.size() > 0) {
+                Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!hasbalance) {
@@ -340,9 +357,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     public void onStartRedelegate() {
         Intent reDelegate = new Intent(ValidatorActivity.this, RedelegateActivity.class);
         reDelegate.putExtra("validator", mValidator);
-        reDelegate.putExtra("bondedToken", mBondedToken.toPlainString());
-        reDelegate.putExtra("provisions", mProvisions.toPlainString());
-        reDelegate.putExtra("irispool", mIrisPool);
         reDelegate.putExtra("irisReState", mIrisRedelegateState);
         startActivity(reDelegate);
     }
@@ -360,7 +374,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
+                mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST)) {
             if (mUnBondingStates != null && mUnBondingStates.size() >= 7){
                 Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
                 return;
@@ -391,6 +405,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
                 hasbalance  = true;
             }
+
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("20000")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!hasbalance) {
@@ -462,6 +485,23 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("150000")) > 0) {
                 hasbalance  = true;
             }
+
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("15000")) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("15000")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!hasbalance) {
@@ -536,6 +576,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 hasbalance  = true;
             }
 
+        } else {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!hasbalance) {
@@ -561,7 +604,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchValHistory() {
-        if (mBaseChain.equals(IOV_TEST)) {
+        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
             return;
         }
         mTaskCount++;
@@ -599,7 +642,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if (mBondingState != null &&
                     mValidator != null &&
                     (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                            mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(IOV_TEST))) {
+                            mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST))) {
                 mTaskCount = mTaskCount + 1;
                 new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
@@ -641,6 +684,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
             WLog.w("mApiTxHistory " + mApiTxHistory.size());
         }
+        mStakingPool = getBaseDao().mStakingPool;
+        mIrisStakingPool = getBaseDao().mIrisStakingPool;
+        mProvisions = getBaseDao().mProvisions;
         if (mTaskCount == 0) {
             mValidatorAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
@@ -717,15 +763,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if(mValidator.status == Validator.BONDED) {
-                    if(mBondedToken != null && mProvisions != null) {
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
+                    if (mStakingPool != null && mProvisions != null) {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
                     }
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(COSMOS_VAL_URL+mValidator.operator_address+".png")
+                    Picasso.get().load(COSMOS_VAL_URL + mValidator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -734,15 +780,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens).movePointRight(18), 18, BaseChain.getChain(mAccount.baseChain)));
                 if(mValidator.status == Validator.BONDED) {
-                    if(mIrisPool != null) {
-                        holder.itemTvYieldRate.setText(WDp.getIrisYieldString(mIrisPool, new BigDecimal(mValidator.commission.rate)));
+                    if (mIrisStakingPool != null) {
+                        holder.itemTvYieldRate.setText(WDp.getIrisYieldString(mIrisStakingPool, new BigDecimal(mValidator.commission.rate)));
                     }
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(IRIS_VAL_URL+mValidator.operator_address+".png")
+                    Picasso.get().load(IRIS_VAL_URL + mValidator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -751,15 +797,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if(mValidator.status == Validator.BONDED) {
-                    if(mBondedToken != null && mProvisions != null) {
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
+                    if (mStakingPool != null && mProvisions != null) {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
                     }
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(KAVA_VAL_URL+mValidator.operator_address+".png")
+                    Picasso.get().load(KAVA_VAL_URL + mValidator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -768,15 +814,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if(mValidator.status == Validator.BONDED) {
-                    if(mBondedToken != null && mProvisions != null) {
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
+                    if (mStakingPool != null && mProvisions != null) {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
                     }
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(BAND_VAL_URL+mValidator.operator_address+".png")
+                    Picasso.get().load(BAND_VAL_URL + mValidator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -785,15 +831,32 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if(mValidator.status == Validator.BONDED) {
-                    if(mBondedToken != null && mProvisions != null) {
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
+                    if (mStakingPool != null && mProvisions != null) {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
                     }
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(IOV_VAL_URL+mValidator.operator_address+".png")
+                    Picasso.get().load(IOV_VAL_URL + mValidator.operator_address + ".png")
+                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                            .into(holder.itemAvatar);
+                } catch (Exception e){}
+
+            } else if (mBaseChain.equals(CERTIK_TEST)) {
+                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
+                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
+                if(mValidator.status == Validator.BONDED) {
+                    if (mStakingPool != null && mProvisions != null) {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
+                    }
+                } else {
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+                try {
+                    Picasso.get().load(CERTIK_VAL_URL + mValidator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -845,11 +908,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if (mValidator.status == Validator.BONDED) {
-                    if(mBondedToken != null && mProvisions != null) {
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
+                    if (mStakingPool != null && mProvisions != null) {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
                     }
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
@@ -862,15 +925,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens).movePointRight(18), 18, BaseChain.getChain(mAccount.baseChain)));
                 if (mValidator.status == Validator.BONDED) {
-                    if(mIrisPool != null) {
-                        holder.itemTvYieldRate.setText(WDp.getIrisYieldString(mIrisPool, new BigDecimal(mValidator.commission.rate)));
+                    if (mIrisStakingPool != null) {
+                        holder.itemTvYieldRate.setText(WDp.getIrisYieldString(mIrisStakingPool, new BigDecimal(mValidator.commission.rate)));
                     }
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(IRIS_VAL_URL+mValidator.operator_address+".png")
+                    Picasso.get().load(IRIS_VAL_URL + mValidator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -879,15 +942,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if (mValidator.status == Validator.BONDED) {
-                    if(mBondedToken != null && mProvisions != null) {
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
+                    if (mStakingPool != null && mProvisions != null) {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
                     }
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(KAVA_VAL_URL+mValidator.operator_address+".png")
+                    Picasso.get().load(KAVA_VAL_URL + mValidator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -896,15 +959,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if (mValidator.status == Validator.BONDED) {
-                    if(mBondedToken != null && mProvisions != null) {
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
+                    if (mStakingPool != null && mProvisions != null) {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
                     }
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(BAND_VAL_URL+mValidator.operator_address+".png")
+                    Picasso.get().load(BAND_VAL_URL + mValidator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -913,15 +976,32 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if (mValidator.status == Validator.BONDED) {
-                    if(mBondedToken != null && mProvisions != null) {
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
+                    if (mStakingPool != null && mProvisions != null) {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
                     }
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(IOV_VAL_URL+mValidator.operator_address+".png")
+                    Picasso.get().load(IOV_VAL_URL + mValidator.operator_address + ".png")
+                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                            .into(holder.itemAvatar);
+                } catch (Exception e){}
+
+            } else if (mBaseChain.equals(CERTIK_TEST)) {
+                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
+                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
+                if (mValidator.status == Validator.BONDED) {
+                    if (mStakingPool != null && mProvisions != null) {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
+                    }
+                } else {
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, BigDecimal.ZERO, BigDecimal.ZERO));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+                try {
+                    Picasso.get().load(CERTIK_VAL_URL + mValidator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -950,8 +1030,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if (mValidator.status == Validator.BONDED) {
                     if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
-                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
-                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                         holder.itemDailyReturn.setText("-");
@@ -963,8 +1043,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                     }
-                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
-                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
                     holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                     holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                 }
@@ -989,8 +1069,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if (mValidator.status == Validator.BONDED) {
                     if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 18, BaseChain.getChain(mAccount.baseChain)));
-                        holder.itemDailyReturn.setText(WDp.getIrisDailyReturn(getBaseContext(), mIrisPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
-                        holder.itemMonthlyReturn.setText(WDp.getIrisMonthlyReturn(getBaseContext(), mIrisPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemDailyReturn.setText(WDp.getIrisDailyReturn(getBaseContext(), mIrisStakingPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemMonthlyReturn.setText(WDp.getIrisMonthlyReturn(getBaseContext(), mIrisStakingPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 18, BaseChain.getChain(mAccount.baseChain)));
                         holder.itemDailyReturn.setText("-");
@@ -1002,8 +1082,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 18, BaseChain.getChain(mAccount.baseChain)));
                     }
-                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
-                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
                     holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                     holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                 }
@@ -1032,8 +1112,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if (mValidator.status == Validator.BONDED) {
                     if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
-                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
-                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                         holder.itemDailyReturn.setText("-");
@@ -1045,8 +1125,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                     }
-                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
-                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
                     holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                     holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                 }
@@ -1071,8 +1151,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if (mValidator.status == Validator.BONDED) {
                     if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
-                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
-                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                         holder.itemDailyReturn.setText("-");
@@ -1084,8 +1164,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                     }
-                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
-                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
                     holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                     holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                 }
@@ -1114,8 +1194,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if (mValidator.status == Validator.BONDED) {
                     if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
-                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
-                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                         holder.itemDailyReturn.setText("-");
@@ -1127,8 +1207,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                     }
-                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
-                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
                     holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                     holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                 }
@@ -1148,6 +1228,50 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     } else {
                         holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(TOKEN_IOV_TEST), 6, BaseChain.getChain(mAccount.baseChain)));
                     }
+                } else {
+                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+
+            } else if (mBaseChain.equals(CERTIK_TEST)) {
+                if (mBaseChain.equals(CERTIK_TEST)) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                } else {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+                }
+
+                if (mValidator.status == Validator.BONDED) {
+                    if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
+                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
+                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
+                    } else {
+                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                        holder.itemDailyReturn.setText("-");
+                        holder.itemMonthlyReturn.setText("-");
+                    }
+                } else {
+                    if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
+                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
+                    } else {
+                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
+                    holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+
+                if (mUnBondingStates != null && mUnBondingStates.size() > 0 ) {
+                    BigDecimal sum = BigDecimal.ZERO;
+                    for(UnBondingState unbond:mUnBondingStates) {
+                        sum = sum.add(unbond.balance);
+                    }
+                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 6, BaseChain.getChain(mAccount.baseChain)));
+                } else {
+                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+                if (mReward != null) {
+                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(TOKEN_CERTIK_TEST), 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
                     holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }

@@ -26,6 +26,18 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+
 public class CreateActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar             mToolbar;
@@ -115,35 +127,35 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
 
     private void onUpdateView() {
         onHideWaitDialog();
-        if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (mChain.equals(COSMOS_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-        } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (mChain.equals(IRIS_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-        } else if (mChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (mChain.equals(BNB_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
-        } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (mChain.equals(KAVA_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-        } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+        } else if (mChain.equals(IOV_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
-        } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (mChain.equals(BAND_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
-        } else if (mChain.equals(BaseChain.BNB_TEST) || mChain.equals(BaseChain.KAVA_TEST) || mChain.equals(BaseChain.IOV_TEST) || mChain.equals(BaseChain.OK_TEST)) {
+        } else if (mChain.equals(BNB_TEST) || mChain.equals(KAVA_TEST) || mChain.equals(IOV_TEST) || mChain.equals(OK_TEST) || mChain.equals(CERTIK_TEST)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
         }
         for(int i = 0; i < mWordsLayer.length; i++) {
-            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (mChain.equals(COSMOS_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_atom));
-            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mChain.equals(IRIS_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iris));
-            } else if (mChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (mChain.equals(BNB_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_bnb));
-            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (mChain.equals(KAVA_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_kava));
-            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+            } else if (mChain.equals(IOV_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iov));
-            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (mChain.equals(BAND_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_band));
-            } else if (mChain.equals(BaseChain.BNB_TEST) || mChain.equals(BaseChain.KAVA_TEST) || mChain.equals(BaseChain.IOV_TEST) || mChain.equals(BaseChain.OK_TEST)) {
+            } else if (mChain.equals(BNB_TEST) || mChain.equals(KAVA_TEST) || mChain.equals(IOV_TEST) || mChain.equals(OK_TEST) || mChain.equals(CERTIK_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_darkgray));
             }
         }
@@ -188,7 +200,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 }
             } else {
                 onShowWaitDialog();
-                if (mChain.equals(BaseChain.KAVA_MAIN) || mChain.equals(BaseChain.KAVA_TEST)) {
+                if (mChain.equals(KAVA_MAIN) || mChain.equals(KAVA_TEST)) {
                     new GenerateAccountTask(getBaseApplication(), mChain, this, true).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
                 } else {
                     new GenerateAccountTask(getBaseApplication(), mChain, this, false).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");

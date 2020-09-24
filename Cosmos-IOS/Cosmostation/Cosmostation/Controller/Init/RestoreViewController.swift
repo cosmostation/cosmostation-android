@@ -192,6 +192,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         okTestAction.setValue(UIImage(named: "okexTestnetImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let certikTestAction = UIAlertAction(title: NSLocalizedString("chain_title_certik_test", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.CERTIK_TEST
+            self.initViewUpdate()
+        })
+        certikTestAction.setValue(UIImage(named: "certikTestnetImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
@@ -210,6 +216,9 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         }
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.OKEX_TEST)) {
             showAlert.addAction(okTestAction)
+        }
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.CERTIK_TEST)) {
+            showAlert.addAction(certikTestAction)
         }
         self.present(showAlert, animated: true, completion: nil)
     }

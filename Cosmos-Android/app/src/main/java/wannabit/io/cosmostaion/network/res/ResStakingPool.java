@@ -17,10 +17,4 @@ public class ResStakingPool {
         @SerializedName("bonded_tokens")
         public String bonded_tokens;
     }
-
-    @SerializedName("not_bonded_tokens")
-    public String not_bonded_tokens;
-
-    @SerializedName("bonded_tokens")
-    public String bonded_tokens;
 }

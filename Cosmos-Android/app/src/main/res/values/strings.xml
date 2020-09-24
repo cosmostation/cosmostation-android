@@ -45,6 +45,10 @@
     <string name="url_lcd_ok_test" translatable="false">https://lcd-okexchain-testnet1.cosmostation.io/</string>
     <string name="url_api_ok_test" translatable="false"></string>
 
+
+    <string name="url_lcd_certik_test" translatable="false">https://lcd-certik-testnet3.cosmostation.io/</string>
+    <string name="url_api_certik_test" translatable="false"></string>
+
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
     <string name="str_atom_c" translatable="false">ATOM</string>
@@ -55,6 +59,7 @@
     <string name="str_ok_c" translatable="false">OKT</string>
     <string name="str_bnb_c" translatable="false">BNB</string>
     <string name="str_btc_c" translatable="false">BTC</string>
+    <string name="str_ctk_c" translatable="false">CTK</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
@@ -96,6 +101,7 @@
     <string name="str_kava_test_net">Kava Testnet</string>
     <string name="str_iov_test_net">Starname Testnet</string>
     <string name="str_ok_test_net">Okex Testnet</string>
+    <string name="str_certik_test_net">Certik Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
@@ -231,6 +237,8 @@
     <string name="str_guide_band">Blog</string>
     <string name="str_faq_ok">Market</string>
     <string name="str_guide_ok">Communities</string>
+    <string name="str_faq_certik">Home</string>
+    <string name="str_guide_certik">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -284,6 +292,8 @@
     <string name="str_iov_net_test_2" translatable="false">Starname Testnet</string>
     <string name="str_ok_net_test" translatable="false">(Okex Testnet)</string>
     <string name="str_ok_net_test_2" translatable="false">Okex Testnet</string>
+    <string name="str_certik_chain_test" translatable="false">(Certik Testnet)</string>
+    <string name="str_certik_chain_test_2" translatable="false">Certik Testnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_iris" translatable="false">IRIS</string>
     <string name="str_binance" translatable="false">BINANCE</string>
@@ -294,6 +304,7 @@
     <string name="str_kava_test" translatable="false">KAVA TEST</string>
     <string name="str_iov_test" translatable="false">STARNAME TEST</string>
     <string name="str_ok_test" translatable="false">OKEX TEST</string>
+    <string name="str_certik_test" translatable="false">CERTIK TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -367,6 +378,7 @@
     <string name="str_front_guide_title_iov"><![CDATA[Starname Service]]></string>
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
     <string name="str_front_guide_title_ok"><![CDATA[OKEX CHAIN]]></string>
+    <string name="str_front_guide_title_certik"><![CDATA[CERTIK CHAIN]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -374,6 +386,7 @@
     <string name="str_front_guide_msg_iov">Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.</string>
     <string name="str_front_guide_msg_ok">OKEX Chain is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
+    <string name="str_front_guide_msg_certik"><![CDATA[A public platform based on the Certik Foundation\'s unique Formal Verification security system.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -389,7 +402,8 @@
     <string name="str_fee_speed_title_bnb">Support fixed transfer fee for Bianace dex.</string>
     <string name="str_fee_speed_title_kava">Support fixed transfer fee for KAVA Chain.\nSoon update for custom fees.</string>
     <string name="str_fee_speed_title_iov">Support fixed transfer fee for Starname Chain.</string>
-    <string name="str_fee_speed_title_ok">Support fixed transfer fee for OKChain.</string>
+    <string name="str_fee_speed_title_ok">Support fixed transfer fee for Okex Chain.</string>
+    <string name="str_fee_speed_title_certik">Support fixed transfer fee for Certik Chain.</string>
     <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
     <string name="str_fee_description_title_2">Tx fee rate 0.025</string>
@@ -756,6 +770,7 @@
     <string name="str_undelegate_step_3">Select transaction fee</string>
     <string name="str_undelegate_step_4">Check undelegation detail</string>
     <string name="str_unbonding_3days_after"><![CDATA[(3 days after)]]></string>
+    <string name="str_unbonding_14days_after"><![CDATA[(14 days after)]]></string>
     <string name="str_unbonding_21days_after"><![CDATA[(21 days after)]]></string>
     <string name="str_reward_step_1">Check reward detail</string>
     <string name="str_reward_step_2">Insert memo (optional)</string>
@@ -843,10 +858,10 @@
     <string name="str_not_validator_title">Not Validator</string>
     <string name="str_not_validator_msg">This node is not a valid Cosmos validator.\nThis node does not participate in consensus, and therefore does not yield any rewards.\nWould you like to continue?</string>
     <string name="str_redelegation_limitted_title">Unable to redelegate.</string>
-    <string name="str_redelegation_limitted_msg">You have redelegated to this validator in the past 21 days.</string>
+    <string name="str_redelegation_limitted_msg">You have redelegated to this validator in the past certain period set by the system.</string>
     <string name="str_redelegation_warnning_title">Notice</string>
-    <string name="str_redelegation_warnning_msg">Once you redelegate TO this validator, \nyou will not be able to redelegate FROM this validator for 21 days. \nWould you like to continue?</string>
-    <string name="str_redelegation_description">For the next 21 days, you will not be able to redelegate from the validator you are redelegating to.</string>
+    <string name="str_redelegation_warnning_msg">Once you redelegate TO this validator, \nyou will not be able to redelegate FROM this validator for certain period set by the system. \nWould you like to continue?</string>
+    <string name="str_redelegation_description">For the certain period set by the system, you will not be able to redelegate from the validator you are redelegating to.</string>
     <string name="str_reward_address_change_title">Reward Address Change</string>
     <string name="str_reward_address_change_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. \nPlease confirm you have full authority with to change address.</string>
     <string name="str_reward_address_change_confirm_title">Double Check!</string>
@@ -962,13 +977,7 @@
     <string name="error_max_account_over">Max account is 5.</string>
     <string name="error_reward_address_changed_msg">This account has changed its reward address.\nYou can user re-invest feature after reset your reward address to self.</string>
     <string name="error_no_password">PIN number not set</string>
-    <string name="error_invalid_cosmos_address">Invalid Cosmos Address.</string>
-    <string name="error_invalid_iris_address">Invalid Iris Address.</string>
-    <string name="error_invalid_bnb_address">Invalid Binance Address.</string>
-    <string name="error_invalid_iov_address">Invalid Iov Address.</string>
-    <string name="error_invalid_kava_address">Invalid Kava Address.</string>
-    <string name="error_invalid_band_address">Invalid Band Address.</string>
-    <string name="error_invalid_ok_address">Invalid OKEX Chain Address.</string>
+    <string name="error_invalid_address_target">Invalid Address.</string>
     <string name="error_invalid_star_name">Invalid Start Name.</string>
     <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
     <string name="error_iris_vote_only_validator">This proposal can only vote on validators.</string>
@@ -1003,16 +1012,17 @@
     <string name="error_bep3_supply_full">The swap has reached its network capacity.</string>
     <string name="error_bep3_under_min_amount">Need more than 0.00001 balance for Interchain send.</string>
 
-    <string name="s_atom">ATOM</string>
-    <string name="s_photon">PHOTON</string>
-    <string name="s_muon">MUON</string>
-    <string name="s_photino">PHOTINO</string>
-    <string name="s_iris">IRIS</string>
-    <string name="s_bnb">BNB</string>
-    <string name="s_iov">IOV</string>
-    <string name="s_kava">KAVA</string>
-    <string name="s_band">BAND</string>
-    <string name="s_tok">TOKT</string>
+    <string name="s_atom" translatable="false">ATOM</string>
+    <string name="s_photon" translatable="false">PHOTON</string>
+    <string name="s_muon" translatable="false">MUON</string>
+    <string name="s_photino" translatable="false">PHOTINO</string>
+    <string name="s_iris" translatable="false">IRIS</string>
+    <string name="s_bnb" translatable="false">BNB</string>
+    <string name="s_iov" translatable="false">IOV</string>
+    <string name="s_kava" translatable="false">KAVA</string>
+    <string name="s_band" translatable="false">BAND</string>
+    <string name="s_tok" translatable="false">TOKT</string>
+    <string name="s_ctk" translatable="false">CTK</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

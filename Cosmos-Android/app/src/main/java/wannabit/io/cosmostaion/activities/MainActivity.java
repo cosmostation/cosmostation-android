@@ -60,13 +60,20 @@ import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -266,19 +273,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 //        WLog.w("sequenceNumber " + mAccount.sequenceNumber);
 //        WLog.w("accountNumber " + mAccount.accountNumber);
 
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
             mToolbarChainName.setText(getString(R.string.str_cosmos_hub));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAtom));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
 
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (mBaseChain.equals(IRIS_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
             mToolbarChainName.setText(getString(R.string.str_iris_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIris));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIris));
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (mBaseChain.equals(BNB_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
             mToolbarChainName.setText(getString(R.string.str_binance_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
@@ -290,13 +297,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKava));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
 
-        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
+        } else if (mBaseChain.equals(IOV_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_chain_img));
             mToolbarChainName.setText(getString(R.string.str_iov_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIov));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
 
-        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (mBaseChain.equals(BAND_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
             mToolbarChainName.setText(getString(R.string.str_band_chain));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBand));
@@ -316,19 +323,26 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
             mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
 
-        } else if (mBaseChain.equals(BaseChain.IOV_TEST)) {
+        } else if (mBaseChain.equals(IOV_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_testnet_img));
             mToolbarChainName.setText(getString(R.string.str_iov_net_test));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIov));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
             mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
 
-        } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
+        } else if (mBaseChain.equals(OK_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_testnet_img));
             mToolbarChainName.setText(getString(R.string.str_ok_net_test));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorOK));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
             mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
+
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_testnet_img));
+            mToolbarChainName.setText(getString(R.string.str_certik_chain_test));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorCertik));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
+            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
 
         }
 
@@ -430,7 +444,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         Intent intent = new Intent(MainActivity.this, SendActivity.class);
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN)) {
             if (IS_TEST) {
                 if (WDp.getAvailableCoin(balances, TOKEN_MUON).compareTo(BigDecimal.ZERO) > 0) {
                     hasbalance  = true;
@@ -441,19 +455,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 }
             }
 
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (mBaseChain.equals(IRIS_MAIN)) {
             if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("irisToken", WUtil.getIrisMainToken(mIrisTokens));
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+        } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("bnbToken", WUtil.getBnbMainToken(getBaseDao().mBnbTokens));
 
-        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
+        } else if (mBaseChain.equals(IOV_MAIN)) {
             if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("100000")) > 0) {
                 hasbalance  = true;
             }
@@ -465,22 +479,28 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
             intent.putExtra("kavaDenom", TOKEN_KAVA);
 
-        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        } else if (mBaseChain.equals(BAND_MAIN)) {
             if (WDp.getAvailableCoin(balances, TOKEN_BAND).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
 
-        } else if (mBaseChain.equals(BaseChain.IOV_TEST)) {
+        } else if (mBaseChain.equals(IOV_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("100000")) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("iovDenom", TOKEN_IOV_TEST);
 
-        } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
+        } else if (mBaseChain.equals(OK_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(new BigDecimal("0.02")) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("okDenom", TOKEN_OK_TEST);
+
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("10000")) > 0) {
+                hasbalance  = true;
+            }
+            intent.putExtra("certikDenom", TOKEN_CERTIK_TEST);
 
         }
 
@@ -631,7 +651,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onShowTestNetWarnIfNeed() {
-        if (mBaseChain.equals(BNB_TEST) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST)) {
+        if (mBaseChain.equals(BNB_TEST) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST) || mBaseChain.equals(CERTIK_TEST)) {
             if (mToShowTestWarn) {
                 mToShowTestWarn = false;
                 if(getBaseDao().getKavaWarn()) {
@@ -657,7 +677,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
-        if (mBaseChain.equals(BaseChain.OK_TEST)) {
+        if (mBaseChain.equals(OK_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(BigDecimal.ONE) > 0) {
                 hasbalance  = true;
             }
@@ -681,7 +701,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
-        if (mBaseChain.equals(BaseChain.OK_TEST)) {
+        if (mBaseChain.equals(OK_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(BigDecimal.ONE) > 0) {
                 hasbalance  = true;
             }
@@ -802,19 +822,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
             } else {
                 final BaseChain chain = BaseChain.SUPPORT_CHAINS().get(position - 1);
-                if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                if (chain.equals(COSMOS_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
                     holder.chainName.setText(getString(R.string.str_cosmos));
 
-                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                } else if (chain.equals(IRIS_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
                     holder.chainName.setText(getString(R.string.str_iris));
 
-                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                } else if (chain.equals(BNB_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
@@ -826,13 +846,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
                     holder.chainName.setText(getString(R.string.str_kava));
 
-                } else if (chain.equals(BaseChain.IOV_MAIN)) {
+                } else if (chain.equals(IOV_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_chain_img));
                     holder.chainName.setText(getString(R.string.str_iov));
 
-                } else if (chain.equals(BaseChain.BAND_MAIN)) {
+                } else if (chain.equals(BAND_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
@@ -850,17 +870,23 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
                     holder.chainName.setText(getString(R.string.str_kava_test));
 
-                } else if (chain.equals(BaseChain.IOV_TEST)) {
+                } else if (chain.equals(IOV_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_testnet_img));
                     holder.chainName.setText(getString(R.string.str_iov_test));
 
-                } else if (chain.equals(BaseChain.OK_TEST)) {
+                } else if (chain.equals(OK_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_testnet_img));
                     holder.chainName.setText(getString(R.string.str_ok_test));
+
+                } else if (chain.equals(CERTIK_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_testnet_img));
+                    holder.chainName.setText(getString(R.string.str_certik_test));
 
                 }
             }

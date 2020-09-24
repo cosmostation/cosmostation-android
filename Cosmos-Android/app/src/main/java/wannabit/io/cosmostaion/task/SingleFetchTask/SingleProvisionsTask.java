@@ -11,6 +11,14 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+
 public class SingleProvisionsTask extends CommonTask {
     private BaseChain mChain;
 
@@ -23,7 +31,7 @@ public class SingleProvisionsTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (mChain.equals(COSMOS_MAIN)) {
                 Response<ResProvisions> response = ApiClient.getCosmosChain(mApp).getProvisions().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
@@ -36,7 +44,7 @@ public class SingleProvisionsTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (mChain.equals(KAVA_MAIN)) {
                 Response<ResProvisions> response = ApiClient.getKavaChain(mApp).getProvisions().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
@@ -49,7 +57,7 @@ public class SingleProvisionsTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (mChain.equals(BAND_MAIN)) {
                 Response<ResProvisions> response = ApiClient.getBandChain(mApp).getProvisions().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
@@ -62,7 +70,7 @@ public class SingleProvisionsTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (mChain.equals(KAVA_TEST)) {
                 Response<ResProvisions> response = ApiClient.getKavaTestChain(mApp).getProvisions().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
@@ -75,7 +83,7 @@ public class SingleProvisionsTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+            } else if (mChain.equals(IOV_MAIN)) {
                 Response<ResProvisions> response = ApiClient.getIovChain(mApp).getProvisions().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
@@ -88,8 +96,21 @@ public class SingleProvisionsTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BaseChain.IOV_TEST)) {
+            } else if (mChain.equals(IOV_TEST)) {
                 Response<ResProvisions> response = ApiClient.getIovTestChain(mApp).getProvisions().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(CERTIK_TEST)) {
+                Response<ResProvisions> response = ApiClient.getCertikTestChain(mApp).getProvisions().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

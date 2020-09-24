@@ -182,6 +182,13 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "okexTestnetImg")
                     cell?.chainName.text = "OKEX TEST"
+                    
+                } else if (selectedChain == ChainType.CERTIK_TEST) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "certikTestnetImg")
+                    cell?.chainName.text = "CERTIK TEST"
                 }
             }
             return cell!
