@@ -127,7 +127,17 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             onFetchApiHistory(account!, mValidator!)
             
-        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+        } else if (chainType == ChainType.IOV_MAIN) {
+            mUnbondings.removeAll()
+            mRewards.removeAll()
+            mFetchCnt = 5
+            onFetchValidatorInfo(mValidator!)
+            onFetchSignleBondingInfo(account!, mValidator!)
+            onFetchSignleUnBondingInfo(account!, mValidator!)
+            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
+            onFetchApiHistory(account!, mValidator!)
+            
+        } else if (chainType == ChainType.IOV_TEST ) {
             mUnbondings.removeAll()
             mRewards.removeAll()
             mFetchCnt = 4
@@ -1087,6 +1097,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = KAVA_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.IOV_MAIN) {
+            url = IOV_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
         }

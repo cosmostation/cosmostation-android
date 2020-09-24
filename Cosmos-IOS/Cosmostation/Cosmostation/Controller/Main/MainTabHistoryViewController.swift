@@ -56,9 +56,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BAND_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-            self.comingLabel.isHidden = false
-        } else if (chainType == ChainType.OKEX_TEST) {
+        } else if (chainType == ChainType.IOV_MAIN ) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.OKEX_TEST || chainType == ChainType.IOV_TEST) {
             self.comingLabel.isHidden = false
             self.historyTableView.isHidden = true
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -166,9 +166,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BAND_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-            self.comingLabel.isHidden = false
-        } else if (chainType == ChainType.OKEX_TEST) {
+        } else if (chainType == ChainType.IOV_MAIN ) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.OKEX_TEST || chainType == ChainType.IOV_TEST) {
             self.comingLabel.isHidden = false
         } else if (chainType == ChainType.CERTIK_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
@@ -180,7 +180,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return self.mApiHistories.count
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return self.mBnbHistories.count
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_TEST) {
             return self.mApiHistories.count
         }
         return 0
@@ -250,6 +250,16 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onSetIovItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        let history = mApiHistories[indexPath.row]
+        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
+        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
+        cell?.txBlockLabel.text = String(history.height) + " block"
+        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
+        if (history.isSuccess) {
+            cell?.txResultLabel.isHidden = true
+        } else {
+            cell?.txResultLabel.isHidden = false
+        }
         return cell!
     }
     
@@ -308,7 +318,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.KAVA_MAIN ||
+                chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_TEST) {
             let history = mApiHistories[indexPath.row]
             let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
             txDetailVC.mIsGen = false
@@ -335,15 +346,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                 present(safariViewController, animated: true, completion: nil)
             }
             
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            let history = mApiHistories[indexPath.row]
-            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-            txDetailVC.mIsGen = false
-            txDetailVC.mTxHash = history.tx_hash
-            txDetailVC.hidesBottomBarWhenPushed = true
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(txDetailVC, animated: true)
-            
         } else if (chainType == ChainType.BINANCE_TEST) {
             let bnbHistory = mBnbHistories[indexPath.row]
             if (bnbHistory.txType == "HTL_TRANSFER" || bnbHistory.txType == "CLAIM_HTL" || bnbHistory.txType == "REFUND_HTL" || bnbHistory.txType == "TRANSFER") {
@@ -360,24 +362,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                 safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
-            
-        } else if (chainType == ChainType.BAND_MAIN) {
-            let history = mApiHistories[indexPath.row]
-            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-            txDetailVC.mIsGen = false
-            txDetailVC.mTxHash = history.tx_hash
-            txDetailVC.hidesBottomBarWhenPushed = true
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(txDetailVC, animated: true)
-            
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            let history = mApiHistories[indexPath.row]
-            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-            txDetailVC.mIsGen = false
-            txDetailVC.mTxHash = history.tx_hash
-            txDetailVC.hidesBottomBarWhenPushed = true
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(txDetailVC, animated: true)
         }
     }
     
@@ -427,6 +411,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             url = KAVA_TEST_API_HISTORY + address
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_API_HISTORY + address
+        } else if (chainType == ChainType.IOV_MAIN) {
+            url = IOV_API_HISTORY + address
         } else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_API_HISTORY + address
         }

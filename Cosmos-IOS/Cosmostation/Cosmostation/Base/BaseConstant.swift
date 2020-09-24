@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -49,7 +49,7 @@ let KAVA_TEST_FAUCET                    = "https://faucet-kava-testnet-9000.cosm
 
 
 let IOV_URL                             = "https://lcd-iov.cosmostation.io/";
-let IOV_API                             = "";
+let IOV_API                             = "https://api-iov.cosmostation.io/";
 
 let IOV_TEST_URL                        = "https://iovnscli-rest-api.cluster-galaxynet.iov.one/";
 let IOV_TEST_API                        = "";
@@ -268,6 +268,9 @@ let IOV_PROVISIONS                      = IOV_URL + "minting/annual-provisions";
 let IOV_STAKING_POOL                    = IOV_URL + "staking/pool";
 let IOV_BORAD_TX                        = IOV_URL + "txs";
 let IOV_CHECK_WITH_STARNAME             = IOV_URL + "starname/query/resolve";
+
+let IOV_API_HISTORY                     = IOV_API + "v1/account/txs/";
+let IOV_API_TRANS_HISTORY               = IOV_API + "v1/account/transfer_txs/";
 
 
 //IOV_TEST_URL
