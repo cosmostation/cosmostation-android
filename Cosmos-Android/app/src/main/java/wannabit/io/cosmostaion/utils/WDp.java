@@ -934,7 +934,8 @@ public class WDp {
         Msg msg = msgs.get(0);
         if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) ||
                 msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER2) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_TRANSFER) ) {
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_TRANSFER) ||
+                msg.type.equals(BaseConstant.CERTIK_MSG_TYPE_TRANSFER)  ) {
             if (msg.value.from_address != null && msg.value.from_address.equals(address)) {
                 result = BaseConstant.TX_TYPE_SEND;
             } else if (msg.value.to_address != null && msg.value.to_address.equals(address)) {

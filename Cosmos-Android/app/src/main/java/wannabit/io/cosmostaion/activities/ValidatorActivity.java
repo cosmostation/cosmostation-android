@@ -604,7 +604,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchValHistory() {
-        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
+        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(IOV_MAIN)) {
             return;
         }
         mTaskCount++;
@@ -620,6 +620,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BAND_MAIN)) {
+            new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(CERTIK_TEST)) {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
@@ -732,7 +735,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 onBindAction(viewHolder);
 
             } else if (getItemViewType(position) == TYPE_HISTORY) {
-                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN)) {
+                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
                     onBindApiHistory(viewHolder, position);
                 } else {
                     onBindHistory(viewHolder, position);
@@ -1322,34 +1325,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.historyType.setText(WDp.DpTxType(getBaseContext(), source.tx.value.msg, mAccount.address));
             holder.history_block.setText(source.height + " block");
 
-            if (mBaseChain.equals(COSMOS_MAIN)) {
-                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.timestamp));
-                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.timestamp));
-                if(!source.isSuccess()) {
-                    holder.historySuccess.setVisibility(View.VISIBLE);
-                } else {
-                    holder.historySuccess.setVisibility(View.GONE);
-                }
-                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int TxType = WDp.getHistoryDpType(source.tx.value.msg, mAccount.address);
-                        if (TxType > TX_TYPE_UNKNOWN && TxType <= TX_TYPE_REINVEST) {
-                            Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
-                            txDetail.putExtra("txHash", source.hash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
-                        } else {
-                            Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                            webintent.putExtra("txid", source.hash);
-                            webintent.putExtra("chain", mBaseChain.getChain());
-                            startActivity(webintent);
-                        }
-                    }
-                });
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(IRIS_MAIN)) {
                 holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time));
                 holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.time));
                 if(source.result.Code > 0) {
@@ -1428,7 +1404,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         public int getItemCount() {
             if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
                 if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                        mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
+                        mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST)) {
                     if(mApiTxHistory.size() > 0) {
                         return mApiTxHistory.size() + 2;
                     } else {
@@ -1445,7 +1421,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             } else {
                 if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                        mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
+                        mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST)) {
                     if(mApiTxHistory.size() > 0) {
                         return mApiTxHistory.size() + 3;
                     } else {
