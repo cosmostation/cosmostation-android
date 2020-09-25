@@ -35,6 +35,16 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -185,34 +195,34 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnExplore)) {
             if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.mintscan.io/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_COSMOS_MAIN));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://irishub.mintscan.io/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_IRIS_MAIN));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://binance.mintscan.io/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_BINANCE_MAIN));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://kava.mintscan.io/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_KAVA_MAIN));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://big-dipper.iov-mainnet-2.iov.one/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_IOV_MAIN));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cosmoscan.io/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_BAND_MAIN));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://testnet-explorer.binance.org/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_BINANCE_TEST));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.oklink.com/okexchain-test/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_OKEX_TEST));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://kava-testnet-9000.mintscan.io/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_KAVA_TEST));
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://explorer.certik.foundation/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_CERTIK_TEST));
                 startActivity(intent);
             }
 

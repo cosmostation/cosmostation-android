@@ -14,6 +14,17 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
+
 public class WebActivity extends BaseActivity {
 
     private WebView     mWebview;
@@ -50,100 +61,110 @@ public class WebActivity extends BaseActivity {
         if (mBasechain.equals(BaseChain.COSMOS_MAIN)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl("https://www.mintscan.io/txs/"+mTxid);
+                mWebview.loadUrl(EXPLORER_COSMOS_MAIN + "txs/" + mTxid);
             else if (!TextUtils.isEmpty(mVoteId))
-                mWebview.loadUrl("https://www.mintscan.io/proposals/"+mVoteId);
+                mWebview.loadUrl(EXPLORER_COSMOS_MAIN + "proposals/" + mVoteId);
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl("https://www.mintscan.io/account/"+mAddress);
+                mWebview.loadUrl(EXPLORER_COSMOS_MAIN + "account/" + mAddress);
             else
-                mWebview.loadUrl("https://www.mintscan.io");
+                mWebview.loadUrl(EXPLORER_COSMOS_MAIN);
 
         } else if (mBasechain.equals(BaseChain.IRIS_MAIN)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorIris));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl("https://irishub.mintscan.io/txs/"+mTxid);
+                mWebview.loadUrl(EXPLORER_IRIS_MAIN + "txs/" + mTxid);
             else if (!TextUtils.isEmpty(mVoteId))
-                mWebview.loadUrl("https://irishub.mintscan.io/proposals/"+mVoteId);
+                mWebview.loadUrl(EXPLORER_IRIS_MAIN + "proposals/" + mVoteId);
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl("https://irishub.mintscan.io/account/"+mAddress);
+                mWebview.loadUrl(EXPLORER_IRIS_MAIN + "account/" + mAddress);
             else
-                mWebview.loadUrl("https://irishub.mintscan.io");
+                mWebview.loadUrl(EXPLORER_IRIS_MAIN);
 
         } else if (mBasechain.equals(BaseChain.BNB_MAIN)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl("https://binance.mintscan.io/txs/"+mTxid);
+                mWebview.loadUrl(EXPLORER_BINANCE_MAIN + "txs/" + mTxid);
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl("https://binance.mintscan.io/account/"+mAddress);
+                mWebview.loadUrl(EXPLORER_BINANCE_MAIN + "account/" + mAddress);
             else if (!TextUtils.isEmpty(mAsset))
-                mWebview.loadUrl("https://binance.mintscan.io/assets/"+mAsset);
+                mWebview.loadUrl(EXPLORER_BINANCE_MAIN + "assets/" + mAsset);
+            else
+                mWebview.loadUrl(EXPLORER_BINANCE_MAIN);
 
         } else if (mBasechain.equals(BaseChain.KAVA_MAIN)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl("https://kava.mintscan.io/txs/"+mTxid);
+                mWebview.loadUrl(EXPLORER_KAVA_MAIN + "txs/" + mTxid);
             else if (!TextUtils.isEmpty(mVoteId))
-                mWebview.loadUrl("https://kava.mintscan.io/proposals/"+mVoteId);
+                mWebview.loadUrl(EXPLORER_KAVA_MAIN + "proposals/" + mVoteId);
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl("https://kava.mintscan.io/account/"+mAddress);
-            else if (!TextUtils.isEmpty(mAsset))
-                mWebview.loadUrl("https://www.kava.io/registration");
+                mWebview.loadUrl(EXPLORER_KAVA_MAIN + "account/"+ mAddress);
             else
-                mWebview.loadUrl("https://kava.mintscan.io");
+                mWebview.loadUrl(EXPLORER_KAVA_MAIN);
 
         } else if (mBasechain.equals(BaseChain.IOV_MAIN)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl("https://big-dipper.iov-mainnet-2.iov.one/transactions/"+mTxid);
+                mWebview.loadUrl(EXPLORER_IOV_MAIN + "txs/" + mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl(EXPLORER_IOV_MAIN + "proposals/" + mVoteId);
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl("https://big-dipper.iov-mainnet-2.iov.one/account/"+mAddress);
-
-        } else if (mBasechain.equals(BaseChain.BNB_TEST)) {
-            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
-            if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl("https://testnet-explorer.binance.org/tx/"+mTxid);
-            else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl("https://testnet-explorer.binance.org/address/"+mAddress);
-            else if (!TextUtils.isEmpty(mAsset))
-                mWebview.loadUrl("https://testnet-explorer.binance.org/asset/"+mAsset);
+                mWebview.loadUrl(EXPLORER_IOV_MAIN + "account/"+ mAddress);
+            else
+                mWebview.loadUrl(EXPLORER_IOV_MAIN);
 
         } else if (mBasechain.equals(BaseChain.BAND_MAIN)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorBand));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl("https://cosmoscan.io/tx/"+mTxid);
+                mWebview.loadUrl(EXPLORER_BAND_MAIN + "tx/" + mTxid);
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl("https://cosmoscan.io/account/"+mAddress);
+                mWebview.loadUrl(EXPLORER_BAND_MAIN + "account/" + mAddress);
+            else
+                mWebview.loadUrl(EXPLORER_BAND_MAIN);
+
+        } else if (mBasechain.equals(BaseChain.BNB_TEST)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl(EXPLORER_BINANCE_TEST + "tx/" + mTxid);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl(EXPLORER_BINANCE_TEST + "address/" + mAddress);
+            else if (!TextUtils.isEmpty(mAsset))
+                mWebview.loadUrl(EXPLORER_BINANCE_TEST + "asset/" + mAsset);
+            else
+                mWebview.loadUrl(EXPLORER_BINANCE_TEST);
 
         } else if (mBasechain.equals(BaseChain.OK_TEST)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl("https://www.oklink.com/okexchain-test/tx/"+mTxid);
+                mWebview.loadUrl(EXPLORER_OKEX_TEST + "tx/" + mTxid);
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl("https://www.oklink.com/okexchain-test/address/"+mAddress);
+                mWebview.loadUrl(EXPLORER_OKEX_TEST + "address/" + mAddress);
             else if (!TextUtils.isEmpty(mAsset))
-                mWebview.loadUrl("https://www.oklink.com/okexchain-test/token/"+mAsset);
+                mWebview.loadUrl(EXPLORER_OKEX_TEST + "token/" + mAsset);
+            else
+                mWebview.loadUrl(EXPLORER_OKEX_TEST);
 
         } else if (mBasechain.equals(BaseChain.KAVA_TEST)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl("https://kava-testnet-9000.mintscan.io/txs/"+mTxid);
+                mWebview.loadUrl(EXPLORER_KAVA_TEST + "txs/" + mTxid);
             else if (!TextUtils.isEmpty(mVoteId))
-                mWebview.loadUrl("https://kava-testnet-9000.mintscan.io/proposals/"+mVoteId);
+                mWebview.loadUrl(EXPLORER_KAVA_TEST + "proposals/" + mVoteId);
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl("https://kava-testnet-9000.mintscan.io/account/"+mAddress);
-            else if (!TextUtils.isEmpty(mAsset))
-                mWebview.loadUrl("https://www.kava.io/registration");
+                mWebview.loadUrl(EXPLORER_KAVA_TEST + "account/" + mAddress);
             else
-                mWebview.loadUrl("https://kava-testnet-9000.mintscan.io");
+                mWebview.loadUrl(EXPLORER_KAVA_TEST);
 
         } else if (mBasechain.equals(BaseChain.CERTIK_TEST)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl("https://explorer.certik.foundation/transactions/"+mTxid);
+                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "Transactions/" + mTxid + "?net=" + mBaseChain.getChain());
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl("https://explorer.certik.foundation/accounts/"+mAddress);
+                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "accounts/" + mAddress + "?net=" + mBaseChain.getChain());
             else if (!TextUtils.isEmpty(mVoteId))
-                mWebview.loadUrl("https://explorer.certik.foundation/governance/proposals/"+mVoteId);
+                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "proposals/" + mVoteId + "?net=" + mBaseChain.getChain());
+            else
+                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "?net=" + mBaseChain.getChain());
 
         }
 

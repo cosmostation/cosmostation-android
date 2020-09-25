@@ -19,8 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -29,7 +27,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -75,6 +72,16 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_VAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_COMMISSION;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_DELEGATE;
@@ -245,25 +252,26 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             if (mBaseChain.equals(COSMOS_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_COSMOS_MAIN + "txs/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(IRIS_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://irishub.mintscan.io/txs/" + mResTxInfo.hash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_IRIS_MAIN + "txs/" + mResTxInfo.hash);
             } else if (mBaseChain.equals(BNB_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://binance.mintscan.io/txs/" + mResBnbTxInfo.hash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_BINANCE_MAIN + "txs/" + mResBnbTxInfo.hash);
             } else if (mBaseChain.equals(BNB_TEST)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://testnet-explorer.binance.org/tx/" + mResBnbTxInfo.hash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_BINANCE_TEST + "tx/" + mResBnbTxInfo.hash);
             } else if (mBaseChain.equals(KAVA_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://kava.mintscan.io/txs/" + mResTxInfo.txhash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_KAVA_MAIN + "txs/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(KAVA_TEST)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://kava-testnet-9000.mintscan.io/txs/" + mResTxInfo.txhash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_KAVA_TEST + "txs/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(OK_TEST)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.oklink.com/okexchain-test/tx/" + mResTxInfo.txhash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_OKEX_TEST  + "tx/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(BAND_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://cosmoscan.io/tx/" + mResTxInfo.txhash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_BAND_MAIN + "tx/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(IOV_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://big-dipper.iov-mainnet-2.iov.one/transactions/" + mResTxInfo.txhash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_IOV_MAIN + "txs/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(CERTIK_TEST)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://explorer.certik.foundation/transactions/" + mResTxInfo.txhash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_CERTIK_TEST + "Transactions/" + mResTxInfo.txhash + "?net=" + mBaseChain.getChain());
+
             }
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));

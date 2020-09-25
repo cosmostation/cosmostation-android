@@ -444,7 +444,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(getString(R.string.str_atom_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Cosmos Hub Staking Token");
+            holder.itemFullName.setText("Cosmos Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
 

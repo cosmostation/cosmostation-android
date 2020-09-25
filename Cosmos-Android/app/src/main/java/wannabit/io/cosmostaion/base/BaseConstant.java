@@ -413,4 +413,16 @@ public class BaseConstant {
     public final static String IOV_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
     public final static String CERTIK_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/certik/";
 
+
+    public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";
+    public final static String EXPLORER_IRIS_MAIN       = "https://www.mintscan.io/iris/";
+    public final static String EXPLORER_KAVA_MAIN       = "https://www.mintscan.io/kava/";
+    public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/iov/";
+    public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
+    public final static String EXPLORER_BAND_MAIN       = "https://cosmoscan.io/";
+
+    public final static String EXPLORER_BINANCE_TEST = "https://testnet-explorer.binance.org/";
+    public final static String EXPLORER_KAVA_TEST = "https://kava-testnet-9000.mintscan.io/";
+    public final static String EXPLORER_OKEX_TEST = "https://www.oklink.com/okexchain-test/";
+    public final static String EXPLORER_CERTIK_TEST = "https://explorer.certik.foundation/";
 }
