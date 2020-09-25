@@ -1379,39 +1379,43 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onClickActionLink() {
         if (chainType! == ChainType.COSMOS_MAIN) {
-            guard let url = URL(string: "https://www.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            guard let url = URL(string: EXPLORER_COSMOS_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
-            guard let url = URL(string: "https://irishub.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            guard let url = URL(string: EXPLORER_IRIS_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BINANCE_MAIN) {
-            guard let url = URL(string: "https://binance.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            guard let url = URL(string: EXPLORER_BINANCE_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.IOV_MAIN) {
-            guard let url = URL(string: "https://big-dipper.iov-mainnet-2.iov.one/account/" + mainTabVC.mAccount.account_address) else { return }
+            guard let url = URL(string: EXPLORER_IOV_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.KAVA_MAIN) {
-            guard let url = URL(string: "https://kava.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            guard let url = URL(string: EXPLORER_KAVA_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BAND_MAIN) {
-            guard let url = URL(string: "https://cosmoscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            guard let url = URL(string: EXPLORER_BAND_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.BINANCE_TEST) {
+            guard let url = URL(string: EXPLORER_BINANCE_TEST + "address/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.OKEX_TEST) {
-            guard let url = URL(string: "https://www.oklink.com/okexchain-test/address/" + mainTabVC.mAccount.account_address) else { return }
+            guard let url = URL(string: EXPLORER_OKEX_TEST + "address/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.KAVA_TEST) {
-            guard let url = URL(string: "https://kava-testnet-9000.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            guard let url = URL(string: EXPLORER_KAVA_TEST + "account/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.CERTIK_TEST) {
-            guard let url = URL(string: "https://explorer.certik.foundation/accounts/" + mainTabVC.mAccount.account_address) else { return }
+            guard let url = URL(string: EXPLORER_CERTIK_TEST + "accounts/" + mainTabVC.mAccount.account_address + "?net=" + WUtils.getChainId(chainType!)) else { return }
             self.onShowSafariWeb(url)
         }
     }

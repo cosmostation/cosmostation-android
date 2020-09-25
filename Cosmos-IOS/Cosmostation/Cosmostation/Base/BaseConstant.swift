@@ -808,3 +808,16 @@ let Font_11_caption2 = UIFont(name: "Helvetica-Light", size: 11)!
 let SELECT_POPUP_HTLC_TO_CHAIN = 0
 let SELECT_POPUP_HTLC_TO_COIN = 1
 let SELECT_POPUP_HTLC_TO_ACCOUNT = 2
+
+
+let EXPLORER_COSMOS_MAIN    = "https://www.mintscan.io/cosmos/";
+let EXPLORER_IRIS_MAIN      = "https://www.mintscan.io/iris/";
+let EXPLORER_KAVA_MAIN      = "https://www.mintscan.io/kava/";
+let EXPLORER_IOV_MAIN       = "https://www.mintscan.io/iov/";
+let EXPLORER_BINANCE_MAIN   = "https://binance.mintscan.io/";
+let EXPLORER_BAND_MAIN      = "https://cosmoscan.io/";
+
+let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
+let EXPLORER_KAVA_TEST      = "https://kava-testnet-9000.mintscan.io/";
+let EXPLORER_OKEX_TEST      = "https://www.oklink.com/okexchain-test/";
+let EXPLORER_CERTIK_TEST    = "https://explorer.certik.foundation/";

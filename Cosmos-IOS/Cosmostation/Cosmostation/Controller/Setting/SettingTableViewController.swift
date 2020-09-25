@@ -118,35 +118,43 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 
             } else if(indexPath.row == 2) {
                 if (chainType == ChainType.COSMOS_MAIN) {
-                    guard let url = URL(string: "https://www.mintscan.io") else { return }
+                    guard let url = URL(string: EXPLORER_COSMOS_MAIN) else { return }
                     self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.IRIS_MAIN) {
-                    guard let url = URL(string: "https://irishub.mintscan.io") else { return }
+                    guard let url = URL(string: EXPLORER_IRIS_MAIN) else { return }
                     self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.BINANCE_MAIN) {
-                    guard let url = URL(string: "https://binance.mintscan.io") else { return }
+                    guard let url = URL(string: EXPLORER_BINANCE_MAIN) else { return }
                     self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.IOV_MAIN) {
-                    guard let url = URL(string: "https://big-dipper.iov-mainnet-2.iov.one") else { return }
+                    guard let url = URL(string: EXPLORER_IOV_MAIN) else { return }
                     self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.KAVA_MAIN) {
-                    guard let url = URL(string: "https://kava.mintscan.io") else { return }
+                    guard let url = URL(string: EXPLORER_KAVA_MAIN) else { return }
                     self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.BAND_MAIN) {
-                    guard let url = URL(string: "https://cosmoscan.io/") else { return }
+                    guard let url = URL(string: EXPLORER_BAND_MAIN) else { return }
+                    self.onShowSafariWeb(url)
+                    
+                } else if (chainType == ChainType.BINANCE_TEST) {
+                    guard let url = URL(string: EXPLORER_BINANCE_TEST) else { return }
                     self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.KAVA_TEST) {
-                    guard let url = URL(string: "https://kava-testnet-9000.mintscan.io") else { return }
+                    guard let url = URL(string: EXPLORER_KAVA_TEST) else { return }
+                    self.onShowSafariWeb(url)
+                    
+                } else if (chainType == ChainType.OKEX_TEST) {
+                    guard let url = URL(string: EXPLORER_OKEX_TEST) else { return }
                     self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.CERTIK_TEST) {
-                    guard let url = URL(string: "https://explorer.certik.foundation/") else { return }
+                    guard let url = URL(string: EXPLORER_CERTIK_TEST + "?net=" + WUtils.getChainId(chainType)) else { return }
                     self.onShowSafariWeb(url)
                 }
                 

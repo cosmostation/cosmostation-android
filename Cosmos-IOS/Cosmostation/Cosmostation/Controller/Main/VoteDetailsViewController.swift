@@ -66,25 +66,18 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
         self.refresher.endRefreshing()
     }
     
-    
     func onClickLink() {
         if (chainType == ChainType.COSMOS_MAIN) {
-            guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposalId!) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            guard let url = URL(string: EXPLORER_COSMOS_MAIN + "proposals/" + proposalId!) else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType == ChainType.IRIS_MAIN) {
-            guard let url = URL(string: "https://iris.mintscan.io/proposals/" + proposalId!) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            guard let url = URL(string: EXPLORER_IRIS_MAIN + "proposals/" + proposalId!) else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType == ChainType.KAVA_MAIN) {
-            guard let url = URL(string: "https://kava.mintscan.io/proposals/" + proposalId!) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            guard let url = URL(string: EXPLORER_KAVA_MAIN + "proposals/" + proposalId!) else { return }
+            self.onShowSafariWeb(url)
             
         }
     }

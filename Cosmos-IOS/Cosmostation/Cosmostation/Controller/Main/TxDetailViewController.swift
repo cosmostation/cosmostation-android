@@ -1004,63 +1004,70 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     @IBAction func onClickShare(_ sender: UIButton) {
         if (self.chainType! == ChainType.COSMOS_MAIN) {
-            let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash!
+            let text = EXPLORER_COSMOS_MAIN + "txs/" + mTxInfo!.txhash!
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.IRIS_MAIN) {
-            let text = "https://irishub.mintscan.io/txs/" + mTxInfo!.hash!
+            let text = EXPLORER_IRIS_MAIN + "txs/" + mTxInfo!.hash!
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.BINANCE_MAIN) {
-            let text = "https://binance.mintscan.io/txs/" + mTxInfo!.hash!
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.BINANCE_TEST) {
-            let text = "https://testnet-explorer.binance.org/tx/" + mTxInfo!.hash!
+            let text = EXPLORER_BINANCE_MAIN + "txs/" + mTxInfo!.hash!
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.KAVA_MAIN) {
-            let text = "https://kava.mintscan.io/txs/" + mTxInfo!.txhash!
+            let text = EXPLORER_KAVA_MAIN + "txs/" + mTxInfo!.txhash!
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.BAND_MAIN) {
+            let text = EXPLORER_BAND_MAIN + "tx/" + mTxInfo!.txhash!
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.IOV_MAIN) {
-            let text = "https://big-dipper.iov-mainnet-2.iov.one/transactions/" + mTxInfo!.txhash!
+            let text = EXPLORER_IOV_MAIN + "txs/" + mTxInfo!.txhash!
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.OKEX_TEST) {
-            let text = "https://www.oklink.com/okexchain-test/tx/" + mTxInfo!.txhash!
+            let text = EXPLORER_OKEX_TEST + "tx/" + mTxInfo!.txhash!
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.BINANCE_TEST) {
+            let text = EXPLORER_BINANCE_TEST + "tx/" + mTxInfo!.hash!
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.KAVA_TEST) {
-            let text = "https://kava-testnet-9000.mintscan.io/txs/" + mTxInfo!.txhash!
+            let text = EXPLORER_KAVA_TEST + "txs/" + mTxInfo!.txhash!
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.CERTIK_TEST) {
-            let text = "https://explorer.certik.foundation/transactions/" + mTxInfo!.txhash!
+            let text = EXPLORER_CERTIK_TEST + "Transactions/" + mTxInfo!.txhash!  + "?net=" + WUtils.getChainId(self.chainType!)
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
@@ -1071,43 +1078,43 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func onClickExplorer() {
         if (self.chainType! == ChainType.COSMOS_MAIN) {
-            guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash!) else { return }
+            guard let url = URL(string: EXPLORER_COSMOS_MAIN + "txs/" + mTxInfo!.txhash!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.IRIS_MAIN) {
-            guard let url = URL(string: "https://irishub.mintscan.io/txs/" + mTxInfo!.hash!) else { return }
+            guard let url = URL(string: EXPLORER_IRIS_MAIN + "txs/" + mTxInfo!.hash!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.BINANCE_MAIN) {
-            guard let url = URL(string: "https://binance.mintscan.io/txs/" + mTxInfo!.hash!) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (self.chainType! == ChainType.BINANCE_TEST) {
-            guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + mTxInfo!.hash!) else { return }
+            guard let url = URL(string: EXPLORER_BINANCE_MAIN + "txs/" + mTxInfo!.hash!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.KAVA_MAIN) {
-            guard let url = URL(string: "https://kava.mintscan.io/txs/" + mTxInfo!.txhash!) else { return }
+            guard let url = URL(string: EXPLORER_KAVA_MAIN + "txs/" + mTxInfo!.txhash!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.BAND_MAIN) {
-            guard let url = URL(string: "https://cosmoscan.io/tx/" + mTxInfo!.txhash!) else { return }
+            guard let url = URL(string: EXPLORER_BAND_MAIN + "tx/" + mTxInfo!.txhash!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.IOV_MAIN) {
-            guard let url = URL(string: "https://big-dipper.iov-mainnet-2.iov.one/transactions/" + mTxInfo!.txhash!) else { return }
+            guard let url = URL(string: EXPLORER_IOV_MAIN + "txs/" + mTxInfo!.txhash!) else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (self.chainType! == ChainType.BINANCE_TEST) {
+            guard let url = URL(string: EXPLORER_BINANCE_TEST + "tx/" + mTxInfo!.hash!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.OKEX_TEST) {
-            guard let url = URL(string: "https://www.oklink.com/okexchain-test/tx/" + mTxInfo!.txhash!) else { return }
+            guard let url = URL(string: EXPLORER_OKEX_TEST + "tx/" + mTxInfo!.txhash!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.KAVA_TEST) {
-            guard let url = URL(string: "https://kava-testnet-9000.mintscan.io/txs/" + mTxInfo!.txhash!) else { return }
+            guard let url = URL(string: EXPLORER_KAVA_TEST + "txs/" + mTxInfo!.txhash!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.CERTIK_TEST) {
-            guard let url = URL(string: "https://explorer.certik.foundation/transactions/" + mTxInfo!.txhash!) else { return }
+            guard let url = URL(string: EXPLORER_CERTIK_TEST + "Transactions/" + mTxInfo!.txhash!  + "?net=" + WUtils.getChainId(self.chainType!)) else { return }
             self.onShowSafariWeb(url)
         }
     }

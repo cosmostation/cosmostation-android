@@ -108,40 +108,44 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
 
     @IBAction func onClickWebLink(_ sender: UIButton) {
         if (chainType! == ChainType.COSMOS_MAIN) {
-            guard let url = URL(string: "https://www.mintscan.io/account/" + account!.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            guard let url = URL(string: EXPLORER_COSMOS_MAIN + "account/" + account!.account_address) else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
-            guard let url = URL(string: "https://irishub.mintscan.io/account/" + account!.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            guard let url = URL(string: EXPLORER_IRIS_MAIN + "account/" + account!.account_address) else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BINANCE_MAIN) {
-            guard let url = URL(string: "https://binance.mintscan.io/account/" + account!.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            guard let url = URL(string: EXPLORER_BINANCE_MAIN + "account/" + account!.account_address) else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.IOV_MAIN) {
+            guard let url = URL(string: EXPLORER_IOV_MAIN + "account/" + account!.account_address) else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.KAVA_MAIN) {
-            guard let url = URL(string: "https://kava.mintscan.io/account/" + account!.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            guard let url = URL(string: EXPLORER_KAVA_MAIN + "account/" + account!.account_address) else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.BAND_MAIN) {
+            guard let url = URL(string: EXPLORER_BAND_MAIN + "account/" + account!.account_address) else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BINANCE_TEST) {
-            guard let url = URL(string: "https://testnet-explorer.binance.org/address/" + account!.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            guard let url = URL(string: EXPLORER_BINANCE_TEST + "address/" + account!.account_address) else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.OKEX_TEST) {
-            guard let url = URL(string: "https://www.oklink.com/okexchain-test/address/" + account!.account_address) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
+            guard let url = URL(string: EXPLORER_OKEX_TEST + "address/" + account!.account_address) else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.KAVA_TEST) {
+            guard let url = URL(string: EXPLORER_KAVA_TEST + "account/" + account!.account_address) else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.CERTIK_TEST) {
+            guard let url = URL(string: EXPLORER_CERTIK_TEST + "accounts/" + account!.account_address + "?net=" + WUtils.getChainId(chainType!)) else { return }
+            self.onShowSafariWeb(url)
         }
     }
     
@@ -443,12 +447,12 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.actionTokenInfo = {
                 if (self.chainType == ChainType.BINANCE_MAIN) {
-                    guard let url = URL(string: "https://binance.mintscan.io/assets/" + self.bnbToken!.symbol) else { return }
+                    guard let url = URL(string: EXPLORER_BINANCE_MAIN + "assets/" + self.bnbToken!.symbol) else { return }
                     let safariViewController = SFSafariViewController(url: url)
                     safariViewController.modalPresentationStyle = .popover
                     self.present(safariViewController, animated: true, completion: nil)
                 } else {
-                    guard let url = URL(string: "https://testnet-explorer.binance.org/asset/" + self.bnbToken!.symbol) else { return }
+                    guard let url = URL(string: EXPLORER_BINANCE_TEST + "asset/" + self.bnbToken!.symbol) else { return }
                     let safariViewController = SFSafariViewController(url: url)
                     safariViewController.modalPresentationStyle = .popover
                     self.present(safariViewController, animated: true, completion: nil)
@@ -486,16 +490,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell?.actionBep3Send  = {
                     self.onClickBep3Send(self.balance?.balance_denom)
                 }
-
-            } else if (balance?.balance_denom == "usdx") {
-                cell?.tokenInfoBtn.isHidden = false
-                cell?.actionTokenInfo  = {
-                    guard let url = URL(string: "https://www.kava.io/registration/") else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    self.present(safariViewController, animated: true, completion: nil)
-                }
-                
             } else {
                 cell?.btnBep3Send.isHidden = true
             }
@@ -514,7 +508,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
             
             cell?.actionTokenInfo = {
-                guard let url = URL(string: "https://www.oklink.com/okexchain-test/token/" + self.okToken!.symbol) else { return }
+                guard let url = URL(string: EXPLORER_OKEX_TEST + "token/" + self.okToken!.symbol) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 safariViewController.modalPresentationStyle = .popover
                 self.present(safariViewController, animated: true, completion: nil)
@@ -522,7 +516,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.actionSend  = {
                 self.onSendToken()
             }
-            
         }
         cell?.actionReceive = {
             self.onRecieveToken()

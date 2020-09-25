@@ -139,7 +139,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.navigationController?.pushViewController(voteDetailsVC, animated: true)
                 
             } else {
-                guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.id) else { return }
+                guard let url = URL(string: EXPLORER_COSMOS_MAIN + "proposals/" + proposal.id) else { return }
                 self.onShowSafariWeb(url)
             }
             
@@ -159,13 +159,13 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.navigationController?.pushViewController(voteDetailsVC, animated: true)
                 
             } else {
-                guard let url = URL(string: "https://kava.mintscan.io/proposals/" + proposal.id) else { return }
+                guard let url = URL(string: EXPLORER_KAVA_MAIN + "proposals/" + proposal.id) else { return }
                 self.onShowSafariWeb(url)
             }
             
         } else if (chainType == ChainType.CERTIK_TEST) {
             let proposal = mProposals[indexPath.row]
-            guard let url = URL(string: "https://explorer.certik.foundation/governance/proposals/" + proposal.id) else { return }
+            guard let url = URL(string: EXPLORER_CERTIK_TEST + "governance/proposals/" + proposal.id + "?net=" + WUtils.getChainId(chainType!)) else { return }
             self.onShowSafariWeb(url)
         }
     }
