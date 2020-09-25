@@ -310,6 +310,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                 if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
                     newAccount.account_new_bip44 = true
                 }
+                newAccount.account_sort_order = 9999
                 insertResult = BaseData.instance.insertAccount(newAccount)
                 
                 if(insertResult < 0) {

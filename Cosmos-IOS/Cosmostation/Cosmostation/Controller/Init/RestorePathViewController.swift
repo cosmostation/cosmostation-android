@@ -339,6 +339,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 newAccount.account_m_size = Int64(self.userInputWords!.count)
                 newAccount.account_import_time = Date().millisecondsSince1970
                 newAccount.account_new_bip44 = newBip
+                newAccount.account_sort_order = 9999
                 insertResult = BaseData.instance.insertAccount(newAccount)
                 
                 if(insertResult < 0) {

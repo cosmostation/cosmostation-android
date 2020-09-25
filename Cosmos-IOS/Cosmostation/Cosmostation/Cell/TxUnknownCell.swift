@@ -9,6 +9,8 @@
 import UIKit
 
 class TxUnknownCell: UITableViewCell {
+    
+    @IBOutlet weak var txIcon: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

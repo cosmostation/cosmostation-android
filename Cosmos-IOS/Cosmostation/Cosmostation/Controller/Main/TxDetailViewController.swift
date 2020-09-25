@@ -228,8 +228,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 return onBindOkDirectVote(tableView, indexPath.row)
                 
             } else {
-                let cell:TxUnknownCell? = tableView.dequeueReusableCell(withIdentifier:"TxUnknownCell") as? TxUnknownCell
-                return cell!
+                return onBindUnknown(tableView, indexPath.row)
             }
         }
     }
@@ -998,6 +997,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindUnknown(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:TxUnknownCell? = tableView.dequeueReusableCell(withIdentifier:"TxUnknownCell") as? TxUnknownCell
         let msg = mTxInfo?.getMsg(position - 1)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         return cell!
     }
     

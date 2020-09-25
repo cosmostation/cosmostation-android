@@ -196,6 +196,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
             newAccount.account_has_private = false
             newAccount.account_from_mnemonic = false
             newAccount.account_import_time = Date().millisecondsSince1970
+            newAccount.account_sort_order = 9999
             let insertResult = BaseData.instance.insertAccount(newAccount)
             
             DispatchQueue.main.async(execute: {
