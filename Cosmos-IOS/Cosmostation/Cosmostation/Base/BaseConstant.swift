@@ -813,7 +813,7 @@ let SELECT_POPUP_HTLC_TO_ACCOUNT = 2
 let EXPLORER_COSMOS_MAIN    = "https://www.mintscan.io/cosmos/";
 let EXPLORER_IRIS_MAIN      = "https://www.mintscan.io/iris/";
 let EXPLORER_KAVA_MAIN      = "https://www.mintscan.io/kava/";
-let EXPLORER_IOV_MAIN       = "https://www.mintscan.io/iov/";
+let EXPLORER_IOV_MAIN       = "https://www.mintscan.io/starname/";
 let EXPLORER_BINANCE_MAIN   = "https://binance.mintscan.io/";
 let EXPLORER_BAND_MAIN      = "https://cosmoscan.io/";
 

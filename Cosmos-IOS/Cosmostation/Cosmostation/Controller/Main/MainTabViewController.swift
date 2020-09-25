@@ -324,9 +324,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                    print("CDP mMyCdps", BaseData.instance.mMyCdps.count)
 //                }
                 
-                print("mBondingList ", mBondingList.count)
-                print("mUnbondingList ", mUnbondingList.count)
-                print("mRewardList ", mRewardList.count)
+//                print("mBondingList ", mBondingList.count)
+//                print("mUnbondingList ", mUnbondingList.count)
+//                print("mRewardList ", mRewardList.count)
 //
             } else if (mChainType == ChainType.IRIS_MAIN) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
@@ -389,9 +389,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         self.mMyValidators.append(validator)
                     }
                 }
-                print("mTopValidators ", mTopValidators.count)
-                print("mOtherValidators ", mOtherValidators.count)
-                print("mAllValidator ", mAllValidator.count)
+//                print("mTopValidators ", mTopValidators.count)
+//                print("mOtherValidators ", mOtherValidators.count)
+//                print("mAllValidator ", mAllValidator.count)
                 
             } else if (mChainType == ChainType.OKEX_TEST) {
                 self.mMyValidators.removeAll()

@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = true;
+    public final static boolean IS_SHOWLOG              = false;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -417,7 +417,7 @@ public class BaseConstant {
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_MAIN       = "https://www.mintscan.io/iris/";
     public final static String EXPLORER_KAVA_MAIN       = "https://www.mintscan.io/kava/";
-    public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/iov/";
+    public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/starname/";
     public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
     public final static String EXPLORER_BAND_MAIN       = "https://cosmoscan.io/";
 
