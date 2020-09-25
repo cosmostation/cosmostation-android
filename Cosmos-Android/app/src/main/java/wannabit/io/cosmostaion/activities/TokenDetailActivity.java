@@ -504,9 +504,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 if (mBalance.symbol.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
                     mBtnBep3Send.setVisibility(View.VISIBLE);
                     mBtnBep3Send.setOnClickListener(this);
-                } else if (mBalance.symbol.equals("usdx")) {
-                    mTokenLink.setVisibility(View.VISIBLE);
-                    mBtnTokenDetail.setOnClickListener(this);
                 } else {
                     mBtnBep3Send.setVisibility(View.GONE);
                 }
@@ -531,9 +528,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 if (mBalance.symbol.equals(TOKEN_HTLC_KAVA_TEST_BNB) || mBalance.symbol.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
                     mBtnBep3Send.setVisibility(View.VISIBLE);
                     mBtnBep3Send.setOnClickListener(this);
-                } else if (mBalance.symbol.equals("usdx")) {
-                    mTokenLink.setVisibility(View.VISIBLE);
-                    mBtnTokenDetail.setOnClickListener(this);
                 } else {
                     mBtnBep3Send.setVisibility(View.GONE);
                 }
@@ -568,8 +562,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            ReqTxToken req = new ReqTxToken(0, 1, true, mAccount.address, mBalance.symbol);
-//            new TokenHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
             new HistoryTask(getBaseApplication(), this, null, mBaseChain)

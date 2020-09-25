@@ -394,24 +394,24 @@ public class BaseConstant {
     public final static int CMC_KAVA = 4846;
 
 
-    public final static String BINANCE_MAIN_BNB_DEPUTY = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
-    public final static String KAVA_MAIN_BNB_DEPUTY = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
+    public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
+    public final static String KAVA_MAIN_BNB_DEPUTY     = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
     //For 9000
-    public final static String BINANCE_TEST_BNB_DEPUTY = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
-    public final static String KAVA_TEST_BNB_DEPUTY = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl";
-    public final static String BINANCE_TEST_BTC_DEPUTY = "tbnb1dmn2xgnc8kcxn4s0ts5llu9ry3ulp2nlhuh5fz";
-    public final static String KAVA_TEST_BTC_DEPUTY = "kava1kla4wl0ccv7u85cemvs3y987hqk0afcv7vue84";
+    public final static String BINANCE_TEST_BNB_DEPUTY  = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
+    public final static String KAVA_TEST_BNB_DEPUTY     = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl";
+    public final static String BINANCE_TEST_BTC_DEPUTY  = "tbnb1dmn2xgnc8kcxn4s0ts5llu9ry3ulp2nlhuh5fz";
+    public final static String KAVA_TEST_BTC_DEPUTY     = "kava1kla4wl0ccv7u85cemvs3y987hqk0afcv7vue84";
 
 
-    public final static String TOKEN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
-    public final static String COSMOS_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
-    public final static String IRIS_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
-    public final static String KAVA_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
-    public final static String KAVA_COIN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
-    public final static String KAVA_CDP_MARKET_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
-    public final static String BAND_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
-    public final static String IOV_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
-    public final static String CERTIK_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/certik/";
+    public final static String TOKEN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
+    public final static String COSMOS_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
+    public final static String IRIS_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
+    public final static String KAVA_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
+    public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
+    public final static String KAVA_CDP_MARKET_IMG_URL  = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
+    public final static String BAND_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
+    public final static String IOV_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
+    public final static String CERTIK_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/certik/";
 
 
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";
@@ -421,8 +421,8 @@ public class BaseConstant {
     public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
     public final static String EXPLORER_BAND_MAIN       = "https://cosmoscan.io/";
 
-    public final static String EXPLORER_BINANCE_TEST = "https://testnet-explorer.binance.org/";
-    public final static String EXPLORER_KAVA_TEST = "https://kava-testnet-9000.mintscan.io/";
-    public final static String EXPLORER_OKEX_TEST = "https://www.oklink.com/okexchain-test/";
-    public final static String EXPLORER_CERTIK_TEST = "https://explorer.certik.foundation/";
+    public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
+    public final static String EXPLORER_KAVA_TEST       = "https://kava-testnet-9000.mintscan.io/";
+    public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";
+    public final static String EXPLORER_CERTIK_TEST     = "https://explorer.certik.foundation/";
 }

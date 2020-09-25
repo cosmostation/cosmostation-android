@@ -158,11 +158,11 @@ public class WebActivity extends BaseActivity {
         } else if (mBasechain.equals(BaseChain.CERTIK_TEST)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "Transactions/" + mTxid + "?net=" + mBaseChain.getChain());
+                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "Transactions/" + mTxid + "?net=" + mBasechain.getChain());
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "accounts/" + mAddress + "?net=" + mBaseChain.getChain());
+                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "accounts/" + mAddress + "?net=" + mBasechain.getChain());
             else if (!TextUtils.isEmpty(mVoteId))
-                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "proposals/" + mVoteId + "?net=" + mBaseChain.getChain());
+                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "governance/proposals/" + mVoteId + "?net=" + mBasechain.getChain());
             else
                 mWebview.loadUrl(EXPLORER_CERTIK_TEST + "?net=" + mBaseChain.getChain());
 
