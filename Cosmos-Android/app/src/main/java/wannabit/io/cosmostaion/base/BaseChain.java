@@ -158,7 +158,7 @@ public enum BaseChain {
 
         result.add(BNB_TEST);
         result.add(KAVA_TEST);
-//        result.add(IOV_TEST);
+        result.add(IOV_TEST);
         result.add(OK_TEST);
         result.add(CERTIK_TEST);
         return result;

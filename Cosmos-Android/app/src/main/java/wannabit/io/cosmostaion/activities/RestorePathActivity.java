@@ -27,7 +27,6 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -36,7 +35,6 @@ import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;

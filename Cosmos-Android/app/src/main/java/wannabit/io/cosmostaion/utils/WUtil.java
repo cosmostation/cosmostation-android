@@ -53,7 +53,6 @@ import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
-import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
@@ -310,23 +309,6 @@ public class WUtil {
                         }
                     }
                 }
-            }
-        }
-        return result;
-    }
-
-    public static ArrayList<Balance> getIovBalances(long accountId, ResIovBalance rest) {
-        long time = System.currentTimeMillis();
-        ArrayList<Balance> result = new ArrayList<>();
-        if (rest.coins != null && rest.coins.size() > 0) {
-            for(ResIovBalance.IovCoin coin : rest.coins) {
-                Balance temp = new Balance();
-                temp.accountId = accountId;
-                temp.symbol = coin.ticker;
-//                temp.balance = new BigDecimal(coin.getDpAmount(coin.ticker));
-                temp.balance = new BigDecimal(coin.getAmount(coin.ticker).toPlainString());
-                temp.fetchTime = time;
-                result.add(temp);
             }
         }
         return result;
