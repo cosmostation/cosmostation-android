@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/layer_sort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/space_18"
+        android:paddingRight="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_12">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_owen_domain"
+                style="@style/font_ss_12_gray1"/>
+            <TextView
+                android:id="@+id/domain_cnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_4"
+                android:text="0"
+                style="@style/font_ss_12_white"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24">
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_photon"
+            android:textColor="@color/color_btn_photon"
+            android:textAllCaps="false"
+            android:text="@string/str_buy_new_domain"/>
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/layer_refresher"
+        android:layout_below="@+id/layer_sort"
+        android:layout_above="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

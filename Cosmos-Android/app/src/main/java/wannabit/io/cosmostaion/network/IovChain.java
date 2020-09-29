@@ -9,14 +9,18 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
-import wannabit.io.cosmostaion.network.req.ReqCheckStarname;
-import wannabit.io.cosmostaion.network.req.ReqCheckStarnameByOwner;
+import wannabit.io.cosmostaion.network.req.ReqStarNameAccountInDomain;
+import wannabit.io.cosmostaion.network.req.ReqStarNameByOwner;
+import wannabit.io.cosmostaion.network.req.ReqStarNameDomainInfo;
+import wannabit.io.cosmostaion.network.req.ReqStarNameResolve;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
-import wannabit.io.cosmostaion.network.res.ResIovNameResolve;
-import wannabit.io.cosmostaion.network.res.ResIovStarnameDomain;
-import wannabit.io.cosmostaion.network.res.ResIovStarnameDomainInfo;
+import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
+import wannabit.io.cosmostaion.network.res.ResIovStarNameAccountInDomain;
+import wannabit.io.cosmostaion.network.res.ResIovStarNameAccount;
+import wannabit.io.cosmostaion.network.res.ResIovStarNameDomain;
+import wannabit.io.cosmostaion.network.res.ResIovStarNameDomainInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
@@ -94,19 +98,19 @@ public interface IovChain {
 
         //Check Starname
         @POST("/starname/query/domainInfo")
-        Call<ResIovStarnameDomainInfo> getStarnameDomainInfo(@Body ReqCheckStarname data);
+        Call<ResIovStarNameDomainInfo> getStarnameDomainInfo(@Body ReqStarNameDomainInfo data);
 
         @POST("/starname/query/accountsInDomain")
-        Call<ResIovStarnameDomainInfo> getAccountInDomain(@Body ReqCheckStarname data);
+        Call<ResIovStarNameAccountInDomain> getAccountInDomain(@Body ReqStarNameAccountInDomain data);
 
         @POST("/starname/query/accountsWithOwner")
-        Call<ResIovNameResolve> getStarnameAccount(@Body ReqCheckStarnameByOwner data);
+        Call<ResIovStarNameAccount> getStarnameAccount(@Body ReqStarNameByOwner data);
 
         @POST("/starname/query/domainsWithOwner")
-        Call<ResIovStarnameDomain> getStarnameDomain(@Body ReqCheckStarnameByOwner data);
+        Call<ResIovStarNameDomain> getStarnameDomain(@Body ReqStarNameByOwner data);
 
         @POST("/starname/query/resolve")
-        Call<ResIovNameResolve> getStarnameAddress(@Body ReqCheckStarname data);
+        Call<ResIovStarNameResolve> getStarnameAddress(@Body ReqStarNameResolve data);
 
         @POST("/configuration/query/configuration")
         Call<ResIovConfig> getConfiguration();

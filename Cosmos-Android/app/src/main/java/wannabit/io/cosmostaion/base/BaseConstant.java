@@ -133,6 +133,8 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_OK_WITHDRAW                     = 2087;
     public final static int TASK_GEN_TX_OK_DIRECT_VOTE                  = 2088;
     public final static int TASK_FETCH_KAVA_TOTAL_SUPPLY                = 2089;
+    public final static int TASK_FETCH_MY_STARNAME_ACCOUNT              = 2090;
+    public final static int TASK_FETCH_MY_STARNAME_DOMAIN               = 2091;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;

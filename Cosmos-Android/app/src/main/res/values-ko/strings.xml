@@ -711,7 +711,7 @@
     <string name="str_withdraw">출금 하기</string>
     <string name="str_withdrawing">출금중 수량</string>
     <string name="str_vote_for_validator">검증인 투표</string>
-    <string name="str_name_service">Name Service</string>
+    <string name="str_name_service">네임 서비스</string>
     <string name="str_promotion_title">위임하고 이자받기</string>
     <string name="str_sorting_s">Sorting</string>
     <string name="str_sorting_by_name">이름으로 정렬</string>
@@ -803,7 +803,19 @@
     <string name="str_support_starname_msg">복잡한 주소 대신 *starname만으로 쉽고 안전하게 자산을 전송할 수 있는 스타네임의 온체인 서비스 입니다.</string>
     <string name="str_starname_confirm_title">스타네임 주소 사용</string>
     <string name="str_starname_confirm_msg">매칭된 주소를 찾았습니다. 이 주소로 전송을 진행하시겠습니까? \n\n\n%1$s\n\n%2$s</string>
-
+    <string name="str_my_domain">My Domain</string>
+    <string name="str_my_account">My Account</string>
+    <string name="str_owen_domain">소유중인 Domain</string>
+    <string name="str_owen_account">소유중인 Account</string>
+    <string name="str_buy_new_domain">Domain 구입하기</string>
+    <string name="str_buy_new_account">Account 구입하기</string>
+    <string name="str_starname_domain_promotion_title">Purchase a Starname Domain (*domain)</string>
+    <string name="str_starname_domain_promotion_msg">A Starname Domain can be used as a universal username. You can create Starname Accounts connected a Starname Domain.</string>
+    <string name="str_starname_account_promotion_title">Purchase a Starname Account (account1*domain)</string>
+    <string name="str_starname_account_promotion_msg">A Starname is your universal username for the blockchain world. Register a Starname Account connected to a public Starname Domain or a Starname Domain you own.</string>
+    <string name="str_connected_addressed">연결된 주소</string>
+    <string name="str_expire_date">유효 기간</string>
+    <string name="str_domain_type">Domain 타입</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>

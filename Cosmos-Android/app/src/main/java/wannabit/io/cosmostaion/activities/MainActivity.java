@@ -35,9 +35,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.broadcast.ok.OKValidatorListActivity;
-import wannabit.io.cosmostaion.activities.broadcast.ok.StakeDepositActivity;
-import wannabit.io.cosmostaion.activities.broadcast.ok.StakeWithdrawActivity;
+import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
+import wannabit.io.cosmostaion.activities.chains.ok.StakeDepositActivity;
+import wannabit.io.cosmostaion.activities.chains.ok.StakeWithdrawActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -71,17 +72,17 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
@@ -722,6 +723,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onStartOkVote() {
         WLog.w("onStartOkVote");
         Intent intent = new Intent(getBaseContext(), OKValidatorListActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void onStarNameService() {
+        WLog.w("onStarNameService");
+        Intent intent = new Intent(getBaseContext(), StarNameListActivity.class);
         startActivity(intent);
 
     }

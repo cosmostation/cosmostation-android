@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginBottom="2dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="1.5dp"
+        app:cardBackgroundColor="@color/colorTransBg6"
+        app:cardUseCompatPadding="true" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_84">
+            <ImageView
+                android:id="@+id/arrow_starname_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_next_gr"
+                android:layout_marginRight="@dimen/space_8"
+                android:layout_marginLeft="@dimen/space_4"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+
+            <LinearLayout
+                android:id="@+id/layer_starname_account"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_16"
+                android:layout_toLeftOf="@+id/arrow_starname_account"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/starname_account_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:letterSpacing="0.05"
+                    style="@style/font_ssm_17_white"
+                    android:text="-"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_8"
+                        android:layout_centerVertical="true"
+                        style="@style/font_ss_11_gray1"
+                        android:text="@string/str_connected_addressed"/>
+                    <TextView
+                        android:id="@+id/connected_addressed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        style="@style/font_ss_11_gray1"
+                        android:text="-"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_8"
+                        android:layout_centerVertical="true"
+                        style="@style/font_ss_11_gray1"
+                        android:text="@string/str_expire_date"/>
+                    <TextView
+                        android:id="@+id/expire_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        style="@style/font_ss_11_gray1"
+                        android:text="-"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

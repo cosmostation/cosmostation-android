@@ -274,35 +274,35 @@
 
 
         <activity
-            android:name=".activities.broadcast.kava.CreateCdpActivity"
+            android:name=".activities.chains.kava.CreateCdpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
-            android:name=".activities.broadcast.kava.RepayCdpActivity"
+            android:name=".activities.chains.kava.RepayCdpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
-            android:name=".activities.broadcast.kava.DrawDebtActivity"
+            android:name=".activities.chains.kava.DrawDebtActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
-            android:name=".activities.broadcast.kava.DepositCdpActivity"
+            android:name=".activities.chains.kava.DepositCdpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
-            android:name=".activities.broadcast.kava.WithdrawCdpActivity"
+            android:name=".activities.chains.kava.WithdrawCdpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -316,32 +316,44 @@
         </activity>
 
         <activity
-            android:name=".activities.broadcast.ok.StakeDepositActivity"
+            android:name=".activities.chains.ok.StakeDepositActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
-            android:name=".activities.broadcast.ok.StakeWithdrawActivity"
+            android:name=".activities.chains.ok.StakeWithdrawActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
-            android:name=".activities.broadcast.ok.OKValidatorListActivity"
+            android:name=".activities.chains.ok.OKValidatorListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
-            android:name=".activities.broadcast.ok.OKVoteDirectActivity"
+            android:name=".activities.chains.ok.OKVoteDirectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
+
+
+
+
+
+        <activity
+            android:name=".activities.chains.starname.StarNameListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
 
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"

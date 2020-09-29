@@ -32,10 +32,9 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.req.ReqCheckStarname;
-import wannabit.io.cosmostaion.network.res.ResIovNameResolve;
+import wannabit.io.cosmostaion.network.req.ReqStarNameResolve;
+import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -268,12 +267,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private void onCheckNameService(String userInput, BaseChain chain) {
-        ReqCheckStarname req = new ReqCheckStarname(userInput);
-        ApiClient.getIovChain(getContext()).getStarnameAddress(req).enqueue(new Callback<ResIovNameResolve>() {
+        ReqStarNameResolve req = new ReqStarNameResolve(userInput);
+        ApiClient.getIovChain(getContext()).getStarnameAddress(req).enqueue(new Callback<ResIovStarNameResolve>() {
             @Override
-            public void onResponse(Call<ResIovNameResolve> call, Response<ResIovNameResolve> response) {
+            public void onResponse(Call<ResIovStarNameResolve> call, Response<ResIovStarNameResolve> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ResIovNameResolve nameResolve = response.body();
+                    ResIovStarNameResolve nameResolve = response.body();
                     final String matchAddress = nameResolve.getAddressWithChain(chain);
                     if (TextUtils.isEmpty(matchAddress)) {
                         Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
@@ -299,7 +298,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
             @Override
-            public void onFailure(Call<ResIovNameResolve> call, Throwable t) {
+            public void onFailure(Call<ResIovStarNameResolve> call, Throwable t) {
                 Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 return;
             }

@@ -1313,7 +1313,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnIovNameService)) {
-            Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            getMainActivity().onStarNameService();
 
         } else if (v.equals(mBtnParticipate)) {
             getMainActivity().onStartIncentiveClaim();

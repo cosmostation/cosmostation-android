@@ -930,8 +930,19 @@
     <string name="str_support_starname_msg">Your universal username for the blockchain world. Insert a *starname in the address field instead of a long complicated crypto address.</string>
     <string name="str_starname_confirm_title">StarName Found</string>
     <string name="str_starname_confirm_msg">A matched address was found. Would you like to send to this address? \n\n\n%1$s\n\n%2$s</string>
-
-
+    <string name="str_my_domain">My Domain</string>
+    <string name="str_my_account">My Account</string>
+    <string name="str_owen_domain">Owen Domain</string>
+    <string name="str_owen_account">Owen Account</string>
+    <string name="str_buy_new_domain">Buy New Domain</string>
+    <string name="str_buy_new_account">Buy New Account</string>
+    <string name="str_starname_domain_promotion_title">Purchase a Starname Domain (*domain)</string>
+    <string name="str_starname_domain_promotion_msg">A Starname Domain can be used as a universal username. You can create Starname Accounts connected a Starname Domain.</string>
+    <string name="str_starname_account_promotion_title">Purchase a Starname Account (account1*domain)</string>
+    <string name="str_starname_account_promotion_msg">A Starname is your universal username for the blockchain world. Register a Starname Account connected to a public Starname Domain or a Starname Domain you own.</string>
+    <string name="str_connected_addressed">Connected Addresses</string>
+    <string name="str_expire_date">Expire Date</string>
+    <string name="str_domain_type">Domain Type</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
