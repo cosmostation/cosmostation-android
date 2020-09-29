@@ -2,7 +2,9 @@ package wannabit.io.cosmostaion.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class StarnameAccount {
+import java.util.ArrayList;
+
+public class StarNameAccount {
     @SerializedName("domain")
     public String domain;
 
@@ -16,7 +18,7 @@ public class StarnameAccount {
     public long valid_until;
 
     @SerializedName("resources")
-    public String resources;
+    public ArrayList<StarNameResource> resources;
 
     @SerializedName("certificates")
     public String certificates;
@@ -26,4 +28,12 @@ public class StarnameAccount {
 
     @SerializedName("metadata_uri")
     public String metadata_uri;
+
+    public String getResourceSize() {
+        if (resources == null || resources.size() == 0) {
+            return "0";
+        } else {
+            return "" + resources.size();
+        }
+    }
 }

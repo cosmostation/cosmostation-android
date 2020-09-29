@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class StarnameDomain {
+public class StarNameDomain {
     @SerializedName("name")
     public String name;
 

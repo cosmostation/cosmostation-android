@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import wannabit.io.cosmostaion.model.StarnameDomain;
+import wannabit.io.cosmostaion.model.StarNameDomain;
 
-public class ResIovStarnameDomain {
+public class ResIovStarNameDomain {
     @SerializedName("height")
     public String height;
 
@@ -16,7 +16,7 @@ public class ResIovStarnameDomain {
 
     public class IovDomainValue {
         @SerializedName("Domains")
-        public  ArrayList<StarnameDomain> Domains;
+        public  ArrayList<StarNameDomain> Domains;
 
     }
 }

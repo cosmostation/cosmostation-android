@@ -2,9 +2,9 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
-import wannabit.io.cosmostaion.model.StarnameDomain;
+import wannabit.io.cosmostaion.model.StarNameDomain;
 
-public class ResIovStarnameDomainInfo {
+public class ResIovStarNameDomainInfo {
     @SerializedName("height")
     public String height;
 
@@ -14,7 +14,7 @@ public class ResIovStarnameDomainInfo {
 
     public class IovStarnameDomainInfoValue {
         @SerializedName("Domains")
-        public StarnameDomain Domains;
+        public StarNameDomain Domains;
 
     }
 }
