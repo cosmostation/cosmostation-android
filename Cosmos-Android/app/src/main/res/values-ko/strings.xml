@@ -816,6 +816,13 @@
     <string name="str_connected_addressed">연결된 주소</string>
     <string name="str_expire_date">유효 기간</string>
     <string name="str_domain_type">Domain 타입</string>
+    <string name="str_admin_address">Admin</string>
+    <string name="str_domain">Domain</string>
+    <string name="str_account">Account</string>
+    <string name="str_starnamne">스타네임</string>
+    <string name="str_starnamne_fee">스타네임 수수료</string>
+    <string name="str_owner">소유자</string>
+    <string name="str_register">등록자</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -946,6 +953,15 @@
     <string name="tx_kava_bep3_claim2">인터체인 청구하기</string>
     <string name="tx_kava_bep3_refund2">인터체인 환불하기</string>
     <string name="tx_kava_incentive_reward2">Crypto Payday 참여</string>
+
+
+    <string name="tx_starname_registe_domain">Domain 등록</string>
+    <string name="tx_starname_registe_account">Account 등록</string>
+    <string name="tx_starname_delete_domain">Domain 삭제</string>
+    <string name="tx_starname_delete_account">Account 삭제</string>
+    <string name="tx_starname_renew_domain">Domain 갱신</string>
+    <string name="tx_starname_renew_account">Account 갱신</string>
+    <string name="tx_starname_update_resource">연결 주소 업데이트</string>
 
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>

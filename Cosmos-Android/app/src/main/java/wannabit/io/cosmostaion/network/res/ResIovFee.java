@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
+
 public class ResIovFee {
     @SerializedName("height")
     public String height;
@@ -80,6 +82,40 @@ public class ResIovFee {
 
         @SerializedName("renew_domain_open")
         public String renew_domain_open;
+
+
+        public BigDecimal getDomainFee(String domain) {
+            if (domain.length() == 1) {
+                return new BigDecimal(register_domain_1).movePointRight(6);
+
+            } else if (domain.length() == 2) {
+                return new BigDecimal(register_domain_2).movePointRight(6);
+
+            } else if (domain.length() == 3) {
+                return new BigDecimal(register_domain_3).movePointRight(6);
+
+            } else if (domain.length() == 4) {
+                return new BigDecimal(register_domain_4).movePointRight(6);
+
+            } else {
+                return new BigDecimal(register_domain_5).movePointRight(6);
+            }
+        }
+
+        public BigDecimal getAccountFee(boolean open) {
+            if (open) {
+                return new BigDecimal(register_account_open).movePointRight(6);
+
+            } else {
+                return new BigDecimal(register_account_closed).movePointRight(6);
+
+            }
+        }
+
+        public BigDecimal getReplaceFee() {
+            return new BigDecimal(replace_account_resources).movePointRight(6);
+        }
+
 
     }
 }

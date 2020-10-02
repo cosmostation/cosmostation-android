@@ -10,6 +10,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import wannabit.io.cosmostaion.model.StarNameResource;
+
 public class Msg {
 
     @SerializedName("type")
@@ -236,6 +238,37 @@ public class Msg {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("validator_addresses")
         public ArrayList<String> validator_addresses;
+
+
+
+
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("domain")
+        public String domain;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("name")
+        public String name;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("admin")
+        public String admin;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("registerer")
+        public String registerer;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("type")
+        public String type;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("new_resources")
+        public ArrayList<StarNameResource> new_resources;
+
+
+
 
 
     }

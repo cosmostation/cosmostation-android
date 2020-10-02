@@ -207,6 +207,12 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_ssl_12_iov" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorIov</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
 
 
     <style name="font_ss_12_gray6" parent="@android:style/TextAppearance">

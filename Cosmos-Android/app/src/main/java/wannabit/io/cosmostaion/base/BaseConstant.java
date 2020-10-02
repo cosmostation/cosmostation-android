@@ -135,6 +135,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_KAVA_TOTAL_SUPPLY                = 2089;
     public final static int TASK_FETCH_MY_STARNAME_ACCOUNT              = 2090;
     public final static int TASK_FETCH_MY_STARNAME_DOMAIN               = 2091;
+    public final static int TASK_FETCH_STARNAME_FEE                     = 2092;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -211,6 +212,23 @@ public class BaseConstant {
     public final static String OK_MSG_TYPE_DEPOSIT                          = "okexchain/staking/MsgDeposit";
     public final static String OK_MSG_TYPE_WITHDRAW                         = "okexchain/staking/MsgWithdraw";
     public final static String OK_MSG_TYPE_DIRECT_VOTE                      = "okexchain/staking/MsgAddShares";
+
+
+
+    public final static String IOV_MSG_TYPE_REGISTER_DOMAIN                 = "starname/RegisterDomain";
+    public final static String IOV_MSG_TYPE_REGISTER_ACCOUNT                = "starname/RegisterAccount";
+    public final static String IOV_MSG_TYPE_DELETE_ACCOUNT                  = "starname/DeleteAccount";
+    public final static String IOV_MSG_TYPE_DELETE_DOMAIN                   = "starname/DeleteDomain";
+    public final static String IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE        = "starname/ReplaceAccountResources";
+    public final static String IOV_MSG_TYPE_RENEW_DOMAIN                    = "starname/RenewDomain";
+    public final static String IOV_MSG_TYPE_RENEW_ACCOUNT                   = "starname/RenewAccount";
+
+    public final static String IOV_MSG_TYPE_ADD_ACCOUNT_CERT                = "starname/AddAccountCertificates";
+    public final static String IOV_MSG_TYPE_DELETE_ACCOUNT_CERT             = "starname/DeleteAccountCertificates";
+    public final static String IOV_MSG_TYPE_TRANSFER_ACCOUNT                = "starname/TransferAccount";
+    public final static String IOV_MSG_TYPE_TRANSFER_DOMAIN_ALL             = "starname/TransferDomainAll";
+    public final static String IOV_MSG_TYPE_SET_ACCOUNT_META_DATA           = "starname/SetAccountMetadata";
+
 
 
     public final static String CERTIK_MSG_TYPE_TRANSFER                     = "bank/MsgSend";

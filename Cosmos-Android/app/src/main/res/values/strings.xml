@@ -943,6 +943,13 @@
     <string name="str_connected_addressed">Connected Addresses</string>
     <string name="str_expire_date">Expire Date</string>
     <string name="str_domain_type">Domain Type</string>
+    <string name="str_admin_address">Admin</string>
+    <string name="str_domain">Domain</string>
+    <string name="str_account">Account</string>
+    <string name="str_starnamne">StarName</string>
+    <string name="str_starnamne_fee">StarName Fee</string>
+    <string name="str_owner">Owner</string>
+    <string name="str_register">Register</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1086,6 +1093,15 @@
     <string name="tx_kava_bep3_claim2">Interchain Claim</string>
     <string name="tx_kava_bep3_refund2">Interchain Refund</string>
     <string name="tx_kava_incentive_reward2">Crypto Payday Participate</string>
+
+
+    <string name="tx_starname_registe_domain">Register Domain</string>
+    <string name="tx_starname_registe_account">Register Account</string>
+    <string name="tx_starname_delete_domain">Delete Domain</string>
+    <string name="tx_starname_delete_account">Delete Account</string>
+    <string name="tx_starname_renew_domain">Renew Domain</string>
+    <string name="tx_starname_renew_account">Renew Account</string>
+    <string name="tx_starname_update_resource">Connected Address Update</string>
 
 
     <string name="str_dp_time_format1" >MMM d, yyyy HH:mm:ss</string>

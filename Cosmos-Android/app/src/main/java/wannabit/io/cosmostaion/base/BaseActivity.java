@@ -76,6 +76,7 @@ import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
+import wannabit.io.cosmostaion.network.res.ResIovFee;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
@@ -106,6 +107,7 @@ import wannabit.io.cosmostaion.task.FetchTask.OkDepositTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkWithdrawTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
+import wannabit.io.cosmostaion.task.FetchTask.StarNameFeeTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnbondedValidatorInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnbondingValidatorInfoTask;
@@ -139,6 +141,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_ACCOUNT_TO
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_TOKEN_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -546,7 +549,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         } else if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
-            mTaskCount = 9;
+            mTaskCount = 10;
             new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnbondedValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -557,6 +560,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new StarNameFeeTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (mBaseChain.equals(BAND_MAIN)) {
@@ -782,6 +786,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mOkTokenList = ((ResOkTokenList)result.resultData);
             }
+        } else if (result.taskType == TASK_FETCH_STARNAME_FEE) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mStarNameFee = ((ResIovFee.IovFee)result.resultData);
+            }
+
         }
 
 
