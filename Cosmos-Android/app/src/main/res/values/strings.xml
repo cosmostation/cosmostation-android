@@ -950,6 +950,14 @@
     <string name="str_starnamne_fee">StarName Fee</string>
     <string name="str_owner">Owner</string>
     <string name="str_register">Register</string>
+    <string name="str_register_domain">Register Domain</string>
+    <string name="str_register_domain_step_0">Insert domain and type</string>
+    <string name="str_register_domain_step_1">Insert memo (optional))</string>
+    <string name="str_register_domain_step_2">Select transaction fee</string>
+    <string name="str_register_domain_step_3">Check transaction detail</string>
+    <string name="str_domain_to_register">Domain To Register</string>
+    <string name="str_description_open_domain">Open Domain is the domain type in which an account owner is the only entity that can perform actions on the account.</string>
+    <string name="str_description_closed_domain">Closed Domain is the domain type in which the domain owner has control over accounts too.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1029,6 +1037,9 @@
     <string name="error_starname_self_send">Valide starname, but self sending is not support.</string>
     <string name="error_bep3_supply_full">The swap has reached its network capacity.</string>
     <string name="error_bep3_under_min_amount">Need more than 0.00001 balance for Interchain send.</string>
+    <string name="error_invalid_domain_format">Invalid domain format, please insert another text for domain</string>
+    <string name="error_already_registered_domain">This domain already registered. please use another text for domain</string>
+    <string name="error_not_enough_starname_fee">Not enough available balance for starname fee.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

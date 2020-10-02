@@ -823,6 +823,14 @@
     <string name="str_starnamne_fee">스타네임 수수료</string>
     <string name="str_owner">소유자</string>
     <string name="str_register">등록자</string>
+    <string name="str_register_domain">도메인 등록하기</string>
+    <string name="str_register_domain_step_0">도에인과 타입을 입력하세요.</string>
+    <string name="str_register_domain_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_register_domain_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_register_domain_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_domain_to_register">등록할 도메인</string>
+    <string name="str_description_open_domain">Open Domain은 계정 소유자가 계정에 대한 작업을 수행 할 수있는 유일한 엔티티인 도메인 유형입니다.</string>
+    <string name="str_description_closed_domain">Closed Domain은 도메인 소유자가 계정을 제어 할 수있는 도메인 유형입니다.</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -902,6 +910,9 @@
     <string name="error_starname_self_send">유효한 스타네임 이지만, 자기 자신의 주소로는 송금할 수 없습니다.</string>
     <string name="error_bep3_supply_full">현재 스왑 가능한 수량이 모두 소진되었습니다.</string>
     <string name="error_bep3_under_min_amount">최소 0.00001보다 많이 보낼 수 있습니다.</string>
+    <string name="error_invalid_domain_format">부정확한 도메인 포멧 입니다. 다른값을 입력하세요.</string>
+    <string name="error_already_registered_domain">이미 등록된 도메인입니다. 다른값을 입력하세요.</string>
+    <string name="error_not_enough_starname_fee">스타네임 Fee를 지불할 충분한 금액이 없습니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

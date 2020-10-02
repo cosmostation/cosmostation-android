@@ -1,8 +1,12 @@
 package wannabit.io.cosmostaion.network.res;
 
+import android.text.TextUtils;
+import android.widget.TextView;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class ResIovFee {
     @SerializedName("height")
@@ -84,22 +88,25 @@ public class ResIovFee {
         public String renew_domain_open;
 
 
-        public BigDecimal getDomainFee(String domain) {
-            if (domain.length() == 1) {
-                return new BigDecimal(register_domain_1).movePointRight(6);
-
+        public BigDecimal getDomainFee(String domain, String type) {
+            BigDecimal feeAmount = BigDecimal.ZERO;
+            if (TextUtils.isEmpty(domain)) {
+                feeAmount = BigDecimal.ZERO;
+            }else if (domain.length() == 1) {
+                feeAmount = new BigDecimal(register_domain_1).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
             } else if (domain.length() == 2) {
-                return new BigDecimal(register_domain_2).movePointRight(6);
-
+                feeAmount = new BigDecimal(register_domain_2).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
             } else if (domain.length() == 3) {
-                return new BigDecimal(register_domain_3).movePointRight(6);
-
+                feeAmount = new BigDecimal(register_domain_3).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
             } else if (domain.length() == 4) {
-                return new BigDecimal(register_domain_4).movePointRight(6);
-
+                feeAmount =   new BigDecimal(register_domain_4).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
             } else {
-                return new BigDecimal(register_domain_5).movePointRight(6);
+                feeAmount = new BigDecimal(register_domain_5).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
             }
+            if (type.equals("open")) {
+                feeAmount = feeAmount.multiply(new BigDecimal(register_open_domain_multiplier));
+            }
+            return feeAmount;
         }
 
         public BigDecimal getAccountFee(boolean open) {

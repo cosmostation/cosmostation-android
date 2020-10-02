@@ -136,6 +136,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_MY_STARNAME_ACCOUNT              = 2090;
     public final static int TASK_FETCH_MY_STARNAME_DOMAIN               = 2091;
     public final static int TASK_FETCH_STARNAME_FEE                     = 2092;
+    public final static int TASK_GEN_TX_REGISTER_DOMAIN                 = 2093;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -262,6 +263,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_OK_DEPOSIT                          = 5021;
     public final static int CONST_PW_TX_OK_WITHDRAW                         = 5022;
     public final static int CONST_PW_TX_OK_DIRECT_VOTE                      = 5023;
+    public final static int CONST_PW_TX_REGISTER_DOMAIN                     = 5024;
 
 
     public final static int TX_TYPE_UNKNOWN                 = 3000;
@@ -390,6 +392,7 @@ public class BaseConstant {
     public final static String FEE_IOV_GAS_AMOUNT_REDELEGATE    = "300000";
     public final static String FEE_IOV_GAS_AMOUNT_REINVEST      = "300000";
     public final static String FEE_IOV_GAS_AMOUNT_LOW           = "100000";
+    public final static String FEE_IOV_GAS_AMOUNT_REGISTER      = "300000";
 
     public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.0000001";
     public final static String FEE_OK_GAS_AMOUNT_SEND           = "200000";

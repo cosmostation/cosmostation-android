@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRegisterDomainTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
@@ -73,6 +74,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
@@ -136,6 +138,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private ArrayList<String>           mOKVoteValidator = new ArrayList<>();
 
 
+    private String                      mDomain;
+    private String                      mDomainType;
+
+
     private long                        mIdToDelete;
     private long                        mIdToCheck;
 
@@ -195,6 +201,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mClaimDenom = getIntent().getStringExtra("denom");
         mOkStakeCoin = getIntent().getParcelableExtra("stakeAmount");
         mOKVoteValidator = getIntent().getStringArrayListExtra("voteVal");
+
+
+        mDomain = getIntent().getStringExtra("domain");
+        mDomainType = getIntent().getStringExtra("domainType");
+
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck  = getIntent().getLongExtra("checkid", -1);
@@ -480,6 +491,16 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mAccount,
                     mBaseChain,
                     mOKVoteValidator,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_REGISTER_DOMAIN) {
+            new SimpleRegisterDomainTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mBaseChain,
+                    mDomain,
+                    mDomainType,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 

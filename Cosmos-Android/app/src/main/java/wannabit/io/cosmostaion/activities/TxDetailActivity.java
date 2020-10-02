@@ -1380,7 +1380,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemAdmin.setText( msg.value.admin);
                 holder.itemType.setText( msg.value.type);
 
-                BigDecimal starnameFee = getBaseDao().mStarNameFee.getDomainFee(msg.value.domain.trim());
+                BigDecimal starnameFee = getBaseDao().mStarNameFee.getDomainFee(msg.value.domain.trim(), msg.value.type);
                 holder.itemStarnameFee.setText(WDp.getDpAmount2(getBaseContext(), starnameFee, 6, 6));
             }
 

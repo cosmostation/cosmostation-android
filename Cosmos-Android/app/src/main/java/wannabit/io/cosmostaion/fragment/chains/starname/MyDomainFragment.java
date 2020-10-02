@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,25 +11,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.starname.RegisterDomainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.StarNameDomain;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
-public class MyDomainFragment extends BaseFragment {
+public class MyDomainFragment extends BaseFragment implements View.OnClickListener {
 
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
     private TextView            mDomainCnt;
-    private MyDomainAdapter     mMyDomainAdapter;
+    private Button              mRegisterDomain;
 
+    private MyDomainAdapter     mMyDomainAdapter;
     private ArrayList<StarNameDomain> mMyStarNameDomains = new ArrayList<>();
 
     public static MyDomainFragment newInstance(Bundle bundle) {
@@ -48,6 +51,8 @@ public class MyDomainFragment extends BaseFragment {
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
         mDomainCnt              = rootView.findViewById(R.id.domain_cnt);
+        mRegisterDomain         = rootView.findViewById(R.id.btn_register);
+        mRegisterDomain.setOnClickListener(this);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -79,6 +84,21 @@ public class MyDomainFragment extends BaseFragment {
 
     public StarNameListActivity getSActivity() {
         return (StarNameListActivity)getBaseActivity();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mRegisterDomain)) {
+            if (!getSActivity().mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+
+            Intent toDelegate = new Intent(getSActivity(), RegisterDomainActivity.class);
+            startActivity(toDelegate);
+        }
     }
 
 

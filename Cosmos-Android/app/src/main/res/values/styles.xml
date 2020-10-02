@@ -51,4 +51,8 @@
         <item name="colorControlActivated">@color/colorAtom</item>
     </style>
 
+    <style name="ColorSwitchStylesIov">
+        <item name="colorControlActivated">@color/colorIov</item>
+    </style>
+
 </resources>

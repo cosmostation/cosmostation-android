@@ -1431,4 +1431,15 @@ public class WUtil {
         return result;
     }
 
+    public static boolean isValidDomain(String starname) {
+        boolean result = false;
+        String regex = "[a-z0-9]{4,32}";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(starname);
+        if (m.matches()) {
+            result = true;
+        }
+        return result;
+    }
+
 }

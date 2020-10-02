@@ -11,6 +11,9 @@ public class ResIovStarNameDomainInfo {
     @SerializedName("result")
     public IovStarnameDomainInfoValue result;
 
+    @SerializedName("error")
+    public String error;
+
 
     public class IovStarnameDomainInfoValue {
         @SerializedName("Domains")

@@ -4,14 +4,6 @@ import android.util.Base64;
 
 import com.binance.dex.api.client.domain.broadcast.HtltReq;
 import com.binance.dex.api.client.encoding.message.Token;
-import com.github.orogvany.bip32.wallet.HdAddress;
-import com.google.protobuf.ByteString;
-
-import net.i2p.crypto.eddsa.EdDSAEngine;
-import net.i2p.crypto.eddsa.EdDSAPrivateKey;
-import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable;
-import net.i2p.crypto.eddsa.spec.EdDSAParameterSpec;
-import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
@@ -19,13 +11,9 @@ import org.bitcoinj.crypto.DeterministicKey;
 
 import java.math.BigDecimal;
 import java.security.MessageDigest;
-import java.security.PrivateKey;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
@@ -57,7 +45,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BTC_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_BTC_DEPUTY;
@@ -65,7 +52,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 public class MsgGenerator {
@@ -564,6 +550,22 @@ public class MsgGenerator {
 
     }
 
+    public static Msg genDomainRegister(String domain, String admin, String type, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            value.domain = domain;
+            value.admin = admin;
+            value.type = type;
+            value.broker = "";
+            value.fee_payer = "";
+
+            result.type = BaseConstant.IOV_MSG_TYPE_REGISTER_DOMAIN;
+            result.value = value;
+        }
+        return result;
+    }
+
 
 
     public static StdTx genUnsignedTransferTx(ArrayList<Msg> msgs, Fee fee, String memo) {
@@ -656,10 +658,10 @@ public class MsgGenerator {
                 msgs,
                 fee,
                 memo);
-//        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
+        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
 
         String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-//        WLog.w("signatureTx " + signatureTx);
+        WLog.w("signatureTx " + signatureTx);
 
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();
@@ -674,13 +676,13 @@ public class MsgGenerator {
         signatures.add(signature);
 
         StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
-//        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
+        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
 
         ReqBroadCast reqBroadCast = new ReqBroadCast();
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-//        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
 
         return reqBroadCast;
