@@ -1397,15 +1397,16 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 BigDecimal starnameFee = getBaseDao().mStarNameFee.getAccountFee(true);
                 holder.itemStarnameFee.setText(WDp.getDpAmount2(getBaseContext(), starnameFee, 6, 6));
 
-                ArrayList<StarNameResource> resources = msg.value.new_resources;
+                ArrayList<StarNameResource> resources = msg.value.resources;
                 if (resources != null && resources.size() > 0) {
                     holder.itemResBar.setVisibility(View.VISIBLE);
                     holder.itemResLayer.setVisibility(View.VISIBLE);
                     holder.itemAddressCnt.setText("" + resources.size());
                     for(int i = 0; i < resources.size(); i++) {
                         holder.itemAddessLayer[i].setVisibility(View.VISIBLE);
-                        holder.itemChain[i].setText(resources.get(i).uri);
+                        holder.itemChain[i].setText(resources.get(i).getChainName());
                         holder.itemAddess[i].setText(resources.get(i).resource);
+                        holder.itemAddressImg[i].setImageDrawable(resources.get(i).getChainImg(getBaseContext()));
                     }
                 }
             }
@@ -1447,8 +1448,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemAddressCnt.setText("" + resources.size());
                     for(int i = 0; i < resources.size(); i++) {
                         holder.itemAddessLayer[i].setVisibility(View.VISIBLE);
-                        holder.itemChain[i].setText(resources.get(i).uri);
+                        holder.itemChain[i].setText(resources.get(i).getChainName());
                         holder.itemAddess[i].setText(resources.get(i).resource);
+                        holder.itemAddressImg[i].setImageDrawable(resources.get(i).getChainImg(getBaseContext()));
                     }
                 }
             }

@@ -115,7 +115,6 @@ public class RegisterDomain2Fragment extends BaseFragment implements View.OnClic
             mMinFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
         }
-
         return rootView;
     }
 

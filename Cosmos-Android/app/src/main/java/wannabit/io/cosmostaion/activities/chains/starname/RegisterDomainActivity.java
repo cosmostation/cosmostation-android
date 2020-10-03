@@ -24,7 +24,6 @@ import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain3Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
@@ -45,7 +44,6 @@ public class RegisterDomainActivity extends BaseActivity {
     public String       mToRegDomain;
     public String       mType;
     public String       mMemo;
-    public Coin         mStarNameFee;
     public Fee          mFee;
 
     @Override

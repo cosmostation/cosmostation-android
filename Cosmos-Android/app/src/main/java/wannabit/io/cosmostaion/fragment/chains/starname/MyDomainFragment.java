@@ -96,8 +96,8 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
                 return;
             }
 
-            Intent toDelegate = new Intent(getSActivity(), RegisterDomainActivity.class);
-            startActivity(toDelegate);
+            Intent intent = new Intent(getSActivity(), RegisterDomainActivity.class);
+            startActivity(intent);
         }
     }
 

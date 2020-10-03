@@ -11,6 +11,9 @@ public class ResIovStarNameResolve {
     @SerializedName("height")
     public String height;
 
+    @SerializedName("error")
+    public String error;
+
     @SerializedName("result")
     public IovNameValue result;
 

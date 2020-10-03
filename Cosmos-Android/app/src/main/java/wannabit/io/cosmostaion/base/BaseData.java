@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
+import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
@@ -79,6 +80,7 @@ public class BaseData {
     public ResOkTokenList                                                   mOkTokenList;
 
     public ResIovFee.IovFee                                                 mStarNameFee;
+    public ResIovConfig.IovConfig                                           mStarNameConfig;
 
     public BigDecimal getBnbTransferFee() {
         BigDecimal result =  BigDecimal.ZERO;

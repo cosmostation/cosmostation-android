@@ -111,16 +111,16 @@ public class ResIovFee {
 
         public BigDecimal getAccountFee(boolean open) {
             if (open) {
-                return new BigDecimal(register_account_open).movePointRight(6);
+                return new BigDecimal(register_account_open).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
 
             } else {
-                return new BigDecimal(register_account_closed).movePointRight(6);
+                return new BigDecimal(register_account_closed).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
 
             }
         }
 
         public BigDecimal getReplaceFee() {
-            return new BigDecimal(replace_account_resources).movePointRight(6);
+            return new BigDecimal(replace_account_resources).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
         }
 
 

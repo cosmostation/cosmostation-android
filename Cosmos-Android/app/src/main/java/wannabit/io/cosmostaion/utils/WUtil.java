@@ -45,6 +45,7 @@ import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
@@ -63,10 +64,12 @@ import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -87,6 +90,20 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.model.StarNameResource.BAND;
+import static wannabit.io.cosmostaion.model.StarNameResource.BINANCE;
+import static wannabit.io.cosmostaion.model.StarNameResource.BITCOIN;
+import static wannabit.io.cosmostaion.model.StarNameResource.BITCOINCASH;
+import static wannabit.io.cosmostaion.model.StarNameResource.COSMOS;
+import static wannabit.io.cosmostaion.model.StarNameResource.EMONEY;
+import static wannabit.io.cosmostaion.model.StarNameResource.ETHEREUM;
+import static wannabit.io.cosmostaion.model.StarNameResource.IRIS;
+import static wannabit.io.cosmostaion.model.StarNameResource.KAVA;
+import static wannabit.io.cosmostaion.model.StarNameResource.LISK;
+import static wannabit.io.cosmostaion.model.StarNameResource.LITECOIN;
+import static wannabit.io.cosmostaion.model.StarNameResource.LUNA;
+import static wannabit.io.cosmostaion.model.StarNameResource.STARNAME;
+import static wannabit.io.cosmostaion.model.StarNameResource.TEZOS;
 
 public class WUtil {
 
@@ -358,7 +375,7 @@ public class WUtil {
                 result.add(temp);
             }
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             for(ResLcdBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
@@ -385,7 +402,7 @@ public class WUtil {
                 chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_TEST)) {
             return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares).movePointRight(18), System.currentTimeMillis());
 
         }
@@ -418,7 +435,7 @@ public class WUtil {
                 }
             }
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             for(ResLcdUnBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
@@ -792,7 +809,7 @@ public class WUtil {
                     if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
                     else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
                     else return 0;
-                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                } else if (chain.equals(IRIS_MAIN)) {
                     if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
                     else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
                     else return 0;
@@ -885,11 +902,11 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_ATOM)) return -1;
                     if(o2.symbol.equals(TOKEN_ATOM)) return 1;
 
-                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                } else if (chain.equals(IRIS_MAIN)) {
                     if(o1.symbol.equals(TOKEN_IRIS_ATTO)) return -1;
                     if(o2.symbol.equals(TOKEN_IRIS_ATTO)) return 1;
 
-                } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+                } else if (chain.equals(BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                     if(o1.symbol.equals(TOKEN_BNB)) return -1;
                     if(o2.symbol.equals(TOKEN_BNB)) return 1;
 
@@ -932,11 +949,11 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_ATOM)) return -1;
                     if(o2.symbol.equals(TOKEN_ATOM)) return 1;
 
-                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                } else if (chain.equals(IRIS_MAIN)) {
                     if(o1.symbol.equals(TOKEN_IRIS_ATTO)) return -1;
                     if(o2.symbol.equals(TOKEN_IRIS_ATTO)) return 1;
 
-                } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+                } else if (chain.equals(BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                     if(o1.symbol.equals(TOKEN_BNB)) return -1;
                     if(o2.symbol.equals(TOKEN_BNB)) return 1;
 
@@ -1081,10 +1098,10 @@ public class WUtil {
         if (chain.equals(COSMOS_MAIN)) {
             return BaseConstant.CMC_ATOM;
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             return BaseConstant.CMC_IRIS;
 
-        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return BaseConstant.CMC_BNB;
 
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
@@ -1097,10 +1114,10 @@ public class WUtil {
         if (chain.equals(COSMOS_MAIN)) {
             return BaseConstant.CGC_ATOM;
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             return BaseConstant.CGC_IRIS;
 
-        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return BaseConstant.CGC_BNB;
 
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
@@ -1118,10 +1135,10 @@ public class WUtil {
                 chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST) || chain.equals(OK_TEST) || chain.equals(CERTIK_TEST)) {
             return BaseConstant.MEMO_ATOM;
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             return BaseConstant.MEMO_IRIS;
 
-        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
             return BaseConstant.MEMO_BNB;
         }
         return BaseConstant.MEMO_IRIS;
@@ -1362,7 +1379,7 @@ public class WUtil {
 
 
     public static String getIrisMonikerName(ArrayList<Validator> validators, String address) {
-        String opAddress = WKey.convertDpAddressToDpOpAddress(address, BaseChain.IRIS_MAIN);
+        String opAddress = WKey.convertDpAddressToDpOpAddress(address, IRIS_MAIN);
         String result = address;
         for (Validator v:validators) {
             if (v.operator_address.equals(opAddress)) {
@@ -1440,6 +1457,78 @@ public class WUtil {
             result = true;
         }
         return result;
+    }
+
+    public static boolean isValidAccount(String starname) {
+        boolean result = false;
+        String regex = "[a-z0-9.-]{1,63}";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(starname);
+        if (m.matches()) {
+            result = true;
+        }
+        return result;
+    }
+
+
+    public static ArrayList<StarNameResource> allResources() {
+        ArrayList<StarNameResource> result = new ArrayList();
+        result.add(new StarNameResource(COSMOS));
+        result.add(new StarNameResource(BITCOIN));
+        result.add(new StarNameResource(ETHEREUM));
+        result.add(new StarNameResource(STARNAME));
+        result.add(new StarNameResource(BINANCE));
+        result.add(new StarNameResource(IRIS));
+        result.add(new StarNameResource(KAVA));
+        result.add(new StarNameResource(BAND));
+        result.add(new StarNameResource(BITCOINCASH));
+        result.add(new StarNameResource(LITECOIN));
+        result.add(new StarNameResource(EMONEY));
+        result.add(new StarNameResource(TEZOS));
+        result.add(new StarNameResource(LISK));
+        result.add(new StarNameResource(LUNA));
+        return result;
+
+    }
+
+    public static ArrayList<StarNameResource> getInitStarnameResource() {
+        ArrayList<StarNameResource> result = new ArrayList();
+        result.add(new StarNameResource(COSMOS));
+        result.add(new StarNameResource(BITCOIN));
+        result.add(new StarNameResource(ETHEREUM));
+        result.add(new StarNameResource(STARNAME));
+        result.add(new StarNameResource(BINANCE));
+        result.add(new StarNameResource(IRIS));
+        result.add(new StarNameResource(KAVA));
+        result.add(new StarNameResource(BAND));
+        return result;
+    }
+
+    public static ArrayList<StarNameResource> getAddableStarnameResource(ArrayList<StarNameResource> already) {
+        ArrayList<StarNameResource> result = new ArrayList();
+        for (StarNameResource resource:allResources()){
+            if (!already.contains(resource)) {
+                result.add(resource);
+            }
+        }
+        return result;
+    }
+
+    public static BaseChain getBaseChainWithUri(String uri) {
+        if (uri.equals(COSMOS)) {
+            return COSMOS_MAIN;
+        } else if (uri.equals(IRIS)) {
+            return IRIS_MAIN;
+        } else if (uri.equals(BINANCE)) {
+            return BNB_MAIN;
+        } else if (uri.equals(STARNAME)) {
+            return IOV_MAIN;
+        } else if (uri.equals(KAVA)) {
+            return KAVA_MAIN;
+        } else if (uri.equals(BAND)) {
+            return BAND_MAIN;
+        }
+        return null;
     }
 
 }

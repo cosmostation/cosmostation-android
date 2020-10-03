@@ -268,6 +268,10 @@ public class Msg {
         public ArrayList<StarNameResource> new_resources;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("resources")
+        public ArrayList<StarNameResource> resources;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("broker")
         public String broker;
 

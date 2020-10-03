@@ -848,6 +848,7 @@
     <string name="str_sorting_by_value">By Value</string>
     <string name="str_qr_code">QR Scan</string>
     <string name="str_recent">Recent</string>
+    <string name="str_in_wallet">Wallet</string>
     <string name="str_fee_free_title">Fee Free Event</string>
     <string name="str_fee_free_msg">To commemorate the launch of the main net, \nwe will hold a free 3-week event.</string>
     <string name="str_delegate_notice">When you delegate, your accumulated rewards will be automatically claimed to your available balance.</string>
@@ -908,11 +909,11 @@
     <string name="str_ok_stake_deposit_step_2">Select transaction fee</string>
     <string name="str_ok_stake_deposit_step_3">Check transaction detail</string>
     <string name="str_ok_stake_withdraw_step_0">Insert amount to withdraw</string>
-    <string name="str_ok_stake_withdraw_step_1">Insert memo (optional))</string>
+    <string name="str_ok_stake_withdraw_step_1">Insert memo (optional)</string>
     <string name="str_ok_stake_withdraw_step_2">Select transaction fee</string>
     <string name="str_ok_stake_withdraw_step_3">Check transaction detail</string>
     <string name="str_ok_direct_vote_0">Select validator to vote</string>
-    <string name="str_ok_direct_vote_1">Insert memo (optional))</string>
+    <string name="str_ok_direct_vote_1">Insert memo (optional)</string>
     <string name="str_ok_direct_vote_2">Select transaction fee</string>
     <string name="str_ok_direct_vote_3">Check transaction detail</string>
     <string name="str_ok_deposit_amount">Deposit Amount</string>
@@ -952,12 +953,21 @@
     <string name="str_register">Register</string>
     <string name="str_register_domain">Register Domain</string>
     <string name="str_register_domain_step_0">Insert domain and type</string>
-    <string name="str_register_domain_step_1">Insert memo (optional))</string>
+    <string name="str_register_domain_step_1">Insert memo (optional)</string>
     <string name="str_register_domain_step_2">Select transaction fee</string>
     <string name="str_register_domain_step_3">Check transaction detail</string>
     <string name="str_domain_to_register">Domain To Register</string>
     <string name="str_description_open_domain">Open Domain is the domain type in which an account owner is the only entity that can perform actions on the account.</string>
     <string name="str_description_closed_domain">Closed Domain is the domain type in which the domain owner has control over accounts too.</string>
+    <string name="str_register_account">Register Account</string>
+    <string name="str_register_account_step_0">Insert starname account you want</string>
+    <string name="str_register_account_step_1">Add address with this starname</string>
+    <string name="str_register_account_step_2">Insert memo (optional)</string>
+    <string name="str_register_account_step_3">Select transaction fee</string>
+    <string name="str_register_account_step_4">Check transaction detail</string>
+    <string name="str_account_to_register">Account To Register</string>
+    <string name="str_select_chain_for_address">Select chain for register address</string>
+    <string name="str_select_wallet_for_address">Select wallet for register address</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1040,6 +1050,11 @@
     <string name="error_invalid_domain_format">Invalid domain format, please insert another text for domain</string>
     <string name="error_already_registered_domain">This domain already registered. please use another text for domain</string>
     <string name="error_not_enough_starname_fee">Not enough available balance for starname fee.</string>
+    <string name="error_only_fixed_domain">now only support fixed iov domain, Well support soon all domain</string>
+    <string name="error_invalid_account_format">Invalid account format, please insert another text for account</string>
+    <string name="error_already_registered_account">This account already registered. please use another text for account</string>
+    <string name="error_not_support_cosmostation">Not supported chain Cosmostaion wallet.</string>
+    <string name="error_no_wallet_this_chain">Not wallet for this chain.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

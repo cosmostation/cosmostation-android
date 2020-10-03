@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,24 +11,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.starname.RegisterAccountActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.StarNameAccount;
-import wannabit.io.cosmostaion.model.StarNameDomain;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class MyAccountFragment extends BaseFragment {
+public class MyAccountFragment extends BaseFragment implements View.OnClickListener {
 
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
     private TextView            mAccountCnt;
-    private MyAccountAdapter    mMyAccountAdapter;
+    private Button              mRegisterAccount;
 
+    private MyAccountAdapter    mMyAccountAdapter;
     private ArrayList<StarNameAccount> mMyStarNameAccounts = new ArrayList<>();
 
     public static MyAccountFragment newInstance(Bundle bundle) {
@@ -47,6 +51,8 @@ public class MyAccountFragment extends BaseFragment {
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
         mAccountCnt             = rootView.findViewById(R.id.account_cnt);
+        mRegisterAccount        = rootView.findViewById(R.id.btn_register);
+        mRegisterAccount.setOnClickListener(this);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -78,6 +84,22 @@ public class MyAccountFragment extends BaseFragment {
 
     public StarNameListActivity getSActivity() {
         return (StarNameListActivity)getBaseActivity();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mRegisterAccount)) {
+            if (!getSActivity().mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+
+            Intent intent = new Intent(getSActivity(), RegisterAccountActivity.class);
+            startActivity(intent);
+        }
+
     }
 
 

@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.IrisStdSignMsg;
+import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -561,6 +562,25 @@ public class MsgGenerator {
             value.fee_payer = "";
 
             result.type = BaseConstant.IOV_MSG_TYPE_REGISTER_DOMAIN;
+            result.value = value;
+        }
+        return result;
+    }
+
+
+    public static Msg genAccountRegister(String domain, String name, String owner, String registerer, ArrayList<StarNameResource> resources, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            value.domain = domain;
+            value.name = name;
+            value.owner = owner;
+            value.registerer = registerer;
+            value.resources = resources;
+            value.broker = "";
+            value.fee_payer = "";
+
+            result.type = BaseConstant.IOV_MSG_TYPE_REGISTER_ACCOUNT;
             result.value = value;
         }
         return result;

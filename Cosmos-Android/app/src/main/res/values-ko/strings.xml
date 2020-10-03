@@ -724,6 +724,7 @@
     <string name="str_sorting_by_value">금액로 정렬</string>
     <string name="str_qr_code">QR 스캔</string>
     <string name="str_recent">최근 목록</string>
+    <string name="str_in_wallet">지갑 목록</string>
     <string name="str_fee_free_title">Tx 수수료 무료 </string>
     <string name="str_fee_free_msg">Tx 수수료 무료 이벤트가 진행중 입니다.</string>
     <string name="str_delegate_notice">위임 시 해당 검증인에게 발생한 기존 이자는 사용 가능 수량으로 자동 정산 됩니다.</string>
@@ -831,6 +832,15 @@
     <string name="str_domain_to_register">등록할 도메인</string>
     <string name="str_description_open_domain">Open Domain은 계정 소유자가 계정에 대한 작업을 수행 할 수있는 유일한 엔티티인 도메인 유형입니다.</string>
     <string name="str_description_closed_domain">Closed Domain은 도메인 소유자가 계정을 제어 할 수있는 도메인 유형입니다.</string>
+    <string name="str_register_account">Account 등록하기</string>
+    <string name="str_register_account_step_0">등록하실 Account를 입력하세요.</string>
+    <string name="str_register_account_step_1">체인별 주소를 입력하세요.(선택사항)</string>
+    <string name="str_register_account_step_2">메모를 입력하세요 (선택사항)</string>
+    <string name="str_register_account_step_3">Tx 수수료를 선택하세요</string>
+    <string name="str_register_account_step_4">입력하신 정보를 확인하세요</string>
+    <string name="str_account_to_register">등록할 어카운트</string>
+    <string name="str_select_chain_for_address">등록할 주소의 체인을 선택하세요.</string>
+    <string name="str_select_wallet_for_address">등록할 주소의 지갑을 선택하세요.</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -913,12 +923,17 @@
     <string name="error_invalid_domain_format">부정확한 도메인 포멧 입니다. 다른값을 입력하세요.</string>
     <string name="error_already_registered_domain">이미 등록된 도메인입니다. 다른값을 입력하세요.</string>
     <string name="error_not_enough_starname_fee">스타네임 Fee를 지불할 충분한 금액이 없습니다.</string>
+    <string name="error_only_fixed_domain">현재 iov도메인만 지원합니다. 곧 모든 Domain을 지원할 예정입니다.</string>
+    <string name="error_invalid_account_format">부정확한 Account 포멧 입니다. 다른값을 입력하세요.</string>
+    <string name="error_already_registered_account">이미 등록된 Account입니다. 다른값을 입력하세요.</string>
+    <string name="error_not_support_cosmostation">Cosmostaion wallet에서 지원하지 않는 체인 입니다.</string>
+    <string name="error_no_wallet_this_chain">해당 체인용 지갑시 없습니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>
     <string name="tx_transfer">전송기하기</string>
     <string name="tx_delegate">위임</string>
-    <string name="tx_undelegate">위임 철회</string>
+    <string name="tx_undelegate">위임 철회</string>다
     <string name="tx_redelegate">재위임</string>
     <string name="tx_get_reward">이자 청구</string>
     <string name="tx_get_reward_all">이자 모두 청구</string>

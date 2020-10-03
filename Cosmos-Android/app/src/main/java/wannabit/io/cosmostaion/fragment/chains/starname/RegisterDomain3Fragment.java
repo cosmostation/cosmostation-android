@@ -22,7 +22,7 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
 
     private Button mBeforeBtn, mConfirmBtn;
     private TextView mFeeAmount, mStarnameFeeAmount;
-    private TextView mDomain, mDomainType, mMemo;
+    private TextView mDomain, mExpireTime, mDomainType, mMemo;
 
     public static RegisterDomain3Fragment newInstance(Bundle bundle) {
         RegisterDomain3Fragment fragment = new RegisterDomain3Fragment();
@@ -43,6 +43,7 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
         mFeeAmount          = rootView.findViewById(R.id.tx_fee_amount);
         mStarnameFeeAmount  = rootView.findViewById(R.id.starname_fee_amount);
         mDomain             = rootView.findViewById(R.id.domain_name);
+        mExpireTime         = rootView.findViewById(R.id.expire_time);
         mDomainType         = rootView.findViewById(R.id.domain_type);
         mMemo               = rootView.findViewById(R.id.memo);
         mBeforeBtn.setOnClickListener(this);
@@ -60,6 +61,8 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
             mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starnameFeeAmount, 6, 6));
 
         }
+
+        mExpireTime.setText(getBaseDao().mStarNameConfig.getRegisterDomainExpireTime(getContext()));
         mDomain.setText("*" + getSActivity().mToRegDomain);
         mDomainType.setText(getSActivity().mType);
         mMemo.setText(getSActivity().mMemo);

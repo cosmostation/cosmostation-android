@@ -174,7 +174,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                 @Override
                 public void onFailure(Call<ResIovStarNameDomainInfo> call, Throwable t) {
                     getSActivity().onHideWaitDialog();
-                    Toast.makeText(getBaseActivity(), R.string.str_network_error_title, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseActivity(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -193,7 +193,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                 @Override
                 public void onFailure(Call<ResIovStarNameDomainInfo> call, Throwable t) {
                     getSActivity().onHideWaitDialog();
-                    Toast.makeText(getBaseActivity(), R.string.str_network_error_title, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseActivity(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
             });
 

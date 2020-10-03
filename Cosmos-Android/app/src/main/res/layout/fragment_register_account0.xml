@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_account_to_register"
+            style="@style/font_ss_12_gray1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/space_4"
+            android:paddingBottom="@dimen/space_4">
+            <EditText
+                android:id="@+id/et_user_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/fixed_star"
+                android:hint="Your starname"
+                android:textCursorDrawable="@drawable/white_cursor"
+                android:maxLength="40"
+                android:textColorHint="@color/colorGray4"
+                android:background="@null"
+                style="@style/font_ss_26_white"
+                android:imeOptions="actionNext"
+                android:gravity="right"/>
+            <TextView
+                android:id="@+id/fixed_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/fixed_domain"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_6"
+                android:layout_marginRight="@dimen/space_2"
+                style="@style/font_ss_26_white"
+                android:text="*"/>
+            <TextView
+                android:id="@+id/fixed_domain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                style="@style/font_ss_26_white"
+                android:text="iov"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_6"
+                android:text="1~63 lowercase alphabet or number"
+                style="@style/font_ss_12_gray6"/>
+
+            <TextView
+                android:id="@+id/starname_fee_denom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="IOV"
+                style="@style/font_ssl_14_iov"/>
+            <TextView
+                android:id="@+id/starname_fee_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/starname_fee_denom"
+                android:layout_marginRight="@dimen/space_2"
+                android:text="-"
+                style="@style/font_ssl_14_white"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24">
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginRight="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_white"
+            android:textAllCaps="false"
+            android:text="@string/str_cancel"/>
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_photon"
+            android:textColor="@color/color_btn_photon"
+            android:textAllCaps="false"
+            android:text="@string/str_next"/>
+    </LinearLayout>
+</RelativeLayout>

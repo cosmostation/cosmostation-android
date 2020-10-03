@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
+import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -41,6 +42,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRegisterAccountTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRegisterDomainTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
@@ -74,6 +76,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
@@ -140,6 +143,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private String                      mDomain;
     private String                      mDomainType;
+    private String                      mName;
+    private ArrayList<StarNameResource> mResources = new ArrayList();
 
 
     private long                        mIdToDelete;
@@ -205,6 +210,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         mDomain = getIntent().getStringExtra("domain");
         mDomainType = getIntent().getStringExtra("domainType");
+        mName = getIntent().getStringExtra("name");
+        mResources = getIntent().getParcelableArrayListExtra("resource");
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
@@ -501,6 +508,17 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mBaseChain,
                     mDomain,
                     mDomainType,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_REGISTER_ACCOUNT) {
+            new SimpleRegisterAccountTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mBaseChain,
+                    mDomain,
+                    mName,
+                    mResources,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 

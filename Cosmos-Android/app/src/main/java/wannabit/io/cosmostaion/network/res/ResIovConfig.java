@@ -1,6 +1,15 @@
 package wannabit.io.cosmostaion.network.res;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResIovConfig {
     @SerializedName("height")
@@ -61,5 +70,19 @@ public class ResIovConfig {
 
         @SerializedName("metadata_size_max")
         public long metadata_size_max;
+
+        public String getRegisterDomainExpireTime(Context c) {
+            String result = "??";
+            try {
+                Calendar calendar = Calendar.getInstance();
+                long period = (new BigDecimal(domain_renew_period).movePointLeft(6)).longValue();
+                calendar.setTimeInMillis(calendar.getTimeInMillis() + period);
+                SimpleDateFormat simpleFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
+                result = simpleFormat.format(calendar.getTimeInMillis());
+            } catch (Exception e) {};
+
+            return result;
+
+        }
     }
 }
