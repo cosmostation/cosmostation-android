@@ -968,6 +968,11 @@
     <string name="str_account_to_register">Account To Register</string>
     <string name="str_select_chain_for_address">Select chain for register address</string>
     <string name="str_select_wallet_for_address">Select wallet for register address</string>
+    <string name="str_domain_detail">Domain Detail</string>
+    <string name="str_renew">Renew</string>
+    <string name="str_address_edit">Addresses Edit</string>
+    <string name="str_no_connected_addresses">No Connected Address</string>
+    <string name="str_account_detail">Account Detail</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1055,6 +1060,7 @@
     <string name="error_already_registered_account">This account already registered. please use another text for account</string>
     <string name="error_not_support_cosmostation">Not supported chain Cosmostaion wallet.</string>
     <string name="error_no_wallet_this_chain">Not wallet for this chain.</string>
+    <string name="error_no_address_added">Please enter at least 1 address.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

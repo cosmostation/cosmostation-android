@@ -21,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.starname.RegisterDomainActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameDomainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqStarNameDomainInfo;
@@ -124,8 +124,8 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
     }
 
 
-    private RegisterDomainActivity getSActivity() {
-        return (RegisterDomainActivity)getBaseActivity();
+    private RegisterStarNameDomainActivity getSActivity() {
+        return (RegisterStarNameDomainActivity)getBaseActivity();
     }
 
     @Override
@@ -158,8 +158,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
 
     private void onCheckDomainInfo(String domain) {
         getSActivity().onShowWaitDialog();
-        ReqStarNameDomainInfo req = new ReqStarNameDomainInfo();
-        req.name = domain;
+        ReqStarNameDomainInfo req = new ReqStarNameDomainInfo(domain);
         if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
             ApiClient.getIovChain(getSActivity()).getStarnameDomainInfo(req).enqueue(new Callback<ResIovStarNameDomainInfo>() {
                 @Override

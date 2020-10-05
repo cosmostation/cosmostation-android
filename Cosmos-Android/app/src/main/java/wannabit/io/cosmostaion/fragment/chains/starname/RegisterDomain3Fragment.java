@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.starname.RegisterDomainActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameDomainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -79,7 +79,7 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
         }
     }
 
-    private RegisterDomainActivity getSActivity() {
-        return (RegisterDomainActivity)getBaseActivity();
+    private RegisterStarNameDomainActivity getSActivity() {
+        return (RegisterStarNameDomainActivity)getBaseActivity();
     }
 }

@@ -17,7 +17,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.starname.RegisterDomainActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameDomainActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.StarNameDomainDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -96,7 +97,7 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
                 return;
             }
 
-            Intent intent = new Intent(getSActivity(), RegisterDomainActivity.class);
+            Intent intent = new Intent(getSActivity(), RegisterStarNameDomainActivity.class);
             startActivity(intent);
         }
     }
@@ -126,6 +127,14 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
                 holder.itemDomain.setText("*" + domain.name);
                 holder.itemType.setText(domain.type.toUpperCase());
                 holder.itemExpireDate.setText(WDp.getDpTime(getContext(), domain.valid_until * 1000));
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getSActivity(), StarNameDomainDetailActivity.class);
+                        intent.putExtra("domain", domain.name);
+                        startActivity(intent);
+                    }
+                });
             }
         }
 

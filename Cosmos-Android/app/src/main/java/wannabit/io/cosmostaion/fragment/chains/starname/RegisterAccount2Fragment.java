@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.starname.RegisterAccountActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -98,7 +98,7 @@ public class RegisterAccount2Fragment extends BaseFragment implements View.OnCli
 
     }
 
-    private RegisterAccountActivity getSActivity() {
-        return (RegisterAccountActivity)getBaseActivity();
+    private RegisterStarNameAccountActivity getSActivity() {
+        return (RegisterStarNameAccountActivity)getBaseActivity();
     }
 }

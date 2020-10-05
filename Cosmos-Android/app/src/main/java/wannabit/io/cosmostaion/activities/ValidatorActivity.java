@@ -94,7 +94,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private BondingState                    mBondingState;
     private ArrayList<UnBondingState>       mUnBondingStates;
     private Reward                          mReward;
-//    private ArrayList<ResHistory.InnerHits> mTx = new ArrayList<>();
     private ArrayList<ResApiTxList.Data>    mApiTxHistory = new ArrayList<>();
 
     private SpannableString                 mSelfBondingRate;

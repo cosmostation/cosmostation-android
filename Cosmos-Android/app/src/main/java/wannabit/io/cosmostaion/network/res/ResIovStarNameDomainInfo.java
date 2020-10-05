@@ -16,8 +16,8 @@ public class ResIovStarNameDomainInfo {
 
 
     public class IovStarnameDomainInfoValue {
-        @SerializedName("Domains")
-        public StarNameDomain Domains;
+        @SerializedName("domain")
+        public StarNameDomain domain;
 
     }
 }

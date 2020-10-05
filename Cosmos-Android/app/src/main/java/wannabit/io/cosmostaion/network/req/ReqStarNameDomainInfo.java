@@ -6,4 +6,8 @@ public class ReqStarNameDomainInfo {
 
     @SerializedName("name")
     public String name;
+
+    public ReqStarNameDomainInfo(String name) {
+        this.name = name;
+    }
 }

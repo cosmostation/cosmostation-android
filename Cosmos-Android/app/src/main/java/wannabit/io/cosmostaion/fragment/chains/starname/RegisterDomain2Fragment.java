@@ -17,7 +17,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.starname.RegisterDomainActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameDomainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -153,7 +153,7 @@ public class RegisterDomain2Fragment extends BaseFragment implements View.OnClic
     }
 
 
-    private RegisterDomainActivity getSActivity() {
-        return (RegisterDomainActivity)getBaseActivity();
+    private RegisterStarNameDomainActivity getSActivity() {
+        return (RegisterStarNameDomainActivity)getBaseActivity();
     }
 }

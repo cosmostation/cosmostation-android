@@ -92,14 +92,14 @@ public class ResIovFee {
             BigDecimal feeAmount = BigDecimal.ZERO;
             if (TextUtils.isEmpty(domain)) {
                 feeAmount = BigDecimal.ZERO;
-            }else if (domain.length() == 1) {
+            } else if (domain.length() == 1) {
                 feeAmount = new BigDecimal(register_domain_1).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
             } else if (domain.length() == 2) {
                 feeAmount = new BigDecimal(register_domain_2).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
             } else if (domain.length() == 3) {
                 feeAmount = new BigDecimal(register_domain_3).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
             } else if (domain.length() == 4) {
-                feeAmount =   new BigDecimal(register_domain_4).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+                feeAmount = new BigDecimal(register_domain_4).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
             } else {
                 feeAmount = new BigDecimal(register_domain_5).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
             }
@@ -111,11 +111,13 @@ public class ResIovFee {
 
         public BigDecimal getAccountFee(boolean open) {
             if (open) {
-                return new BigDecimal(register_account_open).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
-
+                BigDecimal genFee = new BigDecimal(register_account_open).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+                BigDecimal resourceFee = new BigDecimal(replace_account_resources).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+                return genFee.add(resourceFee);
             } else {
-                return new BigDecimal(register_account_closed).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
-
+                BigDecimal genFee = new BigDecimal(register_account_closed).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+                BigDecimal resourceFee = new BigDecimal(replace_account_resources).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+                return genFee.add(resourceFee);
             }
         }
 

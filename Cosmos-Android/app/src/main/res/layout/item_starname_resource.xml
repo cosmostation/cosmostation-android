@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginBottom="2dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="1.5dp"
+        app:cardBackgroundColor="@color/colorTransBg6"
+        app:cardUseCompatPadding="true" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_8">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/chain_img"
+                    android:layout_width="@dimen/space_32"
+                    android:layout_height="@dimen/space_32"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/default_chain_img"/>
+                <TextView
+                    android:id="@+id/chain_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_4"
+                    style="@style/font_ss_14_white"
+                    android:text="Chain Name"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/chain_address"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_30"
+                android:layout_marginTop="@dimen/space_4"
+                android:textCursorDrawable="@drawable/white_cursor"
+                android:background="@drawable/edittext_box"
+                android:paddingLeft="@dimen/space_8"
+                android:paddingRight="@dimen/space_8"
+                style="@style/font_ss_12_white"
+                android:singleLine="true"
+                android:ellipsize="middle"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

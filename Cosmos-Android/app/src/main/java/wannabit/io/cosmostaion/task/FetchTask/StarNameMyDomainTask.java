@@ -17,8 +17,8 @@ import wannabit.io.cosmostaion.task.TaskResult;
 
 public class StarNameMyDomainTask extends CommonTask {
 
-    private BaseChain mChain;
-    private Account mAccount;
+    private BaseChain   mChain;
+    private Account     mAccount;
     private int         mOffset = 1;
     private boolean     mBreak = false;
     private ArrayList<StarNameDomain> resultData = new ArrayList<>();

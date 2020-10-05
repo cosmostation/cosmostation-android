@@ -1397,6 +1397,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 BigDecimal starnameFee = getBaseDao().mStarNameFee.getAccountFee(true);
                 holder.itemStarnameFee.setText(WDp.getDpAmount2(getBaseContext(), starnameFee, 6, 6));
 
+//                ArrayList<StarNameResource> resources = msg.value.getStarNameResource();
                 ArrayList<StarNameResource> resources = msg.value.resources;
                 if (resources != null && resources.size() > 0) {
                     holder.itemResBar.setVisibility(View.VISIBLE);

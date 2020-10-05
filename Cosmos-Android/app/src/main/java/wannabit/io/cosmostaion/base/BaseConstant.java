@@ -138,6 +138,8 @@ public class BaseConstant {
     public final static int TASK_FETCH_STARNAME_FEE                     = 2092;
     public final static int TASK_FETCH_STARNAME_CONFIG                  = 2093;
     public final static int TASK_GEN_TX_REGISTER_DOMAIN                 = 2094;
+    public final static int TASK_FETCH_STARNAME_RESOLVE                 = 2095;
+    public final static int TASK_FETCH_STARNAME_DOMAIN_INFO             = 2096;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;

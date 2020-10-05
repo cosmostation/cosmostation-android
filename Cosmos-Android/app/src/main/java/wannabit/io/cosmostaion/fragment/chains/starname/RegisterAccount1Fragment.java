@@ -27,7 +27,7 @@ import com.google.zxing.integration.android.IntentResult;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.starname.RegisterAccountActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
 import wannabit.io.cosmostaion.dialog.Dialog_Wallet_for_Starname;
@@ -76,8 +76,8 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
         return rootView;
     }
 
-    private RegisterAccountActivity getSActivity() {
-        return (RegisterAccountActivity)getBaseActivity();
+    private RegisterStarNameAccountActivity getSActivity() {
+        return (RegisterStarNameAccountActivity)getBaseActivity();
     }
 
     @Override
@@ -91,6 +91,10 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                 if (!TextUtils.isEmpty(resource.resource) && !TextUtils.isEmpty(resource.uri)){
                     tempResources.add(resource);
                 }
+            }
+            if (tempResources.size() == 0) {
+                Toast.makeText(getSActivity(), R.string.error_no_address_added, Toast.LENGTH_SHORT).show();
+                return;
             }
             getSActivity().mResources = tempResources;
             getSActivity().onNextStep();

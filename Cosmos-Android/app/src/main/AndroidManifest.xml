@@ -355,14 +355,28 @@
         </activity>
 
         <activity
-            android:name=".activities.chains.starname.RegisterDomainActivity"
+            android:name=".activities.chains.starname.RegisterStarNameDomainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
-            android:name=".activities.chains.starname.RegisterAccountActivity"
+            android:name=".activities.chains.starname.RegisterStarNameAccountActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.starname.StarNameDomainDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.starname.StarNameAccountDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">

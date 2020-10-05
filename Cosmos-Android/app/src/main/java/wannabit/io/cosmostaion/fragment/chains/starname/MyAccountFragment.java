@@ -17,7 +17,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.starname.RegisterAccountActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.StarNameAccountDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -96,7 +97,7 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
                 return;
             }
 
-            Intent intent = new Intent(getSActivity(), RegisterAccountActivity.class);
+            Intent intent = new Intent(getSActivity(), RegisterStarNameAccountActivity.class);
             startActivity(intent);
         }
 
@@ -126,6 +127,15 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
                 holder.itemAccount.setText(account.name + "*" + account.domain);
                 holder.itemAddressCnt.setText("" + account.getResourceSize());
                 holder.itemExpireDate.setText(WDp.getDpTime(getContext(), account.valid_until * 1000));
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getSActivity(), StarNameAccountDetailActivity.class);
+                        intent.putExtra("domain", account.domain);
+                        intent.putExtra("account", account.name);
+                        startActivity(intent);
+                    }
+                });
             }
         }
 

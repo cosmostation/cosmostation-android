@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.fragment.chains.starname;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +17,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.starname.RegisterAccountActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.req.ReqStarNameDomainInfo;
 import wannabit.io.cosmostaion.network.req.ReqStarNameResolve;
-import wannabit.io.cosmostaion.network.res.ResIovStarNameDomainInfo;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -85,8 +82,8 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     }
 
 
-    private RegisterAccountActivity getSActivity() {
-        return (RegisterAccountActivity)getBaseActivity();
+    private RegisterStarNameAccountActivity getSActivity() {
+        return (RegisterStarNameAccountActivity)getBaseActivity();
     }
 
     @Override

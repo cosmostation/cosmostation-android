@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/chain_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_cosmos"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_bar_height"
+        android:background="@color/colorBlack"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <TextView
+            android:id="@+id/tool_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_ssm_17_white"
+            android:text="@string/str_domain_detail"/>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_45"
+                android:layout_weight="1"
+                android:minHeight="@dimen/space_45"
+                android:layout_marginRight="@dimen/space_4"
+                android:background="@drawable/btn_trans_with_border"
+                style="@style/font_ss_14_red"
+                android:textAllCaps="false"
+                android:text="@string/str_delete"/>
+            <Button
+                android:id="@+id/btn_renew"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_45"
+                android:layout_weight="1"
+                android:minHeight="@dimen/space_45"
+                android:layout_marginLeft="@dimen/space_4"
+                android:background="@drawable/btn_trans_with_border"
+                style="@style/font_ss_14_white"
+                android:textAllCaps="false"
+                android:text="@string/str_renew"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginTop="@dimen/space_8"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_white"
+            android:textAllCaps="false"
+            android:text="@string/str_address_edit"/>
+    </LinearLayout>
+
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/layer_refresher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_control"
+        android:layout_below="@+id/tool_bar"
+        android:paddingBottom="@dimen/space_8">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/space_4"
+            android:clipToPadding="false"
+            android:overScrollMode="never" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

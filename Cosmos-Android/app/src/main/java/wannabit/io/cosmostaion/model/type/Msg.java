@@ -270,6 +270,16 @@ public class Msg {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("resources")
         public ArrayList<StarNameResource> resources;
+//        public Object resources;
+//
+//        public ArrayList<StarNameResource> getStarNameResource() {
+//            ArrayList<StarNameResource> result = new ArrayList<>();
+//            try {
+//                result = new Gson().fromJson(new Gson().toJson(resources), new TypeToken<List<StarNameResource>>(){}.getType());
+//            } catch (Exception e) { }
+//            return result;
+//        }
+
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("broker")

@@ -76,7 +76,7 @@ public class ResIovStarNameResolve {
         public String owner;
 
         @SerializedName("valid_until")
-        public String valid_until;
+        public long valid_until;
 
         @SerializedName("certificates")
         public String certificates;
