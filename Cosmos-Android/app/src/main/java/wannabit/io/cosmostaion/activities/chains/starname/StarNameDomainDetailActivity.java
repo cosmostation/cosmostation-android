@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.starname;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.StarNameDomain;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
@@ -28,6 +31,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_DOMAIN_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_RESOLVE;
 
@@ -100,9 +106,37 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
 
     @Override
     public void onClick(View v) {
+        //TODO Fee check
         if (v.equals(mBtnDelete)) {
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            if (mStarNameDomain.type.equals("open")) {
+                Toast.makeText(getBaseContext(), R.string.error_cannot_delete_open_domain, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent(this, DeleteStarNameActivity.class);
+            intent.putExtra("ToDeleType", IOV_MSG_TYPE_DELETE_DOMAIN);
+            intent.putExtra("ToDeleDomain", mMyDomain);
+            intent.putExtra("Time", mStarNameDomain.valid_until);
+            startActivity(intent);
 
         } else if (v.equals(mBtnRenew)) {
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            Intent intent = new Intent(this, ReNewStarNameActivity.class);
+            intent.putExtra("ToRenewType", IOV_MSG_TYPE_RENEW_DOMAIN);
+            intent.putExtra("IsOpen", mStarNameDomain.type.equals("open") ? true : false);
+            intent.putExtra("ToRenewDomain", mMyDomain);
+            intent.putExtra("Time", mMyNameAccount.valid_until);
+            startActivity(intent);
 
         } else if (v.equals(mBtnEdit)) {
 

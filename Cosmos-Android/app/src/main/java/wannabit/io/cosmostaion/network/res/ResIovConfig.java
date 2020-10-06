@@ -11,6 +11,8 @@ import java.util.Calendar;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
+
 public class ResIovConfig {
     @SerializedName("height")
     public String height;
@@ -83,6 +85,14 @@ public class ResIovConfig {
 
             return result;
 
+        }
+
+
+        public long getRenewPeriod(String type) {
+            if (type.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
+                return new BigDecimal(domain_renew_period).movePointLeft(6).longValue();
+            }
+            return new BigDecimal(account_renew_period).movePointLeft(6).longValue();
         }
     }
 }

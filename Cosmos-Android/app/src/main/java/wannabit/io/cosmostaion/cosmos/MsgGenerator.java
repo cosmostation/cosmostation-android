@@ -4,13 +4,10 @@ import android.util.Base64;
 
 import com.binance.dex.api.client.domain.broadcast.HtltReq;
 import com.binance.dex.api.client.encoding.message.Token;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.crypto.DeterministicKey;
-import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.security.MessageDigest;
@@ -584,6 +581,65 @@ public class MsgGenerator {
             value.fee_payer = "";
 
             result.type = BaseConstant.IOV_MSG_TYPE_REGISTER_ACCOUNT;
+            result.value = value;
+        }
+        return result;
+    }
+
+    public static Msg genDomainDelete(String domain, String owner, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            value.domain = domain;
+            value.owner = owner;
+            value.fee_payer = "";
+
+            result.type = BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
+            result.value = value;
+        }
+        return result;
+    }
+
+    public static Msg genAccountDelete(String domain, String name, String owner, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            value.domain = domain;
+            value.name = name;
+            value.owner = owner;
+            value.fee_payer = "";
+
+            result.type = BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
+            result.value = value;
+        }
+        return result;
+    }
+
+    public static Msg genDomainRenew(String domain, String signer, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            value.domain = domain;
+            value.signer = signer;
+            value.fee_payer = "";
+
+            result.type = BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
+            result.value = value;
+        }
+        return result;
+
+    }
+
+    public static Msg genAccountRenew(String domain, String name, String signer, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            value.domain = domain;
+            value.name = name;
+            value.signer = signer;
+            value.fee_payer = "";
+
+            result.type = BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
             result.value = value;
         }
         return result;

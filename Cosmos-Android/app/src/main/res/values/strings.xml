@@ -973,6 +973,22 @@
     <string name="str_address_edit">Addresses Edit</string>
     <string name="str_no_connected_addresses">No Connected Address</string>
     <string name="str_account_detail">Account Detail</string>
+    <string name="str_delete_domain">Delete Domain</string>
+    <string name="str_delete_account">Delete Account</string>
+    <string name="str_delete_starname_step_0">Confirm your starname to delete</string>
+    <string name="str_delete_starname_step_1">Insert memo (optional)</string>
+    <string name="str_delete_starname_step_2">Select transaction fee</string>
+    <string name="str_delete_starname_step_3">Check transaction detail</string>
+    <string name="str_to_delete_starname">Delete StarName</string>
+    <string name="str_renew_domain">Domain 갱신</string>
+    <string name="str_renew_account">Account 갱산</string>
+    <string name="str_renew_starname_step_0">Confirm your starname to renew</string>
+    <string name="str_renew_starname_step_1">Insert memo (optional)</string>
+    <string name="str_renew_starname_step_2">Select transaction fee</string>
+    <string name="str_renew_starname_step_3">Check transaction detail</string>
+    <string name="str_to_renew_starname">Renew StarName</string>
+    <string name="str_current_expire_time">Current Expire Date</string>
+    <string name="str_expected_expire_time">Renew Expire Date</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1061,6 +1077,7 @@
     <string name="error_not_support_cosmostation">Not supported chain Cosmostaion wallet.</string>
     <string name="error_no_wallet_this_chain">Not wallet for this chain.</string>
     <string name="error_no_address_added">Please enter at least 1 address.</string>
+    <string name="error_cannot_delete_open_domain">Can not delete open domain.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

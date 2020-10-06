@@ -138,8 +138,13 @@ public class BaseConstant {
     public final static int TASK_FETCH_STARNAME_FEE                     = 2092;
     public final static int TASK_FETCH_STARNAME_CONFIG                  = 2093;
     public final static int TASK_GEN_TX_REGISTER_DOMAIN                 = 2094;
-    public final static int TASK_FETCH_STARNAME_RESOLVE                 = 2095;
-    public final static int TASK_FETCH_STARNAME_DOMAIN_INFO             = 2096;
+    public final static int TASK_GEN_TX_REGISTER_ACCOUNT                = 2095;
+    public final static int TASK_FETCH_STARNAME_RESOLVE                 = 2096;
+    public final static int TASK_FETCH_STARNAME_DOMAIN_INFO             = 2097;
+    public final static int TASK_GEN_TX_DELETE_DOMAIN                   = 2098;
+    public final static int TASK_GEN_TX_DELETE_ACCOUNT                  = 2099;
+    public final static int TASK_GEN_TX_RENEW_DOMAIN                    = 2100;
+    public final static int TASK_GEN_TX_RENEW_ACCOUNT                   = 2101;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -268,6 +273,10 @@ public class BaseConstant {
     public final static int CONST_PW_TX_OK_DIRECT_VOTE                      = 5023;
     public final static int CONST_PW_TX_REGISTER_DOMAIN                     = 5024;
     public final static int CONST_PW_TX_REGISTER_ACCOUNT                    = 5025;
+    public final static int CONST_PW_TX_DELETE_DOMAIN                       = 5026;
+    public final static int CONST_PW_TX_DELETE_ACCOUNT                      = 5027;
+    public final static int CONST_PW_TX_RENEW_DOMAIN                        = 5028;
+    public final static int CONST_PW_TX_RENEW_ACCOUNT                       = 5029;
 
 
     public final static int TX_TYPE_UNKNOWN                 = 3000;
@@ -397,6 +406,8 @@ public class BaseConstant {
     public final static String FEE_IOV_GAS_AMOUNT_REINVEST      = "300000";
     public final static String FEE_IOV_GAS_AMOUNT_LOW           = "100000";
     public final static String FEE_IOV_GAS_AMOUNT_REGISTER      = "300000";
+    public final static String FEE_IOV_GAS_AMOUNT_DELETE        = "150000";
+    public final static String FEE_IOV_GAS_AMOUNT_RENEW         = "150000";
 
     public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.0000001";
     public final static String FEE_OK_GAS_AMOUNT_SEND           = "200000";

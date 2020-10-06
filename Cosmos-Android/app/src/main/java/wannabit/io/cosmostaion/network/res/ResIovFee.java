@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.network.res;
 
 import android.text.TextUtils;
-import android.widget.TextView;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -125,6 +124,22 @@ public class ResIovFee {
             return new BigDecimal(replace_account_resources).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
         }
 
+        public BigDecimal getDomainRenewFee(boolean open) {
+            if (open) {
+                return new BigDecimal(renew_domain_open).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+            } else {
+                return new BigDecimal(register_account_closed).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+            }
+        }
+
+        public BigDecimal getAccountRenewFee(boolean open) {
+            if (open) {
+                return new BigDecimal(register_account_open).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+            } else {
+                return new BigDecimal(register_account_closed).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+            }
+
+        }
 
     }
 }

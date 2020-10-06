@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.starname;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.StarNameDomain;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
@@ -28,6 +30,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_DOMAIN_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_RESOLVE;
 
@@ -41,6 +46,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
     private String                              mMyDomain;
     private String                              mMyAccount;
+    private StarNameDomain                      mStarNameDomain;
     private ResIovStarNameResolve.NameAccount   mMyNameAccount;
     private MyAccountAdapter                    mAdapter;
 
@@ -100,9 +106,35 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
     @Override
     public void onClick(View v) {
+        //TODO Fee check
         if (v.equals(mBtnDelete)) {
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            Intent intent = new Intent(this, DeleteStarNameActivity.class);
+            intent.putExtra("ToDeleType", IOV_MSG_TYPE_DELETE_ACCOUNT);
+            intent.putExtra("ToDeleDomain", mMyDomain);
+            intent.putExtra("ToDeleAccount", mMyAccount);
+            intent.putExtra("Time", mMyNameAccount.valid_until);
+            startActivity(intent);
 
         } else if (v.equals(mBtnRenew)) {
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            Intent intent = new Intent(this, ReNewStarNameActivity.class);
+            intent.putExtra("ToRenewType", IOV_MSG_TYPE_RENEW_ACCOUNT);
+            intent.putExtra("IsOpen", mStarNameDomain.type.equals("open") ? true : false);
+            intent.putExtra("ToRenewDomain", mMyDomain);
+            intent.putExtra("ToRenewAccount", mMyAccount);
+            intent.putExtra("Time", mMyNameAccount.valid_until);
+            startActivity(intent);
 
         } else if (v.equals(mBtnEdit)) {
 
@@ -110,7 +142,8 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
     }
 
     private void onFetchData() {
-        mTaskCount = 1;
+        mTaskCount = 2;
+        new StarNameDomainInfoTask(getBaseApplication(), this, mBaseChain, mMyDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new StarNameResolveTask(getBaseApplication(), this, mBaseChain, mMyAccount + "*" + mMyDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
@@ -119,7 +152,13 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if (isFinishing()) return;
-        if (result.taskType == TASK_FETCH_STARNAME_RESOLVE) {
+        if (result.taskType == TASK_FETCH_STARNAME_DOMAIN_INFO) {
+            if (result.isSuccess) {
+                mStarNameDomain = (StarNameDomain)result.resultData;
+                WLog.w("mStarNameDomain " + mStarNameDomain.admin);
+            }
+
+        } else if (result.taskType == TASK_FETCH_STARNAME_RESOLVE) {
             if (result.isSuccess) {
                 mMyNameAccount = (ResIovStarNameResolve.NameAccount)result.resultData;
                 WLog.w("mMyNameAccount " + mMyNameAccount.domain);

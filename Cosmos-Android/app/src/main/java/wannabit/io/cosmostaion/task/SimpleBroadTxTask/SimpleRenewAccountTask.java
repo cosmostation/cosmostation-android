@@ -13,7 +13,6 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
-import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -29,27 +28,24 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_REGISTER_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_RENEW_ACCOUNT;
 
-public class SimpleRegisterAccountTask extends CommonTask {
+public class SimpleRenewAccountTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mDomain, mName, mMemo;
-    private ArrayList<StarNameResource> mResources = new ArrayList();
-    private Fee mFees;
+    private Account     mAccount;
+    private BaseChain   mBaseChain;
+    private String      mDomain, mName, mMemo;
+    private Fee         mFees;
 
-    public SimpleRegisterAccountTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain,
-                                     String name, ArrayList<StarNameResource> resources, String memo, Fee fee) {
+    public SimpleRenewAccountTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain, String name, String memo, Fee fee) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
         this.mDomain = domain;
         this.mName = name;
-        this.mResources = resources;
         this.mMemo = memo;
         this.mFees = fee;
-        this.mResult.taskType = TASK_GEN_TX_REGISTER_ACCOUNT;
+        this.mResult.taskType = TASK_GEN_TX_RENEW_ACCOUNT;
     }
 
     @Override
@@ -87,9 +83,9 @@ public class SimpleRegisterAccountTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg registerAccountMsg = MsgGenerator.genAccountRegister(mDomain, mName, mAccount.address, mAccount.address, mResources, mBaseChain);
+            Msg renewAccountMsg = MsgGenerator.genAccountRenew(mDomain, mName, mAccount.address, mBaseChain);
             ArrayList<Msg> msgs= new ArrayList<>();
-            msgs.add(registerAccountMsg);
+            msgs.add(renewAccountMsg);
 
             if (mBaseChain.equals(IOV_MAIN)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);

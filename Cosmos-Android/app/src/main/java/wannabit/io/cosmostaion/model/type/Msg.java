@@ -289,6 +289,10 @@ public class Msg {
         @SerializedName("fee_payer")
         public String fee_payer;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("signer")
+        public String signer;
+
 
 
 

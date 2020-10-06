@@ -846,6 +846,22 @@
     <string name="str_address_edit">주소 편집</string>
     <string name="str_no_connected_addresses">등록된 주소가 없습니다.</string>
     <string name="str_account_detail">Account 상세</string>
+    <string name="str_delete_domain">Domain 삭제</string>
+    <string name="str_delete_account">Account 삭제</string>
+    <string name="str_delete_starname_step_0">삭제하실 스타네임을 확인하세요.</string>
+    <string name="str_delete_starname_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_delete_starname_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_delete_starname_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_to_delete_starname">삭제할 스타네임</string>
+    <string name="str_renew_domain">Domain 갱신</string>
+    <string name="str_renew_account">Account 갱산</string>
+    <string name="str_renew_starname_step_0">갱신하실 스타네임을 확인하세요.</string>
+    <string name="str_renew_starname_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_renew_starname_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_renew_starname_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_to_renew_starname">갱신할 스타네임</string>
+    <string name="str_current_expire_time">현재 유효 기간</string>
+    <string name="str_expected_expire_time">갱신될 유효 기간</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -934,6 +950,7 @@
     <string name="error_not_support_cosmostation">Cosmostaion wallet에서 지원하지 않는 체인 입니다.</string>
     <string name="error_no_wallet_this_chain">해당 체인용 지갑시 없습니다.</string>
     <string name="error_no_address_added">최소 1개 이상의 주소를 입력하세요.</string>
+    <string name="error_cannot_delete_open_domain">오픈 타입 도메인은 삭제할 수 없습니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>
