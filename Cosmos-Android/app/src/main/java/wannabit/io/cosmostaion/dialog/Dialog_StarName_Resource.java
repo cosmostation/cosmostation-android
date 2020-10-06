@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.model.StarNameResource;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Dialog_StarName_Resource extends DialogFragment {
 
@@ -42,7 +43,7 @@ public class Dialog_StarName_Resource extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_htlc_receive_chain, null);
+        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_resource, null);
         mRecyclerView = view.findViewById(R.id.recycler);
         mChainList = getArguments().getParcelableArrayList("resources");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -67,8 +68,8 @@ public class Dialog_StarName_Resource extends DialogFragment {
         @Override
         public void onBindViewHolder(@NonNull ChainForResourceHolder holder, int position) {
             final StarNameResource resource = mChainList.get(position);
-            holder.chainImg.setImageDrawable(resource.getChainImg(getContext()));
-            holder.chainName.setText(resource.getChainName());
+            holder.chainImg.setImageDrawable(WUtil.getStarNameChainImg(getContext(), resource));
+            holder.chainName.setText(WUtil.getStarNameChainName(resource));
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -27,26 +27,25 @@ import com.google.zxing.integration.android.IntentResult;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.ReplaceStarNameActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
 import wannabit.io.cosmostaion.dialog.Dialog_Wallet_for_Starname;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class RegisterAccount1Fragment extends BaseFragment implements View.OnClickListener {
+public class ReplaceStarName0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_ADD_RESOURCE = 9700;
     public final static int SELECT_WALLET       = 9701;
 
-    private Button mBefore, mNextBtn;
+    private Button mCancelBtn, mNextBtn;
     private RecyclerView mRecyclerView;
-
     private ResourceAdapter mResourceAdapter;
-    private ArrayList<StarNameResource> mResources = new ArrayList();
+    public ArrayList<StarNameResource> mResources = new ArrayList();
     private int mQrPosition;
 
-    public static RegisterAccount1Fragment newInstance(Bundle bundle) {
-        RegisterAccount1Fragment fragment = new RegisterAccount1Fragment();
+    public static ReplaceStarName0Fragment newInstance(Bundle bundle) {
+        ReplaceStarName0Fragment fragment = new ReplaceStarName0Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -58,31 +57,41 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView   = inflater.inflate(R.layout.fragment_register_account1, container, false);
-        mBefore         = rootView.findViewById(R.id.btn_before);
-        mNextBtn        = rootView.findViewById(R.id.btn_next);
+        View rootView = inflater.inflate(R.layout.fragment_replace_starname_0, container, false);
+        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
         mRecyclerView   = rootView.findViewById(R.id.recycler);
-        mBefore.setOnClickListener(this);
+        mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
 
-        mResources = WUtil.getInitStarnameResource();
         mResourceAdapter = new ResourceAdapter();
         mRecyclerView.setAdapter(mResourceAdapter);
-
 
         return rootView;
     }
 
-    private RegisterStarNameAccountActivity getSActivity() {
-        return (RegisterStarNameAccountActivity)getBaseActivity();
+
+    @Override
+    public void onRefreshTab() {
+        if (getSActivity().mMyNameAccount != null && getSActivity().mMyNameAccount.resources != null) {
+            mResources = getSActivity().mMyNameAccount.resources;
+        }
+        if (mResources.size() == 0) {
+            mResources = WUtil.getInitStarnameResource();
+        }
+        mResourceAdapter.notifyDataSetChanged();
+    }
+
+    private ReplaceStarNameActivity getSActivity() {
+        return (ReplaceStarNameActivity)getBaseActivity();
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBefore)) {
+        if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
@@ -117,7 +126,6 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                 if(result.getContents() != null) {
                     mResources.get(mQrPosition).resource = result.getContents().trim();
                     mResourceAdapter.notifyDataSetChanged();
-
                 }
             } else {
                 super.onActivityResult(requestCode, resultCode, data);
@@ -154,7 +162,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                     @Override
                     public void onClick(View v) {
                         mQrPosition = position;
-                        IntentIntegrator integrator = IntentIntegrator.forSupportFragment(RegisterAccount1Fragment.this);
+                        IntentIntegrator integrator = IntentIntegrator.forSupportFragment(ReplaceStarName0Fragment.this);
                         integrator.setOrientationLocked(true);
                         integrator.initiateScan();
 
@@ -177,7 +185,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                         bundle.putString("chainUri", resource.uri);
                         Dialog_Wallet_for_Starname dialog = Dialog_Wallet_for_Starname.newInstance(bundle);
                         dialog.setCancelable(true);
-                        dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_WALLET);
+                        dialog.setTargetFragment(ReplaceStarName0Fragment.this, SELECT_WALLET);
                         getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
                     }
@@ -211,7 +219,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                         bundle.putParcelableArrayList("resources", WUtil.getAddableStarnameResource(mResources));
                         Dialog_StarName_Resource dialog = Dialog_StarName_Resource.newInstance(bundle);
                         dialog.setCancelable(true);
-                        dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_ADD_RESOURCE);
+                        dialog.setTargetFragment(ReplaceStarName0Fragment.this, SELECT_ADD_RESOURCE);
                         getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
                     }

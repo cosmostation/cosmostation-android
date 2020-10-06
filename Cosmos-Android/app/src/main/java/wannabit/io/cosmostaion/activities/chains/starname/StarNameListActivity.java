@@ -102,8 +102,6 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
 
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

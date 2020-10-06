@@ -1397,7 +1397,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 BigDecimal starnameFee = getBaseDao().mStarNameFee.getAccountFee(true);
                 holder.itemStarnameFee.setText(WDp.getDpAmount2(getBaseContext(), starnameFee, 6, 6));
 
-//                ArrayList<StarNameResource> resources = msg.value.getStarNameResource();
                 ArrayList<StarNameResource> resources = msg.value.resources;
                 if (resources != null && resources.size() > 0) {
                     holder.itemResBar.setVisibility(View.VISIBLE);
@@ -1405,9 +1404,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemAddressCnt.setText("" + resources.size());
                     for(int i = 0; i < resources.size(); i++) {
                         holder.itemAddessLayer[i].setVisibility(View.VISIBLE);
-                        holder.itemChain[i].setText(resources.get(i).getChainName());
+//                        holder.itemChain[i].setText(resources.get(i).getChainName());
+                        holder.itemChain[i].setText(WUtil.getStarNameChainName(resources.get(i)));
                         holder.itemAddess[i].setText(resources.get(i).resource);
-                        holder.itemAddressImg[i].setImageDrawable(resources.get(i).getChainImg(getBaseContext()));
+//                        holder.itemAddressImg[i].setImageDrawable(resources.get(i).getChainImg(getBaseContext()));
+                        holder.itemAddressImg[i].setImageDrawable(WUtil.getStarNameChainImg(getBaseContext(), resources.get(i)));
                     }
                 }
             }
@@ -1449,9 +1450,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemAddressCnt.setText("" + resources.size());
                     for(int i = 0; i < resources.size(); i++) {
                         holder.itemAddessLayer[i].setVisibility(View.VISIBLE);
-                        holder.itemChain[i].setText(resources.get(i).getChainName());
+                        holder.itemChain[i].setText(WUtil.getStarNameChainName(resources.get(i)));
                         holder.itemAddess[i].setText(resources.get(i).resource);
-                        holder.itemAddressImg[i].setImageDrawable(resources.get(i).getChainImg(getBaseContext()));
+                        holder.itemAddressImg[i].setImageDrawable(WUtil.getStarNameChainImg(getBaseContext(), resources.get(i)));
                     }
                 }
             }

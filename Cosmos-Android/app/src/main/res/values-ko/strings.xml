@@ -862,6 +862,11 @@
     <string name="str_to_renew_starname">갱신할 스타네임</string>
     <string name="str_current_expire_time">현재 유효 기간</string>
     <string name="str_expected_expire_time">갱신될 유효 기간</string>
+    <string name="str_replace_starname">주소 등록하기</string>
+    <string name="str_replace_starname_step_0">체인별 주소를 입력해 주세요</string>
+    <string name="str_replace_starname_step_1">메모를 입력하세요 (선택사항</string>
+    <string name="str_replace_starname_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_replace_starname_step_3">입력하신 정보를 확인하세요</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>

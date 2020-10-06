@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -90,20 +91,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
-import static wannabit.io.cosmostaion.model.StarNameResource.BAND;
-import static wannabit.io.cosmostaion.model.StarNameResource.BINANCE;
-import static wannabit.io.cosmostaion.model.StarNameResource.BITCOIN;
-import static wannabit.io.cosmostaion.model.StarNameResource.BITCOINCASH;
-import static wannabit.io.cosmostaion.model.StarNameResource.COSMOS;
-import static wannabit.io.cosmostaion.model.StarNameResource.EMONEY;
-import static wannabit.io.cosmostaion.model.StarNameResource.ETHEREUM;
-import static wannabit.io.cosmostaion.model.StarNameResource.IRIS;
-import static wannabit.io.cosmostaion.model.StarNameResource.KAVA;
-import static wannabit.io.cosmostaion.model.StarNameResource.LISK;
-import static wannabit.io.cosmostaion.model.StarNameResource.LITECOIN;
-import static wannabit.io.cosmostaion.model.StarNameResource.LUNA;
-import static wannabit.io.cosmostaion.model.StarNameResource.STARNAME;
-import static wannabit.io.cosmostaion.model.StarNameResource.TEZOS;
 
 public class WUtil {
 
@@ -1493,14 +1480,14 @@ public class WUtil {
 
     public static ArrayList<StarNameResource> getInitStarnameResource() {
         ArrayList<StarNameResource> result = new ArrayList();
-        result.add(new StarNameResource(COSMOS));
-        result.add(new StarNameResource(BITCOIN));
-        result.add(new StarNameResource(ETHEREUM));
+//        result.add(new StarNameResource(COSMOS));
+//        result.add(new StarNameResource(BITCOIN));
+//        result.add(new StarNameResource(ETHEREUM));
         result.add(new StarNameResource(STARNAME));
-        result.add(new StarNameResource(BINANCE));
-        result.add(new StarNameResource(IRIS));
-        result.add(new StarNameResource(KAVA));
-        result.add(new StarNameResource(BAND));
+//        result.add(new StarNameResource(BINANCE));
+//        result.add(new StarNameResource(IRIS));
+//        result.add(new StarNameResource(KAVA));
+//        result.add(new StarNameResource(BAND));
         return result;
     }
 
@@ -1529,6 +1516,118 @@ public class WUtil {
             return BAND_MAIN;
         }
         return null;
+    }
+
+
+
+    public static String BITCOINCASH    = "asset:bch";
+    public static String BITCOIN        = "asset:btc";
+    public static String LITECOIN       = "asset:ltc";
+    public static String BINANCE        = "asset:bnb";
+    public static String LUNA           = "asset:luna";
+    public static String COSMOS         = "asset:atom";
+    public static String EMONEY         = "asset:ngm";
+    public static String IRIS           = "asset:iris";
+    public static String KAVA           = "asset:kava";
+    public static String ETHEREUM       = "asset:eth";
+    public static String STARNAME       = "asset:iov";
+    public static String BAND           = "asset:band";
+    public static String TEZOS          = "asset:xtz";
+    public static String LISK           = "asset:lsk";
+
+    public static Drawable getStarNameChainImg(Context c, StarNameResource res) {
+        if (res.uri.equals(BITCOINCASH)) {
+            return c.getResources().getDrawable(R.drawable.bcash_chain_img);
+
+        } else if (res.uri.equals(BITCOIN)) {
+            return c.getResources().getDrawable(R.drawable.bitcoin_chain_img);
+
+        } else if (res.uri.equals(LITECOIN)) {
+            return c.getResources().getDrawable(R.drawable.lite_chain_img);
+
+        } else if (res.uri.equals(BINANCE)) {
+            return c.getResources().getDrawable(R.drawable.binance_ch_img);
+
+        } else if (res.uri.equals(LUNA)) {
+            return c.getResources().getDrawable(R.drawable.terra_chain_img);
+
+        } else if (res.uri.equals(COSMOS)) {
+            return c.getResources().getDrawable(R.drawable.cosmos_wh_main);
+
+        } else if (res.uri.equals(EMONEY)) {
+            return c.getResources().getDrawable(R.drawable.emoney_chain_img);
+
+        } else if (res.uri.equals(IRIS)) {
+            return c.getResources().getDrawable(R.drawable.iris_wh);
+
+        } else if (res.uri.equals(KAVA)) {
+            return c.getResources().getDrawable(R.drawable.kava_img);
+
+        } else if (res.uri.equals(ETHEREUM)) {
+            return c.getResources().getDrawable(R.drawable.ethereum_chain_img);
+
+        } else if (res.uri.equals(STARNAME)) {
+            return c.getResources().getDrawable(R.drawable.iov_chain_img);
+
+        } else if (res.uri.equals(BAND)) {
+            return c.getResources().getDrawable(R.drawable.band_chain_img);
+
+        } else if (res.uri.equals(TEZOS)) {
+            return c.getResources().getDrawable(R.drawable.tezos_chain_img);
+
+        } else if (res.uri.equals(LISK)) {
+            return c.getResources().getDrawable(R.drawable.lisk_chain_img);
+
+        }
+        return c.getResources().getDrawable(R.drawable.default_chain_img);
+    }
+
+    public static String getStarNameChainName(StarNameResource res) {
+        if (res.uri.equals(BITCOINCASH)) {
+            return "BitCoin Cash";
+
+        } else if (res.uri.equals(BITCOIN)) {
+            return "BitCoin";
+
+        } else if (res.uri.equals(LITECOIN)) {
+            return "LiteCoin";
+
+        } else if (res.uri.equals(BINANCE)) {
+            return "Binance";
+
+        } else if (res.uri.equals(LUNA)) {
+            return "Terra";
+
+        } else if (res.uri.equals(COSMOS)) {
+            return "Cosmos";
+
+        } else if (res.uri.equals(EMONEY)) {
+            return "E-Money";
+
+        } else if (res.uri.equals(IRIS)) {
+            return "Iris";
+
+        } else if (res.uri.equals(KAVA)) {
+            return "Kava";
+
+        } else if (res.uri.equals(ETHEREUM)) {
+            return "Ethereum";
+
+        } else if (res.uri.equals(STARNAME)) {
+            return "Starname";
+
+        } else if (res.uri.equals(BAND)) {
+            return "Band";
+
+        } else if (res.uri.equals(TEZOS)) {
+            return "Tezos";
+
+        } else if (res.uri.equals(LISK)) {
+            return "Lisk";
+
+        }
+        return res.uri;
+
     }
 
 }

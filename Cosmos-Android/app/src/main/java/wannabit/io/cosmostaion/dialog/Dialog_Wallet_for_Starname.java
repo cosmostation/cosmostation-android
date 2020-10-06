@@ -55,7 +55,6 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        WLog.w("onCreateDialog");
         mUri = getArguments().getString("chainUri");
         mChain = WUtil.getBaseChainWithUri(mUri);
         mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(mChain);

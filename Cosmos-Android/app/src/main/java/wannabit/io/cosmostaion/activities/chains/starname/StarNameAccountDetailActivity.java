@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
@@ -137,6 +138,17 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
             startActivity(intent);
 
         } else if (v.equals(mBtnEdit)) {
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            Intent intent = new Intent(this, ReplaceStarNameActivity.class);
+            intent.putExtra("IsDomain", false);
+            intent.putExtra("ToReplaceDomain", mMyDomain);
+            intent.putExtra("ToReplaceAccount", mMyAccount);
+            startActivity(intent);
 
         }
     }
@@ -209,8 +221,8 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
             } else  if (getItemViewType(position) == TYPE_RESOURCE) {
                 final MyResourceHolder holder = (MyResourceHolder)viewHolder;
                 final StarNameResource resource = mMyNameAccount.resources.get(position - 1);
-                holder.itemChainImg.setImageDrawable(resource.getChainImg(getBaseContext()));
-                holder.itemChainName.setText(resource.getChainName());
+                holder.itemChainImg.setImageDrawable(WUtil.getStarNameChainImg(getBaseContext(), resource));
+                holder.itemChainName.setText(WUtil.getStarNameChainName(resource));
                 holder.itemAddress.setText(resource.resource);
             }
 

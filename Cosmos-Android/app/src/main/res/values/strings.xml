@@ -961,7 +961,7 @@
     <string name="str_description_closed_domain">Closed Domain is the domain type in which the domain owner has control over accounts too.</string>
     <string name="str_register_account">Register Account</string>
     <string name="str_register_account_step_0">Insert starname account you want</string>
-    <string name="str_register_account_step_1">Add address with this starname</string>
+    <string name="str_register_account_step_1">Insert your address to connect</string>
     <string name="str_register_account_step_2">Insert memo (optional)</string>
     <string name="str_register_account_step_3">Select transaction fee</string>
     <string name="str_register_account_step_4">Check transaction detail</string>
@@ -989,6 +989,11 @@
     <string name="str_to_renew_starname">Renew StarName</string>
     <string name="str_current_expire_time">Current Expire Date</string>
     <string name="str_expected_expire_time">Renew Expire Date</string>
+    <string name="str_replace_starname">Replace Addresses</string>
+    <string name="str_replace_starname_step_0">Insert your address to connect</string>
+    <string name="str_replace_starname_step_1">Insert memo (optional)</string>
+    <string name="str_replace_starname_step_2">Select transaction fee</string>
+    <string name="str_replace_starname_step_3">Check transaction detail</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

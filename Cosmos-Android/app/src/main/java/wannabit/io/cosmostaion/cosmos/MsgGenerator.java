@@ -645,6 +645,22 @@ public class MsgGenerator {
         return result;
     }
 
+    public static Msg genReplaceStarName(String domain, String name, String owner, ArrayList<StarNameResource> resources, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            value.domain = domain;
+            value.name = name;
+            value.owner = owner;
+            value.new_resources = resources;
+            value.fee_payer = "";
+
+            result.type = BaseConstant.IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE;
+            result.value = value;
+        }
+        return result;
+    }
+
 
 
     public static StdTx genUnsignedTransferTx(ArrayList<Msg> msgs, Fee fee, String memo) {

@@ -6,6 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -79,118 +80,5 @@ public class StarNameResource implements Parcelable {
         }
         return true;
     }
-
-    public static String BITCOINCASH    = "asset:bch";
-    public static String BITCOIN        = "asset:btc";
-    public static String LITECOIN       = "asset:ltc";
-    public static String BINANCE        = "asset:bnb";
-    public static String LUNA           = "asset:luna";
-    public static String COSMOS         = "asset:atom";
-    public static String EMONEY         = "asset:ngm";
-    public static String IRIS           = "asset:iris";
-    public static String KAVA           = "asset:kava";
-    public static String ETHEREUM       = "asset:eth";
-    public static String STARNAME       = "asset:iov";
-    public static String BAND           = "asset:band";
-    public static String TEZOS          = "asset:xtz";
-    public static String LISK           = "asset:lsk";
-
-    public Drawable getChainImg(Context c) {
-        if (uri.equals(BITCOINCASH)) {
-            return c.getResources().getDrawable(R.drawable.bcash_chain_img);
-
-        } else if (uri.equals(BITCOIN)) {
-            return c.getResources().getDrawable(R.drawable.bitcoin_chain_img);
-
-        } else if (uri.equals(LITECOIN)) {
-            return c.getResources().getDrawable(R.drawable.lite_chain_img);
-
-        } else if (uri.equals(BINANCE)) {
-            return c.getResources().getDrawable(R.drawable.binance_ch_img);
-
-        } else if (uri.equals(LUNA)) {
-            return c.getResources().getDrawable(R.drawable.terra_chain_img);
-
-        } else if (uri.equals(COSMOS)) {
-            return c.getResources().getDrawable(R.drawable.cosmos_wh_main);
-
-        } else if (uri.equals(EMONEY)) {
-            return c.getResources().getDrawable(R.drawable.emoney_chain_img);
-
-        } else if (uri.equals(IRIS)) {
-            return c.getResources().getDrawable(R.drawable.iris_wh);
-
-        } else if (uri.equals(KAVA)) {
-            return c.getResources().getDrawable(R.drawable.kava_img);
-
-        } else if (uri.equals(ETHEREUM)) {
-            return c.getResources().getDrawable(R.drawable.ethereum_chain_img);
-
-        } else if (uri.equals(STARNAME)) {
-            return c.getResources().getDrawable(R.drawable.iov_chain_img);
-
-        } else if (uri.equals(BAND)) {
-            return c.getResources().getDrawable(R.drawable.band_chain_img);
-
-        } else if (uri.equals(TEZOS)) {
-            return c.getResources().getDrawable(R.drawable.tezos_chain_img);
-
-        } else if (uri.equals(LISK)) {
-            return c.getResources().getDrawable(R.drawable.lisk_chain_img);
-
-        }
-        return c.getResources().getDrawable(R.drawable.default_chain_img);
-    }
-
-    public String getChainName() {
-        if (uri.equals(BITCOINCASH)) {
-            return "BitCoin Cash";
-
-        } else if (uri.equals(BITCOIN)) {
-            return "BitCoin";
-
-        } else if (uri.equals(LITECOIN)) {
-            return "LiteCoin";
-
-        } else if (uri.equals(BINANCE)) {
-            return "Binance";
-
-        } else if (uri.equals(LUNA)) {
-            return "Terra";
-
-        } else if (uri.equals(COSMOS)) {
-            return "Cosmos";
-
-        } else if (uri.equals(EMONEY)) {
-            return "E-Money";
-
-        } else if (uri.equals(IRIS)) {
-            return "Iris";
-
-        } else if (uri.equals(KAVA)) {
-            return "Kava";
-
-        } else if (uri.equals(ETHEREUM)) {
-            return "Ethereum";
-
-        } else if (uri.equals(STARNAME)) {
-            return "Starname";
-
-        } else if (uri.equals(BAND)) {
-            return "Band";
-
-        } else if (uri.equals(TEZOS)) {
-            return "Tezos";
-
-        } else if (uri.equals(LISK)) {
-            return "Lisk";
-
-        }
-        return uri;
-
-    }
-
-
-
 
 }
