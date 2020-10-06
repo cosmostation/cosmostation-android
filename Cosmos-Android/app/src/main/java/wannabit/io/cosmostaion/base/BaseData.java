@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -219,6 +220,27 @@ public class BaseData {
             } else if (getCurrency() == 5) {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_BAND_TIC, ""+tic.market_data.current_price.btc).commit();
                 getSharedPreferences().edit().putString(BaseConstant.PRE_BAND_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
+            }
+
+        } else if (chain.equals(BaseChain.IOV_MAIN) || chain.equals(IOV_TEST)) {
+            if (getCurrency() == 0) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_TIC, ""+tic.market_data.current_price.usd).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
+            } else if (getCurrency() == 1) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_TIC, ""+tic.market_data.current_price.eur).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_UP_DOWN_24, ""+tic.market_data.price_change_24h.eur).commit();
+            } else if (getCurrency() == 2) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_TIC, ""+tic.market_data.current_price.krw).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_UP_DOWN_24, ""+tic.market_data.price_change_24h.krw).commit();
+            } else if (getCurrency() == 3) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_TIC, ""+tic.market_data.current_price.jpy).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_UP_DOWN_24, ""+tic.market_data.price_change_24h.jpy).commit();
+            } else if (getCurrency() == 4) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_TIC, ""+tic.market_data.current_price.cny).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_UP_DOWN_24, ""+tic.market_data.price_change_24h.cny).commit();
+            } else if (getCurrency() == 5) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_TIC, ""+tic.market_data.current_price.btc).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IOV_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
         }

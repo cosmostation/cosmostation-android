@@ -888,9 +888,17 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
 
             try {
-                mPerPrice.setText(WDp.getPriceDp(getContext(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-                mUpDownPrice.setText(WDp.getPriceUpDown(BigDecimal.ZERO));
-                mUpDownImg.setVisibility(View.GONE);
+                mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastIovTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastIovUpDown())));
+                if(getBaseDao().getLastIovUpDown() > 0) {
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                } else if (getBaseDao().getLastIovUpDown() < 0){
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                } else {
+                    mUpDownImg.setVisibility(View.GONE);
+                }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
                 mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
@@ -900,6 +908,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownPrice.setText("???");
                 mUpDownImg.setVisibility(View.GONE);
             }
+
 
         } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
             mBtnIovNameService.setVisibility(View.VISIBLE);
@@ -918,9 +927,17 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
 
             try {
-                mPerPrice.setText(WDp.getPriceDp(getContext(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-                mUpDownPrice.setText(WDp.getPriceUpDown(BigDecimal.ZERO));
-                mUpDownImg.setVisibility(View.GONE);
+                mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastIovTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastIovUpDown())));
+                if(getBaseDao().getLastIovUpDown() > 0) {
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                } else if (getBaseDao().getLastIovUpDown() < 0){
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                } else {
+                    mUpDownImg.setVisibility(View.GONE);
+                }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
                 mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));

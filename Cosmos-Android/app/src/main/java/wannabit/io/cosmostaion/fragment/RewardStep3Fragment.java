@@ -185,14 +185,14 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 mTvGoalLayer.setVisibility(View.GONE);
                 mExpectedLayer.setVisibility(View.VISIBLE);
 
-                BigDecimal currentBand     = getSActivity().mAccount.getIovBalance();
-                BigDecimal expectedBand    = currentBand.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedBand, 6, 6));
+                BigDecimal currentIov     = getSActivity().mAccount.getIovBalance();
+                BigDecimal expectedIov    = currentIov.add(rewardSum).subtract(feeAmount);
+                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedIov, 6, 6));
                 BigDecimal expectedPrice = BigDecimal.ZERO;
                 if(getBaseDao().getCurrency() != 5) {
-                    expectedPrice = expectedBand.multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                    expectedPrice = expectedIov.multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
                 } else {
-                    expectedPrice = expectedBand.multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    expectedPrice = expectedIov.multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
                 }
                 mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 

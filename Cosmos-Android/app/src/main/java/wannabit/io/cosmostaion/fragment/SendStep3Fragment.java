@@ -232,10 +232,15 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
 
             mGasAmount.setText(FEE_IOV_GAS_AMOUNT_SEND);
             mGasRate.setText(WDp.getDpString(FEE_IOV_GAS_RATE_AVERAGE, 3));
+            
             mFeeAmount = new BigDecimal(FEE_IOV_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_IOV_GAS_RATE_AVERAGE)).setScale(0);
-
+            if(getBaseDao().getCurrency() != 5) {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).setScale(8, RoundingMode.DOWN);
+            }
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
-            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
         } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
             mBtnGasType.setOnClickListener(this);

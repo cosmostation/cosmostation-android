@@ -1,18 +1,9 @@
 package wannabit.io.cosmostaion.model;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class StarNameResource implements Parcelable {
     @SerializedName("uri")

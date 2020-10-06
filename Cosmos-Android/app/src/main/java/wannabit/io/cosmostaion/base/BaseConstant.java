@@ -429,6 +429,7 @@ public class BaseConstant {
     public final static String CGC_BNB  = "binancecoin";
     public final static String CGC_KAVA = "kava";
     public final static String CGC_BAND = "band-protocol";
+    public final static String CGC_IOV = "starname";
     public final static int CMC_ATOM = 3794;
     public final static int CMC_IRIS = 3874;
     public final static int CMC_BNB = 1839;

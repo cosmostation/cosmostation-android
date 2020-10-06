@@ -214,12 +214,12 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
             if (getSActivity().mIovDenom.equals(TOKEN_IOV) || getSActivity().mIovDenom.equals(TOKEN_IOV_TEST)) {
                 mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), mDpDecimal, mDpDecimal));
-                mTotalPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mTotalPrice.setText(WDp.getValueOfIov(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
 
                 BigDecimal currentAvai  = getSActivity().mAccount.getIovBalance();
                 mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, mDpDecimal, mDpDecimal));
                 mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), mDpDecimal, mDpDecimal));
-                mRemainingPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mRemainingPrice.setText(WDp.getValueOfIov(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
 
             } else {
                 mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorWhite));

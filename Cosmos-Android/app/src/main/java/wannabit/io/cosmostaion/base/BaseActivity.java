@@ -928,6 +928,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastBandTic(0d);
                             getBaseDao().setLastBandUpDown(0d);
 
+                        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+                            getBaseDao().setLastIovTic(0d);
+                            getBaseDao().setLastIovUpDown(0d);
+
                         }
                     }
                 }
@@ -953,6 +957,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     } else if (chain.equals(BAND_MAIN)) {
                         getBaseDao().setLastBandTic(0d);
                         getBaseDao().setLastBandUpDown(0d);
+
+                    } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+                        getBaseDao().setLastIovTic(0d);
+                        getBaseDao().setLastIovUpDown(0d);
 
                     }
                 }

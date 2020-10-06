@@ -1111,8 +1111,10 @@ public class WUtil {
             return BaseConstant.CGC_KAVA;
 
         } else if (chain.equals(BAND_MAIN)) {
-
             return BaseConstant.CGC_BAND;
+
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            return BaseConstant.CGC_IOV;
         }
         return BaseConstant.CGC_ATOM;
     }
