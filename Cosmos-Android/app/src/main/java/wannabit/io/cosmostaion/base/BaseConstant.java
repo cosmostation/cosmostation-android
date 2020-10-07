@@ -309,6 +309,13 @@ public class BaseConstant {
     public final static int TX_TYPE_KAVA_BEP3_CLAIM         = 3025;
     public final static int TX_TYPE_KAVA_BEP3_REFUND        = 3026;
     public final static int TX_TYPE_KAVA_INCENTIVE_REWARD   = 3027;
+    public final static int TX_TYPE_STARNAME_REGISTER_DOMAIN    = 3028;
+    public final static int TX_TYPE_STARNAME_REGISTER_ACCOUNT   = 3029;
+    public final static int TX_TYPE_STARNAME_DELETE_ACCOUNT     = 3030;
+    public final static int TX_TYPE_STARNAME_DELETE_DOMAIN      = 3031;
+    public final static int TX_TYPE_STARNAME_REPLACE_RESOURCE   = 3032;
+    public final static int TX_TYPE_STARNAME_RENEW_DOMAIN       = 3033;
+    public final static int TX_TYPE_STARNAME_RENEW_ACCOUNT      = 3034;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;

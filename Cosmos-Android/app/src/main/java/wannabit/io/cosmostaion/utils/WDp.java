@@ -1054,6 +1054,27 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD)) {
             result = BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD;
 
+        } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_REGISTER_DOMAIN)) {
+            result = BaseConstant.TX_TYPE_STARNAME_REGISTER_DOMAIN;
+
+        } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_REGISTER_ACCOUNT)) {
+            result = BaseConstant.TX_TYPE_STARNAME_REGISTER_ACCOUNT;
+
+        } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT)) {
+            result = BaseConstant.TX_TYPE_STARNAME_DELETE_ACCOUNT;
+
+        } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN)) {
+            result = BaseConstant.TX_TYPE_STARNAME_DELETE_DOMAIN;
+
+        } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE)) {
+            result = BaseConstant.TX_TYPE_STARNAME_REPLACE_RESOURCE;
+
+        } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN)) {
+            result = BaseConstant.TX_TYPE_STARNAME_RENEW_DOMAIN;
+
+        } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT)) {
+            result = BaseConstant.TX_TYPE_STARNAME_RENEW_ACCOUNT;
+
         }
 
         return result;
@@ -1171,6 +1192,34 @@ public class WDp {
 
             case BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD:
                 result = c.getString(R.string.tx_kava_incentive_reward);
+                break;
+
+            case BaseConstant.TX_TYPE_STARNAME_REGISTER_DOMAIN:
+                result = c.getString(R.string.tx_starname_registe_domain);
+                break;
+
+            case BaseConstant.TX_TYPE_STARNAME_REGISTER_ACCOUNT:
+                result = c.getString(R.string.tx_starname_registe_account);
+                break;
+
+            case BaseConstant.TX_TYPE_STARNAME_DELETE_ACCOUNT:
+                result = c.getString(R.string.tx_starname_delete_account);
+                break;
+
+            case BaseConstant.TX_TYPE_STARNAME_DELETE_DOMAIN:
+                result = c.getString(R.string.tx_starname_delete_domain);
+                break;
+
+            case BaseConstant.TX_TYPE_STARNAME_REPLACE_RESOURCE:
+                result = c.getString(R.string.tx_starname_update_resource);
+                break;
+
+            case BaseConstant.TX_TYPE_STARNAME_RENEW_DOMAIN:
+                result = c.getString(R.string.tx_starname_renew_domain);
+                break;
+
+            case BaseConstant.TX_TYPE_STARNAME_RENEW_ACCOUNT:
+                result = c.getString(R.string.tx_starname_renew_account);
                 break;
 
             case BaseConstant.TX_TYPE_UNKNOWN:

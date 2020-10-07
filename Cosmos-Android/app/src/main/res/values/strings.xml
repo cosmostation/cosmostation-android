@@ -994,6 +994,7 @@
     <string name="str_replace_starname_step_1">Insert memo (optional)</string>
     <string name="str_replace_starname_step_2">Select transaction fee</string>
     <string name="str_replace_starname_step_3">Check transaction detail</string>
+    <string name="str_signer">Signer</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1155,7 +1156,7 @@
     <string name="tx_starname_delete_account">Delete Account</string>
     <string name="tx_starname_renew_domain">Renew Domain</string>
     <string name="tx_starname_renew_account">Renew Account</string>
-    <string name="tx_starname_update_resource">Connected Address Update</string>
+    <string name="tx_starname_update_resource">Replace Address</string>
 
 
     <string name="str_dp_time_format1" >MMM d, yyyy HH:mm:ss</string>

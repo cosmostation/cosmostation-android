@@ -88,6 +88,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCO
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_REGISTER_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_COMMISSION;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_DELEGATE;
@@ -330,12 +332,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private static final int TYPE_TX_REWARD_ALL = 20;
         private static final int TYPE_TX_OK_STAKE = 21;
         private static final int TYPE_TX_OK_DIRECT_VOTE = 22;
-
         private static final int TYPE_REGISTER_DOMAIN = 23;
         private static final int TYPE_REGISTER_ACCOUNT = 24;
         private static final int TYPE_DELETE_ACCOUNT = 25;
         private static final int TYPE_DELETE_DOMAIN = 26;
         private static final int TYPE_REPLACE_ACCOUNT_RESOURCE = 27;
+        private static final int TYPE_TX_RENEW_STARNAME = 28;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -396,6 +398,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxDeleteDomainHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_delete_domain, viewGroup, false));
             } else if (viewType == TYPE_REPLACE_ACCOUNT_RESOURCE) {
                 return new TxReplaceResourceHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_resource, viewGroup, false));
+            } else if (viewType == TYPE_TX_RENEW_STARNAME) {
+                return new TxRenewStarNameHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
             }
             return new TxUnKnownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
         }
@@ -458,7 +462,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindDeleteAccount(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_REPLACE_ACCOUNT_RESOURCE) {
                 onBindReplaceResource(viewHolder, position);
-            } else {
+            } else if (getItemViewType(position) == TYPE_TX_RENEW_STARNAME) {
+                onBindRenewStarName(viewHolder, position);
+            }
+
+
+            else {
                 onBindUnKnown(viewHolder, position);
             }
         }
@@ -578,18 +587,26 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(OK_MSG_TYPE_DIRECT_VOTE)) {
                         return TYPE_TX_OK_DIRECT_VOTE;
-                    }
 
-                    else if (mResTxInfo.getMsgType(position - 1) .equals(IOV_MSG_TYPE_REGISTER_DOMAIN)) {
+                    } else if (mResTxInfo.getMsgType(position - 1) .equals(IOV_MSG_TYPE_REGISTER_DOMAIN)) {
                         return TYPE_REGISTER_DOMAIN;
+
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(IOV_MSG_TYPE_REGISTER_ACCOUNT)) {
                         return TYPE_REGISTER_ACCOUNT ;
+
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
                         return TYPE_DELETE_DOMAIN ;
+
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(IOV_MSG_TYPE_DELETE_ACCOUNT)) {
                         return TYPE_DELETE_ACCOUNT ;
+
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE)) {
                         return TYPE_REPLACE_ACCOUNT_RESOURCE ;
+
+                    } else if (mResTxInfo.getMsgType(position - 1) .equals(IOV_MSG_TYPE_RENEW_DOMAIN) ||
+                            mResTxInfo.getMsgType(position - 1) .equals(IOV_MSG_TYPE_RENEW_ACCOUNT)) {
+                        return TYPE_TX_RENEW_STARNAME;
+
                     }
 
                     return TYPE_TX_UNKNOWN;
@@ -1404,10 +1421,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemAddressCnt.setText("" + resources.size());
                     for(int i = 0; i < resources.size(); i++) {
                         holder.itemAddessLayer[i].setVisibility(View.VISIBLE);
-//                        holder.itemChain[i].setText(resources.get(i).getChainName());
                         holder.itemChain[i].setText(WUtil.getStarNameChainName(resources.get(i)));
                         holder.itemAddess[i].setText(resources.get(i).resource);
-//                        holder.itemAddressImg[i].setImageDrawable(resources.get(i).getChainImg(getBaseContext()));
                         holder.itemAddressImg[i].setImageDrawable(WUtil.getStarNameChainImg(getBaseContext(), resources.get(i)));
                     }
                 }
@@ -1458,6 +1473,34 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
 
         }
+
+        private void onBindRenewStarName(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxRenewStarNameHolder holder = (TxRenewStarNameHolder)viewHolder;
+            if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ) {
+                final Msg msg = mResTxInfo.getMsg(position - 1);
+                if (msg.type.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
+                    holder.itemMsgImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_msgs_renewaccount));
+                    holder.itemMsgTitle.setText(getString(R.string.tx_starname_renew_domain));
+
+                } else if (msg.type.equals(IOV_MSG_TYPE_RENEW_ACCOUNT)) {
+                    holder.itemMsgImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_msgs_renewdomain));
+                    holder.itemMsgTitle.setText(getString(R.string.tx_starname_renew_account));
+                }
+
+                String starName = "";
+                if (!TextUtils.isEmpty(msg.value.name)) {
+                    starName = msg.value.name + "*" + msg.value.domain;
+                } else {
+
+                    starName = "*" + msg.value.domain;
+                }
+                holder.itemStarname.setText(starName);
+                holder.itemSigner.setText(msg.value.signer);
+            }
+
+        }
+
+
 
 
         private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, int position) {
@@ -2067,6 +2110,20 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
+        public class TxRenewStarNameHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemStarname, itemSigner, itemStarnameFee;
+
+            public TxRenewStarNameHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemStarname = itemView.findViewById(R.id.tx_starname);
+                itemSigner = itemView.findViewById(R.id.tx_signer);
+                itemStarnameFee = itemView.findViewById(R.id.tx_starname_fee_amount);
+            }
+        }
 
 
         public class TxUnKnownHolder extends RecyclerView.ViewHolder {
