@@ -527,6 +527,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             if (balance.balance_denom == "usdx") {
                 cell?.tokenDescription.text = "USD Stable Asset"
+            } else if (balance.balance_denom == "hard") {
+                cell?.tokenDescription.text = "Harvest Gov. Token"
             } else {
                 cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Chain"
             }
@@ -562,6 +564,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             if (balance.balance_denom == "usdx") {
                 cell?.tokenDescription.text = "USD Stable Asset"
+            } else if (balance.balance_denom == "hard") {
+                cell?.tokenDescription.text = "Harvest Gov. Token"
             } else {
                 cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Chain"
             }

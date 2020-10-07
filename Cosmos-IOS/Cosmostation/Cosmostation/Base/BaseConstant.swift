@@ -43,8 +43,8 @@ let KAVA_URL                            = "https://lcd-kava-3.cosmostation.io/";
 let KAVA_API                            = "https://api-kava-3.cosmostation.io/";
 let KAVA_FAUCET                         = "https://faucet-kava-3.cosmostation.io/faucet/";
 
-let KAVA_TEST_URL                       = "https://lcd-kava-testnet-9000.cosmostation.io/";
-let KAVA_TEST_API                       = "https://api-kava-testnet-9000.cosmostation.io/";
+let KAVA_TEST_URL                       = "https://lcd-office-testnet.cosmostation.io/kava/";
+let KAVA_TEST_API                       = "https://api-office-testnet.cosmostation.io/kava/";
 let KAVA_TEST_FAUCET                    = "https://faucet-kava-testnet-9000.cosmostation.io/faucet/";
 
 
@@ -633,6 +633,7 @@ let KAVA_TEST_BTC_DEPUTY                    = "kava1kla4wl0ccv7u85cemvs3y987hqk0
 
 let TOKEN_HTLC_BINANCE_BNB                  = "BNB"
 let TOKEN_HTLC_KAVA_BNB                     = "bnb"
+
 let TOKEN_HTLC_BINANCE_TEST_BNB             = "BNB"
 let TOKEN_HTLC_BINANCE_TEST_BTC             = "BTCB-101"
 let TOKEN_HTLC_KAVA_TEST_BNB                = "bnb"
@@ -713,17 +714,17 @@ enum ChainType: String {
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
         result.append(COSMOS_MAIN)
-        result.append(IRIS_MAIN)
-        result.append(BINANCE_MAIN)
-        result.append(IOV_MAIN)
-        result.append(KAVA_MAIN)
-        result.append(BAND_MAIN)
-        
-        result.append(BINANCE_TEST)
+//        result.append(IRIS_MAIN)
+//        result.append(BINANCE_MAIN)
+//        result.append(IOV_MAIN)
+//        result.append(KAVA_MAIN)
+//        result.append(BAND_MAIN)
+//
+//        result.append(BINANCE_TEST)
         result.append(KAVA_TEST)
-//        result.append(IOV_TEST)
-        result.append(OKEX_TEST)
-        result.append(CERTIK_TEST)
+////        result.append(IOV_TEST)
+//        result.append(OKEX_TEST)
+//        result.append(CERTIK_TEST)
         return result
     }
     

@@ -2172,6 +2172,12 @@ class WUtils {
             return 8;
         } else if (denom.caseInsensitiveCompare("btcb") == .orderedSame) {
             return 8;
+        } else if (denom.caseInsensitiveCompare("busd") == .orderedSame) {
+            return 8;
+        } else if (denom.caseInsensitiveCompare("xrpb") == .orderedSame) {
+            return 8;
+        } else if (denom.caseInsensitiveCompare("hard") == .orderedSame) {
+            return 6;
         }
         return 100;
     }
