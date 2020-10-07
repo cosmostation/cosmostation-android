@@ -181,6 +181,7 @@ let KAVA_CHECK_SWAP_SUPPLY              = KAVA_URL + "bep3/supplies";
 let KAVA_INCENTIVE_PARAM                = KAVA_URL + "incentive/parameters";
 let KAVA_MY_INCENTIVE                   = KAVA_URL + "incentive/claims/";
 let KAVA_CHECK_SUPPLY                   = KAVA_URL + "supply/total";
+let KAVA_HAVEST_PARAM                   = KAVA_URL + "harvest/parameters";
 
 let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
 let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
@@ -215,6 +216,7 @@ let KAVA_TEST_CHECK_SWAP_SUPPLY         = KAVA_TEST_URL + "bep3/supplies";
 let KAVA_TEST_INCENTIVE_PARAM           = KAVA_TEST_URL + "incentive/parameters";
 let KAVA_TEST_MY_INCENTIVE              = KAVA_TEST_URL + "incentive/claims/";
 let KAVA_TEST_CHECK_SUPPLY              = KAVA_TEST_URL + "supply/total";
+let KAVA_TEST_HAVEST_PARAM              = KAVA_TEST_URL + "harvest/parameters";
 
 let KAVA_TEST_API_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_TEST_API_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
@@ -717,7 +719,7 @@ enum ChainType: String {
 //        result.append(IRIS_MAIN)
 //        result.append(BINANCE_MAIN)
 //        result.append(IOV_MAIN)
-//        result.append(KAVA_MAIN)
+        result.append(KAVA_MAIN)
 //        result.append(BAND_MAIN)
 //
 //        result.append(BINANCE_TEST)
@@ -797,6 +799,7 @@ let BAND_MAIN_DENOM = "uband"
 let IOV_TEST_DENOM = "uvoi"
 let OKEX_TEST_DENOM = "tokt"
 let CERTIK_TEST_DENOM = "uctk"
+let KAVA_HARD_DENOM = "hard"
 
 
 let Font_17_body = UIFont(name: "Helvetica-Light", size: 17)!

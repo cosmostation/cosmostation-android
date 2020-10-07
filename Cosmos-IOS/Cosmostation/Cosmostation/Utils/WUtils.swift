@@ -135,36 +135,62 @@ class WUtils {
                 if (coin.denom == KAVA_MAIN_DENOM) {
                     dpBalance = NSDecimalNumber.init(string: coin.amount)
                     accountInfo.result.value.original_vesting.forEach({ (coin) in
-                        originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                        if (coin.denom == KAVA_MAIN_DENOM) {
+                            originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                        }
                     })
                     
                     accountInfo.result.value.delegated_vesting.forEach({ (coin) in
-                        delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                        if (coin.denom == KAVA_MAIN_DENOM) {
+                            delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                        }
                     })
                     
                     if (SHOW_LOG) {
-                        print("dpBalance            ", dpBalance)
-                        print("originalVesting      ", originalVesting)
-                        print("delegatedVesting     ", delegatedVesting)
+                        print("Kava dpBalance            ", dpBalance)
+                        print("Kava originalVesting      ", originalVesting)
+                        print("Kava delegatedVesting     ", delegatedVesting)
                     }
                     
-                    remainVesting = accountInfo.result.getCVestingSum()
-                    if (SHOW_LOG) { print("remainVesting            ", remainVesting)}
+                    remainVesting = accountInfo.result.getCVestingSum(KAVA_MAIN_DENOM)
+                    if (SHOW_LOG) { print("Kava remainVesting            ", remainVesting)}
                     
                     dpVesting = remainVesting.subtracting(delegatedVesting);
-                    if (SHOW_LOG) { print("dpVesting      ", dpVesting) }
+                    if (SHOW_LOG) { print("Kava dpVesting      ", dpVesting) }
                     
                     if (dpVesting.compare(NSDecimalNumber.zero).rawValue <= 0) {
                         dpVesting = NSDecimalNumber.zero;
                     }
-                    if (SHOW_LOG) { print("dpVesting1      ", dpVesting) }
+                    if (SHOW_LOG) { print("Kava dpVesting1      ", dpVesting) }
                     
                     if (remainVesting.compare(delegatedVesting).rawValue > 0) {
                         dpBalance = dpBalance.subtracting(remainVesting).adding(delegatedVesting);
                     }
-                    if (SHOW_LOG) { print("dpBalance      ", dpBalance) }
+                    if (SHOW_LOG) { print("Kava dpBalance      ", dpBalance) }
                     
                     result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, delegatedVesting.stringValue, dpVesting.stringValue))
+                    
+                } else if (coin.denom == KAVA_HARD_DENOM) {
+                    dpBalance = NSDecimalNumber.init(string: coin.amount)
+                    accountInfo.result.value.original_vesting.forEach({ (coin) in
+                        if (coin.denom == KAVA_HARD_DENOM) {
+                            originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                        }
+                    })
+                    
+                    if (SHOW_LOG) {
+                        print("Hard dpBalance            ", dpBalance)
+                        print("Hard originalVesting      ", originalVesting)
+                        print("Hard delegatedVesting     ", delegatedVesting)
+                    }
+                    
+                    remainVesting = accountInfo.result.getCVestingSum(KAVA_HARD_DENOM)
+                    if (SHOW_LOG) { print("Hard remainVesting   ", remainVesting)}
+                    
+                    dpBalance = dpBalance.subtracting(remainVesting)
+                    if (SHOW_LOG) { print("Hard dpBalance      ", dpBalance) }
+                    
+                    result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, remainVesting.stringValue, "0"))
                     
                 } else {
                     result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))

@@ -36,6 +36,10 @@ public class Balance {
         }
     }
     
+    
+    
+    //uKAVA amount = available, frozen = delegated,   locked == vested but delegatable
+    //hard amount = available, frozen == remain vestiing amount
     init(_ accout_id:Int64, _ demon:String, _ amount:String, _ fetch_time:Int64, _ frozen:String?, _ locked:String?) {
         self.balance_account_id = accout_id;
         self.balance_denom = demon;

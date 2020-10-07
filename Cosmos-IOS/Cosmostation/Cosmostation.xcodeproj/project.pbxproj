@@ -156,6 +156,7 @@
 		288A14DD25199A9800E17808 /* WalletCertikCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288A14DB25199A9800E17808 /* WalletCertikCell.swift */; };
 		288A14E125199C6200E17808 /* WalletCertikCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 288A14E325199C6200E17808 /* WalletCertikCell.xib */; };
 		28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908F6823F69BD100164030 /* EdgeInsetLabel.swift */; };
+		289BE017252DF58C00E5E4B4 /* KavaHavestParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE016252DF58B00E5E4B4 /* KavaHavestParam.swift */; };
 		289DF170242DD90300433CF4 /* CdpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */; };
 		289DF178242DDF3800433CF4 /* CdpDetailTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */; };
 		289DF17C242DDF4F00433CF4 /* CdpDetailMyTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */; };
@@ -548,6 +549,7 @@
 		288A14E225199C6200E17808 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletCertikCell.xib; sourceTree = "<group>"; };
 		288A14E725199C6500E17808 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletCertikCell.strings; sourceTree = "<group>"; };
 		28908F6823F69BD100164030 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
+		289BE016252DF58B00E5E4B4 /* KavaHavestParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHavestParam.swift; sourceTree = "<group>"; };
 		289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailViewController.swift; sourceTree = "<group>"; };
 		289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailTopCell.swift; sourceTree = "<group>"; };
 		289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyTopCell.swift; sourceTree = "<group>"; };
@@ -1187,6 +1189,7 @@
 				283D2EAB24F56AFF00247424 /* OkWithdraw.swift */,
 				28B4302924F76AD500BD7BB2 /* OkTransfer.swift */,
 				28089AA324FF8FC4007E9C40 /* IovNameResolve.swift */,
+				289BE016252DF58B00E5E4B4 /* KavaHavestParam.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1639,6 +1642,7 @@
 				E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */,
 				282FF34923F50C540028CC66 /* TxUndelegateCell.swift in Sources */,
 				E1BA208E22F8117000EAB87F /* IrisStdSignMsg.swift in Sources */,
+				289BE017252DF58C00E5E4B4 /* KavaHavestParam.swift in Sources */,
 				E1FD232C233E1BDB009327FE /* WalletCosmosCell.swift in Sources */,
 				28B4303524F7766200BD7BB2 /* TxOkDirectVoteCell.swift in Sources */,
 				E16B89152341C558003E0922 /* TokenCell.swift in Sources */,

@@ -231,14 +231,15 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchInflation()
             onFetchProvision()
             onFetchStakingPool()
+            
             onFetchCdpParam(mAccount)
-            onFetchPriceParam()
+            onFetchPriceFeedParam()
+            
             onFetchIncentiveParam()
-            //TODO hard code
             onFetchMyIncentive(mAccount, "bnb")
             
         } else if (mChainType == ChainType.KAVA_TEST) {
-            self.mFetchCnt = 13
+            self.mFetchCnt = 12
             BaseData.instance.mCdpParam = nil
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -253,10 +254,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStakingPool()
             
             onFetchCdpParam(mAccount)
-            onFetchPriceParam()
-            onFetchIncentiveParam()
-            //TODO hard code
-            onFetchMyIncentive(mAccount, "bnb")
+            onFetchPriceFeedParam()
+            onFetchHavestParam()
             
         } else if (mChainType == ChainType.BAND_MAIN || mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
             self.mFetchCnt = 9
@@ -1260,7 +1259,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchPriceParam() {
+    func onFetchPriceFeedParam() {
         var url: String?
         if (mChainType == ChainType.KAVA_MAIN) {
             url = KAVA_TOKEN_PRICE_PARAM
@@ -1271,7 +1270,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchPriceParam res ", res)
+//                print("onFetchPriceFeedParam res ", res)
                 guard let responseData = res as? NSDictionary,
                     let _ = responseData.object(forKey: "height") as? String else {
                     self.onFetchFinished()
@@ -1284,7 +1283,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchKavaPrice(market.market_id)
                 }
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchPriceParam ", error) }
+                if (SHOW_LOG) { print("onFetchPriceFeedParam ", error) }
             }
             self.onFetchFinished()
         }
@@ -1315,6 +1314,34 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             self.onFetchFinished()
         }
+    }
+    
+    func onFetchHavestParam() {
+        var url: String?
+        if (mChainType == ChainType.KAVA_MAIN) {
+            url = KAVA_HAVEST_PARAM
+        } else if (mChainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_HAVEST_PARAM
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("onFetchHavestParam ", res)
+                guard let responseData = res as? NSDictionary,
+                    let _ = responseData.object(forKey: "height") as? String else {
+                    self.onFetchFinished()
+                    return
+                }
+                let havestParam = KavaHavestParam.init(responseData)
+                BaseData.instance.mKavaHavestParam = havestParam
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchHavestParam ", error) }
+            }
+            self.onFetchFinished()
+        }
+        
     }
     
     func onFetchOkAccountTokens(_ account: Account) {

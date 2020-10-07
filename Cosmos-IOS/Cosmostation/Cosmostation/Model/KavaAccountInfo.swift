@@ -31,6 +31,24 @@ public class KavaAccountInfo {
             self.value = KavaAccountValue.init(dictionary["value"] as! [String : Any])
         }
         
+        
+        func getCVestingSum(_ denom: String) -> NSDecimalNumber {
+            var result = NSDecimalNumber.zero
+            let cTime = Date().millisecondsSince1970
+            for i in 0..<value.vesting_periods.count {
+                let unlockTime = getUnLockTime(i)
+                if (cTime < unlockTime) {
+                    for coin in value.vesting_periods[i].amount {
+                        if (coin.denom == denom) {
+                            result = result.adding(NSDecimalNumber.init(string: coin.amount))
+                        }
+                    }
+                }
+            }
+            return result
+        }
+        
+        /*
         func getCVestingCnt() -> Int {
             var result = 0;
             let cTime = Date().millisecondsSince1970
@@ -43,19 +61,7 @@ public class KavaAccountInfo {
             return result;
         }
         
-        func getCVestingSum() -> NSDecimalNumber {
-            var result = NSDecimalNumber.zero
-            let cTime = Date().millisecondsSince1970
-            for i in 0..<value.vesting_periods.count {
-                let unlockTime = getUnLockTime(i)
-                if (cTime < unlockTime) {
-                    for coin in value.vesting_periods[i].amount {
-                        result = result.adding(NSDecimalNumber.init(string: coin.amount))
-                    }
-                }
-            }
-            return result
-        }
+
         
         func getCVestingPeriods() -> Array<VestingPeriod> {
             var result = Array<VestingPeriod>()
@@ -91,10 +97,13 @@ public class KavaAccountInfo {
             }
             return result
         }
+         */
         
         func getUnLockTime(_ position:Int) -> Int64 {
             var result: Int64 = value.start_time
+            print("start_time ", result)
             for i in 0..<(position + 1) {
+                print("length ", value.vesting_periods[i].length)
                 result = result + value.vesting_periods[i].length
             }
             return result * 1000
@@ -182,9 +191,15 @@ public class KavaAccountInfo {
             if let startTime = dictionary["start_time"] as? Int64 {
                 self.start_time = startTime
             }
+            if let startTime = dictionary["start_time"] as? String {
+                self.start_time = Int64(startTime) ?? 0
+            }
             
             if let endTime = dictionary["end_time"] as? Int64 {
                 self.end_time = endTime
+            }
+            if let endTime = dictionary["end_time"] as? String {
+                self.end_time = Int64(endTime) ?? 0
             }
         }
     }
@@ -273,7 +288,13 @@ public class KavaAccountInfo {
         init() {}
         
         init(_ dictionary: [String: Any]) {
-            self.length = dictionary["length"] as? Int64 ?? 0
+            if let length = dictionary["length"] as? Int64 {
+                self.length = length
+            }
+            if let length = dictionary["length"] as? String {
+                self.length = Int64(length) ?? 0
+            }
+            
             self.amount.removeAll()
             let rawCoins = dictionary["amount"] as! Array<NSDictionary>
             for coin in rawCoins {

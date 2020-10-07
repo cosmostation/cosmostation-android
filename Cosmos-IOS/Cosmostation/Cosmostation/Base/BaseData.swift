@@ -33,6 +33,7 @@ final class BaseData : NSObject{
     var mMyCdps = Array<CdpOwen>()
     var mIncentiveParam = KavaIncentiveParam.IncentiveParam.init()
     var mUnClaimedIncentiveRewards = Array<KavaIncentiveReward.UnClaimedIncentiveReward>()
+    var mKavaHavestParam: KavaHavestParam?
     
     var mBnbTokenList = Array<BnbToken>()
     
