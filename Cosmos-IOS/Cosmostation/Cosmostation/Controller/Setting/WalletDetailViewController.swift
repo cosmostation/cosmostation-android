@@ -297,7 +297,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         }
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType == ChainType.IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN) {
+            //no need fee
+            
+        } else if (chainType == ChainType.IRIS_MAIN) {
             if (balances.count <= 0 || WUtils.localeStringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.init(string: "80000000000000000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
@@ -337,6 +340,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         noticeAlert.setValue(attributedMessage, forKey: "attributedMessage")
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
+            BaseData.instance.setRecentAccountId(self.account!.account_id)
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
             if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
                 txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
@@ -435,10 +439,11 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                     guard let address = res as? String else {
                         return;
                     }
+                    
                     self.rewardCard.isHidden = false
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
                     self.rewardAddress.text = trimAddress
-                    if(trimAddress != accountAddr) {
+                    if (trimAddress != accountAddr) {
                         self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
                     }
                     self.rewardAddress.adjustsFontSizeToFitWidth = true
@@ -459,7 +464,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                     self.rewardCard.isHidden = false
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
                     self.rewardAddress.text = trimAddress
-                    if(trimAddress != accountAddr) {
+                    if (trimAddress != accountAddr) {
                         self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
                     }
                     self.rewardAddress.adjustsFontSizeToFitWidth = true
