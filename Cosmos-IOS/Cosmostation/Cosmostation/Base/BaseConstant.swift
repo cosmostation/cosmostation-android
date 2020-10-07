@@ -182,6 +182,8 @@ let KAVA_INCENTIVE_PARAM                = KAVA_URL + "incentive/parameters";
 let KAVA_MY_INCENTIVE                   = KAVA_URL + "incentive/claims/";
 let KAVA_CHECK_SUPPLY                   = KAVA_URL + "supply/total";
 let KAVA_HAVEST_PARAM                   = KAVA_URL + "harvest/parameters";
+let KAVA_HAVEST_DEPOSIT                 = KAVA_URL + "harvest/deposits";
+let KAVA_HAVEST_REWARD                  = KAVA_URL + "harvest/claims";
 
 let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
 let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
@@ -217,6 +219,8 @@ let KAVA_TEST_INCENTIVE_PARAM           = KAVA_TEST_URL + "incentive/parameters"
 let KAVA_TEST_MY_INCENTIVE              = KAVA_TEST_URL + "incentive/claims/";
 let KAVA_TEST_CHECK_SUPPLY              = KAVA_TEST_URL + "supply/total";
 let KAVA_TEST_HAVEST_PARAM              = KAVA_TEST_URL + "harvest/parameters";
+let KAVA_TEST_HAVEST_DEPOSIT            = KAVA_TEST_URL + "harvest/deposits";
+let KAVA_TEST_HAVEST_REWARD             = KAVA_TEST_URL + "harvest/claims";
 
 let KAVA_TEST_API_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_TEST_API_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";

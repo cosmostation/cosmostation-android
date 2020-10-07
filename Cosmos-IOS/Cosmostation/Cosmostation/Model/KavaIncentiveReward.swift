@@ -10,7 +10,7 @@ import Foundation
 
 public class KavaIncentiveReward {
     var height: String = ""
-    var result: Array<UnClaimedIncentiveReward> = Array<UnClaimedIncentiveReward>()
+    var result: Array<IncentiveReward> = Array<IncentiveReward>()
     
     init() {}
     
@@ -19,12 +19,12 @@ public class KavaIncentiveReward {
         if let rawResults = dictionary["result"] as? Array<NSDictionary> {
             self.result.removeAll()
             for rawResult in rawResults {
-                self.result.append(UnClaimedIncentiveReward(rawResult as! [String : Any]))
+                self.result.append(IncentiveReward(rawResult as! [String : Any]))
             }
         }
     }
     
-    public class UnClaimedIncentiveReward {
+    public class IncentiveReward {
         var owner: String = ""
         var reward: Coin = Coin.init()
         var denom: String = ""

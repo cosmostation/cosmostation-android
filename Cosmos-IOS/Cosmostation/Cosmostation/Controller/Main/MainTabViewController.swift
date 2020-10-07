@@ -220,6 +220,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.KAVA_MAIN) {
             self.mFetchCnt = 13
             BaseData.instance.mCdpParam = nil
+            BaseData.instance.mHavestDeposits.removeAll()
+            BaseData.instance.mHavestRewards.removeAll()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -239,23 +241,26 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchMyIncentive(mAccount, "bnb")
             
         } else if (mChainType == ChainType.KAVA_TEST) {
-            self.mFetchCnt = 12
+            self.mFetchCnt = 14
             BaseData.instance.mCdpParam = nil
+            BaseData.instance.mHavestDeposits.removeAll()
+            BaseData.instance.mHavestRewards.removeAll()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
-            
             onFetchAccountInfo(mAccount)
             onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
             
+            onFetchUnbondingInfo(mAccount)
             onFetchInflation()
             onFetchProvision()
             onFetchStakingPool()
-            
             onFetchCdpParam(mAccount)
+            
             onFetchPriceFeedParam()
             onFetchHavestParam()
+            onFetchMyHavestDeposit(mAccount)
+            onFetchMyHavestReward(mAccount)
             
         } else if (mChainType == ChainType.BAND_MAIN || mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
             self.mFetchCnt = 9
@@ -1239,7 +1244,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_MY_INCENTIVE + account.account_address + "/" + denom
         }
-        BaseData.instance.mUnClaimedIncentiveRewards.removeAll()
+        BaseData.instance.mIncentiveRewards.removeAll()
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -1250,7 +1255,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         self.onFetchFinished()
                         return
                 }
-                BaseData.instance.mUnClaimedIncentiveRewards = KavaIncentiveReward.init(responseData).result
+                BaseData.instance.mIncentiveRewards = KavaIncentiveReward.init(responseData).result
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchMyIncentive ", error) }
@@ -1334,14 +1339,76 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 let havestParam = KavaHavestParam.init(responseData)
-                BaseData.instance.mKavaHavestParam = havestParam
+                BaseData.instance.mHavestParam = havestParam
+//                BaseData.instance.mKavaHavestDeposits.removeAll()
+//                for liquidity in havestParam.result.liquidity_provider_schedules {
+//                    self.mFetchCnt = self.mFetchCnt + 1
+//                    self.onFetchMyHavestDeposit(account, liquidity)
+//                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchHavestParam ", error) }
             }
             self.onFetchFinished()
         }
-        
+    }
+    
+    func onFetchMyHavestDeposit(_ account:Account) {
+//    func onFetchMyHavestDeposit(_ account:Account, _ distribution: KavaHavestParam.DistributionSchedule) {
+        var url: String?
+        if (mChainType == ChainType.KAVA_MAIN) {
+            url = KAVA_HAVEST_DEPOSIT
+        } else if (mChainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_HAVEST_DEPOSIT
+        }
+//        let param = ["deposit_denom":distribution.deposit_denom, "deposit_type":"lp", "owner":account.account_address]
+        let param = ["deposit_type":"lp", "owner":account.account_address]
+        let request = Alamofire.request(url!, method: .get, parameters: param, encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary,
+                    let _ = responseData.object(forKey: "height") as? String else {
+                        self.onFetchFinished()
+                        return
+                }
+                
+                let kavaHavestDeposits = KavaHavestDeposit.init(responseData)
+                BaseData.instance.mHavestDeposits = kavaHavestDeposits.result
+            
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchMyHavestDeposit ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchMyHavestReward(_ account:Account) {
+        var url: String?
+        if (mChainType == ChainType.KAVA_MAIN) {
+            url = KAVA_HAVEST_REWARD
+        } else if (mChainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_HAVEST_REWARD
+        }
+        let param = ["owner":account.account_address]
+        let request = Alamofire.request(url!, method: .get, parameters: param, encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary,
+                    let _ = responseData.object(forKey: "height") as? String else {
+                        self.onFetchFinished()
+                        return
+                }
+                
+                let kavaHavestReward = KavaHavestReward.init(responseData)
+                BaseData.instance.mHavestRewards = kavaHavestReward.result
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchMyHavestReward ", error) }
+            }
+            self.onFetchFinished()
+        }
     }
     
     func onFetchOkAccountTokens(_ account: Account) {

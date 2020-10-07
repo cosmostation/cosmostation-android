@@ -30,7 +30,7 @@ class StepIncentive0ViewController: BaseViewController {
         mIncentiveReward = BaseData.instance.mIncentiveParam.rewards[0]
         
         var mAmount = NSDecimalNumber.zero
-        for reward in BaseData.instance.mUnClaimedIncentiveRewards {
+        for reward in BaseData.instance.mIncentiveRewards {
             mAmount = mAmount.adding(NSDecimalNumber.init(string: reward.reward.amount))
         }
         

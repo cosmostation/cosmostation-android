@@ -248,7 +248,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             //TODO
-//            if (BaseData.instance.mUnClaimedIncentiveRewards.count == 0 && indexPath.row == 3) {
+//            if (BaseData.instance.mIncentiveRewards.count == 0 && indexPath.row == 3) {
 //                return 0;
 //            }
 //            if ((BaseData.instance.mKavaAccountResult.type == COSMOS_AUTH_TYPE_ACCOUNT || BaseData.instance.mKavaAccountResult.getCVestingCnt() == 0) &&

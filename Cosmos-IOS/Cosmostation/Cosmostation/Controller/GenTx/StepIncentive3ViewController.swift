@@ -45,7 +45,7 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
     func onUpdateView() {
         let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
         var mAmount = NSDecimalNumber.zero
-        for reward in BaseData.instance.mUnClaimedIncentiveRewards {
+        for reward in BaseData.instance.mIncentiveRewards {
             mAmount = mAmount.adding(NSDecimalNumber.init(string: reward.reward.amount))
         }
 
