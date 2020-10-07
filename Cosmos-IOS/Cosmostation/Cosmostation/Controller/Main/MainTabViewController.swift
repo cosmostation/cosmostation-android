@@ -1112,9 +1112,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CGC_PRICE_TIC + "band-protocol"
             parameters = [:]
         } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
-            //TODO No price info for IOV
-            BaseData.instance.setPriceTicCgc(nil)
-            return
+            url = CGC_PRICE_TIC + "starname"
+            parameters = [:]
+            
         } else if (mChainType == ChainType.OKEX_TEST) {
             //TODO No price info for OK
             BaseData.instance.setPriceTicCgc(nil)
