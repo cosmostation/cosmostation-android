@@ -554,6 +554,7 @@ let BNB_BASE_PATH                           = "m/44'/714'/0'/0/"
 let KAVA_BASE_PATH                          = "m/44'/459'/0'/0/"
 let IOV_BASE_PATH                           = "m/44'/234'/0'/0/"
 let BAND_BASE_PATH                          = "m/44'/494'/0'/0/"
+let SECRET_BASE_PATH                        = "m/44'/529'/0'/0/"
 let OK_BASE_PATH                            = "m/44'/996'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";

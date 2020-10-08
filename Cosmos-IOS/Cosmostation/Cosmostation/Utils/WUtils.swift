@@ -1850,7 +1850,7 @@ class WUtils {
             return TRANS_BG_COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return TRANS_BG_COLOR_BAND
-        } else if (chain == ChainType.BAND_MAIN) {
+        } else if (chain == ChainType.SECRET_MAIN) {
             return TRANS_BG_COLOR_SECRET
         } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_BG_GRAY
