@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -87,6 +87,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="zmf-w3-i2S"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="xfL-sX-nZN" firstAttribute="top" secondItem="3wT-my-HkK" secondAttribute="top" id="0Zx-wH-8EC"/>
@@ -101,7 +102,6 @@
                             <constraint firstItem="09R-vY-lyr" firstAttribute="leading" secondItem="zmf-w3-i2S" secondAttribute="leading" id="lim-vL-nu8"/>
                             <constraint firstItem="xfL-sX-nZN" firstAttribute="leading" secondItem="zmf-w3-i2S" secondAttribute="leading" id="sRE-yz-SBQ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="zmf-w3-i2S"/>
                     </view>
                     <navigationItem key="navigationItem" id="Rez-Qd-X9D"/>
                     <connections>
@@ -158,6 +158,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="qad-RP-sDI"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="OVh-y6-LOK" firstAttribute="leading" secondItem="qad-RP-sDI" secondAttribute="leading" id="43l-Nn-v6y"/>
@@ -179,7 +180,6 @@
                             <constraint firstItem="SA3-XZ-w7Y" firstAttribute="width" secondItem="ilN-v5-iKh" secondAttribute="width" id="v1c-mP-B7T"/>
                             <constraint firstItem="553-02-5Bz" firstAttribute="leading" secondItem="SA3-XZ-w7Y" secondAttribute="leading" id="w5x-hQ-QXi"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="qad-RP-sDI"/>
                     </view>
                     <navigationItem key="navigationItem" id="42X-K1-Bet"/>
                     <connections>
@@ -285,6 +285,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="cSU-sE-n4m"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="cSU-sE-n4m" firstAttribute="trailing" secondItem="lR6-M3-g2M" secondAttribute="trailing" id="5iE-Gg-sgg"/>
@@ -303,7 +304,6 @@
                             <constraint firstItem="TLK-Ns-Awb" firstAttribute="centerX" secondItem="cSU-sE-n4m" secondAttribute="centerX" id="yXk-OV-43V"/>
                             <constraint firstItem="XXP-AQ-reI" firstAttribute="centerX" secondItem="cSU-sE-n4m" secondAttribute="centerX" id="zcq-hJ-kli"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="cSU-sE-n4m"/>
                     </view>
                     <navigationItem key="navigationItem" id="zKv-T3-ZiW"/>
                     <connections>
@@ -343,7 +343,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWl-YX-k4d">
-                                        <rect key="frame" x="50" y="15" width="75" height="20.5"/>
+                                        <rect key="frame" x="50" y="15" width="74.5" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="120" id="qEh-Mc-ONL"/>
                                         </constraints>
@@ -352,7 +352,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Cosmos Hub)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Roh-LO-TJo">
-                                        <rect key="frame" x="129" y="20.5" width="76" height="13.5"/>
+                                        <rect key="frame" x="128.5" y="20.5" width="76" height="13.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -525,6 +525,7 @@ Kava oracle</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="jlb-Fr-uKZ"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fWn-k7-DSA" firstAttribute="top" secondItem="KrO-uc-3Xu" secondAttribute="bottom" constant="8" id="3jt-cK-Bz2"/>
@@ -545,7 +546,6 @@ Kava oracle</string>
                             <constraint firstItem="gsx-gt-Y38" firstAttribute="leading" secondItem="jlb-Fr-uKZ" secondAttribute="leading" constant="12" id="rpL-BZ-VS0"/>
                             <constraint firstItem="rD0-jW-7fv" firstAttribute="trailing" secondItem="jlb-Fr-uKZ" secondAttribute="trailing" id="xVr-RC-893"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="jlb-Fr-uKZ"/>
                     </view>
                     <navigationItem key="navigationItem" id="R7R-lj-gXN"/>
                     <connections>
@@ -590,6 +590,7 @@ Kava oracle</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Du9-Qj-Mbj"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="cgw-Hd-L7W" firstAttribute="top" secondItem="Du9-Qj-Mbj" secondAttribute="top" constant="8" id="2X3-4E-T8A"/>
@@ -603,7 +604,6 @@ Kava oracle</string>
                             <constraint firstItem="Du9-Qj-Mbj" firstAttribute="trailing" secondItem="PEW-5B-acc" secondAttribute="trailing" id="jmY-UV-hUG"/>
                             <constraint firstItem="a3x-sr-rPq" firstAttribute="centerY" secondItem="Du9-Qj-Mbj" secondAttribute="centerY" id="mp8-yA-K2Z"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Du9-Qj-Mbj"/>
                     </view>
                     <navigationItem key="navigationItem" id="E0Q-yY-xu0"/>
                     <connections>
@@ -741,7 +741,7 @@ Kava oracle</string>
                                     <constraint firstAttribute="height" constant="60" id="y25-6q-TCs"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pUY-pL-b4r">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pUY-pL-b4r">
                                 <rect key="frame" x="16" y="796" width="382" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="SaT-co-Tym"/>
@@ -766,6 +766,7 @@ Kava oracle</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="M1f-cA-1JF"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="xtt-p2-2g7" firstAttribute="top" secondItem="RvF-0e-cRf" secondAttribute="bottom" constant="12" id="0kS-cR-PN3"/>
@@ -785,7 +786,6 @@ Kava oracle</string>
                             <constraint firstItem="RvF-0e-cRf" firstAttribute="leading" secondItem="M1f-cA-1JF" secondAttribute="leading" constant="12" id="t2J-PX-JHi"/>
                             <constraint firstItem="M1f-cA-1JF" firstAttribute="trailing" secondItem="pUY-pL-b4r" secondAttribute="trailing" constant="16" id="tnk-PT-Mwu"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="M1f-cA-1JF"/>
                     </view>
                     <connections>
                         <outlet property="wcAddress" destination="NF4-y6-Zs2" id="4DV-7D-5XY"/>
@@ -902,6 +902,7 @@ Kava oracle</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="0AM-1b-J6M"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="G87-Xa-Mo8" firstAttribute="top" secondItem="eKW-T7-s72" secondAttribute="bottom" constant="4" id="0aJ-v5-rBF"/>
@@ -916,7 +917,6 @@ Kava oracle</string>
                             <constraint firstItem="0AM-1b-J6M" firstAttribute="leading" secondItem="n71-aU-bJf" secondAttribute="leading" id="py3-t5-Y1c"/>
                             <constraint firstItem="0AM-1b-J6M" firstAttribute="trailing" secondItem="eKW-T7-s72" secondAttribute="trailing" constant="12" id="zVk-HF-4ei"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="0AM-1b-J6M"/>
                     </view>
                     <connections>
                         <outlet property="dpAddress" destination="N2E-EJ-rCm" id="2eb-23-eqR"/>
@@ -1010,6 +1010,7 @@ Kava oracle</string>
                                 </connections>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6xW-gl-kKc"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="Qd6-af-F3f" firstAttribute="bottom" secondItem="6xW-gl-kKc" secondAttribute="bottom" id="0I4-aF-zfD"/>
@@ -1024,7 +1025,6 @@ Kava oracle</string>
                             <constraint firstItem="Qd6-af-F3f" firstAttribute="trailing" secondItem="6xW-gl-kKc" secondAttribute="trailing" id="pEt-3X-opO"/>
                             <constraint firstItem="4Ql-ge-Go2" firstAttribute="leading" secondItem="6xW-gl-kKc" secondAttribute="leading" id="yU0-CD-Ya6"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6xW-gl-kKc"/>
                     </view>
                     <navigationItem key="navigationItem" id="tiQ-UA-kjU"/>
                     <connections>
@@ -1192,6 +1192,7 @@ Kava oracle</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="gQA-xW-O5u"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="eJb-4D-GcQ" secondAttribute="bottom" id="86k-kN-qtJ"/>
@@ -1202,7 +1203,6 @@ Kava oracle</string>
                             <constraint firstItem="gQA-xW-O5u" firstAttribute="top" secondItem="Qja-ad-aQz" secondAttribute="top" id="gjn-wC-sKe"/>
                             <constraint firstAttribute="trailing" secondItem="eJb-4D-GcQ" secondAttribute="trailing" id="oBi-RR-VcN"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="gQA-xW-O5u"/>
                     </view>
                     <connections>
                         <outlet property="btnSort" destination="sOV-ev-ZWf" id="Fl2-tc-cdf"/>
@@ -1238,6 +1238,7 @@ Kava oracle</string>
                                 </constraints>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="MZu-nE-yCY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="O36-pQ-ghZ" firstAttribute="leading" secondItem="MZu-nE-yCY" secondAttribute="leading" id="1sy-Og-ZvC"/>
@@ -1251,7 +1252,6 @@ Kava oracle</string>
                             <constraint firstItem="6U4-Wr-uE6" firstAttribute="centerY" secondItem="MZu-nE-yCY" secondAttribute="centerY" id="tdd-9Y-0vs"/>
                             <constraint firstAttribute="top" secondItem="O36-pQ-ghZ" secondAttribute="top" id="tr6-jN-Rka"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="MZu-nE-yCY"/>
                     </view>
                     <connections>
                         <outlet property="chainBg" destination="O36-pQ-ghZ" id="ZH6-zL-Hha"/>
@@ -1288,7 +1288,7 @@ Kava oracle</string>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5W-Jc-sNB">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5W-Jc-sNB">
                                 <rect key="frame" x="5" y="49" width="240" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="hgu-dV-bNm"/>
@@ -1325,7 +1325,7 @@ Kava oracle</string>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l8d-LC-PYA">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l8d-LC-PYA">
                                 <rect key="frame" x="5" y="109" width="240" height="84"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="M27-oH-QGS"/>
@@ -1351,7 +1351,7 @@ Kava oracle</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="moc-oT-YKp">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="moc-oT-YKp">
                                 <rect key="frame" x="5" y="203" width="240" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="LnN-kN-U0K"/>
@@ -1372,6 +1372,7 @@ Kava oracle</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="199-Im-jHZ"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="moc-oT-YKp" firstAttribute="trailing" secondItem="H5W-Jc-sNB" secondAttribute="trailing" id="0RD-ju-Adt"/>
@@ -1392,7 +1393,6 @@ Kava oracle</string>
                             <constraint firstItem="oK6-Hx-hM8" firstAttribute="centerY" secondItem="H5W-Jc-sNB" secondAttribute="centerY" id="tIc-dy-deW"/>
                             <constraint firstItem="x6G-6q-fXT" firstAttribute="centerY" secondItem="moc-oT-YKp" secondAttribute="centerY" id="uYk-qR-e5c"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="199-Im-jHZ"/>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -1457,6 +1457,7 @@ Kava oracle</string>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="4yd-JO-yjw"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="rfQ-bl-5Eh" secondAttribute="bottom" id="13C-Mr-xRa"/>
@@ -1470,7 +1471,6 @@ Kava oracle</string>
                             <constraint firstItem="Dtw-es-U46" firstAttribute="leading" secondItem="rfQ-bl-5Eh" secondAttribute="trailing" id="nep-x4-ens"/>
                             <constraint firstAttribute="bottom" secondItem="Dtw-es-U46" secondAttribute="bottom" id="p3E-TZ-dKV"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="4yd-JO-yjw"/>
                     </view>
                     <connections>
                         <outlet property="accountTableView" destination="Dtw-es-U46" id="Oc9-z0-n6M"/>
@@ -1548,6 +1548,7 @@ Kava oracle</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="RmB-C1-xPK"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="g5r-sD-zNO" firstAttribute="leading" secondItem="RmB-C1-xPK" secondAttribute="leading" constant="14" id="9uZ-en-coB"/>
@@ -1558,7 +1559,6 @@ Kava oracle</string>
                             <constraint firstAttribute="trailing" secondItem="yZa-Fs-rmW" secondAttribute="trailing" id="RBi-gc-Fw7"/>
                             <constraint firstItem="RmB-C1-xPK" firstAttribute="trailing" secondItem="g5r-sD-zNO" secondAttribute="trailing" constant="14" id="jo0-oj-244"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="RmB-C1-xPK"/>
                     </view>
                     <connections>
                         <outlet property="allValidatorCnt" destination="ah0-Od-e9s" id="LuO-Q0-lEA"/>
@@ -2405,6 +2405,7 @@ Kava oracle</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Lkx-7r-6na"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Lkx-7r-6na" firstAttribute="top" secondItem="Gec-G7-NYf" secondAttribute="top" id="1dh-fI-FVE"/>
@@ -2415,7 +2416,6 @@ Kava oracle</string>
                             <constraint firstItem="EfH-ca-sl4" firstAttribute="top" secondItem="Gec-G7-NYf" secondAttribute="bottom" id="vAs-f2-Jmz"/>
                             <constraint firstAttribute="trailing" secondItem="EfH-ca-sl4" secondAttribute="trailing" id="yrx-d6-uBW"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Lkx-7r-6na"/>
                     </view>
                     <connections>
                         <outlet property="otherValidatorCnt" destination="c2R-09-qJD" id="M4n-lq-HgO"/>
@@ -2496,10 +2496,11 @@ Kava oracle</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CPH-za-WVz">
-                                <rect key="frame" x="112.5" y="52" width="189" height="32"/>
+                                <rect key="frame" x="65" y="52" width="284" height="32"/>
                                 <segments>
                                     <segment title="My CDP"/>
                                     <segment title="All Products"/>
+                                    <segment title="Incentive"/>
                                 </segments>
                                 <color key="tintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
@@ -2518,16 +2519,27 @@ Kava oracle</string>
                                     <segue destination="U4K-nD-0BB" kind="embed" identifier="otherValidator" id="oMc-BX-kJf"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TgB-oc-JWD">
+                                <rect key="frame" x="0.0" y="91" width="414" height="805"/>
+                                <connections>
+                                    <segue destination="AvQ-YP-gXX" kind="embed" id="7eK-RA-y2w"/>
+                                </connections>
+                            </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="XUY-Yk-QrR"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="ou0-th-VQk" firstAttribute="centerX" secondItem="XUY-Yk-QrR" secondAttribute="centerX" id="2Qp-CO-7WS"/>
                             <constraint firstItem="VVF-I5-oN5" firstAttribute="top" secondItem="ou0-th-VQk" secondAttribute="top" id="5Gd-4S-SfQ"/>
                             <constraint firstItem="3YG-Jr-tno" firstAttribute="leading" secondItem="XUY-Yk-QrR" secondAttribute="leading" id="As6-rd-RaR"/>
                             <constraint firstItem="ou0-th-VQk" firstAttribute="width" secondItem="EHZ-aB-TSp" secondAttribute="width" id="Gxz-xU-EqV"/>
+                            <constraint firstItem="TgB-oc-JWD" firstAttribute="trailing" secondItem="ou0-th-VQk" secondAttribute="trailing" id="KBl-Nt-CI9"/>
                             <constraint firstItem="ou0-th-VQk" firstAttribute="bottom" secondItem="EHZ-aB-TSp" secondAttribute="bottom" id="Kyx-r4-dpg"/>
+                            <constraint firstItem="TgB-oc-JWD" firstAttribute="bottom" secondItem="ou0-th-VQk" secondAttribute="bottom" id="M3L-N9-hBw"/>
+                            <constraint firstItem="TgB-oc-JWD" firstAttribute="top" secondItem="ou0-th-VQk" secondAttribute="top" id="UI7-tD-DO2"/>
                             <constraint firstItem="XUY-Yk-QrR" firstAttribute="trailing" secondItem="3YG-Jr-tno" secondAttribute="trailing" id="VRn-Bk-h6j"/>
                             <constraint firstItem="3YG-Jr-tno" firstAttribute="top" secondItem="EHZ-aB-TSp" secondAttribute="top" id="YGP-hS-01w"/>
+                            <constraint firstItem="TgB-oc-JWD" firstAttribute="leading" secondItem="ou0-th-VQk" secondAttribute="leading" id="aKz-k6-rEh"/>
                             <constraint firstItem="CPH-za-WVz" firstAttribute="top" secondItem="XUY-Yk-QrR" secondAttribute="top" constant="8" id="aiI-HQ-Jq8"/>
                             <constraint firstAttribute="bottom" secondItem="3YG-Jr-tno" secondAttribute="bottom" id="fFj-SD-yYw"/>
                             <constraint firstItem="VVF-I5-oN5" firstAttribute="bottom" secondItem="ou0-th-VQk" secondAttribute="bottom" id="lYg-7m-7VR"/>
@@ -2536,18 +2548,18 @@ Kava oracle</string>
                             <constraint firstItem="VVF-I5-oN5" firstAttribute="centerX" secondItem="XUY-Yk-QrR" secondAttribute="centerX" id="y8j-cv-lm6"/>
                             <constraint firstItem="CPH-za-WVz" firstAttribute="centerX" secondItem="XUY-Yk-QrR" secondAttribute="centerX" id="yHH-Oq-EJa"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="XUY-Yk-QrR"/>
                     </view>
                     <navigationItem key="navigationItem" id="4dQ-ra-ha1"/>
                     <connections>
                         <outlet property="allCdpUIView" destination="VVF-I5-oN5" id="Evx-05-GXl"/>
                         <outlet property="cdpSegmentControl" destination="CPH-za-WVz" id="n3a-4X-yWH"/>
+                        <outlet property="incentiveCdpUIView" destination="TgB-oc-JWD" id="7YI-0D-cf4"/>
                         <outlet property="myCdpUIView" destination="ou0-th-VQk" id="P61-4q-X3S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pw9-7Y-Cc0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2588" y="4207"/>
+            <point key="canvasLocation" x="-2588.4057971014495" y="4206.6964285714284"/>
         </scene>
         <!--Vote Details View Controller-->
         <scene sceneID="dDo-Ui-yTo">
@@ -2597,6 +2609,7 @@ Kava oracle</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="z0Q-7v-xvh"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="z0Q-7v-xvh" firstAttribute="trailing" secondItem="cvg-bR-rPM" secondAttribute="trailing" id="04h-7t-JEj"/>
@@ -2613,7 +2626,6 @@ Kava oracle</string>
                             <constraint firstAttribute="bottom" secondItem="lZq-8f-L76" secondAttribute="bottom" id="hUC-Iv-8jq"/>
                             <constraint firstItem="84M-Bw-dw1" firstAttribute="centerX" secondItem="z0Q-7v-xvh" secondAttribute="centerX" id="tbZ-qK-UpF"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="z0Q-7v-xvh"/>
                     </view>
                     <connections>
                         <outlet property="btnVote" destination="IT3-yR-uMd" id="dzy-6d-HTZ"/>
@@ -2663,6 +2675,7 @@ Kava oracle</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="uNY-g8-TKt"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="qV2-xP-zEX" firstAttribute="top" secondItem="IaF-Lk-srq" secondAttribute="bottom" id="50f-T0-hMd"/>
@@ -2673,7 +2686,6 @@ Kava oracle</string>
                             <constraint firstItem="qV2-xP-zEX" firstAttribute="leading" secondItem="PAf-D6-qAu" secondAttribute="leading" id="fYB-bd-p3L"/>
                             <constraint firstItem="uNY-g8-TKt" firstAttribute="trailing" secondItem="IaF-Lk-srq" secondAttribute="trailing" constant="14" id="sDB-7F-BMC"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="uNY-g8-TKt"/>
                     </view>
                     <connections>
                         <outlet property="myCdpCntLabel" destination="2re-lv-QOI" id="u2I-gS-7MS"/>
@@ -2682,7 +2694,7 @@ Kava oracle</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MZo-FN-fJv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1935" y="5035"/>
+            <point key="canvasLocation" x="-3520" y="5027"/>
         </scene>
         <!--Ok My Validator View Controller-->
         <scene sceneID="zvY-q0-3aL">
@@ -2721,7 +2733,7 @@ Kava oracle</string>
                                 <rect key="frame" x="0.0" y="76" width="414" height="655"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SuV-b3-34d">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SuV-b3-34d">
                                 <rect key="frame" x="16" y="739" width="382" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="cGg-C0-PXg"/>
@@ -2746,6 +2758,7 @@ Kava oracle</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Qgp-Yh-dds"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Qgp-Yh-dds" firstAttribute="trailing" secondItem="im5-Dp-kRW" secondAttribute="trailing" id="1L8-61-4qT"/>
@@ -2759,7 +2772,6 @@ Kava oracle</string>
                             <constraint firstItem="im5-Dp-kRW" firstAttribute="leading" secondItem="Qgp-Yh-dds" secondAttribute="leading" id="kPr-dd-4WF"/>
                             <constraint firstItem="SuV-b3-34d" firstAttribute="leading" secondItem="Qgp-Yh-dds" secondAttribute="leading" constant="16" id="xzl-Jx-QWF"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Qgp-Yh-dds"/>
                     </view>
                     <connections>
                         <outlet property="okMyValidatorCnt" destination="mPX-AV-fTY" id="sPd-mC-qZH"/>
@@ -2808,6 +2820,7 @@ Kava oracle</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="zFg-S2-hPE"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6d8-wQ-OTL" firstAttribute="leading" secondItem="zFg-S2-hPE" secondAttribute="leading" constant="14" id="59z-T2-RSk"/>
@@ -2818,7 +2831,6 @@ Kava oracle</string>
                             <constraint firstItem="6d8-wQ-OTL" firstAttribute="trailing" secondItem="zFg-S2-hPE" secondAttribute="trailing" constant="-14" id="uvn-gN-DPD"/>
                             <constraint firstItem="6d8-wQ-OTL" firstAttribute="top" secondItem="zFg-S2-hPE" secondAttribute="top" id="wG3-1g-BEW"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="zFg-S2-hPE"/>
                     </view>
                     <connections>
                         <outlet property="okTopValidatorCnt" destination="TtU-iN-vR0" id="oVB-sx-jcf"/>
@@ -2867,6 +2879,7 @@ Kava oracle</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="YPh-Al-RtC"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="YPh-Al-RtC" firstAttribute="trailing" secondItem="YlL-fV-5KC" secondAttribute="trailing" id="Cf0-p3-4gA"/>
@@ -2877,7 +2890,6 @@ Kava oracle</string>
                             <constraint firstItem="n53-vA-3Ev" firstAttribute="top" secondItem="YPh-Al-RtC" secondAttribute="top" id="qXi-Of-fSt"/>
                             <constraint firstItem="YlL-fV-5KC" firstAttribute="leading" secondItem="YPh-Al-RtC" secondAttribute="leading" id="sp9-Td-Zpr"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="YPh-Al-RtC"/>
                     </view>
                     <connections>
                         <outlet property="okOtherValidatorCnt" destination="xci-WR-ws3" id="xh6-MH-QKG"/>
@@ -2931,6 +2943,7 @@ Kava oracle</string>
                                 </connections>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="5uL-II-4me"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vXd-or-PRI" firstAttribute="centerX" secondItem="5uL-II-4me" secondAttribute="centerX" id="09u-uh-fbz"/>
@@ -2952,7 +2965,6 @@ Kava oracle</string>
                             <constraint firstItem="7uQ-N9-Z3u" firstAttribute="centerX" secondItem="5uL-II-4me" secondAttribute="centerX" id="seE-La-mEz"/>
                             <constraint firstItem="Wth-GO-Z30" firstAttribute="width" secondItem="vXd-or-PRI" secondAttribute="width" id="zEl-Xi-9AW"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="5uL-II-4me"/>
                     </view>
                     <connections>
                         <outlet property="okMyValidatorView" destination="vXd-or-PRI" id="k7u-yg-yQl"/>
@@ -3003,6 +3015,7 @@ Kava oracle</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="uhH-i1-ce0"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="xje-0N-f76" secondAttribute="bottom" id="0QM-Rr-Cn8"/>
@@ -3013,7 +3026,6 @@ Kava oracle</string>
                             <constraint firstItem="xje-0N-f76" firstAttribute="top" secondItem="Log-Ij-OOR" secondAttribute="bottom" id="wEv-ia-LGL"/>
                             <constraint firstItem="Log-Ij-OOR" firstAttribute="leading" secondItem="uhH-i1-ce0" secondAttribute="leading" constant="14" id="zwy-B7-IX5"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="uhH-i1-ce0"/>
                     </view>
                     <connections>
                         <outlet property="allCdpCntLabel" destination="L7w-WK-4WH" id="0hm-bv-VCN"/>
@@ -3022,7 +3034,37 @@ Kava oracle</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ArL-E5-7ZD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3252" y="5035"/>
+            <point key="canvasLocation" x="-2628" y="5027"/>
+        </scene>
+        <!--Incentive Cdp View Controller-->
+        <scene sceneID="57d-G6-ywJ">
+            <objects>
+                <viewController id="AvQ-YP-gXX" customClass="IncentiveCdpViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6WJ-EC-NUC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OnD-Vg-hmR">
+                                <rect key="frame" x="0.0" y="24" width="414" height="781"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gmM-g7-s3T"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="OnD-Vg-hmR" secondAttribute="trailing" id="9bN-Jg-CAw"/>
+                            <constraint firstItem="OnD-Vg-hmR" firstAttribute="leading" secondItem="6WJ-EC-NUC" secondAttribute="leading" id="ccI-B2-3OK"/>
+                            <constraint firstAttribute="bottom" secondItem="OnD-Vg-hmR" secondAttribute="bottom" id="dOc-Ch-lQ6"/>
+                            <constraint firstItem="OnD-Vg-hmR" firstAttribute="top" secondItem="6WJ-EC-NUC" secondAttribute="top" constant="24" id="oub-Pr-kdR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="incentiveCdpTableView" destination="OnD-Vg-hmR" id="jFO-ys-Upl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NIg-Uv-Ern" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1584.057971014493" y="5033.3705357142853"/>
         </scene>
     </scenes>
     <resources>

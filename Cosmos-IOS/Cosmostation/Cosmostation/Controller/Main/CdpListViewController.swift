@@ -13,6 +13,7 @@ class CdpListViewController: BaseViewController {
     @IBOutlet weak var cdpSegmentControl: UISegmentedControl!
     @IBOutlet weak var myCdpUIView: UIView!
     @IBOutlet weak var allCdpUIView: UIView!
+    @IBOutlet weak var incentiveCdpUIView: UIView!
     
     var mainTabVC: MainTabViewController!
     
@@ -20,10 +21,17 @@ class CdpListViewController: BaseViewController {
         if sender.selectedSegmentIndex == 0 {
             myCdpUIView.alpha = 1
             allCdpUIView.alpha = 0
+            incentiveCdpUIView.alpha = 0
+            
+        } else if sender.selectedSegmentIndex == 1 {
+            myCdpUIView.alpha = 0
+            allCdpUIView.alpha = 1
+            incentiveCdpUIView.alpha = 0
             
         } else {
             myCdpUIView.alpha = 0
-            allCdpUIView.alpha = 1
+            allCdpUIView.alpha = 0
+            incentiveCdpUIView.alpha = 1
         }
     }
     
@@ -31,6 +39,7 @@ class CdpListViewController: BaseViewController {
         super.viewDidLoad()
         myCdpUIView.alpha = 1
         allCdpUIView.alpha = 0
+        incentiveCdpUIView.alpha = 0
         
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
