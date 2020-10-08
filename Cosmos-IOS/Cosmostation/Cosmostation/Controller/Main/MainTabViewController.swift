@@ -1143,7 +1143,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CGC_PRICE_TIC + "starname"
             parameters = [:]
             
-        } else if (mChainType == ChainType.BAND_MAIN) {
+        } else if (mChainType == ChainType.SECRET_MAIN) {
             url = CGC_PRICE_TIC + "secret"
             parameters = [:]
         } else if (mChainType == ChainType.OKEX_TEST) {
