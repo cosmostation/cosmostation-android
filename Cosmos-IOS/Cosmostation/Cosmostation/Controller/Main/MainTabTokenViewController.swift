@@ -131,7 +131,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalCard.backgroundColor = TRANS_BG_COLOR_SECRET
         }
         
-        
         else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Testnet)"
@@ -215,6 +214,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             onFetchBandTokenPrice()
+            
+        } else if (chainType! == ChainType.SECRET_MAIN) {
+            onFetchSecretTokenPrice()
             
         } else if (chainType! == ChainType.IOV_MAIN) {
             onFetchIovTokenPrice()
@@ -355,6 +357,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allBand, BaseData.instance.getLastPrice(), totalValue.font)
             
+        } else if (chainType! == ChainType.SECRET_MAIN) {
+            let allSecret = WUtils.getAllSecret(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            totalAmount.attributedText = WUtils.displayAmount2(allSecret.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allSecret, BaseData.instance.getLastPrice(), totalValue.font)
+            
         } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
             let allIov = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, totalAmount.font, 6, 6)
@@ -392,6 +399,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetIovItems(tableView, indexPath)
         } else if (chainType! == ChainType.BAND_MAIN) {
             return onSetBandItems(tableView, indexPath)
+        } else if (chainType! == ChainType.SECRET_MAIN) {
+            return onSetSecretItems(tableView, indexPath)
         } else if (chainType! == ChainType.OKEX_TEST) {
             return onSetOkItems(tableView, indexPath)
         } else if (chainType! == ChainType.CERTIK_TEST) {
@@ -632,6 +641,27 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
+    func onSetSecretItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == SECRET_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "secretTokenImg")
+            cell?.tokenSymbol.text = "SCRT"
+            cell?.tokenSymbol.textColor = COLOR_SECRET
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenDescription.text = "Secret Native Token"
+            let allSecret = WUtils.getAllSecret(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allSecret.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allSecret, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
     func onSetOkItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
@@ -719,6 +749,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchBandTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    func onFetchSecretTokenPrice() {
         self.onUpdateTotalCard()
     }
     
