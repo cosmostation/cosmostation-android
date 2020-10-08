@@ -159,6 +159,7 @@
 		289BE017252DF58C00E5E4B4 /* KavaHavestParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE016252DF58B00E5E4B4 /* KavaHavestParam.swift */; };
 		289BE01A252E1E4000E5E4B4 /* KavaHavestDeposit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE019252E1E4000E5E4B4 /* KavaHavestDeposit.swift */; };
 		289BE01D252E2A0E00E5E4B4 /* KavaHavestReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE01C252E2A0E00E5E4B4 /* KavaHavestReward.swift */; };
+		289BE020252EBBB600E5E4B4 /* IncentiveCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE01F252EBBB600E5E4B4 /* IncentiveCdpViewController.swift */; };
 		289DF170242DD90300433CF4 /* CdpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */; };
 		289DF178242DDF3800433CF4 /* CdpDetailTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */; };
 		289DF17C242DDF4F00433CF4 /* CdpDetailMyTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */; };
@@ -184,6 +185,8 @@
 		28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */; };
 		28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
+		28D23DCE252EC16500BD9E7C /* KavaIncentiveParam2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D23DCD252EC16500BD9E7C /* KavaIncentiveParam2.swift */; };
+		28D23DD1252EC2A400BD9E7C /* KavaClaimMultiplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D23DD0252EC2A400BD9E7C /* KavaClaimMultiplier.swift */; };
 		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
 		28E46BE424F8FCFF005CE985 /* StepOkVoteToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */; };
 		28E46BE624F8FD14005CE985 /* StepOkVoteCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */; };
@@ -554,6 +557,7 @@
 		289BE016252DF58B00E5E4B4 /* KavaHavestParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHavestParam.swift; sourceTree = "<group>"; };
 		289BE019252E1E4000E5E4B4 /* KavaHavestDeposit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHavestDeposit.swift; sourceTree = "<group>"; };
 		289BE01C252E2A0E00E5E4B4 /* KavaHavestReward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHavestReward.swift; sourceTree = "<group>"; };
+		289BE01F252EBBB600E5E4B4 /* IncentiveCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncentiveCdpViewController.swift; sourceTree = "<group>"; };
 		289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailViewController.swift; sourceTree = "<group>"; };
 		289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailTopCell.swift; sourceTree = "<group>"; };
 		289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyTopCell.swift; sourceTree = "<group>"; };
@@ -579,6 +583,8 @@
 		28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxRewardAllCell.swift; sourceTree = "<group>"; };
 		28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxRewardAllCell.xib; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
+		28D23DCD252EC16500BD9E7C /* KavaIncentiveParam2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveParam2.swift; sourceTree = "<group>"; };
+		28D23DD0252EC2A400BD9E7C /* KavaClaimMultiplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaClaimMultiplier.swift; sourceTree = "<group>"; };
 		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
 		28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteToViewController.swift; sourceTree = "<group>"; };
 		28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteCheckViewController.swift; sourceTree = "<group>"; };
@@ -1080,6 +1086,7 @@
 				2842AB56242C1DD900248EEB /* CdpListViewController.swift */,
 				2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */,
 				2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */,
+				289BE01F252EBBB600E5E4B4 /* IncentiveCdpViewController.swift */,
 				E17B213023470222001743D6 /* TokenDetailViewController.swift */,
 				E10492122347B41000A2980F /* WalletConnectViewController.swift */,
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
@@ -1181,6 +1188,7 @@
 				2800CF9524719EC4003C3EF1 /* Tally.swift */,
 				2800CF972471A004003C3EF1 /* CosmosProposer.swift */,
 				2852D76F2477E41A00D11DC4 /* KavaIncentiveParam.swift */,
+				28D23DCD252EC16500BD9E7C /* KavaIncentiveParam2.swift */,
 				28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */,
 				2868559D2498C2D10099D18F /* KavaSwapSupply.swift */,
 				2812956A250F52C8007B217E /* KavaSwapSupply2.swift */,
@@ -1196,6 +1204,7 @@
 				289BE016252DF58B00E5E4B4 /* KavaHavestParam.swift */,
 				289BE019252E1E4000E5E4B4 /* KavaHavestDeposit.swift */,
 				289BE01C252E2A0E00E5E4B4 /* KavaHavestReward.swift */,
+				28D23DD0252EC2A400BD9E7C /* KavaClaimMultiplier.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1752,6 +1761,7 @@
 				E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */,
 				E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */,
 				282FF35923F52FD40028CC66 /* TxRewardCell.swift in Sources */,
+				289BE020252EBBB600E5E4B4 /* IncentiveCdpViewController.swift in Sources */,
 				2868559724989AB80099D18F /* CdpWarnPopup.swift in Sources */,
 				288A14DD25199A9800E17808 /* WalletCertikCell.swift in Sources */,
 				2842AB63242C37F300248EEB /* CdpDeposits.swift in Sources */,
@@ -1795,6 +1805,7 @@
 				E12D6B89226DF36D00D07CE4 /* StepSendAddressViewController.swift in Sources */,
 				E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */,
 				28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */,
+				28D23DCE252EC16500BD9E7C /* KavaIncentiveParam2.swift in Sources */,
 				282FF36123F532360028CC66 /* TxVoteCell.swift in Sources */,
 				282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */,
 				E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */,
@@ -1875,6 +1886,7 @@
 				E1A6995B2366E8CC004CA274 /* WalletIovCell.swift in Sources */,
 				289DF178242DDF3800433CF4 /* CdpDetailTopCell.swift in Sources */,
 				E1F7F63223421394000E597F /* IrisToken.swift in Sources */,
+				28D23DD1252EC2A400BD9E7C /* KavaClaimMultiplier.swift in Sources */,
 				28869DA424DC1ADA00D6D2AC /* KavaSwapParam.swift in Sources */,
 				E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */,
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
