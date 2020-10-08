@@ -339,6 +339,29 @@ let CERTIK_TEST_API_TRANS_HISTORY           = CERTIK_TEST_API + "v1/account/tran
 
 
 
+//SECRET_URL
+let SECRET_TX                               = SECRET_URL + "txs/";
+let SECRET_VALIDATORS                       = SECRET_URL + "staking/validators";
+let SECRET_ACCOUNT_INFO                     = SECRET_URL + "auth/accounts/";
+let SECRET_BONDING                          = SECRET_URL + "staking/delegators/";
+let SECRET_BONDING_TAIL                     = "/delegations";
+let SECRET_UNBONDING                        = SECRET_URL + "staking/delegators/";
+let SECRET_UNBONDING_TAIL                   = "/unbonding_delegations";
+let SECRET_REWARD_FROM_VAL                  = SECRET_URL + "distribution/delegators/";
+let SECRET_REWARD_FROM_VAL_TAIL             = "/rewards/";
+let SECRET_REWARD_ADDRESS                   = SECRET_URL + "distribution/delegators/";
+let SECRET_REWARD_ADDRESS_TAIL              = "/withdraw_address";
+let SECRET_REDELEGATION                     = SECRET_URL + "staking/redelegations";
+let SECRET_INFLATION                        = SECRET_URL + "minting/inflation";
+let SECRET_PROVISIONS                       = SECRET_URL + "minting/annual-provisions";
+let SECRET_STAKING_POOL                     = SECRET_URL + "staking/pool";
+let SECRET_BORAD_TX                         = SECRET_URL + "txs";
+
+let SECRET_API_HISTORY                      = SECRET_API + "v1/account/txs/";
+let SECRET_API_TRANS_HISTORY                = SECRET_API + "v1/account/transfer_txs/";
+
+
+
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 
@@ -699,6 +722,11 @@ let TRANS_BG_COLOR_CERTIK2                  = UIColor.init(hexString: "E1AA4C", 
 let COLOR_CERTIK                            = UIColor.init(hexString: "E1AA4C")
 let COLOR_CERTIK_DARK                       = UIColor.init(hexString: "59441E")
 
+let TRANS_BG_COLOR_SECRET                   = UIColor.init(hexString: "C4C4C4", alpha: 0.15)
+let TRANS_BG_COLOR_SECRET2                  = UIColor.init(hexString: "C4C4C4", alpha: 0.4)
+let COLOR_SECRET                            = UIColor.init(hexString: "C4C4C4")
+let COLOR_SECRET_DARK                       = UIColor.init(hexString: "585858")
+
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
 let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
@@ -714,6 +742,7 @@ enum ChainType: String {
     case KAVA_MAIN
     case IOV_MAIN
     case BAND_MAIN
+    case SECRET_MAIN
     
     case BINANCE_TEST
     case KAVA_TEST
@@ -729,6 +758,7 @@ enum ChainType: String {
         result.append(IOV_MAIN)
         result.append(KAVA_MAIN)
         result.append(BAND_MAIN)
+        result.append(SECRET_MAIN)
 //
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
@@ -790,6 +820,7 @@ let CHAIN_BINANCE_S = "SUPPORT_CHAIN_BINANCE_MAIN"
 let CHAIN_KAVA_S = "SUPPORT_CHAIN_KAVA_MAIN"
 let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
 let CHAIN_BAND_S = "SUPPORT_CHAIN_BAND_MAIN"
+let CHAIN_SECRET_S = "SUPPORT_CHAIN_SECRET_MAIN"
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
@@ -804,6 +835,7 @@ let BNB_MAIN_DENOM = "BNB"
 let IOV_MAIN_DENOM = "uiov"
 let KAVA_MAIN_DENOM = "ukava"
 let BAND_MAIN_DENOM = "uband"
+let SECRET_MAIN_DENOM = "uscrt"
 let IOV_TEST_DENOM = "uvoi"
 let OKEX_TEST_DENOM = "tokt"
 let CERTIK_TEST_DENOM = "uctk"

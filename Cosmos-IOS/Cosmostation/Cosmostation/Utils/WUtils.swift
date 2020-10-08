@@ -1806,6 +1806,8 @@ class WUtils {
             return COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return COLOR_SECRET
         } else if (chain == ChainType.OKEX_TEST) {
             return COLOR_OK
         } else if (chain == ChainType.CERTIK_TEST) {
@@ -1827,6 +1829,8 @@ class WUtils {
             return COLOR_IOV_DARK
         } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND_DARK
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return COLOR_SECRET_DARK
         } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_DARK_GRAY
         }
@@ -1846,6 +1850,8 @@ class WUtils {
             return TRANS_BG_COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return TRANS_BG_COLOR_BAND
+        } else if (chain == ChainType.BAND_MAIN) {
+            return TRANS_BG_COLOR_SECRET
         } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_BG_GRAY
         }
@@ -1865,6 +1871,8 @@ class WUtils {
             return "IOV"
         } else if (chain == ChainType.BAND_MAIN) {
             return "BAND"
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return "SCRT"
         } else if (chain == ChainType.OKEX_TEST) {
             return "TOKT"
         } else if (chain == ChainType.CERTIK_TEST) {
@@ -1892,6 +1900,9 @@ class WUtils {
         } else if (chain == ChainType.BAND_MAIN) {
             label.text = "BAND"
             label.textColor = COLOR_BAND
+        } else if (chain == ChainType.SECRET_MAIN) {
+            label.text = "SCRT"
+            label.textColor = COLOR_SECRET
         } else if (chain == ChainType.OKEX_TEST) {
             label.text = "TOKT"
             label.textColor = COLOR_OK
@@ -1914,6 +1925,8 @@ class WUtils {
             return ChainType.IOV_MAIN
         } else if (chainS == CHAIN_BAND_S) {
             return ChainType.BAND_MAIN
+        } else if (chainS == CHAIN_SECRET_S) {
+            return ChainType.SECRET_MAIN
         } else if (chainS == CHAIN_KAVA_TEST_S) {
             return ChainType.KAVA_TEST
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
@@ -1941,6 +1954,8 @@ class WUtils {
             return CHAIN_IOV_S
         } else if (chain == ChainType.BAND_MAIN) {
             return CHAIN_BAND_S
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return CHAIN_SECRET_S
         } else if (chain == ChainType.BINANCE_TEST) {
             return CHAIN_BINANCE_TEST_S
         } else if (chain == ChainType.KAVA_TEST) {
@@ -1999,6 +2014,8 @@ class WUtils {
             return "iov-mainnet-2"
         } else if (chainS == CHAIN_BAND_S) {
             return "band-wenchang-mainnet"
+        } else if (chainS == CHAIN_SECRET_S) {
+            return "secret-2"
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (chainS == CHAIN_KAVA_TEST_S) {
@@ -2026,7 +2043,9 @@ class WUtils {
             return "iov-mainnet-2"
         } else if (chain == ChainType.BAND_MAIN) {
             return "band-wenchang-mainnet"
-        } else if (chain == ChainType.BINANCE_TEST) {
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return "secret-2"
+        }  else if (chain == ChainType.BINANCE_TEST) {
             return "Binance-Chain-Nile"
         } else if (chain == ChainType.KAVA_TEST) {
             return "kava-testnet-10000"
