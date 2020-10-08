@@ -144,12 +144,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.commissionLabel.text = "-"
             }
             let url = COSMOS_VAL_URL + validator.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell.validatorImg.image = image
-            }
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
 
         } else if (chainType == ChainType.IRIS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, chainType!)
@@ -161,12 +156,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.commissionLabel.text = "-"
             }
             let url = IRIS_VAL_URL + validator.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell.validatorImg.image = image
-            }
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
@@ -178,12 +168,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.commissionLabel.text = "-"
             }
             let url = KAVA_VAL_URL + validator.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell.validatorImg.image = image
-            }
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
@@ -195,12 +180,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.commissionLabel.text = "-"
             }
             let url = BAND_VAL_URL + validator.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell.validatorImg.image = image
-            }
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
@@ -212,12 +192,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.commissionLabel.text = "-"
             }
             let url = IOV_VAL_URL + validator.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell.validatorImg.image = image
-            }
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.CERTIK_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
@@ -229,12 +204,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.commissionLabel.text = "-"
             }
             let url = CERTIK_VAL_URL + validator.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell.validatorImg.image = image
-            }
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         }
         

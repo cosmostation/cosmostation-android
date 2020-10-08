@@ -1375,6 +1375,92 @@ class WUtils {
         return amount
     }
     
+    static func getKavaTokenAvailable(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == denom) {
+                amount = localeStringToDecimal(balance.balance_amount)
+            }
+        }
+        return amount
+    }
+    
+    static func getKavaTokenVesting(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == denom) {
+                amount = localeStringToDecimal(balance.balance_frozen)
+            }
+        }
+        return amount
+    }
+    
+    static func getKavaTokenHavestDeposited(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        let mHavestDeposits = BaseData.instance.mHavestDeposits
+        for havestDeposit in mHavestDeposits {
+            if (havestDeposit.amount.denom == denom) {
+                amount = localeStringToDecimal(havestDeposit.amount.amount)
+            }
+        }
+        return amount
+    }
+    
+    static func getKavaTokenHavestReward(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        let mHavestRewards = BaseData.instance.mHavestRewards
+        for havestReward in mHavestRewards {
+            if (havestReward.amount.denom == denom) {
+                amount = localeStringToDecimal(havestReward.amount.amount)
+            }
+        }
+        return amount
+    }
+    
+    static func getKavaTokenAll(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == denom) {
+                amount = localeStringToDecimal(balance.balance_amount)
+                amount = amount.adding(localeStringToDecimal(balance.balance_frozen))
+            }
+        }
+        let mHavestDeposits = BaseData.instance.mHavestDeposits
+        for havestDeposit in mHavestDeposits {
+            if (havestDeposit.amount.denom == denom) {
+                amount = amount.adding(localeStringToDecimal(havestDeposit.amount.amount))
+            }
+        }
+        let mHavestRewards = BaseData.instance.mHavestRewards
+        for havestReward in mHavestRewards {
+            if (havestReward.amount.denom == denom) {
+                amount = amount.adding(localeStringToDecimal(havestReward.amount.amount))
+            }
+        }
+        return amount
+    }
+    
+    static func getKavaTokenDollorValue(_ denom: String, _ amount: NSDecimalNumber) -> NSDecimalNumber {
+        let dpDeciaml = getKavaCoinDecimal(denom)
+        if (denom == "usdx"){
+            return amount.multiplying(byPowerOf10: -dpDeciaml)
+            
+        } else {
+            let prices = BaseData.instance.mKavaPrice
+            let cdpParam = BaseData.instance.mCdpParam
+            if (prices.count <= 0) {
+                return NSDecimalNumber.zero
+            }
+            guard let collateralParam = cdpParam?.result.getcParam(denom), let kavaPrice = prices[collateralParam.liquidation_market_id] else {
+                return NSDecimalNumber.zero
+            }
+            
+            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: kavaPrice.result.price), withBehavior: WUtils.handler6)
+        }
+    }
+    
+    
+    
     static func getIrisToken(_ irisTokens:Array<IrisToken>, _ balance:Balance) -> IrisToken? {
         let split = balance.balance_denom.components(separatedBy: "-")
         for irisToken in irisTokens {

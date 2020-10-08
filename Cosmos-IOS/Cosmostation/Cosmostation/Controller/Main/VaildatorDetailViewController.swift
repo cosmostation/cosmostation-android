@@ -254,67 +254,37 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = COSMOS_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.IRIS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 0, 18)
             let url = IRIS_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = KAVA_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = BAND_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = IOV_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.CERTIK_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = CERTIK_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
         }
         
         if (mSelfBondingShare != nil) {
@@ -410,67 +380,37 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = COSMOS_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.IRIS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 0, 18)
             let url = IRIS_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = KAVA_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = BAND_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = IOV_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.CERTIK_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = CERTIK_VAL_URL + mValidator!.operator_address + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell!.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
         }
         
         if (mSelfBondingShare != nil) {

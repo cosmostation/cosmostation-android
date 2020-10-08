@@ -99,12 +99,7 @@ class OkOtherValidatorViewController: BaseViewController, UITableViewDelegate, U
         
         if (validator.description.identity.starts(with: "logo|||")) {
             let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "")
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell?.validatorImg.image = image
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
         }
         return cell!
     }

@@ -51,12 +51,7 @@ class StepOkVoteToViewController: BaseViewController, UITableViewDelegate, UITab
         }
         if (validator.description.identity.starts(with: "logo|||")) {
             let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "")
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell?.valImg.image = image
-            }
+            cell?.valImg.af_setImage(withURL: URL(string: url)!)
         }
         cell?.valPowerLabel.attributedText =  WUtils.displayAmount2(validator.delegator_shares, cell!.valPowerLabel.font, 0, 8)
         cell?.valCommissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell!.valCommissionLabel.font)

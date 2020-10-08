@@ -290,10 +290,8 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
 
             cDenomLabel.text = mCDenom.uppercased()
             cAvailableDenom.text = mCDenom.uppercased()
-            Alamofire.request(KAVA_COIN_IMG_URL + mCDenom + ".png", method: .get).responseImage { response  in
-                guard let image = response.result.value else { return }
-                self.cDenomImg.image = image
-            }
+            let cUrl = KAVA_COIN_IMG_URL + mCDenom + ".png"
+            self.cDenomImg.af_setImage(withURL: URL(string: cUrl)!)
             self.loadingImg.onStopAnimation()
             self.loadingImg.isHidden = true
         }

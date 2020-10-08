@@ -136,12 +136,7 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
             cell?.liquidationPrice.attributedText = WUtils.getDPRawDollor(liquidationPrice.stringValue, 4, cell!.liquidationPrice.font)
 
             let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam!.getMarketImgPath() + ".png"
-            Alamofire.request(url, method: .get).responseImage { response  in
-                guard let image = response.result.value else {
-                    return
-                }
-                cell?.marketImg.image = image
-            }
+            cell?.marketImg.af_setImage(withURL: URL(string: url)!)
             return cell!
         }
     }

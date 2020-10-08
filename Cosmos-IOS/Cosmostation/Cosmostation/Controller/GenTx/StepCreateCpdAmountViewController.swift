@@ -489,14 +489,10 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             cAvailableDenom.text = mCDenom.uppercased()
             pDenomLabel.text = mPDenom.uppercased()
             pAvailableDenom.text = mPDenom.uppercased()
-            Alamofire.request(KAVA_COIN_IMG_URL + mCDenom + ".png", method: .get).responseImage { response  in
-                guard let image = response.result.value else { return }
-                self.cDenomImg.image = image
-            }
-            Alamofire.request(KAVA_COIN_IMG_URL + mPDenom + ".png", method: .get).responseImage { response  in
-                guard let image = response.result.value else { return }
-                self.pDenomImg.image = image
-            }
+            let cUrl = KAVA_COIN_IMG_URL + mCDenom + ".png"
+            self.cDenomImg.af_setImage(withURL: URL(string: cUrl)!)
+            let pUrl = KAVA_COIN_IMG_URL + mPDenom + ".png"
+            self.pDenomImg.af_setImage(withURL: URL(string: pUrl)!)
             
             onUpdateView()
             self.loadingImg.onStopAnimation()

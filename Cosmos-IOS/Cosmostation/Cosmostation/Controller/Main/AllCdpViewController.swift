@@ -87,12 +87,7 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
         cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam.getDpStabilityFee(), font: cell!.stabilityFee.font)
         cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationPenalty(), font: cell!.liquidationPenalty.font)
         let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam.getMarketImgPath() + ".png"
-        Alamofire.request(url, method: .get).responseImage { response  in
-            guard let image = response.result.value else {
-                return
-            }
-            cell?.marketImg.image = image
-        }
+        cell?.marketImg.af_setImage(withURL: URL(string: url)!)
         return cell!
     }
     

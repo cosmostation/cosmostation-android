@@ -428,7 +428,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         } else if (chainType == ChainType.IRIS_MAIN && irisToken != nil) {
             cell?.tokenInfoBtn.isHidden = true
             cell?.tokenSymbol.text = irisToken?.base_token?.symbol.uppercased()
-            cell?.tokenName.text = balance?.balance_denom
             cell?.totalAmount.attributedText = WUtils.displayAmount2(balance!.balance_amount, cell!.totalAmount.font, irisToken!.base_token!.decimal, irisToken!.base_token!.decimal)
             cell?.totalAmount.adjustsFontSizeToFitWidth = true
             cell?.availableAmount.attributedText = WUtils.displayAmount2(balance!.balance_amount, cell!.availableAmount.font, irisToken!.base_token!.decimal, irisToken!.base_token!.decimal)
@@ -439,7 +438,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         } else if ((chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) && bnbToken != nil) {
             cell?.tokenInfoBtn.isHidden = false
             cell?.tokenSymbol.text = bnbToken?.original_symbol.uppercased()
-            cell?.tokenName.text = bnbToken?.symbol
             cell?.totalAmount.attributedText = WUtils.displayAmount2(balance!.getAllAmountBnbToken().stringValue, cell!.totalAmount.font, 0, 8)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(balance!.balance_amount, cell!.availableAmount.font, 0, 8)
             cell?.totalValue.attributedText = WUtils.dpBnbValue(balance!.exchangeBnbValue(bnbTic), BaseData.instance.getLastPrice(), cell!.totalValue.font)
@@ -472,15 +470,27 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             let dpDecimal = WUtils.getKavaCoinDecimal(balance!.balance_denom)
-            cell?.tokenInfoBtn.isHidden = true
-            cell?.tokenSymbol.text = balance!.balance_denom.uppercased()
-            cell?.tokenName.text = balance?.balance_denom
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.totalAmount.font, dpDecimal, dpDecimal)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.availableAmount.font, dpDecimal, dpDecimal)
+            let totalTokenAmount = WUtils.getKavaTokenAll(balance!.balance_denom, balances)
+            let availableTokenAmount = WUtils.getKavaTokenAvailable(balance!.balance_denom, balances)
+            let vestingTokenAmount = WUtils.getKavaTokenVesting(balance!.balance_denom, balances)
+            let havestDepositTokenAmount = WUtils.getKavaTokenHavestDeposited(balance!.balance_denom, balances)
+            let havestRewardTokenAmount = WUtils.getKavaTokenHavestReward(balance!.balance_denom, balances)
+            let totalTokenValue = WUtils.getKavaTokenDollorValue(balance!.balance_denom, totalTokenAmount)
+            let convertedKavaAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
             
-            let tokenTotalValue = balance!.kavaTokenDollorValue(BaseData.instance.mKavaPrice, BaseData.instance.mCdpParam!)
-            let convertedKavaAmount = tokenTotalValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
+            cell?.vestingLayer.isHidden = false
+            cell?.havestDepsoitLayer.isHidden = false
+            cell?.havsetRewardLayer.isHidden = false
+            cell?.tokenInfoBtn.isHidden = true
+            
+            cell?.tokenSymbol.text = balance!.balance_denom.uppercased()
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.totalAmount.font, dpDecimal, dpDecimal)
             cell?.totalValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableTokenAmount.stringValue, cell!.availableAmount.font, dpDecimal, dpDecimal)
+            cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingTokenAmount.stringValue, cell!.vestingAmount.font, dpDecimal, dpDecimal)
+            cell?.havestDepositAmount.attributedText = WUtils.displayAmount2(havestDepositTokenAmount.stringValue, cell!.havestDepositAmount.font, dpDecimal, dpDecimal)
+            cell?.havestRewardAmount.attributedText = WUtils.displayAmount2(havestRewardTokenAmount.stringValue, cell!.havestRewardAmount.font, dpDecimal, dpDecimal)
+            
             let url = KAVA_COIN_IMG_URL + balance!.balance_denom + ".png"
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.actionSend  = {
@@ -499,7 +509,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.tokenInfoBtn.isHidden = false
             okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList, okDenom!)
             cell?.tokenSymbol.text = okToken?.original_symbol.uppercased()
-            cell?.tokenName.text = okToken?.description
             
             let available = WUtils.availableAmount(balances, okToken!.original_symbol)
             let locked = WUtils.lockedAmount(balances, okToken!.original_symbol)

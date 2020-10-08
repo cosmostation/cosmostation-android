@@ -78,25 +78,6 @@ public class Balance {
             return getAllAmountBnbToken().multiplying(by: NSDecimalNumber(string: tic!.object(forKey: "lastPrice") as? String), withBehavior: WUtils.handler8)
         }
     }
-    
-    func kavaTokenDollorValue(_ prices: [String:KavaTokenPrice], _ cdpParam: CdpParam) -> NSDecimalNumber {
-        let dpDeciaml = WUtils.getKavaCoinDecimal(balance_denom)
-        if (balance_denom == "usdx"){
-            return WUtils.plainStringToDecimal(self.balance_amount).multiplying(byPowerOf10: -dpDeciaml)
-            
-        } else {
-            if (prices.count <= 0) {
-                return NSDecimalNumber.zero
-            }
-            
-            guard let collateralParam = cdpParam.result.getcParam(self.balance_denom), let kavaPrice = prices[collateralParam.liquidation_market_id] else {
-                return NSDecimalNumber.zero
-            }
-            
-            return WUtils.plainStringToDecimal(self.balance_amount).multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: kavaPrice.result.price), withBehavior: WUtils.handler6)
-        }
-    }
-    
 }
 
 

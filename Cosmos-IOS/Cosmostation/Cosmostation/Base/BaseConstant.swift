@@ -721,7 +721,7 @@ enum ChainType: String {
         var result = [ChainType]()
         result.append(COSMOS_MAIN)
 //        result.append(IRIS_MAIN)
-//        result.append(BINANCE_MAIN)
+        result.append(BINANCE_MAIN)
 //        result.append(IOV_MAIN)
         result.append(KAVA_MAIN)
 //        result.append(BAND_MAIN)
@@ -729,7 +729,7 @@ enum ChainType: String {
 //        result.append(BINANCE_TEST)
         result.append(KAVA_TEST)
 ////        result.append(IOV_TEST)
-//        result.append(OKEX_TEST)
+        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
         return result
     }

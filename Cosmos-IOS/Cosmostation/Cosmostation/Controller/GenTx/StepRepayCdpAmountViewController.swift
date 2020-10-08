@@ -382,10 +382,8 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
             pDenomLabel.text = mPDenom.uppercased()
             pParticalDenom.text = mPDenom.uppercased()
             pAllDenom.text = mPDenom.uppercased()
-            Alamofire.request(KAVA_COIN_IMG_URL + mPDenom + ".png", method: .get).responseImage { response  in
-                guard let image = response.result.value else { return }
-                self.pDenomImg.image = image
-            }
+            let pUrl = KAVA_COIN_IMG_URL + mPDenom + ".png"
+            self.pDenomImg.af_setImage(withURL: URL(string: pUrl)!)
             self.loadingImg.onStopAnimation()
             self.loadingImg.isHidden = true
         }
