@@ -67,6 +67,10 @@ let OKEX_TEST_API                       = "";
 let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostation.io/";
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
 
+
+let SECRET_URL                          = "https://lcd-secret.cosmostation.io/";
+let SECRET_API                          = "https://api-secret.cosmostation.io/";
+
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
@@ -226,7 +230,7 @@ let KAVA_TEST_API_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_TEST_API_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
 
 
-//BAND_TEST_URL
+//BAND_URL
 let BAND_TX                             = BAND_URL + "txs/";
 let BAND_VALIDATORS                     = BAND_URL + "staking/validators";
 let BAND_ACCOUNT_INFO                   = BAND_URL + "auth/accounts/";
@@ -720,16 +724,16 @@ enum ChainType: String {
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
         result.append(COSMOS_MAIN)
-//        result.append(IRIS_MAIN)
+        result.append(IRIS_MAIN)
         result.append(BINANCE_MAIN)
-//        result.append(IOV_MAIN)
+        result.append(IOV_MAIN)
         result.append(KAVA_MAIN)
-//        result.append(BAND_MAIN)
+        result.append(BAND_MAIN)
 //
 //        result.append(BINANCE_TEST)
-        result.append(KAVA_TEST)
-////        result.append(IOV_TEST)
-        result.append(OKEX_TEST)
+//        result.append(KAVA_TEST)
+//        result.append(IOV_TEST)
+//        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
         return result
     }
