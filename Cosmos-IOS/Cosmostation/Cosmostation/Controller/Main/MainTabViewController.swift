@@ -262,7 +262,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchMyHavestDeposit(mAccount)
             onFetchMyHavestReward(mAccount)
             
-        } else if (mChainType == ChainType.BAND_MAIN || mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
+        } else if (mChainType == ChainType.BAND_MAIN || mChainType == ChainType.IOV_MAIN || mChainType == ChainType.SECRET_MAIN || mChainType == ChainType.IOV_TEST) {
             self.mFetchCnt = 9
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -312,7 +312,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
             if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST ||
-                mChainType == ChainType.BAND_MAIN || mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST || mChainType == ChainType.CERTIK_TEST) {
+                mChainType == ChainType.BAND_MAIN || mChainType == ChainType.SECRET_MAIN || mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST || mChainType == ChainType.CERTIK_TEST) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
@@ -328,9 +328,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                    print("CDP mMyCdps", BaseData.instance.mMyCdps.count)
 //                }
                 
-//                print("mBondingList ", mBondingList.count)
-//                print("mUnbondingList ", mUnbondingList.count)
-//                print("mRewardList ", mRewardList.count)
+                print("mBondingList ", mBondingList.count)
+                print("mUnbondingList ", mUnbondingList.count)
+                print("mRewardList ", mRewardList.count)
 //
             } else if (mChainType == ChainType.IRIS_MAIN) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
@@ -372,8 +372,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             
             if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.KAVA_MAIN ||
-                    mChainType == ChainType.KAVA_TEST || mChainType == ChainType.BAND_MAIN || mChainType == ChainType.IOV_MAIN ||
-                    mChainType == ChainType.IOV_TEST || mChainType == ChainType.CERTIK_TEST) {
+                    mChainType == ChainType.KAVA_TEST || mChainType == ChainType.BAND_MAIN || mChainType == ChainType.SECRET_MAIN ||
+                    mChainType == ChainType.IOV_MAIN ||  mChainType == ChainType.IOV_TEST || mChainType == ChainType.CERTIK_TEST) {
                 self.mMyValidators.removeAll()
                 for validator in mAllValidator {
                     var mine = false;
@@ -393,9 +393,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         self.mMyValidators.append(validator)
                     }
                 }
-//                print("mTopValidators ", mTopValidators.count)
-//                print("mOtherValidators ", mOtherValidators.count)
-//                print("mAllValidator ", mAllValidator.count)
+                print("mTopValidators ", mTopValidators.count)
+                print("mOtherValidators ", mOtherValidators.count)
+                print("mAllValidator ", mAllValidator.count)
                 
             } else if (mChainType == ChainType.OKEX_TEST) {
                 self.mMyValidators.removeAll()
@@ -440,6 +440,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = KAVA_TEST_VALIDATORS
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = BAND_VALIDATORS
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_VALIDATORS
         } else if (mChainType == ChainType.IOV_MAIN) {
             url = IOV_VALIDATORS
         } else if (mChainType == ChainType.IOV_TEST) {
@@ -476,6 +478,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = KAVA_TEST_VALIDATORS
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = BAND_VALIDATORS
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_VALIDATORS
         } else if (mChainType == ChainType.IOV_MAIN) {
             url = IOV_VALIDATORS
         } else if (mChainType == ChainType.IOV_TEST) {
@@ -525,6 +529,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = KAVA_TEST_VALIDATORS
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = BAND_VALIDATORS
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_VALIDATORS
         } else if (mChainType == ChainType.IOV_MAIN) {
             url = IOV_VALIDATORS
         } else if (mChainType == ChainType.IOV_TEST) {
@@ -633,6 +639,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = BAND_ACCOUNT_INFO + account.account_address
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.IOV_MAIN) {
             url = IOV_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.IOV_TEST) {
@@ -647,7 +655,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.mChainType == ChainType.COSMOS_MAIN || self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST) {
+                if (self.mChainType == ChainType.COSMOS_MAIN || self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.SECRET_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {
                             _ = BaseData.instance.deleteBalance(account: account)
@@ -718,6 +726,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = BAND_BONDING + account.account_address + BAND_BONDING_TAIL
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_BONDING + account.account_address + SECRET_BONDING_TAIL
         } else if (mChainType == ChainType.IOV_MAIN) {
             url = IOV_BONDING + account.account_address + IOV_BONDING_TAIL
         } else if (mChainType == ChainType.IOV_TEST) {
@@ -731,7 +741,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.COSMOS_MAIN || self.mChainType == ChainType.KAVA_MAIN || self.mChainType == ChainType.KAVA_TEST ||
-                    self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST ) {
+                    self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.IOV_TEST ||
+                        self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.SECRET_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
                         bondinginfos.count > 0  else {
@@ -776,6 +787,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = BAND_UNBONDING + account.account_address + BAND_UNBONDING_TAIL
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_UNBONDING + account.account_address + SECRET_UNBONDING_TAIL
         } else if (mChainType == ChainType.IOV_MAIN) {
             url = IOV_UNBONDING + account.account_address + IOV_UNBONDING_TAIL
         } else if (mChainType == ChainType.IOV_TEST) {
@@ -789,7 +802,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.COSMOS_MAIN || self.mChainType == ChainType.KAVA_MAIN || self.mChainType == ChainType.KAVA_TEST ||
-                    self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST) {
+                    self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.IOV_TEST ||
+                        self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.SECRET_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
                         unbondinginfos.count > 0  else {
@@ -845,6 +859,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = BAND_REWARD_FROM_VAL + accountAddr + BAND_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_REWARD_FROM_VAL + accountAddr + SECRET_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (mChainType == ChainType.IOV_MAIN) {
             url = IOV_REWARD_FROM_VAL + accountAddr + IOV_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (mChainType == ChainType.IOV_TEST) {
@@ -857,7 +873,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.mChainType == ChainType.COSMOS_MAIN || self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.KAVA_MAIN || self.mChainType == ChainType.KAVA_TEST) {
+                if (self.mChainType == ChainType.COSMOS_MAIN || self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN ||
+                        self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.KAVA_MAIN ||
+                        self.mChainType == ChainType.KAVA_TEST || self.mChainType == ChainType.SECRET_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                             self.onFetchFinished()
@@ -889,6 +907,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = KAVA_TEST_INFLATION
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = BAND_INFLATION
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_INFLATION
         } else if (mChainType == ChainType.IOV_MAIN) {
             url = IOV_INFLATION
         } else if (mChainType == ChainType.IOV_TEST) {
@@ -926,6 +946,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = KAVA_TEST_PROVISIONS
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = BAND_PROVISIONS
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_PROVISIONS
         } else if (mChainType == ChainType.IOV_MAIN) {
             url = IOV_PROVISIONS
         } else if (mChainType == ChainType.IOV_TEST) {
@@ -963,6 +985,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = KAVA_TEST_STAKING_POOL
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = BAND_STAKING_POOL
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_STAKING_POOL
         } else if (mChainType == ChainType.IOV_MAIN) {
             url = IOV_STAKING_POOL
         } else if (mChainType == ChainType.IOV_TEST) {
@@ -1119,6 +1143,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CGC_PRICE_TIC + "starname"
             parameters = [:]
             
+        } else if (mChainType == ChainType.BAND_MAIN) {
+            url = CGC_PRICE_TIC + "secret"
+            parameters = [:]
         } else if (mChainType == ChainType.OKEX_TEST) {
             //TODO No price info for OK
             BaseData.instance.setPriceTicCgc(nil)
