@@ -57,7 +57,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     
     func onUpdateView() {
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN  || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount((pageHolderVC.mToUndelegateAmount?.amount)!, toUnDelegateAmoutLaebl.font, 6, pageHolderVC.chainType!)
             feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
@@ -94,6 +94,8 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+            url = SECRET_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             url = IOV_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
@@ -142,7 +144,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
                     self.onGenUnDelegateTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {
                             _ = BaseData.instance.deleteBalance(account: account)
@@ -182,7 +184,8 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 msgList.append(msg)
                 
                 if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-                    self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                        self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN ||
+                        self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
                                                            String(self.pageHolderVC.mAccount!.account_account_numner),
                                                            String(self.pageHolderVC.mAccount!.account_sequence_number),
@@ -266,6 +269,8 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                         url = KAVA_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
                         url = BAND_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+                        url = SECRET_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_MAIN) {
                         url = IOV_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
