@@ -244,6 +244,19 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
             mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            
+        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+            mDpDecimal = 6
+            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mSecretSendDenom!)
+            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
+            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
+            
+            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
+            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
+            
+            mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
         }
         
         mToAddressLabel.text = pageHolderVC.mToSendRecipientAddress
@@ -255,7 +268,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
             if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                pageHolderVC.chainType! == ChainType.KAVA_TEST || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN ||
+                pageHolderVC.chainType! == ChainType.KAVA_TEST || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN ||
                 pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.OKEX_TEST || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
             } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
@@ -280,6 +293,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             url = IOV_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+            url = SECRET_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
             url = IOV_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
@@ -328,7 +343,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
                     self.onGenSendTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
@@ -378,7 +393,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 msgList.append(msg)
                 
                 if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-                    self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.OKEX_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                    self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN  || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.OKEX_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                     
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     let encoder = JSONEncoder()
@@ -452,6 +467,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         url = KAVA_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
                         url = BAND_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+                        url = SECRET_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_MAIN) {
                         url = IOV_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
@@ -551,51 +568,4 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
         }
     }
-    
-//    func onGenIovSendTx(_ nonce:Int64) {
-//        DispatchQueue.global().async {
-//            var txString: String?
-//            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
-//                return
-//            }
-//            let path = IOV_BASE_PATH.appending(self.pageHolderVC.mAccount!.account_path).appending("'")
-//            let pKey = WKey.deriveForPath(path, words)
-//            txString = MsgGenerator.genIovSendTx(nonce,
-//                                                 self.pageHolderVC.mAccount!.account_address,
-//                                                 self.pageHolderVC.mToSendRecipientAddress!,
-//                                                 self.pageHolderVC.mToSendAmount,
-//                                                 self.pageHolderVC.mFee!,
-//                                                 self.pageHolderVC.mMemo!,
-//                                                 pKey!)
-//
-//            DispatchQueue.main.async(execute: {
-//                var requestData = URLRequest(url: URL(string: IOV_REST_URL_TX_SUBMIT)!)
-//                requestData.httpMethod = HTTPMethod.post.rawValue
-//                requestData.setValue("text/plain", forHTTPHeaderField: "Content-Type")
-//                requestData.httpBody = txString!.data(using: .utf8)
-//
-//                let request = Alamofire.request(requestData)
-//                request.responseJSON { response in
-//                    var txResult = [String:Any]()
-//                    switch response.result {
-//                        case .success(let res):
-//                            if(SHOW_LOG) { print("Send ", res) }
-//                            if let result = res as? [String : Any]  {
-//                                txResult = result
-//                            }
-//                        case .failure(let error):
-//                            if(SHOW_LOG) { print("Send error ", error) }
-//                            if (response.response?.statusCode == 500) {
-//                                txResult["net_error"] = 500
-//                            }
-//                        }
-//                        if (self.waitAlert != nil) {
-//                            self.waitAlert?.dismiss(animated: true, completion: {
-//                                self.onStartTxDetail(txResult)
-//                            })
-//                        }
-//                }
-//            });
-//        }
-//    }
 }

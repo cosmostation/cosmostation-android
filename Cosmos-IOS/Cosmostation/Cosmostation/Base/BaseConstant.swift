@@ -525,14 +525,14 @@ let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 
 let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
 let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
+let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
+let SECRET_MSG_TYPE_TRANSFER                = "secret_transfer";
 
 let OK_MSG_TYPE_TRANSFER                    = "okexchain/token/MsgTransfer";
 let OK_MSG_TYPE_MULTI_TRANSFER              = "okexchain/token/MsgMultiTransfer";
 let OK_MSG_TYPE_DEPOSIT                     = "okexchain/staking/MsgDeposit";
 let OK_MSG_TYPE_WITHDRAW                    = "okexchain/staking/MsgWithdraw";
 let OK_MSG_TYPE_DIRECT_VOTE                 = "okexchain/staking/MsgAddShares";
-
-let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
@@ -655,6 +655,11 @@ let CETIK_GAS_FEE_RATE_AVERAGE              = "0.1"
 let CETIK_GAS_AMOUNT_SEND                   = "100000"
 let CETIK_GAS_AMOUNT_STAKE                  = "200000"
 let CETIK_GAS_AMOUNT_REDELEGATE             = "300000"
+
+let SECRET_GAS_FEE_RATE_AVERAGE             = "0.25"
+let SECRET_GAS_AMOUNT_SEND                  = "80000"
+let SECRET_GAS_AMOUNT_STAKE                 = "200000"
+let SECRET_GAS_AMOUNT_REDELEGATE            = "300000"
 
 
 // Constant for BEP3-Swap

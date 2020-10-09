@@ -1643,6 +1643,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            if (coin.denom == SECRET_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
         } else if (chainType == ChainType.IOV_MAIN) {
             if (coin.denom == IOV_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -1720,6 +1729,15 @@ class WUtils {
             
         } else if (chainType == ChainType.BAND_MAIN) {
             if (denom == BAND_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            if (denom == SECRET_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white
@@ -2250,6 +2268,17 @@ class WUtils {
 //            } else if (type == OK_MSG_TYPE_DIRECT_VOTE) {
 //                result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE))
 //            }
+        } else if (chain == ChainType.SECRET_MAIN) {
+            result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_SEND))
+            if (type == SECRET_MSG_TYPE_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_SEND))
+            } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForKavaRewards()[valCnt - 1]
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_REDELEGATE))
+            }
         }
         return result
     }

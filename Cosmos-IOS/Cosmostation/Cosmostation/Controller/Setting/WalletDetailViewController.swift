@@ -127,6 +127,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            chainImg.image = UIImage(named: "secretTokenImg")
+            keyPath.text = SECRET_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
         } else if (chainType == ChainType.IOV_TEST) {
             chainImg.image = UIImage(named: "iovTestnetImg")
             keyPath.text = IOV_BASE_PATH.appending(account!.account_path)
@@ -424,6 +431,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            url = SECRET_REWARD_ADDRESS + accountAddr + SECRET_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_TEST) {
@@ -452,8 +461,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN ||
-            chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
+                    chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
