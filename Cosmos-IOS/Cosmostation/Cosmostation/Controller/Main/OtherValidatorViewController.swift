@@ -130,6 +130,12 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             let url = BAND_VAL_URL + validator.operator_address + ".png"
             cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
+            cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
+            let url = SECRET_VAL_URL + validator.operator_address + ".png"
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
+            
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
@@ -166,6 +172,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
             } else if (chainType == ChainType.BAND_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
+            } else if (chainType == ChainType.SECRET_MAIN) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_SECRET
             } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
             } else if (chainType == ChainType.CERTIK_TEST) {
