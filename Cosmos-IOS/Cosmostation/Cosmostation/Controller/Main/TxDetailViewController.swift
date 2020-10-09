@@ -1098,6 +1098,10 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             guard let url = URL(string: EXPLORER_BAND_MAIN + "tx/" + mTxInfo!.txhash!) else { return }
             self.onShowSafariWeb(url)
             
+        } else if (self.chainType! == ChainType.SECRET_MAIN) {
+            guard let url = URL(string: EXPLORER_SECRET_MAIN + "transactions/" + mTxInfo!.txhash!) else { return }
+            self.onShowSafariWeb(url)
+            
         } else if (self.chainType! == ChainType.IOV_MAIN) {
             guard let url = URL(string: EXPLORER_IOV_MAIN + "txs/" + mTxInfo!.txhash!) else { return }
             self.onShowSafariWeb(url)

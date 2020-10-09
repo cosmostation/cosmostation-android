@@ -1505,6 +1505,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: EXPLORER_BAND_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
             
+        } else if (chainType! == ChainType.SECRET_MAIN) {
+            guard let url = URL(string: EXPLORER_SECRET_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
+            self.onShowSafariWeb(url)
+            
         } else if (chainType! == ChainType.BINANCE_TEST) {
             guard let url = URL(string: EXPLORER_BINANCE_TEST + "address/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)

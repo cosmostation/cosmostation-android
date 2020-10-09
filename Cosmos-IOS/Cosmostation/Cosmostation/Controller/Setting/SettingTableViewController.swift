@@ -141,6 +141,10 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                     guard let url = URL(string: EXPLORER_BAND_MAIN) else { return }
                     self.onShowSafariWeb(url)
                     
+                } else if (chainType == ChainType.SECRET_MAIN) {
+                    guard let url = URL(string: EXPLORER_SECRET_MAIN) else { return }
+                    self.onShowSafariWeb(url)
+                    
                 } else if (chainType == ChainType.BINANCE_TEST) {
                     guard let url = URL(string: EXPLORER_BINANCE_TEST) else { return }
                     self.onShowSafariWeb(url)
