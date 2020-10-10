@@ -247,6 +247,8 @@ let BAND_INFLATION                      = BAND_URL + "minting/inflation";
 let BAND_PROVISIONS                     = BAND_URL + "minting/annual-provisions";
 let BAND_STAKING_POOL                   = BAND_URL + "staking/pool";
 let BAND_BORAD_TX                       = BAND_URL + "txs";
+let BAND_PROPOSALS                      = BAND_URL + "gov/proposals";
+let BAND_PROPOSALS_TALLY_TAIL           = "/tally";
 
 let BAND_API_HISTORY                    = BAND_API + "v1/account/txs/";
 let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";

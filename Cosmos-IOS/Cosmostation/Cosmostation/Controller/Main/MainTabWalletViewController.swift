@@ -1000,6 +1000,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionDelegate = {
                 self.onClickValidatorList()
             }
+            cell?.actionVote = {
+                self.onClickVoteList()
+            }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
             return cell!
             

@@ -63,7 +63,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_TEST) {
             return self.mProposals.count
         } else if (chainType == ChainType.IRIS_MAIN) {
             return self.mIrisProposals.count
@@ -72,7 +72,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_TEST) {
             return onBindProposal(tableView, indexPath)
         } else if (chainType == ChainType.IRIS_MAIN) {
             return onBindIrisProposal(tableView, indexPath)
@@ -163,6 +163,13 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.onShowSafariWeb(url)
             }
             
+        } else if (chainType == ChainType.BAND_MAIN) {
+            let proposal = mProposals[indexPath.row]
+            let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
+            voteDetailsVC.proposalId = proposal.id
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(voteDetailsVC, animated: true)
+            
         } else if (chainType == ChainType.SECRET_MAIN) {
             let proposal = mProposals[indexPath.row]
             if (Int(proposal.id)! >= 15) {
@@ -245,6 +252,26 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.onUpdateViews()
             }
             
+        } else if (chainType == ChainType.BAND_MAIN) {
+            let url = BAND_PROPOSALS;
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                            self.onUpdateViews()
+                            return
+                    }
+                    self.mProposals.removeAll()
+                    for proposal in proposals {
+                        self.mProposals.append(Proposal(proposal as! [String : Any]))
+                    }
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchProposals ", error) }
+                }
+                self.onUpdateViews()
+            }
         } else if (chainType == ChainType.SECRET_MAIN) {
             let url = SECRET_PROPOSALS;
             let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -297,7 +324,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.mIrisProposals.sort {
                 return Int($0.value!.basicProposal!.proposal_id)! < Int($1.value!.basicProposal!.proposal_id)! ? false : true
             }
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_TEST) {
             self.mProposals.sort{
                 return Int($0.id)! < Int($1.id)! ? false : true
             }

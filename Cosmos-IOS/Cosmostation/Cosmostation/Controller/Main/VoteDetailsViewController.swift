@@ -322,7 +322,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = COSMOS_URL_PROPOSALS + "/" + id +  "/votes/" + address
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/votes/" + address
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_PROPOSALS + "/" + id +  "/votes/" + address
         }
 //        print("url ", url)
@@ -350,7 +350,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = COSMOS_URL_PROPOSALS + "/" + id +  "/proposer"
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/proposer"
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_PROPOSALS + "/" + id +  "/proposer"
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
@@ -377,7 +377,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = COSMOS_URL_PROPOSALS + "/" + id +  "/votes"
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/votes"
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_PROPOSALS + "/" + id +  "/votes"
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
@@ -393,7 +393,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchProposer ", error) }
+                if (SHOW_LOG) { print("onFetchVoteList ", error) }
             }
             self.onFetchFinished()
         }

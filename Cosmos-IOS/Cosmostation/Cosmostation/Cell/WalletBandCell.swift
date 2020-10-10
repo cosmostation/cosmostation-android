@@ -27,12 +27,12 @@ class WalletBandCell: UITableViewCell {
     }
 
     var actionDelegate: (() -> Void)? = nil
-//    var actionVote: (() -> Void)? = nil
+    var actionVote: (() -> Void)? = nil
     
     @IBAction func onClickDelegate(_ sender: Any) {
         actionDelegate?()
     }
-//    @IBAction func onClickVote(_ sender: Any) {
-//        actionVote?()
-//    }
+    @IBAction func onClickVote(_ sender: Any) {
+        actionVote?()
+    }
 }
