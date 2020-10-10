@@ -43,6 +43,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewWillAppear(animated)
         self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
         self.chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
+        self.balances = BaseData.instance.selectBalanceById(accountId: mainTabVC.mAccount!.account_id)
         self.onSortingMy()
     }
     
@@ -301,7 +302,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             let estimatedGasAmount = (NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_MUX).multiplying(by: NSDecimalNumber.init(value: toClaimValidator.count))).adding(NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_BASE))
             let estimatedFeeAmount = estimatedGasAmount.multiplying(byPowerOf10: 18).multiplying(by: WUtils.plainStringToDecimal(GAS_FEE_RATE_IRIS_AVERAGE), withBehavior: WUtils.handler0)
-            let balances = BaseData.instance.selectBalanceById(accountId: mainTabVC.mAccount!.account_id)
             if(balances.count <= 0 || WUtils.localeStringToDecimal(balances[0].balance_amount).compare(estimatedFeeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
@@ -400,6 +400,44 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 toClaimValidator = myBondedValidator
             }
             
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            if (WUtils.getAllRewardByDenom(mainTabVC.mRewardList, SECRET_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            var myBondedValidator = Array<Validator>()
+            for validator in self.mainTabVC.mAllValidator {
+                for bonding in self.mainTabVC.mBondingList {
+                    if (bonding.bonding_v_address == validator.operator_address &&
+                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "37500")).rawValue > 0) {
+                        myBondedValidator.append(validator)
+                        break;
+                    }
+                }
+            }
+            myBondedValidator.sort {
+                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                return reward0.compare(reward1).rawValue > 0 ? true : false
+            }
+            if (myBondedValidator.count > 16) {
+                toClaimValidator = Array(myBondedValidator[0..<16])
+            } else {
+                toClaimValidator = myBondedValidator
+            }
+            if (toClaimValidator.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            
+            let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
+            let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: SECRET_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler6)
+            let available = WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM)
+            if (available.compare(estimatedFeeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         } else if (chainType == ChainType.IOV_MAIN) {
             if (WUtils.getAllRewardByDenom(mainTabVC.mRewardList, IOV_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
@@ -432,7 +470,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             
             let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
             let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: IOV_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler6)
-            let available = mainTabVC.mAccount.getIovBalance()
+            let available = WUtils.getTokenAmount(balances, IOV_MAIN_DENOM)
             if (available.compare(estimatedFeeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
@@ -470,7 +508,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             
             let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
             let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: IOV_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler6)
-            let available = mainTabVC.mAccount.getIovBalance()
+            let available = WUtils.getTokenAmount(balances, IOV_TEST_DENOM)
             if (available.compare(estimatedFeeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
