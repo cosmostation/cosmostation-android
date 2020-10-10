@@ -356,6 +356,8 @@ let SECRET_INFLATION                        = SECRET_URL + "minting/inflation";
 let SECRET_PROVISIONS                       = SECRET_URL + "minting/annual-provisions";
 let SECRET_STAKING_POOL                     = SECRET_URL + "staking/pool";
 let SECRET_BORAD_TX                         = SECRET_URL + "txs";
+let SECRET_PROPOSALS                        = SECRET_URL + "gov/proposals";
+let SECRET_PROPOSALS_TALLY_TAIL             = "/tally";
 
 let SECRET_API_HISTORY                      = SECRET_API + "v1/account/txs/";
 let SECRET_API_TRANS_HISTORY                = SECRET_API + "v1/account/transfer_txs/";
@@ -662,6 +664,7 @@ let SECRET_GAS_AMOUNT_STAKE                 = "200000"
 let SECRET_GAS_AMOUNT_REDELEGATE            = "300000"
 let SECRET_GAS_AMOUNT_REINVEST              = "350000"
 let SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE = "80000"
+let SECRET_GAS_AMOUNT_VOTE                  = "100000"
 
 
 // Constant for BEP3-Swap
