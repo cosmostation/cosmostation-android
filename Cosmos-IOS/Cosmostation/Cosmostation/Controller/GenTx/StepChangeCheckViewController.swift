@@ -32,7 +32,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func onUpdateView() {
         let feeAmout = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
             pageHolderVC.chainType! == ChainType.IOV_TEST) {
             rewardAddressChangeFee.attributedText = WUtils.displayAmount(feeAmout.stringValue, rewardAddressChangeFee.font, 6, pageHolderVC.chainType!)
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
@@ -109,6 +109,8 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
             url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+            url = SECRET_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             url = IOV_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
@@ -143,7 +145,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenModifyRewardAddressTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {
                             _ = BaseData.instance.deleteBalance(account: account)
@@ -230,6 +232,8 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                         url = IRIS_LCD_URL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
                         url = BAND_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+                        url = SECRET_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_MAIN) {
                         url = IOV_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {

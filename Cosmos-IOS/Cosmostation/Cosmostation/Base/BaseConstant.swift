@@ -661,6 +661,7 @@ let SECRET_GAS_AMOUNT_SEND                  = "80000"
 let SECRET_GAS_AMOUNT_STAKE                 = "200000"
 let SECRET_GAS_AMOUNT_REDELEGATE            = "300000"
 let SECRET_GAS_AMOUNT_REINVEST              = "350000"
+let SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE = "80000"
 
 
 // Constant for BEP3-Swap

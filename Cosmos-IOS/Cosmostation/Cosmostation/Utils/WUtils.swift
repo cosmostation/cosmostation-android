@@ -2271,6 +2271,8 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_REDELEGATE))
             } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_REINVEST))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             }
         }
         return result

@@ -324,6 +324,12 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+        } else if (chainType! == ChainType.SECRET_MAIN) {
+            if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
             return
@@ -349,7 +355,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
             BaseData.instance.setRecentAccountId(self.account!.account_id)
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-            if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
+            if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
                 txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
             } else if (self.chainType == ChainType.IRIS_MAIN) {
                 txVC.mType = IRIS_MSG_TYPE_WITHDRAW_MIDIFY

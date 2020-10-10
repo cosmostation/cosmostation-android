@@ -208,7 +208,7 @@ class MsgGenerator {
     static func genGetModifyRewardAddressMsg(_ requestAddress: String, _ newRewardAddress: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.BAND_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             value.delegator_address = requestAddress
             value.withdraw_address = newRewardAddress
             
