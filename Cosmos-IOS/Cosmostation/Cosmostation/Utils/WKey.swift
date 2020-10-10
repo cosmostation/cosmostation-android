@@ -60,6 +60,9 @@ class WKey {
         } else if (chainType == ChainType.BAND_MAIN) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 494, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            return try! masterKey.derived(at: 44, hardened: true).derived(at: 529, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+            
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 234, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             
@@ -85,6 +88,8 @@ class WKey {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "kava", program: ripemd160)
         } else if (chain == ChainType.BAND_MAIN) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "band", program: ripemd160)
+        } else if (chain == ChainType.SECRET_MAIN) {
+            result = try! SegwitAddrCoder.shared.encode2(hrp: "secret", program: ripemd160)
         } else if (chain == ChainType.BINANCE_TEST) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "tbnb", program: ripemd160)
         } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
@@ -115,6 +120,9 @@ class WKey {
                 
             } else if (chain == ChainType.BAND_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 494, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                
+            } else if (chain == ChainType.SECRET_MAIN) {
+                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 529, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
             } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 234, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
@@ -171,6 +179,8 @@ class WKey {
             result = bech32.encode("kava", values: data)
         } else if (chain == ChainType.BAND_MAIN) {
             result = bech32.encode("band", values: data)
+        } else if (chain == ChainType.SECRET_MAIN) {
+            result = bech32.encode("secret", values: data)
         } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             result = bech32.encode("star", values: data)
         } else if (chain == ChainType.OKEX_TEST) {

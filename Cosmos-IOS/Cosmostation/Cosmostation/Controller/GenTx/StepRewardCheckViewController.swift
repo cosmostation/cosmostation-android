@@ -111,6 +111,12 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 return true
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, SECRET_MAIN_DENOM)
+            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
+                return true
+            }
+            
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, IOV_MAIN_DENOM)
             if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
@@ -194,6 +200,21 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
                 if(balance.balance_denom == BAND_MAIN_DENOM) {
+                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+                }
+            }
+            
+            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+            
+        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, SECRET_MAIN_DENOM)
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+            
+            var userBalance = NSDecimalNumber.zero
+            for balance in pageHolderVC.mBalances {
+                if(balance.balance_denom == SECRET_MAIN_DENOM) {
                     userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
                 }
             }
@@ -308,6 +329,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+            url = SECRET_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             url = IOV_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
@@ -356,7 +379,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
                     self.onGenGetRewardTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {
                             _ = BaseData.instance.deleteBalance(account: account)
@@ -388,7 +411,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 var msgList = Array<Msg>()
                 if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-                    self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                    self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                     for val in self.pageHolderVC.mRewardTargetValidators {
                         let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, val.operator_address, self.pageHolderVC.chainType!)
                         msgList.append(msg)
@@ -460,6 +483,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                         url = KAVA_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
                         url = BAND_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+                        url = SECRET_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_MAIN) {
                         url = IOV_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {

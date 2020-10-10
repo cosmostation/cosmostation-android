@@ -182,6 +182,18 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             let url = BAND_VAL_URL + validator.operator_address + ".png"
             cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
+            if (self.mStakingPool != nil && self.mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: self.mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
+            } else {
+                cell.commissionLabel.text = "-"
+            }
+            let url = SECRET_VAL_URL + validator.operator_address + ".png"
+            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
+            
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
             if (self.mStakingPool != nil && self.mProvision != nil) {
@@ -229,6 +241,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
             } else if (chainType == ChainType.BAND_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
+            } else if (chainType == ChainType.SECRET_MAIN) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_SECRET
             } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
             } else if (chainType == ChainType.CERTIK_TEST) {
@@ -314,6 +328,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
             } else if (chainType == ChainType.BAND_MAIN) {
+                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
+            } else if (chainType == ChainType.SECRET_MAIN) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
             } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!

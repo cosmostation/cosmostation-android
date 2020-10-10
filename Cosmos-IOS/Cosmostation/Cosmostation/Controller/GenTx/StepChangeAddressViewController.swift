@@ -87,6 +87,12 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+            if (!userInput!.starts(with: "secret") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             if (!userInput!.starts(with: "star") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
@@ -113,6 +119,8 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+            url = SECRET_REWARD_ADDRESS + accountAddr + SECRET_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
@@ -139,7 +147,7 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
             pageHolderVC.chainType! == ChainType.IOV_TEST) {
             request.responseJSON { (response) in
                 switch response.result {

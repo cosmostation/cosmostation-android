@@ -56,6 +56,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BAND_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            self.comingLabel.isHidden = false
+            self.historyTableView.isHidden = true
         } else if (chainType == ChainType.IOV_MAIN ) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.OKEX_TEST || chainType == ChainType.IOV_TEST) {
@@ -73,7 +76,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     @objc func testClick(tapGestureRecognizer: UITapGestureRecognizer) {
 //        let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
 //        txDetailVC.mIsGen = false
-//        txDetailVC.mTxHash = "10F21372AB218F0040AC3406D5FE583174DA4EC977056C5225C4418E1177CBE5"
+//        txDetailVC.mTxHash = "232665775C42A90C0D6EAFEACD155170151CDCE1DE1BDB0DC4A41FE6F753F2FE"
 //        txDetailVC.hidesBottomBarWhenPushed = true
 //        self.navigationItem.title = ""
 //        self.navigationController?.pushViewController(txDetailVC, animated: true)
@@ -117,7 +120,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "bandChainImg")
             titleChainName.text = "(Band Mainnet)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.BINANCE_TEST) {
+        } else if (chainType! == ChainType.SECRET_MAIN) {
+            titleChainImg.image = UIImage(named: "secretChainImg")
+            titleChainName.text = "(Secret Mainnet)"
+            titleAlarmBtn.isHidden = true
+        }
+        
+        else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Testnet)"
             titleAlarmBtn.isHidden = true

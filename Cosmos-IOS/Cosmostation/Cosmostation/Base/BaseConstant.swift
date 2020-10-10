@@ -339,6 +339,31 @@ let CERTIK_TEST_API_TRANS_HISTORY           = CERTIK_TEST_API + "v1/account/tran
 
 
 
+//SECRET_URL
+let SECRET_TX                               = SECRET_URL + "txs/";
+let SECRET_VALIDATORS                       = SECRET_URL + "staking/validators";
+let SECRET_ACCOUNT_INFO                     = SECRET_URL + "auth/accounts/";
+let SECRET_BONDING                          = SECRET_URL + "staking/delegators/";
+let SECRET_BONDING_TAIL                     = "/delegations";
+let SECRET_UNBONDING                        = SECRET_URL + "staking/delegators/";
+let SECRET_UNBONDING_TAIL                   = "/unbonding_delegations";
+let SECRET_REWARD_FROM_VAL                  = SECRET_URL + "distribution/delegators/";
+let SECRET_REWARD_FROM_VAL_TAIL             = "/rewards/";
+let SECRET_REWARD_ADDRESS                   = SECRET_URL + "distribution/delegators/";
+let SECRET_REWARD_ADDRESS_TAIL              = "/withdraw_address";
+let SECRET_REDELEGATION                     = SECRET_URL + "staking/redelegations";
+let SECRET_INFLATION                        = SECRET_URL + "minting/inflation";
+let SECRET_PROVISIONS                       = SECRET_URL + "minting/annual-provisions";
+let SECRET_STAKING_POOL                     = SECRET_URL + "staking/pool";
+let SECRET_BORAD_TX                         = SECRET_URL + "txs";
+let SECRET_PROPOSALS                        = SECRET_URL + "gov/proposals";
+let SECRET_PROPOSALS_TALLY_TAIL             = "/tally";
+
+let SECRET_API_HISTORY                      = SECRET_API + "v1/account/txs/";
+let SECRET_API_TRANS_HISTORY                = SECRET_API + "v1/account/transfer_txs/";
+
+
+
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 
@@ -349,6 +374,7 @@ let KAVA_VAL_URL                        = "https://raw.githubusercontent.com/cos
 let BAND_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
 let IOV_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
 let CERTIK_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/certik/";
+let SECRET_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/secret/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -501,14 +527,14 @@ let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 
 let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
 let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
+let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
+let SECRET_MSG_TYPE_TRANSFER                = "secret_transfer";
 
 let OK_MSG_TYPE_TRANSFER                    = "okexchain/token/MsgTransfer";
 let OK_MSG_TYPE_MULTI_TRANSFER              = "okexchain/token/MsgMultiTransfer";
 let OK_MSG_TYPE_DEPOSIT                     = "okexchain/staking/MsgDeposit";
 let OK_MSG_TYPE_WITHDRAW                    = "okexchain/staking/MsgWithdraw";
 let OK_MSG_TYPE_DIRECT_VOTE                 = "okexchain/staking/MsgAddShares";
-
-let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
@@ -531,6 +557,7 @@ let BNB_BASE_PATH                           = "m/44'/714'/0'/0/"
 let KAVA_BASE_PATH                          = "m/44'/459'/0'/0/"
 let IOV_BASE_PATH                           = "m/44'/234'/0'/0/"
 let BAND_BASE_PATH                          = "m/44'/494'/0'/0/"
+let SECRET_BASE_PATH                        = "m/44'/529'/0'/0/"
 let OK_BASE_PATH                            = "m/44'/996'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";
@@ -631,6 +658,14 @@ let CETIK_GAS_AMOUNT_SEND                   = "100000"
 let CETIK_GAS_AMOUNT_STAKE                  = "200000"
 let CETIK_GAS_AMOUNT_REDELEGATE             = "300000"
 
+let SECRET_GAS_FEE_RATE_AVERAGE             = "0.25"
+let SECRET_GAS_AMOUNT_SEND                  = "80000"
+let SECRET_GAS_AMOUNT_STAKE                 = "200000"
+let SECRET_GAS_AMOUNT_REDELEGATE            = "300000"
+let SECRET_GAS_AMOUNT_REINVEST              = "350000"
+let SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE = "80000"
+let SECRET_GAS_AMOUNT_VOTE                  = "100000"
+
 
 // Constant for BEP3-Swap
 let BINANCE_MAIN_BNB_DEPUTY                 = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn"
@@ -699,6 +734,11 @@ let TRANS_BG_COLOR_CERTIK2                  = UIColor.init(hexString: "E1AA4C", 
 let COLOR_CERTIK                            = UIColor.init(hexString: "E1AA4C")
 let COLOR_CERTIK_DARK                       = UIColor.init(hexString: "59441E")
 
+let TRANS_BG_COLOR_SECRET                   = UIColor.init(hexString: "C4C4C4", alpha: 0.15)
+let TRANS_BG_COLOR_SECRET2                  = UIColor.init(hexString: "C4C4C4", alpha: 0.4)
+let COLOR_SECRET                            = UIColor.init(hexString: "C4C4C4")
+let COLOR_SECRET_DARK                       = UIColor.init(hexString: "585858")
+
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
 let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
@@ -714,6 +754,7 @@ enum ChainType: String {
     case KAVA_MAIN
     case IOV_MAIN
     case BAND_MAIN
+    case SECRET_MAIN
     
     case BINANCE_TEST
     case KAVA_TEST
@@ -729,6 +770,7 @@ enum ChainType: String {
         result.append(IOV_MAIN)
         result.append(KAVA_MAIN)
         result.append(BAND_MAIN)
+        result.append(SECRET_MAIN)
 //
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
@@ -790,6 +832,7 @@ let CHAIN_BINANCE_S = "SUPPORT_CHAIN_BINANCE_MAIN"
 let CHAIN_KAVA_S = "SUPPORT_CHAIN_KAVA_MAIN"
 let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
 let CHAIN_BAND_S = "SUPPORT_CHAIN_BAND_MAIN"
+let CHAIN_SECRET_S = "SUPPORT_CHAIN_SECRET_MAIN"
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
@@ -804,6 +847,7 @@ let BNB_MAIN_DENOM = "BNB"
 let IOV_MAIN_DENOM = "uiov"
 let KAVA_MAIN_DENOM = "ukava"
 let BAND_MAIN_DENOM = "uband"
+let SECRET_MAIN_DENOM = "uscrt"
 let IOV_TEST_DENOM = "uvoi"
 let OKEX_TEST_DENOM = "tokt"
 let CERTIK_TEST_DENOM = "uctk"
@@ -828,6 +872,7 @@ let EXPLORER_KAVA_MAIN      = "https://www.mintscan.io/kava/";
 let EXPLORER_IOV_MAIN       = "https://www.mintscan.io/starname/";
 let EXPLORER_BINANCE_MAIN   = "https://binance.mintscan.io/";
 let EXPLORER_BAND_MAIN      = "https://cosmoscan.io/";
+let EXPLORER_SECRET_MAIN    = "https://explorer.cashmaney.com/";
 
 let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
 let EXPLORER_KAVA_TEST      = "https://kava-testnet-9000.mintscan.io/";

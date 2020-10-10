@@ -127,6 +127,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            chainImg.image = UIImage(named: "secretTokenImg")
+            keyPath.text = SECRET_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
         } else if (chainType == ChainType.IOV_TEST) {
             chainImg.image = UIImage(named: "iovTestnetImg")
             keyPath.text = IOV_BASE_PATH.appending(account!.account_path)
@@ -317,6 +324,12 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+        } else if (chainType! == ChainType.SECRET_MAIN) {
+            if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
             return
@@ -342,7 +355,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
             BaseData.instance.setRecentAccountId(self.account!.account_id)
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-            if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
+            if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST) {
                 txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
             } else if (self.chainType == ChainType.IRIS_MAIN) {
                 txVC.mType = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
@@ -424,6 +437,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            url = SECRET_REWARD_ADDRESS + accountAddr + SECRET_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_TEST) {
@@ -452,8 +467,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN ||
-            chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
+                    chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):

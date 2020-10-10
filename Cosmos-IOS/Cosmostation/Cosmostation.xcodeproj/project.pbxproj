@@ -144,6 +144,8 @@
 		2868559C24989ACD0099D18F /* DelegateWarnPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */; };
 		2868559E2498C2D10099D18F /* KavaSwapSupply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559D2498C2D10099D18F /* KavaSwapSupply.swift */; };
 		286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559F2498DBBF0099D18F /* KavaSupply.swift */; };
+		2872B0F2252EF79900E8CACF /* WalletSecretCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2872B0F0252EF79900E8CACF /* WalletSecretCell.swift */; };
+		2872B0F3252EF79900E8CACF /* WalletSecretCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2872B0F1252EF79900E8CACF /* WalletSecretCell.xib */; };
 		2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */; };
 		2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */; };
 		2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */; };
@@ -539,6 +541,8 @@
 		2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelegateWarnPopup.xib; sourceTree = "<group>"; };
 		2868559D2498C2D10099D18F /* KavaSwapSupply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapSupply.swift; sourceTree = "<group>"; };
 		2868559F2498DBBF0099D18F /* KavaSupply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSupply.swift; sourceTree = "<group>"; };
+		2872B0F0252EF79900E8CACF /* WalletSecretCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSecretCell.swift; sourceTree = "<group>"; };
+		2872B0F1252EF79900E8CACF /* WalletSecretCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSecretCell.xib; sourceTree = "<group>"; };
 		2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUnbondingInfoCellTableViewCell.swift; sourceTree = "<group>"; };
 		2876AD5D240CE4A6005B33F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletUnbondingInfoCellTableViewCell.xib; sourceTree = "<group>"; };
 		2876AD62240CE966005B33F4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletUnbondingInfoCellTableViewCell.strings; sourceTree = "<group>"; };
@@ -1288,6 +1292,8 @@
 				28663BEE248A4FB000080311 /* WalletBandCell.xib */,
 				283D2EAD24F5742000247424 /* WalletOkCell.swift */,
 				283D2EAE24F5742000247424 /* WalletOkCell.xib */,
+				2872B0F0252EF79900E8CACF /* WalletSecretCell.swift */,
+				2872B0F1252EF79900E8CACF /* WalletSecretCell.xib */,
 				288A14DB25199A9800E17808 /* WalletCertikCell.swift */,
 				288A14E325199C6200E17808 /* WalletCertikCell.xib */,
 				2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */,
@@ -1513,6 +1519,7 @@
 				2868559424989AA50099D18F /* Bep3WarnPopup.xib in Resources */,
 				282FF34223F4FFD20028CC66 /* TxCommissionCell.xib in Resources */,
 				E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */,
+				2872B0F3252EF79900E8CACF /* WalletSecretCell.xib in Resources */,
 				283A80D2245141EB008FF813 /* CdpDetailMyActionCell.xib in Resources */,
 				28474ECB241E06AF00AF5A81 /* TxWithDrawCdpCell.xib in Resources */,
 				2842AB6F242C5C7200248EEB /* CdpLisyMyCell.xib in Resources */,
@@ -1880,6 +1887,7 @@
 				28B4304424F8B34100BD7BB2 /* OkValidatorListViewController.swift in Sources */,
 				2888B802246CE35D00B2EB4A /* StepHtlcRefund0ViewController.swift in Sources */,
 				E17B214823470960001743D6 /* TokenDetailHeaderCustomCell.swift in Sources */,
+				2872B0F2252EF79900E8CACF /* WalletSecretCell.swift in Sources */,
 				2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
 				2845D87D246FAE16007CD497 /* VoteDetailsViewController.swift in Sources */,
