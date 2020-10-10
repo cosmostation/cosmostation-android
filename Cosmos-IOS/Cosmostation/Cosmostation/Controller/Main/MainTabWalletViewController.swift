@@ -867,9 +867,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onClickGuide2()
             }
             return cell!
-            
         }
-        
     }
     
     func onSetIovItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
@@ -1025,6 +1023,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.buyBtn.isHidden = true
             cell?.buyConstraint.priority = .defaultLow
             cell?.noBuyConstraint.priority = .defaultHigh
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
+            }
 
 //            cell?.buySeparator.isHidden = false
 //            cell?.buyBtn.isHidden = false
@@ -1668,7 +1669,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
             okVoteTypeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
-        
     }
     
     func onClickGuide1() {
