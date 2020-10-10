@@ -79,6 +79,10 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             guard let url = URL(string: EXPLORER_KAVA_MAIN + "proposals/" + proposalId!) else { return }
             self.onShowSafariWeb(url)
             
+        } else if (chainType == ChainType.BAND_MAIN) {
+            guard let url = URL(string: EXPLORER_KAVA_MAIN + "proposal/" + proposalId!) else { return }
+            self.onShowSafariWeb(url)
+            
         } else if (chainType == ChainType.SECRET_MAIN) {
             guard let url = URL(string: EXPLORER_SECRET_MAIN + "proposals/" + proposalId!) else { return }
             self.onShowSafariWeb(url)
@@ -94,7 +98,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         
         let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN) {
             if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
@@ -157,7 +161,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func getTitle() -> String? {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.SECRET_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN) {
             return mProposal?.getTitle()
         } else if (chainType == ChainType.IRIS_MAIN) {
             return mIrisProposal?.getTitle()
@@ -166,7 +170,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func getProposer() -> String? {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.SECRET_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN) {
             return self.mProposer
         } else if (chainType == ChainType.IRIS_MAIN) {
             return mIrisProposal?.value?.basicProposal?.proposer
@@ -188,7 +192,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onBindVoteInfo(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteInfoTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteInfoTableViewCell") as? VoteInfoTableViewCell
-        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.SECRET_MAIN) && mProposal != nil) {
+        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN) && mProposal != nil) {
             cell?.statusImg.image = mProposal?.getStatusImg()
             cell?.statusTitle.text = mProposal?.proposal_status
             cell?.proposalTitle.text = mProposal?.getTitle()
@@ -225,7 +229,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onBindTally(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteTallyTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteTallyTableViewCell") as? VoteTallyTableViewCell
-        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.SECRET_MAIN) && mTally != nil) {
+        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN) && mTally != nil) {
             cell?.onUpdateCards(mTally!, mVoters, mProposal?.proposal_status)
             cell?.onCheckMyVote(mMyVote)
             
@@ -237,7 +241,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onFech() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.SECRET_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN) {
             mFetchCnt = 5
             onFetchProposalDetail(proposalId!)
             onFetchTally(proposalId!)
@@ -268,6 +272,8 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = COSMOS_URL_PROPOSALS + "/" + id
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id
+        } else if (chainType == ChainType.BAND_MAIN) {
+            url = BAND_PROPOSALS + "/" + id
         } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_PROPOSALS + "/" + id
         }
@@ -295,6 +301,8 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = COSMOS_URL_PROPOSALS + "/" + id + "/" + COSMOS_URL_PROPOSALS_TALLY_TAIL
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id + "/" + KAVA_PROPOSALS_TALLY_TAIL
+        } else if (chainType == ChainType.BAND_MAIN) {
+            url = BAND_PROPOSALS + "/" + id + "/" + BAND_PROPOSALS_TALLY_TAIL
         } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_PROPOSALS + "/" + id + "/" + SECRET_PROPOSALS_TALLY_TAIL
         }
@@ -322,10 +330,11 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = COSMOS_URL_PROPOSALS + "/" + id +  "/votes/" + address
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/votes/" + address
+        } else if (chainType == ChainType.BAND_MAIN) {
+            url = BAND_PROPOSALS + "/" + id +  "/votes/" + address
         } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_PROPOSALS + "/" + id +  "/votes/" + address
         }
-//        print("url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
@@ -350,6 +359,8 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = COSMOS_URL_PROPOSALS + "/" + id +  "/proposer"
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/proposer"
+        } else if (chainType == ChainType.BAND_MAIN) {
+            url = BAND_PROPOSALS + "/" + id +  "/proposer"
         } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_PROPOSALS + "/" + id +  "/proposer"
         }
@@ -377,6 +388,8 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = COSMOS_URL_PROPOSALS + "/" + id +  "/votes"
         } else if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/votes"
+        } else if (chainType == ChainType.BAND_MAIN) {
+            url = BAND_PROPOSALS + "/" + id +  "/votes"
         } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_PROPOSALS + "/" + id +  "/votes"
         }
