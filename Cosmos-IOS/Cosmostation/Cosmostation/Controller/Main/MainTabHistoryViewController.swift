@@ -56,6 +56,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BAND_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            self.comingLabel.isHidden = false
+            self.historyTableView.isHidden = true
         } else if (chainType == ChainType.IOV_MAIN ) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.OKEX_TEST || chainType == ChainType.IOV_TEST) {
@@ -73,7 +76,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     @objc func testClick(tapGestureRecognizer: UITapGestureRecognizer) {
 //        let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
 //        txDetailVC.mIsGen = false
-//        txDetailVC.mTxHash = "10F21372AB218F0040AC3406D5FE583174DA4EC977056C5225C4418E1177CBE5"
+//        txDetailVC.mTxHash = "8ECE5BBC9C69E425C9558333CEF95863085C2A0A7D9A373B40EF5BBD4A29A22E"
 //        txDetailVC.hidesBottomBarWhenPushed = true
 //        self.navigationItem.title = ""
 //        self.navigationController?.pushViewController(txDetailVC, animated: true)

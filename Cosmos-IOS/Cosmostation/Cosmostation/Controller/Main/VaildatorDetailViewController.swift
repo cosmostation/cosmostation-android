@@ -1707,7 +1707,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         validators.append(mValidator!)
         txVC.mRewardTargetValidators = validators
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+            chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         } else if (chainType == ChainType.IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_WITHDRAW
