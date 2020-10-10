@@ -349,6 +349,7 @@
 "title_ok_deposit" = "예금";
 "title_ok_withdraw" = "출금";
 "title_ok_vote" = "검증인 투표";
+"title_starname_list" = "스타네임 서비스";
 
 "proposal_type_basic" = "기본";
 "proposal_type_parameter" = "파라미터 변경";

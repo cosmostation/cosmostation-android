@@ -908,7 +908,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
             }
             cell?.actionNameService = {
-                self.onClickIovNameservice()
+                self.onClickStarName()
             }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
             return cell!
@@ -1198,7 +1198,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
             }
             cell?.actionNameService = {
-                self.onClickIovNameservice()
+                self.onClickStarName()
             }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
             return cell!
@@ -1539,7 +1539,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         validatorListVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(validatorListVC, animated: true)
-        
     }
     
     func onClickVoteList() {
@@ -1550,7 +1549,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         voteListVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(voteListVC, animated: true)
-        
     }
     
     func onClickWalletConect() {
@@ -1583,8 +1581,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.pushViewController(txVC, animated: true)
     }
     
-    func onClickIovNameservice() {
-        self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+    func onClickStarName() {
+        let starnameListVC = UIStoryboard(name: "StarName", bundle: nil).instantiateViewController(withIdentifier: "StarNameListViewController") as! StarNameListViewController
+        starnameListVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(starnameListVC, animated: true)
     }
     
     func onClickCdp() {

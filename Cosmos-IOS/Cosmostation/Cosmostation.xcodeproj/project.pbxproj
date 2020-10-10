@@ -47,6 +47,10 @@
 		282FF36223F532360028CC66 /* TxVoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FF36023F532360028CC66 /* TxVoteCell.xib */; };
 		282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FF36323F533AF0028CC66 /* TxUnknownCell.swift */; };
 		282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FF36423F533AF0028CC66 /* TxUnknownCell.xib */; };
+		2834399B2531D13C00CCFADE /* StarName.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2834399A2531D13C00CCFADE /* StarName.storyboard */; };
+		2834399E2531D1A200CCFADE /* StarNameListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834399D2531D1A200CCFADE /* StarNameListViewController.swift */; };
+		283439A12531D1CF00CCFADE /* MyDomainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283439A02531D1CF00CCFADE /* MyDomainViewController.swift */; };
+		283439A42531D1DF00CCFADE /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283439A32531D1DF00CCFADE /* MyAccountViewController.swift */; };
 		2838501C2448A69D00E5DEF2 /* TxHtlcCreateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2838501A2448A69D00E5DEF2 /* TxHtlcCreateCell.swift */; };
 		2838501D2448A69D00E5DEF2 /* TxHtlcCreateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2838501B2448A69D00E5DEF2 /* TxHtlcCreateCell.xib */; };
 		283850202448A6B000E5DEF2 /* TxHtlcClaimCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2838501E2448A6B000E5DEF2 /* TxHtlcClaimCell.swift */; };
@@ -435,6 +439,10 @@
 		282FF36023F532360028CC66 /* TxVoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxVoteCell.xib; sourceTree = "<group>"; };
 		282FF36323F533AF0028CC66 /* TxUnknownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxUnknownCell.swift; sourceTree = "<group>"; };
 		282FF36423F533AF0028CC66 /* TxUnknownCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxUnknownCell.xib; sourceTree = "<group>"; };
+		2834399A2531D13C00CCFADE /* StarName.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StarName.storyboard; sourceTree = "<group>"; };
+		2834399D2531D1A200CCFADE /* StarNameListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarNameListViewController.swift; sourceTree = "<group>"; };
+		283439A02531D1CF00CCFADE /* MyDomainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDomainViewController.swift; sourceTree = "<group>"; };
+		283439A32531D1DF00CCFADE /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		2838501A2448A69D00E5DEF2 /* TxHtlcCreateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHtlcCreateCell.swift; sourceTree = "<group>"; };
 		2838501B2448A69D00E5DEF2 /* TxHtlcCreateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxHtlcCreateCell.xib; sourceTree = "<group>"; };
 		2838501E2448A6B000E5DEF2 /* TxHtlcClaimCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHtlcClaimCell.swift; sourceTree = "<group>"; };
@@ -850,6 +858,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		283439992531D0E100CCFADE /* starname */ = {
+			isa = PBXGroup;
+			children = (
+				2834399A2531D13C00CCFADE /* StarName.storyboard */,
+				2834399D2531D1A200CCFADE /* StarNameListViewController.swift */,
+				283439A02531D1CF00CCFADE /* MyDomainViewController.swift */,
+				283439A32531D1DF00CCFADE /* MyAccountViewController.swift */,
+			);
+			path = starname;
+			sourceTree = "<group>";
+		};
 		2868558C24989A5E0099D18F /* PopUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -1074,6 +1093,7 @@
 		E1945E40222E7FB000A1436F /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				283439992531D0E100CCFADE /* starname */,
 				E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */,
 				E1945E41222E7FC800A1436F /* MainTabViewController.swift */,
 				E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */,
@@ -1583,6 +1603,7 @@
 				E103DAE322814DFC006C2146 /* GenTx.storyboard in Resources */,
 				E177490122842724003D8CD1 /* MyValidatorCell.xib in Resources */,
 				E126CFAF2387A799002A546F /* TokenDetailHeaderBnbCell.xib in Resources */,
+				2834399B2531D13C00CCFADE /* StarName.storyboard in Resources */,
 				E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */,
 				283D2EB024F5742000247424 /* WalletOkCell.xib in Resources */,
 			);
@@ -1685,6 +1706,7 @@
 				283D2EA424F52FE700247424 /* OkToken.swift in Sources */,
 				28474ED5241E06AF00AF5A81 /* TxRepayCdpCell.swift in Sources */,
 				E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */,
+				283439A12531D1CF00CCFADE /* MyDomainViewController.swift in Sources */,
 				E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */,
 				E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */,
 				E16D9B1B2248D1370019B7BB /* BoarderLabel.swift in Sources */,
@@ -1713,6 +1735,7 @@
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				28617A7B243198D0006D66EA /* StepCreateCpdAmountViewController.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
+				2834399E2531D1A200CCFADE /* StarNameListViewController.swift in Sources */,
 				2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */,
 				E171A06F225B08B100C5756C /* StepMemoViewController.swift in Sources */,
 				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
@@ -1873,6 +1896,7 @@
 				E10492152347C5D900A2980F /* WalletConnectImageView.swift in Sources */,
 				E17748E82283D0F4003D8CD1 /* GuideCategory.swift in Sources */,
 				2845D887246FB96E007CD497 /* CosmosVote.swift in Sources */,
+				283439A42531D1DF00CCFADE /* MyAccountViewController.swift in Sources */,
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,

@@ -348,6 +348,7 @@
 "title_ok_deposit" = "Deposit";
 "title_ok_withdraw" = "Withdraw";
 "title_ok_vote" = "Vote for Validator";
+"title_starname_list" = "StarName Service";
 
 "proposal_type_basic" = "Basic";
 "proposal_type_parameter" = "Parameter";
