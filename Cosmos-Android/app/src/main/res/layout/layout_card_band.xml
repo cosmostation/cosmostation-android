@@ -170,8 +170,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginLeft="@dimen/space_5"
                 android:background="@drawable/btn_trans_with_border"
-                android:clickable="true"
-                android:visibility="gone">
+                android:clickable="true">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

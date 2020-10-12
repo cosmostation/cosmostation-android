@@ -939,7 +939,7 @@
     <string name="str_buy_new_account">Buy New Account</string>
     <string name="str_starname_domain_promotion_title">Purchase a Starname Domain (*domain)</string>
     <string name="str_starname_domain_promotion_msg">A Starname Domain can be used as a universal username. You can create Starname Accounts connected a Starname Domain.</string>
-    <string name="str_starname_account_promotion_title">Purchase a Starname Account (account1*domain)</string>
+    <string name="str_starname_account_promotion_title">Purchase a Starname Account (account*domain)</string>
     <string name="str_starname_account_promotion_msg">A Starname is your universal username for the blockchain world. Register a Starname Account connected to a public Starname Domain or a Starname Domain you own.</string>
     <string name="str_connected_addressed">Connected Addresses</string>
     <string name="str_expire_date">Expire Date</string>

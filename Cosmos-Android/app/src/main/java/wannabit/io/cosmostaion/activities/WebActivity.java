@@ -117,6 +117,8 @@ public class WebActivity extends BaseActivity {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorBand));
             if (!TextUtils.isEmpty(mTxid))
                 mWebview.loadUrl(EXPLORER_BAND_MAIN + "tx/" + mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl(EXPLORER_BAND_MAIN + "proposal/" + mVoteId);
             else if (!TextUtils.isEmpty(mAddress))
                 mWebview.loadUrl(EXPLORER_BAND_MAIN + "account/" + mAddress);
             else

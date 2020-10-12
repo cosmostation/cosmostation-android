@@ -112,7 +112,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
     private TextView            mBandTotalAmount, mBandTotalValue;
     private TextView            mBandAvailable, mBandDelegate, mBandUnBonding, mBandRewards;
-    private RelativeLayout      mBtnBandDeleagte;
+    private RelativeLayout      mBtnBandDeleagte, mBtnBandVote;
 
     private TextView            mOkTotalAmount, mOkTotalValue;
     private TextView            mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
@@ -237,6 +237,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBandUnBonding          = mBandCard.findViewById(R.id.band_unbonding);
         mBandRewards            = mBandCard.findViewById(R.id.band_reward);
         mBtnBandDeleagte        = mBandCard.findViewById(R.id.btn_band_delegate);
+        mBtnBandVote            = mBandCard.findViewById(R.id.btn_band_vote);
 
         mOkCard                 = rootView.findViewById(R.id.card_ok);
         mOkTotalAmount          = mOkCard.findViewById(R.id.ok_total_amount);
@@ -374,6 +375,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnIovVote.setOnClickListener(this);
         mBtnIovNameService.setOnClickListener(this);
         mBtnBandDeleagte.setOnClickListener(this);
+        mBtnBandVote.setOnClickListener(this);
         mBtnOkDeposit.setOnClickListener(this);
         mBtnOkWithdraw.setOnClickListener(this);
         mBtnOkVote.setOnClickListener(this);
@@ -1279,7 +1281,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             validators.putExtra("irisreward", getMainActivity().mIrisReward);
             startActivity(validators);
 
-        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote) || v.equals(mBtnCertikVote)) {
+        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote) || v.equals(mBtnBandVote) || v.equals(mBtnCertikVote)) {
             if (getMainActivity().mBaseChain.equals(KAVA_TEST)) return;
             Intent proposals = new Intent(getMainActivity(), VoteListActivity.class);
             startActivity(proposals);
