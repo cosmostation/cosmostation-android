@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="AccountCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="394" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="394" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A8R-rR-1vb" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                        <rect key="frame" x="12" y="4" width="370" height="92"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StarName" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqH-7s-wOf">
+                                <rect key="frame" x="12" y="12" width="76" height="32"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="zei-91-I9A">
+                                <rect key="frame" x="340" y="34" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="Po5-fN-XsN"/>
+                                    <constraint firstAttribute="height" constant="24" id="emP-0g-Pyj"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Connected Addresses" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcH-MS-HaJ">
+                                <rect key="frame" x="16" y="48" width="125" height="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6W-qk-flt">
+                                <rect key="frame" x="324.5" y="48" width="11.5" height="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Expire Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tg6-b4-kcd">
+                                <rect key="frame" x="16" y="66" width="65" height="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaE-wS-ST5">
+                                <rect key="frame" x="324.5" y="66" width="11.5" height="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.43137254899999999" green="0.48627450979999998" blue="0.87058823529999996" alpha="0.14763974469999999" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstItem="TaE-wS-ST5" firstAttribute="trailing" secondItem="a6W-qk-flt" secondAttribute="trailing" id="17H-Xy-Ee7"/>
+                            <constraint firstItem="Tg6-b4-kcd" firstAttribute="leading" secondItem="gcH-MS-HaJ" secondAttribute="leading" id="4xl-rx-nrS"/>
+                            <constraint firstAttribute="bottom" secondItem="Tg6-b4-kcd" secondAttribute="bottom" constant="12" id="8o8-dQ-9F3"/>
+                            <constraint firstItem="pqH-7s-wOf" firstAttribute="top" secondItem="A8R-rR-1vb" secondAttribute="top" constant="12" id="Kdf-7u-DK9"/>
+                            <constraint firstItem="Tg6-b4-kcd" firstAttribute="top" secondItem="gcH-MS-HaJ" secondAttribute="bottom" constant="4" id="RwQ-mI-JPd"/>
+                            <constraint firstItem="gcH-MS-HaJ" firstAttribute="top" secondItem="pqH-7s-wOf" secondAttribute="bottom" constant="4" id="Uho-Ba-ZY7"/>
+                            <constraint firstAttribute="trailing" secondItem="zei-91-I9A" secondAttribute="trailing" constant="6" id="XuL-26-0A1"/>
+                            <constraint firstItem="zei-91-I9A" firstAttribute="leading" secondItem="a6W-qk-flt" secondAttribute="trailing" constant="4" id="iSz-sF-Uaf"/>
+                            <constraint firstItem="pqH-7s-wOf" firstAttribute="leading" secondItem="A8R-rR-1vb" secondAttribute="leading" constant="12" id="lPu-HJ-MWc"/>
+                            <constraint firstItem="gcH-MS-HaJ" firstAttribute="leading" secondItem="A8R-rR-1vb" secondAttribute="leading" constant="16" id="uUC-yk-AZi"/>
+                            <constraint firstItem="a6W-qk-flt" firstAttribute="centerY" secondItem="gcH-MS-HaJ" secondAttribute="centerY" id="uXF-zp-8NP"/>
+                            <constraint firstItem="zei-91-I9A" firstAttribute="centerY" secondItem="A8R-rR-1vb" secondAttribute="centerY" id="wpW-vA-hts"/>
+                            <constraint firstItem="TaE-wS-ST5" firstAttribute="centerY" secondItem="Tg6-b4-kcd" secondAttribute="centerY" id="zsn-zG-abr"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.29999999999999999"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="A8R-rR-1vb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="0k7-7z-pxe"/>
+                    <constraint firstAttribute="bottom" secondItem="A8R-rR-1vb" secondAttribute="bottom" constant="4" id="LVB-Wq-eJc"/>
+                    <constraint firstAttribute="trailing" secondItem="A8R-rR-1vb" secondAttribute="trailing" constant="12" id="LzL-D1-xU3"/>
+                    <constraint firstItem="A8R-rR-1vb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="mNB-oE-9gd"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="accountConnectedAddressLabel" destination="a6W-qk-flt" id="Dao-WW-yhJ"/>
+                <outlet property="accountExpireTime" destination="TaE-wS-ST5" id="YIR-mA-VoQ"/>
+                <outlet property="starNameLabel" destination="pqH-7s-wOf" id="I0R-aE-hmw"/>
+            </connections>
+            <point key="canvasLocation" x="85.507246376811594" y="126.5625"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrowNextGr" width="24" height="24"/>
+    </resources>
+</document>

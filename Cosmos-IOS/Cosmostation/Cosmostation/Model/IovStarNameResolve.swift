@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct IovNameResolve: Codable {
+public struct IovStarNameResolve: Codable {
     var height: String = ""
     var result: IovNameValue = IovNameValue.init()
     
@@ -77,7 +77,7 @@ public struct IovNameResolve: Codable {
         var certificates: String = ""
         var broker: String = ""
         var metadata_uri: String = ""
-        var resources: Array<NameResource> = Array<NameResource>()
+        var resources: Array<StarNameResource> = Array<StarNameResource>()
         
         init() {}
         
@@ -92,21 +92,9 @@ public struct IovNameResolve: Codable {
             self.resources.removeAll()
             if let rawResources = dictionary["resources"] as? Array<NSDictionary> {
                 for rawResource in rawResources {
-                    self.resources.append(NameResource.init(rawResource as! [String : Any]))
+                    self.resources.append(StarNameResource.init(rawResource as! [String : Any]))
                 }
             }
-        }
-    }
-    
-    public struct NameResource: Codable {
-        var uri: String = ""
-        var resource: String = ""
-        
-        init() {}
-        
-        init(_ dictionary: [String: Any]) {
-            self.uri = dictionary["uri"] as? String ?? ""
-            self.resource = dictionary["resource"] as? String ?? ""
         }
     }
 }

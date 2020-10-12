@@ -262,7 +262,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchMyHavestDeposit(mAccount)
             onFetchMyHavestReward(mAccount)
             
-        } else if (mChainType == ChainType.BAND_MAIN || mChainType == ChainType.IOV_MAIN || mChainType == ChainType.SECRET_MAIN || mChainType == ChainType.IOV_TEST) {
+        } else if (mChainType == ChainType.BAND_MAIN || mChainType == ChainType.SECRET_MAIN) {
             self.mFetchCnt = 9
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -275,6 +275,23 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchInflation()
             onFetchProvision()
             onFetchStakingPool()
+            
+        } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
+            self.mFetchCnt = 11
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+
+            onFetchInflation()
+            onFetchProvision()
+            onFetchStakingPool()
+            
+            onFetchStarNameFees()
+            onFetchStarNameConfig()
             
         } else if (mChainType == ChainType.OKEX_TEST) {
             self.mFetchCnt = 6
@@ -1525,6 +1542,54 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchOkTokenList ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchStarNameFees() {
+        var url: String?
+        if (mChainType == ChainType.IOV_MAIN) {
+            url = IOV_STARNAME_FEE
+        } else if (mChainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_STARNAME_FEE
+        }
+        let request = Alamofire.request(url!, method: .post, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mStarNameFee = IovStarNameFees.init(info).result.fees
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchStarNameFees ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchStarNameConfig() {
+        var url: String?
+        if (mChainType == ChainType.IOV_MAIN) {
+            url = IOV_STARNAME_CONFIG
+        } else if (mChainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_STARNAME_CONFIG
+        }
+        let request = Alamofire.request(url!, method: .post, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mStarNameConfig = IovStarNameConfig.init(info).result.configuration
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchStarNameConfig ", error) }
             }
             self.onFetchFinished()
         }

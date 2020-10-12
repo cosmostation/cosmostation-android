@@ -168,7 +168,7 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
                     self.onShowToast(NSLocalizedString("error_invalide_starname", comment: ""))
                     return
                 }
-                let nameResolve = IovNameResolve.init(info)
+                let nameResolve = IovStarNameResolve.init(info)
                 guard let matchedAddress = nameResolve.getAddressWithChain(self.pageHolderVC.chainType!) else {
                     self.onShowToast(NSLocalizedString("error_no_mattched_starname", comment: ""))
                     return

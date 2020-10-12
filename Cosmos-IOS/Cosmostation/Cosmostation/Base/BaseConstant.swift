@@ -255,14 +255,6 @@ let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";
 
 
 //IOV_URL
-let IOV_URL_BALANCE                     = "";
-let IOV_URL_NONCE                       = "";
-let IOV_URL_ADDRESS_INFO                = "";
-
-let IOV_REST_URL_BALANCE                = "";
-let IOV_REST_URL_NONCE                  = "";
-let IOV_REST_URL_TX_SUBMIT              = "";
-
 let IOV_TX                              = IOV_URL + "txs/";
 let IOV_VALIDATORS                      = IOV_URL + "staking/validators";
 let IOV_ACCOUNT_INFO                    = IOV_URL + "auth/accounts/";
@@ -279,7 +271,11 @@ let IOV_INFLATION                       = IOV_URL + "minting/inflation";
 let IOV_PROVISIONS                      = IOV_URL + "minting/annual-provisions";
 let IOV_STAKING_POOL                    = IOV_URL + "staking/pool";
 let IOV_BORAD_TX                        = IOV_URL + "txs";
+let IOV_STARNAME_FEE                    = IOV_URL + "configuration/query/fees";
+let IOV_STARNAME_CONFIG                 = IOV_URL + "configuration/query/configuration";
 let IOV_CHECK_WITH_STARNAME             = IOV_URL + "starname/query/resolve";
+let IOV_CHECK_MY_DOMAIN                 = IOV_URL + "starname/query/domainsWithOwner";
+let IOV_CHECK_MY_ACCOUNT                = IOV_URL + "starname/query/accountsWithOwner";
 
 let IOV_API_HISTORY                     = IOV_API + "v1/account/txs/";
 let IOV_API_TRANS_HISTORY               = IOV_API + "v1/account/transfer_txs/";
@@ -302,7 +298,10 @@ let IOV_TEST_INFLATION                  = IOV_TEST_URL + "minting/inflation";
 let IOV_TEST_PROVISIONS                 = IOV_TEST_URL + "minting/annual-provisions";
 let IOV_TEST_STAKING_POOL               = IOV_TEST_URL + "staking/pool";
 let IOV_TEST_BORAD_TX                   = IOV_TEST_URL + "txs";
-//let IOV_TEST_CHECK_WITH_STARNAME        = IOV_URL + "starname/query/resolve";
+let IOV_TEST_STARNAME_FEE               = IOV_TEST_URL + "configuration/query/fees";
+let IOV_TEST_STARNAME_CONFIG            = IOV_TEST_URL + "configuration/query/configuration";
+let IOV_TEST_CHECK_MY_DOMAIN            = IOV_TEST_URL + "starname/query/domainsWithOwner";
+let IOV_TEST_CHECK_MY_ACCOUNT           = IOV_TEST_URL + "starname/query/accountsWithOwner";
 
 
 //OKEX_TEST_URL

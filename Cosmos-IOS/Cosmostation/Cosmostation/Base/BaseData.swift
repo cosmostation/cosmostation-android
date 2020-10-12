@@ -43,6 +43,9 @@ final class BaseData : NSObject{
     var mOkDeposit = OkDeposit.init();
     var mOkWithdraw = OkWithdraw.init();
     
+    var mStarNameFee: IovStarNameFees.IovFee?
+    var mStarNameConfig: IovStarNameConfig.IovConfig?
+    
     public override init() {
         super.init();
         if database == nil {
