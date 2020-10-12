@@ -139,6 +139,7 @@
     <string name="str_send">Send</string>
     <string name="str_receive">Receive</string>
     <string name="str_change_reward_address_c">CHANGE REWARD ADDRESS</string>
+    <string name="str_vote_c">VOTE</string>
     <string name="str_delegate_c">DELEGATE</string>
     <string name="str_undelegate_c">UNDELEGATE</string>
     <string name="str_redelegate_c">REDELEGATE</string>

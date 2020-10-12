@@ -55,7 +55,7 @@ public class VoteActivity extends BaseActivity {
         mIvStep             = findViewById(R.id.send_step);
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_delegate_c));
+        mTitle.setText(getString(R.string.str_vote_c));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

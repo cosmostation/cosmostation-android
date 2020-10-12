@@ -47,6 +47,7 @@
     <string name="str_send">보내기</string>
     <string name="str_receive">받기</string>
     <string name="str_change_reward_address_c">이자 주소 변경</string>
+    <string name="str_vote_c">투표 하기</string>
     <string name="str_delegate_c">위임 하기</string>
     <string name="str_undelegate_c">위임 철회 하기</string>
     <string name="str_redelegate_c">재위임 하기</string>

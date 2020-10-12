@@ -29,6 +29,13 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_AMOUNT_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_AMOUNT_HALF;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_RATE_LOW;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+
 public class VoteStep2Fragment extends BaseFragment implements View.OnClickListener {
 
     public final static int SELECT_GAS_DIALOG = 6001;
@@ -169,6 +176,31 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
             });
             mSeekBarGas.setProgress(0);
 
+        } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
+            mBtnGasType.setOnClickListener(this);
+            mSpeedLayer.setOnClickListener(this);
+            Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
+            mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_band_seekbar_style));
+            mSeekBarGas.getProgressDrawable().setBounds(bounds);
+            mTvGasType.setTextColor(getResources().getColor(R.color.colorBand));
+            mSeekBarGas.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    if(fromUser) {
+                        onUpdateFeeLayer();
+                    }
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) { }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    onPayableFee();
+                }
+            });
+            mSeekBarGas.setProgress(0);
+
         }
         return rootView;
     }
@@ -183,6 +215,10 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             mAvailable  = getSActivity().mAccount.getKavaBalance();
+            onUpdateFeeLayer();
+
+        } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
+            mAvailable  = getSActivity().mAccount.getBandBalance();
             onUpdateFeeLayer();
 
         }
@@ -202,7 +238,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
+                fee.gas = FEE_GAS_AMOUNT_HALF;
                 getSActivity().mFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -225,6 +261,17 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = BaseConstant.FEE_KAVA_GAS_AMOUNT_LOW;
+                getSActivity().mFee = fee;
+
+            } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = TOKEN_BAND;
+                gasCoin.amount = mFeeAmount.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = FEE_GAS_AMOUNT_HALF;
                 getSActivity().mFee = fee;
 
             }
@@ -257,10 +304,10 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_HALF);
+                mGasAmount.setText(FEE_GAS_AMOUNT_HALF);
                 mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_LOW, 4));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
+                mFeeAmount = new BigDecimal(FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -277,10 +324,10 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_HALF);
+                mGasAmount.setText(FEE_GAS_AMOUNT_HALF);
                 mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+                mFeeAmount = new BigDecimal(FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -348,6 +395,63 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
             }
 
+        } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
+
+            if(mSeekBarGas.getProgress() == 0) {
+                mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.bycicle_img));
+                mSpeedMsg.setText(getString(R.string.str_fee_speed_title_0));
+                mFeeLayer1.setVisibility(View.VISIBLE);
+                mFeeLayer2.setVisibility(View.GONE);
+
+                mFeeAmount  = BigDecimal.ZERO;
+                if(getBaseDao().getCurrency() != 5) {
+                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(2, RoundingMode.DOWN);
+                } else {
+                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(8, RoundingMode.DOWN);
+                }
+
+                mMinFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
+                mMinFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+            } else if (mSeekBarGas.getProgress() == 1) {
+                mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.car_img));
+                mSpeedMsg.setText(getString(R.string.str_fee_speed_title_1));
+                mFeeLayer1.setVisibility(View.GONE);
+                mFeeLayer2.setVisibility(View.VISIBLE);
+
+                mGasAmount.setText(FEE_GAS_AMOUNT_HALF);
+                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_LOW, 4));
+
+                mFeeAmount = new BigDecimal(FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(FEE_GAS_RATE_LOW)).setScale(0);
+                if(getBaseDao().getCurrency() != 5) {
+                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(2, RoundingMode.DOWN);
+                } else {
+                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(8, RoundingMode.DOWN);
+                }
+
+                mGasFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
+                mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+
+            } else if (mSeekBarGas.getProgress() == 2) {
+                mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.rocket_img));
+                mSpeedMsg.setText(getString(R.string.str_fee_speed_title_2));
+                mFeeLayer1.setVisibility(View.GONE);
+                mFeeLayer2.setVisibility(View.VISIBLE);
+
+                mGasAmount.setText(FEE_GAS_AMOUNT_HALF);
+                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_AVERAGE, 3));
+
+                mFeeAmount = new BigDecimal(FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(FEE_GAS_RATE_AVERAGE)).setScale(0);
+                if(getBaseDao().getCurrency() != 5) {
+                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(2, RoundingMode.DOWN);
+                } else {
+                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(8, RoundingMode.DOWN);
+                }
+
+                mGasFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
+                mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            }
         }
 
     }
