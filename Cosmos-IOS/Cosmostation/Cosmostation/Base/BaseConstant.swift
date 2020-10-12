@@ -776,8 +776,8 @@ enum ChainType: String {
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
-//        result.append(OKEX_TEST)
-//        result.append(CERTIK_TEST)
+        result.append(OKEX_TEST)
+        result.append(CERTIK_TEST)
         return result
     }
     
