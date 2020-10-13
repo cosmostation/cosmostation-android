@@ -15,7 +15,8 @@ class TxIncentiveTableViewCell: UITableViewCell {
     @IBOutlet weak var rewardAmountDenom: UILabel!
     @IBOutlet weak var senderLabel: UILabel!
     @IBOutlet weak var coinTypeLabel: UILabel!
-
+    @IBOutlet weak var multiplierLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none

@@ -943,7 +943,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell?.senderLabel.text = msg?.value.sender
-            cell?.coinTypeLabel.text = msg?.value.denom?.uppercased()
+            cell?.coinTypeLabel.text = msg?.value.collateral_type
+            cell?.multiplierLabel.text = msg?.value.multiplier_name
             
             let incentiveCoin = mTxInfo!.simpleIncentive()
             if (incentiveCoin != nil && !incentiveCoin!.denom.isEmpty) {
@@ -1224,6 +1225,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             url = CERTIK_TEST_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         }
+        print("url ", url)
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):

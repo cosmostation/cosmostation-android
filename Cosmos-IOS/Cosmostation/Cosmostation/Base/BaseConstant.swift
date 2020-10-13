@@ -525,6 +525,9 @@ let KAVA_MSG_TYPE_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
 let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
 let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
 let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
+let KAVA_MSG_TYPE_DEPOSIT_HAVEST            = "harvest/MsgDeposit";
+let KAVA_MSG_TYPE_WITHDRAW_HAVEST           = "harvest/MsgWithdraw";
+let KAVA_MSG_TYPE_CLAIM_HAVEST              = "harvest/MsgClaimReward";
 
 let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
 let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";

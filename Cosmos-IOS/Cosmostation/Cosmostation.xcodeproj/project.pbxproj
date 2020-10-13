@@ -920,6 +920,64 @@
 			path = kava;
 			sourceTree = "<group>";
 		};
+		284D17F22535D68600C364F9 /* kava */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = kava;
+			sourceTree = "<group>";
+		};
+		284D17F32535D69000C364F9 /* txs */ = {
+			isa = PBXGroup;
+			children = (
+				2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */,
+				2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */,
+				282FF33F23F4FFD20028CC66 /* TxCommissionCell.swift */,
+				282FF34023F4FFD20028CC66 /* TxCommissionCell.xib */,
+				282FF34323F5062A0028CC66 /* TxDelegateCell.swift */,
+				282FF34423F5062A0028CC66 /* TxDelegateCell.xib */,
+				282FF34723F50C540028CC66 /* TxUndelegateCell.swift */,
+				282FF34823F50C540028CC66 /* TxUndelegateCell.xib */,
+				282FF34B23F50E010028CC66 /* TxRedelegateCell.swift */,
+				282FF34C23F50E010028CC66 /* TxRedelegateCell.xib */,
+				282FF34F23F5172E0028CC66 /* TxTransferCell.swift */,
+				282FF35023F5172E0028CC66 /* TxTransferCell.xib */,
+				282FF35323F518E00028CC66 /* TxMultiTransferCell.swift */,
+				282FF35423F518E00028CC66 /* TxMultiTransferCell.xib */,
+				282FF35723F52FD40028CC66 /* TxRewardCell.swift */,
+				282FF35823F52FD40028CC66 /* TxRewardCell.xib */,
+				28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */,
+				28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */,
+				282FF35B23F530ED0028CC66 /* TxEditRewardAddressCell.swift */,
+				282FF35C23F530ED0028CC66 /* TxEditRewardAddressCell.xib */,
+				282FF35F23F532360028CC66 /* TxVoteCell.swift */,
+				282FF36023F532360028CC66 /* TxVoteCell.xib */,
+				282FF36323F533AF0028CC66 /* TxUnknownCell.swift */,
+				282FF36423F533AF0028CC66 /* TxUnknownCell.xib */,
+				28474EC8241E06AF00AF5A81 /* TxCreateCdpCell.swift */,
+				28474EC7241E06AF00AF5A81 /* TxCreateCdpCell.xib */,
+				28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */,
+				28474ECA241E06AF00AF5A81 /* TxDepositCdpCell.xib */,
+				28474EC2241E06AF00AF5A81 /* TxdrawDebtCdpCell.swift */,
+				28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */,
+				28474EC6241E06AF00AF5A81 /* TxPostPriceCell.swift */,
+				28474EC5241E06AF00AF5A81 /* TxPostPriceCell.xib */,
+				28474EC9241E06AF00AF5A81 /* TxRepayCdpCell.swift */,
+				28474EC3241E06AF00AF5A81 /* TxRepayCdpCell.xib */,
+				28474EC4241E06AF00AF5A81 /* TxWithDrawCdpCell.swift */,
+				28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */,
+				2838501A2448A69D00E5DEF2 /* TxHtlcCreateCell.swift */,
+				2838501B2448A69D00E5DEF2 /* TxHtlcCreateCell.xib */,
+				2838501E2448A6B000E5DEF2 /* TxHtlcClaimCell.swift */,
+				2838501F2448A6B000E5DEF2 /* TxHtlcClaimCell.xib */,
+				283850222448A6C600E5DEF2 /* TxHtlcRefundCell.swift */,
+				283850232448A6C600E5DEF2 /* TxHtlcRefundCell.xib */,
+				2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */,
+				2852D76C2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib */,
+			);
+			path = txs;
+			sourceTree = "<group>";
+		};
 		2868558C24989A5E0099D18F /* PopUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -1327,6 +1385,8 @@
 		E1A82DF12244EC1C0097CAEE /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				284D17F32535D69000C364F9 /* txs */,
+				284D17F22535D68600C364F9 /* kava */,
 				28BB2A7E2533D92500CFF097 /* starname */,
 				E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */,
 				E17748FC22842689003D8CD1 /* AllValidatorCell.xib */,
@@ -1416,50 +1476,6 @@
 				E126CFBB2387A7F4002A546F /* TokenDetailHeaderCustomCell.xib */,
 				28A209DD248897F400C2C078 /* TokenDetailVestingDetailCell.swift */,
 				28A209DE248897F400C2C078 /* TokenDetailVestingDetailCell.xib */,
-				2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */,
-				2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */,
-				282FF33F23F4FFD20028CC66 /* TxCommissionCell.swift */,
-				282FF34023F4FFD20028CC66 /* TxCommissionCell.xib */,
-				282FF34323F5062A0028CC66 /* TxDelegateCell.swift */,
-				282FF34423F5062A0028CC66 /* TxDelegateCell.xib */,
-				282FF34723F50C540028CC66 /* TxUndelegateCell.swift */,
-				282FF34823F50C540028CC66 /* TxUndelegateCell.xib */,
-				282FF34B23F50E010028CC66 /* TxRedelegateCell.swift */,
-				282FF34C23F50E010028CC66 /* TxRedelegateCell.xib */,
-				282FF34F23F5172E0028CC66 /* TxTransferCell.swift */,
-				282FF35023F5172E0028CC66 /* TxTransferCell.xib */,
-				282FF35323F518E00028CC66 /* TxMultiTransferCell.swift */,
-				282FF35423F518E00028CC66 /* TxMultiTransferCell.xib */,
-				282FF35723F52FD40028CC66 /* TxRewardCell.swift */,
-				282FF35823F52FD40028CC66 /* TxRewardCell.xib */,
-				28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */,
-				28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */,
-				282FF35B23F530ED0028CC66 /* TxEditRewardAddressCell.swift */,
-				282FF35C23F530ED0028CC66 /* TxEditRewardAddressCell.xib */,
-				282FF35F23F532360028CC66 /* TxVoteCell.swift */,
-				282FF36023F532360028CC66 /* TxVoteCell.xib */,
-				282FF36323F533AF0028CC66 /* TxUnknownCell.swift */,
-				282FF36423F533AF0028CC66 /* TxUnknownCell.xib */,
-				28474EC8241E06AF00AF5A81 /* TxCreateCdpCell.swift */,
-				28474EC7241E06AF00AF5A81 /* TxCreateCdpCell.xib */,
-				28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */,
-				28474ECA241E06AF00AF5A81 /* TxDepositCdpCell.xib */,
-				28474EC2241E06AF00AF5A81 /* TxdrawDebtCdpCell.swift */,
-				28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */,
-				28474EC6241E06AF00AF5A81 /* TxPostPriceCell.swift */,
-				28474EC5241E06AF00AF5A81 /* TxPostPriceCell.xib */,
-				28474EC9241E06AF00AF5A81 /* TxRepayCdpCell.swift */,
-				28474EC3241E06AF00AF5A81 /* TxRepayCdpCell.xib */,
-				28474EC4241E06AF00AF5A81 /* TxWithDrawCdpCell.swift */,
-				28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */,
-				2838501A2448A69D00E5DEF2 /* TxHtlcCreateCell.swift */,
-				2838501B2448A69D00E5DEF2 /* TxHtlcCreateCell.xib */,
-				2838501E2448A6B000E5DEF2 /* TxHtlcClaimCell.swift */,
-				2838501F2448A6B000E5DEF2 /* TxHtlcClaimCell.xib */,
-				283850222448A6C600E5DEF2 /* TxHtlcRefundCell.swift */,
-				283850232448A6C600E5DEF2 /* TxHtlcRefundCell.xib */,
-				2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */,
-				2852D76C2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib */,
 				2842AB68242C5AF100248EEB /* CdpListPromotionCell.swift */,
 				283A80C024513DA2008FF813 /* CdpListPromotionCell.xib */,
 				2842AB6C242C5C7200248EEB /* CdpLisyMyCell.swift */,

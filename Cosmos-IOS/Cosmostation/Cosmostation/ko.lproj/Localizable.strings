@@ -492,6 +492,9 @@
 "tx_kava_bep3_claim" = "인터체인\n청구하기";
 "tx_kava_bep3_refund" = "인터체인\n환불하기";
 "tx_kava_incentive_reward" = "Crypto Payday\n참여";
+"tx_kava_havest_deposit" = "하베스트\n예치";
+"tx_kava_havest_withdraw" = "하베스트\n출금";
+"tx_kava_havest_claim" = "하베스트\n이자 청구";
 "tx_known" = "알 수 없음";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

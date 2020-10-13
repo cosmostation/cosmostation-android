@@ -504,6 +504,16 @@ class WUtils {
             
         } else if (msgs[0].type == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
             resultMsg = NSLocalizedString("tx_kava_incentive_reward", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_DEPOSIT_HAVEST) {
+            resultMsg = NSLocalizedString("tx_kava_havest_deposit", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_WITHDRAW_HAVEST) {
+            resultMsg = NSLocalizedString("tx_kava_havest_withdraw", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_CLAIM_HAVEST) {
+            resultMsg = NSLocalizedString("tx_kava_havest_claim", comment: "")
+            
         }
         
         if(msgs.count > 1) {

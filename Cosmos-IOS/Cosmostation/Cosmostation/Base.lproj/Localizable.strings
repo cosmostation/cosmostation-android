@@ -489,6 +489,9 @@
 "tx_kava_bep3_claim" = "Interchain\nClaim";
 "tx_kava_bep3_refund" = "Interchain\nRefund";
 "tx_kava_incentive_reward" = "Crypto Payday\nParticipate";
+"tx_kava_havest_deposit" = "Havest\nDeposit";
+"tx_kava_havest_withdraw" = "Havest\nWithdraw";
+"tx_kava_havest_claim" = "Havest\nGet Rewards";
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";
