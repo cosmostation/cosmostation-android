@@ -172,6 +172,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             return 1
             
         } else {
+            if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+                return mBnbHistories.count
+            }
             return mApiHistories.count
         }
     }
@@ -234,7 +237,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.row > 0) {
+        if (indexPath.section == 1) {
             if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
                 let history = mApiHistories[indexPath.row]
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
@@ -520,9 +523,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             let havestRewardTokenAmount = WUtils.getKavaTokenHavestReward(balance!.balance_denom, balances)
             let totalTokenValue = WUtils.getKavaTokenDollorValue(balance!.balance_denom, totalTokenAmount)
             let convertedKavaAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
-            
-            print("availableTokenAmount ", availableTokenAmount)
-            
+                        
             cell?.tokenInfoBtn.isHidden = true
             cell?.tokenSymbol.text = balance!.balance_denom.uppercased()
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.totalAmount.font, dpDecimal, dpDecimal)
@@ -694,10 +695,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                     for raw in rawHistory {
                         self.mBnbHistories.append(BnbHistory.init(raw as! [String : Any]))
                     }
-                    if(self.mBnbHistories.count > 0) {
+                    if (self.mBnbHistories.count > 0) {
                         self.tokenDetailTableView.reloadData()
                     }
-                    
                 }
                 
             case .failure(let error):
