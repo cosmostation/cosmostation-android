@@ -1407,7 +1407,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchMyHavestDeposit ", res)
+//                print("onFetchMyHavestDeposit ", res)
                 guard let responseData = res as? NSDictionary,
                     let _ = responseData.object(forKey: "height") as? String else {
                         self.onFetchFinished()

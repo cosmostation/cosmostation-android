@@ -11,6 +11,7 @@ import Foundation
 public struct Cdp: Codable {
     var id: String?
     var owner: String?
+    var type: String?
     var collateral: Coin?
     var principal: Coin?
     var accumulated_fees: Coin?
@@ -21,6 +22,10 @@ public struct Cdp: Codable {
     init(_ dictionary: [String: Any]) {
         if let id =  dictionary["id"] as? String {
             self.id = id
+        }
+        
+        if let type =  dictionary["type"] as? String {
+            self.type = type
         }
         
         if let owner =  dictionary["owner"] as? String {

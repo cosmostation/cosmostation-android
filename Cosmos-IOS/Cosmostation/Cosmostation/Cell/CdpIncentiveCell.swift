@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WalletKavaIncentiveCell: UITableViewCell {
+class CdpIncentiveCell: UITableViewCell {
 
     @IBOutlet weak var rootCard: CardView!
     @IBOutlet weak var btnParticipate: UIButton!

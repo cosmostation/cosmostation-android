@@ -118,8 +118,8 @@
 		2852D76D2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */; };
 		2852D76E2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2852D76C2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib */; };
 		2852D7702477E41A00D11DC4 /* KavaIncentiveParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D76F2477E41A00D11DC4 /* KavaIncentiveParam.swift */; };
-		2852D7732477E83400D11DC4 /* WalletKavaIncentiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D7712477E83400D11DC4 /* WalletKavaIncentiveCell.swift */; };
-		2852D7742477E83400D11DC4 /* WalletKavaIncentiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2852D7722477E83400D11DC4 /* WalletKavaIncentiveCell.xib */; };
+		2852D7732477E83400D11DC4 /* CdpIncentiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D7712477E83400D11DC4 /* CdpIncentiveCell.swift */; };
+		2852D7742477E83400D11DC4 /* CdpIncentiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2852D7722477E83400D11DC4 /* CdpIncentiveCell.xib */; };
 		285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */; };
 		285A33CF2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33CE2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift */; };
 		285A33D12446CDAB0052BD3D /* StepHtlcSend2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33D02446CDAB0052BD3D /* StepHtlcSend2ViewController.swift */; };
@@ -545,8 +545,8 @@
 		2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxIncentiveTableViewCell.swift; sourceTree = "<group>"; };
 		2852D76C2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxIncentiveTableViewCell.xib; sourceTree = "<group>"; };
 		2852D76F2477E41A00D11DC4 /* KavaIncentiveParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveParam.swift; sourceTree = "<group>"; };
-		2852D7712477E83400D11DC4 /* WalletKavaIncentiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKavaIncentiveCell.swift; sourceTree = "<group>"; };
-		2852D7722477E83400D11DC4 /* WalletKavaIncentiveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletKavaIncentiveCell.xib; sourceTree = "<group>"; };
+		2852D7712477E83400D11DC4 /* CdpIncentiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpIncentiveCell.swift; sourceTree = "<group>"; };
+		2852D7722477E83400D11DC4 /* CdpIncentiveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpIncentiveCell.xib; sourceTree = "<group>"; };
 		285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend0ViewController.swift; sourceTree = "<group>"; };
 		285A33CE2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend1ViewController.swift; sourceTree = "<group>"; };
 		285A33D02446CDAB0052BD3D /* StepHtlcSend2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend2ViewController.swift; sourceTree = "<group>"; };
@@ -1458,8 +1458,8 @@
 				E126CF8E2387A50E002A546F /* WalletBnbCell.xib */,
 				E191A57B237902C5002577BC /* WalletKavaCell.swift */,
 				E126CF932387A55A002A546F /* WalletKavaCell.xib */,
-				2852D7712477E83400D11DC4 /* WalletKavaIncentiveCell.swift */,
-				2852D7722477E83400D11DC4 /* WalletKavaIncentiveCell.xib */,
+				2852D7712477E83400D11DC4 /* CdpIncentiveCell.swift */,
+				2852D7722477E83400D11DC4 /* CdpIncentiveCell.xib */,
 				E1A699592366E8CC004CA274 /* WalletIovCell.swift */,
 				E126CF982387A5C9002A546F /* WalletIovCell.xib */,
 				28663BED248A4FB000080311 /* WalletBandCell.swift */,
@@ -1704,7 +1704,7 @@
 				2868559824989AB80099D18F /* CdpWarnPopup.xib in Resources */,
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
 				282BDFE724A5BCCB00D3A5D4 /* WcCancelPopup.xib in Resources */,
-				2852D7742477E83400D11DC4 /* WalletKavaIncentiveCell.xib in Resources */,
+				2852D7742477E83400D11DC4 /* CdpIncentiveCell.xib in Resources */,
 				283A80CD24514194008FF813 /* CdpDetailMyTopCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
 				E126CFB92387A7F4002A546F /* TokenDetailHeaderCustomCell.xib in Resources */,
@@ -1794,7 +1794,7 @@
 				E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */,
 				285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */,
 				2842AB65242C396700248EEB /* KavaPriceFeedPrice.swift in Sources */,
-				2852D7732477E83400D11DC4 /* WalletKavaIncentiveCell.swift in Sources */,
+				2852D7732477E83400D11DC4 /* CdpIncentiveCell.swift in Sources */,
 				2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				283D2EAC24F56AFF00247424 /* OkWithdraw.swift in Sources */,
