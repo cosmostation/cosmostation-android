@@ -178,6 +178,12 @@
 		289DF184242DDF8300433CF4 /* CdpDetailAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */; };
 		28A209DF248897F400C2C078 /* TokenDetailVestingDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A209DD248897F400C2C078 /* TokenDetailVestingDetailCell.swift */; };
 		28A209E0248897F400C2C078 /* TokenDetailVestingDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A209DE248897F400C2C078 /* TokenDetailVestingDetailCell.xib */; };
+		28A7BD702535DAFF00969295 /* TxDepositHavestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7BD6E2535DAFF00969295 /* TxDepositHavestCell.swift */; };
+		28A7BD712535DAFF00969295 /* TxDepositHavestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A7BD6F2535DAFF00969295 /* TxDepositHavestCell.xib */; };
+		28A7BD752535DB1200969295 /* TxWithdrawHavestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7BD732535DB1200969295 /* TxWithdrawHavestCell.swift */; };
+		28A7BD762535DB1200969295 /* TxWithdrawHavestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A7BD742535DB1200969295 /* TxWithdrawHavestCell.xib */; };
+		28A7BD7A2535DB2600969295 /* TxClaimRewardHavestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7BD782535DB2600969295 /* TxClaimRewardHavestCell.swift */; };
+		28A7BD7B2535DB2600969295 /* TxClaimRewardHavestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A7BD792535DB2600969295 /* TxClaimRewardHavestCell.xib */; };
 		28ACF35E247E4531003C8812 /* KavaIncentiveReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */; };
 		28B4302A24F76AD500BD7BB2 /* OkTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4302924F76AD500BD7BB2 /* OkTransfer.swift */; };
 		28B4303524F7766200BD7BB2 /* TxOkDirectVoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4303324F7766200BD7BB2 /* TxOkDirectVoteCell.swift */; };
@@ -602,6 +608,12 @@
 		289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailAssetsCell.swift; sourceTree = "<group>"; };
 		28A209DD248897F400C2C078 /* TokenDetailVestingDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailVestingDetailCell.swift; sourceTree = "<group>"; };
 		28A209DE248897F400C2C078 /* TokenDetailVestingDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailVestingDetailCell.xib; sourceTree = "<group>"; };
+		28A7BD6E2535DAFF00969295 /* TxDepositHavestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDepositHavestCell.swift; sourceTree = "<group>"; };
+		28A7BD6F2535DAFF00969295 /* TxDepositHavestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxDepositHavestCell.xib; sourceTree = "<group>"; };
+		28A7BD732535DB1200969295 /* TxWithdrawHavestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxWithdrawHavestCell.swift; sourceTree = "<group>"; };
+		28A7BD742535DB1200969295 /* TxWithdrawHavestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxWithdrawHavestCell.xib; sourceTree = "<group>"; };
+		28A7BD782535DB2600969295 /* TxClaimRewardHavestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxClaimRewardHavestCell.swift; sourceTree = "<group>"; };
+		28A7BD792535DB2600969295 /* TxClaimRewardHavestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxClaimRewardHavestCell.xib; sourceTree = "<group>"; };
 		28ACF35D247E4531003C8812 /* KavaIncentiveReward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveReward.swift; sourceTree = "<group>"; };
 		28B4302924F76AD500BD7BB2 /* OkTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkTransfer.swift; sourceTree = "<group>"; };
 		28B4303324F7766200BD7BB2 /* TxOkDirectVoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxOkDirectVoteCell.swift; sourceTree = "<group>"; };
@@ -974,6 +986,12 @@
 				283850232448A6C600E5DEF2 /* TxHtlcRefundCell.xib */,
 				2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */,
 				2852D76C2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib */,
+				28A7BD6E2535DAFF00969295 /* TxDepositHavestCell.swift */,
+				28A7BD6F2535DAFF00969295 /* TxDepositHavestCell.xib */,
+				28A7BD732535DB1200969295 /* TxWithdrawHavestCell.swift */,
+				28A7BD742535DB1200969295 /* TxWithdrawHavestCell.xib */,
+				28A7BD782535DB2600969295 /* TxClaimRewardHavestCell.swift */,
+				28A7BD792535DB2600969295 /* TxClaimRewardHavestCell.xib */,
 			);
 			path = txs;
 			sourceTree = "<group>";
@@ -1601,6 +1619,7 @@
 				282FF34E23F50E010028CC66 /* TxRedelegateCell.xib in Resources */,
 				28474ED1241E06AF00AF5A81 /* TxPostPriceCell.xib in Resources */,
 				2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */,
+				28A7BD762535DB1200969295 /* TxWithdrawHavestCell.xib in Resources */,
 				282FF35A23F52FD40028CC66 /* TxRewardCell.xib in Resources */,
 				285A33DF2447633D0052BD3D /* SelectAccountCell.xib in Resources */,
 				E103DAC02281296E006C2146 /* QRScanViewController.xib in Resources */,
@@ -1657,6 +1676,7 @@
 				E103DAC9228129FD006C2146 /* WalletManageViewController.xib in Resources */,
 				E126CFA52387A713002A546F /* TokenDetailHeaderCosmosCell.xib in Resources */,
 				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
+				28A7BD7B2535DB2600969295 /* TxClaimRewardHavestCell.xib in Resources */,
 				28A209E0248897F400C2C078 /* TokenDetailVestingDetailCell.xib in Resources */,
 				E16B70DD229F9A78001D6B9C /* RedelegateCell.xib in Resources */,
 				E126CF912387A55A002A546F /* WalletKavaCell.xib in Resources */,
@@ -1699,6 +1719,7 @@
 				E126CF962387A5C9002A546F /* WalletIovCell.xib in Resources */,
 				E103DAE322814DFC006C2146 /* GenTx.storyboard in Resources */,
 				E177490122842724003D8CD1 /* MyValidatorCell.xib in Resources */,
+				28A7BD712535DAFF00969295 /* TxDepositHavestCell.xib in Resources */,
 				E126CFAF2387A799002A546F /* TokenDetailHeaderBnbCell.xib in Resources */,
 				2834399B2531D13C00CCFADE /* StarName.storyboard in Resources */,
 				E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */,
@@ -1785,6 +1806,7 @@
 				E1BA208E22F8117000EAB87F /* IrisStdSignMsg.swift in Sources */,
 				289BE017252DF58C00E5E4B4 /* KavaHavestParam.swift in Sources */,
 				E1FD232C233E1BDB009327FE /* WalletCosmosCell.swift in Sources */,
+				28A7BD702535DAFF00969295 /* TxDepositHavestCell.swift in Sources */,
 				28B4303524F7766200BD7BB2 /* TxOkDirectVoteCell.swift in Sources */,
 				E16B89152341C558003E0922 /* TokenCell.swift in Sources */,
 				2842AB5F242C2F1800248EEB /* CdpOwen.swift in Sources */,
@@ -1805,6 +1827,7 @@
 				28474ED5241E06AF00AF5A81 /* TxRepayCdpCell.swift in Sources */,
 				E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */,
 				283439A12531D1CF00CCFADE /* MyDomainViewController.swift in Sources */,
+				28A7BD7A2535DB2600969295 /* TxClaimRewardHavestCell.swift in Sources */,
 				E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */,
 				E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */,
 				E16D9B1B2248D1370019B7BB /* BoarderLabel.swift in Sources */,
@@ -1820,6 +1843,7 @@
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */,
 				2815AA7424349DE2008B23AA /* StepRepayCdpAmountViewController.swift in Sources */,
+				28A7BD752535DB1200969295 /* TxWithdrawHavestCell.swift in Sources */,
 				E1F1CF0C239F7D8D004EF8A2 /* VoteCheckViewController.swift in Sources */,
 				2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,

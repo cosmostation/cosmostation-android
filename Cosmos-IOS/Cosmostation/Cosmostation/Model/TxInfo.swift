@@ -248,6 +248,25 @@ public struct TxInfo {
         return coin
     }
     
+    public func simpleHavestReward() -> Coin? {
+        var coin = Coin.init()
+        var rewardSum = NSDecimalNumber.zero
+        self.logs?[0].events?.forEach({ (event) in
+            if (event.type == "transfer") {
+                event.attributes?.forEach({ (eventAttribute) in
+                    if (eventAttribute.key == "amount") {
+                        if let value = eventAttribute.value {
+                            coin.denom = value.filter{ $0.isLetter }
+                            rewardSum = rewardSum.adding(NSDecimalNumber.init(string: value.filter{ $0.isNumber }))
+                        }
+                    }
+                })
+            }
+        })
+        coin.amount = rewardSum.stringValue
+        return coin
+    }
+    
     
     
     public struct Log {

@@ -77,6 +77,7 @@ public struct Msg: Codable {
         var price: String?
         var expiry: String?
         var sender: String?
+        var receiver: String?
         var depositor: String?
         var owner: String?
         var collateral: Coin?
@@ -84,6 +85,8 @@ public struct Msg: Codable {
         var payment: Coin?
         var collateral_type: String?
         var multiplier_name: String?
+        var deposit_type: String?
+        var deposit_denom: String?
         
         var cdp_denom: String?
         var swap_id: String?
@@ -131,6 +134,7 @@ public struct Msg: Codable {
             case price
             case expiry
             case sender
+            case receiver
             case depositor
             case owner
             case collateral
@@ -138,6 +142,8 @@ public struct Msg: Codable {
             case payment
             case collateral_type
             case multiplier_name
+            case deposit_type
+            case deposit_denom
             case cdp_denom
             case swap_id
             case random_number
@@ -310,6 +316,9 @@ public struct Msg: Codable {
             if let sender =  dictionary["sender"] as? String {
                 self.sender = sender
             }
+            if let receiver =  dictionary["receiver"] as? String {
+                self.receiver = receiver
+            }
             if let depositor =  dictionary["depositor"] as? String {
                 self.depositor = depositor
             }
@@ -330,6 +339,12 @@ public struct Msg: Codable {
             }
             if let rawMultiplierName = dictionary["multiplier_name"] as? String {
                 self.multiplier_name = rawMultiplierName
+            }
+            if let rawDepositType = dictionary["deposit_type"] as? String {
+                self.deposit_type = rawDepositType
+            }
+            if let rawDepositDenom = dictionary["deposit_denom"] as? String {
+                self.deposit_denom = rawDepositDenom
             }
             if let cdp_denom =  dictionary["cdp_denom"] as? String {
                 self.cdp_denom = cdp_denom
