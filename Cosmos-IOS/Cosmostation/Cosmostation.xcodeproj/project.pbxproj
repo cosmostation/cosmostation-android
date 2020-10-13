@@ -922,6 +922,8 @@
 				284D17D82535572300C364F9 /* DAppsListViewController.swift */,
 				284D17DB2535573100C364F9 /* CdpViewController.swift */,
 				284D17DE2535573D00C364F9 /* HarvestViewController.swift */,
+				289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */,
+				283A80E324514BD0008FF813 /* CdpDetailViewController.xib */,
 			);
 			path = kava;
 			sourceTree = "<group>";
@@ -929,6 +931,22 @@
 		284D17F22535D68600C364F9 /* kava */ = {
 			isa = PBXGroup;
 			children = (
+				2842AB68242C5AF100248EEB /* CdpListPromotionCell.swift */,
+				283A80C024513DA2008FF813 /* CdpListPromotionCell.xib */,
+				2842AB6C242C5C7200248EEB /* CdpLisyMyCell.swift */,
+				2842AB6D242C5C7200248EEB /* CdpLisyMyCell.xib */,
+				2842AB70242C7C8A00248EEB /* CdpListAllCell.swift */,
+				283A80C524513F6F008FF813 /* CdpListAllCell.xib */,
+				2852D7712477E83400D11DC4 /* CdpIncentiveCell.swift */,
+				2852D7722477E83400D11DC4 /* CdpIncentiveCell.xib */,
+				289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */,
+				283A80CA24513FF7008FF813 /* CdpDetailTopCell.xib */,
+				289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */,
+				283A80CF24514194008FF813 /* CdpDetailMyTopCell.xib */,
+				289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */,
+				283A80D4245141EB008FF813 /* CdpDetailMyActionCell.xib */,
+				289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */,
+				283A80D92451436A008FF813 /* CdpDetailAssetsCell.xib */,
 			);
 			path = kava;
 			sourceTree = "<group>";
@@ -1251,8 +1269,6 @@
 				E11338FF235D95FD0011B61D /* AccountSelectViewController.swift */,
 				2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */,
 				2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */,
-				289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */,
-				283A80E324514BD0008FF813 /* CdpDetailViewController.xib */,
 				28B4304324F8B34100BD7BB2 /* OkValidatorListViewController.swift */,
 				28B4304524F8B36600BD7BB2 /* OkMyValidatorViewController.swift */,
 				28B4304724F8B37500BD7BB2 /* OkTopValidatorViewController.swift */,
@@ -1483,22 +1499,6 @@
 				E126CFBB2387A7F4002A546F /* TokenDetailHeaderCustomCell.xib */,
 				28A209DD248897F400C2C078 /* TokenDetailVestingDetailCell.swift */,
 				28A209DE248897F400C2C078 /* TokenDetailVestingDetailCell.xib */,
-				2842AB68242C5AF100248EEB /* CdpListPromotionCell.swift */,
-				283A80C024513DA2008FF813 /* CdpListPromotionCell.xib */,
-				2842AB6C242C5C7200248EEB /* CdpLisyMyCell.swift */,
-				2842AB6D242C5C7200248EEB /* CdpLisyMyCell.xib */,
-				2842AB70242C7C8A00248EEB /* CdpListAllCell.swift */,
-				283A80C524513F6F008FF813 /* CdpListAllCell.xib */,
-				2852D7712477E83400D11DC4 /* CdpIncentiveCell.swift */,
-				2852D7722477E83400D11DC4 /* CdpIncentiveCell.xib */,
-				289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */,
-				283A80CA24513FF7008FF813 /* CdpDetailTopCell.xib */,
-				289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */,
-				283A80CF24514194008FF813 /* CdpDetailMyTopCell.xib */,
-				289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */,
-				283A80D4245141EB008FF813 /* CdpDetailMyActionCell.xib */,
-				289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */,
-				283A80D92451436A008FF813 /* CdpDetailAssetsCell.xib */,
 				285A33D8244763290052BD3D /* SelectChainCell.swift */,
 				285A33D9244763290052BD3D /* SelectChainCell.xib */,
 				2812956C250F81C3007B217E /* SelectCoinCell.swift */,
