@@ -74,19 +74,16 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
         self.incentiveClaimables = BaseData.instance.mIncentiveClaimables
         self.priceFeeds = BaseData.instance.mKavaPrice
         self.onSortCdps()
-        print("cdpParam ", myCdps.count)
-        print("alCdps ", cdpParam?.result.collateral_params.count)
-        print("onFetchDone")
         self.refresher.endRefreshing()
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
-//            if (myCdps.count > 1 && incentiveClaimables.count > 0) {
+            if (incentiveClaimables.count > 0) {
                 return 1
-//            }
-//            return 0
+            }
+            return 0
             
         } else if (section == 1) {
             return myCdps.count
@@ -104,6 +101,9 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
             let cell:CdpIncentiveCell? = tableView.dequeueReusableCell(withIdentifier:"CdpIncentiveCell") as? CdpIncentiveCell
+            cell?.actionParticipate = {
+                print("actionParticipate")
+            }
             return cell!
             
         } else if (indexPath.section == 1) {
@@ -168,7 +168,6 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
             cell?.marketImg.af_setImage(withURL: URL(string: url)!)
             return cell!
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 1) {

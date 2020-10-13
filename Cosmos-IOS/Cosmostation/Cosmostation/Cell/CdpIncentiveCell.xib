@@ -21,13 +21,15 @@
                         <rect key="frame" x="12" y="4" width="404" height="165"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crypto Payday" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZo-Hm-go1">
-                                <rect key="frame" x="16" y="16" width="88" height="36.5"/>
+                                <rect key="frame" x="16" y="16" width="88" height="20.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="BNB holders who mint the most USDX earn the most minter rewards! Every Wendesday at 14:00 UTC" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKd-ZJ-4SD">
-                                <rect key="frame" x="16" y="58.5" width="372" height="30.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKd-ZJ-4SD">
+                                <rect key="frame" x="16" y="42.5" width="372" height="46.5"/>
+                                <string key="text">Now ready to get KAVA incentive!
+CDP participater who mint the most USDX earn the most minter incentive rewards.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
@@ -39,7 +41,7 @@
                                     <constraint firstAttribute="height" constant="40" id="CKU-PW-E4S"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                <state key="normal" title="  Participate" image="incentiveIcs">
+                                <state key="normal" title="  Claim Incentive" image="incentiveIcs">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -57,12 +59,6 @@
                                     <action selector="onParticipate:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="pkE-Yd-AlI"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Participation Complete!!" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxY-VY-pfn">
-                                <rect key="frame" x="225" y="97" width="163" height="37"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.33725490196078434" blue="0.30980392156862746" alpha="0.14807988556338017" colorSpace="deviceRGB"/>
                         <constraints>
@@ -70,14 +66,11 @@
                             <constraint firstItem="EKd-ZJ-4SD" firstAttribute="leading" secondItem="CZo-Hm-go1" secondAttribute="leading" id="BJg-NU-9ll"/>
                             <constraint firstAttribute="trailing" secondItem="APK-gD-Pxv" secondAttribute="trailing" constant="12" id="DNv-E9-yDP"/>
                             <constraint firstItem="CZo-Hm-go1" firstAttribute="leading" secondItem="D6R-xQ-LDf" secondAttribute="leading" constant="16" id="L2I-QE-bsv"/>
-                            <constraint firstItem="sxY-VY-pfn" firstAttribute="top" secondItem="EKd-ZJ-4SD" secondAttribute="bottom" constant="10" id="Nye-O6-m81"/>
                             <constraint firstAttribute="bottom" secondItem="APK-gD-Pxv" secondAttribute="bottom" constant="20" id="XwN-Di-zmo"/>
-                            <constraint firstAttribute="trailing" secondItem="sxY-VY-pfn" secondAttribute="trailing" constant="16" id="Zdj-z9-MGm"/>
                             <constraint firstItem="APK-gD-Pxv" firstAttribute="leading" secondItem="D6R-xQ-LDf" secondAttribute="leading" constant="12" id="d6b-Qd-iSt"/>
                             <constraint firstAttribute="trailing" secondItem="EKd-ZJ-4SD" secondAttribute="trailing" constant="16" id="djX-wo-MBg"/>
                             <constraint firstItem="APK-gD-Pxv" firstAttribute="top" secondItem="EKd-ZJ-4SD" secondAttribute="bottom" constant="16" id="jUy-Zd-7eU"/>
                             <constraint firstItem="EKd-ZJ-4SD" firstAttribute="top" secondItem="CZo-Hm-go1" secondAttribute="bottom" constant="6" id="nVx-m3-wD4"/>
-                            <constraint firstAttribute="bottom" secondItem="sxY-VY-pfn" secondAttribute="bottom" constant="20" id="qK4-0A-NWG"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -110,9 +103,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="BtnConstraint" destination="XwN-Di-zmo" id="6LI-Wz-t5f"/>
-                <outlet property="LabelConstraint" destination="qK4-0A-NWG" id="bYZ-KT-5WM"/>
                 <outlet property="btnParticipate" destination="APK-gD-Pxv" id="nUq-pp-mc0"/>
-                <outlet property="participateDone" destination="sxY-VY-pfn" id="kwl-8n-vs3"/>
                 <outlet property="rootCard" destination="D6R-xQ-LDf" id="CyJ-zA-VKg"/>
             </connections>
             <point key="canvasLocation" x="-305.79710144927537" y="196.54017857142856"/>
