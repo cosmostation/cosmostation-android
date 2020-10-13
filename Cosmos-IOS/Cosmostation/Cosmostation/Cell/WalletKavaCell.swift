@@ -18,10 +18,12 @@ class WalletKavaCell: UITableViewCell {
     @IBOutlet weak var unbondingAmount: UILabel!
     @IBOutlet weak var rewardAmount: UILabel!
     @IBOutlet weak var vestingAmount: UILabel!
+    @IBOutlet weak var havestDepositedAmount: UILabel!
+    @IBOutlet weak var unclaimedIncentiveAmount: UILabel!
+    @IBOutlet weak var vestingLayer: UIView!
+    @IBOutlet weak var havestDepositLayer: UIView!
+    @IBOutlet weak var unClaimedIncentiveLayer: UIView!
     @IBOutlet weak var cdpBtn: UIButton!
-    
-    @IBOutlet weak var cdpConstraint: NSLayoutConstraint!
-    @IBOutlet weak var nonCdpConstarint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,6 +33,8 @@ class WalletKavaCell: UITableViewCell {
         rewardAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         unbondingAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         vestingAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        havestDepositedAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        unclaimedIncentiveAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
     var actionDelegate: (() -> Void)? = nil
@@ -45,6 +49,12 @@ class WalletKavaCell: UITableViewCell {
     }
     @IBAction func onClickCdp(_ sender: Any) {
         actionCdp?()
+    }
+    
+    override func prepareForReuse() {
+        vestingLayer.isHidden = true
+        havestDepositLayer.isHidden = true
+        unClaimedIncentiveLayer.isHidden = true
     }
     
 }

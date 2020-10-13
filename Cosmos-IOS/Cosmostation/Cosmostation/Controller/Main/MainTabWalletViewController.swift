@@ -198,12 +198,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 6;
         } else if  (chainType == ChainType.IRIS_MAIN) {
             return 5;
-        } else if  (chainType == ChainType.KAVA_MAIN) {
-            return 7
+        } else if  (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+            return 5
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return 4;
-        } else if (chainType == ChainType.KAVA_TEST) {
-            return 7
         } else if (chainType == ChainType.BAND_MAIN) {
             return 5;
         } else if (chainType == ChainType.SECRET_MAIN) {
@@ -266,9 +264,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
 //                indexPath.row == 2) {
 //                return 0;
 //            }
-            if (indexPath.row == 2 || indexPath.row == 3) {
-                return 0;
-            }
         }
         return UITableView.automaticDimension;
     }
@@ -616,8 +611,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onClickVoteList()
             }
             cell?.cdpBtn.isHidden = false
-            cell?.nonCdpConstarint.priority = .defaultLow
-            cell?.cdpConstraint.priority = .defaultHigh
             cell?.actionCdp = {
                 self.onClickCdp()
             }
@@ -625,51 +618,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:WalletVestingDetailCell? = tableView.dequeueReusableCell(withIdentifier:"WalletVestingDetailCell") as? WalletVestingDetailCell
-//            let mKavaAccount = BaseData.instance.mKavaAccountResult
-//            cell?.rootCardView.backgroundColor = TRANS_BG_COLOR_KAVA
-//            cell?.vestingCntLabel.text = "(" + String(mKavaAccount.getCVestingCnt()) + ")"
-//            cell?.vestingTotalAmount.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingSum().stringValue, cell!.vestingTotalAmount.font!, 6, 6)
-//            if (mKavaAccount.getCVestingCnt() > 0) {
-//                cell?.vestingTime0.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(0))
-//                cell?.vestingGap0.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(0))
-//                cell?.vestingAmount0.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(0).stringValue, cell!.vestingAmount0.font!, 6, 6)
-//            }
-//            if (mKavaAccount.getCVestingCnt() > 1) {
-//                cell?.vestingLayer1.isHidden = false
-//                cell?.vestingTime1.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(1))
-//                cell?.vestingGap1.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(1))
-//                cell?.vestingAmount1.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(1).stringValue, cell!.vestingAmount1.font!, 6, 6)
-//            }
-//            if (mKavaAccount.getCVestingCnt() > 2) {
-//                cell?.vestingLayer2.isHidden = false
-//                cell?.vestingTime2.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(2))
-//                cell?.vestingGap2.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(2))
-//                cell?.vestingAmount2.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(2).stringValue, cell!.vestingAmount2.font!, 6, 6)
-//            }
-//            if (mKavaAccount.getCVestingCnt() > 3) {
-//                cell?.vestingLayer3.isHidden = false
-//                cell?.vestingTime3.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(3))
-//                cell?.vestingGap3.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(3))
-//                cell?.vestingAmount3.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(3).stringValue, cell!.vestingAmount3.font!, 6, 6)
-//            }
-//            if (mKavaAccount.getCVestingCnt() > 4) {
-//                cell?.vestingLayer4.isHidden = false
-//                cell?.vestingTime4.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(4))
-//                cell?.vestingGap4.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(4))
-//                cell?.vestingAmount4.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(4).stringValue, cell!.vestingAmount4.font!, 6, 6)
-//            }
-            return cell!
-            
-        } else if (indexPath.row == 3) {
-            let cell:WalletKavaIncentiveCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaIncentiveCell") as? WalletKavaIncentiveCell
-//            cell?.rootCard.backgroundColor = TRANS_BG_COLOR_KAVA
-//            cell?.actionParticipate = {
-//                self.onClickIncentive()
-//            }
-            return cell!
-            
-        } else if (indexPath.row == 4) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
             cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
@@ -697,7 +645,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             return cell!
             
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             if (self.mInflation != nil) {
                 cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
@@ -743,82 +691,47 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletKavaCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaCell") as? WalletKavaCell
-            let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.totalAmount.font!, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalKava, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
-            cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
-            cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
-            cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
-            cell?.vestingAmount.attributedText = WUtils.dpVestingCoin(mainTabVC.mBalances, cell!.vestingAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
+            let totalAmount = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, KAVA_MAIN_DENOM, chainType!)
+            let vestingAmount = WUtils.lockedAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
+            let havestDepositAmount = WUtils.havestDepositAmount(KAVA_MAIN_DENOM)
+            let unclaimedIncentiveAmount = WUtils.unclaimedIncentiveAmount(KAVA_MAIN_DENOM)
+            
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
+            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
+            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
+            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
+            cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
+            cell?.havestDepositedAmount.attributedText = WUtils.displayAmount2(havestDepositAmount.stringValue, cell!.havestDepositedAmount.font, 6, 6)
+            cell?.unclaimedIncentiveAmount.attributedText = WUtils.displayAmount2(unclaimedIncentiveAmount.stringValue, cell!.unclaimedIncentiveAmount.font, 6, 6)
+            if (vestingAmount != NSDecimalNumber.zero) {
+                cell?.vestingLayer.isHidden = false
+            }
+            if (havestDepositAmount != NSDecimalNumber.zero) {
+                cell?.havestDepositLayer.isHidden = false
+            }
+            if (unclaimedIncentiveAmount != NSDecimalNumber.zero) {
+                cell?.unClaimedIncentiveLayer.isHidden = false
+            }
             cell?.actionDelegate = {
                 self.onClickValidatorList()
             }
             cell?.actionVote = {
                 self.onClickVoteList()
             }
-            cell?.cdpBtn.isHidden = false
-            cell?.nonCdpConstarint.priority = .defaultLow
-            cell?.cdpConstraint.priority = .defaultHigh
             cell?.actionCdp = {
                 self.onClickCdp()
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalKava.multiplying(byPowerOf10: -6).stringValue)
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:WalletVestingDetailCell? = tableView.dequeueReusableCell(withIdentifier:"WalletVestingDetailCell") as? WalletVestingDetailCell
-//            let mKavaAccount = BaseData.instance.mKavaAccountResult
-//            cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
-//            cell?.vestingCntLabel.text = "(" + String(mKavaAccount.getCVestingCnt()) + ")"
-//            cell?.vestingTotalAmount.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingSum().stringValue, cell!.vestingTotalAmount.font!, 6, 6)
-//            if (mKavaAccount.getCVestingCnt() > 0) {
-//                cell?.vestingTime0.text = WUtils.longTimetoString(input: mKavaAccount.getUnLockTime(0))
-//                cell?.vestingGap0.text = WUtils.getUnbondingTimeleft(mKavaAccount.getUnLockTime(0))
-//                cell?.vestingAmount0.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(0).stringValue, cell!.vestingAmount0.font!, 6, 6)
-//            }
-//            if (mKavaAccount.getCVestingCnt() > 1) {
-//                cell?.vestingLayer1.isHidden = false
-//                cell?.vestingTime1.text = WUtils.longTimetoString(input: mKavaAccount.getUnLockTime(1))
-//                cell?.vestingGap1.text = WUtils.getUnbondingTimeleft(mKavaAccount.getUnLockTime(1))
-//                cell?.vestingAmount1.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(1).stringValue, cell!.vestingAmount1.font!, 6, 6)
-//            }
-//            if (mKavaAccount.getCVestingCnt() > 2) {
-//                cell?.vestingLayer2.isHidden = false
-//                cell?.vestingTime2.text = WUtils.longTimetoString(input: mKavaAccount.getUnLockTime(2))
-//                cell?.vestingGap2.text = WUtils.getUnbondingTimeleft(mKavaAccount.getUnLockTime(2))
-//                cell?.vestingAmount2.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(2).stringValue, cell!.vestingAmount2.font!, 6, 6)
-//            }
-//            if (mKavaAccount.getCVestingCnt() > 3) {
-//                cell?.vestingLayer3.isHidden = false
-//                cell?.vestingTime3.text = WUtils.longTimetoString(input: mKavaAccount.getUnLockTime(3))
-//                cell?.vestingGap3.text = WUtils.getUnbondingTimeleft(mKavaAccount.getUnLockTime(3))
-//                cell?.vestingAmount3.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(3).stringValue, cell!.vestingAmount3.font!, 6, 6)
-//            }
-//            if (mKavaAccount.getCVestingCnt() > 4) {
-//                cell?.vestingLayer4.isHidden = false
-//                cell?.vestingTime4.text = WUtils.longTimetoString(input: mKavaAccount.getUnLockTime(4))
-//                cell?.vestingGap4.text = WUtils.getUnbondingTimeleft(mKavaAccount.getUnLockTime(4))
-//                cell?.vestingAmount4.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(4).stringValue, cell!.vestingAmount4.font!, 6, 6)
-//            }
-            return cell!
-            
-        } else if (indexPath.row == 3) {
-            let cell:WalletKavaIncentiveCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaIncentiveCell") as? WalletKavaIncentiveCell
-//            cell?.rootCard.backgroundColor = COLOR_BG_GRAY
-//            //TODO check show or hide btn
-////            cell?.btnParticipate.isHidden = true
-////            cell?.participateDone.isHidden = false
-////            cell?.BtnConstraint?.isActive = false
-////            cell?.LabelConstraint?.isActive = true
-//
-//            cell?.actionParticipate = {
-//                self.onClickIncentive()
-//            }
-            return cell!
-            
-        } else if (indexPath.row == 4) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
             cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
@@ -843,7 +756,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             return cell!
             
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             if (self.mInflation != nil) {
                 cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)

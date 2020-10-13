@@ -31,14 +31,11 @@ final class BaseData : NSObject{
     var mCdpParam: KavaCdpParam?
     var mKavaPrice = [String:KavaPriceFeedPrice]()
     var mMyCdps = Array<CdpOwen>()
-    var mIncentiveParam = KavaIncentiveParam.IncentiveParam.init()
-    var mIncentiveRewards = Array<KavaIncentiveReward.IncentiveReward>()
+    var mIncentiveParam2: KavaIncentiveParam2?
+    var mIncentiveClaimables = Array<KavaIncentiveReward2.IncentiveRewardClaimable>()
     var mHavestParam: KavaHavestParam?
     var mHavestDeposits = Array<KavaHavestDeposit.HavestDeposit>()
     var mHavestRewards = Array<KavaHavestReward.HavestReward>()
-    
-    var mIncentiveParam2: KavaIncentiveParam2?
-    var mIncentiveClaimables = Array<KavaIncentiveReward2.IncentiveRewardClaimable>()
     
     var mBnbTokenList = Array<BnbToken>()
     

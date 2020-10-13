@@ -24,7 +24,7 @@
 "ZkW-VM-BOj.text" = "--";
 
 /* Class = "UILabel"; text = "Reward"; ObjectID = "fLU-HZ-lWT"; */
-"fLU-HZ-lWT.text" = "이자량";
+"fLU-HZ-lWT.text" = "위임 이자량";
 
 /* Class = "UILabel"; text = "--"; ObjectID = "hCI-8s-Z2b"; */
 "hCI-8s-Z2b.text" = "--";
@@ -45,5 +45,9 @@
 "uc1-qS-uDK.text" = "KAVA";
 
 "uI9-ii-54U.normalTitle" = "  CDP 거래하기";
+
+"Tjy-8z-4fF.text" = "하베스트 디파짓량";
+
+"Iol-ln-IqD.text" = "인센티브 이자량";
 
 

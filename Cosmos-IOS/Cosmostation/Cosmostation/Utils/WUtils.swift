@@ -716,6 +716,26 @@ class WUtils {
         return amount;
     }
     
+    static func havestDepositAmount(_ symbol:String) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for deposits in BaseData.instance.mHavestDeposits {
+            if (deposits.amount.denom == symbol) {
+                amount = amount.adding(plainStringToDecimal(deposits.amount.amount))
+            }
+        }
+        return amount;
+    }
+    
+    static func unclaimedIncentiveAmount(_ symbol:String) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for incentive in BaseData.instance.mIncentiveClaimables {
+            if (incentive.claimable == true && incentive.claim.reward.denom == symbol) {
+                amount = amount.adding(plainStringToDecimal(incentive.claim.reward.amount))
+            }
+        }
+        return amount;
+    }
+    
     static func okDepositAmount(_ deposit:OkDeposit) -> NSDecimalNumber {
         return plainStringToDecimal(deposit.tokens)
     }
@@ -1395,6 +1415,9 @@ class WUtils {
                 }
             }
         }
+        
+        amount.adding(havestDepositAmount(KAVA_MAIN_DENOM))
+        amount.adding(unclaimedIncentiveAmount(KAVA_MAIN_DENOM))
         return amount
     }
     

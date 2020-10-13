@@ -217,34 +217,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBnbTokens()
             onFetchBnbMiniTokens()
             
-        } else if (mChainType == ChainType.KAVA_MAIN) {
-            self.mFetchCnt = 13
-            BaseData.instance.mCdpParam = nil
-            BaseData.instance.mHavestDeposits.removeAll()
-            BaseData.instance.mHavestRewards.removeAll()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
-            
-            onFetchCdpParam(mAccount)
-            onFetchPriceFeedParam()
-            
-            onFetchIncentiveParam(mAccount)
-//            onFetchMyIncentive(mAccount, "bnb")
-            
-        } else if (mChainType == ChainType.KAVA_TEST) {
+        } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
             self.mFetchCnt = 15
             BaseData.instance.mCdpParam = nil
+            BaseData.instance.mMyCdps.removeAll()
             BaseData.instance.mHavestDeposits.removeAll()
             BaseData.instance.mHavestRewards.removeAll()
+            BaseData.instance.mIncentiveClaimables.removeAll()
+            
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -440,6 +420,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             
             if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
+                print("KAVA mMyCdps ", BaseData.instance.mMyCdps.count)
+                print("KAVA mIncentiveClaimables ", BaseData.instance.mIncentiveClaimables.count)
                 print("KAVA mHavestDeposits ", BaseData.instance.mHavestDeposits.count)
                 print("KAVA mHavestRewards ", BaseData.instance.mHavestRewards.count)
             }
@@ -1223,7 +1205,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 let cdpParam = KavaCdpParam.init(responseData)
                 BaseData.instance.mCdpParam = cdpParam
-                BaseData.instance.mMyCdps.removeAll()
                 for collateralParam in cdpParam.result.collateral_params {
                     self.mFetchCnt = self.mFetchCnt + 1
                     self.onFetchOwenCdp(account, collateralParam)
@@ -1269,7 +1250,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_INCENTIVE_PARAM
         }
-        BaseData.instance.mIncentiveParam = KavaIncentiveParam.IncentiveParam.init()
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -1284,7 +1264,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     let incentiveParam2 = KavaIncentiveParam2.init(responseData)
                     BaseData.instance.mIncentiveParam2 = incentiveParam2
                     print("mIncentiveParam2 ", BaseData.instance.mIncentiveParam2?.result.rewards.count)
-                    BaseData.instance.mIncentiveClaimables.removeAll()
                     if let wrapParam = BaseData.instance.mIncentiveParam2 {
                         for reward in wrapParam.result.rewards {
                             self.mFetchCnt = self.mFetchCnt + 1
@@ -1306,7 +1285,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_MY_INCENTIVE + account.account_address + "/" + incentiveRewardParam.collateral_type
         }
-        BaseData.instance.mIncentiveRewards.removeAll()
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
