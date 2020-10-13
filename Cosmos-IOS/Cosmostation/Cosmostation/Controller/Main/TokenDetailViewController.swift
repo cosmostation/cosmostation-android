@@ -176,6 +176,10 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
@@ -232,7 +236,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.row > 0) {
             if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
-                let history = mApiHistories[indexPath.row - 1]
+                let history = mApiHistories[indexPath.row]
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false
                 txDetailVC.mTxHash = history.tx_hash
@@ -241,7 +245,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.navigationController?.pushViewController(txDetailVC, animated: true)
                 
             } else if (chainType == ChainType.BINANCE_MAIN) {
-                let bnbHistory = mBnbHistories[indexPath.row - 1]
+                let bnbHistory = mBnbHistories[indexPath.row]
                 if (bnbHistory.txType == "HTL_TRANSFER" || bnbHistory.txType == "CLAIM_HTL" || bnbHistory.txType == "REFUND_HTL" || bnbHistory.txType == "TRANSFER") {
                     let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                     txDetailVC.mIsGen = false
@@ -259,7 +263,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 }
                            
             } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                let history = mApiHistories[indexPath.row - 1]
+                let history = mApiHistories[indexPath.row]
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false
                 txDetailVC.mTxHash = history.tx_hash
@@ -268,7 +272,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.navigationController?.pushViewController(txDetailVC, animated: true)
                 
             } else if (chainType == ChainType.BINANCE_TEST) {
-                let bnbHistory = mBnbHistories[indexPath.row - 1]
+                let bnbHistory = mBnbHistories[indexPath.row]
                 guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 safariViewController.modalPresentationStyle = .popover
@@ -580,7 +584,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetCosmosHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row - 1]
+        let history = mApiHistories[indexPath.row]
         cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
         cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
         cell?.txBlockLabel.text = String(history.height) + " block"
@@ -595,7 +599,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetIrisHistoryItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row - 1]
+        let history = mApiHistories[indexPath.row]
         cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
         cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
         cell?.txBlockLabel.text = String(history.height) + " block"
@@ -610,7 +614,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetBnbHistoryItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mBnbHistories[indexPath.row - 1]
+        let history = mBnbHistories[indexPath.row]
         cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history.timeStamp)
         cell?.txTimeGapLabel.text = WUtils.timeGap(input: history.timeStamp)
         cell?.txBlockLabel.text = String(history.blockHeight) + " block"
@@ -621,7 +625,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetKavaHistoryItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row - 1]
+        let history = mApiHistories[indexPath.row]
         cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
         cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
         cell?.txBlockLabel.text = String(history.height) + " block"
