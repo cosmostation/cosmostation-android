@@ -8,23 +8,23 @@
 
 import Foundation
 
-class KavaTokenPriceParam {
+class KavaPriceFeedParam {
     var height: String = ""
-    var result: KavaTokenPriceParamResult = KavaTokenPriceParamResult.init()
+    var result: KavaPriceFeedParamResult = KavaPriceFeedParamResult.init()
     
     init() {}
     
     init(_ dictionary: [String: Any]) {
         self.height = dictionary["height"] as? String ?? ""
-        self.result = KavaTokenPriceParamResult.init(dictionary["result"] as! [String : Any])
+        self.result = KavaPriceFeedParamResult.init(dictionary["result"] as! [String : Any])
     }
     
     init(_ dictionary: NSDictionary) {
         self.height = dictionary["height"] as? String ?? ""
-        self.result = KavaTokenPriceParamResult.init(dictionary["result"] as! [String : Any])
+        self.result = KavaPriceFeedParamResult.init(dictionary["result"] as! [String : Any])
     }
     
-    public class KavaTokenPriceParamResult {
+    public class KavaPriceFeedParamResult {
         var markets: Array<KavaTokenPriceMarket> = Array<KavaTokenPriceMarket>()
         
         init() {}

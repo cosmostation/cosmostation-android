@@ -11,19 +11,19 @@ import Foundation
 
 public class KavaIncentiveParam2 {
     var height: String = ""
-    var result: IncentiveParam2 = IncentiveParam2.init()
+    var result: KavaIncentiveParamResult = KavaIncentiveParamResult.init()
     
     init() {}
     
     init(_ dictionary: NSDictionary) {
         self.height = dictionary["height"] as? String ?? ""
-        self.result = IncentiveParam2.init(dictionary["result"] as! [String : Any])
+        self.result = KavaIncentiveParamResult.init(dictionary["result"] as! [String : Any])
     }
     
     
-    public class IncentiveParam2 {
+    public class KavaIncentiveParamResult {
         var active: Bool = false
-        var rewards: Array<IncentiveReward2> = Array<IncentiveReward2>()
+        var rewards: Array<IncentiveRewardParam> = Array<IncentiveRewardParam>()
         
         init() {}
         
@@ -32,13 +32,13 @@ public class KavaIncentiveParam2 {
             if let rawRewards = dictionary["rewards"] as? Array<NSDictionary> {
                 self.rewards.removeAll()
                 for rawReward in rawRewards {
-                    self.rewards.append(IncentiveReward2(rawReward as! [String : Any]))
+                    self.rewards.append(IncentiveRewardParam(rawReward as! [String : Any]))
                 }
             }
         }
     }
     
-    public class IncentiveReward2 {
+    public class IncentiveRewardParam {
         var active: Bool = false
         var collateral_type: String = ""
         var available_rewards: Coin = Coin.init()

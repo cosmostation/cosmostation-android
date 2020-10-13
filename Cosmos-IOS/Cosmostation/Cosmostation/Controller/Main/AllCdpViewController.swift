@@ -17,7 +17,7 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     
-    var mAllCdp: Array<CdpParam.CollateralParam> = Array<CdpParam.CollateralParam>()
+    var mAllCdp: Array<KavaCdpParam.CollateralParam> = Array<KavaCdpParam.CollateralParam>()
     
     override func viewDidLoad() {
         super.viewDidLoad()

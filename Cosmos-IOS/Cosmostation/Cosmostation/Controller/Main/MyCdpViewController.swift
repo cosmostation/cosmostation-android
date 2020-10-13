@@ -17,9 +17,9 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     
-    var mCdpParam: CdpParam = CdpParam.init()
+    var mCdpParam: KavaCdpParam = KavaCdpParam.init()
     var mMyCdps: Array<CdpOwen> = Array<CdpOwen>()
-    var mKavaPrice = [String:KavaTokenPrice]()
+    var mKavaPrice = [String:KavaPriceFeedPrice]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

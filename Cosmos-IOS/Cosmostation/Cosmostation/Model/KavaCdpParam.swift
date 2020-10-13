@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CdpParam {
+public class KavaCdpParam {
     var height: String = ""
     var result: CdpParamResult = CdpParamResult.init()
     

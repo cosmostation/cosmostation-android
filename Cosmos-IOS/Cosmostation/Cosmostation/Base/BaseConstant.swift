@@ -43,8 +43,8 @@ let KAVA_URL                            = "https://lcd-kava-3.cosmostation.io/";
 let KAVA_API                            = "https://api-kava-3.cosmostation.io/";
 let KAVA_FAUCET                         = "https://faucet-kava-3.cosmostation.io/faucet/";
 
-let KAVA_TEST_URL                       = "https://lcd-office-testnet.cosmostation.io/kava/";
-let KAVA_TEST_API                       = "https://api-office-testnet.cosmostation.io/kava/";
+let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-4-test/";
+let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-4-test/";
 let KAVA_TEST_FAUCET                    = "https://faucet-kava-testnet-9000.cosmostation.io/faucet/";
 
 
@@ -177,8 +177,8 @@ let KAVA_PROPOSALS_TALLY_TAIL           = "/tally";
 let KAVA_CDP_PARAM                      = KAVA_URL + "cdp/parameters";
 let KAVA_CDP_OWEN                       = KAVA_URL + "cdp/cdps/cdp/";
 let KAVA_CDP_DEPOSIT                    = KAVA_URL + "cdp/cdps/cdp/deposits/";
-let KAVA_TOKEN_PRICE_PARAM              = KAVA_URL + "pricefeed/parameters";
-let KAVA_TOKEN_PRICE                    = KAVA_URL + "pricefeed/price/";
+let KAVA_PRICE_FEED_PARAM              = KAVA_URL + "pricefeed/parameters";
+let KAVA_PRICE_FEED_PRICE                    = KAVA_URL + "pricefeed/price/";
 let KAVA_CHECK_SWAPID                   = KAVA_URL + "bep3/swap/";
 let KAVA_CHECK_SWAP_PARAM               = KAVA_URL + "bep3/parameters";
 let KAVA_CHECK_SWAP_SUPPLY              = KAVA_URL + "bep3/supplies";
@@ -214,8 +214,8 @@ let KAVA_TEST_PROPOSALS                 = KAVA_TEST_URL + "gov/proposals";
 let KAVA_TEST_CDP_PARAM                 = KAVA_TEST_URL + "cdp/parameters";
 let KAVA_TEST_CDP_OWEN                  = KAVA_TEST_URL + "cdp/cdps/cdp/";
 let KAVA_TEST_CDP_DEPOSIT               = KAVA_TEST_URL + "cdp/cdps/cdp/deposits/";
-let KAVA_TEST_TOKEN_PRICE_PARAM         = KAVA_TEST_URL + "pricefeed/parameters";
-let KAVA_TEST_TOKEN_PRICE               = KAVA_TEST_URL + "pricefeed/price/";
+let KAVA_TEST_PRICE_FEED_PARAM         = KAVA_TEST_URL + "pricefeed/parameters";
+let KAVA_TEST_PRICE_FEED_PRICE               = KAVA_TEST_URL + "pricefeed/price/";
 let KAVA_TEST_CHECK_SWAPID              = KAVA_TEST_URL + "bep3/swap/";
 let KAVA_TEST_CHECK_SWAP_PARAM          = KAVA_TEST_URL + "bep3/parameters";
 let KAVA_TEST_CHECK_SWAP_SUPPLY         = KAVA_TEST_URL + "bep3/supplies";
@@ -773,8 +773,8 @@ enum ChainType: String {
         result.append(BAND_MAIN)
         result.append(SECRET_MAIN)
 //
-//        result.append(BINANCE_TEST)
-//        result.append(KAVA_TEST)
+        result.append(BINANCE_TEST)
+        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
         result.append(OKEX_TEST)
         result.append(CERTIK_TEST)

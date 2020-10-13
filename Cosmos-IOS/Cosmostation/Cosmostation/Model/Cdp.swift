@@ -71,7 +71,7 @@ public struct Cdp: Codable {
         return NSDecimalNumber.init(string: principal!.amount)
     }
     
-    public func getHiddenFee(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
+    public func getHiddenFee(_ cParam:KavaCdpParam.CollateralParam) -> NSDecimalNumber {
         let rawDebtAmount = getRawDebtAmount()
         let now = Date().millisecondsSince1970
         let start = WUtils.nodeTimeToInt64(input: fees_updated!).millisecondsSince1970
@@ -83,14 +83,14 @@ public struct Cdp: Codable {
         return (rawDebtAmount.multiplying(by: NSDecimalNumber.init(value: power), withBehavior: WUtils.handler0Up)).subtracting(rawDebtAmount)
     }
     
-    public func getEstimatedTotalFee(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
+    public func getEstimatedTotalFee(_ cParam:KavaCdpParam.CollateralParam) -> NSDecimalNumber {
         if (accumulated_fees != nil) {
             return NSDecimalNumber.init(string: accumulated_fees!.amount).adding(getHiddenFee(cParam))
         }
         return getHiddenFee(cParam)
     }
     
-    public func getEstimatedTotalDebt(_ cParam:CdpParam.CollateralParam) -> NSDecimalNumber {
+    public func getEstimatedTotalDebt(_ cParam:KavaCdpParam.CollateralParam) -> NSDecimalNumber {
         return getRawDebtAmount().adding(getHiddenFee(cParam))
     }
     

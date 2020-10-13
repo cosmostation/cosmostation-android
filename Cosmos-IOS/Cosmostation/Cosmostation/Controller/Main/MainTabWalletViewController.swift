@@ -1589,13 +1589,18 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickCdp() {
-        if (BaseData.instance.mCdpParam == nil) {
-            return
-        }
-        let cdpListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "CdpListViewController") as! CdpListViewController
-        cdpListVC.hidesBottomBarWhenPushed = true
+//        if (BaseData.instance.mCdpParam == nil) {
+//            return
+//        }
+//        let cdpListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "CdpListViewController") as! CdpListViewController
+//        cdpListVC.hidesBottomBarWhenPushed = true
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(cdpListVC, animated: true)
+        
+        let dAppVC = UIStoryboard(name: "Kava", bundle: nil).instantiateViewController(withIdentifier: "DAppsListViewController") as! DAppsListViewController
+        dAppVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
-        self.navigationController?.pushViewController(cdpListVC, animated: true)
+        self.navigationController?.pushViewController(dAppVC, animated: true)
     }
     
     func onClickIncentive() {

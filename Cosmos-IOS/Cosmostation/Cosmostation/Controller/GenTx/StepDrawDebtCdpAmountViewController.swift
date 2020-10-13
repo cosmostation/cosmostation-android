@@ -35,11 +35,11 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
     var cDpDecimal:Int16 = 6
     var pDpDecimal:Int16 = 6
     var mMarketID: String = ""
-    var mCdpParam:CdpParam?
-    var mCollateralParam: CdpParam.CollateralParam?
+    var mCdpParam:KavaCdpParam?
+    var mCollateralParam: KavaCdpParam.CollateralParam?
     var mMyCdpStatus: CdpOwen?
     var mMyCdpDeposit: CdpDeposits?
-    var mPrice: KavaTokenPrice?
+    var mPrice: KavaPriceFeedPrice?
     
     var currentPrice: NSDecimalNumber = NSDecimalNumber.zero
     var beforeLiquidationPrice: NSDecimalNumber = NSDecimalNumber.zero
@@ -335,9 +335,9 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
     func onFetchKavaPrice(_ market:String) {
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_TOKEN_PRICE + market
+            url = KAVA_PRICE_FEED_PRICE + market
         } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_TOKEN_PRICE + market
+            url = KAVA_TEST_PRICE_FEED_PRICE + market
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -348,7 +348,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
                         self.onFetchFinished()
                         return
                 }
-                self.mPrice = KavaTokenPrice.init(responseData)
+                self.mPrice = KavaPriceFeedPrice.init(responseData)
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }
@@ -357,7 +357,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
         }
     }
     
-    func onFetchOwenCdp(_ account:Account, _ collateralParam: CdpParam.CollateralParam) {
+    func onFetchOwenCdp(_ account:Account, _ collateralParam: KavaCdpParam.CollateralParam) {
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_CDP_OWEN + account.account_address + "/" + collateralParam.denom
@@ -383,7 +383,7 @@ class StepDrawDebtCdpAmountViewController: BaseViewController, UITextFieldDelega
         }
     }
     
-    func onFetchCdpDeposit(_ account:Account, _ collateralParam: CdpParam.CollateralParam) {
+    func onFetchCdpDeposit(_ account:Account, _ collateralParam: KavaCdpParam.CollateralParam) {
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_CDP_DEPOSIT + account.account_address + "/" + collateralParam.denom

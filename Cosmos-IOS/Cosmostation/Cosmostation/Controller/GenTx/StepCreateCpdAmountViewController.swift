@@ -45,10 +45,10 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     var cDpDecimal:Int16 = 6
     var pDpDecimal:Int16 = 6
     var mMarketID: String = ""
-    var mCdpParam:CdpParam?
-    var mCollateralParam: CdpParam.CollateralParam?
+    var mCdpParam:KavaCdpParam?
+    var mCollateralParam: KavaCdpParam.CollateralParam?
     var mMyCdpStatus: CdpOwen?
-    var mPrice: KavaTokenPrice?
+    var mPrice: KavaPriceFeedPrice?
     
     var currentPrice: NSDecimalNumber = NSDecimalNumber.zero
     var liquidationPrice: NSDecimalNumber = NSDecimalNumber.zero
@@ -503,9 +503,9 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     func onFetchKavaPrice(_ market:String) {
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_TOKEN_PRICE + market
+            url = KAVA_PRICE_FEED_PRICE + market
         } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_TOKEN_PRICE + market
+            url = KAVA_TEST_PRICE_FEED_PRICE + market
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -516,7 +516,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
                             self.onFetchFinished()
                             return
                     }
-                    self.mPrice = KavaTokenPrice.init(responseData)
+                    self.mPrice = KavaPriceFeedPrice.init(responseData)
                     
                 case .failure(let error):
                     if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }

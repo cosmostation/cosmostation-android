@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KavaTokenPrice {
+class KavaPriceFeedPrice {
     var height: String = ""
     var result: KavaTokenPriceResult = KavaTokenPriceResult.init()
     
