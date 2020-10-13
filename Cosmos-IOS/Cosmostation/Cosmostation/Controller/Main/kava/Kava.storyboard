@@ -178,10 +178,10 @@
                                 <rect key="frame" x="0.0" y="5" width="414" height="896"/>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dsW-2h-aBR">
-                                <rect key="frame" x="145.5" y="52" width="123" height="32"/>
+                                <rect key="frame" x="139.5" y="52" width="135" height="32"/>
                                 <segments>
                                     <segment title="CDP"/>
-                                    <segment title="Havest"/>
+                                    <segment title="Harvest"/>
                                 </segments>
                                 <color key="tintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
