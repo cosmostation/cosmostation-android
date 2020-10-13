@@ -65,8 +65,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         refresher.tintColor = UIColor.white
         walletTableView.addSubview(refresher)
-        
-//        print("aa", WUtils.localeStringToDecimal(FEE_ATOM_TINY))
     
         self.updateFloaty()
     }
@@ -255,15 +253,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                     return 0;
                 }
             }
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            //TODO
-//            if (BaseData.instance.mIncentiveRewards.count == 0 && indexPath.row == 3) {
-//                return 0;
-//            }
-//            if ((BaseData.instance.mKavaAccountResult.type == COSMOS_AUTH_TYPE_ACCOUNT || BaseData.instance.mKavaAccountResult.getCVestingCnt() == 0) &&
-//                indexPath.row == 2) {
-//                return 0;
-//            }
         }
         return UITableView.automaticDimension;
     }

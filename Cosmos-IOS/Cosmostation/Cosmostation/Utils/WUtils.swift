@@ -1446,7 +1446,7 @@ class WUtils {
         let mHavestDeposits = BaseData.instance.mHavestDeposits
         for havestDeposit in mHavestDeposits {
             if (havestDeposit.amount.denom == denom) {
-                amount = localeStringToDecimal(havestDeposit.amount.amount)
+                amount = amount.adding(localeStringToDecimal(havestDeposit.amount.amount))
             }
         }
         return amount
@@ -1457,7 +1457,7 @@ class WUtils {
         let mHavestRewards = BaseData.instance.mHavestRewards
         for havestReward in mHavestRewards {
             if (havestReward.amount.denom == denom) {
-                amount = localeStringToDecimal(havestReward.amount.amount)
+                amount = amount.adding(localeStringToDecimal(havestReward.amount.amount))
             }
         }
         return amount

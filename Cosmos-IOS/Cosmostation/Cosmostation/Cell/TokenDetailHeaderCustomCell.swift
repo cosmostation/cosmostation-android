@@ -70,7 +70,10 @@ class TokenDetailHeaderCustomCell: UITableViewCell {
         self.totalAmount.text = "-"
         self.totalValue.text = "-"
         self.availableAmount.text = "-"
-        super.prepareForReuse()
+        
+        vestingLayer.isHidden = true
+        havestDepsoitLayer.isHidden = true
+        havsetRewardLayer.isHidden = true
     }
     
 }

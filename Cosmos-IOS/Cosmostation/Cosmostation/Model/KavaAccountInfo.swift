@@ -48,20 +48,32 @@ public class KavaAccountInfo {
             return result
         }
         
-        /*
-        func getCVestingCnt() -> Int {
+        func getCVestingCnt(_ denom: String) -> Int {
             var result = 0;
             let cTime = Date().millisecondsSince1970
             for i in 0..<value.vesting_periods.count {
                 let unlockTime = getUnLockTime(i)
                 if (cTime < unlockTime) {
-                    result = result + 1
+                    for coin in value.vesting_periods[i].amount {
+                        if (coin.denom == denom) {
+                            result = result + 1
+                        }
+                    }
                 }
             }
             return result;
         }
         
-
+        
+        func getCVestingUnLockTime(_ position:Int, _ denom: String) -> Int64 {
+            let totalVesting = value.vesting_periods.count
+            let remainVestingCnt = getCVestingCnt(denom);
+            var result: Int64 = value.start_time
+            for i in 0..<(totalVesting - remainVestingCnt + position + 1) {
+                result = result + value.vesting_periods[i].length
+            }
+            return result * 1000
+        }
         
         func getCVestingPeriods() -> Array<VestingPeriod> {
             var result = Array<VestingPeriod>()
@@ -75,35 +87,24 @@ public class KavaAccountInfo {
             return result
         }
         
-        func getCVestingUnLockTime(_ position:Int) -> Int64 {
-            let totalVesting = value.vesting_periods.count
-            let remainVestingCnt = getCVestingCnt();
-            var result: Int64 = value.start_time
-            for i in 0..<(totalVesting - remainVestingCnt + position + 1) {
-                result = result + value.vesting_periods[i].length
-            }
-            return result * 1000
-        }
-        
         func getCVestingPeriod(_ position:Int) -> VestingPeriod {
             return getCVestingPeriods()[position]
         }
         
-        func getCVestingPeriodAmount(_ position:Int) -> NSDecimalNumber {
+        func getCVestingPeriodAmount(_ position:Int, _ denom: String) -> NSDecimalNumber {
             var result = NSDecimalNumber.zero
             let cVestingPeriod = getCVestingPeriod(position)
             for coin in cVestingPeriod.amount {
-                result = result.adding(NSDecimalNumber.init(string: coin.amount))
+                if (coin.denom == denom) {
+                    result = result.adding(NSDecimalNumber.init(string: coin.amount))
+                }
             }
             return result
         }
-         */
         
         func getUnLockTime(_ position:Int) -> Int64 {
             var result: Int64 = value.start_time
-            print("start_time ", result)
             for i in 0..<(position + 1) {
-                print("length ", value.vesting_periods[i].length)
                 result = result + value.vesting_periods[i].length
             }
             return result * 1000

@@ -10,6 +10,7 @@ import UIKit
 
 class TokenDetailHeaderKavaCell: UITableViewCell {
     
+    @IBOutlet weak var cardRoot: CardView!
     @IBOutlet weak var totalAmount: UILabel!
     @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var availableAmount: UILabel!
@@ -17,10 +18,11 @@ class TokenDetailHeaderKavaCell: UITableViewCell {
     @IBOutlet weak var unbondingAmount: UILabel!
     @IBOutlet weak var rewardAmount: UILabel!
     @IBOutlet weak var vestingAmount: UILabel!
-    @IBOutlet weak var butBtn: UIButton!
-    
-    @IBOutlet weak var showBuyConstraint: NSLayoutConstraint!
-    @IBOutlet weak var hideBuyConstraint: NSLayoutConstraint!
+    @IBOutlet weak var havestDepositedAmount: UILabel!
+    @IBOutlet weak var unClaimedIncentiveAmount: UILabel!
+    @IBOutlet weak var vestingLayer: UIView!
+    @IBOutlet weak var havestDepositLayer: UIView!
+    @IBOutlet weak var unClaimedIncentiveLayer: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,6 +32,8 @@ class TokenDetailHeaderKavaCell: UITableViewCell {
         unbondingAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         rewardAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         vestingAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        havestDepositedAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        unClaimedIncentiveAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,7 +42,6 @@ class TokenDetailHeaderKavaCell: UITableViewCell {
     
     var actionSend: (() -> Void)? = nil
     var actionRecieve: (() -> Void)? = nil
-    var actionBuy: (() -> Void)? = nil
     
     @IBAction func onClickSend(_ sender: Any) {
         actionSend?()
@@ -48,7 +51,9 @@ class TokenDetailHeaderKavaCell: UITableViewCell {
         actionRecieve?()
     }
     
-    @IBAction func onClickBuy(_ sender: UIButton) {
-        actionBuy?()
+    override func prepareForReuse() {
+        vestingLayer.isHidden = true
+        havestDepositLayer.isHidden = true
+        unClaimedIncentiveLayer.isHidden = true
     }
 }
