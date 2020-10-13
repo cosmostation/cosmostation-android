@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WalletVestingDetailCell: UITableViewCell {
+class TokenDetailVestingDetailCell: UITableViewCell {
 
     @IBOutlet weak var rootCardView: CardView!
     @IBOutlet weak var vestingCntLabel: UILabel!

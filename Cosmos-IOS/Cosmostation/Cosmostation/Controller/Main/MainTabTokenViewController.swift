@@ -236,23 +236,24 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func updateFloaty() {
-        if (chainType! == ChainType.KAVA_MAIN) {
-            if (mainTabVC.mAccount.account_account_numner <= 0 && mainTabVC.mAccount.account_has_private) {
-                let floaty = Floaty()
-                floaty.buttonImage = UIImage.init(named: "airdropBtn")
-                floaty.buttonColor = COLOR_KAVA
-                floaty.fabDelegate = self
-                self.view.addSubview(floaty)
-            }
-            
-        } else if (chainType! == ChainType.KAVA_TEST) {
-            let floaty = Floaty()
-            floaty.buttonImage = UIImage.init(named: "faucetBtn")
-            floaty.buttonColor = COLOR_KAVA
-            floaty.fabDelegate = self
-            self.view.addSubview(floaty)
-            
-        } else if (chainType! == ChainType.BINANCE_TEST) {
+//        if (chainType! == ChainType.KAVA_MAIN) {
+//            if (mainTabVC.mAccount.account_account_numner <= 0 && mainTabVC.mAccount.account_has_private) {
+//                let floaty = Floaty()
+//                floaty.buttonImage = UIImage.init(named: "airdropBtn")
+//                floaty.buttonColor = COLOR_KAVA
+//                floaty.fabDelegate = self
+//                self.view.addSubview(floaty)
+//            }
+//
+//        } else if (chainType! == ChainType.KAVA_TEST) {
+//            let floaty = Floaty()
+//            floaty.buttonImage = UIImage.init(named: "faucetBtn")
+//            floaty.buttonColor = COLOR_KAVA
+//            floaty.fabDelegate = self
+//            self.view.addSubview(floaty)
+//
+//        } else
+        if (chainType! == ChainType.BINANCE_TEST) {
             let floaty = Floaty()
             floaty.buttonImage = UIImage.init(named: "faucetBtn")
             floaty.buttonColor = COLOR_BNB
@@ -791,49 +792,53 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
             }
             
-        } else if (chainType! == ChainType.KAVA_TEST) {
-            if (mainTabVC.mAccount.getKavaBalance().compare(NSDecimalNumber.init(value: 5000000)).rawValue > 0) {
-                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
-                return
-            }
-            self.showWaittingAlert()
-            let request = Alamofire.request(KAVA_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
-                        self.onRequestFetch()
-                        self.hideWaittingAlert()
-                    })
-
-                case .failure(let error):
-                    self.onShowToast(error.localizedDescription)
-                    self.hideWaittingAlert()
-                }
-            }
-            
-        } else if (chainType! == ChainType.KAVA_MAIN) {
-            if (mainTabVC.mAccount.account_account_numner > 0) {
-                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
-                return
-            }
-            self.showWaittingAlert()
-            let request = Alamofire.request(KAVA_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10000), execute: {
-                        self.onRequestFetch()
-                        self.hideWaittingAlert()
-                    })
-
-                case .failure(let error):
-                    self.onShowToast(error.localizedDescription)
-                    self.hideWaittingAlert()
-                }
-            }
-            
-        } else if (chainType! == ChainType.IOV_TEST) {
+        }
+        
+//        else if (chainType! == ChainType.KAVA_TEST) {
+//            if (mainTabVC.mAccount.getKavaBalance().compare(NSDecimalNumber.init(value: 5000000)).rawValue > 0) {
+//                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
+//                return
+//            }
+//            self.showWaittingAlert()
+//            let request = Alamofire.request(KAVA_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+//            request.responseJSON { (response) in
+//                switch response.result {
+//                case .success(let res):
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
+//                        self.onRequestFetch()
+//                        self.hideWaittingAlert()
+//                    })
+//
+//                case .failure(let error):
+//                    self.onShowToast(error.localizedDescription)
+//                    self.hideWaittingAlert()
+//                }
+//            }
+//            
+//        } else if (chainType! == ChainType.KAVA_MAIN) {
+//            if (mainTabVC.mAccount.account_account_numner > 0) {
+//                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
+//                return
+//            }
+//            self.showWaittingAlert()
+//            let request = Alamofire.request(KAVA_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+//            request.responseJSON { (response) in
+//                switch response.result {
+//                case .success(let res):
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10000), execute: {
+//                        self.onRequestFetch()
+//                        self.hideWaittingAlert()
+//                    })
+//
+//                case .failure(let error):
+//                    self.onShowToast(error.localizedDescription)
+//                    self.hideWaittingAlert()
+//                }
+//            }
+//            
+//        }
+        
+        else if (chainType! == ChainType.IOV_TEST) {
             if (mainTabVC.mAccount.getIovBalance().compare(NSDecimalNumber.init(value: 1000000000)).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
                 return

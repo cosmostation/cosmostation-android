@@ -46,7 +46,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderKavaCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderOkCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderOkCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderCustomCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderCustomCell")
-        self.tokenDetailTableView.register(UINib(nibName: "WalletVestingDetailCell", bundle: nil), forCellReuseIdentifier: "WalletVestingDetailCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         
         self.tokenDetailTableView.rowHeight = UITableView.automaticDimension
         self.tokenDetailTableView.estimatedRowHeight = UITableView.automaticDimension
@@ -58,9 +58,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         
         self.updateAccountCard()
         self.onRequestFetch()
-        
-        print("KAVA_MAIN_DENOM CNT ",BaseData.instance.mKavaAccountResult.getCVestingCnt(KAVA_MAIN_DENOM))
-        print("KAVA_HARD_DENOM CNT ",BaseData.instance.mKavaAccountResult.getCVestingCnt(KAVA_HARD_DENOM))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -638,7 +635,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onSetKavaVestingItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:WalletVestingDetailCell? = tableView.dequeueReusableCell(withIdentifier:"WalletVestingDetailCell") as? WalletVestingDetailCell
+        let cell:TokenDetailVestingDetailCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailVestingDetailCell") as? TokenDetailVestingDetailCell
         let denom = balance!.balance_denom
         let mKavaAccount = BaseData.instance.mKavaAccountResult
         cell?.rootCardView.backgroundColor = WUtils.getChainBg(chainType!)
