@@ -19,6 +19,16 @@ public class KavaHavestParam {
         self.result = KavaHavestParamData.init(dictionary["result"] as! [String : Any])
     }
     
+    public func getKavaStakerSchedule() -> DelegatorDistributionSchedule? {
+        for schedule in result.delegator_distribution_schedules {
+            if (schedule.distribution_schedule.deposit_denom == KAVA_MAIN_DENOM) {
+                return schedule
+            }
+        }
+        return nil
+    }
+    
+    
     public class KavaHavestParamData {
         var active: Bool = false
         var liquidity_provider_schedules: Array<DistributionSchedule> = Array<DistributionSchedule>()

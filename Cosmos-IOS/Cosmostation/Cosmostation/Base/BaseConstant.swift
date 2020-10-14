@@ -56,9 +56,10 @@ let IOV_TEST_API                        = "";
 let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.one/credit?address=";
 
 
-let BAND_URL                            = "https://lcd-band.cosmostation.io/";
-let BAND_API                            = "https://api-band-wenchang-mainnet.cosmostation.io/";
-
+//let BAND_URL                            = "https://lcd-band.cosmostation.io/";
+//let BAND_API                            = "https://api-band-wenchang-mainnet.cosmostation.io/";
+let BAND_URL                            = "https://lcd-band-testnet3.cosmostation.io/";
+let BAND_API                            = "https://api-band-testnet3.cosmostation.io/";
 
 let OKEX_TEST_URL                       = "https://lcd-okexchain-testnet1.cosmostation.io/";
 let OKEX_TEST_API                       = "";
@@ -188,6 +189,7 @@ let KAVA_CHECK_SUPPLY                   = KAVA_URL + "supply/total";
 let KAVA_HAVEST_PARAM                   = KAVA_URL + "harvest/parameters";
 let KAVA_HAVEST_DEPOSIT                 = KAVA_URL + "harvest/deposits";
 let KAVA_HAVEST_REWARD                  = KAVA_URL + "harvest/claims";
+let KAVA_HAVEST_ACCOUNT                 = KAVA_URL + "harvest/accounts";
 
 let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
 let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
@@ -225,6 +227,7 @@ let KAVA_TEST_CHECK_SUPPLY              = KAVA_TEST_URL + "supply/total";
 let KAVA_TEST_HAVEST_PARAM              = KAVA_TEST_URL + "harvest/parameters";
 let KAVA_TEST_HAVEST_DEPOSIT            = KAVA_TEST_URL + "harvest/deposits";
 let KAVA_TEST_HAVEST_REWARD             = KAVA_TEST_URL + "harvest/claims";
+let KAVA_TEST_HAVEST_ACCOUNT            = KAVA_TEST_URL + "harvest/accounts";
 
 let KAVA_TEST_API_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_TEST_API_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
@@ -380,6 +383,7 @@ let SECRET_VAL_URL                      = "https://raw.githubusercontent.com/cos
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
 let KAVA_CDP_MARKET_IMG_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
+let KAVA_HARVEST_MARKET_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/harvest_market/kava/";
 
 
 //DB for Account
@@ -717,6 +721,7 @@ let TRANS_BG_COLOR_KAVA                     = UIColor.init(hexString: "ff554f", 
 let TRANS_BG_COLOR_KAVA2                    = UIColor.init(hexString: "ff554f", alpha: 0.4)
 let COLOR_KAVA                              = UIColor.init(hexString: "FF564F")
 let COLOR_KAVA_DARK                         = UIColor.init(hexString: "631D1B")
+let COLOR_HARD                              = UIColor.init(hexString: "8626E1")
 
 let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "6e7cde", alpha: 0.15)
 let TRANS_BG_COLOR_IOV2                     = UIColor.init(hexString: "6e7cde", alpha: 0.4)

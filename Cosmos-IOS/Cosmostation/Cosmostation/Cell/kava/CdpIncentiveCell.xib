@@ -28,8 +28,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKd-ZJ-4SD">
                                 <rect key="frame" x="16" y="42.5" width="372" height="46.5"/>
-                                <string key="text">Now ready to get KAVA incentive!
-CDP participater who mint the most USDX earn the most minter incentive rewards.</string>
+                                <string key="text">KAVA incentive for users who deposit assets to create CDPs and mint USDX, distributed weekly! The more USDX you mint, the more KAVA rewards you get.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>

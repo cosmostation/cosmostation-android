@@ -338,6 +338,7 @@
 "title_dapp_market" = "CDP & Havest";
 "title_cdp_list" = "CDP Market";
 "title_cdp_detail" = "CDP Status";
+"title_harvest_detail" = "Harvest Status";
 "title_create_cdp" = "Open CDP";
 "title_deposit_cdp" = "DEPOSIT COLLATERAL";
 "title_withdraw_cdp" = "WITHDRAW COLLATERAL";
