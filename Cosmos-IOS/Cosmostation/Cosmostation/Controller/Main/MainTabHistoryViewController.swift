@@ -446,7 +446,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_API_HISTORY + address
         }
-//        print("url ", url)
+        print("url ", url)
         let request = Alamofire.request(url!, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {

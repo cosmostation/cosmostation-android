@@ -56,10 +56,8 @@ let IOV_TEST_API                        = "";
 let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.one/credit?address=";
 
 
-//let BAND_URL                            = "https://lcd-band.cosmostation.io/";
-//let BAND_API                            = "https://api-band-wenchang-mainnet.cosmostation.io/";
-let BAND_URL                            = "https://lcd-band-testnet3.cosmostation.io/";
-let BAND_API                            = "https://api-band-testnet3.cosmostation.io/";
+let BAND_URL                            = "https://lcd-band.cosmostation.io/";
+let BAND_API                            = "https://api-band.cosmostation.io/";
 
 let OKEX_TEST_URL                       = "https://lcd-okexchain-testnet1.cosmostation.io/";
 let OKEX_TEST_API                       = "";

@@ -2090,8 +2090,7 @@ class WUtils {
         } else if (chainS == CHAIN_IOV_S) {
             return "iov-mainnet-2"
         } else if (chainS == CHAIN_BAND_S) {
-//            return "band-wenchang-mainnet"
-            return "band-guanyu-testnet3"
+            return "band-guanyu-mainnet"
         } else if (chainS == CHAIN_SECRET_S) {
             return "secret-2"
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
@@ -2120,8 +2119,7 @@ class WUtils {
         } else if (chain == ChainType.IOV_MAIN) {
             return "iov-mainnet-2"
         } else if (chain == ChainType.BAND_MAIN) {
-//            return "band-wenchang-mainnet"
-            return "band-guanyu-testnet3"
+            return "band-guanyu-mainnet"
         } else if (chain == ChainType.SECRET_MAIN) {
             return "secret-2"
         }  else if (chain == ChainType.BINANCE_TEST) {
