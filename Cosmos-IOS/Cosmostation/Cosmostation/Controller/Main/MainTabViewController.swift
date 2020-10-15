@@ -1370,12 +1370,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_HAVEST_PARAM
         }
-        print("url ", url)
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchHavestParam ", res)
+//                print("onFetchHavestParam ", res)
                 guard let responseData = res as? NSDictionary,
                     let _ = responseData.object(forKey: "height") as? String else {
                     self.onFetchFinished()
@@ -1403,7 +1402,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchMyHavestDeposit ", res)
+//                print("onFetchMyHavestDeposit ", res)
                 guard let responseData = res as? NSDictionary,
                     let _ = responseData.object(forKey: "height") as? String else {
                         self.onFetchFinished()
@@ -1432,7 +1431,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchMyHavestReward ", res)
+//                print("onFetchMyHavestReward ", res)
                 guard let responseData = res as? NSDictionary,
                     let _ = responseData.object(forKey: "height") as? String else {
                         self.onFetchFinished()

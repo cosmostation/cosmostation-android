@@ -196,9 +196,9 @@ class HarvestViewController: BaseViewController, UITableViewDelegate, UITableVie
             hardReward = hardReward.adding(WUtils.plainStringToDecimal(hReward.amount.amount))
         }
         cell?.rewardSumAmount.attributedText = WUtils.displayAmount2(hardReward.stringValue, cell!.rewardSumAmount.font, 6, 6)
-        cell?.actionClaim = {
-            print("action LP Claim")
-        }
+//        cell?.actionClaim = {
+//            print("action LP Claim")
+//        }
         return cell!
     }
     

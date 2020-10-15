@@ -17,8 +17,8 @@ class HarvestListRewardCell: UITableViewCell {
     }
     
     
-    var actionClaim: (() -> Void)? = nil
-    @IBAction func onClickReward(_ sender: UIButton) {
-        actionClaim?()
-    }
+//    var actionClaim: (() -> Void)? = nil
+//    @IBAction func onClickReward(_ sender: UIButton) {
+//        actionClaim?()
+//    }
 }
