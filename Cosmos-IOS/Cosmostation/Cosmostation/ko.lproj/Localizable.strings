@@ -357,7 +357,7 @@
 "title_withdraw_harvest" = "하베스트 출금";
 "title_interchain_swap" = "인터체인 보내기 & 받기";
 "title_interchain_refund" = "인터체인 환불하기";
-"title_participate_incentive" = "Crypto Payday 참여";
+"title_participate_incentive" = "Crypto Payday 인센티브";
 "title_ok_deposit" = "예금";
 "title_ok_withdraw" = "출금";
 "title_ok_vote" = "검증인 투표";
@@ -444,6 +444,7 @@
 "error_bep3_under_min_amount" = "최소 0.00001보다 많이 보낼 수 있습니다.";
 "error_no_deposited_asset" = "디파짓중인 자산이 없습니다.";
 "error_no_available_to_deposit" = "디파짓할 자산이 없습니다.";
+"error_no_incentive_to_claim" = "받을 인센티브가 없습니다.";
 
 
 

@@ -38,6 +38,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     var mMyCdpDeposit: CdpDeposits?
     var mKavaTotalSupply: KavaSupply?
     var mPrice: KavaPriceFeedPrice = KavaPriceFeedPrice.init()
+    var mIncentiveClaimables = Array<KavaIncentiveReward2.IncentiveRewardClaimable>()
     
     
     override func viewDidLoad() {
@@ -68,6 +69,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         mCdpParam = BaseData.instance.mCdpParam
         mCollateralParam = mCdpParam?.result.getcParam(mCDenom)
+        mIncentiveClaimables = BaseData.instance.mIncentiveClaimables
         
         self.loadingImg.onStartAnimation()
         self.onFetchCdpData()
@@ -273,6 +275,17 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         cell?.collateralImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mCDenom + ".png")!)
         cell?.principalImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mPDenom + ".png")!)
+        
+        var claimableIncentive = NSDecimalNumber.zero
+        for incentive in mIncentiveClaimables {
+            if (mCollateralParam?.type == incentive.claim.collateral_type && incentive.claimable) {
+                claimableIncentive = claimableIncentive.adding(NSDecimalNumber.init(string: incentive.claim.reward.amount))
+            }
+        }
+        cell?.unclaimedIncentiveAmount.attributedText = WUtils.displayAmount2(claimableIncentive.stringValue, cell!.unclaimedIncentiveAmount.font, 6, 6)
+        cell?.actionIncentive = {
+            self.onClickClaim(claimableIncentive)
+        }
         return cell!
     }
     
@@ -392,6 +405,21 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         txVC.mType = KAVA_MSG_TYPE_REPAYDEBT_CDP
         txVC.mCDenom = mCDenom
         txVC.mMarketID = mMarketID
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    func onClickClaim(_ incentive: NSDecimalNumber) {
+        if (!onCommonCheck()) { return }
+        if (incentive.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_no_incentive_to_claim", comment: ""))
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_INCENTIVE_REWARD
+        txVC.mIncentiveType = mCollateralParam?.type
+        txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
     }

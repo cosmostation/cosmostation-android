@@ -1503,18 +1503,18 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.pushViewController(dAppVC, animated: true)
     }
     
-    func onClickIncentive() {
-        if (!mainTabVC.mAccount.account_has_private) {
-            self.onShowAddMenomicDialog()
-            return
-        }
-        
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = KAVA_MSG_TYPE_INCENTIVE_REWARD
-        txVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
-    }
+//    func onClickIncentive() {
+//        if (!mainTabVC.mAccount.account_has_private) {
+//            self.onShowAddMenomicDialog()
+//            return
+//        }
+//
+//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+//        txVC.mType = KAVA_MSG_TYPE_INCENTIVE_REWARD
+//        txVC.hidesBottomBarWhenPushed = true
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(txVC, animated: true)
+//    }
     
     func onClickOkDeposit() {
         if (!mainTabVC.mAccount.account_has_private) {

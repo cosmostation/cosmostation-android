@@ -17,10 +17,12 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet weak var feeAmount: UILabel!
     @IBOutlet weak var feeAmountDenom: UILabel!
-    @IBOutlet weak var myRewardAmount: UILabel!
-    @IBOutlet weak var myRewardDenom: UILabel!
-    @IBOutlet weak var incentiveAddress: UILabel!
-    @IBOutlet weak var incentiveDenom: UILabel!
+    
+    
+    @IBOutlet weak var receivableAmount: UILabel!
+    @IBOutlet weak var receivableDenom: UILabel!
+    @IBOutlet weak var lockupTime: UILabel!
+    @IBOutlet weak var type: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
     
     var pageHolderVC: StepGenTxViewController!
@@ -31,9 +33,6 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         self.pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(self.chainType!, feeAmountDenom)
-        WUtils.setDenomTitle(self.chainType!, myRewardDenom)
-        mIncentiveReward = BaseData.instance.mIncentiveParam.rewards[0]
     }
     
     override func enableUserInteraction() {
@@ -44,15 +43,11 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
     
     func onUpdateView() {
         let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
-        var mAmount = NSDecimalNumber.zero
-        for reward in BaseData.instance.mIncentiveRewards {
-            mAmount = mAmount.adding(NSDecimalNumber.init(string: reward.reward.amount))
-        }
-
         feeAmount.attributedText = WUtils.displayAmount2(fAmount.stringValue, feeAmount.font, 6, 6)
-        myRewardAmount.attributedText = WUtils.displayAmount2(mAmount.stringValue, myRewardAmount.font, 6, 6)
-        incentiveAddress.text = self.account?.account_address
-        incentiveDenom.text = mIncentiveReward.denom.uppercased()
+        WUtils.showCoinDp(KAVA_MAIN_DENOM, pageHolderVC.mIncentiveReceivable.stringValue, receivableDenom, receivableAmount, chainType!)
+
+        lockupTime.text = pageHolderVC.mIncentiveMultiplier!.months_lockup + " month"
+        type.text = pageHolderVC.mIncentiveMultiplier!.name.uppercased()
         memoLabel.text = pageHolderVC.mMemo
     }
     
@@ -63,7 +58,6 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
     }
     
     @IBAction func onClickConfirm(_ sender: UIButton) {
-        print("onClickConfirm")
         let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
         self.navigationItem.title = ""
         self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
@@ -120,8 +114,10 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
             
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
+                
                 let msg = MsgGenerator.genIncentiveReward(self.pageHolderVC.mAccount!.account_address,
-                                                          self.mIncentiveReward.denom)
+                                                          self.pageHolderVC.mIncentiveType!,
+                                                          self.pageHolderVC.mIncentiveMultiplier!.name)
                 
                 var msgList = Array<Msg>()
                 msgList.append(msg)

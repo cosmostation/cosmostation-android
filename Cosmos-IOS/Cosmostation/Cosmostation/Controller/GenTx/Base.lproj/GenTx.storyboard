@@ -4432,10 +4432,10 @@ The actual amount of rewards you receive may be equal to or greater than what is
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SAC-BU-mFT" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="16" y="16" width="288" height="250"/>
+                                <rect key="frame" x="16" y="16" width="288" height="180"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Participate Reward" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8n-J3-ZRP">
-                                        <rect key="frame" x="16" y="16" width="101.5" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UnClaimed Incentive" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8n-J3-ZRP">
+                                        <rect key="frame" x="16" y="16" width="111" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4452,38 +4452,39 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Participate Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNE-cR-uw4">
-                                        <rect key="frame" x="16" y="50" width="103.5" height="14"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q9J-3I-LEP">
+                                        <rect key="frame" x="16" y="46" width="256" height="0.5"/>
+                                        <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="82Z-u1-LzI"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lockup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNE-cR-uw4">
+                                        <rect key="frame" x="16" y="76.5" width="39" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bY8-qv-3wx">
-                                        <rect key="frame" x="16" y="68" width="256" height="16.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bY8-qv-3wx">
+                                        <rect key="frame" x="272" y="83.5" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Participate Coin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wKJ-AF-gad">
-                                        <rect key="frame" x="16" y="100.5" width="85" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receivable" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wKJ-AF-gad">
+                                        <rect key="frame" x="16" y="110.5" width="59.5" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPG-e6-9it">
-                                        <rect key="frame" x="16" y="118.5" width="256" height="16.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPG-e6-9it">
+                                        <rect key="frame" x="268" y="117.5" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lock Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZk-b3-6rc">
-                                        <rect key="frame" x="16" y="151" width="55" height="14"/>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tdj-oo-7YW">
-                                        <rect key="frame" x="16" y="169" width="5" height="16.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDa-Wj-qW1">
+                                        <rect key="frame" x="272" y="117.5" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -4491,26 +4492,25 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                 </subviews>
                                 <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.39509310790000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="q9J-3I-LEP" firstAttribute="top" secondItem="v8n-J3-ZRP" secondAttribute="bottom" constant="16" id="1TD-YZ-Akt"/>
+                                    <constraint firstAttribute="trailing" secondItem="q9J-3I-LEP" secondAttribute="trailing" constant="16" id="436-te-b9b"/>
                                     <constraint firstItem="v8n-J3-ZRP" firstAttribute="leading" secondItem="SAC-BU-mFT" secondAttribute="leading" constant="16" id="7P2-Ke-268"/>
-                                    <constraint firstItem="hPG-e6-9it" firstAttribute="leading" secondItem="wKJ-AF-gad" secondAttribute="leading" id="97m-hb-Ohb"/>
                                     <constraint firstItem="wKJ-AF-gad" firstAttribute="leading" secondItem="DNE-cR-uw4" secondAttribute="leading" id="9Qz-uS-0TY"/>
-                                    <constraint firstItem="tdj-oo-7YW" firstAttribute="leading" secondItem="iZk-b3-6rc" secondAttribute="leading" id="Hb2-45-bLF"/>
+                                    <constraint firstAttribute="trailing" secondItem="bY8-qv-3wx" secondAttribute="trailing" constant="16" id="9pP-hi-q8k"/>
+                                    <constraint firstItem="wKJ-AF-gad" firstAttribute="top" secondItem="DNE-cR-uw4" secondAttribute="bottom" constant="20" id="I9l-A6-AhI"/>
+                                    <constraint firstItem="HDa-Wj-qW1" firstAttribute="centerY" secondItem="hPG-e6-9it" secondAttribute="centerY" id="KzN-ww-9aD"/>
                                     <constraint firstItem="v8n-J3-ZRP" firstAttribute="top" secondItem="SAC-BU-mFT" secondAttribute="top" constant="16" id="LzX-xD-XtE"/>
-                                    <constraint firstItem="DNE-cR-uw4" firstAttribute="top" secondItem="v8n-J3-ZRP" secondAttribute="bottom" constant="20" id="O61-yA-9Zb"/>
+                                    <constraint firstItem="HDa-Wj-qW1" firstAttribute="leading" secondItem="hPG-e6-9it" secondAttribute="trailing" constant="4" id="MDe-KU-CO8"/>
                                     <constraint firstItem="DNE-cR-uw4" firstAttribute="leading" secondItem="SAC-BU-mFT" secondAttribute="leading" constant="16" id="O9y-xG-1DB"/>
-                                    <constraint firstItem="bY8-qv-3wx" firstAttribute="leading" secondItem="DNE-cR-uw4" secondAttribute="leading" id="QWH-VM-hv5"/>
                                     <constraint firstItem="Oyd-BS-3oD" firstAttribute="centerY" secondItem="v8n-J3-ZRP" secondAttribute="centerY" id="RH7-AX-aYk"/>
-                                    <constraint firstAttribute="height" constant="250" id="Ro1-oe-0rZ"/>
+                                    <constraint firstItem="DNE-cR-uw4" firstAttribute="top" secondItem="q9J-3I-LEP" secondAttribute="bottom" constant="30" id="RP9-7G-6oa"/>
+                                    <constraint firstAttribute="height" constant="180" id="Ro1-oe-0rZ"/>
                                     <constraint firstItem="x7y-Lf-rSV" firstAttribute="centerY" secondItem="Oyd-BS-3oD" secondAttribute="centerY" id="Spi-dg-wxS"/>
-                                    <constraint firstItem="iZk-b3-6rc" firstAttribute="leading" secondItem="DNE-cR-uw4" secondAttribute="leading" id="T8g-eQ-BEP"/>
-                                    <constraint firstAttribute="trailing" secondItem="hPG-e6-9it" secondAttribute="trailing" constant="16" id="WQj-vm-Te8"/>
-                                    <constraint firstItem="iZk-b3-6rc" firstAttribute="top" secondItem="hPG-e6-9it" secondAttribute="bottom" constant="16" id="Xd9-Nv-qND"/>
-                                    <constraint firstItem="bY8-qv-3wx" firstAttribute="top" secondItem="DNE-cR-uw4" secondAttribute="bottom" constant="4" id="YUS-lD-9R0"/>
-                                    <constraint firstItem="tdj-oo-7YW" firstAttribute="top" secondItem="iZk-b3-6rc" secondAttribute="bottom" constant="4" id="YsZ-tW-2EP"/>
+                                    <constraint firstItem="HDa-Wj-qW1" firstAttribute="centerY" secondItem="wKJ-AF-gad" secondAttribute="centerY" id="Utp-7i-dDZ"/>
                                     <constraint firstItem="Oyd-BS-3oD" firstAttribute="leading" secondItem="x7y-Lf-rSV" secondAttribute="trailing" constant="4" id="aY9-Vb-Ozm"/>
-                                    <constraint firstItem="wKJ-AF-gad" firstAttribute="top" secondItem="bY8-qv-3wx" secondAttribute="bottom" constant="16" id="mCh-Wv-mSA"/>
-                                    <constraint firstAttribute="trailing" secondItem="bY8-qv-3wx" secondAttribute="trailing" constant="16" id="pmO-fg-WZ1"/>
-                                    <constraint firstItem="hPG-e6-9it" firstAttribute="top" secondItem="wKJ-AF-gad" secondAttribute="bottom" constant="4" id="r9T-sV-i5z"/>
+                                    <constraint firstItem="q9J-3I-LEP" firstAttribute="leading" secondItem="SAC-BU-mFT" secondAttribute="leading" constant="16" id="eJd-pE-uhV"/>
+                                    <constraint firstItem="bY8-qv-3wx" firstAttribute="centerY" secondItem="DNE-cR-uw4" secondAttribute="centerY" id="lSq-8e-bzv"/>
+                                    <constraint firstAttribute="trailing" secondItem="HDa-Wj-qW1" secondAttribute="trailing" constant="16" id="u2S-zm-5we"/>
                                     <constraint firstAttribute="trailing" secondItem="Oyd-BS-3oD" secondAttribute="trailing" constant="16" id="yD5-ZS-nWg"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -4519,6 +4519,86 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Sgu-X7-oFs">
+                                <rect key="frame" x="16" y="482" width="288" height="0.0"/>
+                                <subviews>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jH5-4t-9LS">
+                                        <rect key="frame" x="0.0" y="0.0" width="51" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="4AX-dv-vhd"/>
+                                        </constraints>
+                                        <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="100" maxY="0.0"/>
+                                        <state key="normal" title="Type1">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickOption1:" destination="EPq-hf-RP3" eventType="touchUpInside" id="bCv-NS-2DO"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8P2-Ct-KQj">
+                                        <rect key="frame" x="0.0" y="0.0" width="51" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="Jiu-fY-DeL"/>
+                                        </constraints>
+                                        <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="100" maxY="0.0"/>
+                                        <state key="normal" title="Type2">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickOption2:" destination="EPq-hf-RP3" eventType="touchUpInside" id="WMG-Bj-P1G"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2f-eX-BH2">
+                                        <rect key="frame" x="0.0" y="0.0" width="51" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="ZHI-2A-9eV"/>
+                                        </constraints>
+                                        <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="100" maxY="0.0"/>
+                                        <state key="normal" title="Type3">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickOption3:" destination="EPq-hf-RP3" eventType="touchUpInside" id="ClP-XQ-dy6"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MpR-9r-H4h">
                                 <rect key="frame" x="16" y="502" width="288" height="50"/>
                                 <subviews>
@@ -4579,7 +4659,10 @@ The actual amount of rewards you receive may be equal to or greater than what is
                             <constraint firstItem="tyR-Wm-4az" firstAttribute="trailing" secondItem="MpR-9r-H4h" secondAttribute="trailing" constant="16" id="2f2-Kb-usv"/>
                             <constraint firstItem="SAC-BU-mFT" firstAttribute="top" secondItem="tyR-Wm-4az" secondAttribute="top" constant="16" id="2ip-2P-Rvp"/>
                             <constraint firstItem="tyR-Wm-4az" firstAttribute="bottom" secondItem="MpR-9r-H4h" secondAttribute="bottom" constant="16" id="3iu-4o-IEB"/>
+                            <constraint firstItem="Sgu-X7-oFs" firstAttribute="leading" secondItem="tyR-Wm-4az" secondAttribute="leading" constant="16" id="9QS-mf-leB"/>
+                            <constraint firstItem="tyR-Wm-4az" firstAttribute="trailing" secondItem="Sgu-X7-oFs" secondAttribute="trailing" constant="16" id="Ef1-A0-x3I"/>
                             <constraint firstItem="tyR-Wm-4az" firstAttribute="trailing" secondItem="SAC-BU-mFT" secondAttribute="trailing" constant="16" id="IRK-HB-2nE"/>
+                            <constraint firstItem="MpR-9r-H4h" firstAttribute="top" secondItem="Sgu-X7-oFs" secondAttribute="bottom" constant="20" id="Loq-Qo-FPe"/>
                             <constraint firstItem="MpR-9r-H4h" firstAttribute="leading" secondItem="tyR-Wm-4az" secondAttribute="leading" constant="16" id="LxT-YT-WOn"/>
                             <constraint firstItem="SAC-BU-mFT" firstAttribute="leading" secondItem="tyR-Wm-4az" secondAttribute="leading" constant="16" id="cFB-Y5-fMd"/>
                         </constraints>
@@ -4587,11 +4670,14 @@ The actual amount of rewards you receive may be equal to or greater than what is
                     <connections>
                         <outlet property="btnCancel" destination="uOb-5m-dF2" id="Jyu-CK-Lao"/>
                         <outlet property="btnNext" destination="dzX-62-TuN" id="mya-bC-qR0"/>
-                        <outlet property="incentiveAddress" destination="bY8-qv-3wx" id="05P-R7-6Sg"/>
-                        <outlet property="incentiveDenom" destination="hPG-e6-9it" id="Mi3-YE-Qns"/>
-                        <outlet property="incentiveLockTime" destination="tdj-oo-7YW" id="Sas-fD-FTL"/>
-                        <outlet property="myRewardAmount" destination="x7y-Lf-rSV" id="l1J-R4-gHT"/>
-                        <outlet property="myRewardDenom" destination="Oyd-BS-3oD" id="EzB-f4-r5v"/>
+                        <outlet property="incentiveAmount" destination="x7y-Lf-rSV" id="q9F-gN-ezT"/>
+                        <outlet property="incentiveDenom" destination="Oyd-BS-3oD" id="Dje-fN-aYN"/>
+                        <outlet property="lockup" destination="bY8-qv-3wx" id="Sdk-NG-sHu"/>
+                        <outlet property="option1Btn" destination="jH5-4t-9LS" id="rzg-7I-U29"/>
+                        <outlet property="option2Btn" destination="8P2-Ct-KQj" id="4Ma-j3-aIq"/>
+                        <outlet property="option3Btn" destination="E2f-eX-BH2" id="LTD-Fp-gZD"/>
+                        <outlet property="receivableAmount" destination="hPG-e6-9it" id="uYw-nX-WVY"/>
+                        <outlet property="receivableDenom" destination="HDa-Wj-qW1" id="sxK-zu-J6m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1xN-fA-4zs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -6846,15 +6932,15 @@ you must create a KAVA account and have history</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1uh-hf-OSS">
-                                        <rect key="frame" x="228" y="14" width="5" height="16.5"/>
+                                        <rect key="frame" x="227.5" y="14" width="5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIW-ZR-5bT">
-                                        <rect key="frame" x="237" y="14" width="35" height="16.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KAVA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIW-ZR-5bT">
+                                        <rect key="frame" x="236.5" y="14" width="35.5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="1" green="0.33725490200000002" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RYG-AO-nx5">
@@ -6864,20 +6950,20 @@ you must create a KAVA account and have history</string>
                                             <constraint firstAttribute="height" constant="0.5" id="CfS-1Y-gug"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Participate Reward" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CwR-fq-VqZ">
-                                        <rect key="frame" x="16" y="58.5" width="101.5" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receivable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CwR-fq-VqZ">
+                                        <rect key="frame" x="16" y="58.5" width="59.5" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DA5-0Y-tOk">
-                                        <rect key="frame" x="237" y="57.5" width="35" height="16.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KAVA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DA5-0Y-tOk">
+                                        <rect key="frame" x="236.5" y="57.5" width="35.5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="1" green="0.33725490200000002" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Participate Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUo-d9-Y8Y">
-                                        <rect key="frame" x="16" y="92.5" width="103.5" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lockup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUo-d9-Y8Y">
+                                        <rect key="frame" x="16" y="92.5" width="39" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -6888,8 +6974,8 @@ you must create a KAVA account and have history</string>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Participate Coin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93J-IX-eMZ">
-                                        <rect key="frame" x="16" y="139" width="85" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93J-IX-eMZ">
+                                        <rect key="frame" x="16" y="139" width="26.5" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -6913,7 +6999,7 @@ you must create a KAVA account and have history</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ppq-aK-fJA">
-                                        <rect key="frame" x="228" y="57.5" width="5" height="16.5"/>
+                                        <rect key="frame" x="227.5" y="57.5" width="5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -7028,11 +7114,11 @@ you must create a KAVA account and have history</string>
                         <outlet property="btnConfirm" destination="0yT-mt-NM2" id="cmp-K6-GnK"/>
                         <outlet property="feeAmount" destination="1uh-hf-OSS" id="hfK-UD-Uod"/>
                         <outlet property="feeAmountDenom" destination="sIW-ZR-5bT" id="7Ev-TO-u35"/>
-                        <outlet property="incentiveAddress" destination="ZZ6-T3-5ld" id="nqm-Po-U2r"/>
-                        <outlet property="incentiveDenom" destination="SYl-ef-M6e" id="Lv7-zU-3lb"/>
+                        <outlet property="lockupTime" destination="ZZ6-T3-5ld" id="TZf-yn-WEf"/>
                         <outlet property="memoLabel" destination="p06-k6-XBT" id="DCD-Vc-HOQ"/>
-                        <outlet property="myRewardAmount" destination="ppq-aK-fJA" id="Fq1-Wh-E8n"/>
-                        <outlet property="myRewardDenom" destination="DA5-0Y-tOk" id="zTH-Rh-QdX"/>
+                        <outlet property="receivableAmount" destination="ppq-aK-fJA" id="jEd-E8-yBW"/>
+                        <outlet property="receivableDenom" destination="DA5-0Y-tOk" id="YS6-mg-mEM"/>
+                        <outlet property="type" destination="SYl-ef-M6e" id="eu0-Ly-sfi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JJt-46-Hky" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

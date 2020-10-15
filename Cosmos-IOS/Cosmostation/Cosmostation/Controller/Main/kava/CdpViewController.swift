@@ -114,7 +114,9 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
         let cell:CdpIncentiveCell? = tableView.dequeueReusableCell(withIdentifier:"CdpIncentiveCell") as? CdpIncentiveCell
         var totalIncentive = NSDecimalNumber.zero
         for incentive in incentiveClaimables {
-            totalIncentive = totalIncentive.adding(NSDecimalNumber.init(string: incentive.claim.reward.amount))
+            if (incentive.claimable) {
+                totalIncentive = totalIncentive.adding(NSDecimalNumber.init(string: incentive.claim.reward.amount))
+            }
         }
         cell?.incentiveSumAmount.attributedText = WUtils.displayAmount2(totalIncentive.stringValue, cell!.incentiveSumAmount.font, 6, 6)
         return cell!

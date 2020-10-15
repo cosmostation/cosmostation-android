@@ -356,7 +356,7 @@
 "title_withdraw_harvest" = "withdraw Harvest";
 "title_interchain_swap" = "Interchain Send & Claim";
 "title_interchain_refund" = "Interchain Refund";
-"title_participate_incentive" = "Crypto Payday Participate";
+"title_participate_incentive" = "Crypto Payday Incentive";
 "title_ok_deposit" = "Deposit";
 "title_ok_withdraw" = "Withdraw";
 "title_ok_vote" = "Vote for Validator";
@@ -447,6 +447,7 @@
 "error_bep3_under_min_amount" = "Need more than 0.00001 balance for Interchain send.";
 "error_no_deposited_asset" = "No deposited asset.";
 "error_no_available_to_deposit" = "No assets to deposit.";
+"error_no_incentive_to_claim" = "No incentive to claim.";
 
 "currency_usd" = "USD";
 "currency_eur" = "EUR";
@@ -501,7 +502,7 @@
 "tx_kava_bep3_create" = "Interchain\nSend";
 "tx_kava_bep3_claim" = "Interchain\nClaim";
 "tx_kava_bep3_refund" = "Interchain\nRefund";
-"tx_kava_incentive_reward" = "Crypto Payday\nParticipate";
+"tx_kava_incentive_reward" = "Crypto Payday\nIncentive";
 "tx_kava_havest_deposit" = "Harvest\nDeposit";
 "tx_kava_havest_withdraw" = "Harvest\nWithdraw";
 "tx_kava_havest_claim" = "Harvest\nGet Rewards";

@@ -84,6 +84,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mMarketID: String?
     var mCollateralParam: KavaCdpParam.CollateralParam?
     var mHarvestDepositDenom: String?
+    var mIncentiveReceivable = NSDecimalNumber.zero
+    var mIncentiveType: String?
+    var mIncentiveMultiplier: KavaClaimMultiplier?
     var mHarvestCoin = Coin.init()
     
     var mHtlcDenom: String?
