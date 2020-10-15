@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = true;
+let SHOW_LOG                            = false;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -39,8 +39,8 @@ let IRIS_API                            = "https://api-iris.cosmostation.io/";
 let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 
-let KAVA_URL                            = "https://lcd-kava-3.cosmostation.io/";
-let KAVA_API                            = "https://api-kava-3.cosmostation.io/";
+let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
+let KAVA_API                            = "https://api-kava.cosmostation.io/";
 let KAVA_FAUCET                         = "https://faucet-kava-3.cosmostation.io/faucet/";
 
 let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-4-test/";

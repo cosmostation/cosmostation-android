@@ -265,8 +265,12 @@ class WUtils {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
         
-        let fullDate = nodeFormatter.date(from: input!)
-        return localFormatter.string(from: fullDate!)
+        if (input != nil) {
+            let fullDate = nodeFormatter.date(from: input!)
+            return localFormatter.string(from: fullDate!)
+        } else {
+            return ""
+        }
     }
     
     static func txTimeToInt64(input: String) -> Date {
@@ -283,9 +287,12 @@ class WUtils {
         
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
-        
-        let fullDate = nodeFormatter.date(from: input!)
-        return localFormatter.string(from: fullDate!)
+        if (input != nil) {
+            let fullDate = nodeFormatter.date(from: input!)
+            return localFormatter.string(from: fullDate!)
+        } else {
+            return ""
+        }
     }
     
     static func longTimetoString(input: Int64) -> String {
@@ -2088,7 +2095,7 @@ class WUtils {
         } else if (chainS == CHAIN_BINANCE_S) {
             return "Binance-Chain-Tigris"
         } else if (chainS == CHAIN_KAVA_S) {
-            return "kava-3"
+            return "kava-4"
         } else if (chainS == CHAIN_IOV_S) {
             return "iov-mainnet-2"
         } else if (chainS == CHAIN_BAND_S) {
@@ -2117,7 +2124,7 @@ class WUtils {
         } else if (chain == ChainType.BINANCE_MAIN) {
             return "Binance-Chain-Tigris"
         } else if (chain == ChainType.KAVA_MAIN) {
-            return "kava-3"
+            return "kava-4"
         } else if (chain == ChainType.IOV_MAIN) {
             return "iov-mainnet-2"
         } else if (chain == ChainType.BAND_MAIN) {
