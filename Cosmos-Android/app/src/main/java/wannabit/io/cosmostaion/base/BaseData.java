@@ -30,6 +30,9 @@ import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
@@ -71,7 +74,10 @@ public class BaseData {
     public ArrayList<ResCdpOwnerStatus.MyCDP>                               mMyOwenCdp = new ArrayList<>();
     public HashMap<String, ResKavaMarketPrice.Result>                       mKavaTokenPrices = new HashMap<>();
     public ResKavaIncentiveParam.IncentiveParam                             mKavaIncentiveParam;
-    public ArrayList<ResKavaIncentiveReward.KavaUnclaimedIncentiveReward>   mKavaUnClaimedIncentiveRewards = new ArrayList<>();
+    public ArrayList<ResKavaIncentiveReward.IncentiveRewardClaimable>       mKavaUnClaimedIncentiveRewards = new ArrayList<>();
+    public ResKavaHarvestParam                                              mHarvestParam;
+    public ArrayList<ResKavaHarvestDeposit.HarvestDeposit>                  mHavestDeposits = new ArrayList<>();
+    public ArrayList<ResKavaHarvestReward.HarvestReward>                    mHavestRewards = new ArrayList<>();
 
     public ArrayList<BnbToken>                                              mBnbTokens = new ArrayList<>();
     public ArrayList<ResBnbFee>                                             mBnbFees = new ArrayList<>();

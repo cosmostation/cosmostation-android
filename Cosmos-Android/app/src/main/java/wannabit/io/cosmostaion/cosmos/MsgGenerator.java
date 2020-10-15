@@ -260,118 +260,63 @@ public class MsgGenerator {
     public static Msg genCreateCdpMsg(String sender, Coin collateralCoin, Coin principalCoin, String collateralType, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(KAVA_MAIN)) {
-            value.sender = sender;
-            value.collateral = collateralCoin;
-            value.principal = principalCoin;
+        value.sender = sender;
+        value.collateral = collateralCoin;
+        value.principal = principalCoin;
+        value.collateral_type = collateralType;
 
-            result.type = BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
-            result.value = value;
-
-        } else if (chain.equals(KAVA_TEST)) {
-            value.sender = sender;
-            value.collateral = collateralCoin;
-            value.principal = principalCoin;
-            value.collateral_type = collateralType;
-
-            result.type = BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
-            result.value = value;
-
-        }
+        result.type = BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
+        result.value = value;
         return result;
     }
 
     public static Msg genRepayCdpMsg(String sender, Coin payment, String cdpDenom, String collateralType, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(KAVA_MAIN)) {
-            value.sender = sender;
-            value.payment = payment;
-            value.cdp_denom = cdpDenom;
+        value.sender = sender;
+        value.payment = payment;
+        value.collateral_type = collateralType;
 
-            result.type = BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
-            result.value = value;
-
-        } else if (chain.equals(KAVA_TEST)) {
-            value.sender = sender;
-            value.payment = payment;
-            value.collateral_type = collateralType;
-
-            result.type = BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
-            result.value = value;
-
-        }
+        result.type = BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
+        result.value = value;
         return result;
     }
 
     public static Msg genDrawDebtCdpMsg(String sender, Coin principal, String cdpDenom, String collateralType, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(KAVA_MAIN)) {
-            value.sender = sender;
-            value.principal = principal;
-            value.cdp_denom = cdpDenom;
+        value.sender = sender;
+        value.principal = principal;
+        value.collateral_type = collateralType;
 
-            result.type = BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
-            result.value = value;
-
-        } else if (chain.equals(KAVA_TEST)) {
-            value.sender = sender;
-            value.principal = principal;
-            value.collateral_type = collateralType;
-
-            result.type = BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
-            result.value = value;
-
-        }
+        result.type = BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
+        result.value = value;
         return result;
     }
 
     public static Msg genDepositCdpMsg(String owner, Coin collateral, String depositor, String collateralType, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(KAVA_MAIN)) {
-            value.depositor = depositor;
-            value.owner = owner;
-            value.collateral = collateral;
+        value.depositor = depositor;
+        value.owner = owner;
+        value.collateral = collateral;
+        value.collateral_type = collateralType;
 
-            result.type = BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
-            result.value = value;
-
-        } else if (chain.equals(KAVA_TEST)) {
-            value.depositor = depositor;
-            value.owner = owner;
-            value.collateral = collateral;
-            value.collateral_type = collateralType;
-
-            result.type = BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
-            result.value = value;
-
-        }
+        result.type = BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
+        result.value = value;
         return result;
     }
 
     public static Msg genWithdrawCdpMsg(String owner, Coin collateral, String depositor, String collateralType, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(KAVA_MAIN)) {
-            value.depositor = depositor;
-            value.owner = owner;
-            value.collateral = collateral;
+        value.depositor = depositor;
+        value.owner = owner;
+        value.collateral = collateral;
+        value.collateral_type = collateralType;
 
-            result.type = BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
-            result.value = value;
-
-        } else if (chain.equals(KAVA_TEST)) {
-            value.depositor = depositor;
-            value.owner = owner;
-            value.collateral = collateral;
-            value.collateral_type = collateralType;
-
-            result.type = BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
-            result.value = value;
-
-        }
+        result.type = BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
+        result.value = value;
         return result;
     }
 

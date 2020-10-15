@@ -64,14 +64,16 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
         BigDecimal myReward  = BigDecimal.ZERO;
         if (getSActivity().mKavaUnClaimedIncentiveRewards.size() > 0) {
-            for (ResKavaIncentiveReward.KavaUnclaimedIncentiveReward reward:getSActivity().mKavaUnClaimedIncentiveRewards) {
-                myReward = myReward.add(new BigDecimal(reward.reward.amount));
-            }
+            //TODO KAVA-4
+//            for (ResKavaIncentiveReward.KavaUnclaimedIncentiveReward reward:getSActivity().mKavaUnClaimedIncentiveRewards) {
+//                myReward = myReward.add(new BigDecimal(reward.reward.amount));
+//            }
         }
         mFee.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
         mMyReward.setText(WDp.getDpAmount(getContext(), myReward, 6, getSActivity().mBaseChain));
         mSenderAddress.setText(getSActivity().mAccount.address);
-        mCoinType.setText(getSActivity().mIncentiveReward.denom.toUpperCase());
+        //TODO KAVA-4
+//        mCoinType.setText(getSActivity().mIncentiveReward.denom.toUpperCase());
         mLockTime.setText("365 Days");
         mMemo.setText(getSActivity().mMemo);
 

@@ -118,7 +118,7 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_BNB_HTLC_REFUND                 = 2072;
     public final static int TASK_FETCH_MY_VOTE                          = 2073;
     public final static int TASK_FETCH_KAVA_INCENTIVE_PARAM             = 2074;
-    public final static int TASK_FETCH_KAVA_PRICE_PARAM                 = 2075;
+    public final static int TASK_FETCH_KAVA_PRICE_FEED_PARAM            = 2075;
     public final static int TASK_FETCH_KAVA_INCENTIVE_REWARD            = 2076;
     public final static int TASK_GEN_KAVA_CLAIM_INCENTIVE               = 2077;
     public final static int TASK_FETCH_BNB_MINI_TOKENS                  = 2078;
@@ -146,6 +146,11 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_RENEW_DOMAIN                    = 2100;
     public final static int TASK_GEN_TX_RENEW_ACCOUNT                   = 2101;
     public final static int TASK_GEN_TX_REPLACE_STARNAME                = 2102;
+
+    public final static int TASK_FETCH_KAVA_HARVEST_PARAM               = 2103;
+    public final static int TASK_FETCH_KAVA_HARVEST_DEPOSIT             = 2104;
+    public final static int TASK_FETCH_KAVA_HARVEST_REWARD              = 2105;
+    public final static int TASK_FETCH_KAVA_HARVEST_ACCOUNT             = 2106;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;

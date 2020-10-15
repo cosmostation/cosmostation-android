@@ -12,20 +12,49 @@ public class ResKavaIncentiveReward {
     public String height;
 
     @SerializedName("result")
-    public ArrayList<KavaUnclaimedIncentiveReward> result;
+    public ArrayList<IncentiveRewardClaimable> result;
 
-    public class KavaUnclaimedIncentiveReward {
+
+
+
+    public class IncentiveRewardClaimable {
+        @SerializedName("claimable")
+        public boolean claimable;
+
+        @SerializedName("claim")
+        public IncentiveRewardClaim claim;
+    }
+
+
+
+
+    public class IncentiveRewardClaim {
         @SerializedName("owner")
         public String owner;
 
         @SerializedName("reward")
         public Coin reward;
 
-        @SerializedName("denom")
-        public String denom;
+        @SerializedName("collateral_type")
+        public String collateral_type;
 
         @SerializedName("claim_period_id")
         public String claim_period_id;
 
     }
+
+//    public class KavaUnclaimedIncentiveReward {
+//        @SerializedName("owner")
+//        public String owner;
+//
+        @SerializedName("reward")
+        public Coin reward;
+//
+//        @SerializedName("denom")
+//        public String denom;
+//
+//        @SerializedName("claim_period_id")
+//        public String claim_period_id;
+//
+//    }
 }

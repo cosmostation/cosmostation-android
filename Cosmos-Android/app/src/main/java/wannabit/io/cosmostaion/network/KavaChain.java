@@ -16,10 +16,14 @@ import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestAccount;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
-import wannabit.io.cosmostaion.network.res.ResKavaPriceParam;
+import wannabit.io.cosmostaion.network.res.ResKavaPriceFeedParam;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
@@ -47,141 +51,155 @@ import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface KavaChain {
 
-    @GET("/txs/{hash}")
+    @GET("txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 
-    @GET("/auth/accounts/{address}")
+    @GET("auth/accounts/{address}")
     Call<ResLcdKavaAccountInfo> getAccountInfo(@Path("address") String address);
 
-    @GET("/staking/validators?status=bonded")
+    @GET("staking/validators?status=bonded")
     Call<ResLcdValidators> getValidatorDetailList();
 
-    @GET("/staking/validators?status=unbonding")
+    @GET("staking/validators?status=unbonding")
     Call<ResLcdValidators> getUnBondingValidatorDetailList();
 
-    @GET("/staking/validators?status=unbonded")
+    @GET("staking/validators?status=unbonded")
     Call<ResLcdValidators> getUnBondedValidatorDetailList();
 
-    @GET("/staking/delegators/{address}/delegations")
+    @GET("staking/delegators/{address}/delegations")
     Call<ResLcdBondings> getBondingList(@Path("address") String address);
 
-    @GET("/staking/delegators/{address}/unbonding_delegations")
+    @GET("staking/delegators/{address}/unbonding_delegations")
     Call<ResLcdUnBondings> getUnBondingList(@Path("address") String address);
 
-    @GET("/distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
+    @GET("distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
     Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
 
-    @GET("/minting/inflation")
+    @GET("minting/inflation")
     Call<ResLcdInflation> getInflation();
 
-    @GET("/minting/annual-provisions")
+    @GET("minting/annual-provisions")
     Call<ResProvisions> getProvisions();
 
-    @GET("/staking/pool")
+    @GET("staking/pool")
     Call<ResStakingPool> getStakingPool();
 
-    @GET("/staking/validators/{validatorAddr}")
+    @GET("staking/validators/{validatorAddr}")
     Call<ResLcdSingleValidator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
 
-    @GET("/staking/delegators/{address}/delegations/{validatorAddr}")
+    @GET("staking/delegators/{address}/delegations/{validatorAddr}")
     Call<ResLcdSingleBonding> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 
-    @GET("/staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
+    @GET("staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
     Call<ResLcdSingleUnBonding> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 
-    @GET("/staking/redelegations")
+    @GET("staking/redelegations")
     Call<ResLcdRedelegate> getRedelegateAllHistory(@Query("delegator") String delegator, @Query("validator_from") String validator_from, @Query("validator_to") String validator_to);
 
-    @GET("/staking/redelegations")
+    @GET("staking/redelegations")
     Call<ResLcdRedelegate> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
 
-    @GET("/distribution/delegators/{address}/withdraw_address")
+    @GET("distribution/delegators/{address}/withdraw_address")
     Call<ResLcdWithDrawAddress> getWithdrawAddress(@Path("address") String address);
 
-    @GET("/gov/proposals")
+    @GET("gov/proposals")
     Call<ResLcdProposals> getProposalList();
 
-    @GET("/gov/proposals/{proposalId}")
+    @GET("gov/proposals/{proposalId}")
     Call<ResLcdProposal> getProposalDetail(@Path("proposalId") String proposalId);
 
-    @GET("/gov/proposals/{proposalId}/tally")
+    @GET("gov/proposals/{proposalId}/tally")
     Call<ResLcdProposalTally> getTally(@Path("proposalId") String proposalId);
 
-    @GET("/gov/proposals/{proposalId}/votes")
+    @GET("gov/proposals/{proposalId}/votes")
     Call<ResLcdProposalVoted> getVotedList(@Path("proposalId") String proposalId);
 
-    @GET("/gov/proposals/{proposalId}/votes/{address}")
+    @GET("gov/proposals/{proposalId}/votes/{address}")
     Call<ResMyVote> getMyVote(@Path("proposalId") String proposalId, @Path("address") String address);
 
-    @GET("/gov/proposals/{proposalId}/proposer")
+    @GET("gov/proposals/{proposalId}/proposer")
     Call<ResLcdProposer> getProposer(@Path("proposalId") String proposalId);
 
-    @GET("/supply/total")
+    @GET("supply/total")
     Call<ResKavaSupply> getSupply();
 
-    @POST("/txs")
+    @POST("txs")
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
 
 
-    @GET("/cdp/parameters")
+    @GET("cdp/parameters")
     Call<ResCdpParam> getCdpParams();
 
-    @GET("/cdp/cdps/cdp/{address}/{denom}")
+    @GET("cdp/cdps/cdp/{address}/{denom}")
     Call<ResCdpOwnerStatus> getCdpStatusByOwner(@Path("address") String address, @Path("denom") String denom);
 
-    @GET("/cdp/cdps/cdp/deposits/{address}/{denom}")
+    @GET("cdp/cdps/cdp/deposits/{address}/{denom}")
     Call<ResCdpDepositStatus> getCdpDepositStatus(@Path("address") String address, @Path("denom") String denom);
 
-    @GET("/cdp/cdps/denom/{denom}")
+    @GET("cdp/cdps/denom/{denom}")
     Call<ResCdpList> getCdpListByDenom(@Path("denom") String denom);
 
-    @GET("/cdp/cdps/ratio/{denom}/{ratio}")
+    @GET("cdp/cdps/ratio/{denom}/{ratio}")
     Call<ResCdpList> getCdpCoinRate(@Path("denom") String denom, @Path("ratio") String ratio);
 
 
-    @GET("/pricefeed/parameters")
-    Call<ResKavaPriceParam> getPriceParam();
+    @GET("pricefeed/parameters")
+    Call<ResKavaPriceFeedParam> getPriceParam();
 
-    @GET("/pricefeed/price/{market}")
+    @GET("pricefeed/price/{market}")
     Call<ResKavaMarketPrice> getPrice(@Path("market") String market);
 
 
-    @GET("/bep3/parameters")
+    @GET("bep3/parameters")
     Call<ResKavaBep3Param> getSwapParams();
 
-    @GET("/bep3/swap/{swapId}")
+    @GET("bep3/swap/{swapId}")
     Call<ResKavaSwapInfo> getSwapById(@Path("swapId") String swapId);
 
-    @GET("/bep3/swaps")
+    @GET("bep3/swaps")
     Call<String> getSwaps();
 
-    @GET("/bep3/supplies")
+    @GET("bep3/supplies")
     Call<ResKavaSwapSupply> getSupplies();
 
 
 
-    @GET("/incentive/parameters")
+    @GET("incentive/parameters")
     Call<ResKavaIncentiveParam> getIncentiveParams();
 
-    @GET("/incentive/claims/{address}/{denom}")
+    @GET("incentive/claims/{address}/{denom}")
     Call<ResKavaIncentiveReward> getIncentive(@Path("address") String address, @Path("denom") String denom);
 
 
 
 
 
-    @GET("/faucet/{address}")
+    @GET("faucet/{address}")
     Call<JSONObject> getFaucet(@Path("address") String address);
 
 
 
     //For Kava testnet 9000
-    @GET("/bep3/parameters")
+    @GET("bep3/parameters")
     Call<ResKavaBep3Param2> getSwapParams2();
 
-    @GET("/bep3/supplies")
+    @GET("bep3/supplies")
     Call<ResKavaSwapSupply2> getSupplies2();
+
+
+    @GET("harvest/parameters")
+    Call<ResKavaHarvestParam> getHarvestParam();
+
+    @GET("harvest/deposits")
+    Call<ResKavaHarvestDeposit> getHarvestDeposit(@Query("owner") String owner);
+
+    @GET("harvest/claims")
+    Call<ResKavaHarvestReward> getHarvestReward(@Query("owner") String owner);
+
+    @GET("harvest/accounts")
+    Call<ResKavaHarvestAccount> getHarvestAccount();
+
 
 
 }

@@ -42,8 +42,8 @@ public class ClaimIncentiveActivity extends BaseActivity {
     public String                       mMemo;
     public Fee                          mFee;
 
-    public ResKavaIncentiveParam.IncentiveReward                           mIncentiveReward;
-    public ArrayList<ResKavaIncentiveReward.KavaUnclaimedIncentiveReward>  mKavaUnClaimedIncentiveRewards;
+    public ResKavaIncentiveParam.IncentiveReward                            mIncentiveReward;
+    public ArrayList<ResKavaIncentiveReward.IncentiveRewardClaimable>       mKavaUnClaimedIncentiveRewards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +152,8 @@ public class ClaimIncentiveActivity extends BaseActivity {
     public void onStartIncentiveClaim() {
         Intent intent = new Intent(ClaimIncentiveActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE);
-        intent.putExtra("denom", mIncentiveReward.denom);
+        //TODO KAVA-4
+//        intent.putExtra("denom", mIncentiveReward.denom);
         intent.putExtra("fee", mFee);
         intent.putExtra("memo", mMemo);
         startActivity(intent);

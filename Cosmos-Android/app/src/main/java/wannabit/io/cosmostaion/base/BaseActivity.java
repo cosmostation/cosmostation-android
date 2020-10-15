@@ -78,10 +78,13 @@ import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
-import wannabit.io.cosmostaion.network.res.ResKavaPriceParam;
+import wannabit.io.cosmostaion.network.res.ResKavaPriceFeedParam;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResOkDeposit;
@@ -98,10 +101,13 @@ import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaHarvestDepositTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaHarvestParamTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaHarvestRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaPriceParamTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaPriceFeedParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkAccountTokenTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkDepositTask;
@@ -135,9 +141,12 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_FEES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARVEST_DEPOSIT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARVEST_PARAM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARVEST_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_PRICE_PARAM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_PRICE_FEED_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_ACCOUNT_TOKEN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_DEPOSIT;
@@ -512,7 +521,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         } else if (mBaseChain.equals(KAVA_MAIN)) {
-            mTaskCount = 13;
+            mTaskCount = 15;
+            getBaseDao().mMyOwenCdp.clear();
+            getBaseDao().mKavaUnClaimedIncentiveRewards.clear();
+            getBaseDao().mHavestDeposits.clear();
+            getBaseDao().mHavestRewards.clear();
+
             new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnbondedValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -523,16 +537,22 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-            new KavaPriceParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new KavaIncentiveParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            //TODO hard code
-            new KavaIncentiveRewardTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount, "bnb").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new KavaPriceFeedParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new KavaHarvestParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new KavaHarvestDepositTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new KavaHarvestRewardTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (mBaseChain.equals(KAVA_TEST)) {
             mTaskCount = 13;
+            getBaseDao().mMyOwenCdp.clear();
+            getBaseDao().mKavaUnClaimedIncentiveRewards.clear();
+            getBaseDao().mHavestDeposits.clear();
+            getBaseDao().mHavestRewards.clear();
             new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnbondedValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -543,12 +563,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-            new KavaPriceParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new KavaPriceFeedParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new KavaIncentiveParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            //TODO hard code
-            new KavaIncentiveRewardTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount, "bnb").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
@@ -720,7 +739,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 final ResCdpParam.Result cdpParam = (ResCdpParam.Result)result.resultData;
                 getBaseDao().mKavaCdpParams = cdpParam;
-                getBaseDao().mMyOwenCdp.clear();
                 if (cdpParam != null && cdpParam.collateral_params != null && cdpParam.collateral_params.size() > 0) {
                     mTaskCount = mTaskCount + cdpParam.collateral_params.size();
                     for (ResCdpParam.KavaCollateralParam param:getBaseDao().mKavaCdpParams.collateral_params) {
@@ -734,14 +752,14 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mMyOwenCdp.add((ResCdpOwnerStatus.MyCDP)result.resultData);
             }
 
-        } else if (result.taskType == TASK_FETCH_KAVA_PRICE_PARAM) {
+        } else if (result.taskType == TASK_FETCH_KAVA_PRICE_FEED_PARAM) {
             getBaseDao().mKavaTokenPrices.clear();
             if (result.isSuccess && result.resultData != null) {
-                final ResKavaPriceParam.KavaPriceParam kavaPriceParam = (ResKavaPriceParam.KavaPriceParam)result.resultData;
+                final ResKavaPriceFeedParam.KavaPriceParam kavaPriceParam = (ResKavaPriceFeedParam.KavaPriceParam)result.resultData;
                 getBaseDao().mKavaTokenPrices.clear();
                 if (kavaPriceParam != null && kavaPriceParam.markets != null && kavaPriceParam.markets.size() > 0) {
                     mTaskCount = mTaskCount + kavaPriceParam.markets.size();
-                    for (ResKavaPriceParam.KavaPriceMarket market:kavaPriceParam.markets) {
+                    for (ResKavaPriceFeedParam.KavaPriceMarket market:kavaPriceParam.markets) {
                         new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), market.market_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
                 }
@@ -756,12 +774,32 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mKavaIncentiveParam = (ResKavaIncentiveParam.IncentiveParam)result.resultData;
+                mTaskCount = mTaskCount + getBaseDao().mKavaIncentiveParam.rewards.size();
+                for (ResKavaIncentiveParam.IncentiveReward rewardParam:getBaseDao().mKavaIncentiveParam.rewards) {
+                    new KavaIncentiveRewardTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount, rewardParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
-            getBaseDao().mKavaUnClaimedIncentiveRewards.clear();
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mKavaUnClaimedIncentiveRewards = (ArrayList<ResKavaIncentiveReward.KavaUnclaimedIncentiveReward>) result.resultData;
+                getBaseDao().mKavaUnClaimedIncentiveRewards.addAll((ArrayList<ResKavaIncentiveReward.IncentiveRewardClaimable>) result.resultData);
+            }
+
+        } else if (result.taskType == TASK_FETCH_KAVA_HARVEST_PARAM) {
+            if (result.isSuccess && result.resultData != null) {
+                if (result.isSuccess && result.resultData != null) {
+                    getBaseDao().mHarvestParam = (ResKavaHarvestParam)result.resultData;
+                }
+            }
+
+        } else if (result.taskType == TASK_FETCH_KAVA_HARVEST_DEPOSIT) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mHavestDeposits = ((ResKavaHarvestDeposit)result.resultData).result;
+            }
+
+        } else if (result.taskType == TASK_FETCH_KAVA_HARVEST_REWARD) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mHavestRewards = ((ResKavaHarvestReward)result.resultData).result;
             }
 
         } else if (result.taskType == TASK_FETCH_BNB_FEES) {
