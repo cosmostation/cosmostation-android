@@ -100,11 +100,7 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
-            let cell:CdpIncentiveCell? = tableView.dequeueReusableCell(withIdentifier:"CdpIncentiveCell") as? CdpIncentiveCell
-            cell?.actionParticipate = {
-                print("actionParticipate")
-            }
-            return cell!
+            return onBindTop(tableView, indexPath.row)
             
         } else if (indexPath.section == 1) {
             return onBindMyCdp(tableView, indexPath.row)
@@ -112,6 +108,16 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
         } else {
             return onBindOtherCdp(tableView, indexPath.row)
         }
+    }
+    
+    func onBindTop(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
+        let cell:CdpIncentiveCell? = tableView.dequeueReusableCell(withIdentifier:"CdpIncentiveCell") as? CdpIncentiveCell
+        var totalIncentive = NSDecimalNumber.zero
+        for incentive in incentiveClaimables {
+            totalIncentive = totalIncentive.adding(NSDecimalNumber.init(string: incentive.claim.reward.amount))
+        }
+        cell?.incentiveSumAmount.attributedText = WUtils.displayAmount2(totalIncentive.stringValue, cell!.incentiveSumAmount.font, 6, 6)
+        return cell!
     }
     
     func onBindMyCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {

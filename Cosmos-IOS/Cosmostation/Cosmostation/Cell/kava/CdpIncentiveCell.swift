@@ -11,18 +11,12 @@ import UIKit
 class CdpIncentiveCell: UITableViewCell {
 
     @IBOutlet weak var rootCard: CardView!
-    @IBOutlet weak var btnParticipate: UIButton!
-    @IBOutlet weak var participateDone: UILabel!
-    @IBOutlet weak var BtnConstraint: NSLayoutConstraint!
-    @IBOutlet weak var LabelConstraint: NSLayoutConstraint!
+    @IBOutlet weak var incentiveSumAmount: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
     }
     
-    var actionParticipate: (() -> Void)? = nil
-    @IBAction func onParticipate(_ sender: UIButton) {
-        actionParticipate?()
-    }
+    
 }
