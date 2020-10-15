@@ -778,9 +778,9 @@ enum ChainType: String {
         result.append(KAVA_MAIN)
         result.append(BAND_MAIN)
         result.append(SECRET_MAIN)
-//
-        result.append(BINANCE_TEST)
-        result.append(KAVA_TEST)
+
+//        result.append(BINANCE_TEST)
+//        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
         result.append(OKEX_TEST)
         result.append(CERTIK_TEST)

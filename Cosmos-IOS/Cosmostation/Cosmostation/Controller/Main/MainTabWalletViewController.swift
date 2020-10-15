@@ -1489,32 +1489,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickCdp() {
-//        if (BaseData.instance.mCdpParam == nil) {
-//            return
-//        }
-//        let cdpListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "CdpListViewController") as! CdpListViewController
-//        cdpListVC.hidesBottomBarWhenPushed = true
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(cdpListVC, animated: true)
-        
         let dAppVC = UIStoryboard(name: "Kava", bundle: nil).instantiateViewController(withIdentifier: "DAppsListViewController") as! DAppsListViewController
         dAppVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(dAppVC, animated: true)
     }
-    
-//    func onClickIncentive() {
-//        if (!mainTabVC.mAccount.account_has_private) {
-//            self.onShowAddMenomicDialog()
-//            return
-//        }
-//
-//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-//        txVC.mType = KAVA_MSG_TYPE_INCENTIVE_REWARD
-//        txVC.hidesBottomBarWhenPushed = true
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(txVC, animated: true)
-//    }
     
     func onClickOkDeposit() {
         if (!mainTabVC.mAccount.account_has_private) {

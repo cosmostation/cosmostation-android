@@ -251,17 +251,10 @@ class MsgGenerator {
     static func genGetCreatCdpMsg(_ chainType: ChainType, _ sender: String, _ collateral: Coin, _ principal: Coin, _ collateral_type: String?) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chainType == ChainType.KAVA_MAIN) {
-            value.sender = sender
-            value.collateral = collateral
-            value.principal = principal
-            
-        } else if (chainType == ChainType.KAVA_TEST) {
-            value.sender = sender
-            value.collateral = collateral
-            value.principal = principal
-            value.collateral_type = collateral_type
-        }
+        value.sender = sender
+        value.collateral = collateral
+        value.principal = principal
+        value.collateral_type = collateral_type
         msg.type = KAVA_MSG_TYPE_CREATE_CDP
         msg.value = value
         return msg
@@ -270,18 +263,10 @@ class MsgGenerator {
     static func genGetDepositCdpMsg(_ chainType: ChainType, _ owner: String, _ depositor: String, _ collateral: Coin, _ collateral_type: String?) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chainType == ChainType.KAVA_MAIN) {
-            value.owner = owner
-            value.depositor = depositor
-            value.collateral = collateral
-            
-        } else if (chainType == ChainType.KAVA_TEST) {
-            value.owner = owner
-            value.depositor = depositor
-            value.collateral = collateral
-            value.collateral_type = collateral_type
-            
-        }
+        value.owner = owner
+        value.depositor = depositor
+        value.collateral = collateral
+        value.collateral_type = collateral_type
         msg.type = KAVA_MSG_TYPE_DEPOSIT_CDP
         msg.value = value
         return msg
@@ -291,17 +276,10 @@ class MsgGenerator {
     static func genGetWithdrawCdpMsg(_ chainType: ChainType, _ owner: String, _ depositor: String, _ collateral: Coin, _ collateral_type: String?) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chainType == ChainType.KAVA_MAIN) {
-            value.owner = owner
-            value.depositor = depositor
-            value.collateral = collateral
-            
-        } else if (chainType == ChainType.KAVA_TEST) {
-            value.owner = owner
-            value.depositor = depositor
-            value.collateral = collateral
-            value.collateral_type = collateral_type
-        }
+        value.owner = owner
+        value.depositor = depositor
+        value.collateral = collateral
+        value.collateral_type = collateral_type
         msg.type = KAVA_MSG_TYPE_WITHDRAW_CDP
         msg.value = value
         return msg
@@ -310,16 +288,9 @@ class MsgGenerator {
     static func genGetDrawDebtCdpMsg(_ chainType: ChainType, _ sender: String, _ cdp_denom: String, _ principal: Coin, _ collateral_type: String?) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chainType == ChainType.KAVA_MAIN) {
-            value.sender = sender
-            value.cdp_denom = cdp_denom
-            value.principal = principal
-            
-        } else if (chainType == ChainType.KAVA_TEST) {
-            value.sender = sender
-            value.principal = principal
-            value.collateral_type = collateral_type
-        }
+        value.sender = sender
+        value.principal = principal
+        value.collateral_type = collateral_type
         msg.type = KAVA_MSG_TYPE_DRAWDEBT_CDP
         msg.value = value
         return msg
@@ -328,17 +299,9 @@ class MsgGenerator {
     static func genGetRepayCdpMsg(_ chainType: ChainType, _ sender: String, _ cdp_denom: String, _ payment: Coin, _ collateral_type: String?) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chainType == ChainType.KAVA_MAIN) {
-            value.sender = sender
-            value.cdp_denom = cdp_denom
-            value.payment = payment
-            
-        } else if (chainType == ChainType.KAVA_TEST) {
-            value.sender = sender
-            value.payment = payment
-            value.collateral_type = collateral_type
-            
-        }
+        value.sender = sender
+        value.payment = payment
+        value.collateral_type = collateral_type
         msg.type = KAVA_MSG_TYPE_REPAYDEBT_CDP
         msg.value = value
         return msg
