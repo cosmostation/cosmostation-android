@@ -540,19 +540,31 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             if (havestRewardTokenAmount != NSDecimalNumber.zero) {
                 cell?.havsetRewardLayer.isHidden = false
             }
-            
             let url = KAVA_COIN_IMG_URL + balance!.balance_denom + ".png"
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.actionSend  = {
                 self.onSendToken()
             }
-            if (balance?.balance_denom == TOKEN_HTLC_KAVA_TEST_BNB || balance?.balance_denom == TOKEN_HTLC_KAVA_TEST_BTC) {
-                cell?.btnBep3Send.isHidden = false
-                cell?.actionBep3Send  = {
-                    self.onClickBep3Send(self.balance?.balance_denom)
+            if (chainType == ChainType.KAVA_MAIN) {
+                if (balance?.balance_denom == TOKEN_HTLC_KAVA_BNB) {
+                    cell?.btnBep3Send.isHidden = false
+                    cell?.actionBep3Send  = {
+                        self.onClickBep3Send(self.balance?.balance_denom)
+                    }
+                } else {
+                    cell?.btnBep3Send.isHidden = true
                 }
-            } else {
-                cell?.btnBep3Send.isHidden = true
+                
+            } else if (chainType == ChainType.KAVA_TEST) {
+                if (balance?.balance_denom == TOKEN_HTLC_KAVA_TEST_BNB || balance?.balance_denom == TOKEN_HTLC_KAVA_TEST_BTC) {
+                    cell?.btnBep3Send.isHidden = false
+                    cell?.actionBep3Send  = {
+                        self.onClickBep3Send(self.balance?.balance_denom)
+                    }
+                } else {
+                    cell?.btnBep3Send.isHidden = true
+                }
+                
             }
             
         } else if (chainType == ChainType.OKEX_TEST && okDenom != nil) {

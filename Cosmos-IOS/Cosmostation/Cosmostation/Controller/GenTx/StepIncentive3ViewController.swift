@@ -26,7 +26,6 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
     @IBOutlet weak var memoLabel: UILabel!
     
     var pageHolderVC: StepGenTxViewController!
-    var mIncentiveReward: KavaIncentiveParam.IncentiveReward!
     
     override func viewDidLoad() {
         super.viewDidLoad()

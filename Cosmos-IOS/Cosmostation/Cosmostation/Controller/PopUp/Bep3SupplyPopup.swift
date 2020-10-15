@@ -23,7 +23,6 @@ class Bep3SupplyPopup: BaseViewController, SBCardPopupContent {
     @IBOutlet weak var remainAmount: UILabel!
     @IBOutlet weak var remainDenom: UILabel!
     
-    var swapSupply = KavaSwapSupply.SwapSupply.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()

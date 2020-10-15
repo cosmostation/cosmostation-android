@@ -41,8 +41,6 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     var toSwapableCoinList = Array<String>()
     var toSwapDenom: String?
     
-    var kavaSwapParam: KavaSwapParam?
-    var kavaSwapSupply: KavaSwapSupply?
     var kavaSwapParam2: KavaSwapParam2?
     var kavaSwapSupply2: KavaSwapSupply2?
     
@@ -74,7 +72,7 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
         WUtils.onDpSwapChain(pageHolderVC.chainType!, fromChainImg, fromChainTxt)
         WUtils.onDpSwapChain(toChain!, toChainImg, toChainText)
         sendCoinDenom.text = "(" + toSwapDenom! + ")"
-        if (pageHolderVC.chainType == ChainType.BINANCE_MAIN && kavaSwapParam != nil && kavaSwapSupply != nil) {
+        if (pageHolderVC.chainType == ChainType.BINANCE_MAIN && kavaSwapParam2 != nil && kavaSwapSupply2 != nil) {
             RelayerMaxLayer.isHidden = false
             RelayerReaminLayer.isHidden = false
             if (toSwapDenom == TOKEN_HTLC_BINANCE_BNB) {
@@ -82,9 +80,9 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                 self.onSetDpDenom("BNB")
             }
             availableAmount = pageHolderVC.mAccount!.getTokenBalance(toSwapDenom!)
-            supplyLimit = kavaSwapParam!.getSupportedSwapAssetLimit(toSwapDenom!)
-            supplyRemain = kavaSwapSupply!.getRemainCap(toSwapDenom!, supplyLimit)
-            onetimeMax = kavaSwapParam!.getSupportedSwapAssetMaxOnce(toSwapDenom!)
+            supplyLimit = kavaSwapParam2!.getSupportedSwapAssetLimit(toSwapDenom!)
+            supplyRemain = kavaSwapSupply2!.getRemainCap(toSwapDenom!, supplyLimit)
+            onetimeMax = kavaSwapParam2!.getSupportedSwapAssetMaxOnce(toSwapDenom!)
             sendCoinAvailable.attributedText = WUtils.displayAmount2(availableAmount.stringValue, sendCoinAvailable.font, 0, 8)
             
         } else if (pageHolderVC.chainType == ChainType.BINANCE_TEST && kavaSwapParam2 != nil && kavaSwapSupply2 != nil) {
@@ -103,7 +101,7 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
             onetimeMax = kavaSwapParam2!.getSupportedSwapAssetMaxOnce(toSwapDenom!)
             sendCoinAvailable.attributedText = WUtils.displayAmount2(availableAmount.stringValue, sendCoinAvailable.font, 0, 8)
             
-        } else if (pageHolderVC.chainType == ChainType.KAVA_MAIN && kavaSwapParam != nil && kavaSwapSupply != nil) {
+        } else if (pageHolderVC.chainType == ChainType.KAVA_MAIN && kavaSwapParam2 != nil && kavaSwapSupply2 != nil) {
             RelayerMaxLayer.isHidden = true
             RelayerReaminLayer.isHidden = true
             if (toSwapDenom == TOKEN_HTLC_KAVA_BNB) {
@@ -111,9 +109,9 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                 self.onSetDpDenom("BNB")
             }
             availableAmount = pageHolderVC.mAccount!.getTokenBalance(toSwapDenom!)
-            supplyLimit = kavaSwapParam!.getSupportedSwapAssetLimit(toSwapDenom!)
-            supplyRemain = kavaSwapSupply!.getRemainCap(toSwapDenom!, supplyLimit)
-            onetimeMax = kavaSwapParam!.getSupportedSwapAssetMaxOnce(toSwapDenom!)
+            supplyLimit = kavaSwapParam2!.getSupportedSwapAssetLimit(toSwapDenom!)
+            supplyRemain = kavaSwapSupply2!.getRemainCap(toSwapDenom!, supplyLimit)
+            onetimeMax = kavaSwapParam2!.getSupportedSwapAssetMaxOnce(toSwapDenom!)
             sendCoinAvailable.attributedText = WUtils.displayAmount2(availableAmount.stringValue, sendCoinAvailable.font, 8, 8)
             
         } else if (pageHolderVC.chainType == ChainType.KAVA_TEST && kavaSwapParam2 != nil && kavaSwapSupply2 != nil) {
@@ -224,7 +222,7 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                         return
                     }
                     if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-                        self.kavaSwapParam = KavaSwapParam.init(info)
+                        self.kavaSwapParam2 = KavaSwapParam2.init(info)
                         self.onCheckSwapSupply()
                         
                     }  else if (self.pageHolderVC.chainType! == ChainType.BINANCE_TEST || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
@@ -256,7 +254,7 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                         return
                     }
                     if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-                        self.kavaSwapSupply = KavaSwapSupply.init(info)
+                        self.kavaSwapSupply2 = KavaSwapSupply2.init(info)
                         
                     }  else if (self.pageHolderVC.chainType! == ChainType.BINANCE_TEST || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         self.kavaSwapSupply2 = KavaSwapSupply2.init(info)

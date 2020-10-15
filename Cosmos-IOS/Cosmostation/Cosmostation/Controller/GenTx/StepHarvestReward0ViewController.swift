@@ -39,7 +39,7 @@ class StepHarvestReward0ViewController: BaseViewController {
         self.mHarvestDepositType = pageHolderVC.mHarvestDepositType
         self.mHavestParam = BaseData.instance.mHavestParam
         
-        let myHavestReward = BaseData.instance.mHavestRewards.filter({ $0.deposit_denom == mHarvestDepositDenom && $0.type == mHarvestDepositType}).first
+//        let myHavestReward = BaseData.instance.mHavestRewards.filter({ $0.deposit_denom == mHarvestDepositDenom && $0.type == mHarvestDepositType}).first
 //        print("mHarvestDepositDenom ", mHarvestDepositDenom)
 //        print("mHarvestDepositType ", mHarvestDepositType)
 //        print("myHavestReward ", myHavestReward?.amount.amount)
