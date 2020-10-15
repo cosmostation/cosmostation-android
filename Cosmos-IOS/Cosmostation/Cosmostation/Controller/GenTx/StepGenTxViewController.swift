@@ -83,6 +83,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var pDenom: String?
     var mMarketID: String?
     var mCollateralParam: KavaCdpParam.CollateralParam?
+    var mHarvestDepositDenom: String?
+    var mHarvestCoin = Coin.init()
     
     var mHtlcDenom: String?
     var mHtlcToChain: ChainType?
@@ -194,7 +196,19 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepIncentive3ViewController")]
             
-        }else if (mType == OK_MSG_TYPE_DEPOSIT) {
+        } else if (mType == KAVA_MSG_TYPE_DEPOSIT_HAVEST) {
+            return [self.newVc(viewController: "StepDepositHarvestAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepDepositHarvestCheckViewController")]
+            
+        } else if (mType == KAVA_MSG_TYPE_WITHDRAW_HAVEST) {
+            return [self.newVc(viewController: "StepWithdrawHarvestAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepWithdrawHarvestCheckViewController")]
+            
+        } else if (mType == OK_MSG_TYPE_DEPOSIT) {
             return [self.newVc(viewController: "StepOkDepositAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),

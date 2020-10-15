@@ -277,6 +277,14 @@
 "incentive_participate_step_1" = "Insert memo (optional)";
 "incentive_participate_step_2" = "Select transaction fee";
 "incentive_participate_step_3" = "Check transaction detail";
+"deposit_harvest_step_0" = "Enter harvest deposit amount";
+"deposit_harvest_step_1" = "Insert memo (optional)";
+"deposit_harvest_step_2" = "Select transaction fee";
+"deposit_harvest_step_3" = "Check transaction detail";
+"withdraw_harvest_step_0" = "Enter harvest withdrawal amount";
+"withdraw_harvest_step_1" = "Insert memo (optional)";
+"withdraw_harvest_step_2" = "Select transaction fee";
+"withdraw_harvest_step_3" = "Check transaction detail";
 
 "str_ok_stake_deposit_step_0" = "Insert amount to deposit";
 "str_ok_stake_deposit_step_1" = "Insert memo (optional)";
@@ -344,6 +352,8 @@
 "title_withdraw_cdp" = "WITHDRAW COLLATERAL";
 "title_drawdebt_cdp" = "BORROW MORE USDX";
 "title_repay_cdp" = "REPAY USDX";
+"title_deposit_harvest" = "Deposit Harvest";
+"title_withdraw_harvest" = "withdraw Harvest";
 "title_interchain_swap" = "Interchain Send & Claim";
 "title_interchain_refund" = "Interchain Refund";
 "title_participate_incentive" = "Crypto Payday Participate";
@@ -435,6 +445,8 @@
 "error_starname_self_send" = "Valide starname, but self sending is not support.";
 "error_bep3_supply_full" = "The swap has reached its network capacity.";
 "error_bep3_under_min_amount" = "Need more than 0.00001 balance for Interchain send.";
+"error_no_deposited_asset" = "No deposited asset.";
+"error_no_available_to_deposit" = "No assets to deposit.";
 
 "currency_usd" = "USD";
 "currency_eur" = "EUR";

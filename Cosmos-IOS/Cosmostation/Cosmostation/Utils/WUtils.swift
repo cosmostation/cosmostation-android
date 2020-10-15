@@ -1425,9 +1425,8 @@ class WUtils {
                 }
             }
         }
-        
-        amount.adding(havestDepositAmount(KAVA_MAIN_DENOM))
-        amount.adding(unclaimedIncentiveAmount(KAVA_MAIN_DENOM))
+        amount = amount.adding(havestDepositAmount(KAVA_MAIN_DENOM))
+        amount = amount.adding(unclaimedIncentiveAmount(KAVA_MAIN_DENOM))
         return amount
     }
     
@@ -2096,7 +2095,7 @@ class WUtils {
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (chainS == CHAIN_KAVA_TEST_S) {
-            return "kava-testnet-10000"
+            return "kava-4-test"
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return "iovns-galaxynet"
         } else if (chainS == CHAIN_OKEX_TEST_S) {
@@ -2125,7 +2124,7 @@ class WUtils {
         }  else if (chain == ChainType.BINANCE_TEST) {
             return "Binance-Chain-Nile"
         } else if (chain == ChainType.KAVA_TEST) {
-            return "kava-testnet-10000"
+            return "kava-4-test"
         } else if (chain == ChainType.IOV_TEST) {
             return "iovns-galaxynet"
         } else if (chain == ChainType.OKEX_TEST) {
@@ -2233,6 +2232,8 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_LOW))
             } else if (type == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_HIGH))
+            } else if (type == KAVA_MSG_TYPE_DEPOSIT_HAVEST || type == KAVA_MSG_TYPE_WITHDRAW_HAVEST) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_LOW))
             }
             
         } else if (chain == ChainType.BAND_MAIN) {

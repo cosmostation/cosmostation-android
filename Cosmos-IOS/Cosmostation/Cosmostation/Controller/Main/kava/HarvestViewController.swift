@@ -213,7 +213,8 @@ class HarvestViewController: BaseViewController, UITableViewDelegate, UITableVie
         let myReward = havestRewards.filter { $0.deposit_denom == myLPInfo?.deposit_denom }
         
         let cell:HarvestListMyCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestListMyCell") as? HarvestListMyCell
-        cell?.harvestTitle.text = myLPInfo!.deposit_denom.uppercased() + " POOL"
+        let title = (myLPInfo!.deposit_denom == KAVA_MAIN_DENOM) ? "kava" : myLPInfo!.deposit_denom
+        cell?.harvestTitle.text = title.uppercased() + " POOL"
         cell?.starTime.text = WUtils.txTimetoString(input: myLPInfo?.start)
         cell?.endTime.text = WUtils.txTimetoString(input: myLPInfo?.end)
         if let rewardRate = myLPInfo?.rewards_per_second {
@@ -233,7 +234,8 @@ class HarvestViewController: BaseViewController, UITableViewDelegate, UITableVie
     func onBindOtherLP(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let otherLP = self.otherLPs[position]
         let cell:HarvestListAllCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestListAllCell") as? HarvestListAllCell
-        cell?.harvestTitle.text = otherLP.deposit_denom.uppercased() + " POOL"
+        let title = (otherLP.deposit_denom == KAVA_MAIN_DENOM) ? "kava" : otherLP.deposit_denom
+        cell?.harvestTitle.text = title.uppercased() + " POOL"
         cell?.starTime.text = WUtils.txTimetoString(input: otherLP.start)
         cell?.endTime.text = WUtils.txTimetoString(input: otherLP.end)
         cell?.rewardForSecond.attributedText = WUtils.displayAmount2(otherLP.rewards_per_second.amount, cell!.rewardForSecond.font, 6, 6)

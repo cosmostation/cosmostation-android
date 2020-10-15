@@ -461,6 +461,47 @@ class MsgGenerator {
         return msg
     }
     
+    static func genGetDepositHarvestMsg(_ chainType: ChainType, _ depositor: String, _ amount: Coin, _ deposit_type: String?) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+            value.depositor = depositor
+            let data = try? JSONEncoder().encode(amount)
+            do {
+                value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+            } catch {
+                print(error)
+            }
+            value.deposit_type = deposit_type
+            
+        }
+        msg.type = KAVA_MSG_TYPE_DEPOSIT_HAVEST
+        msg.value = value
+        return msg
+    }
+    
+    static func genGetWithdrawHarvestMsg(_ chainType: ChainType, _ depositor: String, _ amount: Coin, _ deposit_type: String?) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+            value.depositor = depositor
+            let data = try? JSONEncoder().encode(amount)
+            do {
+                value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+            } catch {
+                print(error)
+            }
+            value.deposit_type = deposit_type
+            
+        }
+        msg.type = KAVA_MSG_TYPE_WITHDRAW_HAVEST
+        msg.value = value
+        return msg
+    }
+    
+    
+    
+    
     static func genOkDepositMsg(_ delegator: String, _ coin: Coin) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()

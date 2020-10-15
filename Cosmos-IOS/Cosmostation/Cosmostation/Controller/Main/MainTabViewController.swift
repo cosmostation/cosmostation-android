@@ -1347,7 +1347,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchKavaPrice ", res)
+//                print("onFetchPriceFeedPrice ", res)
                 guard let responseData = res as? NSDictionary,
                     let _ = responseData.object(forKey: "height") as? String else {
                     self.onFetchFinished()
@@ -1370,11 +1370,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_HAVEST_PARAM
         }
+        print("url ", url)
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchHavestParam ", res)
+                print("onFetchHavestParam ", res)
                 guard let responseData = res as? NSDictionary,
                     let _ = responseData.object(forKey: "height") as? String else {
                     self.onFetchFinished()
@@ -1382,11 +1383,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 let havestParam = KavaHavestParam.init(responseData)
                 BaseData.instance.mHavestParam = havestParam
-//                BaseData.instance.mKavaHavestDeposits.removeAll()
-//                for liquidity in havestParam.result.liquidity_provider_schedules {
-//                    self.mFetchCnt = self.mFetchCnt + 1
-//                    self.onFetchMyHavestDeposit(account, liquidity)
-//                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchHavestParam ", error) }
@@ -1407,7 +1403,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchMyHavestDeposit ", res)
+                print("onFetchMyHavestDeposit ", res)
                 guard let responseData = res as? NSDictionary,
                     let _ = responseData.object(forKey: "height") as? String else {
                         self.onFetchFinished()
@@ -1436,6 +1432,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+                print("onFetchMyHavestReward ", res)
                 guard let responseData = res as? NSDictionary,
                     let _ = responseData.object(forKey: "height") as? String else {
                         self.onFetchFinished()

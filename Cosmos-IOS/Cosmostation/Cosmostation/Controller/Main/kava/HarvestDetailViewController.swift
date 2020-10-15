@@ -29,6 +29,7 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
         
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         
         self.harvestDetailTableView.delegate = self
         self.harvestDetailTableView.dataSource = self
@@ -57,7 +58,6 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
 
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (myHavestDeposit == nil) {
             return 2
@@ -85,11 +85,11 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
-    
     func onBindTop(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:HarvestDetailTopCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestDetailTopCell") as? HarvestDetailTopCell
         if (distributionSchedule != nil && kavaPoolAccount != nil) {
-            cell?.harvestTitle.text = distributionSchedule!.deposit_denom.uppercased() + " POOL"
+            let title = (distributionSchedule!.deposit_denom == KAVA_MAIN_DENOM) ? "kava" : distributionSchedule!.deposit_denom
+            cell?.harvestTitle.text = title.uppercased() + " POOL"
             cell?.starTime.text = WUtils.txTimetoString(input: distributionSchedule!.start)
             cell?.endTime.text = WUtils.txTimetoString(input: distributionSchedule!.end)
             cell?.rewardForSecond.attributedText = WUtils.displayAmount2(distributionSchedule!.rewards_per_second.amount, cell!.rewardForSecond.font, 6, 6)
@@ -118,15 +118,16 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
             if let rewardCoin = myHavestReward?.amount {
                 WUtils.showCoinDp(rewardCoin, cell!.rewardDenom, cell!.rewardAmount, chainType!)
             }
-            cell?.depositBtn.setTitle(String(format: NSLocalizedString("str_deposit", comment: ""), mDepositDenom!.uppercased()), for: .normal)
-            cell?.withdrawBtn.setTitle(String(format: NSLocalizedString("str_withdraw", comment: ""), mDepositDenom!.uppercased()), for: .normal)
+            let title = (mDepositDenom == KAVA_MAIN_DENOM) ? "kava" : mDepositDenom
+            cell?.depositBtn.setTitle(String(format: NSLocalizedString("str_deposit", comment: ""), title!.uppercased()), for: .normal)
+            cell?.withdrawBtn.setTitle(String(format: NSLocalizedString("str_withdraw", comment: ""), title!.uppercased()), for: .normal)
             cell?.depositImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mDepositDenom! + ".png")!)
             cell?.rewardImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + "hard" + ".png")!)
             cell?.actionDepoist = {
-                print("actionDepoist")
+                self.onClickDeposit()
             }
             cell?.actionWithdraw = {
-                print("actionWithdraw")
+                self.onClickWithdraw()
             }
             cell?.actionClaim = {
                 print("actionClaim")
@@ -138,7 +139,6 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onBindAsset(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:CdpDetailAssetsCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailAssetsCell") as? CdpDetailAssetsCell
-        
         cell?.collateralDenom.text = mDepositDenom!.uppercased()
         cell?.principalDenom.text = "HARD"
         cell?.principalDenom.textColor = COLOR_HARD
@@ -152,10 +152,9 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.collateralAmount.isHidden = true
         }
         
-        let balance = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        let targetAvailable = WUtils.availableAmount(balance, mDepositDenom!)
-        let hardAvailable = WUtils.availableAmount(balance, KAVA_HARD_DENOM)
-        let kavaAvailable = WUtils.availableAmount(balance, KAVA_MAIN_DENOM)
+        let targetAvailable = WUtils.availableAmount(balances, mDepositDenom!)
+        let hardAvailable = WUtils.availableAmount(balances, KAVA_HARD_DENOM)
+        let kavaAvailable = WUtils.availableAmount(balances, KAVA_MAIN_DENOM)
 //        print("targetAvailable ", targetAvailable)
 //        print("hardAvailable ", hardAvailable)
 //        print("kavaAvailable ", kavaAvailable)
@@ -164,7 +163,6 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
         cell?.collateralAmount.attributedText = WUtils.displayAmount2(targetAvailable.stringValue, cell!.principalAmount.font!, dpDecimal, dpDecimal)
         cell?.principalAmount.attributedText = WUtils.displayAmount2(hardAvailable.stringValue, cell!.principalAmount.font!, 6, 6)
         cell?.kavaAmount.attributedText = WUtils.displayAmount2(kavaAvailable.stringValue, cell!.kavaAmount.font!, 6, 6)
-        
         cell?.collateralImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mDepositDenom! + ".png")!)
         cell?.principalImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + "hard" + ".png")!)
         return cell!
@@ -174,7 +172,45 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
     
 
     @IBAction func onStartDeposit(_ sender: UIButton) {
-        
+        self.onClickDeposit()
+    }
+    
+    func onClickDeposit() {
+        if (!onCommonCheck()) { return }
+        if (WUtils.availableAmount(balances, mDepositDenom!).compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_no_available_to_deposit", comment: ""))
+            return
+        }
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_DEPOSIT_HAVEST
+        txVC.mHarvestDepositDenom = mDepositDenom
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    func onClickWithdraw() {
+        if (!onCommonCheck()) { return }
+        guard let depositedCoin = myHavestDeposit?.amount, NSDecimalNumber.init(string: depositedCoin.denom).compare(NSDecimalNumber.zero).rawValue <= 0 else {
+            self.onShowToast(NSLocalizedString("error_no_deposited_asset", comment: ""))
+            return
+        }
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_WITHDRAW_HAVEST
+        txVC.mHarvestDepositDenom = mDepositDenom
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    func onCommonCheck() -> Bool {
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return false
+        }
+        if (!distributionSchedule!.active) {
+            self.onShowToast(NSLocalizedString("error_circuit_breaker", comment: ""))
+            return false
+        }
+        return true
     }
 
     
@@ -195,9 +231,10 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
-            distributionSchedule = BaseData.instance.mHavestParam?.result.liquidity_provider_schedules.filter({ $0.deposit_denom == mDepositDenom}).first
-            myHavestDeposit = BaseData.instance.mHavestDeposits.filter({ $0.amount.denom == mDepositDenom}).first
-            myHavestReward = BaseData.instance.mHavestRewards.filter({ $0.deposit_denom == mDepositDenom && $0.type == "lp"}).first
+            self.balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
+            self.distributionSchedule = BaseData.instance.mHavestParam?.result.liquidity_provider_schedules.filter({ $0.deposit_denom == mDepositDenom}).first
+            self.myHavestDeposit = BaseData.instance.mHavestDeposits.filter({ $0.amount.denom == mDepositDenom}).first
+            self.myHavestReward = BaseData.instance.mHavestRewards.filter({ $0.deposit_denom == mDepositDenom && $0.type == "lp"}).first
             
             print("kavaPoolAccount ", self.kavaPoolAccount?.address)
             print("distributionSchedule ", distributionSchedule?.start)
