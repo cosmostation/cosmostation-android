@@ -236,6 +236,8 @@
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
 		28D23DCE252EC16500BD9E7C /* KavaIncentiveParam2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D23DCD252EC16500BD9E7C /* KavaIncentiveParam2.swift */; };
 		28D23DD1252EC2A400BD9E7C /* KavaClaimMultiplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D23DD0252EC2A400BD9E7C /* KavaClaimMultiplier.swift */; };
+		28D3551725386A9300B804CF /* StepHarvestReward0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D3551625386A9300B804CF /* StepHarvestReward0ViewController.swift */; };
+		28D3551A25386AA200B804CF /* StepHarvestReward3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D3551925386AA200B804CF /* StepHarvestReward3ViewController.swift */; };
 		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
 		28E46BE424F8FCFF005CE985 /* StepOkVoteToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */; };
 		28E46BE624F8FD14005CE985 /* StepOkVoteCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */; };
@@ -683,6 +685,8 @@
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
 		28D23DCD252EC16500BD9E7C /* KavaIncentiveParam2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveParam2.swift; sourceTree = "<group>"; };
 		28D23DD0252EC2A400BD9E7C /* KavaClaimMultiplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaClaimMultiplier.swift; sourceTree = "<group>"; };
+		28D3551625386A9300B804CF /* StepHarvestReward0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHarvestReward0ViewController.swift; sourceTree = "<group>"; };
+		28D3551925386AA200B804CF /* StepHarvestReward3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHarvestReward3ViewController.swift; sourceTree = "<group>"; };
 		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
 		28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteToViewController.swift; sourceTree = "<group>"; };
 		28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteCheckViewController.swift; sourceTree = "<group>"; };
@@ -1204,6 +1208,8 @@
 				2858CCEC2538103F00E0A44D /* StepDepositHarvestCheckViewController.swift */,
 				2858CCEF2538105400E0A44D /* StepWithdrawHarvestAmountViewController.swift */,
 				2858CCF22538106300E0A44D /* StepWithdrawHarvestCheckViewController.swift */,
+				28D3551625386A9300B804CF /* StepHarvestReward0ViewController.swift */,
+				28D3551925386AA200B804CF /* StepHarvestReward3ViewController.swift */,
 				28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */,
 				283A80DE24514AB8008FF813 /* RiskCheckPopupViewController.xib */,
 				285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */,
@@ -1854,6 +1860,7 @@
 				2842AB65242C396700248EEB /* KavaPriceFeedPrice.swift in Sources */,
 				2852D7732477E83400D11DC4 /* CdpIncentiveCell.swift in Sources */,
 				2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */,
+				28D3551725386A9300B804CF /* StepHarvestReward0ViewController.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				28156E7F25360B70006FF06C /* HarvestListAllCell.swift in Sources */,
 				283D2EAC24F56AFF00247424 /* OkWithdraw.swift in Sources */,
@@ -2071,6 +2078,7 @@
 				E1F1CF0A239F7D7D004EF8A2 /* VoteSelectViewController.swift in Sources */,
 				E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */,
 				2812956B250F52C8007B217E /* KavaSwapSupply2.swift in Sources */,
+				28D3551A25386AA200B804CF /* StepHarvestReward3ViewController.swift in Sources */,
 				2848644E24A333CD0046E5C8 /* BottomLineView.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,

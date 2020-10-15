@@ -184,7 +184,7 @@ class HarvestViewController: BaseViewController, UITableViewDelegate, UITableVie
         cell?.stakeAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.rewardAmount.font, 6, 6)
         
         cell?.actionClaim = {
-            print("action Stake Claim")
+            self.onClickClaim()
         }
         return cell!
     }
@@ -196,9 +196,6 @@ class HarvestViewController: BaseViewController, UITableViewDelegate, UITableVie
             hardReward = hardReward.adding(WUtils.plainStringToDecimal(hReward.amount.amount))
         }
         cell?.rewardSumAmount.attributedText = WUtils.displayAmount2(hardReward.stringValue, cell!.rewardSumAmount.font, 6, 6)
-//        cell?.actionClaim = {
-//            print("action LP Claim")
-//        }
         return cell!
     }
     
@@ -242,6 +239,39 @@ class HarvestViewController: BaseViewController, UITableViewDelegate, UITableVie
         let url = KAVA_HARVEST_MARKET_IMG_URL + "lp" + otherLP.deposit_denom + ".png"
         cell?.harvestImg.af_setImage(withURL: URL(string: url)!)
         return cell!
+    }
+    
+    
+    
+    func onClickClaim() {
+        if (!onCommonCheck()) { return }
+        var hardReward = NSDecimalNumber.zero
+        for hReward in havestStakeRewards {
+            hardReward = hardReward.adding(WUtils.plainStringToDecimal(hReward.amount.amount))
+        }
+        if (hardReward.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_no_harvest_reward_to_claim", comment: ""))
+            return
+        }
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_CLAIM_HAVEST
+        txVC.mHarvestDepositDenom = havestParam?.getKavaStakerSchedule()?.distribution_schedule.deposit_denom       //ukava
+        txVC.mHarvestDepositType = "stake"
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    
+    func onCommonCheck() -> Bool {
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return false
+        }
+        if (!(havestParam?.getKavaStakerSchedule()?.distribution_schedule.active)!) {
+            self.onShowToast(NSLocalizedString("error_circuit_breaker", comment: ""))
+            return false
+        }
+        return true
     }
     
     func onSortHarvest() {

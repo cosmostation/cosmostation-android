@@ -500,6 +500,18 @@ class MsgGenerator {
         return msg
     }
     
+    static func genHarvestRewardMsg(_ sender: String, _ receiver: String, _ depositDenom: String, _ multiplierName: String, _ depositType: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+        value.receiver = receiver
+        value.deposit_denom = depositDenom
+        value.multiplier_name = multiplierName
+        value.deposit_type = depositType
+        msg.type = KAVA_MSG_TYPE_CLAIM_HAVEST
+        msg.value = value
+        return msg
+    }
     
     
     

@@ -28,7 +28,6 @@ public class KavaHavestParam {
         return nil
     }
     
-    
     public class KavaHavestParamData {
         var active: Bool = false
         var liquidity_provider_schedules: Array<DistributionSchedule> = Array<DistributionSchedule>()

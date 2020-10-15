@@ -272,7 +272,7 @@
 "htlc_refund_step_1" = "메모를 입력하세요 (선택사항)";
 "htlc_refund_step_2" = "Tx 수수료를 선택하세요";
 "htlc_refund_step_3" = "입력하신 정보를 확인하세요";
-"incentive_participate_step_0" = "인센티브 보상 요청";
+"incentive_participate_step_0" = "인센티브 보상 방법 선택";
 "incentive_participate_step_1" = "메모를 입력하세요 (선택사항)";
 "incentive_participate_step_2" = "Tx 수수료를 선택하세요";
 "incentive_participate_step_3" = "입력하신 정보를 확인하세요";
@@ -284,6 +284,10 @@
 "withdraw_harvest_step_1" = "메모를 입력하세요 (선택사항)";
 "withdraw_harvest_step_2" = "Tx 수수료를 선택하세요";
 "withdraw_harvest_step_3" = "입력하신 정보를 확인하세요";
+"reward_harvest_step_0" = "하베스트 이자 수령 방법";
+"reward_harvest_step_1" = "메모를 입력하세요 (선택사항)";
+"reward_harvest_step_2" = "Tx 수수료를 선택하세요";
+"reward_harvest_step_3" = "입력하신 정보를 확인하세요";
 
 "str_ok_stake_deposit_step_0" = "예금 수량을 설정하세요";
 "str_ok_stake_deposit_step_1" = "메모를 입력하세요 (선택사항)";
@@ -355,6 +359,7 @@
 "title_repay_cdp" = "USDX 상환";
 "title_deposit_harvest" = "하베스트 디파짓";
 "title_withdraw_harvest" = "하베스트 출금";
+"title_reward_harvest" = "하베스트 이자";
 "title_interchain_swap" = "인터체인 보내기 & 받기";
 "title_interchain_refund" = "인터체인 환불하기";
 "title_participate_incentive" = "Crypto Payday 인센티브";
@@ -445,6 +450,7 @@
 "error_no_deposited_asset" = "디파짓중인 자산이 없습니다.";
 "error_no_available_to_deposit" = "디파짓할 자산이 없습니다.";
 "error_no_incentive_to_claim" = "받을 인센티브가 없습니다.";
+"error_no_harvest_reward_to_claim" = "받을 하베스트 리워드가 없습니다.";
 
 
 

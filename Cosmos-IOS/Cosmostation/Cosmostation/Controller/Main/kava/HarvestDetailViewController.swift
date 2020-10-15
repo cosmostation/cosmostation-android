@@ -130,7 +130,7 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onClickWithdraw()
             }
             cell?.actionClaim = {
-                print("actionClaim")
+                self.onClickClaim()
             }
         }
         return cell!
@@ -197,6 +197,20 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_WITHDRAW_HAVEST
         txVC.mHarvestDepositDenom = mDepositDenom
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    func onClickClaim() {
+        if (!onCommonCheck()) { return }
+        guard let rewardCoin = myHavestReward?.amount, NSDecimalNumber.init(string: rewardCoin.denom).compare(NSDecimalNumber.zero).rawValue <= 0 else  {
+            self.onShowToast(NSLocalizedString("error_no_harvest_reward_to_claim", comment: ""))
+            return
+        }
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_CLAIM_HAVEST
+        txVC.mHarvestDepositDenom = mDepositDenom
+        txVC.mHarvestDepositType = "lp"
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
     }

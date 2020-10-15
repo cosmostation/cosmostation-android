@@ -1756,7 +1756,10 @@ class WUtils {
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (denom == KAVA_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
-            } else {
+            }  else if (denom == KAVA_HARD_DENOM) {
+                denomLabel.textColor = COLOR_HARD
+                denomLabel.text = denom.uppercased()
+            }else {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
             }
@@ -2234,6 +2237,8 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_HIGH))
             } else if (type == KAVA_MSG_TYPE_DEPOSIT_HAVEST || type == KAVA_MSG_TYPE_WITHDRAW_HAVEST) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_LOW))
+            } else if (type == KAVA_MSG_TYPE_CLAIM_HAVEST) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REWARD))
             }
             
         } else if (chain == ChainType.BAND_MAIN) {
