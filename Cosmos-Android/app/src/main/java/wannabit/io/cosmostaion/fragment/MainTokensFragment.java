@@ -309,7 +309,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalKavaAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_KAVA)) {
-                    totalKavaAmount = totalKavaAmount.add(WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
+                    totalKavaAmount = totalKavaAmount.add(WDp.getAllKava(getBaseDao(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
                 } else {
                     BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices, getBaseDao().mKavaCdpParams);
                     BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN).movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA));
@@ -559,7 +559,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
 
-            BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
         } else {
@@ -609,7 +609,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
 
-            BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
         } else {

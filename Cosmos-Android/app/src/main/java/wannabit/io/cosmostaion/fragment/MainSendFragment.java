@@ -48,7 +48,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_OK_Stake_Type;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -103,10 +102,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
     private RelativeLayout      mBtnBnbConnect, mBtnBep3Send;
 
+    private RelativeLayout      mKavaVestingLayer, mKavaDepositLayer, mKavaIncentiveLayer;
     private TextView            mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVesting,
-                                mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards;
+                                mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards, mTvKavaDeposit, mTvKavaIncnetive;
 
-    private RelativeLayout      mBtnKavaReward, mBtnKavaVote, mBtnKavaCdp;
+    private RelativeLayout      mBtnKavaReward, mBtnKavaVote, mBtnKavaDapp;
     private TextView            mTvIovTotal, mTvIovValue, mTvIovAvailable, mTvIovDelegated, mTvIovUnBonding, mTvIovRewards;
     private RelativeLayout      mBtnIovStake, mBtnIovVote, mBtnIovNameService;
 
@@ -129,9 +129,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mUndelegateAmount0, mUndelegateAmount1, mUndelegateAmount2, mUndelegateAmount3, mUndelegateAmount4;
     private TextView            mUndelegateTime0, mUndelegateTime1, mUndelegateTime2, mUndelegateTime3, mUndelegateTime4;
 
-    private CardView            mKavaIncentiveCard;
-    private RelativeLayout      mBtnParticipate;
-    private TextView            mParticipateDone;
+//    private CardView            mKavaIncentiveCard;
+//    private RelativeLayout      mBtnParticipate;
+//    private TextView            mParticipateDone;
 
     private RelativeLayout      mPriceLayer;
     private TextView            mMarket;
@@ -149,12 +149,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private LinearLayout        mGuideAction;
     private Button              mGuideBtn, mFaqBtn;
 
-    private CardView            mVestingCard;
-    private TextView            mVestingCnt, mVestingTotalAmount;
-    private RelativeLayout      mVestingLayer0, mVestingLayer1, mVestingLayer2, mVestingLayer3, mVestingLayer4;
-    private TextView            mVestingTime0, mVestingTime1, mVestingTime2, mVestingTime3, mVestingTime4;
-    private TextView            mVestingGap0, mVestingGap1, mVestingGap2, mVestingGap3, mVestingGap4;
-    private TextView            mVestingAmount0, mVestingAmount1, mVestingAmount2, mVestingAmount3, mVestingAmount4;
+//    private CardView            mVestingCard;
+//    private TextView            mVestingCnt, mVestingTotalAmount;
+//    private RelativeLayout      mVestingLayer0, mVestingLayer1, mVestingLayer2, mVestingLayer3, mVestingLayer4;
+//    private TextView            mVestingTime0, mVestingTime1, mVestingTime2, mVestingTime3, mVestingTime4;
+//    private TextView            mVestingGap0, mVestingGap1, mVestingGap2, mVestingGap3, mVestingGap4;
+//    private TextView            mVestingAmount0, mVestingAmount1, mVestingAmount2, mVestingAmount3, mVestingAmount4;
 
     public static MainSendFragment newInstance(Bundle bundle) {
         MainSendFragment fragment = new MainSendFragment();
@@ -207,6 +207,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnBep3Send            = mBnbCard.findViewById(R.id.btn_bep3_send);
 
         mKavaCard               = rootView.findViewById(R.id.card_kava);
+        mKavaVestingLayer       = mKavaCard.findViewById(R.id.kava_harvest_vesting_layer);
+        mKavaDepositLayer       = mKavaCard.findViewById(R.id.kava_harvest_deposit_layer);
+        mKavaIncentiveLayer     = mKavaCard.findViewById(R.id.kava_harvest_incentive_layer);
         mTvKavaTotal            = mKavaCard.findViewById(R.id.dash_kava_amount);
         mTvKavaValue            = mKavaCard.findViewById(R.id.dash_kava_value);
         mTvKavaAvailable        = mKavaCard.findViewById(R.id.dash_kava_undelegate);
@@ -214,9 +217,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvKavaDelegated        = mKavaCard.findViewById(R.id.dash_kava_delegate);
         mTvKavaUnBonding        = mKavaCard.findViewById(R.id.dash_kava_unbonding);
         mTvKavaRewards          = mKavaCard.findViewById(R.id.dash_kava_reward);
+        mTvKavaDeposit          = mKavaCard.findViewById(R.id.dash_kava_harvest_deposited);
+        mTvKavaIncnetive        = mKavaCard.findViewById(R.id.dash_kava_unclaimed_incentive);
         mBtnKavaReward          = mKavaCard.findViewById(R.id.btn_kava_reward);
         mBtnKavaVote            = mKavaCard.findViewById(R.id.btn_kava_vote);
-        mBtnKavaCdp             = mKavaCard.findViewById(R.id.btn_kava_cdp);
+        mBtnKavaDapp            = mKavaCard.findViewById(R.id.btn_kava_dapp);
 
         mIovCard                = rootView.findViewById(R.id.card_iov);
         mTvIovTotal             = mIovCard.findViewById(R.id.iov_total_amount);
@@ -284,9 +289,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mUndelegateTime3        = mUndelegateCard.findViewById(R.id.undelegate_detail_time3);
         mUndelegateTime4        = mUndelegateCard.findViewById(R.id.undelegate_detail_time4);
 
-        mKavaIncentiveCard      = rootView.findViewById(R.id.card_kava_incentive);
-        mBtnParticipate         = mKavaIncentiveCard.findViewById(R.id.btn_kava_incentive);
-        mParticipateDone        = mKavaIncentiveCard.findViewById(R.id.kava_incentive_done);
+//        mKavaIncentiveCard      = rootView.findViewById(R.id.card_kava_incentive);
+//        mBtnParticipate         = mKavaIncentiveCard.findViewById(R.id.btn_kava_incentive);
+//        mParticipateDone        = mKavaIncentiveCard.findViewById(R.id.kava_incentive_done);
 
         mPriceLayer             = rootView.findViewById(R.id.price_layer);
         mMarket                 = rootView.findViewById(R.id.dash_price_market);
@@ -308,29 +313,29 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mGuideBtn               = rootView.findViewById(R.id.btn_guide);
         mFaqBtn                 = rootView.findViewById(R.id.btn_faq);
 
-        mVestingCard            = rootView.findViewById(R.id.card_vesting);
-        mVestingCnt             = mVestingCard.findViewById(R.id.vesting_count);
-        mVestingTotalAmount     = mVestingCard.findViewById(R.id.total_vesting_amount);
-        mVestingLayer0          = mVestingCard.findViewById(R.id.vesting_layer0);
-        mVestingLayer1          = mVestingCard.findViewById(R.id.vesting_layer1);
-        mVestingLayer2          = mVestingCard.findViewById(R.id.vesting_layer2);
-        mVestingLayer3          = mVestingCard.findViewById(R.id.vesting_layer3);
-        mVestingLayer4          = mVestingCard.findViewById(R.id.vesting_layer4);
-        mVestingTime0           = mVestingCard.findViewById(R.id.vesting_time0);
-        mVestingTime1           = mVestingCard.findViewById(R.id.vesting_time1);
-        mVestingTime2           = mVestingCard.findViewById(R.id.vesting_time2);
-        mVestingTime3           = mVestingCard.findViewById(R.id.vesting_time3);
-        mVestingTime4           = mVestingCard.findViewById(R.id.vesting_time4);
-        mVestingGap0            = mVestingCard.findViewById(R.id.vesting_gap0);
-        mVestingGap1            = mVestingCard.findViewById(R.id.vesting_gap1);
-        mVestingGap2            = mVestingCard.findViewById(R.id.vesting_gap2);
-        mVestingGap3            = mVestingCard.findViewById(R.id.vesting_gap3);
-        mVestingGap4            = mVestingCard.findViewById(R.id.vesting_gap4);
-        mVestingAmount0         = mVestingCard.findViewById(R.id.vesting_amount0);
-        mVestingAmount1         = mVestingCard.findViewById(R.id.vesting_amount1);
-        mVestingAmount2         = mVestingCard.findViewById(R.id.vesting_amount2);
-        mVestingAmount3         = mVestingCard.findViewById(R.id.vesting_amount3);
-        mVestingAmount4         = mVestingCard.findViewById(R.id.vesting_amount4);
+//        mVestingCard            = rootView.findViewById(R.id.card_vesting);
+//        mVestingCnt             = mVestingCard.findViewById(R.id.vesting_count);
+//        mVestingTotalAmount     = mVestingCard.findViewById(R.id.total_vesting_amount);
+//        mVestingLayer0          = mVestingCard.findViewById(R.id.vesting_layer0);
+//        mVestingLayer1          = mVestingCard.findViewById(R.id.vesting_layer1);
+//        mVestingLayer2          = mVestingCard.findViewById(R.id.vesting_layer2);
+//        mVestingLayer3          = mVestingCard.findViewById(R.id.vesting_layer3);
+//        mVestingLayer4          = mVestingCard.findViewById(R.id.vesting_layer4);
+//        mVestingTime0           = mVestingCard.findViewById(R.id.vesting_time0);
+//        mVestingTime1           = mVestingCard.findViewById(R.id.vesting_time1);
+//        mVestingTime2           = mVestingCard.findViewById(R.id.vesting_time2);
+//        mVestingTime3           = mVestingCard.findViewById(R.id.vesting_time3);
+//        mVestingTime4           = mVestingCard.findViewById(R.id.vesting_time4);
+//        mVestingGap0            = mVestingCard.findViewById(R.id.vesting_gap0);
+//        mVestingGap1            = mVestingCard.findViewById(R.id.vesting_gap1);
+//        mVestingGap2            = mVestingCard.findViewById(R.id.vesting_gap2);
+//        mVestingGap3            = mVestingCard.findViewById(R.id.vesting_gap3);
+//        mVestingGap4            = mVestingCard.findViewById(R.id.vesting_gap4);
+//        mVestingAmount0         = mVestingCard.findViewById(R.id.vesting_amount0);
+//        mVestingAmount1         = mVestingCard.findViewById(R.id.vesting_amount1);
+//        mVestingAmount2         = mVestingCard.findViewById(R.id.vesting_amount2);
+//        mVestingAmount3         = mVestingCard.findViewById(R.id.vesting_amount3);
+//        mVestingAmount4         = mVestingCard.findViewById(R.id.vesting_amount4);
 
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -367,7 +372,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnIrisVote.setOnClickListener(this);
         mBtnKavaReward.setOnClickListener(this);
         mBtnKavaVote.setOnClickListener(this);
-        mBtnKavaCdp.setOnClickListener(this);
+        mBtnKavaDapp.setOnClickListener(this);
         mBtnBnbConnect.setOnClickListener(this);
         mBtnBep3Send.setOnClickListener(this);
         mBuyCoinBtn.setOnClickListener(this);
@@ -379,7 +384,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnOkDeposit.setOnClickListener(this);
         mBtnOkWithdraw.setOnClickListener(this);
         mBtnOkVote.setOnClickListener(this);
-        mBtnParticipate.setOnClickListener(this);
+//        mBtnParticipate.setOnClickListener(this);
         mBtnCertikReward.setOnClickListener(this);
         mBtnCertikVote.setOnClickListener(this);
         return rootView;
@@ -768,16 +773,32 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-            BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
-            mTvKavaTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
-            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_KAVA));
-            mTvKavaVesting.setText(WDp.getDpVestedCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_KAVA));
-            mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
-            mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
-            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, TOKEN_KAVA));
+            BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_KAVA);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain);
+            BigDecimal unbondingAmount = WDp.getUnbondingAmount(getMainActivity().mUnbondings);
+            BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, TOKEN_KAVA);
+            BigDecimal vestingAmount = WDp.getLockedCoin(getMainActivity().mBalances, TOKEN_KAVA);
+            BigDecimal harvestDepositAmount = WDp.getHavestDepositAmount(getBaseDao(), TOKEN_KAVA);
+            BigDecimal unclaimedIncentiveAmount = WDp.getUnclaimedIncentiveAmount(getBaseDao(), TOKEN_KAVA);
+            BigDecimal totalAmount = WDp.getAllKava(getBaseDao(),getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+
+            mTvKavaTotal.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
+            mTvKavaAvailable.setText(WDp.getDpAmount2(getContext(), availableAmount, 6, 6));
+            mTvKavaDelegated.setText(WDp.getDpAmount2(getContext(), delegateAmount, 6, 6));
+            mTvKavaUnBonding.setText(WDp.getDpAmount2(getContext(), unbondingAmount, 6, 6));
+            mTvKavaRewards.setText(WDp.getDpAmount2(getContext(), rewardAmount, 6, 6));
+            mTvKavaVesting.setText(WDp.getDpAmount2(getContext(), vestingAmount, 6, 6));
+            mTvKavaDeposit.setText(WDp.getDpAmount2(getContext(), harvestDepositAmount, 6, 6));
+            mTvKavaIncnetive.setText(WDp.getDpAmount2(getContext(), unclaimedIncentiveAmount, 6, 6));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
-            mBtnKavaCdp.setVisibility(View.VISIBLE);
+
+            if (!vestingAmount.equals(BigDecimal.ZERO)) { mKavaVestingLayer.setVisibility(View.VISIBLE);
+            } else { mKavaVestingLayer.setVisibility(View.GONE); }
+            if (!harvestDepositAmount.equals(BigDecimal.ZERO)) { mKavaDepositLayer.setVisibility(View.VISIBLE);
+            } else { mKavaDepositLayer.setVisibility(View.GONE); }
+            if (!unclaimedIncentiveAmount.equals(BigDecimal.ZERO)) { mKavaIncentiveLayer.setVisibility(View.VISIBLE);
+            } else { mKavaIncentiveLayer.setVisibility(View.GONE); }
 
             try {
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastKavaTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -803,7 +824,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
             BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_BAND);
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, BAND_MAIN);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain);
             BigDecimal unbondingAmount = WDp.getUnbondingAmount(getMainActivity().mUnbondings);
             BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, TOKEN_BAND);
             BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
@@ -840,16 +861,32 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-            BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
-            mTvKavaTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
-            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_KAVA));
-            mTvKavaVesting.setText(WDp.getDpVestedCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, TOKEN_KAVA));
-            mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
-            mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
-            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, TOKEN_KAVA));
+            BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_KAVA);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain);
+            BigDecimal unbondingAmount = WDp.getUnbondingAmount(getMainActivity().mUnbondings);
+            BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, TOKEN_KAVA);
+            BigDecimal vestingAmount = WDp.getLockedCoin(getMainActivity().mBalances, TOKEN_KAVA);
+            BigDecimal harvestDepositAmount = WDp.getHavestDepositAmount(getBaseDao(), TOKEN_KAVA);
+            BigDecimal unclaimedIncentiveAmount = WDp.getUnclaimedIncentiveAmount(getBaseDao(), TOKEN_KAVA);
+            BigDecimal totalAmount = WDp.getAllKava(getBaseDao(),getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+
+            mTvKavaTotal.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
+            mTvKavaAvailable.setText(WDp.getDpAmount2(getContext(), availableAmount, 6, 6));
+            mTvKavaDelegated.setText(WDp.getDpAmount2(getContext(), delegateAmount, 6, 6));
+            mTvKavaUnBonding.setText(WDp.getDpAmount2(getContext(), unbondingAmount, 6, 6));
+            mTvKavaRewards.setText(WDp.getDpAmount2(getContext(), rewardAmount, 6, 6));
+            mTvKavaVesting.setText(WDp.getDpAmount2(getContext(), vestingAmount, 6, 6));
+            mTvKavaDeposit.setText(WDp.getDpAmount2(getContext(), harvestDepositAmount, 6, 6));
+            mTvKavaIncnetive.setText(WDp.getDpAmount2(getContext(), unclaimedIncentiveAmount, 6, 6));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
-            mBtnKavaCdp.setVisibility(View.VISIBLE);
+
+            if (!vestingAmount.equals(BigDecimal.ZERO)) { mKavaVestingLayer.setVisibility(View.VISIBLE);
+            } else { mKavaVestingLayer.setVisibility(View.GONE); }
+            if (!harvestDepositAmount.equals(BigDecimal.ZERO)) { mKavaDepositLayer.setVisibility(View.VISIBLE);
+            } else { mKavaDepositLayer.setVisibility(View.GONE); }
+            if (!unclaimedIncentiveAmount.equals(BigDecimal.ZERO)) { mKavaIncentiveLayer.setVisibility(View.VISIBLE);
+            } else { mKavaIncentiveLayer.setVisibility(View.GONE); }
 
             try {
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastKavaTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -876,7 +913,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
             mBtnIovNameService.setVisibility(View.VISIBLE);
             BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_IOV);
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, IOV_MAIN);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain);
             BigDecimal unbondingAmount = WDp.getUnbondingAmount(getMainActivity().mUnbondings);
             BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, TOKEN_IOV);
             BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
@@ -915,7 +952,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
             mBtnIovNameService.setVisibility(View.VISIBLE);
             BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_IOV_TEST);
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, IOV_TEST);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain);
             BigDecimal unbondingAmount = WDp.getUnbondingAmount(getMainActivity().mUnbondings);
             BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, TOKEN_IOV_TEST);
             BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
@@ -978,7 +1015,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
             BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_CERTIK_TEST);
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, CERTIK_TEST);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain);
             BigDecimal unbondingAmount = WDp.getUnbondingAmount(getMainActivity().mUnbondings);
             BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, TOKEN_CERTIK_TEST);
             BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
@@ -1053,72 +1090,72 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mUndelegateCard.setVisibility(View.GONE);
         }
 
-        // Show incentive claim card
-        if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                mKavaIncentiveCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-            } else {
-                mKavaIncentiveCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            }
-            if (getBaseDao().mKavaUnClaimedIncentiveRewards.size() > 0) {
-                mKavaIncentiveCard.setVisibility(View.VISIBLE);
-            } else {
-                mKavaIncentiveCard.setVisibility(View.GONE);
-            }
-
-        } else {
-            mKavaIncentiveCard.setVisibility(View.GONE);
-        }
-
-        // Show vesting schedule card
-//        WLog.w("getCVestingCnt " + getBaseDao().mKavaAccount.value.getCVestingCnt());
-        if ((getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) &&
-                getBaseDao().mKavaAccount != null && getBaseDao().mKavaAccount.value.getCVestingCnt() > 0) {
-            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                mVestingCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-            } else {
-                mVestingCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            }
-            ResLcdKavaAccountInfo.Value mKavaAccount = getBaseDao().mKavaAccount.value;
-            mVestingCard.setVisibility(View.VISIBLE);
-            mVestingLayer1.setVisibility(View.GONE);
-            mVestingLayer2.setVisibility(View.GONE);
-            mVestingLayer3.setVisibility(View.GONE);
-            mVestingLayer4.setVisibility(View.GONE);
-            mVestingCnt.setText("(" + mKavaAccount.getCVestingCnt() + ")");
-            mVestingTotalAmount.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingSum(), 6, 6));
-
-            mVestingTime0.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(0)));
-            mVestingGap0.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(0)));
-            mVestingAmount0.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(0), 6, 6));
-            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 1) {
-                mVestingLayer1.setVisibility(View.VISIBLE);
-                mVestingTime1.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(1)));
-                mVestingGap1.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(1)));
-                mVestingAmount1.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(1), 6, 6));
-            }
-            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 2) {
-                mVestingLayer2.setVisibility(View.VISIBLE);
-                mVestingTime2.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(2)));
-                mVestingGap2.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(2)));
-                mVestingAmount2.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(2), 6, 6));
-            }
-            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 3) {
-                mVestingLayer3.setVisibility(View.VISIBLE);
-                mVestingTime3.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(3)));
-                mVestingGap3.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(3)));
-                mVestingAmount3.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(3), 6, 6));
-            }
-            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 4) {
-                mVestingLayer4.setVisibility(View.VISIBLE);
-                mVestingTime4.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(4)));
-                mVestingGap4.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(4)));
-                mVestingAmount4.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(4), 6, 6));
-            }
-
-        } else {
-            mVestingCard.setVisibility(View.GONE);
-        }
+//        // Show incentive claim card
+//        if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+//            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+//                mKavaIncentiveCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+//            } else {
+//                mKavaIncentiveCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+//            }
+//            if (getBaseDao().mKavaUnClaimedIncentiveRewards.size() > 0) {
+//                mKavaIncentiveCard.setVisibility(View.VISIBLE);
+//            } else {
+//                mKavaIncentiveCard.setVisibility(View.GONE);
+//            }
+//
+//        } else {
+//            mKavaIncentiveCard.setVisibility(View.GONE);
+//        }
+//
+//        // Show vesting schedule card
+////        WLog.w("getCVestingCnt " + getBaseDao().mKavaAccount.value.getCVestingCnt());
+//        if ((getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) &&
+//                getBaseDao().mKavaAccount != null && getBaseDao().mKavaAccount.value.getCVestingCnt() > 0) {
+//            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+//                mVestingCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+//            } else {
+//                mVestingCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+//            }
+//            ResLcdKavaAccountInfo.Value mKavaAccount = getBaseDao().mKavaAccount.value;
+//            mVestingCard.setVisibility(View.VISIBLE);
+//            mVestingLayer1.setVisibility(View.GONE);
+//            mVestingLayer2.setVisibility(View.GONE);
+//            mVestingLayer3.setVisibility(View.GONE);
+//            mVestingLayer4.setVisibility(View.GONE);
+//            mVestingCnt.setText("(" + mKavaAccount.getCVestingCnt() + ")");
+//            mVestingTotalAmount.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingSum(), 6, 6));
+//
+//            mVestingTime0.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(0)));
+//            mVestingGap0.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(0)));
+//            mVestingAmount0.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(0), 6, 6));
+//            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 1) {
+//                mVestingLayer1.setVisibility(View.VISIBLE);
+//                mVestingTime1.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(1)));
+//                mVestingGap1.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(1)));
+//                mVestingAmount1.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(1), 6, 6));
+//            }
+//            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 2) {
+//                mVestingLayer2.setVisibility(View.VISIBLE);
+//                mVestingTime2.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(2)));
+//                mVestingGap2.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(2)));
+//                mVestingAmount2.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(2), 6, 6));
+//            }
+//            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 3) {
+//                mVestingLayer3.setVisibility(View.VISIBLE);
+//                mVestingTime3.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(3)));
+//                mVestingGap3.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(3)));
+//                mVestingAmount3.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(3), 6, 6));
+//            }
+//            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 4) {
+//                mVestingLayer4.setVisibility(View.VISIBLE);
+//                mVestingTime4.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(4)));
+//                mVestingGap4.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(4)));
+//                mVestingAmount4.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(4), 6, 6));
+//            }
+//
+//        } else {
+//            mVestingCard.setVisibility(View.GONE);
+//        }
 
 
         getMainActivity().onUpdateAccountListAdapter();
@@ -1329,20 +1366,22 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 getMainActivity().onShowBuyWarnNoKey();
             }
 
-        } else if (v.equals(mBtnKavaCdp)) {
+        } else if (v.equals(mBtnKavaDapp)) {
             startActivity(new Intent(getMainActivity(), KavaCdpListActivity.class));
 
         } else if (v.equals(mBtnIovVote)) {
             Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnIovNameService)) {
-//            Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
             getMainActivity().onStarNameService();
 
-        } else if (v.equals(mBtnParticipate)) {
-            getMainActivity().onStartIncentiveClaim();
+        }
+//        else if (v.equals(mBtnParticipate)) {
+//            getMainActivity().onStartIncentiveClaim();
+//
+//        }
 
-        } else if (v.equals(mBtnOkDeposit)) {
+        else if (v.equals(mBtnOkDeposit)) {
             if (getBaseDao().mTopValidators == null && getBaseDao().mTopValidators.size() == 0) return;
             getMainActivity().onStartOkDeposit();
 

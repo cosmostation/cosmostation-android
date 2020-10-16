@@ -382,7 +382,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mBtnSendKava.setOnClickListener(this);
             mBtnReceiveKava.setOnClickListener(this);
 
-            BigDecimal totalAmount = WDp.getAllKava(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
+            BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
             mTvKavaTotal.setText(WDp.getDpAmount(this, totalAmount, 6, mBaseChain));
             mTvKavaAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, TOKEN_KAVA));
             mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));

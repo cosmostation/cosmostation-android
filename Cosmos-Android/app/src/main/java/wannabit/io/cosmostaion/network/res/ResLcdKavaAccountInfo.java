@@ -75,7 +75,7 @@ public class ResLcdKavaAccountInfo {
             return result;
         }
 
-        public BigDecimal getCVestingSum() {
+        public BigDecimal getCVestingSum(String denom) {
             BigDecimal result = BigDecimal.ZERO;
             if (vesting_periods != null) {
                 long cTime = Calendar.getInstance().getTime().getTime();
@@ -83,7 +83,9 @@ public class ResLcdKavaAccountInfo {
                     long unlockTime = getUnLockTime(i);
                     if (cTime < unlockTime) {
                         for (Coin coin:vesting_periods.get(i).amount) {
-                            result = result.add(new BigDecimal(coin.amount));
+                            if (coin.denom.equals(denom)) {
+                                result = result.add(new BigDecimal(coin.amount));
+                            }
                         }
                     }
                 }

@@ -42,6 +42,9 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
+import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -434,6 +437,26 @@ public class WDp {
         return sum;
     }
 
+    public static BigDecimal getHavestDepositAmount(BaseData baseData, String denom) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (ResKavaHarvestDeposit.HarvestDeposit deposit:baseData.mHavestDeposits) {
+            if (deposit.amount.denom.equals(denom)) {
+                sum = sum.add(new BigDecimal(deposit.amount.amount));
+            }
+        }
+        return sum;
+    }
+
+    public static BigDecimal getUnclaimedIncentiveAmount(BaseData baseData, String denom) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (ResKavaIncentiveReward.IncentiveRewardClaimable incentive:baseData.mKavaUnClaimedIncentiveRewards) {
+            if (incentive.claim.reward.denom.equals(denom) && incentive.claimable) {
+                sum = sum.add(new BigDecimal(incentive.claim.reward.amount));
+            }
+        }
+        return sum;
+    }
+
 
     public static SpannableString getDpAvailableCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
         return getDpAmount(c, getAvailableCoin(balances, denom), 6, chain);
@@ -526,7 +549,7 @@ public class WDp {
         return sum;
     }
 
-    public static BigDecimal getAllKava(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
+    public static BigDecimal getAllKava(BaseData baseData, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
             if (balance.symbol.equals(BaseConstant.TOKEN_KAVA)) {
@@ -549,6 +572,9 @@ public class WDp {
                 sum = sum.add(reward.getRewardAmount(TOKEN_KAVA));
             }
         }
+        sum = sum.add(getHavestDepositAmount(baseData, TOKEN_KAVA));
+        sum = sum.add(getUnclaimedIncentiveAmount(baseData, TOKEN_KAVA));
+
         return sum;
     }
 

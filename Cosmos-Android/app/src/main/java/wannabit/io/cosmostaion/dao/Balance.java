@@ -109,6 +109,9 @@ public class Balance implements Parcelable {
                 return BigDecimal.ZERO;
             }
             ResCdpParam.KavaCollateralParam collateralParam = params.getCollateralParamByDenom(symbol);
+            if (collateralParam == null || collateralParam.liquidation_market_id == null) {
+                return BigDecimal.ZERO;
+            }
             ResKavaMarketPrice.Result mMarketPrice  = prices.get(collateralParam.liquidation_market_id);
             if (mMarketPrice == null) {
                 return BigDecimal.ZERO;

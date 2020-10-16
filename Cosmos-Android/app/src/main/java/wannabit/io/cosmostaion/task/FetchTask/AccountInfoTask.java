@@ -54,7 +54,6 @@ public class AccountInfoTask extends CommonTask {
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
                 Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaChain(mApp).getAccountInfo(mAccount.address).execute();
                 if (response.isSuccessful()) {
-                    WLog.w("response " + response.body().height);
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mAccount.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, response.body()));
                     mApp.getBaseDao().mKavaAccount = response.body().result;
