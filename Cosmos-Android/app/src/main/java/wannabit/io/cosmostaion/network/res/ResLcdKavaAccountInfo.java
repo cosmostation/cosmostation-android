@@ -61,14 +61,18 @@ public class ResLcdKavaAccountInfo {
         public long end_time;
 
 
-        public int getCVestingCnt() {
+        public int getCVestingCnt(String denom) {
             int result = 0;
             if (vesting_periods != null) {
                 long cTime = Calendar.getInstance().getTime().getTime();
                 for (int i = 0; i < vesting_periods.size(); i ++) {
                     long unlockTime = getUnLockTime(i);
                     if (cTime < unlockTime) {
-                        result = result + 1;
+                        for (Coin coin:vesting_periods.get(i).amount) {
+                            if (coin.denom.equals(denom)) {
+                                result = result + 1;
+                            }
+                        }
                     }
                 }
             }
@@ -107,9 +111,9 @@ public class ResLcdKavaAccountInfo {
             return result;
         }
 
-        public long getCVestingUnLockTime(int position) {
+        public long getCVestingUnLockTime(int position, String denom) {
             int totalVesting = vesting_periods.size();
-            int remainVestingCnt = getCVestingCnt();
+            int remainVestingCnt = getCVestingCnt(denom);
             long result = this.start_time;
             for (int i = 0; i <= (totalVesting - remainVestingCnt + position); i ++) {
                 result = result + vesting_periods.get(i).length;
@@ -122,11 +126,13 @@ public class ResLcdKavaAccountInfo {
             return getCVestingPeriods().get(position);
         }
 
-        public BigDecimal getCVestingPeriodAmount(int position) {
+        public BigDecimal getCVestingPeriodAmount(int position, String denom) {
             BigDecimal result = BigDecimal.ZERO;
             VestingPeriod vestingPeriod = getCVestingPeriod(position);
             for (Coin coin:vestingPeriod.amount) {
-                result = result.add(new BigDecimal(coin.amount));
+                if (coin.denom.equals(denom)) {
+                    result = result.add(new BigDecimal(coin.amount));
+                }
             }
             return result;
         }

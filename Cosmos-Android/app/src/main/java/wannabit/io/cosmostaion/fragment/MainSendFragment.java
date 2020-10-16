@@ -1116,57 +1116,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 //        } else {
 //            mKavaIncentiveCard.setVisibility(View.GONE);
 //        }
-//
-//        // Show vesting schedule card
-////        WLog.w("getCVestingCnt " + getBaseDao().mKavaAccount.value.getCVestingCnt());
-//        if ((getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) &&
-//                getBaseDao().mKavaAccount != null && getBaseDao().mKavaAccount.value.getCVestingCnt() > 0) {
-//            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-//                mVestingCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-//            } else {
-//                mVestingCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-//            }
-//            ResLcdKavaAccountInfo.Value mKavaAccount = getBaseDao().mKavaAccount.value;
-//            mVestingCard.setVisibility(View.VISIBLE);
-//            mVestingLayer1.setVisibility(View.GONE);
-//            mVestingLayer2.setVisibility(View.GONE);
-//            mVestingLayer3.setVisibility(View.GONE);
-//            mVestingLayer4.setVisibility(View.GONE);
-//            mVestingCnt.setText("(" + mKavaAccount.getCVestingCnt() + ")");
-//            mVestingTotalAmount.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingSum(), 6, 6));
-//
-//            mVestingTime0.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(0)));
-//            mVestingGap0.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(0)));
-//            mVestingAmount0.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(0), 6, 6));
-//            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 1) {
-//                mVestingLayer1.setVisibility(View.VISIBLE);
-//                mVestingTime1.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(1)));
-//                mVestingGap1.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(1)));
-//                mVestingAmount1.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(1), 6, 6));
-//            }
-//            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 2) {
-//                mVestingLayer2.setVisibility(View.VISIBLE);
-//                mVestingTime2.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(2)));
-//                mVestingGap2.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(2)));
-//                mVestingAmount2.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(2), 6, 6));
-//            }
-//            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 3) {
-//                mVestingLayer3.setVisibility(View.VISIBLE);
-//                mVestingTime3.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(3)));
-//                mVestingGap3.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(3)));
-//                mVestingAmount3.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(3), 6, 6));
-//            }
-//            if (getBaseDao().mKavaAccount.value.getCVestingCnt() > 4) {
-//                mVestingLayer4.setVisibility(View.VISIBLE);
-//                mVestingTime4.setText(WDp.getDpTime(getContext(),  mKavaAccount.getCVestingUnLockTime(4)));
-//                mVestingGap4.setText(WDp.getUnbondingTimeleft(getContext(),  mKavaAccount.getCVestingUnLockTime(4)));
-//                mVestingAmount4.setText(WDp.getDpAmount2(getContext(), mKavaAccount.getCVestingPeriodAmount(4), 6, 6));
-//            }
-//
-//        } else {
-//            mVestingCard.setVisibility(View.GONE);
-//        }
-
 
         getMainActivity().onUpdateAccountListAdapter();
     }
