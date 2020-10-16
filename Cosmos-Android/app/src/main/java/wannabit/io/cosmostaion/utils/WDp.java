@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -45,6 +46,7 @@ import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
+import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -437,11 +439,31 @@ public class WDp {
         return sum;
     }
 
+    public static BigDecimal getKavaVestingAmount(ArrayList<Balance> balances, String denom) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Balance balance : balances) {
+            if (balance.symbol.equalsIgnoreCase(denom)) {
+                sum = balance.frozen;
+            }
+        }
+        return sum;
+    }
+
     public static BigDecimal getHavestDepositAmount(BaseData baseData, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (ResKavaHarvestDeposit.HarvestDeposit deposit:baseData.mHavestDeposits) {
             if (deposit.amount.denom.equals(denom)) {
                 sum = sum.add(new BigDecimal(deposit.amount.amount));
+            }
+        }
+        return sum;
+    }
+
+    public static BigDecimal getHavestRewardAmount(BaseData baseData, String denom) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (ResKavaHarvestReward.HarvestReward hReward:baseData.mHavestRewards) {
+            if (hReward.amount.denom.equals(denom)) {
+                sum = sum.add(new BigDecimal(hReward.amount.amount));
             }
         }
         return sum;
@@ -455,6 +477,42 @@ public class WDp {
             }
         }
         return sum;
+    }
+
+    public static BigDecimal getKavaTokenAll(BaseData baseData, ArrayList<Balance> balances, String denom) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Balance balance : balances) {
+            if (balance.symbol.equals(denom)) {
+                sum = sum.add(balance.balance);
+                sum = sum.add(balance.frozen);
+            }
+        }
+        sum = sum.add(getHavestDepositAmount(baseData, denom));
+        sum = sum.add(getHavestRewardAmount(baseData, denom));
+        return sum;
+    }
+
+    public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {
+        int dpDecimal = WUtil.getKavaCoinDecimal(denom);
+        if (denom.equals("usdx") || denom.equals("busd")) {
+            return amount.movePointLeft(dpDecimal);
+        } else {
+            HashMap<String, ResKavaMarketPrice.Result> prices = baseData.mKavaTokenPrices;
+            ResCdpParam.Result params = baseData.mKavaCdpParams;
+            if (prices == null || prices.size() <= 0 || params == null) {
+                return BigDecimal.ZERO;
+            }
+            ResCdpParam.KavaCollateralParam collateralParam = params.getCollateralParamByDenom(denom);
+            if (collateralParam == null || collateralParam.liquidation_market_id == null) {
+                return BigDecimal.ZERO;
+            }
+            ResKavaMarketPrice.Result mMarketPrice  = prices.get(collateralParam.liquidation_market_id);
+            if (mMarketPrice == null) {
+                return BigDecimal.ZERO;
+            } else {
+                return amount.movePointLeft(dpDecimal).multiply(new BigDecimal(mMarketPrice.price)).setScale(6, RoundingMode.DOWN);
+            }
+        }
     }
 
 

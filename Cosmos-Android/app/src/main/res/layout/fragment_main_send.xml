@@ -97,81 +97,65 @@
                 </android.support.v7.widget.CardView>
 
                 <include
-                    android:id="@+id/card_atom"
+                    android:id="@+id/layer_atom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_atom"
                     android:visibility="gone"/>
 
                 <include
-                    android:id="@+id/card_iris"
+                    android:id="@+id/layer_iris"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_iris"
                     android:visibility="gone"/>
 
                 <include
-                    android:id="@+id/card_bnb"
+                    android:id="@+id/layer_bnb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_bnb"
                     android:visibility="gone"/>
 
                 <include
-                    android:id="@+id/card_kava"
+                    android:id="@+id/layer_kava"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_kava"
                     android:visibility="gone"/>
 
                 <include
-                    android:id="@+id/card_iov"
+                    android:id="@+id/layer_iov"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_iov"
                     android:visibility="gone"/>
 
                 <include
-                    android:id="@+id/card_band"
+                    android:id="@+id/layer_band"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_band"
                     android:visibility="gone"/>
 
                 <include
-                    android:id="@+id/card_ok"
+                    android:id="@+id/layer_ok"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_ok"
                     android:visibility="gone"/>
 
                 <include
-                    android:id="@+id/card_certik"
+                    android:id="@+id/layer_certik"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_certik"
                     android:visibility="gone"/>

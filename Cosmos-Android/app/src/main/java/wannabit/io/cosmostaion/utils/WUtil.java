@@ -324,15 +324,13 @@ public class WUtil {
                             remainVesting = lcd.result.value.getCVestingSum(TOKEN_HARD);
                             WLog.w("hard remainVesting " +  remainVesting);
 
-                            if (remainVesting.compareTo(delegatedVesting) > 0) {
-                                dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
-                            }
+                            dpBalance = dpBalance.subtract(remainVesting);
                             WLog.w("hard dpBalancee " +  dpBalance);
 
                             Balance temp = new Balance();
                             temp.accountId = accountId;
                             temp.symbol = coin.denom;
-                            temp.balance = new BigDecimal(coin.amount);
+                            temp.balance = dpBalance;
                             temp.frozen = remainVesting;
                             temp.fetchTime = time;
                             result.add(temp);
@@ -1028,14 +1026,19 @@ public class WUtil {
         });
     }
 
-    public static void onSortingKavaTokenByValue(ArrayList<Balance> balances, HashMap<String, ResKavaMarketPrice.Result> prices, ResCdpParam.Result params) {
+    public static void onSortingKavaTokenByValue(BaseData baseData, ArrayList<Balance> balances) {
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
             public int compare(Balance o1, Balance o2) {
                 if(o1.symbol.equals(TOKEN_KAVA)) return -1;
                 if(o2.symbol.equals(TOKEN_KAVA)) return 1;
 
-                return o2.kavaTokenDollorValue(prices, params).compareTo(o1.kavaTokenDollorValue(prices, params));
+                BigDecimal amount1 = WDp.getKavaTokenAll(baseData, balances, o1.symbol);
+                BigDecimal amount2 = WDp.getKavaTokenAll(baseData, balances, o2.symbol);
+                BigDecimal value1 = WDp.kavaTokenDollorValue(baseData, o1.symbol, amount1);
+                BigDecimal value2 = WDp.kavaTokenDollorValue(baseData, o2.symbol, amount2);
+
+                return value2.compareTo(value1);
             }
         });
     }
@@ -1212,8 +1215,10 @@ public class WUtil {
     public static int getKavaCoinDecimal(Coin coin) {
         if (coin.denom.equalsIgnoreCase(TOKEN_KAVA)) {
             return 6;
-        } else if (coin.denom.equalsIgnoreCase("xrp")) {
+        } else if (coin.denom.equalsIgnoreCase(TOKEN_HARD)) {
             return 6;
+        } else if (coin.denom.equalsIgnoreCase("xrpb")) {
+            return 8;
         } else if (coin.denom.equalsIgnoreCase("btc")) {
             return 8;
         } else if (coin.denom.equalsIgnoreCase("usdx")) {
@@ -1221,6 +1226,8 @@ public class WUtil {
         } else if (coin.denom.equalsIgnoreCase("bnb")) {
             return 8;
         } else if (coin.denom.equalsIgnoreCase("btcb")) {
+            return 8;
+        } else if (coin.denom.equalsIgnoreCase("busd")) {
             return 8;
         }
         return 0;
@@ -1230,8 +1237,10 @@ public class WUtil {
     public static int getKavaCoinDecimal(String denom) {
         if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
             return 6;
-        } else if (denom.equalsIgnoreCase("xrp")) {
+        } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
             return 6;
+        } else if (denom.equalsIgnoreCase("xrpb")) {
+            return 8;
         } else if (denom.equalsIgnoreCase("btc")) {
             return 8;
         } else if (denom.equalsIgnoreCase("usdx")) {
@@ -1239,6 +1248,8 @@ public class WUtil {
         } else if (denom.equalsIgnoreCase("bnb")) {
             return 8;
         } else if (denom.equalsIgnoreCase("btcb")) {
+            return 8;
+        } else if (denom.equalsIgnoreCase("busd")) {
             return 8;
         }
         return 100;

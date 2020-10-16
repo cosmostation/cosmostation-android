@@ -101,161 +101,22 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <RelativeLayout
-        android:id="@+id/token_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/account_layer" >
-        <include
-            android:id="@+id/card_atom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginRight="@dimen/space_12"
-            layout="@layout/layout_card_atom"
-            android:visibility="gone"/>
-
-        <include
-            android:id="@+id/card_iris"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginRight="@dimen/space_12"
-            layout="@layout/layout_card_iris"
-            android:visibility="gone"/>
-
-        <include
-            android:id="@+id/card_bnb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginRight="@dimen/space_12"
-            layout="@layout/layout_card_bnb"
-            android:visibility="gone"/>
-
-        <include
-            android:id="@+id/card_kava"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginRight="@dimen/space_12"
-            layout="@layout/layout_card_kava"
-            android:visibility="gone"/>
-
-
-        <include
-            android:id="@+id/card_ok"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginRight="@dimen/space_12"
-            layout="@layout/layout_card_ok"
-            android:visibility="gone"/>
-
-        <include
-            android:id="@+id/card_token"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginRight="@dimen/space_12"
-            layout="@layout/layout_card_token"
-            android:visibility="gone"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/token_history_header"
-        android:layout_below="@+id/token_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/space_16"
-        android:paddingRight="@dimen/space_16"
-        android:paddingTop="@dimen/space_6"
-        android:paddingBottom="@dimen/space_6">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/str_history_token"
-                style="@style/font_ss_12_gray1"/>
-            <TextView
-                android:id="@+id/token_cnt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_4"
-                android:text="0"
-                style="@style/font_ss_12_white"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/btn_token_history_sort"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:clickable="true"
-            android:visibility="gone">
-            <TextView
-                android:id="@+id/token_sort_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="All"
-                style="@style/font_ss_12_gray1"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_2"
-                android:src="@drawable/sort_btn"/>
-        </LinearLayout>
-    </RelativeLayout>
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
-        android:layout_below="@+id/token_history_header"
+        android:layout_below="@+id/account_layer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
-                android:id="@+id/empty_history"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="vertical"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/history_none_img"
-                    android:scaleType="fitXY"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_6"
-                    android:layout_centerInParent="true"
-                    style="@style/font_ss_14_white"
-                    android:text="@string/str_no_history"/>
-            </LinearLayout>
-
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="@dimen/space_4"
                 android:clipToPadding="false"
-                android:overScrollMode="never"
-                android:visibility="gone"/>
+                android:overScrollMode="never"/>
         </RelativeLayout>
-
     </android.support.v4.widget.SwipeRefreshLayout>
-
 
 </RelativeLayout>

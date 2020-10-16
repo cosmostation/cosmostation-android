@@ -696,6 +696,7 @@
     <string name="str_reward">이자량</string>
     <string name="str_stake_reward">위임 이자량</string>
     <string name="str_harvest_deposited">하베스트 디파짓량</string>
+    <string name="str_harvest_reward">하베스트 이자량</string>
     <string name="str_unclaimed_incentive">인센티브 이자량</string>
     <string name="str_delegate">위임 하기</string>
     <string name="str_get_reward">위임 하기</string>
@@ -710,6 +711,7 @@
     <string name="str_available">사용 가능 수량</string>
     <string name="str_vesting">베스팅 수량</string>
     <string name="str_locked">잠긴 수량</string>
+    <string name="str_frozen">얼린 수량</string>
     <string name="str_deposited">예금 수량</string>
     <string name="str_deposit">예금 하기</string>
     <string name="str_withdraw">출금 하기</string>

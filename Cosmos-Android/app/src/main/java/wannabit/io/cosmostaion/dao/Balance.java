@@ -99,25 +99,4 @@ public class Balance implements Parcelable {
             return getAllBnbBalance().multiply(new BigDecimal(tic.lastPrice)).setScale(8, RoundingMode.DOWN);
         }
     }
-
-    public BigDecimal kavaTokenDollorValue(HashMap<String, ResKavaMarketPrice.Result> prices, ResCdpParam.Result params) {
-        if (symbol.equals("usdx")) {
-            return balance.movePointLeft(WUtil.getKavaCoinDecimal(symbol));
-
-        } else {
-            if (prices == null || prices.size() <= 0 || params == null) {
-                return BigDecimal.ZERO;
-            }
-            ResCdpParam.KavaCollateralParam collateralParam = params.getCollateralParamByDenom(symbol);
-            if (collateralParam == null || collateralParam.liquidation_market_id == null) {
-                return BigDecimal.ZERO;
-            }
-            ResKavaMarketPrice.Result mMarketPrice  = prices.get(collateralParam.liquidation_market_id);
-            if (mMarketPrice == null) {
-                return BigDecimal.ZERO;
-            } else {
-                return balance.movePointLeft(WUtil.getKavaCoinDecimal(symbol)).multiply(new BigDecimal(mMarketPrice.price)).setScale(6, RoundingMode.DOWN);
-            }
-        }
-    }
 }

@@ -823,6 +823,7 @@
     <string name="str_reward">Reward</string>
     <string name="str_stake_reward">Staking Reward</string>
     <string name="str_harvest_deposited">Harvest Deposited</string>
+    <string name="str_harvest_reward">Harvest Reward</string>
     <string name="str_unclaimed_incentive">Unclaimed Incentive</string>
     <string name="str_get_reward">Delegate</string>
     <string name="str_vote_to">Vote</string>
@@ -836,6 +837,7 @@
     <string name="str_available">Available</string>
     <string name="str_vesting">Vesting</string>
     <string name="str_locked">Locked</string>
+    <string name="str_frozen">Frozen</string>
     <string name="str_deposited">Deposit</string>
     <string name="str_deposit">Deposit</string>
     <string name="str_withdraw">Withdraw</string>

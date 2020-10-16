@@ -89,6 +89,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private ImageView           mKeyState;
     private TextView            mAddress;
 
+
+    private RelativeLayout      mAtomLayer, mIrisLayer, mBnbLayer, mKavaLayer, mIovLayer, mBandLayer, mOkLayer, mCertikLayer;
     private CardView            mAtomCard, mIrisCard, mBnbCard, mKavaCard, mIovCard, mBandCard, mOkCard, mCertikCard;
 
     private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomAvailable,
@@ -178,92 +180,100 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mKeyState               = rootView.findViewById(R.id.img_account);
         mAddress                = rootView.findViewById(R.id.account_Address);
 
-        mAtomCard               = rootView.findViewById(R.id.card_atom);
-        mTvAtomTotal            = mAtomCard.findViewById(R.id.dash_atom_amount);
-        mTvAtomValue            = mAtomCard.findViewById(R.id.dash_atom_value);
-        mTvAtomAvailable        = mAtomCard.findViewById(R.id.dash_atom_undelegate);
-        mTvAtomDelegated        = mAtomCard.findViewById(R.id.dash_atom_delegate);
-        mTvAtomUnBonding        = mAtomCard.findViewById(R.id.dash_atom_unbonding);
-        mTvAtomRewards          = mAtomCard.findViewById(R.id.dash_atom_reward);
-        mBtnAtomReward          = mAtomCard.findViewById(R.id.btn_cosmos_reward);
-        mBtnAtomVote            = mAtomCard.findViewById(R.id.btn_cosmos_vote);
+        mAtomLayer              = rootView.findViewById(R.id.layer_atom);
+        mAtomCard               = mAtomLayer.findViewById(R.id.card_root);
+        mTvAtomTotal            = mAtomLayer.findViewById(R.id.dash_atom_amount);
+        mTvAtomValue            = mAtomLayer.findViewById(R.id.dash_atom_value);
+        mTvAtomAvailable        = mAtomLayer.findViewById(R.id.dash_atom_undelegate);
+        mTvAtomDelegated        = mAtomLayer.findViewById(R.id.dash_atom_delegate);
+        mTvAtomUnBonding        = mAtomLayer.findViewById(R.id.dash_atom_unbonding);
+        mTvAtomRewards          = mAtomLayer.findViewById(R.id.dash_atom_reward);
+        mBtnAtomReward          = mAtomLayer.findViewById(R.id.btn_cosmos_reward);
+        mBtnAtomVote            = mAtomLayer.findViewById(R.id.btn_cosmos_vote);
 
-        mIrisCard               = rootView.findViewById(R.id.card_iris);
-        mTvIrisTotal            = mIrisCard.findViewById(R.id.dash_iris_amount);
-        mTvIrisValue            = mIrisCard.findViewById(R.id.dash_iris_value);
-        mTvIrisAvailable        = mIrisCard.findViewById(R.id.dash_iris_undelegate);
-        mTvIrisDelegated        = mIrisCard.findViewById(R.id.dash_iris_delegate);
-        mTvIrisUnBonding        = mIrisCard.findViewById(R.id.dash_iris_unbonding);
-        mTvIrisRewards          = mIrisCard.findViewById(R.id.dash_iris_reward);
-        mBtnIrisReward          = mIrisCard.findViewById(R.id.btn_iris_reward);
-        mBtnIrisVote            = mIrisCard.findViewById(R.id.btn_iris_vote);
+        mIrisLayer              = rootView.findViewById(R.id.layer_iris);
+        mIrisCard               = mIrisLayer.findViewById(R.id.card_root);
+        mTvIrisTotal            = mIrisLayer.findViewById(R.id.dash_iris_amount);
+        mTvIrisValue            = mIrisLayer.findViewById(R.id.dash_iris_value);
+        mTvIrisAvailable        = mIrisLayer.findViewById(R.id.dash_iris_undelegate);
+        mTvIrisDelegated        = mIrisLayer.findViewById(R.id.dash_iris_delegate);
+        mTvIrisUnBonding        = mIrisLayer.findViewById(R.id.dash_iris_unbonding);
+        mTvIrisRewards          = mIrisLayer.findViewById(R.id.dash_iris_reward);
+        mBtnIrisReward          = mIrisLayer.findViewById(R.id.btn_iris_reward);
+        mBtnIrisVote            = mIrisLayer.findViewById(R.id.btn_iris_vote);
 
-        mBnbCard                = rootView.findViewById(R.id.card_bnb);
-        mTvBnbTotal             = mBnbCard.findViewById(R.id.dash_bnb_amount);
-        mTvBnbValue             = mBnbCard.findViewById(R.id.dash_bnb_value);
-        mTvBnbBalance           = mBnbCard.findViewById(R.id.dash_bnb_balance);
-        mTvBnbLocked            = mBnbCard.findViewById(R.id.dash_bnb_locked);
-        mBtnBnbConnect          = mBnbCard.findViewById(R.id.btn_wallet_connect);
-        mBtnBep3Send            = mBnbCard.findViewById(R.id.btn_bep3_send);
+        mBnbLayer               = rootView.findViewById(R.id.layer_bnb);
+        mBnbCard                = mBnbLayer.findViewById(R.id.card_root);
+        mTvBnbTotal             = mBnbLayer.findViewById(R.id.dash_bnb_amount);
+        mTvBnbValue             = mBnbLayer.findViewById(R.id.dash_bnb_value);
+        mTvBnbBalance           = mBnbLayer.findViewById(R.id.dash_bnb_balance);
+        mTvBnbLocked            = mBnbLayer.findViewById(R.id.dash_bnb_locked);
+        mBtnBnbConnect          = mBnbLayer.findViewById(R.id.btn_wallet_connect);
+        mBtnBep3Send            = mBnbLayer.findViewById(R.id.btn_bep3_send);
 
-        mKavaCard               = rootView.findViewById(R.id.card_kava);
-        mKavaVestingLayer       = mKavaCard.findViewById(R.id.kava_harvest_vesting_layer);
-        mKavaDepositLayer       = mKavaCard.findViewById(R.id.kava_harvest_deposit_layer);
-        mKavaIncentiveLayer     = mKavaCard.findViewById(R.id.kava_harvest_incentive_layer);
-        mTvKavaTotal            = mKavaCard.findViewById(R.id.dash_kava_amount);
-        mTvKavaValue            = mKavaCard.findViewById(R.id.dash_kava_value);
-        mTvKavaAvailable        = mKavaCard.findViewById(R.id.dash_kava_undelegate);
-        mTvKavaVesting          = mKavaCard.findViewById(R.id.dash_kava_vesting);
-        mTvKavaDelegated        = mKavaCard.findViewById(R.id.dash_kava_delegate);
-        mTvKavaUnBonding        = mKavaCard.findViewById(R.id.dash_kava_unbonding);
-        mTvKavaRewards          = mKavaCard.findViewById(R.id.dash_kava_reward);
-        mTvKavaDeposit          = mKavaCard.findViewById(R.id.dash_kava_harvest_deposited);
-        mTvKavaIncnetive        = mKavaCard.findViewById(R.id.dash_kava_unclaimed_incentive);
-        mBtnKavaReward          = mKavaCard.findViewById(R.id.btn_kava_reward);
-        mBtnKavaVote            = mKavaCard.findViewById(R.id.btn_kava_vote);
-        mBtnKavaDapp            = mKavaCard.findViewById(R.id.btn_kava_dapp);
+        mKavaLayer              = rootView.findViewById(R.id.layer_kava);
+        mKavaCard               = mKavaLayer.findViewById(R.id.card_root);
+        mKavaVestingLayer       = mKavaLayer.findViewById(R.id.kava_harvest_vesting_layer);
+        mKavaDepositLayer       = mKavaLayer.findViewById(R.id.kava_harvest_deposit_layer);
+        mKavaIncentiveLayer     = mKavaLayer.findViewById(R.id.kava_harvest_incentive_layer);
+        mTvKavaTotal            = mKavaLayer.findViewById(R.id.dash_kava_amount);
+        mTvKavaValue            = mKavaLayer.findViewById(R.id.dash_kava_value);
+        mTvKavaAvailable        = mKavaLayer.findViewById(R.id.dash_kava_undelegate);
+        mTvKavaVesting          = mKavaLayer.findViewById(R.id.dash_kava_vesting);
+        mTvKavaDelegated        = mKavaLayer.findViewById(R.id.dash_kava_delegate);
+        mTvKavaUnBonding        = mKavaLayer.findViewById(R.id.dash_kava_unbonding);
+        mTvKavaRewards          = mKavaLayer.findViewById(R.id.dash_kava_reward);
+        mTvKavaDeposit          = mKavaLayer.findViewById(R.id.dash_kava_harvest_deposited);
+        mTvKavaIncnetive        = mKavaLayer.findViewById(R.id.dash_kava_unclaimed_incentive);
+        mBtnKavaReward          = mKavaLayer.findViewById(R.id.btn_kava_reward);
+        mBtnKavaVote            = mKavaLayer.findViewById(R.id.btn_kava_vote);
+        mBtnKavaDapp            = mKavaLayer.findViewById(R.id.btn_kava_dapp);
 
-        mIovCard                = rootView.findViewById(R.id.card_iov);
-        mTvIovTotal             = mIovCard.findViewById(R.id.iov_total_amount);
-        mTvIovValue             = mIovCard.findViewById(R.id.iov_total_value);
-        mTvIovAvailable         = mIovCard.findViewById(R.id.iov_available);
-        mTvIovDelegated         = mIovCard.findViewById(R.id.iov_delegate);
-        mTvIovUnBonding         = mIovCard.findViewById(R.id.iov_unbonding);
-        mTvIovRewards           = mIovCard.findViewById(R.id.iov_reward);
-        mBtnIovStake            = mIovCard.findViewById(R.id.btn_iov_stake);
-        mBtnIovVote             = mIovCard.findViewById(R.id.btn_iov_vote);
-        mBtnIovNameService      = mIovCard.findViewById(R.id.btn_iov_name_service);
+        mIovLayer               = rootView.findViewById(R.id.layer_iov);
+        mIovCard                = mIovLayer.findViewById(R.id.card_root);
+        mTvIovTotal             = mIovLayer.findViewById(R.id.iov_total_amount);
+        mTvIovValue             = mIovLayer.findViewById(R.id.iov_total_value);
+        mTvIovAvailable         = mIovLayer.findViewById(R.id.iov_available);
+        mTvIovDelegated         = mIovLayer.findViewById(R.id.iov_delegate);
+        mTvIovUnBonding         = mIovLayer.findViewById(R.id.iov_unbonding);
+        mTvIovRewards           = mIovLayer.findViewById(R.id.iov_reward);
+        mBtnIovStake            = mIovLayer.findViewById(R.id.btn_iov_stake);
+        mBtnIovVote             = mIovLayer.findViewById(R.id.btn_iov_vote);
+        mBtnIovNameService      = mIovLayer.findViewById(R.id.btn_iov_name_service);
 
-        mBandCard               = rootView.findViewById(R.id.card_band);
-        mBandTotalAmount        = mBandCard.findViewById(R.id.band_total_amount);
-        mBandTotalValue         = mBandCard.findViewById(R.id.band_total_value);
-        mBandAvailable          = mBandCard.findViewById(R.id.band_available);
-        mBandDelegate           = mBandCard.findViewById(R.id.band_delegate);
-        mBandUnBonding          = mBandCard.findViewById(R.id.band_unbonding);
-        mBandRewards            = mBandCard.findViewById(R.id.band_reward);
-        mBtnBandDeleagte        = mBandCard.findViewById(R.id.btn_band_delegate);
-        mBtnBandVote            = mBandCard.findViewById(R.id.btn_band_vote);
+        mBandLayer              = rootView.findViewById(R.id.layer_band);
+        mBandCard               = mBandLayer.findViewById(R.id.card_root);
+        mBandTotalAmount        = mBandLayer.findViewById(R.id.band_total_amount);
+        mBandTotalValue         = mBandLayer.findViewById(R.id.band_total_value);
+        mBandAvailable          = mBandLayer.findViewById(R.id.band_available);
+        mBandDelegate           = mBandLayer.findViewById(R.id.band_delegate);
+        mBandUnBonding          = mBandLayer.findViewById(R.id.band_unbonding);
+        mBandRewards            = mBandLayer.findViewById(R.id.band_reward);
+        mBtnBandDeleagte        = mBandLayer.findViewById(R.id.btn_band_delegate);
+        mBtnBandVote            = mBandLayer.findViewById(R.id.btn_band_vote);
 
-        mOkCard                 = rootView.findViewById(R.id.card_ok);
-        mOkTotalAmount          = mOkCard.findViewById(R.id.ok_total_amount);
-        mOkTotalValue           = mOkCard.findViewById(R.id.ok_total_value);
-        mOkAvailable            = mOkCard.findViewById(R.id.ok_available);
-        mOkLocked               = mOkCard.findViewById(R.id.ok_locked);
-        mOkDeposit              = mOkCard.findViewById(R.id.ok_deposit);
-        mOkWithdrawing          = mOkCard.findViewById(R.id.ok_withdrawing);
-        mBtnOkDeposit           = mOkCard.findViewById(R.id.btn_ok_deposit);
-        mBtnOkWithdraw          = mOkCard.findViewById(R.id.btn_ok_withdraw);
-        mBtnOkVote              = mOkCard.findViewById(R.id.btn_ok_vote);
+        mOkLayer                = rootView.findViewById(R.id.layer_ok);
+        mOkCard                 = mOkLayer.findViewById(R.id.card_root);
+        mOkTotalAmount          = mOkLayer.findViewById(R.id.ok_total_amount);
+        mOkTotalValue           = mOkLayer.findViewById(R.id.ok_total_value);
+        mOkAvailable            = mOkLayer.findViewById(R.id.ok_available);
+        mOkLocked               = mOkLayer.findViewById(R.id.ok_locked);
+        mOkDeposit              = mOkLayer.findViewById(R.id.ok_deposit);
+        mOkWithdrawing          = mOkLayer.findViewById(R.id.ok_withdrawing);
+        mBtnOkDeposit           = mOkLayer.findViewById(R.id.btn_ok_deposit);
+        mBtnOkWithdraw          = mOkLayer.findViewById(R.id.btn_ok_withdraw);
+        mBtnOkVote              = mOkLayer.findViewById(R.id.btn_ok_vote);
 
-        mCertikCard             = rootView.findViewById(R.id.card_certik);
-        mTvCertikTotal          = mCertikCard.findViewById(R.id.dash_certik_amount);
-        mTvCertikValue          = mCertikCard.findViewById(R.id.dash_certik_value);
-        mTvCertikAvailable      = mCertikCard.findViewById(R.id.dash_certik_available);
-        mTvCertikDelegated      = mCertikCard.findViewById(R.id.dash_certik_delegate);
-        mTvCertikUnBonding      = mCertikCard.findViewById(R.id.dash_certik_unbonding);
-        mTvCertikRewards        = mCertikCard.findViewById(R.id.dash_certik_reward);
-        mBtnCertikReward        = mCertikCard.findViewById(R.id.btn_certik_reward);
-        mBtnCertikVote          = mCertikCard.findViewById(R.id.btn_certik_vote);
+        mCertikLayer            = rootView.findViewById(R.id.layer_certik);
+        mCertikCard             = mCertikLayer.findViewById(R.id.card_root);
+        mTvCertikTotal          = mCertikLayer.findViewById(R.id.dash_certik_amount);
+        mTvCertikValue          = mCertikLayer.findViewById(R.id.dash_certik_value);
+        mTvCertikAvailable      = mCertikLayer.findViewById(R.id.dash_certik_available);
+        mTvCertikDelegated      = mCertikLayer.findViewById(R.id.dash_certik_delegate);
+        mTvCertikUnBonding      = mCertikLayer.findViewById(R.id.dash_certik_unbonding);
+        mTvCertikRewards        = mCertikLayer.findViewById(R.id.dash_certik_reward);
+        mBtnCertikReward        = mCertikLayer.findViewById(R.id.btn_certik_reward);
+        mBtnCertikVote          = mCertikLayer.findViewById(R.id.btn_certik_vote);
 
 
         mUndelegateCard         = rootView.findViewById(R.id.card_undelegate);
@@ -447,14 +457,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
 
         if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            mAtomCard.setVisibility(View.VISIBLE);
-            mIrisCard.setVisibility(View.GONE);
-            mBnbCard.setVisibility(View.GONE);
-            mKavaCard.setVisibility(View.GONE);
-            mIovCard.setVisibility(View.GONE);
-            mBandCard.setVisibility(View.GONE);
-            mOkCard.setVisibility(View.GONE);
-            mCertikCard.setVisibility(View.GONE);
+            mAtomLayer.setVisibility(View.VISIBLE);
+            mIrisLayer.setVisibility(View.GONE);
+            mBnbLayer.setVisibility(View.GONE);
+            mKavaLayer.setVisibility(View.GONE);
+            mIovLayer.setVisibility(View.GONE);
+            mBandLayer.setVisibility(View.GONE);
+            mOkLayer.setVisibility(View.GONE);
+            mCertikLayer.setVisibility(View.GONE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mMintCards.setVisibility(View.VISIBLE);
             if (SUPPORT_MOONPAY) {
@@ -472,14 +482,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mFaqBtn.setText(R.string.str_faq);
 
         } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-            mAtomCard.setVisibility(View.GONE);
-            mIrisCard.setVisibility(View.VISIBLE);
-            mBnbCard.setVisibility(View.GONE);
-            mKavaCard.setVisibility(View.GONE);
-            mIovCard.setVisibility(View.GONE);
-            mBandCard.setVisibility(View.GONE);
-            mOkCard.setVisibility(View.GONE);
-            mCertikCard.setVisibility(View.GONE);
+            mAtomLayer.setVisibility(View.GONE);
+            mIrisLayer.setVisibility(View.VISIBLE);
+            mBnbLayer.setVisibility(View.GONE);
+            mKavaLayer.setVisibility(View.GONE);
+            mIovLayer.setVisibility(View.GONE);
+            mBandLayer.setVisibility(View.GONE);
+            mOkLayer.setVisibility(View.GONE);
+            mCertikLayer.setVisibility(View.GONE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
@@ -493,14 +503,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mFaqBtn.setText(R.string.str_guide_iris);
 
         } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
-            mAtomCard.setVisibility(View.GONE);
-            mIrisCard.setVisibility(View.GONE);
-            mBnbCard.setVisibility(View.VISIBLE);
-            mKavaCard.setVisibility(View.GONE);
-            mIovCard.setVisibility(View.GONE);
-            mBandCard.setVisibility(View.GONE);
-            mOkCard.setVisibility(View.GONE);
-            mCertikCard.setVisibility(View.GONE);
+            mAtomLayer.setVisibility(View.GONE);
+            mIrisLayer.setVisibility(View.GONE);
+            mBnbLayer.setVisibility(View.VISIBLE);
+            mKavaLayer.setVisibility(View.GONE);
+            mIovLayer.setVisibility(View.GONE);
+            mBandLayer.setVisibility(View.GONE);
+            mOkLayer.setVisibility(View.GONE);
+            mCertikLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
             mBtnBep3Send.setVisibility(View.VISIBLE);
             if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
@@ -524,21 +534,21 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mFaqBtn.setText(R.string.str_guide_bnb);
 
         } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-            mAtomCard.setVisibility(View.GONE);
-            mIrisCard.setVisibility(View.GONE);
-            mBnbCard.setVisibility(View.GONE);
-            mKavaCard.setVisibility(View.VISIBLE);
-            mIovCard.setVisibility(View.GONE);
-            mBandCard.setVisibility(View.GONE);
-            mOkCard.setVisibility(View.GONE);
-            mCertikCard.setVisibility(View.GONE);
+            mAtomLayer.setVisibility(View.GONE);
+            mIrisLayer.setVisibility(View.GONE);
+            mBnbLayer.setVisibility(View.GONE);
+            mKavaLayer.setVisibility(View.VISIBLE);
+            mIovLayer.setVisibility(View.GONE);
+            mBandLayer.setVisibility(View.GONE);
+            mOkLayer.setVisibility(View.GONE);
+            mCertikLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-            if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-                mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            } else {
-                mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-            }
+//            if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+//                mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+//            } else {
+//                mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+//            }
             if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
                 mBuyLayer.setVisibility(View.VISIBLE);
                 mBuyCoinTv.setText(R.string.str_buy_kava);
@@ -555,14 +565,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mFaqBtn.setText(R.string.str_guide_kava);
 
         } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
-            mAtomCard.setVisibility(View.GONE);
-            mIrisCard.setVisibility(View.GONE);
-            mBnbCard.setVisibility(View.GONE);
-            mKavaCard.setVisibility(View.GONE);
-            mIovCard.setVisibility(View.VISIBLE);
-            mBandCard.setVisibility(View.GONE);
-            mOkCard.setVisibility(View.GONE);
-            mCertikCard.setVisibility(View.GONE);
+            mAtomLayer.setVisibility(View.GONE);
+            mIrisLayer.setVisibility(View.GONE);
+            mBnbLayer.setVisibility(View.GONE);
+            mKavaLayer.setVisibility(View.GONE);
+            mIovLayer.setVisibility(View.VISIBLE);
+            mBandLayer.setVisibility(View.GONE);
+            mOkLayer.setVisibility(View.GONE);
+            mCertikLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
             if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
@@ -581,14 +591,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
 
         } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-            mAtomCard.setVisibility(View.GONE);
-            mIrisCard.setVisibility(View.GONE);
-            mBnbCard.setVisibility(View.GONE);
-            mKavaCard.setVisibility(View.GONE);
-            mIovCard.setVisibility(View.GONE);
-            mBandCard.setVisibility(View.VISIBLE);
-            mOkCard.setVisibility(View.GONE);
-            mCertikCard.setVisibility(View.GONE);
+            mAtomLayer.setVisibility(View.GONE);
+            mIrisLayer.setVisibility(View.GONE);
+            mBnbLayer.setVisibility(View.GONE);
+            mKavaLayer.setVisibility(View.GONE);
+            mIovLayer.setVisibility(View.GONE);
+            mBandLayer.setVisibility(View.VISIBLE);
+            mOkLayer.setVisibility(View.GONE);
+            mCertikLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
 //            if (SUPPORT_MOONPAY) {
@@ -609,14 +619,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mFaqBtn.setText(R.string.str_guide_band);
 
         } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
-            mAtomCard.setVisibility(View.GONE);
-            mIrisCard.setVisibility(View.GONE);
-            mBnbCard.setVisibility(View.GONE);
-            mKavaCard.setVisibility(View.GONE);
-            mIovCard.setVisibility(View.GONE);
-            mBandCard.setVisibility(View.GONE);
-            mOkCard.setVisibility(View.VISIBLE);
-            mCertikCard.setVisibility(View.GONE);
+            mAtomLayer.setVisibility(View.GONE);
+            mIrisLayer.setVisibility(View.GONE);
+            mBnbLayer.setVisibility(View.GONE);
+            mKavaLayer.setVisibility(View.GONE);
+            mIovLayer.setVisibility(View.GONE);
+            mBandLayer.setVisibility(View.GONE);
+            mOkLayer.setVisibility(View.VISIBLE);
+            mCertikLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
             mBuyLayer.setVisibility(View.GONE);
 
@@ -637,14 +647,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mFaqBtn.setText(R.string.str_guide_ok);
 
         } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-            mAtomCard.setVisibility(View.GONE);
-            mIrisCard.setVisibility(View.GONE);
-            mBnbCard.setVisibility(View.GONE);
-            mKavaCard.setVisibility(View.GONE);
-            mIovCard.setVisibility(View.GONE);
-            mBandCard.setVisibility(View.GONE);
-            mOkCard.setVisibility(View.GONE);
-            mCertikCard.setVisibility(View.VISIBLE);
+            mAtomLayer.setVisibility(View.GONE);
+            mIrisLayer.setVisibility(View.GONE);
+            mBnbLayer.setVisibility(View.GONE);
+            mKavaLayer.setVisibility(View.GONE);
+            mIovLayer.setVisibility(View.GONE);
+            mBandLayer.setVisibility(View.GONE);
+            mOkLayer.setVisibility(View.GONE);
+            mCertikLayer.setVisibility(View.VISIBLE);
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
 
