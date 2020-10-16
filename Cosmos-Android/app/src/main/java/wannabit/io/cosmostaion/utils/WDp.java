@@ -73,6 +73,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
@@ -145,6 +146,9 @@ public class WDp {
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             if (coin.denom.equals(TOKEN_KAVA)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
+            } else if (coin.denom.equals(TOKEN_HARD)) {
+                denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorHard));
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
             }
@@ -205,6 +209,9 @@ public class WDp {
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             if (symbol.equals(TOKEN_KAVA)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
+            } else if (symbol.equals(TOKEN_HARD)) {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorHard));
             } else {
                 denomTv.setText(symbol.toUpperCase());
             }
@@ -1138,6 +1145,15 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD)) {
             result = BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD;
 
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST)) {
+            result = BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARVEST;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST)) {
+            result = BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARVEST;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST)) {
+            result = BaseConstant.TX_TYPE_KAVA_CLAIM_HARVEST;
+
         } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_REGISTER_DOMAIN)) {
             result = BaseConstant.TX_TYPE_STARNAME_REGISTER_DOMAIN;
 
@@ -1276,6 +1292,19 @@ public class WDp {
 
             case BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD:
                 result = c.getString(R.string.tx_kava_incentive_reward);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARVEST:
+                result = c.getString(R.string.tx_kava_harvest_deposit);
+                break;
+
+
+            case BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARVEST:
+                result = c.getString(R.string.tx_kava_harvest_withdraw);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_CLAIM_HARVEST:
+                result = c.getString(R.string.tx_kava_harvest_claim);
                 break;
 
             case BaseConstant.TX_TYPE_STARNAME_REGISTER_DOMAIN:

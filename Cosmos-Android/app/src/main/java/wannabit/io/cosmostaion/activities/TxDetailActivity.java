@@ -104,13 +104,16 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_MULTI_TRANSFER;
@@ -338,6 +341,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private static final int TYPE_DELETE_DOMAIN = 26;
         private static final int TYPE_REPLACE_ACCOUNT_RESOURCE = 27;
         private static final int TYPE_TX_RENEW_STARNAME = 28;
+        private static final int TYPE_TX_HARVEST_DEPOSIT = 29;
+        private static final int TYPE_TX_HARVEST_WITHDRAW = 30;
+        private static final int TYPE_TX_HARVEST_CLIAM = 31;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -384,6 +390,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxRefundHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_refund, viewGroup, false));
             } else if (viewType == TYPE_TX_INCENTIVE_REWARD) {
                 return new TxIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_incentive_reward, viewGroup, false));
+            } else if (viewType == TYPE_TX_HARVEST_DEPOSIT) {
+                return new TxHarvestDepositHolder(getLayoutInflater().inflate(R.layout.item_tx_deposit_harvest, viewGroup, false));
+            } else if (viewType == TYPE_TX_HARVEST_WITHDRAW) {
+                return new TxHarvestWithdrawHolder(getLayoutInflater().inflate(R.layout.item_tx_withdraw_harvest, viewGroup, false));
+            } else if (viewType == TYPE_TX_HARVEST_CLIAM) {
+                return new TxHarvestClaimHolder(getLayoutInflater().inflate(R.layout.item_tx_claim_harvest, viewGroup, false));
             } else if (viewType == TYPE_TX_OK_STAKE) {
                 return new TxOkStakeHolder(getLayoutInflater().inflate(R.layout.item_tx_ok_stake, viewGroup, false));
             } else if (viewType == TYPE_TX_REWARD_ALL) {
@@ -402,6 +414,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxRenewStarNameHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
             }
             return new TxUnKnownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
+
         }
 
         @Override
@@ -446,6 +459,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindRefundHTLC(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_INCENTIVE_REWARD) {
                 onBindIncentive(viewHolder, position);
+            } else if (getItemViewType(position) == TYPE_TX_HARVEST_DEPOSIT) {
+                onBindHarvestDeposit(viewHolder, position);
+            } else if (getItemViewType(position) == TYPE_TX_HARVEST_WITHDRAW) {
+                onBindHarvestWithdraw(viewHolder, position);
+            } else if (getItemViewType(position) == TYPE_TX_HARVEST_CLIAM) {
+                onBindHarvestReward(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_REWARD_ALL) {
                 onBindRewardAll(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_OK_STAKE) {
@@ -577,6 +596,15 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_INCENTIVE_REWARD)) {
                         return TYPE_TX_INCENTIVE_REWARD;
+
+                    } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_DEPOSIT_HAVEST)) {
+                        return TYPE_TX_HARVEST_DEPOSIT;
+
+                    } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_WITHDRAW_HAVEST)) {
+                        return TYPE_TX_HARVEST_WITHDRAW;
+
+                    } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_CLAIM_HAVEST)) {
+                        return TYPE_TX_HARVEST_CLIAM;
 
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(IRIS_MSG_TYPE_WITHDRAW_ALL)) {
                         return TYPE_TX_REWARD_ALL;
@@ -1322,7 +1350,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
-                holder.itemDenom.setText(msg.value.denom.toUpperCase());
+                holder.itemDenom.setText(msg.value.collateral_type);
+                holder.itemMultiplier.setText(msg.value.multiplier_name);
                 Coin incentiveCoin = mResTxInfo.simpleIncentive(position - 1);
                 try {
                     if (!TextUtils.isEmpty(incentiveCoin.denom)) {
@@ -1336,6 +1365,47 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemIncentiveAmount.setText("");
                 }
             }
+        }
+
+        private void onBindHarvestDeposit(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxHarvestDepositHolder holder = (TxHarvestDepositHolder)viewHolder;
+            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+
+            holder.itemDepositor.setText(msg.value.depositor);
+            holder.itemDepositType.setText(msg.value.deposit_type);
+            WDp.showCoinDp(getBaseContext(), msg.value.getCoins().get(0), holder.itemDepositAmountDenom, holder.itemDepositAmount, mBaseChain);
+        }
+
+        private void onBindHarvestWithdraw(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxHarvestWithdrawHolder holder = (TxHarvestWithdrawHolder)viewHolder;
+            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+
+            holder.itemDepositor.setText(msg.value.depositor);
+            holder.itemDepositType.setText(msg.value.deposit_type);
+            WDp.showCoinDp(getBaseContext(), msg.value.getCoins().get(0), holder.itemWithdrawAmountDenom, holder.itemWithdrawAmount, mBaseChain);
+        }
+
+        private void onBindHarvestReward(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxHarvestClaimHolder holder = (TxHarvestClaimHolder)viewHolder;
+            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+
+            holder.itemSender.setText(msg.value.sender);
+            holder.itemReceiver.setText(msg.value.receiver);
+            holder.itemCoinType.setText(msg.value.deposit_denom);
+            holder.itemMultiplier.setText(msg.value.multiplier_name);
+            holder.itemDepositType.setText(msg.value.deposit_type);
+            holder.itemReceiver.setText(msg.value.deposit_type);
+
+            Coin rewardCoin = mResTxInfo.simpleHarvestReward();
+            try {
+                if (!TextUtils.isEmpty(rewardCoin.denom)) {
+                    WDp.showCoinDp(getBaseContext(), rewardCoin, holder.itemRewardAmountDenom, holder.itemRewardAmount, mBaseChain);
+                }
+            } catch (Exception e) { }
+
         }
 
         private void onBindOkStake(RecyclerView.ViewHolder viewHolder, int position) {
@@ -1964,7 +2034,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         public class TxIncentiveHolder extends RecyclerView.ViewHolder {
             ImageView itemMsgImg;
             TextView itemMsgTitle;
-            TextView itemIncentiveAmount, itemIncentiveDenom, itemSender, itemDenom;
+            TextView itemIncentiveAmount, itemIncentiveDenom, itemSender, itemDenom, itemMultiplier;
 
             public TxIncentiveHolder(@NonNull View itemView) {
                 super(itemView);
@@ -1974,6 +2044,59 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemIncentiveDenom = itemView.findViewById(R.id.tx_incentive_symbol);
                 itemSender = itemView.findViewById(R.id.tx_incentive_sender);
                 itemDenom = itemView.findViewById(R.id.tx_incentive_denom);
+                itemMultiplier = itemView.findViewById(R.id.tx_multiplier_name);
+            }
+        }
+
+        public class TxHarvestDepositHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemDepositor, itemDepositType, itemDepositAmount, itemDepositAmountDenom;
+
+            public TxHarvestDepositHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemDepositor = itemView.findViewById(R.id.tx_depositor);
+                itemDepositType = itemView.findViewById(R.id.tx_deposit_type);
+                itemDepositAmount = itemView.findViewById(R.id.tx_deposit_amount);
+                itemDepositAmountDenom = itemView.findViewById(R.id.tx_deposit_symbol);
+            }
+        }
+
+        public class TxHarvestWithdrawHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemDepositor, itemDepositType, itemWithdrawAmount, itemWithdrawAmountDenom;
+
+            public TxHarvestWithdrawHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemDepositor = itemView.findViewById(R.id.tx_depositor);
+                itemDepositType = itemView.findViewById(R.id.tx_deposit_type);
+                itemWithdrawAmount = itemView.findViewById(R.id.tx_withdraw_amount);
+                itemWithdrawAmountDenom = itemView.findViewById(R.id.tx_withdraw_symbol);
+            }
+        }
+
+        public class TxHarvestClaimHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemSender, itemReceiver, itemCoinType, itemMultiplier, itemDepositType, itemRewardAmount, itemRewardAmountDenom;
+            ;
+
+            public TxHarvestClaimHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemSender = itemView.findViewById(R.id.tx_sender);
+                itemReceiver = itemView.findViewById(R.id.tx_receiver);
+                itemCoinType = itemView.findViewById(R.id.tx_coin_type);
+                itemMultiplier = itemView.findViewById(R.id.tx_multiplier_name);
+                itemDepositType = itemView.findViewById(R.id.tx_deposit_type);
+                itemRewardAmount = itemView.findViewById(R.id.tx_reward_amount);
+                itemRewardAmountDenom = itemView.findViewById(R.id.tx_reward_symbol);
             }
         }
 

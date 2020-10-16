@@ -533,6 +533,7 @@
     <string name="str_check_received_wallet">Destination Wallet</string>
     <string name="str_wait_htlc_loading">Do NOT close!\nTransactions are being submitted to each chain in order.\nPlease note that it may take longer than regular transactions.</string>
     <string name="str_sender">Sender</string>
+    <string name="str_receiver">Receiver</string>
     <string name="str_relay_recipient">Relay recipient</string>
     <string name="str_relay_sender">Relay Sender</string>
     <string name="str_recipient">Recipient</string>
@@ -988,8 +989,8 @@
     <string name="str_delete_starname_step_2">Select transaction fee</string>
     <string name="str_delete_starname_step_3">Check transaction detail</string>
     <string name="str_to_delete_starname">Delete StarName</string>
-    <string name="str_renew_domain">Domain 갱신</string>
-    <string name="str_renew_account">Account 갱산</string>
+    <string name="str_renew_domain">Domain Renew</string>
+    <string name="str_renew_account">Account Renew</string>
     <string name="str_renew_starname_step_0">Confirm your starname to renew</string>
     <string name="str_renew_starname_step_1">Insert memo (optional)</string>
     <string name="str_renew_starname_step_2">Select transaction fee</string>
@@ -1003,6 +1004,12 @@
     <string name="str_replace_starname_step_2">Select transaction fee</string>
     <string name="str_replace_starname_step_3">Check transaction detail</string>
     <string name="str_signer">Signer</string>
+    <string name="str_deposit_type">Deposit Type</string>
+    <string name="str_deposit_amount2">Deposit Amount</string>
+    <string name="str_withdraw_amount2">Withdraw Amount</string>
+    <string name="str_coin_type">Coin Type</string>
+    <string name="str_multiplier_name">Multiplier Name</string>
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1140,7 +1147,10 @@
     <string name="tx_kava_bep3_create">Interchain\nSend</string>
     <string name="tx_kava_bep3_claim">Interchain\nClaim</string>
     <string name="tx_kava_bep3_refund">Interchain\nRefund</string>
-    <string name="tx_kava_incentive_reward">Crypto Payday\nParticipate</string>
+    <string name="tx_kava_incentive_reward">Crypto Payday\nIncentive</string>
+    <string name="tx_kava_harvest_deposit">Harvest\nDeposit</string>
+    <string name="tx_kava_harvest_withdraw">Harvest\nWithdraw</string>
+    <string name="tx_kava_harvest_claim">Harvest\nGet Reward</string>
 
     <string name="tx_kava_create_cdp2">CDP Open</string>
     <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
@@ -1155,7 +1165,10 @@
     <string name="tx_kava_bep3_create2">Interchain Send</string>
     <string name="tx_kava_bep3_claim2">Interchain Claim</string>
     <string name="tx_kava_bep3_refund2">Interchain Refund</string>
-    <string name="tx_kava_incentive_reward2">Crypto Payday Participate</string>
+    <string name="tx_kava_incentive_reward2">Crypto Payday Incentive</string>
+    <string name="tx_kava_harvest_deposit2">Deposit Harvest</string>
+    <string name="tx_kava_harvest_withdraw2">Withdraw Harvest</string>
+    <string name="tx_kava_harvest_claim2">Claim Harvest Reward</string>
 
 
     <string name="tx_starname_registe_domain">Register Domain</string>

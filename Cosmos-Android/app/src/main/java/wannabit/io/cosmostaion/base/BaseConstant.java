@@ -215,6 +215,9 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "bep3/MsgClaimAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
     public final static String KAVA_MSG_TYPE_INCENTIVE_REWARD               = "incentive/MsgClaimReward";
+    public final static String KAVA_MSG_TYPE_DEPOSIT_HAVEST                 = "harvest/MsgDeposit";
+    public final static String KAVA_MSG_TYPE_WITHDRAW_HAVEST                = "harvest/MsgWithdraw";
+    public final static String KAVA_MSG_TYPE_CLAIM_HAVEST                   = "harvest/MsgClaimReward";
 
 
     public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";
@@ -321,6 +324,10 @@ public class BaseConstant {
     public final static int TX_TYPE_STARNAME_REPLACE_RESOURCE   = 3032;
     public final static int TX_TYPE_STARNAME_RENEW_DOMAIN       = 3033;
     public final static int TX_TYPE_STARNAME_RENEW_ACCOUNT      = 3034;
+
+    public final static int TX_TYPE_KAVA_DEPOSIT_HARVEST    = 3035;
+    public final static int TX_TYPE_KAVA_WITHDRAW_HARVEST   = 3036;
+    public final static int TX_TYPE_KAVA_CLAIM_HARVEST      = 3037;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;

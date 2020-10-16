@@ -183,6 +183,22 @@ public class Msg {
         @SerializedName("collateral_type")
         public String collateral_type;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("deposit_type")
+        public String deposit_type;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("receiver")
+        public String receiver;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("deposit_denom")
+        public String deposit_denom;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("multiplier_name")
+        public String multiplier_name;
+
 
 
         @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -407,6 +407,7 @@
     <string name="str_check_received_wallet">받은 지갑</string>
     <string name="str_wait_htlc_loading">닫지 마세요!\n거래가 순서대로 각 체인에 제출됩니다.\n일반 트랜잭션보다 시간이 조금 더 걸립니다.</string>
     <string name="str_sender">송금자</string>
+    <string name="str_receiver">수신자</string>
     <string name="str_relay_recipient">중계 수신자</string>
     <string name="str_relay_sender">중계 송금자</string>
     <string name="str_recipient">수신자</string>
@@ -874,6 +875,11 @@
     <string name="str_replace_starname_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_replace_starname_step_3">입력하신 정보를 확인하세요</string>
     <string name="str_signer">서명자</string>
+    <string name="str_deposit_type">예치 종류</string>
+    <string name="str_deposit_amount2">예치 금액</string>
+    <string name="str_withdraw_amount2">출금 금액</string>
+    <string name="str_coin_type">코인 타입</string>
+    <string name="str_multiplier_name">수신 방식</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -998,7 +1004,10 @@
     <string name="tx_kava_bep3_create">인터체인\n보내기</string>
     <string name="tx_kava_bep3_claim">인터체인\n청구하기</string>
     <string name="tx_kava_bep3_refund">인터체인\n환불하기</string>
-    <string name="tx_kava_incentive_reward">Crypto Payday\n참여</string>
+    <string name="tx_kava_incentive_reward">Crypto Payday\n인센티브</string>
+    <string name="tx_kava_harvest_deposit">하베스트\n예치</string>
+    <string name="tx_kava_harvest_withdraw">하베스트\n출금</string>
+    <string name="tx_kava_harvest_claim">하베스트\n이자 청구</string>
 
     <string name="tx_kava_create_cdp2">CDP 개설</string>
     <string name="tx_kava_deposit_cdp2">CDP 예치</string>
@@ -1013,7 +1022,10 @@
     <string name="tx_kava_bep3_create2">인터체인 보내기</string>
     <string name="tx_kava_bep3_claim2">인터체인 청구하기</string>
     <string name="tx_kava_bep3_refund2">인터체인 환불하기</string>
-    <string name="tx_kava_incentive_reward2">Crypto Payday 참여</string>
+    <string name="tx_kava_incentive_reward2">Crypto Payday 인센티브</string>
+    <string name="tx_kava_harvest_deposit2">하베스트 예치</string>
+    <string name="tx_kava_harvest_withdraw2">하베스트 출금</string>
+    <string name="tx_kava_harvest_claim2">하베스트 이자 청구</string>
 
 
     <string name="tx_starname_registe_domain">Domain 등록</string>
