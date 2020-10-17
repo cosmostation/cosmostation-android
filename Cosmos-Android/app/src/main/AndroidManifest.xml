@@ -238,13 +238,6 @@
         </activity>
 
         <activity
-            android:name=".activities.chains.kava.CdpDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden">
-        </activity>
-
-        <activity
             android:name=".activities.HtlcSendActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -273,6 +266,14 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
+
+        <activity
+            android:name=".activities.chains.kava.CdpDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
         <activity
             android:name=".activities.chains.kava.HarvestDetailActivity"
             android:screenOrientation="portrait"
@@ -321,6 +322,23 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
+
+        <activity
+            android:name=".activities.chains.kava.DepositHarvestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.kava.WithdrawHarvestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+
+
 
         <activity
             android:name=".activities.chains.ok.StakeDepositActivity"

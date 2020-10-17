@@ -361,8 +361,7 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
 
             }
             if (myDeposit != null) {
-                holder.itemdepositAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(myDeposit.amount.amount), 6, 6));
-
+                WDp.showCoinDp(getContext(), myLp.deposit_denom, myDeposit.amount.amount, holder.itemdepositDenom, holder.itemdepositAmount, mBaseChain);
             }
             if (myReward != null) {
                 holder.itemRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(myReward.amount.amount), 6, 6));
@@ -444,7 +443,7 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
             CardView itemRoot;
             ImageView itemImgMarket;
             TextView itemTitleMarket;
-            TextView itemStartTime, itemEndTime, itemdepositAmount, itemRewardAmount;
+            TextView itemStartTime, itemEndTime, itemdepositAmount, itemdepositDenom, itemRewardAmount;
 
 
             public MyLpHolder(@NonNull View itemView) {
@@ -454,6 +453,7 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                 itemTitleMarket     = itemView.findViewById(R.id.market_title);
                 itemStartTime       = itemView.findViewById(R.id.start_time);
                 itemEndTime         = itemView.findViewById(R.id.end_time);
+                itemdepositDenom    = itemView.findViewById(R.id.deposited_denom);
                 itemdepositAmount   = itemView.findViewById(R.id.deposited_amount);
                 itemRewardAmount    = itemView.findViewById(R.id.harvest_reward_amount);
             }

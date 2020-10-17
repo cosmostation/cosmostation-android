@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestAccount;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
@@ -260,18 +263,50 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
     }
 
     private void onHarvestDeposit() {
-        WLog.w("onHarvestDeposit");
+        if (!onCommonCheck()) return;
+        if (WDp.getAvailableCoin(mBalances, mDepositDenom).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_available_to_deposit, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, DepositHarvestActivity.class);
+        intent.putExtra("harvestDepositDemon", mDepositDenom);
+        startActivity(intent);
 
     }
 
     private void onHarvestWithdraw() {
-        WLog.w("onHarvestWithdraw");
+        if (!onCommonCheck()) return;
+        if (mMyHarvestDeposit == null || (new BigDecimal(mMyHarvestDeposit.amount.amount).compareTo(BigDecimal.ZERO) <= 0) ) {
+            Toast.makeText(getBaseContext(), R.string.error_no_deposited_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, WithdrawHarvestActivity.class);
+        intent.putExtra("harvestDepositDemon", mDepositDenom);
+        startActivity(intent);
 
     }
 
     private void onHarvestClaim() {
         WLog.w("onHarvestClaim");
+        if (!onCommonCheck()) return;
 
+    }
+
+    private boolean onCommonCheck() {
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return false;
+        }
+
+        if (!mDistributionSchedule.active) {
+            Toast.makeText(getBaseContext(), R.string.error_circuit_breaker, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private int mTaskCount = 0;
@@ -362,9 +397,6 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
                         break;
                     }
                 }
-                mOpenDeposit.setVisibility(View.GONE);
-            } else {
-                mOpenDeposit.setVisibility(View.VISIBLE);
             }
 
             if (rewards != null) {
@@ -378,6 +410,10 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
 
             if (mMyHarvestDeposit != null) {
                 WLog.w("mMyHarvestDeposit " + mMyHarvestDeposit.amount.amount);
+                mOpenDeposit.setVisibility(View.GONE);
+            } else {
+                mOpenDeposit.setVisibility(View.VISIBLE);
+
             }
             if (mMyHarvestReward != null) {
                 WLog.w("mMyHarvestReward " + mMyHarvestReward.amount.amount);

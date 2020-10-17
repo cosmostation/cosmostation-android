@@ -873,7 +873,7 @@
     <string name="str_expected_expire_time">갱신될 유효 기간</string>
     <string name="str_replace_starname">주소 등록하기</string>
     <string name="str_replace_starname_step_0">체인별 주소를 입력해 주세요</string>
-    <string name="str_replace_starname_step_1">메모를 입력하세요 (선택사항</string>
+    <string name="str_replace_starname_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_replace_starname_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_replace_starname_step_3">입력하신 정보를 확인하세요</string>
     <string name="str_signer">서명자</string>
@@ -896,6 +896,16 @@
     <string name="str_start_deposit">예치 시작 하기</string>
     <string name="str_total_deposited_supplies">총 예치금액</string>
     <string name="str_my_harvest_information">내 하베스트 상세</string>
+    <string name="str_deposit_harvest">하베스트 예치금 입금</string>
+    <string name="str_withdraw_harvest">하베스트 예치금 출금</string>
+    <string name="str_deposit_harvest_step_1">입금하실 하베스트 디파짓 수량을 선택하세요</string>
+    <string name="str_deposit_harvest_step_2">메모를 입력하세요 (선택사항)</string>
+    <string name="str_deposit_harvest_step_3">Tx 수수료를 선택하세요</string>
+    <string name="str_deposit_harvest_step_4">입력하신 정보를 확인하세요</string>
+    <string name="str_withdraw_harvest_step_1">출금하실 하베스트 디파짓 수량을 설정하세요</string>
+    <string name="str_withdraw_harvest_step_2">메모를 입력하세요 (선택사항)</string>
+    <string name="str_withdraw_harvest_step_3">Tx 수수료를 선택하세요</string>
+    <string name="str_withdraw_harvest_step_4">입력하신 정보를 확인하세요</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -986,6 +996,10 @@
     <string name="error_no_wallet_this_chain">해당 체인용 지갑시 없습니다.</string>
     <string name="error_no_address_added">최소 1개 이상의 주소를 입력하세요.</string>
     <string name="error_cannot_delete_open_domain">오픈 타입 도메인은 삭제할 수 없습니다.</string>
+    <string name="error_no_available_to_deposit">디파짓할 자산이 없습니다.</string>
+    <string name="error_no_deposited_asset">디파짓중인 자산이 없습니다.</string>
+    <string name="error_no_incentive_to_claim">받을 인센티브가 없습니다.</string>
+    <string name="error_no_harvest_reward_to_claim">받을 하베스트 리워드가 없습니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

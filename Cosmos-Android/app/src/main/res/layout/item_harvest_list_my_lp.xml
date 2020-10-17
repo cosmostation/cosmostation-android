@@ -127,8 +127,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="KAVA"
-                        style="@style/font_ss_12_kava"/>
+                        android:text="Coin"
+                        style="@style/font_ss_12_white"/>
                     <TextView
                         android:id="@+id/deposited_amount"
                         android:layout_width="wrap_content"

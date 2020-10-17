@@ -286,6 +286,8 @@ public class BaseConstant {
     public final static int CONST_PW_TX_RENEW_DOMAIN                        = 5028;
     public final static int CONST_PW_TX_RENEW_ACCOUNT                       = 5029;
     public final static int CONST_PW_TX_REPLACE_STARNAME                    = 5030;
+    public final static int CONST_PW_TX_DEPOSIT_HARVEST                     = 5031;
+    public final static int CONST_PW_TX_WITHDRAW_HARVEST                    = 5032;
 
 
     public final static int TX_TYPE_UNKNOWN                 = 3000;
@@ -404,7 +406,7 @@ public class BaseConstant {
     public final static String FEE_KAVA_GAS_AMOUNT_AVERAGE      = "250000";
     public final static String FEE_KAVA_GAS_AMOUNT_REINVEST     = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_REDELEGATE   = "300000";
-    public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "400000";
+    public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "450000";
     public final static String FEE_KAVA_GAS_AMOUNT_BEP3         = "200000";
     public final static String FEE_KAVA_GAS_AMOUNT_HIGH         = "350000";
 

@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDeleteAccountTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDeleteDomainTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositHarvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
@@ -55,6 +56,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleUndelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleWithdrawCdpTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleWithdrawHarvestTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
@@ -78,6 +80,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
@@ -98,6 +101,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
@@ -143,6 +147,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mDepositor;
     private String                      mCdpDenom;
     private String                      mCollateralType;
+    private Coin                        mDepositCoin;
 
     private String                      mSwapId;
     private String                      mClaimDenom;
@@ -216,7 +221,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mClaimDenom = getIntent().getStringExtra("denom");
         mOkStakeCoin = getIntent().getParcelableExtra("stakeAmount");
         mOKVoteValidator = getIntent().getStringArrayListExtra("voteVal");
-
+        mDepositCoin = getIntent().getParcelableExtra("depositCoin");
 
         mDomain = getIntent().getStringExtra("domain");
         mDomainType = getIntent().getStringExtra("domainType");
@@ -581,7 +586,29 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        } else if (mPurpose == CONST_PW_TX_DEPOSIT_HARVEST) {
+            new SimpleDepositHarvestTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mDepositCoin,
+                    mDepositor,
+                    mTargetMemo,
+                    mTargetFee,
+                    "lp").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_WITHDRAW_HARVEST) {
+            new SimpleWithdrawHarvestTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mDepositCoin,
+                    mDepositor,
+                    mTargetMemo,
+                    mTargetFee,
+                    "lp").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
         }
+
+
     }
 
     private void onShakeView() {

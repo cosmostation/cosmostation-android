@@ -30,8 +30,9 @@ public enum BaseChain {
     KAVA_TEST_LEGACY5("kava-testnet-5000"),
     KAVA_TEST_LEGACY6("kava-testnet-6000"),
     KAVA_TEST_LEGACY8("kava-testnet-8000"),
+    KAVA_TEST_LEGACY9("kava-testnet-9000"),
     KAVA_TEST_3("kava-3-test"),
-    KAVA_TEST("kava-testnet-9000"),
+    KAVA_TEST("kava-4-test"),
     IOV_TEST("iovns-galaxynet"),
     OK_TEST_LEGACY("okchain"),
     OK_TEST_LEGACY1("okchain-testnet1"),
@@ -82,6 +83,7 @@ public enum BaseChain {
                 chainName.equals(KAVA_TEST_LEGACY5.chainName) ||
                 chainName.equals(KAVA_TEST_LEGACY6.chainName) ||
                 chainName.equals(KAVA_TEST_LEGACY8.chainName) ||
+                chainName.equals(KAVA_TEST_LEGACY9.chainName) ||
                 chainName.equals(KAVA_TEST_3.chainName) ||
                 chainName.equals(KAVA_TEST.chainName)) {
             return KAVA_TEST;
@@ -134,6 +136,7 @@ public enum BaseChain {
                 chain.equals(KAVA_TEST_LEGACY5.chainName) ||
                 chain.equals(KAVA_TEST_LEGACY6.chainName) ||
                 chain.equals(KAVA_TEST_LEGACY8.chainName) ||
+                chain.equals(KAVA_TEST_LEGACY9.chainName) ||
                 chain.equals(KAVA_TEST_3.chainName) ||
                 chain.equals(KAVA_TEST.chainName)) {
             return KAVA_TEST.chainName;
@@ -163,8 +166,8 @@ public enum BaseChain {
         result.add(BAND_MAIN);
 
 //        result.add(BNB_TEST);
-//        result.add(KAVA_TEST);
-        result.add(IOV_TEST);
+        result.add(KAVA_TEST);
+//        result.add(IOV_TEST);
         result.add(OK_TEST);
         result.add(CERTIK_TEST);
         return result;

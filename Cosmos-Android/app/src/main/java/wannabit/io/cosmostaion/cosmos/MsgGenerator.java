@@ -456,6 +456,29 @@ public class MsgGenerator {
         return result;
     }
 
+    public static Msg genDepositHarvestMsg(String depositor, Coin depositCoin, String depositType, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.depositor = depositor;
+        value.amount = depositCoin;
+        value.deposit_type = depositType;
+        result.type = BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genWithdrawHarvestMsg(String depositor, Coin depositCoin, String depositType, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.depositor = depositor;
+        value.amount = depositCoin;
+        value.deposit_type = depositType;
+        result.type = BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST;
+        result.value = value;
+        return result;
+    }
+
+
     public static Msg genOkDeposit(String delegator, Coin coin, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
@@ -698,10 +721,10 @@ public class MsgGenerator {
                 msgs,
                 fee,
                 memo);
-        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
+//        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
 
         String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-        WLog.w("signatureTx " + signatureTx);
+//        WLog.w("signatureTx " + signatureTx);
 
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();
@@ -716,13 +739,13 @@ public class MsgGenerator {
         signatures.add(signature);
 
         StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
-        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
+//        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
 
         ReqBroadCast reqBroadCast = new ReqBroadCast();
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+//        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
 
         return reqBroadCast;

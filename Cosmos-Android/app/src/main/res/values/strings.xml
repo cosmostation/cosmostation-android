@@ -21,15 +21,13 @@
     <string name="url_test_bnb_faucet" translatable="false">https://faucet-binance.cosmostation.io</string>
 
 
-<!--    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>-->
-<!--    <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>-->
-    <string name="url_lcd_kava_main" translatable="false">https://lcd-office.cosmostation.io/kava-4-test/</string>
-    <string name="url_api_kava_main" translatable="false">https://api-office.cosmostation.io/kava-4-test/</string>
-    <string name="url_kava_faucet" translatable="false">https://faucet-kava-3.cosmostation.io</string>
+    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>
+    <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
+    <string name="url_kava_faucet" translatable="false"></string>
 
-    <string name="url_lcd_kava_test" translatable="false">https://lcd-kava-testnet-9000.cosmostation.io/</string>
-    <string name="url_api_kava_test" translatable="false">https://api-kava-testnet-9000.cosmostation.io/</string>
-    <string name="url_test_kava_faucet" translatable="false">https://faucet-kava-testnet-9000.cosmostation.io</string>
+    <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-4-test/</string>
+    <string name="url_api_kava_test" translatable="false">https://api-office.cosmostation.io/kava-4-test/</string>
+    <string name="url_test_kava_faucet" translatable="false"></string>
 
 
     <string name="url_lcd_iov_main" translatable="false">https://lcd-iov.cosmostation.io/</string>
@@ -1025,6 +1023,16 @@
     <string name="str_start_deposit">Start Deposit</string>
     <string name="str_total_deposited_supplies">Total Deposited Supplies</string>
     <string name="str_my_harvest_information">My Harvest Information</string>
+    <string name="str_deposit_harvest">Harvest Deposit</string>
+    <string name="str_withdraw_harvest">Harvest Withdraw</string>
+    <string name="str_deposit_harvest_step_1">Enter harvest deposit amount</string>
+    <string name="str_deposit_harvest_step_2">Insert memo (optional)</string>
+    <string name="str_deposit_harvest_step_3">Select transaction fee</string>
+    <string name="str_deposit_harvest_step_4">Check transaction detail</string>
+    <string name="str_withdraw_harvest_step_1">Enter harvest withdrawal amount</string>
+    <string name="str_withdraw_harvest_step_2">Insert memo (optional)</string>
+    <string name="str_withdraw_harvest_step_3">Select transaction fee</string>
+    <string name="str_withdraw_harvest_step_4">Check transaction detail</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
@@ -1115,6 +1123,10 @@
     <string name="error_no_wallet_this_chain">Not wallet for this chain.</string>
     <string name="error_no_address_added">Please enter at least 1 address.</string>
     <string name="error_cannot_delete_open_domain">Can not delete open domain.</string>
+    <string name="error_no_available_to_deposit">No assets to deposit.</string>
+    <string name="error_no_deposited_asset">No deposited asset.</string>
+    <string name="error_no_incentive_to_claim">No incentive to claim.</string>
+    <string name="error_no_harvest_reward_to_claim">No harvest reward to claim.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

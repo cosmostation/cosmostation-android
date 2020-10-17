@@ -728,7 +728,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onStarNameService() {
-        WLog.w("onStarNameService");
         Intent intent = new Intent(getBaseContext(), StarNameListActivity.class);
         startActivity(intent);
 
