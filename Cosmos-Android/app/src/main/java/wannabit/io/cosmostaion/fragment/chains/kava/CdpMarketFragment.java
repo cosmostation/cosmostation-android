@@ -108,13 +108,6 @@ public class CdpMarketFragment extends BaseFragment  implements TaskListener {
         return rootView;
     }
 
-    @Override
-    public void onRefreshTab() {
-        if(!isAdded()) return;
-    }
-
-
-
     private int mTaskCount = 0;
     public void onFetchCdpInfo() {
         mTaskCount = 3;

@@ -1012,6 +1012,17 @@
     <string name="str_coin_type">Coin Type</string>
     <string name="str_multiplier_name">Multiplier Name</string>
     <string name="str_total_incentive">Total Incentive</string>
+    <string name="str_start_time">Start Time</string>
+    <string name="str_end_time">End Time</string>
+    <string name="str_total_delegated_amount">Total Delegate Amount</string>
+    <string name="str_kava_delegator_reward">Kava Delegator Reward</string>
+    <string name="str_hard_for_delegator_title">HARD reward for KAVA delegator</string>
+    <string name="str_harvest_markets">Harvest Markets</string>
+    <string name="str_deposited_amount">Deposited Amount</string>
+    <string name="str_lp_reward_title">Harvest LP Reward</string>
+    <string name="str_lp_reward_msg">HARD reward for Harvest Liquidity Providers, accumulated every block!\nThe more assets you supply to Harvest Money Market, the more HARD rewards you get.</string>
+    <string name="str_total_lp_reward">Total LP Reward</string>
+
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>

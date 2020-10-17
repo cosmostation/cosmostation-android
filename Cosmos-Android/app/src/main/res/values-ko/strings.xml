@@ -883,6 +883,16 @@
     <string name="str_coin_type">코인 타입</string>
     <string name="str_multiplier_name">수신 방식</string>
     <string name="str_total_incentive">인센티브 총합</string>
+    <string name="str_start_time">시작 시간</string>
+    <string name="str_end_time">종료 시간</string>
+    <string name="str_total_delegated_amount">나의 총 위임량</string>
+    <string name="str_kava_delegator_reward">나의 총 위임 이자량</string>
+    <string name="str_hard_for_delegator_title">KAVA 위임자를 위한 HRAD</string>
+    <string name="str_harvest_markets">하베스트 Markets</string>
+    <string name="str_deposited_amount">디파짓 수량</string>
+    <string name="str_lp_reward_title">하베스트 LP 이자</string>
+    <string name="str_lp_reward_msg">Harvest 유동성 공급자는 HARD토큰을 매 블럭마다 보상받습니다! \n하베스트 Money Market에 더 많은 자산을 공급할수록 더 많은 보상을 받게됩니다.</string>
+    <string name="str_total_lp_reward">총 LP 보상</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
