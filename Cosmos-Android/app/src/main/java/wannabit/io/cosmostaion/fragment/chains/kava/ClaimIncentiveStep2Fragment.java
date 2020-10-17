@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment;
+package wannabit.io.cosmostaion.fragment.chains.kava;
 
 import android.graphics.Rect;
 import android.os.Build;
@@ -20,7 +20,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;

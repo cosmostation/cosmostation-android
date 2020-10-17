@@ -48,7 +48,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
-import wannabit.io.cosmostaion.activities.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;

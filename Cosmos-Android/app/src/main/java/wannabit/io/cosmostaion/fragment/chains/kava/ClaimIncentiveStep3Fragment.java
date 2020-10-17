@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment;
+package wannabit.io.cosmostaion.fragment.chains.kava;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,13 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.OnClickListener {

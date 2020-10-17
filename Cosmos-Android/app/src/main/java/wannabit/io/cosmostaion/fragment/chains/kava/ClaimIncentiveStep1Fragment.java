@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment;
+package wannabit.io.cosmostaion.fragment.chains.kava;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WUtil;
 

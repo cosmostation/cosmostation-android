@@ -317,7 +317,7 @@
         </activity>
 
         <activity
-            android:name=".activities.ClaimIncentiveActivity"
+            android:name=".activities.chains.kava.ClaimIncentiveActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">

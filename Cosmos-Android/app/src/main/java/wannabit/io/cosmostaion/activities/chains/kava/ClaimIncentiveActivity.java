@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities;
+package wannabit.io.cosmostaion.activities.chains.kava;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,14 +16,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.ClaimIncentiveStep0Fragment;
-import wannabit.io.cosmostaion.fragment.ClaimIncentiveStep1Fragment;
-import wannabit.io.cosmostaion.fragment.ClaimIncentiveStep2Fragment;
-import wannabit.io.cosmostaion.fragment.ClaimIncentiveStep3Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep0Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep1Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep2Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
