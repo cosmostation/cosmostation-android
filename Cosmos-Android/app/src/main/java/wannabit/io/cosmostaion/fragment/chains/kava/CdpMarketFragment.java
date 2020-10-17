@@ -54,7 +54,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIV
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_PRICE_FEED_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
-public class CdpMarketFragment extends BaseFragment  implements TaskListener {
+public class CdpMarketFragment extends BaseFragment implements TaskListener {
 
     private SwipeRefreshLayout                                          mSwipeRefreshLayout;
     private RecyclerView                                                mRecyclerView;
@@ -103,7 +103,6 @@ public class CdpMarketFragment extends BaseFragment  implements TaskListener {
 
         mAccount = getSActivity().mAccount;
         mBaseChain = getSActivity().mBaseChain;
-
         onFetchCdpInfo();
         return rootView;
     }

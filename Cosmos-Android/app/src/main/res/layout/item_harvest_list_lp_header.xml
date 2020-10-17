@@ -7,13 +7,13 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/space_4"
     android:paddingBottom="@dimen/space_4"
-    android:background="@color/colorGray3">
+    android:background="@color/colorGray11">
     <TextView
         android:layout_below="@+id/market_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/space_8"
+        android:layout_marginLeft="@dimen/space_24"
         android:text="@string/str_harvest_markets"
         style="@style/font_ss_14_white"/>
 </RelativeLayout>

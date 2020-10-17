@@ -7,12 +7,24 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.model.KavaClaimMultiplier;
 import wannabit.io.cosmostaion.model.type.Coin;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 public class ResKavaHarvestParam {
     @SerializedName("height")
     public String height;
 
     @SerializedName("result")
     public KavaHavestParamData result;
+
+    public DelegatorDistributionSchedule getKavaStakerSchedule() {
+        for (DelegatorDistributionSchedule dschedule:result.delegator_distribution_schedules) {
+            if (dschedule.distribution_schedule.deposit_denom.equals(TOKEN_KAVA)) {
+                return dschedule;
+            }
+        }
+        return null;
+
+    }
 
 
     public class KavaHavestParamData {

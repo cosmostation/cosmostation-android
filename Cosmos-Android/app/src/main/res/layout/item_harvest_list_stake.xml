@@ -92,7 +92,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_16">
+                android:layout_marginTop="@dimen/space_12">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_16">
+                android:layout_marginTop="@dimen/space_12">
                 <TextView
                     android:id="@+id/total_delegated_title"
                     android:layout_width="wrap_content"
@@ -147,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_16">
+                android:layout_marginTop="@dimen/space_12">
                 <TextView
                     android:id="@+id/reward_title"
                     android:layout_width="wrap_content"
@@ -159,18 +159,18 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/reward_title">
                     <TextView
-                        android:id="@+id/reward_denom"
+                        android:id="@+id/harvest_reward_denom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="HARD"
                         style="@style/font_ss_12_hard"/>
                     <TextView
-                        android:id="@+id/tx_withdraw_amount"
+                        android:id="@+id/harvest_reward_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/reward_denom"
-                        android:layout_toLeftOf="@+id/reward_denom"
+                        android:layout_alignBaseline="@+id/harvest_reward_denom"
+                        android:layout_toLeftOf="@+id/harvest_reward_denom"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
                         style="@style/font_ssl_12_white"/>
@@ -178,7 +178,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/btn_kava_incentive"
+                android:id="@+id/btn_kava_reward"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_40"
                 android:minHeight="@dimen/space_40"
@@ -193,7 +193,7 @@
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
                     style="@style/font_ss_14_white"
-                    android:text="@string/str_kava_participate" />
+                    android:text="@string/str_claim_reward" />
             </RelativeLayout>
 
         </LinearLayout>
