@@ -526,6 +526,8 @@
     <string name="str_kava_new_path"><![CDATA[NEW PATH (44\'/459\'/0\'/0)]]></string>
     <string name="str_kava_cdp_list">CDP Market</string>
     <string name="str_kava_cdp_details">CDP Status</string>
+    <string name="str_kava_harvest_list">Harvest Market</string>
+    <string name="str_kava_harvest_details">Harvest Status</string>
     <string name="str_my_cdps">My CDP</string>
     <string name="str_all_cdps">All Products</string>
     <string name="str_press_select_recipient_account">Select Recipient Account</string>
@@ -624,7 +626,7 @@
     <string name="str_btn_text_withdraw">Withdraw %1$s</string>
     <string name="str_my_available_assets">My Available Assets</string>
     <string name="str_kava_incentive_title">Crypto Payday</string>
-    <string name="str_kava_incentive_msg">BNB holders who mint the most USDX earn the most minter rewards! Every Wendesday at 14:00 UTC</string>
+    <string name="str_kava_incentive_msg">KAVA incentive for users who deposit assets to create CDPs and mint USDX, distributed weekly!\nThe more USDX you mint, the more KAVA rewards you get.</string>
     <string name="str_kava_participate">Participate</string>
     <string name="str_kava_participate_done">Participation Complete!!</string>
 
@@ -1009,6 +1011,7 @@
     <string name="str_withdraw_amount2">Withdraw Amount</string>
     <string name="str_coin_type">Coin Type</string>
     <string name="str_multiplier_name">Multiplier Name</string>
+    <string name="str_total_incentive">Total Incentive</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>

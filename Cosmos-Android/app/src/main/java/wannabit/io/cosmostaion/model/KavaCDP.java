@@ -15,6 +15,9 @@ public class KavaCDP {
     @SerializedName("owner")
     public String owner;
 
+    @SerializedName("type")
+    public String type;
+
     @SerializedName("collateral")
     public Coin collateral;
 

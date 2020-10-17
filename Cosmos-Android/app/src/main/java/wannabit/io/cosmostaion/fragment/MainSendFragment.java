@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.activities.WalletConnectActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.DAppsListActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -1326,7 +1327,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (v.equals(mBtnKavaDapp)) {
-            startActivity(new Intent(getMainActivity(), KavaCdpListActivity.class));
+            startActivity(new Intent(getMainActivity(), DAppsListActivity.class));
 
         } else if (v.equals(mBtnIovVote)) {
             Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
