@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.KavaCdpListActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
