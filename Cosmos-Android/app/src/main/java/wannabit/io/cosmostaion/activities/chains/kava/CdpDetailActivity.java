@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities;
+package wannabit.io.cosmostaion.activities.chains.kava;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -22,11 +22,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.CreateCdpActivity;
-import wannabit.io.cosmostaion.activities.chains.kava.DepositCdpActivity;
-import wannabit.io.cosmostaion.activities.chains.kava.DrawDebtActivity;
-import wannabit.io.cosmostaion.activities.chains.kava.RepayCdpActivity;
-import wannabit.io.cosmostaion.activities.chains.kava.WithdrawCdpActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
@@ -55,7 +50,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPO
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
-public class KavaCdpDetailActivity extends BaseActivity implements TaskListener, View.OnClickListener {
+public class CdpDetailActivity extends BaseActivity implements TaskListener, View.OnClickListener {
 
     private Toolbar             mToolbar;
     private SwipeRefreshLayout  mSwipeRefreshLayout;
@@ -133,7 +128,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kava_cdp_detail);
+        setContentView(R.layout.activity_cdp_detail);
         mToolbar                        = findViewById(R.id.tool_bar);
         mSwipeRefreshLayout             = findViewById(R.id.layer_refresher);
         mNestedScrollView               = findViewById(R.id.layer_scrollview);
@@ -510,7 +505,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             return;
 
         }
-        Intent intent = new Intent(KavaCdpDetailActivity.this, CreateCdpActivity.class);
+        Intent intent = new Intent(CdpDetailActivity.this, CreateCdpActivity.class);
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
@@ -553,7 +548,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             return;
 
         }
-        Intent intent = new Intent(KavaCdpDetailActivity.this, DrawDebtActivity.class);
+        Intent intent = new Intent(CdpDetailActivity.this, DrawDebtActivity.class);
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.KavaCdpDetailActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.CdpDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -287,7 +287,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getSActivity(), KavaCdpDetailActivity.class);
+                        Intent intent = new Intent(getSActivity(), CdpDetailActivity.class);
                         intent.putExtra("denom", collateralParam.denom);
                         intent.putExtra("marketId", collateralParam.liquidation_market_id);
                         startActivity(intent);
@@ -316,7 +316,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getSActivity(), KavaCdpDetailActivity.class);
+                        Intent intent = new Intent(getSActivity(), CdpDetailActivity.class);
                         intent.putExtra("denom", collateralParam.denom);
                         intent.putExtra("marketId", collateralParam.liquidation_market_id);
                         startActivity(intent);

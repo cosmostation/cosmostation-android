@@ -238,7 +238,7 @@
         </activity>
 
         <activity
-            android:name=".activities.KavaCdpDetailActivity"
+            android:name=".activities.chains.kava.CdpDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">

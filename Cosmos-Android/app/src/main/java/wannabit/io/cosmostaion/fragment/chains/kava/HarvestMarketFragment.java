@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.KavaCdpDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsListActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.HarvestDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;

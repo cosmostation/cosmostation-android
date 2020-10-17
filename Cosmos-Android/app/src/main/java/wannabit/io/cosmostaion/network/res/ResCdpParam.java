@@ -68,7 +68,7 @@ public class ResCdpParam {
             KavaCollateralParam result = null;
             for (KavaCollateralParam collateralParam:collateral_params) {
                 if (collateralParam.denom.equals(denom)) {
-                    return  collateralParam;
+                    return collateralParam;
                 }
             }
             return  result;
