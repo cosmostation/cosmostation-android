@@ -36,12 +36,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorGray3"
-            android:layout_marginTop="@dimen/space_12"/>
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_12"/>
 
         <RelativeLayout
+            android:id="@+id/collateral_layer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_12">
+            android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/collateral_icon"
                 android:layout_width="@dimen/space_20"

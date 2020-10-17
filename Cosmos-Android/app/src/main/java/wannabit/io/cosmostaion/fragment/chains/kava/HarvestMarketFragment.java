@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,7 +22,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.KavaCdpDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsListActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.HarvestDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
@@ -345,14 +348,15 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                 holder.itemTitleMarket.setText(marketTitle.toUpperCase() + " POOL");
                 holder.itemStartTime.setText(WDp.getTimeTxformat(getContext(), myLp.start));
                 holder.itemEndTime.setText(WDp.getTimeTxformat(getContext(), myLp.end));
-                WLog.w("url " + KAVA_HARVEST_MARKET_IMG_URL + "lp" + myLp.deposit_denom);
                 try {
                     Picasso.get().load(KAVA_HARVEST_MARKET_IMG_URL + "lp" + myLp.deposit_denom + ".png").fit().into(holder.itemImgMarket);
                 } catch (Exception e) { }
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WLog.w("Click My LP");
+                        Intent intent = new Intent(getSActivity(), HarvestDetailActivity.class);
+                        intent.putExtra("deposit_denom", myLp.deposit_denom);
+                        startActivity(intent);
                     }
                 });
 
@@ -386,7 +390,9 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WLog.w("Click Other LP");
+                        Intent intent = new Intent(getSActivity(), HarvestDetailActivity.class);
+                        intent.putExtra("deposit_denom", otherLp.deposit_denom);
+                        startActivity(intent);
                     }
                 });
             }

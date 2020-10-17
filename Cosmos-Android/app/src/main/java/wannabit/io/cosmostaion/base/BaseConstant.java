@@ -146,7 +146,6 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_RENEW_DOMAIN                    = 2100;
     public final static int TASK_GEN_TX_RENEW_ACCOUNT                   = 2101;
     public final static int TASK_GEN_TX_REPLACE_STARNAME                = 2102;
-
     public final static int TASK_FETCH_KAVA_HARVEST_PARAM               = 2103;
     public final static int TASK_FETCH_KAVA_HARVEST_DEPOSIT             = 2104;
     public final static int TASK_FETCH_KAVA_HARVEST_REWARD              = 2105;

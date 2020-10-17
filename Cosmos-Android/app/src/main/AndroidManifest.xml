@@ -280,6 +280,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
+        <activity
+            android:name=".activities.chains.kava.HarvestDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
 
         <activity
             android:name=".activities.chains.kava.CreateCdpActivity"

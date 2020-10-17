@@ -893,6 +893,10 @@
     <string name="str_lp_reward_title">하베스트 LP 이자</string>
     <string name="str_lp_reward_msg">Harvest 유동성 공급자는 HARD토큰을 매 블럭마다 보상받습니다! \n하베스트 Money Market에 더 많은 자산을 공급할수록 더 많은 보상을 받게됩니다.</string>
     <string name="str_total_lp_reward">총 LP 보상</string>
+    <string name="str_start_deposit">예치 시작 하기</string>
+    <string name="str_total_deposited_supplies">총 예치금액</string>
+    <string name="str_my_harvest_information">내 하베스트 상세</string>
+
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
