@@ -1023,7 +1023,7 @@
     <string name="str_harvest_markets">Harvest Markets</string>
     <string name="str_deposited_amount">Deposited Amount</string>
     <string name="str_lp_reward_title">Harvest LP Reward</string>
-    <string name="str_lp_reward_msg">HARD reward for Harvest Liquidity Providers, accumulated every block!\nThe more assets you supply to Harvest Money Market, the more HARD rewards you get.</string>
+    <string name="str_lp_reward_msg">HARD reward for Harvest Liquidity Providers, accumulated every block! The more assets you supply to Harvest Money Market, the more HARD rewards you get.</string>
     <string name="str_total_lp_reward">Total LP Reward</string>
     <string name="str_start_deposit">Start Deposit</string>
     <string name="str_total_deposited_supplies">Total Deposited Supplies</string>

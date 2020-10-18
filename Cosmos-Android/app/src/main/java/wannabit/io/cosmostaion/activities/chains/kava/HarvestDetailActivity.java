@@ -209,14 +209,18 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
             if (mDepositDenom.equals(TOKEN_KAVA)) {
                 WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), mMyDepositCoinTitle);
             } else if (mDepositDenom.equals(TOKEN_HARD)) {
-                mMyRewardCoinTitle.setText(mDepositDenom.toUpperCase());
-                mMyRewardCoinTitle.setTextColor(getResources().getColor(R.color.colorHard));
+                mMyDepositCoinTitle.setText(mDepositDenom.toUpperCase());
+                mMyDepositCoinTitle.setTextColor(getResources().getColor(R.color.colorHard));
             } else {
-                mMyRewardCoinTitle.setText(mDepositDenom.toUpperCase());
-                mMyRewardCoinTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mMyDepositCoinTitle.setText(mDepositDenom.toUpperCase());
+                mMyDepositCoinTitle.setTextColor(getResources().getColor(R.color.colorWhite));
             }
             WDp.showCoinDp(getBaseContext(), mMyHarvestDeposit.amount, mMyDepositAmountDenom, mMyDepositAmount, mBaseChain);
-            WDp.showCoinDp(getBaseContext(), mMyHarvestReward.amount, mMyRewardAmountDenom, mMyRewardAmount, mBaseChain);
+            if (mMyHarvestReward != null) {
+                WDp.showCoinDp(getBaseContext(), mMyHarvestReward.amount, mMyRewardAmountDenom, mMyRewardAmount, mBaseChain);
+            } else {
+                WDp.showCoinDp(getBaseContext(), TOKEN_HARD, "0", mMyRewardAmountDenom, mMyRewardAmount, mBaseChain);
+            }
             try {
                 Picasso.get().load(KAVA_COIN_IMG_URL + mDepositDenom + ".png").fit().into(mMyDepositCoinImg);
                 Picasso.get().load(KAVA_COIN_IMG_URL + "hard" + ".png").fit().into(mMyRewardCoinImg);
