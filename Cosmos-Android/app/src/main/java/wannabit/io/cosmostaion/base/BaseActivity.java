@@ -305,19 +305,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         startActivity(intent);
     }
 
-    public void onStartIncentiveClaim() {
-        if (mAccount == null) return;
-        if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-        Intent intent = new Intent(getBaseContext(), ClaimIncentiveActivity.class);
-        startActivity(intent);
-
-    }
-
     public void onChoiceNet(BaseChain chain) { }
 
     public void onShare(boolean isText, String address) {

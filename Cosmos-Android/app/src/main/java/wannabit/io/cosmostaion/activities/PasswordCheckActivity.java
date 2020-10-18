@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleChangeRewardAddressTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimHarvestRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimIncentiveTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleCreateCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
@@ -75,6 +76,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_HARVEST_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
@@ -149,6 +151,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mCollateralType;
     private Coin                        mDepositCoin;
     private String                      mMultiplierName;
+    private String                      mDepositDenom;
+    private String                      mDepositType;
+
 
     private String                      mSwapId;
     private String                      mClaimDenom;
@@ -224,6 +229,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mOKVoteValidator = getIntent().getStringArrayListExtra("voteVal");
         mDepositCoin = getIntent().getParcelableExtra("depositCoin");
         mMultiplierName = getIntent().getStringExtra("multiplierName");
+        mDepositDenom = getIntent().getStringExtra("depositDenom");
+        mDepositType = getIntent().getStringExtra("depositType");
 
         mDomain = getIntent().getStringExtra("domain");
         mDomainType = getIntent().getStringExtra("domainType");
@@ -609,6 +616,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetFee,
                     "lp").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        } else if (mPurpose == CONST_PW_TX_CLAIM_HARVEST_REWARD) {
+            new SimpleClaimHarvestRewardTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mDepositDenom,
+                    mDepositType,
+                    mMultiplierName,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
 

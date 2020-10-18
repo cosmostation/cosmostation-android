@@ -150,6 +150,9 @@ public class BaseConstant {
     public final static int TASK_FETCH_KAVA_HARVEST_DEPOSIT             = 2104;
     public final static int TASK_FETCH_KAVA_HARVEST_REWARD              = 2105;
     public final static int TASK_FETCH_KAVA_HARVEST_ACCOUNT             = 2106;
+    public final static int TASK_GEN_TX_KAVA_DEPOSIT_HARVEST            = 2107;
+    public final static int TASK_GEN_TX_KAVA_WITHDRAW_HARVEST           = 2108;
+    public final static int TASK_GEN_TX_KAVA_CLAIM_HARVEST              = 2109;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -288,6 +291,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_REPLACE_STARNAME                    = 5030;
     public final static int CONST_PW_TX_DEPOSIT_HARVEST                     = 5031;
     public final static int CONST_PW_TX_WITHDRAW_HARVEST                    = 5032;
+    public final static int CONST_PW_TX_CLAIM_HARVEST_REWARD                = 5033;
 
 
     public final static int TX_TYPE_UNKNOWN                 = 3000;

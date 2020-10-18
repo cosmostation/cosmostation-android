@@ -43,7 +43,7 @@ public class SimpleClaimIncentiveTask extends CommonTask {
         this.mMultiplierName = multiplierName;
         this.mMemo = memo;
         this.mFees = fees;
-        this.mResult.taskType   = TASK_GEN_KAVA_CLAIM_INCENTIVE;
+        this.mResult.taskType = TASK_GEN_KAVA_CLAIM_INCENTIVE;
     }
 
     @Override

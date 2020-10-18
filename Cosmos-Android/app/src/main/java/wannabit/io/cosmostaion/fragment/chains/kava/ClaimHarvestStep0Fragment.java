@@ -14,23 +14,23 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimHarvestRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 
-public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class ClaimHarvestStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mCancelBtn, mNextBtn;
-    private TextView mIncentiveAmount, mIncentiveAmountDenom;
+    private TextView mHRewardAmount, mHRewardAmountDenom;
     private TextView mLockTime, mReceivableAmount, mReceivableAmountDenom;
 
     private RelativeLayout BtnOption1, BtnOption2, BtnOption3;
     private TextView OptionTitle1, OptionTitle2, OptionTitle3;
 
-    public static ClaimIncentiveStep0Fragment newInstance(Bundle bundle) {
-        ClaimIncentiveStep0Fragment fragment = new ClaimIncentiveStep0Fragment();
+    public static ClaimHarvestStep0Fragment newInstance(Bundle bundle) {
+        ClaimHarvestStep0Fragment fragment = new ClaimHarvestStep0Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -42,11 +42,11 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_claim_incentive_0, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_claim_harvest0, container, false);
         mCancelBtn              = rootView.findViewById(R.id.btn_cancel);
         mNextBtn                = rootView.findViewById(R.id.btn_next);
-        mIncentiveAmount        = rootView.findViewById(R.id.incentive_amount);
-        mIncentiveAmountDenom   = rootView.findViewById(R.id.incentive_denom);
+        mHRewardAmount          = rootView.findViewById(R.id.harvest_reward_amount);
+        mHRewardAmountDenom     = rootView.findViewById(R.id.harvest_reward_denom);
         mLockTime               = rootView.findViewById(R.id.lockup_time);
         mReceivableAmount       = rootView.findViewById(R.id.receivable_amount);
         mReceivableAmountDenom  = rootView.findViewById(R.id.receivable_denom);
@@ -74,13 +74,14 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             BtnOption3.setVisibility(View.VISIBLE);
             OptionTitle3.setText(getSActivity().mClaimMultipliers.get(2).name.toUpperCase());
         }
-        WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mAllIncentiveAmount.toPlainString(), mIncentiveAmountDenom, mIncentiveAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mAllRewardAmount.toPlainString(), mHRewardAmountDenom, mHRewardAmount, getSActivity().mBaseChain);
+
         return rootView;
     }
 
     private void onUpdateView() {
-        BigDecimal receivable = getSActivity().mAllIncentiveAmount.multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
-        WDp.showCoinDp(getContext(), TOKEN_KAVA, receivable.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
+        BigDecimal receivable = getSActivity().mAllRewardAmount.multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
+        WDp.showCoinDp(getContext(), TOKEN_HARD, receivable.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
         getSActivity().mReceivableAmount = receivable;
         mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
     }
@@ -116,6 +117,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             onUpdateView();
 
         }
+
     }
 
     private void onInitBtnBg() {
@@ -124,7 +126,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
         BtnOption3.setBackground(getResources().getDrawable(R.drawable.box_round_unselected));
     }
 
-    private ClaimIncentiveActivity getSActivity() {
-        return (ClaimIncentiveActivity)getBaseActivity();
+    private ClaimHarvestRewardActivity getSActivity() {
+        return (ClaimHarvestRewardActivity)getBaseActivity();
     }
 }

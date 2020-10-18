@@ -478,6 +478,19 @@ public class MsgGenerator {
         return result;
     }
 
+    public static Msg genClaimHarvestMsg(String sender, String receiver, String depositDenom, String multiplierName, String depositType, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.sender = sender;
+        value.receiver = receiver;
+        value.deposit_denom = depositDenom;
+        value.multiplier_name = multiplierName;
+        value.deposit_type = depositType;
+        result.type = BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST;
+        result.value = value;
+        return result;
+    }
+
 
     public static Msg genOkDeposit(String delegator, Coin coin, BaseChain chain) {
         Msg result  = new Msg();

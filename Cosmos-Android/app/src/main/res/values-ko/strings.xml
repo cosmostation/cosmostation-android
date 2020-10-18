@@ -615,6 +615,11 @@
     <string name="str_incentive_participate_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_incentive_participate_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_incentive_participate_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_claim_harvest_reward">하베스트 이자 받기</string>
+    <string name="str_harvest_reward_step_0">하베스트 이자 옵션을 고르세요</string>
+    <string name="str_harvest_reward_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_harvest_reward_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_harvest_reward_step_3">입력하신 정보를 확인하세요</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

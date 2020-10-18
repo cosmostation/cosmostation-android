@@ -337,6 +337,13 @@
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
+        <activity
+            android:name=".activities.chains.kava.ClaimHarvestRewardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
 
 
 

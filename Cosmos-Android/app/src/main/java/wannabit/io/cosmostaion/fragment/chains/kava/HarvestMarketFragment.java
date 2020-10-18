@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -22,8 +23,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimHarvestRewardActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsListActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.HarvestDetailActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.RepayCdpActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
@@ -297,10 +300,18 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                 BigDecimal delegatedAmount = WDp.getAllDelegatedAmount(bondings, allValidators, mBaseChain);
                 holder.itemTotalDelegate.setText(WDp.getDpAmount2(getContext(), delegatedAmount, 6, 6));
 
+                BigDecimal stakeRewardSum2 = stakeRewardSum;
                 holder.itemBtnClaim.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WLog.w("Claim Stake reward");
+                        if (stakeRewardSum2.compareTo(BigDecimal.ZERO) <= 0) {
+                            Toast.makeText(getBaseActivity(), R.string.error_no_harvest_reward_to_claim, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Intent intent = new Intent(getSActivity(), ClaimHarvestRewardActivity.class);
+                        intent.putExtra("harvest_deposit_denom", mHarvestParam.getKavaStakerSchedule().distribution_schedule.deposit_denom);
+                        intent.putExtra("harvest_deposit_type", "stake");
+                        startActivity(intent);
                     }
                 });
             }

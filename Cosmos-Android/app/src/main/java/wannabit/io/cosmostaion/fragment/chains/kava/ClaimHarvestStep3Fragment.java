@@ -11,21 +11,21 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimHarvestRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
-public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class ClaimHarvestStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mBackBtn, mConfirmBtn;
     private TextView mFee, mFeeDenom;
     private TextView mReceivableAmount, mReceivableAmountDenom, mLockTime, mClaimType, mMemo;
 
-
-    public static ClaimIncentiveStep3Fragment newInstance(Bundle bundle) {
-        ClaimIncentiveStep3Fragment fragment = new ClaimIncentiveStep3Fragment();
+    public static ClaimHarvestStep3Fragment newInstance(Bundle bundle) {
+        ClaimHarvestStep3Fragment fragment = new ClaimHarvestStep3Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -37,7 +37,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_claim_incentive_3, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_claim_harvest3, container, false);
         mBackBtn                = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
         mFee                    = rootView.findViewById(R.id.fee_amount);
@@ -59,7 +59,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
         mFee.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-        WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mReceivableAmount.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mReceivableAmount.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
         mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
         mClaimType.setText(getSActivity().mSelectedMultiplier.name.toUpperCase());
         mMemo.setText(getSActivity().mMemo);
@@ -71,13 +71,13 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            getSActivity().onStartIncentiveClaim();
+            getSActivity().onStartHarvestRewardClaim();
 
         }
-
     }
 
-    private ClaimIncentiveActivity getSActivity() {
-        return (ClaimIncentiveActivity)getBaseActivity();
+    private ClaimHarvestRewardActivity getSActivity() {
+        return (ClaimHarvestRewardActivity)getBaseActivity();
     }
 }
+

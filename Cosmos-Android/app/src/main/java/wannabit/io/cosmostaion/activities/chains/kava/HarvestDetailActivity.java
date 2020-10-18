@@ -281,7 +281,6 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
             Toast.makeText(getBaseContext(), R.string.error_no_deposited_asset, Toast.LENGTH_SHORT).show();
             return;
         }
-
         Intent intent = new Intent(this, WithdrawHarvestActivity.class);
         intent.putExtra("harvestDepositDemon", mDepositDenom);
         startActivity(intent);
@@ -289,8 +288,15 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
     }
 
     private void onHarvestClaim() {
-        WLog.w("onHarvestClaim");
         if (!onCommonCheck()) return;
+        if (mMyHarvestReward == null || (new BigDecimal(mMyHarvestReward.amount.amount).compareTo(BigDecimal.ZERO) <= 0 )) {
+            Toast.makeText(getBaseContext(), R.string.error_no_harvest_reward_to_claim, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(this, ClaimHarvestRewardActivity.class);
+        intent.putExtra("harvest_deposit_denom", mDepositDenom);
+        intent.putExtra("harvest_deposit_type", "lp");
+        startActivity(intent);
 
     }
 

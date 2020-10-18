@@ -27,7 +27,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARVEST_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_KAVA_WITHDRAW_HARVEST;
 
 public class SimpleWithdrawHarvestTask extends CommonTask {
 
@@ -36,7 +36,7 @@ public class SimpleWithdrawHarvestTask extends CommonTask {
     private String          mDepositor;
     private String          mMemo;
     private Fee             mFees;
-    private String          mdepositType;
+    private String          mDepositType;
 
     public SimpleWithdrawHarvestTask(BaseApplication app, TaskListener listener, Account account, Coin depositCoin, String depositor, String memo, Fee fees, String depositType) {
         super(app, listener);
@@ -45,8 +45,8 @@ public class SimpleWithdrawHarvestTask extends CommonTask {
         this.mDepositor = depositor;
         this.mMemo = memo;
         this.mFees = fees;
-        this.mdepositType = depositType;
-        this.mResult.taskType = TASK_FETCH_KAVA_HARVEST_REWARD;
+        this.mDepositType = depositType;
+        this.mResult.taskType = TASK_GEN_TX_KAVA_WITHDRAW_HARVEST;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class SimpleWithdrawHarvestTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg withdrawHarvestMsg = MsgGenerator.genWithdrawHarvestMsg(mDepositor, mDepositCoin, mdepositType, BaseChain.getChain(mAccount.baseChain));
+            Msg withdrawHarvestMsg = MsgGenerator.genWithdrawHarvestMsg(mDepositor, mDepositCoin, mDepositType, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(withdrawHarvestMsg);
 
