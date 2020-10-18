@@ -523,6 +523,7 @@
 "chain_title_kava" = "Kava Mainnet";
 "chain_title_iov" = "Starname Mainnet";
 "chain_title_band" = "Band Mainnet";
+"chain_title_secret" = "Secret Mainnet";
 "chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
 "chain_title_iov_test" = "Starname Testnet";

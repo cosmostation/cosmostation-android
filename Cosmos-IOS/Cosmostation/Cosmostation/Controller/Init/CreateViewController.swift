@@ -153,6 +153,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         bandAction.setValue(UIImage(named: "bandChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let secretAction = UIAlertAction(title: NSLocalizedString("chain_title_secret", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.SECRET_MAIN
+            self.onGenNewKey()
+        })
+        secretAction.setValue(UIImage(named: "secretChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let bnbTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_bnb", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.BINANCE_TEST
             self.onGenNewKey()
@@ -189,6 +195,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(iovAction)
         showAlert.addAction(kavaAction)
         showAlert.addAction(bandAction)
+        showAlert.addAction(secretAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.BINANCE_TEST)) {
             showAlert.addAction(bnbTestAction)
