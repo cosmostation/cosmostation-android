@@ -161,7 +161,7 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     }
     
     @IBAction func onClickNext(_ sender: UIButton) {
-        if (supplyLimit.compare(NSDecimalNumber.zero).rawValue <= 0) {
+        if (supplyRemain.compare(NSDecimalNumber.zero).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_bep3_supply_full", comment: ""))
             
         } else if (!onCheckMinMinBalance()) {

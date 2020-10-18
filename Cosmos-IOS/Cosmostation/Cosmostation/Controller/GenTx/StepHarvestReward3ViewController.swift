@@ -44,7 +44,7 @@ class StepHarvestReward3ViewController: BaseViewController, PasswordViewDelegate
         feeAmount.attributedText = WUtils.displayAmount2(fAmount.stringValue, feeAmount.font, 6, 6)
         WUtils.showCoinDp(KAVA_MAIN_DENOM, pageHolderVC.mIncentiveReceivable.stringValue, receivableDenom, receivableAmount, chainType!)
 
-        lockupTime.text = pageHolderVC.mIncentiveMultiplier!.months_lockup + " month"
+        lockupTime.text = pageHolderVC.mIncentiveMultiplier!.months_lockup + " Month"
         type.text = pageHolderVC.mIncentiveMultiplier!.name.uppercased()
         memoLabel.text = pageHolderVC.mMemo
     }

@@ -88,7 +88,7 @@ class StepHarvestReward0ViewController: BaseViewController {
     @IBAction func onClickOption2(_ sender: UIButton) {
         initBtns()
         sender.borderColor = UIColor.white
-        lockup.text = mKavaClaimMultiplier[1].months_lockup + " month"
+        lockup.text = mKavaClaimMultiplier[1].months_lockup + " Month"
         let receiveAmount = mAllRewardAmount.multiplying(by: NSDecimalNumber.init(string: mKavaClaimMultiplier[1].factor), withBehavior: WUtils.handler0)
         WUtils.showCoinDp(KAVA_HARD_DENOM, receiveAmount.stringValue, receivableDenom, receivableAmount, chainType!)
         pageHolderVC.mIncentiveMultiplier = mKavaClaimMultiplier[1]
@@ -98,7 +98,7 @@ class StepHarvestReward0ViewController: BaseViewController {
     @IBAction func onClickOption3(_ sender: UIButton) {
         initBtns()
         sender.borderColor = UIColor.white
-        lockup.text = mKavaClaimMultiplier[2].months_lockup + " month"
+        lockup.text = mKavaClaimMultiplier[2].months_lockup + " Month"
         let receiveAmount = mAllRewardAmount.multiplying(by: NSDecimalNumber.init(string: mKavaClaimMultiplier[2].factor), withBehavior: WUtils.handler0)
         WUtils.showCoinDp(KAVA_HARD_DENOM, receiveAmount.stringValue, receivableDenom, receivableAmount, chainType!)
         pageHolderVC.mIncentiveMultiplier = mKavaClaimMultiplier[2]
