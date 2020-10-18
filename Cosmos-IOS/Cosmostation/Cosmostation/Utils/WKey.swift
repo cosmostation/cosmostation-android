@@ -61,7 +61,11 @@ class WKey {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 494, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             
         } else if (chainType == ChainType.SECRET_MAIN) {
-            return try! masterKey.derived(at: 44, hardened: true).derived(at: 529, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+            if (account.account_new_bip44) {
+                return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+            } else {
+                return try! masterKey.derived(at: 44, hardened: true).derived(at: 529, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+            }
             
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 234, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
@@ -122,7 +126,11 @@ class WKey {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 494, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
             } else if (chain == ChainType.SECRET_MAIN) {
-                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 529, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                if (newbip) {
+                    childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                } else {
+                    childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 529, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                }
                 
             } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 234, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))

@@ -392,6 +392,8 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         } else {
             if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                 self.onSelectBip44()
+            } else if (self.chainType == ChainType.SECRET_MAIN) {
+                self.onSelectBip44Secret()
             } else {
                 self.onCheckPassword()
             }
@@ -416,6 +418,33 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         }))
         selectAlert.addAction(UIAlertAction(title: NSLocalizedString("kava_new_path", comment: ""), style: .default, handler: { _ in
             self.usingBip44 = true
+            self.onCheckPassword()
+        }))
+        self.present(selectAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            selectAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    //TODO app already release with new path so we just toggle "usingBip44" for secret case!(maintain warn!!)
+    func onSelectBip44Secret() {
+        let selectAlert = UIAlertController(title: NSLocalizedString("select_new_path_title", comment: ""), message: "", preferredStyle: .alert)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = NSTextAlignment.left
+        let messageText = NSMutableAttributedString(
+            string: NSLocalizedString("select_new_path_msg_secret", comment: ""),
+            attributes: [
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
+            ]
+        )
+        selectAlert.setValue(messageText, forKey: "attributedMessage")
+        selectAlert.addAction(UIAlertAction(title: NSLocalizedString("secret_old_path", comment: ""), style: .default, handler: { _ in
+            self.usingBip44 = true
+            self.onCheckPassword()
+        }))
+        selectAlert.addAction(UIAlertAction(title: NSLocalizedString("secret_new_path", comment: ""), style: .default, handler: { _ in
+            self.usingBip44 = false
             self.onCheckPassword()
         }))
         self.present(selectAlert, animated: true) {

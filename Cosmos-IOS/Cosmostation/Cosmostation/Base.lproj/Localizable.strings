@@ -186,9 +186,12 @@
 "buy_select_fiat_title" = "Select Fiat";
 "buy_select_fiat_msg" = "Please select a currency to make a purchase.";
 "select_new_path_title" = "Select Key Path";
-"select_new_path_msg" = "BIP44 for KAVA key generation will be implemented starting March, 2020.\n\nIf you created an address before March, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original KAVA wallet. Simply press [Import Mnemonics] to re-select your path.";
+"select_new_path_msg" = "BIP44 for KAVA key generation will be implemented starting March, 2020.\n\nIf you created an address before March, 2020, please select [Old Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original KAVA wallet. Simply press [Import Mnemonics] to re-select your path.";
 "kava_old_path" = "OLD PATH (44'/118'/0'/0)";
 "kava_new_path" = "NEW PATH (44'/459'/0'/0)";
+"select_new_path_msg_secret" = "BIP44 for SECRET key generation will be implemented starting Sep, 2020.\n\nIf you created an address before Sep, 2020, please select [Old Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your path.";
+"secret_old_path" = "OLD PATH (44'/118'/0'/0)";
+"secret_new_path" = "NEW PATH (44'/529'/0'/0)";
 "tx_next" = "Next";
 "str_deposit" = "  Deposit %@";
 "str_withdraw" = "  Withdraw %@";

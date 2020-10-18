@@ -38,6 +38,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.mStakingPool = BaseData.instance.mStakingPool
         self.mIrisStakePool = BaseData.instance.mIrisStakePool
         
+        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_address)
+        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_new_bip44)
+        
         self.walletTableView.delegate = self
         self.walletTableView.dataSource = self
         self.walletTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
