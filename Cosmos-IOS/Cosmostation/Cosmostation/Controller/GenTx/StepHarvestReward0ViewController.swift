@@ -24,9 +24,8 @@ class StepHarvestReward0ViewController: BaseViewController {
     
     var pageHolderVC: StepGenTxViewController!
     var mHarvestDepositDenom: String?
-    var mHarvestDepositType: String?
+    var mHarvestDepositType: String?                                        //"lp" or "stake"
     var mHavestParam: KavaHavestParam?
-    var mDistributionSchedule: KavaHavestParam.DistributionSchedule?  //lps or stake schedules
     var mAllRewardAmount = NSDecimalNumber.zero
     var mKavaClaimMultiplier = Array<KavaClaimMultiplier>()
 

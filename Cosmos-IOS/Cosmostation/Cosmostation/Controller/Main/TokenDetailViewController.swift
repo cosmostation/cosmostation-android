@@ -163,9 +163,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
             if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                if (balance?.balance_denom == KAVA_MAIN_DENOM && BaseData.instance.mKavaAccountResult.getCVestingCnt(KAVA_MAIN_DENOM) > 0) {
+                if (balance?.balance_denom == KAVA_MAIN_DENOM && BaseData.instance.mKavaAccountResult.getCalcurateVestingCntByDenom(KAVA_MAIN_DENOM) > 0) {
                     return 2
-                } else if (balance?.balance_denom == KAVA_HARD_DENOM && BaseData.instance.mKavaAccountResult.getCVestingCnt(KAVA_HARD_DENOM) > 0) {
+                } else if (balance?.balance_denom == KAVA_HARD_DENOM && BaseData.instance.mKavaAccountResult.getCalcurateVestingCntByDenom(KAVA_HARD_DENOM) > 0) {
                     return 2
                 }
             }
@@ -655,37 +655,37 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:TokenDetailVestingDetailCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailVestingDetailCell") as? TokenDetailVestingDetailCell
         let denom = balance!.balance_denom
         let mKavaAccount = BaseData.instance.mKavaAccountResult
-        cell?.rootCardView.backgroundColor = WUtils.getChainBg(chainType!)
-        cell?.vestingCntLabel.text = "(" + String(mKavaAccount.getCVestingCnt(denom)) + ")"
-        cell?.vestingTotalAmount.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingSum(denom).stringValue, cell!.vestingTotalAmount.font!, 6, 6)
-        if (mKavaAccount.getCVestingCnt(denom) > 0) {
-            cell?.vestingTime0.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(0, denom))
-            cell?.vestingGap0.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(0, denom))
-            cell?.vestingAmount0.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(0, denom).stringValue, cell!.vestingAmount0.font!, 6, 6)
+        cell?.rootCardView.backgroundColor = (denom == KAVA_MAIN_DENOM) ? TRANS_BG_COLOR_KAVA : COLOR_BG_GRAY
+        cell?.vestingCntLabel.text = "(" + String(mKavaAccount.getCalcurateVestingCntByDenom(denom)) + ")"
+        cell?.vestingTotalAmount.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateVestingAmountSumByDenom(denom).stringValue, cell!.vestingTotalAmount.font!, 6, 6)
+        if (mKavaAccount.getCalcurateVestingCntByDenom(denom) > 0) {
+            cell?.vestingTime0.text = WUtils.longTimetoString(input: mKavaAccount.getCalcurateTime(denom, 0))
+            cell?.vestingGap0.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCalcurateTime(denom, 0))
+            cell?.vestingAmount0.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateAmount(denom, 0).stringValue, cell!.vestingAmount0.font!, 6, 6)
         }
-        if (mKavaAccount.getCVestingCnt(denom) > 1) {
+        if (mKavaAccount.getCalcurateVestingCntByDenom(denom) > 1) {
             cell?.vestingLayer1.isHidden = false
-            cell?.vestingTime1.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(1, denom))
-            cell?.vestingGap1.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(1, denom))
-            cell?.vestingAmount1.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(1, denom).stringValue, cell!.vestingAmount1.font!, 6, 6)
+            cell?.vestingTime1.text = WUtils.longTimetoString(input: mKavaAccount.getCalcurateTime(denom, 1))
+            cell?.vestingGap1.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCalcurateTime(denom, 1))
+            cell?.vestingAmount1.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateAmount(denom, 1).stringValue, cell!.vestingAmount1.font!, 6, 6)
         }
-        if (mKavaAccount.getCVestingCnt(denom) > 2) {
+        if (mKavaAccount.getCalcurateVestingCntByDenom(denom) > 2) {
             cell?.vestingLayer2.isHidden = false
-            cell?.vestingTime2.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(2, denom))
-            cell?.vestingGap2.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(2, denom))
-            cell?.vestingAmount2.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(2, denom).stringValue, cell!.vestingAmount2.font!, 6, 6)
+            cell?.vestingTime2.text = WUtils.longTimetoString(input: mKavaAccount.getCalcurateTime(denom, 2))
+            cell?.vestingGap2.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCalcurateTime(denom, 2))
+            cell?.vestingAmount2.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateAmount(denom, 2).stringValue, cell!.vestingAmount2.font!, 6, 6)
         }
-        if (mKavaAccount.getCVestingCnt(denom) > 3) {
+        if (mKavaAccount.getCalcurateVestingCntByDenom(denom) > 3) {
             cell?.vestingLayer3.isHidden = false
-            cell?.vestingTime3.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(3, denom))
-            cell?.vestingGap3.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(3, denom))
-            cell?.vestingAmount3.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(3, denom).stringValue, cell!.vestingAmount3.font!, 6, 6)
+            cell?.vestingTime3.text = WUtils.longTimetoString(input: mKavaAccount.getCalcurateTime(denom, 3))
+            cell?.vestingGap3.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCalcurateTime(denom, 3))
+            cell?.vestingAmount3.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateAmount(denom, 3).stringValue, cell!.vestingAmount3.font!, 6, 6)
         }
-        if (mKavaAccount.getCVestingCnt(denom) > 4) {
+        if (mKavaAccount.getCalcurateVestingCntByDenom(denom) > 4) {
             cell?.vestingLayer4.isHidden = false
-            cell?.vestingTime4.text = WUtils.longTimetoString(input: mKavaAccount.getCVestingUnLockTime(4, denom))
-            cell?.vestingGap4.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCVestingUnLockTime(4, denom))
-            cell?.vestingAmount4.attributedText = WUtils.displayAmount2(mKavaAccount.getCVestingPeriodAmount(4, denom).stringValue, cell!.vestingAmount4.font!, 6, 6)
+            cell?.vestingTime4.text = WUtils.longTimetoString(input: mKavaAccount.getCalcurateTime(denom, 4))
+            cell?.vestingGap4.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCalcurateTime(denom, 4))
+            cell?.vestingAmount4.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateAmount(denom, 4).stringValue, cell!.vestingAmount4.font!, 6, 6)
         }
         return cell!
     }

@@ -31,75 +31,59 @@ public class KavaAccountInfo {
             self.value = KavaAccountValue.init(dictionary["value"] as! [String : Any])
         }
         
-        
-        func getCVestingSum(_ denom: String) -> NSDecimalNumber {
-            var result = NSDecimalNumber.zero
+        func getCalcurateVesting() -> Array<VestingPeriod> {
+            var results: Array<VestingPeriod> = Array<VestingPeriod>()
             let cTime = Date().millisecondsSince1970
             for i in 0..<value.vesting_periods.count {
                 let unlockTime = getUnLockTime(i)
                 if (cTime < unlockTime) {
-                    for coin in value.vesting_periods[i].amount {
-                        if (coin.denom == denom) {
-                            result = result.adding(NSDecimalNumber.init(string: coin.amount))
-                        }
-                    }
+                    let tempVp = VestingPeriod.init()
+                    tempVp.length = unlockTime
+                    tempVp.amount = value.vesting_periods[i].amount
+                    results.append(tempVp)
                 }
             }
-            return result
+            return results
         }
         
-        func getCVestingCnt(_ denom: String) -> Int {
-            var result = 0;
-            let cTime = Date().millisecondsSince1970
-            for i in 0..<value.vesting_periods.count {
-                let unlockTime = getUnLockTime(i)
-                if (cTime < unlockTime) {
-                    for coin in value.vesting_periods[i].amount {
-                        if (coin.denom == denom) {
-                            result = result + 1
-                        }
-                    }
+        func getAllCalcurateVestingCnt() -> Int {
+            return getCalcurateVesting().count
+        }
+        
+        func getCalcurateVestingCntByDenom(_ denom: String) -> Int {
+            var results = 0
+            for vp in getCalcurateVesting() {
+                if (vp.amount[0].denom == denom) {
+                    results = results + 1
                 }
             }
-            return result;
+            return results
         }
         
-        
-        func getCVestingUnLockTime(_ position:Int, _ denom: String) -> Int64 {
-            let totalVesting = value.vesting_periods.count
-            let remainVestingCnt = getCVestingCnt(denom);
-            var result: Int64 = value.start_time
-            for i in 0..<(totalVesting - remainVestingCnt + position + 1) {
-                result = result + value.vesting_periods[i].length
-            }
-            return result * 1000
-        }
-        
-        func getCVestingPeriods() -> Array<VestingPeriod> {
-            var result = Array<VestingPeriod>()
-            let cTime = Date().millisecondsSince1970
-            for i in 0..<value.vesting_periods.count {
-                let unlockTime = getUnLockTime(i)
-                if (cTime < unlockTime) {
-                    result.append(value.vesting_periods[i]);
+        func getCalcurateVestingByDenom(_ denom: String) -> Array<VestingPeriod> {
+            var results: Array<VestingPeriod> = Array<VestingPeriod>()
+            for vp in getCalcurateVesting() {
+                if (vp.amount[0].denom == denom) {
+                    results.append(vp)
                 }
             }
-            return result
+            return results
         }
         
-        func getCVestingPeriod(_ position:Int) -> VestingPeriod {
-            return getCVestingPeriods()[position]
+        func getCalcurateTime(_ denom: String, _ position: Int) -> Int64 {
+            return getCalcurateVestingByDenom(denom)[position].length;
         }
         
-        func getCVestingPeriodAmount(_ position:Int, _ denom: String) -> NSDecimalNumber {
-            var result = NSDecimalNumber.zero
-            let cVestingPeriod = getCVestingPeriod(position)
-            for coin in cVestingPeriod.amount {
-                if (coin.denom == denom) {
-                    result = result.adding(NSDecimalNumber.init(string: coin.amount))
-                }
+        func getCalcurateAmount(_ denom: String, _ position: Int) -> NSDecimalNumber {
+            return NSDecimalNumber.init(string: getCalcurateVestingByDenom(denom)[position].amount[0].amount)
+        }
+        
+        func getCalcurateVestingAmountSumByDenom(_ denom: String) -> NSDecimalNumber {
+            var results = NSDecimalNumber.zero
+            for vp in getCalcurateVestingByDenom(denom) {
+                results = results.adding(NSDecimalNumber.init(string: vp.amount[0].amount))
             }
-            return result
+            return results
         }
         
         func getUnLockTime(_ position:Int) -> Int64 {

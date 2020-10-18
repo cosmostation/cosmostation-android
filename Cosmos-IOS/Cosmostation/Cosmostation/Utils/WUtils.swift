@@ -152,7 +152,7 @@ class WUtils {
                         print("Kava delegatedVesting     ", delegatedVesting)
                     }
                     
-                    remainVesting = accountInfo.result.getCVestingSum(KAVA_MAIN_DENOM)
+                    remainVesting = accountInfo.result.getCalcurateVestingAmountSumByDenom(KAVA_MAIN_DENOM)
                     if (SHOW_LOG) { print("Kava remainVesting            ", remainVesting)}
                     
                     dpVesting = remainVesting.subtracting(delegatedVesting);
@@ -181,10 +181,9 @@ class WUtils {
                     if (SHOW_LOG) {
                         print("Hard dpBalance            ", dpBalance)
                         print("Hard originalVesting      ", originalVesting)
-                        print("Hard delegatedVesting     ", delegatedVesting)
                     }
                     
-                    remainVesting = accountInfo.result.getCVestingSum(KAVA_HARD_DENOM)
+                    remainVesting = accountInfo.result.getCalcurateVestingAmountSumByDenom(KAVA_HARD_DENOM)
                     if (SHOW_LOG) { print("Hard remainVesting   ", remainVesting)}
                     
                     dpBalance = dpBalance.subtracting(remainVesting)
@@ -1504,7 +1503,7 @@ class WUtils {
     
     static func getKavaTokenDollorValue(_ denom: String, _ amount: NSDecimalNumber) -> NSDecimalNumber {
         let dpDeciaml = getKavaCoinDecimal(denom)
-        if (denom == "usdx"){
+        if (denom == "usdx" || denom == "busd"){
             return amount.multiplying(byPowerOf10: -dpDeciaml)
             
         } else {
@@ -2390,8 +2389,6 @@ class WUtils {
     
     static func getKavaCoinDecimal(_ denom:String) -> Int16 {
         if (denom.caseInsensitiveCompare(KAVA_MAIN_DENOM) == .orderedSame) {
-            return 6;
-        } else if (denom.caseInsensitiveCompare("xrp") == .orderedSame) {
             return 6;
         } else if (denom.caseInsensitiveCompare("btc") == .orderedSame) {
             return 8;

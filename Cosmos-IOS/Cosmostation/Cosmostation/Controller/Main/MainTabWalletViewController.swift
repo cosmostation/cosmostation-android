@@ -582,26 +582,43 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletKavaCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaCell") as? WalletKavaCell
-            let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.totalAmount.font!, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalKava, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
-            cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
-            cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
-            cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
-            cell?.vestingAmount.attributedText = WUtils.dpVestingCoin(mainTabVC.mBalances, cell!.vestingAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
+            let totalAmount = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, KAVA_MAIN_DENOM, chainType!)
+            let vestingAmount = WUtils.lockedAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
+            let havestDepositAmount = WUtils.havestDepositAmount(KAVA_MAIN_DENOM)
+            let unclaimedIncentiveAmount = WUtils.unclaimedIncentiveAmount(KAVA_MAIN_DENOM)
+            
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
+            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
+            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
+            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
+            cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
+            cell?.havestDepositedAmount.attributedText = WUtils.displayAmount2(havestDepositAmount.stringValue, cell!.havestDepositedAmount.font, 6, 6)
+            cell?.unclaimedIncentiveAmount.attributedText = WUtils.displayAmount2(unclaimedIncentiveAmount.stringValue, cell!.unclaimedIncentiveAmount.font, 6, 6)
+            if (vestingAmount != NSDecimalNumber.zero) { cell?.vestingLayer.isHidden = false
+            } else { cell?.vestingLayer.isHidden = true }
+            if (havestDepositAmount != NSDecimalNumber.zero) {
+                cell?.havestDepositLayer.isHidden = false
+            } else { cell?.havestDepositLayer.isHidden = true }
+            if (unclaimedIncentiveAmount != NSDecimalNumber.zero) {
+                cell?.unClaimedIncentiveLayer.isHidden = false
+            } else { cell?.unClaimedIncentiveLayer.isHidden = true }
             cell?.actionDelegate = {
                 self.onClickValidatorList()
             }
             cell?.actionVote = {
                 self.onClickVoteList()
             }
-            cell?.cdpBtn.isHidden = false
             cell?.actionCdp = {
                 self.onClickCdp()
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalKava.multiplying(byPowerOf10: -6).stringValue)
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {

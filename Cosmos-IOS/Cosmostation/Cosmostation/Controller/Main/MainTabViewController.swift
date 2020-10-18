@@ -1397,7 +1397,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_HAVEST_DEPOSIT
         }
-        let param = ["deposit_type":"lp", "owner":account.account_address]
+        let param = ["owner":account.account_address]
         let request = Alamofire.request(url!, method: .get, parameters: param, encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
