@@ -906,6 +906,9 @@
     <string name="str_withdraw_harvest_step_2">메모를 입력하세요 (선택사항)</string>
     <string name="str_withdraw_harvest_step_3">Tx 수수료를 선택하세요</string>
     <string name="str_withdraw_harvest_step_4">입력하신 정보를 확인하세요</string>
+    <string name="str_claim_incentive">인센티브 받기</string>
+    <string name="str_lock_up">락업 기간</string>
+    <string name="str_receivable">실제 수령 수량</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -1000,6 +1003,8 @@
     <string name="error_no_deposited_asset">디파짓중인 자산이 없습니다.</string>
     <string name="error_no_incentive_to_claim">받을 인센티브가 없습니다.</string>
     <string name="error_no_harvest_reward_to_claim">받을 하베스트 리워드가 없습니다.</string>
+    <string name="error_no_incentive_claim_option">이자 받기 옵션을 선택해 주세요.</string>
+    <string name="str_claim_type">이자받기 타입</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

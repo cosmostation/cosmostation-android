@@ -31,14 +31,16 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_KAVA_CLAIM_INCE
 public class SimpleClaimIncentiveTask extends CommonTask {
 
     private Account         mAccount;
-    private String          mDenom;
+    private String          mCollateralType;
+    private String          mMultiplierName;
     private String          mMemo;
     private Fee             mFees;
 
-    public SimpleClaimIncentiveTask(BaseApplication app, TaskListener listener, Account account, String denom, String memo, Fee fees) {
+    public SimpleClaimIncentiveTask(BaseApplication app, TaskListener listener, Account account, String collateralType, String multiplierName, String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
-        this.mDenom = denom;
+        this.mCollateralType = collateralType;
+        this.mMultiplierName = multiplierName;
         this.mMemo = memo;
         this.mFees = fees;
         this.mResult.taskType   = TASK_GEN_KAVA_CLAIM_INCENTIVE;
@@ -79,7 +81,7 @@ public class SimpleClaimIncentiveTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg incentiveMsg = MsgGenerator.genIncentiveReward(mAccount.address, mDenom, BaseChain.getChain(mAccount.baseChain));
+            Msg incentiveMsg = MsgGenerator.genIncentiveReward(mAccount.address, mCollateralType, mMultiplierName, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(incentiveMsg);
 

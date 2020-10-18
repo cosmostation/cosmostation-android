@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -30,6 +31,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
@@ -94,23 +96,23 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
     private TextView            mMyWithdrawableAmountTitle;
     private TextView            mMyWithdrawableAmount;
     private TextView            mMySelfDepositValue, mMyTotalDepositValue, mMyWithdrawableValue;
-
     private RelativeLayout      mMyBtnDeposit, mMyBtnWithdraw;
     private TextView            mMyBtnDepositTxt, mMyBtnWithdrawTxt;
     private ImageView           mMyPrincipalImg;
     private TextView            mMyPrincipalDenom;
-
     private LinearLayout        mMyLoadnedLayer;
     private TextView            mMyLoadnedAmount, mMyLoadedValue;
-
     private LinearLayout        mMyCdpFeeLayer;
     private TextView            mMyCdpFeeAmount, mMyCdpFeeValue;
-
-
     private LinearLayout        mMyLoadableLayer;
     private TextView            mMyLoadableAmount, mMyLoadableValue;
-
     private RelativeLayout      mMyBtnDrawdebt, mMyBtnRepay;
+
+    private TextView            mMyIncentiveAmount;
+    private RelativeLayout      mMyBtnClaimIncentive;
+
+
+
 
     private Button              mOpenCdp;
 
@@ -120,6 +122,8 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
     private ResCdpOwnerStatus.MyCDP     mMyOwenCdp;
     private ResCdpDepositStatus         mMyDeposits;
     private ResKavaSupply               mKavaTotalSupply;
+    private ArrayList<ResKavaIncentiveReward.IncentiveRewardClaimable> mKavaUnClaimedIncentiveRewards = new ArrayList<>();
+
 
     private String                      mMarketDenom;
     private String                      mMaketId;
@@ -195,6 +199,8 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
         mMyLoadableValue                = mMyCard.findViewById(R.id.loanable_value);
         mMyBtnDrawdebt                  = mMyCard.findViewById(R.id.btn_drawdebt);
         mMyBtnRepay                     = mMyCard.findViewById(R.id.btn_repay);
+        mMyIncentiveAmount              = mMyCard.findViewById(R.id.incentive_amount);
+        mMyBtnClaimIncentive            = mMyCard.findViewById(R.id.btn_kava_incentive);
 
 
         mMyEmptyCard                    = findViewById(R.id.card_cdp_my_empty);
@@ -223,6 +229,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
         WLog.w("mMaketId " + mMaketId);
         mCdpParam = getBaseDao().mKavaCdpParams;
         mCollateralParam = mCdpParam.getCollateralParamByDenom(mMarketDenom);
+        mKavaUnClaimedIncentiveRewards = getBaseDao().mKavaUnClaimedIncentiveRewards;
         if (mCdpParam == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");
             onBackPressed();
@@ -393,9 +400,22 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
             mMyBtnWithdraw.setOnClickListener(this);
             mMyBtnDrawdebt.setOnClickListener(this);
             mMyBtnRepay.setOnClickListener(this);
+            mMyBtnClaimIncentive.setOnClickListener(this);
 
             mMyCard.setVisibility(View.VISIBLE);
             mOpenCdp.setVisibility(View.GONE);
+
+
+            mMyIncentiveAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+            if (mKavaUnClaimedIncentiveRewards != null) {
+                BigDecimal unClaimedIncentive = BigDecimal.ZERO;
+                for (ResKavaIncentiveReward.IncentiveRewardClaimable incentive:mKavaUnClaimedIncentiveRewards) {
+                    if (mCollateralParam.type.equals(incentive.claim.collateral_type) && incentive.claimable) {
+                        unClaimedIncentive = unClaimedIncentive.add(new BigDecimal(incentive.claim.reward.amount));
+                    }
+                }
+                mMyIncentiveAmount.setText(WDp.getDpAmount2(getBaseContext(), unClaimedIncentive, 6, 6));
+            }
         }
 
     }
@@ -479,6 +499,9 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
         } else if (v.equals(mOpenCdp)) {
             onCheckStartCreateCdp();
+
+        } else if (v.equals(mMyBtnClaimIncentive)) {
+            onCheckStartClaimIncentive();
 
         }
     }
@@ -577,6 +600,29 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
+    }
+
+    private void onCheckStartClaimIncentive() {
+        WLog.w("onCheckStartClaimIncentive ");
+        if (!onCommonCheck()) return;
+
+        BigDecimal unClaimedIncentive = BigDecimal.ZERO;
+        if (mKavaUnClaimedIncentiveRewards != null) {
+            for (ResKavaIncentiveReward.IncentiveRewardClaimable incentive:mKavaUnClaimedIncentiveRewards) {
+              if (mCollateralParam.type.equals(incentive.claim.collateral_type) && incentive.claimable) {
+                    unClaimedIncentive = unClaimedIncentive.add(new BigDecimal(incentive.claim.reward.amount));
+                }
+            }
+        }
+        if (unClaimedIncentive.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_incentive_to_claim, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, ClaimIncentiveActivity.class);
+        intent.putExtra("collateral_type", mCollateralParam.type);
+        startActivity(intent);
+
     }
 
     private boolean onCommonCheck() {

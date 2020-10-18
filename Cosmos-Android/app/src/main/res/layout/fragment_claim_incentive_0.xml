@@ -8,7 +8,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_control">
+        android:layout_above="@+id/multipliersLayer">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,87 +34,158 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_16">
                         <TextView
-                            android:id="@+id/my_reward_title"
+                            android:id="@+id/incentive_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str_incentive_amount"
+                            android:text="@string/str_unclaimed_incentive"
                             style="@style/font_ss_12_gray1"/>
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/my_reward_title">
+                            android:layout_toRightOf="@+id/incentive_title">
                             <TextView
-                                android:id="@+id/my_reward_denom"
+                                android:id="@+id/incentive_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="ATOM"
                                 style="@style/font_ss_12_atom"/>
                             <TextView
-                                android:id="@+id/my_reward_amount"
+                                android:id="@+id/incentive_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignBaseline="@+id/my_reward_denom"
-                                android:layout_toLeftOf="@+id/my_reward_denom"
+                                android:layout_alignBaseline="@+id/incentive_denom"
+                                android:layout_toLeftOf="@+id/incentive_denom"
                                 android:layout_marginRight="@dimen/space_2"
                                 android:text="-"
                                 style="@style/font_ss_12_white"/>
                         </RelativeLayout>
                     </RelativeLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/str_participator"
-                        android:layout_marginTop="@dimen/space_20"
-                        style="@style/font_ss_12_gray1"/>
-                    <TextView
-                        android:id="@+id/sender_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
                         android:layout_marginTop="@dimen/space_16"
-                        android:text="@string/str_denom_cdp"
-                        style="@style/font_ss_12_gray1"/>
-                    <TextView
-                        android:id="@+id/coin_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        android:background="@color/colorGray3"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_16"
-                        android:text="@string/str_lock_time"
-                        style="@style/font_ss_12_gray1"/>
-                    <TextView
-                        android:id="@+id/lock_time"
-                        android:layout_width="wrap_content"
+                        android:layout_marginTop="@dimen/space_20">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/str_lock_up"
+                            style="@style/font_ss_12_gray1"/>
+                        <TextView
+                            android:id="@+id/lockup_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:text=""
+                            style="@style/font_ss_12_white"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        android:layout_marginTop="@dimen/space_16">
+                        <TextView
+                            android:id="@+id/receivable_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_receivable"
+                            style="@style/font_ss_12_gray1"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/receivable_title">
+                            <TextView
+                                android:id="@+id/receivable_denom"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:text=""
+                                style="@style/font_ss_12_white"/>
+                            <TextView
+                                android:id="@+id/receivable_amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@+id/receivable_denom"
+                                android:layout_toLeftOf="@+id/receivable_denom"
+                                android:layout_marginRight="@dimen/space_2"
+                                android:text=""
+                                style="@style/font_ss_12_white"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
+
+    <LinearLayout
+        android:id="@+id/multipliersLayer"
+        android:layout_above="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/btn_option1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16"
+            android:clickable="true"
+            android:background="@drawable/box_round_unselected"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/btn_option1_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                style="@style/font_ssm_14_white"
+                android:text="Large"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/btn_option2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:clickable="true"
+            android:background="@drawable/box_round_unselected"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/btn_option2_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                style="@style/font_ssm_14_white"
+                android:text="Large"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/btn_option3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:clickable="true"
+            android:background="@drawable/box_round_unselected"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/btn_option3_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                style="@style/font_ssm_14_white"
+                android:text="Large"/>
+        </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottom_control"

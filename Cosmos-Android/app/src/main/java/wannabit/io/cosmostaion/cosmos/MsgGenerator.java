@@ -442,13 +442,13 @@ public class MsgGenerator {
         return htltReq;
     }
 
-    public static Msg genIncentiveReward(String from, String denom, BaseChain chain) {
+    public static Msg genIncentiveReward(String from, String collateralType, String multiplierName, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             value.sender = from;
-            value.denom = denom;
-
+            value.collateral_type = collateralType;
+            value.multiplier_name = multiplierName;
             result.type = BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD;
             result.value = value;
 

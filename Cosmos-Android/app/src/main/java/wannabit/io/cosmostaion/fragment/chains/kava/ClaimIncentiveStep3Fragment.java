@@ -15,12 +15,13 @@ import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mBackBtn, mConfirmBtn;
     private TextView mFee, mFeeDenom;
-    private TextView mMyReward, mMyrewardDenom;
-    private TextView mSenderAddress, mCoinType, mLockTime, mMemo;
+    private TextView mReceivableAmount, mReceivableAmountDenom, mLockTime, mClaimType, mMemo;
 
 
     public static ClaimIncentiveStep3Fragment newInstance(Bundle bundle) {
@@ -37,19 +38,17 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_claim_incentive_3, container, false);
-        mBackBtn        = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn     = rootView.findViewById(R.id.btn_confirm);
-        mFee            = rootView.findViewById(R.id.fee_amount);
-        mFeeDenom       = rootView.findViewById(R.id.fee_denom);
-        mMyReward       = rootView.findViewById(R.id.my_reward_amount);
-        mMyrewardDenom  = rootView.findViewById(R.id.my_reward_denom);
-        mSenderAddress  = rootView.findViewById(R.id.sender_address);
-        mCoinType       = rootView.findViewById(R.id.coin_type);
-        mLockTime       = rootView.findViewById(R.id.lock_time);
-        mMemo           = rootView.findViewById(R.id.memo);
+        mBackBtn                = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mFee                    = rootView.findViewById(R.id.fee_amount);
+        mFeeDenom               = rootView.findViewById(R.id.fee_denom);
+        mReceivableAmount       = rootView.findViewById(R.id.receivable_amount);
+        mReceivableAmountDenom  = rootView.findViewById(R.id.receivable_denom);
+        mLockTime               = rootView.findViewById(R.id.lockup_time);
+        mClaimType              = rootView.findViewById(R.id.claim_type);
+        mMemo                   = rootView.findViewById(R.id.memo);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mMyrewardDenom);
 
         mBackBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -59,21 +58,11 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
-        BigDecimal myReward  = BigDecimal.ZERO;
-        if (getSActivity().mKavaUnClaimedIncentiveRewards.size() > 0) {
-            //TODO KAVA-4
-//            for (ResKavaIncentiveReward.KavaUnclaimedIncentiveReward reward:getSActivity().mKavaUnClaimedIncentiveRewards) {
-//                myReward = myReward.add(new BigDecimal(reward.reward.amount));
-//            }
-        }
         mFee.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-        mMyReward.setText(WDp.getDpAmount(getContext(), myReward, 6, getSActivity().mBaseChain));
-        mSenderAddress.setText(getSActivity().mAccount.address);
-        //TODO KAVA-4
-//        mCoinType.setText(getSActivity().mIncentiveReward.denom.toUpperCase());
-        mLockTime.setText("365 Days");
+        WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mReceivableAmount.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
+        mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " month");
+        mClaimType.setText(getSActivity().mSelectedMultiplier.name.toUpperCase());
         mMemo.setText(getSActivity().mMemo);
-
     }
 
     @Override

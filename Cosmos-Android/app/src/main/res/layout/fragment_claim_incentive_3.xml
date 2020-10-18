@@ -55,8 +55,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
-                                android:text="@string/str_atom_c"
-                                style="@style/font_ss_12_atom"/>
+                                android:text="KAVA"
+                                style="@style/font_ss_12_kava"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -66,33 +66,35 @@
                         android:layout_marginTop="@dimen/space_16"
                         android:background="@color/colorGray3"/>
 
+
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_16">
+                        android:layout_marginTop="@dimen/space_20">
                         <TextView
-                            android:id="@+id/my_reward_title"
+                            android:id="@+id/receivable_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str_incentive_amount"
+                            android:text="@string/str_receivable"
                             style="@style/font_ss_12_gray1"/>
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/my_reward_title">
+                            android:layout_toRightOf="@+id/receivable_title">
                             <TextView
-                                android:id="@+id/my_reward_denom"
+                                android:id="@+id/receivable_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:text="ATOM"
-                                style="@style/font_ss_12_atom"/>
+                                android:text="KAVA"
+                                style="@style/font_ss_12_kava"/>
                             <TextView
-                                android:id="@+id/my_reward_amount"
+                                android:id="@+id/receivable_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignBaseline="@+id/my_reward_denom"
-                                android:layout_toLeftOf="@+id/my_reward_denom"
+                                android:layout_alignBaseline="@+id/receivable_denom"
+                                android:layout_toLeftOf="@+id/receivable_denom"
                                 android:layout_marginRight="@dimen/space_2"
                                 android:text="-"
                                 style="@style/font_ss_12_white"/>
@@ -102,11 +104,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_participator"
-                        android:layout_marginTop="@dimen/space_20"
+                        android:layout_marginTop="@dimen/space_16"
+                        android:text="@string/str_lock_up"
                         style="@style/font_ss_12_gray1"/>
                     <TextView
-                        android:id="@+id/sender_address"
+                        android:id="@+id/lockup_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_8"
@@ -119,26 +121,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_16"
-                        android:text="@string/str_denom_cdp"
+                        android:text="@string/str_claim_type"
                         style="@style/font_ss_12_gray1"/>
                     <TextView
-                        android:id="@+id/coin_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_16"
-                        android:text="@string/str_lock_time"
-                        style="@style/font_ss_12_gray1"/>
-                    <TextView
-                        android:id="@+id/lock_time"
+                        android:id="@+id/claim_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_8"

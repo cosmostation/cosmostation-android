@@ -1033,6 +1033,10 @@
     <string name="str_withdraw_harvest_step_2">Insert memo (optional)</string>
     <string name="str_withdraw_harvest_step_3">Select transaction fee</string>
     <string name="str_withdraw_harvest_step_4">Check transaction detail</string>
+    <string name="str_claim_incentive">Claim Incentive</string>
+    <string name="str_lock_up">Lock up</string>
+    <string name="str_receivable">Receivable</string>
+    <string name="str_claim_type">Claim Type</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
@@ -1127,6 +1131,7 @@
     <string name="error_no_deposited_asset">No deposited asset.</string>
     <string name="error_no_incentive_to_claim">No incentive to claim.</string>
     <string name="error_no_harvest_reward_to_claim">No harvest reward to claim.</string>
+    <string name="error_no_incentive_claim_option">Select incentive claim option.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

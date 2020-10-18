@@ -148,6 +148,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mCdpDenom;
     private String                      mCollateralType;
     private Coin                        mDepositCoin;
+    private String                      mMultiplierName;
 
     private String                      mSwapId;
     private String                      mClaimDenom;
@@ -222,6 +223,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mOkStakeCoin = getIntent().getParcelableExtra("stakeAmount");
         mOKVoteValidator = getIntent().getStringArrayListExtra("voteVal");
         mDepositCoin = getIntent().getParcelableExtra("depositCoin");
+        mMultiplierName = getIntent().getStringExtra("multiplierName");
 
         mDomain = getIntent().getStringExtra("domain");
         mDomainType = getIntent().getStringExtra("domainType");
@@ -485,7 +487,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new SimpleClaimIncentiveTask(getBaseApplication(),
                     this,
                     mAccount,
-                    mClaimDenom,
+                    mCollateralType,
+                    mMultiplierName,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 

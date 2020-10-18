@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class KavaClaimMultiplier {
 
-    @SerializedName("height")
-    public String height;
+    @SerializedName("name")
+    public String name;
 
     @SerializedName("months_lockup")
     public String months_lockup;
