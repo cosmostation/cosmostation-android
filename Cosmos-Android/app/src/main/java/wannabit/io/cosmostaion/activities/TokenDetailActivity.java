@@ -158,12 +158,10 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void onCheckVesting() {
         if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_MAIN)) {
-            WLog.w("onCheckVesting " + getBaseDao().mKavaAccount.value.getCVestingCnt(mBalance.symbol));
-            if (getBaseDao().mKavaAccount.value.getCVestingCnt(mBalance.symbol) > 0) {
+            if (getBaseDao().mKavaAccount.value.getCalcurateVestingCntByDenom(mBalance.symbol) > 0) {
                 mHasVesting = true;
             }
         }
-        WLog.w("onCheckVesting " + mHasVesting);
     }
 
     private void onUpdateView() {
@@ -242,7 +240,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
 
     private void onClickSend(int type) {
-        WLog.w("onClickSend " + type);
         if (onCheckSendable()) {
             if (type == TYPE_ATOM) {
                 startActivity(new Intent(TokenDetailActivity.this, SendActivity.class));
@@ -804,40 +801,42 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         }
 
         private void onBindVesting(RecyclerView.ViewHolder viewHolder, int position) {
+
+
             final VestingHolder holder = (VestingHolder)viewHolder;
             if (mBaseChain.equals(KAVA_MAIN) && mBalance.symbol.equals(TOKEN_KAVA)) {
                 holder.mVestingRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             }
             final ResLcdKavaAccountInfo.Value mKavaAccount = getBaseDao().mKavaAccount.value;
-            holder.mVestingCnt.setText("(" + mKavaAccount.getCVestingCnt(mBalance.symbol) + ")");
-            holder.mVestingTotalAmount.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCVestingSum(mBalance.symbol), 6, 6));
+            holder.mVestingCnt.setText("(" + mKavaAccount.getCalcurateVestingCntByDenom(mBalance.symbol) + ")");
+            holder.mVestingTotalAmount.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCalcurateVestingAmountSumByDenom(mBalance.symbol), 6, 6));
 
-            holder.mVestingTime0.setText(WDp.getDpTime(getBaseContext(),  mKavaAccount.getCVestingUnLockTime(0, mBalance.symbol)));
-            holder.mVestingGap0.setText(WDp.getUnbondingTimeleft(getBaseContext(),  mKavaAccount.getCVestingUnLockTime(0, mBalance.symbol)));
-            holder.mVestingAmount0.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCVestingPeriodAmount(0, mBalance.symbol), 6, 6));
-            if (getBaseDao().mKavaAccount.value.getCVestingCnt(mBalance.symbol) > 1) {
+            holder.mVestingTime0.setText(WDp.getDpTime(getBaseContext(),  mKavaAccount.getCalcurateTime(mBalance.symbol, 0)));
+            holder.mVestingGap0.setText(WDp.getUnbondingTimeleft(getBaseContext(),  mKavaAccount.getCalcurateTime(mBalance.symbol, 0)));
+            holder.mVestingAmount0.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCalcurateAmount(mBalance.symbol, 0), 6, 6));
+            if (getBaseDao().mKavaAccount.value.getCalcurateVestingCntByDenom(mBalance.symbol) > 1) {
                 holder.mVestingLayer1.setVisibility(View.VISIBLE);
-                holder.mVestingTime1.setText(WDp.getDpTime(getBaseContext(),  mKavaAccount.getCVestingUnLockTime(1, mBalance.symbol)));
-                holder.mVestingGap1.setText(WDp.getUnbondingTimeleft(getBaseContext(),  mKavaAccount.getCVestingUnLockTime(1, mBalance.symbol)));
-                holder.mVestingAmount1.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCVestingPeriodAmount(1, mBalance.symbol), 6, 6));
+                holder.mVestingTime1.setText(WDp.getDpTime(getBaseContext(),  mKavaAccount.getCalcurateTime(mBalance.symbol, 1)));
+                holder.mVestingGap1.setText(WDp.getUnbondingTimeleft(getBaseContext(),  mKavaAccount.getCalcurateTime(mBalance.symbol, 1)));
+                holder.mVestingAmount1.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCalcurateAmount(mBalance.symbol, 1), 6, 6));
             }
-            if (getBaseDao().mKavaAccount.value.getCVestingCnt(mBalance.symbol) > 2) {
+            if (getBaseDao().mKavaAccount.value.getCalcurateVestingCntByDenom(mBalance.symbol) > 2) {
                 holder.mVestingLayer2.setVisibility(View.VISIBLE);
-                holder.mVestingTime2.setText(WDp.getDpTime(getBaseContext(),  mKavaAccount.getCVestingUnLockTime(2, mBalance.symbol)));
-                holder.mVestingGap2.setText(WDp.getUnbondingTimeleft(getBaseContext(),  mKavaAccount.getCVestingUnLockTime(2, mBalance.symbol)));
-                holder.mVestingAmount2.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCVestingPeriodAmount(2, mBalance.symbol), 6, 6));
+                holder.mVestingTime2.setText(WDp.getDpTime(getBaseContext(),  mKavaAccount.getCalcurateTime(mBalance.symbol, 2)));
+                holder.mVestingGap2.setText(WDp.getUnbondingTimeleft(getBaseContext(),  mKavaAccount.getCalcurateTime(mBalance.symbol, 2)));
+                holder.mVestingAmount2.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCalcurateAmount(mBalance.symbol, 2), 6, 6));
             }
-            if (getBaseDao().mKavaAccount.value.getCVestingCnt(mBalance.symbol) > 3) {
+            if (getBaseDao().mKavaAccount.value.getCalcurateVestingCntByDenom(mBalance.symbol) > 3) {
                 holder.mVestingLayer3.setVisibility(View.VISIBLE);
-                holder.mVestingTime3.setText(WDp.getDpTime(getBaseContext(),  mKavaAccount.getCVestingUnLockTime(3, mBalance.symbol)));
-                holder.mVestingGap3.setText(WDp.getUnbondingTimeleft(getBaseContext(),  mKavaAccount.getCVestingUnLockTime(3, mBalance.symbol)));
-                holder.mVestingAmount3.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCVestingPeriodAmount(3, mBalance.symbol), 6, 6));
+                holder.mVestingTime3.setText(WDp.getDpTime(getBaseContext(),  mKavaAccount.getCalcurateTime(mBalance.symbol, 3)));
+                holder.mVestingGap3.setText(WDp.getUnbondingTimeleft(getBaseContext(),  mKavaAccount.getCalcurateTime(mBalance.symbol, 3)));
+                holder.mVestingAmount3.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCalcurateAmount(mBalance.symbol, 3), 6, 6));
             }
-            if (getBaseDao().mKavaAccount.value.getCVestingCnt(mBalance.symbol) > 4) {
+            if (getBaseDao().mKavaAccount.value.getCalcurateVestingCntByDenom(mBalance.symbol) > 4) {
                 holder.mVestingLayer4.setVisibility(View.VISIBLE);
-                holder.mVestingTime4.setText(WDp.getDpTime(getBaseContext(),  mKavaAccount.getCVestingUnLockTime(4, mBalance.symbol)));
-                holder.mVestingGap4.setText(WDp.getUnbondingTimeleft(getBaseContext(),  mKavaAccount.getCVestingUnLockTime(4, mBalance.symbol)));
-                holder.mVestingAmount4.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCVestingPeriodAmount(4, mBalance.symbol), 6, 6));
+                holder.mVestingTime4.setText(WDp.getDpTime(getBaseContext(),  mKavaAccount.getCalcurateTime(mBalance.symbol, 4)));
+                holder.mVestingGap4.setText(WDp.getUnbondingTimeleft(getBaseContext(),  mKavaAccount.getCalcurateTime(mBalance.symbol, 4)));
+                holder.mVestingAmount4.setText(WDp.getDpAmount2(getBaseContext(), mKavaAccount.getCalcurateAmount(mBalance.symbol, 4), 6, 6));
             }
         }
 

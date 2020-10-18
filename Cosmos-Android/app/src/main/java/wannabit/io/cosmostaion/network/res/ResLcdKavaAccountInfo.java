@@ -61,78 +61,62 @@ public class ResLcdKavaAccountInfo {
         public long end_time;
 
 
-        public int getCVestingCnt(String denom) {
-            int result = 0;
-            if (vesting_periods != null) {
-                long cTime = Calendar.getInstance().getTime().getTime();
-                for (int i = 0; i < vesting_periods.size(); i ++) {
-                    long unlockTime = getUnLockTime(i);
-                    if (cTime < unlockTime) {
-                        for (Coin coin:vesting_periods.get(i).amount) {
-                            if (coin.denom.equals(denom)) {
-                                result = result + 1;
-                            }
-                        }
-                    }
-                }
-            }
-            return result;
-        }
 
-        public BigDecimal getCVestingSum(String denom) {
-            BigDecimal result = BigDecimal.ZERO;
-            if (vesting_periods != null) {
-                long cTime = Calendar.getInstance().getTime().getTime();
-                for (int i = 0; i < vesting_periods.size(); i ++) {
-                    long unlockTime = getUnLockTime(i);
-                    if (cTime < unlockTime) {
-                        for (Coin coin:vesting_periods.get(i).amount) {
-                            if (coin.denom.equals(denom)) {
-                                result = result.add(new BigDecimal(coin.amount));
-                            }
-                        }
-                    }
-                }
-            }
-            return result;
-        }
 
-        public ArrayList<VestingPeriod> getCVestingPeriods() {
+        public ArrayList<VestingPeriod> getCalcurateVesting() {
             ArrayList<VestingPeriod> result = new ArrayList<>();
             if (vesting_periods != null) {
                 long cTime = Calendar.getInstance().getTime().getTime();
                 for (int i = 0; i < vesting_periods.size(); i ++) {
                     long unlockTime = getUnLockTime(i);
                     if (cTime < unlockTime) {
-                        result.add(vesting_periods.get(i));
+                        VestingPeriod temp = new VestingPeriod();
+                        temp.length = unlockTime;
+                        temp.amount = vesting_periods.get(i).amount;
+                        result.add(temp);
                     }
                 }
             }
             return result;
         }
 
-        public long getCVestingUnLockTime(int position, String denom) {
-            int totalVesting = vesting_periods.size();
-            int remainVestingCnt = getCVestingCnt(denom);
-            long result = this.start_time;
-            for (int i = 0; i <= (totalVesting - remainVestingCnt + position); i ++) {
-                result = result + vesting_periods.get(i).length;
-            }
-            return result * 1000;
-
+        public int getAllCalcurateVestingCnt() {
+            return getCalcurateVesting().size();
         }
 
-        public VestingPeriod getCVestingPeriod(int position) {
-            return getCVestingPeriods().get(position);
-        }
-
-        public BigDecimal getCVestingPeriodAmount(int position, String denom) {
-            BigDecimal result = BigDecimal.ZERO;
-            VestingPeriod vestingPeriod = getCVestingPeriod(position);
-            for (Coin coin:vestingPeriod.amount) {
-                if (coin.denom.equals(denom)) {
-                    result = result.add(new BigDecimal(coin.amount));
+        public int getCalcurateVestingCntByDenom(String denom) {
+            int result = 0;
+            for (VestingPeriod vp: getCalcurateVesting()) {
+                if (vp.amount.get(0).denom.equals(denom)) {
+                    result = result + 1;
                 }
+            }
+            return result;
+        }
+
+        public ArrayList<VestingPeriod> getCalcurateVestingByDenom(String denom) {
+            ArrayList<VestingPeriod> result = new ArrayList<>();
+            for (VestingPeriod vp: getCalcurateVesting()) {
+                if (vp.amount.get(0).denom.equals(denom)) {
+                    result.add(vp);
+                }
+            }
+            return result;
+        }
+
+        public long getCalcurateTime(String denom, int position) {
+            return getCalcurateVestingByDenom(denom).get(position).length;
+        }
+
+        public BigDecimal getCalcurateAmount(String denom, int position) {
+            return new BigDecimal(getCalcurateVestingByDenom(denom).get(position).amount.get(0).amount);
+        }
+
+
+        public BigDecimal getCalcurateVestingAmountSumByDenom(String denom) {
+            BigDecimal result = BigDecimal.ZERO;
+            for (VestingPeriod vp: getCalcurateVestingByDenom(denom)) {
+                result = result.add(new BigDecimal(vp.amount.get(0).amount));
             }
             return result;
         }

@@ -55,7 +55,6 @@ import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -283,7 +282,7 @@ public class WUtil {
                             WLog.w("kava originalVesting " +  originalVesting);
                             WLog.w("kava delegatedVesting " +  delegatedVesting);
 
-                            remainVesting = lcd.result.value.getCVestingSum(TOKEN_KAVA);
+                            remainVesting = lcd.result.value.getCalcurateVestingAmountSumByDenom(TOKEN_KAVA);
                             WLog.w("kava remainVesting " +  remainVesting);
 
                             dpVesting = remainVesting.subtract(delegatedVesting);
@@ -321,7 +320,7 @@ public class WUtil {
                             WLog.w("hard dpBalance " +  dpBalance);
                             WLog.w("hard originalVesting " +  originalVesting);
 
-                            remainVesting = lcd.result.value.getCVestingSum(TOKEN_HARD);
+                            remainVesting = lcd.result.value.getCalcurateVestingAmountSumByDenom(TOKEN_HARD);
                             WLog.w("hard remainVesting " +  remainVesting);
 
                             dpBalance = dpBalance.subtract(remainVesting);
