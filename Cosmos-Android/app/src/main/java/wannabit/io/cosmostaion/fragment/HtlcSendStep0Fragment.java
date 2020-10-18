@@ -27,13 +27,9 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receive_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Send_Coin;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.KavaChain;
-import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
-import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply2;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_RELAY_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
@@ -70,8 +66,6 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     private ArrayList<String>                               mSwappableCoinList;
     private String                                          mToSwapDenom;
 
-    private ResKavaBep3Param                                mKavaBep3Param;
-    private ResKavaSwapSupply                               mKavaSuppies;
     private ResKavaBep3Param2                               mKavaBep3Param2;
     private ResKavaSwapSupply2                              mKavaSuppies2;
 
@@ -138,16 +132,16 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         WDp.onDpSwapChain(getContext(), mToChain, mToChainImg, mToChainTv);
         mToSendCoindenom.setText("(" + mToSwapDenom + ")");
 
-        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) && (mKavaBep3Param != null && mKavaSuppies != null)) {
+        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
             mCapLayer.setVisibility(View.VISIBLE);
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB)) {
                 mToSendCoinImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
                 onSetDpDenom(getString(R.string.str_bnb_c));
             }
             available_amount = getSActivity().mAccount.getTokenBalance(mToSwapDenom);
-            supply_limit = mKavaBep3Param.getSupportedSwapAssetLimit(mToSwapDenom);
-            supply_remain = mKavaSuppies.getRemainCap(mToSwapDenom, supply_limit);
-            onetime_max  = mKavaBep3Param.getSupportedSwapAssetMaxOnce(mToSwapDenom);
+            supply_limit = mKavaBep3Param2.getSupportedSwapAssetLimit(mToSwapDenom);
+            supply_remain = mKavaSuppies2.getRemainCap(mToSwapDenom, supply_limit);
+            onetime_max  = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
             mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 0, 8));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_TEST) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
@@ -166,16 +160,16 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             onetime_max  = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
             mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 0, 8));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) && (mKavaBep3Param != null && mKavaSuppies != null)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
             mCapLayer.setVisibility(View.GONE);
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB)) {
                 mToSendCoinImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_on_kava));
                 onSetDpDenom(getString(R.string.str_bnb_c));
             }
             available_amount = getSActivity().mAccount.getTokenBalance(mToSwapDenom);
-            supply_limit = mKavaBep3Param.getSupportedSwapAssetLimit(mToSwapDenom);
-            supply_remain = mKavaSuppies.getRemainCap(mToSwapDenom, supply_limit);
-            onetime_max  = mKavaBep3Param.getSupportedSwapAssetMaxOnce(mToSwapDenom);
+            supply_limit = mKavaBep3Param2.getSupportedSwapAssetLimit(mToSwapDenom);
+            supply_remain = mKavaSuppies2.getRemainCap(mToSwapDenom, supply_limit);
+            onetime_max  = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
             mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 8, 8));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
@@ -269,18 +263,18 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
 
     private void onCheckSwapParam() {
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            ApiClient.getKavaChain(getContext()).getSwapParams().enqueue(new Callback<ResKavaBep3Param>() {
+            ApiClient.getKavaChain(getContext()).getSwapParams2().enqueue(new Callback<ResKavaBep3Param2>() {
                 @Override
-                public void onResponse(Call<ResKavaBep3Param> call, Response<ResKavaBep3Param> response) {
+                public void onResponse(Call<ResKavaBep3Param2> call, Response<ResKavaBep3Param2> response) {
                     if (!response.isSuccessful()) {
                         Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                     } else {
-                        mKavaBep3Param = response.body();
+                        mKavaBep3Param2 = response.body();
                         onCheckSwapSupply();
                     }
                 }
                 @Override
-                public void onFailure(Call<ResKavaBep3Param> call, Throwable t) {
+                public void onFailure(Call<ResKavaBep3Param2> call, Throwable t) {
                     Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
             });
@@ -308,18 +302,18 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
 
     private void onCheckSwapSupply() {
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            ApiClient.getKavaChain(getContext()).getSupplies().enqueue(new Callback<ResKavaSwapSupply>() {
+            ApiClient.getKavaChain(getContext()).getSupplies2().enqueue(new Callback<ResKavaSwapSupply2>() {
                 @Override
-                public void onResponse(Call<ResKavaSwapSupply> call, Response<ResKavaSwapSupply> response) {
+                public void onResponse(Call<ResKavaSwapSupply2> call, Response<ResKavaSwapSupply2> response) {
                     if (!response.isSuccessful()) {
                         Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                     } else {
-                        mKavaSuppies = response.body();
+                        mKavaSuppies2 = response.body();
                         onUpdateView();
                     }
                 }
                 @Override
-                public void onFailure(Call<ResKavaSwapSupply> call, Throwable t) {
+                public void onFailure(Call<ResKavaSwapSupply2> call, Throwable t) {
                     Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
             });

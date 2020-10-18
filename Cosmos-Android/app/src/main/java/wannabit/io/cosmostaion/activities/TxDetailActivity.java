@@ -1397,7 +1397,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemCoinType.setText(msg.value.deposit_denom);
             holder.itemMultiplier.setText(msg.value.multiplier_name);
             holder.itemDepositType.setText(msg.value.deposit_type);
-            holder.itemReceiver.setText(msg.value.deposit_type);
 
             Coin rewardCoin = mResTxInfo.simpleHarvestReward();
             try {

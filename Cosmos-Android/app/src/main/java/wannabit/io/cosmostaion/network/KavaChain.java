@@ -14,7 +14,6 @@ import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpList;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
-import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestAccount;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
@@ -26,7 +25,6 @@ import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaPriceFeedParam;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
-import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply2;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
@@ -151,8 +149,6 @@ public interface KavaChain {
     Call<ResKavaMarketPrice> getPrice(@Path("market") String market);
 
 
-    @GET("bep3/parameters")
-    Call<ResKavaBep3Param> getSwapParams();
 
     @GET("bep3/swap/{swapId}")
     Call<ResKavaSwapInfo> getSwapById(@Path("swapId") String swapId);
@@ -160,33 +156,17 @@ public interface KavaChain {
     @GET("bep3/swaps")
     Call<String> getSwaps();
 
-    @GET("bep3/supplies")
-    Call<ResKavaSwapSupply> getSupplies();
-
-
-
-    @GET("incentive/parameters")
-    Call<ResKavaIncentiveParam> getIncentiveParams();
-
-    @GET("incentive/claims/{address}/{denom}")
-    Call<ResKavaIncentiveReward> getIncentive(@Path("address") String address, @Path("denom") String denom);
-
-
-
-
-
-    @GET("faucet/{address}")
-    Call<JSONObject> getFaucet(@Path("address") String address);
-
-
-
-    //For Kava testnet 9000
     @GET("bep3/parameters")
     Call<ResKavaBep3Param2> getSwapParams2();
 
     @GET("bep3/supplies")
     Call<ResKavaSwapSupply2> getSupplies2();
 
+    @GET("incentive/parameters")
+    Call<ResKavaIncentiveParam> getIncentiveParams();
+
+    @GET("incentive/claims/{address}/{denom}")
+    Call<ResKavaIncentiveReward> getIncentive(@Path("address") String address, @Path("denom") String denom);
 
     @GET("harvest/parameters")
     Call<ResKavaHarvestParam> getHarvestParam();
@@ -199,6 +179,18 @@ public interface KavaChain {
 
     @GET("harvest/accounts")
     Call<ResKavaHarvestAccount> getHarvestAccount();
+
+
+
+    @GET("faucet/{address}")
+    Call<JSONObject> getFaucet(@Path("address") String address);
+
+
+
+
+
+
+
 
 
 
