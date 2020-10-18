@@ -331,6 +331,10 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (WDp.getAvailableCoin(balances, mBalance.symbol).compareTo(BigDecimal.ZERO) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
+                return false;
+            }
             hasbalance  = true;
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -801,8 +805,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         }
 
         private void onBindVesting(RecyclerView.ViewHolder viewHolder, int position) {
-
-
             final VestingHolder holder = (VestingHolder)viewHolder;
             if (mBaseChain.equals(KAVA_MAIN) && mBalance.symbol.equals(TOKEN_KAVA)) {
                 holder.mVestingRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
