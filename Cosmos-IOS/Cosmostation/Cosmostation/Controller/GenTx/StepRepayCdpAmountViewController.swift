@@ -71,7 +71,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
         mCDenom = pageHolderVC.mCDenom!
         mMarketID = pageHolderVC.mMarketID!
         mCdpParam = BaseData.instance.mCdpParam
-        mCollateralParam = mCdpParam?.result.getcParam(mCDenom)
+        mCollateralParam = mCdpParam?.result.getcParamByType(pageHolderVC.mCollateralParamType!)
         
         self.loadingImg.onStartAnimation()
         self.onFetchCdpData()

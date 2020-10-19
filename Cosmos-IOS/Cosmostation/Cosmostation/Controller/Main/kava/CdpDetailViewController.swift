@@ -32,7 +32,8 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     var liquidationPrice: NSDecimalNumber = NSDecimalNumber.zero
     var riskRate: NSDecimalNumber = NSDecimalNumber.zero
     
-    var mCdpParam:KavaCdpParam?
+    var mCollateralParamType: String?
+    var mCdpParam: KavaCdpParam?
     var mCollateralParam: KavaCdpParam.CollateralParam?
     var mMyCdpStatus: CdpOwen?
     var mMyCdpDeposit: CdpDeposits?
@@ -63,12 +64,13 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         self.cdpDetailTableView.addSubview(refresher)
         
         if (SHOW_LOG) {
+            print("mCollateralParamType ", mCollateralParamType)
             print("mCDenom ", mCDenom)
             print("mMarketID ", mMarketID)
         }
         
         mCdpParam = BaseData.instance.mCdpParam
-        mCollateralParam = mCdpParam?.result.getcParam(mCDenom)
+        mCollateralParam = mCdpParam?.result.getcParamByType(mCollateralParamType!)
         mIncentiveClaimables = BaseData.instance.mIncentiveClaimables
         
         self.loadingImg.onStartAnimation()
@@ -161,7 +163,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         cell?.debtValueTitle.text = String(format: NSLocalizedString("debt_value_format", comment: ""), mPDenom.uppercased())
         cell?.debtValue.attributedText = WUtils.getDPRawDollor(mMyCdpStatus!.result.getDpEstimatedTotalDebtValue(mPDenom, mCollateralParam!).stringValue, 2, cell!.debtValue.font)
         
-        cell?.collateralValueTitle.text = String(format: NSLocalizedString("collateral_value_format", comment: ""), mPDenom.uppercased())
+        cell?.collateralValueTitle.text = String(format: NSLocalizedString("collateral_value_format", comment: ""), mCDenom.uppercased())
         cell?.collateralValue.attributedText = WUtils.getDPRawDollor(mMyCdpStatus!.result.getDpCollateralValue(mPDenom).stringValue, 2, cell!.collateralValue.font)
         
         cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationRatio(), font: cell!.minCollateralRate.font)
@@ -326,6 +328,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_CREATE_CDP
+        txVC.mCollateralParamType = self.mCollateralParamType
         txVC.mCDenom = self.mCDenom
         txVC.mMarketID = self.mMarketID
         self.navigationItem.title = ""
@@ -341,6 +344,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_DEPOSIT_CDP
+        txVC.mCollateralParamType = self.mCollateralParamType
         txVC.mCDenom = mCDenom
         txVC.mMarketID = mMarketID
         self.navigationItem.title = ""
@@ -358,6 +362,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
          
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_WITHDRAW_CDP
+        txVC.mCollateralParamType = self.mCollateralParamType
         txVC.mCDenom = mCDenom
         txVC.mMarketID = mMarketID
         self.navigationItem.title = ""
@@ -377,6 +382,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_DRAWDEBT_CDP
+        txVC.mCollateralParamType = self.mCollateralParamType
         txVC.mCDenom = self.mCDenom
         txVC.mMarketID = self.mMarketID
         self.navigationItem.title = ""
@@ -403,6 +409,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_REPAYDEBT_CDP
+        txVC.mCollateralParamType = self.mCollateralParamType
         txVC.mCDenom = mCDenom
         txVC.mMarketID = mMarketID
         self.navigationItem.title = ""

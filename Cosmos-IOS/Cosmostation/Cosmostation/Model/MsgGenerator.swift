@@ -476,8 +476,6 @@ class MsgGenerator {
         return msg
     }
     
-    
-    
     static func genOkDepositMsg(_ delegator: String, _ coin: Coin) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()

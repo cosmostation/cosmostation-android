@@ -87,6 +87,15 @@ public class KavaCdpParam {
             return nil
         }
         
+        public func getcParamByType(_ type: String) -> CollateralParam? {
+            for param in collateral_params {
+                if (param.type == type) {
+                    return param
+                }
+            }
+            return nil
+        }
+        
         public func getGlobalDebtAmount() -> NSDecimalNumber {
             var result = NSDecimalNumber.zero
             if (global_debt_limit != nil && !global_debt_limit!.denom.isEmpty) {
@@ -170,10 +179,10 @@ public class KavaCdpParam {
         }
         
         func getDpMarketId() -> String {
-            if (!spot_market_id.isEmpty) {
-                return spot_market_id.split(separator: ":")[0].uppercased() + " : " + spot_market_id.split(separator: ":")[1].uppercased()
+            if (!denom.isEmpty && !(debt_limit?.denom.isEmpty)!) {
+                return denom.uppercased() + " : " + debt_limit!.denom.uppercased();
             }
-            return ""
+            return "";
         }
         
         func getLiquidationRatio() -> NSDecimalNumber {

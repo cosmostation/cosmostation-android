@@ -38,6 +38,7 @@ class TransactionViewController: UIViewController {
     var mProposalTitle: String?
     var mProposer: String?
     
+    var mCollateralParamType: String?
     var mCDenom: String?
     var mMarketID: String?
     var mHarvestDepositDenom: String?
@@ -214,6 +215,8 @@ class TransactionViewController: UIViewController {
             StepVc.mHarvestDepositDenom = self.mHarvestDepositDenom
             StepVc.mHarvestDepositType = self.mHarvestDepositType
             StepVc.mIncentiveType = self.mIncentiveType
+            StepVc.mCollateralParamType = self.mCollateralParamType
+            
         }
     }
     

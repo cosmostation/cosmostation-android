@@ -124,7 +124,7 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
     
     func onBindMyCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let mMyCdpStatus = myCdps[position]
-        let mCollateralParam = cdpParam!.result.getcParam(mMyCdpStatus.getcDenom())
+        let mCollateralParam = cdpParam!.result.getcParamByType(mMyCdpStatus.result.cdp.type!)
         let mCDenom = mMyCdpStatus.getcDenom()
         let mPDenom = mMyCdpStatus.getpDenom()
         let mPrice = priceFeeds[mCollateralParam!.liquidation_market_id]
@@ -180,9 +180,10 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 1) {
             let mMyCdpStatus = myCdps[indexPath.row]
-            let mCollateralParam = cdpParam!.result.getcParam(mMyCdpStatus.getcDenom())
+            let mCollateralParam = cdpParam!.result.getcParamByType(mMyCdpStatus.result.cdp.type!)
             let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
             cdpDetailVC.hidesBottomBarWhenPushed = true
+            cdpDetailVC.mCollateralParamType = mCollateralParam!.type
             cdpDetailVC.mCDenom = mCollateralParam!.denom
             cdpDetailVC.mMarketID = mCollateralParam!.liquidation_market_id
             self.navigationItem.title = ""
@@ -192,6 +193,7 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
             let mCollateralParam = otherCdps[indexPath.row]
             let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
             cdpDetailVC.hidesBottomBarWhenPushed = true
+            cdpDetailVC.mCollateralParamType = mCollateralParam.type
             cdpDetailVC.mCDenom = mCollateralParam.denom
             cdpDetailVC.mMarketID = mCollateralParam.liquidation_market_id
             self.navigationItem.title = ""
