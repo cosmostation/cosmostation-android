@@ -98,21 +98,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM) || balance.symbol.equals(BaseConstant.TOKEN_MUON)) {
-                result = balance.balance;
-                break;
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal getPhotonBalance() {
-        BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0) {
-            return  result;
-        }
-        for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON) || balance.symbol.equals(BaseConstant.COSMOS_PHOTINO)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM)) {
                 result = balance.balance;
                 break;
             }

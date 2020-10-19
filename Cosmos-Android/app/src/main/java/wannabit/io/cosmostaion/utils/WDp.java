@@ -585,7 +585,7 @@ public class WDp {
     public static BigDecimal getAllAtom(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM) || balance.symbol.equals(BaseConstant.TOKEN_MUON)) {
+            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM)) {
                 sum = sum.add(balance.balance);
             }
         }

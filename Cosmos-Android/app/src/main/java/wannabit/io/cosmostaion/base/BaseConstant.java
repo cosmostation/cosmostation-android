@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
     public final static boolean IS_SHOWLOG              = true;
-//    public final static boolean IS_TEST                 = false;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static String LOG_TAG                  = "Cosmostation";
 
@@ -342,9 +341,6 @@ public class BaseConstant {
 
 
     public final static String TOKEN_ATOM           = "uatom";
-    public final static String TOKEN_MUON           = "muon";
-    public final static String COSMOS_PHOTON        = "photon";
-    public final static String COSMOS_PHOTINO       = "photino";
     public final static String TOKEN_IRIS           = "iris";
     public final static String TOKEN_IRIS_ATTO      = "iris-atto";
     public final static String TOKEN_BNB            = "BNB";
