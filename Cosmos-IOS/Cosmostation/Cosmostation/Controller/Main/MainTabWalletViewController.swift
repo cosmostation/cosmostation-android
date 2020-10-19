@@ -1480,6 +1480,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickBep3Send(_ denom: String) {
+        if (!SUPPORT_BEP3_SWAP) {
+            self.onShowToast(NSLocalizedString("error_bep3_swap_temporary_disable", comment: ""))
+            return
+        }
         if (!mainTabVC.mAccount.account_has_private) {
             self.onShowAddMenomicDialog()
             return

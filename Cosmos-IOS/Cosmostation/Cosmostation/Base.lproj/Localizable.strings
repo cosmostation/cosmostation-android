@@ -457,6 +457,9 @@
 "error_no_available_to_deposit" = "No assets to deposit.";
 "error_no_incentive_to_claim" = "No incentive to claim.";
 "error_no_harvest_reward_to_claim" = "No harvest reward to claim.";
+"error_bep3_swap_temporary_disable" = "Bep3 swap relayer is temporary disabled.";
+
+
 
 "currency_usd" = "USD";
 "currency_eur" = "EUR";

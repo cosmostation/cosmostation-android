@@ -454,7 +454,7 @@
 "error_no_available_to_deposit" = "디파짓할 자산이 없습니다.";
 "error_no_incentive_to_claim" = "받을 인센티브가 없습니다.";
 "error_no_harvest_reward_to_claim" = "받을 하베스트 리워드가 없습니다.";
-
+"error_bep3_swap_temporary_disable" = "BEP3 스왑 Relayer가 일시적으로 비활성화 상태입니다.";
 
 
 

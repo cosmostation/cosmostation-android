@@ -270,11 +270,7 @@ class StepFeeViewController: BaseViewController {
         }
         
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            if (TESTNET) {
-                available = WUtils.getTokenAmount(pageHolderVC.mBalances, "muon");
-            } else {
-                available = WUtils.getTokenAmount(pageHolderVC.mBalances, COSMOS_MAIN_DENOM);
-            }
+            available = WUtils.getTokenAmount(pageHolderVC.mBalances, COSMOS_MAIN_DENOM);
             toSpend = getSpendAmount()
             if (toSpend.adding(feeAmount).compare(available).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))

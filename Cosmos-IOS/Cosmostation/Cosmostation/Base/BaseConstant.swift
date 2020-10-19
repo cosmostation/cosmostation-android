@@ -9,9 +9,8 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = true;
-let TESTNET                             = false;
-let FEE_FREE                            = false;
+let SHOW_LOG                            = false;
+let SUPPORT_BEP3_SWAP                   = false;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
 let KEY_RECENT_CHAIN                    = "KEY_RECENT_CHAIN"
