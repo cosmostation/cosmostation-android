@@ -42,7 +42,7 @@ class StepHarvestReward3ViewController: BaseViewController, PasswordViewDelegate
     func onUpdateView() {
         let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
         feeAmount.attributedText = WUtils.displayAmount2(fAmount.stringValue, feeAmount.font, 6, 6)
-        WUtils.showCoinDp(KAVA_MAIN_DENOM, pageHolderVC.mIncentiveReceivable.stringValue, receivableDenom, receivableAmount, chainType!)
+        WUtils.showCoinDp(KAVA_HARD_DENOM, pageHolderVC.mIncentiveReceivable.stringValue, receivableDenom, receivableAmount, chainType!)
 
         lockupTime.text = pageHolderVC.mIncentiveMultiplier!.months_lockup + " Month"
         type.text = pageHolderVC.mIncentiveMultiplier!.name.uppercased()
