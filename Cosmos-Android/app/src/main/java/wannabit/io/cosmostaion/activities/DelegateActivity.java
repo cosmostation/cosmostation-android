@@ -13,18 +13,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
-import wannabit.io.cosmostaion.dialog.Dialog_VestingAccount;
 import wannabit.io.cosmostaion.fragment.DelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep2Fragment;
@@ -32,10 +27,6 @@ import wannabit.io.cosmostaion.fragment.DelegateStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class DelegateActivity extends BaseActivity {
 
@@ -179,8 +170,6 @@ public class DelegateActivity extends BaseActivity {
         intent.putExtra("toAddress", mValidator.operator_address);
         intent.putExtra("dAmount", mToDelegateAmount);
         intent.putExtra("memo", mToDelegateMemo);
-        //TODO testcode
-        if(IS_FEE_FREE) mToDelegateFee.amount.get(0).amount = "0";
         intent.putExtra("fee", mToDelegateFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);

@@ -44,7 +44,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_IRIS_REWARD;
@@ -201,8 +200,6 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REWARD);
         intent.putExtra("validators", mValidators);
         intent.putExtra("memo", mRewardMemo);
-        //TODO testcode
-        if(IS_FEE_FREE) mRewardFee.amount.get(0).amount = "0";
         intent.putExtra("fee", mRewardFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);

@@ -40,7 +40,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class RedelegateActivity extends BaseActivity implements TaskListener {
@@ -195,8 +194,6 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         intent.putExtra("toValidator", mToValidator);
         intent.putExtra("rAmount", mReDelegateAmount);
         intent.putExtra("memo", mReDelegateMemo);
-        //TODO testcode
-        if(IS_FEE_FREE) mReDelegateFee.amount.get(0).amount = "0";
         intent.putExtra("fee", mReDelegateFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);

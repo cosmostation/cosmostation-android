@@ -26,8 +26,6 @@ import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Fee;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
-
 public class RewardAddressChangeActivity extends BaseActivity {
 
     private ImageView               mChainBg;
@@ -157,8 +155,6 @@ public class RewardAddressChangeActivity extends BaseActivity {
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS);
         intent.putExtra("newRewardAddress", mNewRewardAddress);
         intent.putExtra("memo", mMemo);
-        //TODO testcode
-        if(IS_FEE_FREE) mFee.amount.get(0).amount = "0";
         intent.putExtra("fee", mFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);

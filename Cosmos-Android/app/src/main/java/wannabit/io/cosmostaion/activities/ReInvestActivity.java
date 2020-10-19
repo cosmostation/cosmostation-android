@@ -20,9 +20,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.fragment.ReInvestStep0Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep1Fragment;
@@ -33,7 +31,6 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -47,7 +44,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_IRIS_REWARD;
 
@@ -189,8 +185,6 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
         mReinvestCoin.amount = new BigDecimal(mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
         intent.putExtra("reInvestAmount", mReinvestCoin);
         intent.putExtra("memo", mReinvestMemo);
-        //TODO testcode
-        if(IS_FEE_FREE) mReinvestFee.amount.get(0).amount = "0";
         intent.putExtra("fee", mReinvestFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);

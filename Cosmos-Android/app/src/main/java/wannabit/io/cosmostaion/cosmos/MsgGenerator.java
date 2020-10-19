@@ -381,7 +381,6 @@ public class MsgGenerator {
         if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             value.from = from;
             value.swap_id = swapId.toUpperCase();
-
             result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
             result.value = value;
 

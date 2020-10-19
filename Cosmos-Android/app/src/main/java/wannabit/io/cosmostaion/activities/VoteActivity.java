@@ -25,8 +25,6 @@ import wannabit.io.cosmostaion.fragment.VoteStep2Fragment;
 import wannabit.io.cosmostaion.fragment.VoteStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Fee;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
-
 public class VoteActivity extends BaseActivity {
 
     private RelativeLayout              mRootView;
@@ -155,7 +153,6 @@ public class VoteActivity extends BaseActivity {
         intent.putExtra("proposal_id", mProposeId);
         intent.putExtra("opinion", mOpinion);
         intent.putExtra("memo", mMemo);
-        if(IS_FEE_FREE) mFee.amount.get(0).amount = "0";
         intent.putExtra("fee", mFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
