@@ -55,7 +55,7 @@ public class WithdrawCdpActivity extends BaseActivity {
     private ViewPager                   mViewPager;
     private WithdrawCdpPageAdapter      mPageAdapter;
 
-    private String                      mMarketDenom;
+    private String                      mCollateralParamType;
     private String                      mMaketId;
 
     public Coin                         mCollateral = new Coin();
@@ -93,10 +93,10 @@ public class WithdrawCdpActivity extends BaseActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mBalances = mAccount.getBalances();
 
-        mMarketDenom = getIntent().getStringExtra("denom");
+        mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
         mCdpParam = getBaseDao().mKavaCdpParams;
-        mCollateralParam = mCdpParam.getCollateralParamByDenom(mMarketDenom);
+        mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
         if (mCdpParam == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");
             onBackPressed();
@@ -196,11 +196,6 @@ public class WithdrawCdpActivity extends BaseActivity {
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
     }
-
-    public BigDecimal getcAvailable() {
-        return WUtil.getTokenBalance(mBalances, mMarketDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, mMarketDenom).balance;
-    }
-
 
     private class WithdrawCdpPageAdapter extends FragmentPagerAdapter {
 

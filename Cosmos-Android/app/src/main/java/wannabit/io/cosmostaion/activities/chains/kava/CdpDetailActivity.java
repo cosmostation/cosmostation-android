@@ -44,13 +44,13 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOTAL_SUPPLY;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOTAL_SUPPLY;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class CdpDetailActivity extends BaseActivity implements TaskListener, View.OnClickListener {
 
@@ -125,7 +125,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
     private ArrayList<ResKavaIncentiveReward.IncentiveRewardClaimable> mKavaUnClaimedIncentiveRewards = new ArrayList<>();
 
 
-    private String                      mMarketDenom;
+    private String                      mCollateralParamType;
     private String                      mMaketId;
 
 
@@ -223,12 +223,12 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mBalances = mAccount.getBalances();
 
-        mMarketDenom = getIntent().getStringExtra("denom");
+        mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
-        WLog.w("mMarketDenom " + mMarketDenom);
+        WLog.w("mCollateralParamType " + mCollateralParamType);
         WLog.w("mMaketId " + mMaketId);
         mCdpParam = getBaseDao().mKavaCdpParams;
-        mCollateralParam = mCdpParam.getCollateralParamByDenom(mMarketDenom);
+        mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
         mKavaUnClaimedIncentiveRewards = getBaseDao().mKavaUnClaimedIncentiveRewards;
         if (mCdpParam == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");
@@ -456,14 +456,14 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
         } else if (v.equals(mMySelfDepositLayer)) {
             onShowHelpPopup(getString(R.string.str_help_self_deposited_collateral_t),
-                    String.format(getString(R.string.str_help_self_deposited_collateral_), mMarketDenom.toUpperCase()));
+                    String.format(getString(R.string.str_help_self_deposited_collateral_), mCollateralParam.denom.toUpperCase()));
 
         } else if (v.equals(mMyTotalDepositLayer)) {
             onShowHelpPopup(getString(R.string.str_help_total_deposited_collateral_t),
-                    String.format(getString(R.string.str_help_total_deposited_collateral), mMarketDenom.toUpperCase()));
+                    String.format(getString(R.string.str_help_total_deposited_collateral), mCollateralParam.denom.toUpperCase()));
 
         } else if (v.equals(mMyWithdrawableLayer)) {
-            onShowHelpPopup(getString(R.string.str_expected_withdrawable_amount) + " " + mMarketDenom.toUpperCase(),
+            onShowHelpPopup(getString(R.string.str_expected_withdrawable_amount) + " " + mCollateralParam.denom.toUpperCase(),
                     getString(R.string.str_help_withdrawable));
 
         } else if (v.equals(mMyLoadnedLayer)) {
@@ -529,7 +529,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
         }
         Intent intent = new Intent(CdpDetailActivity.this, CreateCdpActivity.class);
-        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("collateralParamType", mCollateralParamType);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
     }
@@ -541,7 +541,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
             return;
         }
         Intent intent = new Intent(this, DepositCdpActivity.class);
-        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("collateralParamType", mCollateralParamType);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
     }
@@ -555,7 +555,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
             return;
         }
         Intent intent = new Intent(this, WithdrawCdpActivity.class);
-        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("collateralParamType", mCollateralParamType);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
     }
@@ -572,7 +572,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
         }
         Intent intent = new Intent(CdpDetailActivity.this, DrawDebtActivity.class);
-        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("collateralParamType", mCollateralParamType);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
 
@@ -597,7 +597,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
         }
 
         Intent intent = new Intent(this, RepayCdpActivity.class);
-        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("collateralParamType", mCollateralParamType);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
     }

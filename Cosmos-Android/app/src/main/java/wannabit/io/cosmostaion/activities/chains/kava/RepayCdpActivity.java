@@ -56,7 +56,7 @@ public class RepayCdpActivity extends BaseActivity implements TaskListener {
     private ViewPager                   mViewPager;
     private RepayCdpPageAdapter         mPageAdapter;
 
-    private String                          mMarketDenom;
+    private String                          mCollateralParamType;
     private String                          mMaketId;
     public ResCdpParam.Result               mCdpParam;
     public ResKavaMarketPrice.Result        mKavaTokenPrice;
@@ -92,10 +92,10 @@ public class RepayCdpActivity extends BaseActivity implements TaskListener {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mBalances = mAccount.getBalances();
 
-        mMarketDenom = getIntent().getStringExtra("denom");
+        mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
         mCdpParam = getBaseDao().mKavaCdpParams;
-        mCollateralParam = mCdpParam.getCollateralParamByDenom(mMarketDenom);
+        mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
         if (mCdpParam == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");
             onBackPressed();
@@ -193,10 +193,6 @@ public class RepayCdpActivity extends BaseActivity implements TaskListener {
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
     }
-
-//    public ResCdpParam.KavaCollateralParam getCParam() {
-//        return mCdpParam.getCollateralParamByDenom(mMarketDenom);
-//    }
 
     public BigDecimal getTokenAvailable(String denom) {
         return WUtil.getTokenBalance(mBalances, denom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, denom).balance;

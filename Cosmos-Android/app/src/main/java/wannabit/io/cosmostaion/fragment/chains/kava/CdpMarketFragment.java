@@ -245,7 +245,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
                     status = mMyOwenCdps.get(position);
 
                 }
-                final ResCdpParam.KavaCollateralParam collateralParam = mCdpParam.getCollateralParamByDenom(status.getDenom());
+                final ResCdpParam.KavaCollateralParam collateralParam = mCdpParam.getCollateralParamByType(status.cdp.type);
                 final ResKavaMarketPrice.Result price = mKavaTokenPrices.get(collateralParam.liquidation_market_id);
                 final int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
 
@@ -288,7 +288,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getSActivity(), CdpDetailActivity.class);
-                        intent.putExtra("denom", collateralParam.denom);
+                        intent.putExtra("collateralParamType", collateralParam.type);
                         intent.putExtra("marketId", collateralParam.liquidation_market_id);
                         startActivity(intent);
                     }
@@ -317,7 +317,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getSActivity(), CdpDetailActivity.class);
-                        intent.putExtra("denom", collateralParam.denom);
+                        intent.putExtra("collateralParamType", collateralParam.type);
                         intent.putExtra("marketId", collateralParam.liquidation_market_id);
                         startActivity(intent);
                     }

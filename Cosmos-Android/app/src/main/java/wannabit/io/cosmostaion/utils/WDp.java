@@ -509,6 +509,7 @@ public class WDp {
             if (prices == null || prices.size() <= 0 || params == null) {
                 return BigDecimal.ZERO;
             }
+            //don't care collateral type
             ResCdpParam.KavaCollateralParam collateralParam = params.getCollateralParamByDenom(denom);
             if (collateralParam == null || collateralParam.liquidation_market_id == null) {
                 return BigDecimal.ZERO;

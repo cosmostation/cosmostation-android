@@ -55,7 +55,7 @@ public class DepositCdpActivity extends BaseActivity {
     private ViewPager                   mViewPager;
     private DepositCdpPageAdapter       mPageAdapter;
 
-    private String                          mMarketDenom;
+    private String                          mCollateralParamType;
     private String                          mMaketId;
     public ResCdpParam.Result               mCdpParam;
     public ResKavaMarketPrice.Result        mKavaTokenPrice;
@@ -92,10 +92,10 @@ public class DepositCdpActivity extends BaseActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mBalances = mAccount.getBalances();
 
-        mMarketDenom = getIntent().getStringExtra("denom");
+        mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
         mCdpParam = getBaseDao().mKavaCdpParams;
-        mCollateralParam = mCdpParam.getCollateralParamByDenom(mMarketDenom);
+        mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
         if (mCdpParam == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");
             onBackPressed();
@@ -198,7 +198,7 @@ public class DepositCdpActivity extends BaseActivity {
     }
 
     public BigDecimal getcAvailable() {
-        return WUtil.getTokenBalance(mBalances, mMarketDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, mMarketDenom).balance;
+        return WUtil.getTokenBalance(mBalances, mCollateralParam.denom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, mCollateralParam.denom).balance;
     }
 
     private class DepositCdpPageAdapter extends FragmentPagerAdapter {

@@ -55,7 +55,7 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
     private ViewPager                   mViewPager;
     private DrawDebtCdpPageAdapter      mPageAdapter;
 
-    private String                          mMarketDenom;
+    private String                          mCollateralParamType;
     private String                          mMaketId;
     public ResCdpParam.Result               mCdpParam;
     public ResKavaMarketPrice.Result        mKavaTokenPrice;
@@ -92,10 +92,10 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mBalances = mAccount.getBalances();
 
-        mMarketDenom = getIntent().getStringExtra("denom");
+        mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
         mCdpParam = getBaseDao().mKavaCdpParams;
-        mCollateralParam = mCdpParam.getCollateralParamByDenom(mMarketDenom);
+        mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
         if (mCdpParam == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");
             onBackPressed();
@@ -193,14 +193,6 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
     }
-
-//    public ResCdpParam.Result getCDPParam() {
-//        return mCdpParam;
-//    }
-//
-//    public ResCdpParam.KavaCollateralParam getCParam() {
-//        return mCdpParam.getCollateralParamByDenom(mMarketDenom);
-//    }
 
     private class DrawDebtCdpPageAdapter extends FragmentPagerAdapter {
 

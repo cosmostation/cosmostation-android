@@ -52,7 +52,7 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
     private ViewPager                   mViewPager;
     private CreateCdpPageAdapter        mPageAdapter;
 
-    private String                          mMarketDenom;
+    private String                          mCollateralParamType;
     private String                          mMaketId;
 
     public ResCdpParam.Result               mCdpParam;
@@ -89,10 +89,10 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mBalances = mAccount.getBalances();
 
-        mMarketDenom = getIntent().getStringExtra("denom");
+        mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
         mCdpParam = getBaseDao().mKavaCdpParams;
-        mCollateralParam = mCdpParam.getCollateralParamByDenom(mMarketDenom);
+        mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
         if (mCdpParam == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");
             onBackPressed();
@@ -197,7 +197,7 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
     }
 
     public BigDecimal getcAvailable() {
-        return WUtil.getTokenBalance(mBalances, mMarketDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, mMarketDenom).balance;
+        return WUtil.getTokenBalance(mBalances, mCollateralParam.denom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, mCollateralParam.denom).balance;
     }
 
 

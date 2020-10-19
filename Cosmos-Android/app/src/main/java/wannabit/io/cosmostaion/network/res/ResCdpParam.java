@@ -64,6 +64,7 @@ public class ResCdpParam {
             return BigDecimal.ZERO;
         }
 
+        //only using for price
         public KavaCollateralParam getCollateralParamByDenom(String denom) {
             KavaCollateralParam result = null;
             for (KavaCollateralParam collateralParam:collateral_params) {
@@ -73,6 +74,18 @@ public class ResCdpParam {
             }
             return  result;
         }
+
+
+        public KavaCollateralParam getCollateralParamByType(String type) {
+            KavaCollateralParam result = null;
+            for (KavaCollateralParam collateralParam:collateral_params) {
+                if (collateralParam.type.equals(type)) {
+                    return collateralParam;
+                }
+            }
+            return  result;
+        }
+
     }
 
     public class KavaCdpDebtParam {
@@ -127,10 +140,9 @@ public class ResCdpParam {
         public String liquidation_market_id;
 
         public String getDpMarketId() {
-//            if (!TextUtils.isEmpty(spot_market_id))
-//                return spot_market_id.split(":")[0].toUpperCase() + " : " + spot_market_id.split(":")[1].toUpperCase() + "X";
-            if (!TextUtils.isEmpty(spot_market_id))
-                return spot_market_id.split(":")[0].toUpperCase() + " : " + spot_market_id.split(":")[1].toUpperCase();
+            if (!TextUtils.isEmpty(denom) && !TextUtils.isEmpty(debt_limit.denom)) {
+                return denom.toUpperCase() + " : " + debt_limit.denom.toUpperCase();
+            }
             return "";
         }
 
