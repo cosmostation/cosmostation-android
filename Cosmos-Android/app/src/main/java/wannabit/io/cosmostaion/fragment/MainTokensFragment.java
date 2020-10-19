@@ -40,7 +40,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -54,7 +53,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -66,7 +64,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 public class MainTokensFragment extends BaseFragment implements View.OnClickListener {
@@ -268,7 +265,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             BigDecimal totalAtomAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_ATOM) || (IS_TEST && balance.symbol.equals(TOKEN_MUON))) {
+                if (balance.symbol.equals(TOKEN_ATOM)) {
                     totalAtomAmount = totalAtomAmount.add(WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
                 } else {
 
@@ -440,7 +437,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onBindCosmosItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_ATOM) || (IS_TEST && balance.symbol.equals(TOKEN_MUON))) {
+        if (balance.symbol.equals(TOKEN_ATOM)) {
             holder.itemSymbol.setText(getString(R.string.str_atom_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");

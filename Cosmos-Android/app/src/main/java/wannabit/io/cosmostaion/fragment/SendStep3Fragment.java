@@ -55,7 +55,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IRIS_GAS_RATE_AVERAG
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -64,7 +63,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 public class SendStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -328,27 +326,15 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.equals(mNextBtn)) {
             if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                if(IS_TEST) {
-                    Fee fee = new Fee();
-                    Coin gasCoin = new Coin();
-                    gasCoin.denom = TOKEN_MUON;
-                    gasCoin.amount = mFeeAmount.toPlainString();
-                    ArrayList<Coin> amount = new ArrayList<>();
-                    amount.add(gasCoin);
-                    fee.amount = amount;
-                    fee.gas = FEE_GAS_AMOUNT_HALF;
-                    getSActivity().mTargetFee = fee;
-                } else {
-                    Fee fee = new Fee();
-                    Coin gasCoin = new Coin();
-                    gasCoin.denom = TOKEN_ATOM;
-                    gasCoin.amount = mFeeAmount.toPlainString();
-                    ArrayList<Coin> amount = new ArrayList<>();
-                    amount.add(gasCoin);
-                    fee.amount = amount;
-                    fee.gas = FEE_GAS_AMOUNT_HALF;
-                    getSActivity().mTargetFee = fee;
-                }
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = TOKEN_ATOM;
+                gasCoin.amount = mFeeAmount.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = FEE_GAS_AMOUNT_HALF;
+                getSActivity().mTargetFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 Fee fee = new Fee();

@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base;
 
 import java.util.ArrayList;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
@@ -105,11 +104,7 @@ public enum BaseChain {
                 chain.equals(COSMOS_LEGACY1.chainName) ||
                 chain.equals(COSMOS_LEGACY2.chainName) ||
                 chain.equals(COSMOS_LEGACY3.chainName)) {
-            if(IS_TEST) {
-                return "gaia-13006";
-            } else {
-                return COSMOS_MAIN.getChain();
-            }
+            return COSMOS_MAIN.getChain();
 
         }
         if (chain.equals(IRIS_MAIN.chainName)) {

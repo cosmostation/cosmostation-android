@@ -40,7 +40,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -50,7 +49,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 
@@ -392,13 +390,8 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                if (IS_TEST) {
-                    Coin muon = new Coin(TOKEN_MUON, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
-                    mToSendCoins.add(muon);
-                } else {
-                    Coin atom = new Coin(TOKEN_ATOM, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
-                    mToSendCoins.add(atom);
-                }
+                Coin atom = new Coin(TOKEN_ATOM, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                mToSendCoins.add(atom);
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {

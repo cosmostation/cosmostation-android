@@ -68,7 +68,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -78,7 +77,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
@@ -397,14 +395,8 @@ public class WDp {
     public static BigDecimal getAvailableCoin(ArrayList<Balance> balances, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
-            if (denom.equals(TOKEN_ATOM) && IS_TEST) {
-                if (balance.symbol.equalsIgnoreCase(TOKEN_MUON)) {
-                    sum = balance.balance;
-                }
-            } else {
-                if (balance.symbol.equalsIgnoreCase(denom)) {
-                    sum = balance.balance;
-                }
+            if (balance.symbol.equalsIgnoreCase(denom)) {
+                sum = balance.balance;
             }
         }
         return sum;
