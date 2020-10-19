@@ -317,8 +317,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         onStartHTLCSendActivity(mBalance.symbol);
     }
 
-
-
     public boolean onCheckSendable() {
         if (mAccount == null) return false;
         if (!mAccount.hasPrivateKey) {

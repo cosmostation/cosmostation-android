@@ -131,10 +131,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mUndelegateAmount0, mUndelegateAmount1, mUndelegateAmount2, mUndelegateAmount3, mUndelegateAmount4;
     private TextView            mUndelegateTime0, mUndelegateTime1, mUndelegateTime2, mUndelegateTime3, mUndelegateTime4;
 
-//    private CardView            mKavaIncentiveCard;
-//    private RelativeLayout      mBtnParticipate;
-//    private TextView            mParticipateDone;
-
     private RelativeLayout      mPriceLayer;
     private TextView            mMarket;
     private TextView            mPerPrice, mUpDownPrice;
@@ -150,13 +146,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mGuideTitle, mGuideMsg;
     private LinearLayout        mGuideAction;
     private Button              mGuideBtn, mFaqBtn;
-
-//    private CardView            mVestingCard;
-//    private TextView            mVestingCnt, mVestingTotalAmount;
-//    private RelativeLayout      mVestingLayer0, mVestingLayer1, mVestingLayer2, mVestingLayer3, mVestingLayer4;
-//    private TextView            mVestingTime0, mVestingTime1, mVestingTime2, mVestingTime3, mVestingTime4;
-//    private TextView            mVestingGap0, mVestingGap1, mVestingGap2, mVestingGap3, mVestingGap4;
-//    private TextView            mVestingAmount0, mVestingAmount1, mVestingAmount2, mVestingAmount3, mVestingAmount4;
 
     public static MainSendFragment newInstance(Bundle bundle) {
         MainSendFragment fragment = new MainSendFragment();
@@ -299,10 +288,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mUndelegateTime3        = mUndelegateCard.findViewById(R.id.undelegate_detail_time3);
         mUndelegateTime4        = mUndelegateCard.findViewById(R.id.undelegate_detail_time4);
 
-//        mKavaIncentiveCard      = rootView.findViewById(R.id.card_kava_incentive);
-//        mBtnParticipate         = mKavaIncentiveCard.findViewById(R.id.btn_kava_incentive);
-//        mParticipateDone        = mKavaIncentiveCard.findViewById(R.id.kava_incentive_done);
-
         mPriceLayer             = rootView.findViewById(R.id.price_layer);
         mMarket                 = rootView.findViewById(R.id.dash_price_market);
         mPerPrice               = rootView.findViewById(R.id.dash_per_price);
@@ -322,31 +307,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mGuideAction            = rootView.findViewById(R.id.action_guide);
         mGuideBtn               = rootView.findViewById(R.id.btn_guide);
         mFaqBtn                 = rootView.findViewById(R.id.btn_faq);
-
-//        mVestingCard            = rootView.findViewById(R.id.card_vesting);
-//        mVestingCnt             = mVestingCard.findViewById(R.id.vesting_count);
-//        mVestingTotalAmount     = mVestingCard.findViewById(R.id.total_vesting_amount);
-//        mVestingLayer0          = mVestingCard.findViewById(R.id.vesting_layer0);
-//        mVestingLayer1          = mVestingCard.findViewById(R.id.vesting_layer1);
-//        mVestingLayer2          = mVestingCard.findViewById(R.id.vesting_layer2);
-//        mVestingLayer3          = mVestingCard.findViewById(R.id.vesting_layer3);
-//        mVestingLayer4          = mVestingCard.findViewById(R.id.vesting_layer4);
-//        mVestingTime0           = mVestingCard.findViewById(R.id.vesting_time0);
-//        mVestingTime1           = mVestingCard.findViewById(R.id.vesting_time1);
-//        mVestingTime2           = mVestingCard.findViewById(R.id.vesting_time2);
-//        mVestingTime3           = mVestingCard.findViewById(R.id.vesting_time3);
-//        mVestingTime4           = mVestingCard.findViewById(R.id.vesting_time4);
-//        mVestingGap0            = mVestingCard.findViewById(R.id.vesting_gap0);
-//        mVestingGap1            = mVestingCard.findViewById(R.id.vesting_gap1);
-//        mVestingGap2            = mVestingCard.findViewById(R.id.vesting_gap2);
-//        mVestingGap3            = mVestingCard.findViewById(R.id.vesting_gap3);
-//        mVestingGap4            = mVestingCard.findViewById(R.id.vesting_gap4);
-//        mVestingAmount0         = mVestingCard.findViewById(R.id.vesting_amount0);
-//        mVestingAmount1         = mVestingCard.findViewById(R.id.vesting_amount1);
-//        mVestingAmount2         = mVestingCard.findViewById(R.id.vesting_amount2);
-//        mVestingAmount3         = mVestingCard.findViewById(R.id.vesting_amount3);
-//        mVestingAmount4         = mVestingCard.findViewById(R.id.vesting_amount4);
-
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -1099,24 +1059,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else {
             mUndelegateCard.setVisibility(View.GONE);
         }
-
-//        // Show incentive claim card
-//        if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-//            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-//                mKavaIncentiveCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-//            } else {
-//                mKavaIncentiveCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-//            }
-//            if (getBaseDao().mKavaUnClaimedIncentiveRewards.size() > 0) {
-//                mKavaIncentiveCard.setVisibility(View.VISIBLE);
-//            } else {
-//                mKavaIncentiveCard.setVisibility(View.GONE);
-//            }
-//
-//        } else {
-//            mKavaIncentiveCard.setVisibility(View.GONE);
-//        }
-
         getMainActivity().onUpdateAccountListAdapter();
     }
 
@@ -1334,13 +1276,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnIovNameService)) {
             getMainActivity().onStarNameService();
 
-        }
-//        else if (v.equals(mBtnParticipate)) {
-//            getMainActivity().onStartIncentiveClaim();
-//
-//        }
-
-        else if (v.equals(mBtnOkDeposit)) {
+        } else if (v.equals(mBtnOkDeposit)) {
             if (getBaseDao().mTopValidators == null && getBaseDao().mTopValidators.size() == 0) return;
             getMainActivity().onStartOkDeposit();
 
