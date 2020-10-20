@@ -18,9 +18,11 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
+    var mBandOracleStatus: BandOracleStatus?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         self.myValidatorTableView.delegate = self
         self.myValidatorTableView.dataSource = self
         self.myValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -60,6 +62,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
+        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         self.onSortingMy()
         self.refresher.endRefreshing()
     }
@@ -209,6 +212,9 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         } else if (chainType == ChainType.BAND_MAIN) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
             cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
+            if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
+                if (!oracle) { cell.bandOracleOffImg.isHidden = false }
+            }
             let url = BAND_VAL_URL + validator.operator_address + ".png"
             cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             

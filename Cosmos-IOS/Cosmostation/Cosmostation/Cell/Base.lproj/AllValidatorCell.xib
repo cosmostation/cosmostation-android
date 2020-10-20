@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -56,11 +56,14 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Moniker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjm-OC-kdP">
-                                <rect key="frame" x="80" y="10" width="192" height="18"/>
+                                <rect key="frame" x="80" y="10" width="120" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="bandoracleoffs" translatesAutoresizingMaskIntoConstraints="NO" id="SWg-PX-qoh">
+                                <rect key="frame" x="204" y="12.5" width="58" height="13"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Voting Power" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCK-fO-o03">
                                 <rect key="frame" x="80" y="32" width="160" height="14"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
@@ -89,14 +92,15 @@
                         <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.1803921568627451" alpha="0.40287885273972601" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="O5H-eg-GqK" secondAttribute="trailing" constant="6" id="4DM-Wa-YIb"/>
+                            <constraint firstItem="SWg-PX-qoh" firstAttribute="leading" secondItem="tjm-OC-kdP" secondAttribute="trailing" constant="4" id="7CD-2z-6e0"/>
                             <constraint firstItem="NCK-fO-o03" firstAttribute="top" secondItem="tjm-OC-kdP" secondAttribute="bottom" constant="4" id="E7B-sn-ehA"/>
-                            <constraint firstAttribute="trailing" secondItem="tjm-OC-kdP" secondAttribute="trailing" constant="24" id="Ehd-gi-waS"/>
                             <constraint firstItem="qu3-wc-OAX" firstAttribute="leading" secondItem="NCK-fO-o03" secondAttribute="leading" id="JoU-Nt-7qF"/>
                             <constraint firstItem="NCK-fO-o03" firstAttribute="leading" secondItem="tjm-OC-kdP" secondAttribute="leading" id="M2B-VP-cd5"/>
                             <constraint firstItem="O5H-eg-GqK" firstAttribute="centerY" secondItem="uAB-cB-2gH" secondAttribute="centerY" id="MaY-Fo-541"/>
                             <constraint firstItem="O5H-eg-GqK" firstAttribute="leading" secondItem="JMl-wn-8tR" secondAttribute="trailing" constant="8" id="Op8-pY-efb"/>
                             <constraint firstItem="tjm-OC-kdP" firstAttribute="top" secondItem="uAB-cB-2gH" secondAttribute="top" constant="10" id="PCE-hf-qvh"/>
                             <constraint firstItem="hmo-hQ-aHU" firstAttribute="leading" secondItem="3kV-jR-rnU" secondAttribute="leading" id="WKn-P3-Afo"/>
+                            <constraint firstItem="SWg-PX-qoh" firstAttribute="centerY" secondItem="tjm-OC-kdP" secondAttribute="centerY" id="bon-Ve-tzU"/>
                             <constraint firstItem="tjm-OC-kdP" firstAttribute="leading" secondItem="1Er-7z-ec7" secondAttribute="leading" constant="12" id="dcy-GC-jVI"/>
                             <constraint firstItem="L7e-dz-DE7" firstAttribute="top" secondItem="3kV-jR-rnU" secondAttribute="top" constant="-4" id="fSt-WS-feK"/>
                             <constraint firstAttribute="bottom" secondItem="qu3-wc-OAX" secondAttribute="bottom" constant="10" id="gbS-zN-9gB"/>
@@ -108,6 +112,7 @@
                             <constraint firstItem="JMl-wn-8tR" firstAttribute="centerY" secondItem="qu3-wc-OAX" secondAttribute="centerY" id="oqc-wQ-zqk"/>
                             <constraint firstItem="3kV-jR-rnU" firstAttribute="centerY" secondItem="uAB-cB-2gH" secondAttribute="centerY" id="sdy-5w-woz"/>
                             <constraint firstItem="D7D-lq-a7d" firstAttribute="leading" secondItem="NCK-fO-o03" secondAttribute="trailing" constant="12" id="vaT-fe-oCQ"/>
+                            <constraint firstItem="O5H-eg-GqK" firstAttribute="leading" secondItem="SWg-PX-qoh" secondAttribute="trailing" constant="4" id="vbS-i7-Uhw"/>
                             <constraint firstItem="O5H-eg-GqK" firstAttribute="leading" secondItem="D7D-lq-a7d" secondAttribute="trailing" constant="8" id="wCo-H2-WRs"/>
                             <constraint firstItem="D7D-lq-a7d" firstAttribute="centerY" secondItem="NCK-fO-o03" secondAttribute="centerY" id="xLu-69-1B3"/>
                             <constraint firstAttribute="bottom" secondItem="1Er-7z-ec7" secondAttribute="bottom" constant="12" id="yAc-5T-bH9"/>
@@ -140,9 +145,10 @@
                     <constraint firstAttribute="trailing" secondItem="uAB-cB-2gH" secondAttribute="trailing" constant="12" id="TYw-ZF-z9v"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="bandOracleOffImg" destination="SWg-PX-qoh" id="VA8-sx-OxE"/>
                 <outlet property="cardView" destination="uAB-cB-2gH" id="kYF-VI-mlI"/>
                 <outlet property="commissionLabel" destination="JMl-wn-8tR" id="KaI-Jm-1ra"/>
                 <outlet property="freeEventImg" destination="L7e-dz-DE7" id="oqg-Rz-NZY"/>
@@ -151,11 +157,12 @@
                 <outlet property="revokedImg" destination="hmo-hQ-aHU" id="5BX-zo-5jj"/>
                 <outlet property="validatorImg" destination="3kV-jR-rnU" id="s4b-II-YBL"/>
             </connections>
-            <point key="canvasLocation" x="139" y="155"/>
+            <point key="canvasLocation" x="137.59999999999999" y="154.72263868065968"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="arrowNextGr" width="24" height="24"/>
+        <image name="bandoracleoffs" width="58" height="13"/>
         <image name="freeIc" width="20" height="20"/>
         <image name="jailedImg" width="44" height="44"/>
         <image name="validatorNoneImg" width="44" height="44"/>

@@ -15,6 +15,7 @@ class ValidatorDetailMyDetailCell: UITableViewCell {
     @IBOutlet weak var freeEventImg: UIImageView!
     @IBOutlet weak var jailedImg: UIImageView!
     @IBOutlet weak var monikerName: UILabel!
+    @IBOutlet weak var bandOracleImg: UIImageView!
     @IBOutlet weak var operatorAddress: UILabel!
     @IBOutlet weak var website: UILabel!
     @IBOutlet weak var descriptionMsg: UILabel!

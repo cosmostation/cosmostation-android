@@ -32,6 +32,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     var mStakingPool: NSDictionary?
     var mIrisStakePool: NSDictionary?
     var mIrisRedelegate: Array<NSDictionary>?
+    var mBandOracleStatus: BandOracleStatus?
     
     var refresher: UIRefreshControl!
 
@@ -60,6 +61,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         self.mProvision = BaseData.instance.mProvision
         self.mStakingPool = BaseData.instance.mStakingPool
         self.mIrisStakePool = BaseData.instance.mIrisStakePool
+        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         
         self.loadingImg.onStartAnimation()
         self.onFech()
@@ -120,12 +122,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else if (chainType == ChainType.BAND_MAIN) {
             mUnbondings.removeAll()
             mRewards.removeAll()
-            mFetchCnt = 5
+            mFetchCnt = 6
             onFetchValidatorInfo(mValidator!)
             onFetchSignleBondingInfo(account!, mValidator!)
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             onFetchApiHistory(account!, mValidator!)
+            onFetchBandOracleStatus()
             
         } else if (chainType == ChainType.SECRET_MAIN) {
             mUnbondings.removeAll()
@@ -185,10 +188,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             } else {
                 mMyValidator = false
             }
+            self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
 //            print("mMyValidator ", mMyValidator)
             
             self.validatorDetailTableView.reloadData()
-            
             self.loadingImg.onStopAnimation()
             self.loadingImg.isHidden = true
             self.validatorDetailTableView.isHidden = false
@@ -281,6 +284,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else if (chainType == ChainType.BAND_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
+            if let oracle = mBandOracleStatus?.isEnable(mValidator!.operator_address) {
+                if (oracle) {
+                    cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
+                } else {
+                    cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
+                }
+                cell?.bandOracleImg.isHidden = false
+            }
             let url = BAND_VAL_URL + mValidator!.operator_address + ".png"
             cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
@@ -422,6 +433,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else if (chainType == ChainType.BAND_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
+            if let oracle = mBandOracleStatus?.isEnable(mValidator!.operator_address) {
+                if (oracle) {
+                    cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
+                } else {
+                    cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
+                }
+                cell?.bandOracleImg.isHidden = false
+            }
             let url = BAND_VAL_URL + mValidator!.operator_address + ".png"
             cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
@@ -1324,6 +1343,25 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
+        }
+    }
+    
+    func onFetchBandOracleStatus() {
+        let url = BAND_ORACLE_STATUS
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mBandOracleStatus = BandOracleStatus.init(info)
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBandOracleStatus ", error) }
+            }
+            self.onFetchFinished()
         }
     }
     

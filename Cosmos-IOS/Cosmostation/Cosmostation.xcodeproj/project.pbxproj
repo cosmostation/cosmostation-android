@@ -168,6 +168,7 @@
 		2868559B24989ACD0099D18F /* DelegateWarnPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559924989ACD0099D18F /* DelegateWarnPopup.swift */; };
 		2868559C24989ACD0099D18F /* DelegateWarnPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */; };
 		286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559F2498DBBF0099D18F /* KavaSupply.swift */; };
+		286A9915253ECA0600306417 /* BandOracleStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286A9914253ECA0600306417 /* BandOracleStatus.swift */; };
 		2872B0F2252EF79900E8CACF /* WalletSecretCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2872B0F0252EF79900E8CACF /* WalletSecretCell.swift */; };
 		2872B0F3252EF79900E8CACF /* WalletSecretCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2872B0F1252EF79900E8CACF /* WalletSecretCell.xib */; };
 		2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */; };
@@ -610,6 +611,7 @@
 		2868559924989ACD0099D18F /* DelegateWarnPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateWarnPopup.swift; sourceTree = "<group>"; };
 		2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelegateWarnPopup.xib; sourceTree = "<group>"; };
 		2868559F2498DBBF0099D18F /* KavaSupply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSupply.swift; sourceTree = "<group>"; };
+		286A9914253ECA0600306417 /* BandOracleStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandOracleStatus.swift; sourceTree = "<group>"; };
 		2872B0F0252EF79900E8CACF /* WalletSecretCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSecretCell.swift; sourceTree = "<group>"; };
 		2872B0F1252EF79900E8CACF /* WalletSecretCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSecretCell.xib; sourceTree = "<group>"; };
 		2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUnbondingInfoCellTableViewCell.swift; sourceTree = "<group>"; };
@@ -1441,6 +1443,7 @@
 				28BB2A9C2534171700CFF097 /* StarNameDomain.swift */,
 				28BB2A9F2534173200CFF097 /* StarNameAccount.swift */,
 				28BB2AA2253417CE00CFF097 /* StarNameResource.swift */,
+				286A9914253ECA0600306417 /* BandOracleStatus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1844,6 +1847,7 @@
 				E1069B12229698BA007517DC /* StepChangeAddressViewController.swift in Sources */,
 				E1406FC02260643200D9440C /* BlockInfo.swift in Sources */,
 				E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */,
+				286A9915253ECA0600306417 /* BandOracleStatus.swift in Sources */,
 				285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */,
 				2842AB65242C396700248EEB /* KavaPriceFeedPrice.swift in Sources */,
 				2852D7732477E83400D11DC4 /* CdpIncentiveCell.swift in Sources */,

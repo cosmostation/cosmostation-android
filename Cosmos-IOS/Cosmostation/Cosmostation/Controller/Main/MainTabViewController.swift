@@ -244,7 +244,22 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchMyHavestDeposit(mAccount)
             onFetchMyHavestReward(mAccount)
             
-        } else if (mChainType == ChainType.BAND_MAIN || mChainType == ChainType.SECRET_MAIN) {
+        } else if (mChainType == ChainType.BAND_MAIN) {
+            self.mFetchCnt = 10
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+
+            onFetchInflation()
+            onFetchProvision()
+            onFetchStakingPool()
+            onFetchBandOracleStatus()
+            
+        } else if (mChainType == ChainType.SECRET_MAIN) {
             self.mFetchCnt = 9
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -1583,6 +1598,25 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchStarNameConfig ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchBandOracleStatus() {
+        let url = BAND_ORACLE_STATUS
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mBandOracleStatus = BandOracleStatus.init(info)
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBandOracleStatus ", error) }
             }
             self.onFetchFinished()
         }

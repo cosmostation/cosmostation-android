@@ -23,6 +23,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     var mProvision: String?
     var mStakingPool: NSDictionary?
     var mIrisStakePool: NSDictionary?
+    var mBandOracleStatus: BandOracleStatus?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         self.mProvision = BaseData.instance.mProvision
         self.mStakingPool = BaseData.instance.mStakingPool
         self.mIrisStakePool = BaseData.instance.mIrisStakePool
+        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         
         self.allValidatorTableView.delegate = self
         self.allValidatorTableView.dataSource = self
@@ -71,6 +73,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         self.mProvision = BaseData.instance.mProvision
         self.mStakingPool = BaseData.instance.mStakingPool
         self.mIrisStakePool = BaseData.instance.mIrisStakePool
+        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         self.onSorting()
         self.refresher.endRefreshing()
     }
@@ -172,6 +175,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
+            if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
+                if (!oracle) { cell.bandOracleOffImg.isHidden = false }
+            }
             if (self.mStakingPool != nil && self.mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: self.mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)

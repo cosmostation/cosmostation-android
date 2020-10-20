@@ -15,6 +15,7 @@ class AllValidatorCell: UITableViewCell {
     @IBOutlet weak var freeEventImg: UIImageView!
     @IBOutlet weak var revokedImg: UIImageView!
     @IBOutlet weak var monikerLabel: UILabel!
+    @IBOutlet weak var bandOracleOffImg: UIImageView!
     @IBOutlet weak var powerLabel: UILabel!
     @IBOutlet weak var commissionLabel: UILabel!
     
@@ -42,6 +43,7 @@ class AllValidatorCell: UITableViewCell {
         self.validatorImg.image = UIImage(named: "validatorNoneImg")
         self.monikerLabel.text = "-"
         self.powerLabel.text = "-"
+        self.bandOracleOffImg.isHidden = true
     }
     
     func addRippleEffect(to referenceView: UIView) {

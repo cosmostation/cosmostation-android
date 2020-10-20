@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = false;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -249,6 +249,7 @@ let BAND_STAKING_POOL                   = BAND_URL + "staking/pool";
 let BAND_BORAD_TX                       = BAND_URL + "txs";
 let BAND_PROPOSALS                      = BAND_URL + "gov/proposals";
 let BAND_PROPOSALS_TALLY_TAIL           = "/tally";
+let BAND_ORACLE_STATUS                  = BAND_URL + "oracle/active_validators";
 
 let BAND_API_HISTORY                    = BAND_API + "v1/account/txs/";
 let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";

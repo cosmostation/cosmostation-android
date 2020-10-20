@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,13 +42,16 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aad-Rq-g3G">
-                                <rect key="frame" x="74" y="20" width="206" height="16"/>
+                                <rect key="frame" x="74" y="20" width="152" height="16"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="bandoracleoffs" translatesAutoresizingMaskIntoConstraints="NO" id="zvN-VK-tVE">
+                                <rect key="frame" x="230" y="21.5" width="58" height="13"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdp-y1-b9R">
-                                <rect key="frame" x="74" y="38" width="206" height="14"/>
+                                <rect key="frame" x="74" y="38" width="152" height="14"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" link="YES" staticText="YES"/>
                                 </accessibility>
@@ -69,8 +72,8 @@
                                     <constraint firstAttribute="height" constant="0.5" id="esY-FM-wO4"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" text="Total Bonded" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1h-xY-buQ">
-                                <rect key="frame" x="12" y="108" width="74.5" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Total Bonded" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1h-xY-buQ">
+                                <rect key="frame" x="12" y="108" width="252" height="14"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
@@ -87,7 +90,7 @@
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTd-zn-57S">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTd-zn-57S">
                                 <rect key="frame" x="276" y="107" width="8" height="16"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -117,7 +120,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4b-Ph-MWH">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4b-Ph-MWH">
                                 <rect key="frame" x="12" y="217" width="272" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -148,6 +151,7 @@
                             <constraint firstItem="xdp-y1-b9R" firstAttribute="trailing" secondItem="aad-Rq-g3G" secondAttribute="trailing" id="1CK-Jb-Dk1"/>
                             <constraint firstAttribute="trailing" secondItem="BTd-zn-57S" secondAttribute="trailing" constant="12" id="3C7-Bb-Erf"/>
                             <constraint firstItem="b1h-xY-buQ" firstAttribute="leading" secondItem="eJW-z2-mOV" secondAttribute="leading" constant="12" id="56W-dP-UJ7"/>
+                            <constraint firstItem="zvN-VK-tVE" firstAttribute="centerY" secondItem="aad-Rq-g3G" secondAttribute="centerY" id="6WR-oX-ztF"/>
                             <constraint firstItem="aad-Rq-g3G" firstAttribute="top" secondItem="eJW-z2-mOV" secondAttribute="top" constant="20" id="7W1-rG-IXS"/>
                             <constraint firstItem="xMh-mb-xP2" firstAttribute="leading" secondItem="b1h-xY-buQ" secondAttribute="leading" id="7lx-zo-nvd"/>
                             <constraint firstItem="W4b-Ph-MWH" firstAttribute="leading" secondItem="eJW-z2-mOV" secondAttribute="leading" constant="12" id="Akz-uX-E33"/>
@@ -156,6 +160,7 @@
                             <constraint firstItem="bbk-Pf-ZOe" firstAttribute="trailing" secondItem="BTd-zn-57S" secondAttribute="trailing" id="DuE-0L-Xjh"/>
                             <constraint firstItem="WDc-ts-HFZ" firstAttribute="leading" secondItem="eJW-z2-mOV" secondAttribute="leading" constant="12" id="EcM-6g-jav"/>
                             <constraint firstItem="xdp-y1-b9R" firstAttribute="top" secondItem="aad-Rq-g3G" secondAttribute="bottom" constant="2" id="GDk-Vo-22Z"/>
+                            <constraint firstAttribute="trailing" secondItem="zvN-VK-tVE" secondAttribute="trailing" constant="8" id="Hee-NU-wHm"/>
                             <constraint firstItem="qo3-RG-tii" firstAttribute="leading" secondItem="eJW-z2-mOV" secondAttribute="leading" constant="12" id="I4s-xh-B61"/>
                             <constraint firstItem="qo3-RG-tii" firstAttribute="top" secondItem="eJW-z2-mOV" secondAttribute="top" constant="12" id="Ip3-Z4-mpi"/>
                             <constraint firstItem="bbk-Pf-ZOe" firstAttribute="centerY" secondItem="emk-Tb-qGI" secondAttribute="centerY" id="Lc8-NI-gF8"/>
@@ -165,7 +170,6 @@
                             <constraint firstItem="xMh-mb-xP2" firstAttribute="top" secondItem="b1h-xY-buQ" secondAttribute="bottom" constant="8" id="QcL-ro-e0J"/>
                             <constraint firstItem="Zs5-hY-ch8" firstAttribute="trailing" secondItem="BTd-zn-57S" secondAttribute="trailing" id="Qyf-k3-EJF"/>
                             <constraint firstAttribute="trailing" secondItem="W4b-Ph-MWH" secondAttribute="trailing" constant="12" id="U2L-vX-yAZ"/>
-                            <constraint firstAttribute="trailing" secondItem="aad-Rq-g3G" secondAttribute="trailing" constant="16" id="Xh6-Pe-lXR"/>
                             <constraint firstItem="emk-Tb-qGI" firstAttribute="leading" secondItem="b1h-xY-buQ" secondAttribute="leading" id="Z60-js-V9J"/>
                             <constraint firstAttribute="trailing" secondItem="WDc-ts-HFZ" secondAttribute="trailing" constant="12" id="b7a-79-Jwo"/>
                             <constraint firstItem="xdp-y1-b9R" firstAttribute="leading" secondItem="aad-Rq-g3G" secondAttribute="leading" id="chC-cx-GXl"/>
@@ -184,6 +188,7 @@
                             <constraint firstItem="IwB-dq-iZr" firstAttribute="centerY" secondItem="qo3-RG-tii" secondAttribute="centerY" id="q22-ud-2YT"/>
                             <constraint firstItem="71S-76-YZs" firstAttribute="trailing" secondItem="BTd-zn-57S" secondAttribute="trailing" id="tnL-ui-xAl"/>
                             <constraint firstItem="eCp-SZ-dsD" firstAttribute="leading" secondItem="b1h-xY-buQ" secondAttribute="leading" id="ugr-GX-csg"/>
+                            <constraint firstItem="zvN-VK-tVE" firstAttribute="leading" secondItem="aad-Rq-g3G" secondAttribute="trailing" constant="4" id="w0M-5L-yhD"/>
                             <constraint firstItem="71S-76-YZs" firstAttribute="centerY" secondItem="xMh-mb-xP2" secondAttribute="centerY" id="xrK-Yh-SD3"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -213,10 +218,11 @@
                     <constraint firstAttribute="trailing" secondItem="eJW-z2-mOV" secondAttribute="trailing" constant="12" id="tYo-8N-FR1"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="avergaeYield" destination="Zs5-hY-ch8" id="LBS-fT-6ZE"/>
+                <outlet property="bandOracleImg" destination="zvN-VK-tVE" id="m3l-W9-tBW"/>
                 <outlet property="commissionRate" destination="bbk-Pf-ZOe" id="sBd-9M-3ot"/>
                 <outlet property="delegateBtn" destination="W4b-Ph-MWH" id="1mO-1G-vgz"/>
                 <outlet property="descriptionMsg" destination="WDc-ts-HFZ" id="U0x-QX-e9g"/>
@@ -232,6 +238,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="bandoracleoffs" width="58" height="13"/>
         <image name="freeIc" width="20" height="20"/>
         <image name="jailedImg" width="44" height="44"/>
         <image name="validatorNoneImg" width="44" height="44"/>

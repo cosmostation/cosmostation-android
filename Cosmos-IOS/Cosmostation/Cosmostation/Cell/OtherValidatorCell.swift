@@ -15,6 +15,7 @@ class OtherValidatorCell: UITableViewCell {
     @IBOutlet weak var freeEventImg: UIImageView!
     @IBOutlet weak var revokedImg: UIImageView!
     @IBOutlet weak var monikerLabel: UILabel!
+    @IBOutlet weak var bandOracleOffImg: UIImageView!
     @IBOutlet weak var powerLabel: UILabel!
     @IBOutlet weak var commissionLabel: UILabel!
 
@@ -41,6 +42,7 @@ class OtherValidatorCell: UITableViewCell {
         self.monikerLabel.text = "-"
         self.powerLabel.text = "-"
         self.commissionLabel.text = "-"
+        self.bandOracleOffImg.isHidden = true
         super.prepareForReuse()
     }
     

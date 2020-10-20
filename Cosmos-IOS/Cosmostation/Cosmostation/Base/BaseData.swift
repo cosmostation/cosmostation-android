@@ -46,6 +46,8 @@ final class BaseData : NSObject{
     var mStarNameFee: IovStarNameFees.IovFee?
     var mStarNameConfig: IovStarNameConfig.IovConfig?
     
+    var mBandOracleStatus: BandOracleStatus?
+    
     public override init() {
         super.init();
         if database == nil {

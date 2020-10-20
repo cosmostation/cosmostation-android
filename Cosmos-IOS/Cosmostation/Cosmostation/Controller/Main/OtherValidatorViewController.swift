@@ -17,8 +17,11 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     
+    var mBandOracleStatus: BandOracleStatus?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         self.otherValidatorTableView.delegate = self
         self.otherValidatorTableView.dataSource = self
         self.otherValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -54,6 +57,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
+        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         self.onSorting()
         self.refresher.endRefreshing()
     }
@@ -127,6 +131,9 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.BAND_MAIN) {
             cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
+            if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
+                if (!oracle) { cell.bandOracleOffImg.isHidden = false }
+            }
             let url = BAND_VAL_URL + validator.operator_address + ".png"
             cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             

@@ -15,6 +15,7 @@ class MyValidatorCell: UITableViewCell {
     @IBOutlet weak var freeEventImg: UIImageView!
     @IBOutlet weak var revokedImg: UIImageView!
     @IBOutlet weak var monikerLabel: UILabel!
+    @IBOutlet weak var bandOracleOffImg: UIImageView!
     @IBOutlet weak var myDelegatedAmoutLabel: UILabel!
     @IBOutlet weak var myUndelegatingAmountLabel: UILabel!
     @IBOutlet weak var rewardAmoutLabel: UILabel!
@@ -43,6 +44,7 @@ class MyValidatorCell: UITableViewCell {
         self.myDelegatedAmoutLabel.text = "-"
         self.myUndelegatingAmountLabel.text = "-"
         self.rewardAmoutLabel.text = "-"
+        self.bandOracleOffImg.isHidden = true
         super.prepareForReuse()
     }
     
