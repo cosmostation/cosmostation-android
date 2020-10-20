@@ -2260,7 +2260,7 @@ class WUtils {
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                result = WUtils.getGasAmountForRewards()[valCnt - 1]
+                result = WUtils.getGasAmountForKavaRewards()[valCnt - 1]
             } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
             } else if (type == TASK_TYPE_VOTE) {

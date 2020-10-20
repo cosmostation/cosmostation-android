@@ -227,7 +227,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     func onUpdateView() {
         self.showWaittingAlert()
         DispatchQueue.global().async {
-            self.dpAddress = WKey.getDpAddressPath(self.mnemonicWords!, 0, self.chainType!, true)
+            //secret toggle!!!
+            if (self.chainType! == ChainType.SECRET_MAIN) {
+                self.dpAddress = WKey.getDpAddressPath(self.mnemonicWords!, 0, self.chainType!, false)
+            } else {
+                self.dpAddress = WKey.getDpAddressPath(self.mnemonicWords!, 0, self.chainType!, true)
+            }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.hideWaittingAlert()

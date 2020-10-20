@@ -58,8 +58,8 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
             }
         } else if (userChain == ChainType.SECRET_MAIN) {
-            cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
             if (self.usingBip44) {
+                cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
             } else {
                 cell?.pathLabel.text = SECRET_BASE_PATH.appending(String(indexPath.row))
             }
@@ -69,7 +69,6 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         
         DispatchQueue.global().async {
             let address = WKey.getDpAddressPath(self.userInputWords!, indexPath.row, self.userChain!, self.usingBip44)
-            
             DispatchQueue.main.async(execute: {
                 cell?.addressLabel.text = address
                 let tempAccount = BaseData.instance.selectExistAccount(address: address, chain: WUtils.getChainDBName(self.userChain!))
