@@ -289,7 +289,7 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
 
         } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
             mAvailable  = getSActivity().mAccount.getBandBalance();
-            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward)));
+            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
             mEstimateGasAmount = new BigDecimal(rewardGasFees.get(getSActivity().mValidators.size() - 1));
             onUpdateFeeLayer();
 
