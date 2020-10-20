@@ -142,7 +142,7 @@ public struct TxInfo {
                         if (attributes[i].key == "recipient" && attributes[i].value == Addr) {
                             for j in i...attributes.count - 1 {
                                 if (attributes[j].key == "amount" && attributes[j].value != nil) {
-                                    aReward = NSDecimalNumber.init(string: attributes[j].value!.filter{ $0.isNumber })
+                                    aReward = aReward.adding(NSDecimalNumber.init(string: attributes[j].value!.filter{ $0.isNumber }))  
                                     break;
                                 }
                             }
