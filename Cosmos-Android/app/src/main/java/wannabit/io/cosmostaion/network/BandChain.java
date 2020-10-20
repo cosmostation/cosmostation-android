@@ -7,6 +7,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
@@ -106,4 +107,12 @@ public interface BandChain {
 
     @GET("/gov/proposals/{proposalId}/votes/{address}")
     Call<ResMyVote> getMyVote(@Path("proposalId") String proposalId, @Path("address") String address);
+
+
+
+
+
+    @GET("/oracle/active_validators")
+    Call<ResBandOracleStatus> getOracleStatus();
+
 }

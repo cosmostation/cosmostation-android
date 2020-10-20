@@ -40,10 +40,12 @@ import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Redelegate;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
+import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
+import wannabit.io.cosmostaion.task.FetchTask.BandOracleStatusTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRedelegateStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
@@ -73,6 +75,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BAND_ORACLE_STATUS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
@@ -102,6 +105,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private ArrayList<Redelegate>           mRedelegates;
     public ResLcdIrisReward                 mIrisReward;
     public ArrayList<ResLcdIrisRedelegate>  mIrisRedelegateState;
+    private ResBandOracleStatus             mBandOracles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,13 +116,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mSwipeRefreshLayout         = findViewById(R.id.layer_refresher);
         mRecyclerView               = findViewById(R.id.recycler);
 
-        mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain      = BaseChain.getChain(mAccount.baseChain);
-        mValidator      = getIntent().getParcelableExtra("validator");
-
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mValidator = getIntent().getParcelableExtra("validator");
         mStakingPool = getBaseDao().mStakingPool;
         mIrisStakingPool = getBaseDao().mIrisStakingPool;
         mProvisions = getBaseDao().mProvisions;
+        mBandOracles = getBaseDao().mBandOracles;
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -166,8 +170,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private void onInitFetch() {
         if(mTaskCount > 0) return;
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST)) {
             mTaskCount = 5;
             new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -183,6 +186,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new IrisRedelegateStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(BAND_MAIN)) {
+            mTaskCount = 6;
+            new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleRedelegateStateTask(getBaseApplication(), this, mAccount, mValidator).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BandOracleStatusTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
     }
@@ -676,12 +688,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if (hits != null && hits.size() > 0) {
                 mApiTxHistory = hits;
             }
-            WLog.w("mApiTxHistory " + mApiTxHistory.size());
+//            WLog.w("mApiTxHistory " + mApiTxHistory.size());
+
+        } else if (result.taskType == TASK_FETCH_BAND_ORACLE_STATUS) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mBandOracles = ((ResBandOracleStatus)result.resultData);
+            }
         }
-        mStakingPool = getBaseDao().mStakingPool;
-        mIrisStakingPool = getBaseDao().mIrisStakingPool;
-        mProvisions = getBaseDao().mProvisions;
+
         if (mTaskCount == 0) {
+            mStakingPool = getBaseDao().mStakingPool;
+            mIrisStakingPool = getBaseDao().mIrisStakingPool;
+            mProvisions = getBaseDao().mProvisions;
+            mBandOracles = getBaseDao().mBandOracles;
             mValidatorAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -740,6 +759,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.itemTvMoniker.setText(mValidator.description.moniker);
             holder.itemTvAddress.setText(mValidator.operator_address);
             holder.itemImgFree.setVisibility(View.GONE);
+            holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
 
             if (!TextUtils.isEmpty(mValidator.description.website)) {
                 holder.itemTvWebsite.setText(mValidator.description.website);
@@ -807,6 +827,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             } else if (mBaseChain.equals(BAND_MAIN)) {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
+                if (mBandOracles != null && !mBandOracles.isEnable(mValidator.operator_address)) {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
+                } else {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
+                }
+                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
                 if(mValidator.status == Validator.BONDED) {
                     if (mStakingPool != null && mProvisions != null) {
                         holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
@@ -885,6 +911,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.itemTvMoniker.setText(mValidator.description.moniker);
             holder.itemTvAddress.setText(mValidator.operator_address);
             holder.itemImgFree.setVisibility(View.GONE);
+            holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
 
             if (!TextUtils.isEmpty(mValidator.description.website)) {
                 holder.itemTvWebsite.setText(mValidator.description.website);
@@ -952,6 +979,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             } else if (mBaseChain.equals(BAND_MAIN)) {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
+                if (mBandOracles != null && !mBandOracles.isEnable(mValidator.operator_address)) {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
+                } else {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
+                }
+                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
                 if (mValidator.status == Validator.BONDED) {
                     if (mStakingPool != null && mProvisions != null) {
                         holder.itemTvYieldRate.setText(WDp.getYieldString(mStakingPool, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
@@ -1410,6 +1443,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             CircleImageView itemAvatar;
             ImageView    itemImgRevoked;
             ImageView    itemImgFree;
+            ImageView    itemBandOracleOff;
             TextView    itemTvMoniker;
             TextView    itemTvAddress;
             TextView    itemTvWebsite;
@@ -1426,6 +1460,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemImgRevoked          = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemImgFree             = itemView.findViewById(R.id.avatar_validator_free);
                 itemTvMoniker           = itemView.findViewById(R.id.validator_moniker);
+                itemBandOracleOff       = itemView.findViewById(R.id.band_oracle_off);
                 itemTvAddress           = itemView.findViewById(R.id.validator_address);
                 itemTvWebsite           = itemView.findViewById(R.id.validator_site);
                 itemTvDescription       = itemView.findViewById(R.id.validator_description);
@@ -1442,6 +1477,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             CircleImageView     itemAvatar;
             ImageView           itemImgRevoked;
             ImageView           itemImgFree;
+            ImageView           itemBandOracleOff;
             TextView            itemTvMoniker, itemTvAddress, itemTvWebsite, itemTvDescription, itemTvTotalBondAmount,
                                 itemTvYieldRate, itemTvSelfBondRate, itemTvCommissionRate;
 
@@ -1452,6 +1488,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemImgRevoked          = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemImgFree             = itemView.findViewById(R.id.avatar_validator_free);
                 itemTvMoniker           = itemView.findViewById(R.id.validator_moniker);
+                itemBandOracleOff       = itemView.findViewById(R.id.band_oracle_off);
                 itemTvAddress           = itemView.findViewById(R.id.validator_address);
                 itemTvWebsite           = itemView.findViewById(R.id.validator_site);
                 itemTvDescription       = itemView.findViewById(R.id.validator_description);

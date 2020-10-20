@@ -61,13 +61,28 @@
                         android:layout_marginLeft="@dimen/space_12"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/validator_moniker"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            style="@style/font_ss_14_white"
-                            android:text="-"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/validator_moniker"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toLeftOf="@+id/band_oracle_off"
+                                android:layout_marginRight="@dimen/space_8"
+                                android:singleLine="true"
+                                android:ellipsize="end"
+                                style="@style/font_ss_14_white"
+                                android:text="-"/>
+                            <ImageView
+                                android:id="@+id/band_oracle_off"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+                                android:src="@drawable/band_oracleoff_l"
+                                android:visibility="invisible"/>
+                        </RelativeLayout>
                         <TextView
                             android:id="@+id/validator_address"
                             android:layout_width="wrap_content"

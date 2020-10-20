@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
@@ -88,6 +89,8 @@ public class BaseData {
 
     public ResIovFee.IovFee                                                 mStarNameFee;
     public ResIovConfig.IovConfig                                           mStarNameConfig;
+
+    public ResBandOracleStatus                                              mBandOracles;
 
     public BigDecimal getBnbTransferFee() {
         BigDecimal result =  BigDecimal.ZERO;

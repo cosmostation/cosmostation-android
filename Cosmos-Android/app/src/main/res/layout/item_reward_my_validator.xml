@@ -92,10 +92,21 @@
                         android:id="@+id/moniker_validator"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/band_oracle_off"
+                        android:layout_marginRight="@dimen/space_8"
+                        android:layout_centerVertical="true"
                         android:singleLine="true"
                         android:ellipsize="end"
                         style="@style/font_ss_12_white"
-                        android:text="-"/>
+                        android:text="moniker"/>
+                    <ImageView
+                        android:id="@+id/band_oracle_off"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/band_oracleoff_s"
+                        android:visibility="invisible"/>
                 </RelativeLayout>
 
                 <RelativeLayout

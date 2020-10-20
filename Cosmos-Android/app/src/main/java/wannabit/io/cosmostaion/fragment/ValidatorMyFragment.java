@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_My_ValidatorSorting;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -71,6 +72,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Reward>           mRewards = new ArrayList<>();
     private ResLcdIrisReward            mIrisRewards;
+    private ResBandOracleStatus         mBandOracles;
 
     public static ValidatorMyFragment newInstance(Bundle bundle) {
         ValidatorMyFragment fragment = new ValidatorMyFragment();
@@ -117,6 +119,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         mMyValidators   = getMainActivity().mMyValidators;
         mRewards        = getMainActivity().mRewards;
         mIrisRewards    = getMainActivity().mIrisReward;
+        mBandOracles    = getBaseDao().mBandOracles;
         mValidatorSize.setText(""+mMyValidators.size());
         onSortValidator();
 
@@ -216,6 +219,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder    = (RewardMyValidatorHolder)viewHolder;
                 final Validator validator               = mMyValidators.get(position);
+                holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
 
                 BondingState bonding = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, validator.operator_address);
                 if(bonding != null && bonding.getBondingAmount(validator) != null) {
@@ -254,6 +258,11 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
                     holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_BAND));
+                    if (mBandOracles != null && !mBandOracles.isEnable(validator.operator_address)) {
+                        holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+                    }
                     try {
                         Picasso.get().load(BAND_VAL_URL + validator.operator_address + ".png")
                                 .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
@@ -340,7 +349,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
             CardView        itemRoot;
             CircleImageView itemAvatar;
             ImageView       itemFree;
-            ImageView       itemRevoked;
+            ImageView       itemRevoked, itemBandOracleOff;
             TextView        itemTvMoniker;
             TextView        itemTvDelegateAmount;
             TextView        itemTvUndelegateAmount;
@@ -353,6 +362,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 itemFree            = itemView.findViewById(R.id.avatar_validator_free);
                 itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
+                itemBandOracleOff   = itemView.findViewById(R.id.band_oracle_off);
                 itemTvDelegateAmount = itemView.findViewById(R.id.delegate_amount_validator);
                 itemTvUndelegateAmount = itemView.findViewById(R.id.undelegate_amount_validator);
                 itemTvReward        = itemView.findViewById(R.id.my_reward_validator);

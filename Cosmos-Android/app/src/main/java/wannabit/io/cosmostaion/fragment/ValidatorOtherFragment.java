@@ -25,7 +25,9 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -53,6 +55,7 @@ public class ValidatorOtherFragment extends BaseFragment {
 
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Validator>        mOtherValidators = new ArrayList<>();
+    private ResBandOracleStatus         mBandOracles;
 
     public static ValidatorOtherFragment newInstance(Bundle bundle) {
         ValidatorOtherFragment fragment = new ValidatorOtherFragment();
@@ -95,6 +98,7 @@ public class ValidatorOtherFragment extends BaseFragment {
         if(!isAdded()) return;
         mOtherValidators    = getMainActivity().mOtherValidators;
         mMyValidators       = getMainActivity().mMyValidators;
+        mBandOracles        = getBaseDao().mBandOracles;
         mValidatorSize.setText(""+mOtherValidators.size());
         WUtil.onSortByValidatorPower(mOtherValidators);
 
@@ -118,12 +122,12 @@ public class ValidatorOtherFragment extends BaseFragment {
         @Override
         public OtherValidatorHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             return new OtherValidatorHolder(getLayoutInflater().inflate(R.layout.item_reward_validator, viewGroup, false));
-
         }
 
         @Override
         public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
             final Validator validator  = mOtherValidators.get(position);
+            holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
 
             if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
@@ -155,6 +159,11 @@ public class ValidatorOtherFragment extends BaseFragment {
             } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.commission_rates.rate));
+                if (mBandOracles != null && !mBandOracles.isEnable(validator.operator_address)) {
+                    holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+                } else {
+                    holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+                }
                 try {
                     Picasso.get().load(BAND_VAL_URL + validator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
@@ -236,7 +245,7 @@ public class ValidatorOtherFragment extends BaseFragment {
         public class OtherValidatorHolder extends RecyclerView.ViewHolder {
             CardView        itemRoot;
             CircleImageView itemAvatar;
-            ImageView       itemRevoked;
+            ImageView       itemRevoked, itemBandOracleOff;
             ImageView       itemFree;
             TextView        itemTvMoniker;
             TextView        itemTvVotingPower;
@@ -250,6 +259,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                 itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemFree            = itemView.findViewById(R.id.avatar_validator_free);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
+                itemBandOracleOff   = itemView.findViewById(R.id.band_oracle_off);
                 itemTvVotingPower   = itemView.findViewById(R.id.delegate_power_validator);
                 itemTvSubtitle      = itemView.findViewById(R.id.subTitle2);
                 itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
