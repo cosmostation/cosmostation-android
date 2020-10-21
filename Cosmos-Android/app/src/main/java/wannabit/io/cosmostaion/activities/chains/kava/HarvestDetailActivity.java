@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -40,6 +41,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_HARVEST_MARKET_IMG_URL;
@@ -63,7 +65,9 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
 
     private ImageView           mTopMarketImg;
     private TextView            mTopMarketTitle;
-    private TextView            mTopStartTime, mTopEndTime, mTopPoolSupplyAmount, mTopPoolSupplyAmountDenom;
+    private TextView            mTopEventTime, mTopPoolSupplyAmount, mTopPoolSupplyAmountDenom, mTopPoolSupplyValue;
+    private RelativeLayout      mTopDailyRewardLayer;
+    private TextView            mTopDailyRewardAmount, mTopDailyRewardDenom;
 
     private ImageView           mMyDepositCoinImg;
     private TextView            mMyDepositCoinTitle;
@@ -99,10 +103,13 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
         mHarvestTopCard             = findViewById(R.id.card_harvest_info);
         mTopMarketImg               = mHarvestTopCard.findViewById(R.id.market_img);
         mTopMarketTitle             = mHarvestTopCard.findViewById(R.id.market_title);
-        mTopStartTime               = mHarvestTopCard.findViewById(R.id.start_time);
-        mTopEndTime                 = mHarvestTopCard.findViewById(R.id.end_time);
+        mTopEventTime               = mHarvestTopCard.findViewById(R.id.event_period);
         mTopPoolSupplyAmount        = mHarvestTopCard.findViewById(R.id.total_deposited_amount);
         mTopPoolSupplyAmountDenom   = mHarvestTopCard.findViewById(R.id.total_deposited_symbol);
+        mTopPoolSupplyValue         = mHarvestTopCard.findViewById(R.id.total_deposited_value);
+        mTopDailyRewardLayer        = mHarvestTopCard.findViewById(R.id.daily_reward_layer);
+        mTopDailyRewardAmount       = mHarvestTopCard.findViewById(R.id.daily_reward_amount);
+        mTopDailyRewardDenom        = mHarvestTopCard.findViewById(R.id.daily_reward_denom);
 
         mHarvestMyCard              = findViewById(R.id.card_harvest_my);
         mMyDepositCoinImg           = mHarvestMyCard.findViewById(R.id.deposit_icon);
@@ -181,30 +188,54 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
             mHarvestTopCard.setVisibility(View.VISIBLE);
             String marketTitle = mDistributionSchedule.deposit_denom.equals(TOKEN_KAVA) ? "kava" : mDistributionSchedule.deposit_denom;
             mTopMarketTitle.setText(marketTitle.toUpperCase() + " POOL");
-            mTopStartTime.setText(WDp.getTimeTxformat(getBaseContext(), mDistributionSchedule.start));
-            mTopEndTime.setText(WDp.getTimeTxformat(getBaseContext(), mDistributionSchedule.end));
+            mTopEventTime.setText(WDp.getTimeTxformatShort(getBaseContext(), mDistributionSchedule.start) + " ~ " + WDp.getTimeTxformatShort(getBaseContext(), mDistributionSchedule.end));
             try {
                 Picasso.get().load(KAVA_HARVEST_MARKET_IMG_URL + "lp" + mDistributionSchedule.deposit_denom + ".png").fit().into(mTopMarketImg);
             } catch (Exception e) { }
 
-
             Coin totalSupply = null;
+            BigDecimal poolValue = BigDecimal.ZERO;
             for (Coin coin:mHarvestPool.coins) {
                 if (coin.denom.equals(mDepositDenom)) {
                     totalSupply = coin;
                     break;
                 }
             }
+            WDp.showCoinDp(getBaseContext(), mDepositDenom, "0", mTopPoolSupplyAmountDenom, mTopPoolSupplyAmount, mBaseChain);
+            mTopPoolSupplyValue.setText(WDp.getDpRawDollor(getBaseContext(), poolValue, 2));
             if (totalSupply != null) {
                 WDp.showCoinDp(getBaseContext(), totalSupply, mTopPoolSupplyAmountDenom, mTopPoolSupplyAmount, mBaseChain);
-            }
 
+                if (mDepositDenom.equals("usdx")) {
+                    poolValue = new BigDecimal(totalSupply.amount).movePointLeft(6);
+
+                } else if (mDepositDenom.equals("bnb")) {
+                    ResKavaMarketPrice.Result bnbPrice = getBaseDao().mKavaTokenPrices.get("bnb:usd");
+                    if (bnbPrice != null) {
+                        poolValue = new BigDecimal(totalSupply.amount).movePointLeft(8).multiply(new BigDecimal(bnbPrice.price)).setScale(2, RoundingMode.DOWN);
+                    }
+
+                } else if (mDepositDenom.equals("ukava")) {
+                    poolValue = new BigDecimal(totalSupply.amount).movePointLeft(6).multiply(getBaseDao().getLastKavaDollorTic()).setScale(2, RoundingMode.DOWN);
+
+                }
+                mTopPoolSupplyValue.setText(WDp.getDpRawDollor(getBaseContext(), poolValue, 2));
+
+                if (mMyHarvestDeposit != null && mMyHarvestDeposit.amount != null) {
+//                    WLog.w("mMyHarvestDeposit " + mMyHarvestDeposit.amount.amount);
+//                    WLog.w("totalSupply " + totalSupply.amount);
+//                    WLog.w("rewards_per_second " + mDistributionSchedule.rewards_per_second.amount);
+                    BigDecimal dailyReward =  new BigDecimal(mMyHarvestDeposit.amount.amount).multiply(new BigDecimal(mDistributionSchedule.rewards_per_second.amount)).multiply(new BigDecimal("86400")).divide(new BigDecimal(totalSupply.amount), 0, RoundingMode.DOWN);
+                    WDp.showCoinDp(getBaseContext(), TOKEN_HARD, dailyReward.toPlainString(), mTopDailyRewardDenom, mTopDailyRewardAmount, mBaseChain);
+                    mTopDailyRewardLayer.setVisibility(View.VISIBLE);
+                }
+            }
         }
 
     }
 
     private void onUpdateMyView() {
-        if (mMyHarvestDeposit != null) {
+        if (mMyHarvestDeposit != null || mMyHarvestReward != null) {
             mHarvestMyCard.setVisibility(View.VISIBLE);
             if (mDepositDenom.equals(TOKEN_KAVA)) {
                 WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), mMyDepositCoinTitle);
@@ -215,7 +246,11 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
                 mMyDepositCoinTitle.setText(mDepositDenom.toUpperCase());
                 mMyDepositCoinTitle.setTextColor(getResources().getColor(R.color.colorWhite));
             }
-            WDp.showCoinDp(getBaseContext(), mMyHarvestDeposit.amount, mMyDepositAmountDenom, mMyDepositAmount, mBaseChain);
+            if (mMyHarvestDeposit != null && mMyHarvestDeposit.amount != null) {
+                WDp.showCoinDp(getBaseContext(), mMyHarvestDeposit.amount, mMyDepositAmountDenom, mMyDepositAmount, mBaseChain);
+            } else {
+                WDp.showCoinDp(getBaseContext(), mDepositDenom,"0", mMyDepositAmountDenom, mMyDepositAmount, mBaseChain);
+            }
             if (mMyHarvestReward != null) {
                 WDp.showCoinDp(getBaseContext(), mMyHarvestReward.amount, mMyRewardAmountDenom, mMyRewardAmount, mBaseChain);
             } else {
@@ -418,15 +453,10 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
                 }
             }
 
-            if (mMyHarvestDeposit != null) {
-                WLog.w("mMyHarvestDeposit " + mMyHarvestDeposit.amount.amount);
+            if (mMyHarvestDeposit != null || mMyHarvestReward != null) {
                 mOpenDeposit.setVisibility(View.GONE);
             } else {
                 mOpenDeposit.setVisibility(View.VISIBLE);
-
-            }
-            if (mMyHarvestReward != null) {
-                WLog.w("mMyHarvestReward " + mMyHarvestReward.amount.amount);
             }
 
             mSwipeRefreshLayout.setRefreshing(false);

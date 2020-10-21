@@ -38,22 +38,49 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginTop="@dimen/space_2"
-                    style="@style/font_ss_12_kava"
-                    android:text="BTC : USDX"/>
+                    style="@style/font_ss_12_kava"/>
             </LinearLayout>
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/daily_reward_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/harvest_markets"
                 android:layout_alignTop="@+id/harvest_markets"
                 android:layout_alignBottom="@+id/harvest_markets"
                 android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginBottom="-2dp"
-                android:orientation="vertical"
-                android:gravity="bottom">
+                android:visibility="gone">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/daily_reward_title"
+                    android:layout_alignParentRight="true">
+                    <TextView
+                        android:id="@+id/daily_reward_denom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="HARD"
+                        style="@style/font_ss_17_hard"/>
+                    <TextView
+                        android:id="@+id/daily_reward_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/daily_reward_denom"
+                        android:layout_toLeftOf="@+id/daily_reward_denom"
+                        android:layout_marginRight="@dimen/space_2"
+                        style="@style/font_ss_17_white"/>
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/daily_reward_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/space_4"
+                    android:text="@string/str_est_daily_reward"
+                    style="@style/font_ss_12_gray1"/>
 
-            </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
 
         <View
@@ -69,32 +96,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_start_time"
+                android:text="@string/str_event_period"
                 style="@style/font_ss_12_gray1"/>
             <TextView
-                android:id="@+id/start_time"
+                android:id="@+id/event_period"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                style="@style/font_ssl_14_white"
-                android:gravity="right"
-                android:text="-"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_12">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/str_end_time"
-                style="@style/font_ss_12_gray1"/>
-            <TextView
-                android:id="@+id/end_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                style="@style/font_ssl_14_white"
+                style="@style/font_ss_12_white"
                 android:gravity="right"
                 android:text="-"/>
         </RelativeLayout>
@@ -132,6 +141,13 @@
                     style="@style/font_ss_12_white"/>
             </RelativeLayout>
         </RelativeLayout>
+        <TextView
+            android:id="@+id/total_deposited_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            style="@style/font_ss_12_gray1"
+            android:text=""/>
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

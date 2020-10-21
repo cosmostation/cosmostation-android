@@ -15,7 +15,7 @@
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
-        app:cardBackgroundColor="@color/colorTransBg7"
+        app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                     android:id="@+id/lp_reward_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_total_lp_reward"
+                    android:text="@string/str_my_total_lp_reward"
                     style="@style/font_ss_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"

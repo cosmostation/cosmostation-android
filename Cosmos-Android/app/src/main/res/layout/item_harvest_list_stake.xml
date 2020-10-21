@@ -78,32 +78,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_start_time"
+                    android:text="@string/str_event_period"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/start_time"
+                    android:id="@+id/event_period"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
-                    android:gravity="right"
-                    android:text="-"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_end_time"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/end_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ss_12_white"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -112,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_12">
+                android:layout_marginTop="@dimen/space_10">
                 <TextView
                     android:id="@+id/total_delegated_title"
                     android:layout_width="wrap_content"
@@ -147,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_12">
+                android:layout_marginTop="@dimen/space_10">
                 <TextView
                     android:id="@+id/reward_title"
                     android:layout_width="wrap_content"

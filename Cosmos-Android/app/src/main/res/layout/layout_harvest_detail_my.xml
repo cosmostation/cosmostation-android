@@ -67,12 +67,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_12">
+            android:layout_marginTop="@dimen/space_8">
             <TextView
                 android:id="@+id/deposited_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_deposited_amount"
+                android:text="@string/str_my_deposited_amount"
                 style="@style/font_ss_12_gray1"/>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -101,6 +101,7 @@
             android:id="@+id/deposit_actions_layer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_10"
             android:orientation="horizontal">
             <RelativeLayout
                 android:id="@+id/btn_deposit"
@@ -108,7 +109,6 @@
                 android:layout_weight="1"
                 android:layout_height="@dimen/space_40"
                 android:minHeight="@dimen/space_40"
-                android:layout_marginTop="16dp"
                 android:layout_marginRight="@dimen/space_5"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true">
@@ -130,7 +130,6 @@
                 android:layout_weight="1"
                 android:layout_height="@dimen/space_40"
                 android:minHeight="@dimen/space_40"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="@dimen/space_5"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true">
@@ -171,12 +170,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_12">
+            android:layout_marginTop="@dimen/space_8">
             <TextView
                 android:id="@+id/reward_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_harvest_reward"
+                android:text="@string/str_my_harvest_reward"
                 style="@style/font_ss_12_gray1"/>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -206,7 +205,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_40"
             android:minHeight="@dimen/space_40"
-            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_10"
             android:layout_marginBottom="@dimen/space_8"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true">

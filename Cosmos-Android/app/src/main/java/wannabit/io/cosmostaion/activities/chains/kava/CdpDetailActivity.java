@@ -287,6 +287,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
             mInfoLiquidationPriceTitle.setText(String.format(getString(R.string.str_liquidation_title3), cDenom.toUpperCase()));
             mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), mLiquidationPrice, 4));
+            mInfoLiquidationPrice.setTextColor(WDp.getDpRiskColor(getBaseContext(), mRiskRate));
             mInfoLiquidationPriceLayer.setVisibility(View.VISIBLE);
         }
 

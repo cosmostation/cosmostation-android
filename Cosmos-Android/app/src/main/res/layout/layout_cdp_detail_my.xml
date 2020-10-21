@@ -65,7 +65,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
+                android:layout_marginTop="@dimen/space_8">
                 <LinearLayout
                     android:id="@+id/self_deposited_amount_layer"
                     android:layout_width="wrap_content"
@@ -191,6 +191,7 @@
             android:id="@+id/collateral_actions_layer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_4"
             android:orientation="horizontal">
             <RelativeLayout
                 android:id="@+id/btn_deposit"
@@ -198,7 +199,6 @@
                 android:layout_weight="1"
                 android:layout_height="@dimen/space_40"
                 android:minHeight="@dimen/space_40"
-                android:layout_marginTop="16dp"
                 android:layout_marginRight="@dimen/space_5"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true">
@@ -220,7 +220,6 @@
                 android:layout_weight="1"
                 android:layout_height="@dimen/space_40"
                 android:minHeight="@dimen/space_40"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="@dimen/space_5"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true">
@@ -241,7 +240,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="@dimen/space_20">
+            android:layout_marginTop="@dimen/space_28">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -263,7 +262,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
+                android:layout_marginTop="@dimen/space_8">
                 <LinearLayout
                     android:id="@+id/loaned_amount_layer"
                     android:layout_width="wrap_content"
@@ -388,6 +387,7 @@
             android:id="@+id/principal_actions_layer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_4"
             android:orientation="horizontal">
             <RelativeLayout
                 android:id="@+id/btn_drawdebt"
@@ -395,7 +395,6 @@
                 android:layout_weight="1"
                 android:layout_height="@dimen/space_40"
                 android:minHeight="@dimen/space_40"
-                android:layout_marginTop="16dp"
                 android:layout_marginRight="@dimen/space_5"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true">
@@ -416,7 +415,6 @@
                 android:layout_weight="1"
                 android:layout_height="@dimen/space_40"
                 android:minHeight="@dimen/space_40"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="@dimen/space_5"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true">
@@ -436,7 +434,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="@dimen/space_20">
+            android:layout_marginTop="@dimen/space_28">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -458,7 +456,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
+                android:layout_marginTop="@dimen/space_8">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -480,7 +478,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_40"
             android:minHeight="@dimen/space_40"
-            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_10"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true">
             <TextView

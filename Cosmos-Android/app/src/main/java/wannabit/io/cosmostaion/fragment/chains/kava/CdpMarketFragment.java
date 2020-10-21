@@ -279,6 +279,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
 
                 holder.itemLiquidationPriceTitle.setText(String.format(getString(R.string.str_liquidation_title3), status.getDenom().toUpperCase()));
                 holder.itemLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), liquidationPrice, 4));
+                holder.itemLiquidationPrice.setTextColor(WDp.getDpRiskColor(getContext(), riskRate));
 
                 WDp.DpRiskRate(getContext(), riskRate, holder.itemRiskScore,  holder.itemImgRisk);
                 try {

@@ -183,6 +183,13 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                         }
                     }
                 }
+
+                for (ResKavaHarvestReward.HarvestReward reward:mHavestLpRewards) {
+                    if (reward.deposit_denom.equals(schedule.deposit_denom)) {
+                        has = true;
+                    }
+                }
+
                 if (has) {
                     mMyLps.add(schedule);
                 } else {
@@ -286,9 +293,8 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
             final StakerHolder holder = (StakerHolder)viewHolder;
             holder.itemTitleMarket.setText("KAVA STAKE");
             if (mHarvestParam != null && mHarvestParam.getKavaStakerSchedule() != null) {
-                holder.itemStartTime.setText(WDp.getTimeTxformat(getContext(), mHarvestParam.getKavaStakerSchedule().distribution_schedule.start));
-                holder.itemEndTime.setText(WDp.getTimeTxformat(getContext(), mHarvestParam.getKavaStakerSchedule().distribution_schedule.end));
-
+                holder.itemEventPeriod.setText(WDp.getTimeTxformatShort(getContext(), mHarvestParam.getKavaStakerSchedule().distribution_schedule.start) + " ~ " +
+                        WDp.getTimeTxformatShort(getContext(), mHarvestParam.getKavaStakerSchedule().distribution_schedule.end));
                 BigDecimal stakeRewardSum = BigDecimal.ZERO;
                 for (ResKavaHarvestReward.HarvestReward stakeReward:mHavestStakeRewards) {
                     stakeRewardSum = stakeRewardSum.add(new BigDecimal(stakeReward.amount.amount));
@@ -358,6 +364,8 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                 holder.itemTitleMarket.setText(marketTitle.toUpperCase() + " POOL");
                 holder.itemStartTime.setText(WDp.getTimeTxformat(getContext(), myLp.start));
                 holder.itemEndTime.setText(WDp.getTimeTxformat(getContext(), myLp.end));
+                holder.itemEventPeriod.setText(WDp.getTimeTxformatShort(getContext(), myLp.start) + " ~ " + WDp.getTimeTxformatShort(getContext(), myLp.end));
+
                 try {
                     Picasso.get().load(KAVA_HARVEST_MARKET_IMG_URL + "lp" + myLp.deposit_denom + ".png").fit().into(holder.itemImgMarket);
                 } catch (Exception e) { }
@@ -371,9 +379,11 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                 });
 
             }
+            WDp.showCoinDp(getContext(), myLp.deposit_denom, "0", holder.itemdepositDenom, holder.itemdepositAmount, mBaseChain);
             if (myDeposit != null) {
                 WDp.showCoinDp(getContext(), myLp.deposit_denom, myDeposit.amount.amount, holder.itemdepositDenom, holder.itemdepositAmount, mBaseChain);
             }
+            holder.itemRewardAmount.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 6, 6));
             if (myReward != null) {
                 holder.itemRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(myReward.amount.amount), 6, 6));
             }
@@ -393,6 +403,7 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                 holder.itemTitleMarket.setText(marketTitle.toUpperCase() + " POOL");
                 holder.itemStartTime.setText(WDp.getTimeTxformat(getContext(), otherLp.start));
                 holder.itemEndTime.setText(WDp.getTimeTxformat(getContext(), otherLp.end));
+                holder.itemEventPeriod.setText(WDp.getTimeTxformatShort(getContext(), otherLp.start) + " ~ " + WDp.getTimeTxformatShort(getContext(), otherLp.end));
                 try {
                     Picasso.get().load(KAVA_HARVEST_MARKET_IMG_URL + "lp" + otherLp.deposit_denom + ".png").fit().into(holder.itemImgMarket);
                 } catch (Exception e) { }
@@ -425,7 +436,7 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
             CardView itemRoot;
             ImageView itemImgMarket;
             TextView itemTitleMarket;
-            TextView itemStartTime, itemEndTime, itemTotalDelegate, itemRewardAmount;
+            TextView itemTotalDelegate, itemRewardAmount, itemEventPeriod;
             RelativeLayout itemBtnClaim;
 
             public StakerHolder(@NonNull View itemView) {
@@ -433,11 +444,10 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                 itemRoot            = itemView.findViewById(R.id.card_cdp_my);
                 itemImgMarket       = itemView.findViewById(R.id.market_img);
                 itemTitleMarket     = itemView.findViewById(R.id.market_title);
-                itemStartTime       = itemView.findViewById(R.id.start_time);
-                itemEndTime         = itemView.findViewById(R.id.end_time);
                 itemTotalDelegate   = itemView.findViewById(R.id.total_delegated_amount);
                 itemRewardAmount    = itemView.findViewById(R.id.harvest_reward_amount);
                 itemBtnClaim        = itemView.findViewById(R.id.btn_kava_reward);
+                itemEventPeriod       = itemView.findViewById(R.id.event_period);
             }
         }
 
@@ -454,7 +464,7 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
             CardView itemRoot;
             ImageView itemImgMarket;
             TextView itemTitleMarket;
-            TextView itemStartTime, itemEndTime, itemdepositAmount, itemdepositDenom, itemRewardAmount;
+            TextView itemStartTime, itemEndTime, itemdepositAmount, itemdepositDenom, itemRewardAmount, itemEventPeriod;
 
 
             public MyLpHolder(@NonNull View itemView) {
@@ -467,6 +477,7 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                 itemdepositDenom    = itemView.findViewById(R.id.deposited_denom);
                 itemdepositAmount   = itemView.findViewById(R.id.deposited_amount);
                 itemRewardAmount    = itemView.findViewById(R.id.harvest_reward_amount);
+                itemEventPeriod     = itemView.findViewById(R.id.event_period);
             }
         }
 
@@ -474,7 +485,7 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
             CardView itemRoot;
             ImageView itemImgMarket;
             TextView itemTitleMarket;
-            TextView itemStartTime, itemEndTime;
+            TextView itemStartTime, itemEndTime, itemEventPeriod;
 
             public OtherLpHolder(@NonNull View itemView) {
                 super(itemView);
@@ -483,6 +494,7 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                 itemTitleMarket     = itemView.findViewById(R.id.market_title);
                 itemStartTime       = itemView.findViewById(R.id.start_time);
                 itemEndTime         = itemView.findViewById(R.id.end_time);
+                itemEventPeriod     = itemView.findViewById(R.id.event_period);
             }
         }
     }

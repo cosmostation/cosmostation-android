@@ -448,7 +448,7 @@
     <string name="str_stability_fee">연간 수수료</string>
     <string name="str_liquidation_penalty">청산시 추가 수수료</string>
     <string name="str_liquidation_title1">Liquidation</string>
-    <string name="str_liquidation_title3">%1$s 청산 가격</string>
+    <string name="str_liquidation_title3">청산 %1$s 가격</string>
     <string name="str_before_liquidation_title1">Initial Liquidation</string>
     <string name="str_before_liquidation_title2">현재 %1$s 청산 가격</string>
     <string name="str_after_liquidation_title1">Expected Liquidation</string>
@@ -456,7 +456,7 @@
     <string name="str_liquidation_title2">Price</string>
     <string name="str_current_title1">Current</string>
     <string name="str_current_title2">Price</string>
-    <string name="str_current_title3">%1$s 현재 가격</string>
+    <string name="str_current_title3">현재 %1$s 가격</string>
     <string name="str_collateral_title1">Collateralized</string>
     <string name="str_collateral_title2">Amount</string>
     <string name="str_loaned_title1">Loaned</string>
@@ -705,6 +705,7 @@
     <string name="str_stake_reward">위임 이자량</string>
     <string name="str_harvest_deposited">하베스트 디파짓량</string>
     <string name="str_harvest_reward">하베스트 이자량</string>
+    <string name="str_my_harvest_reward">나의 하베스트 이자량</string>
     <string name="str_unclaimed_incentive">인센티브 이자량</string>
     <string name="str_delegate">위임 하기</string>
     <string name="str_get_reward">위임 하기</string>
@@ -890,16 +891,18 @@
     <string name="str_total_incentive">인센티브 총합</string>
     <string name="str_start_time">시작 시간</string>
     <string name="str_end_time">종료 시간</string>
-    <string name="str_total_delegated_amount">나의 총 위임량</string>
-    <string name="str_kava_delegator_reward">나의 총 위임 이자량</string>
+    <string name="str_total_delegated_amount">나의 위임량</string>
+    <string name="str_kava_delegator_reward">나의 위임 이자량</string>
     <string name="str_hard_for_delegator_title">KAVA 위임자를 위한 HRAD</string>
     <string name="str_harvest_markets">하베스트 Markets</string>
     <string name="str_deposited_amount">디파짓 수량</string>
+    <string name="str_my_deposited_amount">나의 디파짓 수량</string>
     <string name="str_lp_reward_title">하베스트 LP 이자</string>
     <string name="str_lp_reward_msg">Harvest 유동성 공급자는 HARD토큰을 매 블럭마다 보상받습니다! 하베스트 Money Market에 더 많은 자산을 공급할수록 더 많은 보상을 받게됩니다.</string>
     <string name="str_total_lp_reward">총 LP 보상</string>
+    <string name="str_my_total_lp_reward">나의 모든 LP 이자량</string>
     <string name="str_start_deposit">예치 시작 하기</string>
-    <string name="str_total_deposited_supplies">총 예치금액</string>
+    <string name="str_total_deposited_supplies">총 풀 예치량</string>
     <string name="str_my_harvest_information">내 하베스트 상세</string>
     <string name="str_deposit_harvest">하베스트 예치금 입금</string>
     <string name="str_withdraw_harvest">하베스트 예치금 출금</string>
@@ -914,6 +917,8 @@
     <string name="str_claim_incentive">인센티브 받기</string>
     <string name="str_lock_up">락업 기간</string>
     <string name="str_receivable">실제 수령 수량</string>
+    <string name="str_event_period">이벤트 기간</string>
+    <string name="str_est_daily_reward">일일 예상 이자량</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -1083,6 +1088,7 @@
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>
     <string name="str_dp_time_format3" >HH:mm:ss</string>
+    <string name="str_dp_time_format4">yyyy-MM-dd</string>
     <string name="str_dp_date_format" >yyyy-MM-dd</string>
 
 </resources>

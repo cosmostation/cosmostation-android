@@ -571,7 +571,7 @@
     <string name="str_stability_fee">Stability Fee (APR)</string>
     <string name="str_liquidation_penalty">Liquidation Penalty</string>
     <string name="str_liquidation_title1">Liquidation</string>
-    <string name="str_liquidation_title3">%1$s Liquidation Price</string>
+    <string name="str_liquidation_title3">Liquidation %1$s Price</string>
     <string name="str_before_liquidation_title1">Initial Liquidation</string>
     <string name="str_before_liquidation_title2">Initial Liquidation %1$s Price</string>
     <string name="str_after_liquidation_title1">Expected Liquidation</string>
@@ -579,7 +579,7 @@
     <string name="str_liquidation_title2">Price</string>
     <string name="str_current_title1">Current</string>
     <string name="str_current_title2">Price</string>
-    <string name="str_current_title3">%1$s Current Price</string>
+    <string name="str_current_title3">Current %1$s Price</string>
     <string name="str_collateral_title1">Collateralized</string>
     <string name="str_collateral_title2">Amount</string>
     <string name="str_loaned_title1">Loaned</string>
@@ -606,8 +606,8 @@
     <string name="str_principal_repay">Repay USDX</string>
     <string name="str_star_name_service">StarName Service</string>
     <string name="str_star_name">Starname</string>
-    <string name="str_max_global_debt">System max mintable USDX</string>
-    <string name="str_remain_debt">Remain mintable USDX</string>
+    <string name="str_max_global_debt">System Max Mintable USDX</string>
+    <string name="str_remain_debt">Remain Mintable USDX</string>
 
     <string name="str_deposit_amount">Additional Collateral Amount</string>
     <string name="str_loan_amount">Loan Amount</string>
@@ -830,6 +830,7 @@
     <string name="str_stake_reward">Staking Reward</string>
     <string name="str_harvest_deposited">Harvest Deposited</string>
     <string name="str_harvest_reward">Harvest Reward</string>
+    <string name="str_my_harvest_reward">My Harvest Reward</string>
     <string name="str_unclaimed_incentive">Unclaimed Incentive</string>
     <string name="str_get_reward">Delegate</string>
     <string name="str_vote_to">Vote</string>
@@ -1017,16 +1018,18 @@
     <string name="str_total_incentive">Total Incentive</string>
     <string name="str_start_time">Start Time</string>
     <string name="str_end_time">End Time</string>
-    <string name="str_total_delegated_amount">Total Delegate Amount</string>
-    <string name="str_kava_delegator_reward">Kava Delegator Reward</string>
+    <string name="str_total_delegated_amount">My Staking Amount</string>
+    <string name="str_kava_delegator_reward">My Staking Reward</string>
     <string name="str_hard_for_delegator_title">HARD reward for KAVA delegator</string>
     <string name="str_harvest_markets">Harvest Markets</string>
     <string name="str_deposited_amount">Deposited Amount</string>
+    <string name="str_my_deposited_amount">My Deposited Amount</string>
     <string name="str_lp_reward_title">Harvest LP Reward</string>
     <string name="str_lp_reward_msg">HARD reward for Harvest Liquidity Providers, accumulated every block! The more assets you supply to Harvest Money Market, the more HARD rewards you get.</string>
     <string name="str_total_lp_reward">Total LP Reward</string>
+    <string name="str_my_total_lp_reward">My Total LP Reward</string>
     <string name="str_start_deposit">Start Deposit</string>
-    <string name="str_total_deposited_supplies">Total Deposited Supplies</string>
+    <string name="str_total_deposited_supplies">Total Pool Supply</string>
     <string name="str_my_harvest_information">My Harvest Information</string>
     <string name="str_deposit_harvest">Harvest Deposit</string>
     <string name="str_withdraw_harvest">Harvest Withdraw</string>
@@ -1042,6 +1045,8 @@
     <string name="str_lock_up">Lock up</string>
     <string name="str_receivable">Receivable</string>
     <string name="str_claim_type">Claim Type</string>
+    <string name="str_event_period">Event Period</string>
+    <string name="str_est_daily_reward">Est. Daily Reward</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
@@ -1220,10 +1225,11 @@
     <string name="tx_starname_update_resource">Replace Address</string>
 
 
-    <string name="str_dp_time_format1" >MMM d, yyyy HH:mm:ss</string>
-    <string name="str_dp_time_format2" >MMM d, yyyy HH:mm</string>
-    <string name="str_dp_time_format3" >HH:mm:ss</string>
-    <string name="str_dp_date_format" >MMM d, yyyy</string>
+    <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
+    <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>
+    <string name="str_dp_time_format3">HH:mm:ss</string>
+    <string name="str_dp_time_format4">MMM d, yyyy</string>
+    <string name="str_dp_date_format">MMM d, yyyy</string>
 
 
 

@@ -1626,6 +1626,18 @@ public class WDp {
         return result;
     }
 
+    public static String getTimeTxformatShort(Context c, String rawValue) {
+        String result = "??";
+        try {
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_tx_time_format));
+            SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format4));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            result = myFormat.format(blockDateFormat.parse(rawValue));
+        } catch (Exception e) {};
+
+        return result;
+    }
+
     public static String getTimeGap(Context c, String rawValue) {
         String result = "";
         try {
@@ -1901,6 +1913,17 @@ public class WDp {
         String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
         String strBack = c.getString(R.string.str_collateral_value_title2);
         return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+
+    public static int getDpRiskColor(Context c, BigDecimal riskRate) {
+        if (riskRate.longValue() <= 50) {
+            return c.getResources().getColor(R.color.colorCdpSafe);
+        } else if (riskRate.longValue() < 80) {
+            return c.getResources().getColor(R.color.colorCdpStable);
+        } else {
+            return c.getResources().getColor(R.color.colorCdpDanger);
+        }
     }
 
     public static void DpRiskRate(Context c, BigDecimal riskRate, TextView textView, ImageView imageview) {
