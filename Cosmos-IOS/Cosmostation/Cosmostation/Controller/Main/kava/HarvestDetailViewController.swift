@@ -67,7 +67,7 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (myHavestDeposit == nil) {
+        if (myHavestDeposit == nil && myHavestReward == nil) {
             if (indexPath.row == 0) {
                 return self.onBindTop(tableView, indexPath.row)
             } else {
@@ -90,11 +90,25 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
         if (distributionSchedule != nil && kavaPoolAccount != nil) {
             let title = (distributionSchedule!.deposit_denom == KAVA_MAIN_DENOM) ? "kava" : distributionSchedule!.deposit_denom
             cell?.harvestTitle.text = title.uppercased() + " POOL"
-            cell?.starTime.text = WUtils.txTimetoString(input: distributionSchedule!.start)
-            cell?.endTime.text = WUtils.txTimetoString(input: distributionSchedule!.end)
+            cell?.eventTime.text = WUtils.txTimetoShortString(input: distributionSchedule!.start) + " ~ " + WUtils.txTimetoShortString(input: distributionSchedule!.end)
             cell?.rewardForSecond.attributedText = WUtils.displayAmount2(distributionSchedule!.rewards_per_second.amount, cell!.rewardForSecond.font, 6, 6)
+            
+            var poolValue = NSDecimalNumber.zero
+            WUtils.showCoinDp(mDepositDenom!, "0", cell!.totolDepositedDenom, cell!.totolDepositedAmount, chainType!)
             if let poolCoin = kavaPoolAccount?.coins.filter({ $0.denom == mDepositDenom}).first {
                 WUtils.showCoinDp(poolCoin, cell!.totolDepositedDenom, cell!.totolDepositedAmount, chainType!)
+                if (mDepositDenom == "usdx") {
+                    poolValue = NSDecimalNumber.init(string: poolCoin.amount).multiplying(byPowerOf10: -6)
+                    
+                } else if (mDepositDenom == "bnb") {
+                    if let bnbPrice = BaseData.instance.mKavaPrice["bnb:usd"] {
+                        poolValue = NSDecimalNumber.init(string: poolCoin.amount).multiplying(byPowerOf10: -8).multiplying(by: NSDecimalNumber.init(string: bnbPrice.result.price)).rounding(accordingToBehavior: WUtils.handler2)
+                    }
+                    
+                } else if (mDepositDenom == "ukava") {
+                    poolValue = NSDecimalNumber.init(string: poolCoin.amount).multiplying(byPowerOf10: -6).multiplying(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler2Down)
+                }
+                cell?.totalDepositedValue.attributedText = WUtils.getDPRawDollor(poolValue.stringValue, 2, cell!.totalDepositedValue.font)
             }
             let url = KAVA_HARVEST_MARKET_IMG_URL + "lp" + distributionSchedule!.deposit_denom + ".png"
             cell?.harvestImg.af_setImage(withURL: URL(string: url)!)
@@ -111,8 +125,17 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.depositSymbol.textColor = .white
                 cell?.depositSymbol.text = mDepositDenom!.uppercased()
             }
+            
+            WUtils.showCoinDp(mDepositDenom!, "0", cell!.depositDenom, cell!.depositAmount, chainType!)
+            WUtils.showCoinDp(KAVA_HARD_DENOM, "0", cell!.dailyReardDenom, cell!.dailyRewardAmount, chainType!)
+            WUtils.showCoinDp(KAVA_HARD_DENOM, "0", cell!.rewardDenom, cell!.rewardAmount, chainType!)
+            
             if let depositedCoin = myHavestDeposit?.amount {
                 WUtils.showCoinDp(depositedCoin, cell!.depositDenom, cell!.depositAmount, chainType!)
+                if let poolCoin = kavaPoolAccount?.coins.filter({ $0.denom == mDepositDenom}).first {
+                    let dailyReward =  NSDecimalNumber.init(string: depositedCoin.amount).multiplying(by: NSDecimalNumber.init(string: distributionSchedule!.rewards_per_second.amount)).multiplying(by: NSDecimalNumber.init(string: "86400")).dividing(by: NSDecimalNumber.init(string: poolCoin.amount), withBehavior: WUtils.handler0Down);
+                    WUtils.showCoinDp(KAVA_HARD_DENOM, dailyReward.stringValue, cell!.dailyReardDenom, cell!.dailyRewardAmount, chainType!)
+                }
             }
             
             if let rewardCoin = myHavestReward?.amount {
@@ -259,7 +282,7 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
                 print("error")
             }
             
-            if (myHavestDeposit != nil) {
+            if (myHavestDeposit != nil || myHavestReward != nil) {
                 startDepositBtn.isHidden = true
             } else {
                 startDepositBtn.isHidden = false

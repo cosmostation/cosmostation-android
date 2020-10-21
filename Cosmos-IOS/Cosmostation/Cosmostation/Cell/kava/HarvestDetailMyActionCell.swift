@@ -19,6 +19,8 @@ class HarvestDetailMyActionCell: UITableViewCell {
     @IBOutlet weak var rewardAmount: UILabel!
     @IBOutlet weak var rewardDenom: UILabel!
     @IBOutlet weak var rewardValue: UILabel!
+    @IBOutlet weak var dailyRewardAmount: UILabel!
+    @IBOutlet weak var dailyReardDenom: UILabel!
     
     @IBOutlet weak var depositBtn: UIButton!
     @IBOutlet weak var withdrawBtn: UIButton!
@@ -30,6 +32,7 @@ class HarvestDetailMyActionCell: UITableViewCell {
         
         depositAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         rewardAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        dailyRewardAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
     var actionDepoist: (() -> Void)? = nil

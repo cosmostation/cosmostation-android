@@ -214,6 +214,9 @@ class HarvestViewController: BaseViewController, UITableViewDelegate, UITableVie
         let title = (myLPInfo!.deposit_denom == KAVA_MAIN_DENOM) ? "kava" : myLPInfo!.deposit_denom
         cell?.harvestTitle.text = title.uppercased() + " POOL"
         cell?.eventime.text = WUtils.txTimetoShortString(input: myLPInfo?.start) + " ~ " + WUtils.txTimetoShortString(input: myLPInfo?.end)
+        
+        WUtils.showCoinDp(myLPInfo!.deposit_denom, "0", cell!.depositedDenom, cell!.depositedAmount, chainType!)
+        WUtils.showCoinDp(KAVA_HARD_DENOM, "0", cell!.rewardDenom, cell!.rewardAmount, chainType!)
         if let rewardRate = myLPInfo?.rewards_per_second {
             cell?.rewardForSecond.attributedText = WUtils.displayAmount2(rewardRate.amount, cell!.rewardForSecond.font, 6, 6)
         }
@@ -285,6 +288,11 @@ class HarvestViewController: BaseViewController, UITableViewDelegate, UITableVie
                 var has = false
                 for havestDeposit in havestDeposits {
                     if (havestDeposit.amount.denom == schedule.deposit_denom) {
+                        has = true
+                    }
+                }
+                for lpReward in havestLPRewards {
+                    if (lpReward.deposit_denom == schedule.deposit_denom) {
                         has = true
                     }
                 }
