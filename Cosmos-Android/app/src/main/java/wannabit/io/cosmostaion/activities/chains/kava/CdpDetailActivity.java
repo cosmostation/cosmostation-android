@@ -62,21 +62,14 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
     private CardView            mCdpInfoCard, mMyCard, mMyEmptyCard;
 
     private ImageView           mInfoMarketImg;
-    private TextView            mInfoMarketId;
-
-    private LinearLayout        mInfoMyLayer;
-    private TextView            mInfoRiskScore;
+    private TextView            mInfoMarketType, mInfoMarketId;
+    private LinearLayout        mInfoRiskHelp;
     private ImageView           mInfoImgRisk;
-    private TextView            mInfoDebtValueTitle, mInfoDebtValue, mInfoCollateralValueTitle, mInfoCollateralValue;
-
-    private LinearLayout        mInfoEmptyLayer;
-    private TextView            mInfoEmptyCollateralRate;
-
-    private RelativeLayout      mInfoCollateralRateView;
-    private LinearLayout        mInfoCollateralRateLayer, mStabilityFeeLayer, mInfoLiquidationPenaltyLayer;
+    private TextView            mInfoRiskScore;
+    private RelativeLayout      mInfoLiquidationPriceLayer;
+    private LinearLayout        mInfoCollateralRateHelp, mStabilityFeeHelp, mInfoLiquidationPenaltyHelp;
     private TextView            mInfoCollateralRate, mInfoStabilityFee, mInfoLiquidationPenalty,
                                 mInfoCurrentPriceTitle, mInfoCurrentPrice, mInfoLiquidationPriceTitle, mInfoLiquidationPrice;
-    private RelativeLayout      mInfoLiquidationPriceLayer;
     private TextView            mInfoMaxDebtAmount, mInfoRemainDebtAmount;
 
 
@@ -141,25 +134,16 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
         mCdpInfoCard                    = findViewById(R.id.card_cdp_info);
         mInfoMarketImg                  = mCdpInfoCard.findViewById(R.id.market_img);
-        mInfoMarketId                   = mCdpInfoCard.findViewById(R.id.market_id);
-        mInfoMyLayer                    = mCdpInfoCard.findViewById(R.id.cdp_my_layer);
-        mInfoRiskScore                  = mCdpInfoCard.findViewById(R.id.cdp_safe_rate);
+        mInfoMarketType                 = mCdpInfoCard.findViewById(R.id.cdp_market_type);
+        mInfoMarketId                   = mCdpInfoCard.findViewById(R.id.market_title);
+        mInfoRiskHelp                   = mCdpInfoCard.findViewById(R.id.safe_rate_layer);
         mInfoImgRisk                    = mCdpInfoCard.findViewById(R.id.cdp_safe_img);
-        mInfoDebtValueTitle             = mCdpInfoCard.findViewById(R.id.cdp_debt_value_title);
-        mInfoDebtValue                  = mCdpInfoCard.findViewById(R.id.cdp_debt_value);
-        mInfoCollateralValueTitle       = mCdpInfoCard.findViewById(R.id.cdp_collateral_value_title);
-        mInfoCollateralValue            = mCdpInfoCard.findViewById(R.id.cdp_collateral_value);
-
-        mInfoEmptyLayer                 = mCdpInfoCard.findViewById(R.id.cdp_empty_layer);
-        mInfoEmptyCollateralRate        = mCdpInfoCard.findViewById(R.id.cdp_collateral_rate);
-
-
-        mInfoCollateralRateView         = mCdpInfoCard.findViewById(R.id.collateral_rate_view);
-        mInfoCollateralRateLayer        = mCdpInfoCard.findViewById(R.id.collateral_rate_layer);
+        mInfoRiskScore                  = mCdpInfoCard.findViewById(R.id.cdp_safe_rate);
+        mInfoCollateralRateHelp         = mCdpInfoCard.findViewById(R.id.collateral_rate_layer);
         mInfoCollateralRate             = mCdpInfoCard.findViewById(R.id.collateral_rate);
-        mStabilityFeeLayer              = mCdpInfoCard.findViewById(R.id.stability_fee_layer);
+        mStabilityFeeHelp               = mCdpInfoCard.findViewById(R.id.stability_fee_layer);
         mInfoStabilityFee               = mCdpInfoCard.findViewById(R.id.stability_fee);
-        mInfoLiquidationPenaltyLayer    = mCdpInfoCard.findViewById(R.id.liquidation_penalty_layer);
+        mInfoLiquidationPenaltyHelp     = mCdpInfoCard.findViewById(R.id.liquidation_penalty_layer);
         mInfoLiquidationPenalty         = mCdpInfoCard.findViewById(R.id.liquidation_penalty);
         mInfoCurrentPriceTitle          = mCdpInfoCard.findViewById(R.id.current_price_title);
         mInfoCurrentPrice               = mCdpInfoCard.findViewById(R.id.current_price);
@@ -231,7 +215,6 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
         mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
         mKavaUnClaimedIncentiveRewards = getBaseDao().mKavaUnClaimedIncentiveRewards;
         if (mCdpParam == null || mCollateralParam == null) {
-            WLog.e("ERROR No cdp param data");
             onBackPressed();
             return;
         }
@@ -263,8 +246,6 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
     BigDecimal pAvailable = BigDecimal.ZERO;
     BigDecimal kAvailable = BigDecimal.ZERO;
     BigDecimal currentPrice = BigDecimal.ZERO;
-    BigDecimal globalDebtAmount = BigDecimal.ZERO;
-    BigDecimal currentDebtAmount = BigDecimal.ZERO;
     ResCdpParam.KavaCollateralParam mCollateralParam;
 
     private void onUpdateView() {
@@ -283,63 +264,37 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
     BigDecimal mRiskRate, mLiquidationPrice = BigDecimal.ZERO;
     private void onUpdateInfoView() {
-        if (mMyOwenCdp == null) {
-            mInfoMyLayer.setVisibility(View.GONE);
-            mInfoEmptyLayer.setVisibility(View.VISIBLE);
-            mInfoCollateralRateView.setVisibility(View.GONE);
-            mInfoLiquidationPriceLayer.setVisibility(View.GONE);
 
-        } else {
-            mInfoMyLayer.setVisibility(View.VISIBLE);
-            mInfoEmptyLayer.setVisibility(View.GONE);
-            mInfoCollateralRateView.setVisibility(View.VISIBLE);
-            mInfoLiquidationPriceLayer.setVisibility(View.VISIBLE);
+        mInfoMarketType.setText(mCollateralParam.type.toUpperCase());
+        mInfoMarketId.setText(mCollateralParam.getDpMarketId());
+        try {
+            Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  mCollateralParam.getImagePath()).fit().into(mInfoMarketImg);
+        } catch (Exception e) { }
 
-            mLiquidationPrice = mMyOwenCdp.getLiquidationPrice(getBaseContext(), mCollateralParam);
-            mRiskRate = new BigDecimal(100).subtract((currentPrice.subtract(mLiquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
-            WDp.DpRiskRate(getBaseContext(), mRiskRate, mInfoRiskScore, mInfoImgRisk);
-
-//            WLog.w("currentPrice " + currentPrice);
-//            WLog.w("mLiquidationPrice " + mLiquidationPrice);
-//            WLog.w("mRiskRate " + mRiskRate);
-
-            mInfoDebtValueTitle.setText(String.format(getString(R.string.str_debt_value), mMyOwenCdp.getPDenom().toUpperCase()));
-            mInfoCollateralValueTitle.setText(String.format(getString(R.string.str_collateral_value_title3), mMyOwenCdp.getDenom().toUpperCase()));
-
-            final BigDecimal debtValue = new BigDecimal(mMyOwenCdp.cdp.principal.amount);
-            final BigDecimal feeValue = mMyOwenCdp.getAccumulatedFees();
-            final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getBaseContext(), debtValue.add(feeValue), mCollateralParam, mMyOwenCdp.cdp);
-            final BigDecimal totalDebtValue = debtValue.add(feeValue).add(hiddenFeeValue);
-            mInfoDebtValue.setText(WDp.getDpRawDollor(getBaseContext(), totalDebtValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
-
-            final BigDecimal currentCollateralValue = new BigDecimal(mMyOwenCdp.collateral_value.amount);
-            mInfoCollateralValue.setText(WDp.getDpRawDollor(getBaseContext(), currentCollateralValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
-
-            mInfoLiquidationPriceTitle.setText(String.format(getString(R.string.str_liquidation_title3), cDenom.toUpperCase()));
-            mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), mLiquidationPrice, 4));
-        }
-
-        mInfoEmptyCollateralRate.setText(WDp.getPercentDp(mCollateralParam.getDpLiquidationRatio(), 2));
         mInfoCollateralRate.setText(WDp.getPercentDp(mCollateralParam.getDpLiquidationRatio(), 2));
         mInfoStabilityFee.setText(WDp.getPercentDp(mCollateralParam.getDpStabilityFee(), 2));
         mInfoLiquidationPenalty.setText(WDp.getPercentDp(mCollateralParam.getDpLiquidationPenalty(), 2));
         mInfoCurrentPriceTitle.setText(String.format(getString(R.string.str_current_title3), cDenom.toUpperCase()));
         mInfoCurrentPrice.setText(WDp.getDpRawDollor(getBaseContext(), currentPrice, 4));
 
-        mInfoMarketId.setText(mCollateralParam.getDpMarketId());
-        try {
-            Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  mCollateralParam.getImagePath()).fit().into(mInfoMarketImg);
-        } catch (Exception e) { }
-
         mInfoMaxDebtAmount.setText(WDp.getDpAmount2(getBaseContext(), mCdpParam.getGlobalDebtAmount(), 6, 6));
         mInfoRemainDebtAmount.setText(WDp.getDpAmount2(getBaseContext(), mCdpParam.getGlobalDebtAmount().subtract(mKavaTotalSupply.getDebtAmount()), 6, 6));
 
-        mInfoMyLayer.setOnClickListener(this);
-        mInfoEmptyLayer.setOnClickListener(this);
-        mInfoCollateralRateLayer.setOnClickListener(this);
-        mStabilityFeeLayer.setOnClickListener(this);
-        mInfoLiquidationPenaltyLayer.setOnClickListener(this);
+        if (mMyOwenCdp != null) {
+            mLiquidationPrice = mMyOwenCdp.getLiquidationPrice(getBaseContext(), mCollateralParam);
+            mRiskRate = new BigDecimal(100).subtract((currentPrice.subtract(mLiquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
+            WDp.DpRiskRate(getBaseContext(), mRiskRate, mInfoRiskScore, mInfoImgRisk);
 
+            mInfoLiquidationPriceTitle.setText(String.format(getString(R.string.str_liquidation_title3), cDenom.toUpperCase()));
+            mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), mLiquidationPrice, 4));
+            mInfoLiquidationPriceLayer.setVisibility(View.VISIBLE);
+        }
+
+
+        mInfoRiskHelp.setOnClickListener(this);
+        mInfoCollateralRateHelp.setOnClickListener(this);
+        mStabilityFeeHelp.setOnClickListener(this);
+        mInfoLiquidationPenaltyHelp.setOnClickListener(this);
 
         mCdpInfoCard.setVisibility(View.VISIBLE);
     }
@@ -445,13 +400,13 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mInfoCollateralRateLayer) || v.equals(mInfoEmptyLayer)) {
+        if (v.equals(mInfoCollateralRateHelp)) {
             onShowHelpPopup(getString(R.string.str_help_collateral_rate_t), getString(R.string.str_help_collateral_rate));
 
-        } else if (v.equals(mStabilityFeeLayer)) {
+        } else if (v.equals(mStabilityFeeHelp)) {
             onShowHelpPopup(getString(R.string.str_help_stability_fee_t), getString(R.string.str_help_stability_fee));
 
-        } else if (v.equals(mInfoLiquidationPenaltyLayer)) {
+        } else if (v.equals(mInfoLiquidationPenaltyHelp)) {
             onShowHelpPopup(getString(R.string.str_help_liquidation_penalty_t), getString(R.string.str_help_liquidation_penalty));
 
         } else if (v.equals(mMySelfDepositLayer)) {
@@ -475,7 +430,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
         } else if (v.equals(mMyCdpFeeLayer)) {
             onShowHelpPopup(getString(R.string.str_help_total_fee_t), getString(R.string.str_help_total_fee));
 
-        } else if (v.equals(mInfoMyLayer)) {
+        } else if (v.equals(mInfoRiskHelp)) {
             Bundle bundle = new Bundle();
             bundle.putString("riskRate", mRiskRate.toPlainString());
             bundle.putString("liquidationPrice", mLiquidationPrice.toPlainString());

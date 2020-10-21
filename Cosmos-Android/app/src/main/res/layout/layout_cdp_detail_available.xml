@@ -94,7 +94,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_4">
+            android:layout_marginTop="@dimen/space_2">
             <ImageView
                 android:id="@+id/principal_icon"
                 android:layout_width="@dimen/space_20"
@@ -146,7 +146,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_4">
+            android:layout_marginTop="@dimen/space_2">
             <ImageView
                 android:id="@+id/kava_icon"
                 android:layout_width="@dimen/space_20"

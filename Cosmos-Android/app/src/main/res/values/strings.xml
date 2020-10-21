@@ -590,7 +590,7 @@
     <string name="str_remain_debt_title2">Amount</string>
     <string name="str_collateral_value_title1">Collateral</string>
     <string name="str_collateral_value_title2">Value</string>
-    <string name="str_collateral_value_title3">%1$s Collateral Value</string>
+    <string name="str_collateral_value_title3">My %1$s Collateral Value</string>
     <string name="str_open_cdp">Open CDP</string>
     <string name="str_available_amount">Available Amount</string>
     <string name="str_self_deposited_amount">Deposited Collateral (self)</string>
@@ -618,7 +618,7 @@
     <string name="str_after_total_debt">Adjusted Total Principal</string>
     <string name="str_after_total_deposit">Adjusted Total Collateral</string>
     <string name="str_risk_rate">Risk Score</string>
-    <string name="str_debt_value">%1$s Debt Value</string>
+    <string name="str_debt_value">My %1$s Debt Value</string>
     <string name="str_my_cdp_information">My CDP Information</string>
     <string name="str_btn_text_deposit">Deposit %1$s</string>
     <string name="str_btn_text_withdraw">Withdraw %1$s</string>

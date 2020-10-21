@@ -257,6 +257,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
 //            WLog.w("liquidationPrice " +  liquidationPrice);
 //            WLog.w("riskRate " +  riskRate);
 
+                holder.itemCollateralType.setText(collateralParam.type.toUpperCase());
                 holder.itemTitleMarket.setText(collateralParam.getDpMarketId());
                 holder.itemDebtValueTitle.setText(String.format(getString(R.string.str_debt_value), status.getPDenom().toUpperCase()));
                 holder.itemCollateralValueTitle.setText(String.format(getString(R.string.str_collateral_value_title3), status.getDenom().toUpperCase()));
@@ -303,6 +304,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
                     collateralParam = mOtherCdps.get(position - mMyOwenCdps.size());
 
                 }
+                holder.itemCollateralType.setText(collateralParam.type.toUpperCase());
                 holder.itemTitleMarket.setText(collateralParam.getDpMarketId());
                 holder.itemCollateralRate.setText(WDp.getPercentDp(collateralParam.getDpLiquidationRatio(), 2));
                 holder.itemStabilityFee.setText(WDp.getPercentDp(collateralParam.getDpStabilityFee(), 2));
@@ -365,6 +367,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
             CardView itemRoot;
             ImageView itemImgMarket, itemImgRisk;
             TextView itemTitleMarket, itemRiskScore;
+            TextView itemCollateralType;
             TextView itemDebtValueTitle, itemDebtValue, itemCollateralValueTitle, itemCollateralValue;
             TextView itemStabilityFee, itemLiquidationPenalty;
             TextView itemCurrentPriceTitle, itemCurrentPrice, itemLiquidationPriceTitle, itemLiquidationPrice;
@@ -387,6 +390,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
                 itemCurrentPrice = itemView.findViewById(R.id.current_price);
                 itemLiquidationPriceTitle = itemView.findViewById(R.id.liquidation_price_title);
                 itemLiquidationPrice = itemView.findViewById(R.id.liquidation_price);
+                itemCollateralType = itemView.findViewById(R.id.cdp_market_type);
             }
         }
 
@@ -394,6 +398,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
             CardView itemRoot;
             ImageView itemImgMarket;
             TextView itemTitleMarket;
+            TextView itemCollateralType;
             TextView itemCollateralRate, itemStabilityFee, itemLiquidationPenalty;
 
 
@@ -405,6 +410,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
                 itemCollateralRate = itemView.findViewById(R.id.cdp_collateral_rate);
                 itemStabilityFee = itemView.findViewById(R.id.cdp_stability_fee);
                 itemLiquidationPenalty = itemView.findViewById(R.id.cdp_str_liquidation_penalty);
+                itemCollateralType = itemView.findViewById(R.id.cdp_market_type);
             }
         }
     }

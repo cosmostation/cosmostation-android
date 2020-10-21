@@ -467,7 +467,7 @@
     <string name="str_remain_debt_title2">Amount</string>
     <string name="str_collateral_value_title1">담보</string>
     <string name="str_collateral_value_title2">가치</string>
-    <string name="str_collateral_value_title3">%1$s 담보 가치</string>
+    <string name="str_collateral_value_title3">나의 %1$s 담보 가치</string>
     <string name="str_open_cdp">CDP 개설</string>
     <string name="str_available_amount">Available Amount</string>
     <string name="str_self_deposited_amount">나의 담보 수량</string>
@@ -496,7 +496,7 @@
     <string name="str_after_total_debt">예상 총 대출 금액</string>
     <string name="str_after_total_deposit">예상 총 담보 수량</string>
     <string name="str_risk_rate">청산 위험도</string>
-    <string name="str_debt_value">%1$s 부채 가치</string>
+    <string name="str_debt_value">나의 %1$s 부채 가치</string>
     <string name="str_my_cdp_information">내 CDP 계좌</string>
     <string name="str_btn_text_deposit">%1$s 입금</string>
     <string name="str_btn_text_withdraw">%1$s 출금</string>
