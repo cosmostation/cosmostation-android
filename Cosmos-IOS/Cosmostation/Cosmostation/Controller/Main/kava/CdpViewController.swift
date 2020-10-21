@@ -144,6 +144,7 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
         }
 
         let cell:CdpLisyMyCell? = tableView.dequeueReusableCell(withIdentifier:"CdpLisyMyCell") as? CdpLisyMyCell
+        cell?.marketType.text = mCollateralParam!.type.uppercased()
         cell?.marketTitle.text = mCollateralParam!.getDpMarketId()
         WUtils.showRiskRate(riskRate, cell!.riskScore, _rateIamg: cell!.riskRateImg)
 
@@ -158,6 +159,7 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
 
         cell?.liquidationPriceTitle.text = String(format: NSLocalizedString("liquidation_price_format", comment: ""), mCDenom.uppercased())
         cell?.liquidationPrice.attributedText = WUtils.getDPRawDollor(liquidationPrice.stringValue, 4, cell!.liquidationPrice.font)
+        cell?.liquidationPrice.textColor = WUtils.getRiskColor(riskRate)
 
         let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam!.getMarketImgPath() + ".png"
         cell?.marketImg.af_setImage(withURL: URL(string: url)!)
@@ -168,6 +170,7 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
     func onBindOtherCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
             let cell:CdpListAllCell? = tableView.dequeueReusableCell(withIdentifier:"CdpListAllCell") as? CdpListAllCell
             let mCollateralParam = otherCdps[position]
+            cell?.marketType.text = mCollateralParam.type.uppercased()
             cell?.marketTitle.text = mCollateralParam.getDpMarketId()
             cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationRatio(), font: cell!.minCollateralRate.font)
             cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam.getDpStabilityFee(), font: cell!.stabilityFee.font)

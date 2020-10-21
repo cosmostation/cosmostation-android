@@ -199,10 +199,10 @@
 "str_cannot_repay_all" = "Insufficient %@ to repay all";
 "str_no_more_3day" = "Hide 3 days";
 
-"current_price_format" = "%@ Current Price";
-"liquidation_price_format" = "%@ Liquidation Price";
-"debt_value_format" = "%@ Debt Value";
-"collateral_value_format" = "%@ Collateral Value";
+"current_price_format" = "Current %@ Price";
+"liquidation_price_format" = "Liquidation %@ Price";
+"debt_value_format" = "My %@ Debt Value";
+"collateral_value_format" = "My %@ Collateral Value";
 "withdrawable_format" = "Withdrawable %@";
 "before_liquidation_price_format" = "Initial Liquidation %@ Price";
 "after_liquidation_price_format" = "Expected Liquidation %@ Price";

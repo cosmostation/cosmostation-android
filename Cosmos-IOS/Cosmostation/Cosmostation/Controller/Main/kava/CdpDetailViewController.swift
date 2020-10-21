@@ -119,6 +119,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         let cell:CdpDetailTopCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailTopCell") as? CdpDetailTopCell
         if (mCollateralParam != nil) {
             cell?.marketTitle.text = mCollateralParam!.getDpMarketId()
+            cell?.marketType.text = mCollateralParam!.type.uppercased()
             cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationRatio(), font: cell!.minCollateralRate.font)
             cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam!.getDpStabilityFee(), font: cell!.stabilityFee.font)
             cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationPenalty(), font: cell!.liquidationPenalty.font)
@@ -158,13 +159,8 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         }
         
         cell?.marketTitle.text = mCollateralParam!.getDpMarketId()
+        cell?.marketType.text = mCollateralParam!.type.uppercased()
         WUtils.showRiskRate(riskRate, cell!.riskScore, _rateIamg: cell!.riskRateImg)
-        
-        cell?.debtValueTitle.text = String(format: NSLocalizedString("debt_value_format", comment: ""), mPDenom.uppercased())
-        cell?.debtValue.attributedText = WUtils.getDPRawDollor(mMyCdpStatus!.result.getDpEstimatedTotalDebtValue(mPDenom, mCollateralParam!).stringValue, 2, cell!.debtValue.font)
-        
-        cell?.collateralValueTitle.text = String(format: NSLocalizedString("collateral_value_format", comment: ""), mCDenom.uppercased())
-        cell?.collateralValue.attributedText = WUtils.getDPRawDollor(mMyCdpStatus!.result.getDpCollateralValue(mPDenom).stringValue, 2, cell!.collateralValue.font)
         
         cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationRatio(), font: cell!.minCollateralRate.font)
         cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam!.getDpStabilityFee(), font: cell!.stabilityFee.font)
@@ -175,6 +171,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         cell?.liquidationPriceTitle.text = String(format: NSLocalizedString("liquidation_price_format", comment: ""), mCDenom.uppercased())
         cell?.liquidationPrice.attributedText = WUtils.getDPRawDollor(liquidationPrice.stringValue, 4, cell!.liquidationPrice.font)
+        cell?.liquidationPrice.textColor = WUtils.getRiskColor(riskRate)
         
         cell?.systemMax.attributedText = WUtils.displayAmount2(mCdpParam?.result.getGlobalDebtAmount().stringValue, cell!.systemMax.font, 6, 6)
         cell?.remainCap.attributedText = WUtils.displayAmount2(mCdpParam!.result.getGlobalDebtAmount().subtracting(mKavaTotalSupply?.getDebtAmount() ?? NSDecimalNumber.zero).stringValue, cell!.remainCap.font, 6, 6)

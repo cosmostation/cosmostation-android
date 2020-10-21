@@ -2464,6 +2464,16 @@ class WUtils {
         return attributedString1
     }
     
+    static func getRiskColor(_ riskRate: NSDecimalNumber) -> UIColor {
+        if (riskRate.doubleValue <= 50) {
+            return COLOR_CDP_SAFE
+        } else if (riskRate.doubleValue < 80) {
+            return COLOR_CDP_STABLE
+        } else {
+            return COLOR_CDP_DANGER
+        }
+    }
+    
     static func showRiskRate(_ riskRate: NSDecimalNumber, _ scoreLabel: UILabel, _rateIamg:UIImageView?) {
         scoreLabel.attributedText = displayAmount2(riskRate.stringValue, scoreLabel.font, 0, 2)
         if (riskRate.doubleValue <= 50) {

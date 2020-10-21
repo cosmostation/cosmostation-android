@@ -11,13 +11,14 @@ import UIKit
 class CdpDetailMyTopCell: UITableViewCell {
     
     @IBOutlet weak var marketImg: UIImageView!
+    @IBOutlet weak var marketType: UILabel!
     @IBOutlet weak var marketTitle: UILabel!
     @IBOutlet weak var riskRateImg: UIImageView!
     @IBOutlet weak var riskScore: UILabel!
-    @IBOutlet weak var debtValueTitle: UILabel!
-    @IBOutlet weak var debtValue: UILabel!
-    @IBOutlet weak var collateralValueTitle: UILabel!
-    @IBOutlet weak var collateralValue: UILabel!
+//    @IBOutlet weak var debtValueTitle: UILabel!
+//    @IBOutlet weak var debtValue: UILabel!
+//    @IBOutlet weak var collateralValueTitle: UILabel!
+//    @IBOutlet weak var collateralValue: UILabel!
     
     @IBOutlet weak var minCollateralRate: UILabel!
     @IBOutlet weak var stabilityFee: UILabel!
@@ -33,8 +34,8 @@ class CdpDetailMyTopCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         
-        debtValue.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
-        collateralValue.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+//        debtValue.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+//        collateralValue.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         minCollateralRate.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         stabilityFee.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         liquidationPenalty.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)

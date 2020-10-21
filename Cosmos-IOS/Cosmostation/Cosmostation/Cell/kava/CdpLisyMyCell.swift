@@ -11,6 +11,7 @@ import UIKit
 class CdpLisyMyCell: UITableViewCell {
 
     @IBOutlet weak var marketImg: UIImageView!
+    @IBOutlet weak var marketType: UILabel!
     @IBOutlet weak var marketTitle: UILabel!
     @IBOutlet weak var riskRateImg: UIImageView!
     @IBOutlet weak var riskScore: UILabel!

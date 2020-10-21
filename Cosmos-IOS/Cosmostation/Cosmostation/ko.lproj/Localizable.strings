@@ -215,10 +215,10 @@
 "str_starname_confirm_msg" = "매칭된 주소를 찾았습니다. 이 주소로 전송을 진행하시겠습니까? \n\n\n%@\n\n%@";
 "str_select_to_send_coin" = "보낼 코인 종류를 선택하세요";
 
-"current_price_format" = "%@ 현재 가격";
-"liquidation_price_format" = "%@ 청산 가격";
-"debt_value_format" = "%@ 부채 가치";
-"collateral_value_format" = "%@ 담보 가치";
+"current_price_format" = "현재 %@ 가격";
+"liquidation_price_format" = "청산 %@ 가격";
+"debt_value_format" = "나의 %@ 부채 가치";
+"collateral_value_format" = "나의 %@ 담보 가치";
 "withdrawable_format" = "출금 가능 %@";
 "before_liquidation_price_format" = "현재 %@ 청산 가격";
 "after_liquidation_price_format" = "예상 %@ 청산 가격";
