@@ -59,7 +59,7 @@ class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITa
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (myHavestDeposit == nil) {
+        if (myHavestDeposit == nil && myHavestReward == nil) {
             return 2
         } else {
             return 3
