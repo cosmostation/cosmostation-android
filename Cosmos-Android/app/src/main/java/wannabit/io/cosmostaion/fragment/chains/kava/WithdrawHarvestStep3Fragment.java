@@ -56,7 +56,7 @@ public class WithdrawHarvestStep3Fragment extends BaseFragment implements View.O
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
         WDp.showCoinDp(getContext(), getSActivity().mHarvestCoin, mWithdrawDenom, mWithdrawAmount, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
-        mDepositType.setText("lp (Liquiduity Provide)");
+        mDepositType.setText("lp (Liquidity Provider)");
         mMemo.setText(getSActivity().mMemo);
 
     }
