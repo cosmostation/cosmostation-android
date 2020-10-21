@@ -294,6 +294,22 @@ class WUtils {
         }
     }
     
+    static func txTimetoShortString(input: String?) -> String {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = NSLocalizedString("date_format2", comment: "")
+        if (input != nil) {
+            let fullDate = nodeFormatter.date(from: input!)
+            return localFormatter.string(from: fullDate!)
+        } else {
+            return ""
+        }
+    }
+    
+    
     static func longTimetoString(input: Int64) -> String {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")

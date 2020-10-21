@@ -166,8 +166,9 @@ class HarvestViewController: BaseViewController, UITableViewDelegate, UITableVie
     func onBindStake(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:HarvestListStakeCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestListStakeCell") as? HarvestListStakeCell
         cell?.harvestTitle.text = "KAVA STAKE"
-        cell?.starTime.text = WUtils.txTimetoString(input: havestParam?.getKavaStakerSchedule()?.distribution_schedule.start)
-        cell?.endTime.text = WUtils.txTimetoString(input: havestParam?.getKavaStakerSchedule()?.distribution_schedule.end)
+        cell?.eventTime.text = WUtils.txTimetoShortString(input: havestParam?.getKavaStakerSchedule()?.distribution_schedule.start) + " ~ " +
+            WUtils.txTimetoShortString(input: havestParam?.getKavaStakerSchedule()?.distribution_schedule.end)
+
         if let rewardRate = havestParam?.getKavaStakerSchedule()?.distribution_schedule.rewards_per_second {
             cell?.rewardForSecond.attributedText = WUtils.displayAmount2(rewardRate.amount, cell!.rewardForSecond.font, 6, 6)
         }
@@ -212,8 +213,7 @@ class HarvestViewController: BaseViewController, UITableViewDelegate, UITableVie
         let cell:HarvestListMyCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestListMyCell") as? HarvestListMyCell
         let title = (myLPInfo!.deposit_denom == KAVA_MAIN_DENOM) ? "kava" : myLPInfo!.deposit_denom
         cell?.harvestTitle.text = title.uppercased() + " POOL"
-        cell?.starTime.text = WUtils.txTimetoString(input: myLPInfo?.start)
-        cell?.endTime.text = WUtils.txTimetoString(input: myLPInfo?.end)
+        cell?.eventime.text = WUtils.txTimetoShortString(input: myLPInfo?.start) + " ~ " + WUtils.txTimetoShortString(input: myLPInfo?.end)
         if let rewardRate = myLPInfo?.rewards_per_second {
             cell?.rewardForSecond.attributedText = WUtils.displayAmount2(rewardRate.amount, cell!.rewardForSecond.font, 6, 6)
         }
@@ -233,8 +233,8 @@ class HarvestViewController: BaseViewController, UITableViewDelegate, UITableVie
         let cell:HarvestListAllCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestListAllCell") as? HarvestListAllCell
         let title = (otherLP.deposit_denom == KAVA_MAIN_DENOM) ? "kava" : otherLP.deposit_denom
         cell?.harvestTitle.text = title.uppercased() + " POOL"
-        cell?.starTime.text = WUtils.txTimetoString(input: otherLP.start)
-        cell?.endTime.text = WUtils.txTimetoString(input: otherLP.end)
+        cell?.eventTime.text = WUtils.txTimetoShortString(input: otherLP.start) + " ~ " + WUtils.txTimetoShortString(input: otherLP.end)
+        
         cell?.rewardForSecond.attributedText = WUtils.displayAmount2(otherLP.rewards_per_second.amount, cell!.rewardForSecond.font, 6, 6)
         let url = KAVA_HARVEST_MARKET_IMG_URL + "lp" + otherLP.deposit_denom + ".png"
         cell?.harvestImg.af_setImage(withURL: URL(string: url)!)

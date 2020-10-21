@@ -350,7 +350,7 @@
 "title_guide" = "FAQ";
 "title_vote" = "Vote";
 "title_tx_detail" = "Transaction Detail";
-"title_dapp_market" = "CDP & Havest";
+"title_dapp_market" = "CDP & Harvest";
 "title_cdp_list" = "CDP Market";
 "title_cdp_detail" = "CDP Status";
 "title_harvest_detail" = "Harvest Status";
@@ -534,3 +534,4 @@
 "chain_title_certik_test" = "Certik Testnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";
+"date_format2" = "MMM d, yyyy";

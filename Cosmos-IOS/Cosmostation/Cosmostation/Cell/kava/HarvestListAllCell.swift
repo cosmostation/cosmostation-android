@@ -13,8 +13,7 @@ class HarvestListAllCell: UITableViewCell {
     @IBOutlet weak var harvestImg: UIImageView!
     @IBOutlet weak var harvestTitle: UILabel!
     @IBOutlet weak var rewardForSecond: UILabel!
-    @IBOutlet weak var starTime: UILabel!
-    @IBOutlet weak var endTime: UILabel!
+    @IBOutlet weak var eventTime: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
