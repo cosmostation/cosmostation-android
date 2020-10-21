@@ -67,7 +67,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8">
+            android:layout_marginTop="@dimen/space_10">
             <TextView
                 android:id="@+id/deposited_title"
                 android:layout_width="wrap_content"
@@ -75,8 +75,9 @@
                 android:text="@string/str_my_deposited_amount"
                 style="@style/font_ss_12_gray1"/>
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_toRightOf="@+id/deposited_title">
                 <TextView
                     android:id="@+id/deposited_symbol"
@@ -84,14 +85,15 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="Coin"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white"
+                    android:visibility="gone"/>
                 <TextView
                     android:id="@+id/deposited_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_alignBaseline="@+id/deposited_symbol"
                     android:layout_toLeftOf="@+id/deposited_symbol"
-                    android:layout_marginRight="@dimen/space_2"
                     android:text="-"
                     style="@style/font_ss_12_white"/>
             </RelativeLayout>
@@ -101,7 +103,7 @@
             android:id="@+id/deposit_actions_layer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_12"
             android:orientation="horizontal">
             <RelativeLayout
                 android:id="@+id/btn_deposit"
@@ -170,7 +172,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8">
+            android:layout_marginTop="@dimen/space_10">
             <TextView
                 android:id="@+id/reward_title"
                 android:layout_width="wrap_content"
@@ -178,8 +180,9 @@
                 android:text="@string/str_my_harvest_reward"
                 style="@style/font_ss_12_gray1"/>
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_toRightOf="@+id/reward_title">
                 <TextView
                     android:id="@+id/harvest_reward_symbol"
@@ -187,14 +190,50 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="Coin"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white"
+                    android:visibility="gone"/>
                 <TextView
                     android:id="@+id/harvest_reward_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_alignBaseline="@+id/harvest_reward_symbol"
                     android:layout_toLeftOf="@+id/harvest_reward_symbol"
-                    android:layout_marginRight="@dimen/space_2"
+                    android:text="-"
+                    style="@style/font_ss_12_white"/>
+            </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/daily_reward_layer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_10">
+            <TextView
+                android:id="@+id/daily_reward_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_est_daily_reward"
+                style="@style/font_ss_12_gray1"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/daily_reward_title">
+                <TextView
+                    android:id="@+id/daily_reward_denom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Coin"
+                    style="@style/font_ss_12_white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/daily_reward_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignBaseline="@+id/daily_reward_denom"
+                    android:layout_toLeftOf="@+id/daily_reward_denom"
                     android:text="-"
                     style="@style/font_ss_12_white"/>
             </RelativeLayout>
@@ -205,7 +244,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_40"
             android:minHeight="@dimen/space_40"
-            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_12"
             android:layout_marginBottom="@dimen/space_8"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true">

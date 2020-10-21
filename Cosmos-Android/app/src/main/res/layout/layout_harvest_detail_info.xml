@@ -49,37 +49,6 @@
                 android:layout_alignBottom="@+id/harvest_markets"
                 android:layout_marginLeft="@dimen/space_16"
                 android:visibility="gone">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/daily_reward_title"
-                    android:layout_alignParentRight="true">
-                    <TextView
-                        android:id="@+id/daily_reward_denom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="HARD"
-                        style="@style/font_ss_17_hard"/>
-                    <TextView
-                        android:id="@+id/daily_reward_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/daily_reward_denom"
-                        android:layout_toLeftOf="@+id/daily_reward_denom"
-                        android:layout_marginRight="@dimen/space_2"
-                        style="@style/font_ss_17_white"/>
-                </RelativeLayout>
-                <TextView
-                    android:id="@+id/daily_reward_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="@dimen/space_4"
-                    android:text="@string/str_est_daily_reward"
-                    style="@style/font_ss_12_gray1"/>
-
             </RelativeLayout>
         </RelativeLayout>
 

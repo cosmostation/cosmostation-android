@@ -66,8 +66,8 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
     private ImageView           mTopMarketImg;
     private TextView            mTopMarketTitle;
     private TextView            mTopEventTime, mTopPoolSupplyAmount, mTopPoolSupplyAmountDenom, mTopPoolSupplyValue;
-    private RelativeLayout      mTopDailyRewardLayer;
-    private TextView            mTopDailyRewardAmount, mTopDailyRewardDenom;
+//    private RelativeLayout      mTopDailyRewardLayer;
+//    private TextView            mTopDailyRewardAmount, mTopDailyRewardDenom;
 
     private ImageView           mMyDepositCoinImg;
     private TextView            mMyDepositCoinTitle;
@@ -77,6 +77,8 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
     private TextView            mMyRewardCoinTitle;
     private TextView            mMyRewardAmount, mMyRewardAmountDenom;
     private RelativeLayout      mMyBtnClaim;
+    private RelativeLayout      mMyDailyRewardLayer;
+    private TextView            mMyDailyRewardAmount, mMyDailyRewardDenom;
 
     private RelativeLayout      mAssetDepositLayer;
     private ImageView           mAssetDepositImg, mAssetRewardImg;
@@ -107,9 +109,6 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
         mTopPoolSupplyAmount        = mHarvestTopCard.findViewById(R.id.total_deposited_amount);
         mTopPoolSupplyAmountDenom   = mHarvestTopCard.findViewById(R.id.total_deposited_symbol);
         mTopPoolSupplyValue         = mHarvestTopCard.findViewById(R.id.total_deposited_value);
-        mTopDailyRewardLayer        = mHarvestTopCard.findViewById(R.id.daily_reward_layer);
-        mTopDailyRewardAmount       = mHarvestTopCard.findViewById(R.id.daily_reward_amount);
-        mTopDailyRewardDenom        = mHarvestTopCard.findViewById(R.id.daily_reward_denom);
 
         mHarvestMyCard              = findViewById(R.id.card_harvest_my);
         mMyDepositCoinImg           = mHarvestMyCard.findViewById(R.id.deposit_icon);
@@ -122,7 +121,11 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
         mMyRewardCoinTitle          = mHarvestMyCard.findViewById(R.id.reward_denom);
         mMyRewardAmount             = mHarvestMyCard.findViewById(R.id.harvest_reward_amount);
         mMyRewardAmountDenom        = mHarvestMyCard.findViewById(R.id.harvest_reward_symbol);
+        mMyDailyRewardLayer         = mHarvestMyCard.findViewById(R.id.daily_reward_layer);
+        mMyDailyRewardAmount        = mHarvestMyCard.findViewById(R.id.daily_reward_amount);
+        mMyDailyRewardDenom         = mHarvestMyCard.findViewById(R.id.daily_reward_denom);
         mMyBtnClaim                 = mHarvestMyCard.findViewById(R.id.btn_claim_reward);
+
 
         mHarvestAssetCard           = findViewById(R.id.card_harvest_asset);
         mAssetDepositLayer          = mHarvestAssetCard.findViewById(R.id.collateral_layer);
@@ -221,14 +224,6 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
                 }
                 mTopPoolSupplyValue.setText(WDp.getDpRawDollor(getBaseContext(), poolValue, 2));
 
-                if (mMyHarvestDeposit != null && mMyHarvestDeposit.amount != null) {
-//                    WLog.w("mMyHarvestDeposit " + mMyHarvestDeposit.amount.amount);
-//                    WLog.w("totalSupply " + totalSupply.amount);
-//                    WLog.w("rewards_per_second " + mDistributionSchedule.rewards_per_second.amount);
-                    BigDecimal dailyReward =  new BigDecimal(mMyHarvestDeposit.amount.amount).multiply(new BigDecimal(mDistributionSchedule.rewards_per_second.amount)).multiply(new BigDecimal("86400")).divide(new BigDecimal(totalSupply.amount), 0, RoundingMode.DOWN);
-                    WDp.showCoinDp(getBaseContext(), TOKEN_HARD, dailyReward.toPlainString(), mTopDailyRewardDenom, mTopDailyRewardAmount, mBaseChain);
-                    mTopDailyRewardLayer.setVisibility(View.VISIBLE);
-                }
             }
         }
 
@@ -246,16 +241,33 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
                 mMyDepositCoinTitle.setText(mDepositDenom.toUpperCase());
                 mMyDepositCoinTitle.setTextColor(getResources().getColor(R.color.colorWhite));
             }
+
+            WDp.showCoinDp(getBaseContext(), mDepositDenom,"0", mMyDepositAmountDenom, mMyDepositAmount, mBaseChain);
+            WDp.showCoinDp(getBaseContext(), TOKEN_HARD, "0", mMyDailyRewardDenom, mMyDailyRewardAmount, mBaseChain);
+            WDp.showCoinDp(getBaseContext(), TOKEN_HARD, "0", mMyRewardAmountDenom, mMyRewardAmount, mBaseChain);
+
             if (mMyHarvestDeposit != null && mMyHarvestDeposit.amount != null) {
                 WDp.showCoinDp(getBaseContext(), mMyHarvestDeposit.amount, mMyDepositAmountDenom, mMyDepositAmount, mBaseChain);
-            } else {
-                WDp.showCoinDp(getBaseContext(), mDepositDenom,"0", mMyDepositAmountDenom, mMyDepositAmount, mBaseChain);
+                Coin totalSupply = null;
+                for (Coin coin:mHarvestPool.coins) {
+                    if (coin.denom.equals(mDepositDenom)) {
+                        totalSupply = coin;
+                        break;
+                    }
+                }
+                if (totalSupply != null) {
+//                    WLog.w("mMyHarvestDeposit " + mMyHarvestDeposit.amount.amount);
+//                    WLog.w("totalSupply " + totalSupply.amount);
+//                    WLog.w("rewards_per_second " + mDistributionSchedule.rewards_per_second.amount);
+                    BigDecimal dailyReward =  new BigDecimal(mMyHarvestDeposit.amount.amount).multiply(new BigDecimal(mDistributionSchedule.rewards_per_second.amount)).multiply(new BigDecimal("86400")).divide(new BigDecimal(totalSupply.amount), 0, RoundingMode.DOWN);
+                    WDp.showCoinDp(getBaseContext(), TOKEN_HARD, dailyReward.toPlainString(), mMyDailyRewardDenom, mMyDailyRewardAmount, mBaseChain);
+                }
             }
+
             if (mMyHarvestReward != null) {
                 WDp.showCoinDp(getBaseContext(), mMyHarvestReward.amount, mMyRewardAmountDenom, mMyRewardAmount, mBaseChain);
-            } else {
-                WDp.showCoinDp(getBaseContext(), TOKEN_HARD, "0", mMyRewardAmountDenom, mMyRewardAmount, mBaseChain);
             }
+
             try {
                 Picasso.get().load(KAVA_COIN_IMG_URL + mDepositDenom + ".png").fit().into(mMyDepositCoinImg);
                 Picasso.get().load(KAVA_COIN_IMG_URL + "hard" + ".png").fit().into(mMyRewardCoinImg);
@@ -278,9 +290,7 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
                     onHarvestClaim();
                 }
             });
-
         }
-
     }
 
     private void onUpdateAssetView() {
@@ -307,7 +317,6 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
             Toast.makeText(getBaseContext(), R.string.error_no_available_to_deposit, Toast.LENGTH_SHORT).show();
             return;
         }
-
         Intent intent = new Intent(this, DepositHarvestActivity.class);
         intent.putExtra("harvestDepositDemon", mDepositDenom);
         startActivity(intent);
