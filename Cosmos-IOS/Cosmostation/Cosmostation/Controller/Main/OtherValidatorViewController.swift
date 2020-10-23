@@ -149,7 +149,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             let url = IOV_VAL_URL + validator.operator_address + ".png"
             cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
-        } else if (chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
             let url = CERTIK_VAL_URL + validator.operator_address + ".png"
@@ -183,7 +183,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_SECRET
             } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
-            } else if (chainType == ChainType.CERTIK_TEST) {
+            } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
             }
         } else {

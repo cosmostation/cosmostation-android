@@ -212,7 +212,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             let url = IOV_VAL_URL + validator.operator_address + ".png"
             cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
-        } else if (chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
             if (self.mStakingPool != nil && self.mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: self.mProvision)
@@ -251,7 +251,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_SECRET
             } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
-            } else if (chainType == ChainType.CERTIK_TEST) {
+            } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
             }
         } else {
@@ -339,7 +339,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
             } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
-            } else if (chainType == ChainType.CERTIK_TEST) {
+            } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
                 return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
             }
             return false

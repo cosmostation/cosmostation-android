@@ -159,7 +159,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             
-        } else if (chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             mUnbondings.removeAll()
             mRewards.removeAll()
             mFetchCnt = 5
@@ -307,7 +307,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             let url = IOV_VAL_URL + mValidator!.operator_address + ".png"
             cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
-        } else if (chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = CERTIK_VAL_URL + mValidator!.operator_address + ".png"
@@ -374,7 +374,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell!.avergaeYield.text = "?? %"
             }
             
-        } else if (mIsTop100 && chainType == ChainType.CERTIK_TEST) {
+        } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
             if (mStakingPool != nil && mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
@@ -456,7 +456,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             let url = IOV_VAL_URL + mValidator!.operator_address + ".png"
             cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
-        } else if (chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             let url = CERTIK_VAL_URL + mValidator!.operator_address + ".png"
@@ -524,7 +524,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell!.avergaeYield.text = "?? %"
             }
             
-        } else if (mIsTop100 && chainType == ChainType.CERTIK_TEST) {
+        } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
             if (mStakingPool != nil && mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
@@ -707,7 +707,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, 6)
             }
             
-        } else if (chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             if (mBonding != nil) {
                 cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, 6)
             } else {
@@ -801,7 +801,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell!.myMonthlyReturns.text = "-"
             }
             
-        } else if (mIsTop100 && chainType == ChainType.CERTIK_TEST) {
+        } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
             if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
                 let provisions = NSDecimalNumber.init(string: mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
@@ -913,6 +913,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = BAND_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_VALIDATORS + "/" + validator.operator_address
+        } else if (chainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
@@ -925,7 +927,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN  || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
+                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
+                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let validator = responseData.object(forKey: "result") as? NSDictionary else {
                         self.onFetchFinished()
@@ -964,6 +967,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SECRET_BONDING + account.account_address + SECRET_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_BONDING + account.account_address + IOV_BONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_BONDING + account.account_address + CERTIK_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_BONDING + account.account_address + IOV_TEST_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -974,7 +979,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
+                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.CERTIK_MAIN ||
+                        self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawData = responseData.object(forKey: "result") as? [String : Any] else {
                         self.onFetchFinished()
@@ -1020,6 +1026,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SECRET_UNBONDING + account.account_address + SECRET_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_UNBONDING + account.account_address + IOV_UNBONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_UNBONDING + account.account_address + CERTIK_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_UNBONDING + account.account_address + IOV_TEST_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -1030,7 +1038,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
+                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
+                        self.chainType == ChainType.CERTIK_MAIN  || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawData = responseData.object(forKey: "result") as? [String : Any] else {
                         self.onFetchFinished()
@@ -1073,6 +1082,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SECRET_REWARD_FROM_VAL + account.account_address + SECRET_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_REWARD_FROM_VAL + account.account_address + IOV_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_REWARD_FROM_VAL + account.account_address + CERTIK_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_FROM_VAL + account.account_address + IOV_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -1083,7 +1094,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
+                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
+                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.onFetchFinished()
@@ -1138,6 +1150,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
         }
@@ -1179,6 +1193,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SECRET_BONDING + address + SECRET_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_BONDING + address + IOV_BONDING_TAIL + "/" + vAddress
+        } else if (chainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_BONDING + address + CERTIK_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_BONDING + address + IOV_TEST_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -1189,7 +1205,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
+                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
+                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawData = responseData.object(forKey: "result") as? [String : Any] else {
                         self.onFetchFinished()
@@ -1226,6 +1243,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SECRET_REDELEGATION;
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_REDELEGATION;
+        } else if (chainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_REDELEGATION;
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REDELEGATION;
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -1236,7 +1255,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
+                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
+                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
                     if let responseData = res as? NSDictionary,
                         let redelegateHistories = responseData.object(forKey: "result") as? Array<NSDictionary> {
                         if (redelegateHistories.count > 0) {
@@ -1294,6 +1314,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SECRET_REWARD_ADDRESS + accountAddr + SECRET_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -1322,7 +1344,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
             }
         } else if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-            self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
+                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
+                    self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
@@ -1415,7 +1438,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
-        } else if (chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
@@ -1429,7 +1452,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mTargetValidator = mValidator
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN  || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN  || chainType == ChainType.IOV_MAIN ||
+                chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
             txVC.mType = COSMOS_MSG_TYPE_DELEGATE
         } else if (chainType == ChainType.IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_DELEGATE
@@ -1451,7 +1475,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN  || chainType == ChainType.CERTIK_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
+                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN  || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             if (mUnbondings.count >= 7) {
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
@@ -1481,7 +1506,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
-        } else if (chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
@@ -1498,7 +1523,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mTargetValidator = mValidator
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
+                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
         } else if (chainType == ChainType.IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_UNDELEGATE
@@ -1551,7 +1577,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
             
-        } else if (chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "30000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
@@ -1568,7 +1594,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mTargetValidator = mValidator
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
+                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         } else if (chainType == ChainType.IRIS_MAIN) {
             txVC.mirisRedelegate = mIrisRedelegate
@@ -1720,7 +1747,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
-        } else if (chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             if (mRewards.count > 0) {
                 let rewardSum = WUtils.getAllRewardByDenom(mRewards, CERTIK_MAIN_DENOM)
                 if (rewardSum == NSDecimalNumber.zero) {
@@ -1751,7 +1778,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         validators.append(mValidator!)
         txVC.mRewardTargetValidators = validators
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-            chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
+                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         } else if (chainType == ChainType.IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_WITHDRAW
@@ -1899,6 +1927,23 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "350000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, CERTIK_MAIN_DENOM)
+                if (rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if (rewardSum.compare(NSDecimalNumber.init(string: "30000")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
             
