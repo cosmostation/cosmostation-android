@@ -3,15 +3,21 @@ package wannabit.io.cosmostaion.activities;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,11 +41,13 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 
 public class EventStakeDropActivity extends BaseActivity implements View.OnClickListener {
 
+    private RelativeLayout mRootView;
     private Toolbar mToolbar;
     private EditText mMemo;
     private Button mCancelBtn, mConfirmBtn;
     private LinearLayout mBtnQr, mBtnPaste;
     private TextView mFeeAmount, mFeeAmountDenom, mSendAmount, mSendAmountDenom, mRecipient;
+    private LinearLayout mWarnLayer;
 
     public ArrayList<Coin> mSendCoins = new ArrayList<>();
     public Fee mSendFee;
@@ -49,6 +57,7 @@ public class EventStakeDropActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_stakedrop);
+        mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mMemo = findViewById(R.id.et_memo);
         mCancelBtn = findViewById(R.id.btn_cancel);
@@ -60,6 +69,7 @@ public class EventStakeDropActivity extends BaseActivity implements View.OnClick
         mSendAmount = findViewById(R.id.send_amount);
         mSendAmountDenom = findViewById(R.id.send_amount_denom);
         mRecipient = findViewById(R.id.recipient_address);
+        mWarnLayer = findViewById(R.id.warn_layer);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -76,6 +86,36 @@ public class EventStakeDropActivity extends BaseActivity implements View.OnClick
 
         setInitEventData();
         onInitView();
+
+        mRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            private boolean alreadyOpen;
+            private final int defaultKeyboardHeightDP = 100;
+            private final int EstimatedKeyboardDP = defaultKeyboardHeightDP + (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? 48 : 0);
+            private final Rect rect = new Rect();
+
+            @Override
+            public void onGlobalLayout() {
+                int estimatedKeyboardHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, EstimatedKeyboardDP, mRootView.getResources().getDisplayMetrics());
+                mRootView.getWindowVisibleDisplayFrame(rect);
+                int heightDiff = mRootView.getRootView().getHeight() - (rect.bottom - rect.top);
+                boolean isShown = heightDiff >= estimatedKeyboardHeight;
+                if (isShown == alreadyOpen) {
+                    return;
+                }
+                alreadyOpen = isShown;
+                if (alreadyOpen) {
+                    mWarnLayer.setVisibility(View.GONE);
+                } else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mWarnLayer.setVisibility(View.VISIBLE);
+                        }
+                    },100);
+                }
+            }
+        });
+        mWarnLayer.setVisibility(View.VISIBLE);
 
     }
 

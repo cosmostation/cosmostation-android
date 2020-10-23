@@ -919,6 +919,8 @@
     <string name="str_receivable">실제 수령 수량</string>
     <string name="str_event_period">이벤트 기간</string>
     <string name="str_est_daily_reward">일일 예상 이자량</string>
+    <string name="str_event_notice">개인 ETH 주소를 입력하세요.\n거래소 주소 또는 유효하지 않은 주소를 입력시 StakeDrop 이벤트 참여에 제외될 수 있습니다..</string>
+
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
