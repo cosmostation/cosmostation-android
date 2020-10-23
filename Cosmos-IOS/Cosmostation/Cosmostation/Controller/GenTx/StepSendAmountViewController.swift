@@ -90,7 +90,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             mDpDecimal = 6
-            maxAvailable = pageHolderVC.mAccount!.getTokenBalance(CERTIK_TEST_DENOM).subtracting(NSDecimalNumber.init(string: "10000"))
+            maxAvailable = pageHolderVC.mAccount!.getTokenBalance(CERTIK_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "10000"))
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
         }
         
@@ -309,7 +309,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 toSendCoin = Coin.init(pageHolderVC.mOkSendDenom!, WUtils.getFormattedNumber(userInput, 8))
                 
             } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-                toSendCoin = Coin.init(CERTIK_TEST_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
+                toSendCoin = Coin.init(CERTIK_MAIN_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
             }
             
             var tempList = Array<Coin>()
@@ -462,7 +462,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
-            if (pageHolderVC.mCertikSendDenom == CERTIK_TEST_DENOM) {
+            if (pageHolderVC.mCertikSendDenom == CERTIK_MAIN_DENOM) {
                 self.showMaxWarnning()
             }
         }

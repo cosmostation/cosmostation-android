@@ -1368,7 +1368,7 @@ class WUtils {
     static func getAllCertik(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for balance in balances {
-            if (balance.balance_denom == CERTIK_TEST_DENOM) {
+            if (balance.balance_denom == CERTIK_MAIN_DENOM) {
                 amount = NSDecimalNumber.init(string: balance.balance_amount)
             }
         }
@@ -1380,7 +1380,7 @@ class WUtils {
         }
         for reward in rewards {
             for coin in reward.reward_amount {
-                if (coin.denom == CERTIK_TEST_DENOM) {
+                if (coin.denom == CERTIK_MAIN_DENOM) {
                     amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
@@ -1751,7 +1751,7 @@ class WUtils {
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 0, 8)
             
         } else if (chainType == ChainType.CERTIK_TEST) {
-            if (coin.denom == CERTIK_TEST_DENOM) {
+            if (coin.denom == CERTIK_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white
@@ -1856,7 +1856,7 @@ class WUtils {
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 0, 8)
             
         } else if (chainType == ChainType.CERTIK_TEST) {
-            if (denom == CERTIK_TEST_DENOM) {
+            if (denom == CERTIK_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white

@@ -126,9 +126,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "secretChainImg")
             titleChainName.text = "(Secret Mainnet)"
             titleAlarmBtn.isHidden = true
-            titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_SECRET
+        } else if (chainType! == ChainType.CERTIK_MAIN) {
+            titleChainImg.image = UIImage(named: "certikChainImg")
+            titleChainName.text = "(Certik Mainnet)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = TRANS_BG_COLOR_CERTIK
         }
         
         else if (chainType! == ChainType.BINANCE_TEST) {
@@ -229,7 +234,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             onFetchOkTokenPrice()
             updateFloaty()
             
-        } else if (chainType! == ChainType.CERTIK_TEST) {
+        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             onFetchCertikTokenPrice()
         }
         
@@ -373,7 +378,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allOk.stringValue, totalAmount.font, 0, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allOk, BaseData.instance.getLastPrice(), 0, totalValue.font)
             
-        } else if (chainType! == ChainType.CERTIK_TEST) {
+        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             let allCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allCtk, BaseData.instance.getLastPrice(), 0, totalValue.font)
@@ -404,7 +409,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetSecretItems(tableView, indexPath)
         } else if (chainType! == ChainType.OKEX_TEST) {
             return onSetOkItems(tableView, indexPath)
-        } else if (chainType! == ChainType.CERTIK_TEST) {
+        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             return onSetCertikItems(tableView, indexPath)
         }
         return onSetCosmosItems(tableView, indexPath)
@@ -447,7 +452,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             tokenDetailVC.okDenom = mainTabVC.mBalances[indexPath.row].balance_denom
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
-        } else if (chainType! == ChainType.CERTIK_TEST) {
+        } else if (chainType! == ChainType.CERTIK_TEST || chainType! == ChainType.CERTIK_MAIN) {
             //TODO Certik tokens details
         }
         
@@ -695,7 +700,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func onSetCertikItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
-        if (balance.balance_denom == CERTIK_TEST_DENOM) {
+        if (balance.balance_denom == CERTIK_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "certikTokenImg")
             cell?.tokenSymbol.text = "CTK"
             cell?.tokenSymbol.textColor = COLOR_CERTIK

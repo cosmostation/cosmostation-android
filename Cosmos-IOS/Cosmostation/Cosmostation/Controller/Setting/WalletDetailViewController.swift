@@ -138,7 +138,16 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
-        } else if (chainType == ChainType.IOV_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN) {
+            chainImg.image = UIImage(named: "certikChainImg")
+            keyPath.text = BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+
+        }
+        
+        else if (chainType == ChainType.IOV_TEST) {
             chainImg.image = UIImage(named: "iovTestnetImg")
             keyPath.text = IOV_BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
@@ -443,6 +452,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_REWARD_ADDRESS + accountAddr + SECRET_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_TEST) {
@@ -472,7 +483,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 }
             }
         } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                    chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+                    chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):

@@ -63,8 +63,10 @@ let OKEX_TEST_URL                       = "https://lcd-okexchain-testnet1.cosmos
 let OKEX_TEST_API                       = "";
 
 
-let CERTIK_URL                          = "https://lcd-certik.cosmostation.io/";
-let CERTIK_API                          = "https://api-certik.cosmostation.io/";
+//let CERTIK_URL                          = "https://lcd-certik.cosmostation.io/";
+//let CERTIK_API                          = "https://api-certik.cosmostation.io/";
+let CERTIK_URL                          = "https://lcd-certik-testnet3.cosmostation.io/";
+let CERTIK_API                          = "https://api-certik-testnet3.cosmostation.io/";
 
 
 let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostation.io/";
@@ -894,7 +896,6 @@ let CERTIK_MAIN_DENOM = "uctk"
 
 let IOV_TEST_DENOM = "uvoi"
 let OKEX_TEST_DENOM = "tokt"
-let CERTIK_TEST_DENOM = "uctk"
 let KAVA_HARD_DENOM = "hard"
 
 
@@ -921,7 +922,7 @@ let EXPLORER_SECRET_MAIN    = "https://explorer.cashmaney.com/";
 let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
 let EXPLORER_KAVA_TEST      = "https://kava-testnet-9000.mintscan.io/";
 let EXPLORER_OKEX_TEST      = "https://www.oklink.com/okexchain-test/";
-let EXPLORER_CERTIK_TEST    = "https://explorer.certik.foundation/";
+let EXPLORER_CERTIK         = "https://explorer.certik.foundation/";
 
 
 

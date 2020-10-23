@@ -99,7 +99,7 @@ class StepRewardViewController: BaseViewController {
             rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, IOV_TEST_DENOM, pageHolderVC.chainType!)
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, CERTIK_TEST_DENOM, pageHolderVC.chainType!)
+            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, CERTIK_MAIN_DENOM, pageHolderVC.chainType!)
         }
         
         var monikers = ""

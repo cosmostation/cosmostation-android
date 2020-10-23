@@ -185,7 +185,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (chainType == ChainType.CERTIK_TEST) {
             let proposal = mProposals[indexPath.row]
-            guard let url = URL(string: EXPLORER_CERTIK_TEST + "governance/proposals/" + proposal.id + "?net=" + WUtils.getChainId(chainType!)) else { return }
+            guard let url = URL(string: EXPLORER_CERTIK + "governance/proposals/" + proposal.id + "?net=" + WUtils.getChainId(chainType!)) else { return }
             self.onShowSafariWeb(url)
         }
     }

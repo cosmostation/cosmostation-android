@@ -64,7 +64,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             mDpDecimal = 6
-            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, CERTIK_TEST_DENOM).subtracting(NSDecimalNumber(string: "20000"))
+            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, CERTIK_MAIN_DENOM).subtracting(NSDecimalNumber(string: "20000"))
             availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
         }
         
@@ -209,7 +209,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
                 coin = Coin.init(IOV_TEST_DENOM, userInput.multiplying(by: 1000000).stringValue)
             } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-                coin = Coin.init(CERTIK_TEST_DENOM, userInput.multiplying(by: 1000000).stringValue)
+                coin = Coin.init(CERTIK_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
             }
             pageHolderVC.mToDelegateAmount = coin
             sender.isUserInteractionEnabled = false

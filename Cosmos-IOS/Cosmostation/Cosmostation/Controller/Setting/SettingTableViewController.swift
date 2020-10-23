@@ -157,8 +157,8 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                     guard let url = URL(string: EXPLORER_OKEX_TEST) else { return }
                     self.onShowSafariWeb(url)
                     
-                } else if (chainType == ChainType.CERTIK_TEST) {
-                    guard let url = URL(string: EXPLORER_CERTIK_TEST + "?net=" + WUtils.getChainId(chainType)) else { return }
+                } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
+                    guard let url = URL(string: EXPLORER_CERTIK + "?net=" + WUtils.getChainId(chainType)) else { return }
                     self.onShowSafariWeb(url)
                 }
                 

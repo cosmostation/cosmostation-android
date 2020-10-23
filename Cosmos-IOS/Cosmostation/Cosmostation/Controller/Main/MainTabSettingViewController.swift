@@ -77,6 +77,10 @@ class MainTabSettingViewController: BaseViewController {
             titleChainImg.image = UIImage(named: "secretChainImg")
             titleChainName.text = "(Secret Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.CERTIK_MAIN) {
+            titleChainImg.image = UIImage(named: "certikChainImg")
+            titleChainName.text = "(Certik Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.BINANCE_TEST) {

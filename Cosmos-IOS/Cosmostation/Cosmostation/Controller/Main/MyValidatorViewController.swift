@@ -278,7 +278,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             
         } else if (chainType == ChainType.CERTIK_TEST) {
             if(mainTabVC.mRewardList.count > 0) {
-                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, CERTIK_TEST_DENOM, chainType!)
+                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, CERTIK_MAIN_DENOM, chainType!)
             }
         }
         cell.delegate = self

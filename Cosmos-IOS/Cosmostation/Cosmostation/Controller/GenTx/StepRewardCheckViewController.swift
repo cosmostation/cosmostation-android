@@ -130,7 +130,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, CERTIK_TEST_DENOM)
+            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, CERTIK_MAIN_DENOM)
             if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
                 return true
             }
@@ -253,13 +253,13 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, CERTIK_TEST_DENOM)
+            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, CERTIK_MAIN_DENOM)
             rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
             feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
             
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == CERTIK_TEST_DENOM) {
+                if(balance.balance_denom == CERTIK_MAIN_DENOM) {
                     userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
                 }
             }

@@ -723,7 +723,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, 6)
             }
             if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllRewardByDenom(mRewards, CERTIK_TEST_DENOM)
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, CERTIK_MAIN_DENOM)
                 cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(rewardSum.stringValue, cell!.myRewardAmount.font, 6, 6)
             } else {
                 cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, 6)
@@ -1416,7 +1416,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (chainType == ChainType.CERTIK_TEST) {
-            if (WUtils.getTokenAmount(balances, CERTIK_TEST_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
@@ -1482,7 +1482,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (chainType == ChainType.CERTIK_TEST) {
-            if (WUtils.getTokenAmount(balances, CERTIK_TEST_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1552,7 +1552,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
             
         } else if (chainType == ChainType.CERTIK_TEST) {
-            if (WUtils.getTokenAmount(balances, CERTIK_TEST_DENOM).compare(NSDecimalNumber.init(string: "30000")).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "30000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1722,7 +1722,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (chainType == ChainType.CERTIK_TEST) {
             if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllRewardByDenom(mRewards, CERTIK_TEST_DENOM)
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, CERTIK_MAIN_DENOM)
                 if (rewardSum == NSDecimalNumber.zero) {
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
@@ -1736,7 +1736,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, CERTIK_TEST_DENOM).compare(NSDecimalNumber.init(string: "15000")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "15000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }

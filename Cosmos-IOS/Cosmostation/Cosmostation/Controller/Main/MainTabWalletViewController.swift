@@ -123,6 +123,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "secretChainImg")
             titleChainName.text = "(Secret Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.CERTIK_MAIN) {
+            titleChainImg.image = UIImage(named: "certikChainImg")
+            titleChainName.text = "(Certik Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.BINANCE_TEST) {
@@ -211,7 +215,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 5;
         } else if (chainType == ChainType.OKEX_TEST) {
             return 4;
-        } else if (chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             return 5;
         } else {
             return 0;
@@ -239,8 +243,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetIovTestItems(tableView, indexPath);
         } else if (chainType == ChainType.OKEX_TEST) {
             return onSetOkTestItems(tableView, indexPath);
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            return onSetCertikTestItems(tableView, indexPath);
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
+            return onSetCertikItems(tableView, indexPath);
         } else {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             return cell!
@@ -1281,7 +1285,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
-    func onSetCertikTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+    func onSetCertikItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             if (mainTabVC.mAccount.account_has_private) {
@@ -1304,10 +1308,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let totalCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalCtk.stringValue, cell!.totalAmount.font!, 6, 6)
             cell?.totalValue.attributedText = WUtils.dpTokenValue(totalCtk, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, CERTIK_TEST_DENOM, chainType!)
+            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, CERTIK_MAIN_DENOM, chainType!)
             cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
             cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
-            cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, CERTIK_TEST_DENOM, chainType!)
+            cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, CERTIK_MAIN_DENOM, chainType!)
             cell?.actionDelegate = {
                 self.onClickValidatorList()
             }
@@ -1469,8 +1473,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: EXPLORER_KAVA_TEST + "account/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
             
-        } else if (chainType! == ChainType.CERTIK_TEST) {
-            guard let url = URL(string: EXPLORER_CERTIK_TEST + "accounts/" + mainTabVC.mAccount.account_address + "?net=" + WUtils.getChainId(chainType!)) else { return }
+        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
+            guard let url = URL(string: EXPLORER_CERTIK + "accounts/" + mainTabVC.mAccount.account_address + "?net=" + WUtils.getChainId(chainType!)) else { return }
             self.onShowSafariWeb(url)
         }
     }
@@ -1639,7 +1643,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://www.okex.com/") else { return }
             self.onShowSafariWeb(url)
             
-        } else if (chainType! == ChainType.CERTIK_TEST) {
+        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             guard let url = URL(string: "https://www.certik.foundation/") else { return }
             self.onShowSafariWeb(url)
         }
@@ -1684,7 +1688,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://www.okex.com/community") else { return }
             self.onShowSafariWeb(url)
             
-        } else if (chainType! == ChainType.CERTIK_TEST) {
+        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             guard let url = URL(string: "https://www.certik.foundation/blog") else { return }
             self.onShowSafariWeb(url)
         }
@@ -1922,12 +1926,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mOkSendDenom = OKEX_TEST_DENOM
             txVC.mType = OK_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.CERTIK_TEST) {
-            if (WUtils.getTokenAmount(balances, CERTIK_TEST_DENOM).compare(NSDecimalNumber.init(string: "10000")).rawValue < 0) {
+        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
+            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "10000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mCertikSendDenom = CERTIK_TEST_DENOM
+            txVC.mCertikSendDenom = CERTIK_MAIN_DENOM
             txVC.mType = CERTIK_MSG_TYPE_TRANSFER
         } else {
             return

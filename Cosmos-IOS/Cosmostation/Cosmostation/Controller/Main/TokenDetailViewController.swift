@@ -145,7 +145,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.CERTIK_TEST) {
-            guard let url = URL(string: EXPLORER_CERTIK_TEST + "accounts/" + account!.account_address + "?net=" + WUtils.getChainId(chainType!)) else { return }
+            guard let url = URL(string: EXPLORER_CERTIK + "accounts/" + account!.account_address + "?net=" + WUtils.getChainId(chainType!)) else { return }
             self.onShowSafariWeb(url)
         }
     }

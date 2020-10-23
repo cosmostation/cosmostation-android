@@ -473,7 +473,7 @@ class StepFeeViewController: BaseViewController {
             pageHolderVC.onNextPage()
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            feeCoin = Coin.init(CERTIK_TEST_DENOM, feeAmount.stringValue)
+            feeCoin = Coin.init(CERTIK_MAIN_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
             let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
             fee.gas = estGas
