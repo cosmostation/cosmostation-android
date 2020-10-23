@@ -27,6 +27,7 @@ let KEY_PRICE_TIC_CGC                   = "KEY_PRICE_TIC_CGC"
 let KEY_PRICE_TIC_CMC                   = "KEY_PRICE_TIC_CMC"
 let KEY_FCM_TOKEN                       = "KEY_FCM_TOKEN"
 let KEY_KAVA_TESTNET_WARN               = "KEY_KAVA_TESTNET_WARN"
+let KEY_PRE_EVENT_HIDE                  = "KEY_PRE_EVENT_HIDE"
 
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";
@@ -753,6 +754,9 @@ let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
 let COLOR_WC_TRADE_BUY                      = UIColor.init(hexString: "37CC6E")
 let COLOR_WC_TRADE_SELL                     = UIColor.init(hexString: "FF2745")
 
+let COLOR_STAKE_DROP                        = UIColor.init(hexString: "E1AA4C")
+let COLOR_STAKE_DROP_BG                     = UIColor.init(hexString: "E1AA4C", alpha: 0.15)
+
 
 enum ChainType: String {
     case COSMOS_MAIN
@@ -885,3 +889,10 @@ let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
 let EXPLORER_KAVA_TEST      = "https://kava-testnet-9000.mintscan.io/";
 let EXPLORER_OKEX_TEST      = "https://www.oklink.com/okexchain-test/";
 let EXPLORER_CERTIK_TEST    = "https://explorer.certik.foundation/";
+
+
+
+
+let PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";
+let PERSISTENCE_COSMOS_EVENT_START      = 3846000;
+let PERSISTENCE_COSMOS_EVENT_END        = 4206000;

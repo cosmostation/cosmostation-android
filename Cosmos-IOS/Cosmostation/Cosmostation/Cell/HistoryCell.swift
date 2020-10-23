@@ -10,6 +10,7 @@ import UIKit
 
 class HistoryCell: UITableViewCell {
 
+    @IBOutlet weak var txRootCard: CardView!
     @IBOutlet weak var txTypeLabel: UILabel!
     @IBOutlet weak var txResultLabel: UILabel!
     @IBOutlet weak var txTimeLabel: UILabel!
@@ -23,6 +24,12 @@ class HistoryCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.txRootCard.backgroundColor = COLOR_BG_GRAY
+        self.txTypeLabel.textColor = .white
     }
     
 }

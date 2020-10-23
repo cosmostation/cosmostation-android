@@ -242,6 +242,8 @@
 "str_starname_confirm_title" = "StarName Found";
 "str_starname_confirm_msg" = "A matched address was found. Would you like to send to this address? \n\n\n%@\n\n%@";
 "str_select_to_send_coin" = "Select To Send Coin Type";
+"str_event_confirm" = "Please confirm twice yourself ETH deposit address for XPRT distribution. \n(we don't support validate checksum) \n\n\n%@";
+"str_event_confirm_title" = "Once More Check";
 
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
@@ -458,6 +460,10 @@
 "error_no_incentive_to_claim" = "No incentive to claim.";
 "error_no_harvest_reward_to_claim" = "No harvest reward to claim.";
 "error_bep3_swap_temporary_disable" = "Bep3 swap relayer is temporary disabled.";
+"error_invalid_address_eth_target" = "Invalid ETH Address.";
+"error_no_delegated_amount" = "No Delegated Amount.";
+"error_no_more_today" = "No More Today.";
+"error_not_enough_to_balance" = "Not enough balance.";
 
 
 

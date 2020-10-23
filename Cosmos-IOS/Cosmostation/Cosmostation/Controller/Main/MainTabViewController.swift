@@ -1026,6 +1026,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         self.onFetchFinished()
                         return;
                 }
+                if let height = responseData.object(forKey: "height") as? Int {
+                    BaseData.instance.mHeight = height
+                }
+                if let heightS = responseData.object(forKey: "height") as? String, let height = Int(heightS) {
+                    BaseData.instance.mHeight = height
+                }
                 BaseData.instance.mStakingPool = stakingPool
                 
             case .failure(let error):

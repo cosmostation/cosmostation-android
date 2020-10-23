@@ -38,8 +38,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.mStakingPool = BaseData.instance.mStakingPool
         self.mIrisStakePool = BaseData.instance.mIrisStakePool
         
-        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_address)
-        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_new_bip44)
+//        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_address)
+//        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_new_bip44)
+        
         
         self.walletTableView.delegate = self
         self.walletTableView.dataSource = self
@@ -58,6 +59,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
         self.walletTableView.register(UINib(nibName: "WalletGuideCell", bundle: nil), forCellReuseIdentifier: "WalletGuideCell")
+        self.walletTableView.register(UINib(nibName: "EventStakeDropCell", bundle: nil), forCellReuseIdentifier: "EventStakeDropCell")
         
         self.walletTableView.rowHeight = UITableView.automaticDimension
         self.walletTableView.estimatedRowHeight = UITableView.automaticDimension
@@ -182,6 +184,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.mIrisStakePool = BaseData.instance.mIrisStakePool
         self.walletTableView.reloadData()
         self.refresher.endRefreshing()
+        print("mHeight ", BaseData.instance.mHeight)
     }
     
     @objc func onPriceFetchDone(_ notification: NSNotification) {
@@ -194,7 +197,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.COSMOS_MAIN) {
-            return 6;
+            return 7;
         } else if  (chainType == ChainType.IRIS_MAIN) {
             return 5;
         } else if  (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -248,6 +251,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (chainType == ChainType.COSMOS_MAIN) {
             if (indexPath.row == 2) {
+                if (WUtils.isDisplayEventCard()) {
+                    return UITableView.automaticDimension;
+                } else {
+                    return 0;
+                }
+            }
+            if (indexPath.row == 3) {
                 if (mainTabVC.mUnbondingList.count > 0) {
                     return UITableView.automaticDimension;
                 } else {
@@ -294,6 +304,18 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return cell!
             
         } else if (indexPath.row == 2) {
+            let cell:EventStakeDropCell? = tableView.dequeueReusableCell(withIdentifier:"EventStakeDropCell") as? EventStakeDropCell
+            cell?.rootCard.backgroundColor = WUtils.getChainBg(chainType!)
+            cell?.actionClose = {
+                BaseData.instance.setEventTime()
+                self.onShowToast(NSLocalizedString("error_no_more_today", comment: ""))
+            }
+            cell?.actionEvent = {
+                self.onStartStakeDropEvent()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
             let cell:WalletUnbondingInfoCellTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"WalletUnbondingInfoCellTableViewCell") as? WalletUnbondingInfoCellTableViewCell
             let unBondings = mainTabVC!.mUnbondingList.sorted(by: {$0.unbonding_complete_time < $1.unbonding_complete_time})
             cell?.unBondingCnt.text = String(mainTabVC!.mUnbondingList.count)
@@ -328,7 +350,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
             cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
@@ -356,7 +378,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             return cell!
             
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             if (self.mInflation != nil) {
                 cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
@@ -1728,6 +1750,29 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    func onStartStakeDropEvent() {
+        if (!mainTabVC.mAccount.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, COSMOS_MAIN_DENOM)
+        let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
+        if (availableAmount.compare(NSDecimalNumber.init(string: "3500")).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_to_balance", comment: ""))
+            return
+        }
+        if (delegatedAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_no_delegated_amount", comment: ""))
+            return
+        }
+        
+        let eventVC = EventStakeDropViewController(nibName: "EventStakeDropViewController", bundle: nil)
+        eventVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(eventVC, animated: true)
+    }
+    
     func onShowBuyWarnNoKey() {
         let noKeyAlert = UIAlertController(title: NSLocalizedString("buy_without_key_title", comment: ""), message: NSLocalizedString("buy_without_key_msg", comment: ""), preferredStyle: .alert)
         noKeyAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: {_ in
@@ -1901,7 +1946,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
         self.navigationController?.pushViewController(qrScanVC, animated: false)
     }
-    
     
     func scannedAddress(result: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(610), execute: {

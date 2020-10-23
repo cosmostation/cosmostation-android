@@ -21,6 +21,7 @@ final class BaseData : NSObject{
     var mOtherValidator = Array<Validator>()
     var mMyValidator = Array<Validator>()
     
+    var mHeight: Int = 0
     var mStakingPool: NSDictionary?
     var mIrisStakePool: NSDictionary?
     var mProvision: String?
@@ -304,6 +305,19 @@ final class BaseData : NSObject{
     
     func getKavaWarn() ->Bool {
         let reminTime = Int64(UserDefaults.standard.string(forKey: KEY_KAVA_TESTNET_WARN) ?? "0")
+        if (Date().millisecondsSince1970 > reminTime!) {
+            return true
+        }
+        return false
+    }
+    
+    func setEventTime() {
+        let remindTime = Calendar.current.date(byAdding: .day, value: 1, to: Date())?.millisecondsSince1970
+        UserDefaults.standard.set(String(remindTime!), forKey: KEY_PRE_EVENT_HIDE)
+    }
+    
+    func getEventTime() -> Bool {
+        let reminTime = Int64(UserDefaults.standard.string(forKey: KEY_PRE_EVENT_HIDE) ?? "0")
         if (Date().millisecondsSince1970 > reminTime!) {
             return true
         }

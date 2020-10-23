@@ -214,6 +214,8 @@
 "str_starname_confirm_title" = "스타네임 주소 사용";
 "str_starname_confirm_msg" = "매칭된 주소를 찾았습니다. 이 주소로 전송을 진행하시겠습니까? \n\n\n%@\n\n%@";
 "str_select_to_send_coin" = "보낼 코인 종류를 선택하세요";
+"str_event_confirm" = "에어드랍을 받으실. ETH주소를 다시한번 확인해주세요.\n(입력하신 ETH 주소 검증은 지원하지 않습니다.) \n\n\n%@";
+"str_event_confirm_title" = "한번 더 확인";
 
 "current_price_format" = "현재 %@ 가격";
 "liquidation_price_format" = "청산 %@ 가격";
@@ -455,6 +457,10 @@
 "error_no_incentive_to_claim" = "받을 인센티브가 없습니다.";
 "error_no_harvest_reward_to_claim" = "받을 하베스트 리워드가 없습니다.";
 "error_bep3_swap_temporary_disable" = "BEP3 스왑 Relayer가 일시적으로 비활성화 상태입니다.";
+"error_invalid_address_eth_target" = "부정확한 이더리움 주소입니다.";
+"error_no_delegated_amount" = "위임중인 수량이 없습니다.";
+"error_no_more_today" = "오늘은 보이지 않습니다.";
+"error_not_enough_to_balance" = "발란스가 충분하지 않습니다.";
 
 
 
