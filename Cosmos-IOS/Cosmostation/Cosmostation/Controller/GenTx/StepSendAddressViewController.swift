@@ -131,7 +131,7 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             if (!userInput!.starts(with: "certik") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;

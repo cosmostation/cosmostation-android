@@ -122,7 +122,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 0, 8)
             self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
             
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             self.minFeeCardView.isHidden = true
             self.rateFeeCardView.isHidden = false
             
@@ -472,7 +472,7 @@ class StepFeeViewController: BaseViewController {
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
             
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             feeCoin = Coin.init(CERTIK_MAIN_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
             let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
@@ -502,9 +502,9 @@ class StepFeeViewController: BaseViewController {
             result = WUtils.localeStringToDecimal(pageHolderVC.mToDelegateAmount!.amount)
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
-            
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == KAVA_MSG_TYPE_TRANSFER || pageHolderVC.mType == BAND_MSG_TYPE_TRANSFER ||
-            pageHolderVC.mType == IOV_MSG_TYPE_TRANSFER) {
+                    pageHolderVC.mType == IOV_MSG_TYPE_TRANSFER || pageHolderVC.mType == SECRET_MSG_TYPE_TRANSFER || pageHolderVC.mType == OK_MSG_TYPE_TRANSFER ||
+                    pageHolderVC.mType == CERTIK_MSG_TYPE_TRANSFER) {
             result = WUtils.localeStringToDecimal(pageHolderVC.mToSendAmount[0].amount)
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
