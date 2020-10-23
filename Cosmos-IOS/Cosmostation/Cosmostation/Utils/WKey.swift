@@ -44,7 +44,7 @@ class WKey {
         let masterKey = getMasterKeyFromWords(m)
         let chainType = WUtils.getChainType(account.account_base_chain)
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.CERTIK_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -100,7 +100,7 @@ class WKey {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "star", program: ripemd160)
         } else if (chain == ChainType.OKEX_TEST) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "okexchain", program: ripemd160)
-        } else if (chain == ChainType.CERTIK_TEST) {
+        } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST ) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "certik", program: ripemd160)
         }
         return result
@@ -109,7 +109,7 @@ class WKey {
     static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType, _ newbip:Bool) -> String {
         do {
             var childKey:HDPrivateKey?
-            if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.CERTIK_TEST) {
+            if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
             } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -193,7 +193,7 @@ class WKey {
             result = bech32.encode("star", values: data)
         } else if (chain == ChainType.OKEX_TEST) {
             result = bech32.encode("okexchain", values: data)
-        } else if (chain == ChainType.CERTIK_TEST) {
+        } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             result = bech32.encode("certik", values: data)
         }
         return result

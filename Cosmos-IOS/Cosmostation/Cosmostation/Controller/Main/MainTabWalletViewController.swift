@@ -184,7 +184,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.mIrisStakePool = BaseData.instance.mIrisStakePool
         self.walletTableView.reloadData()
         self.refresher.endRefreshing()
-        print("mHeight ", BaseData.instance.mHeight)
     }
     
     @objc func onPriceFetchDone(_ notification: NSNotification) {

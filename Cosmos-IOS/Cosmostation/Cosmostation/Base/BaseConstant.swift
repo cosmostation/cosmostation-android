@@ -63,6 +63,10 @@ let OKEX_TEST_URL                       = "https://lcd-okexchain-testnet1.cosmos
 let OKEX_TEST_API                       = "";
 
 
+let CERTIK_URL                          = "https://lcd-certik.cosmostation.io/";
+let CERTIK_API                          = "https://api-certik.cosmostation.io/";
+
+
 let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostation.io/";
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
 
@@ -364,6 +368,29 @@ let SECRET_PROPOSALS_TALLY_TAIL             = "/tally";
 
 let SECRET_API_HISTORY                      = SECRET_API + "v1/account/txs/";
 let SECRET_API_TRANS_HISTORY                = SECRET_API + "v1/account/transfer_txs/";
+
+
+//CERTIC_URL
+let CERTIK_TX                               = CERTIK_URL + "txs/";
+let CERTIK_VALIDATORS                       = CERTIK_URL + "staking/validators";
+let CERTIK_ACCOUNT_INFO                     = CERTIK_URL + "auth/accounts/";
+let CERTIK_BONDING                          = CERTIK_URL + "staking/delegators/";
+let CERTIK_BONDING_TAIL                     = "/delegations";
+let CERTIK_UNBONDING                        = CERTIK_URL + "staking/delegators/";
+let CERTIK_UNBONDING_TAIL                   = "/unbonding_delegations";
+let CERTIK_REWARD_FROM_VAL                  = CERTIK_URL + "distribution/delegators/";
+let CERTIK_REWARD_FROM_VAL_TAIL             = "/rewards/";
+let CERTIK_INFLATION                        = CERTIK_URL + "minting/inflation";
+let CERTIK_PROVISIONS                       = CERTIK_URL + "minting/annual-provisions";
+let CERTIK_STAKING_POOL                     = CERTIK_URL + "staking/pool";
+let CERTIK_REWARD_ADDRESS                   = CERTIK_URL + "distribution/delegators/";
+let CERTIK_REWARD_ADDRESS_TAIL              = "/withdraw_address";
+let CERTIK_REDELEGATION                     = CERTIK_URL + "staking/redelegations";
+let CERTIK_BORAD_TX                         = CERTIK_URL + "txs";
+let CERTIK_PROPOSALS                        = CERTIK_URL + "gov/proposals";
+
+let CERTIK_API_HISTORY                      = CERTIK_API + "v1/account/txs/";
+let CERTIK_API_TRANS_HISTORY                = CERTIK_API + "v1/account/transfer_txs/";
 
 
 
@@ -766,6 +793,7 @@ enum ChainType: String {
     case IOV_MAIN
     case BAND_MAIN
     case SECRET_MAIN
+    case CERTIK_MAIN
     
     case BINANCE_TEST
     case KAVA_TEST
@@ -782,12 +810,13 @@ enum ChainType: String {
         result.append(KAVA_MAIN)
         result.append(BAND_MAIN)
         result.append(SECRET_MAIN)
+        result.append(CERTIK_MAIN)
 
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
         result.append(OKEX_TEST)
-        result.append(CERTIK_TEST)
+//        result.append(CERTIK_TEST)
         return result
     }
     
@@ -844,6 +873,8 @@ let CHAIN_KAVA_S = "SUPPORT_CHAIN_KAVA_MAIN"
 let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
 let CHAIN_BAND_S = "SUPPORT_CHAIN_BAND_MAIN"
 let CHAIN_SECRET_S = "SUPPORT_CHAIN_SECRET_MAIN"
+let CHAIN_CERTIK_S = "SUPPORT_CHAIN_CERTIK_MAIN"
+
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
@@ -859,6 +890,8 @@ let IOV_MAIN_DENOM = "uiov"
 let KAVA_MAIN_DENOM = "ukava"
 let BAND_MAIN_DENOM = "uband"
 let SECRET_MAIN_DENOM = "uscrt"
+let CERTIK_MAIN_DENOM = "uctk"
+
 let IOV_TEST_DENOM = "uvoi"
 let OKEX_TEST_DENOM = "tokt"
 let CERTIK_TEST_DENOM = "uctk"

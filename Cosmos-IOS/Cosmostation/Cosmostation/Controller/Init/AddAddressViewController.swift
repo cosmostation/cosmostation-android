@@ -173,14 +173,14 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
             }
             
         } else if (userInput.starts(with: "certik")) {
-            if (!ChainType.SUPPRT_CHAIN().contains(ChainType.CERTIK_TEST)) {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                return;
-                
-            }
             if (WKey.isValidateBech32(userInput)) {
-                self.onGenWatchAccount(ChainType.CERTIK_TEST, userInput)
-                return;
+                if (ChainType.SUPPRT_CHAIN().contains(ChainType.CERTIK_TEST)) {
+                    self.onShowCertikChainSelect(userInput)
+                    return;
+                } else {
+                    self.onGenWatchAccount(ChainType.CERTIK_MAIN, userInput)
+                    return;
+                }
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
                 self.addAddressInputText.text = ""
@@ -253,6 +253,22 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
         
         showAlert.addAction(iovAction)
         showAlert.addAction(iovTestAction)
+        self.present(showAlert, animated: true, completion: nil)
+    }
+    
+    func onShowCertikChainSelect(_ input:String) {
+        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let certikAction = UIAlertAction(title: NSLocalizedString("chain_title_certik", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.CERTIK_MAIN, input)
+        })
+        certikAction.setValue(UIImage(named: "certikChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        let certikTestAction = UIAlertAction(title: NSLocalizedString("chain_title_certik_test", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.CERTIK_TEST, input)
+        })
+        certikTestAction.setValue(UIImage(named: "certikTestnetImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        showAlert.addAction(certikAction)
+        showAlert.addAction(certikTestAction)
         self.present(showAlert, animated: true, completion: nil)
     }
     
