@@ -72,6 +72,9 @@
     <color name="colorNotiSend">#f31963</color>
 
 
+    <color name="colorStakeDrop">#E1AA4C</color>
+    <color name="colorStakeDropBG">#24E1AA4C</color>
+
     <!--<color name="colorCommision1">#3366ff</color>-->
     <color name="colorCommision2">#51FFA8</color>
     <color name="colorCommision3">#2BBEFF</color>

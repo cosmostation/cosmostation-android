@@ -52,6 +52,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 public class BaseData {
@@ -609,6 +610,22 @@ public class BaseData {
     public boolean getKavaWarn() {
         Date dt = new Date();
         if (dt.getTime() > getSharedPreferences().getLong(BaseConstant.PRE_KAVA_TESTNET_WARN, 1)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setEventTime() {
+        Date dt = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 1);
+        getSharedPreferences().edit().putLong(PRE_EVENT_HIDE, c.getTimeInMillis()).commit();
+    }
+
+    public boolean getEventTime() {
+        Date dt = new Date();
+        if (dt.getTime() > getSharedPreferences().getLong(PRE_EVENT_HIDE, 1)) {
             return true;
         }
         return false;

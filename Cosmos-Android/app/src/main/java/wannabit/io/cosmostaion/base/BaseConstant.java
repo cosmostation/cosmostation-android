@@ -42,6 +42,7 @@ public class BaseConstant {
     public final static String PRE_ACCOUNT_ORDER            = "PRE_ACCOUNT_ORDER";
     public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN";
     public final static String PRE_KAVA_TESTNET_WARN        = "PRE_KAVA_TESTNET_WARN";
+    public final static String PRE_EVENT_HIDE               = "PRE_EVENT_HIDE";
 
 
     public final static int TASK_INIT_PW                                = 2000;
@@ -376,7 +377,7 @@ public class BaseConstant {
     public final static String KEY_NEW_KAVA_PATH    = "44'/459'/0'/0/";
     public final static String KEY_BAND_PATH        = "44'/494'/0'/0/";
     public final static String KEY_NEW_OK_PATH      = "44'/996'/0'/0/";
-    public final static String characterFilter  = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
+    public final static String characterFilter      = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
     public final static long CONSTANT_S = 1000l;
@@ -490,4 +491,11 @@ public class BaseConstant {
     public final static String EXPLORER_KAVA_TEST       = "https://kava-testnet-9000.mintscan.io/";
     public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";
     public final static String EXPLORER_CERTIK_TEST     = "https://explorer.certik.foundation/";
+
+
+
+    public final static String  PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";
+    public final static int     PERSISTENCE_COSMOS_EVENT_START      = 3846000;
+    public final static int     PERSISTENCE_COSMOS_EVENT_END        = 4206000;
+
 }

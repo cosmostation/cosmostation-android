@@ -865,7 +865,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 });
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                final ResApiTxList.Data tx = mApiTxHistory.get(position);
+                final ResApiTxList.Data tx = mApiTxHistory.get(position - 1);
                 if(tx.result.Code > 0) {
                     viewHolder.historySuccess.setVisibility(View.VISIBLE);
                 } else {
@@ -886,7 +886,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 });
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
-                final BnbHistory history = mBnbHistory.get(position);
+                final BnbHistory history = mBnbHistory.get(position - 1);
                 viewHolder.historyType.setText(history.txType);
                 viewHolder.historyType.setText(WDp.DpBNBTxType(getBaseContext(), history, mAccount.address));
                 viewHolder.history_time.setText(WDp.getTimeformat(getBaseContext(), history.timeStamp));

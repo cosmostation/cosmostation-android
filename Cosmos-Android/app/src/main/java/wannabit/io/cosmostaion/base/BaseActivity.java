@@ -898,9 +898,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             WLog.w("mUnbondings " + mUnbondings.size());
             WLog.w("mRewards " + mRewards.size());
 
-            WLog.w("mInflation " + mInflation);
-            WLog.w("mProvisions " + mProvisions);
-//            WLog.w("mStakingPool " + mStakingPool);
+//            WLog.w("mInflation " + mInflation);
+//            WLog.w("mProvisions " + mProvisions);
+//            WLog.w("mStakingPool " + mStakingPool.height);
 //            WLog.w("mIrisStakingPool " + mIrisStakingPool);
 
         } else if (mTaskCount == 0 && (mBaseChain.equals(BaseChain.OK_TEST))) {

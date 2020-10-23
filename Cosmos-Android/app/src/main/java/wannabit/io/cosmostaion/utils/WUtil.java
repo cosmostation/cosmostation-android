@@ -80,6 +80,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_PlainT
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SystemHaltProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_TokenAdditionProposal;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_END;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_START;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -1674,6 +1676,18 @@ public class WUtil {
         }
         return res.uri;
 
+    }
+
+    public static boolean isDisplayEventCard(BaseData baseData) {
+        if (baseData == null || baseData.mStakingPool == null) {
+            return false;
+        }
+        if (baseData.mStakingPool.getHeight() > PERSISTENCE_COSMOS_EVENT_START &&
+                baseData.mStakingPool.getHeight() < PERSISTENCE_COSMOS_EVENT_END &&
+                baseData.getEventTime()) {
+            return true;
+        }
+        return false;
     }
 
 }

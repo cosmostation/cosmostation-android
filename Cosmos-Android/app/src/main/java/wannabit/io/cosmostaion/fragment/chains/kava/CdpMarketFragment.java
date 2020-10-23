@@ -45,6 +45,7 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaPriceFeedParamTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;
@@ -331,7 +332,12 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemCount() {
-            return mMyOwenCdps.size() + mOtherCdps.size() + mIncentiveClaimables.size();
+            if (mIncentiveClaimables.size() > 0) {
+                return mMyOwenCdps.size() + mOtherCdps.size() + 1;
+            } else {
+                return mMyOwenCdps.size() + mOtherCdps.size();
+            }
+
         }
 
         @Override

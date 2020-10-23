@@ -1017,6 +1017,9 @@
     <string name="str_claim_type">이자받기 타입</string>
     <string name="error_not_enough_to_balance">발란스가 충분하지 않습니다.</string>
     <string name="error_bep3_swap_temporary_disable">BEP3 스왑 Relayer가 일시적으로 비활성화 상태입니다.</string>
+    <string name="error_invalid_address_eth_target">부정확한 이더리움 주소입니다.</string>
+    <string name="error_no_delegated_amount">위임중인 수량이 없습니다.</string>
+    <string name="error_no_more_today">오늘은 보이지 않습니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

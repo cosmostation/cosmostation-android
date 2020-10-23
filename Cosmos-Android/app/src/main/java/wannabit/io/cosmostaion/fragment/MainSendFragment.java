@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.EventStakeDropActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
@@ -146,6 +147,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mGuideTitle, mGuideMsg;
     private LinearLayout        mGuideAction;
     private Button              mGuideBtn, mFaqBtn;
+
+    private RelativeLayout      mEventLayer;
+    private CardView            mEventCard;
+    private RelativeLayout      mEventBtn;
+    private ImageView           mEventClose;
+
 
     public static MainSendFragment newInstance(Bundle bundle) {
         MainSendFragment fragment = new MainSendFragment();
@@ -308,6 +315,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mGuideBtn               = rootView.findViewById(R.id.btn_guide);
         mFaqBtn                 = rootView.findViewById(R.id.btn_faq);
 
+        mEventLayer             = rootView.findViewById(R.id.layer_event);
+        mEventCard              = rootView.findViewById(R.id.card_root);
+        mEventBtn               = rootView.findViewById(R.id.btn_event);
+        mEventClose             = rootView.findViewById(R.id.btn_event_close);
+
+
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -354,7 +367,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnOkDeposit.setOnClickListener(this);
         mBtnOkWithdraw.setOnClickListener(this);
         mBtnOkVote.setOnClickListener(this);
-//        mBtnParticipate.setOnClickListener(this);
         mBtnCertikReward.setOnClickListener(this);
         mBtnCertikVote.setOnClickListener(this);
         return rootView;
@@ -416,6 +428,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mAddress.setText(getMainActivity().mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
 
+        mEventLayer.setVisibility(View.GONE);
         if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
             mAtomLayer.setVisibility(View.VISIBLE);
             mIrisLayer.setVisibility(View.GONE);
@@ -440,6 +453,24 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideMsg.setText(R.string.str_front_guide_msg);
             mGuideBtn.setText(R.string.str_guide);
             mFaqBtn.setText(R.string.str_faq);
+
+            if (WUtil.isDisplayEventCard(getBaseDao())) {
+                mEventLayer.setVisibility(View.VISIBLE);
+                mEventBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getMainActivity().onStartStakeDropEvent();
+                    }
+                });
+                mEventClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), R.string.error_no_more_today, Toast.LENGTH_SHORT).show();
+                        getBaseDao().setEventTime();
+                        onUpdateView();
+                    }
+                });
+            }
 
         } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
             mAtomLayer.setVisibility(View.GONE);
@@ -504,11 +535,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mCertikLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-//            if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-//                mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-//            } else {
-//                mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-//            }
             if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
                 mBuyLayer.setVisibility(View.VISIBLE);
                 mBuyCoinTv.setText(R.string.str_buy_kava);

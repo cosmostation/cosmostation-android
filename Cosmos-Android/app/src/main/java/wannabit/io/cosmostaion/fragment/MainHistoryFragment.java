@@ -45,6 +45,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_END;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_START;
+import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_SEND;
 
 
 public class MainHistoryFragment extends BaseFragment implements TaskListener {
@@ -220,6 +224,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST) ||
                     getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST) ) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);
+                viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                viewHolder.historyRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
                 if (tx.logs != null) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
                 } else {
@@ -239,6 +245,17 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                         startActivity(txDetail);
                     }
                 });
+
+                //TODO STAKE DROP EVENT
+                if (WDp.getHistoryDpType(tx.messages, getMainActivity().mAccount.address) == TX_TYPE_SEND) {
+                    if (tx.height > PERSISTENCE_COSMOS_EVENT_START && tx.height < PERSISTENCE_COSMOS_EVENT_END) {
+                        if (tx.messages.get(0).value.to_address.equals(PERSISTENCE_COSMOS_EVENT_ADDRESS) && tx.messages.get(0).value.from_address.equals(getMainActivity().mAccount.address)) {
+                            viewHolder.historyType.setText("Persistence\nStake Drop");
+                            viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorStakeDrop));
+                            viewHolder.historyRoot.setCardBackgroundColor(getResources().getColor(R.color.colorStakeDropBG));
+                        }
+                    }
+                }
 
             } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);

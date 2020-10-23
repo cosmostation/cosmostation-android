@@ -17,4 +17,8 @@ public class ResStakingPool {
         @SerializedName("bonded_tokens")
         public String bonded_tokens;
     }
+
+    public int getHeight() {
+        return Integer.parseInt(height);
+    }
 }

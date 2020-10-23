@@ -104,6 +104,14 @@
                     layout="@layout/layout_card_atom"
                     android:visibility="gone"/>
 
+                <!--STAKE DROP EVENT-->
+                <include
+                    android:id="@+id/layer_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_2"
+                    layout="@layout/layout_event"/>
+
                 <include
                     android:id="@+id/layer_iris"
                     android:layout_width="match_parent"

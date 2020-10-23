@@ -1144,6 +1144,9 @@
     <string name="error_no_incentive_claim_option">Select incentive claim option.</string>
     <string name="error_not_enough_to_balance">Not enough balance.</string>
     <string name="error_bep3_swap_temporary_disable">Bep3 swap relayer is temporary disabled</string>
+    <string name="error_invalid_address_eth_target">Invalid ETH Address.</string>
+    <string name="error_no_delegated_amount">No Delegated Amount.</string>
+    <string name="error_no_more_today">No More Today.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

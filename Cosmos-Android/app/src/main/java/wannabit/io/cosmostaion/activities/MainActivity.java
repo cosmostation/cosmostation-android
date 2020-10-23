@@ -725,6 +725,32 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     }
 
+    public void onStartStakeDropEvent() {
+        if(mAccount == null) return;
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, mAllValidators, mBaseChain);
+        BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_ATOM);
+        if (availableAmount.compareTo(new BigDecimal("3500")) < 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (delegateAmount.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_delegated_amount, Toast.LENGTH_SHORT).show();
+            return;
+
+        }
+
+        Intent intent = new Intent(getBaseContext(), EventStakeDropActivity.class);
+        startActivity(intent);
+
+    }
+
 
     @Override
     public void fetchFinished() {
