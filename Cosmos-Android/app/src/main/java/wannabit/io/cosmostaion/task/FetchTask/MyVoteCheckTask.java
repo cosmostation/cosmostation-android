@@ -41,6 +41,7 @@ public class MyVoteCheckTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
+
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResMyVote> response = ApiClient.getKavaChain(mApp).getMyVote(mProposalId, mAddress).execute();
                 if (!response.isSuccessful()) {
@@ -53,6 +54,7 @@ public class MyVoteCheckTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
+
             } else if (mChain.equals(BaseChain.BAND_MAIN)) {
                 Response<ResMyVote> response = ApiClient.getBandChain(mApp).getMyVote(mProposalId, mAddress).execute();
                 if (!response.isSuccessful()) {
@@ -65,6 +67,33 @@ public class MyVoteCheckTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
+
+            } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
+                Response<ResMyVote> response = ApiClient.getCertikChain(mApp).getMyVote(mProposalId, mAddress).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.CERTIK_TEST)) {
+                Response<ResMyVote> response = ApiClient.getCertikTestChain(mApp).getMyVote(mProposalId, mAddress).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
             }
 
         } catch (Exception e) {

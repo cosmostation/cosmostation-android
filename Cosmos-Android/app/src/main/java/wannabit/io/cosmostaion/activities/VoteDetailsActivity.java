@@ -50,6 +50,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_PROP
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_TALLY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_VOTED;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_IRIS_PROPOSAL_DETAIL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.model.type.Proposal.PROPOSAL_VOTING;
 
@@ -120,7 +121,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void onUpdateView() {
-        WLog.w("onUpdateView");
         mSwipeRefreshLayout.setRefreshing(false);
         mVoteDetailsAdapter.notifyDataSetChanged();
         mLoadingLayer.setVisibility(View.GONE);
@@ -173,6 +173,24 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+            } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (mBondings.size() == 0) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                if (WDp.getAvailableCoin(mBalances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
             }
 
             Intent intent = new Intent(VoteDetailsActivity.this, VoteActivity.class);
@@ -184,7 +202,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private String getProposalTitle() {
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
             return mProposal.getTitle();
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -194,7 +212,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private String getProposer() {
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
             return mProposer;
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -206,7 +224,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
 
     public void onFetch() {
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
             this.mTaskCount = 5;
             new ProposalDetailTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ProposalTallyTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -294,7 +312,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindVoteInfo(RecyclerView.ViewHolder viewHolder) {
             final VoteInfoHolder holder = (VoteInfoHolder)viewHolder;
-            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) && mProposal != null) {
+            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) && mProposal != null) {
                 holder.itemStatusImg.setImageDrawable(mProposal.getStatusImg(getBaseContext()));
                 holder.itemStatusTxt.setText(mProposal.proposal_status);
                 holder.itemTitle.setText(mProposal.getTitle());
@@ -348,7 +366,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             final VoteTallyHolder holder = (VoteTallyHolder)viewHolder;
             Tally tally = null;
 
-            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) && mTally != null) {
+            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) && mTally != null) {
                 tally = mTally;
                 holder.itemYesProgress.setProgress(tally.getYesPer().intValue());
                 holder.itemNoProgress.setProgress(tally.getNoPer().intValue());

@@ -94,7 +94,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
     private void onFetchProposals() {
         if(mAccount == null) return;
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
             mVoteAdapter = new VoteAdapter();
             mRecyclerView.setAdapter(mVoteAdapter);
             new ProposalTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -230,7 +230,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                     }
                 });
 
-            } else if (mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+            } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
                 voteHolder.proposal_id.setText("# " + proposal.id);
                 voteHolder.proposal_status.setText(proposal.proposal_status);
                 voteHolder.proposal_title.setText(proposal.content.value.title);
@@ -249,10 +249,9 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
-                        webintent.putExtra("voteId", proposal.id);
-                        webintent.putExtra("chain", mAccount.baseChain);
-                        startActivity(webintent);
+                        Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                        voteIntent.putExtra("proposalId", proposal.id);
+                        startActivity(voteIntent);
                     }
                 });
 

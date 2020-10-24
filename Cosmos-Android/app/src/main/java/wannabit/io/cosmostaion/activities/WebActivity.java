@@ -157,7 +157,7 @@ public class WebActivity extends BaseActivity {
             else
                 mWebview.loadUrl(EXPLORER_KAVA_TEST);
 
-        } else if (mBasechain.equals(BaseChain.CERTIK_TEST)) {
+        } else if (mBasechain.equals(BaseChain.CERTIK_MAIN) || mBasechain.equals(BaseChain.CERTIK_TEST)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
             if (!TextUtils.isEmpty(mTxid))
                 mWebview.loadUrl(EXPLORER_CERTIK + "Transactions/" + mTxid + "?net=" + mBasechain.getChain());

@@ -7,6 +7,7 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResLcdProposalTally;
 import wannabit.io.cosmostaion.network.res.ResLcdProposalVoted;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -41,6 +42,7 @@ public class ProposalVotedListTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
+
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResLcdProposalVoted> response = ApiClient.getKavaChain(mApp).getVotedList(mProposalId).execute();
                 if (!response.isSuccessful()) {
@@ -53,6 +55,7 @@ public class ProposalVotedListTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
+
             } else if (mChain.equals(BaseChain.BAND_MAIN)) {
                 Response<ResLcdProposalVoted> response = ApiClient.getBandChain(mApp).getVotedList(mProposalId).execute();
                 if (!response.isSuccessful()) {
@@ -65,6 +68,33 @@ public class ProposalVotedListTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
+
+            } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
+                Response<ResLcdProposalVoted> response = ApiClient.getCertikChain(mApp).getVotedList(mProposalId).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.CERTIK_TEST)) {
+                Response<ResLcdProposalVoted> response = ApiClient.getCertikTestChain(mApp).getVotedList(mProposalId).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
             }
 
         } catch (Exception e) {
