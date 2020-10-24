@@ -453,7 +453,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             for validator in self.mainTabVC.mAllValidator {
                 for bonding in self.mainTabVC.mBondingList {
                     if(bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "1500000")).rawValue > 0) {
+                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "150000")).rawValue > 0) {
                         myBondedValidator.append(validator)
                         break;
                     }
@@ -491,7 +491,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             for validator in self.mainTabVC.mAllValidator {
                 for bonding in self.mainTabVC.mBondingList {
                     if(bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "1500000")).rawValue > 0) {
+                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "150000")).rawValue > 0) {
                         myBondedValidator.append(validator)
                         break;
                     }
@@ -521,8 +521,42 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
                    
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
-            return
+            if (WUtils.getAllRewardByDenom(mainTabVC.mRewardList, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            var myBondedValidator = Array<Validator>()
+            for validator in self.mainTabVC.mAllValidator {
+                for bonding in self.mainTabVC.mBondingList {
+                    if(bonding.bonding_v_address == validator.operator_address &&
+                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "15000")).rawValue > 0) {
+                        myBondedValidator.append(validator)
+                        break;
+                    }
+                }
+            }
+            myBondedValidator.sort {
+                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                return reward0.compare(reward1).rawValue > 0 ? true : false
+            }
+            if (myBondedValidator.count > 16) {
+                toClaimValidator = Array(myBondedValidator[0..<16])
+            } else {
+                toClaimValidator = myBondedValidator
+            }
+            if (toClaimValidator.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            
+            let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
+            let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: CERTIK_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler6)
+            let available = WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM)
+            if (available.compare(estimatedFeeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
             
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO

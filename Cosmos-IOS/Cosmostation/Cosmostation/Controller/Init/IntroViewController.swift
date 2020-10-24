@@ -57,7 +57,7 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if (BaseData.instance.getUsingAppLock() == true && !lockPasses) {
+        if (BaseData.instance.getUsingAppLock() == true && BaseData.instance.hasPassword() && !lockPasses) {
             let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
             self.navigationItem.title = ""
             self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)

@@ -265,19 +265,28 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
     }
     
     @IBAction func appLockToggle(_ sender: UISwitch) {
-        if(sender.isOn) {
-            BaseData.instance.setUsingAppLock(sender.isOn)
-            self.checkBioAuth()
+        if (BaseData.instance.hasPassword()) {
+            if(sender.isOn) {
+                BaseData.instance.setUsingAppLock(sender.isOn)
+                self.checkBioAuth()
+            } else {
+                let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+                self.navigationItem.title = ""
+                self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+                passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
+                passwordVC.resultDelegate = self
+                passwordVC.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(passwordVC, animated: false)
+            }
         } else {
             let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
             self.navigationItem.title = ""
             self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
-            passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
+            passwordVC.mTarget = PASSWORD_ACTION_INIT
             passwordVC.resultDelegate = self
             passwordVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(passwordVC, animated: false)
         }
-
     }
     
     @IBAction func bioToggle(_ sender: UISwitch) {
