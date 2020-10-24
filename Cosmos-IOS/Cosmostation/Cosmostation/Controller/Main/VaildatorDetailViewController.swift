@@ -1895,7 +1895,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
                 }
-                if (rewardSum.compare(NSDecimalNumber.init(string: "350000")).rawValue < 0) {
+                if (rewardSum.compare(NSDecimalNumber.init(string: "300000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return
                 }
@@ -1904,7 +1904,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "350000")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "300000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1916,7 +1916,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
                 }
-                if (rewardSum.compare(NSDecimalNumber.init(string: "350000")).rawValue < 0) {
+                if (rewardSum.compare(NSDecimalNumber.init(string: "300000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return
                 }
@@ -1925,7 +1925,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "350000")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "300000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }

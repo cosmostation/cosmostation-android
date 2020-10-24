@@ -710,7 +710,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST) {
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
             cell?.delegatorLabel.text = msg?.value.delegator_address
             cell?.widthrawAddressLabel.text = msg?.value.withdraw_address
             
@@ -729,7 +729,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_MAIN ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+                chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
             cell?.voterLabel.text = msg?.value.voter
             cell?.proposalIdLabel.text = msg?.value.proposal_id
             cell?.opinionLabel.text = msg?.value.option
