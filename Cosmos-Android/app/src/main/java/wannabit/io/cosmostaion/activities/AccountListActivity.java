@@ -32,6 +32,10 @@ import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+
 public class AccountListActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar                     mToolbar;
@@ -214,17 +218,23 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
                     holder.chainName.setText(getString(R.string.str_kava));
 
-                } else if (chain.equals(BaseChain.IOV_MAIN)) {
+                } else if (chain.equals(IOV_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_chain_img));
                     holder.chainName.setText(getString(R.string.str_iov));
 
-                } else if (chain.equals(BaseChain.BAND_MAIN)) {
+                } else if (chain.equals(BAND_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
                     holder.chainName.setText(getString(R.string.str_band));
+
+                } else if (chain.equals(CERTIK_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_chain_img));
+                    holder.chainName.setText(getString(R.string.str_certik_main));
 
                 } else if (chain.equals(BaseChain.BNB_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);

@@ -37,7 +37,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -149,10 +149,10 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
                 } else if (mChain.equals(BaseChain.BAND_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+                } else if (mChain.equals(BaseChain.CERTIK_MAIN) || mChain.equals(BaseChain.CERTIK_TEST)) {
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
                 } else if (mChain.equals(BaseChain.OK_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
-                } else if (mChain.equals(BaseChain.CERTIK_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
                 }
             } else  {
                 if(temp.hasPrivateKey) {
@@ -176,7 +176,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
                     } else if (mChain.equals(BaseChain.OK_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
-                    } else if (mChain.equals(BaseChain.CERTIK_TEST)) {
+                    } else if (mChain.equals(BaseChain.CERTIK_MAIN) || mChain.equals(BaseChain.CERTIK_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
                     }
                 }
@@ -294,6 +294,22 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
+            } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
+                holder.certikLayer.setVisibility(View.VISIBLE);
+                holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                ApiClient.getCertikChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
+                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
+                                holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_CERTIK), 6, 6));
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
+                });
+
             } else if (mChain.equals(BaseChain.BNB_TEST)) {
                 holder.bnbLayer.setVisibility(View.VISIBLE);
                 holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
@@ -369,7 +385,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         if (response.isSuccessful() && response.body() != null) {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_CERTIK_TEST), 6, 6));
+                                holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_CERTIK), 6, 6));
                         }
                     }
                     @Override

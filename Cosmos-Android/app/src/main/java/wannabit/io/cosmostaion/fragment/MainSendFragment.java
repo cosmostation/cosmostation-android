@@ -67,7 +67,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
@@ -1010,10 +1010,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-            BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_CERTIK_TEST);
+            BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_CERTIK);
             BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain);
             BigDecimal unbondingAmount = WDp.getUnbondingAmount(getMainActivity().mUnbondings);
-            BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, TOKEN_CERTIK_TEST);
+            BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, TOKEN_CERTIK);
             BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
 
             mTvCertikTotal.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));

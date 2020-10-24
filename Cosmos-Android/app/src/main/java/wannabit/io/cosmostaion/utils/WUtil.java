@@ -65,6 +65,7 @@ import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -85,7 +86,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -383,7 +384,7 @@ public class WUtil {
         long time = System.currentTimeMillis();
         ArrayList<BondingState> result = new ArrayList<>();
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_TEST)) {
+                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             for(ResLcdBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
@@ -419,7 +420,7 @@ public class WUtil {
             valAddress = lcd.validator_address;
 
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_TEST)) {
+                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
 
         } else if (chain.equals(IRIS_MAIN)) {
@@ -433,7 +434,7 @@ public class WUtil {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_TEST)) {
+                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             for(ResLcdUnBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
@@ -825,7 +826,7 @@ public class WUtil {
                 if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
                 if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
                 if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)
-                        || chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_TEST)) {
+                        || chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                     if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
                     else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
                     else return 0;
@@ -856,7 +857,7 @@ public class WUtil {
                     else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
                     else return 0;
 
-                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(CERTIK_TEST)) {
+                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                     if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
                     else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
                     else return 0;
@@ -951,9 +952,9 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_OK_TEST)) return -1;
                     if(o2.symbol.equals(TOKEN_OK_TEST)) return 1;
 
-                } else if (chain.equals(CERTIK_TEST)) {
-                    if(o1.symbol.equals(TOKEN_CERTIK_TEST)) return -1;
-                    if(o2.symbol.equals(TOKEN_CERTIK_TEST)) return 1;
+                } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                    if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
+                    if(o2.symbol.equals(TOKEN_CERTIK)) return 1;
 
                 }
                 return o2.balance.compareTo(o1.balance);
@@ -997,9 +998,9 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_OK_TEST)) return -1;
                     if(o2.symbol.equals(TOKEN_OK_TEST)) return 1;
 
-                } else if (chain.equals(CERTIK_TEST)) {
-                    if(o1.symbol.equals(TOKEN_CERTIK_TEST)) return -1;
-                    if(o2.symbol.equals(TOKEN_CERTIK_TEST)) return 1;
+                } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                    if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
+                    if(o2.symbol.equals(TOKEN_CERTIK)) return 1;
 
                 }
                 return o1.symbol.compareTo(o2.symbol);
@@ -1159,7 +1160,7 @@ public class WUtil {
 
     public static int getMaxMemoSize(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST) || chain.equals(OK_TEST) || chain.equals(CERTIK_TEST)) {
+                chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST) || chain.equals(OK_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return BaseConstant.MEMO_ATOM;
 
         } else if (chain.equals(IRIS_MAIN)) {

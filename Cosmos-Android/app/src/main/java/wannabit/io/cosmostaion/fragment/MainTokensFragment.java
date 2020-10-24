@@ -57,7 +57,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -351,7 +351,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
             BigDecimal totalCtkAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_CERTIK_TEST) ) {
+                if (balance.symbol.equals(TOKEN_CERTIK) ) {
                     totalCtkAmount = totalCtkAmount.add(WDp.getAllCtk(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
                 }
             }
@@ -740,7 +740,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onBindCertikItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_CERTIK_TEST)) {
+        if (balance.symbol.equals(TOKEN_CERTIK)) {
             holder.itemSymbol.setText(getString(R.string.str_ctk_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERTIK_TEST));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");

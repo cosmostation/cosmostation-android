@@ -46,6 +46,10 @@
     <string name="url_api_ok_test" translatable="false"></string>
 
 
+
+    <string name="url_lcd_certik" translatable="false">https://lcd-certik.cosmostation.io/</string>
+    <string name="url_api_certik" translatable="false">https://api-certik.cosmostation.io/</string>
+
     <string name="url_lcd_certik_test" translatable="false">https://lcd-certik-testnet3.cosmostation.io/</string>
     <string name="url_api_certik_test" translatable="false">https://api-certik-testnet3.cosmostation.io/</string>
 
@@ -97,6 +101,7 @@
     <string name="str_iov_main_net">Starname Mainnet</string>
     <string name="str_kava_main_net">Kava Mainnet</string>
     <string name="str_band_main_net">Band Mainnet</string>
+    <string name="str_certik_main_net">Certik Mainnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
     <string name="str_kava_test_net">Kava Testnet</string>
     <string name="str_iov_test_net">Starname Testnet</string>
@@ -293,6 +298,8 @@
     <string name="str_iov_net_test_2" translatable="false">Starname Testnet</string>
     <string name="str_ok_net_test" translatable="false">(Okex Testnet)</string>
     <string name="str_ok_net_test_2" translatable="false">Okex Testnet</string>
+    <string name="str_certik_chain" translatable="false">(Certik Mainnet)</string>
+    <string name="str_certik_chain_2" translatable="false">Certik Mainnet</string>
     <string name="str_certik_chain_test" translatable="false">(Certik Testnet)</string>
     <string name="str_certik_chain_test_2" translatable="false">Certik Testnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
@@ -305,6 +312,7 @@
     <string name="str_kava_test" translatable="false">KAVA TEST</string>
     <string name="str_iov_test" translatable="false">STARNAME TEST</string>
     <string name="str_ok_test" translatable="false">OKEX TEST</string>
+    <string name="str_certik_main" translatable="false">CERTIK</string>
     <string name="str_certik_test" translatable="false">CERTIK TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>

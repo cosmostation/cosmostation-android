@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dialog.Dialog_Choice_Certik;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Iov;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Kava;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -31,6 +32,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -195,8 +197,16 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("certik")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(CERTIK_TEST, mUserInput);
-                    return;
+                    if (SUPPORT_CHAINS().contains(CERTIK_TEST)) {
+                        Dialog_Choice_Certik dialog = Dialog_Choice_Certik.newInstance(null);
+                        dialog.setCancelable(false);
+                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                        return;
+
+                    } else {
+                        onGenNewAccount(CERTIK_MAIN, mUserInput);
+                        return;
+                    }
 
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();

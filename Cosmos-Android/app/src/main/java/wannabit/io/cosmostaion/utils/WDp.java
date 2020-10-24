@@ -60,6 +60,7 @@ import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -71,7 +72,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -88,7 +89,7 @@ public class WDp {
         SpannableString result;
         BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_TEST)) {
+                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
@@ -183,7 +184,7 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 0, 8));
 
-        } else if (chain.equals(CERTIK_TEST)) {
+        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
@@ -247,7 +248,7 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 8));
 
-        } else if (chain.equals(CERTIK_TEST)) {
+        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -542,7 +543,7 @@ public class WDp {
     public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         if (bondings == null || bondings.size() == 0) return sum;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) || chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) || chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
@@ -727,7 +728,7 @@ public class WDp {
     public static BigDecimal getAllCtk(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if(balance.symbol.equals(TOKEN_CERTIK_TEST)) {
+            if(balance.symbol.equals(TOKEN_CERTIK)) {
                 sum = sum.add(balance.balance);
             }
         }
@@ -743,7 +744,7 @@ public class WDp {
         }
         if (rewards != null) {
             for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(TOKEN_CERTIK_TEST));
+                sum = sum.add(reward.getRewardAmount(TOKEN_CERTIK));
             }
         }
         return sum;
@@ -1514,7 +1515,7 @@ public class WDp {
                 result = unbondFormat.format(calendar.getTimeInMillis());
                 return result + "   " +c.getString(R.string.str_unbonding_3days_after);
 
-            } else if (chain.equals(CERTIK_TEST)) {
+            } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 14);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
@@ -1741,7 +1742,7 @@ public class WDp {
             return c.getResources().getColor(R.color.colorBand);
         } else if (chain.equals(OK_TEST)) {
             return c.getResources().getColor(R.color.colorOK);
-        } else if (chain.equals(CERTIK_TEST)) {
+        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColor(R.color.colorCertik);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
@@ -1761,7 +1762,7 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iov);
         } else if(chain.equals(OK_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ok);
-        } else if(chain.equals(CERTIK_TEST)) {
+        } else if(chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_certik);
         }
         return null;
@@ -1780,7 +1781,7 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorIov);
         } else if(chain.equals(OK_TEST)) {
             return c.getResources().getColorStateList(R.color.colorOK);
-        } else if (chain.equals(CERTIK_TEST)) {
+        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColorStateList(R.color.colorCertik);
         }
         return null;
@@ -1815,7 +1816,7 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorOK));
             textview.setText(c.getString(R.string.s_tok));
 
-        } else if (BaseChain.getChain(chain).equals(CERTIK_TEST)) {
+        } else if (BaseChain.getChain(chain).equals(CERTIK_MAIN) || BaseChain.getChain(chain).equals(CERTIK_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorCertik));
             textview.setText(c.getString(R.string.s_ctk));
         }
@@ -1836,7 +1837,7 @@ public class WDp {
             return c.getString(R.string.s_band);
         } else if (BaseChain.getChain(chain).equals(OK_TEST)) {
             return c.getString(R.string.s_tok);
-        } else if (BaseChain.getChain(chain).equals(CERTIK_TEST)) {
+        } else if (BaseChain.getChain(chain).equals(CERTIK_MAIN) || BaseChain.getChain(chain).equals(CERTIK_TEST)) {
             return c.getString(R.string.s_ctk);
         }
         return "";
@@ -2069,6 +2070,9 @@ public class WDp {
         } else if (chain.equals(BAND_MAIN)) {
             return c.getString(R.string.str_band_chain_2);
 
+        } else if (chain.equals(CERTIK_MAIN)) {
+            return c.getString(R.string.str_certik_chain_2);
+
         } else if (chain.equals(BNB_TEST)) {
             return c.getString(R.string.str_binance_test_net_2);
 
@@ -2129,6 +2133,10 @@ public class WDp {
         } else if (chain.equals(OK_TEST)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.okex_testnet_img));
             txtView.setText(c.getString(R.string.str_ok_net_test_2));
+
+        } else if (chain.equals(CERTIK_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.certik_chain_img));
+            txtView.setText(c.getString(R.string.str_certik_chain_2));
 
         } else if (chain.equals(CERTIK_TEST)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.certik_testnet_img));

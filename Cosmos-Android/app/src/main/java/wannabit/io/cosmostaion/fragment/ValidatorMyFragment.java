@@ -51,7 +51,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -204,7 +204,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV_TEST));
 
                 } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_CERTIK_TEST));
+                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_CERTIK));
 
                 }
 
@@ -284,7 +284,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
                 } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
-                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_CERTIK_TEST));
+                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_CERTIK));
                     try {
                         Picasso.get().load(CERTIK_VAL_URL + validator.operator_address + ".png")
                                 .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
@@ -415,7 +415,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_IOV_TEST);
 
             } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_CERTIK_TEST);
+                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_CERTIK);
 
             }
             mSortType.setText(getString(R.string.str_sorting_by_reward));

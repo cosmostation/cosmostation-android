@@ -78,7 +78,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BAND_ORACLE_STATUS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
@@ -241,7 +241,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(CERTIK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("20000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("20000")) > 0) {
                 hasbalance  = true;
             }
 
@@ -339,7 +339,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(CERTIK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("30000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("30000")) > 0) {
                 hasbalance  = true;
             }
             if (mRedelegates == null || mRedelegates.size() > 0) {
@@ -414,7 +414,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(CERTIK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("20000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("20000")) > 0) {
                 hasbalance  = true;
             }
 
@@ -502,7 +502,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("15000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("15000")) > 0) {
                 hasbalance  = true;
             }
 
@@ -1298,7 +1298,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
                 if (mReward != null) {
-                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(TOKEN_CERTIK_TEST), 6, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(TOKEN_CERTIK), 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
                     holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }

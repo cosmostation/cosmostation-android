@@ -23,6 +23,7 @@ public enum BaseChain {
     KAVA_MAIN("kava-4"),
     BAND_MAIN_LEGACY1("band-wenchang-mainnet"),
     BAND_MAIN("band-guanyu-mainnet"),
+    CERTIK_MAIN("shentu-1"),
 
     BNB_TEST("Binance-Chain-Nile"),
     KAVA_TEST_LEGACY4("kava-testnet-4000"),
@@ -73,6 +74,9 @@ public enum BaseChain {
         if (chainName.equals(BAND_MAIN_LEGACY1.chainName) ||
                 chainName.equals(BAND_MAIN.chainName)) {
             return BAND_MAIN;
+        }
+        if (chainName.equals(CERTIK_MAIN.chainName)) {
+            return CERTIK_MAIN;
         }
 
         if (chainName.equals(BNB_TEST.chainName)) {
@@ -126,6 +130,9 @@ public enum BaseChain {
                 chain.equals(BAND_MAIN.chainName)) {
             return BAND_MAIN.chainName;
         }
+        if (chain.equals(CERTIK_MAIN.chainName)) {
+            return CERTIK_MAIN.chainName;
+        }
 
         if (chain.equals(KAVA_TEST_LEGACY4.chainName) ||
                 chain.equals(KAVA_TEST_LEGACY5.chainName) ||
@@ -159,6 +166,7 @@ public enum BaseChain {
         result.add(IOV_MAIN);
         result.add(KAVA_MAIN);
         result.add(BAND_MAIN);
+        result.add(CERTIK_MAIN);
 
 //        result.add(BNB_TEST);
 //        result.add(KAVA_TEST);

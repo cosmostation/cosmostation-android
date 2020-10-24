@@ -30,7 +30,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 
 public class RewardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -211,7 +211,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 mTvGoalLayer.setVisibility(View.GONE);
                 mExpectedLayer.setVisibility(View.VISIBLE);
 
-                BigDecimal currentBand     = getSActivity().mAccount.getTokenBalance(TOKEN_CERTIK_TEST);
+                BigDecimal currentBand     = getSActivity().mAccount.getTokenBalance(TOKEN_CERTIK);
                 BigDecimal expectedBand    = currentBand.add(rewardSum).subtract(feeAmount);
                 mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedBand, 6, 6));
                 BigDecimal expectedPrice = BigDecimal.ZERO;

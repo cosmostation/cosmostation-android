@@ -64,6 +64,7 @@ import wannabit.io.cosmostaion.widget.TintableImageView;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -76,7 +77,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
@@ -490,10 +491,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("okDenom", TOKEN_OK_TEST);
 
         } else if (mBaseChain.equals(CERTIK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK_TEST).compareTo(new BigDecimal("10000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
                 hasbalance  = true;
             }
-            intent.putExtra("certikDenom", TOKEN_CERTIK_TEST);
+            intent.putExtra("certikDenom", TOKEN_CERTIK);
 
         }
 
@@ -882,6 +883,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
                     holder.chainName.setText(getString(R.string.str_band));
+
+                } else if (chain.equals(CERTIK_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_chain_img));
+                    holder.chainName.setText(getString(R.string.str_certik_main));
 
                 } else if (chain.equals(BNB_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
