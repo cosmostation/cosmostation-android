@@ -232,7 +232,7 @@ class MsgGenerator {
     static func genGetVoteMsg(_ fromAddress: String, _ proposalId: String, _ opinion: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST || chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST || chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             value.proposal_id = proposalId
             value.voter = fromAddress
             value.option = opinion

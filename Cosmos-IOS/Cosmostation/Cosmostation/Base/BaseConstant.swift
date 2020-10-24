@@ -339,6 +339,7 @@ let CERTIK_TEST_REWARD_ADDRESS_TAIL         = "/withdraw_address";
 let CERTIK_TEST_REDELEGATION                = CERTIK_TEST_URL + "staking/redelegations";
 let CERTIK_TEST_BORAD_TX                    = CERTIK_TEST_URL + "txs";
 let CERTIK_TEST_PROPOSALS                   = CERTIK_TEST_URL + "gov/proposals";
+let CERTIK_TEST_PROPOSALS_TALLY_TAIL        = "/tally";
 
 let CERTIK_TEST_API_HISTORY                 = CERTIK_TEST_API + "v1/account/txs/";
 let CERTIK_TEST_API_TRANS_HISTORY           = CERTIK_TEST_API + "v1/account/transfer_txs/";
@@ -387,6 +388,7 @@ let CERTIK_REWARD_ADDRESS_TAIL              = "/withdraw_address";
 let CERTIK_REDELEGATION                     = CERTIK_URL + "staking/redelegations";
 let CERTIK_BORAD_TX                         = CERTIK_URL + "txs";
 let CERTIK_PROPOSALS                        = CERTIK_URL + "gov/proposals";
+let CERTIK_PROPOSALS_TALLY_TAIL             = "/tally";
 
 let CERTIK_API_HISTORY                      = CERTIK_API + "v1/account/txs/";
 let CERTIK_API_TRANS_HISTORY                = CERTIK_API + "v1/account/transfer_txs/";
@@ -692,6 +694,7 @@ let CERTIK_GAS_AMOUNT_STAKE                 = "200000"
 let CERTIK_GAS_AMOUNT_REDELEGATE            = "300000"
 let CERTIK_GAS_AMOUNT_REINVEST              = "300000"
 let CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE = "100000"
+let CERTIK_GAS_AMOUNT_VOTE                  = "100000"
 
 let SECRET_GAS_FEE_RATE_AVERAGE             = "0.25"
 let SECRET_GAS_AMOUNT_SEND                  = "80000"

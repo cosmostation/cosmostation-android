@@ -2360,6 +2360,8 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_REINVEST))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
                 result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
+            } else if (type == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_VOTE))
             }
             
         } else if (chain == ChainType.SECRET_MAIN) {
