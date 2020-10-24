@@ -593,7 +593,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("30000")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("30000")) > 0) {
                 hasbalance  = true;
             }
 
