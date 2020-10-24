@@ -241,7 +241,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 hasbalance  = true;
             }
 
-        } else if (mBaseChain.equals(CERTIK_TEST)) {
+        } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("20000")) > 0) {
                 hasbalance  = true;
             }
@@ -339,7 +339,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-        } else if (mBaseChain.equals(CERTIK_TEST)) {
+        } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("30000")) > 0) {
                 hasbalance  = true;
             }
@@ -414,7 +414,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 hasbalance  = true;
             }
 
-        } else if (mBaseChain.equals(CERTIK_TEST)) {
+        } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("20000")) > 0) {
                 hasbalance  = true;
             }
@@ -494,7 +494,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 hasbalance  = true;
             }
 
-        } else if (mBaseChain.equals(CERTIK_TEST)) {
+        } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
             if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
@@ -581,6 +581,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
             if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
+            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("30000")) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("30000")) > 0) {
                 hasbalance  = true;
             }
 

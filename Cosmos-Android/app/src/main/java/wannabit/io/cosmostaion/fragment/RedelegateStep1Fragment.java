@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -42,6 +43,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
@@ -101,7 +103,8 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 Toast.makeText(getContext(), R.string.error_no_to_validator, Toast.LENGTH_SHORT).show();
             } else {
                 if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
-                        getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                        getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
+                        getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
                     new SingleAllRedelegateState(getBaseApplication(), this, getSActivity().mAccount,
                             getSActivity().mFromValidator.operator_address,
                             mCheckedValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -210,13 +213,13 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
 
-            } else if (getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+            } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
                 if (getSActivity().mStakingPool != null && getSActivity().mProvisions != null) {
                     holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mStakingPool, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
                 }
                 try {
-                    Picasso.get().load(BAND_VAL_URL+validator.operator_address+".png")
+                    Picasso.get().load(CERTIK_VAL_URL+validator.operator_address+".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -249,7 +252,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if ((getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) )&& mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+            } else if ((getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
@@ -257,11 +260,11 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBand), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if ((getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) )&& mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+            } else if ((getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIov), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if (getSActivity().mBaseChain.equals(CERTIK_TEST) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+            } else if ((getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorCertik), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
