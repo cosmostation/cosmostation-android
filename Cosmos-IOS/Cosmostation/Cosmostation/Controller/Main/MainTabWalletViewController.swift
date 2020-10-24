@@ -1304,7 +1304,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletCertikCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCertikCell") as? WalletCertikCell
-            cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
+            if (chainType == ChainType.CERTIK_MAIN) {
+                cell?.rootCardView.backgroundColor = TRANS_BG_COLOR_CERTIK
+            } else {
+                cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
+            }
             let totalCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalCtk.stringValue, cell!.totalAmount.font!, 6, 6)
             cell?.totalValue.attributedText = WUtils.dpTokenValue(totalCtk, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)

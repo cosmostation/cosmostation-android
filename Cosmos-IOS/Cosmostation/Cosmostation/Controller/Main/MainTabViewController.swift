@@ -177,7 +177,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchAccountData() -> Bool {
-        if(self.mFetchCnt > 0)  {
+        if (self.mFetchCnt > 0)  {
             return false
         }
         self.mTopValidators.removeAll()
@@ -768,6 +768,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_BONDING + account.account_address + CERTIK_TEST_BONDING_TAIL
         }
+        let tempAddress = account.account_address
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -787,7 +788,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     BaseData.instance.updateBondings(mTempBondings)
                     self.mFetchCnt = self.mFetchCnt + mTempBondings.count
                     for bondig in mTempBondings {
-                        self.onFetchEachReward(account.account_address, bondig.bonding_v_address)
+                        self.onFetchEachReward(tempAddress, bondig.bonding_v_address)
                     }
                     
                 } else if (self.mChainType == ChainType.IRIS_MAIN) {
@@ -905,6 +906,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_REWARD_FROM_VAL + accountAddr + CERTIK_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
         }
+//        print("url ", url)
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
