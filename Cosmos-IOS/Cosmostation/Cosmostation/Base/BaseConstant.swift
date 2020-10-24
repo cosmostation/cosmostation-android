@@ -63,11 +63,8 @@ let OKEX_TEST_URL                       = "https://lcd-okexchain-testnet1.cosmos
 let OKEX_TEST_API                       = "";
 
 
-//let CERTIK_URL                          = "https://lcd-certik.cosmostation.io/";
-//let CERTIK_API                          = "https://api-certik.cosmostation.io/";
-let CERTIK_URL                          = "https://lcd-certik-testnet3.cosmostation.io/";
-let CERTIK_API                          = "https://api-certik-testnet3.cosmostation.io/";
-
+let CERTIK_URL                          = "https://lcd-certik.cosmostation.io/";
+let CERTIK_API                          = "https://api-certik.cosmostation.io/";
 
 let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostation.io/";
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
@@ -689,11 +686,12 @@ let OK_GAS_AMOUNT_VOTE                      = "200000"
 let OK_GAS_AMOUNT_VOTE_MUX                  = "50000"
 
 
-let CETIK_GAS_FEE_RATE_AVERAGE              = "0.1"
-let CETIK_GAS_AMOUNT_SEND                   = "100000"
-let CETIK_GAS_AMOUNT_STAKE                  = "200000"
-let CETIK_GAS_AMOUNT_REDELEGATE             = "300000"
-let CETIK_GAS_AMOUNT_REINVEST               = "300000"
+let CERTIK_GAS_FEE_RATE_AVERAGE             = "0.1"
+let CERTIK_GAS_AMOUNT_SEND                  = "100000"
+let CERTIK_GAS_AMOUNT_STAKE                 = "200000"
+let CERTIK_GAS_AMOUNT_REDELEGATE            = "300000"
+let CERTIK_GAS_AMOUNT_REINVEST              = "300000"
+let CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE = "100000"
 
 let SECRET_GAS_FEE_RATE_AVERAGE             = "0.25"
 let SECRET_GAS_AMOUNT_SEND                  = "80000"

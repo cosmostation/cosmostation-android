@@ -2347,15 +2347,19 @@ class WUtils {
                 result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_VOTE))
             }
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
-            result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_SEND))
+            result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_SEND))
             if (type == CERTIK_MSG_TYPE_TRANSFER) {
-                result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_SEND))
+                result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_STAKE))
+                result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_STAKE))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
                 result = getGasAmountForKavaRewards()[valCnt - 1]
             } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(CETIK_GAS_AMOUNT_REDELEGATE))
+                result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_REDELEGATE))
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_REINVEST))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             }
             
         } else if (chain == ChainType.SECRET_MAIN) {

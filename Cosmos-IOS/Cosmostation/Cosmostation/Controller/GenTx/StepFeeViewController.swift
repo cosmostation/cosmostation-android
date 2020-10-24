@@ -133,7 +133,7 @@ class StepFeeViewController: BaseViewController {
             self.speedMsg.text = NSLocalizedString("fee_speed_certik_title", comment: "")
             
             let gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count)
-            let gasRate = NSDecimalNumber.init(string: CETIK_GAS_FEE_RATE_AVERAGE)
+            let gasRate = NSDecimalNumber.init(string: CERTIK_GAS_FEE_RATE_AVERAGE)
             self.rateFeeGasAmountLabel.text = gasAmount.stringValue
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 2)
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
