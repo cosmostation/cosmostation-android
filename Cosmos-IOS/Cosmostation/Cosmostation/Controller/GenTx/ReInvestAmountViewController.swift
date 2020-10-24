@@ -30,7 +30,8 @@ class ReInvestAmountViewController: BaseViewController {
         
         self.loadingImg.onStartAnimation()
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-            pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
+                pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             self.onFetchReward(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address)
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             self.onFetchIrisReward(pageHolderVC.mAccount!)
@@ -99,6 +100,14 @@ class ReInvestAmountViewController: BaseViewController {
             self.controlLayer.isHidden = false
             self.cardView.isHidden = false
             
+        } else if ((pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) &&
+                    self.pageHolderVC.mReinvestReward != nil) {
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, 6)
+            validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
+            self.loadingImg.isHidden = true
+            self.controlLayer.isHidden = false
+            self.cardView.isHidden = false
+            
         } else {
             pageHolderVC.onBeforePage()
         }
@@ -120,6 +129,10 @@ class ReInvestAmountViewController: BaseViewController {
             url = IOV_REWARD_FROM_VAL + accountAddr + IOV_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_FROM_VAL + accountAddr + IOV_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
+            url = CERTIK_REWARD_FROM_VAL + accountAddr + CERTIK_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_REWARD_FROM_VAL + accountAddr + CERTIK_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
         }
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -204,6 +217,20 @@ class ReInvestAmountViewController: BaseViewController {
                     }
                     for rawReward in rawRewards {
                         if let iovReward = rawReward.object(forKey: "denom") as? String, iovReward == IOV_TEST_DENOM {
+                            var coin = Coin(rawReward as! [String : Any])
+                            coin.amount = NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handler0Down).stringValue
+                            self.pageHolderVC.mReinvestReward = coin
+                        }
+                    }
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                    guard let responseData = res as? NSDictionary,
+                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.updateView()
+                        return;
+                    }
+                    for rawReward in rawRewards {
+                        if let certikReward = rawReward.object(forKey: "denom") as? String, certikReward == CERTIK_MAIN_DENOM {
                             var coin = Coin(rawReward as! [String : Any])
                             coin.amount = NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handler0Down).stringValue
                             self.pageHolderVC.mReinvestReward = coin
