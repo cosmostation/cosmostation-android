@@ -20,8 +20,9 @@ public class OkAccountToken {
         self.code = dictionary["code"] as? Int ?? -1
         self.msg = dictionary["msg"] as? String ?? ""
         self.detail_msg = dictionary["detail_msg"] as? String ?? ""
-        self.data = OkTokenData.init(dictionary["data"] as! [String : Any])
-        
+        if let rawData = dictionary["data"] as? [String : Any] {
+            self.data = OkTokenData.init(rawData)
+        }
     }
     
     public class OkTokenData {
