@@ -74,6 +74,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_CERTIK_MANUAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_ParameterProposal;
@@ -103,7 +104,8 @@ public class WUtil {
         if (lcd.result != null && lcd.height != null) {
             if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
                     lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                    lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
+                    lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
+                    lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
                 result.address = lcd.result.value.address;
                 result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
                 result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
@@ -117,7 +119,8 @@ public class WUtil {
         }
         if (lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
                 lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
+                lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
+                lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
             result.address = lcd.value.address;
             result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
             result.accountNumber = Integer.parseInt(lcd.value.account_number);
@@ -163,7 +166,8 @@ public class WUtil {
         if (lcd.result != null && lcd.height != null) {
             if(lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
                     lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                    lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
+                    lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
+                    lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
                 if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0){
                     for (Coin coin : lcd.result.value.coins) {
                         Balance temp = new Balance();
@@ -191,7 +195,8 @@ public class WUtil {
         }
         if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
                 lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
+                lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
+                lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
             if (lcd.value.coins != null && lcd.value.coins.size() > 0){
                 for(Coin coin : lcd.value.coins) {
                     Balance temp = new Balance();
