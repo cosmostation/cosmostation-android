@@ -309,7 +309,14 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBand));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBand));
 
-        } else if (mBaseChain.equals(BNB_TEST)) {
+        } else if (mBaseChain.equals(CERTIK_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_chain_img));
+            mToolbarChainName.setText(getString(R.string.str_certik_chain));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorCertik));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
+        }
+
+        else if (mBaseChain.equals(BNB_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));
             mToolbarChainName.setText(getString(R.string.str_binance_test_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
@@ -490,7 +497,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
             intent.putExtra("okDenom", TOKEN_OK_TEST);
 
-        } else if (mBaseChain.equals(CERTIK_TEST)) {
+        } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
                 hasbalance  = true;
             }

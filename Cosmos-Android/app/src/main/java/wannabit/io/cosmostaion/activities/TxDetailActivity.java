@@ -76,7 +76,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
@@ -281,7 +281,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (mBaseChain.equals(IOV_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_IOV_MAIN + "txs/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(CERTIK_TEST)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_CERTIK_TEST + "Transactions/" + mResTxInfo.txhash + "?net=" + mBaseChain.getChain());
+                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_CERTIK + "Transactions/" + mResTxInfo.txhash + "?net=" + mBaseChain.getChain());
 
             }
             shareIntent.setType("text/plain");

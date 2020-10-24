@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
@@ -160,13 +160,13 @@ public class WebActivity extends BaseActivity {
         } else if (mBasechain.equals(BaseChain.CERTIK_TEST)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "Transactions/" + mTxid + "?net=" + mBasechain.getChain());
+                mWebview.loadUrl(EXPLORER_CERTIK + "Transactions/" + mTxid + "?net=" + mBasechain.getChain());
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "accounts/" + mAddress + "?net=" + mBasechain.getChain());
+                mWebview.loadUrl(EXPLORER_CERTIK + "accounts/" + mAddress + "?net=" + mBasechain.getChain());
             else if (!TextUtils.isEmpty(mVoteId))
-                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "governance/proposals/" + mVoteId + "?net=" + mBasechain.getChain());
+                mWebview.loadUrl(EXPLORER_CERTIK + "governance/proposals/" + mVoteId + "?net=" + mBasechain.getChain());
             else
-                mWebview.loadUrl(EXPLORER_CERTIK_TEST + "?net=" + mBaseChain.getChain());
+                mWebview.loadUrl(EXPLORER_CERTIK + "?net=" + mBaseChain.getChain());
 
         }
 

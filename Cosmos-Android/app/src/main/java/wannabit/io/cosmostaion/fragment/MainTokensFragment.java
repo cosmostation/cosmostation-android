@@ -45,6 +45,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -227,6 +228,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
             onUpdateTotalCard();
 
+        } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+            onUpdateTotalCard();
+
         } else if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             onUpdateTotalCard();
@@ -348,7 +353,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalOkAmount, 0, 6));
             mTotalValue.setText(WDp.getValueOfOk(getContext(), getBaseDao(), totalOkAmount));
 
-        } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
             BigDecimal totalCtkAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_CERTIK) ) {
@@ -356,7 +361,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalCtkAmount, 6, 6));
-            mTotalValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalCtkAmount));
+            mTotalValue.setText(WDp.getValueOfCertik(getContext(), getBaseDao(), totalCtkAmount));
 
         }
 
@@ -405,7 +410,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindBandItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
                 onBindOkItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 onBindCertikItem(viewHolder, position);
 
             }
@@ -742,7 +747,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         final Balance balance = mBalances.get(position);
         if (balance.symbol.equals(TOKEN_CERTIK)) {
             holder.itemSymbol.setText(getString(R.string.str_ctk_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERTIK_TEST));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERTIK_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("Certik Staking Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_token_img));

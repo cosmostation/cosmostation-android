@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -170,7 +171,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             mRecyclerView.setVisibility(View.GONE);
             mNotYet.setVisibility(View.VISIBLE);
 
-        } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
@@ -222,7 +223,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
             if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST) ||
-                    getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST) ) {
+                    getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 final ResApiTxList.Data tx = mApiTxHistory.get(position);
                 viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                 viewHolder.historyRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
@@ -318,7 +319,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mBnbHistory.size();
             } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 return mApiTxHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 return mApiTxHistory.size();
             }
             return 0;

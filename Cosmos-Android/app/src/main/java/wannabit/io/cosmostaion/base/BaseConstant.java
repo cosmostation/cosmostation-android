@@ -491,7 +491,7 @@ public class BaseConstant {
     public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
     public final static String EXPLORER_KAVA_TEST       = "https://kava-testnet-9000.mintscan.io/";
     public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";
-    public final static String EXPLORER_CERTIK_TEST     = "https://explorer.certik.foundation/";
+    public final static String EXPLORER_CERTIK          = "https://explorer.certik.foundation/";
 
 
 

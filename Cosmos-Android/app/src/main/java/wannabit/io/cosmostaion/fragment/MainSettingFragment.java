@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -38,11 +39,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
 
@@ -221,8 +222,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_KAVA_TEST));
                 startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_CERTIK_TEST));
+            } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                String certikUrl = EXPLORER_CERTIK + "?net=" + getMainActivity().mBaseChain.getChain();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(certikUrl));
                 startActivity(intent);
             }
 
