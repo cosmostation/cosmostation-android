@@ -421,6 +421,7 @@ public class BaseConstant {
     public final static String FEE_IRIS_GAS_AMOUNT_REWARD_BASE  = "10000";
     public final static String FEE_IRIS_GAS_AMOUNT_REWARD_MUX   = "5000";
     public final static String FEE_IRIS_GAS_AMOUNT_VOTE         = "10000";
+    public final static String FEE_IRIS_GAS_AMOUNT_ADDRESS_CHANGE = "10000";
 
     public final static String FEE_BNB_SEND                     = "0.000375";
     public final static String FEE_BEP3_RELAY_FEE               = "0.00001";
