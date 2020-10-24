@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -106,6 +107,16 @@ public class SingleBondingStateTask extends CommonTask {
                 if(response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null)
                         mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, IOV_TEST));
+                    else
+                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                }
+                mResult.isSuccess = true;
+
+            } else if (getChain(mAccount.baseChain).equals(CERTIK_MAIN)) {
+                Response<ResLcdSingleBonding> response = ApiClient.getCertikChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
+                if(response.isSuccessful()) {
+                    if(response.body() != null && response.body().result != null)
+                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, CERTIK_MAIN));
                     else
                         mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
                 }

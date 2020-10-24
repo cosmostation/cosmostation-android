@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -179,7 +180,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
 
-            }else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+            }else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.commission_rates.rate));
                 try {
@@ -219,7 +220,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
                 } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
-                } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) ||getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
                 }
             } else {

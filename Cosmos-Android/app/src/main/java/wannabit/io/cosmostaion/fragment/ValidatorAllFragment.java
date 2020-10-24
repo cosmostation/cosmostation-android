@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -205,7 +206,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
 
-            } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
                 if (getMainActivity().mStakingPool != null && getMainActivity().mProvisions != null) {
                     holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
@@ -246,7 +247,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
                 } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
-                } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
                 }
             } else {

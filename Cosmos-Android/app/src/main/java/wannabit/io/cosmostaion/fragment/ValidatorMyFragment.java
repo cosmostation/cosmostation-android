@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -178,7 +179,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
                 } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
-                } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
                 }
 
@@ -203,7 +204,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
                     holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV_TEST));
 
-                } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                     holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_CERTIK));
 
                 }
@@ -282,7 +283,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
                     holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV_TEST));
 
-                } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
                     holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_CERTIK));
                     try {
@@ -414,7 +415,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
             } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
                 WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_IOV_TEST);
 
-            } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_CERTIK);
 
             }

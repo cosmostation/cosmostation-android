@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -79,6 +80,13 @@ public class SingleSelfBondingStateTask extends CommonTask {
 
             } else if (mChain.equals(IOV_TEST)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getIovTestChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(CERTIK_MAIN)) {
+                Response<ResLcdSingleBonding> response = ApiClient.getCertikChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

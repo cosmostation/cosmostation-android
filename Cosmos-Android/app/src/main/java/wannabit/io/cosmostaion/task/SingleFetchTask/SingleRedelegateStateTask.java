@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -101,6 +102,18 @@ public class SingleRedelegateStateTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
                 Response<ResLcdRedelegate> response = ApiClient.getIovTestChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
+                if (response.isSuccessful()) {
+                    if(response.body() != null && response.body().result != null) {
+                        mResult.resultData = response.body().result;
+                        mResult.isSuccess = true;
+                    } else {
+                        mResult.resultData = new ArrayList<Redelegate>();
+                        mResult.isSuccess = true;
+                    }
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(CERTIK_MAIN)) {
+                Response<ResLcdRedelegate> response = ApiClient.getCertikChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
                 if (response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
                         mResult.resultData = response.body().result;
