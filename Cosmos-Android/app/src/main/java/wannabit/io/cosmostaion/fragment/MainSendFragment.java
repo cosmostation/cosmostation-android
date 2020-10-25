@@ -1025,7 +1025,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mTvCertikDelegated.setText(WDp.getDpAmount2(getContext(), delegateAmount, 6, 6));
             mTvCertikUnBonding.setText(WDp.getDpAmount2(getContext(), unbondingAmount, 6, 6));
             mTvCertikRewards.setText(WDp.getDpAmount2(getContext(), rewardAmount, 6, 6));
-            mTvCertikValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalAmount));
+            mTvCertikValue.setText(WDp.getValueOfCertik(getContext(), getBaseDao(), totalAmount));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
 
             try {

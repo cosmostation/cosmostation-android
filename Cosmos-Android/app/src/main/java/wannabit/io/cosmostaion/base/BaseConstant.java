@@ -445,7 +445,7 @@ public class BaseConstant {
     public final static String FEE_OK_GAS_AMOUNT_VOTE           = "200000";
     public final static String FEE_OK_GAS_AMOUNT_VOTE_MUX       = "50000";
 
-    public final static String FEE_CERTIK_GAS_RATE_AVERAGE      = "0.10";
+    public final static String FEE_CERTIK_GAS_RATE_AVERAGE      = "0.025";
     public final static String FEE_CERTIK_GAS_AMOUNT_SEND       = "100000";
     public final static String FEE_CERTIK_GAS_AMOUNT_STAKE      = "200000";
     public final static String FEE_CERTIK_GAS_AMOUNT_REDELEGATE = "300000";

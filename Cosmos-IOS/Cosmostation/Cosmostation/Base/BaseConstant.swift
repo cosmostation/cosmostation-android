@@ -689,7 +689,7 @@ let OK_GAS_AMOUNT_VOTE                      = "200000"
 let OK_GAS_AMOUNT_VOTE_MUX                  = "50000"
 
 
-let CERTIK_GAS_FEE_RATE_AVERAGE             = "0.1"
+let CERTIK_GAS_FEE_RATE_AVERAGE             = "0.025"
 let CERTIK_GAS_AMOUNT_SEND                  = "100000"
 let CERTIK_GAS_AMOUNT_STAKE                 = "200000"
 let CERTIK_GAS_AMOUNT_REDELEGATE            = "300000"
