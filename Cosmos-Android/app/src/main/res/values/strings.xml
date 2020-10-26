@@ -859,6 +859,7 @@
     <string name="str_withdrawing">Withdrawing</string>
     <string name="str_vote_for_validator">Vote for Validator</string>
     <string name="str_name_service">Name Service</string>
+    <string name="str_starname_service">Starname Service</string>
     <string name="str_promotion_title">START DELEGATING FOR REWARDS</string>
     <string name="str_sorting_s">Sorting</string>
     <string name="str_sorting_by_name">By Name</string>
@@ -1056,7 +1057,9 @@
     <string name="str_event_period">Event Period</string>
     <string name="str_est_daily_reward">Est. Daily Reward</string>
     <string name="str_event_notice">Please enter your personal ETH address.\nYou may be excluded from the StakeDrop campaign if you enter an exchange address or an invalid address.</string>
-
+    <string name="str_delete_starname">Delete Starname</string>
+    <string name="str_renew_starname">Renew Starname</string>
+    <string name="str_connected_address_replace">Connected Address Replace</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

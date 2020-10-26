@@ -728,6 +728,7 @@
     <string name="str_withdrawing">출금중 수량</string>
     <string name="str_vote_for_validator">검증인 투표</string>
     <string name="str_name_service">네임 서비스</string>
+    <string name="str_starname_service">Starname 서비스</string>
     <string name="str_promotion_title">위임하고 이자받기</string>
     <string name="str_sorting_s">Sorting</string>
     <string name="str_sorting_by_name">이름으로 정렬</string>
@@ -921,7 +922,9 @@
     <string name="str_event_period">이벤트 기간</string>
     <string name="str_est_daily_reward">일일 예상 이자량</string>
     <string name="str_event_notice">개인 ETH 주소를 입력하세요.\n거래소 주소 또는 유효하지 않은 주소를 입력시 StakeDrop 이벤트 참여에 제외될 수 있습니다..</string>
-
+    <string name="str_delete_starname">Starname 삭제</string>
+    <string name="str_renew_starname">Starname 갱신</string>
+    <string name="str_connected_address_replace">연결 주소 변경</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

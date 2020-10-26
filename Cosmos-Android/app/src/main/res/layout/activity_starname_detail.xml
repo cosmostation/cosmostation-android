@@ -46,7 +46,7 @@
                 android:background="@drawable/btn_trans_with_border"
                 style="@style/font_ss_14_red"
                 android:textAllCaps="false"
-                android:text="@string/str_delete"/>
+                android:text="@string/str_delete_starname"/>
             <Button
                 android:id="@+id/btn_renew"
                 android:layout_width="0dp"
@@ -57,7 +57,7 @@
                 android:background="@drawable/btn_trans_with_border"
                 style="@style/font_ss_14_white"
                 android:textAllCaps="false"
-                android:text="@string/str_renew"/>
+                android:text="@string/str_renew_starname"/>
         </LinearLayout>
         <Button
             android:id="@+id/btn_edit"
@@ -68,7 +68,7 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_address_edit"/>
+            android:text="@string/str_connected_address_replace"/>
     </LinearLayout>
 
 

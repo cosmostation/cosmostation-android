@@ -66,44 +66,6 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:background="@color/colorGray3"/>
 
-            <!--        <RelativeLayout-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_marginTop="@dimen/space_12">-->
-            <!--            <TextView-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="@string/str_available"-->
-            <!--                style="@style/font_ss_12_gray1"/>-->
-            <!--            <TextView-->
-            <!--                android:id="@+id/dash_iov_balance"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_alignParentRight="true"-->
-            <!--                android:gravity="right"-->
-            <!--                android:text="-"-->
-            <!--                style="@style/font_ssl_12_white"/>-->
-            <!--        </RelativeLayout>-->
-
-            <!--        <RelativeLayout-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_marginTop="@dimen/space_8">-->
-            <!--            <TextView-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="@string/str_deposited"-->
-            <!--                style="@style/font_ss_12_gray1"/>-->
-            <!--            <TextView-->
-            <!--                android:id="@+id/dash_iov_deposited"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_alignParentRight="true"-->
-            <!--                android:gravity="right"-->
-            <!--                android:text="-"-->
-            <!--                style="@style/font_ssl_12_white"/>-->
-            <!--        </RelativeLayout>-->
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -185,47 +147,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <!--            <RelativeLayout-->
-                <!--                android:id="@+id/btn_iov_deposit"-->
-                <!--                android:layout_width="0dp"-->
-                <!--                android:layout_weight="1"-->
-                <!--                android:layout_height="@dimen/space_40"-->
-                <!--                android:minHeight="@dimen/space_40"-->
-                <!--                android:layout_marginTop="16dp"-->
-                <!--                android:layout_marginRight="@dimen/space_5"-->
-                <!--                android:background="@drawable/btn_trans_with_border"-->
-                <!--                android:clickable="true">-->
-                <!--                <TextView-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_centerInParent="true"-->
-                <!--                    android:drawableLeft="@drawable/reward_ic"-->
-                <!--                    android:drawablePadding="@dimen/space_4"-->
-                <!--                    android:gravity="center"-->
-                <!--                    style="@style/font_ss_12_white"-->
-                <!--                    android:text="@string/str_deposite" />-->
-                <!--            </RelativeLayout>-->
-
-                <!--            <RelativeLayout-->
-                <!--                android:id="@+id/btn_iov_name_service"-->
-                <!--                android:layout_width="0dp"-->
-                <!--                android:layout_weight="1"-->
-                <!--                android:layout_height="@dimen/space_40"-->
-                <!--                android:minHeight="@dimen/space_40"-->
-                <!--                android:layout_marginTop="16dp"-->
-                <!--                android:layout_marginLeft="@dimen/space_5"-->
-                <!--                android:background="@drawable/btn_trans_with_border"-->
-                <!--                android:clickable="true">-->
-                <!--                <TextView-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_centerInParent="true"-->
-                <!--                    android:drawableLeft="@drawable/ic_name_ic"-->
-                <!--                    android:drawablePadding="@dimen/space_4"-->
-                <!--                    android:gravity="center"-->
-                <!--                    style="@style/font_ss_12_white"-->
-                <!--                    android:text="@string/str_name_service" />-->
-                <!--            </RelativeLayout>-->
                 <RelativeLayout
                     android:id="@+id/btn_iov_stake"
                     android:layout_width="0dp"
@@ -285,7 +206,7 @@
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
                     style="@style/font_ss_12_white"
-                    android:text="@string/str_name_service" />
+                    android:text="@string/str_starname_service" />
             </RelativeLayout>
 
 

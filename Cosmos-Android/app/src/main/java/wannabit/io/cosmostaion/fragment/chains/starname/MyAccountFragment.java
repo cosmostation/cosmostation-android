@@ -91,18 +91,15 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.equals(mRegisterAccount)) {
-            //Todo temp hide for UI
-            Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
-            return;
-//            if (!getSActivity().mAccount.hasPrivateKey) {
-//                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//                add.setCancelable(true);
-//                getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//                return;
-//            }
-//
-//            Intent intent = new Intent(getSActivity(), RegisterStarNameAccountActivity.class);
-//            startActivity(intent);
+            if (!getSActivity().mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+
+            Intent intent = new Intent(getSActivity(), RegisterStarNameAccountActivity.class);
+            startActivity(intent);
         }
 
     }

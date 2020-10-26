@@ -16,13 +16,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_account_to_register"
-            style="@style/font_ss_12_gray1"/>
+            style="@style/font_ss_12_gray1"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/space_16"
             android:paddingTop="@dimen/space_4"
             android:paddingBottom="@dimen/space_4">
             <EditText
@@ -30,13 +32,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/fixed_star"
-                android:hint="Your starname"
+                android:hint="Your Account"
                 android:textCursorDrawable="@drawable/white_cursor"
-                android:maxLength="40"
+                android:maxLength="63"
                 android:textColorHint="@color/colorGray4"
                 android:background="@null"
+                android:inputType="textNoSuggestions|textVisiblePassword"
                 style="@style/font_ss_26_white"
                 android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:gravity="right"/>
             <TextView
                 android:id="@+id/fixed_star"
