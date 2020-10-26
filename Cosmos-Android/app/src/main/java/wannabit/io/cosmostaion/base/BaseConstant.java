@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = false;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -296,34 +296,34 @@ public class BaseConstant {
     public final static int CONST_PW_TX_CLAIM_HARVEST_REWARD                = 5033;
 
 
-    public final static int TX_TYPE_UNKNOWN                 = 3000;
-    public final static int TX_TYPE_SEND                    = 3001;
-    public final static int TX_TYPE_RECEIVE                 = 3002;
-    public final static int TX_TYPE_DELEGATE                = 3003;
-    public final static int TX_TYPE_UNDELEGATE              = 3004;
-    public final static int TX_TYPE_REDELEGATE              = 3005;
-    public final static int TX_TYPE_GET_REWARD              = 3006;
-    public final static int TX_TYPE_GET_COMMISSION          = 3007;
-    public final static int TX_TYPE_CHAGE_REWARD_ADDRESS    = 3008;
-    public final static int TX_TYPE_TRANSFER                = 3009;
-    public final static int TX_TYPE_VOTE                    = 3010;
-    public final static int TX_TYPE_REINVEST                = 3011;
-    public final static int TX_TYPE_SUBMIT_PROPOSAL         = 3012;
-    public final static int TX_TYPE_DEPOSIT                 = 3013;
-    public final static int TX_TYPE_CREATE_VALIDATOR        = 3014;
-    public final static int TX_TYPE_EDIT_VALIDATOR          = 3015;
-    public final static int TX_TYPE_IRIS_GET_REWARD_ALL     = 3016;
-    public final static int TX_TYPE_IRIS_ISSUE_TOKEN        = 3017;
-    public final static int TX_TYPE_KAVA_POST_PRICE         = 3018;
-    public final static int TX_TYPE_KAVA_CREATE_CDP         = 3019;
-    public final static int TX_TYPE_KAVA_DEPOSIT_CDP        = 3020;
-    public final static int TX_TYPE_KAVA_WITHDRAW_CDP       = 3021;
-    public final static int TX_TYPE_KAVA_DRAWDEBT_CDP       = 3022;
-    public final static int TX_TYPE_KAVA_REPAYDEBT_CDP      = 3023;
-    public final static int TX_TYPE_KAVA_BEP3_CREATE        = 3024;
-    public final static int TX_TYPE_KAVA_BEP3_CLAIM         = 3025;
-    public final static int TX_TYPE_KAVA_BEP3_REFUND        = 3026;
-    public final static int TX_TYPE_KAVA_INCENTIVE_REWARD   = 3027;
+    public final static int TX_TYPE_UNKNOWN                     = 3000;
+    public final static int TX_TYPE_SEND                        = 3001;
+    public final static int TX_TYPE_RECEIVE                     = 3002;
+    public final static int TX_TYPE_DELEGATE                    = 3003;
+    public final static int TX_TYPE_UNDELEGATE                  = 3004;
+    public final static int TX_TYPE_REDELEGATE                  = 3005;
+    public final static int TX_TYPE_GET_REWARD                  = 3006;
+    public final static int TX_TYPE_GET_COMMISSION              = 3007;
+    public final static int TX_TYPE_CHAGE_REWARD_ADDRESS        = 3008;
+    public final static int TX_TYPE_TRANSFER                    = 3009;
+    public final static int TX_TYPE_VOTE                        = 3010;
+    public final static int TX_TYPE_REINVEST                    = 3011;
+    public final static int TX_TYPE_SUBMIT_PROPOSAL             = 3012;
+    public final static int TX_TYPE_DEPOSIT                     = 3013;
+    public final static int TX_TYPE_CREATE_VALIDATOR            = 3014;
+    public final static int TX_TYPE_EDIT_VALIDATOR              = 3015;
+    public final static int TX_TYPE_IRIS_GET_REWARD_ALL         = 3016;
+    public final static int TX_TYPE_IRIS_ISSUE_TOKEN            = 3017;
+    public final static int TX_TYPE_KAVA_POST_PRICE             = 3018;
+    public final static int TX_TYPE_KAVA_CREATE_CDP             = 3019;
+    public final static int TX_TYPE_KAVA_DEPOSIT_CDP            = 3020;
+    public final static int TX_TYPE_KAVA_WITHDRAW_CDP           = 3021;
+    public final static int TX_TYPE_KAVA_DRAWDEBT_CDP           = 3022;
+    public final static int TX_TYPE_KAVA_REPAYDEBT_CDP          = 3023;
+    public final static int TX_TYPE_KAVA_BEP3_CREATE            = 3024;
+    public final static int TX_TYPE_KAVA_BEP3_CLAIM             = 3025;
+    public final static int TX_TYPE_KAVA_BEP3_REFUND            = 3026;
+    public final static int TX_TYPE_KAVA_INCENTIVE_REWARD       = 3027;
     public final static int TX_TYPE_STARNAME_REGISTER_DOMAIN    = 3028;
     public final static int TX_TYPE_STARNAME_REGISTER_ACCOUNT   = 3029;
     public final static int TX_TYPE_STARNAME_DELETE_ACCOUNT     = 3030;
@@ -331,10 +331,9 @@ public class BaseConstant {
     public final static int TX_TYPE_STARNAME_REPLACE_RESOURCE   = 3032;
     public final static int TX_TYPE_STARNAME_RENEW_DOMAIN       = 3033;
     public final static int TX_TYPE_STARNAME_RENEW_ACCOUNT      = 3034;
-
-    public final static int TX_TYPE_KAVA_DEPOSIT_HARVEST    = 3035;
-    public final static int TX_TYPE_KAVA_WITHDRAW_HARVEST   = 3036;
-    public final static int TX_TYPE_KAVA_CLAIM_HARVEST      = 3037;
+    public final static int TX_TYPE_KAVA_DEPOSIT_HARVEST        = 3035;
+    public final static int TX_TYPE_KAVA_WITHDRAW_HARVEST       = 3036;
+    public final static int TX_TYPE_KAVA_CLAIM_HARVEST          = 3037;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
