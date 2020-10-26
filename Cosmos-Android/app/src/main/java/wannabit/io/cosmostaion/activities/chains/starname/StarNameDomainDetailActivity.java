@@ -209,6 +209,11 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                 if (mStarNameDomain != null) {
                     holder.itemDomain.setText("*" + mStarNameDomain.name);
                     holder.itemType.setText(mStarNameDomain.type.toUpperCase());
+                    if (mStarNameDomain.type.equals("open")) {
+                        holder.itemType.setTextColor(getResources().getColor(R.color.colorIov));
+                    } else {
+                        holder.itemType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    }
                     holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mStarNameDomain.valid_until * 1000));
 
                 }

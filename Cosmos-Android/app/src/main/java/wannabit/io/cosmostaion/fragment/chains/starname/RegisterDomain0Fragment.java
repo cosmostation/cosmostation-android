@@ -39,7 +39,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
     private Button mCancelBtn, mConfirmBtn;
     private EditText mDomainInput;
     private TextView mStarNameFee;
-    private TextView mDomainType, mTypeDescription;
+    private TextView mDomainValid, mDomainType, mTypeDescription;
     private SwitchCompat mTypeSwitch;
 
     private BigDecimal  mMyBalance = BigDecimal.ZERO;
@@ -62,6 +62,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
         mConfirmBtn = rootView.findViewById(R.id.btn_next);
         mDomainInput = rootView.findViewById(R.id.et_user_input);
+        mDomainValid = rootView.findViewById(R.id.domain_valid_msg);
         mStarNameFee = rootView.findViewById(R.id.starname_fee_amount);
         mDomainType = rootView.findViewById(R.id.domain_type_txt);
         mTypeSwitch = rootView.findViewById(R.id.switch_domain_type);
@@ -80,8 +81,10 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
             @Override
             public void afterTextChanged(Editable s) {
                 String userInput = s.toString().trim();
-                if (WUtil.isValidDomain(userInput)) {
-
+                if (TextUtils.isEmpty(userInput) || WUtil.isValidDomain(userInput)) {
+                    mDomainValid.setTextColor(getResources().getColor(R.color.colorGray1));
+                } else {
+                    mDomainValid.setTextColor(getResources().getColor(R.color.colorRed));
                 }
 
                 mStarnameFee = getBaseDao().mStarNameFee.getDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
@@ -95,10 +98,12 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (buttonView.isPressed()) {
                     if (isChecked) {
-                        mDomainType.setText("Open");
+                        mDomainType.setText("Open".toUpperCase());
+                        mDomainType.setTextColor(getResources().getColor(R.color.colorIov));
                         mTypeDescription.setText(getString(R.string.str_description_open_domain));
                     } else {
-                        mDomainType.setText("Closed");
+                        mDomainType.setText("Closed".toUpperCase());
+                        mDomainType.setTextColor(getResources().getColor(R.color.colorWhite));
                         mTypeDescription.setText(getString(R.string.str_description_closed_domain));
                     }
 

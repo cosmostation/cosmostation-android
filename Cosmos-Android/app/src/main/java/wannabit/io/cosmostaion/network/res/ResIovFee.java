@@ -92,11 +92,11 @@ public class ResIovFee {
             if (TextUtils.isEmpty(domain)) {
                 feeAmount = BigDecimal.ZERO;
             } else if (domain.length() == 1) {
-                feeAmount = new BigDecimal(register_domain_1).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+                feeAmount = BigDecimal.ZERO;
             } else if (domain.length() == 2) {
-                feeAmount = new BigDecimal(register_domain_2).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+                feeAmount = BigDecimal.ZERO;
             } else if (domain.length() == 3) {
-                feeAmount = new BigDecimal(register_domain_3).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+                feeAmount = BigDecimal.ZERO;
             } else if (domain.length() == 4) {
                 feeAmount = new BigDecimal(register_domain_4).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
             } else {

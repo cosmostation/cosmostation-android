@@ -53,11 +53,10 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4">
+                    android:layout_marginTop="@dimen/space_6">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
                         android:layout_centerVertical="true"
                         style="@style/font_ss_11_gray1"
                         android:text="@string/str_connected_addressed"/>
@@ -66,18 +65,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_ss_11_white"
                         android:text="-"/>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_2">
+                    android:layout_marginTop="@dimen/space_4">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
                         android:layout_centerVertical="true"
                         style="@style/font_ss_11_gray1"
                         android:text="@string/str_expire_date"/>
@@ -87,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_ss_11_white"
                         android:text="-"/>
                 </RelativeLayout>
 

@@ -41,11 +41,10 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4">
+                    android:layout_marginTop="@dimen/space_6">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
                         android:layout_centerVertical="true"
                         style="@style/font_ss_12_gray1"
                         android:text="@string/str_connected_addressed"/>
@@ -62,11 +61,10 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4">
+                    android:layout_marginTop="@dimen/space_6">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
                         android:layout_centerVertical="true"
                         style="@style/font_ss_12_gray1"
                         android:text="@string/str_expire_date"/>

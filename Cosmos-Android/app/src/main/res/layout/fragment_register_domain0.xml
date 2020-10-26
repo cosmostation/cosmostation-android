@@ -19,29 +19,69 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_24"
+                android:text="@string/str_domain_type"
+                style="@style/font_ss_12_gray1"
+                android:visibility="gone"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/domain_type_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    style="@style/font_ss_14_white"
+                    android:text="CLOSED"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_domain_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:checked="false"
+                    android:theme="@style/ColorSwitchStylesIov"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/domain_type_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/font_ss_12_gray1"
+                android:text="@string/str_description_closed_domain"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/str_domain_to_register"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_ss_12_gray1"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_6"
                     style="@style/font_ss_26_white"
                     android:text="*"/>
                 <EditText
                     android:id="@+id/et_user_input"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_50"
-                    android:hint="Your starname"
+                    android:layout_height="@dimen/space_45"
+                    android:hint="Your Domain"
                     android:textCursorDrawable="@drawable/white_cursor"
                     android:maxLength="40"
                     android:textColorHint="@color/colorGray4"
                     android:background="@null"
+                    android:inputType="textNoSuggestions|textVisiblePassword"
                     android:paddingLeft="@dimen/space_4"
                     style="@style/font_ss_26_white"
                     android:imeOptions="actionNext"/>
@@ -51,11 +91,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/domain_valid_msg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_6"
                     android:text="4~32 lowercase alphabet or number"
-                    style="@style/font_ss_12_gray6"/>
+                    style="@style/font_ss_12_gray1"/>
 
                 <TextView
                     android:id="@+id/starname_fee_denom"
@@ -74,43 +114,7 @@
                     style="@style/font_ssl_14_white"/>
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_24"
-                android:text="@string/str_domain_type"
-                style="@style/font_ss_12_gray1"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/domain_type_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_4"
-                    android:layout_centerVertical="true"
-                    style="@style/font_ss_14_white"
-                    android:text="Closed"/>
-
-                <android.support.v7.widget.SwitchCompat
-                    android:id="@+id/switch_domain_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:scaleType="fitXY"
-                    android:checked="false"
-                    android:theme="@style/ColorSwitchStylesIov"/>
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/domain_type_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_6"
-                style="@style/font_ss_12_gray1"
-                android:text="@string/str_description_closed_domain"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

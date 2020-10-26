@@ -826,9 +826,9 @@
     <string name="str_owen_account">소유중인 Account</string>
     <string name="str_buy_new_domain">Domain 구입하기</string>
     <string name="str_buy_new_account">Account 구입하기</string>
-    <string name="str_starname_domain_promotion_title">Purchase a Starname Domain (*domain)</string>
-    <string name="str_starname_domain_promotion_msg">A Starname Domain can be used as a universal username. You can create Starname Accounts connected a Starname Domain.</string>
-    <string name="str_starname_account_promotion_title">Purchase a Starname Account (account1*domain)</string>
+    <string name="str_starname_domain_promotion_title">Starname 도메인</string>
+    <string name="str_starname_domain_promotion_msg">도메인을 등록해보세요. Starname 도메인은\n범용 네임서비스를 지원합니다. 또한 추가적으로 하위\nStarname 어카운트를 추가하실 수 있습니다.</string>
+    <string name="str_starname_account_promotion_title">Starname 어카운트</string>
     <string name="str_starname_account_promotion_msg">A Starname is your universal username for the blockchain world. Register a Starname Account connected to a public Starname Domain or a Starname Domain you own.</string>
     <string name="str_connected_addressed">연결된 주소</string>
     <string name="str_expire_date">유효 기간</string>

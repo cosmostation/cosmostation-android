@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.StarNameDomain;
+import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class MyDomainFragment extends BaseFragment implements View.OnClickListener {
@@ -91,19 +92,15 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v.equals(mRegisterDomain)) {
-            //Todo temp hide for UI
-            Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
-            return;
-//
-//            if (!getSActivity().mAccount.hasPrivateKey) {
-//                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//                add.setCancelable(true);
-//                getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//                return;
-//            }
-//
-//            Intent intent = new Intent(getSActivity(), RegisterStarNameDomainActivity.class);
-//            startActivity(intent);
+            if (!getSActivity().mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+
+            Intent intent = new Intent(getSActivity(), RegisterStarNameDomainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -127,10 +124,16 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_MY_DOMAIN) {
-                final StarNameDomain domain = mMyStarNameDomains.get(position);
-                final MyDomainHolder holder = (MyDomainHolder)viewHolder;
+                final StarNameDomain                        domain          = mMyStarNameDomains.get(position);
+                final ResIovStarNameResolve.NameAccount     domainResolve   = getSActivity().getDomainResolve(domain.name);
+                final MyDomainHolder                        holder          = (MyDomainHolder)viewHolder;
                 holder.itemDomain.setText("*" + domain.name);
                 holder.itemType.setText(domain.type.toUpperCase());
+                if (domain.type.equals("open")) {
+                    holder.itemType.setTextColor(getResources().getColor(R.color.colorIov));
+                } else {
+                    holder.itemType.setTextColor(getResources().getColor(R.color.colorWhite));
+                }
                 holder.itemExpireDate.setText(WDp.getDpTime(getContext(), domain.valid_until * 1000));
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -140,6 +143,11 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
                         startActivity(intent);
                     }
                 });
+                if (domainResolve != null && domainResolve.resources != null && domainResolve.resources.size() > 0) {
+                    holder.itemAddressCnt.setText("" + domainResolve.resources.size());
+                } else {
+                    holder.itemAddressCnt.setText("0");
+                }
             }
         }
 
@@ -172,13 +180,14 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
 
         public class MyDomainHolder extends RecyclerView.ViewHolder {
             CardView itemRoot;
-            TextView itemDomain, itemType, itemExpireDate;
+            TextView itemDomain, itemType, itemExpireDate, itemAddressCnt;
             public MyDomainHolder(@NonNull View itemView) {
                 super(itemView);
                 itemRoot            = itemView.findViewById(R.id.card_root);
                 itemDomain          = itemView.findViewById(R.id.starname_domain_name);
                 itemType            = itemView.findViewById(R.id.domain_type);
                 itemExpireDate      = itemView.findViewById(R.id.expire_date);
+                itemAddressCnt      = itemView.findViewById(R.id.connected_addressed);
             }
         }
 

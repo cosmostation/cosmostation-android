@@ -13,13 +13,16 @@
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
-        app:cardBackgroundColor="@color/colorTransBg6"
+        app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true" >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/space_8">
+            android:paddingLeft="@dimen/space_8"
+            android:paddingRight="@dimen/space_8"
+            android:paddingTop="@dimen/space_4"
+            android:paddingBottom="@dimen/space_4">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,12 +46,9 @@
                 android:id="@+id/chain_address"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_30"
-                android:layout_marginTop="@dimen/space_4"
-                android:textCursorDrawable="@drawable/white_cursor"
-                android:background="@drawable/edittext_box"
                 android:paddingLeft="@dimen/space_8"
                 android:paddingRight="@dimen/space_8"
-                style="@style/font_ss_12_white"
+                style="@style/font_ss_14_gray1"
                 android:singleLine="true"
                 android:ellipsize="middle"/>
         </LinearLayout>
