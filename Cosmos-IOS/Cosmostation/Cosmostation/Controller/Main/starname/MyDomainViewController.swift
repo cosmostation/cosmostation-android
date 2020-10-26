@@ -15,7 +15,9 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var myDomainCnt: UILabel!
     
     var refresher: UIRefreshControl!
+    var mFetchCnt = 0
     var myDomains: Array<StarNameDomain> = Array<StarNameDomain>()
+    var myDomainResolves: Array<IovStarNameResolve.NameAccount> = Array<IovStarNameResolve.NameAccount>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +59,14 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
             let starnameAccount = myDomains[indexPath.row]
             cell?.starNameLabel.text = "*" + starnameAccount.name
             cell?.domainTypeLabel.text = starnameAccount.type.uppercased()
+            if (starnameAccount.type == "open") {
+                cell?.domainTypeLabel.textColor = COLOR_IOV
+            } else {
+                cell?.domainTypeLabel.textColor = .white
+            }
             cell?.domainExpireTime.text = WUtils.longTimetoString(input: starnameAccount.valid_until * 1000)
+            let resourceCnt = myDomainResolves.filter({ $0.domain == starnameAccount.name}).first?.resources.count ?? 0
+            cell?.domainResourcesLabel.text = String(resourceCnt)
             return cell!
         }
     }
@@ -74,10 +83,13 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onFetchFinished() {
-        self.myDomainCnt.text = String(myDomains.count)
-        self.myDomainTableView.reloadData()
-        self.refresher.endRefreshing()
-        self.hideWaittingAlert()
+        self.mFetchCnt = self.mFetchCnt - 1
+        if (mFetchCnt <= 0) {
+            self.myDomainCnt.text = String(myDomains.count)
+            self.myDomainTableView.reloadData()
+            self.refresher.endRefreshing()
+            self.hideWaittingAlert()
+        }
     }
     
     @IBAction func onClickBuy(_ sender: UIButton) {
@@ -86,6 +98,7 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     
     @objc func onRequestFetch() {
+        if (mFetchCnt > 0) { return }
         self.myDomains.removeAll()
         self.onFetchMyDomain(self.account!)
     }
@@ -114,7 +127,11 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
                     self.domainOffset = self.domainOffset + 1
                     self.onFetchMyDomain(self.account!)
                 } else {
-                    self.onFetchFinished()
+                    self.mFetchCnt = self.mFetchCnt + self.myDomains.count
+                    self.myDomainResolves.removeAll()
+                    for domain in self.myDomains {
+                        self.onFetchResolve(domain.name)
+                    }
                 }
                 
             case .failure(let error):
@@ -122,6 +139,31 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.onFetchFinished()
             }
         }
-        
+    }
+    
+    func onFetchResolve(_ starname: String) {
+        var url: String?
+        if (chainType == ChainType.IOV_MAIN) {
+            url = IOV_CHECK_WITH_STARNAME;
+        } else if (chainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_CHECK_WITH_STARNAME;
+        }
+        let request = Alamofire.request(url!, method: .post, parameters: ["starname" : "*" + starname], encoding: JSONEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                let nameResolve = IovStarNameResolve.init(info)
+                self.myDomainResolves.append(nameResolve.result.account)
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchResolve ", error) }
+                self.onFetchFinished()
+            }
+        }
     }
 }

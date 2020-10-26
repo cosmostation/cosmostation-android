@@ -305,6 +305,7 @@ let IOV_TEST_STAKING_POOL               = IOV_TEST_URL + "staking/pool";
 let IOV_TEST_BORAD_TX                   = IOV_TEST_URL + "txs";
 let IOV_TEST_STARNAME_FEE               = IOV_TEST_URL + "configuration/query/fees";
 let IOV_TEST_STARNAME_CONFIG            = IOV_TEST_URL + "configuration/query/configuration";
+let IOV_TEST_CHECK_WITH_STARNAME        = IOV_TEST_URL + "starname/query/resolve";
 let IOV_TEST_CHECK_MY_DOMAIN            = IOV_TEST_URL + "starname/query/domainsWithOwner";
 let IOV_TEST_CHECK_MY_ACCOUNT           = IOV_TEST_URL + "starname/query/accountsWithOwner";
 
@@ -809,18 +810,18 @@ enum ChainType: String {
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
         result.append(COSMOS_MAIN)
-        result.append(IRIS_MAIN)
-        result.append(BINANCE_MAIN)
+//        result.append(IRIS_MAIN)
+//        result.append(BINANCE_MAIN)
         result.append(IOV_MAIN)
-        result.append(KAVA_MAIN)
-        result.append(BAND_MAIN)
-        result.append(SECRET_MAIN)
-        result.append(CERTIK_MAIN)
+//        result.append(KAVA_MAIN)
+//        result.append(BAND_MAIN)
+//        result.append(SECRET_MAIN)
+//        result.append(CERTIK_MAIN)
 
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
-//        result.append(IOV_TEST)
-        result.append(OKEX_TEST)
+        result.append(IOV_TEST)
+//        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
         return result
     }
