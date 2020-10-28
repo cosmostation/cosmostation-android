@@ -1598,7 +1598,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         } else if (chainType == ChainType.IRIS_MAIN) {
-            txVC.mirisRedelegate = mIrisRedelegate
+            txVC.mIrisRedelegate = mIrisRedelegate
             txVC.mType = IRIS_MSG_TYPE_REDELEGATE
         }
         self.navigationItem.title = ""

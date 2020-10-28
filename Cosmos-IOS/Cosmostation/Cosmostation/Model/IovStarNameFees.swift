@@ -77,5 +77,64 @@ public struct IovStarNameFees: Codable {
             self.transfer_domain_open = dictionary["transfer_domain_open"] as? String ?? ""
             self.renew_domain_open = dictionary["renew_domain_open"] as? String ?? ""
         }
+        
+        
+        
+        
+        
+        public func getDomainFee(_ domain: String, _ type: String) -> NSDecimalNumber {
+            var feeResult = NSDecimalNumber.zero
+            if (domain.isEmpty) {
+                return feeResult
+            } else if (domain.count <= 3) {
+                return feeResult
+                
+            } else if (domain.count == 4) {
+                feeResult = NSDecimalNumber.init(string: register_domain_4).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+
+            } else {
+                feeResult = NSDecimalNumber.init(string: register_domain_5).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+            
+            }
+            
+            if (type == "open") {
+                feeResult = feeResult.multiplying(by: NSDecimalNumber.init(string: register_open_domain_multiplier))
+            }
+            return feeResult
+        }
+        
+        public func getAccountFee(_ type: String) -> NSDecimalNumber {
+            var feeResult = NSDecimalNumber.zero
+            if (type == "open") {
+                let genFee = NSDecimalNumber.init(string: register_account_open).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+                let resourceFee = NSDecimalNumber.init(string: replace_account_resources).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+                feeResult = genFee.adding(resourceFee)
+            } else {
+                let genFee = NSDecimalNumber.init(string: register_account_closed).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+                let resourceFee = NSDecimalNumber.init(string: replace_account_resources).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+                feeResult = genFee.adding(resourceFee)
+            }
+            return feeResult
+        }
+        
+        public func getReplaceFee() -> NSDecimalNumber {
+            return NSDecimalNumber.init(string: replace_account_resources).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+        }
+        
+        public func getDomainRenewFee(_ type: String) -> NSDecimalNumber {
+            if (type == "open") {
+                return NSDecimalNumber.init(string: renew_domain_open).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+            } else {
+                return NSDecimalNumber.init(string: register_account_closed).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+            }
+        }
+        
+        public func getAccountRenewFee(_ type: String) -> NSDecimalNumber {
+            if (type == "open") {
+                return NSDecimalNumber.init(string: register_account_open).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+            } else {
+                return NSDecimalNumber.init(string: register_account_closed).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+            }
+        }
     }
 }

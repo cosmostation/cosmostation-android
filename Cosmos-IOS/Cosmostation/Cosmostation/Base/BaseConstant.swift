@@ -574,6 +574,15 @@ let OK_MSG_TYPE_WITHDRAW                    = "okexchain/staking/MsgWithdraw";
 let OK_MSG_TYPE_DIRECT_VOTE                 = "okexchain/staking/MsgAddShares";
 
 
+let IOV_MSG_TYPE_REGISTER_DOMAIN            = "starname/RegisterDomain";
+let IOV_MSG_TYPE_REGISTER_ACCOUNT           = "starname/RegisterAccount";
+let IOV_MSG_TYPE_DELETE_DOMAIN              = "starname/DeleteDomain";
+let IOV_MSG_TYPE_DELETE_ACCOUNT             = "starname/DeleteAccount";
+let IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE   = "starname/ReplaceAccountResources";
+let IOV_MSG_TYPE_RENEW_DOMAIN               = "starname/RenewDomain";
+let IOV_MSG_TYPE_RENEW_ACCOUNT              = "starname/RenewAccount";
+
+
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
 let PASSWORD_ACTION_DELETE_ACCOUNT          = "ACTION_DELETE_ACCOUNT"

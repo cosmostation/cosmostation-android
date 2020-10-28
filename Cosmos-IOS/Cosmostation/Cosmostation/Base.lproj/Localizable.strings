@@ -524,6 +524,13 @@
 "tx_kava_havest_deposit" = "Harvest\nDeposit";
 "tx_kava_havest_withdraw" = "Harvest\nWithdraw";
 "tx_kava_havest_claim" = "Harvest\nGet Rewards";
+"tx_starname_registe_domain" = "Register Domain";
+"tx_starname_registe_account" = "Register Account";
+"tx_starname_delete_domain" = "Delete Domain";
+"tx_starname_delete_account" = "Delete Account";
+"tx_starname_renew_domain" = "Renew Domain";
+"tx_starname_renew_account" = "Renew Account";
+"tx_starname_update_resource" = "Replace Address";
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

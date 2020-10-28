@@ -70,6 +70,12 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxClaimRewardHavestCell", bundle: nil), forCellReuseIdentifier: "TxClaimRewardHavestCell")
         self.txTableView.register(UINib(nibName: "TxOkStakeCell", bundle: nil), forCellReuseIdentifier: "TxOkStakeCell")
         self.txTableView.register(UINib(nibName: "TxOkDirectVoteCell", bundle: nil), forCellReuseIdentifier: "TxOkDirectVoteCell")
+        self.txTableView.register(UINib(nibName: "TxRegisterDomainCell", bundle: nil), forCellReuseIdentifier: "TxRegisterDomainCell")
+        self.txTableView.register(UINib(nibName: "TxRegisterAccountCell", bundle: nil), forCellReuseIdentifier: "TxRegisterAccountCell")
+        self.txTableView.register(UINib(nibName: "TxDeleteDomainCell", bundle: nil), forCellReuseIdentifier: "TxDeleteDomainCell")
+        self.txTableView.register(UINib(nibName: "TxDeleteAccountCell", bundle: nil), forCellReuseIdentifier: "TxDeleteAccountCell")
+        self.txTableView.register(UINib(nibName: "TxReplaceResourceCell", bundle: nil), forCellReuseIdentifier: "TxReplaceResourceCell")
+        self.txTableView.register(UINib(nibName: "TxRenewStarnameCell", bundle: nil), forCellReuseIdentifier: "TxRenewStarnameCell")
         
         self.txTableView.register(UINib(nibName: "TxUnknownCell", bundle: nil), forCellReuseIdentifier: "TxUnknownCell")
         self.txTableView.rowHeight = UITableView.automaticDimension
@@ -237,6 +243,24 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
             } else if (msg?.type == OK_MSG_TYPE_DIRECT_VOTE) {
                 return onBindOkDirectVote(tableView, indexPath.row)
+                
+            } else if (msg?.type == IOV_MSG_TYPE_REGISTER_DOMAIN) {
+                return onBindRegisterDomain(tableView, indexPath.row)
+                
+            } else if (msg?.type == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+                return onBindRegisterAccount(tableView, indexPath.row)
+                
+            } else if (msg?.type == IOV_MSG_TYPE_DELETE_DOMAIN) {
+                return onBindDeleteDomain(tableView, indexPath.row)
+                
+            } else if (msg?.type == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+                return onBindDeleteAccount(tableView, indexPath.row)
+                
+            } else if (msg?.type == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
+                return onBindReplaceResource(tableView, indexPath.row)
+                
+            } else if (msg?.type == IOV_MSG_TYPE_RENEW_DOMAIN || msg?.type == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+                return onBindRenewStarname(tableView, indexPath.row)
                 
             } else {
                 return onBindUnknown(tableView, indexPath.row)
@@ -1041,7 +1065,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
-    func onBindOkDirectVote(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
+    func onBindOkDirectVote(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
         let cell:TxOkDirectVoteCell? = tableView.dequeueReusableCell(withIdentifier:"TxOkDirectVoteCell") as? TxOkDirectVoteCell
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
@@ -1060,6 +1084,111 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.validatorList.text = monikers
         return cell!
     }
+    
+    
+    func onBindRegisterDomain(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
+        let cell:TxRegisterDomainCell? = tableView.dequeueReusableCell(withIdentifier:"TxRegisterDomainCell") as? TxRegisterDomainCell
+        let msg = mTxInfo?.getMsg(position - 1)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        cell?.domainLabel.text = "*" + msg!.value.domain!
+        cell?.adminLabel.text = msg?.value.admin
+        cell?.domainTypeLabel.text = msg?.value.type
+        
+        WUtils.showCoinDp(IOV_MAIN_DENOM, "0", cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+        if let starnameFee = BaseData.instance.mStarNameFee?.getDomainFee(msg!.value.domain!, msg!.value.type!) {
+            WUtils.showCoinDp(IOV_MAIN_DENOM, starnameFee.stringValue, cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+        }
+        return cell!
+    }
+    
+    func onBindRegisterAccount(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
+        let cell:TxRegisterAccountCell? = tableView.dequeueReusableCell(withIdentifier:"TxRegisterAccountCell") as? TxRegisterAccountCell
+        let msg = mTxInfo?.getMsg(position - 1)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        cell?.accountLabel.text = msg!.value.name! + "*" + msg!.value.domain!
+        cell?.owenerLabel.text = msg?.value.owner
+        cell?.registerLabel.text = msg?.value.registerer
+        
+        WUtils.showCoinDp(IOV_MAIN_DENOM, "0", cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+        if let starnameFee = BaseData.instance.mStarNameFee?.getAccountFee("open") {
+            WUtils.showCoinDp(IOV_MAIN_DENOM, starnameFee.stringValue, cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+        }
+        return cell!
+    }
+    
+    func onBindDeleteDomain(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
+        let cell:TxDeleteDomainCell? = tableView.dequeueReusableCell(withIdentifier:"TxDeleteDomainCell") as? TxDeleteDomainCell
+        let msg = mTxInfo?.getMsg(position - 1)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        cell?.domainLabel.text = "*" + msg!.value.domain!
+        cell?.owenerLabel.text = msg?.value.owner
+        return cell!
+    }
+    
+    func onBindDeleteAccount(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
+        let cell:TxDeleteAccountCell? = tableView.dequeueReusableCell(withIdentifier:"TxDeleteAccountCell") as? TxDeleteAccountCell
+        let msg = mTxInfo?.getMsg(position - 1)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        cell?.accountLabel.text = msg!.value.name! + "*" + msg!.value.domain!
+        cell?.owenerLabel.text = msg?.value.owner
+        return cell!
+    }
+    
+    func onBindReplaceResource(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
+        let cell:TxReplaceResourceCell? = tableView.dequeueReusableCell(withIdentifier:"TxReplaceResourceCell") as? TxReplaceResourceCell
+        let msg = mTxInfo?.getMsg(position - 1)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if let dpName = msg?.value.name {
+            cell?.starnameLabel.text = dpName + "*" + msg!.value.domain!
+        } else {
+            cell?.starnameLabel.text = "*" + msg!.value.domain!
+        }
+        
+        WUtils.showCoinDp(IOV_MAIN_DENOM, "0", cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+        if let starnameFee = BaseData.instance.mStarNameFee?.getReplaceFee() {
+            WUtils.showCoinDp(IOV_MAIN_DENOM, starnameFee.stringValue, cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+        }
+        
+        let resources = msg?.value.new_resources
+        if (resources == nil || resources?.count == 0) {
+            cell?.resourceCntLabel.text = String(resources!.count)
+            cell?.resourceLabel.text = ""
+        } else {
+            cell?.resourceCntLabel.text = "0"
+            var resourceString = ""
+            for resource in resources! {
+                resourceString.append(resource.uri + "\n" + resource.resource + "\n")
+            }
+        }
+        return cell!
+    }
+    
+    func onBindRenewStarname(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
+        let cell:TxRenewStarnameCell? = tableView.dequeueReusableCell(withIdentifier:"TxRenewStarnameCell") as? TxRenewStarnameCell
+        let msg = mTxInfo?.getMsg(position - 1)
+        if (msg?.type == IOV_MSG_TYPE_RENEW_DOMAIN) {
+            cell?.txIcon.image = UIImage.init(named: "renewdomainic28")
+            cell?.txTitleLabel.text = "Renew Domain"
+        } else if (msg?.type == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+            cell?.txIcon.image = UIImage.init(named: "renewaccountic28")
+            cell?.txTitleLabel.text = "Renew Account"
+        }
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if let dpName = msg?.value.name {
+            cell?.starnameLabel.text = dpName + "*" + msg!.value.domain!
+        } else {
+            cell?.starnameLabel.text = "*" + msg!.value.domain!
+        }
+        cell?.signerLabel.text = msg?.value.signer
+        return cell!
+    }
+    
     
     
     func onBindUnknown(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {

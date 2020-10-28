@@ -540,6 +540,27 @@ class WUtils {
         } else if (msgs[0].type == KAVA_MSG_TYPE_CLAIM_HAVEST) {
             resultMsg = NSLocalizedString("tx_kava_havest_claim", comment: "")
             
+        } else if (msgs[0].type == IOV_MSG_TYPE_REGISTER_DOMAIN) {
+            resultMsg = NSLocalizedString("tx_starname_registe_domain", comment: "")
+            
+        } else if (msgs[0].type == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+            resultMsg = NSLocalizedString("tx_starname_registe_account", comment: "")
+            
+        } else if (msgs[0].type == IOV_MSG_TYPE_DELETE_DOMAIN) {
+            resultMsg = NSLocalizedString("tx_starname_delete_domain", comment: "")
+            
+        } else if (msgs[0].type == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+            resultMsg = NSLocalizedString("tx_starname_delete_account", comment: "")
+            
+        } else if (msgs[0].type == IOV_MSG_TYPE_RENEW_DOMAIN) {
+            resultMsg = NSLocalizedString("tx_starname_renew_domain", comment: "")
+            
+        } else if (msgs[0].type == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+            resultMsg = NSLocalizedString("tx_starname_renew_account", comment: "")
+            
+        } else if (msgs[0].type == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
+            resultMsg = NSLocalizedString("tx_starname_update_resource", comment: "")
+            
         }
         
         if(msgs.count > 1) {

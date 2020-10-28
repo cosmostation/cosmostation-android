@@ -105,6 +105,17 @@ public struct Msg: Codable {
         var quantity: Coin?
         var validator_addresses: Array<String>?
         
+        var domain: String?
+        var name: String?
+        var admin: String?
+        var registerer: String?
+        var type: String?
+        var broker: String?
+        var fee_payer: String?
+        var signer: String?
+        var new_resources: Array<StarNameResource>?
+        var resources: Array<StarNameResource>?
+        
         
         enum CodingKeys: String, CodingKey {
             case inputs
@@ -161,6 +172,16 @@ public struct Msg: Codable {
             case quantity
             case validator_addresses
             
+            case domain
+            case name
+            case admin
+            case registerer
+            case type
+            case broker
+            case fee_payer
+            case signer
+            case new_resources
+            case resources
         }
         
         public func getAmount() -> Coin? {
@@ -400,6 +421,46 @@ public struct Msg: Codable {
                 self.validator_addresses =  Array<String>()
                 for vAddresse in vAddresses {
                     self.validator_addresses?.append(vAddresse)
+                }
+            }
+            
+            
+            
+            
+            if let domain =  dictionary["domain"] as? String {
+                self.domain = domain
+            }
+            if let name =  dictionary["name"] as? String {
+                self.name = name
+            }
+            if let admin =  dictionary["admin"] as? String {
+                self.admin = admin
+            }
+            if let registerer =  dictionary["registerer"] as? String {
+                self.registerer = registerer
+            }
+            if let type =  dictionary["type"] as? String {
+                self.type = type
+            }
+            if let broker =  dictionary["broker"] as? String {
+                self.broker = broker
+            }
+            if let fee_payer =  dictionary["fee_payer"] as? String {
+                self.fee_payer = fee_payer
+            }
+            if let signer =  dictionary["signer"] as? String {
+                self.signer = signer
+            }
+            if let rawNewResources = dictionary["new_resources"] as? Array<NSDictionary> {
+                self.new_resources =  Array<StarNameResource>()
+                for rawNewResource in rawNewResources {
+                    self.new_resources?.append(StarNameResource(rawNewResource as! [String : Any]))
+                }
+            }
+            if let rawResources = dictionary["resources"] as? Array<NSDictionary> {
+                self.resources =  Array<StarNameResource>()
+                for rawResource in rawResources {
+                    self.resources?.append(StarNameResource(rawResource as! [String : Any]))
                 }
             }
         }

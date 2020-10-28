@@ -524,6 +524,14 @@
 "tx_kava_havest_deposit" = "하베스트\n예치";
 "tx_kava_havest_withdraw" = "하베스트\n출금";
 "tx_kava_havest_claim" = "하베스트\n이자 청구";
+"tx_starname_registe_domain" = "Domain 등록";
+"tx_starname_registe_account" = "Account 등록";
+"tx_starname_delete_domain" = "Domain 삭제";
+"tx_starname_delete_account" = "Account 삭제";
+"tx_starname_renew_domain" = "Domain 갱신";
+"tx_starname_renew_account" = "Account 갱신";
+"tx_starname_update_resource" = "주소 등록";
+
 "tx_known" = "알 수 없음";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

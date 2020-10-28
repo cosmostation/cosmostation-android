@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="363" id="KGk-i7-Jjw" customClass="TxReplaceResourceCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="520" height="363"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="520" height="363"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ngS-ld-xGv" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                        <rect key="frame" x="12" y="4" width="496" height="355"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="renewaccountic28" translatesAutoresizingMaskIntoConstraints="NO" id="Bhi-mr-Zyc">
+                                <rect key="frame" x="16" y="16" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="I4A-bG-2Qh"/>
+                                    <constraint firstAttribute="height" constant="28" id="sIT-o4-tV3"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Replace Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNA-lA-SoK">
+                                <rect key="frame" x="50" y="21" width="115" height="18"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Starname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRf-QD-JmW">
+                                <rect key="frame" x="16" y="60" width="111.5" height="15"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iu7-EF-hFF">
+                                <rect key="frame" x="16" y="81" width="6" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Starname Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGs-rv-oNE">
+                                <rect key="frame" x="16" y="111.5" width="76.5" height="14"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBe-N7-zoZ">
+                                <rect key="frame" x="436" y="110.5" width="5" height="16.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="COIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hK-TU-nVc">
+                                <rect key="frame" x="445" y="110.5" width="35" height="16.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jr1-ll-Qad">
+                                <rect key="frame" x="16" y="141.5" width="464" height="0.5"/>
+                                <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="EUv-ar-edh"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Connected Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIz-q1-mxB">
+                                <rect key="frame" x="16" y="158" width="111.5" height="15"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCu-pp-yaR">
+                                <rect key="frame" x="474" y="158.5" width="6" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8a-nz-ZPx">
+                                <rect key="frame" x="16" y="179" width="464" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="CIz-q1-mxB" firstAttribute="centerX" secondItem="GRf-QD-JmW" secondAttribute="centerX" id="21q-7P-GHx"/>
+                            <constraint firstItem="jr1-ll-Qad" firstAttribute="leading" secondItem="zGs-rv-oNE" secondAttribute="leading" id="A3d-ss-ZUM"/>
+                            <constraint firstItem="d8a-nz-ZPx" firstAttribute="leading" secondItem="Bhi-mr-Zyc" secondAttribute="leading" id="AQG-ZO-Xrd"/>
+                            <constraint firstItem="6hK-TU-nVc" firstAttribute="leading" secondItem="NBe-N7-zoZ" secondAttribute="trailing" constant="4" id="BxI-YF-Baa"/>
+                            <constraint firstAttribute="bottom" secondItem="d8a-nz-ZPx" secondAttribute="bottom" constant="20" id="CHJ-cS-23b"/>
+                            <constraint firstItem="iu7-EF-hFF" firstAttribute="leading" secondItem="Bhi-mr-Zyc" secondAttribute="leading" id="JS6-KJ-oak"/>
+                            <constraint firstItem="d8a-nz-ZPx" firstAttribute="top" secondItem="CIz-q1-mxB" secondAttribute="bottom" constant="6" id="Jqz-sv-NnJ"/>
+                            <constraint firstItem="GRf-QD-JmW" firstAttribute="leading" secondItem="Bhi-mr-Zyc" secondAttribute="leading" id="M5H-ei-OA7"/>
+                            <constraint firstItem="CIz-q1-mxB" firstAttribute="top" secondItem="jr1-ll-Qad" secondAttribute="bottom" constant="16" id="M95-cM-BZg"/>
+                            <constraint firstItem="zGs-rv-oNE" firstAttribute="leading" secondItem="ngS-ld-xGv" secondAttribute="leading" constant="16" id="MHA-tH-EGk"/>
+                            <constraint firstItem="RNA-lA-SoK" firstAttribute="centerY" secondItem="Bhi-mr-Zyc" secondAttribute="centerY" id="PdQ-Ie-Gw2"/>
+                            <constraint firstAttribute="trailing" secondItem="6hK-TU-nVc" secondAttribute="trailing" constant="16" id="T0j-0K-o4l"/>
+                            <constraint firstItem="zGs-rv-oNE" firstAttribute="top" secondItem="iu7-EF-hFF" secondAttribute="bottom" constant="16" id="WOC-Ru-7WN"/>
+                            <constraint firstItem="CIz-q1-mxB" firstAttribute="leading" secondItem="GRf-QD-JmW" secondAttribute="leading" id="Wkr-qa-cZq"/>
+                            <constraint firstItem="GRf-QD-JmW" firstAttribute="top" secondItem="Bhi-mr-Zyc" secondAttribute="bottom" constant="16" id="X92-zA-8Ig"/>
+                            <constraint firstItem="RNA-lA-SoK" firstAttribute="leading" secondItem="Bhi-mr-Zyc" secondAttribute="trailing" constant="6" id="cc3-Kp-PoC"/>
+                            <constraint firstItem="zGs-rv-oNE" firstAttribute="leading" secondItem="GRf-QD-JmW" secondAttribute="leading" id="h7i-B4-9Uh"/>
+                            <constraint firstItem="dCu-pp-yaR" firstAttribute="centerY" secondItem="CIz-q1-mxB" secondAttribute="centerY" id="hCb-I6-qBV"/>
+                            <constraint firstItem="d8a-nz-ZPx" firstAttribute="trailing" secondItem="dCu-pp-yaR" secondAttribute="trailing" id="hTI-td-0xo"/>
+                            <constraint firstItem="NBe-N7-zoZ" firstAttribute="centerY" secondItem="6hK-TU-nVc" secondAttribute="centerY" id="hno-te-tAh"/>
+                            <constraint firstItem="Bhi-mr-Zyc" firstAttribute="top" secondItem="ngS-ld-xGv" secondAttribute="top" constant="16" id="iVZ-uH-fCi"/>
+                            <constraint firstItem="Bhi-mr-Zyc" firstAttribute="leading" secondItem="ngS-ld-xGv" secondAttribute="leading" constant="16" id="lI9-tp-JMw"/>
+                            <constraint firstItem="jr1-ll-Qad" firstAttribute="top" secondItem="zGs-rv-oNE" secondAttribute="bottom" constant="16" id="oJs-cC-OTb"/>
+                            <constraint firstItem="dCu-pp-yaR" firstAttribute="trailing" secondItem="jr1-ll-Qad" secondAttribute="trailing" id="rG4-aR-4W6"/>
+                            <constraint firstItem="jr1-ll-Qad" firstAttribute="trailing" secondItem="6hK-TU-nVc" secondAttribute="trailing" id="uNY-4Z-KDu"/>
+                            <constraint firstItem="iu7-EF-hFF" firstAttribute="top" secondItem="GRf-QD-JmW" secondAttribute="bottom" constant="6" id="wyJ-iy-4Cd"/>
+                            <constraint firstItem="6hK-TU-nVc" firstAttribute="centerY" secondItem="zGs-rv-oNE" secondAttribute="centerY" id="zct-5O-gdh"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.29999999999999999"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="ngS-ld-xGv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="8aM-N3-klW"/>
+                    <constraint firstItem="ngS-ld-xGv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Uap-rK-KB3"/>
+                    <constraint firstAttribute="trailing" secondItem="ngS-ld-xGv" secondAttribute="trailing" constant="12" id="Vmm-OL-bio"/>
+                    <constraint firstAttribute="bottom" secondItem="ngS-ld-xGv" secondAttribute="bottom" constant="4" id="bAx-o9-kcJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="resourceCntLabel" destination="dCu-pp-yaR" id="l2z-sH-2vy"/>
+                <outlet property="resourceLabel" destination="d8a-nz-ZPx" id="xhy-UY-f3e"/>
+                <outlet property="starnameFeeAmountLabel" destination="NBe-N7-zoZ" id="I0l-kd-sYk"/>
+                <outlet property="starnameFeeDenomLabel" destination="6hK-TU-nVc" id="oGC-NG-2nq"/>
+                <outlet property="starnameLabel" destination="iu7-EF-hFF" id="Ghq-Mw-HWp"/>
+                <outlet property="txIcon" destination="Bhi-mr-Zyc" id="nRE-YJ-oWt"/>
+                <outlet property="txTitleLabel" destination="RNA-lA-SoK" id="zFa-QJ-86W"/>
+            </connections>
+            <point key="canvasLocation" x="285.50724637681162" y="192.52232142857142"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="renewaccountic28" width="28" height="28"/>
+    </resources>
+</document>
