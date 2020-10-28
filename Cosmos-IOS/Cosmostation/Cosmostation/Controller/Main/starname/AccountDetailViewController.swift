@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Alamofire
 
-class AccountDetailViewController: BaseViewController {
+class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    
     @IBOutlet weak var myAccountNameLabel: UILabel!
     @IBOutlet weak var myAccountAddressCntLabel: UILabel!
     @IBOutlet weak var myAccountExpireTimeLabel: UILabel!
@@ -17,9 +20,23 @@ class AccountDetailViewController: BaseViewController {
     
     var mMyDomain: String?
     var mMyAccount: String?
+    var mMyDomainInfo: IovStarNameDomainInfo?
+    var mMyAccountResolve: IovStarNameResolve?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        
+        self.myAccountResourceTableView.delegate = self
+        self.myAccountResourceTableView.dataSource = self
+        self.myAccountResourceTableView.register(UINib(nibName: "ResourceCell", bundle: nil), forCellReuseIdentifier: "ResourceCell")
+        self.myAccountResourceTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.myAccountResourceTableView.rowHeight = UITableView.automaticDimension
+        self.myAccountResourceTableView.estimatedRowHeight = UITableView.automaticDimension
+        
+        self.onFetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,10 +48,112 @@ class AccountDetailViewController: BaseViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (mMyAccountResolve != nil && mMyAccountResolve?.result.account.resources != nil) {
+            return mMyAccountResolve!.result.account.resources.count
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:ResourceCell? = tableView.dequeueReusableCell(withIdentifier:"ResourceCell") as? ResourceCell
+        let resource = mMyAccountResolve?.result.account.resources[indexPath.row]
+        cell?.chainImg.image = WUtils.getStarNameChainImg(resource!)
+        cell?.chainName.text = WUtils.getStarNameChainName(resource!)
+        cell?.chainAddress.text = resource?.resource
+        return cell!
+    }
+    
+    
     @IBAction func onClickDelete(_ sender: UIButton) {
+        print("onClickDelete")
     }
+    
     @IBAction func onClickRenew(_ sender: UIButton) {
+        print("onClickRenew")
     }
+    
     @IBAction func onClickReplace(_ sender: UIButton) {
+        print("onClickReplace")
+    }
+    
+    var mFetchCnt = 0
+    @objc func onFetchData() {
+        if (self.mFetchCnt > 0)  {
+            return
+        }
+        self.mFetchCnt = 2
+        self.onFetchDomainInfo(mMyDomain!)
+        self.onFetchResolve(mMyAccount!, mMyDomain!)
+    }
+    
+    func onFetchFinished() {
+        self.mFetchCnt = self.mFetchCnt - 1
+        if (mFetchCnt <= 0) {
+            if (mMyAccountResolve != nil && mMyAccountResolve?.result.account.resources != nil &&  mMyAccountResolve!.result.account.resources.count > 0) {
+                self.myAccountResourceTableView.reloadData()
+                self.myAccountEmptyView.isHidden = true
+                self.myAccountAddressCntLabel.text = String(mMyAccountResolve!.result.account.resources.count)
+            } else {
+                self.myAccountResourceTableView.isHidden = true
+                self.myAccountEmptyView.isHidden = false
+                self.myAccountAddressCntLabel.text = "0"
+            }
+            myAccountNameLabel.text = mMyAccount! + "*" + mMyDomain!
+            myAccountExpireTimeLabel.text = WUtils.longTimetoString(input: mMyDomainInfo!.result.domain!.valid_until * 1000)
+        }
+    }
+    
+    
+    func onFetchDomainInfo(_ domain: String) {
+        var url: String?
+        if (chainType == ChainType.IOV_MAIN) {
+            url = IOV_STARNAME_DOMAIN_INFO;
+        } else if (chainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_STARNAME_DOMAIN_INFO;
+        }
+        let request = Alamofire.request(url!, method: .post, parameters: ["name" : domain], encoding: JSONEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                self.mMyDomainInfo = IovStarNameDomainInfo.init(info)
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchDomainInfo ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    
+    func onFetchResolve(_ account: String, _ doamin: String) {
+        var url: String?
+        if (chainType == ChainType.IOV_MAIN) {
+            url = IOV_CHECK_WITH_STARNAME;
+        } else if (chainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_CHECK_WITH_STARNAME;
+        }
+        let request = Alamofire.request(url!, method: .post, parameters: ["starname" : account + "*" + doamin], encoding: JSONEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                self.mMyAccountResolve = IovStarNameResolve.init(info)
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchResolve ", error) }
+                self.onFetchFinished()
+            }
+        }
     }
 }

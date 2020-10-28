@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="94" id="KGk-i7-Jjw" customClass="ResourceCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="389" height="94"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="389" height="94"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n1u-2u-uJj" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                        <rect key="frame" x="12" y="4" width="365" height="86"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosWhMain" translatesAutoresizingMaskIntoConstraints="NO" id="4m3-9R-DIm">
+                                <rect key="frame" x="12" y="4" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="A6W-eb-ySP"/>
+                                    <constraint firstAttribute="height" constant="32" id="L8Y-Rg-4FJ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Chain Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omD-TJ-gSE">
+                                <rect key="frame" x="46" y="12" width="73.5" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Chain Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yds-Hz-gLQ">
+                                <rect key="frame" x="16" y="38" width="337" height="36"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="yds-Hz-gLQ" firstAttribute="top" secondItem="4m3-9R-DIm" secondAttribute="bottom" constant="2" id="5Ln-AU-hJy"/>
+                            <constraint firstItem="4m3-9R-DIm" firstAttribute="leading" secondItem="n1u-2u-uJj" secondAttribute="leading" constant="12" id="7cY-1r-PcZ"/>
+                            <constraint firstItem="yds-Hz-gLQ" firstAttribute="leading" secondItem="n1u-2u-uJj" secondAttribute="leading" constant="16" id="86f-aZ-X3o"/>
+                            <constraint firstItem="omD-TJ-gSE" firstAttribute="centerY" secondItem="4m3-9R-DIm" secondAttribute="centerY" id="EH7-v0-a5j"/>
+                            <constraint firstItem="4m3-9R-DIm" firstAttribute="top" secondItem="n1u-2u-uJj" secondAttribute="top" constant="4" id="duv-lo-J5p"/>
+                            <constraint firstAttribute="bottom" secondItem="yds-Hz-gLQ" secondAttribute="bottom" constant="12" id="ksC-bk-nhi"/>
+                            <constraint firstAttribute="trailing" secondItem="yds-Hz-gLQ" secondAttribute="trailing" constant="12" id="mqr-oJ-hnf"/>
+                            <constraint firstItem="omD-TJ-gSE" firstAttribute="leading" secondItem="4m3-9R-DIm" secondAttribute="trailing" constant="2" id="oF6-6X-qOn"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.29999999999999999"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="n1u-2u-uJj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="E1p-LY-12f"/>
+                    <constraint firstItem="n1u-2u-uJj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="HYT-Hh-Mge"/>
+                    <constraint firstAttribute="trailing" secondItem="n1u-2u-uJj" secondAttribute="trailing" constant="12" id="qL6-Lu-uXc"/>
+                    <constraint firstAttribute="bottom" secondItem="n1u-2u-uJj" secondAttribute="bottom" constant="4" id="x8E-T3-noC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="chainAddress" destination="yds-Hz-gLQ" id="I8V-Wq-BOY"/>
+                <outlet property="chainImg" destination="4m3-9R-DIm" id="GE9-ZF-j86"/>
+                <outlet property="chainName" destination="omD-TJ-gSE" id="yuF-sc-Phr"/>
+            </connections>
+            <point key="canvasLocation" x="199.27536231884059" y="79.6875"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cosmosWhMain" width="42" height="42"/>
+    </resources>
+</document>

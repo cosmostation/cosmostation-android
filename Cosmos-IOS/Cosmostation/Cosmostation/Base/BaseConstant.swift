@@ -281,6 +281,7 @@ let IOV_STARNAME_CONFIG                 = IOV_URL + "configuration/query/configu
 let IOV_CHECK_WITH_STARNAME             = IOV_URL + "starname/query/resolve";
 let IOV_CHECK_MY_DOMAIN                 = IOV_URL + "starname/query/domainsWithOwner";
 let IOV_CHECK_MY_ACCOUNT                = IOV_URL + "starname/query/accountsWithOwner";
+let IOV_STARNAME_DOMAIN_INFO            = IOV_URL + "starname/query/domainInfo";
 
 let IOV_API_HISTORY                     = IOV_API + "v1/account/txs/";
 let IOV_API_TRANS_HISTORY               = IOV_API + "v1/account/transfer_txs/";
@@ -308,6 +309,7 @@ let IOV_TEST_STARNAME_CONFIG            = IOV_TEST_URL + "configuration/query/co
 let IOV_TEST_CHECK_WITH_STARNAME        = IOV_TEST_URL + "starname/query/resolve";
 let IOV_TEST_CHECK_MY_DOMAIN            = IOV_TEST_URL + "starname/query/domainsWithOwner";
 let IOV_TEST_CHECK_MY_ACCOUNT           = IOV_TEST_URL + "starname/query/accountsWithOwner";
+let IOV_TEST_STARNAME_DOMAIN_INFO       = IOV_TEST_URL + "starname/query/domainInfo";
 
 
 //OKEX_TEST_URL
@@ -912,6 +914,22 @@ let OKEX_TEST_DENOM = "tokt"
 let KAVA_HARD_DENOM = "hard"
 
 
+let BITCOINCASH    = "asset:bch";
+let BITCOIN        = "asset:btc";
+let LITECOIN       = "asset:ltc";
+let BINANCE        = "asset:bnb";
+let LUNA           = "asset:luna";
+let COSMOS         = "asset:atom";
+let EMONEY         = "asset:ngm";
+let IRIS           = "asset:iris";
+let KAVA           = "asset:kava";
+let ETHEREUM       = "asset:eth";
+let STARNAME       = "asset:iov";
+let BAND           = "asset:band";
+let TEZOS          = "asset:xtz";
+let LISK           = "asset:lsk";
+
+
 let Font_17_body = UIFont(name: "Helvetica-Light", size: 17)!
 let Font_15_subTitle = UIFont(name: "Helvetica-Light", size: 15)!
 let Font_13_footnote = UIFont(name: "Helvetica-Light", size: 13)!
@@ -943,3 +961,8 @@ let EXPLORER_CERTIK         = "https://explorer.certik.foundation/";
 let PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";
 let PERSISTENCE_COSMOS_EVENT_START      = 3846000;
 let PERSISTENCE_COSMOS_EVENT_END        = 4206000;
+
+
+
+
+
