@@ -310,6 +310,11 @@
 "str_vote_direct" = "Direct vote to Validator";
 "str_vote_agent" = "Indirect vote with Agent";
 
+"str_starname_register_domain_step_0" = "Insert domain and type";
+"str_starname_register_domain_step_1" = "Insert memo (optional)";
+"str_starname_register_domain_step_2" = "Select transaction fee";
+"str_starname_register_domain_step_3" = "Check transaction detail";
+
 "clear_all" = "Clear All";
 "delete" = "Delete";
 "close" = "Close";
@@ -371,6 +376,16 @@
 "title_ok_withdraw" = "Withdraw";
 "title_ok_vote" = "Vote for Validator";
 "title_starname_list" = "StarName Service";
+"title_starname_registe_domain" = "Register Domain";
+"title_starname_registe_account" = "Register Account";
+"title_starname_delete_domain" = "Delete Domain";
+"title_starname_delete_account" = "Delete Account";
+"title_starname_renew_domain" = "Renew Domain";
+"title_starname_renew_account" = "Renew Account";
+"title_starname_update_resource" = "Replace Address";
+"title_starname_domain_detail" = "Domain 상세";
+"title_starname_account_detail" = "Account 상세";
+
 
 "proposal_type_basic" = "Basic";
 "proposal_type_parameter" = "Parameter";

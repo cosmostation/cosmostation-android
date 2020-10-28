@@ -18,11 +18,11 @@ class TransactionViewController: UIViewController {
     @IBOutlet weak var stepDescription: UILabel!
     
     var mAccount: Account?
-    var userChain: ChainType?
+    var mUserChain: ChainType?
     var mTargetValidator: Validator?
     var mType: String?
     var mRewardTargetValidators = Array<Validator>()
-    var mirisRedelegate: Array<NSDictionary>?
+    var mIrisRedelegate: Array<NSDictionary>?
     
     var mIrisToken: IrisToken?
     var mBnbToken: BnbToken?
@@ -52,7 +52,7 @@ class TransactionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
-        userChain = WUtils.getChainType(mAccount!.account_base_chain)
+        mUserChain = WUtils.getChainType(mAccount!.account_base_chain)
         
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
             stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
@@ -164,6 +164,11 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_ok_vote", comment: "")
             
+        } else if (mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
+            stepDescription.text = NSLocalizedString("str_starname_register_domain_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_starname_registe_domain", comment: "")
+            
         }
         
         self.titleLabel.adjustsFontSizeToFitWidth = true
@@ -196,7 +201,7 @@ class TransactionViewController: UIViewController {
             StepVc.mType = self.mType
             StepVc.mTargetValidator = self.mTargetValidator
             StepVc.mRewardTargetValidators = self.mRewardTargetValidators
-            StepVc.mirisRedelegate = self.mirisRedelegate
+            StepVc.mIrisRedelegate = self.mIrisRedelegate
             StepVc.mIrisToken = self.mIrisToken
             StepVc.mBnbToken = self.mBnbToken
             StepVc.mBnbTics = self.mBnbTics
@@ -312,6 +317,10 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_ok_direct_vote_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
+                } else if (mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
+                    stepDescription.text = NSLocalizedString("str_ok_direct_vote_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
                 }
                 
                 
@@ -402,6 +411,10 @@ class TransactionViewController: UIViewController {
                     
                 } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
                     stepDescription.text = NSLocalizedString("str_ok_direct_vote_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
+                    stepDescription.text = NSLocalizedString("str_starname_register_domain_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
                 }
@@ -496,6 +509,10 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_ok_direct_vote_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
+                } else if (mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
+                    stepDescription.text = NSLocalizedString("str_starname_register_domain_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
                 }
                 
                 
@@ -586,6 +603,10 @@ class TransactionViewController: UIViewController {
                     
                 } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
                     stepDescription.text = NSLocalizedString("str_ok_direct_vote_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
+                    stepDescription.text = NSLocalizedString("str_starname_register_domain_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
                 }

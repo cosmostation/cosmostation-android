@@ -62,7 +62,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var totalDepositAmount: NSDecimalNumber?
     var totalLoanAmount: NSDecimalNumber?
     
-    var mirisRedelegate: Array<NSDictionary>?
+    var mIrisRedelegate: Array<NSDictionary>?
     
     var mIrisToken: IrisToken?
     var mBnbToken: BnbToken?
@@ -237,6 +237,13 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepOkVoteCheckViewController")]
 
+        } else if (mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
+            return [RegisterDomain0ViewController(nibName: "RegisterDomain0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    RegisterDomain3ViewController(nibName: "RegisterDomain3ViewController", bundle: nil)]
+            
+            
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
@@ -293,6 +300,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     func newVc(viewController: String) ->UIViewController {
         return UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: viewController)
     }
+
     
     func onBeforePage() {
         disableBounce = false

@@ -279,8 +279,8 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 self.onFetchRedelegateState(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address, self.checkedValidator!.operator_address)
                 
             } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                if (self.pageHolderVC.mirisRedelegate != nil) {
-                    for irisRedelegate in (self.pageHolderVC?.mirisRedelegate)! {
+                if (self.pageHolderVC.mIrisRedelegate != nil) {
+                    for irisRedelegate in (self.pageHolderVC?.mIrisRedelegate)! {
                         if let fromAdd = irisRedelegate.value(forKey: "validator_src_addr") as? String,
                             let toAdd = irisRedelegate.value(forKey: "validator_dst_addr") as? String,
                             fromAdd == self.pageHolderVC.mTargetValidator?.operator_address,

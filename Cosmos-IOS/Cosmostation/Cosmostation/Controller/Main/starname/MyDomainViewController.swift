@@ -76,10 +76,11 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if (self.myDomains.count > 0) {
-//            let starnameAccount = myDomains[indexPath.row]
-//            print("start detail ", indexPath.row)
-//        }
+        let starnameAccount = myDomains[indexPath.row]
+        let domainDetailVC = DomainDetailViewController(nibName: "DomainDetailViewController", bundle: nil)
+        domainDetailVC.mMyDomain = starnameAccount.name
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(domainDetailVC, animated: true)
     }
     
     func onFetchFinished() {
@@ -93,7 +94,10 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func onClickBuy(_ sender: UIButton) {
-        self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = IOV_MSG_TYPE_REGISTER_DOMAIN
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     

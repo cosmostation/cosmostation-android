@@ -67,10 +67,12 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if (self.myAccounts.count > 0) {
-//            let starnameAccount = myDomains[indexPath.row]
-//            print("start detail ", indexPath.row)
-//        }
+        let starnameAccount = myAccounts[indexPath.row]
+        let accountDetailVC = AccountDetailViewController(nibName: "AccountDetailViewController", bundle: nil)
+        accountDetailVC.mMyDomain = starnameAccount.domain
+        accountDetailVC.mMyAccount = starnameAccount.name
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(accountDetailVC, animated: true)
     }
     
     func onFetchFinished() {
