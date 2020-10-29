@@ -34,6 +34,7 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
         self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         self.refresher.tintColor = UIColor.white
         self.myAccountTableView.addSubview(refresher)
+        self.myAccountTableView.isHidden = true
         
         self.showWaittingAlert()
         self.onFetchMyAccount(self.account!)
@@ -78,6 +79,7 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
     func onFetchFinished() {
         self.myAccountCnt.text = String(myAccounts.count)
         self.myAccountTableView.reloadData()
+        self.myAccountTableView.isHidden = false
         self.refresher.endRefreshing()
         self.hideWaittingAlert()
     }

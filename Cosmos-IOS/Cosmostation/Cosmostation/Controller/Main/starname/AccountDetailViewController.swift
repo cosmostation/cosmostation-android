@@ -36,6 +36,7 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
         self.myAccountResourceTableView.rowHeight = UITableView.automaticDimension
         self.myAccountResourceTableView.estimatedRowHeight = UITableView.automaticDimension
         
+        myAccountNameLabel.text = mMyAccount! + "*" + mMyDomain!
         self.onFetchData()
     }
     
@@ -68,10 +69,28 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
     
     @IBAction func onClickDelete(_ sender: UIButton) {
         print("onClickDelete")
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = IOV_MSG_TYPE_DELETE_ACCOUNT
+        txVC.mStarnameDomain = mMyDomain
+        txVC.mStarnameAccount = mMyAccount
+        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickRenew(_ sender: UIButton) {
         print("onClickRenew")
+        // need fee check
+        // need closed domain account can't extend 
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = IOV_MSG_TYPE_RENEW_ACCOUNT
+        txVC.mStarnameDomain = mMyDomain
+        txVC.mStarnameAccount = mMyAccount
+        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
+        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+        
     }
     
     @IBAction func onClickReplace(_ sender: UIButton) {
@@ -100,8 +119,7 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
                 self.myAccountEmptyView.isHidden = false
                 self.myAccountAddressCntLabel.text = "0"
             }
-            myAccountNameLabel.text = mMyAccount! + "*" + mMyDomain!
-            myAccountExpireTimeLabel.text = WUtils.longTimetoString(input: mMyDomainInfo!.result.domain!.valid_until * 1000)
+            myAccountExpireTimeLabel.text = WUtils.longTimetoString(input: mMyAccountResolve!.result.account.valid_until * 1000)
         }
     }
     

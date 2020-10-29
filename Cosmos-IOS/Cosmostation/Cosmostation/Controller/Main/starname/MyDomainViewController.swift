@@ -36,6 +36,7 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         self.refresher.tintColor = UIColor.white
         self.myDomainTableView.addSubview(refresher)
+        self.myDomainTableView.isHidden = true
         
         self.showWaittingAlert()
         self.onFetchMyDomain(self.account!)
@@ -90,6 +91,7 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.myDomainTableView.reloadData()
             self.refresher.endRefreshing()
             self.hideWaittingAlert()
+            self.myDomainTableView.isHidden = false
         }
     }
     
@@ -137,9 +139,10 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
                         self.onFetchResolve(domain.name)
                     }
                 }
+                self.onFetchFinished()
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchMyAccount ", error) }
+                if (SHOW_LOG) { print("onFetchMyDomain ", error) }
                 self.onFetchFinished()
             }
         }

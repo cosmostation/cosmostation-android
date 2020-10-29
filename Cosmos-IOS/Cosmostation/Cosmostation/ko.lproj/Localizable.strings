@@ -315,6 +315,27 @@
 "str_starname_register_domain_step_2" = "Tx 수수료를 선택하세요";
 "str_starname_register_domain_step_3" = "입력하신 정보를 확인하세요";
 
+"str_starname_register_account_step_0" = "등록하실 Account를 입력하세요.";
+"str_starname_register_account_step_1" = "체인별 주소를 입력하세요.(선택사항)";
+"str_starname_register_account_step_2" = "메모를 입력하세요 (선택사항)";
+"str_starname_register_account_step_3" = "Tx 수수료를 선택하세요";
+"str_starname_register_account_step_4" = "입력하신 정보를 확인하세요";
+
+"str_starname_delete_starname_step_0" = "삭제하실 스타네임을 확인하세요.";
+"str_starname_delete_starname_step_1" = "메모를 입력하세요 (선택사항)";
+"str_starname_delete_starname_step_2" = "Tx 수수료를 선택하세요";
+"str_starname_delete_starname_step_3" = "입력하신 정보를 확인하세요";
+
+"str_starname_renew_starname_step_0" = "Confirm your starname to renew";
+"str_starname_renew_starname_step_1" = "메모를 입력하세요 (선택사항)";
+"str_starname_renew_starname_step_2" = "Tx 수수료를 선택하세요";
+"str_starname_renew_starname_step_3" = "입력하신 정보를 확인하세요";
+
+"str_starname_replace_starname_step_0" = "Insert your address to connect";
+"str_starname_replace_starname_step_1" = "메모를 입력하세요 (선택사항)";
+"str_starname_replace_starname_step_2" = "Tx 수수료를 선택하세요";
+"str_starname_replace_starname_step_3" = "입력하신 정보를 확인하세요";
+
 
 
 "clear_all" = "전체 삭제";

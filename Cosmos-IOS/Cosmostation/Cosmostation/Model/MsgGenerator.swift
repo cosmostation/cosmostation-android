@@ -510,6 +510,43 @@ class MsgGenerator {
         return msg
     }
     
+    
+    
+    static func genDeleteStarnameMsg(_ type: String, _ domain: String, _ name: String?, _ owner: String, _ chain: ChainType) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.domain = domain
+        value.owner = owner
+        value.fee_payer = ""
+        if (type == IOV_MSG_TYPE_DELETE_DOMAIN) {
+            msg.type = IOV_MSG_TYPE_DELETE_DOMAIN
+            
+        } else if (type == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+            value.name = name!
+            msg.type = IOV_MSG_TYPE_DELETE_ACCOUNT
+        }
+        msg.value = value
+        return msg
+    }
+    
+    static func genRenewStarnameMsg(_ type: String, _ domain: String, _ name: String?, _ signer: String, _ chain: ChainType) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.domain = domain
+        value.signer = signer
+        value.fee_payer = ""
+        if (type == IOV_MSG_TYPE_RENEW_DOMAIN) {
+            msg.type = IOV_MSG_TYPE_RENEW_DOMAIN
+            
+        } else if (type == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+            value.name = name!
+            msg.type = IOV_MSG_TYPE_RENEW_ACCOUNT
+        }
+        msg.value = value
+        return msg
+    }
+    
+    
     static func genSignedTx(_ msgs: Array<Msg>, _ fee: Fee, _ memo: String, _ signatures: Array<Signature>) -> StdTx {
         let stdTx = StdTx.init()
         let value = StdTx.Value.init()

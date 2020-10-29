@@ -2359,7 +2359,16 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REINVEST))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_LOW))
+            } else if (type == IOV_MSG_TYPE_REGISTER_DOMAIN || type == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REGISTER))
+            } else if (type == IOV_MSG_TYPE_DELETE_DOMAIN || type == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_DELETE))
+            } else if (type == IOV_MSG_TYPE_RENEW_DOMAIN || type == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_RENEW))
+            } else if (type == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
+                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REPLACE))
             }
+            
         } else if (chain == ChainType.OKEX_TEST) {
             result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))
             if (type == OK_MSG_TYPE_TRANSFER) {

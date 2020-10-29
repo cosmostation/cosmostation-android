@@ -65,5 +65,12 @@ public struct IovStarNameConfig: Codable {
             self.certificate_count_max = dictionary["certificate_count_max"] as? Int64 ?? -1
             self.metadata_size_max = dictionary["metadata_size_max"] as? Int64 ?? -1
         }
+        
+        public func getRenewPeriod(_ type: String) -> Int64 {
+            if (type == IOV_MSG_TYPE_RENEW_DOMAIN) {
+                return NSDecimalNumber.init(value: domain_renew_period).multiplying(byPowerOf10: -6).int64Value
+            }
+            return NSDecimalNumber.init(value: account_renew_period).multiplying(byPowerOf10: -6).int64Value
+        }
     }
 }

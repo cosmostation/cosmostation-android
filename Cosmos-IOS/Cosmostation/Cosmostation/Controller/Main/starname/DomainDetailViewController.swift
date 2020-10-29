@@ -35,6 +35,8 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
         self.myDomainResourceTableView.rowHeight = UITableView.automaticDimension
         self.myDomainResourceTableView.estimatedRowHeight = UITableView.automaticDimension
         
+        
+        myDomainLabel.text = "*" + mMyDomain!
         self.onFetchData()
     }
     
@@ -66,11 +68,22 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
     }
 
     @IBAction func onClickDelete(_ sender: UIButton) {
-        print("onClickDelete")
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = IOV_MSG_TYPE_DELETE_DOMAIN
+        txVC.mStarnameDomain = mMyDomain
+        txVC.mStarnameTime = mMyDomainInfo!.result.domain!.valid_until
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickRenew(_ sender: UIButton) {
-        print("onClickRenew")
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = IOV_MSG_TYPE_RENEW_DOMAIN
+        txVC.mStarnameDomain = mMyDomain
+        txVC.mStarnameTime = mMyDomainInfo!.result.domain!.valid_until
+        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickReplace(_ sender: UIButton) {
@@ -95,16 +108,12 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
             if (mMyDomainResolve != nil && mMyDomainResolve?.result.account.resources != nil &&  mMyDomainResolve!.result.account.resources.count > 0) {
                 self.myDomainResourceTableView.reloadData()
                 self.myDomainEmptyView.isHidden = true
-                
                 self.myDomainAddressCntLael.text = String(mMyDomainResolve!.result.account.resources.count)
             } else {
                 self.myDomainResourceTableView.isHidden = true
                 self.myDomainEmptyView.isHidden = false
-                
                 self.myDomainAddressCntLael.text = "0"
             }
-            
-            myDomainLabel.text = "*" + mMyDomain!
             myDomainExpireTimeLabel.text = WUtils.longTimetoString(input: mMyDomainInfo!.result.domain!.valid_until * 1000)
             myDomainType.text = mMyDomainInfo?.result.domain!.type.uppercased()
             if (mMyDomainInfo?.result.domain?.type == "open") {

@@ -108,6 +108,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mOkToWithdraw = Coin.init()
     var mOkVoteValidators: Array<String> = Array<String>()
     
+    var mStarnameDomain: String?
+    var mStarnameAccount: String?
+    var mStarnameTime: Int64?
+    var mStarnameDomainType: String?
+    
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
             return [self.newVc(viewController: "StepDelegateAmountViewController"),
@@ -244,7 +249,30 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     RegisterDomain3ViewController(nibName: "RegisterDomain3ViewController", bundle: nil)]
             
             
-        } else {
+        }
+        
+//        else if (mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+//
+//        }
+        else if (mType == IOV_MSG_TYPE_DELETE_DOMAIN || mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+            return [DeleteStarname0ViewController(nibName: "DeleteStarname0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    DeleteStarname3ViewController(nibName: "DeleteStarname3ViewController", bundle: nil)]
+
+        }
+        else if (mType == IOV_MSG_TYPE_RENEW_DOMAIN || mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+            return [RenewStarname0ViewController(nibName: "RenewStarname0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    RenewStarname3ViewController(nibName: "RenewStarname3ViewController", bundle: nil)]
+
+        }
+//        else if (mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
+//
+//        }
+        
+        else {
             return [self.newVc(viewController: "StepRewardViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
@@ -323,7 +351,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         disableBounce = false
         if((currentIndex <= 3 &&
                 (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == IRIS_MSG_TYPE_REDELEGATE || mType == BNB_MSG_TYPE_TRANSFER ||
-                    mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER)) || currentIndex <= 2) {
+                    mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) || mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) || currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1
                 let value:[String: Int] = ["step": self.currentIndex ]

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegisterDomain0ViewController: UIViewController {
+class RegisterDomain0ViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

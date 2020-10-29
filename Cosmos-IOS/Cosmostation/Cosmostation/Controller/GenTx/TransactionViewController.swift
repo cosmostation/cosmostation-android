@@ -48,6 +48,12 @@ class TransactionViewController: UIViewController {
     var mHtlcDenom: String = BNB_MAIN_DENOM     //now only support bnb bep3
     var mHtlcRefundSwapId: String?
     
+    var mStarnameDomain: String?
+    var mStarnameAccount: String?
+    var mStarnameTime: Int64?
+    var mStarnameDomainType: String?
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,6 +175,36 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_starname_registe_domain", comment: "")
             
+        } else if (mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+            stepDescription.text = NSLocalizedString("str_starname_register_account_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "step1Img")
+            self.titleLabel.text =  NSLocalizedString("title_starname_registe_account", comment: "")
+            
+        } else if (mType == IOV_MSG_TYPE_DELETE_DOMAIN) {
+            stepDescription.text = NSLocalizedString("str_starname_delete_starname_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_starname_delete_domain", comment: "")
+            
+        } else if (mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+            stepDescription.text = NSLocalizedString("str_starname_delete_starname_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_starname_delete_account", comment: "")
+            
+        } else if (mType == IOV_MSG_TYPE_RENEW_DOMAIN) {
+            stepDescription.text = NSLocalizedString("str_starname_renew_starname_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_starname_renew_domain", comment: "")
+            
+        } else if (mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+            stepDescription.text = NSLocalizedString("str_starname_renew_starname_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_starname_renew_account", comment: "")
+            
+        } else if (mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
+            stepDescription.text = NSLocalizedString("str_starname_replace_starname_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_starname_domain_detail", comment: "")
+            
         }
         
         self.titleLabel.adjustsFontSizeToFitWidth = true
@@ -221,6 +257,11 @@ class TransactionViewController: UIViewController {
             StepVc.mHarvestDepositType = self.mHarvestDepositType
             StepVc.mIncentiveType = self.mIncentiveType
             StepVc.mCollateralParamType = self.mCollateralParamType
+            
+            StepVc.mStarnameDomain = self.mStarnameDomain
+            StepVc.mStarnameAccount = self.mStarnameAccount
+            StepVc.mStarnameTime = self.mStarnameTime
+            StepVc.mStarnameDomainType = self.mStarnameDomainType
             
         }
     }
@@ -321,6 +362,22 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_ok_direct_vote_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
+                } else if (mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+                    stepImg.image = UIImage.init(named: "step1Img")
+                    stepDescription.text = NSLocalizedString("str_starname_register_account_step_0", comment: "")
+                    
+                } else if (mType == IOV_MSG_TYPE_DELETE_DOMAIN || mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+                    stepDescription.text = NSLocalizedString("str_starname_delete_starname_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == IOV_MSG_TYPE_RENEW_DOMAIN || mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+                    stepDescription.text = NSLocalizedString("str_starname_renew_starname_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
+                    stepDescription.text = NSLocalizedString("str_starname_replace_starname_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
                 }
                 
                 
@@ -415,6 +472,22 @@ class TransactionViewController: UIViewController {
                     
                 } else if (mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
                     stepDescription.text = NSLocalizedString("str_starname_register_domain_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+                    stepImg.image = UIImage.init(named: "step2Img")
+                    stepDescription.text = NSLocalizedString("str_starname_register_account_step_1", comment: "")
+                    
+                } else if (mType == IOV_MSG_TYPE_DELETE_DOMAIN || mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+                    stepDescription.text = NSLocalizedString("str_starname_delete_starname_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == IOV_MSG_TYPE_RENEW_DOMAIN || mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+                    stepDescription.text = NSLocalizedString("str_starname_renew_starname_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
+                    stepDescription.text = NSLocalizedString("str_starname_replace_starname_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
                 }
@@ -513,6 +586,22 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_starname_register_domain_step_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
+                } else if (mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+                    stepImg.image = UIImage.init(named: "step3Img")
+                    stepDescription.text = NSLocalizedString("str_starname_register_account_step_2", comment: "")
+                    
+                } else if (mType == IOV_MSG_TYPE_DELETE_DOMAIN || mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+                    stepDescription.text = NSLocalizedString("str_starname_delete_starname_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == IOV_MSG_TYPE_RENEW_DOMAIN || mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+                    stepDescription.text = NSLocalizedString("str_starname_renew_starname_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
+                    stepDescription.text = NSLocalizedString("str_starname_replace_starname_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
                 }
                 
                 
@@ -609,6 +698,22 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_starname_register_domain_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
+                } else if (mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+                    stepImg.image = UIImage.init(named: "step4Img")
+                    stepDescription.text = NSLocalizedString("str_starname_register_account_step_3", comment: "")
+                    
+                } else if (mType == IOV_MSG_TYPE_DELETE_DOMAIN || mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+                    stepDescription.text = NSLocalizedString("str_starname_delete_starname_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == IOV_MSG_TYPE_RENEW_DOMAIN || mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+                    stepDescription.text = NSLocalizedString("str_starname_renew_starname_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
+                    stepDescription.text = NSLocalizedString("str_starname_replace_starname_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
                 }
                 
             } else if (step == 4) {
@@ -616,9 +721,15 @@ class TransactionViewController: UIViewController {
                         mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step5Img")
                     stepDescription.text = NSLocalizedString("send_step_5", comment: "")
+                    
                 } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE) {
                     stepImg.image = UIImage.init(named: "step5Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_5", comment: "")
+                    
+                } else if (mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+                    stepImg.image = UIImage.init(named: "step5Img")
+                    stepDescription.text = NSLocalizedString("str_starname_register_account_step_4", comment: "")
+                    
                 }
                 
             }

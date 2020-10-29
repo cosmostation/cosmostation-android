@@ -12,6 +12,14 @@
 		28060E7725427F2C00F13510 /* EventStakeDropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28060E7525427F2C00F13510 /* EventStakeDropCell.swift */; };
 		28060E7825427F2C00F13510 /* EventStakeDropCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28060E7625427F2C00F13510 /* EventStakeDropCell.xib */; };
 		28089AA424FF8FC4007E9C40 /* IovStarNameResolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28089AA324FF8FC4007E9C40 /* IovStarNameResolve.swift */; };
+		280E1EF8254A7AC80007BA7D /* DeleteStarname0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E1EF6254A7AC80007BA7D /* DeleteStarname0ViewController.swift */; };
+		280E1EF9254A7AC80007BA7D /* DeleteStarname0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E1EF7254A7AC80007BA7D /* DeleteStarname0ViewController.xib */; };
+		280E1EFD254A7AD60007BA7D /* DeleteStarname3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E1EFB254A7AD60007BA7D /* DeleteStarname3ViewController.swift */; };
+		280E1EFE254A7AD60007BA7D /* DeleteStarname3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E1EFC254A7AD60007BA7D /* DeleteStarname3ViewController.xib */; };
+		280E1F02254A9B6B0007BA7D /* RenewStarname0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E1F00254A9B6B0007BA7D /* RenewStarname0ViewController.swift */; };
+		280E1F03254A9B6B0007BA7D /* RenewStarname0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E1F01254A9B6B0007BA7D /* RenewStarname0ViewController.xib */; };
+		280E1F07254A9B780007BA7D /* RenewStarname3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E1F05254A9B780007BA7D /* RenewStarname3ViewController.swift */; };
+		280E1F08254A9B780007BA7D /* RenewStarname3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E1F06254A9B780007BA7D /* RenewStarname3ViewController.xib */; };
 		28129567250F5072007B217E /* KavaSwapParam2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28129566250F5072007B217E /* KavaSwapParam2.swift */; };
 		2812956B250F52C8007B217E /* KavaSwapSupply2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812956A250F52C8007B217E /* KavaSwapSupply2.swift */; };
 		2812956E250F81C3007B217E /* SelectCoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812956C250F81C3007B217E /* SelectCoinCell.swift */; };
@@ -473,6 +481,14 @@
 		28060E7525427F2C00F13510 /* EventStakeDropCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStakeDropCell.swift; sourceTree = "<group>"; };
 		28060E7625427F2C00F13510 /* EventStakeDropCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventStakeDropCell.xib; sourceTree = "<group>"; };
 		28089AA324FF8FC4007E9C40 /* IovStarNameResolve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameResolve.swift; sourceTree = "<group>"; };
+		280E1EF6254A7AC80007BA7D /* DeleteStarname0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStarname0ViewController.swift; sourceTree = "<group>"; };
+		280E1EF7254A7AC80007BA7D /* DeleteStarname0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteStarname0ViewController.xib; sourceTree = "<group>"; };
+		280E1EFB254A7AD60007BA7D /* DeleteStarname3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStarname3ViewController.swift; sourceTree = "<group>"; };
+		280E1EFC254A7AD60007BA7D /* DeleteStarname3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteStarname3ViewController.xib; sourceTree = "<group>"; };
+		280E1F00254A9B6B0007BA7D /* RenewStarname0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenewStarname0ViewController.swift; sourceTree = "<group>"; };
+		280E1F01254A9B6B0007BA7D /* RenewStarname0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewStarname0ViewController.xib; sourceTree = "<group>"; };
+		280E1F05254A9B780007BA7D /* RenewStarname3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenewStarname3ViewController.swift; sourceTree = "<group>"; };
+		280E1F06254A9B780007BA7D /* RenewStarname3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewStarname3ViewController.xib; sourceTree = "<group>"; };
 		28129566250F5072007B217E /* KavaSwapParam2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapParam2.swift; sourceTree = "<group>"; };
 		2812956A250F52C8007B217E /* KavaSwapSupply2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapSupply2.swift; sourceTree = "<group>"; };
 		2812956C250F81C3007B217E /* SelectCoinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinCell.swift; sourceTree = "<group>"; };
@@ -1019,6 +1035,14 @@
 				283E9457254901D9007A9291 /* RegisterDomain0ViewController.xib */,
 				283E945C254901E7007A9291 /* RegisterDomain3ViewController.swift */,
 				283E945D254901E7007A9291 /* RegisterDomain3ViewController.xib */,
+				280E1EF6254A7AC80007BA7D /* DeleteStarname0ViewController.swift */,
+				280E1EF7254A7AC80007BA7D /* DeleteStarname0ViewController.xib */,
+				280E1EFB254A7AD60007BA7D /* DeleteStarname3ViewController.swift */,
+				280E1EFC254A7AD60007BA7D /* DeleteStarname3ViewController.xib */,
+				280E1F00254A9B6B0007BA7D /* RenewStarname0ViewController.swift */,
+				280E1F01254A9B6B0007BA7D /* RenewStarname0ViewController.xib */,
+				280E1F05254A9B780007BA7D /* RenewStarname3ViewController.swift */,
+				280E1F06254A9B780007BA7D /* RenewStarname3ViewController.xib */,
 			);
 			path = starname;
 			sourceTree = "<group>";
@@ -1776,6 +1800,7 @@
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				28B4303624F7766200BD7BB2 /* TxOkDirectVoteCell.xib in Resources */,
 				28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */,
+				280E1F08254A9B780007BA7D /* RenewStarname3ViewController.xib in Resources */,
 				285A33EB24486DB60052BD3D /* HtlcResultClaimCell.xib in Resources */,
 				283A80D72451436A008FF813 /* CdpDetailAssetsCell.xib in Resources */,
 				28156E852536910B006FF06C /* HarvestListMyCell.xib in Resources */,
@@ -1790,6 +1815,7 @@
 				28156E8025360B70006FF06C /* HarvestListAllCell.xib in Resources */,
 				2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */,
 				28BB2A822533D9FB00CFF097 /* DomainPromotionCell.xib in Resources */,
+				280E1EFE254A7AD60007BA7D /* DeleteStarname3ViewController.xib in Resources */,
 				283850212448A6B000E5DEF2 /* TxHtlcClaimCell.xib in Resources */,
 				282BDFE324A5992600D3A5D4 /* WcTradePopup.xib in Resources */,
 				2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */,
@@ -1836,6 +1862,7 @@
 				E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */,
 				285A33DB244763290052BD3D /* SelectChainCell.xib in Resources */,
 				2845D881246FAED7007CD497 /* VoteInfoTableViewCell.xib in Resources */,
+				280E1EF9254A7AC80007BA7D /* DeleteStarname0ViewController.xib in Resources */,
 				E126CF822387A48F002A546F /* WalletAddressCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
 				28BB2A922533DA2D00CFF097 /* AccountCell.xib in Resources */,
@@ -1849,6 +1876,7 @@
 				E1CF42F123598AFE00907F45 /* ManageChainCell.xib in Resources */,
 				E1C3C89923B1E27800A693C0 /* NotificationView.xib in Resources */,
 				282BDFEB24A5BCE000D3A5D4 /* WcTransferPopup.xib in Resources */,
+				280E1F03254A9B6B0007BA7D /* RenewStarname0ViewController.xib in Resources */,
 				E1FD233D233E1C44009327FE /* WalletGuideCell.xib in Resources */,
 				2845D885246FAEED007CD497 /* VoteTallyTableViewCell.xib in Resources */,
 				283E94782549030C007A9291 /* TxReplaceResourceCell.xib in Resources */,
@@ -2108,6 +2136,7 @@
 				E1FD2338233E1C30009327FE /* WalletInflationCell.swift in Sources */,
 				28156EA82536E89A006FF06C /* KavaHarvestAccount.swift in Sources */,
 				E171A073225B08CE00C5756C /* StepDelegateCheckViewController.swift in Sources */,
+				280E1EFD254A7AD60007BA7D /* DeleteStarname3ViewController.swift in Sources */,
 				283E94772549030C007A9291 /* TxReplaceResourceCell.swift in Sources */,
 				E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */,
 				28617A7F24329433006D66EA /* StepDepositCdpAmountViewController.swift in Sources */,
@@ -2129,6 +2158,7 @@
 				284D17D92535572300C364F9 /* DAppsListViewController.swift in Sources */,
 				E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */,
 				28B4304024F7EE3B00BD7BB2 /* StepOkWithdrawAmountViewController.swift in Sources */,
+				280E1F02254A9B6B0007BA7D /* RenewStarname0ViewController.swift in Sources */,
 				28BB2A812533D9FB00CFF097 /* DomainPromotionCell.swift in Sources */,
 				E1FD2334233E1C16009327FE /* WalletPriceCell.swift in Sources */,
 				28BB2A8C2533DA1C00CFF097 /* DomainCell.swift in Sources */,
@@ -2151,6 +2181,7 @@
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
 				E17B213123470222001743D6 /* TokenDetailViewController.swift in Sources */,
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
+				280E1F07254A9B780007BA7D /* RenewStarname3ViewController.swift in Sources */,
 				E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */,
 				283850202448A6B000E5DEF2 /* TxHtlcClaimCell.swift in Sources */,
 				E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */,
@@ -2174,6 +2205,7 @@
 				E171A071225B08C100C5756C /* StepFeeViewController.swift in Sources */,
 				E1F7F634234311F8000E597F /* BnbToken.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
+				280E1EF8254A7AC80007BA7D /* DeleteStarname0ViewController.swift in Sources */,
 				E1406FC22260654F00D9440C /* TxInfo.swift in Sources */,
 				E1133900235D95FD0011B61D /* AccountSelectViewController.swift in Sources */,
 				E1F1CF0A239F7D7D004EF8A2 /* VoteSelectViewController.swift in Sources */,
