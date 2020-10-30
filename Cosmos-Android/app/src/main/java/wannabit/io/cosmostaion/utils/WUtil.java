@@ -1512,12 +1512,12 @@ public class WUtil {
     }
 
 
-    public static ArrayList<StarNameResource> allResources() {
+    public static ArrayList<StarNameResource> getAllStarnameResources() {
         ArrayList<StarNameResource> result = new ArrayList();
+        result.add(new StarNameResource(STARNAME));
         result.add(new StarNameResource(COSMOS));
         result.add(new StarNameResource(BITCOIN));
         result.add(new StarNameResource(ETHEREUM));
-        result.add(new StarNameResource(STARNAME));
         result.add(new StarNameResource(BINANCE));
         result.add(new StarNameResource(IRIS));
         result.add(new StarNameResource(KAVA));
@@ -1547,7 +1547,7 @@ public class WUtil {
 
     public static ArrayList<StarNameResource> getAddableStarnameResource(ArrayList<StarNameResource> already) {
         ArrayList<StarNameResource> result = new ArrayList();
-        for (StarNameResource resource:allResources()){
+        for (StarNameResource resource:getAllStarnameResources()){
             if (!already.contains(resource)) {
                 result.add(resource);
             }
@@ -1638,13 +1638,13 @@ public class WUtil {
 
     public static String getStarNameChainName(StarNameResource res) {
         if (res.uri.equals(BITCOINCASH)) {
-            return "BitCoin Cash";
+            return "Bitcoin Cash";
 
         } else if (res.uri.equals(BITCOIN)) {
-            return "BitCoin";
+            return "Bitcoin";
 
         } else if (res.uri.equals(LITECOIN)) {
-            return "LiteCoin";
+            return "Litecoin";
 
         } else if (res.uri.equals(BINANCE)) {
             return "Binance";

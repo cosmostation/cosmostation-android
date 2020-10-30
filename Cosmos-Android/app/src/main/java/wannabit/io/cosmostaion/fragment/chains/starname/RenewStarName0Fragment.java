@@ -52,7 +52,7 @@ public class RenewStarName0Fragment extends BaseFragment implements View.OnClick
             extendTime = getBaseDao().mStarNameConfig.getRenewPeriod(IOV_MSG_TYPE_RENEW_DOMAIN);
             starnameFee = getBaseDao().mStarNameFee.getDomainRenewFee(getSActivity().mIsOpendomain);
         } else {
-            mStarName.setText( getSActivity().mToRenewDomain + "*" + getSActivity().mToRenewAccount);
+            mStarName.setText(  getSActivity().mToRenewAccount + "*" + getSActivity().mToRenewDomain );
             extendTime = getBaseDao().mStarNameConfig.getRenewPeriod(IOV_MSG_TYPE_RENEW_ACCOUNT);
             starnameFee = getBaseDao().mStarNameFee.getAccountRenewFee(getSActivity().mIsOpendomain);
         }

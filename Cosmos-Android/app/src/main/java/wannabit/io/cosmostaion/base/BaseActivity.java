@@ -68,6 +68,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Push_Enable;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
@@ -314,6 +315,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onChoiceNet(BaseChain chain) { }
+
+    public void onChoiceStarnameResourceAddress(String address) { }
 
     public void onShare(boolean isText, String address) {
         if(isText) {

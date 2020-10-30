@@ -962,7 +962,7 @@
     <string name="str_buy_new_domain">Buy Domain</string>
     <string name="str_buy_new_account">Buy Account</string>
     <string name="str_starname_domain_promotion_title">Starname Domain</string>
-    <string name="str_starname_domain_promotion_msg">Register your domain. The domain can be used as a/nuuniversal username, and you can create an additional\nsub Account Starname.</string>
+    <string name="str_starname_domain_promotion_msg">Register your domain. The domain can be used as a\nuniversal username, and you can create an additional\nsub Account Starname.</string>
     <string name="str_starname_account_promotion_title">Starname Account</string>
     <string name="str_starname_account_promotion_msg">Starname service can connect addresses of various chains.\nRegister your account with reasonable cost for stability and convenience in block chain universal.</string>
     <string name="str_connected_addressed">Connected Addresses</string>
@@ -991,6 +991,7 @@
     <string name="str_register_account_step_4">Check transaction detail</string>
     <string name="str_account_to_register">Account To Register</string>
     <string name="str_select_chain_for_address">Select chain for register address</string>
+    <string name="str_add_address_to_chain">Address to Connect</string>
     <string name="str_select_wallet_for_address">Select wallet for register address</string>
     <string name="str_domain_detail">Domain Detail</string>
     <string name="str_renew">Renew</string>

@@ -161,12 +161,12 @@ public enum BaseChain {
     public static ArrayList<BaseChain> SUPPORT_CHAINS() {
         ArrayList<BaseChain> result = new ArrayList<>();
         result.add(COSMOS_MAIN);
-//        result.add(IRIS_MAIN);
-//        result.add(BNB_MAIN);
+        result.add(IRIS_MAIN);
+        result.add(BNB_MAIN);
         result.add(IOV_MAIN);
-//        result.add(KAVA_MAIN);
-//        result.add(BAND_MAIN);
-//        result.add(CERTIK_MAIN);
+        result.add(KAVA_MAIN);
+        result.add(BAND_MAIN);
+        result.add(CERTIK_MAIN);
 
 //        result.add(BNB_TEST);
 //        result.add(KAVA_TEST);

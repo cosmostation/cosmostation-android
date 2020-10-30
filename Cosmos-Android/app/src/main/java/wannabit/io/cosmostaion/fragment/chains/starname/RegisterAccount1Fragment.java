@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
 import android.app.Activity;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,35 +13,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.StarNameResourceAddActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
-import wannabit.io.cosmostaion.dialog.Dialog_Wallet_for_Starname;
 import wannabit.io.cosmostaion.model.StarNameResource;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.utils.WUtil.STARNAME;
+
 public class RegisterAccount1Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_ADD_RESOURCE = 9700;
-    public final static int SELECT_WALLET       = 9701;
+    public final static int SELECT_ADD_CHAIN    = 9700;
+    public final static int SELECT_ADD_ADDRESS  = 9701;
 
     private Button mBefore, mNextBtn;
     private RecyclerView mRecyclerView;
 
     private ResourceAdapter mResourceAdapter;
     private ArrayList<StarNameResource> mResources = new ArrayList();
-    private int mQrPosition;
 
     public static RegisterAccount1Fragment newInstance(Bundle bundle) {
         RegisterAccount1Fragment fragment = new RegisterAccount1Fragment();
@@ -68,12 +63,18 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
 
-        mResources = WUtil.getInitStarnameResource();
+        onInitData();
         mResourceAdapter = new ResourceAdapter();
         mRecyclerView.setAdapter(mResourceAdapter);
 
-
         return rootView;
+    }
+
+    private void onInitData() {
+        if (mResources.size() == 0) {
+            StarNameResource initData = new StarNameResource(STARNAME, getSActivity().mAccount.address);
+            mResources.add(initData);
+        }
     }
 
     private RegisterStarNameAccountActivity getSActivity() {
@@ -103,25 +104,31 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_ADD_RESOURCE && resultCode == Activity.RESULT_OK) {
-            mResources.add(data.getParcelableExtra("resource"));
-            mResourceAdapter.notifyDataSetChanged();
+        if (requestCode == SELECT_ADD_CHAIN && resultCode == Activity.RESULT_OK) {
+            StarNameResource temp = data.getParcelableExtra("resource");
+//            WLog.w("SELECT_ADD_CHAIN " + temp.uri);
+            Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
+            intent.putExtra("resource", temp);
+            startActivityForResult(intent, SELECT_ADD_ADDRESS);
+            getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
-        } else if (requestCode == SELECT_WALLET && resultCode == Activity.RESULT_OK) {
-            mResources.get(data.getIntExtra("position", -1)).resource = data.getStringExtra("accountAddress");
-            mResourceAdapter.notifyDataSetChanged();
-
-        } else {
-            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if(result != null) {
-                if(result.getContents() != null) {
-                    mResources.get(mQrPosition).resource = result.getContents().trim();
-                    mResourceAdapter.notifyDataSetChanged();
-
+        } else if (requestCode == SELECT_ADD_ADDRESS && resultCode == Activity.RESULT_OK) {
+            StarNameResource temp = data.getParcelableExtra("resource");
+//            WLog.w("SELECT_ADD_ADDRESS " + temp.uri + "  " + temp.resource);
+            int position = -1;
+            for (int i = 0 ; i < mResources.size(); i ++) {
+                if (mResources.get(i).uri.equals(temp.uri)) {
+                    position = i;
+                    break;
                 }
-            } else {
-                super.onActivityResult(requestCode, resultCode, data);
             }
+
+            if (position >= 0) {
+                mResources.set(position, temp);
+            } else {
+                mResources.add(temp);
+            }
+            mResourceAdapter.notifyDataSetChanged();
         }
     }
 
@@ -149,58 +156,29 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                 final ResourceHolder holder = (ResourceHolder)viewHolder;
                 holder.itemChainImg.setImageDrawable(WUtil.getStarNameChainImg(getContext(), resource));
                 holder.itemChainName.setText(WUtil.getStarNameChainName(resource));
-                holder.itemAddress.setText(resource.resource);
-                holder.itemBtnQr.setOnClickListener(new View.OnClickListener() {
+                holder.itemChainAddress.setText(resource.resource);
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mQrPosition = position;
-                        IntentIntegrator integrator = IntentIntegrator.forSupportFragment(RegisterAccount1Fragment.this);
-                        integrator.setOrientationLocked(true);
-                        integrator.initiateScan();
-
+                        Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
+                        intent.putExtra("resource", resource);
+                        startActivityForResult(intent, SELECT_ADD_ADDRESS);
+                        getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                     }
                 });
-                holder.itemBtnWallet.setOnClickListener(new View.OnClickListener() {
+                if (mResources.size() <= 1) {
+                    holder.itemBtnRemove.setVisibility(View.GONE);
+                } else {
+                    holder.itemBtnRemove.setVisibility(View.VISIBLE);
+                }
+
+                holder.itemBtnRemove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (WUtil.getBaseChainWithUri(resource.uri) == null) {
-                            Toast.makeText(getSActivity(), R.string.error_not_support_cosmostation, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        if (getSActivity().getBaseDao().onSelectAccountsByChain(WUtil.getBaseChainWithUri(resource.uri)).size() == 0) {
-                            Toast.makeText(getSActivity(), R.string.error_no_wallet_this_chain, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("position", position);
-                        bundle.putString("chainUri", resource.uri);
-                        Dialog_Wallet_for_Starname dialog = Dialog_Wallet_for_Starname.newInstance(bundle);
-                        dialog.setCancelable(true);
-                        dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_WALLET);
-                        getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+                        mResources.remove(position);
+                        mResourceAdapter.notifyDataSetChanged();
                     }
                 });
-                holder.itemBtnPaste.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                        if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                            String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
-                            if(TextUtils.isEmpty(userPaste)) {
-                                Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            mResources.get(mQrPosition).resource = userPaste;
-                            mResourceAdapter.notifyDataSetChanged();
-
-                        } else {
-                            Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
 
             } else if (getItemViewType(position) == TYPE_ADD) {
                 final ResourceAddHolder holder = (ResourceAddHolder)viewHolder;
@@ -208,12 +186,10 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                     @Override
                     public void onClick(View v) {
                         Bundle bundle = new Bundle();
-                        bundle.putParcelableArrayList("resources", WUtil.getAddableStarnameResource(mResources));
+                        bundle.putParcelableArrayList("resources", mResources);
                         Dialog_StarName_Resource dialog = Dialog_StarName_Resource.newInstance(bundle);
-                        dialog.setCancelable(true);
-                        dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_ADD_RESOURCE);
-                        getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+                        dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_ADD_CHAIN);
+                        dialog.show(getFragmentManager(), "dialog");
                     }
                 });
             }
@@ -255,19 +231,15 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
         public class ResourceHolder extends RecyclerView.ViewHolder {
             CardView itemRoot;
             ImageView itemChainImg;
-            TextView itemChainName;
-            EditText itemAddress;
-            LinearLayout itemBtnQr, itemBtnWallet, itemBtnPaste;
+            TextView itemChainName, itemChainAddress, itemBtnRemove;
 
             public ResourceHolder(@NonNull View itemView) {
                 super(itemView);
-                itemRoot        = itemView.findViewById(R.id.card_root);
-                itemChainImg    = itemView.findViewById(R.id.chain_img);
-                itemChainName   = itemView.findViewById(R.id.chain_name);
-                itemAddress     = itemView.findViewById(R.id.chain_address);
-                itemBtnQr       = itemView.findViewById(R.id.btn_qr);
-                itemBtnWallet   = itemView.findViewById(R.id.btn_wallet);
-                itemBtnPaste    = itemView.findViewById(R.id.btn_paste);
+                itemRoot         = itemView.findViewById(R.id.card_root);
+                itemChainImg     = itemView.findViewById(R.id.chain_img);
+                itemChainName    = itemView.findViewById(R.id.chain_name);
+                itemChainAddress = itemView.findViewById(R.id.chain_address);
+                itemBtnRemove    = itemView.findViewById(R.id.btn_remove);
             }
         }
     }

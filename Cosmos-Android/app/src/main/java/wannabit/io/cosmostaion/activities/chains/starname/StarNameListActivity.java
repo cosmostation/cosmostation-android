@@ -152,7 +152,7 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
             mMyStarNameDomains = (ArrayList<StarNameDomain>)result.resultData;
             mTaskCount = mTaskCount + mMyStarNameDomains.size();
             for (StarNameDomain domain:mMyStarNameDomains) {
-                new StarNameResolveTask(getBaseApplication(), this, mBaseChain, "*" + domain.name).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new StarNameResolveTask(getBaseApplication(),this, mBaseChain, "*" + domain.name).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_FETCH_STARNAME_RESOLVE) {

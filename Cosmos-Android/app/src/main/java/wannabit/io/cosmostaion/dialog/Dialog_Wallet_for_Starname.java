@@ -97,10 +97,7 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
             holder.accountContent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("accountAddress", account.address);
-                    resultIntent.putExtra("position", getArguments().getInt("position"));
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    ((BaseActivity)getActivity()).onChoiceStarnameResourceAddress(account.address);
                     getDialog().dismiss();
                 }
             });
