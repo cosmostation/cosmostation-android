@@ -28,6 +28,7 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
         
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.balances = account!.account_balances
         
         self.myAccountResourceTableView.delegate = self
         self.myAccountResourceTableView.dataSource = self
@@ -69,7 +70,27 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
     
     
     @IBAction func onClickDelete(_ sender: UIButton) {
-        print("onClickDelete")
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let needFee = NSDecimalNumber.init(string: "150000")
+        if (chainType == ChainType.IOV_MAIN) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else if (chainType == ChainType.IOV_TEST) {
+            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else {
+            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+            return
+        }
+        
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = IOV_MSG_TYPE_DELETE_ACCOUNT
         txVC.mStarnameDomain = mMyDomain
@@ -80,9 +101,32 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @IBAction func onClickRenew(_ sender: UIButton) {
-        print("onClickRenew")
-        // need fee check
-        // need closed domain account can't extend 
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        if (mMyDomainInfo?.result.domain?.type != "open") {
+            self.onShowToast(NSLocalizedString("error_can_not_extend_close_domain", comment: ""))
+            return
+        }
+        
+        let needFee = BaseData.instance.mStarNameFee!.getAccountRenewFee(mMyDomainInfo!.result.domain!.type).adding(NSDecimalNumber.init(string: "150000"))
+        if (chainType == ChainType.IOV_MAIN) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else if (chainType == ChainType.IOV_TEST) {
+            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else {
+            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+            return
+        }
+        
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = IOV_MSG_TYPE_RENEW_ACCOUNT
         txVC.mStarnameDomain = mMyDomain
@@ -95,7 +139,27 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @IBAction func onClickReplace(_ sender: UIButton) {
-        print("onClickReplace")
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let needFee = BaseData.instance.mStarNameFee!.getReplaceFee().adding(NSDecimalNumber.init(string: "300000"))
+        if (chainType == ChainType.IOV_MAIN) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else if (chainType == ChainType.IOV_TEST) {
+            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else {
+            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+            return
+        }
+        
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE
         txVC.mStarnameDomain = mMyDomain

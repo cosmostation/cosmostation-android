@@ -23,6 +23,7 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.balances = account!.account_balances
         
         self.myDomainTableView.delegate = self
         self.myDomainTableView.dataSource = self
@@ -96,6 +97,10 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func onClickBuy(_ sender: UIButton) {
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = IOV_MSG_TYPE_REGISTER_DOMAIN
         self.navigationItem.title = ""

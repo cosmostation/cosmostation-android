@@ -27,6 +27,7 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
         
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.balances = account!.account_balances
         
         self.myDomainResourceTableView.delegate = self
         self.myDomainResourceTableView.dataSource = self
@@ -68,6 +69,27 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
     }
 
     @IBAction func onClickDelete(_ sender: UIButton) {
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let needFee = NSDecimalNumber.init(string: "150000")
+        if (chainType == ChainType.IOV_MAIN) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else if (chainType == ChainType.IOV_TEST) {
+            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else {
+            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+            return
+        }
+        
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = IOV_MSG_TYPE_DELETE_DOMAIN
         txVC.mStarnameDomain = mMyDomain
@@ -77,6 +99,27 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func onClickRenew(_ sender: UIButton) {
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let needFee = BaseData.instance.mStarNameFee!.getDomainRenewFee(mMyDomainInfo!.result.domain!.type).adding(NSDecimalNumber.init(string: "150000"))
+        if (chainType == ChainType.IOV_MAIN) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else if (chainType == ChainType.IOV_TEST) {
+            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else {
+            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+            return
+        }
+        
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = IOV_MSG_TYPE_RENEW_DOMAIN
         txVC.mStarnameDomain = mMyDomain
@@ -87,7 +130,27 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func onClickReplace(_ sender: UIButton) {
-        print("onClickReplace")
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let needFee = BaseData.instance.mStarNameFee!.getReplaceFee().adding(NSDecimalNumber.init(string: "300000"))
+        if (chainType == ChainType.IOV_MAIN) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else if (chainType == ChainType.IOV_TEST) {
+            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+                return
+            }
+        } else {
+            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+            return
+        }
+        
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE
         txVC.mStarnameDomain = mMyDomain

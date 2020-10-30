@@ -35,6 +35,11 @@ class RegisterDomain0ViewController: BaseViewController {
         userInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
+    override func enableUserInteraction() {
+        self.btnCancel.isUserInteractionEnabled = true
+        self.btnNext.isUserInteractionEnabled = true
+    }
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
         if (textField == userInput) {
             let userInputData = self.userInput.text?.trimmingCharacters(in: .whitespaces)
