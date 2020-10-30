@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="94" id="KGk-i7-Jjw" customClass="ResourceEditCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="399" height="94"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="399" height="94"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dRi-yr-3mD" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                        <rect key="frame" x="16" y="4" width="367" height="86"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosWhMain" translatesAutoresizingMaskIntoConstraints="NO" id="mLW-ZL-dq2">
+                                <rect key="frame" x="12" y="4" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="ZXt-5u-1rW"/>
+                                    <constraint firstAttribute="width" constant="32" id="qqx-fr-PP8"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Chain Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PxP-0I-su7">
+                                <rect key="frame" x="46" y="12" width="73.5" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Chain Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hv7-7S-iim">
+                                <rect key="frame" x="16" y="38" width="339" height="36"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSi-he-zwf">
+                                <rect key="frame" x="306" y="4" width="49" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Remove">
+                                    <color key="titleColor" red="0.95294117647058818" green="0.098039215686274508" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onClickRemove:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iaK-ys-59N"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="hv7-7S-iim" secondAttribute="bottom" constant="12" id="5H7-x0-9kx"/>
+                            <constraint firstItem="mLW-ZL-dq2" firstAttribute="top" secondItem="dRi-yr-3mD" secondAttribute="top" constant="4" id="8Ym-Z4-BpX"/>
+                            <constraint firstAttribute="trailing" secondItem="hv7-7S-iim" secondAttribute="trailing" constant="12" id="ATY-It-oEM"/>
+                            <constraint firstAttribute="trailing" secondItem="GSi-he-zwf" secondAttribute="trailing" constant="12" id="Nyi-90-gWf"/>
+                            <constraint firstItem="PxP-0I-su7" firstAttribute="centerY" secondItem="mLW-ZL-dq2" secondAttribute="centerY" id="TIS-Ld-ceQ"/>
+                            <constraint firstItem="hv7-7S-iim" firstAttribute="leading" secondItem="dRi-yr-3mD" secondAttribute="leading" constant="16" id="YuL-1w-bK2"/>
+                            <constraint firstItem="mLW-ZL-dq2" firstAttribute="leading" secondItem="dRi-yr-3mD" secondAttribute="leading" constant="12" id="mpd-kf-Pzj"/>
+                            <constraint firstItem="GSi-he-zwf" firstAttribute="top" secondItem="dRi-yr-3mD" secondAttribute="top" constant="4" id="wwF-6k-MkR"/>
+                            <constraint firstItem="PxP-0I-su7" firstAttribute="leading" secondItem="mLW-ZL-dq2" secondAttribute="trailing" constant="2" id="xTL-IV-nIT"/>
+                            <constraint firstItem="hv7-7S-iim" firstAttribute="top" secondItem="mLW-ZL-dq2" secondAttribute="bottom" constant="2" id="xac-Jl-TPo"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.29999999999999999"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="dRi-yr-3mD" secondAttribute="trailing" constant="16" id="3Sd-ud-uio"/>
+                    <constraint firstItem="dRi-yr-3mD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="C3f-Ch-AHU"/>
+                    <constraint firstAttribute="bottom" secondItem="dRi-yr-3mD" secondAttribute="bottom" constant="4" id="DJ5-Lf-Wfo"/>
+                    <constraint firstItem="dRi-yr-3mD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="brY-CZ-4WQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="btnRemove" destination="GSi-he-zwf" id="qGv-Ho-azA"/>
+                <outlet property="chainAddress" destination="hv7-7S-iim" id="84t-uy-edb"/>
+                <outlet property="chainImg" destination="mLW-ZL-dq2" id="PMT-Ay-KLE"/>
+                <outlet property="chainName" destination="PxP-0I-su7" id="qS5-hq-MNx"/>
+            </connections>
+            <point key="canvasLocation" x="196.37681159420291" y="102.45535714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cosmosWhMain" width="42" height="42"/>
+    </resources>
+</document>

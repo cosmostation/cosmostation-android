@@ -34,7 +34,7 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
         self.myDomainResourceTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.myDomainResourceTableView.rowHeight = UITableView.automaticDimension
         self.myDomainResourceTableView.estimatedRowHeight = UITableView.automaticDimension
-        
+        self.myDomainEmptyView.isHidden = true
         
         myDomainLabel.text = "*" + mMyDomain!
         self.onFetchData()
@@ -88,9 +88,15 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
     
     @IBAction func onClickReplace(_ sender: UIButton) {
         print("onClickReplace")
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE
+        txVC.mStarnameDomain = mMyDomain
+        txVC.mStarnameTime = mMyDomainInfo!.result.domain!.valid_until
+        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
+        txVC.mStarnameResources = mMyDomainResolve?.result.account.resources ?? Array<StarNameResource>()
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
-    
-    
     
     var mFetchCnt = 0
     @objc func onFetchData() {

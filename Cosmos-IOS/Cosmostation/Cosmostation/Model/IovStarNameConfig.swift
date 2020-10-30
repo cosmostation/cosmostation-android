@@ -72,5 +72,9 @@ public struct IovStarNameConfig: Codable {
             }
             return NSDecimalNumber.init(value: account_renew_period).multiplying(byPowerOf10: -6).int64Value
         }
+        
+        public func getRegisterDomainExpireTime() -> Int64 {
+            return NSDecimalNumber.init(value: domain_renew_period).multiplying(byPowerOf10: -6).int64Value
+        }
     }
 }

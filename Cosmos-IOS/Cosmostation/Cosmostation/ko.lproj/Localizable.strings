@@ -336,6 +336,9 @@
 "str_starname_replace_starname_step_2" = "Tx 수수료를 선택하세요";
 "str_starname_replace_starname_step_3" = "입력하신 정보를 확인하세요";
 
+"str_description_open_domain" = "Open Domain은 계정 소유자가 계정에 대한 작업을 수행 할 수있는 유일한 엔티티인 도메인 유형입니다.";
+"str_description_closed_domain" = "Closed Domain은 도메인 소유자가 계정을 제어 할 수있는 도메인 유형입니다.";
+
 
 
 "clear_all" = "전체 삭제";
@@ -497,6 +500,15 @@
 "error_no_delegated_amount" = "위임중인 수량이 없습니다.";
 "error_no_more_today" = "오늘은 보이지 않습니다.";
 "error_not_enough_to_balance" = "발란스가 충분하지 않습니다.";
+"error_already_address_added_chain" = "이 체인의 주소는 이미 등록되었습니다.";
+"error_not_support_cosmostation" = "Cosmostaion wallet에서 지원하지 않는 체인 입니다.";
+"error_no_wallet_this_chain" = "해당 체인용 지갑이 없습니다.";
+"error_no_address_added" = "최소 1개 이상의 주소를 입력하세요.";
+"error_invalid_domain_format" = "부정확한 도메인 포멧 입니다. 다른값을 입력하세요.";
+"error_invalid_account_format" = "부정확한 Account 포멧 입니다. 다른값을 입력하세요.";
+"error_already_registered_domain" = "이미 등록된 도메인입니다. 다른값을 입력하세요.";
+"error_already_registered_account" = "이미 등록된 Account입니다. 다른값을 입력하세요.";
+"error_not_enough_starname_fee" = "스타네임 Fee를 지불할 충분한 금액이 없습니다.";
 
 
 

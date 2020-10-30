@@ -825,18 +825,18 @@ enum ChainType: String {
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
         result.append(COSMOS_MAIN)
-//        result.append(IRIS_MAIN)
-//        result.append(BINANCE_MAIN)
+        result.append(IRIS_MAIN)
+        result.append(BINANCE_MAIN)
         result.append(IOV_MAIN)
-//        result.append(KAVA_MAIN)
-//        result.append(BAND_MAIN)
-//        result.append(SECRET_MAIN)
-//        result.append(CERTIK_MAIN)
+        result.append(KAVA_MAIN)
+        result.append(BAND_MAIN)
+        result.append(SECRET_MAIN)
+        result.append(CERTIK_MAIN)
 
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
         result.append(IOV_TEST)
-//        result.append(OKEX_TEST)
+        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
         return result
     }
@@ -944,6 +944,7 @@ let Font_11_caption2 = UIFont(name: "Helvetica-Light", size: 11)!
 let SELECT_POPUP_HTLC_TO_CHAIN = 0
 let SELECT_POPUP_HTLC_TO_COIN = 1
 let SELECT_POPUP_HTLC_TO_ACCOUNT = 2
+let SELECT_POPUP_STARNAME_ACCOUNT = 3
 
 
 let EXPLORER_COSMOS_MAIN    = "https://www.mintscan.io/cosmos/";

@@ -1156,14 +1156,15 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         
         let resources = msg?.value.new_resources
         if (resources == nil || resources?.count == 0) {
-            cell?.resourceCntLabel.text = String(resources!.count)
+            cell?.resourceCntLabel.text = "0"
             cell?.resourceLabel.text = ""
         } else {
-            cell?.resourceCntLabel.text = "0"
+            cell?.resourceCntLabel.text = String(resources!.count)
             var resourceString = ""
             for resource in resources! {
                 resourceString.append(resource.uri + "\n" + resource.resource + "\n")
             }
+            cell?.resourceLabel.text = resourceString
         }
         return cell!
     }

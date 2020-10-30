@@ -112,6 +112,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mStarnameAccount: String?
     var mStarnameTime: Int64?
     var mStarnameDomainType: String?
+    var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
     
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
@@ -249,30 +250,32 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     RegisterDomain3ViewController(nibName: "RegisterDomain3ViewController", bundle: nil)]
             
             
-        }
-        
-//        else if (mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
-//
-//        }
-        else if (mType == IOV_MSG_TYPE_DELETE_DOMAIN || mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+        } else if (mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+            return [RegisterAccount0ViewController(nibName: "RegisterAccount0ViewController", bundle: nil),
+                    RegisterAccount1ViewController(nibName: "RegisterAccount1ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    RegisterAccount4ViewController(nibName: "RegisterAccount4ViewController", bundle: nil)]
+
+        } else if (mType == IOV_MSG_TYPE_DELETE_DOMAIN || mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
             return [DeleteStarname0ViewController(nibName: "DeleteStarname0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
                     DeleteStarname3ViewController(nibName: "DeleteStarname3ViewController", bundle: nil)]
 
-        }
-        else if (mType == IOV_MSG_TYPE_RENEW_DOMAIN || mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+        } else if (mType == IOV_MSG_TYPE_RENEW_DOMAIN || mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
             return [RenewStarname0ViewController(nibName: "RenewStarname0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
                     RenewStarname3ViewController(nibName: "RenewStarname3ViewController", bundle: nil)]
 
-        }
-//        else if (mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
-//
-//        }
-        
-        else {
+        } else if (mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
+            return [ReplaceResource0ViewController(nibName: "ReplaceResource0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    ReplaceResource3ViewController(nibName: "ReplaceResource3ViewController", bundle: nil)]
+
+        } else {
             return [self.newVc(viewController: "StepRewardViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),

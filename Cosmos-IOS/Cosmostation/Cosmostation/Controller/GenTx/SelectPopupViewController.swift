@@ -49,6 +49,10 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
         } else if (type == SELECT_POPUP_HTLC_TO_ACCOUNT) {
             self.popupTitle.text = NSLocalizedString("select_account", comment: "")
             self.toAccountList = BaseData.instance.selectAllAccountsByHtlcClaim(toChain)
+            
+        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
+            self.popupTitle.text = NSLocalizedString("select_account", comment: "")
+            self.toAccountList = BaseData.instance.selectAllAccountsByChain(toChain!)
         }
     }
     
@@ -59,6 +63,8 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
         } else if (type == SELECT_POPUP_HTLC_TO_COIN) {
             esHeight = (CGFloat)((toCoinList.count * 55) + 55)
         } else if (type == SELECT_POPUP_HTLC_TO_ACCOUNT) {
+            esHeight = (CGFloat)((toAccountList.count * 55) + 55)
+        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
             esHeight = (CGFloat)((toAccountList.count * 55) + 55)
         }
         esHeight = (esHeight > 250) ? 250 : esHeight
@@ -73,6 +79,8 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
         } else if (type == SELECT_POPUP_HTLC_TO_COIN) {
             return toCoinList.count
         } else if (type == SELECT_POPUP_HTLC_TO_ACCOUNT) {
+            return toAccountList.count
+        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
             return toAccountList.count
         }
         return 0
@@ -120,7 +128,7 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             }
             return cell!
             
-        } else {
+        } else if (type == SELECT_POPUP_HTLC_TO_ACCOUNT) {
             let cell:SelectAccountCell? = tableView.dequeueReusableCell(withIdentifier:"SelectAccountCell") as? SelectAccountCell
             let account = toAccountList[indexPath.row]
             cell?.keyStatusImg.image = cell?.keyStatusImg.image?.withRenderingMode(.alwaysTemplate)
@@ -136,6 +144,24 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             }
             return cell!
             
+        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
+            let cell:SelectAccountCell? = tableView.dequeueReusableCell(withIdentifier:"SelectAccountCell") as? SelectAccountCell
+            let account = toAccountList[indexPath.row]
+            WUtils.setDenomTitle(toChain!, cell!.accountDenom)
+            cell?.accountAddress.text = account.account_address
+            cell?.accountName.text = account.getDpName()
+            cell?.keyStatusImg.image = cell?.keyStatusImg.image?.withRenderingMode(.alwaysTemplate)
+            if (account.account_has_private) {
+                cell?.keyStatusImg.tintColor = WUtils.getChainColor(toChain)
+            } else {
+                cell?.keyStatusImg.tintColor = UIColor.init(hexString: "7A7f88")
+            }
+            cell?.accountBalance.attributedText = WUtils.displayAmount2(account.account_last_total, cell!.accountBalance.font, 0, 6)
+            return cell!
+            
+        } else {
+            let cell:SelectAccountCell? = tableView.dequeueReusableCell(withIdentifier:"SelectAccountCell") as? SelectAccountCell
+            return cell!
         }
     }
     

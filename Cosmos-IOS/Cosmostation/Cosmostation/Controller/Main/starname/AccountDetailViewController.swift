@@ -35,6 +35,7 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
         self.myAccountResourceTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.myAccountResourceTableView.rowHeight = UITableView.automaticDimension
         self.myAccountResourceTableView.estimatedRowHeight = UITableView.automaticDimension
+        self.myAccountEmptyView.isHidden = true
         
         myAccountNameLabel.text = mMyAccount! + "*" + mMyDomain!
         self.onFetchData()
@@ -95,6 +96,15 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
     
     @IBAction func onClickReplace(_ sender: UIButton) {
         print("onClickReplace")
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE
+        txVC.mStarnameDomain = mMyDomain
+        txVC.mStarnameAccount = mMyAccount
+        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
+        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
+        txVC.mStarnameResources = mMyAccountResolve!.result.account.resources
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     var mFetchCnt = 0

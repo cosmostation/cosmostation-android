@@ -96,6 +96,16 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
     
     var account_balances = Array<Balance>()
     
+    func getDpName() -> String {
+        var nickName:String?
+        if (account_nick_name == "") {
+            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account_id)
+        } else {
+            nickName = account_nick_name
+        }
+        return nickName!
+    }
+    
     func setBalances(_ balances:Array<Balance>) {
         self.account_balances = balances
     }

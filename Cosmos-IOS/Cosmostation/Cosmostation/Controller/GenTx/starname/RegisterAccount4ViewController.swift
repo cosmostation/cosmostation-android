@@ -1,8 +1,8 @@
 //
-//  RegisterDomain3ViewController.swift
+//  RegisterAccount4ViewController.swift
 //  Cosmostation
 //
-//  Created by 정용주 on 2020/10/28.
+//  Created by 정용주 on 2020/10/30.
 //  Copyright © 2020 wannabit. All rights reserved.
 //
 
@@ -11,46 +11,59 @@ import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
 
-class RegisterDomain3ViewController: BaseViewController, PasswordViewDelegate {
-
+class RegisterAccount4ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, PasswordViewDelegate {
+    
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnConfirm: UIButton!
-    @IBOutlet weak var feeAmountLabel: UILabel!
-    @IBOutlet weak var feeAmountDenom: UILabel!
-    @IBOutlet weak var starnameFeeAmount: UILabel!
-    @IBOutlet weak var starnameFeeDenom: UILabel!
-    @IBOutlet weak var starnameLabel: UILabel!
-    @IBOutlet weak var expireDate: UILabel!
-    @IBOutlet weak var domainTypeLabel: UILabel!
-    @IBOutlet weak var memoLabel: UILabel!
+    @IBOutlet weak var resigter4Tableview: UITableView!
     
     var pageHolderVC: StepGenTxViewController!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
-        self.balances = account!.account_balances
         self.pageHolderVC = self.parent as? StepGenTxViewController
+        
+        self.resigter4Tableview.delegate = self
+        self.resigter4Tableview.dataSource = self
+        self.resigter4Tableview.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.resigter4Tableview.register(UINib(nibName: "RegistAccountCheckCell", bundle: nil), forCellReuseIdentifier: "RegistAccountCheckCell")
     }
     
     override func enableUserInteraction() {
-        self.onUpdateView()
+        self.resigter4Tableview.reloadData()
         self.btnBack.isUserInteractionEnabled = true
         self.btnConfirm.isUserInteractionEnabled = true
     }
     
-    func onUpdateView() {
-        let starnameFee = BaseData.instance.mStarNameFee!.getDomainFee(pageHolderVC.mStarnameDomain!, pageHolderVC.mStarnameDomainType!)
-        feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, 6)
-        starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, starnameFeeAmount.font, 6, 6)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:RegistAccountCheckCell? = tableView.dequeueReusableCell(withIdentifier:"RegistAccountCheckCell") as? RegistAccountCheckCell
+        
+        let starnameFee = BaseData.instance.mStarNameFee!.getAccountFee("open")
+        cell?.feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, cell!.feeAmountLabel.font, 6, 6)
+        cell?.starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, cell!.starnameFeeAmount.font, 6, 6)
+        cell?.starnameLabel.text = pageHolderVC.mStarnameAccount! + "*iov"
         
         let extendTime = BaseData.instance.mStarNameConfig!.getRegisterDomainExpireTime()
-        expireDate.text = WUtils.longTimetoString(input: Date().millisecondsSince1970 + extendTime)
-        starnameLabel.text = "*" + pageHolderVC.mStarnameDomain!
-        domainTypeLabel.text = pageHolderVC.mStarnameDomainType
-        memoLabel.text = pageHolderVC.mMemo
+        cell?.expireDate.text = WUtils.longTimetoString(input: Date().millisecondsSince1970 + extendTime)
+        cell?.memoLabel.text = pageHolderVC.mMemo
         
+        let resources = pageHolderVC.mStarnameResources
+        if (resources.count == 0) {
+            cell?.connectedAddressesLabel.text = ""
+        } else {
+            var resourceString = ""
+            for resource in resources {
+                resourceString.append(resource.uri + "\n" + resource.resource + "\n\n")
+            }
+            cell?.connectedAddressesLabel.text = resourceString
+        }
+        return cell!
     }
     
     @IBAction func onClickBack(_ sender: UIButton) {
@@ -67,6 +80,7 @@ class RegisterDomain3ViewController: BaseViewController, PasswordViewDelegate {
         passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
         passwordVC.resultDelegate = self
         self.navigationController?.pushViewController(passwordVC, animated: false)
+        
     }
     
     func passwordResponse(result: Int) {
@@ -97,7 +111,7 @@ class RegisterDomain3ViewController: BaseViewController, PasswordViewDelegate {
                 let accountInfo = AccountInfo.init(info)
                 _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
                 BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                self.onGenRegisterDomainTx()
+                self.onGenRegistAccountTx()
                 
             case .failure( _):
                 self.hideWaittingAlert()
@@ -106,7 +120,7 @@ class RegisterDomain3ViewController: BaseViewController, PasswordViewDelegate {
         }
     }
     
-    func onGenRegisterDomainTx() {
+    func onGenRegistAccountTx() {
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
@@ -115,10 +129,12 @@ class RegisterDomain3ViewController: BaseViewController, PasswordViewDelegate {
             
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                let msg = MsgGenerator.genRegisterDomainMsg(self.pageHolderVC.mStarnameDomain!,
-                                                            self.pageHolderVC.mAccount!.account_address,
-                                                            self.pageHolderVC.mStarnameDomainType!,
-                                                            self.pageHolderVC.chainType!)
+                let msg = MsgGenerator.genRegisterAccountMsg(self.pageHolderVC.mStarnameDomain!,
+                                                             self.pageHolderVC.mStarnameAccount!,
+                                                             self.pageHolderVC.mAccount!.account_address,
+                                                             self.pageHolderVC.mAccount!.account_address,
+                                                             self.pageHolderVC.mStarnameResources,
+                                                             self.pageHolderVC.chainType!)
                 
                 var msgList = Array<Msg>()
                 msgList.append(msg)
@@ -175,13 +191,13 @@ class RegisterDomain3ViewController: BaseViewController, PasswordViewDelegate {
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            if(SHOW_LOG) { print("onGenRegisterDomainTx ", res) }
+                            if(SHOW_LOG) { print("onGenRenewStarnameTx ", res) }
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
                             if(SHOW_LOG) {
-                                print("onGenRegisterDomainTx error ", error)
+                                print("onGenRenewStarnameTx error ", error)
                             }
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500

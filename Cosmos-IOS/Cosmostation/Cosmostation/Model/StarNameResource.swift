@@ -14,6 +14,15 @@ public struct StarNameResource: Codable {
     
     init() {}
     
+    init (_ uri: String) {
+        self.uri = uri
+    }
+    
+    init (_ uri: String, _ resource: String) {
+        self.uri = uri
+        self.resource = resource
+    }
+    
     init(_ dictionary: [String: Any]) {
         self.uri = dictionary["uri"] as? String ?? ""
         self.resource = dictionary["resource"] as? String ?? ""

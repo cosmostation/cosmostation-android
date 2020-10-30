@@ -52,6 +52,7 @@ class TransactionViewController: UIViewController {
     var mStarnameAccount: String?
     var mStarnameTime: Int64?
     var mStarnameDomainType: String?
+    var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
     
     
     
@@ -262,7 +263,7 @@ class TransactionViewController: UIViewController {
             StepVc.mStarnameAccount = self.mStarnameAccount
             StepVc.mStarnameTime = self.mStarnameTime
             StepVc.mStarnameDomainType = self.mStarnameDomainType
-            
+            StepVc.mStarnameResources = self.mStarnameResources
         }
     }
     

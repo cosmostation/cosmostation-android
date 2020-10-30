@@ -336,6 +336,9 @@
 "str_starname_replace_starname_step_2" = "Select transaction fee";
 "str_starname_replace_starname_step_3" = "Check transaction detail";
 
+"str_description_open_domain" = "Open Domain is the domain type in which an account owner is the only entity that can perform actions on the account.";
+"str_description_closed_domain" = "Closed Domain is the domain type in which the domain owner has control over accounts too.";
+
 "clear_all" = "Clear All";
 "delete" = "Delete";
 "close" = "Close";
@@ -500,6 +503,15 @@
 "error_no_delegated_amount" = "No Delegated Amount.";
 "error_no_more_today" = "No More Today.";
 "error_not_enough_to_balance" = "Not enough balance.";
+"error_already_address_added_chain" = "This chain already listed name service";
+"error_not_support_cosmostation" = "Not supported chain Cosmostaion wallet.";
+"error_no_wallet_this_chain" = "Not wallet for this chain.";
+"error_no_address_added" = "Please enter at least 1 address.";
+"error_invalid_domain_format" = "Invalid domain format, please insert another text for domain.";
+"error_invalid_account_format" = "Invalid account format, please insert another text for account.";
+"error_already_registered_domain" = "This domain already registered. please use another text for domain.";
+"error_already_registered_account" = "This account already registered. please use another text for account.";
+"error_not_enough_starname_fee" = "Not enough available balance for starname fee.";
 
 
 

@@ -185,13 +185,13 @@ class RenewStarname3ViewController: BaseViewController, PasswordViewDelegate {
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            if(SHOW_LOG) { print("Delegate ", res) }
+                            if(SHOW_LOG) { print("onGenRenewStarnameTx ", res) }
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
                             if(SHOW_LOG) {
-                                print("Delegate error ", error)
+                                print("onGenRenewStarnameTx error ", error)
                             }
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500

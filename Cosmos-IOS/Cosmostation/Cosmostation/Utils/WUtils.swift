@@ -2156,6 +2156,18 @@ class WUtils {
         return starNamePred.evaluate(with: starname)
     }
     
+    static func isValidDomain(_ starname: String) -> Bool {
+        let starNameRegEx = "[a-z0-9]{4,32}"
+        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
+        return starNamePred.evaluate(with: starname)
+    }
+    
+    static func isValidAccount(_ starname: String) -> Bool {
+        let starNameRegEx = "[0-9a-z.-]{1,63}"
+        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
+        return starNamePred.evaluate(with: starname)
+    }
+    
     static func getChainId(_ chainS:String) -> String {
         if (chainS == CHAIN_COSMOS_S) {
             return "cosmoshub-3"
@@ -2787,6 +2799,42 @@ class WUtils {
         } else {
             return resource.uri;
         }
+    }
+    
+    static func getStarNameAllResources() -> Array<StarNameResource> {
+        var result: Array<StarNameResource> = Array<StarNameResource>()
+        result.append(StarNameResource.init(STARNAME))
+        result.append(StarNameResource.init(COSMOS))
+        result.append(StarNameResource.init(BITCOIN))
+        result.append(StarNameResource.init(ETHEREUM))
+        result.append(StarNameResource.init(BINANCE))
+        result.append(StarNameResource.init(IRIS))
+        result.append(StarNameResource.init(KAVA))
+        result.append(StarNameResource.init(BAND))
+        result.append(StarNameResource.init(BITCOINCASH))
+        result.append(StarNameResource.init(LITECOIN))
+        result.append(StarNameResource.init(EMONEY))
+        result.append(StarNameResource.init(TEZOS))
+        result.append(StarNameResource.init(LISK))
+        result.append(StarNameResource.init(LUNA))
+        return result
+    }
+    
+    static func getChainTypeWithUri(_ uri: String?) -> ChainType? {
+        if (uri == COSMOS) {
+            return ChainType.COSMOS_MAIN
+        } else if (uri == IRIS) {
+            return ChainType.IRIS_MAIN
+        } else if (uri == BINANCE) {
+            return ChainType.BINANCE_MAIN
+        } else if (uri == STARNAME) {
+            return ChainType.IOV_MAIN
+        } else if (uri == KAVA) {
+            return ChainType.KAVA_MAIN
+        } else if (uri == BAND) {
+            return ChainType.BAND_MAIN
+        }
+        return nil
     }
     
     
