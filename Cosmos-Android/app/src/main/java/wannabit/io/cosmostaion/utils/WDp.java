@@ -753,13 +753,13 @@ public class WDp {
     public static SpannableString getPriceDp(Context c, BigDecimal input, String symbol, int currency) {
         if (currency == 5) {
             SpannableString result;
-            result = new SpannableString(symbol + " " +getDecimalFormat(c, 8).format(input));
+            result = new SpannableString(symbol + " " + getDecimalFormat(c, 8).format(input));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
             SpannableString result;
-            result = new SpannableString(symbol + " " +getDecimalFormat(c, 2).format(input));
+            result = new SpannableString(symbol + " " + getDecimalFormat(c, 2).format(input));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
         }
@@ -768,13 +768,13 @@ public class WDp {
     public static SpannableString getPriceApproximatelyDp(Context c, BigDecimal input, String symbol, int currency) {
         if (currency == 5) {
             SpannableString result;
-            result = new SpannableString(c.getString(R.string.str_approximately)+ " " + symbol + " " +getDecimalFormat(c, 8).format(input));
+            result = new SpannableString(c.getString(R.string.str_approximately)+ " " + symbol + " " + getDecimalFormat(c, 8).format(input));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
             SpannableString result;
-            result = new SpannableString(c.getString(R.string.str_approximately)+ " " + symbol + " " +getDecimalFormat(c, 2).format(input));
+            result = new SpannableString(c.getString(R.string.str_approximately)+ " " + symbol + " " + getDecimalFormat(c, 2).format(input));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
@@ -911,14 +911,14 @@ public class WDp {
     public static SpannableString getValueOfCertik(Context c, BaseData dao, BigDecimal totalAmount) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         if(dao.getCurrency() == 5) {
-//            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBandTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastCertikTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
             SpannableString result;
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
-//            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBandTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastCertikTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
             SpannableString result;
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);

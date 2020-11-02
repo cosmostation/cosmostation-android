@@ -1159,6 +1159,9 @@ public class WUtil {
 
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return BaseConstant.CGC_IOV;
+
+        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+            return BaseConstant.CGC_CERTIK;
         }
         return BaseConstant.CGC_ATOM;
     }

@@ -381,7 +381,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (BondingState bond:mBondings) {
-                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_CERTIK).compareTo(new BigDecimal("30000")) >= 0) {
+                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_CERTIK).compareTo(new BigDecimal("7500")) >= 0) {
                     if (WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
                         toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
                         rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, TOKEN_CERTIK));

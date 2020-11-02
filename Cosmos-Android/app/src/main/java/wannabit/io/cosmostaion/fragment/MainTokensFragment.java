@@ -754,7 +754,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = WDp.getAllCtk(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalAmount));
+            holder.itemValue.setText(WDp.getValueOfCertik(getContext(), getBaseDao(), totalAmount));
         } else {
             //TODO no case yet
 

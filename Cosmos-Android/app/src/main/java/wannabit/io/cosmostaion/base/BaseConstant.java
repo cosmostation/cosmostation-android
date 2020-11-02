@@ -32,6 +32,8 @@ public class BaseConstant {
     public final static String PRE_BAND_UP_DOWN_24          = "PRE_BAND_UP_DOWN_24";
     public final static String PRE_IOV_TIC                  = "PRE_IOV_TIC";
     public final static String PRE_IOV_UP_DOWN_24           = "PRE_IOV_UP_DOWN_24";
+    public final static String PRE_CERTIK_TIC               = "PRE_CERTIK_TIC";
+    public final static String PRE_CERTIK_UP_DOWN_24        = "PRE_CERTIK_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -458,6 +460,8 @@ public class BaseConstant {
     public final static String CGC_KAVA = "kava";
     public final static String CGC_BAND = "band-protocol";
     public final static String CGC_IOV = "starname";
+    public final static String CGC_CERTIK = "certik";
+
     public final static int CMC_ATOM = 3794;
     public final static int CMC_IRIS = 3874;
     public final static int CMC_BNB = 1839;

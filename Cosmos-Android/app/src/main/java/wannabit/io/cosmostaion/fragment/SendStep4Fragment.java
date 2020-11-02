@@ -289,12 +289,12 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 6, 6));
-            mTotalPrice.setText(WDp.getValueOfBand(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
+            mTotalPrice.setText(WDp.getValueOfCertik(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
 
             BigDecimal currentAvai  = getSActivity().mAccount.getTokenBalance(getSActivity().mCertikDenom);
             mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 6, 6));
             mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, 6));
-            mRemainingPrice.setText(WDp.getValueOfBand(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
+            mRemainingPrice.setText(WDp.getValueOfCertik(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
 
         }
 

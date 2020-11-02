@@ -978,6 +978,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastIovTic(0d);
                             getBaseDao().setLastIovUpDown(0d);
 
+                        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                            getBaseDao().setLastCertikTic(0d);
+                            getBaseDao().setLastCertikUpDown(0d);
                         }
                     }
                 }
@@ -1008,6 +1011,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().setLastIovTic(0d);
                         getBaseDao().setLastIovUpDown(0d);
 
+                    } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                        getBaseDao().setLastCertikTic(0d);
+                        getBaseDao().setLastCertikUpDown(0d);
                     }
                 }
             });
