@@ -188,7 +188,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                     return;
                 }
             }
-            
+
             Intent intent = new Intent(this, ReplaceStarNameActivity.class);
             intent.putExtra("IsDomain", false);
             intent.putExtra("ToReplaceDomain", mMyDomain);

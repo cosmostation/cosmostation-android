@@ -498,7 +498,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("okDenom", TOKEN_OK_TEST);
 
         } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("2500")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("certikDenom", TOKEN_CERTIK);

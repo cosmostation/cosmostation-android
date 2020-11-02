@@ -186,7 +186,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(mBalances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) <= 0) {
+                if (WDp.getAvailableCoin(mBalances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) <= 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }

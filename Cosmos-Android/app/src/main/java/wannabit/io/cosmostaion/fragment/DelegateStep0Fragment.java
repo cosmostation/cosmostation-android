@@ -209,7 +209,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
-            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_CERTIK).subtract(new BigDecimal("20000"));
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_CERTIK).subtract(new BigDecimal("10000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         }

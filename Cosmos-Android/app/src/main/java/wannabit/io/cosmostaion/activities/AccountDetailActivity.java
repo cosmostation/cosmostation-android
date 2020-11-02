@@ -176,7 +176,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("2500")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) > 0) {
                 hasbalance  = true;
             }
 

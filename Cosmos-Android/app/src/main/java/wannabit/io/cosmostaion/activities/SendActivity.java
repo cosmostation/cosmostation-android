@@ -94,7 +94,7 @@ public class SendActivity extends BaseActivity {
             if (TextUtils.isEmpty(mKavaDenom)) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
             if (TextUtils.isEmpty(mOkDenom)) onBackPressed();
-        } else if (mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+        } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
             if (TextUtils.isEmpty(mCertikDenom)) onBackPressed();
 
         }
