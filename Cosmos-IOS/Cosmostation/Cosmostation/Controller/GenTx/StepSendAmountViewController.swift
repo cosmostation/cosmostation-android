@@ -62,7 +62,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             mDpDecimal = 6
-            maxAvailable = pageHolderVC.mAccount!.getIovBalance().subtracting(NSDecimalNumber.init(string: "1000000"))
+            maxAvailable = pageHolderVC.mAccount!.getIovBalance().subtracting(NSDecimalNumber.init(string: "100000"))
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {

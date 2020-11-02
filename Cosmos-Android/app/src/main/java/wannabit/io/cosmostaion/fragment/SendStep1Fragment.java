@@ -159,7 +159,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             setDpDecimals(mDpDecimal);
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mIovDenom);
             if (getSActivity().mIovDenom.equals(TOKEN_IOV) || getSActivity().mIovDenom.equals(TOKEN_IOV_TEST)) {
-                mMaxAvailable = mMaxAvailable.subtract(new BigDecimal("1000000"));
+                mMaxAvailable = mMaxAvailable.subtract(new BigDecimal("100000"));
             }
             WDp.showCoinDp(getContext(), getSActivity().mIovDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
 
