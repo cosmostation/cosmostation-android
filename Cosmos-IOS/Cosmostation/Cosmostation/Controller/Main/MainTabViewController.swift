@@ -1200,10 +1200,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             //TODO No price info for OK
             BaseData.instance.setPriceTicCgc(nil)
             return
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            //TODO No price info for certik
-            BaseData.instance.setPriceTicCgc(nil)
-            return
+        } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.CERTIK_TEST) {
+            url = CGC_PRICE_TIC + "certik"
+            parameters = [:]
+            
         } else {
             BaseData.instance.setPriceTicCgc(nil)
             return

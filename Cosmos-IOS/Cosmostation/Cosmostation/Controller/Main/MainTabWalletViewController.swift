@@ -1746,6 +1746,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/starname") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/certik") else { return }
+            self.onShowSafariWeb(url)
         }
     }
     

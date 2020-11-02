@@ -381,7 +381,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             let allCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allCtk, BaseData.instance.getLastPrice(), 0, totalValue.font)
+            totalValue.attributedText = WUtils.dpAtomValue(allCtk, BaseData.instance.getLastPrice(), totalValue.font)
             
         }
     }
