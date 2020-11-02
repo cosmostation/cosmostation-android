@@ -509,7 +509,8 @@
 "error_already_registered_domain" = "이미 등록된 도메인입니다. 다른값을 입력하세요.";
 "error_already_registered_account" = "이미 등록된 Account입니다. 다른값을 입력하세요.";
 "error_not_enough_starname_fee" = "스타네임 Fee를 지불할 충분한 금액이 없습니다.";
-"error_can_not_extend_close_domain" = "Close타입의 도메인은 갱신을 지원하지 않습니다.";
+"error_can_not_extend_close_domain" = "Close 타입의 도메인은 갱신을 지원하지 않습니다.";
+"error_cannot_delete_open_domain" = "Open 타입 도메인은 삭제할 수 없습니다.";
 
 
 

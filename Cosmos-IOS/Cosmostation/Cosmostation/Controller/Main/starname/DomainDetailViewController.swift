@@ -73,6 +73,10 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
             self.onShowAddMenomicDialog()
             return
         }
+        if (mMyDomainInfo?.result.domain?.type == "open") {
+            self.onShowToast(NSLocalizedString("error_cannot_delete_open_domain", comment: ""))
+            return
+        }
         
         let needFee = NSDecimalNumber.init(string: "150000")
         if (chainType == ChainType.IOV_MAIN) {

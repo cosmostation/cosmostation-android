@@ -38,7 +38,7 @@ class ReplaceResource0ViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func onInitData() {
-        print("pageHolderVC.mStarnameResources ", pageHolderVC.mStarnameResources.count)
+//        print("pageHolderVC.mStarnameResources ", pageHolderVC.mStarnameResources.count)
         if (pageHolderVC.mStarnameResources.count == 0) {
             let initResource = StarNameResource.init(STARNAME, self.account!.account_address)
             pageHolderVC.mStarnameResources.append(initResource)

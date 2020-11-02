@@ -68,18 +68,14 @@ class RegisterAccount0ViewController: BaseViewController {
             return
         }
         
+        var myAvailable = NSDecimalNumber.zero
         if (chainType == ChainType.IOV_MAIN) {
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(starnameFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
+            myAvailable = WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "300000"))
         } else if (chainType == ChainType.IOV_TEST) {
-            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(starnameFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else {
-            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+            myAvailable = WUtils.getTokenAmount(balances, IOV_TEST_DENOM).subtracting(NSDecimalNumber.init(string: "300000"))
+        }
+        if (myAvailable.compare(starnameFee).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
             return
         }
         self.view.endEditing(true)

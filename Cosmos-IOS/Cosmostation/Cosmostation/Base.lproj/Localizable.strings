@@ -513,6 +513,7 @@
 "error_already_registered_account" = "This account already registered. please use another text for account.";
 "error_not_enough_starname_fee" = "Not enough available balance for starname fee.";
 "error_can_not_extend_close_domain" = "Close type domain not support renew";
+"error_cannot_delete_open_domain" = "Can not delete open domain.";
 
 
 
