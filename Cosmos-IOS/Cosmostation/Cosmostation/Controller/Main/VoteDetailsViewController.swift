@@ -159,7 +159,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             
             let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "10000")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }

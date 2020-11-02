@@ -529,7 +529,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             for validator in self.mainTabVC.mAllValidator {
                 for bonding in self.mainTabVC.mBondingList {
                     if(bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "15000")).rawValue > 0) {
+                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "7500")).rawValue > 0) {
                         myBondedValidator.append(validator)
                         break;
                     }
