@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -32,10 +34,14 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_DOMAIN_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_RESOLVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 
 public class StarNameDomainDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -105,7 +111,6 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        //TODO Fee check
         if (v.equals(mBtnDelete)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
@@ -117,6 +122,19 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                 Toast.makeText(getBaseContext(), R.string.error_cannot_delete_open_domain, Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (mBaseChain.equals(IOV_MAIN)) {
+                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("150000")) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            } else if (mBaseChain.equals(IOV_TEST)) {
+                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("150000")) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
             Intent intent = new Intent(this, DeleteStarNameActivity.class);
             intent.putExtra("ToDeleType", IOV_MSG_TYPE_DELETE_DOMAIN);
             intent.putExtra("ToDeleDomain", mMyDomain);
@@ -130,6 +148,19 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
+            if (mBaseChain.equals(IOV_MAIN)) {
+                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("150000")) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            } else if (mBaseChain.equals(IOV_TEST)) {
+                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("150000")) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
             Intent intent = new Intent(this, ReNewStarNameActivity.class);
             intent.putExtra("ToRenewType", IOV_MSG_TYPE_RENEW_DOMAIN);
             intent.putExtra("IsOpen", mStarNameDomain.type.equals("open") ? true : false);
@@ -144,6 +175,19 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
+            if (mBaseChain.equals(IOV_MAIN)) {
+                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("300000")) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            } else if (mBaseChain.equals(IOV_TEST)) {
+                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
             Intent intent = new Intent(this, ReplaceStarNameActivity.class);
             intent.putExtra("IsDomain", true);
             intent.putExtra("ToReplaceDomain", mMyDomain);

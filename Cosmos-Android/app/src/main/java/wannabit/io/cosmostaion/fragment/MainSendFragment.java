@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.activities.WalletConnectActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsListActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.StarNameResourceAddActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;

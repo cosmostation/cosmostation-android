@@ -1079,13 +1079,13 @@
     <string name="error_permission">You rejected permission. Please enable permission.</string>
     <string name="error_already_imported_address">This address is already imported.</string>
     <string name="error_import_errer">Cannot add this address.</string>
-    <string name="error_not_enough_to_delegate">Not enough balance to delegate</string>
-    <string name="error_not_enough_to_deposit">Not enough balance to deposit</string>
-    <string name="error_not_enough_to_withdraw">Not enough deposit to withdraw</string>
+    <string name="error_not_enough_to_delegate">Not enought balance to delegate</string>
+    <string name="error_not_enough_to_deposit">Not enought balance to deposit</string>
+    <string name="error_not_enough_to_withdraw">Not enought deposit to withdraw</string>
     <string name="error_not_enough_budget">Insufficient available balance.\nUnder minimum tx fee.</string>
     <string name="error_not_enough_budget_bep3">Insufficient available balance.</string>
     <string name="error_not_enough_reward_all">Insufficient available balance.\nUnder minimum tx fee.</string>
-    <string name="error_not_enough_reward">Not enough rewards to Claim</string>
+    <string name="error_not_enough_reward">Not enought rewards to Claim</string>
     <string name="error_not_enough_balance_to_vote">Insufficient available balance.</string>
     <string name="error_small_reward">Rewards are too small.</string>
     <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed. \nPlease refer to the history.</string>
@@ -1094,7 +1094,7 @@
     <string name="error_real_testing">Open soon after real testing.</string>
     <string name="error_invalid_amounts">Invalid Amount</string>
     <string name="error_prepare">Preparing...</string>
-    <string name="error_not_enough_fee">Not enough available balance for fee.</string>
+    <string name="error_not_enough_fee">Not enought available balance for fee.</string>
     <string name="error_network_error">Network connection problem.</string>
     <string name="error_only_atom_for_fee">Currently only supports ATOM as Tx fee.</string>
     <string name="error_disabled_jailed">Delegation to jailed validator is not supported.</string>
