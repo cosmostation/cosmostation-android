@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResOkDeposit;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkWithdraw;
@@ -58,17 +59,18 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 public class BaseData {
 
-    private BaseApplication     mApp;
-    private SharedPreferences   mSharedPreferences;
-    private SQLiteDatabase      mSQLiteDatabase;
-    public ArrayList<Validator> mAllValidators = new ArrayList<>();
-    public ArrayList<Validator> mMyValidators = new ArrayList<>();
-    public ArrayList<Validator> mTopValidators = new ArrayList<>();
-    public ArrayList<Validator> mOtherValidators = new ArrayList<>();
-    public ResStakingPool       mStakingPool;
-    public ResLcdIrisPool       mIrisStakingPool;
-    public BigDecimal           mInflation = BigDecimal.ZERO;
-    public BigDecimal           mProvisions = BigDecimal.ZERO;
+    private BaseApplication         mApp;
+    private SharedPreferences       mSharedPreferences;
+    private SQLiteDatabase          mSQLiteDatabase;
+    public ArrayList<Validator>     mAllValidators = new ArrayList<>();
+    public ArrayList<Validator>     mMyValidators = new ArrayList<>();
+    public ArrayList<Validator>     mTopValidators = new ArrayList<>();
+    public ArrayList<Validator>     mOtherValidators = new ArrayList<>();
+    public ResStakingPool           mStakingPool;
+    public ResLcdIrisPool           mIrisStakingPool;
+    public BigDecimal               mInflation = BigDecimal.ZERO;
+    public BigDecimal               mProvisions = BigDecimal.ZERO;
+    public ResMintParam.MintParam   mMintParam;
 
 
     //COMMON DATA

@@ -49,6 +49,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
 import wannabit.io.cosmostaion.dialog.Dialog_OK_Stake_Type;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -146,6 +147,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mBuyCoinTv;
 
     private LinearLayout        mMintCards;
+    private CardView            mAprCard;
     private TextView            mInflation, mYield;
 
     private ImageView           mGuideImg;
@@ -312,6 +314,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mMintCards              = rootView.findViewById(R.id.cards_mint);
         mInflation              = rootView.findViewById(R.id.dash_inflation);
         mYield                  = rootView.findViewById(R.id.dash_yield);
+        mAprCard                = rootView.findViewById(R.id.apr_card);
 
         mGuideImg               = rootView.findViewById(R.id.img_guide);
         mGuideTitle             = rootView.findViewById(R.id.title_guide);
@@ -374,6 +377,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnOkVote.setOnClickListener(this);
         mBtnCertikReward.setOnClickListener(this);
         mBtnCertikVote.setOnClickListener(this);
+        mAprCard.setOnClickListener(this);
         return rootView;
     }
 
@@ -693,7 +697,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getDpEstApr(getBaseDao(), getMainActivity().mBaseChain));
 
             } catch (Exception e) {
                 mTvAtomValue.setText("???");
@@ -815,7 +819,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getDpEstApr(getBaseDao(), getMainActivity().mBaseChain));
 
             } catch (Exception e) {
                 mPerPrice.setText("???");
@@ -852,7 +856,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getDpEstApr(getBaseDao(), getMainActivity().mBaseChain));
 
             } catch (Exception e) {
                 mTvAtomValue.setText("???");
@@ -903,7 +907,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getDpEstApr(getBaseDao(), getMainActivity().mBaseChain));
 
             } catch (Exception e) {
                 mPerPrice.setText("???");
@@ -941,7 +945,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getDpEstApr(getBaseDao(), getMainActivity().mBaseChain));
 
             } catch (Exception e) {
                 mPerPrice.setText("???");
@@ -980,7 +984,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getDpEstApr(getBaseDao(), getMainActivity().mBaseChain));
 
             } catch (Exception e) {
                 mPerPrice.setText("???");
@@ -1043,7 +1047,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-                mYield.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, BigDecimal.ZERO));
+                mYield.setText(WDp.getDpEstApr(getBaseDao(), getMainActivity().mBaseChain));
 
             } catch (Exception e) {
                 mPerPrice.setText("???");
@@ -1327,6 +1331,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             if (getBaseDao().mTopValidators == null && getBaseDao().mTopValidators.size() == 0) return;
             Dialog_OK_Stake_Type dialog = Dialog_OK_Stake_Type.newInstance(null);
             dialog.setTargetFragment(MainSendFragment.this, OK_STAKE_TYPE);
+            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+        } else if (v.equals(mAprCard)) {
+            Bundle bundle = new Bundle();
+            bundle.putString("title", "aaaa");
+            bundle.putString("msg", "bbbbbb");
+            Dialog_Help_Msg dialog = Dialog_Help_Msg.newInstance(bundle);
+            dialog.setCancelable(true);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         }

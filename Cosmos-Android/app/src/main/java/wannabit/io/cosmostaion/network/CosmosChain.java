@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
+import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResMyVote;
 import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
@@ -96,6 +97,10 @@ public interface CosmosChain {
     @GET("/staking/redelegations")
     Call<ResLcdRedelegate> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
 
+
+
+    @GET("/minting/parameters")
+    Call<ResMintParam> getMintParam();
 
     @GET("/minting/inflation")
     Call<ResLcdInflation> getInflation();

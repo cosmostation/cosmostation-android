@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
+
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 
 public class Validator implements Parcelable {
@@ -48,6 +50,10 @@ public class Validator implements Parcelable {
     public ValidatorCommission commission;
 
     public ResKeyBaseUser keybaseInfo;
+
+    public BigDecimal getCommission() {
+        return new BigDecimal(commission.commission_rates.rate);
+    }
 
     public Validator() {
     }

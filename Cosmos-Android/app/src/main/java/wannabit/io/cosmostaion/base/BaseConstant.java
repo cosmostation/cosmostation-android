@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
+import java.math.BigDecimal;
+
 public class BaseConstant {
     public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
@@ -156,6 +158,7 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_KAVA_WITHDRAW_HARVEST           = 2108;
     public final static int TASK_GEN_TX_KAVA_CLAIM_HARVEST              = 2109;
     public final static int TASK_FETCH_BAND_ORACLE_STATUS               = 2111;
+    public final static int TASK_FETCH_MINT_PARAM                       = 2112;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -507,4 +510,17 @@ public class BaseConstant {
     public final static int     PERSISTENCE_COSMOS_EVENT_START      = 3846000;
     public final static int     PERSISTENCE_COSMOS_EVENT_END        = 4206000;
 
+
+
+
+    public final static BigDecimal DAY_SEC = new BigDecimal("86400");
+    public final static BigDecimal MONTH_SEC = DAY_SEC.multiply(new BigDecimal("30"));
+    public final static BigDecimal YEAR_SEC = DAY_SEC.multiply(new BigDecimal("365"));
+
+    public final static BigDecimal BLOCK_TIME_COSMOS = new BigDecimal("7.31");
+    public final static BigDecimal BLOCK_TIME_IRIS = new BigDecimal("6.93");
+    public final static BigDecimal BLOCK_TIME_IOV = new BigDecimal("6.21");
+    public final static BigDecimal BLOCK_TIME_KAVA = new BigDecimal("8.01");
+    public final static BigDecimal BLOCK_TIME_BAND = new BigDecimal("3.01");
+    public final static BigDecimal BLOCK_TIME_CERTIK = new BigDecimal("5.75");
 }

@@ -323,11 +323,14 @@
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
                     <android.support.v7.widget.CardView
+                        android:id="@+id/apr_card"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_2"
                         app:cardPreventCornerOverlap="true"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardCornerRadius="@dimen/space_6"
                         app:cardElevation="1.5dp"
                         app:cardBackgroundColor="@color/colorTransBg"
@@ -338,11 +341,22 @@
                             android:orientation="vertical"
                             android:gravity="center"
                             android:padding="@dimen/space_12">
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/str_average_yield"
-                                style="@style/font_ss_12_gray1"/>
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/str_est_apr"
+                                    style="@style/font_ss_12_gray1"/>
+                                <ImageView
+                                    android:layout_width="@dimen/space_14"
+                                    android:layout_height="@dimen/space_14"
+                                    android:layout_marginLeft="@dimen/space_4"
+                                    android:src="@drawable/question_ic"/>
+                            </LinearLayout>
                             <TextView
                                 android:id="@+id/dash_yield"
                                 android:layout_width="wrap_content"

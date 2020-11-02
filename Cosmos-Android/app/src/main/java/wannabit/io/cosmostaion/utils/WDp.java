@@ -69,6 +69,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONTH_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -79,6 +81,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFUNDED;
@@ -306,6 +309,57 @@ public class WDp {
             }
         }
         return result;
+    }
+
+
+    //get reward without commission per block per one staking coin
+    public static BigDecimal getYieldPerBlock(BaseData baseData) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (baseData == null || baseData.mStakingPool == null || baseData.mProvisions == null || baseData.mMintParam == null) {
+            return result;
+        }
+        BigDecimal provisions = baseData.mProvisions;
+        BigDecimal bonded = new BigDecimal(baseData.mStakingPool.result.bonded_tokens);
+        BigDecimal blocksPerYear = new BigDecimal(baseData.mMintParam .blocks_per_year);
+        return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(blocksPerYear, 24, RoundingMode.DOWN);
+    }
+
+    //display estimate apr by own checked block time
+    public static SpannableString getDpEstApr(BaseData baseData, BaseChain chain) {
+        BigDecimal rpr = getYieldPerBlock(baseData);
+        BigDecimal estApr = YEAR_SEC.divide(WUtil.getCBlockTime(chain), 24, RoundingMode.DOWN).multiply(rpr).movePointRight(2);
+        return getPercentDp(estApr);
+    }
+
+    public static SpannableString getDpEstAprCommission(BaseData baseData, BaseChain chain, BigDecimal commission) {
+        BigDecimal rpr = getYieldPerBlock(baseData);
+        BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
+        BigDecimal estAprCommission = YEAR_SEC.divide(WUtil.getCBlockTime(chain), 24, RoundingMode.DOWN).multiply(commissionCal).multiply(rpr).movePointRight(2);
+        return getPercentDp(estAprCommission);
+    }
+
+    public static SpannableString getDailyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
+        BigDecimal rpr = getYieldPerBlock(baseData);
+        BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
+        BigDecimal estDpr = DAY_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN).movePointLeft(6);
+
+        SpannableString result;
+        result = new SpannableString(getDecimalFormat(c, 12).format(estDpr));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 12, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
+
+    }
+
+    public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
+        BigDecimal rpr = getYieldPerBlock(baseData);
+        BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
+        BigDecimal estDpr = MONTH_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN).movePointLeft(6);
+
+        SpannableString result;
+        result = new SpannableString(getDecimalFormat(c, 12).format(estDpr));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 12, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
+
     }
 
     public static BigDecimal getYield(BigDecimal bonded, BigDecimal provision, BigDecimal commission) {

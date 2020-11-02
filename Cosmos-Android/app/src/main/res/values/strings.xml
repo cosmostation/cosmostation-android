@@ -400,8 +400,9 @@
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
     <string name="str_average_yield">Average Yield</string>
-    <string name="str_daily_return">Daily Return</string>
-    <string name="str_monthly_return">Monthly Return</string>
+    <string name="str_est_apr">Est. Apr</string>
+    <string name="str_daily_return">Est. Daily Reward</string>
+    <string name="str_monthly_return">Est. Monthly Reward</string>
     <string name="str_gas_amount">gas amount</string>
     <string name="str_gas_rate">gas rate</string>
     <string name="str_fee_speed_title_0">Only a handful of validators will process this Tx\n(Takes longer time to recorded on the block.)</string>

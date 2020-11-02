@@ -269,8 +269,9 @@
     <string name="str_reward_address_change_confirm_msg">이자 지급 주소변경을 신청하시려고 합니다.\n새로운 이자 지급 주소에 관한 모든 권한을 가지고 있는지 다시한번 확인해 주세요. 그렇지 않다면, 차후 지급되는 이자 금액에 접근 하실 수 없습니다.</string>
     <string name="str_inflation">인플레이션</string>
     <string name="str_average_yield">연 수익율</string>
-    <string name="str_daily_return">일 예상 이자량</string>
-    <string name="str_monthly_return">월 예상 이자량</string>
+    <string name="str_est_apr">예상 연 수익율</string>
+    <string name="str_daily_return">예상 일 이자량</string>
+    <string name="str_monthly_return">예상 월 이자량</string>
     <string name="str_gas_amount">가스량</string>
     <string name="str_gas_rate">가스비</string>
     <string name="str_fee_speed_title_0">소수의 검증인들만 처리해 줄 것입니다.\n(블록체인에 반영시간이 좀 더 걸립니다.)</string>

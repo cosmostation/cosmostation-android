@@ -150,9 +150,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                if (getMainActivity().mStakingPool != null && getMainActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
-                }
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 try {
                     Picasso.get().load(COSMOS_VAL_URL + validator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
@@ -170,9 +168,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                if (getMainActivity().mStakingPool != null && getMainActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
-                }
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 try {
                     Picasso.get().load(KAVA_VAL_URL + validator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
@@ -181,9 +177,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                if (getMainActivity().mStakingPool != null && getMainActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
-                }
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 if (mBandOracles != null && !mBandOracles.isEnable(validator.operator_address)) {
                     holder.itemBandOracleOff.setVisibility(View.VISIBLE);
                 } else {
@@ -197,9 +191,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                if (getMainActivity().mStakingPool != null && getMainActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
-                }
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 try {
                     Picasso.get().load(IOV_VAL_URL + validator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
@@ -208,9 +200,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                if (getMainActivity().mStakingPool != null && getMainActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mStakingPool, getMainActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
-                }
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 try {
                     Picasso.get().load(CERTIK_VAL_URL + validator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)

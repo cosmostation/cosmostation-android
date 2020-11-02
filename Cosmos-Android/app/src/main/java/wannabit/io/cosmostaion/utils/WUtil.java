@@ -74,6 +74,12 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_CERTIK;
+import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_COSMOS;
+import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IRIS;
+import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_CERTIK_MANUAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal;
@@ -1699,4 +1705,27 @@ public class WUtil {
         return false;
     }
 
+
+    public static BigDecimal getCBlockTime(BaseChain chain) {
+        if (chain.equals(COSMOS_MAIN)) {
+            return BLOCK_TIME_COSMOS;
+
+        } else if (chain.equals(IRIS_MAIN)) {
+            return BLOCK_TIME_IRIS;
+
+        } else if (chain.equals(IOV_MAIN)) {
+            return BLOCK_TIME_IOV;
+
+        } else if (chain.equals(KAVA_MAIN)) {
+            return BLOCK_TIME_KAVA;
+
+        } else if (chain.equals(BAND_MAIN)) {
+            return BLOCK_TIME_BAND;
+
+        } else if (chain.equals(CERTIK_MAIN)) {
+            return BLOCK_TIME_CERTIK;
+
+        }
+        return new BigDecimal("6");
+    }
 }
