@@ -120,9 +120,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         if (mCollateralParam != nil) {
             cell?.marketTitle.text = mCollateralParam!.getDpMarketId()
             cell?.marketType.text = mCollateralParam!.type.uppercased()
-            cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationRatio(), font: cell!.minCollateralRate.font)
-            cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam!.getDpStabilityFee(), font: cell!.stabilityFee.font)
-            cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationPenalty(), font: cell!.liquidationPenalty.font)
+            cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationRatio(), cell!.minCollateralRate.font)
+            cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam!.getDpStabilityFee(), cell!.stabilityFee.font)
+            cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationPenalty(), cell!.liquidationPenalty.font)
             
             cell?.currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), mCDenom.uppercased())
             cell?.currentPrice.attributedText = WUtils.getDPRawDollor(currentPrice.stringValue, 4, cell!.currentPrice.font)
@@ -162,9 +162,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         cell?.marketType.text = mCollateralParam!.type.uppercased()
         WUtils.showRiskRate(riskRate, cell!.riskScore, _rateIamg: cell!.riskRateImg)
         
-        cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationRatio(), font: cell!.minCollateralRate.font)
-        cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam!.getDpStabilityFee(), font: cell!.stabilityFee.font)
-        cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationPenalty(), font: cell!.liquidationPenalty.font)
+        cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationRatio(), cell!.minCollateralRate.font)
+        cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam!.getDpStabilityFee(), cell!.stabilityFee.font)
+        cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationPenalty(), cell!.liquidationPenalty.font)
         
         cell?.currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), mCDenom.uppercased())
         cell?.currentPrice.attributedText = WUtils.getDPRawDollor(currentPrice.stringValue, 4, cell!.currentPrice.font)

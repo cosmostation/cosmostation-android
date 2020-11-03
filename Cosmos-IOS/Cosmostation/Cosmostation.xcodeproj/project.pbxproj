@@ -293,6 +293,7 @@
 		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
 		28E46BE424F8FCFF005CE985 /* StepOkVoteToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */; };
 		28E46BE624F8FD14005CE985 /* StepOkVoteCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */; };
+		28ED4A59255112BA0073E164 /* MintParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ED4A58255112BA0073E164 /* MintParam.swift */; };
 		28F4CF6F25429BBF0050985D /* EventStakeDropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F4CF6D25429BBF0050985D /* EventStakeDropViewController.swift */; };
 		28F4CF722542AD3A0050985D /* EventStakeDropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F4CF742542AD3A0050985D /* EventStakeDropViewController.xib */; };
 		C10F8E8103FA540DE8D91196 /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20D291C0AF536BBDAE928C /* Pods_Cosmostation.framework */; };
@@ -796,6 +797,7 @@
 		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
 		28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteToViewController.swift; sourceTree = "<group>"; };
 		28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteCheckViewController.swift; sourceTree = "<group>"; };
+		28ED4A58255112BA0073E164 /* MintParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MintParam.swift; sourceTree = "<group>"; };
 		28F4CF6D25429BBF0050985D /* EventStakeDropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStakeDropViewController.swift; sourceTree = "<group>"; };
 		28F4CF732542AD3A0050985D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EventStakeDropViewController.xib; sourceTree = "<group>"; };
 		28F4CF772542AD3F0050985D /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/EventStakeDropViewController.strings; sourceTree = "<group>"; };
@@ -1622,6 +1624,7 @@
 				28BB2A9F2534173200CFF097 /* StarNameAccount.swift */,
 				28BB2AA2253417CE00CFF097 /* StarNameResource.swift */,
 				286A9914253ECA0600306417 /* BandOracleStatus.swift */,
+				28ED4A58255112BA0073E164 /* MintParam.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2120,6 +2123,7 @@
 				2815AA7424349DE2008B23AA /* StepRepayCdpAmountViewController.swift in Sources */,
 				28A7BD752535DB1200969295 /* TxWithdrawHavestCell.swift in Sources */,
 				E1F1CF0C239F7D8D004EF8A2 /* VoteCheckViewController.swift in Sources */,
+				28ED4A59255112BA0073E164 /* MintParam.swift in Sources */,
 				2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */,
 				283E9468254902D4007A9291 /* TxRegisterAccountCell.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,

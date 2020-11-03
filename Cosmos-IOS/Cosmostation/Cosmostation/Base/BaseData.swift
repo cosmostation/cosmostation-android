@@ -26,6 +26,7 @@ final class BaseData : NSObject{
     var mIrisStakePool: NSDictionary?
     var mProvision: String?
     var mInflation: String?
+    var mMintParam: MintParam.MintParamResult?
     
     
     var mKavaAccountResult = KavaAccountInfo.KavaAccountResult.init()

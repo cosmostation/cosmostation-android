@@ -81,10 +81,10 @@ class VoteTallyTableViewCell: UITableViewCell {
         progressVeto.progress = tally.getVeto().floatValue / 100
         propressAbstain.progress = tally.getAbstain().floatValue / 100
 
-        percentYes.attributedText = WUtils.displayPercent(tally.getYes(), font: percentYes.font)
-        percentNo.attributedText = WUtils.displayPercent(tally.getNo(), font: percentYes.font)
-        percentVeto.attributedText = WUtils.displayPercent(tally.getVeto(), font: percentYes.font)
-        percentAbstain.attributedText = WUtils.displayPercent(tally.getAbstain(), font: percentYes.font)
+        percentYes.attributedText = WUtils.displayPercent(tally.getYes(), percentYes.font)
+        percentNo.attributedText = WUtils.displayPercent(tally.getNo(), percentYes.font)
+        percentVeto.attributedText = WUtils.displayPercent(tally.getVeto(), percentYes.font)
+        percentAbstain.attributedText = WUtils.displayPercent(tally.getAbstain(), percentYes.font)
         
         if (status == Proposal.PROPOSAL_VOTING) {
             imgYes.isHidden = false
@@ -103,7 +103,7 @@ class VoteTallyTableViewCell: UITableViewCell {
             
             turnoutRate.isHidden = false
             turnoutTitle.isHidden = false
-            turnoutRate.attributedText = WUtils.displayPercent(tally.getTurnout(), font: turnoutRate.font)
+            turnoutRate.attributedText = WUtils.displayPercent(tally.getTurnout(), turnoutRate.font)
             
         }
     }
@@ -114,10 +114,10 @@ class VoteTallyTableViewCell: UITableViewCell {
         progressVeto.progress = tally.getVeto().floatValue / 100
         propressAbstain.progress = tally.getAbstain().floatValue / 100
 
-        percentYes.attributedText = WUtils.displayPercent(tally.getYes(), font: percentYes.font)
-        percentNo.attributedText = WUtils.displayPercent(tally.getNo(), font: percentYes.font)
-        percentVeto.attributedText = WUtils.displayPercent(tally.getVeto(), font: percentYes.font)
-        percentAbstain.attributedText = WUtils.displayPercent(tally.getAbstain(), font: percentYes.font)
+        percentYes.attributedText = WUtils.displayPercent(tally.getYes(), percentYes.font)
+        percentNo.attributedText = WUtils.displayPercent(tally.getNo(), percentYes.font)
+        percentVeto.attributedText = WUtils.displayPercent(tally.getVeto(), percentYes.font)
+        percentAbstain.attributedText = WUtils.displayPercent(tally.getAbstain(), percentYes.font)
 
         imgYes.isHidden = false
         imgNo.isHidden = false

@@ -12,13 +12,24 @@ class WalletInflationCell: UITableViewCell {
     
     @IBOutlet weak var infaltionLabel: UILabel!
     @IBOutlet weak var yieldLabel: UILabel!
-    
+    @IBOutlet weak var aprCard: CardView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
         infaltionLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         yieldLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onTapApr))
+        self.contentView.isUserInteractionEnabled = true
+        self.aprCard.addGestureRecognizer(tap)
+    }
+    
+    
+    var actionTapApr: (() -> Void)? = nil
+    @objc func onTapApr(sender:UITapGestureRecognizer) {
+        actionTapApr?()
     }
     
 }

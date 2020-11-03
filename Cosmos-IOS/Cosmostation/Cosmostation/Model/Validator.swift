@@ -25,6 +25,10 @@ public class Validator {
     var description: Description = Description.init();
     var commission: Commission = Commission.init();
     
+    public func getCommission() -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(commission.commission_rates.rate)
+    }
+    
     init(_ dictionary: [String: Any]) {
         self.operator_address = dictionary["operator_address"] as? String ?? ""
         self.consensus_pubkey = dictionary["operator_address"] as? String ?? ""

@@ -9,7 +9,7 @@
 "NCK-fO-o03.text" = "전체 위임량";
 
 /* Class = "UILabel"; text = "Commission"; ObjectID = "qu3-wc-OAX"; */
-"qu3-wc-OAX.text" = "연 수익율";
+"qu3-wc-OAX.text" = "예상 연 수익율";
 
 /* Class = "UILabel"; text = "Moniker"; ObjectID = "tjm-OC-kdP"; */
 "tjm-OC-kdP.text" = "Moniker";

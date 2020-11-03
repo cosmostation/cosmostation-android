@@ -266,24 +266,22 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         if (chainType == ChainType.COSMOS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            let url = COSMOS_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + mValidator!.operator_address + ".png")!)
             
         } else if (chainType == ChainType.IRIS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 0, 18)
-            let url = IRIS_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: IRIS_VAL_URL + mValidator!.operator_address + ".png")!)
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            let url = KAVA_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: KAVA_VAL_URL + mValidator!.operator_address + ".png")!)
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
+            cell?.validatorImg.af_setImage(withURL: URL(string: BAND_VAL_URL + mValidator!.operator_address + ".png")!)
             if let oracle = mBandOracleStatus?.isEnable(mValidator!.operator_address) {
                 if (oracle) {
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
@@ -292,26 +290,21 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 cell?.bandOracleImg.isHidden = false
             }
-            let url = BAND_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.SECRET_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            let url = SECRET_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: SECRET_VAL_URL + mValidator!.operator_address + ".png")!)
             
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            let url = IOV_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: IOV_VAL_URL + mValidator!.operator_address + ".png")!)
             
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            let url = CERTIK_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + mValidator!.operator_address + ".png")!)
         }
         
         if (mSelfBondingShare != nil) {
@@ -321,13 +314,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         if (mIsTop100 && chainType == ChainType.COSMOS_MAIN) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && chainType == ChainType.IRIS_MAIN) {
             if (mIrisStakePool != nil) {
@@ -339,49 +326,20 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && chainType == ChainType.BAND_MAIN) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && chainType == ChainType.SECRET_MAIN) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST)) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
+            
         } else {
             cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
             cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
@@ -415,24 +373,22 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         if (chainType == ChainType.COSMOS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            let url = COSMOS_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + mValidator!.operator_address + ".png")!)
             
         } else if (chainType == ChainType.IRIS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 0, 18)
-            let url = IRIS_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: IRIS_VAL_URL + mValidator!.operator_address + ".png")!)
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            let url = KAVA_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: KAVA_VAL_URL + mValidator!.operator_address + ".png")!)
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
+            cell?.validatorImg.af_setImage(withURL: URL(string: BAND_VAL_URL + mValidator!.operator_address + ".png")!)
             if let oracle = mBandOracleStatus?.isEnable(mValidator!.operator_address) {
                 if (oracle) {
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
@@ -441,26 +397,21 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 cell?.bandOracleImg.isHidden = false
             }
-            let url = BAND_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.SECRET_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            let url = SECRET_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: SECRET_VAL_URL + mValidator!.operator_address + ".png")!)
             
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            let url = IOV_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: IOV_VAL_URL + mValidator!.operator_address + ".png")!)
             
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            let url = CERTIK_VAL_URL + mValidator!.operator_address + ".png"
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell?.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + mValidator!.operator_address + ".png")!)
         }
         
         if (mSelfBondingShare != nil) {
@@ -470,14 +421,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         if (mIsTop100 && chainType == ChainType.COSMOS_MAIN) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && chainType == ChainType.IRIS_MAIN) {
             if (mIrisStakePool != nil) {
@@ -489,49 +433,19 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && chainType == ChainType.BAND_MAIN) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && chainType == ChainType.SECRET_MAIN) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST)) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
-            if (mStakingPool != nil && mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else {
             cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
@@ -731,15 +645,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         if (mIsTop100 && chainType == ChainType.COSMOS_MAIN) {
-            if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
-                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
-            } else {
-                cell!.myDailyReturns.text = "-"
-                cell!.myMonthlyReturns.text = "-"
-            }
+            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
+            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             
         } else if (mIsTop100 && chainType == ChainType.IRIS_MAIN) {
             if (mIrisStakePool != nil && mBonding != nil) {
@@ -757,64 +664,28 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
-            if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
-                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
-                
-            } else {
-                cell!.myDailyReturns.text = "-"
-                cell!.myMonthlyReturns.text = "-"
-            }
+            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
+            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             
         } else if (mIsTop100 && chainType == ChainType.BAND_MAIN) {
-            if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
-                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
-            } else {
-                cell!.myDailyReturns.text = "-"
-                cell!.myMonthlyReturns.text = "-"
-            }
+            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
+            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             
         } else if (mIsTop100 && chainType == ChainType.SECRET_MAIN) {
-            if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
-                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
-            } else {
-                cell!.myDailyReturns.text = "-"
-                cell!.myMonthlyReturns.text = "-"
-            }
+            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
+            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             
         } else if (mIsTop100 && (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST)) {
-            if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
-                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
-            } else {
-                cell!.myDailyReturns.text = "-"
-                cell!.myMonthlyReturns.text = "-"
-            }
+            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
+            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             
         } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
-            if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
-                let provisions = NSDecimalNumber.init(string: mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
-                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
-            } else {
-                cell!.myDailyReturns.text = "-"
-                cell!.myMonthlyReturns.text = "-"
-            }
+            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
+            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             
         } else {
-            cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, font: cell!.myDailyReturns.font, baseChain: chainType!)
-            cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, font: cell!.myMonthlyReturns.font, baseChain: chainType!)
+            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, NSDecimalNumber.one, NSDecimalNumber.zero, chainType!)
+            cell!.myMonthlyReturns.attributedText =  WUtils.getDailyReward(cell!.myMonthlyReturns.font, NSDecimalNumber.one, NSDecimalNumber.zero, chainType!)
             cell!.myDailyReturns.textColor = UIColor.init(hexString: "f31963")
             cell!.myMonthlyReturns.textColor = UIColor.init(hexString: "f31963")
         }

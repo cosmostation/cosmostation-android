@@ -172,9 +172,9 @@ class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDat
             let mCollateralParam = otherCdps[position]
             cell?.marketType.text = mCollateralParam.type.uppercased()
             cell?.marketTitle.text = mCollateralParam.getDpMarketId()
-            cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationRatio(), font: cell!.minCollateralRate.font)
-            cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam.getDpStabilityFee(), font: cell!.stabilityFee.font)
-            cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationPenalty(), font: cell!.liquidationPenalty.font)
+            cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationRatio(), cell!.minCollateralRate.font)
+            cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam.getDpStabilityFee(), cell!.stabilityFee.font)
+            cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationPenalty(), cell!.liquidationPenalty.font)
             let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam.getMarketImgPath() + ".png"
             cell?.marketImg.af_setImage(withURL: URL(string: url)!)
             return cell!

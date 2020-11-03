@@ -186,13 +186,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         self.mRewardList.removeAll()
         
         if (mChainType == ChainType.COSMOS_MAIN) {
-            self.mFetchCnt = 9
+            self.mFetchCnt = 10
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
             onFetchAccountInfo(mAccount)
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
+            onFetchMintParam()
             onFetchInflation()
             onFetchProvision()
             onFetchStakingPool()
@@ -218,7 +219,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBnbMiniTokens()
             
         } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-            self.mFetchCnt = 15
+            self.mFetchCnt = 16
             BaseData.instance.mCdpParam = nil
             BaseData.instance.mMyCdps.removeAll()
             BaseData.instance.mHavestDeposits.removeAll()
@@ -233,6 +234,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
             
+            onFetchMintParam()
             onFetchInflation()
             onFetchProvision()
             onFetchStakingPool()
@@ -245,35 +247,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchMyHavestReward(mAccount)
             
         } else if (mChainType == ChainType.BAND_MAIN) {
-            self.mFetchCnt = 10
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
-            onFetchBandOracleStatus()
-            
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            self.mFetchCnt = 9
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
-            
-        } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
             self.mFetchCnt = 11
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -282,7 +255,39 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchAccountInfo(mAccount)
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
-
+            
+            onFetchMintParam()
+            onFetchInflation()
+            onFetchProvision()
+            onFetchStakingPool()
+            onFetchBandOracleStatus()
+            
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            self.mFetchCnt = 10
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            
+            onFetchMintParam()
+            onFetchInflation()
+            onFetchProvision()
+            onFetchStakingPool()
+            
+        } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
+            self.mFetchCnt = 12
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            
+            onFetchMintParam()
             onFetchInflation()
             onFetchProvision()
             onFetchStakingPool()
@@ -305,7 +310,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchOkWithdraw(mAccount)
             
         } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.CERTIK_TEST) {
-            self.mFetchCnt = 9
+            self.mFetchCnt = 10
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -313,6 +318,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
             
+            onFetchMintParam()
             onFetchInflation()
             onFetchProvision()
             onFetchStakingPool()
@@ -933,6 +939,47 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             self.onFetchFinished()
         }
+    }
+    
+    func onFetchMintParam() {
+        var url: String?
+        if (mChainType == ChainType.COSMOS_MAIN) {
+            url = COSMOS_URL_MINT_PARAM
+        } else if (mChainType == ChainType.KAVA_MAIN) {
+            url = KAVA_MINT_PARAM
+        } else if (mChainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_MINT_PARAM
+        } else if (mChainType == ChainType.BAND_MAIN) {
+            url = BAND_MINT_PARAM
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_MINT_PARAM
+        } else if (mChainType == ChainType.IOV_MAIN) {
+            url = IOV_MINT_PARAM
+        } else if (mChainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_MINT_PARAM
+        } else if (mChainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_MINT_PARAM
+        } else if (mChainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_MINT_PARAM
+        }
+        BaseData.instance.mMintParam = nil
+        
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary else {
+                    self.onFetchFinished()
+                    return;
+                }
+                BaseData.instance.mMintParam = MintParam(responseData as! [String : Any]).result
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchMintParam ", error) }
+            }
+            self.onFetchFinished()
+        }
+        
     }
     
     func onFetchInflation() {

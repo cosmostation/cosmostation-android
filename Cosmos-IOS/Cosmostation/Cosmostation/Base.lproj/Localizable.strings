@@ -55,7 +55,7 @@
 "sort_by_reward" = "By Reward Amount";
 "sort_by_power" = "By Voting Power";
 "sort_by_commission" = "By Commission";
-"sort_by_yield" = "By Yield";
+"sort_by_yield" = "By APR";
 "sort_by_amount" = "By Amount";
 "sort_by_value" = "By Value";
 "with_mnemonics" = "With Mnemonics";

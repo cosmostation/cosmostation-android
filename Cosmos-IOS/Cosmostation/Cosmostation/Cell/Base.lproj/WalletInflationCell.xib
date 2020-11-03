@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -65,12 +65,32 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FK2-gK-akT" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="179.5" y="0.0" width="171.5" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average yield" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tv-jQ-cnM">
-                                        <rect key="frame" x="48" y="13" width="76" height="14.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VPK-oy-6is">
+                                        <rect key="frame" x="47.5" y="13" width="77" height="14.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Apr" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tv-jQ-cnM">
+                                                <rect key="frame" x="4" y="0.0" width="45" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="questionIc" translatesAutoresizingMaskIntoConstraints="NO" id="6oA-jg-cbM">
+                                                <rect key="frame" x="55" y="0.5" width="14" height="14"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="14" id="5a1-nN-Pkp"/>
+                                                    <constraint firstAttribute="height" constant="14" id="Z9X-hp-5L3"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="3Tv-jQ-cnM" firstAttribute="leading" secondItem="VPK-oy-6is" secondAttribute="leading" constant="4" id="26m-oJ-Gix"/>
+                                            <constraint firstItem="6oA-jg-cbM" firstAttribute="centerY" secondItem="VPK-oy-6is" secondAttribute="centerY" id="DTg-Ar-jZX"/>
+                                            <constraint firstItem="3Tv-jQ-cnM" firstAttribute="top" secondItem="VPK-oy-6is" secondAttribute="top" id="b5h-KS-Odp"/>
+                                            <constraint firstAttribute="trailing" secondItem="6oA-jg-cbM" secondAttribute="trailing" constant="8" id="bpV-Pi-zvB"/>
+                                            <constraint firstItem="6oA-jg-cbM" firstAttribute="leading" secondItem="3Tv-jQ-cnM" secondAttribute="trailing" constant="6" id="tVM-3I-Kc6"/>
+                                        </constraints>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ms-8F-3ex">
                                         <rect key="frame" x="82.5" y="31.5" width="6.5" height="16"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
@@ -80,11 +100,11 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.39953446059999997" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="3Ms-8F-3ex" firstAttribute="top" secondItem="3Tv-jQ-cnM" secondAttribute="bottom" constant="4" id="Bjo-nF-wJh"/>
+                                    <constraint firstItem="VPK-oy-6is" firstAttribute="top" secondItem="FK2-gK-akT" secondAttribute="top" constant="13" id="10L-Z9-lh2"/>
+                                    <constraint firstItem="3Ms-8F-3ex" firstAttribute="top" secondItem="VPK-oy-6is" secondAttribute="bottom" constant="4" id="8qa-JC-zfj"/>
+                                    <constraint firstItem="VPK-oy-6is" firstAttribute="centerX" secondItem="FK2-gK-akT" secondAttribute="centerX" id="FgL-sB-k3I"/>
                                     <constraint firstAttribute="bottom" secondItem="3Ms-8F-3ex" secondAttribute="bottom" constant="12.5" id="SIo-q5-iqE"/>
-                                    <constraint firstItem="3Tv-jQ-cnM" firstAttribute="top" secondItem="FK2-gK-akT" secondAttribute="top" constant="13" id="W8g-ct-z9a"/>
                                     <constraint firstItem="3Ms-8F-3ex" firstAttribute="centerX" secondItem="FK2-gK-akT" secondAttribute="centerX" id="eQI-L9-VLb"/>
-                                    <constraint firstItem="3Tv-jQ-cnM" firstAttribute="centerX" secondItem="FK2-gK-akT" secondAttribute="centerX" id="gxr-4s-EUo"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -115,13 +135,17 @@
                     <constraint firstAttribute="bottom" secondItem="RCJ-gE-Lmm" secondAttribute="bottom" constant="4" id="uGW-S2-gYL"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="aprCard" destination="FK2-gK-akT" id="plc-qQ-ryy"/>
                 <outlet property="infaltionLabel" destination="0h9-FO-Yju" id="8RT-Zo-aZG"/>
                 <outlet property="yieldLabel" destination="3Ms-8F-3ex" id="de9-is-CaS"/>
             </connections>
             <point key="canvasLocation" x="140" y="143"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="questionIc" width="14" height="14"/>
+    </resources>
 </document>

@@ -139,15 +139,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         if (chainType == ChainType.COSMOS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: self.mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
-            } else {
-                cell.commissionLabel.text = "-"
-            }
-            let url = COSMOS_VAL_URL + validator.operator_address + ".png"
-            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
+            cell.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + validator.operator_address + ".png")!)
 
         } else if (chainType == ChainType.IRIS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, chainType!)
@@ -158,71 +151,35 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             } else {
                 cell.commissionLabel.text = "-"
             }
-            let url = IRIS_VAL_URL + validator.operator_address + ".png"
-            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell.validatorImg.af_setImage(withURL: URL(string: IRIS_VAL_URL + validator.operator_address + ".png")!)
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: self.mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
-            } else {
-                cell.commissionLabel.text = "-"
-            }
-            let url = KAVA_VAL_URL + validator.operator_address + ".png"
-            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
+            cell.validatorImg.af_setImage(withURL: URL(string: KAVA_VAL_URL + validator.operator_address + ".png")!)
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
+            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
+            cell.validatorImg.af_setImage(withURL: URL(string: BAND_VAL_URL + validator.operator_address + ".png")!)
             if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
                 if (!oracle) { cell.bandOracleOffImg.isHidden = false }
             }
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: self.mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
-            } else {
-                cell.commissionLabel.text = "-"
-            }
-            let url = BAND_VAL_URL + validator.operator_address + ".png"
-            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
             
         } else if (chainType == ChainType.SECRET_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: self.mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
-            } else {
-                cell.commissionLabel.text = "-"
-            }
-            let url = SECRET_VAL_URL + validator.operator_address + ".png"
-            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
+            cell.validatorImg.af_setImage(withURL: URL(string: SECRET_VAL_URL + validator.operator_address + ".png")!)
             
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: self.mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
-            } else {
-                cell.commissionLabel.text = "-"
-            }
-            let url = IOV_VAL_URL + validator.operator_address + ".png"
-            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
+            cell.validatorImg.af_setImage(withURL: URL(string: IOV_VAL_URL + validator.operator_address + ".png")!)
             
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: self.mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
-            } else {
-                cell.commissionLabel.text = "-"
-            }
-            let url = CERTIK_VAL_URL + validator.operator_address + ".png"
-            cell.validatorImg.af_setImage(withURL: URL(string: url)!)
+            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
+            cell.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + validator.operator_address + ".png")!)
             
         }
         
@@ -327,20 +284,11 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             if (!$0.jailed && $1.jailed) {
                 return true
             }
-            if (chainType == ChainType.COSMOS_MAIN) {
-                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
-            } else if (chainType == ChainType.IRIS_MAIN) {
+            
+            if (chainType == ChainType.IRIS_MAIN) {
                 return Double($0.commission.rate)! < Double($1.commission.rate)!
-            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
-            } else if (chainType == ChainType.BAND_MAIN) {
-                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
-            } else if (chainType == ChainType.SECRET_MAIN) {
-                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
-            } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
-            } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
+            } else {
+                return Double(truncating: $0.getCommission()) < Double(truncating: $1.getCommission())
             }
             return false
         }

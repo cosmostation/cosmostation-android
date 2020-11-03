@@ -31,6 +31,9 @@ class WUtils {
     
     static let handler0Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
+    static let handler12Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 12, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+
+    static let handler24Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 24, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
     static func getDivideHandler(_ decimal:Int16) -> NSDecimalNumberHandler{
         return NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: decimal, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
@@ -1092,7 +1095,7 @@ class WUtils {
         return attributedString1
     }
     
-    static func displayPercent(_ rate:NSDecimalNumber, font:UIFont ) -> NSMutableAttributedString {
+    static func displayPercent(_ rate:NSDecimalNumber, _ font:UIFont ) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 2
         nf.maximumFractionDigits = 2
@@ -1114,7 +1117,8 @@ class WUtils {
         return attributedString1
     }
     
-    static func displayInflation(_ rate:NSDecimalNumber, font:UIFont ) -> NSMutableAttributedString {
+    //remove this!!
+    static func displayInflation(_ rate:NSDecimalNumber, font:UIFont) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 2
         nf.maximumFractionDigits = 2
@@ -1134,6 +1138,62 @@ class WUtils {
         
         attributedString1.append(attributedString2)
         return attributedString1
+    }
+    
+    static func displayInflation(_ inflation:String?, font:UIFont) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = 2
+        nf.maximumFractionDigits = 2
+        nf.numberStyle = .decimal
+        
+        let inflationValue  = WUtils.plainStringToDecimal(inflation).multiplying(byPowerOf10: 2)
+        return displayPercent(inflationValue, font)
+    }
+    
+    static func getYieldPerBlock() -> NSDecimalNumber {
+        let data = BaseData.instance
+        if (data.mStakingPool == nil || data.mProvision == nil || data.mMintParam == nil) {
+            return NSDecimalNumber.zero
+        }
+        let provisions = WUtils.plainStringToDecimal(data.mProvision)
+        let bonded = WUtils.plainStringToDecimal(data.mStakingPool!.object(forKey: "bonded_tokens") as? String)
+        let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam?.blocks_per_year)
+        return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
+    }
+    
+    static func getDpEstApr(_ font: UIFont, _ chain: ChainType) -> NSMutableAttributedString {
+        let rpr = getYieldPerBlock()
+        let estApr = YEAR_SEC.dividing(by: getCBlockTime(chain), withBehavior: handler24Down).multiplying(by: rpr).multiplying(byPowerOf10: 2)
+        return displayPercent(estApr, font)
+    }
+    
+    static func getDpEstAprCommission(_ font: UIFont, _ commission: NSDecimalNumber, _ chain: ChainType) -> NSMutableAttributedString {
+        let rpr = getYieldPerBlock()
+        let commissionCal = NSDecimalNumber.one.subtracting(commission)
+        let estAprCommission = YEAR_SEC.dividing(by: getCBlockTime(chain), withBehavior: handler24Down).multiplying(by: commissionCal).multiplying(by: rpr).multiplying(byPowerOf10: 2)
+        return displayPercent(estAprCommission, font)
+    }
+    
+    static func getDailyReward(_ font: UIFont, _ commission: NSDecimalNumber, _ delegated: NSDecimalNumber?, _ chain: ChainType) -> NSMutableAttributedString {
+        let rpr = getYieldPerBlock()
+        let commissionCal = NSDecimalNumber.one.subtracting(commission)
+        var dAmount = NSDecimalNumber.zero
+        if (delegated != nil) {
+            dAmount = delegated!
+        }
+        let estDpr = DAY_SEC.multiplying(by: commissionCal).multiplying(by: rpr).multiplying(by: dAmount).dividing(by: getCBlockTime(chain), withBehavior: handler12Down)
+        return displayAmount2(estDpr.stringValue, font, 6, 12)
+    }
+    
+    static func getMonthlyReward(_ font: UIFont, _ commission: NSDecimalNumber, _ delegated: NSDecimalNumber?, _ chain: ChainType) -> NSMutableAttributedString {
+        let rpr = getYieldPerBlock()
+        let commissionCal = NSDecimalNumber.one.subtracting(commission)
+        var dAmount = NSDecimalNumber.zero
+        if (delegated != nil) {
+            dAmount = delegated!
+        }
+        let estDpr = MONTH_SEC.multiplying(by: commissionCal).multiplying(by: rpr).multiplying(by: dAmount).dividing(by: getCBlockTime(chain), withBehavior: handler12Down)
+        return displayAmount2(estDpr.stringValue, font, 6, 12)
     }
     
     static func displayYield(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, font:UIFont ) -> NSMutableAttributedString {
@@ -1257,7 +1317,7 @@ class WUtils {
         let selfDecimal = localeStringToDecimal(selfShare)
         let totalDecimal = localeStringToDecimal(totalShare)
         
-        let formatted   = nf.string(from: selfDecimal.multiplying(by: 100).dividing(by: totalDecimal, withBehavior: handler2))! + "%"
+        let formatted   = nf.string(from: selfDecimal.multiplying(by: 100).dividing(by: totalDecimal, withBehavior: handler2Down))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
         
         let preString   = formatted[..<endIndex]
@@ -2835,6 +2895,32 @@ class WUtils {
             return ChainType.BAND_MAIN
         }
         return nil
+    }
+    
+    static func getCBlockTime(_ chain: ChainType?) -> NSDecimalNumber {
+        if (chain == ChainType.COSMOS_MAIN) {
+            return BLOCK_TIME_COSMOS
+            
+        } else if (chain == ChainType.IRIS_MAIN) {
+            return BLOCK_TIME_IRIS
+            
+        } else if (chain == ChainType.IOV_MAIN) {
+            return BLOCK_TIME_IOV
+            
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return BLOCK_TIME_KAVA
+            
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BLOCK_TIME_BAND
+            
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return BLOCK_TIME_CERTIK
+            
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return BLOCK_TIME_SECRET
+            
+        }
+        return NSDecimalNumber.init(string: "6")
     }
     
     

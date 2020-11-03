@@ -54,15 +54,8 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
             
             if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
                 cell?.valPowerLabel.attributedText  =  WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, 6, 6)
-                if (self.mStakingPool != nil && self.mProvision != nil) {
-                    let provisions = NSDecimalNumber.init(string: self.mProvision)
-                    let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell!.valCommissionLabel.font)
-                } else {
-                    cell?.valCommissionLabel.text = "?? %"
-                }
-                let url = COSMOS_VAL_URL + validator.operator_address + ".png"
-                cell!.valImg.af_setImage(withURL: URL(string: url)!)
+                cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, validator.getCommission(), pageHolderVC.chainType!)
+                cell!.valImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + validator.operator_address + ".png")!)
                 
             } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
                 cell?.valPowerLabel.attributedText  =  WUtils.displayAmount2(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell!.valPowerLabel.font, 18, 18)
@@ -73,68 +66,32 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 } else {
                     cell?.valCommissionLabel.text = "-"
                 }
-                let url = IRIS_VAL_URL + validator.operator_address + ".png"
-                cell!.valImg.af_setImage(withURL: URL(string: url)!)
+                cell!.valImg.af_setImage(withURL: URL(string: IRIS_VAL_URL + validator.operator_address + ".png")!)
                 
             } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                 cell?.valPowerLabel.attributedText  =  WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, 6, 6)
-                if (self.mStakingPool != nil && self.mProvision != nil) {
-                    let provisions = NSDecimalNumber.init(string: self.mProvision)
-                    let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell!.valCommissionLabel.font)
-                } else {
-                    cell?.valCommissionLabel.text = "?? %"
-                }
-                let url = KAVA_VAL_URL + validator.operator_address + ".png"
-                cell!.valImg.af_setImage(withURL: URL(string: url)!)
+                cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, validator.getCommission(), pageHolderVC.chainType!)
+                cell!.valImg.af_setImage(withURL: URL(string: KAVA_VAL_URL + validator.operator_address + ".png")!)
                 
             } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
                 cell?.valPowerLabel.attributedText  =  WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, 6, 6)
-                if (self.mStakingPool != nil && self.mProvision != nil) {
-                    let provisions = NSDecimalNumber.init(string: self.mProvision)
-                    let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell!.valCommissionLabel.font)
-                } else {
-                    cell?.valCommissionLabel.text = "?? %"
-                }
-                let url = BAND_VAL_URL + validator.operator_address + ".png"
-                cell!.valImg.af_setImage(withURL: URL(string: url)!)
+                cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, validator.getCommission(), pageHolderVC.chainType!)
+                cell!.valImg.af_setImage(withURL: URL(string: BAND_VAL_URL + validator.operator_address + ".png")!)
                 
             } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
                 cell?.valPowerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, 6, 6)
-                if (self.mStakingPool != nil && self.mProvision != nil) {
-                    let provisions = NSDecimalNumber.init(string: self.mProvision)
-                    let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell!.valCommissionLabel.font)
-                } else {
-                    cell?.valCommissionLabel.text = "?? %"
-                }
-                let url = SECRET_VAL_URL + validator.operator_address + ".png"
-                cell!.valImg.af_setImage(withURL: URL(string: url)!)
+                cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, validator.getCommission(), pageHolderVC.chainType!)
+                cell!.valImg.af_setImage(withURL: URL(string: SECRET_VAL_URL + validator.operator_address + ".png")!)
                 
             } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
                 cell?.valPowerLabel.attributedText  =  WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, 6, 6)
-                if (self.mStakingPool != nil && self.mProvision != nil) {
-                    let provisions = NSDecimalNumber.init(string: self.mProvision)
-                    let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell!.valCommissionLabel.font)
-                } else {
-                    cell?.valCommissionLabel.text = "?? %"
-                }
-                let url = IOV_VAL_URL + validator.operator_address + ".png"
-                cell!.valImg.af_setImage(withURL: URL(string: url)!)
+                cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, validator.getCommission(), pageHolderVC.chainType!)
+                cell!.valImg.af_setImage(withURL: URL(string: IOV_VAL_URL + validator.operator_address + ".png")!)
                 
             } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                 cell?.valPowerLabel.attributedText  =  WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, 6, 6)
-                if (self.mStakingPool != nil && self.mProvision != nil) {
-                    let provisions = NSDecimalNumber.init(string: self.mProvision)
-                    let bonded_tokens = NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell!.valCommissionLabel.font)
-                } else {
-                    cell?.valCommissionLabel.text = "?? %"
-                }
-                let url = CERTIK_VAL_URL + validator.operator_address + ".png"
-                cell!.valImg.af_setImage(withURL: URL(string: url)!)
+                cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, validator.getCommission(), pageHolderVC.chainType!)
+                cell!.valImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + validator.operator_address + ".png")!)
             }
 
             cell?.rootCard.needBorderUpdate = false

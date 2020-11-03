@@ -383,11 +383,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 5) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (self.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
-            }
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
+            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
+            cell?.actionTapApr = {
+                self.onClickAprHelp()
             }
             return cell!
             
@@ -679,11 +678,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (self.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
-            }
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
+            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
+            cell?.actionTapApr = {
+                self.onClickAprHelp()
             }
             return cell!
             
@@ -790,11 +788,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (self.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
-            }
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
+            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
+            cell?.actionTapApr = {
+                self.onClickAprHelp()
             }
             return cell!
             
@@ -884,11 +881,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (self.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
-            }
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
+            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
+            cell?.actionTapApr = {
+                self.onClickAprHelp()
             }
             return cell!
             
@@ -988,11 +984,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (self.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
-            }
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
+            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
+            cell?.actionTapApr = {
+                self.onClickAprHelp()
             }
             return cell!
             
@@ -1079,11 +1074,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (self.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
-            }
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
+            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
+            cell?.actionTapApr = {
+                self.onClickAprHelp()
             }
             return cell!
             
@@ -1174,11 +1168,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (self.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
-            }
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
+            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
+            cell?.actionTapApr = {
+                self.onClickAprHelp()
             }
             return cell!
             
@@ -1351,11 +1344,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            if (self.mInflation != nil) {
-                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: self.mInflation), font: cell!.infaltionLabel.font)
-            }
-            if (self.mStakingPool != nil && self.mProvision != nil) {
-                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: self.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: self.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
+            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
+            cell?.actionTapApr = {
+                self.onClickAprHelp()
             }
             return cell!
             
@@ -1607,6 +1599,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
             okVoteTypeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
+    }
+    
+    func onClickAprHelp() {
+        print("onClickAprHelp")
     }
     
     func onClickGuide1() {

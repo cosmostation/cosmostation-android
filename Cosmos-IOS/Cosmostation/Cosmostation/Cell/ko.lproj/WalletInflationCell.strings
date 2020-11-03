@@ -6,7 +6,7 @@
 "3Ms-8F-3ex.text" = "-";
 
 /* Class = "UILabel"; text = "Average yield"; ObjectID = "3Tv-jQ-cnM"; */
-"3Tv-jQ-cnM.text" = "연 수익율";
+"3Tv-jQ-cnM.text" = "예상 연 수익율";
 
 /* Class = "UILabel"; text = "Inflation"; ObjectID = "K94-1l-nX0"; */
 "K94-1l-nX0.text" = "인플레이션";
