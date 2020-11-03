@@ -59,7 +59,7 @@ public class RegisterStarNameAccountActivity extends BaseActivity {
         mIvStep     = findViewById(R.id.send_step);
         mTvStep     = findViewById(R.id.send_step_msg);
         mViewPager  = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_register_domain));
+        mTitle.setText(getString(R.string.str_register_account));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

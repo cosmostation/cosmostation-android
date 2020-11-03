@@ -76,7 +76,7 @@
                     android:id="@+id/et_user_input"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_45"
-                    android:hint="Your Domain"
+                    android:hint="Your Starname"
                     android:textCursorDrawable="@drawable/white_cursor"
                     android:maxLength="40"
                     android:textColorHint="@color/colorGray4"

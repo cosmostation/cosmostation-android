@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/fixed_star"
-                android:hint="Your Account"
+                android:hint="Your Starname"
                 android:textCursorDrawable="@drawable/white_cursor"
                 android:maxLength="63"
                 android:textColorHint="@color/colorGray4"
