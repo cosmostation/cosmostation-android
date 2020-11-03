@@ -310,11 +310,11 @@
 "str_ok_direct_vote_3" = "Check transaction detail";
 "str_vote_direct" = "Direct vote to Validator";
 "str_vote_agent" = "Indirect vote with Agent";
-"str_starname_register_domain_step_0" = "Insert domain and type";
+"str_starname_register_domain_step_0" = "Insert starname and type";
 "str_starname_register_domain_step_1" = "Insert memo (optional)";
 "str_starname_register_domain_step_2" = "Select transaction fee";
 "str_starname_register_domain_step_3" = "Check transaction detail";
-"str_starname_register_account_step_0" = "Insert starname account you want";
+"str_starname_register_account_step_0" = "Insert starname you want";
 "str_starname_register_account_step_1" = "Insert your address to connect";
 "str_starname_register_account_step_2" = "Insert memo (optional)";
 "str_starname_register_account_step_3" = "Select transaction fee";
@@ -332,8 +332,8 @@
 "str_starname_replace_starname_step_2" = "Select transaction fee";
 "str_starname_replace_starname_step_3" = "Check transaction detail";
 
-"str_description_open_domain" = "Open Domain is the domain type in which an account owner is the only entity that can perform actions on the account.";
-"str_description_closed_domain" = "Closed Domain is the domain type in which the domain owner has control over accounts too.";
+"str_description_open_domain" = "Open type in which an account owner is the only entity that can perform actions on the account.";
+"str_description_closed_domain" = "Closed type in which the domain owner has control over accounts too.";
 
 "clear_all" = "Clear All";
 "delete" = "Delete";
@@ -395,16 +395,16 @@
 "title_ok_deposit" = "Deposit";
 "title_ok_withdraw" = "Withdraw";
 "title_ok_vote" = "Vote for Validator";
-"title_starname_list" = "StarName Service";
-"title_starname_registe_domain" = "Register Domain";
-"title_starname_registe_account" = "Register Account";
-"title_starname_delete_domain" = "Delete Domain";
+"title_starname_list" = "Starname Service";
+"title_starname_registe_domain" = "Register Premium Starname";
+"title_starname_registe_account" = "Register Basic Starname";
+"title_starname_delete_domain" = "Delete Premium Starname";
 "title_starname_delete_account" = "Delete Account";
-"title_starname_renew_domain" = "Renew Domain";
-"title_starname_renew_account" = "Renew Account";
+"title_starname_renew_domain" = "Renew Premium Starname";
+"title_starname_renew_account" = "Renew Basic Starname";
 "title_starname_update_resource" = "Replace Address";
-"title_starname_domain_detail" = "Domain 상세";
-"title_starname_account_detail" = "Account 상세";
+"title_starname_domain_detail" = "Premium Starname Detail";
+"title_starname_account_detail" = "Basic Starname Detail";
 
 
 "proposal_type_basic" = "Basic";

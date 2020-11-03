@@ -979,7 +979,7 @@
     <string name="str_owner">Owner</string>
     <string name="str_register">Register</string>
     <string name="str_register_domain">Register Premium Starname</string>
-    <string name="str_register_domain_step_0">Insert Starname and type</string>
+    <string name="str_register_domain_step_0">Insert starname and type</string>
     <string name="str_register_domain_step_1">Insert memo (optional)</string>
     <string name="str_register_domain_step_2">Select transaction fee</string>
     <string name="str_register_domain_step_3">Check transaction detail</string>

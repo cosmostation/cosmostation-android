@@ -204,7 +204,7 @@ class TransactionViewController: UIViewController {
         } else if (mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
             stepDescription.text = NSLocalizedString("str_starname_replace_starname_step_0", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
-            self.titleLabel.text =  NSLocalizedString("title_starname_domain_detail", comment: "")
+            self.titleLabel.text =  NSLocalizedString("title_starname_update_resource", comment: "")
             
         }
         

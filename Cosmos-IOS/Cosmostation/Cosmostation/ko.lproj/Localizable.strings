@@ -310,11 +310,11 @@
 "str_ok_direct_vote_3" = "입력하신 정보를 확인하세요";
 "str_vote_direct" = "검증인에게 직접 투표";
 "str_vote_agent" = "대리인을 통한 간접 투표";
-"str_starname_register_domain_step_0" = "도에인과 타입을 입력하세요";
+"str_starname_register_domain_step_0" = "스타네임과 타입을 입력하세요";
 "str_starname_register_domain_step_1" = "메모를 입력하세요 (선택사항)";
 "str_starname_register_domain_step_2" = "Tx 수수료를 선택하세요";
 "str_starname_register_domain_step_3" = "입력하신 정보를 확인하세요";
-"str_starname_register_account_step_0" = "등록하실 Account를 입력하세요.";
+"str_starname_register_account_step_0" = "등록하실 스타네임을 입력하세요.";
 "str_starname_register_account_step_1" = "체인별 주소를 입력하세요.(선택사항)";
 "str_starname_register_account_step_2" = "메모를 입력하세요 (선택사항)";
 "str_starname_register_account_step_3" = "Tx 수수료를 선택하세요";
@@ -332,8 +332,8 @@
 "str_starname_replace_starname_step_2" = "Tx 수수료를 선택하세요";
 "str_starname_replace_starname_step_3" = "입력하신 정보를 확인하세요";
 
-"str_description_open_domain" = "Open Domain은 계정 소유자가 계정에 대한 작업을 수행 할 수있는 유일한 엔티티인 도메인 유형입니다.";
-"str_description_closed_domain" = "Closed Domain은 도메인 소유자가 계정을 제어 할 수있는 도메인 유형입니다.";
+"str_description_open_domain" = "Open 타입은 계정 소유자가 계정에 대한 작업을 수행 할 수있는 유일한 엔티티인 도메인 유형입니다.";
+"str_description_closed_domain" = "Closed 타입은 도메인 소유자가 계정을 제어 할 수있는 도메인 유형입니다.";
 
 
 
@@ -398,15 +398,15 @@
 "title_ok_withdraw" = "출금";
 "title_ok_vote" = "검증인 투표";
 "title_starname_list" = "스타네임 서비스";
-"title_starname_registe_domain" = "Domain 등록";
-"title_starname_registe_account" = "Account 등록";
-"title_starname_delete_domain" = "Domain 삭제";
-"title_starname_delete_account" = "Account 삭제";
-"title_starname_renew_domain" = "Domain 갱신";
-"title_starname_renew_account" = "Account 갱신";
+"title_starname_registe_domain" = "프리미엄 스타네임 등록";
+"title_starname_registe_account" = "베이직 스타네임 등록";
+"title_starname_delete_domain" = "프리미엄 스타네임 삭제";
+"title_starname_delete_account" = "베이직 스타네임 삭제";
+"title_starname_renew_domain" = "프리미엄 스타네임 갱신";
+"title_starname_renew_account" = "베이직 스타네임 갱신";
 "title_starname_update_resource" = "주소 등록";
-"title_starname_domain_detail" = "Domain 상세";
-"title_starname_account_detail" = "Account 상세";
+"title_starname_domain_detail" = "프리미엄 스타네임 상세";
+"title_starname_account_detail" = "베이직 스타네임 상세";
 
 "proposal_type_basic" = "기본";
 "proposal_type_parameter" = "파라미터 변경";
