@@ -136,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_commission_validator"
                         style="@style/font_ss_11_gray1"
-                        android:text="@string/str_average_yield"/>
+                        android:text="@string/str_est_apr"/>
                     <TextView
                         android:id="@+id/delegate_commission_validator"
                         android:layout_width="wrap_content"

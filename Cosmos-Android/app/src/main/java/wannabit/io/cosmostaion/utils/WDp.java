@@ -341,25 +341,15 @@ public class WDp {
     public static SpannableString getDailyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         BigDecimal rpr = getYieldPerBlock(baseData);
         BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
-        BigDecimal estDpr = DAY_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN).movePointLeft(6);
-
-        SpannableString result;
-        result = new SpannableString(getDecimalFormat(c, 12).format(estDpr));
-        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 12, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-        return result;
-
+        BigDecimal estDpr = DAY_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN);
+        return getDpAmount2(c, estDpr, 6, 12);
     }
 
     public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         BigDecimal rpr = getYieldPerBlock(baseData);
         BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
-        BigDecimal estDpr = MONTH_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN).movePointLeft(6);
-
-        SpannableString result;
-        result = new SpannableString(getDecimalFormat(c, 12).format(estDpr));
-        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 12, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-        return result;
-
+        BigDecimal estDpr = MONTH_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN);
+        return getDpAmount2(c, estDpr, 6, 12);
     }
 
     public static BigDecimal getYield(BigDecimal bonded, BigDecimal provision, BigDecimal commission) {
