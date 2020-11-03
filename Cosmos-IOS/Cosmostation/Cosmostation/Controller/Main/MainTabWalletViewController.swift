@@ -1602,7 +1602,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickAprHelp() {
-        print("onClickAprHelp")
+        let helpAlert = UIAlertController(title: NSLocalizedString("str_apr_help_title", comment: ""), message: NSLocalizedString("str_apr_help_msg", comment: ""), preferredStyle: .alert)
+        helpAlert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(helpAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            helpAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
     }
     
     func onClickGuide1() {

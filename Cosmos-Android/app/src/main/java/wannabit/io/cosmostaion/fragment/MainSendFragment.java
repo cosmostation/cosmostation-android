@@ -1335,8 +1335,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mAprCard)) {
             Bundle bundle = new Bundle();
-            bundle.putString("title", "aaaa");
-            bundle.putString("msg", "bbbbbb");
+            bundle.putString("title", getString(R.string.str_apr_help_title));
+            bundle.putString("msg", getString(R.string.str_apr_help_msg));
             Dialog_Help_Msg dialog = Dialog_Help_Msg.newInstance(bundle);
             dialog.setCancelable(true);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -1344,6 +1344,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         }
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {

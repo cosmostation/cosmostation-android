@@ -244,7 +244,8 @@
 "str_select_to_send_coin" = "Select To Send Coin Type";
 "str_event_confirm" = "Please confirm twice yourself ETH deposit address for XPRT distribution. \n(we don't support validate checksum) \n\n\n%@";
 "str_event_confirm_title" = "Once More Check";
-
+"str_apr_help_title" = "Delegation APR";
+"str_apr_help_msg" = "This figure is an estimated percentage calculated by taking into account the current average network block time.";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
 "creat_cdp_step_1" = "Insert memo (optional)";
@@ -309,28 +310,23 @@
 "str_ok_direct_vote_3" = "Check transaction detail";
 "str_vote_direct" = "Direct vote to Validator";
 "str_vote_agent" = "Indirect vote with Agent";
-
 "str_starname_register_domain_step_0" = "Insert domain and type";
 "str_starname_register_domain_step_1" = "Insert memo (optional)";
 "str_starname_register_domain_step_2" = "Select transaction fee";
 "str_starname_register_domain_step_3" = "Check transaction detail";
-
 "str_starname_register_account_step_0" = "Insert starname account you want";
 "str_starname_register_account_step_1" = "Insert your address to connect";
 "str_starname_register_account_step_2" = "Insert memo (optional)";
 "str_starname_register_account_step_3" = "Select transaction fee";
 "str_starname_register_account_step_4" = "Check transaction detail";
-
 "str_starname_delete_starname_step_0" = "Confirm your starname to delete";
 "str_starname_delete_starname_step_1" = "Insert memo (optional)";
 "str_starname_delete_starname_step_2" = "Select transaction fee";
 "str_starname_delete_starname_step_3" = "Check transaction detail";
-
 "str_starname_renew_starname_step_0" = "Confirm your starname to renew";
 "str_starname_renew_starname_step_1" = "Insert memo (optional)";
 "str_starname_renew_starname_step_2" = "Select transaction fee";
 "str_starname_renew_starname_step_3" = "Check transaction detail";
-
 "str_starname_replace_starname_step_0" = "Insert your address to connect";
 "str_starname_replace_starname_step_1" = "Insert memo (optional)";
 "str_starname_replace_starname_step_2" = "Select transaction fee";

@@ -216,6 +216,8 @@
 "str_select_to_send_coin" = "보낼 코인 종류를 선택하세요";
 "str_event_confirm" = "에어드랍을 받으실. ETH주소를 다시한번 확인해주세요.\n(입력하신 ETH 주소 검증은 지원하지 않습니다.) \n\n\n%@";
 "str_event_confirm_title" = "한번 더 확인";
+"str_apr_help_title" = "위임 예상 연 수익율";
+"str_apr_help_msg" = "현재 체인의 평균 블럭 시간을 바탕으로 계산한 연간 위임 예상 수익율 입니다.";
 
 "current_price_format" = "현재 %@ 가격";
 "liquidation_price_format" = "청산 %@ 가격";
@@ -308,29 +310,23 @@
 "str_ok_direct_vote_3" = "입력하신 정보를 확인하세요";
 "str_vote_direct" = "검증인에게 직접 투표";
 "str_vote_agent" = "대리인을 통한 간접 투표";
-
-
 "str_starname_register_domain_step_0" = "도에인과 타입을 입력하세요";
 "str_starname_register_domain_step_1" = "메모를 입력하세요 (선택사항)";
 "str_starname_register_domain_step_2" = "Tx 수수료를 선택하세요";
 "str_starname_register_domain_step_3" = "입력하신 정보를 확인하세요";
-
 "str_starname_register_account_step_0" = "등록하실 Account를 입력하세요.";
 "str_starname_register_account_step_1" = "체인별 주소를 입력하세요.(선택사항)";
 "str_starname_register_account_step_2" = "메모를 입력하세요 (선택사항)";
 "str_starname_register_account_step_3" = "Tx 수수료를 선택하세요";
 "str_starname_register_account_step_4" = "입력하신 정보를 확인하세요";
-
 "str_starname_delete_starname_step_0" = "삭제하실 스타네임을 확인하세요.";
 "str_starname_delete_starname_step_1" = "메모를 입력하세요 (선택사항)";
 "str_starname_delete_starname_step_2" = "Tx 수수료를 선택하세요";
 "str_starname_delete_starname_step_3" = "입력하신 정보를 확인하세요";
-
 "str_starname_renew_starname_step_0" = "갱신하실 스타네임을 확인하세요.";
 "str_starname_renew_starname_step_1" = "메모를 입력하세요 (선택사항)";
 "str_starname_renew_starname_step_2" = "Tx 수수료를 선택하세요";
 "str_starname_renew_starname_step_3" = "입력하신 정보를 확인하세요";
-
 "str_starname_replace_starname_step_0" = "체인별 주소를 입력해 주세요";
 "str_starname_replace_starname_step_1" = "메모를 입력하세요 (선택사항)";
 "str_starname_replace_starname_step_2" = "Tx 수수료를 선택하세요";
