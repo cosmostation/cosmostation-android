@@ -180,6 +180,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 if (mBandOracles != null && !mBandOracles.isEnable(validator.operator_address)) {
                     holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+                    holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorRed));
                 } else {
                     holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
                 }

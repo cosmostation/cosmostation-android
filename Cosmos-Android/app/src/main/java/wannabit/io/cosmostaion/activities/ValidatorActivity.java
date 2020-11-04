@@ -839,6 +839,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if (mBandOracles != null && !mBandOracles.isEnable(mValidator.operator_address)) {
                     holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 } else {
                     holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
                 }
@@ -979,6 +980,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if (mBandOracles != null && !mBandOracles.isEnable(mValidator.operator_address)) {
                     holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 } else {
                     holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
                 }
