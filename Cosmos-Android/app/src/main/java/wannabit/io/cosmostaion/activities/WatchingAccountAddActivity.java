@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
 import wannabit.io.cosmostaion.utils.WKey;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -95,12 +96,8 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
         } else if (v.equals(mNext)) {
             mUserInput = mInput.getText().toString().trim();
-            if (mUserInput.startsWith("cosmos")) {
-                if(mUserInput.startsWith("cosmosvaloper")) {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                    return;
-
-                } else if (WKey.isValidBech32(mUserInput)) {
+            if (mUserInput.startsWith("cosmos1")) {
+                if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(COSMOS_MAIN, mUserInput);
                     return;
 
@@ -109,7 +106,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } else if (mUserInput.startsWith("iaa")) {
+            } else if (mUserInput.startsWith("iaa1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(IRIS_MAIN, mUserInput);
                     return;
@@ -119,7 +116,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } else if (mUserInput.startsWith("bnb")) {
+            } else if (mUserInput.startsWith("bnb1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(BNB_MAIN, mUserInput);
                     return;
@@ -129,7 +126,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } else if (mUserInput.startsWith("kava")) {
+            } else if (mUserInput.startsWith("kava1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     if (SUPPORT_CHAINS().contains(KAVA_TEST)) {
                         Dialog_Choice_Kava dialog = Dialog_Choice_Kava.newInstance(null);
@@ -147,7 +144,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } else if (mUserInput.startsWith("star")) {
+            } else if (mUserInput.startsWith("star1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     if (SUPPORT_CHAINS().contains(IOV_TEST)) {
                         Dialog_Choice_Iov dialog = Dialog_Choice_Iov.newInstance(null);
@@ -165,7 +162,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } else if (mUserInput.startsWith("tbnb")) {
+            } else if (mUserInput.startsWith("tbnb1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(BNB_TEST, mUserInput);
                     return;
@@ -175,7 +172,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } else if (mUserInput.startsWith("band")) {
+            } else if (mUserInput.startsWith("band1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(BAND_MAIN, mUserInput);
                     return;
@@ -185,7 +182,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } else if (mUserInput.startsWith("okexchain")) {
+            } else if (mUserInput.startsWith("okexchain1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(OK_TEST, mUserInput);
                     return;
@@ -195,7 +192,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } else if (mUserInput.startsWith("certik")) {
+            } else if (mUserInput.startsWith("certik1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     if (SUPPORT_CHAINS().contains(CERTIK_TEST)) {
                         Dialog_Choice_Certik dialog = Dialog_Choice_Certik.newInstance(null);
@@ -211,6 +208,13 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                     return;
+                }
+
+            } if (mUserInput.startsWith("akash1")) {
+                if (WKey.isValidBech32(mUserInput)) {
+                    onGenNewAccount(AKASH_MAIN, mUserInput);
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 }
 
             } else {

@@ -61,6 +61,7 @@ import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -897,7 +898,16 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_chain_img));
                     holder.chainName.setText(getString(R.string.str_certik_main));
 
-                } else if (chain.equals(BNB_TEST)) {
+                } else if (chain.equals(AKASH_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_chain_img));
+                    holder.chainName.setText(getString(R.string.str_akash_main));
+
+                }
+
+
+                else if (chain.equals(BNB_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));

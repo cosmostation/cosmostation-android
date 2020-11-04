@@ -46,12 +46,17 @@
     <string name="url_api_ok_test" translatable="false"></string>
 
 
-
     <string name="url_lcd_certik" translatable="false">https://lcd-certik.cosmostation.io/</string>
     <string name="url_api_certik" translatable="false">https://api-certik.cosmostation.io/</string>
 
     <string name="url_lcd_certik_test" translatable="false">https://lcd-certik-testnet3.cosmostation.io/</string>
     <string name="url_api_certik_test" translatable="false">https://api-certik-testnet3.cosmostation.io/</string>
+
+
+    <string name="url_lcd_akash" translatable="false">https://lcd-akash.cosmostation.io/</string>
+    <string name="url_api_akash" translatable="false">https://api-akash.cosmostation.io/</string>
+
+
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
@@ -102,6 +107,7 @@
     <string name="str_kava_main_net">Kava Mainnet</string>
     <string name="str_band_main_net">Band Mainnet</string>
     <string name="str_certik_main_net">Certik Mainnet</string>
+    <string name="str_akash_main_net">Akash Mainnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
     <string name="str_kava_test_net">Kava Testnet</string>
     <string name="str_iov_test_net">Starname Testnet</string>
@@ -315,6 +321,7 @@
     <string name="str_ok_test" translatable="false">OKEX TEST</string>
     <string name="str_certik_main" translatable="false">CERTIK</string>
     <string name="str_certik_test" translatable="false">CERTIK TEST</string>
+    <string name="str_akash_main" translatable="false">AKASH</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -1180,6 +1187,7 @@
     <string name="s_band" translatable="false">BAND</string>
     <string name="s_tok" translatable="false">TOKT</string>
     <string name="s_ctk" translatable="false">CTK</string>
+    <string name="s_akt" translatable="false">AKT</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

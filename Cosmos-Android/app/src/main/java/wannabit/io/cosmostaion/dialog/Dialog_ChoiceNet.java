@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -25,7 +26,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
     private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer;
     private LinearLayout mMain, mIris, mBinance, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mCertik;
+    private LinearLayout mBand, mCertik, mAkash;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -63,6 +64,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
         mBand = view.findViewById(R.id.band_chain);
         mCertik = view.findViewById(R.id.certik_chain);
+        mAkash = view.findViewById(R.id.akash_chain);
 
         mMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +121,15 @@ public class Dialog_ChoiceNet extends DialogFragment {
                 getDialog().dismiss();
             }
         });
+
+        mAkash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(AKASH_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
 
         if (BaseChain.SUPPORT_CHAINS().contains(BNB_TEST)) {
             mBinanaceTestLayer.setVisibility(View.VISIBLE);

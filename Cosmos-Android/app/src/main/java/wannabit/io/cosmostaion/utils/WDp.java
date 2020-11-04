@@ -57,6 +57,7 @@ import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -1806,6 +1807,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorOK);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColor(R.color.colorCertik);
+        } else if (chain.equals(AKASH_MAIN)) {
+            return c.getResources().getColor(R.color.colorAkash);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
         }
@@ -1826,6 +1829,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ok);
         } else if(chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_certik);
+        } else if (chain.equals(AKASH_MAIN)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_akash);
         }
         return null;
     }
@@ -1845,6 +1850,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorOK);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColorStateList(R.color.colorCertik);
+        } else if (chain.equals(AKASH_MAIN)) {
+            return c.getResources().getColorStateList(R.color.colorAkash);
         }
         return null;
     }
@@ -1881,6 +1888,11 @@ public class WDp {
         } else if (BaseChain.getChain(chain).equals(CERTIK_MAIN) || BaseChain.getChain(chain).equals(CERTIK_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorCertik));
             textview.setText(c.getString(R.string.s_ctk));
+
+        } else if (BaseChain.getChain(chain).equals(AKASH_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorAkash));
+            textview.setText(c.getString(R.string.s_akt));
+
         }
     }
 
@@ -1901,6 +1913,8 @@ public class WDp {
             return c.getString(R.string.s_tok);
         } else if (BaseChain.getChain(chain).equals(CERTIK_MAIN) || BaseChain.getChain(chain).equals(CERTIK_TEST)) {
             return c.getString(R.string.s_ctk);
+        } else if (BaseChain.getChain(chain).equals(AKASH_MAIN)) {
+            return c.getString(R.string.s_akt);
         }
         return "";
 
