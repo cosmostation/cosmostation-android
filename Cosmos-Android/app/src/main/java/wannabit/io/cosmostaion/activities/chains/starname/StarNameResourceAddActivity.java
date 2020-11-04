@@ -20,11 +20,19 @@ import com.google.zxing.integration.android.IntentResult;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_Wallet_for_Starname;
-import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName0Fragment;
 import wannabit.io.cosmostaion.model.StarNameResource;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 
 public class StarNameResourceAddActivity extends BaseActivity implements View.OnClickListener {
 
@@ -75,17 +83,44 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
 
         } else if (v.equals(mConfirm)) {
             final String userinput = mUserInput.getText().toString().trim();
+
             if (TextUtils.isEmpty(userinput)) {
                 Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
                 return;
 
-            } else {
-                Intent result = getIntent();
-                mStarNameResource.resource = userinput;
-                result.putExtra("resource", mStarNameResource);
-                setResult(Activity.RESULT_OK, result);
-                finish();
+            } else if (WUtil.getBaseChainWithUri(mStarNameResource.uri) != null){
+                BaseChain chain = WUtil.getBaseChainWithUri(mStarNameResource.uri);
+                if (chain.equals(COSMOS_MAIN) && (!userinput.startsWith("cosmos1") || !WKey.isValidBech32(userinput))) {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
+                    return;
+
+                } else if (chain.equals(IRIS_MAIN) && (!userinput.startsWith("iaa1") || !WKey.isValidBech32(userinput))) {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
+                    return;
+
+                } else if (chain.equals(KAVA_MAIN) && (!userinput.startsWith("kava1") || !WKey.isValidBech32(userinput))) {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
+                    return;
+
+                } else if (chain.equals(BAND_MAIN) && (!userinput.startsWith("band1") || !WKey.isValidBech32(userinput))) {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
+                    return;
+
+                } else if (chain.equals(BNB_MAIN) && (!userinput.startsWith("bnb1") || !WKey.isValidBech32(userinput))) {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
+                    return;
+
+                } else if (chain.equals(IOV_MAIN) && (!userinput.startsWith("star1") || !WKey.isValidBech32(userinput))) {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
             }
+            Intent result = getIntent();
+            mStarNameResource.resource = userinput;
+            result.putExtra("resource", mStarNameResource);
+            setResult(Activity.RESULT_OK, result);
+            finish();
 
         } else if (v.equals(mWallet)) {
             if (WUtil.getBaseChainWithUri(mStarNameResource.uri) == null) {
