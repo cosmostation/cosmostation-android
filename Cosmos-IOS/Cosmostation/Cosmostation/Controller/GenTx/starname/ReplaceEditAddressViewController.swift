@@ -100,6 +100,33 @@ class ReplaceEditAddressViewController: BaseViewController, QrScannerDelegate, S
             return;
             
         } else {
+            let chainType = WUtils.getChainTypeWithUri(chainNameResource)
+            if (chainType == ChainType.COSMOS_MAIN && (!userInput!.starts(with: "cosmos1") || !WKey.isValidateBech32(userInput!))) {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                return
+                
+            } else if (chainType == ChainType.IRIS_MAIN && (!userInput!.starts(with: "iaa1") || !WKey.isValidateBech32(userInput!))) {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                return
+                
+            } else if (chainType == ChainType.KAVA_MAIN && (!userInput!.starts(with: "kava1") || !WKey.isValidateBech32(userInput!))) {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                return
+                
+            } else if (chainType == ChainType.BAND_MAIN && (!userInput!.starts(with: "band1") || !WKey.isValidateBech32(userInput!))) {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                return
+                
+            } else if (chainType == ChainType.BINANCE_MAIN && (!userInput!.starts(with: "band1") || !WKey.isValidateBech32(userInput!))) {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                return
+                
+            } else if (chainType == ChainType.IOV_MAIN && (!userInput!.starts(with: "iov1") || !WKey.isValidateBech32(userInput!))) {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                return
+                
+            }
+            
             self.dismiss(animated: true, completion: {
                 self.resultDelegate?.addressEditedCallback(self.chainNameResource!, userInput!)
             })

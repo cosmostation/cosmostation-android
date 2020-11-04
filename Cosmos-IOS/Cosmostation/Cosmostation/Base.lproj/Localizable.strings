@@ -335,7 +335,7 @@
 
 "str_description_open_domain" = "Open type in which an account owner is the only entity that can perform actions on the account.";
 "str_description_closed_domain" = "Closed type in which the domain owner has control over accounts too.";
-"str_safe_copy_title" = "Safe Copy";
+"str_safe_copy_title" = "Mnemonic Safe Copy";
 "str_safe_copy_msg" = "Recently there have been many instances of clipboard hijacking on various mobile applications. The mnemonic phrase temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your mnemonic phrase to create an additional wallet with the same phrase, please select \“Safe Copy\“. This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.\n\nIf you wish to copy and paste your mneominc phrase outside of the application, please select \“Raw Copy\“. When using the raw copy feature, please take caution  and responsibility for the security of your own assets.";
 "str_safe_copy" = "Safe Copy";
 "str_raw_copy" = "Raw Copy";
