@@ -112,12 +112,7 @@ class WalletCheckViewController: BaseViewController {
         }
     }
     @IBAction func onClickCopy(_ sender: Any) {
-        var resource: String = ""
-        for word in self.mnemonicWords! {
-            resource = resource + " " + word
-        }
-        UIPasteboard.general.string = resource.trimmingCharacters(in: .whitespacesAndNewlines)
-        onShowToast(NSLocalizedString("mnemonic_copied", comment: ""))
+        self.onCopyAlert()
     }
     
     @IBAction func onClickOK(_ sender: Any) {
@@ -133,6 +128,31 @@ class WalletCheckViewController: BaseViewController {
             DispatchQueue.main.async(execute: {
                 self.updateView()
             });
+        }
+    }
+    
+    func onCopyAlert() {
+        let copyAlert = UIAlertController(title: NSLocalizedString("str_safe_copy_title", comment: ""), message: NSLocalizedString("str_safe_copy_msg", comment: ""), preferredStyle: .alert)
+        copyAlert.addAction(UIAlertAction(title: NSLocalizedString("str_raw_copy", comment: ""), style: .destructive, handler: { _ in
+            var resource: String = ""
+            for word in self.mnemonicWords! {
+                resource = resource + " " + word
+            }
+            UIPasteboard.general.string = resource.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.onShowToast(NSLocalizedString("mnemonic_copied", comment: ""))
+        }))
+        copyAlert.addAction(UIAlertAction(title: NSLocalizedString("str_safe_copy", comment: ""), style: .default, handler: { _ in
+            var resource: String = ""
+            for word in self.mnemonicWords! {
+                resource = resource + " " + word
+            }
+            KeychainWrapper.standard.set(resource, forKey: BaseData.instance.copySalt!, withAccessibility: .afterFirstUnlockThisDeviceOnly)
+            self.onShowToast(NSLocalizedString("mnemonic_safe_copied", comment: ""))
+            
+        }))
+        self.present(copyAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            copyAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
     }
 }

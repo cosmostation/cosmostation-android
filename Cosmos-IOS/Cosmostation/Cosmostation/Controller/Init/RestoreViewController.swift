@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PasswordViewDelegate{
     
@@ -365,8 +366,20 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     }
     
     @IBAction func onPasteClick(_ sender: Any) {
+        if let words = KeychainWrapper.standard.string(forKey: BaseData.instance.copySalt!)?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") {
+            for i in 0 ..< self.mNemonicInputs.count {
+                self.mNemonicInputs[i].text = ""
+            }
+            for i in 0 ..< self.mNemonicInputs.count {
+                if (words.count > i) {
+                    self.mNemonicInputs[i].text = words[i].replacingOccurrences(of: ",", with: "")
+                        .replacingOccurrences(of: " ", with: "")
+                }
+            }
+            updateFocus()
+            return;
+        }
         if let myString = UIPasteboard.general.string {
-
             for i in 0 ..< self.mNemonicInputs.count {
                 self.mNemonicInputs[i].text = ""
             }

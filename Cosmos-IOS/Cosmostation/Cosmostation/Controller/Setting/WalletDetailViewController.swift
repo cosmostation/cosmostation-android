@@ -403,10 +403,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
     @IBAction func onClickDelete(_ sender: Any) {
         let deleteAlert = UIAlertController(title: NSLocalizedString("delete_wallet", comment: ""), message: NSLocalizedString("delete_wallet_msg", comment: ""), preferredStyle: .alert)
-        deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("delete", comment: ""), style: .destructive, handler: { [weak deleteAlert] (_) in
+        deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("delete", comment: ""), style: .destructive, handler: { _ in
             self.confirmDelete()
         }))
-        deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { [weak deleteAlert] (_) in
+        deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { _ in
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(deleteAlert, animated: true) {

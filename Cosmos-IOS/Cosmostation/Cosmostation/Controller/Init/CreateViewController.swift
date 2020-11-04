@@ -332,7 +332,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                 newAccount.account_sort_order = 9999
                 insertResult = BaseData.instance.insertAccount(newAccount)
                 
-                if(insertResult < 0) {
+                if (insertResult < 0) {
                     KeychainWrapper.standard.removeObject(forKey: newAccount.account_uuid.sha1())
                 }
             }

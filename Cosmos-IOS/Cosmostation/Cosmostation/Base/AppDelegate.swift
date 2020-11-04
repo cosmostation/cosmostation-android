@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        BaseData.instance.copySalt = UUID().uuidString
         if UserDefaults.standard.object(forKey: "FirstInstall") == nil {
             KeychainWrapper.standard.removeAllKeys()
             UserDefaults.standard.set(false, forKey: "FirstInstall")
@@ -56,6 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 application.topViewController!.present(passwordVC, animated: true, completion: nil)
             }
         }
+        
+        if (KeychainWrapper.standard.hasValue(forKey: BaseData.instance.copySalt!)) {
+            KeychainWrapper.standard.removeObject(forKey: BaseData.instance.copySalt!)
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -83,6 +88,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        if (KeychainWrapper.standard.hasValue(forKey: BaseData.instance.copySalt!)) {
+            KeychainWrapper.standard.removeObject(forKey: BaseData.instance.copySalt!)
+        }
     }
     
     

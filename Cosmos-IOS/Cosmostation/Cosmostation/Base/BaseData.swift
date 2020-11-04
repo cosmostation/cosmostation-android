@@ -16,6 +16,7 @@ final class BaseData : NSObject{
     static let instance = BaseData()
     
     var database: Connection!
+    var copySalt: String?
     var mAllValidator = Array<Validator>()
     var mTopValidator = Array<Validator>()
     var mOtherValidator = Array<Validator>()
