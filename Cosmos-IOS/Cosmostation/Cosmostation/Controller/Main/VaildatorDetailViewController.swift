@@ -287,6 +287,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
                 } else {
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
+                    cell?.avergaeYield.textColor = UIColor.init(hexString: "f31963")
                 }
                 cell?.bandOracleImg.isHidden = false
             }
@@ -394,6 +395,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
                 } else {
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
+                    cell?.avergaeYield.textColor = UIColor.init(hexString: "f31963")
                 }
                 cell?.bandOracleImg.isHidden = false
             }

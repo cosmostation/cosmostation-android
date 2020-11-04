@@ -163,7 +163,10 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
             cell.validatorImg.af_setImage(withURL: URL(string: BAND_VAL_URL + validator.operator_address + ".png")!)
             if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
-                if (!oracle) { cell.bandOracleOffImg.isHidden = false }
+                if (!oracle) {
+                    cell.bandOracleOffImg.isHidden = false
+                    cell.commissionLabel.textColor = UIColor.init(hexString: "f31963")
+                }
             }
             
         } else if (chainType == ChainType.SECRET_MAIN) {

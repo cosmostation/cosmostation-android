@@ -43,6 +43,8 @@ class AllValidatorCell: UITableViewCell {
         self.validatorImg.image = UIImage(named: "validatorNoneImg")
         self.monikerLabel.text = "-"
         self.powerLabel.text = "-"
+        self.commissionLabel.text = "-"
+        self.commissionLabel.textColor = UIColor.init(hexString: "7a7f88")
         self.bandOracleOffImg.isHidden = true
     }
     
