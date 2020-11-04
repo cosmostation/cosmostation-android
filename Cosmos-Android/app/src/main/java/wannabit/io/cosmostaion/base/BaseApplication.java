@@ -7,6 +7,8 @@ import android.os.Bundle;
 import com.google.firebase.FirebaseApp;
 import com.squareup.picasso.Picasso;
 
+import java.util.UUID;
+
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -27,6 +29,8 @@ public class BaseApplication extends Application {
         Picasso built = builder.build();
         built.setIndicatorsEnabled(false);
         Picasso.setSingletonInstance(built);
+
+        getBaseDao().mCopySalt = UUID.randomUUID().toString();
     }
 
     public BaseData getBaseDao() {
@@ -76,6 +80,7 @@ public class BaseApplication extends Application {
         public void onActivityStarted(Activity activity) {
             if (++running == 1) {
                 mAppStatus = AppStatus.RETURNED_TO_FOREGROUND;
+                getBaseDao().mCopySalt = UUID.randomUUID().toString();
             } else if (running > 1) {
                 mAppStatus = AppStatus.FOREGROUND;
             }
@@ -86,6 +91,8 @@ public class BaseApplication extends Application {
         public void onActivityStopped(Activity activity) {
             if (--running == 0) {
                 mAppStatus = AppStatus.BACKGROUND;
+                getBaseDao().mCopySalt = null;
+                getBaseDao().mCopyEncResult = null;
             }
         }
 

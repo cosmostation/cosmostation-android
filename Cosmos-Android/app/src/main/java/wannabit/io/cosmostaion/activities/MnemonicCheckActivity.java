@@ -18,8 +18,9 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_Safe_Copy;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -46,6 +47,7 @@ public class MnemonicCheckActivity extends BaseActivity {
     private Button              mCopy;
 
     private String              mEntropy;
+    private ArrayList<String>   mWords = new ArrayList<>();
 
 
     @Override
@@ -87,7 +89,7 @@ public class MnemonicCheckActivity extends BaseActivity {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
 
         }
-        final ArrayList<String> mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
+        mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
 
         for(int i = 0; i < mWordsLayer.length; i++) {
             if (getChain(toCheck.baseChain).equals(COSMOS_MAIN)) {
@@ -119,19 +121,39 @@ public class MnemonicCheckActivity extends BaseActivity {
         mCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                StringBuilder builder = new StringBuilder();
-                for(String s : mWords) {
-                    if(builder.length() != 0)
-                        builder.append(" ");
-                    builder.append(s);
-                }
-                String data = builder.toString();
-                ClipData clip = ClipData.newPlainText("my data", data);
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(getBaseContext(), R.string.str_copied, Toast.LENGTH_SHORT).show();
+                Dialog_Safe_Copy delete = Dialog_Safe_Copy.newInstance();
+                delete.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
             }
         });
+    }
+
+    public void onRawCopy() {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        StringBuilder builder = new StringBuilder();
+        for(String s : mWords) {
+            if(builder.length() != 0)
+                builder.append(" ");
+            builder.append(s);
+        }
+        String data = builder.toString();
+        ClipData clip = ClipData.newPlainText("my data", data);
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(getBaseContext(), R.string.str_copied, Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void onSafeCopy() {
+        StringBuilder builder = new StringBuilder();
+        for(String s : mWords) {
+            if(builder.length() != 0)
+                builder.append(" ");
+            builder.append(s);
+        }
+        String data = builder.toString();
+        getBaseDao().mCopyEncResult = CryptoHelper.doEncryptData(getBaseDao().mCopySalt, data, false);
+        Toast.makeText(getBaseContext(), R.string.str_safe_copied, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

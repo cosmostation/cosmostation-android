@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -215,21 +216,21 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
         } else  if (v.equals(mPaste)) {
             onClearAll();
-            ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getBaseContext()).toString().trim();
-                if(TextUtils.isEmpty(userPaste)) {
-                    Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
+
+
+            if (getBaseDao().mCopySalt != null && getBaseDao().mCopyEncResult != null) {
+                String words = CryptoHelper.doDecryptData(getBaseDao().mCopySalt, getBaseDao().mCopyEncResult.getEncDataString(), getBaseDao().mCopyEncResult.getIvDataString());
+                if(TextUtils.isEmpty(words)) {
                     return;
                 }
-                ArrayList<String> newinsert = new ArrayList<>(Arrays.asList(userPaste.split("\\s+")));
-                for(int i = 0; i < mEtMnemonics.length; i++) {
+                ArrayList<String> newinsert = new ArrayList<>(Arrays.asList(words.split("\\s+")));
+                for (int i = 0; i < mEtMnemonics.length; i++) {
                     if(newinsert.size() > i) {
                         String toinsert = newinsert.get(i).replace(" ", "");
                         mEtMnemonics[i].setText(toinsert);
                     }
                 }
-                if(newinsert.size() < 23) {
+                if (newinsert.size() < 23) {
                     mEtMnemonics[newinsert.size()].requestFocus();
                 } else {
                     mEtMnemonics[23].requestFocus();
@@ -239,7 +240,32 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                 onCheckMnemonicCnt();
 
             } else {
-                Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
+                ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+                if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+                    String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getBaseContext()).toString().trim();
+                    if(TextUtils.isEmpty(userPaste)) {
+                        Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    ArrayList<String> newinsert = new ArrayList<>(Arrays.asList(userPaste.split("\\s+")));
+                    for (int i = 0; i < mEtMnemonics.length; i++) {
+                        if(newinsert.size() > i) {
+                            String toinsert = newinsert.get(i).replace(" ", "");
+                            mEtMnemonics[i].setText(toinsert);
+                        }
+                    }
+                    if (newinsert.size() < 23) {
+                        mEtMnemonics[newinsert.size()].requestFocus();
+                    } else {
+                        mEtMnemonics[23].requestFocus();
+                    }
+                    mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
+                    mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+                    onCheckMnemonicCnt();
+
+                } else {
+                    Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
+                }
             }
             return;
 

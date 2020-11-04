@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -62,6 +63,8 @@ public class BaseData {
     private BaseApplication         mApp;
     private SharedPreferences       mSharedPreferences;
     private SQLiteDatabase          mSQLiteDatabase;
+    public String                   mCopySalt;
+    public EncResult                mCopyEncResult;
     public ArrayList<Validator>     mAllValidators = new ArrayList<>();
     public ArrayList<Validator>     mMyValidators = new ArrayList<>();
     public ArrayList<Validator>     mTopValidators = new ArrayList<>();
