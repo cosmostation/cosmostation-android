@@ -30,7 +30,7 @@ class RegisterDomain0ViewController: BaseViewController {
         self.balances = account!.account_balances
         self.pageHolderVC = self.parent as? StepGenTxViewController
         self.userInput.layer.borderWidth = 0
-        self.userInput.placeholder = "Your Domain"
+        self.userInput.placeholder = "Your Starname"
         
         userInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
