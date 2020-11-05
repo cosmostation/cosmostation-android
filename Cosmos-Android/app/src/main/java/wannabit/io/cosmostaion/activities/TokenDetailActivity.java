@@ -60,10 +60,16 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
@@ -665,6 +671,12 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     Picasso.get().load(TOKEN_IMG_URL+mBnbToken.original_symbol+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.mTokenImg);
                 } catch (Exception e) {}
 
+                if (mBalance.symbol.equals(TOKEN_HTLC_BINANCE_BTCB) || mBalance.symbol.equals(TOKEN_HTLC_BINANCE_XRPB) || mBalance.symbol.equals(TOKEN_HTLC_BINANCE_BUSD)) {
+                    holder.mBtnBep3Send.setVisibility(View.VISIBLE);
+                } else {
+                    holder.mBtnBep3Send.setVisibility(View.GONE);
+                }
+
             } else if (mBaseChain.equals(BNB_TEST) && mBnbToken != null) {
                 holder.mTokenLink.setVisibility(View.VISIBLE);
                 holder.mTvTokenSymbol.setText(mBnbToken.original_symbol);
@@ -717,7 +729,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     Picasso.get().load(KAVA_COIN_IMG_URL+mBalance.symbol+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.mTokenImg);
 
                 } catch (Exception e) { }
-                if (mBalance.symbol.equals(TOKEN_HTLC_KAVA_BNB)) {
+                if (mBalance.symbol.equals(TOKEN_HTLC_KAVA_BNB) || mBalance.symbol.equals(TOKEN_HTLC_KAVA_BTCB) || mBalance.symbol.equals(TOKEN_HTLC_KAVA_XRPB) || mBalance.symbol.equals(TOKEN_HTLC_KAVA_BUSD)) {
                     holder.mBtnBep3Send.setVisibility(View.VISIBLE);
                 } else {
                     holder.mBtnBep3Send.setVisibility(View.GONE);

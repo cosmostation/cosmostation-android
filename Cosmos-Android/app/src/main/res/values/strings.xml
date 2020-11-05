@@ -1147,7 +1147,7 @@
     <string name="error_no_mattched_starname">Valide starname, but there is no mattching address with this chain.</string>
     <string name="error_starname_self_send">Valide starname, but self sending is not support.</string>
     <string name="error_bep3_supply_full">The swap has reached its network capacity.</string>
-    <string name="error_bep3_under_min_amount">Need more than 0.00001 balance for Interchain send.</string>
+    <string name="error_bep3_under_min_amount">Need more balance for Interchain send.</string>
     <string name="error_invalid_domain_format">Invalid domain format, please insert another text for domain</string>
     <string name="error_already_registered_domain">This domain already registered. please use another text for domain</string>
     <string name="error_not_enough_starname_fee">Not enough available balance for starname fee.</string>

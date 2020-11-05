@@ -26,10 +26,17 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_RELAY_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_HTLC_CONFIRM = 9104;
@@ -105,14 +112,20 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
                 mSendDenomTv.setText(getString(R.string.str_bnb_c));
                 mSendDenomTv.setTextColor(getResources().getColor(R.color.colorBnb));
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
                 mSendDenomTv.setText(getString(R.string.str_btc_c));
+                mSendDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
+                mSendDenomTv.setText("XRP");
+                mSendDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
+                mSendDenomTv.setText("BUSD");
+                mSendDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
             }
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mSendFeeDenomTv);
 
             mSendAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount, 0, 8));
             mSendFeeAmountTv.setText(WDp.getDpAmount2(getContext(), sendFeeAmount, 0, 8));
-            WLog.w("mRecipientChain " + getSActivity().mRecipientChain.getChain());
             mReceiveChainTv.setText(WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
             mReceiveAddressTv.setText(getSActivity().mRecipientAccount.address);
 
@@ -135,10 +148,19 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
                 mReceiveAmountDenomTv.setTextColor(getResources().getColor(R.color.colorBnb));
                 mRelayFeeAmountDenomTv.setTextColor(getResources().getColor(R.color.colorBnb));
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
+                mReceiveAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+                mRelayFeeAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_XRPB)) {
+                mReceiveAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+                mRelayFeeAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BUSD)) {
+                mReceiveAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+                mRelayFeeAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
             }
             WDp.DpMainDenom(getContext(), getSActivity().mRecipientChain.getChain(), mClaimFeeDenomTv);
 
-            BigDecimal relayFee = new BigDecimal(FEE_BEP3_RELAY_FEE).movePointRight(mDecimal);
+            BigDecimal relayFee = getSActivity().mKavaBep3Param2.getSupportedSwapAssetFee(getSActivity().mToSwapDenom);
             mReceiveAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount.subtract(relayFee), mDecimal, mDecimal));
             mRelayFeeAmountTv.setText(WDp.getDpAmount2(getContext(), relayFee, mDecimal, mDecimal));
             mClaimFeeAmountTv.setText(WDp.getDpAmount2(getContext(), claimFeeAmount, 0, mDecimal));
@@ -149,14 +171,19 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
                 mReceiveAmountDenomTv.setText(getString(R.string.str_bnb_c));
                 mRelayFeeAmountDenomTv.setText(getString(R.string.str_bnb_c));
-
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
                 mReceiveAmountDenomTv.setText(getString(R.string.str_btc_c));
                 mRelayFeeAmountDenomTv.setText(getString(R.string.str_btc_c));
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
+                mReceiveAmountDenomTv.setText("XRP");
+                mRelayFeeAmountDenomTv.setText("XRP");
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
+                mReceiveAmountDenomTv.setText("BUSD");
+                mRelayFeeAmountDenomTv.setText("BUSD");
             }
             WDp.DpMainDenom(getContext(), getSActivity().mRecipientChain.getChain(), mClaimFeeDenomTv);
 
-            BigDecimal relayFee = new BigDecimal(FEE_BEP3_RELAY_FEE);
+            BigDecimal relayFee = getSActivity().mKavaBep3Param2.getSupportedSwapAssetFee(getSActivity().mToSwapDenom).movePointLeft(8);
             mReceiveAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount.subtract(relayFee), 0, 8));
             mRelayFeeAmountTv.setText(WDp.getDpAmount2(getContext(), relayFee, 0, 8));
             mClaimFeeAmountTv.setText(WDp.getDpAmount2(getContext(), claimFeeAmount, 6, 6));
