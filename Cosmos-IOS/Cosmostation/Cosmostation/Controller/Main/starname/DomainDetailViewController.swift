@@ -234,7 +234,7 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let info = res as? [String : Any] else {
+                guard let info = res as? [String : Any], info["error"] == nil else {
                     self.onFetchFinished()
                     return
                 }
