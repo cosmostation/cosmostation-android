@@ -102,7 +102,7 @@ public class KavaSwapParam2 {
     }
     
     public func getSupportedSwapAssetMin(_ denom: String) -> NSDecimalNumber {
-        return NSDecimalNumber.init(string: getSupportedSwapAsset(denom)?.min_swap_amount)
+        return NSDecimalNumber.init(string: getSupportedSwapAsset(denom)?.min_swap_amount).adding(getSupportedSwapAssetFee(denom))
     }
     
     public func getSupportedSwapAssetFee(_ denom: String) -> NSDecimalNumber {
