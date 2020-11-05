@@ -300,14 +300,32 @@ class WKey {
     
     static func getSwapId(_ toChain: ChainType, _ toSendCoin: Array<Coin>,  _ randomNumnerHash: String, _ otherSender: String) -> String {
         if (toChain == ChainType.BINANCE_MAIN) {
-            let senderData = getDatafromDpAddress(BINANCE_MAIN_BNB_DEPUTY)
+            var senderData: Data?
+            if (toSendCoin[0].denom  == TOKEN_HTLC_KAVA_BNB) {
+                senderData = getDatafromDpAddress(BINANCE_MAIN_BNB_DEPUTY)
+            } else if (toSendCoin[0].denom == TOKEN_HTLC_KAVA_BTCB) {
+                senderData = getDatafromDpAddress(BINANCE_MAIN_BTCB_DEPUTY)
+            } else if (toSendCoin[0].denom == TOKEN_HTLC_KAVA_XRPB) {
+                senderData = getDatafromDpAddress(BINANCE_MAIN_XRPB_DEPUTY)
+            } else if (toSendCoin[0].denom == TOKEN_HTLC_KAVA_BUSD) {
+                senderData = getDatafromDpAddress(BINANCE_MAIN_BUSD_DEPUTY)
+            }
             let otherSenderData = otherSender.data(using: .utf8)
             let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
             let hash = Crypto.sha256(Data.fromHex(add)!)
             return hash.hexEncodedString()
             
         } else if (toChain == ChainType.KAVA_MAIN) {
-            let senderData = getDatafromDpAddress(KAVA_MAIN_BNB_DEPUTY)
+            var senderData: Data?
+            if (toSendCoin[0].denom == TOKEN_HTLC_BINANCE_BNB) {
+                senderData = getDatafromDpAddress(KAVA_MAIN_BNB_DEPUTY)
+            } else if (toSendCoin[0].denom == TOKEN_HTLC_BINANCE_BTCB) {
+                senderData = getDatafromDpAddress(KAVA_MAIN_BTCB_DEPUTY)
+            } else if (toSendCoin[0].denom == TOKEN_HTLC_BINANCE_XRPB) {
+                senderData = getDatafromDpAddress(KAVA_MAIN_XRPB_DEPUTY)
+            } else if (toSendCoin[0].denom == TOKEN_HTLC_BINANCE_BUSD) {
+                senderData = getDatafromDpAddress(KAVA_MAIN_BUSD_DEPUTY)
+            }
             let otherSenderData = otherSender.data(using: .utf8)
             let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
             let hash = Crypto.sha256(Data.fromHex(add)!)

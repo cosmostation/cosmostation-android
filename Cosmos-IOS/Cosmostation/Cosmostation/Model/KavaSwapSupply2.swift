@@ -71,6 +71,9 @@ public class KavaSwapSupply2 {
             if (denom.lowercased().starts(with: supply.incoming_supply.denom.lowercased())) {
                 return supply
             }
+            if (denom.lowercased().starts(with: "xrp") && supply.incoming_supply.denom.lowercased().starts(with: "xrp")) {
+                return supply
+            }
         }
         return nil
     }

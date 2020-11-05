@@ -10,7 +10,7 @@ import Foundation
 import SQLite
 
 let SHOW_LOG                            = true;
-let SUPPORT_BEP3_SWAP                   = false;
+let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
 let KEY_RECENT_CHAIN                    = "KEY_RECENT_CHAIN"
@@ -678,8 +678,6 @@ let GAS_FEE_AMOUNT_IRIS_REWARD_MUX          = "5000"
 
 
 let GAS_FEE_BNB_TRANSFER                    = "0.000375"
-let FEE_BEP3_RELAY_FEE                      = "0.00001"
-let FEE_BEP3_SEND_MIN                       = "0.10000"
 
 let KAVA_GAS_FEE_AMOUNT_LOW                 = "150000"
 let KAVA_GAS_FEE_AMOUNT_SEND                = "200000"
@@ -734,6 +732,14 @@ let SECRET_GAS_AMOUNT_VOTE                  = "100000"
 // Constant for BEP3-Swap
 let BINANCE_MAIN_BNB_DEPUTY                 = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn"
 let KAVA_MAIN_BNB_DEPUTY                    = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6"
+let BINANCE_MAIN_BTCB_DEPUTY                = "bnb1xz3xqf4p2ygrw9lhp5g5df4ep4nd20vsywnmpr"
+let KAVA_MAIN_BTCB_DEPUTY                   = "kava14qsmvzprqvhwmgql9fr0u3zv9n2qla8zhnm5pc"
+let BINANCE_MAIN_XRPB_DEPUTY                = "bnb15jzuvvg2kf0fka3fl2c8rx0kc3g6wkmvsqhgnh"
+let KAVA_MAIN_XRPB_DEPUTY                   = "kava1c0ju5vnwgpgxnrktfnkccuth9xqc68dcdpzpas"
+let BINANCE_MAIN_BUSD_DEPUTY                = "bnb10zq89008gmedc6rrwzdfukjk94swynd7dl97w8"
+let KAVA_MAIN_BUSD_DEPUTY                   = "kava1hh4x3a4suu5zyaeauvmv7ypf7w9llwlfufjmuu"
+
+
 //For 9000
 let BINANCE_TEST_BNB_DEPUTY                 = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h"
 let KAVA_TEST_BNB_DEPUTY                    = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl"
@@ -742,6 +748,14 @@ let KAVA_TEST_BTC_DEPUTY                    = "kava1kla4wl0ccv7u85cemvs3y987hqk0
 
 let TOKEN_HTLC_BINANCE_BNB                  = "BNB"
 let TOKEN_HTLC_KAVA_BNB                     = "bnb"
+let TOKEN_HTLC_BINANCE_BTCB                 = "BTCB-1DE"
+let TOKEN_HTLC_KAVA_BTCB                    = "btcb"
+let TOKEN_HTLC_BINANCE_XRPB                 = "XRP-BF2"
+let TOKEN_HTLC_KAVA_XRPB                    = "xrpb"
+let TOKEN_HTLC_BINANCE_BUSD                 = "BUSD-BD1"
+let TOKEN_HTLC_KAVA_BUSD                    = "busd"
+
+
 
 let TOKEN_HTLC_BINANCE_TEST_BNB             = "BNB"
 let TOKEN_HTLC_BINANCE_TEST_BTC             = "BTCB-101"
@@ -879,9 +893,15 @@ enum ChainType: String {
         var result = Array<String>()
         if (chain == BINANCE_MAIN) {
             result.append(TOKEN_HTLC_BINANCE_BNB)
+            result.append(TOKEN_HTLC_BINANCE_BTCB)
+            result.append(TOKEN_HTLC_BINANCE_XRPB)
+            result.append(TOKEN_HTLC_BINANCE_BUSD)
             
         } else if (chain == KAVA_MAIN) {
             result.append(TOKEN_HTLC_KAVA_BNB)
+            result.append(TOKEN_HTLC_KAVA_BTCB)
+            result.append(TOKEN_HTLC_KAVA_XRPB)
+            result.append(TOKEN_HTLC_KAVA_BUSD)
             
         } else if (chain == BINANCE_TEST) {
             result.append(TOKEN_HTLC_BINANCE_TEST_BNB)

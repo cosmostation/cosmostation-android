@@ -26,6 +26,15 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        
+        AmountInput.delegate = self
+        AmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        let dp = "+ " + WUtils.decimalNumberToLocaleString(NSDecimalNumber(string: "0.1"), 1)
+        btnAdd01.setTitle(dp, for: .normal)
+    }
+    
+    func onUpdateView() {
         if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             mDpDecimal = 8;
             if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BNB) {
@@ -33,10 +42,21 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
                 availableDenom.textColor = COLOR_BNB
                 maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!).subtracting(WUtils.plainStringToDecimal(GAS_FEE_BNB_TRANSFER))
                 
-            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BTC) {
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BTCB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BTC) {
                 availableDenom.text = "BTC"
                 availableDenom.textColor = .white
                 maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!)
+                
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_XRPB) {
+                availableDenom.text = "XRP"
+                availableDenom.textColor = .white
+                maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!)
+                
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BUSD) {
+                availableDenom.text = "BUSD"
+                availableDenom.textColor = .white
+                maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!)
+                
             }
             
             let remainCap = pageHolderVC.mSwapRemainCap.multiplying(byPowerOf10: -mDpDecimal)
@@ -49,7 +69,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             }
             maxAvailableAmount.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, maxAvailableAmount.font, 0, mDpDecimal)
             
-            minAvailable = NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE)
+            minAvailable = self.pageHolderVC.mKavaSwapParam2!.getSupportedSwapAssetMin(pageHolderVC.mHtlcDenom!).multiplying(byPowerOf10: -mDpDecimal)
             minAvailableAmount.attributedText = WUtils.displayAmount2(minAvailable.stringValue, minAvailableAmount.font, 0, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
@@ -58,8 +78,16 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
                 availableDenom.text = "BNB"
                 availableDenom.textColor = COLOR_BNB
                 
-            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_TEST_BTC) {
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_BTCB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_TEST_BTC) {
                 availableDenom.text = "BTC"
+                availableDenom.textColor = .white
+                
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_XRPB) {
+                availableDenom.text = "XRP"
+                availableDenom.textColor = .white
+                
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_BUSD) {
+                availableDenom.text = "BUSD"
                 availableDenom.textColor = .white
             }
             maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!)
@@ -70,17 +98,11 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             }
             maxAvailableAmount.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, maxAvailableAmount.font, mDpDecimal, mDpDecimal)
             
-            minAvailable = NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE).multiplying(byPowerOf10: mDpDecimal)
+            minAvailable = self.pageHolderVC.mKavaSwapParam2!.getSupportedSwapAssetMin(pageHolderVC.mHtlcDenom!)
             minAvailableAmount.attributedText = WUtils.displayAmount2(minAvailable.stringValue, minAvailableAmount.font, mDpDecimal, mDpDecimal)
 
             print("minAvailable ", minAvailable)
         }
-        
-        AmountInput.delegate = self
-        AmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
-        let dp = "+ " + WUtils.decimalNumberToLocaleString(NSDecimalNumber(string: "0.1"), 1)
-        btnAdd01.setTitle(dp, for: .normal)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -154,6 +176,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
     override func enableUserInteraction() {
         self.btnBack.isUserInteractionEnabled = true
         self.btnNext.isUserInteractionEnabled = true
+        onUpdateView()
     }
     
     @IBAction func onClickBack(_ sender: UIButton) {
@@ -163,7 +186,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
     }
     
     @IBAction func onClickNext(_ sender: UIButton) {
-        if(isValiadAmount()) {
+        if (isValiadAmount()) {
             let userInput = WUtils.localeStringToDecimal((AmountInput.text?.trimmingCharacters(in: .whitespaces))!)
             var toSendCoin:Coin?
             if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
