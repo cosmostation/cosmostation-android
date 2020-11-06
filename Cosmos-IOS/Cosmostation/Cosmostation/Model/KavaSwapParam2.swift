@@ -86,6 +86,9 @@ public class KavaSwapParam2 {
             if (denom.lowercased().starts(with: assetParam.denom.lowercased())) {
                 return assetParam
             }
+            if (denom.lowercased().starts(with: "xrp") && assetParam.denom.lowercased().starts(with: "xrp")) {
+                return assetParam
+            }
         }
         return nil
     }
@@ -96,5 +99,13 @@ public class KavaSwapParam2 {
     
     public func getSupportedSwapAssetMaxOnce(_ denom: String) -> NSDecimalNumber {
         return NSDecimalNumber.init(string: getSupportedSwapAsset(denom)?.max_swap_amount)
+    }
+    
+    public func getSupportedSwapAssetMin(_ denom: String) -> NSDecimalNumber {
+        return NSDecimalNumber.init(string: getSupportedSwapAsset(denom)?.min_swap_amount).adding(getSupportedSwapAssetFee(denom))
+    }
+    
+    public func getSupportedSwapAssetFee(_ denom: String) -> NSDecimalNumber {
+        return NSDecimalNumber.init(string: getSupportedSwapAsset(denom)?.fixed_fee)
     }
 }

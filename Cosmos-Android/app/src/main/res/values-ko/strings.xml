@@ -1015,7 +1015,7 @@
     <string name="error_no_mattched_starname">유효한 스타네임 이지만, 현재 체인에 등록된 유효한 주소가 없습니다.</string>
     <string name="error_starname_self_send">유효한 스타네임 이지만, 자기 자신의 주소로는 송금할 수 없습니다.</string>
     <string name="error_bep3_supply_full">현재 스왑 가능한 수량이 모두 소진되었습니다.</string>
-    <string name="error_bep3_under_min_amount">최소 0.00001보다 많이 보낼 수 있습니다.</string>
+    <string name="error_bep3_under_min_amount">스왑가능 최수 수량보다 적습니다.</string>
     <string name="error_invalid_domain_format">부정확한 도메인 포멧 입니다. 다른값을 입력하세요.</string>
     <string name="error_already_registered_domain">이미 등록된 도메인입니다. 다른값을 입력하세요.</string>
     <string name="error_not_enough_starname_fee">스타네임 Fee를 지불할 충분한 금액이 없습니다.</string>

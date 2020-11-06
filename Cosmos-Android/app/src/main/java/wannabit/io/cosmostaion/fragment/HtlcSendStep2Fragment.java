@@ -30,11 +30,17 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_RELAY_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -108,9 +114,16 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
                 mDenomTitle.setText(getString(R.string.str_bnb_c));
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
                 mMaxAvailable = getSActivity().getAvailable().subtract(new BigDecimal(FEE_BNB_SEND));
-
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
                 mDenomTitle.setText(getString(R.string.str_btc_c));
+                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mMaxAvailable = getSActivity().getAvailable();
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
+                mDenomTitle.setText("XRP");
+                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mMaxAvailable = getSActivity().getAvailable();
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
+                mDenomTitle.setText("BUSD");
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
                 mMaxAvailable = getSActivity().getAvailable();
             }
@@ -125,7 +138,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             }
             mMaxAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, mDecimal));
 
-            mMinAvailable = new BigDecimal(FEE_BEP3_RELAY_FEE);
+            mMinAvailable = getSActivity().mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom).movePointLeft(8);
             mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, 0, mDecimal));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
@@ -134,9 +147,14 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
                 mDenomTitle.setText(getString(R.string.str_bnb_c));
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
-
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
                 mDenomTitle.setText(getString(R.string.str_btc_c));
+                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_XRPB)) {
+                mDenomTitle.setText("XRP");
+                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BUSD)) {
+                mDenomTitle.setText("BUSD");
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
             }
             mMaxAvailable = getSActivity().getAvailable();
@@ -147,7 +165,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             }
             mMaxAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDecimal, mDecimal));
 
-            mMinAvailable = new BigDecimal(FEE_BEP3_RELAY_FEE).movePointRight(mDecimal);
+            mMinAvailable = getSActivity().mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom);
             mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, mDecimal, mDecimal));
         }
 
@@ -217,8 +235,6 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                             }
                         }
-
-
                         mAmountInput.setSelection(mAmountInput.getText().length());
 
                     } catch (Exception e) { }

@@ -505,7 +505,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.actionSend  = {
                 self.onSendToken()
             }
-            if (balance?.balance_denom == TOKEN_HTLC_BINANCE_TEST_BTC) {
+            if (balance?.balance_denom == TOKEN_HTLC_BINANCE_BTCB || balance?.balance_denom == TOKEN_HTLC_BINANCE_XRPB || balance?.balance_denom == TOKEN_HTLC_BINANCE_XRPB || balance?.balance_denom == TOKEN_HTLC_BINANCE_TEST_BTC) {
                 cell?.btnBep3Send.isHidden = false
                 cell?.actionBep3Send  = {
                     self.onClickBep3Send(self.balance?.balance_denom)
@@ -546,7 +546,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onSendToken()
             }
             if (chainType == ChainType.KAVA_MAIN) {
-                if (balance?.balance_denom == TOKEN_HTLC_KAVA_BNB) {
+                if (balance?.balance_denom == TOKEN_HTLC_KAVA_BNB || balance?.balance_denom == TOKEN_HTLC_KAVA_BTCB || balance?.balance_denom == TOKEN_HTLC_KAVA_XRPB ||
+                        balance?.balance_denom == TOKEN_HTLC_KAVA_BUSD) {
                     cell?.btnBep3Send.isHidden = false
                     cell?.actionBep3Send  = {
                         self.onClickBep3Send(self.balance?.balance_denom)

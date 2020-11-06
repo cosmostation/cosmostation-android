@@ -100,6 +100,15 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
                 if (toSendCoin == TOKEN_HTLC_BINANCE_BNB) {
                     cell!.coinImg.image = UIImage(named: "bnbTokenImg")
                     cell!.coinTitle.text = "BNB"
+                } else if (toSendCoin == TOKEN_HTLC_BINANCE_BTCB) {
+                    cell?.coinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "BTCB.png")!)
+                    cell!.coinTitle.text = "BTC"
+                } else if (toSendCoin == TOKEN_HTLC_BINANCE_XRPB) {
+                    cell?.coinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "XRP.png")!)
+                    cell!.coinTitle.text = "XRP"
+                } else if (toSendCoin == TOKEN_HTLC_BINANCE_BUSD) {
+                    cell?.coinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "BUSD.png")!)
+                    cell!.coinTitle.text = "BUSD"
                 }
                 
             } else if (chainType! == ChainType.BINANCE_TEST) {
@@ -113,8 +122,17 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
                 
             } else if (chainType! == ChainType.KAVA_MAIN) {
                 if (toSendCoin == TOKEN_HTLC_KAVA_BNB) {
-                    cell!.coinImg.image = UIImage(named: "bnbonKavaImg")
+                    cell?.coinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + "bnb.png")!)
                     cell!.coinTitle.text = "BNB"
+                } else if (toSendCoin == TOKEN_HTLC_KAVA_BTCB) {
+                    cell?.coinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + "btcb.png")!)
+                    cell!.coinTitle.text = "BTC"
+                } else if (toSendCoin == TOKEN_HTLC_KAVA_XRPB) {
+                    cell?.coinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL  + "xrpb.png")!)
+                    cell!.coinTitle.text = "XRP"
+                } else if (toSendCoin == TOKEN_HTLC_KAVA_BUSD) {
+                    cell?.coinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL  + "busd.png")!)
+                    cell!.coinTitle.text = "BUSD"
                 }
                 
             } else if (chainType! == ChainType.KAVA_TEST) {

@@ -76,6 +76,9 @@ public class ResKavaBep3Param2 {
             if (denom.toLowerCase().startsWith(asset.denom.toLowerCase())) {
                 return asset;
             }
+            if (denom.toLowerCase().startsWith("xrp") && asset.denom.toLowerCase().startsWith("xrp")) {
+                return asset;
+            }
         }
         return null;
     }
@@ -92,6 +95,24 @@ public class ResKavaBep3Param2 {
         BigDecimal once = BigDecimal.ZERO;
         try {
             once = new BigDecimal(getSupportedSwapAsset(denom).max_swap_amount);
+        } catch (Exception e) {}
+        return once;
+    }
+
+
+
+    public BigDecimal getSupportedSwapAssetMin(String denom) {
+        BigDecimal once = BigDecimal.ZERO;
+        try {
+            once = new BigDecimal(getSupportedSwapAsset(denom).min_swap_amount).add(getSupportedSwapAssetFee(denom));
+        } catch (Exception e) {}
+        return once;
+    }
+
+    public BigDecimal getSupportedSwapAssetFee(String denom) {
+        BigDecimal once = BigDecimal.ZERO;
+        try {
+            once = new BigDecimal(getSupportedSwapAsset(denom).fixed_fee);
         } catch (Exception e) {}
         return once;
     }

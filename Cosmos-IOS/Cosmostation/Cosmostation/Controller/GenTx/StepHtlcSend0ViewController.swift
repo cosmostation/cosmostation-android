@@ -78,6 +78,15 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
             if (toSwapDenom == TOKEN_HTLC_BINANCE_BNB) {
                 sendCoinImg.image = UIImage(named: "bnbTokenImg")
                 self.onSetDpDenom("BNB")
+            } else if (toSwapDenom == TOKEN_HTLC_BINANCE_BTCB) {
+                sendCoinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "BTCB.png")!)
+                self.onSetDpDenom("BTC")
+            } else if (toSwapDenom == TOKEN_HTLC_BINANCE_XRPB) {
+                sendCoinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "XRP.png")!)
+                self.onSetDpDenom("XRP")
+            } else if (toSwapDenom == TOKEN_HTLC_BINANCE_BUSD) {
+                sendCoinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "BUSD.png")!)
+                self.onSetDpDenom("BUSD")
             }
             availableAmount = pageHolderVC.mAccount!.getTokenBalance(toSwapDenom!)
             supplyLimit = kavaSwapParam2!.getSupportedSwapAssetLimit(toSwapDenom!)
@@ -107,6 +116,15 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
             if (toSwapDenom == TOKEN_HTLC_KAVA_BNB) {
                 sendCoinImg.image = UIImage(named: "bnbonKavaImg")
                 self.onSetDpDenom("BNB")
+            } else if (toSwapDenom == TOKEN_HTLC_KAVA_BTCB) {
+                sendCoinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL  + "btcb.png")!)
+                self.onSetDpDenom("BTC")
+            } else if (toSwapDenom == TOKEN_HTLC_KAVA_XRPB) {
+                sendCoinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL  + "xrpb.png")!)
+                self.onSetDpDenom("XRP")
+            } else if (toSwapDenom == TOKEN_HTLC_KAVA_BUSD) {
+                sendCoinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL  + "busd.png")!)
+                self.onSetDpDenom("BUSD")
             }
             availableAmount = pageHolderVC.mAccount!.getTokenBalance(toSwapDenom!)
             supplyLimit = kavaSwapParam2!.getSupportedSwapAssetLimit(toSwapDenom!)
@@ -221,14 +239,9 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))
                         return
                     }
-                    if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-                        self.kavaSwapParam2 = KavaSwapParam2.init(info)
-                        self.onCheckSwapSupply()
-                        
-                    }  else if (self.pageHolderVC.chainType! == ChainType.BINANCE_TEST || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                        self.kavaSwapParam2 = KavaSwapParam2.init(info)
-                        self.onCheckSwapSupply()
-                    }
+                    self.kavaSwapParam2 = KavaSwapParam2.init(info)
+                    self.pageHolderVC.mKavaSwapParam2 = self.kavaSwapParam2
+                    self.onCheckSwapSupply()
 
                 case .failure(let error):
                     self.onShowToast(NSLocalizedString("error_network", comment: ""))
@@ -253,12 +266,8 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))
                         return
                     }
-                    if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-                        self.kavaSwapSupply2 = KavaSwapSupply2.init(info)
-                        
-                    }  else if (self.pageHolderVC.chainType! == ChainType.BINANCE_TEST || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                        self.kavaSwapSupply2 = KavaSwapSupply2.init(info)
-                    }
+                    self.kavaSwapSupply2 = KavaSwapSupply2.init(info)
+                    self.pageHolderVC.mKavaSwapSupply2 = self.kavaSwapSupply2
                     self.updateView()
                     
                 case .failure(let error):
@@ -271,12 +280,12 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
     
     func onCheckMinMinBalance() -> Bool {
         if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-            if (availableAmount.compare(NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE)).rawValue > 0) {
+            if (availableAmount.compare(kavaSwapParam2!.getSupportedSwapAssetMin(toSwapDenom!).multiplying(byPowerOf10: -8)).rawValue > 0) {
                 return true
             }
             
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            if (availableAmount.compare(NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE).multiplying(byPowerOf10: -8) ).rawValue > 0) {
+            if (availableAmount.compare(kavaSwapParam2!.getSupportedSwapAssetMin(toSwapDenom!)).rawValue > 0) {
                 return true
             }
         }

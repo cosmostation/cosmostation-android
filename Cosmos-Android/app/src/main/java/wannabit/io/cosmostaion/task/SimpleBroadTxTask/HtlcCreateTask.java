@@ -40,18 +40,32 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_XRPB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BTC_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BTCB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BUSD_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_XRPB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_BTC_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 public class HtlcCreateTask extends CommonTask {
 
@@ -104,7 +118,20 @@ public class HtlcCreateTask extends CommonTask {
                 HtltReq htltReq = MsgGenerator.getBnbHtlcCreateMsg(mSendChain, mReceiveChain, mSendAccount, mReceiveAccount, mToSendCoins, timestamp, originData);
                 mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
                 mRandomNumberHash = htltReq.getRandomNumberHash();
-                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_MAIN_BNB_DEPUTY, mSendAccount.address).toUpperCase();
+                if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_BINANCE_BNB)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_MAIN_BNB_DEPUTY, mSendAccount.address).toUpperCase();
+
+                } else if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_BINANCE_BTCB)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_MAIN_BTCB_DEPUTY, mSendAccount.address).toUpperCase();
+
+                } else if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_MAIN_XRPB_DEPUTY, mSendAccount.address).toUpperCase();
+
+                } else if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, KAVA_MAIN_BUSD_DEPUTY, mSendAccount.address).toUpperCase();
+
+                }
+
                 WLog.w("BNB_MAIN mRandomNumberHash " + mRandomNumberHash);
                 WLog.w("BNB_MAIN mRandomNumber " + mRandomNumber);
                 WLog.w("BNB_MAIN Send mExpectedSwapId " + mExpectedSwapId);
@@ -201,7 +228,20 @@ public class HtlcCreateTask extends CommonTask {
 
                 mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
                 mRandomNumberHash = WUtil.HexStringToByteArray(createSwapMsg.value.random_number_hash);
-                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_MAIN_BNB_DEPUTY, mSendAccount.address).toUpperCase();
+                if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_BNB)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_MAIN_BNB_DEPUTY, mSendAccount.address).toUpperCase();
+
+                } else if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_BTCB)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_MAIN_BTCB_DEPUTY, mSendAccount.address).toUpperCase();
+
+                } else if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_XRPB)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_MAIN_XRPB_DEPUTY, mSendAccount.address).toUpperCase();
+
+                } else if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_BUSD)) {
+                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_MAIN_BUSD_DEPUTY, mSendAccount.address).toUpperCase();
+
+                }
+
                 ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey);
                 WLog.w("KAVA_MAIN mRandomNumber " + mRandomNumber);
                 WLog.w("KAVA_MAIN Send mExpectedSwapId " + mExpectedSwapId);

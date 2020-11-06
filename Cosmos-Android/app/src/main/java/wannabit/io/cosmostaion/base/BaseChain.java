@@ -3,11 +3,17 @@ package wannabit.io.cosmostaion.base;
 import java.util.ArrayList;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 public enum BaseChain {
     COSMOS_LEGACY1("cosmoshub-1"),
@@ -210,9 +216,15 @@ public enum BaseChain {
         ArrayList<String> result = new ArrayList<>();
         if (fromChain.equals(BNB_MAIN)) {
             result.add(TOKEN_HTLC_BINANCE_BNB);
+            result.add(TOKEN_HTLC_BINANCE_BTCB);
+            result.add(TOKEN_HTLC_BINANCE_XRPB);
+            result.add(TOKEN_HTLC_BINANCE_BUSD);
 
         } else if (fromChain.equals(KAVA_MAIN)) {
             result.add(TOKEN_HTLC_KAVA_BNB);
+            result.add(TOKEN_HTLC_KAVA_BTCB);
+            result.add(TOKEN_HTLC_KAVA_XRPB);
+            result.add(TOKEN_HTLC_KAVA_BUSD);
 
         } else if (fromChain.equals(BNB_TEST)) {
             result.add(TOKEN_HTLC_BINANCE_TEST_BNB);

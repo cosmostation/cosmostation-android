@@ -3,9 +3,9 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = true;
+    public final static boolean IS_SHOWLOG              = false;
     public final static boolean SUPPORT_MOONPAY         = true;
-    public final static boolean SUPPORT_BEP3_SWAP       = false;
+    public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
 
     public final static String DB_NAME                  = "WannaBit";
@@ -364,8 +364,14 @@ public class BaseConstant {
 
 
     //HTLC swap support Token Types
-    public final static String TOKEN_HTLC_BINANCE_BNB               = "BNB";
-    public final static String TOKEN_HTLC_KAVA_BNB                  = "bnb";
+    public final static String  TOKEN_HTLC_BINANCE_BNB               = "BNB";
+    public final static String  TOKEN_HTLC_KAVA_BNB                  = "bnb";
+    public final static String  TOKEN_HTLC_BINANCE_BTCB             = "BTCB-1DE";
+    public final static String  TOKEN_HTLC_KAVA_BTCB                = "btcb";
+    public final static String  TOKEN_HTLC_BINANCE_XRPB             = "XRP-BF2";
+    public final static String  TOKEN_HTLC_KAVA_XRPB                = "xrpb";
+    public final static String  TOKEN_HTLC_BINANCE_BUSD             = "BUSD-BD1";
+    public final static String  TOKEN_HTLC_KAVA_BUSD                = "busd";
 
     public final static String TOKEN_HTLC_BINANCE_TEST_BNB          = "BNB";
     public final static String TOKEN_HTLC_BINANCE_TEST_BTC          = "BTCB-101";
@@ -415,7 +421,7 @@ public class BaseConstant {
     public final static String FEE_KAVA_GAS_AMOUNT_AVERAGE      = "250000";
     public final static String FEE_KAVA_GAS_AMOUNT_REINVEST     = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_REDELEGATE   = "300000";
-    public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "450000";
+    public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "500000";
     public final static String FEE_KAVA_GAS_AMOUNT_BEP3         = "200000";
     public final static String FEE_KAVA_GAS_AMOUNT_HIGH         = "350000";
 
@@ -474,6 +480,15 @@ public class BaseConstant {
 
     public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
     public final static String KAVA_MAIN_BNB_DEPUTY     = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
+    public final static String BINANCE_MAIN_BTCB_DEPUTY = "bnb1xz3xqf4p2ygrw9lhp5g5df4ep4nd20vsywnmpr";
+    public final static String KAVA_MAIN_BTCB_DEPUTY    = "kava14qsmvzprqvhwmgql9fr0u3zv9n2qla8zhnm5pc";
+    public final static String BINANCE_MAIN_XRPB_DEPUTY = "bnb15jzuvvg2kf0fka3fl2c8rx0kc3g6wkmvsqhgnh";
+    public final static String KAVA_MAIN_XRPB_DEPUTY    = "kava1c0ju5vnwgpgxnrktfnkccuth9xqc68dcdpzpas";
+    public final static String BINANCE_MAIN_BUSD_DEPUTY = "bnb10zq89008gmedc6rrwzdfukjk94swynd7dl97w8";
+    public final static String KAVA_MAIN_BUSD_DEPUTY    = "kava1hh4x3a4suu5zyaeauvmv7ypf7w9llwlfufjmuu";
+
+
+
     //For 9000
     public final static String BINANCE_TEST_BNB_DEPUTY  = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
     public final static String KAVA_TEST_BNB_DEPUTY     = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl";

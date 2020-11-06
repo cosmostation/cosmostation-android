@@ -1654,6 +1654,15 @@ class WUtils {
         return nil
     }
     
+    static func getBnbToken(_ bnbTokens:Array<BnbToken>, _ denom:String) -> BnbToken? {
+        for bnbToken in bnbTokens {
+            if (bnbToken.symbol == denom) {
+                return bnbToken
+            }
+        }
+        return nil
+    }
+    
     static func getBnbMainToken(_ bnbTokens:Array<BnbToken>) -> BnbToken? {
         for bnbToken in bnbTokens {
             if (bnbToken.symbol == BNB_MAIN_DENOM) {

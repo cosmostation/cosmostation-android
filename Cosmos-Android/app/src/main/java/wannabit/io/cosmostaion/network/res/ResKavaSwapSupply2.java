@@ -42,6 +42,9 @@ public class ResKavaSwapSupply2 {
                 if (denom.toLowerCase().startsWith(supply.incoming_supply.denom.toLowerCase())) {
                     return supply;
                 }
+                if (denom.toLowerCase().startsWith("xrp") && supply.incoming_supply.denom.toLowerCase().startsWith("xrp")) {
+                    return supply;
+                }
             }
         }
         return null;

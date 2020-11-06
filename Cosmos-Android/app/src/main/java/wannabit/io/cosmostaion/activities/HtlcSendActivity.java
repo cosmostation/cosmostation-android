@@ -29,6 +29,8 @@ import wannabit.io.cosmostaion.fragment.HtlcSendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcSendStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply2;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -55,6 +57,9 @@ public class HtlcSendActivity extends BaseActivity {
     public BigDecimal               mTotalCap = BigDecimal.ZERO;
     public BigDecimal               mRemainCap = BigDecimal.ZERO;
     public BigDecimal               mMaxOnce = BigDecimal.ZERO;
+
+    public ResKavaBep3Param2       mKavaBep3Param2;
+    public ResKavaSwapSupply2      mKavaSuppies2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

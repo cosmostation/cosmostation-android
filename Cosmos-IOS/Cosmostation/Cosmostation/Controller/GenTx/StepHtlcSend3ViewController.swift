@@ -62,8 +62,14 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
             if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BNB) {
                 sendAmountDenom.text = "BNB"
                 sendAmountDenom.textColor = COLOR_BNB
-            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BTC) {
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BTCB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BTC) {
                 sendAmountDenom.text = "BTC"
+                sendAmountDenom.textColor = .white
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_XRPB) {
+                sendAmountDenom.text = "XRP"
+                sendAmountDenom.textColor = .white
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BUSD) {
+                sendAmountDenom.text = "BUSD"
                 sendAmountDenom.textColor = .white
             }
             sendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, sendAmountLabel.font, 0, 8)
@@ -76,8 +82,14 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
             if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_TEST_BNB) {
                 sendAmountDenom.text = "BNB"
                 sendAmountDenom.textColor = COLOR_BNB
-            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_TEST_BTC) {
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_BTCB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_TEST_BTC) {
                 sendAmountDenom.text = "BTC"
+                sendAmountDenom.textColor = .white
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_XRPB) {
+                sendAmountDenom.text = "XRP"
+                sendAmountDenom.textColor = .white
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_BUSD) {
+                sendAmountDenom.text = "BUSD"
                 sendAmountDenom.textColor = .white
             }
             sendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, sendAmountLabel.font, mDpDecimal, mDpDecimal)
@@ -95,10 +107,22 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
             if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_TEST_BNB) {
                 receiveAmountDenom.textColor = COLOR_BNB
                 relayFeeDenom.textColor = COLOR_BNB
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_BTCB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_TEST_BTC) {
+                receiveAmountDenom.text = "BTC"
+                relayFeeDenom.text = "BTC"
+                
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_XRPB) {
+                receiveAmountDenom.text = "XRP"
+                relayFeeDenom.text = "XRP"
+                
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_BUSD) {
+                receiveAmountDenom.text = "BUSD"
+                relayFeeDenom.text = "BUSD"
+                
             }
             WUtils.setDenomTitle(pageHolderVC.mHtlcToChain!, claimFeeDenom)
             
-            relayerFee = NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE).multiplying(byPowerOf10: mDpDecimal)
+            relayerFee = self.pageHolderVC.mKavaSwapParam2!.getSupportedSwapAssetFee(pageHolderVC.mHtlcDenom!)
             receiveAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.subtracting(relayerFee).stringValue , receiveAmountLabel.font, mDpDecimal, mDpDecimal)
             relayFeeLabel.attributedText = WUtils.displayAmount2(relayerFee.stringValue, relayFeeLabel.font, mDpDecimal, mDpDecimal)
             claimFeeLabel.attributedText = WUtils.displayAmount2(claimFeeAmount.stringValue, claimFeeLabel.font, 0, mDpDecimal)
@@ -108,13 +132,19 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
             if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BNB) {
                 receiveAmountDenom.text = "BNB"
                 relayFeeDenom.text = "BNB"
-            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BTC) {
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BTCB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BTC) {
                 receiveAmountDenom.text = "BTC"
                 relayFeeDenom.text = "BTC"
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_XRPB) {
+                receiveAmountDenom.text = "XRP"
+                relayFeeDenom.text = "XRP"
+            } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BUSD) {
+                receiveAmountDenom.text = "BUSD"
+                relayFeeDenom.text = "BUSD"
             }
             WUtils.setDenomTitle(pageHolderVC.mHtlcToChain!, claimFeeDenom)
             
-            relayerFee = NSDecimalNumber.init(string: FEE_BEP3_RELAY_FEE)
+            relayerFee = self.pageHolderVC.mKavaSwapParam2!.getSupportedSwapAssetFee(pageHolderVC.mHtlcDenom!).multiplying(byPowerOf10: -8)
             receiveAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.subtracting(relayerFee).stringValue , receiveAmountLabel.font, 0, 8)
             relayFeeLabel.attributedText = WUtils.displayAmount2(relayerFee.stringValue, relayFeeLabel.font, 0, 8)
             claimFeeLabel.attributedText = WUtils.displayAmount2(claimFeeAmount.stringValue, claimFeeLabel.font, 6, 6)

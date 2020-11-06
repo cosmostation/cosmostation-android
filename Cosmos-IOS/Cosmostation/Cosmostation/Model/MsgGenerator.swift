@@ -315,8 +315,23 @@ class MsgGenerator {
                                     _ sendCoin: Array<Coin>, _ timeStamp: Int64, _ randomNumberHash: String, _ wallet: Wallet) -> Message {
         let sendAmount = NSDecimalNumber.init(string: sendCoin[0].amount).multiplying(byPowerOf10: 8)
         if (fromChain == ChainType.BINANCE_MAIN) {
-            return Message.createHtlc(toAddress: BINANCE_MAIN_BNB_DEPUTY,
-                                      otherFrom: KAVA_MAIN_BNB_DEPUTY,
+            var bnb_duputy = ""
+            var kava_duputy = ""
+            if (sendCoin[0].denom == TOKEN_HTLC_BINANCE_BNB) {
+                bnb_duputy = BINANCE_MAIN_BNB_DEPUTY
+                kava_duputy = KAVA_MAIN_BNB_DEPUTY
+            } else if (sendCoin[0].denom  == TOKEN_HTLC_BINANCE_BTCB) {
+                bnb_duputy = BINANCE_MAIN_BTCB_DEPUTY
+                kava_duputy = KAVA_MAIN_BTCB_DEPUTY
+            } else if (sendCoin[0].denom  == TOKEN_HTLC_BINANCE_XRPB) {
+                bnb_duputy = BINANCE_MAIN_XRPB_DEPUTY
+                kava_duputy = KAVA_MAIN_XRPB_DEPUTY
+            } else if (sendCoin[0].denom  == TOKEN_HTLC_BINANCE_BUSD) {
+                bnb_duputy = BINANCE_MAIN_BUSD_DEPUTY
+                kava_duputy = KAVA_MAIN_BUSD_DEPUTY
+            }
+            return Message.createHtlc(toAddress: bnb_duputy,
+                                      otherFrom: kava_duputy,
                                       otherTo: toAccount.account_address,
                                       timestamp: timeStamp,
                                       randomNumberHash: randomNumberHash,
@@ -330,16 +345,16 @@ class MsgGenerator {
             
         } else {
             var bnb_duputy = ""
-            var btc_duputy = ""
+            var kava_duputy = ""
             if (sendCoin[0].denom == TOKEN_HTLC_BINANCE_TEST_BNB) {
                 bnb_duputy = BINANCE_TEST_BNB_DEPUTY
-                btc_duputy = KAVA_TEST_BNB_DEPUTY
+                kava_duputy = KAVA_TEST_BNB_DEPUTY
             } else if (sendCoin[0].denom  == TOKEN_HTLC_BINANCE_TEST_BTC) {
                 bnb_duputy = BINANCE_TEST_BTC_DEPUTY
-                btc_duputy = KAVA_TEST_BTC_DEPUTY
+                kava_duputy = KAVA_TEST_BTC_DEPUTY
             }
             return Message.createHtlc(toAddress: bnb_duputy,
-                                      otherFrom: btc_duputy,
+                                      otherFrom: kava_duputy,
                                       otherTo: toAccount.account_address,
                                       timestamp: timeStamp,
                                       randomNumberHash: randomNumberHash,
@@ -359,8 +374,19 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (fromChain == ChainType.KAVA_MAIN) {
-            value.to = KAVA_MAIN_BNB_DEPUTY
-            value.sender_other_chain = BINANCE_MAIN_BNB_DEPUTY
+            if (sendCoin[0].denom == TOKEN_HTLC_KAVA_BNB) {
+                value.to = KAVA_MAIN_BNB_DEPUTY
+                value.sender_other_chain = BINANCE_MAIN_BNB_DEPUTY
+            } else if (sendCoin[0].denom  == TOKEN_HTLC_KAVA_BTCB) {
+                value.to = KAVA_MAIN_BTCB_DEPUTY
+                value.sender_other_chain = BINANCE_MAIN_BTCB_DEPUTY
+            } else if (sendCoin[0].denom  == TOKEN_HTLC_KAVA_XRPB) {
+                value.to = KAVA_MAIN_XRPB_DEPUTY
+                value.sender_other_chain = BINANCE_MAIN_XRPB_DEPUTY
+            } else if (sendCoin[0].denom  == TOKEN_HTLC_KAVA_BUSD) {
+                value.to = KAVA_MAIN_BUSD_DEPUTY
+                value.sender_other_chain = BINANCE_MAIN_BUSD_DEPUTY
+            }
             value.from = fromAccount.account_address
             value.recipient_other_chain = toAccount.account_address
             
