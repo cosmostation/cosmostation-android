@@ -69,6 +69,7 @@
     <string name="str_bnb_c" translatable="false">BNB</string>
     <string name="str_btc_c" translatable="false">BTC</string>
     <string name="str_ctk_c" translatable="false">CTK</string>
+    <string name="str_akt_c" translatable="false">AKT</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>

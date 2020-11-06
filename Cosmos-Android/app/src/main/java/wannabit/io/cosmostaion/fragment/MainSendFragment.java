@@ -1255,6 +1255,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/"));
                 startActivity(guideIntent);
 
+            } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://akash.network/"));
+                startActivity(guideIntent);
+
             }
 
         } else if (v.equals(mFaqBtn)) {
@@ -1293,6 +1297,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
             } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/blog"));
+                startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://akash.network/blog/"));
                 startActivity(guideIntent);
 
             }
@@ -1341,15 +1349,24 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/starname"));
                 startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/certik"));
+                startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/akash-network"));
+                startActivity(guideIntent);
+
             }
 
-        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward) || v.equals(mBtnBandDeleagte) || v.equals(mBtnIovStake) || v.equals(mBtnCertikReward)) {
+        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward) || v.equals(mBtnBandDeleagte) || v.equals(mBtnIovStake) || v.equals(mBtnCertikReward) || v.equals(mBtnAkashReward)) {
             Intent validators = new Intent(getMainActivity(), ValidatorListActivity.class);
             validators.putExtra("rewards", getMainActivity().mRewards);
             validators.putExtra("irisreward", getMainActivity().mIrisReward);
             startActivity(validators);
 
-        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote) || v.equals(mBtnBandVote) || v.equals(mBtnCertikVote)) {
+        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote) || v.equals(mBtnBandVote) || v.equals(mBtnCertikVote) || v.equals(mBtnAkashVote)) {
             if (getMainActivity().mBaseChain.equals(KAVA_TEST)) return;
             Intent proposals = new Intent(getMainActivity(), VoteListActivity.class);
             startActivity(proposals);

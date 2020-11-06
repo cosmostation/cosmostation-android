@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
@@ -167,6 +168,17 @@ public class WebActivity extends BaseActivity {
                 mWebview.loadUrl(EXPLORER_CERTIK + "governance/proposals/" + mVoteId + "?net=" + mBasechain.getChain());
             else
                 mWebview.loadUrl(EXPLORER_CERTIK + "?net=" + mBaseChain.getChain());
+
+        } else if (mBasechain.equals(BaseChain.AKASH_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorAkash));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl(EXPLORER_AKASH_MAIN + "transactions/" + mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl(EXPLORER_AKASH_MAIN + "proposals/" + mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl(EXPLORER_AKASH_MAIN + "account/" + mAddress);
+            else
+                mWebview.loadUrl(EXPLORER_AKASH_MAIN);
 
         }
 
