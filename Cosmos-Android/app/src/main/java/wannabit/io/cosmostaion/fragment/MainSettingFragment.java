@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -36,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
@@ -225,6 +227,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 String certikUrl = EXPLORER_CERTIK + "?net=" + getMainActivity().mBaseChain.getChain();
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(certikUrl));
+                startActivity(intent);
+            } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_AKASH_MAIN));
                 startActivity(intent);
             }
 
