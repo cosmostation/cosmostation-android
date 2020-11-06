@@ -973,7 +973,7 @@
     <string name="str_buy_new_domain">Buy Premium Starname</string>
     <string name="str_buy_new_account">Buy Basic Starname</string>
     <string name="str_starname_domain_promotion_title">Starname Premium Edition</string>
-    <string name="str_starname_domain_promotion_msg">Register your premium starname. The premium starname can be used as a\nuniversal username, and you can create an additional\nsub basic starname.</string>
+    <string name="str_starname_domain_promotion_msg">Register your premium starname. The premium starname can be used as a universal username, and you can create an additional sub basic starname.</string>
     <string name="str_starname_account_promotion_title">Starname Basic Edition</string>
     <string name="str_starname_account_promotion_msg">Starname service can connect addresses of various chains.\nRegister your account with reasonable cost for stability and convenience in block chain universal.</string>
     <string name="str_connected_addressed">Connected Addresses</string>

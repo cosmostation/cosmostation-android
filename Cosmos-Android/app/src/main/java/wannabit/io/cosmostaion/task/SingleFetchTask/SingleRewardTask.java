@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
@@ -148,6 +149,21 @@ public class SingleRewardTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getCertikTestChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+                if (response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                    ArrayList<Coin> amounts = response.body().result;
+                    long time = System.currentTimeMillis();
+                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
+                    mResult.resultData = temp;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
+                Response<ResLcdRewardFromVal> response = ApiClient.getAkashChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

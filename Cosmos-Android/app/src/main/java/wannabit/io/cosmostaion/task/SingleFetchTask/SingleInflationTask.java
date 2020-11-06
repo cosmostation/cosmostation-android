@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
@@ -125,6 +126,19 @@ public class SingleInflationTask extends CommonTask {
 
             } else if (mChain.equals(CERTIK_TEST)) {
                 Response<ResLcdInflation> response = ApiClient.getCertikTestChain(mApp).getInflation().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(AKASH_MAIN)) {
+                Response<ResLcdInflation> response = ApiClient.getAkashChain(mApp).getInflation().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
