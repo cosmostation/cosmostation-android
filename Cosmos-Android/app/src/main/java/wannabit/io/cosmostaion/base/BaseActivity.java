@@ -1011,6 +1011,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                             getBaseDao().setLastCertikTic(0d);
                             getBaseDao().setLastCertikUpDown(0d);
+
+                        } else if (chain.equals(AKASH_MAIN)) {
+                            getBaseDao().setLastAkashTic(0d);
+                            getBaseDao().setLastAkashUpDown(0d);
+
                         }
                     }
                 }

@@ -971,6 +971,24 @@ public class WDp {
         }
     }
 
+    public static SpannableString getValueOfAkash(Context c, BaseData dao, BigDecimal totalAmount) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if(dao.getCurrency() == 5) {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAkashTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAkashTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        }
+    }
+
     public static SpannableString getDpRawDollor(Context c, String price, int scale) {
         BigDecimal mPrice = new BigDecimal(price);
         SpannableString result;

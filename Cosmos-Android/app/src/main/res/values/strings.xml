@@ -251,6 +251,8 @@
     <string name="str_guide_ok">Communities</string>
     <string name="str_faq_certik">Home</string>
     <string name="str_guide_certik">Blog</string>
+    <string name="str_faq_akash">Home</string>
+    <string name="str_guide_akash">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -309,6 +311,8 @@
     <string name="str_certik_chain_2" translatable="false">Certik Mainnet</string>
     <string name="str_certik_chain_test" translatable="false">(Certik Testnet)</string>
     <string name="str_certik_chain_test_2" translatable="false">Certik Testnet</string>
+    <string name="str_akash_chain" translatable="false">(Akash Mainnet)</string>
+    <string name="str_akash_chain_2" translatable="false">Akash Mainnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_iris" translatable="false">IRIS</string>
     <string name="str_binance" translatable="false">BINANCE</string>
@@ -396,6 +400,7 @@
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
     <string name="str_front_guide_title_ok"><![CDATA[OKEX CHAIN]]></string>
     <string name="str_front_guide_title_certik"><![CDATA[CERTIK CHAIN]]></string>
+    <string name="str_front_guide_title_akash"><![CDATA[AKASH CHAIN]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -404,6 +409,7 @@
     <string name="str_front_guide_msg_ok">OKEX Chain is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_front_guide_msg_certik"><![CDATA[A public platform based on the Certik Foundation\'s unique Formal Verification security system.]]></string>
+    <string name="str_front_guide_msg_akash"><![CDATA[The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>

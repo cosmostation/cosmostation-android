@@ -169,6 +169,14 @@
                     android:visibility="gone"/>
 
                 <include
+                    android:id="@+id/layer_akash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_2"
+                    layout="@layout/layout_card_akash"
+                    android:visibility="gone"/>
+
+                <include
                     android:id="@+id/card_undelegate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
