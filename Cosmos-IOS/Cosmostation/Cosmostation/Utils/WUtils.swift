@@ -1850,6 +1850,15 @@ class WUtils {
                 denomLabel.text = coin.denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            if (coin.denom == AKASH_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
         }
     }
     
@@ -1955,7 +1964,16 @@ class WUtils {
                 denomLabel.text = denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            if (denom == AKASH_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
         }
+            
     }
     
     static func isBnbMArketToken(_ symbol:String) ->Bool {
@@ -2028,6 +2046,8 @@ class WUtils {
             return COLOR_CERTIK
         } else if (chain == ChainType.OKEX_TEST) {
             return COLOR_OK
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return COLOR_AKASH
         }
         return COLOR_ATOM
     }
@@ -2049,7 +2069,11 @@ class WUtils {
             return COLOR_SECRET_DARK
         } else if (chain == ChainType.CERTIK_MAIN) {
             return COLOR_CERTIK_DARK
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return COLOR_AKASH_DARK
+        }
+        
+        else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
@@ -2072,7 +2096,11 @@ class WUtils {
             return TRANS_BG_COLOR_SECRET
         } else if (chain == ChainType.CERTIK_MAIN) {
             return TRANS_BG_COLOR_CERTIK
-        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return TRANS_BG_COLOR_AKASH
+        }
+        
+        else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
@@ -2097,6 +2125,8 @@ class WUtils {
             return "TOKT"
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             return "CTK"
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return "AKT"
         }
         return ""
     }
@@ -2129,6 +2159,9 @@ class WUtils {
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             label.text = "CTK"
             label.textColor = COLOR_CERTIK
+        } else if (chain == ChainType.AKASH_MAIN) {
+            label.text = "AKT"
+            label.textColor = COLOR_AKASH
         }
     }
     
@@ -2149,7 +2182,11 @@ class WUtils {
             return ChainType.SECRET_MAIN
         } else if (chainS == CHAIN_CERTIK_S) {
             return ChainType.CERTIK_MAIN
-        } else if (chainS == CHAIN_KAVA_TEST_S) {
+        } else if (chainS == CHAIN_AKASH_S) {
+            return ChainType.AKASH_MAIN
+        }
+        
+        else if (chainS == CHAIN_KAVA_TEST_S) {
             return ChainType.KAVA_TEST
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return ChainType.BINANCE_TEST
@@ -2180,7 +2217,11 @@ class WUtils {
             return CHAIN_SECRET_S
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CHAIN_CERTIK_S
-        } else if (chain == ChainType.BINANCE_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return CHAIN_AKASH_S
+        }
+        
+        else if (chain == ChainType.BINANCE_TEST) {
             return CHAIN_BINANCE_TEST_S
         } else if (chain == ChainType.KAVA_TEST) {
             return CHAIN_KAVA_TEST_S
@@ -2254,7 +2295,11 @@ class WUtils {
             return "secret-2"
         } else if (chainS == CHAIN_CERTIK_S) {
             return "shentu-1"
-        } else if (chainS == CHAIN_BINANCE_TEST_S) {
+        } else if (chainS == CHAIN_AKASH_S) {
+            return "akashnet-1"
+        }
+        
+        else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (chainS == CHAIN_KAVA_TEST_S) {
             return "kava-4-test"
@@ -2285,7 +2330,11 @@ class WUtils {
             return "secret-2"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return "shentu-1"
-        } else if (chain == ChainType.BINANCE_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return "akashnet-1"
+        }
+        
+        else if (chain == ChainType.BINANCE_TEST) {
             return "Binance-Chain-Nile"
         } else if (chain == ChainType.KAVA_TEST) {
             return "kava-4-test"

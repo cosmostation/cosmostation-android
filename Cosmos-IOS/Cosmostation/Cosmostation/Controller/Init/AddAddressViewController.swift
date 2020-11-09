@@ -56,12 +56,8 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
     
     @IBAction func onClickNext(_ sender: Any) {
         let userInput = self.addAddressInputText.text?.trimmingCharacters(in: .whitespaces) ?? ""
-        if (userInput.starts(with: "cosmos")) {
-            if (userInput.starts(with: "cosmosvaloper")) {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                self.addAddressInputText.text = ""
-                return;
-            } else if (WKey.isValidateBech32(userInput)) {
+        if (userInput.starts(with: "cosmos1")) {
+            if (WKey.isValidateBech32(userInput)) {
                 self.onGenWatchAccount(ChainType.COSMOS_MAIN, userInput)
                 return;
             } else {
@@ -70,7 +66,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (userInput.starts(with: "iaa")) {
+        } else if (userInput.starts(with: "iaa1")) {
             if (WKey.isValidateBech32(userInput)) {
                 self.onGenWatchAccount(ChainType.IRIS_MAIN, userInput)
                 return;
@@ -80,7 +76,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (userInput.starts(with: "bnb")) {
+        } else if (userInput.starts(with: "bnb1")) {
             if (WKey.isValidateBech32(userInput)) {
                 self.onGenWatchAccount(ChainType.BINANCE_MAIN, userInput)
                 return;
@@ -90,7 +86,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (userInput.starts(with: "kava")) {
+        } else if (userInput.starts(with: "kava1")) {
             if (WKey.isValidateBech32(userInput)) {
                 if (ChainType.SUPPRT_CHAIN().contains(ChainType.KAVA_TEST)) {
                     self.onShowKavaChainSelect(userInput)
@@ -105,7 +101,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
                    
-        } else if (userInput.starts(with: "star")) {
+        } else if (userInput.starts(with: "star1")) {
             if (WKey.isValidateBech32(userInput)) {
                 if (ChainType.SUPPRT_CHAIN().contains(ChainType.IOV_TEST)) {
                     self.onShowIovChainSelect(userInput)
@@ -120,7 +116,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (userInput.starts(with: "band")) {
+        } else if (userInput.starts(with: "band1")) {
             if (WKey.isValidateBech32(userInput)) {
                 self.onGenWatchAccount(ChainType.BAND_MAIN, userInput)
                 return;
@@ -130,7 +126,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (userInput.starts(with: "secret")) {
+        } else if (userInput.starts(with: "secret1")) {
             if (WKey.isValidateBech32(userInput)) {
                 self.onGenWatchAccount(ChainType.SECRET_MAIN, userInput)
                 return;
@@ -140,9 +136,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        }
-        
-        else if (userInput.starts(with: "tbnb")) {
+        } else if (userInput.starts(with: "tbnb1")) {
             if (!ChainType.SUPPRT_CHAIN().contains(ChainType.BINANCE_TEST)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
                 return;
@@ -157,7 +151,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (userInput.starts(with: "okexchain")) {
+        } else if (userInput.starts(with: "okexchain1")) {
             if (!ChainType.SUPPRT_CHAIN().contains(ChainType.OKEX_TEST)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
                 return;
@@ -172,7 +166,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (userInput.starts(with: "certik")) {
+        } else if (userInput.starts(with: "certik1")) {
             if (WKey.isValidateBech32(userInput)) {
                 if (ChainType.SUPPRT_CHAIN().contains(ChainType.CERTIK_TEST)) {
                     self.onShowCertikChainSelect(userInput)
@@ -181,6 +175,16 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                     self.onGenWatchAccount(ChainType.CERTIK_MAIN, userInput)
                     return;
                 }
+            } else {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                self.addAddressInputText.text = ""
+                return;
+            }
+            
+        } else if (userInput.starts(with: "akash1")) {
+            if (WKey.isValidateBech32(userInput)) {
+                self.onGenWatchAccount(ChainType.AKASH_MAIN, userInput)
+                return;
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
                 self.addAddressInputText.text = ""

@@ -73,6 +73,10 @@ let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostat
 let SECRET_URL                          = "https://lcd-secret.cosmostation.io/";
 let SECRET_API                          = "https://api-secret.cosmostation.io/";
 
+
+let AKASH_URL                           = "https://lcd-akash.cosmostation.io/";
+let AKASH_API                           = "https://api-akash.cosmostation.io/";
+
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
@@ -406,6 +410,31 @@ let CERTIK_API_HISTORY                      = CERTIK_API + "v1/account/txs/";
 let CERTIK_API_TRANS_HISTORY                = CERTIK_API + "v1/account/transfer_txs/";
 
 
+//AKASH_URL
+let AKASH_TX                                = AKASH_URL + "txs/";
+let AKASH_VALIDATORS                        = AKASH_URL + "staking/validators";
+let AKASH_ACCOUNT_INFO                      = AKASH_URL + "auth/accounts/";
+let AKASH_BONDING                           = AKASH_URL + "staking/delegators/";
+let AKASH_BONDING_TAIL                      = "/delegations";
+let AKASH_UNBONDING                         = AKASH_URL + "staking/delegators/";
+let AKASH_UNBONDING_TAIL                    = "/unbonding_delegations";
+let AKASH_REWARD_FROM_VAL                   = AKASH_URL + "distribution/delegators/";
+let AKASH_REWARD_FROM_VAL_TAIL              = "/rewards/";
+let AKASH_REWARD_ADDRESS                    = AKASH_URL + "distribution/delegators/";
+let AKASH_REWARD_ADDRESS_TAIL               = "/withdraw_address";
+let AKASH_REDELEGATION                      = AKASH_URL + "staking/redelegations";
+let AKASH_MINT_PARAM                        = AKASH_URL + "minting/parameters";
+let AKASH_INFLATION                         = AKASH_URL + "minting/inflation";
+let AKASH_PROVISIONS                        = AKASH_URL + "minting/annual-provisions";
+let AKASH_STAKING_POOL                      = AKASH_URL + "staking/pool";
+let AKASH_BORAD_TX                          = AKASH_URL + "txs";
+let AKASH_PROPOSALS                         = SECRET_URL + "gov/proposals";
+let AKASH_PROPOSALS_TALLY_TAIL              = "/tally";
+
+let AKASH_API_HISTORY                       = AKASH_API + "v1/account/txs/";
+let AKASH_API_TRANS_HISTORY                 = AKASH_API + "v1/account/transfer_txs/";
+
+
 
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
@@ -685,7 +714,7 @@ let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"
 let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"
 let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "300000"
 let KAVA_GAS_FEE_AMOUNT_REINVEST            = "300000"
-let KAVA_GAS_FEE_AMOUNT_CDP                 = "450000"
+let KAVA_GAS_FEE_AMOUNT_CDP                 = "500000"
 let KAVA_GAS_FEE_AMOUNT_BEP3                = "200000"
 let KAVA_GAS_FEE_AMOUNT_HIGH                = "350000"
 
@@ -818,6 +847,11 @@ let TRANS_BG_COLOR_SECRET2                  = UIColor.init(hexString: "C4C4C4", 
 let COLOR_SECRET                            = UIColor.init(hexString: "C4C4C4")
 let COLOR_SECRET_DARK                       = UIColor.init(hexString: "585858")
 
+let TRANS_BG_COLOR_AKASH                    = UIColor.init(hexString: "c71e10", alpha: 0.15)
+let TRANS_BG_COLOR_AKASH2                   = UIColor.init(hexString: "c71e10", alpha: 0.4)
+let COLOR_AKASH                             = UIColor.init(hexString: "c71e10")
+let COLOR_AKASH_DARK                        = UIColor.init(hexString: "631008")
+
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
 let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
@@ -838,6 +872,7 @@ enum ChainType: String {
     case BAND_MAIN
     case SECRET_MAIN
     case CERTIK_MAIN
+    case AKASH_MAIN
     
     case BINANCE_TEST
     case KAVA_TEST
@@ -855,6 +890,7 @@ enum ChainType: String {
         result.append(BAND_MAIN)
         result.append(SECRET_MAIN)
         result.append(CERTIK_MAIN)
+        result.append(AKASH_MAIN)
 
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
@@ -924,6 +960,7 @@ let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
 let CHAIN_BAND_S = "SUPPORT_CHAIN_BAND_MAIN"
 let CHAIN_SECRET_S = "SUPPORT_CHAIN_SECRET_MAIN"
 let CHAIN_CERTIK_S = "SUPPORT_CHAIN_CERTIK_MAIN"
+let CHAIN_AKASH_S = "SUPPORT_CHAIN_AKASH_MAIN"
 
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
@@ -941,6 +978,7 @@ let KAVA_MAIN_DENOM = "ukava"
 let BAND_MAIN_DENOM = "uband"
 let SECRET_MAIN_DENOM = "uscrt"
 let CERTIK_MAIN_DENOM = "uctk"
+let AKASH_MAIN_DENOM = "uakt"
 
 let IOV_TEST_DENOM = "uvoi"
 let OKEX_TEST_DENOM = "tokt"
@@ -983,6 +1021,7 @@ let EXPLORER_IOV_MAIN       = "https://www.mintscan.io/starname/";
 let EXPLORER_BINANCE_MAIN   = "https://binance.mintscan.io/";
 let EXPLORER_BAND_MAIN      = "https://cosmoscan.io/";
 let EXPLORER_SECRET_MAIN    = "https://explorer.cashmaney.com/";
+let EXPLORER_AKASH_MAIN     = "https://akash.bigdipper.live//";
 
 let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
 let EXPLORER_KAVA_TEST      = "https://kava-testnet-9000.mintscan.io/";
@@ -1010,3 +1049,4 @@ let BLOCK_TIME_KAVA     = NSDecimalNumber.init(string: "8.01")
 let BLOCK_TIME_BAND     = NSDecimalNumber.init(string: "3.01")
 let BLOCK_TIME_CERTIK   = NSDecimalNumber.init(string: "5.75")
 let BLOCK_TIME_SECRET   = NSDecimalNumber.init(string: "5.96")
+let BLOCK_TIME_AKASH    = NSDecimalNumber.init(string: "6.21")
