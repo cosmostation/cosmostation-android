@@ -1366,7 +1366,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             validators.putExtra("irisreward", getMainActivity().mIrisReward);
             startActivity(validators);
 
-        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote) || v.equals(mBtnBandVote) || v.equals(mBtnCertikVote) || v.equals(mBtnAkashVote)) {
+        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote) || v.equals(mBtnBandVote) || v.equals(mBtnCertikVote) || v.equals(mBtnAkashVote) || v.equals(mBtnIovVote)) {
             if (getMainActivity().mBaseChain.equals(KAVA_TEST)) return;
             Intent proposals = new Intent(getMainActivity(), VoteListActivity.class);
             startActivity(proposals);
@@ -1416,9 +1416,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mBtnKavaDapp)) {
             startActivity(new Intent(getMainActivity(), DAppsListActivity.class));
-
-        } else if (v.equals(mBtnIovVote)) {
-            Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnIovNameService)) {
             getMainActivity().onStarNameService();

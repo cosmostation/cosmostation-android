@@ -94,7 +94,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
     private void onFetchProposals() {
         if(mAccount == null) return;
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) ||
+                mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(BaseChain.AKASH_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mVoteAdapter = new VoteAdapter();
             mRecyclerView.setAdapter(mVoteAdapter);
             new ProposalTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -255,7 +256,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                     }
                 });
 
-            } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN)) {
                 voteHolder.proposal_id.setText("# " + proposal.id);
                 voteHolder.proposal_status.setText(proposal.proposal_status);
                 voteHolder.proposal_title.setText(proposal.content.value.title);
