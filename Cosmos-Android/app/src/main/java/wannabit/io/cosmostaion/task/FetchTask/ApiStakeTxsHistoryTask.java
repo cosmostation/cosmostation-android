@@ -101,6 +101,15 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
 
+            } else if (mChain.equals(BaseChain.AKASH_MAIN)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getAkashApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+
             }
 
         } catch (Exception e) {

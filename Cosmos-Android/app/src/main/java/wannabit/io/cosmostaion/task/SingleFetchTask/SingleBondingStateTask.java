@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
@@ -124,6 +125,16 @@ public class SingleBondingStateTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getCertikTestChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
+                if(response.isSuccessful()) {
+                    if(response.body() != null && response.body().result != null)
+                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, CERTIK_TEST));
+                    else
+                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                }
+                mResult.isSuccess = true;
+
+            } else if (getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
+                Response<ResLcdSingleBonding> response = ApiClient.getAkashChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null)
                         mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, CERTIK_TEST));
