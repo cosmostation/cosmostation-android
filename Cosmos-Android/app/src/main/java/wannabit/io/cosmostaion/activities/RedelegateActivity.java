@@ -130,7 +130,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
             public void onPageScrollStateChanged(int i) { }
         });
         mViewPager.setCurrentItem(0);
-        onFetchReward();
+        onFetchValidtors();
 
         if (mBaseChain.equals(KAVA_MAIN) && (WDp.getVestedCoin(mAccount.balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0)) {
             Dialog_VestingAccount dialog = Dialog_VestingAccount.newInstance(null);
@@ -201,7 +201,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     }
 
 
-    private void onFetchReward() {
+    private void onFetchValidtors() {
         if(mTaskCount > 0) return;
         mTaskCount = 1;
         new AllValidatorInfoTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
