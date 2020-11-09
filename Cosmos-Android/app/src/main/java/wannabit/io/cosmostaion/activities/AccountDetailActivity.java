@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -266,7 +267,19 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_chain_img));
 
-        } else if (mBaseChain.equals(BNB_TEST)) {
+        } else if (mBaseChain.equals(AKASH_MAIN)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardRewardAddress.setVisibility(View.VISIBLE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_chain_img));
+
+        }
+
+
+        else if (mBaseChain.equals(BNB_TEST)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardAlarm.setVisibility(View.GONE);
