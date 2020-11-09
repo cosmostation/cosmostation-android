@@ -466,8 +466,13 @@ public class BaseConstant {
     public final static String FEE_CERTIK_GAS_ADDRESS_CHANGE    = "100000";
     public final static String FEE_CERTIK_GAS_VOTE              = "100000";
 
-    public final static String FEE_AKASH_GAS_RATE_AVERAGE       = "0.025";
-    public final static String FEE_AKASH_GAS_AMOUNT_SEND        = "100000";
+    public final static String FEE_AKASH_GAS_RATE_AVERAGE           = "0.025";
+    public final static String FEE_AKASH_GAS_AMOUNT_SEND            = "100000";
+    public final static String FEE_AKASH_GAS_AMOUNT_STAKE           = "200000";
+    public final static String FEE_AKASH_GAS_AMOUNT_REDELEGATE      = "300000";
+    public final static String FEE_AKASH_GAS_AMOUNT_REINVEST        = "300000";
+    public final static String FEE_AKASH_GAS_AMOUNT_VOTE            = "10000";
+    public final static String FEE_AKASH_GAS_AMOUNT_ADDRESS_CHANGE  = "10000";
 
 
 

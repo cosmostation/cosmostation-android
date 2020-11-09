@@ -388,8 +388,8 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-                mAmountInput.setText(mMaxAvailable.toPlainString());
-                if (getSActivity().mOkDenom.equals(TOKEN_AKASH)) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
+                if (getSActivity().mAkashDenom.equals(TOKEN_AKASH)) {
                     onShowEmptyBlanaceWarnDialog();
                 }
 
