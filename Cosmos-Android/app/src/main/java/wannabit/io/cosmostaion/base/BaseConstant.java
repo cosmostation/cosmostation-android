@@ -466,6 +466,11 @@ public class BaseConstant {
     public final static String FEE_CERTIK_GAS_ADDRESS_CHANGE    = "100000";
     public final static String FEE_CERTIK_GAS_VOTE              = "100000";
 
+    public final static String FEE_AKASH_GAS_RATE_AVERAGE       = "0.025";
+    public final static String FEE_AKASH_GAS_AMOUNT_SEND        = "100000";
+
+
+
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";
     public final static String CGC_BNB  = "binancecoin";

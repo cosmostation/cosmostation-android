@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -136,7 +137,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
             if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                if (userInput.startsWith("cosmos") && WKey.isValidBech32(userInput)) {
+                if (userInput.startsWith("cosmos1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
@@ -144,7 +145,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-                if (userInput.startsWith("iaa") && WKey.isValidBech32(userInput)) {
+                if (userInput.startsWith("iaa1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
@@ -152,7 +153,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (getSActivity().mBaseChain.equals(BNB_MAIN)) {
-                if (userInput.startsWith("bnb") && WKey.isValidBech32(userInput)) {
+                if (userInput.startsWith("bnb1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
@@ -160,7 +161,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-                if (userInput.startsWith("kava") && WKey.isValidBech32(userInput)) {
+                if (userInput.startsWith("kava1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
@@ -176,7 +177,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (getSActivity().mBaseChain.equals(BNB_TEST)) {
-                if (userInput.startsWith("tbnb") && WKey.isValidBech32(userInput)) {
+                if (userInput.startsWith("tbnb1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
@@ -184,7 +185,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
-                if (userInput.startsWith("band") && WKey.isValidBech32(userInput)) {
+                if (userInput.startsWith("band1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
@@ -192,7 +193,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
-                if (userInput.startsWith("okexchain") && WKey.isValidBech32(userInput)) {
+                if (userInput.startsWith("okexchain1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
@@ -200,7 +201,15 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
-                if (userInput.startsWith("certik") && WKey.isValidBech32(userInput)) {
+                if (userInput.startsWith("certik1") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
+                if (userInput.startsWith("akash1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
