@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.activities.ReInvestActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
@@ -72,7 +73,7 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
             BigDecimal rewardSum = new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN);
             if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
                     getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
-                    getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                    getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
                 mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
 
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {

@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
@@ -81,7 +82,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
                 getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
-                getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (Reward reward:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));

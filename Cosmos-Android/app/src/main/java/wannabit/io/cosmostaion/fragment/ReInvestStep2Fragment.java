@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ReInvestActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Fee_Description;
@@ -29,6 +28,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
@@ -38,15 +38,16 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_AMOUNT_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_AMOUNT_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_AMOUNT_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_AMOUNT_REINVEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IRIS_GAS_AMOUNT_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
@@ -251,10 +252,34 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
             mGasAmount.setText(FEE_CERTIK_GAS_AMOUNT_REINVEST);
             mGasRate.setText(WDp.getDpString(FEE_CERTIK_GAS_RATE_AVERAGE, 3));
             mFeeAmount = new BigDecimal(FEE_CERTIK_GAS_AMOUNT_REINVEST).multiply(new BigDecimal(FEE_CERTIK_GAS_RATE_AVERAGE)).setScale(0);
+            if(getBaseDao().getCurrency() != 5) {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastCertikTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastCertikTic())).setScale(8, RoundingMode.DOWN);
+            }
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
-            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
+        } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
+            mFeeLayer1.setVisibility(View.GONE);
+            mFeeLayer2.setVisibility(View.VISIBLE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_akash));
+
+            mGasAmount.setText(FEE_AKASH_GAS_AMOUNT_REINVEST);
+            mGasRate.setText(WDp.getDpString(FEE_AKASH_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = new BigDecimal(FEE_AKASH_GAS_AMOUNT_REINVEST).multiply(new BigDecimal(FEE_AKASH_GAS_RATE_AVERAGE)).setScale(0);
+            if(getBaseDao().getCurrency() != 5) {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAkashTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAkashTic())).setScale(8, RoundingMode.DOWN);
+            }
+
+            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
+            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
         }
 
@@ -360,6 +385,17 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_CERTIK_GAS_AMOUNT_REINVEST;
+                getSActivity().mReinvestFee = fee;
+
+            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = TOKEN_AKASH;
+                gasCoin.amount = mFeeAmount.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = FEE_AKASH_GAS_AMOUNT_REINVEST;
                 getSActivity().mReinvestFee = fee;
 
             }

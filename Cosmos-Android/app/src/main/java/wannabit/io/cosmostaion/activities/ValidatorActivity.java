@@ -647,10 +647,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 hasbalance  = true;
             }
 
-        }
-
-
-        else {
+        } else {
             Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
             return;
         }

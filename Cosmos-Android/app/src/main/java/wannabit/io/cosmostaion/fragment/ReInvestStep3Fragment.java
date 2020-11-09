@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
@@ -80,7 +81,8 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         BondingState bonding = getBaseDao().onSelectBondingState(getSActivity().mAccount.id, getSActivity().mValidator.operator_address);
         if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
-                getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) || getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
+                getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
             mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 6, 6));
             if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
