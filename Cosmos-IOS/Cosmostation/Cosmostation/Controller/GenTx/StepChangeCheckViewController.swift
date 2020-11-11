@@ -33,7 +33,8 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     func onUpdateView() {
         let feeAmout = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN ||
-                pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN ||
+                pageHolderVC.chainType! == ChainType.CERTIK_TEST || pageHolderVC.chainType! == ChainType.AKASH_MAIN ) {
             rewardAddressChangeFee.attributedText = WUtils.displayAmount(feeAmout.stringValue, rewardAddressChangeFee.font, 6, pageHolderVC.chainType!)
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             rewardAddressChangeFee.attributedText = WUtils.displayAmount(feeAmout.stringValue, rewardAddressChangeFee.font, 18, pageHolderVC.chainType!)
@@ -119,6 +120,8 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
             url = CERTIK_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+            url = AKASH_ACCOUNT_INFO + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -150,7 +153,8 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                     self.onGenModifyRewardAddressTx()
                     
                 } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                            self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST ) {
+                            self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
+                            self.pageHolderVC.chainType! == ChainType.AKASH_MAIN ) {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {
                             _ = BaseData.instance.deleteBalance(account: account)
@@ -247,6 +251,8 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                         url = CERTIK_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                         url = CERTIK_TEST_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+                        url = AKASH_BORAD_TX
                     }
                     let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in

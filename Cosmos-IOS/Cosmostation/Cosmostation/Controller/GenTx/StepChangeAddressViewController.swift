@@ -70,37 +70,43 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
         }
         
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            if (!userInput!.starts(with: "cosmos") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "cosmos1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            if (!userInput!.starts(with: "iaa") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "iaa1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            if (!userInput!.starts(with: "band") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "band1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            if (!userInput!.starts(with: "secret") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "secret1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            if (!userInput!.starts(with: "star") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "star1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            if (!userInput!.starts(with: "certik") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "certik1") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+            if (!userInput!.starts(with: "akash1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
@@ -135,6 +141,8 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
             url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_REWARD_ADDRESS + accountAddr + CERTIK_TEST_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+            url = AKASH_REWARD_ADDRESS + accountAddr + AKASH_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
@@ -158,7 +166,8 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                 }
             }
         } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN ||
-                    pageHolderVC.chainType! == ChainType.IOV_MAIN ||  pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                    pageHolderVC.chainType! == ChainType.IOV_MAIN ||  pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN ||
+                    pageHolderVC.chainType! == ChainType.CERTIK_TEST ||  pageHolderVC.chainType! == ChainType.AKASH_MAIN ) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
