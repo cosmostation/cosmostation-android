@@ -856,7 +856,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onClickValidatorList()
             }
             cell?.actionVote = {
-                self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+                self.onClickVoteList()
             }
             cell?.actionNameService = {
                 self.onClickStarName()

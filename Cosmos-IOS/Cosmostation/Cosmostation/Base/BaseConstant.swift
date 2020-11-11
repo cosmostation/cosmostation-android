@@ -291,6 +291,8 @@ let IOV_CHECK_WITH_STARNAME             = IOV_URL + "starname/query/resolve";
 let IOV_CHECK_MY_DOMAIN                 = IOV_URL + "starname/query/domainsWithOwner";
 let IOV_CHECK_MY_ACCOUNT                = IOV_URL + "starname/query/accountsWithOwner";
 let IOV_STARNAME_DOMAIN_INFO            = IOV_URL + "starname/query/domainInfo";
+let IOV_PROPOSALS                       = IOV_URL + "gov/proposals";
+let IOV_PROPOSALS_TALLY_TAIL            = "/tally";
 
 let IOV_API_HISTORY                     = IOV_API + "v1/account/txs/";
 let IOV_API_TRANS_HISTORY               = IOV_API + "v1/account/transfer_txs/";
@@ -428,7 +430,7 @@ let AKASH_INFLATION                         = AKASH_URL + "minting/inflation";
 let AKASH_PROVISIONS                        = AKASH_URL + "minting/annual-provisions";
 let AKASH_STAKING_POOL                      = AKASH_URL + "staking/pool";
 let AKASH_BORAD_TX                          = AKASH_URL + "txs";
-let AKASH_PROPOSALS                         = SECRET_URL + "gov/proposals";
+let AKASH_PROPOSALS                         = AKASH_URL + "gov/proposals";
 let AKASH_PROPOSALS_TALLY_TAIL              = "/tally";
 
 let AKASH_API_HISTORY                       = AKASH_API + "v1/account/txs/";

@@ -234,7 +234,7 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST || chain == ChainType.BAND_MAIN ||
-                chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
+                chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST || chain == ChainType.IOV_MAIN || chain == ChainType.AKASH_MAIN) {
             value.proposal_id = proposalId
             value.voter = fromAddress
             value.option = opinion
