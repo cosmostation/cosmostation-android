@@ -379,7 +379,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAktAmount, 6, 6));
-            mTotalValue.setText(WDp.getValueOfCertik(getContext(), getBaseDao(), totalAktAmount));
+            mTotalValue.setText(WDp.getValueOfAkash(getContext(), getBaseDao(), totalAktAmount));
 
         }
 
