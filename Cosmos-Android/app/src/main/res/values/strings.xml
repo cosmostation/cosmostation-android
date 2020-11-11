@@ -401,7 +401,7 @@
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
     <string name="str_front_guide_title_ok"><![CDATA[OKEX CHAIN]]></string>
     <string name="str_front_guide_title_certik"><![CDATA[CERTIK CHAIN]]></string>
-    <string name="str_front_guide_title_akash"><![CDATA[AKASH CHAIN]]></string>
+    <string name="str_front_guide_title_akash"><![CDATA[AKASH NETWORK]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>

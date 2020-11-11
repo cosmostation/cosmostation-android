@@ -259,7 +259,7 @@
     <string name="str_front_guide_title_band"><![CDATA[밴드 프로토콜]]></string>
     <string name="str_front_guide_title_ok"><![CDATA[오케이 체인]]></string>
     <string name="str_front_guide_title_certik"><![CDATA[써틱 체인]]></string>
-    <string name="str_front_guide_title_akash"><![CDATA[아카시 체인]]></string>
+    <string name="str_front_guide_title_akash"><![CDATA[아카시 네트워크]]></string>
     <string name="str_front_guide_msg">Tendermint BFT와 ABCI 기반의 분산형 블록체인 네트워크.</string>
     <string name="str_front_guide_msg_iris">분산형 비즈니스 생태계를 위한 인터체인 서비스 인프라 <![CDATA[&]]> 프로토콜.</string>
     <string name="str_front_guide_msg_bnb">바이낸스가 구축한 Tendermint 기반의 빠르고 안전한 분산형 디지털 자산 거래소.</string>
