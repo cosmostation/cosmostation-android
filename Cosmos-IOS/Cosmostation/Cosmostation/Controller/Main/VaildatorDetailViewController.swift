@@ -1385,6 +1385,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
@@ -1394,7 +1400,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         txVC.mTargetValidator = mValidator
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN  || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST ||
+                chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_DELEGATE
         } else if (chainType == ChainType.IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_DELEGATE
@@ -1417,7 +1424,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN  || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN  || chainType == ChainType.CERTIK_MAIN ||
+                chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             if (mUnbondings.count >= 7) {
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
@@ -1459,13 +1467,18 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mTargetValidator = mValidator
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
         } else if (chainType == ChainType.IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_UNDELEGATE
@@ -1525,6 +1538,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
             
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "7500")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
@@ -1536,7 +1556,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         txVC.mTargetValidator = mValidator
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         } else if (chainType == ChainType.IRIS_MAIN) {
             txVC.mIrisRedelegate = mIrisRedelegate
@@ -1709,6 +1729,27 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, AKASH_MAIN_DENOM)
+                if (rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if (rewardSum.compare(NSDecimalNumber.init(string: "3750")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "3750")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
@@ -1720,7 +1761,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         txVC.mRewardTargetValidators = validators
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         } else if (chainType == ChainType.IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_WITHDRAW
@@ -1891,6 +1932,28 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+            
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, AKASH_MAIN_DENOM)
+                if (rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if (rewardSum.compare(NSDecimalNumber.init(string: "7500")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "7500")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+                
             
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))

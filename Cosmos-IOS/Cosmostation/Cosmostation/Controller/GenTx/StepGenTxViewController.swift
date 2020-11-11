@@ -425,6 +425,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             url = CERTIK_VALIDATORS
         } else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            url = AKASH_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -432,7 +434,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             case .success(let res):
                 if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
                         self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
-                        self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.CERTIK_TEST) {
+                        self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                              print("no validators!!")
