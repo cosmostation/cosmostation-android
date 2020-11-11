@@ -127,6 +127,8 @@
 "send_guide_msg_certik" = "A public platform based on the Certik Foundation's unique Formal Verification security system.";
 "send_guide_title_secret" = "SECRET CHAIN";
 "send_guide_msg_secret" = "First Proof-of-Stake network to enable privacy-preserving smart contracts. Secret allows private, secure computation.";
+"send_guide_title_akash" = "AKASH NETWORK";
+"send_guide_msg_akash" = "The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -136,6 +138,7 @@
 "send_guide_btn1_ok" = "Market";
 "send_guide_btn1_certik" = "Home";
 "send_guide_btn1_secret" = "Home";
+"send_guide_btn1_akash" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -145,6 +148,7 @@
 "send_guide_btn2_ok" = "Communities";
 "send_guide_btn2_certik" = "Blog";
 "send_guide_btn2_secret" = "Blog";
+"send_guide_btn2_akash" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";

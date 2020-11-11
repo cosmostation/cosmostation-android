@@ -134,6 +134,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_CERTIK
+        } else if (chainType! == ChainType.AKASH_MAIN) {
+            titleChainImg.image = UIImage(named: "akashChainImg")
+            titleChainName.text = "(Akash Mainnet)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = TRANS_BG_COLOR_AKASH
         }
         
         else if (chainType! == ChainType.BINANCE_TEST) {
@@ -236,6 +242,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             onFetchCertikTokenPrice()
+            
+        } else if (chainType! == ChainType.AKASH_MAIN) {
+            onFetchAkashTokenPrice()
+            
         }
         
     }
@@ -383,6 +393,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allCtk, BaseData.instance.getLastPrice(), totalValue.font)
             
+        } else if (chainType! == ChainType.AKASH_MAIN) {
+            let allAkt = WUtils.getAllAkash(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            totalAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allAkt, BaseData.instance.getLastPrice(), totalValue.font)
         }
     }
     
@@ -411,6 +425,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetOkItems(tableView, indexPath)
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             return onSetCertikItems(tableView, indexPath)
+        } else if (chainType! == ChainType.AKASH_MAIN) {
+            return onSetAkashItems(tableView, indexPath)
         }
         return onSetCosmosItems(tableView, indexPath)
     }
@@ -718,6 +734,27 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
+    func onSetAkashItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == AKASH_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "akashTokenImg")
+            cell?.tokenSymbol.text = "AKT"
+            cell?.tokenSymbol.textColor = COLOR_AKASH
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenDescription.text = "Akash Staking Token"
+            let allAkt = WUtils.getAllAkash(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAkt, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
     func onFetchCosmosTokenPrice() {
         self.onUpdateTotalCard()
     }
@@ -771,6 +808,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchCertikTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    func onFetchAkashTokenPrice() {
         self.onUpdateTotalCard()
     }
     

@@ -1021,7 +1021,7 @@ let EXPLORER_IOV_MAIN       = "https://www.mintscan.io/starname/";
 let EXPLORER_BINANCE_MAIN   = "https://binance.mintscan.io/";
 let EXPLORER_BAND_MAIN      = "https://cosmoscan.io/";
 let EXPLORER_SECRET_MAIN    = "https://explorer.cashmaney.com/";
-let EXPLORER_AKASH_MAIN     = "https://akash.bigdipper.live//";
+let EXPLORER_AKASH_MAIN     = "https://akash.bigdipper.live/";
 
 let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
 let EXPLORER_KAVA_TEST      = "https://kava-testnet-9000.mintscan.io/";

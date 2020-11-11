@@ -55,6 +55,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletSecretCell", bundle: nil), forCellReuseIdentifier: "WalletSecretCell")
         self.walletTableView.register(UINib(nibName: "WalletOkCell", bundle: nil), forCellReuseIdentifier: "WalletOkCell")
         self.walletTableView.register(UINib(nibName: "WalletCertikCell", bundle: nil), forCellReuseIdentifier: "WalletCertikCell")
+        self.walletTableView.register(UINib(nibName: "WalletAkashCell", bundle: nil), forCellReuseIdentifier: "WalletAkashCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
@@ -126,6 +127,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.CERTIK_MAIN) {
             titleChainImg.image = UIImage(named: "certikChainImg")
             titleChainName.text = "(Certik Mainnet)"
+            titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.AKASH_MAIN) {
+            titleChainImg.image = UIImage(named: "akashChainImg")
+            titleChainName.text = "(Akash Mainnet)"
             titleAlarmBtn.isHidden = true
         }
         
@@ -217,6 +222,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 4;
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             return 5;
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            return 5;
         } else {
             return 0;
         }
@@ -245,6 +252,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetOkTestItems(tableView, indexPath);
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             return onSetCertikItems(tableView, indexPath);
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            return onSetAkashItems(tableView, indexPath);
         } else {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             return cell!
@@ -1368,6 +1377,93 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    
+    func onSetAkashItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            if (mainTabVC.mAccount.account_has_private) {
+                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
+                cell?.keyState.tintColor = COLOR_AKASH
+            }
+            cell?.dpAddress.text = mainTabVC.mAccount.account_address
+            cell?.dpAddress.adjustsFontSizeToFitWidth = true
+            cell?.actionShare = {
+                self.onClickActionShare()
+            }
+            cell?.actionWebLink = {
+                self.onClickActionLink()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell:WalletAkashCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAkashCell") as? WalletAkashCell
+            let totalAtk = WUtils.getAllAkash(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAtk.stringValue, cell!.totalAmount.font!, 6, 6)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAtk, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
+            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, AKASH_MAIN_DENOM, chainType!)
+            cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
+            cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
+            cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, AKASH_MAIN_DENOM, chainType!)
+            cell?.actionDelegate = {
+                self.onClickValidatorList()
+            }
+            cell?.actionVote = {
+                self.onClickVoteList()
+            }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAtk.multiplying(byPowerOf10: -6).stringValue)
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
+            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                cell?.updownImg.image = UIImage(named: "priceUp")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                cell?.updownImg.image = UIImage(named: "priceDown")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else {
+                cell?.updownImg.image = nil
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(NSDecimalNumber.zero, font: cell!.updownPercent.font)
+            }
+            cell?.buySeparator.isHidden = true
+            cell?.buyBtn.isHidden = true
+            cell?.buyConstraint.priority = .defaultLow
+            cell?.noBuyConstraint.priority = .defaultHigh
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
+            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
+            cell?.actionTapApr = {
+                self.onClickAprHelp()
+            }
+            return cell!
+            
+        } else {
+            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.guideImg.image = UIImage(named: "akashImg")
+            cell?.guideTitle.text = NSLocalizedString("send_guide_title_akash", comment: "")
+            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_akash", comment: "")
+            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_akash", comment: ""), for: .normal)
+            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_akash", comment: ""), for: .normal)
+            cell?.actionGuide1 = {
+                self.onClickGuide1()
+            }
+            cell?.actionGuide2 = {
+                self.onClickGuide2()
+            }
+            return cell!
+            
+        }
+    }
+    
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.onShowAccountSwicth()
     }
@@ -1471,6 +1567,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             guard let url = URL(string: EXPLORER_CERTIK + "accounts/" + mainTabVC.mAccount.account_address + "?net=" + WUtils.getChainId(chainType!)) else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.AKASH_MAIN) {
+            guard let url = URL(string: EXPLORER_AKASH_MAIN + "account/" + mainTabVC.mAccount.account_address + "?net=" + WUtils.getChainId(chainType!)) else { return }
             self.onShowSafariWeb(url)
         }
     }
@@ -1653,6 +1753,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             guard let url = URL(string: "https://www.certik.foundation/") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.AKASH_MAIN) {
+            guard let url = URL(string: "https://akash.network/") else { return }
+            self.onShowSafariWeb(url)
+            
         }
         
     }
@@ -1698,6 +1803,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             guard let url = URL(string: "https://www.certik.foundation/blog") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.AKASH_MAIN) {
+            guard let url = URL(string: "https://akash.network/blog/") else { return }
+            self.onShowSafariWeb(url)
+            
         }
     }
     
@@ -1752,6 +1862,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/certik") else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.AKASH_MAIN) {
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/akash-network") else { return }
             self.onShowSafariWeb(url)
         }
     }

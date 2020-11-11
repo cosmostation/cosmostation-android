@@ -217,7 +217,7 @@ class WUtils {
         var result = Array<Bonding>()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                 chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN ||
-                chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
+                chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
@@ -236,7 +236,7 @@ class WUtils {
         var result = Array<Unbonding>()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                 chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN ||
-                chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
+                chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 for entry in unbondinginfo.entries {
@@ -681,7 +681,7 @@ class WUtils {
             formatted = nf.string(from: NSDecimalNumber.zero)
         } else if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                     chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN ||
-                    chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST) {
+                    chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
@@ -1226,7 +1226,7 @@ class WUtils {
         var endIndex: String.Index?
         if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN || baseChain == ChainType.KAVA_TEST ||
                 baseChain == ChainType.BAND_MAIN || baseChain == ChainType.SECRET_MAIN || baseChain == ChainType.CERTIK_MAIN ||
-                baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST) {
+                baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST || baseChain == ChainType.AKASH_MAIN) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"), withBehavior: handler12)) ?? "0"
@@ -1260,7 +1260,7 @@ class WUtils {
         var endIndex: String.Index?
         if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN || baseChain == ChainType.KAVA_TEST ||
                 baseChain == ChainType.BAND_MAIN || baseChain == ChainType.SECRET_MAIN || baseChain == ChainType.CERTIK_MAIN ||
-                baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST) {
+                baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST || baseChain == ChainType.AKASH_MAIN) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"), withBehavior: handler12)) ?? "0"
@@ -1464,6 +1464,29 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == CERTIK_MAIN_DENOM) {
+                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
+                }
+            }
+        }
+        return amount
+    }
+    
+    static func getAllAkash(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == AKASH_MAIN_DENOM) {
+                amount = NSDecimalNumber.init(string: balance.balance_amount)
+            }
+        }
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        for unbonding in unbondings {
+            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
+        }
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == AKASH_MAIN_DENOM) {
                     amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
@@ -2976,6 +2999,9 @@ class WUtils {
             
         } else if (chain == ChainType.SECRET_MAIN) {
             return BLOCK_TIME_SECRET
+            
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return BLOCK_TIME_AKASH
             
         }
         return NSDecimalNumber.init(string: "6")

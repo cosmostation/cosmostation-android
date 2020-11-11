@@ -323,6 +323,20 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            self.mFetchCnt = 10
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            
+            onFetchMintParam()
+            onFetchInflation()
+            onFetchProvision()
+            onFetchStakingPool()
+            
         }
         onFetchPriceTic(false)
         return true
@@ -333,7 +347,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if (mFetchCnt <= 0) {
             if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST ||
                     mChainType == ChainType.BAND_MAIN || mChainType == ChainType.SECRET_MAIN || mChainType == ChainType.CERTIK_MAIN ||
-                    mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST || mChainType == ChainType.CERTIK_TEST) {
+                    mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST || mChainType == ChainType.CERTIK_TEST || mChainType == ChainType.AKASH_MAIN) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
@@ -394,7 +408,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.KAVA_MAIN ||
                     mChainType == ChainType.KAVA_TEST || mChainType == ChainType.BAND_MAIN || mChainType == ChainType.SECRET_MAIN ||
-                    mChainType == ChainType.IOV_MAIN || mChainType == ChainType.CERTIK_MAIN ||  mChainType == ChainType.IOV_TEST || mChainType == ChainType.CERTIK_TEST) {
+                    mChainType == ChainType.IOV_MAIN || mChainType == ChainType.CERTIK_MAIN ||  mChainType == ChainType.IOV_TEST ||
+                    mChainType == ChainType.CERTIK_TEST || mChainType == ChainType.AKASH_MAIN) {
                 self.mMyValidators.removeAll()
                 for validator in mAllValidator {
                     var mine = false;
@@ -478,6 +493,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_VALIDATORS
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = AKASH_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -520,6 +537,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = OKEX_TEST_VALIDATORS
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = AKASH_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -573,6 +592,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = OKEX_TEST_VALIDATORS
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = AKASH_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonding"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -685,6 +706,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = OKEX_TEST_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = AKASH_ACCOUNT_INFO + account.account_address
         }
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -692,7 +715,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.COSMOS_MAIN || self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.SECRET_MAIN ||
-                        self.mChainType == ChainType.CERTIK_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST) {
+                        self.mChainType == ChainType.CERTIK_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.AKASH_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {
                             _ = BaseData.instance.deleteBalance(account: account)
@@ -773,6 +796,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_BONDING + account.account_address + IOV_TEST_BONDING_TAIL
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_BONDING + account.account_address + CERTIK_TEST_BONDING_TAIL
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = AKASH_BONDING + account.account_address + AKASH_BONDING_TAIL
         }
         let tempAddress = account.account_address
         
@@ -782,7 +807,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .success(let res):
                 if (self.mChainType == ChainType.COSMOS_MAIN || self.mChainType == ChainType.KAVA_MAIN || self.mChainType == ChainType.KAVA_TEST ||
                         self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.SECRET_MAIN ||
-                        self.mChainType == ChainType.CERTIK_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST) {
+                        self.mChainType == ChainType.CERTIK_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.AKASH_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
                         bondinginfos.count > 0  else {
@@ -837,6 +862,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_UNBONDING + account.account_address + IOV_TEST_UNBONDING_TAIL
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_UNBONDING + account.account_address + CERTIK_TEST_UNBONDING_TAIL
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = AKASH_UNBONDING + account.account_address + AKASH_UNBONDING_TAIL
         }
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -845,7 +872,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .success(let res):
                 if (self.mChainType == ChainType.COSMOS_MAIN || self.mChainType == ChainType.KAVA_MAIN || self.mChainType == ChainType.KAVA_TEST ||
                         self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.SECRET_MAIN ||
-                        self.mChainType == ChainType.CERTIK_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST) {
+                        self.mChainType == ChainType.CERTIK_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.AKASH_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
                         unbondinginfos.count > 0  else {
@@ -911,6 +938,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_REWARD_FROM_VAL + accountAddr + IOV_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_REWARD_FROM_VAL + accountAddr + CERTIK_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = AKASH_REWARD_FROM_VAL + accountAddr + AKASH_REWARD_FROM_VAL_TAIL + validatorAddr
         }
 //        print("url ", url)
         
@@ -920,7 +949,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .success(let res):
                 if (self.mChainType == ChainType.COSMOS_MAIN || self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN ||
                         self.mChainType == ChainType.KAVA_MAIN || self.mChainType == ChainType.SECRET_MAIN || self.mChainType == ChainType.CERTIK_MAIN ||
-                        self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.KAVA_TEST) {
+                        self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.KAVA_TEST || self.mChainType == ChainType.AKASH_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                             self.onFetchFinished()
@@ -961,6 +990,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_MINT_PARAM
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_MINT_PARAM
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = AKASH_MINT_PARAM
         }
         BaseData.instance.mMintParam = nil
         
@@ -1002,6 +1033,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_INFLATION
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_INFLATION
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = AKASH_INFLATION
         }
         BaseData.instance.mInflation = nil
         
@@ -1043,6 +1076,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_PROVISIONS
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_PROVISIONS
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = AKASH_PROVISIONS
         }
         BaseData.instance.mProvision = nil
         
@@ -1084,6 +1119,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_STAKING_POOL
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_STAKING_POOL
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = AKASH_STAKING_POOL
         }
         BaseData.instance.mStakingPool = nil
         
@@ -1249,6 +1286,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             return
         } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.CERTIK_TEST) {
             url = CGC_PRICE_TIC + "certik"
+            parameters = [:]
+            
+        } else if (mChainType == ChainType.AKASH_MAIN) {
+            url = CGC_PRICE_TIC + "akash-network"
             parameters = [:]
             
         } else {

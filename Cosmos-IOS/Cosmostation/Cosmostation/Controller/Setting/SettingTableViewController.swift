@@ -160,6 +160,10 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
                     guard let url = URL(string: EXPLORER_CERTIK + "?net=" + WUtils.getChainId(chainType)) else { return }
                     self.onShowSafariWeb(url)
+                    
+                } else if (chainType == ChainType.AKASH_MAIN) {
+                    guard let url = URL(string: EXPLORER_AKASH_MAIN) else { return }
+                    self.onShowSafariWeb(url)
                 }
                 
             } else if(indexPath.row == 3) {
