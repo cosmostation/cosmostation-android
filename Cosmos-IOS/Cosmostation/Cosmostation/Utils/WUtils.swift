@@ -2566,6 +2566,25 @@ class WUtils {
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_VOTE))
             }
+            
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_STAKE))
+            if (type == AKASH_MSG_TYPE_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_SEND))
+            } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForKavaRewards()[valCnt - 1]
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_REDELEGATE))
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_REINVEST))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
+            } else if (type == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_VOTE))
+            }
+            
         }
         return result
     }

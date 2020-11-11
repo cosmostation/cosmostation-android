@@ -606,6 +606,7 @@ let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
 let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
 let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
 let SECRET_MSG_TYPE_TRANSFER                = "secret_transfer";
+let AKASH_MSG_TYPE_TRANSFER                 = "akash_transfer";
 
 let OK_MSG_TYPE_TRANSFER                    = "okexchain/token/MsgTransfer";
 let OK_MSG_TYPE_MULTI_TRANSFER              = "okexchain/token/MsgMultiTransfer";
@@ -756,6 +757,14 @@ let SECRET_GAS_AMOUNT_REDELEGATE            = "300000"
 let SECRET_GAS_AMOUNT_REINVEST              = "350000"
 let SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE = "80000"
 let SECRET_GAS_AMOUNT_VOTE                  = "100000"
+
+let AKASH_GAS_FEE_RATE_AVERAGE              = "0.025"
+let AKASH_GAS_AMOUNT_SEND                   = "100000"
+let AKASH_GAS_AMOUNT_STAKE                  = "200000"
+let AKASH_GAS_AMOUNT_REDELEGATE             = "300000"
+let AKASH_GAS_AMOUNT_REINVEST               = "300000"
+let AKASH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000"
+let AKASH_GAS_AMOUNT_VOTE                   = "100000"
 
 
 // Constant for BEP3-Swap
