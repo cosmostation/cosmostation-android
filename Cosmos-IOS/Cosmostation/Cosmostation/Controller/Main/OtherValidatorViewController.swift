@@ -148,6 +148,11 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, NSDecimalNumber.one, chainType!)
             cell.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + validator.operator_address + ".png")!)
             
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
+            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, NSDecimalNumber.one, chainType!)
+            cell.validatorImg.af_setImage(withURL: URL(string: AKASH_VAL_URL + validator.operator_address + ".png")!)
+            
         }
         
         cell.monikerLabel.text = validator.description.moniker
@@ -178,6 +183,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
             } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
+            } else if (chainType == ChainType.AKASH_MAIN) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_AKASH
             }
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY

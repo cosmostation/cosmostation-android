@@ -63,6 +63,8 @@ class ValidatorListViewController: BaseViewController {
                 validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_IOV2
             } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
                 validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_CERTIK2
+            } else if (chainType == ChainType.AKASH_MAIN) {
+                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_AKASH2
             }
             
         } else {
@@ -80,6 +82,8 @@ class ValidatorListViewController: BaseViewController {
                 validatorSegment.tintColor = COLOR_IOV
             } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
                 validatorSegment.tintColor = COLOR_CERTIK
+            } else if (chainType == ChainType.AKASH_MAIN) {
+                validatorSegment.tintColor = COLOR_AKASH
             }
         }
 
