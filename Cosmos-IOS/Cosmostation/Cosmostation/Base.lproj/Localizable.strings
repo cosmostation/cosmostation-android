@@ -345,6 +345,10 @@
 "str_safe_copy_msg" = "Recently there have been many instances of clipboard hijacking on various mobile applications. The mnemonic phrase temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your mnemonic phrase to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your mneominc phrase outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.";
 "str_safe_copy" = "Safe Copy";
 "str_raw_copy" = "Raw Copy";
+"str_starname_walletconnect_alert_title" = "Export Address for Starname";
+"str_starname_walletconnect_alert_msg" = "You can easily export the addresses in Cosmostaion Wallet and link it with Starname Manager. This function only links your addresses using WalletConnect, and does not export your private keys or moves your assets.\n\nWould you like to link your wallets to Starname Manager?";
+"str_starname_walletconnect_alert_msg2" = "Ready to Export %@ Addresses";
+"str_starname_walletconnect_complete" = "Export Complete";
 
 "clear_all" = "Clear All";
 "delete" = "Delete";
@@ -521,6 +525,7 @@
 "error_not_enough_starname_fee" = "Not enough available balance for starname fee.";
 "error_can_not_extend_close_domain" = "Close type domain not support renew";
 "error_cannot_delete_open_domain" = "Can not delete open domain.";
+"error_no_address_export" = "No Address for Export.";
 
 
 

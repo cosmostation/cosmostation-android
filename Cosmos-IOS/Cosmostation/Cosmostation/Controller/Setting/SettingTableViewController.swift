@@ -11,7 +11,7 @@ import SafariServices
 import Toast_Swift
 import LocalAuthentication
 
-class SettingTableViewController: UITableViewController, PasswordViewDelegate {
+class SettingTableViewController: UITableViewController, PasswordViewDelegate, QrScannerDelegate {
 
     var mAccount: Account!
     var chainType: ChainType!
@@ -169,6 +169,9 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
             } else if(indexPath.row == 3) {
                 guard let url = URL(string: "https://www.cosmostation.io") else { return }
                 self.onShowSafariWeb(url)
+                
+            } else if(indexPath.row == 4) {
+                self.onShowStarnameWcDialog()
             }
             
         } else if (indexPath.section == 3) {
@@ -306,7 +309,7 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
         self.tableView.reloadData()
     }
     
-    @objc func dismissAlertController(){
+    @objc func dismissAlertController() {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -348,6 +351,42 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
         let safariViewController = SFSafariViewController(url: url)
         safariViewController.modalPresentationStyle = .popover
         present(safariViewController, animated: true, completion: nil)
+    }
+    
+    func onShowStarnameWcDialog() {
+        let starnameWCAlert = UIAlertController(title: NSLocalizedString("str_starname_walletconnect_alert_title", comment: ""), message: NSLocalizedString("str_starname_walletconnect_alert_msg", comment: ""), preferredStyle: .alert)
+        starnameWCAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        starnameWCAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
+            self.onStartQrCode()
+        }))
+        self.present(starnameWCAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            starnameWCAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func onStartQrCode() {
+        let qrScanVC = QRScanViewController(nibName: "QRScanViewController", bundle: nil)
+        qrScanVC.hidesBottomBarWhenPushed = true
+        qrScanVC.resultDelegate = self
+        self.navigationItem.title = ""
+        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+        self.navigationController?.pushViewController(qrScanVC, animated: false)
+    }
+    
+    func scannedAddress(result: String) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(610), execute: {
+            print("result ", result)
+            let wcDetailVC = StarnameWalletConnectViewController(nibName: "StarnameWalletConnectViewController", bundle: nil)
+            wcDetailVC.hidesBottomBarWhenPushed = true
+            wcDetailVC.wcURL = result
+            wcDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(wcDetailVC, animated: true)
+            
+        })
     }
     
 }

@@ -2997,6 +2997,47 @@ class WUtils {
         return nil
     }
     
+    static func getExportResource(_ accounts: Array<Account>) -> ExportStarname {
+        var result = ExportStarname.init()
+        result.type = "starname"
+        accounts.forEach { (account) in
+            var resource = ExportStarname.ExportResource.init()
+            if (WUtils.getChainType(account.account_base_chain) == ChainType.COSMOS_MAIN) {
+//                resource.ticker = COSMOS
+                resource.ticker = "ATOM"
+                resource.address = account.account_address
+                result.addresses.append(resource)
+            } else if (WUtils.getChainType(account.account_base_chain) == ChainType.IRIS_MAIN) {
+//                resource.ticker = IRIS
+                resource.ticker = "IRIS"
+                resource.address = account.account_address
+                result.addresses.append(resource)
+            } else if (WUtils.getChainType(account.account_base_chain) == ChainType.KAVA_MAIN) {
+//                resource.ticker = KAVA
+                resource.ticker = "KAVA"
+                resource.address = account.account_address
+                result.addresses.append(resource)
+            } else if (WUtils.getChainType(account.account_base_chain) == ChainType.BINANCE_MAIN) {
+//                resource.ticker = BINANCE
+                resource.ticker = "binance"
+                resource.address = account.account_address
+                result.addresses.append(resource)
+            } else if (WUtils.getChainType(account.account_base_chain) == ChainType.IOV_MAIN) {
+//                resource.ticker = STARNAME
+                resource.ticker = "STARNAME"
+                resource.address = account.account_address
+                result.addresses.append(resource)
+            } else if (WUtils.getChainType(account.account_base_chain) == ChainType.BAND_MAIN) {
+//                resource.ticker = BAND
+                resource.ticker = "band"
+                resource.address = account.account_address
+                result.addresses.append(resource)
+            }
+        }
+        return result;
+        
+    }
+    
     static func getCBlockTime(_ chain: ChainType?) -> NSDecimalNumber {
         if (chain == ChainType.COSMOS_MAIN) {
             return BLOCK_TIME_COSMOS
