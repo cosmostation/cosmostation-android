@@ -92,8 +92,11 @@ public struct IovStarNameFees: Codable {
             } else if (domain.count == 4) {
                 feeResult = NSDecimalNumber.init(string: register_domain_4).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
 
-            } else {
+            } else if (domain.count == 5) {
                 feeResult = NSDecimalNumber.init(string: register_domain_5).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
+
+            } else {
+                feeResult = NSDecimalNumber.init(string: register_domain_default).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
             
             }
             
@@ -104,17 +107,11 @@ public struct IovStarNameFees: Codable {
         }
         
         public func getAccountFee(_ type: String) -> NSDecimalNumber {
-            var feeResult = NSDecimalNumber.zero
             if (type == "open") {
-                let genFee = NSDecimalNumber.init(string: register_account_open).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
-                let resourceFee = NSDecimalNumber.init(string: replace_account_resources).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
-                feeResult = genFee.adding(resourceFee)
+                return NSDecimalNumber.init(string: register_account_open).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
             } else {
-                let genFee = NSDecimalNumber.init(string: register_account_closed).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
-                let resourceFee = NSDecimalNumber.init(string: replace_account_resources).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
-                feeResult = genFee.adding(resourceFee)
+                return NSDecimalNumber.init(string: register_account_closed).dividing(by: NSDecimalNumber.init(string: fee_coin_price), withBehavior: WUtils.handler0Down)
             }
-            return feeResult
         }
         
         public func getReplaceFee() -> NSDecimalNumber {
