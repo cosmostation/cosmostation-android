@@ -99,8 +99,11 @@ public class ResIovFee {
                 feeAmount = BigDecimal.ZERO;
             } else if (domain.length() == 4) {
                 feeAmount = new BigDecimal(register_domain_4).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
-            } else {
+            } else if (domain.length() == 5) {
                 feeAmount = new BigDecimal(register_domain_5).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+            } else {
+                feeAmount = new BigDecimal(register_domain_default).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
+
             }
             if (type.equals("open")) {
                 feeAmount = feeAmount.multiply(new BigDecimal(register_open_domain_multiplier));
@@ -111,12 +114,10 @@ public class ResIovFee {
         public BigDecimal getAccountFee(boolean open) {
             if (open) {
                 BigDecimal genFee = new BigDecimal(register_account_open).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
-                BigDecimal resourceFee = new BigDecimal(replace_account_resources).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
-                return genFee.add(resourceFee);
+                return genFee;
             } else {
                 BigDecimal genFee = new BigDecimal(register_account_closed).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
-                BigDecimal resourceFee = new BigDecimal(replace_account_resources).divide(new BigDecimal(fee_coin_price), 0, RoundingMode.DOWN);
-                return genFee.add(resourceFee);
+                return genFee;
             }
         }
 
