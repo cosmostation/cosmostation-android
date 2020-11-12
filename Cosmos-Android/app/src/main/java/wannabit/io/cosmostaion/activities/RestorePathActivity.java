@@ -402,17 +402,14 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             } else if (mChain.equals(AKASH_MAIN)) {
                 holder.akashLayer.setVisibility(View.VISIBLE);
                 holder.akashAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
-                ApiClient.getAkashChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                ApiClient.getAkashChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
                     @Override
-                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.akashAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_AKASH), 6, 6));
-                        }
+                    public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
+                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
+                        holder.akashAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, TOKEN_AKASH), 6, 6));
                     }
                     @Override
-                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
+                    public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) { }
                 });
 
             }

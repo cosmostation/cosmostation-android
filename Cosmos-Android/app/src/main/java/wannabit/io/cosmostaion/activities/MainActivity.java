@@ -1009,7 +1009,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 final Account account = mAccounts.get(position);
 
                 holder.accountArrowSort.setVisibility(View.GONE);
-                if (account.id == mAccount.id) {
+                if (account.id.equals(mAccount.id)) {
                     holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_accout_selected));
                 } else {
                     holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_accout_unselected));

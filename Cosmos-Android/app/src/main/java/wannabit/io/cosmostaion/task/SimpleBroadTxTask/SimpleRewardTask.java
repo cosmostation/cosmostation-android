@@ -219,13 +219,13 @@ public class SimpleRewardTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
-                Response<ResLcdAccountInfo> accountResponse = ApiClient.getAkashChain(mApp).getAccountInfo(mAccount.address).execute();
+                Response<ResLcdKavaAccountInfo> accountResponse = ApiClient.getAkashChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(!accountResponse.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                     return mResult;
                 }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, accountResponse.body()));
                 mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
                 for(Validator val:mValidators) {

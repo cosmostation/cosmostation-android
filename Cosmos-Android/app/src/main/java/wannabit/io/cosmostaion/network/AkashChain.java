@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
+import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdProposal;
 import wannabit.io.cosmostaion.network.res.ResLcdProposalTally;
 import wannabit.io.cosmostaion.network.res.ResLcdProposalVoted;
@@ -33,7 +34,7 @@ import wannabit.io.cosmostaion.network.res.ResTxInfo;
 public interface AkashChain {
 
     @GET("/auth/accounts/{address}")
-    Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
+    Call<ResLcdKavaAccountInfo> getAccountInfo(@Path("address") String address);
 
     @GET("/txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
