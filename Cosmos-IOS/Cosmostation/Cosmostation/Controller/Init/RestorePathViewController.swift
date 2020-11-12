@@ -345,14 +345,14 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):
-                            guard let responseData = res as? NSDictionary,
-                                  let info = responseData.object(forKey: "result") as? [String : Any] else {
+                            guard let info = res as? [String : Any] else {
                                 return
                             }
-                            let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
-                            }
+                            let tempAccount = Account.init(isNew: true)
+                            tempAccount.account_id = -1
+                            let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info))
+                            cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, AKASH_MAIN_DENOM, ChainType.AKASH_MAIN)
+                            
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                         }
