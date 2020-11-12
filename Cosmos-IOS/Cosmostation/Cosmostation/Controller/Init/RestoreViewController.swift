@@ -181,6 +181,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         certikAction.setValue(UIImage(named: "certikChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let akashAction = UIAlertAction(title: NSLocalizedString("chain_title_akash", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.AKASH_MAIN
+            self.initViewUpdate()
+        })
+        akashAction.setValue(UIImage(named: "akashChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let bnbTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_bnb", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.BINANCE_TEST
             self.initViewUpdate()
@@ -219,6 +225,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         showAlert.addAction(bandAction)
         showAlert.addAction(secretAction)
         showAlert.addAction(certikAction)
+        showAlert.addAction(akashAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.BINANCE_TEST)) {
             showAlert.addAction(bnbTestAction)

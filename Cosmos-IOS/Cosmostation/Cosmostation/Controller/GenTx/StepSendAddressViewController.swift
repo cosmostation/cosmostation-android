@@ -78,66 +78,74 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
         }
         
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            if (!userInput!.starts(with: "cosmos") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "cosmos1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            if (!userInput!.starts(with: "iaa") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "iaa1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
-            if (!userInput!.starts(with: "bnb") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "bnb1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            if (!userInput!.starts(with: "kava") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "kava1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            if (!userInput!.starts(with: "star") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "star1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-            if (!userInput!.starts(with: "tbnb") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "tbnb1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            if (!userInput!.starts(with: "band") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "band1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            if (!userInput!.starts(with: "secret") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "secret1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            if (!userInput!.starts(with: "okexchain") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "okexchain1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            if (!userInput!.starts(with: "certik") || !WKey.isValidateBech32(userInput!)) {
+            if (!userInput!.starts(with: "certik1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
-        } else {
+        } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+            if (!userInput!.starts(with: "akash1") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
+        }
+        
+        else {
             self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
             return;
         }

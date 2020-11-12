@@ -63,6 +63,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -74,6 +75,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_COSMOS;
@@ -1168,13 +1170,18 @@ public class WUtil {
 
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return BaseConstant.CGC_CERTIK;
+
+        } else if (chain.equals(AKASH_MAIN)) {
+            return BaseConstant.CGC_AKASH;
+
         }
         return BaseConstant.CGC_ATOM;
     }
 
     public static int getMaxMemoSize(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST) || chain.equals(OK_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST) ||
+                chain.equals(OK_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN)) {
             return BaseConstant.MEMO_ATOM;
 
         } else if (chain.equals(IRIS_MAIN)) {
@@ -1724,6 +1731,9 @@ public class WUtil {
 
         } else if (chain.equals(CERTIK_MAIN)) {
             return BLOCK_TIME_CERTIK;
+
+        } else if (chain.equals(AKASH_MAIN)) {
+            return BLOCK_TIME_AKASH;
 
         }
         return new BigDecimal("6");

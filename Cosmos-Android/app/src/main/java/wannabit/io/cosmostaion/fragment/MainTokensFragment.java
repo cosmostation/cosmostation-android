@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -55,6 +56,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -232,7 +234,13 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
             onUpdateTotalCard();
 
-        } else if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            onUpdateTotalCard();
+
+        }
+
+        else if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             onUpdateTotalCard();
 
@@ -363,6 +371,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalCtkAmount, 6, 6));
             mTotalValue.setText(WDp.getValueOfCertik(getContext(), getBaseDao(), totalCtkAmount));
 
+        } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+            BigDecimal totalAktAmount = BigDecimal.ZERO;
+            for (Balance balance:mBalances) {
+                if (balance.symbol.equals(TOKEN_AKASH) ) {
+                    totalAktAmount = totalAktAmount.add(WDp.getAllAkt(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
+                }
+            }
+            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAktAmount, 6, 6));
+            mTotalValue.setText(WDp.getValueOfAkash(getContext(), getBaseDao(), totalAktAmount));
+
         }
 
         if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
@@ -412,7 +430,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindOkItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 onBindCertikItem(viewHolder, position);
-
+            } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                onBindAkashItem(viewHolder, position);
             }
         }
 
@@ -766,6 +785,35 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
         });
     }
+
+    private void onBindAkashItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_AKASH)) {
+            holder.itemSymbol.setText(getString(R.string.str_akt_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AKASH_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Akash Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_token_img));
+
+            BigDecimal totalAmount = WDp.getAllAkt(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.getValueOfAkash(getContext(), getBaseDao(), totalAmount));
+        } else {
+            //TODO no case yet
+
+        }
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO no  yet
+            }
+        });
+
+    }
+
+
+
+
 
     private void onFetchCosmosTokenPrice() {
         onUpdateTotalCard();

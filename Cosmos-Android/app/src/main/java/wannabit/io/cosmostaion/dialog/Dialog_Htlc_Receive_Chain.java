@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -85,7 +86,7 @@ public class Dialog_Htlc_Receive_Chain extends DialogFragment {
         }
 
         public class DestinationChainHolder extends RecyclerView.ViewHolder {
-            RelativeLayout rootLayer;
+            LinearLayout rootLayer;
             ImageView chainImg;
             TextView chainName;
             public DestinationChainHolder(@NonNull View itemView) {

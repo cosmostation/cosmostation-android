@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -47,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -180,6 +182,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 hasbalance  = true;
             }
 
+        } else if (mBaseChain.equals(AKASH_MAIN)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("2500")) > 0) {
+                hasbalance  = true;
+            }
+
         } else {
             Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
             return;
@@ -266,7 +273,19 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_chain_img));
 
-        } else if (mBaseChain.equals(BNB_TEST)) {
+        } else if (mBaseChain.equals(AKASH_MAIN)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardRewardAddress.setVisibility(View.VISIBLE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_chain_img));
+
+        }
+
+
+        else if (mBaseChain.equals(BNB_TEST)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardAlarm.setVisibility(View.GONE);

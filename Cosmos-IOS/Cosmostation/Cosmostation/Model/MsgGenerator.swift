@@ -18,7 +18,7 @@ class MsgGenerator {
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                 chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.IOV_MAIN ||
-                chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+                chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             let data = try? JSONEncoder().encode(amount)
@@ -47,7 +47,7 @@ class MsgGenerator {
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                 chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.IOV_MAIN ||
-                chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+                chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             let data = try? JSONEncoder().encode(amount)
@@ -77,7 +77,7 @@ class MsgGenerator {
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                 chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.IOV_MAIN ||
-                chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+                chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             
@@ -109,7 +109,7 @@ class MsgGenerator {
         var msg = Msg.init()
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-            chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.AKASH_MAIN) {
             value.from_address = fromAddress
             value.to_address = toAddress
             let data = try? JSONEncoder().encode(amount)
@@ -171,7 +171,7 @@ class MsgGenerator {
         var value = Msg.Value.init()
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                 chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.IOV_MAIN ||
-                chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+                chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
             value.delegator_address = address
             value.validator_src_address = fromValAddress
             value.validator_dst_address = toValAddress
@@ -212,7 +212,8 @@ class MsgGenerator {
     static func genGetModifyRewardAddressMsg(_ requestAddress: String, _ newRewardAddress: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.IOV_MAIN ||
+                chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
             value.delegator_address = requestAddress
             value.withdraw_address = newRewardAddress
             
@@ -232,7 +233,8 @@ class MsgGenerator {
     static func genGetVoteMsg(_ fromAddress: String, _ proposalId: String, _ opinion: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST || chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST || chain == ChainType.BAND_MAIN ||
+                chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST || chain == ChainType.IOV_MAIN || chain == ChainType.AKASH_MAIN) {
             value.proposal_id = proposalId
             value.voter = fromAddress
             value.option = opinion

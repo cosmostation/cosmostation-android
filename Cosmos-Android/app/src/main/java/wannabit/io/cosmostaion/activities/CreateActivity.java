@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -144,6 +145,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
         } else if (mChain.equals(BNB_TEST) || mChain.equals(KAVA_TEST) || mChain.equals(IOV_TEST) || mChain.equals(OK_TEST) || mChain.equals(CERTIK_TEST)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+        } else if (mChain.equals(AKASH_MAIN)) {
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
         }
         for(int i = 0; i < mWordsLayer.length; i++) {
             if (mChain.equals(COSMOS_MAIN)) {
@@ -162,6 +165,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_certik));
             } else if (mChain.equals(BNB_TEST) || mChain.equals(KAVA_TEST) || mChain.equals(IOV_TEST) || mChain.equals(OK_TEST) || mChain.equals(CERTIK_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_darkgray));
+            } else if (mChain.equals(AKASH_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_akash));
             }
         }
 

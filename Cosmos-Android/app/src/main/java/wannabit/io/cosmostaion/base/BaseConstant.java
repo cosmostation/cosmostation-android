@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -36,6 +36,8 @@ public class BaseConstant {
     public final static String PRE_IOV_UP_DOWN_24           = "PRE_IOV_UP_DOWN_24";
     public final static String PRE_CERTIK_TIC               = "PRE_CERTIK_TIC";
     public final static String PRE_CERTIK_UP_DOWN_24        = "PRE_CERTIK_UP_DOWN_24";
+    public final static String PRE_AKASH_TIC                = "PRE_AKASH_TIC";
+    public final static String PRE_AKASH_UP_DOWN_24         = "PRE_AKASH_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -357,6 +359,7 @@ public class BaseConstant {
     public final static String TOKEN_IOV            = "uiov";
     public final static String TOKEN_CERTIK         = "uctk";
     public final static String TOKEN_BAND           = "uband";
+    public final static String TOKEN_AKASH          = "uakt";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_OK_TEST        = "tokt";
@@ -463,6 +466,16 @@ public class BaseConstant {
     public final static String FEE_CERTIK_GAS_ADDRESS_CHANGE    = "100000";
     public final static String FEE_CERTIK_GAS_VOTE              = "100000";
 
+    public final static String FEE_AKASH_GAS_RATE_AVERAGE           = "0.025";
+    public final static String FEE_AKASH_GAS_AMOUNT_SEND            = "100000";
+    public final static String FEE_AKASH_GAS_AMOUNT_STAKE           = "200000";
+    public final static String FEE_AKASH_GAS_AMOUNT_REDELEGATE      = "300000";
+    public final static String FEE_AKASH_GAS_AMOUNT_REINVEST        = "300000";
+    public final static String FEE_AKASH_GAS_AMOUNT_VOTE            = "100000";
+    public final static String FEE_AKASH_GAS_AMOUNT_ADDRESS_CHANGE  = "100000";
+
+
+
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";
     public final static String CGC_BNB  = "binancecoin";
@@ -470,6 +483,7 @@ public class BaseConstant {
     public final static String CGC_BAND = "band-protocol";
     public final static String CGC_IOV = "starname";
     public final static String CGC_CERTIK = "certik";
+    public final static String CGC_AKASH = "akash-network";
 
     public final static int CMC_ATOM = 3794;
     public final static int CMC_IRIS = 3874;
@@ -505,6 +519,7 @@ public class BaseConstant {
     public final static String BAND_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
     public final static String IOV_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
     public final static String CERTIK_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/certik/";
+    public final static String AKASH_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/akash/";
 
 
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";
@@ -513,6 +528,7 @@ public class BaseConstant {
     public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/starname/";
     public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
     public final static String EXPLORER_BAND_MAIN       = "https://cosmoscan.io/";
+    public final static String EXPLORER_AKASH_MAIN      = "https://akash.bigdipper.live/";
 
     public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
     public final static String EXPLORER_KAVA_TEST       = "https://kava-testnet-9000.mintscan.io/";
@@ -538,4 +554,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_KAVA = new BigDecimal("8.01");
     public final static BigDecimal BLOCK_TIME_BAND = new BigDecimal("3.01");
     public final static BigDecimal BLOCK_TIME_CERTIK = new BigDecimal("5.75");
+    public final static BigDecimal BLOCK_TIME_AKASH = new BigDecimal("6.21");
 }

@@ -5,7 +5,6 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResLcdProposalTally;
 import wannabit.io.cosmostaion.network.res.ResLcdProposer;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -82,6 +81,32 @@ public class ProposalProposerTask extends CommonTask {
 
             } else if (mChain.equals(BaseChain.CERTIK_TEST)) {
                 Response<ResLcdProposer> response = ApiClient.getCertikTestChain(mApp).getProposer(mProposalId).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result.proposer;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+                Response<ResLcdProposer> response = ApiClient.getIovChain(mApp).getProposer(mProposalId).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result.proposer;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.AKASH_MAIN)) {
+                Response<ResLcdProposer> response = ApiClient.getAkashChain(mApp).getProposer(mProposalId).execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

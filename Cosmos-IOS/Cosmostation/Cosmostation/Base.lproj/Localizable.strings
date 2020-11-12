@@ -94,6 +94,8 @@
 "fee_speed_iov_title" = "Support fixed amount fee for IOV.";
 "fee_speed_ok_title" = "Support fixed amount fee for Okex Chain.";
 "fee_speed_certik_title" = "Support fixed amount fee for Certik Chain.";
+"fee_speed_secret_title" = "Support fixed amount fee for Secret Chain.";
+"fee_speed_akash_title" = "Support fixed amount fee for Akash Chain.";
 "fee_description_title_0" = "Tx fee 0.000001 ATOM";
 "fee_description_title_1" = "Tx fee rate 0.0025";
 "fee_description_title_2" = "Tx fee rate 0.025";
@@ -127,6 +129,8 @@
 "send_guide_msg_certik" = "A public platform based on the Certik Foundation's unique Formal Verification security system.";
 "send_guide_title_secret" = "SECRET CHAIN";
 "send_guide_msg_secret" = "First Proof-of-Stake network to enable privacy-preserving smart contracts. Secret allows private, secure computation.";
+"send_guide_title_akash" = "AKASH NETWORK";
+"send_guide_msg_akash" = "The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -136,6 +140,7 @@
 "send_guide_btn1_ok" = "Market";
 "send_guide_btn1_certik" = "Home";
 "send_guide_btn1_secret" = "Home";
+"send_guide_btn1_akash" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -145,6 +150,7 @@
 "send_guide_btn2_ok" = "Communities";
 "send_guide_btn2_certik" = "Blog";
 "send_guide_btn2_secret" = "Blog";
+"send_guide_btn2_akash" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
@@ -592,6 +598,7 @@
 "chain_title_band" = "Band Mainnet";
 "chain_title_secret" = "Secret Mainnet";
 "chain_title_certik" = "Certik Mainnet";
+"chain_title_akash" = "Akash Mainnet";
 "chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
 "chain_title_iov_test" = "Starname Testnet";

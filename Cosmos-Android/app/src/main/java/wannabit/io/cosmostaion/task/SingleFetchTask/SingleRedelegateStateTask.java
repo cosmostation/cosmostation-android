@@ -8,6 +8,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.type.Redelegate;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.AkashChain;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -15,6 +16,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
@@ -126,6 +128,18 @@ public class SingleRedelegateStateTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
                 Response<ResLcdRedelegate> response = ApiClient.getCertikTestChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
+                if (response.isSuccessful()) {
+                    if(response.body() != null && response.body().result != null) {
+                        mResult.resultData = response.body().result;
+                        mResult.isSuccess = true;
+                    } else {
+                        mResult.resultData = new ArrayList<Redelegate>();
+                        mResult.isSuccess = true;
+                    }
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
+                Response<ResLcdRedelegate> response = ApiClient.getAkashChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
                 if (response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
                         mResult.resultData = response.body().result;

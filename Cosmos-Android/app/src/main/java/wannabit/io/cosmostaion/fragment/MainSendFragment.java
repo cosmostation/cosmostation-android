@@ -57,6 +57,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -70,6 +71,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -97,8 +99,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mAddress;
 
 
-    private RelativeLayout      mAtomLayer, mIrisLayer, mBnbLayer, mKavaLayer, mIovLayer, mBandLayer, mOkLayer, mCertikLayer;
-    private CardView            mAtomCard, mIrisCard, mBnbCard, mKavaCard, mIovCard, mBandCard, mOkCard, mCertikCard;
+    private RelativeLayout      mAtomLayer, mIrisLayer, mBnbLayer, mKavaLayer, mIovLayer, mBandLayer, mOkLayer, mCertikLayer, mAkashLayer;
+    private CardView            mAtomCard, mIrisCard, mBnbCard, mKavaCard, mIovCard, mBandCard, mOkCard, mCertikCard, mAkashCard;
 
     private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomAvailable,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
@@ -129,6 +131,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
     private TextView            mTvCertikTotal, mTvCertikValue, mTvCertikAvailable, mTvCertikDelegated, mTvCertikUnBonding, mTvCertikRewards;
     private RelativeLayout      mBtnCertikReward, mBtnCertikVote;
+
+    private TextView            mTvAkashTotal, mTvAkashValue, mTvAkashAvailable, mTvAkashDelegated, mTvAkashUnBonding, mTvAkashRewards;
+    private RelativeLayout      mBtnAkashReward, mBtnAkashVote;
 
 
     private CardView            mUndelegateCard;
@@ -278,6 +283,18 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnCertikReward        = mCertikLayer.findViewById(R.id.btn_certik_reward);
         mBtnCertikVote          = mCertikLayer.findViewById(R.id.btn_certik_vote);
 
+        mAkashLayer             = rootView.findViewById(R.id.layer_akash);
+        mAkashCard              = mAkashLayer.findViewById(R.id.card_root);
+        mTvAkashTotal           = mAkashLayer.findViewById(R.id.dash_akash_amount);
+        mTvAkashValue           = mAkashLayer.findViewById(R.id.dash_akash_value);
+        mTvAkashAvailable       = mAkashLayer.findViewById(R.id.dash_akash_available);
+        mTvAkashDelegated       = mAkashLayer.findViewById(R.id.dash_akash_delegate);
+        mTvAkashUnBonding       = mAkashLayer.findViewById(R.id.dash_akash_unbonding);
+        mTvAkashRewards         = mAkashLayer.findViewById(R.id.dash_akash_reward);
+        mBtnAkashReward         = mAkashLayer.findViewById(R.id.btn_akash_reward);
+        mBtnAkashVote           = mAkashLayer.findViewById(R.id.btn_akash_vote);
+
+
 
         mUndelegateCard         = rootView.findViewById(R.id.card_undelegate);
         mUndelegateCnt          = mUndelegateCard.findViewById(R.id.undelegate_count);
@@ -377,6 +394,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnOkVote.setOnClickListener(this);
         mBtnCertikReward.setOnClickListener(this);
         mBtnCertikVote.setOnClickListener(this);
+        mBtnAkashReward.setOnClickListener(this);
+        mBtnAkashVote.setOnClickListener(this);
         mAprCard.setOnClickListener(this);
         return rootView;
     }
@@ -447,6 +466,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBandLayer.setVisibility(View.GONE);
             mOkLayer.setVisibility(View.GONE);
             mCertikLayer.setVisibility(View.GONE);
+            mAkashLayer.setVisibility(View.GONE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mMintCards.setVisibility(View.VISIBLE);
             if (SUPPORT_MOONPAY) {
@@ -490,6 +510,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBandLayer.setVisibility(View.GONE);
             mOkLayer.setVisibility(View.GONE);
             mCertikLayer.setVisibility(View.GONE);
+            mAkashLayer.setVisibility(View.GONE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
@@ -511,6 +532,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBandLayer.setVisibility(View.GONE);
             mOkLayer.setVisibility(View.GONE);
             mCertikLayer.setVisibility(View.GONE);
+            mAkashLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
             mBtnBep3Send.setVisibility(View.VISIBLE);
             if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
@@ -542,6 +564,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBandLayer.setVisibility(View.GONE);
             mOkLayer.setVisibility(View.GONE);
             mCertikLayer.setVisibility(View.GONE);
+            mAkashLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
@@ -568,6 +591,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBandLayer.setVisibility(View.GONE);
             mOkLayer.setVisibility(View.GONE);
             mCertikLayer.setVisibility(View.GONE);
+            mAkashLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
             if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
@@ -594,6 +618,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBandLayer.setVisibility(View.VISIBLE);
             mOkLayer.setVisibility(View.GONE);
             mCertikLayer.setVisibility(View.GONE);
+            mAkashLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
 //            if (SUPPORT_MOONPAY) {
@@ -622,6 +647,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBandLayer.setVisibility(View.GONE);
             mOkLayer.setVisibility(View.VISIBLE);
             mCertikLayer.setVisibility(View.GONE);
+            mAkashLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
             mBuyLayer.setVisibility(View.GONE);
 
@@ -650,6 +676,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBandLayer.setVisibility(View.GONE);
             mOkLayer.setVisibility(View.GONE);
             mCertikLayer.setVisibility(View.VISIBLE);
+            mAkashLayer.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
 
@@ -668,6 +695,28 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideMsg.setText(R.string.str_front_guide_msg_certik);
             mGuideBtn.setText(R.string.str_faq_certik);
             mFaqBtn.setText(R.string.str_guide_certik);
+
+        } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+            mAtomLayer.setVisibility(View.GONE);
+            mIrisLayer.setVisibility(View.GONE);
+            mBnbLayer.setVisibility(View.GONE);
+            mKavaLayer.setVisibility(View.GONE);
+            mIovLayer.setVisibility(View.GONE);
+            mBandLayer.setVisibility(View.GONE);
+            mOkLayer.setVisibility(View.GONE);
+            mCertikLayer.setVisibility(View.GONE);
+            mAkashLayer.setVisibility(View.VISIBLE);
+            mMintCards.setVisibility(View.VISIBLE);
+            mBuyLayer.setVisibility(View.GONE);
+
+            if (getMainActivity().mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAkash), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+            mGuideImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_img));
+            mGuideTitle.setText(R.string.str_front_guide_title_akash);
+            mGuideMsg.setText(R.string.str_front_guide_msg_akash);
+            mGuideBtn.setText(R.string.str_faq_akash);
+            mFaqBtn.setText(R.string.str_guide_akash);
 
         }
 
@@ -1054,6 +1103,44 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownPrice.setText("???");
                 mUpDownImg.setVisibility(View.GONE);
             }
+
+        }  else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+            BigDecimal availableAmount = WDp.getAvailableCoin(getMainActivity().mBalances, TOKEN_AKASH);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain);
+            BigDecimal unbondingAmount = WDp.getUnbondingAmount(getMainActivity().mUnbondings);
+            BigDecimal rewardAmount = WDp.getAllRewardAmount(getMainActivity().mRewards, TOKEN_AKASH);
+            BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
+
+            mTvAkashTotal.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            mTvAkashAvailable.setText(WDp.getDpAmount2(getContext(), availableAmount, 6, 6));
+            mTvAkashDelegated.setText(WDp.getDpAmount2(getContext(), delegateAmount, 6, 6));
+            mTvAkashUnBonding.setText(WDp.getDpAmount2(getContext(), unbondingAmount, 6, 6));
+            mTvAkashRewards.setText(WDp.getDpAmount2(getContext(), rewardAmount, 6, 6));
+            mTvAkashValue.setText(WDp.getValueOfAkash(getContext(), getBaseDao(), totalAmount));
+            getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
+
+            try {
+                mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastAkashTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastAkashUpDown())));
+                if(getBaseDao().getLastAkashUpDown() > 0) {
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                } else if (getBaseDao().getLastAkashUpDown() < 0){
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                } else {
+                    mUpDownImg.setVisibility(View.GONE);
+                }
+
+                mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
+                mYield.setText(WDp.getDpEstApr(getBaseDao(), getMainActivity().mBaseChain));
+
+            } catch (Exception e) {
+                mPerPrice.setText("???");
+                mUpDownPrice.setText("???");
+                mUpDownImg.setVisibility(View.GONE);
+            }
+
         }
 
         // Show Undelegate detail list at most 5 for ordered by completing time
@@ -1168,6 +1255,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/"));
                 startActivity(guideIntent);
 
+            } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://akash.network/"));
+                startActivity(guideIntent);
+
             }
 
         } else if (v.equals(mFaqBtn)) {
@@ -1206,6 +1297,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
             } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/blog"));
+                startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://akash.network/blog/"));
                 startActivity(guideIntent);
 
             }
@@ -1254,15 +1349,24 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/starname"));
                 startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/certik"));
+                startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/akash-network"));
+                startActivity(guideIntent);
+
             }
 
-        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward) || v.equals(mBtnBandDeleagte) || v.equals(mBtnIovStake) || v.equals(mBtnCertikReward)) {
+        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward) || v.equals(mBtnBandDeleagte) || v.equals(mBtnIovStake) || v.equals(mBtnCertikReward) || v.equals(mBtnAkashReward)) {
             Intent validators = new Intent(getMainActivity(), ValidatorListActivity.class);
             validators.putExtra("rewards", getMainActivity().mRewards);
             validators.putExtra("irisreward", getMainActivity().mIrisReward);
             startActivity(validators);
 
-        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote) || v.equals(mBtnBandVote) || v.equals(mBtnCertikVote)) {
+        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote) || v.equals(mBtnBandVote) || v.equals(mBtnCertikVote) || v.equals(mBtnAkashVote) || v.equals(mBtnIovVote)) {
             if (getMainActivity().mBaseChain.equals(KAVA_TEST)) return;
             Intent proposals = new Intent(getMainActivity(), VoteListActivity.class);
             startActivity(proposals);
@@ -1312,9 +1416,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mBtnKavaDapp)) {
             startActivity(new Intent(getMainActivity(), DAppsListActivity.class));
-
-        } else if (v.equals(mBtnIovVote)) {
-            Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnIovNameService)) {
             getMainActivity().onStarNameService();

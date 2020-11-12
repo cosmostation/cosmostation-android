@@ -46,12 +46,17 @@
     <string name="url_api_ok_test" translatable="false"></string>
 
 
-
     <string name="url_lcd_certik" translatable="false">https://lcd-certik.cosmostation.io/</string>
     <string name="url_api_certik" translatable="false">https://api-certik.cosmostation.io/</string>
 
     <string name="url_lcd_certik_test" translatable="false">https://lcd-certik-testnet3.cosmostation.io/</string>
     <string name="url_api_certik_test" translatable="false">https://api-certik-testnet3.cosmostation.io/</string>
+
+
+    <string name="url_lcd_akash" translatable="false">https://lcd-akash.cosmostation.io/</string>
+    <string name="url_api_akash" translatable="false">https://api-akash.cosmostation.io/</string>
+
+
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
@@ -64,6 +69,7 @@
     <string name="str_bnb_c" translatable="false">BNB</string>
     <string name="str_btc_c" translatable="false">BTC</string>
     <string name="str_ctk_c" translatable="false">CTK</string>
+    <string name="str_akt_c" translatable="false">AKT</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
@@ -102,6 +108,7 @@
     <string name="str_kava_main_net">Kava Mainnet</string>
     <string name="str_band_main_net">Band Mainnet</string>
     <string name="str_certik_main_net">Certik Mainnet</string>
+    <string name="str_akash_main_net">Akash Mainnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
     <string name="str_kava_test_net">Kava Testnet</string>
     <string name="str_iov_test_net">Starname Testnet</string>
@@ -245,6 +252,8 @@
     <string name="str_guide_ok">Communities</string>
     <string name="str_faq_certik">Home</string>
     <string name="str_guide_certik">Blog</string>
+    <string name="str_faq_akash">Home</string>
+    <string name="str_guide_akash">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -303,6 +312,8 @@
     <string name="str_certik_chain_2" translatable="false">Certik Mainnet</string>
     <string name="str_certik_chain_test" translatable="false">(Certik Testnet)</string>
     <string name="str_certik_chain_test_2" translatable="false">Certik Testnet</string>
+    <string name="str_akash_chain" translatable="false">(Akash Mainnet)</string>
+    <string name="str_akash_chain_2" translatable="false">Akash Mainnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_iris" translatable="false">IRIS</string>
     <string name="str_binance" translatable="false">BINANCE</string>
@@ -315,6 +326,7 @@
     <string name="str_ok_test" translatable="false">OKEX TEST</string>
     <string name="str_certik_main" translatable="false">CERTIK</string>
     <string name="str_certik_test" translatable="false">CERTIK TEST</string>
+    <string name="str_akash_main" translatable="false">AKASH</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -389,6 +401,7 @@
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
     <string name="str_front_guide_title_ok"><![CDATA[OKEX CHAIN]]></string>
     <string name="str_front_guide_title_certik"><![CDATA[CERTIK CHAIN]]></string>
+    <string name="str_front_guide_title_akash"><![CDATA[AKASH NETWORK]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -397,6 +410,7 @@
     <string name="str_front_guide_msg_ok">OKEX Chain is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_front_guide_msg_certik"><![CDATA[A public platform based on the Certik Foundation\'s unique Formal Verification security system.]]></string>
+    <string name="str_front_guide_msg_akash"><![CDATA[The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -415,6 +429,7 @@
     <string name="str_fee_speed_title_iov">Support fixed transfer fee for Starname Chain.</string>
     <string name="str_fee_speed_title_ok">Support fixed transfer fee for Okex Chain.</string>
     <string name="str_fee_speed_title_certik">Support fixed transfer fee for Certik Chain.</string>
+    <string name="str_fee_speed_title_akash">Support fixed transfer fee for Akash Chain.</string>
     <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
     <string name="str_fee_description_title_2">Tx fee rate 0.025</string>
@@ -966,7 +981,7 @@
     <string name="str_buy_new_domain">Buy Premium Starname</string>
     <string name="str_buy_new_account">Buy Basic Starname</string>
     <string name="str_starname_domain_promotion_title">Starname Premium Edition</string>
-    <string name="str_starname_domain_promotion_msg">Register your premium starname. The premium starname can be used as a\nuniversal username, and you can create an additional\nsub basic starname.</string>
+    <string name="str_starname_domain_promotion_msg">Register your premium starname. The premium starname can be used as a universal username, and you can create an additional sub basic starname.</string>
     <string name="str_starname_account_promotion_title">Starname Basic Edition</string>
     <string name="str_starname_account_promotion_msg">Starname service can connect addresses of various chains.\nRegister your account with reasonable cost for stability and convenience in block chain universal.</string>
     <string name="str_connected_addressed">Connected Addresses</string>
@@ -1180,6 +1195,7 @@
     <string name="s_band" translatable="false">BAND</string>
     <string name="s_tok" translatable="false">TOKT</string>
     <string name="s_ctk" translatable="false">CTK</string>
+    <string name="s_akt" translatable="false">AKT</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

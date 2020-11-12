@@ -99,6 +99,12 @@
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
+    <style name="font_ss_9_akash" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorAkash</item>
+        <item name="android:textSize">@dimen/text_size_9</item>
+    </style>
+
     <style name="font_ss_9_red" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorRed</item>
@@ -395,6 +401,12 @@
     <style name="font_ss_14_certik" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorCertik</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_ss_14_akash" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorAkash</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 

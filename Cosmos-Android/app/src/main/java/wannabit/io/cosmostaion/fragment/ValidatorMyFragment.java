@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
@@ -47,9 +48,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
@@ -181,6 +184,8 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
                 } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+                } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
                 }
 
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
@@ -206,6 +211,9 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
                 } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                     holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_CERTIK));
+
+                } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                    holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_AKASH));
 
                 }
 
@@ -288,6 +296,15 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_CERTIK));
                     try {
                         Picasso.get().load(CERTIK_VAL_URL + validator.operator_address + ".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
+
+                } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_AKASH));
+                    try {
+                        Picasso.get().load(AKASH_VAL_URL + validator.operator_address + ".png")
                                 .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                                 .into(holder.itemAvatar);
                     } catch (Exception e){}
@@ -417,6 +434,9 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
             } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_CERTIK);
+
+            } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
+                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_AKASH);
 
             }
             mSortType.setText(getString(R.string.str_sorting_by_reward));

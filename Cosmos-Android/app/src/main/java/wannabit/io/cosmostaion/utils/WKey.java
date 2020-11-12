@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -95,7 +96,7 @@ public class WKey {
     }
 
     public static List<ChildNumber> getParentPath(BaseChain chain, boolean newBip) {
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
@@ -199,6 +200,9 @@ public class WKey {
                 result = bech32Encode("okexchain".getBytes(), converted);
             } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)){
                 result = bech32Encode("certik".getBytes(), converted);
+            } else if (chain.equals(AKASH_MAIN)){
+                result = bech32Encode("akash".getBytes(), converted);
+
             }
 
         } catch (Exception e) {
@@ -222,6 +226,8 @@ public class WKey {
             return bech32Encode("okexchain".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return bech32Encode("certik".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(AKASH_MAIN)) {
+            return bech32Encode("akash".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
@@ -242,7 +248,9 @@ public class WKey {
             return bech32Encode("okexchainvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return bech32Encode("certikvaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else {
+        } else if (chain.equals(AKASH_MAIN)) {
+            return bech32Encode("akashvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        }  else {
             return "";
         }
     }

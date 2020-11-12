@@ -24,12 +24,13 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 
@@ -113,6 +114,26 @@ public class SimpleVoteTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
                 Response<ResLcdAccountInfo> accountResponse = ApiClient.getCertikTestChain(mApp).getAccountInfo(mAccount.address).execute();
+                if(!accountResponse.isSuccessful()) {
+                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+
+            } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
+                Response<ResLcdAccountInfo> accountResponse = ApiClient.getIovChain(mApp).getAccountInfo(mAccount.address).execute();
+                if(!accountResponse.isSuccessful()) {
+                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+
+            } else if (getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
+                Response<ResLcdAccountInfo> accountResponse = ApiClient.getAkashChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(!accountResponse.isSuccessful()) {
                     mResult.errorCode = ERROR_CODE_BROADCAST;
                     return mResult;
@@ -226,6 +247,42 @@ public class SimpleVoteTask extends CommonTask {
             } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getCertikTestChain(mApp).broadTx(reqBroadCast).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    if (response.body().txhash != null) {
+                        mResult.resultData = response.body().txhash;
+                    }
+                    if(response.body().code != null) {
+                        mResult.errorCode = response.body().code;
+                        mResult.errorMsg = response.body().raw_log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
+
+                } else {
+                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+                Response<ResBroadTx> response = ApiClient.getIovChain(mApp).broadTx(reqBroadCast).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    if (response.body().txhash != null) {
+                        mResult.resultData = response.body().txhash;
+                    }
+                    if(response.body().code != null) {
+                        mResult.errorCode = response.body().code;
+                        mResult.errorMsg = response.body().raw_log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
+
+                } else {
+                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+                Response<ResBroadTx> response = ApiClient.getAkashChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;

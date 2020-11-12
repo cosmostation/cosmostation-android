@@ -73,7 +73,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
             }
 
             if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                if (targetAddress.startsWith("cosmos") && WKey.isValidBech32(targetAddress)) {
+                if (targetAddress.startsWith("cosmos1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
@@ -81,7 +81,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                 }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                if (targetAddress.startsWith("iaa") && WKey.isValidBech32(targetAddress)) {
+                if (targetAddress.startsWith("iaa1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
@@ -89,7 +89,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                 }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                if (targetAddress.startsWith("kava") && WKey.isValidBech32(targetAddress)) {
+                if (targetAddress.startsWith("kava1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
@@ -97,7 +97,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                 }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
-                if (targetAddress.startsWith("band") && WKey.isValidBech32(targetAddress)) {
+                if (targetAddress.startsWith("band1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
@@ -105,7 +105,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                 }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN) || getSActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
-                if (targetAddress.startsWith("star") && WKey.isValidBech32(targetAddress)) {
+                if (targetAddress.startsWith("star1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
@@ -113,7 +113,15 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                 }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.CERTIK_MAIN) || getSActivity().mBaseChain.equals(BaseChain.CERTIK_TEST)) {
-                if (targetAddress.startsWith("certik") && WKey.isValidBech32(targetAddress)) {
+                if (targetAddress.startsWith("certik1") && WKey.isValidBech32(targetAddress)) {
+                    getSActivity().mNewRewardAddress = targetAddress;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(BaseChain.AKASH_MAIN)) {
+                if (targetAddress.startsWith("akash1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {

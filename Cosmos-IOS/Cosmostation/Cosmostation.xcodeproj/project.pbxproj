@@ -61,6 +61,8 @@
 		2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */; };
 		2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */; };
 		2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */; };
+		2827F4CA255B93240029AE1C /* WalletAkashCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827F4C8255B93240029AE1C /* WalletAkashCell.swift */; };
+		2827F4CB255B93240029AE1C /* WalletAkashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2827F4C9255B93240029AE1C /* WalletAkashCell.xib */; };
 		282BDFE224A5992500D3A5D4 /* WcTradePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BDFE024A5992500D3A5D4 /* WcTradePopup.swift */; };
 		282BDFE324A5992600D3A5D4 /* WcTradePopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282BDFE124A5992500D3A5D4 /* WcTradePopup.xib */; };
 		282BDFE624A5BCCB00D3A5D4 /* WcCancelPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BDFE424A5BCCB00D3A5D4 /* WcCancelPopup.swift */; };
@@ -553,6 +555,8 @@
 		2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDetailViewController.swift; sourceTree = "<group>"; };
 		2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCommonCell.swift; sourceTree = "<group>"; };
 		2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCommonCell.xib; sourceTree = "<group>"; };
+		2827F4C8255B93240029AE1C /* WalletAkashCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAkashCell.swift; sourceTree = "<group>"; };
+		2827F4C9255B93240029AE1C /* WalletAkashCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletAkashCell.xib; sourceTree = "<group>"; };
 		282BDFE024A5992500D3A5D4 /* WcTradePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WcTradePopup.swift; sourceTree = "<group>"; };
 		282BDFE124A5992500D3A5D4 /* WcTradePopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WcTradePopup.xib; sourceTree = "<group>"; };
 		282BDFE424A5BCCB00D3A5D4 /* WcCancelPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WcCancelPopup.swift; sourceTree = "<group>"; };
@@ -1711,6 +1715,8 @@
 				283D2EAE24F5742000247424 /* WalletOkCell.xib */,
 				2872B0F0252EF79900E8CACF /* WalletSecretCell.swift */,
 				2872B0F1252EF79900E8CACF /* WalletSecretCell.xib */,
+				2827F4C8255B93240029AE1C /* WalletAkashCell.swift */,
+				2827F4C9255B93240029AE1C /* WalletAkashCell.xib */,
 				288A14DB25199A9800E17808 /* WalletCertikCell.swift */,
 				288A14E325199C6200E17808 /* WalletCertikCell.xib */,
 				2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */,
@@ -1846,6 +1852,7 @@
 				2868559C24989ACD0099D18F /* DelegateWarnPopup.xib in Resources */,
 				283E9464254902BA007A9291 /* TxRegisterDomainCell.xib in Resources */,
 				283A80C824513FF7008FF813 /* CdpDetailTopCell.xib in Resources */,
+				2827F4CB255B93240029AE1C /* WalletAkashCell.xib in Resources */,
 				282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */,
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
@@ -2286,6 +2293,7 @@
 				28BB2AA02534173200CFF097 /* StarNameAccount.swift in Sources */,
 				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
 				285A33CF2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift in Sources */,
+				2827F4CA255B93240029AE1C /* WalletAkashCell.swift in Sources */,
 				E14F7FB6227ADAA300FDDC75 /* QRScanViewController.swift in Sources */,
 				2838501C2448A69D00E5DEF2 /* TxHtlcCreateCell.swift in Sources */,
 				2888B804246CE37200B2EB4A /* StepHtlcRefund3ViewController.swift in Sources */,

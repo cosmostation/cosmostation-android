@@ -61,6 +61,7 @@ import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -74,6 +75,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -314,6 +316,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setText(getString(R.string.str_certik_chain));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorCertik));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
+
+        } else if (mBaseChain.equals(AKASH_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_chain_img));
+            mToolbarChainName.setText(getString(R.string.str_akash_chain));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAkash));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAkash));
         }
 
         else if (mBaseChain.equals(BNB_TEST)) {
@@ -502,6 +510,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 hasbalance  = true;
             }
             intent.putExtra("certikDenom", TOKEN_CERTIK);
+
+        } else if (mBaseChain.equals(AKASH_MAIN)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("2500")) > 0) {
+                hasbalance  = true;
+            }
+            intent.putExtra("akashDenom", TOKEN_AKASH);
 
         }
 
@@ -897,7 +911,16 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_chain_img));
                     holder.chainName.setText(getString(R.string.str_certik_main));
 
-                } else if (chain.equals(BNB_TEST)) {
+                } else if (chain.equals(AKASH_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_chain_img));
+                    holder.chainName.setText(getString(R.string.str_akash_main));
+
+                }
+
+
+                else if (chain.equals(BNB_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));
