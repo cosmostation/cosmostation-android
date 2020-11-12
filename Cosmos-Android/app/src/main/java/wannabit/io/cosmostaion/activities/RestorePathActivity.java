@@ -408,7 +408,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         if (response.isSuccessful() && response.body() != null) {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_AKASH), 6, 6));
+                                holder.akashAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_AKASH), 6, 6));
                         }
                     }
                     @Override
