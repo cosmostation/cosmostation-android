@@ -297,6 +297,31 @@
                         android:layout_alignParentRight="true"/>
                 </RelativeLayout>
             </FrameLayout>
+            <FrameLayout
+                android:id="@+id/card_starname_wallet_connect"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:layout_marginTop="@dimen/space_8"
+                android:clickable="true"
+                android:background="@drawable/box_trans_round">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:layout_centerVertical="true"
+                        style="@style/font_ss_12_white"
+                        android:text="@string/str_starname_wallet_connect"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_next_gr"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="wrap_content"

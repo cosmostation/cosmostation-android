@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +15,12 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
+import java.util.ArrayList;
 import java.util.Locale;
 
 import wannabit.io.cosmostaion.BuildConfig;
@@ -21,9 +28,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
+import wannabit.io.cosmostaion.dialog.Dialog_Starname_WC_Confirm;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -51,11 +60,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    public final static int SELECT_CURRENCY = 9034;
-    public final static int SELECT_MARKET = 9035;
+    public final static int SELECT_CURRENCY                 = 9034;
+    public final static int SELECT_MARKET                   = 9035;
+    public final static int SELECT_STARNAME_WALLET_CONNECT  = 9036;
 
     private FrameLayout mBtnWallet, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
-                        mBtnGuide, mBtnTelegram, mBtnExplore, mBtnHomepage,
+                        mBtnGuide, mBtnTelegram, mBtnExplore, mBtnHomepage, mBtnStarnameWc,
                         mBtnTerm, mBtnGithub, mBtnVersion;
 
     private TextView    mTvAppLock, mTvCurrency, mTvBasePrice, mTvVersion;
@@ -116,6 +126,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnTelegram = rootView.findViewById(R.id.card_telegram);
         mBtnExplore = rootView.findViewById(R.id.card_explore);
         mBtnHomepage = rootView.findViewById(R.id.card_homepage);
+        mBtnStarnameWc = rootView.findViewById(R.id.card_starname_wallet_connect);
         mBtnTerm = rootView.findViewById(R.id.card_term);
         mBtnGithub = rootView.findViewById(R.id.card_github);
         mBtnVersion = rootView.findViewById(R.id.card_version);
@@ -133,6 +144,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnTelegram.setOnClickListener(this);
         mBtnExplore.setOnClickListener(this);
         mBtnHomepage.setOnClickListener(this);
+        mBtnStarnameWc.setOnClickListener(this);
         mBtnTerm.setOnClickListener(this);
         mBtnGithub.setOnClickListener(this);
         mBtnVersion.setOnClickListener(this);
@@ -254,6 +266,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://details?id=" + getMainActivity().getPackageName()));
             startActivity(intent);
+
+        } else if (v.equals(mBtnStarnameWc)) {
+            Dialog_Starname_WC_Confirm wc_dialog = Dialog_Starname_WC_Confirm.newInstance();
+            wc_dialog.setCancelable(true);
+            wc_dialog.setTargetFragment(this, SELECT_STARNAME_WALLET_CONNECT);
+            getFragmentManager().beginTransaction().add(wc_dialog, "dialog").commitNowAllowingStateLoss();
         }
 
     }
@@ -267,10 +285,42 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if(requestCode == SELECT_CURRENCY && resultCode == Activity.RESULT_OK) {
             getBaseDao().setCurrency(data.getIntExtra("currency", 0));
             mTvCurrency.setText(getBaseDao().getCurrencyString());
+            getMainActivity().onPriceTic(BaseChain.getChain(getMainActivity().mAccount.baseChain));
+
         } else if (requestCode == SELECT_MARKET && resultCode == Activity.RESULT_OK) {
             getBaseDao().setMarket(data.getIntExtra("market", 0));
             mTvBasePrice.setText(getBaseDao().getMarketString(getMainActivity()));
+            getMainActivity().onPriceTic(BaseChain.getChain(getMainActivity().mAccount.baseChain));
+
+        } else if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
+            new TedPermission(getContext()).setPermissionListener(new PermissionListener() {
+                @Override
+                public void onPermissionGranted() {
+                    IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSettingFragment.this);
+                    integrator.setOrientationLocked(true);
+                    integrator.initiateScan();
+                }
+
+                @Override
+                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    Toast.makeText(getContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
+                }
+            })
+            .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .setRationaleMessage(getString(R.string.str_permission_qr))
+            .check();
+
+        } else {
+            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (result != null && result.getContents() != null && result.getContents().trim().contains("bridge.walletconnect.org")) {
+                Intent wcIntent = new Intent(getMainActivity(), StarNameWalletConnectActivity.class);
+                wcIntent.putExtra("wcUrl", result.getContents().trim());
+                startActivity(wcIntent);
+
+            } else {
+                super.onActivityResult(requestCode, resultCode, data);
+            }
         }
-        getMainActivity().onPriceTic(BaseChain.getChain(getMainActivity().mAccount.baseChain));
+
     }
 }

@@ -46,6 +46,7 @@ import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
@@ -1528,6 +1529,22 @@ public class WUtil {
     }
 
 
+    public static String BITCOINCASH    = "asset:bch";
+    public static String BITCOIN        = "asset:btc";
+    public static String LITECOIN       = "asset:ltc";
+    public static String BINANCE        = "asset:bnb";
+    public static String LUNA           = "asset:luna";
+    public static String COSMOS         = "asset:atom";
+    public static String EMONEY         = "asset:ngm";
+    public static String IRIS           = "asset:iris";
+    public static String KAVA           = "asset:kava";
+    public static String ETHEREUM       = "asset:eth";
+    public static String STARNAME       = "asset:iov";
+    public static String BAND           = "asset:band";
+    public static String TEZOS          = "asset:xtz";
+    public static String LISK           = "asset:lsk";
+
+
     public static ArrayList<StarNameResource> getAllStarnameResources() {
         ArrayList<StarNameResource> result = new ArrayList();
         result.add(new StarNameResource(STARNAME));
@@ -1547,63 +1564,6 @@ public class WUtil {
         return result;
 
     }
-
-    public static ArrayList<StarNameResource> getInitStarnameResource() {
-        ArrayList<StarNameResource> result = new ArrayList();
-//        result.add(new StarNameResource(COSMOS));
-//        result.add(new StarNameResource(BITCOIN));
-//        result.add(new StarNameResource(ETHEREUM));
-        result.add(new StarNameResource(STARNAME));
-//        result.add(new StarNameResource(BINANCE));
-//        result.add(new StarNameResource(IRIS));
-//        result.add(new StarNameResource(KAVA));
-//        result.add(new StarNameResource(BAND));
-        return result;
-    }
-
-    public static ArrayList<StarNameResource> getAddableStarnameResource(ArrayList<StarNameResource> already) {
-        ArrayList<StarNameResource> result = new ArrayList();
-        for (StarNameResource resource:getAllStarnameResources()){
-            if (!already.contains(resource)) {
-                result.add(resource);
-            }
-        }
-        return result;
-    }
-
-    public static BaseChain getBaseChainWithUri(String uri) {
-        if (uri.equals(COSMOS)) {
-            return COSMOS_MAIN;
-        } else if (uri.equals(IRIS)) {
-            return IRIS_MAIN;
-        } else if (uri.equals(BINANCE)) {
-            return BNB_MAIN;
-        } else if (uri.equals(STARNAME)) {
-            return IOV_MAIN;
-        } else if (uri.equals(KAVA)) {
-            return KAVA_MAIN;
-        } else if (uri.equals(BAND)) {
-            return BAND_MAIN;
-        }
-        return null;
-    }
-
-
-
-    public static String BITCOINCASH    = "asset:bch";
-    public static String BITCOIN        = "asset:btc";
-    public static String LITECOIN       = "asset:ltc";
-    public static String BINANCE        = "asset:bnb";
-    public static String LUNA           = "asset:luna";
-    public static String COSMOS         = "asset:atom";
-    public static String EMONEY         = "asset:ngm";
-    public static String IRIS           = "asset:iris";
-    public static String KAVA           = "asset:kava";
-    public static String ETHEREUM       = "asset:eth";
-    public static String STARNAME       = "asset:iov";
-    public static String BAND           = "asset:band";
-    public static String TEZOS          = "asset:xtz";
-    public static String LISK           = "asset:lsk";
 
     public static Drawable getStarNameChainImg(Context c, StarNameResource res) {
         if (res.uri.equals(BITCOINCASH)) {
@@ -1699,6 +1659,65 @@ public class WUtil {
         return res.uri;
 
     }
+
+    public static BaseChain getBaseChainWithUri(String uri) {
+        if (uri.equals(COSMOS)) {
+            return COSMOS_MAIN;
+        } else if (uri.equals(IRIS)) {
+            return IRIS_MAIN;
+        } else if (uri.equals(BINANCE)) {
+            return BNB_MAIN;
+        } else if (uri.equals(STARNAME)) {
+            return IOV_MAIN;
+        } else if (uri.equals(KAVA)) {
+            return KAVA_MAIN;
+        } else if (uri.equals(BAND)) {
+            return BAND_MAIN;
+        }
+        return null;
+    }
+
+    public static ExportStarName getExportResource(ArrayList<Account> accounts) {
+        ExportStarName result = new ExportStarName();
+        result.type = "starname";
+        for (Account account:accounts) {
+            ExportStarName.ExportResource resource = new ExportStarName.ExportResource();
+            if (BaseChain.getChain(account.baseChain).equals(COSMOS_MAIN)) {
+                resource.ticker = "ATOM";
+                resource.address = account.address;
+                result.addresses.add(resource);
+
+            } else if (BaseChain.getChain(account.baseChain).equals(IRIS_MAIN)) {
+                resource.ticker = "IRIS";
+                resource.address = account.address;
+                result.addresses.add(resource);
+
+            } else if (BaseChain.getChain(account.baseChain).equals(KAVA_MAIN)) {
+                resource.ticker = "KAVA";
+                resource.address = account.address;
+                result.addresses.add(resource);
+
+            } else if (BaseChain.getChain(account.baseChain).equals(BNB_MAIN)) {
+                resource.ticker = "binance";
+                resource.address = account.address;
+                result.addresses.add(resource);
+
+            } else if (BaseChain.getChain(account.baseChain).equals(IOV_MAIN)) {
+                resource.ticker = "STARNAME";
+                resource.address = account.address;
+                result.addresses.add(resource);
+
+            } else if (BaseChain.getChain(account.baseChain).equals(BAND_MAIN)) {
+                resource.ticker = "band";
+                resource.address = account.address;
+                result.addresses.add(resource);
+
+            }
+        }
+
+        return result;
+    }
+
 
     public static boolean isDisplayEventCard(BaseData baseData) {
         if (baseData == null || baseData.mStakingPool == null) {

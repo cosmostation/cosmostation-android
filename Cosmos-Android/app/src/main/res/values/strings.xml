@@ -258,6 +258,7 @@
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
     <string name="str_homepage">Cosmostation</string>
+    <string name="str_starname_wallet_connect">Starname Wallet Connect</string>
     <string name="str_app_info">App Info</string>
     <string name="str_term">Terms of Service</string>
     <string name="str_github">Open Source (GitHub)</string>
@@ -1084,6 +1085,10 @@
     <string name="str_safe_copy_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The mnemonic phrase temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your mnemonic phrase to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your mneominc phrase outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.</string>
     <string name="str_safe_copy">Safe Copy</string>
     <string name="str_raw_copy">Raw Copy</string>
+    <string name="str_starname_walletconnect_alert_title">Export Address for Starname</string>
+    <string name="str_starname_walletconnect_alert_msg">You can easily export the addresses in Cosmostaion Wallet and link it with Starname Manager. This function only links your addresses using WalletConnect, and does not export your private keys or moves your assets.\n\nWould you like to link your wallets to Starname Manager?</string>
+    <string name="str_starname_walletconnect_alert_msg2">Ready to Export %1$s Addresses</string>
+    <string name="str_starname_walletconnect_complete">Export Complete</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1183,6 +1188,7 @@
     <string name="error_invalid_address_eth_target">Invalid ETH Address.</string>
     <string name="error_no_delegated_amount">No Delegated Amount.</string>
     <string name="error_no_more_today">No More Today.</string>
+    <string name="error_no_address_export">No Address for Export.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>
