@@ -230,7 +230,7 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
     }
 
     private void onUpdateMyView() {
-        if (mMyHarvestDeposit != null || mMyHarvestReward != null) {
+        if (mHarvestPool != null && (mMyHarvestDeposit != null || mMyHarvestReward != null)) {
             mHarvestMyCard.setVisibility(View.VISIBLE);
             if (mDepositDenom.equals(TOKEN_KAVA)) {
                 WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), mMyDepositCoinTitle);
