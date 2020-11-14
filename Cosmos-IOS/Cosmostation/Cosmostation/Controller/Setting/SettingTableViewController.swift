@@ -199,12 +199,14 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if(indexPath.section == 1 && indexPath.row == 1) {
+        if (indexPath.section == 1 && indexPath.row == 1) {
             if hideBio {
                 return 0
             } else {
                 return 44
             }
+        } else if (indexPath.section == 2 && indexPath.row == 4) {
+            return 0
         }
         return super.tableView(tableView, heightForRowAt: indexPath)
     }

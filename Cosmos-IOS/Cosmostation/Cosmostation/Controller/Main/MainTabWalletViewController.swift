@@ -321,6 +321,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionClose = {
                 BaseData.instance.setEventTime()
                 self.onShowToast(NSLocalizedString("error_no_more_today", comment: ""))
+                self.walletTableView.reloadData()
             }
             cell?.actionEvent = {
                 self.onStartStakeDropEvent()
