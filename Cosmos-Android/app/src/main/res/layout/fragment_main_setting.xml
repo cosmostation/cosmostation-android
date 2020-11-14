@@ -303,7 +303,8 @@
                 android:layout_height="@dimen/space_50"
                 android:layout_marginTop="@dimen/space_8"
                 android:clickable="true"
-                android:background="@drawable/box_trans_round">
+                android:background="@drawable/box_trans_round"
+                android:visibility="gone">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
