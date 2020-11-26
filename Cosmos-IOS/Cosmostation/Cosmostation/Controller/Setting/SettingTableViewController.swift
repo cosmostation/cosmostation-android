@@ -205,8 +205,6 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
             } else {
                 return 44
             }
-        } else if (indexPath.section == 2 && indexPath.row == 4) {
-            return 0
         }
         return super.tableView(tableView, heightForRowAt: indexPath)
     }

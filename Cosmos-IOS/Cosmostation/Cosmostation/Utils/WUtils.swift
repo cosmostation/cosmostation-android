@@ -3009,32 +3009,26 @@ class WUtils {
         accounts.forEach { (account) in
             var resource = ExportStarname.ExportResource.init()
             if (WUtils.getChainType(account.account_base_chain) == ChainType.COSMOS_MAIN) {
-//                resource.ticker = COSMOS
-                resource.ticker = "ATOM"
+                resource.ticker = "atom"
                 resource.address = account.account_address
                 result.addresses.append(resource)
             } else if (WUtils.getChainType(account.account_base_chain) == ChainType.IRIS_MAIN) {
-//                resource.ticker = IRIS
-                resource.ticker = "IRIS"
+                resource.ticker = "iris"
                 resource.address = account.account_address
                 result.addresses.append(resource)
             } else if (WUtils.getChainType(account.account_base_chain) == ChainType.KAVA_MAIN) {
-//                resource.ticker = KAVA
-                resource.ticker = "KAVA"
+                resource.ticker = "kava"
                 resource.address = account.account_address
                 result.addresses.append(resource)
             } else if (WUtils.getChainType(account.account_base_chain) == ChainType.BINANCE_MAIN) {
-//                resource.ticker = BINANCE
-                resource.ticker = "binance"
+                resource.ticker = "bnb"
                 resource.address = account.account_address
                 result.addresses.append(resource)
             } else if (WUtils.getChainType(account.account_base_chain) == ChainType.IOV_MAIN) {
-//                resource.ticker = STARNAME
-                resource.ticker = "STARNAME"
+                resource.ticker = "iov"
                 resource.address = account.account_address
                 result.addresses.append(resource)
             } else if (WUtils.getChainType(account.account_base_chain) == ChainType.BAND_MAIN) {
-//                resource.ticker = BAND
                 resource.ticker = "band"
                 resource.address = account.account_address
                 result.addresses.append(resource)
