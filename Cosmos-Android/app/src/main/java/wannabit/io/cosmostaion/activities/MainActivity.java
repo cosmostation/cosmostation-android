@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -748,24 +749,37 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onStartStakeDropEvent() {
-        if(mAccount == null) return;
-        if(!mAccount.hasPrivateKey) {
+        if (mAccount == null) return;
+        if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
+        if (mBaseChain.equals(COSMOS_MAIN)) {
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, mAllValidators, mBaseChain);
+            BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_ATOM);
+            if (availableAmount.compareTo(new BigDecimal("3500")) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (delegateAmount.compareTo(BigDecimal.ZERO) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_no_delegated_amount, Toast.LENGTH_SHORT).show();
+                return;
 
-        BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, mAllValidators, mBaseChain);
-        BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_ATOM);
-        if (availableAmount.compareTo(new BigDecimal("3500")) < 0) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (delegateAmount.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_delegated_amount, Toast.LENGTH_SHORT).show();
-            return;
+            }
 
+        } else if (mBaseChain.equals(KAVA_MAIN)) {
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, mAllValidators, mBaseChain);
+            BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_KAVA);
+            if (availableAmount.compareTo(new BigDecimal("6000")) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (delegateAmount.compareTo(BigDecimal.ZERO) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_no_delegated_amount, Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
         Intent intent = new Intent(getBaseContext(), EventStakeDropActivity.class);
@@ -840,7 +854,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, @SuppressLint("RecyclerView") int position) {
             holder.chainCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

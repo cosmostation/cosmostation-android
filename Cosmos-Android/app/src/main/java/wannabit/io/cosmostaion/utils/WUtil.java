@@ -93,6 +93,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_System
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_TokenAdditionProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_END;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_START;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_END;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_START;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -1719,14 +1721,24 @@ public class WUtil {
     }
 
 
-    public static boolean isDisplayEventCard(BaseData baseData) {
+    public static boolean isDisplayEventCard(BaseData baseData, BaseChain chain) {
         if (baseData == null || baseData.mStakingPool == null) {
             return false;
         }
-        if (baseData.mStakingPool.getHeight() > PERSISTENCE_COSMOS_EVENT_START &&
-                baseData.mStakingPool.getHeight() < PERSISTENCE_COSMOS_EVENT_END &&
-                baseData.getEventTime()) {
-            return true;
+        if (chain.equals(COSMOS_MAIN)) {
+            if (baseData.mStakingPool.getHeight() > PERSISTENCE_COSMOS_EVENT_START &&
+                    baseData.mStakingPool.getHeight() < PERSISTENCE_COSMOS_EVENT_END &&
+                    baseData.getEventTime()) {
+                return true;
+            }
+
+        } else if (chain.equals(KAVA_MAIN)) {
+            if (baseData.mStakingPool.getHeight() > PERSISTENCE_KAVA_EVENT_START &&
+                    baseData.mStakingPool.getHeight() < PERSISTENCE_KAVA_EVENT_END &&
+                    baseData.getEventTime()) {
+                return true;
+            }
+
         }
         return false;
     }

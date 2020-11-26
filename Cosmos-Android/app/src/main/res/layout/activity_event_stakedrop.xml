@@ -18,6 +18,7 @@
         android:background="@color/colorBlack"
         android:theme="@style/AppTheme.AppBarOverlay">
         <ImageView
+            android:id="@+id/img_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/stakedroptitle"/>

@@ -42,7 +42,7 @@
     <string name="url_api_band_main" translatable="false">https://api-band.cosmostation.io/</string>
 
 
-    <string name="url_lcd_ok_test" translatable="false">https://lcd-okexchain-testnet1.cosmostation.io/</string>
+    <string name="url_lcd_ok_test" translatable="false">https://lcd-office.cosmostation.io/okexchain-testnet1/</string>
     <string name="url_api_ok_test" translatable="false"></string>
 
 

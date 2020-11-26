@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,14 +36,20 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_AMOUNT_HALF;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class EventStakeDropActivity extends BaseActivity implements View.OnClickListener {
 
     private RelativeLayout mRootView;
     private Toolbar mToolbar;
+    private ImageView mTitleImg;
     private EditText mMemo;
     private Button mCancelBtn, mConfirmBtn;
     private LinearLayout mBtnQr, mBtnPaste;
@@ -59,6 +66,7 @@ public class EventStakeDropActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_event_stakedrop);
         mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
+        mTitleImg = findViewById(R.id.img_title);
         mMemo = findViewById(R.id.et_memo);
         mCancelBtn = findViewById(R.id.btn_cancel);
         mConfirmBtn = findViewById(R.id.btn_confirm);
@@ -139,21 +147,40 @@ public class EventStakeDropActivity extends BaseActivity implements View.OnClick
 
 
     private void setInitEventData() {
-        mSendAddress = PERSISTENCE_COSMOS_EVENT_ADDRESS;
+        if (mBaseChain.equals(COSMOS_MAIN)) {
+            mSendAddress = PERSISTENCE_COSMOS_EVENT_ADDRESS;
 
-        mSendCoins.clear();
-        Coin atom = new Coin(TOKEN_ATOM, "1000");
-        mSendCoins.add(atom);
+            mSendCoins.clear();
+            Coin atom = new Coin(TOKEN_ATOM, "1000");
+            mSendCoins.add(atom);
 
-        Fee fee = new Fee();
-        Coin gasCoin = new Coin();
-        gasCoin.denom = TOKEN_ATOM;
-        gasCoin.amount = "2500";
-        ArrayList<Coin> amount = new ArrayList<>();
-        amount.add(gasCoin);
-        fee.amount = amount;
-        fee.gas = FEE_GAS_AMOUNT_HALF;
-        mSendFee = fee;
+            Fee fee = new Fee();
+            Coin gasCoin = new Coin();
+            gasCoin.denom = TOKEN_ATOM;
+            gasCoin.amount = "2500";
+            ArrayList<Coin> amount = new ArrayList<>();
+            amount.add(gasCoin);
+            fee.amount = amount;
+            fee.gas = FEE_GAS_AMOUNT_HALF;
+            mSendFee = fee;
+
+        } else if (mBaseChain.equals(KAVA_MAIN)) {
+            mSendAddress = PERSISTENCE_KAVA_EVENT_ADDRESS;
+
+            mSendCoins.clear();
+            Coin atom = new Coin(TOKEN_KAVA, "1000");
+            mSendCoins.add(atom);
+
+            Fee fee = new Fee();
+            Coin gasCoin = new Coin();
+            gasCoin.denom = TOKEN_KAVA;
+            gasCoin.amount = "5000";
+            ArrayList<Coin> amount = new ArrayList<>();
+            amount.add(gasCoin);
+            fee.amount = amount;
+            fee.gas = FEE_KAVA_GAS_AMOUNT_SEND;
+            mSendFee = fee;
+        }
     }
 
     @Override

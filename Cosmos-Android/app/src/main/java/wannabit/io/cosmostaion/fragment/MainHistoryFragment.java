@@ -50,6 +50,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_END;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_START;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_END;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_START;
 import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_SEND;
 
 
@@ -261,6 +264,14 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                             viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorStakeDrop));
                             viewHolder.historyRoot.setCardBackgroundColor(getResources().getColor(R.color.colorStakeDropBG));
                         }
+
+                    } else if (tx.height > PERSISTENCE_KAVA_EVENT_START && tx.height < PERSISTENCE_KAVA_EVENT_END) {
+                        if (tx.messages.get(0).value.to_address.equals(PERSISTENCE_KAVA_EVENT_ADDRESS) && tx.messages.get(0).value.from_address.equals(getMainActivity().mAccount.address)) {
+                            viewHolder.historyType.setText("Persistence\nStake Drop");
+                            viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorStakeDrop));
+                            viewHolder.historyRoot.setCardBackgroundColor(getResources().getColor(R.color.colorStakeDropBG));
+                        }
+
                     }
                 }
 

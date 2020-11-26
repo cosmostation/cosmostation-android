@@ -541,6 +541,10 @@ public class BaseConstant {
     public final static int     PERSISTENCE_COSMOS_EVENT_START      = 3846000;
     public final static int     PERSISTENCE_COSMOS_EVENT_END        = 4206000;
 
+    public final static String  PERSISTENCE_KAVA_EVENT_ADDRESS      = "kava1fxxxruhmqx3myuhjwxx9gk90kwqrgs9jamr892";
+    public final static int     PERSISTENCE_KAVA_EVENT_START        = 422360;
+    public final static int     PERSISTENCE_KAVA_EVENT_END          = 672440;
+
 
 
 

@@ -162,6 +162,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
     private RelativeLayout      mEventLayer;
     private CardView            mEventCard;
+    private ImageView           mEventTitleImg;
     private RelativeLayout      mEventBtn;
     private ImageView           mEventClose;
 
@@ -341,9 +342,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mFaqBtn                 = rootView.findViewById(R.id.btn_faq);
 
         mEventLayer             = rootView.findViewById(R.id.layer_event);
-        mEventCard              = rootView.findViewById(R.id.card_root);
-        mEventBtn               = rootView.findViewById(R.id.btn_event);
-        mEventClose             = rootView.findViewById(R.id.btn_event_close);
+        mEventCard              = mEventLayer.findViewById(R.id.card_root);
+        mEventTitleImg          = mEventLayer.findViewById(R.id.img_event);
+        mEventBtn               = mEventLayer.findViewById(R.id.btn_event);
+        mEventClose             = mEventLayer.findViewById(R.id.btn_event_close);
 
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -483,8 +485,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_guide);
             mFaqBtn.setText(R.string.str_faq);
 
-            if (WUtil.isDisplayEventCard(getBaseDao())) {
+            if (WUtil.isDisplayEventCard(getBaseDao(), getMainActivity().mBaseChain)) {
                 mEventLayer.setVisibility(View.VISIBLE);
+                mEventTitleImg.setImageResource(R.drawable.stakedropimgs);
+                mEventCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
                 mEventBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -581,6 +585,26 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideMsg.setText(R.string.str_front_guide_msg_kava);
             mGuideBtn.setText(R.string.str_faq_kava);
             mFaqBtn.setText(R.string.str_guide_kava);
+
+            if (WUtil.isDisplayEventCard(getBaseDao(), getMainActivity().mBaseChain)) {
+                mEventLayer.setVisibility(View.VISIBLE);
+                mEventTitleImg.setImageResource(R.drawable.stakedropimgs_kava);
+                mEventCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+                mEventBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getMainActivity().onStartStakeDropEvent();
+                    }
+                });
+                mEventClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), R.string.error_no_more_today, Toast.LENGTH_SHORT).show();
+                        getBaseDao().setEventTime();
+                        onUpdateView();
+                    }
+                });
+            }
 
         } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
             mAtomLayer.setVisibility(View.GONE);
