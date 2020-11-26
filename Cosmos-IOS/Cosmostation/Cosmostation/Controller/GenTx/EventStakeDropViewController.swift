@@ -114,11 +114,11 @@ class EventStakeDropViewController: BaseViewController, QrScannerDelegate, Passw
             self.mToRecipientAddress = PERSISTENCE_KAVA_EVENT_ADDRESS
             
             self.mToSendAmount.removeAll()
-            let sendCoin = Coin.init(KAVA_MAIN_DENOM, "10000")
+            let sendCoin = Coin.init(KAVA_MAIN_DENOM, "1000")
             self.mToSendAmount.append(sendCoin)
             
             var fee = Fee.init()
-            let feeCoin = Coin.init(KAVA_MAIN_DENOM, "50000")
+            let feeCoin = Coin.init(KAVA_MAIN_DENOM, "5000")
             var feeAmount: Array<Coin> = Array<Coin>()
             feeAmount.append(feeCoin)
             fee.amount = feeAmount

@@ -1924,7 +1924,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.KAVA_MAIN) {
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
             let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-            if (availableAmount.compare(NSDecimalNumber.init(string: "60000")).rawValue < 0) {
+            if (availableAmount.compare(NSDecimalNumber.init(string: "6000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_to_balance", comment: ""))
                 return
             }
