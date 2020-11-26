@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -73,11 +73,23 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9L-TU-UlM">
+                            <rect key="frame" x="346" y="12" width="24" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="24" id="9GK-FJ-Cko"/>
+                                <constraint firstAttribute="height" constant="24" id="Vsr-bw-CA0"/>
+                            </constraints>
+                            <state key="normal" image="walletDetailBtn"/>
+                            <connections>
+                                <action selector="onClickProfile:" destination="-1" eventType="touchUpInside" id="jJv-jG-2yN"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.43137254899999999" green="0.48627450979999998" blue="0.87058823529999996" alpha="0.14763974469999999" colorSpace="deviceRGB"/>
                     <constraints>
                         <constraint firstItem="TPr-9y-6cf" firstAttribute="top" secondItem="nit-v2-Sm8" secondAttribute="bottom" constant="6" id="3cY-E9-nYE"/>
                         <constraint firstItem="lgm-h4-tTy" firstAttribute="top" secondItem="caL-gE-OSn" secondAttribute="top" constant="12" id="81z-PC-XRF"/>
+                        <constraint firstAttribute="trailing" secondItem="B9L-TU-UlM" secondAttribute="trailing" constant="12" id="AEb-0e-zOA"/>
                         <constraint firstItem="7DL-6p-Wro" firstAttribute="centerY" secondItem="VYn-6x-yL5" secondAttribute="centerY" id="Ab0-zg-IYl"/>
                         <constraint firstItem="lgm-h4-tTy" firstAttribute="leading" secondItem="caL-gE-OSn" secondAttribute="leading" constant="16" id="JTl-G6-3Tg"/>
                         <constraint firstAttribute="trailing" secondItem="7DL-6p-Wro" secondAttribute="trailing" constant="16" id="N2f-6x-0jP"/>
@@ -86,6 +98,7 @@
                         <constraint firstItem="nit-v2-Sm8" firstAttribute="leading" secondItem="caL-gE-OSn" secondAttribute="leading" constant="16" id="VFa-RV-1za"/>
                         <constraint firstItem="ySR-u7-iG6" firstAttribute="trailing" secondItem="7DL-6p-Wro" secondAttribute="trailing" id="dQE-pM-wZU"/>
                         <constraint firstItem="TPr-9y-6cf" firstAttribute="leading" secondItem="nit-v2-Sm8" secondAttribute="leading" id="hXY-eN-1kY"/>
+                        <constraint firstItem="B9L-TU-UlM" firstAttribute="top" secondItem="caL-gE-OSn" secondAttribute="top" constant="12" id="ktP-TO-jTt"/>
                         <constraint firstItem="ySR-u7-iG6" firstAttribute="centerY" secondItem="nit-v2-Sm8" secondAttribute="centerY" id="n07-ek-rWU"/>
                         <constraint firstItem="VYn-6x-yL5" firstAttribute="top" secondItem="lgm-h4-tTy" secondAttribute="bottom" constant="10" id="qJz-9w-q1Y"/>
                         <constraint firstItem="w4b-2D-C79" firstAttribute="trailing" secondItem="7DL-6p-Wro" secondAttribute="trailing" id="tYc-iJ-2fl"/>
@@ -251,6 +264,7 @@
     <resources>
         <image name="bg_cosmos" width="360" height="740"/>
         <image name="historyNoneImg" width="36" height="36"/>
+        <image name="walletDetailBtn" width="25" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

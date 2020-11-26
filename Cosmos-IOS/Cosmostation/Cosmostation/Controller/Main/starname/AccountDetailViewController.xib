@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -89,6 +89,17 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lEZ-vN-xqM">
+                            <rect key="frame" x="346" y="12" width="24" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="wjo-dd-rrp"/>
+                                <constraint firstAttribute="width" constant="24" id="yuU-vi-37J"/>
+                            </constraints>
+                            <state key="normal" image="walletDetailBtn"/>
+                            <connections>
+                                <action selector="onClickProfile:" destination="-1" eventType="touchUpInside" id="ixD-mn-Qgl"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.43137254899999999" green="0.48627450979999998" blue="0.87058823529999996" alpha="0.14763974469999999" colorSpace="deviceRGB"/>
                     <constraints>
@@ -100,7 +111,9 @@
                         <constraint firstItem="9gM-7h-H6r" firstAttribute="leading" secondItem="I9Q-Ed-5IQ" secondAttribute="leading" constant="16" id="Z2x-gB-53J"/>
                         <constraint firstItem="7UX-dT-Xak" firstAttribute="centerY" secondItem="9gM-7h-H6r" secondAttribute="centerY" id="eJf-Ri-aOP"/>
                         <constraint firstItem="0qK-QT-V1q" firstAttribute="top" secondItem="I9Q-Ed-5IQ" secondAttribute="top" constant="12" id="f1d-b3-sjX"/>
+                        <constraint firstAttribute="trailing" secondItem="lEZ-vN-xqM" secondAttribute="trailing" constant="12" id="hwt-gf-efM"/>
                         <constraint firstAttribute="trailing" secondItem="7UX-dT-Xak" secondAttribute="trailing" constant="16" id="iFV-J4-QKr"/>
+                        <constraint firstItem="lEZ-vN-xqM" firstAttribute="top" secondItem="I9Q-Ed-5IQ" secondAttribute="top" constant="12" id="t5U-h4-L36"/>
                         <constraint firstItem="9gM-7h-H6r" firstAttribute="top" secondItem="0qK-QT-V1q" secondAttribute="bottom" constant="10" id="xMb-ct-Wce"/>
                         <constraint firstItem="nKS-zi-1yg" firstAttribute="trailing" secondItem="7UX-dT-Xak" secondAttribute="trailing" id="zG8-AT-Wym"/>
                     </constraints>
@@ -234,5 +247,6 @@
     <resources>
         <image name="bg_cosmos" width="360" height="740"/>
         <image name="historyNoneImg" width="36" height="36"/>
+        <image name="walletDetailBtn" width="25" height="24"/>
     </resources>
 </document>

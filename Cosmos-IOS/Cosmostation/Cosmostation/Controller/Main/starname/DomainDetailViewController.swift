@@ -165,6 +165,11 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
         self.navigationController?.pushViewController(txVC, animated: true)
     }
     
+    @IBAction func onClickProfile(_ sender: UIButton) {
+        guard let url = URL(string: "https://starname.me/" + "*" + mMyDomain!) else { return }
+        self.onShowSafariWeb(url)
+    }
+    
     var mFetchCnt = 0
     @objc func onFetchData() {
         if (self.mFetchCnt > 0)  {
