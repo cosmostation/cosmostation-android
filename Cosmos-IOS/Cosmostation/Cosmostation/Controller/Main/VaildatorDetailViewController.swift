@@ -1652,7 +1652,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
                 }
-                if (rewardSum.compare(NSDecimalNumber.init(string: "37500")).rawValue < 0) {
+                if (rewardSum.compare(NSDecimalNumber.init(string: "50000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return
                 }
@@ -1661,7 +1661,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "37500")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "50000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1673,7 +1673,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
                 }
-                if (rewardSum.compare(NSDecimalNumber.init(string: "150000")).rawValue < 0) {
+                if (rewardSum.compare(NSDecimalNumber.init(string: "200000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return
                 }
@@ -1682,7 +1682,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "150000")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "200000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1694,7 +1694,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
                 }
-                if (rewardSum.compare(NSDecimalNumber.init(string: "150000")).rawValue < 0) {
+                if (rewardSum.compare(NSDecimalNumber.init(string: "200000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return
                 }
@@ -1703,7 +1703,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "150000")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "200000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1715,7 +1715,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
                 }
-                if (rewardSum.compare(NSDecimalNumber.init(string: "7500")).rawValue < 0) {
+                if (rewardSum.compare(NSDecimalNumber.init(string: "10000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return
                 }
@@ -1724,7 +1724,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "7500")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "10000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1736,7 +1736,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
                 }
-                if (rewardSum.compare(NSDecimalNumber.init(string: "3750")).rawValue < 0) {
+                if (rewardSum.compare(NSDecimalNumber.init(string: "5000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return
                 }
@@ -1745,7 +1745,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "3750")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
