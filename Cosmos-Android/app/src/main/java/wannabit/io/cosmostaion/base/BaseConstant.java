@@ -448,7 +448,7 @@ public class BaseConstant {
     public final static String FEE_IOV_GAS_AMOUNT_LOW           = "100000";
     public final static String FEE_IOV_GAS_AMOUNT_REGISTER      = "300000";
     public final static String FEE_IOV_GAS_AMOUNT_DELETE        = "150000";
-    public final static String FEE_IOV_GAS_AMOUNT_RENEW         = "150000";
+    public final static String FEE_IOV_GAS_AMOUNT_RENEW         = "300000";
     public final static String FEE_IOV_GAS_AMOUNT_REPLACE       = "300000";
 
     public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.0000001";

@@ -123,13 +123,13 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                 return;
             }
             if (mBaseChain.equals(IOV_MAIN)) {
-                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("150000")) < 0) {
+                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("300000")) < 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
             } else if (mBaseChain.equals(IOV_TEST)) {
-                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("150000")) < 0) {
+                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) < 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
                 }
