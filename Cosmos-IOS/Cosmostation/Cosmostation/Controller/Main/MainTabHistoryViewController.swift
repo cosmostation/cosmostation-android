@@ -312,6 +312,15 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else {
             cell?.txResultLabel.isHidden = false
         }
+        if (history.msg[0].type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (history.height > PERSISTENCE_KAVA_EVENT_START && history.height < PERSISTENCE_KAVA_EVENT_END) {
+                if (history.msg[0].value.to_address == PERSISTENCE_KAVA_EVENT_ADDRESS && history.msg[0].value.from_address == mainTabVC.mAccount.account_address) {
+                    cell?.txRootCard.backgroundColor = COLOR_STAKE_DROP_BG
+                    cell?.txTypeLabel.textColor = COLOR_STAKE_DROP
+                    cell?.txTypeLabel.text = "Persistence\nStake Drop"
+                }
+            }
+        }
         return cell!
     }
     

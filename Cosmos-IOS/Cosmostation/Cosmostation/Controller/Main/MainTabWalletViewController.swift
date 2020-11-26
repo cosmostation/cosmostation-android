@@ -209,7 +209,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if  (chainType == ChainType.IRIS_MAIN) {
             return 5;
         } else if  (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            return 5
+            return 6;
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return 4;
         } else if (chainType == ChainType.BAND_MAIN) {
@@ -263,7 +263,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (chainType == ChainType.COSMOS_MAIN) {
             if (indexPath.row == 2) {
-                if (WUtils.isDisplayEventCard()) {
+                if (WUtils.isDisplayEventCard(chainType)) {
                     return UITableView.automaticDimension;
                 } else {
                     return 0;
@@ -276,6 +276,16 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                     return 0;
                 }
             }
+            
+        } else if (chainType == ChainType.KAVA_MAIN) {
+            if (indexPath.row == 2) {
+                if (WUtils.isDisplayEventCard(chainType)) {
+                    return UITableView.automaticDimension;
+                } else {
+                    return 0;
+                }
+            }
+            
         }
         return UITableView.automaticDimension;
     }
@@ -318,6 +328,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 2) {
             let cell:EventStakeDropCell? = tableView.dequeueReusableCell(withIdentifier:"EventStakeDropCell") as? EventStakeDropCell
             cell?.rootCard.backgroundColor = WUtils.getChainBg(chainType!)
+            cell?.eventImg.image = UIImage(named: "stakedropimgs")
             cell?.actionClose = {
                 BaseData.instance.setEventTime()
                 self.onShowToast(NSLocalizedString("error_no_more_today", comment: ""))
@@ -659,6 +670,20 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return cell!
             
         } else if (indexPath.row == 2) {
+            let cell:EventStakeDropCell? = tableView.dequeueReusableCell(withIdentifier:"EventStakeDropCell") as? EventStakeDropCell
+            cell?.rootCard.backgroundColor = WUtils.getChainBg(chainType!)
+            cell?.eventImg.image = UIImage(named: "stakedropimgsKava")
+            cell?.actionClose = {
+                BaseData.instance.setEventTime()
+                self.onShowToast(NSLocalizedString("error_no_more_today", comment: ""))
+                self.walletTableView.reloadData()
+            }
+            cell?.actionEvent = {
+                self.onStartStakeDropEvent()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
             cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
@@ -686,7 +711,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
             cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
@@ -1884,16 +1909,30 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             self.onShowAddMenomicDialog()
             return
         }
-        
-        let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, COSMOS_MAIN_DENOM)
-        let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-        if (availableAmount.compare(NSDecimalNumber.init(string: "3500")).rawValue < 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_to_balance", comment: ""))
-            return
-        }
-        if (delegatedAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
-            self.onShowToast(NSLocalizedString("error_no_delegated_amount", comment: ""))
-            return
+        if (chainType! == ChainType.COSMOS_MAIN) {
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, COSMOS_MAIN_DENOM)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
+            if (availableAmount.compare(NSDecimalNumber.init(string: "3500")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_to_balance", comment: ""))
+                return
+            }
+            if (delegatedAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_no_delegated_amount", comment: ""))
+                return
+            }
+            
+        } else if (chainType! == ChainType.KAVA_MAIN) {
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
+            if (availableAmount.compare(NSDecimalNumber.init(string: "60000")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_to_balance", comment: ""))
+                return
+            }
+            if (delegatedAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_no_delegated_amount", comment: ""))
+                return
+            }
+            
         }
         
         let eventVC = EventStakeDropViewController(nibName: "EventStakeDropViewController", bundle: nil)

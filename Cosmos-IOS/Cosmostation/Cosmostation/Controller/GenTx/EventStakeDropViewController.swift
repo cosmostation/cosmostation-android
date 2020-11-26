@@ -13,6 +13,7 @@ import SwiftKeychainWrapper
 
 class EventStakeDropViewController: BaseViewController, QrScannerDelegate, PasswordViewDelegate{
     
+    @IBOutlet weak var eventTitleImg: UIImageView!
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet weak var btnScan: UIButton!
@@ -89,19 +90,41 @@ class EventStakeDropViewController: BaseViewController, QrScannerDelegate, Passw
     }
     
     func setInitEventData() {
-        self.mToRecipientAddress = PERSISTENCE_COSMOS_EVENT_ADDRESS
-        
-        self.mToSendAmount.removeAll()
-        let sendCoin = Coin.init(COSMOS_MAIN_DENOM, "1000")
-        self.mToSendAmount.append(sendCoin)
-        
-        var fee = Fee.init()
-        let feeCoin = Coin.init(COSMOS_MAIN_DENOM, "2500")
-        var feeAmount: Array<Coin> = Array<Coin>()
-        feeAmount.append(feeCoin)
-        fee.amount = feeAmount
-        fee.gas = GAS_FEE_AMOUNT_LOW
-        self.mFee = fee
+        if (chainType! == ChainType.COSMOS_MAIN) {
+            eventTitleImg.image = UIImage(named: "stakedropimgl")
+            
+            self.mToRecipientAddress = PERSISTENCE_COSMOS_EVENT_ADDRESS
+            
+            self.mToSendAmount.removeAll()
+            let sendCoin = Coin.init(COSMOS_MAIN_DENOM, "1000")
+            self.mToSendAmount.append(sendCoin)
+            
+            var fee = Fee.init()
+            let feeCoin = Coin.init(COSMOS_MAIN_DENOM, "2500")
+            var feeAmount: Array<Coin> = Array<Coin>()
+            feeAmount.append(feeCoin)
+            fee.amount = feeAmount
+            fee.gas = GAS_FEE_AMOUNT_LOW
+            self.mFee = fee
+            
+            
+        } else if (chainType! == ChainType.KAVA_MAIN) {
+            eventTitleImg.image = UIImage(named: "stakedropimglKava")
+            
+            self.mToRecipientAddress = PERSISTENCE_KAVA_EVENT_ADDRESS
+            
+            self.mToSendAmount.removeAll()
+            let sendCoin = Coin.init(KAVA_MAIN_DENOM, "10000")
+            self.mToSendAmount.append(sendCoin)
+            
+            var fee = Fee.init()
+            let feeCoin = Coin.init(KAVA_MAIN_DENOM, "50000")
+            var feeAmount: Array<Coin> = Array<Coin>()
+            feeAmount.append(feeCoin)
+            fee.amount = feeAmount
+            fee.gas = KAVA_GAS_FEE_AMOUNT_SEND
+            self.mFee = fee
+        }
     }
     
     func onShowConfirmAlert(_ ethAddress: String) {
@@ -132,22 +155,42 @@ class EventStakeDropViewController: BaseViewController, QrScannerDelegate, Passw
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let url = COSMOS_URL_ACCOUNT_INFO + account.account_address
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        var url: String?
+        if (chainType! == ChainType.COSMOS_MAIN) {
+             url = COSMOS_URL_ACCOUNT_INFO + account.account_address
+        } else if (chainType! == ChainType.KAVA_MAIN) {
+            url = KAVA_ACCOUNT_INFO + account.account_address
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let responseData = res as? NSDictionary,
-                      let info = responseData.object(forKey: "result") as? [String : Any] else {
-                    _ = BaseData.instance.deleteBalance(account: account)
-                    self.hideWaittingAlert()
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                    return
+                if (self.chainType! == ChainType.COSMOS_MAIN) {
+                    guard let responseData = res as? NSDictionary,
+                        let info = responseData.object(forKey: "result") as? [String : Any] else {
+                        _ = BaseData.instance.deleteBalance(account: account)
+                        self.hideWaittingAlert()
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return
+                    }
+                    let accountInfo = AccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
+                    self.onGenSendTx()
+                    
+                } else if (self.chainType! == ChainType.KAVA_MAIN) {
+                    guard  let info = res as? [String : Any] else {
+                        _ = BaseData.instance.deleteBalance(account: account)
+                        self.hideWaittingAlert()
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return
+                    }
+                    let accountInfo = KavaAccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
+                    self.onGenSendTx()
+                    
                 }
-                let accountInfo = AccountInfo.init(info)
-                _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                self.onGenSendTx()
                 
             case .failure(let error):
                 self.hideWaittingAlert()
@@ -203,6 +246,7 @@ class EventStakeDropViewController: BaseViewController, QrScannerDelegate, Passw
                 
             } catch {
                 if(SHOW_LOG) { print(error) }
+                
             }
             
             DispatchQueue.main.async(execute: {
@@ -212,8 +256,13 @@ class EventStakeDropViewController: BaseViewController, QrScannerDelegate, Passw
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let url = COSMOS_URL_BORAD_TX
-                    let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    var url: String?
+                    if (self.chainType! == ChainType.COSMOS_MAIN) {
+                        url = COSMOS_URL_BORAD_TX
+                    } else if (self.chainType! == ChainType.KAVA_MAIN) {
+                        url = KAVA_BORAD_TX
+                    }
+                    let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {

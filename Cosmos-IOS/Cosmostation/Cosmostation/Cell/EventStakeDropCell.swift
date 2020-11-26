@@ -11,6 +11,7 @@ import UIKit
 class EventStakeDropCell: UITableViewCell {
     
     @IBOutlet weak var rootCard: CardView!
+    @IBOutlet weak var eventImg: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

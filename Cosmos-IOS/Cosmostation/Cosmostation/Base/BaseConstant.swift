@@ -1047,7 +1047,9 @@ let PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdq
 let PERSISTENCE_COSMOS_EVENT_START      = 3846000;
 let PERSISTENCE_COSMOS_EVENT_END        = 4206000;
 
-
+let PERSISTENCE_KAVA_EVENT_ADDRESS      = "kava1fxxxruhmqx3myuhjwxx9gk90kwqrgs9jamr892";
+let PERSISTENCE_KAVA_EVENT_START        = 422360;
+let PERSISTENCE_KAVA_EVENT_END          = 672440;
 
 
 let DAY_SEC     = NSDecimalNumber.init(string: "86400")
