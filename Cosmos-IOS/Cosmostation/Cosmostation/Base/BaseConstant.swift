@@ -731,7 +731,7 @@ let IOV_GAS_AMOUNT_REINVEST                 = "300000"
 let IOV_GAS_AMOUNT_LOW                      = "100000"
 let IOV_GAS_AMOUNT_REGISTER                 = "300000"
 let IOV_GAS_AMOUNT_DELETE                   = "150000"
-let IOV_GAS_AMOUNT_RENEW                    = "150000"
+let IOV_GAS_AMOUNT_RENEW                    = "300000"
 let IOV_GAS_AMOUNT_REPLACE                  = "300000"
 
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"

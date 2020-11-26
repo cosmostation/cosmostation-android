@@ -111,7 +111,7 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         
-        let needFee = BaseData.instance.mStarNameFee!.getAccountRenewFee(mMyDomainInfo!.result.domain!.type).adding(NSDecimalNumber.init(string: "150000"))
+        let needFee = BaseData.instance.mStarNameFee!.getAccountRenewFee(mMyDomainInfo!.result.domain!.type).adding(NSDecimalNumber.init(string: "300000"))
         if (chainType == ChainType.IOV_MAIN) {
             if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))

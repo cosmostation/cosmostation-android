@@ -1428,7 +1428,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 let incentiveParam2 = KavaIncentiveReward2.init(responseData)
                 BaseData.instance.mIncentiveClaimables.append(contentsOf: incentiveParam2.result)
-                print("mIncentiveClaimables ", BaseData.instance.mIncentiveClaimables.count)
+//                print("mIncentiveClaimables ", BaseData.instance.mIncentiveClaimables.count)
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchMyIncentive ", error) }
