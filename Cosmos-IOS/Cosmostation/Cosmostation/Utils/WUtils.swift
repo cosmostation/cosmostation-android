@@ -1631,6 +1631,9 @@ class WUtils {
         if (denom == "usdx" || denom == "busd"){
             return amount.multiplying(byPowerOf10: -dpDeciaml)
             
+        } else if (denom == "hard") {
+            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: BaseData.instance.mHardPrice)
+            
         } else {
             let prices = BaseData.instance.mKavaPrice
             let cdpParam = BaseData.instance.mCdpParam

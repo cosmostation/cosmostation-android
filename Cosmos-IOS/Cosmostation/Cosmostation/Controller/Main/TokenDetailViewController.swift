@@ -786,9 +786,17 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             txVC.mType = BNB_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            if (balance?.balance_denom == KAVA_MAIN_DENOM && WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
+            if (balance?.balance_denom == KAVA_MAIN_DENOM) {
+                if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                    return
+                }
+                
+            } else {
+                if (WUtils.getTokenAmount(balances, balance!.balance_denom).compare(NSDecimalNumber.zero).rawValue <= 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                    return
+                }
             }
             txVC.mKavaSendDenom = self.balance?.balance_denom
             txVC.mType = KAVA_MSG_TYPE_TRANSFER

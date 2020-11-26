@@ -788,7 +788,25 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchKavaTokenPrice() {
-        self.onUpdateTotalCard()
+        for i in 0..<mainTabVC.mBalances.count {
+            if ((mainTabVC.mBalances[i].balance_denom == KAVA_HARD_DENOM)) {
+                let url = CGC_PRICE_TIC + "hard-protocol"
+                let request = Alamofire.request(url, method: .get, parameters: ["localization":"false", "tickers":"false", "community_data":"false", "developer_data":"false", "sparkline":"false"], encoding: URLEncoding.default, headers: [:]);
+                request.responseJSON { (response) in
+                    switch response.result {
+                    case .success(let res):
+                        if let tics = res as? NSDictionary, let priceUsd = tics.value(forKeyPath: "market_data.current_price.usd") as? Double {
+                            BaseData.instance.mHardPrice = NSDecimalNumber.init(value: priceUsd)
+                            self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .none)
+                        }
+                        self.onUpdateTotalCard()
+
+                    case .failure(let error):
+                        if (SHOW_LOG) { print("onFetchKavaTokenPrice ", error) }
+                    }
+                }
+            }
+        }
     }
     
     func onFetchBandTokenPrice() {
