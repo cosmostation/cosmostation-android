@@ -1685,27 +1685,27 @@ public class WUtil {
         for (Account account:accounts) {
             ExportStarName.ExportResource resource = new ExportStarName.ExportResource();
             if (BaseChain.getChain(account.baseChain).equals(COSMOS_MAIN)) {
-                resource.ticker = "ATOM";
+                resource.ticker = "atom";
                 resource.address = account.address;
                 result.addresses.add(resource);
 
             } else if (BaseChain.getChain(account.baseChain).equals(IRIS_MAIN)) {
-                resource.ticker = "IRIS";
+                resource.ticker = "iris";
                 resource.address = account.address;
                 result.addresses.add(resource);
 
             } else if (BaseChain.getChain(account.baseChain).equals(KAVA_MAIN)) {
-                resource.ticker = "KAVA";
+                resource.ticker = "kava";
                 resource.address = account.address;
                 result.addresses.add(resource);
 
             } else if (BaseChain.getChain(account.baseChain).equals(BNB_MAIN)) {
-                resource.ticker = "binance";
+                resource.ticker = "bnb";
                 resource.address = account.address;
                 result.addresses.add(resource);
 
             } else if (BaseChain.getChain(account.baseChain).equals(IOV_MAIN)) {
-                resource.ticker = "STARNAME";
+                resource.ticker = "iov";
                 resource.address = account.address;
                 result.addresses.add(resource);
 
