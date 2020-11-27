@@ -28,15 +28,30 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/starname_domain_name"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:letterSpacing="0.05"
-                    style="@style/font_ssm_17_white"
-                    android:text="-"/>
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/starname_domain_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:letterSpacing="0.05"
+                        style="@style/font_ssm_17_white"
+                        android:text="-"/>
+                    <ImageView
+                        android:id="@+id/web_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/space_8"
+                        android:paddingTop="@dimen/space_4"
+                        android:paddingBottom="@dimen/space_4"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/wallet_detail_btn"/>
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

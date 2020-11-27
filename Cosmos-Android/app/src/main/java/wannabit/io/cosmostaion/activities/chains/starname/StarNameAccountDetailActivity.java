@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.chains.starname;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -255,7 +256,13 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                 if (mMyNameAccount != null) {
                     holder.itemStarName.setText(mMyNameAccount.name + "*" + mMyNameAccount.domain);
                     holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mMyNameAccount.valid_until * 1000));
-
+                    holder.itemBtnWebLink.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse(mMyNameAccount.name + "*" + mMyNameAccount.domain));
+                            startActivity(guideIntent);
+                        }
+                    });
                 }
                 if (mMyNameAccount != null && mMyNameAccount.resources != null &&  mMyNameAccount.resources.size() > 0) {
                     holder.itemAddressCnt.setText("" + mMyNameAccount.resources.size());
@@ -299,12 +306,14 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
         public class MyAccountHeaderHolder extends RecyclerView.ViewHolder {
             private CardView itemRoot;
+            private ImageView itemBtnWebLink;
             TextView itemStarName, itemAddressCnt, itemExpireDate;
 
             public MyAccountHeaderHolder(View v) {
                 super(v);
                 itemRoot            = itemView.findViewById(R.id.card_root);
                 itemStarName        = itemView.findViewById(R.id.starname_name);
+                itemBtnWebLink      = itemView.findViewById(R.id.web_detail);
                 itemAddressCnt      = itemView.findViewById(R.id.connected_addressed);
                 itemExpireDate      = itemView.findViewById(R.id.expire_date);
             }

@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.chains.starname;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -259,6 +260,13 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                         holder.itemType.setTextColor(getResources().getColor(R.color.colorWhite));
                     }
                     holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mStarNameDomain.valid_until * 1000));
+                    holder.itemBtnWebLink.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://starname.me/" + "*" + mStarNameDomain.name));
+                            startActivity(guideIntent);
+                        }
+                    });
 
                 }
                 if (mMyNameAccount != null && mMyNameAccount.resources != null &&  mMyNameAccount.resources.size() > 0) {
@@ -303,12 +311,14 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
 
         public class MyDomainHeaderHolder extends RecyclerView.ViewHolder {
             private CardView itemRoot;
+            private ImageView itemBtnWebLink;
             TextView itemDomain, itemType, itemAddressCnt, itemExpireDate;
 
             public MyDomainHeaderHolder(View v) {
                 super(v);
                 itemRoot            = itemView.findViewById(R.id.card_root);
                 itemDomain          = itemView.findViewById(R.id.starname_domain_name);
+                itemBtnWebLink      = itemView.findViewById(R.id.web_detail);
                 itemType            = itemView.findViewById(R.id.domain_type);
                 itemAddressCnt      = itemView.findViewById(R.id.connected_addressed);
                 itemExpireDate      = itemView.findViewById(R.id.expire_date);

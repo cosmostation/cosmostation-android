@@ -1716,7 +1716,6 @@ public class WUtil {
 
             }
         }
-
         return result;
     }
 
