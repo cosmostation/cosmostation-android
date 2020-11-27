@@ -86,6 +86,7 @@ public class BaseData {
     public ResKavaHarvestParam                                              mHarvestParam;
     public ArrayList<ResKavaHarvestDeposit.HarvestDeposit>                  mHavestDeposits = new ArrayList<>();
     public ArrayList<ResKavaHarvestReward.HarvestReward>                    mHavestRewards = new ArrayList<>();
+    public BigDecimal                                                       mHardPrice = BigDecimal.ZERO;
 
     public ArrayList<BnbToken>                                              mBnbTokens = new ArrayList<>();
     public ArrayList<ResBnbFee>                                             mBnbFees = new ArrayList<>();

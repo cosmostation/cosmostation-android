@@ -39,7 +39,9 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
+import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -220,6 +222,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             onUpdateTotalCard();
+            onFetchKavaTokenPrice();
 
         } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
@@ -850,6 +853,27 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                         }
                     });
                 }
+            }
+        }
+    }
+
+    private void onFetchKavaTokenPrice() {
+        for (int i = 0; i < mBalances.size(); i ++) {
+            final int position = i;
+            if (!mBalances.get(position).symbol.equals(TOKEN_HARD)) {
+                ApiClient.getCGCClient(getMainActivity()).getPriceTicLite("hard-protocol", "false", "false", "false", "false", "false").enqueue(new Callback<ResCgcTic>() {
+                    @Override
+                    public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
+                        getBaseDao().mHardPrice = new BigDecimal(response.body().market_data.current_price.usd);
+                        mTokensAdapter.notifyItemChanged(position);
+                        onUpdateTotalCard();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResCgcTic> call, Throwable t) {
+                        WLog.w("onFetchKavaTokenPrice onFailure");
+                    }
+                });
             }
         }
     }

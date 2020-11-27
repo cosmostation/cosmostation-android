@@ -550,6 +550,8 @@ public class WDp {
         int dpDecimal = WUtil.getKavaCoinDecimal(denom);
         if (denom.equals("usdx") || denom.equals("busd")) {
             return amount.movePointLeft(dpDecimal);
+        } else if (denom.equals("hard")) {
+            return amount.movePointLeft(dpDecimal).multiply(baseData.mHardPrice);
         } else {
             HashMap<String, ResKavaMarketPrice.Result> prices = baseData.mKavaTokenPrices;
             ResCdpParam.Result params = baseData.mKavaCdpParams;
