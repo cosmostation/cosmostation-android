@@ -58,8 +58,13 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
         let userInput = self.addAddressInputText.text?.trimmingCharacters(in: .whitespaces) ?? ""
         if (userInput.starts(with: "cosmos1")) {
             if (WKey.isValidateBech32(userInput)) {
-                self.onGenWatchAccount(ChainType.COSMOS_MAIN, userInput)
-                return;
+                if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {
+                    self.onShowCosmosChainSelect(userInput)
+                    return;
+                } else {
+                    self.onGenWatchAccount(ChainType.COSMOS_MAIN, userInput)
+                    return;
+                }
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
                 self.addAddressInputText.text = ""
@@ -227,6 +232,23 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
             });
         }
     }
+    
+    func onShowCosmosChainSelect(_ input:String) {
+        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let cosmosAction = UIAlertAction(title: NSLocalizedString("chain_title_cosmos", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.COSMOS_MAIN, input)
+        })
+        cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        let cosmosTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_cosmos", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.COSMOS_TEST, input)
+        })
+        cosmosTestAction.setValue(UIImage(named: "cosmosTestChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        showAlert.addAction(cosmosAction)
+        showAlert.addAction(cosmosTestAction)
+        self.present(showAlert, animated: true, completion: nil)
+    }
+    
     
     func onShowKavaChainSelect(_ input:String) {
         let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)

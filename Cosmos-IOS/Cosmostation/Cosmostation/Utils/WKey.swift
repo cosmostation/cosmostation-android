@@ -44,7 +44,8 @@ class WKey {
         let masterKey = getMasterKeyFromWords(m)
         let chainType = WUtils.getChainType(account.account_base_chain)
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST ||
+                chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -82,7 +83,7 @@ class WKey {
         var result = ""
         let sha256 = Crypto.sha256(Data.fromHex(pubHex)!)
         let ripemd160 = Crypto.ripemd160(sha256)
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
         } else if (chain == ChainType.IRIS_MAIN) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "iaa", program: ripemd160)
@@ -111,7 +112,7 @@ class WKey {
     static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType, _ newbip:Bool) -> String {
         do {
             var childKey:HDPrivateKey?
-            if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
+            if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
             } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -181,7 +182,7 @@ class WKey {
         guard let (_, data) = try? bech32.decode(opAddress) else {
             return result
         }
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             result = bech32.encode("cosmos", values: data)
         } else if (chain == ChainType.IRIS_MAIN) {
             result = bech32.encode("iaa", values: data)

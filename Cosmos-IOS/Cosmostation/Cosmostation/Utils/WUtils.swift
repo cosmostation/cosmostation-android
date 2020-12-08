@@ -2052,7 +2052,7 @@ class WUtils {
     
     
     static func getChainColor(_ chain:ChainType?) -> UIColor {
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return COLOR_ATOM
         } else if (chain == ChainType.IRIS_MAIN) {
             return COLOR_IRIS
@@ -2097,7 +2097,8 @@ class WUtils {
             return COLOR_AKASH_DARK
         }
         
-        else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
+        else if (chain == ChainType.COSMOS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST ||
+                    chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
@@ -2124,14 +2125,14 @@ class WUtils {
             return TRANS_BG_COLOR_AKASH
         }
         
-        else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
+        else if (chain == ChainType.COSMOS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
     }
     
     static func getMainDenom(_ chain:ChainType) -> String {
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return "ATOM"
         } else if (chain == ChainType.IRIS_MAIN) {
             return "IRIS"
@@ -2156,7 +2157,7 @@ class WUtils {
     }
     
     static func setDenomTitle(_ chain: ChainType?, _ label: UILabel) {
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             label.text = "ATOM"
             label.textColor = COLOR_ATOM
         } else if (chain == ChainType.IRIS_MAIN) {
@@ -2210,7 +2211,9 @@ class WUtils {
             return ChainType.AKASH_MAIN
         }
         
-        else if (chainS == CHAIN_KAVA_TEST_S) {
+        else if (chainS == CHAIN_COSMOS_TEST_S) {
+            return ChainType.COSMOS_TEST
+        } else if (chainS == CHAIN_KAVA_TEST_S) {
             return ChainType.KAVA_TEST
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return ChainType.BINANCE_TEST
@@ -2245,7 +2248,9 @@ class WUtils {
             return CHAIN_AKASH_S
         }
         
-        else if (chain == ChainType.BINANCE_TEST) {
+        else if (chain == ChainType.COSMOS_TEST) {
+            return CHAIN_COSMOS_TEST_S
+        } else if (chain == ChainType.BINANCE_TEST) {
             return CHAIN_BINANCE_TEST_S
         } else if (chain == ChainType.KAVA_TEST) {
             return CHAIN_KAVA_TEST_S
@@ -2323,7 +2328,9 @@ class WUtils {
             return "akashnet-1"
         }
         
-        else if (chainS == CHAIN_BINANCE_TEST_S) {
+        else if (chainS == CHAIN_COSMOS_TEST_S) {
+            return "cosmoshub-test-stargate-e"
+        } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (chainS == CHAIN_KAVA_TEST_S) {
             return "kava-4-test"
@@ -2358,7 +2365,9 @@ class WUtils {
             return "akashnet-1"
         }
         
-        else if (chain == ChainType.BINANCE_TEST) {
+        else if (chain == ChainType.COSMOS_TEST) {
+            return "cosmoshub-test-stargate-e"
+        } else if (chain == ChainType.BINANCE_TEST) {
             return "Binance-Chain-Nile"
         } else if (chain == ChainType.KAVA_TEST) {
             return "kava-4-test"

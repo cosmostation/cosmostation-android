@@ -30,8 +30,12 @@ let KEY_KAVA_TESTNET_WARN               = "KEY_KAVA_TESTNET_WARN"
 let KEY_PRE_EVENT_HIDE                  = "KEY_PRE_EVENT_HIDE"
 
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
+
 let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";
 let COSMOS_API                          = "https://api.cosmostation.io/";
+
+let COSMOS_TEST_URL                     = "https://lcd-office.cosmostation.io/cosmoshub-test-stargate-e/";
+let COSMOS_TEST_API                     = "";
 
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let IRIS_API                            = "https://api-iris.cosmostation.io/";
@@ -41,11 +45,11 @@ let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
 let KAVA_API                            = "https://api-kava.cosmostation.io/";
-let KAVA_FAUCET                         = "https://faucet-kava-3.cosmostation.io/faucet/";
+let KAVA_FAUCET                         = "";
 
 let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-4-test/";
 let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-4-test/";
-let KAVA_TEST_FAUCET                    = "https://faucet-kava-testnet-9000.cosmostation.io/faucet/";
+let KAVA_TEST_FAUCET                    = "";
 
 
 let IOV_URL                             = "https://lcd-iov.cosmostation.io/";
@@ -114,6 +118,35 @@ let COSMOS_URL_BORAD_TX                 = COSMOS_URL + "txs";
 
 let COSMOS_API_HISTORY                  = COSMOS_API + "v1/account/txs/";
 let COSMOS_API_TRANS_HISTORY            = COSMOS_API + "v1/account/transfer_txs/";
+
+//COSMOS_TEST_URL
+let COSMOS_TEST_BLOCK                   = COSMOS_TEST_URL + "blocks/";
+let COSMOS_TEST_TX                      = COSMOS_TEST_URL + "txs/";
+let COSMOS_TEST_BALANCE                 = COSMOS_TEST_URL + "cosmos/bank/v1beta1/balances/";
+let COSMOS_TEST_ACCOUNT_INFO            = COSMOS_TEST_URL + "cosmos/auth/v1beta1/accounts/";
+//let COSMOS_URL_VALIDATORS               = COSMOS_TEST_URL + "staking/validators";
+//let COSMOS_URL_BONDING                  = COSMOS_TEST_URL + "staking/delegators/";
+//let COSMOS_URL_BONDING_TAIL             = "/delegations";
+//let COSMOS_URL_UNBONDING                = COSMOS_TEST_URL + "staking/delegators/";
+//let COSMOS_URL_UNBONDING_TAIL           = "/unbonding_delegations";
+//let COSMOS_URL_REWARD_ALL               = COSMOS_TEST_URL + "distribution/delegators/";
+//let COSMOS_URL_REWARD_ALL_TAIL          = "/rewards";
+//let COSMOS_URL_REWARD_FROM_VAL          = COSMOS_TEST_URL + "distribution/delegators/";
+//let COSMOS_URL_REWARD_FROM_VAL_TAIL     = "/rewards/";
+//let COSMOS_URL_REWARD_ADDRESS           = COSMOS_TEST_URL + "distribution/delegators/";
+//let COSMOS_URL_REWARD_ADDRESS_TAIL      = "/withdraw_address";
+//let COSMOS_URL_REDELEGATION             = COSMOS_TEST_URL + "staking/redelegations";
+//let COSMOS_URL_MINT_PARAM               = COSMOS_TEST_URL + "minting/parameters";
+//let COSMOS_URL_INFLATION                = COSMOS_TEST_URL + "minting/inflation";
+//let COSMOS_URL_PROVISIONS               = COSMOS_TEST_URL + "minting/annual-provisions";
+//let COSMOS_URL_MINT                     = COSMOS_TEST_URL + "minting/parameters";
+//let COSMOS_URL_STAKING_POOL             = COSMOS_TEST_URL + "staking/pool";
+//let COSMOS_URL_PROPOSALS                = COSMOS_TEST_URL + "gov/proposals";
+//let COSMOS_URL_PROPOSALS_TALLY_TAIL     = "/tally";
+//let COSMOS_URL_BORAD_TX                 = COSMOS_TEST_URL + "txs";
+//
+//let COSMOS_API_HISTORY                  = COSMOS_TEST_API + "v1/account/txs/";
+//let COSMOS_API_TRANS_HISTORY            = COSMOS_TEST_API + "v1/account/transfer_txs/";
 
 
 //IRIS_URL
@@ -886,6 +919,7 @@ enum ChainType: String {
     case CERTIK_MAIN
     case AKASH_MAIN
     
+    case COSMOS_TEST
     case BINANCE_TEST
     case KAVA_TEST
     case IOV_TEST
@@ -904,6 +938,7 @@ enum ChainType: String {
         result.append(CERTIK_MAIN)
         result.append(AKASH_MAIN)
 
+        result.append(COSMOS_TEST)
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
@@ -974,6 +1009,7 @@ let CHAIN_SECRET_S = "SUPPORT_CHAIN_SECRET_MAIN"
 let CHAIN_CERTIK_S = "SUPPORT_CHAIN_CERTIK_MAIN"
 let CHAIN_AKASH_S = "SUPPORT_CHAIN_AKASH_MAIN"
 
+let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
