@@ -249,17 +249,13 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):
-                            print("res ", res)
-//                            guard let responseData = res as? NSDictionary,
-//                                  let info = responseData.object(forKey: "result") as? [String : Any] else {
-//                                return
-//                            }
-//                            let accountInfo = AccountInfo.init(info)
-//                            if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
-//                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
-//                            } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
-//                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6, 6)
-//                            }
+                            if let responseData = res as? NSDictionary, let balances = responseData.object(forKey: "balances") as? Array<NSDictionary> {
+                                balances.forEach({ (balance) in
+                                    if (balance.object(forKey: "denom") as? String == COSMOS_MAIN_DENOM) {
+                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(balance.object(forKey: "amount") as? String, cell!.denomAmount.font!, 6, 6)
+                                    }
+                                })
+                            }
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                         }
