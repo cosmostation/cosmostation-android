@@ -52,6 +52,25 @@ final class BaseData : NSObject{
     
     var mBandOracleStatus: BandOracleStatus?
     
+    
+    
+    //For StarGate after v0.40
+    var mAllValidators_V1 = Array<Validator_V1>()
+    var mUnbondedValidators_V1 = Array<Validator_V1>()
+    var mUnbondingValidators_V1 = Array<Validator_V1>()
+    var mBondedValidators_V1 = Array<Validator_V1>()
+    var mMyValidators_V1 = Array<Validator_V1>()
+    
+    var mMyDelegations_V1 = Array<DelegationInfo_V1>()
+    var mMyUnbondings_V1 = Array<UnbondingInfo_V1>()
+    var mMyBalances_V1 = Array<Coin>()
+    
+    var mMintParam_V1: MintParam_V1?
+    var mStakingPool_V1: StakingPool_V1?
+    var mProvision_V1: Provision_V1?
+    var mInflation_V1: Inflation_V1?
+    
+    
     public override init() {
         super.init();
         if database == nil {

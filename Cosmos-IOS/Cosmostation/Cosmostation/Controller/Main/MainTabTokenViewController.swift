@@ -142,7 +142,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalCard.backgroundColor = TRANS_BG_COLOR_AKASH
         }
         
-        else if (chainType! == ChainType.BINANCE_TEST) {
+        else if (chainType! == ChainType.COSMOS_TEST) {
+            titleChainImg.image = UIImage(named: "cosmosTestChainImg")
+            titleChainName.text = "(StarGate Testnet)"
+            kavaOracle.isHidden = true
+            titleAlarmBtn.isHidden = true
+            totalCard.backgroundColor = COLOR_BG_GRAY
+        } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Testnet)"
             kavaOracle.isHidden = true
