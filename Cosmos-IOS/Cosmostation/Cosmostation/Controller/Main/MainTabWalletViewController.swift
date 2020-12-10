@@ -1512,13 +1512,16 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
-            let totalAtom = WUtils.getAllAtom2()
+            let totalAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAtom.stringValue, cell!.totalAmount.font!, 6, 6)
             cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAtom, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(COSMOS_MAIN_DENOM), cell!.availableAmount.font!, 6, 6)
             cell?.delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), cell!.delegatedAmount.font!, 6, 6)
             cell?.unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), cell!.unbondingAmount.font, 6, 6)
             cell?.rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(COSMOS_MAIN_DENOM), cell!.rewardAmount.font, 6, 6)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAtom.multiplying(byPowerOf10: -6).stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -1555,7 +1558,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
-            
         }
     }
     

@@ -152,9 +152,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
 
-        }
-        
-        else if (chainType == ChainType.IOV_TEST) {
+        } else if (chainType == ChainType.IOV_TEST) {
             chainImg.image = UIImage(named: "iovTestnetImg")
             keyPath.text = IOV_BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
@@ -174,7 +172,15 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
+            
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            chainImg.image = UIImage(named: "cosmosTestChainImg")
+            keyPath.text = BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
         }
+        
         importDate.text = WUtils.longTimetoString(input:account!.account_import_time)
         
         if (account!.account_has_private)  {

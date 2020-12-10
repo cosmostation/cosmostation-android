@@ -209,7 +209,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
         self.onUpdateTotalCard();
         self.tokenTableView.reloadData()
-        if (chainType! == ChainType.COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST) {
             onFetchCosmosTokenPrice()
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
@@ -403,11 +403,21 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allAkt = WUtils.getAllAkash(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allAkt, BaseData.instance.getLastPrice(), totalValue.font)
+            
+        } else if (chainType! == ChainType.COSMOS_TEST) {
+            let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
+            
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mainTabVC.mBalances.count;
+        if (chainType! != ChainType.COSMOS_TEST) {
+            return mainTabVC.mBalances.count;
+        } else {
+            return BaseData.instance.mMyBalances_V1.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -433,6 +443,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetCertikItems(tableView, indexPath)
         } else if (chainType! == ChainType.AKASH_MAIN) {
             return onSetAkashItems(tableView, indexPath)
+        } else if (chainType! == ChainType.COSMOS_TEST) {
+            return onSetCosmosTestItems(tableView, indexPath)
         }
         return onSetCosmosItems(tableView, indexPath)
     }
@@ -497,6 +509,22 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             // TODO no this case yet!
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
+    func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_V1[indexPath.row]
+        if (balance.denom == COSMOS_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "atom_ic")
+            cell?.tokenSymbol.text = "ATOM"
+            cell?.tokenSymbol.textColor = COLOR_ATOM
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Cosmos Staking Token"
+            let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
         }
         return cell!
     }

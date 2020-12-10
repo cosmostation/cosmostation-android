@@ -1388,12 +1388,11 @@ class WUtils {
         return amount
     }
     
-    static func getAllAtom2() -> NSDecimalNumber {
+    static func getAllMainAsset(_ denom: String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         let data = BaseData.instance
-        
         for balance in data.mMyBalances_V1 {
-            if (balance.denom == COSMOS_MAIN_DENOM) {
+            if (balance.denom == denom) {
                 amount = plainStringToDecimal(balance.amount)
             }
         }
@@ -1404,9 +1403,8 @@ class WUtils {
             amount = amount.adding(unbonding.getAllUnbondingBalance())
         }
         for reward in data.mMyReward_V1 {
-            amount = amount.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
+            amount = amount.adding(reward.getRewardByDenom(denom))
         }
-        
         return amount
     }
     
