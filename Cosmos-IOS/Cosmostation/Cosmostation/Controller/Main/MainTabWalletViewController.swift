@@ -1539,6 +1539,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.updownImg.image = nil
                 cell?.updownPercent.text = ""
             }
+            cell?.buySeparator.isHidden = true
+            cell?.buyBtn.isHidden = true
+            cell?.buyConstraint.priority = .defaultLow
+            cell?.noBuyConstraint.priority = .defaultHigh
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
+            }
             return cell!
             
         } else if (indexPath.row == 3) {

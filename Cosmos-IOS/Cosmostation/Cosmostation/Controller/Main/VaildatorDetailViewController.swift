@@ -17,6 +17,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     @IBOutlet weak var loadingImg: LoadingImageView!
     
     var mValidator: Validator?
+    var mValidator_V1: Validator_V1?
     var mBonding: Bonding?
     var mUnbondings = Array<Unbonding>()
     var mRewards = Array<Reward>()

@@ -340,9 +340,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.COSMOS_TEST) {
             self.mFetchCnt = 11
             BaseData.instance.mAllValidators_V1.removeAll()
-            BaseData.instance.mUnbondedValidators_V1.removeAll()
-            BaseData.instance.mUnbondingValidators_V1.removeAll()
             BaseData.instance.mBondedValidators_V1.removeAll()
+            BaseData.instance.mUnbondValidators_V1.removeAll()
             BaseData.instance.mMyValidators_V1.removeAll()
             
             BaseData.instance.mMyDelegations_V1.removeAll()
@@ -494,8 +493,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             //For StarGate after v0.40
             if (mChainType == ChainType.COSMOS_TEST) {
                 BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mBondedValidators_V1)
-                BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mUnbondingValidators_V1)
-                BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mUnbondedValidators_V1)
+                BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mUnbondValidators_V1)
                 for validator in BaseData.instance.mAllValidators_V1 {
                     var mine = false;
                     for delegation in BaseData.instance.mMyDelegations_V1 {
@@ -520,8 +518,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
                 print("mBondedValidators_V1 ", BaseData.instance.mBondedValidators_V1.count)
-                print("mUnbondingValidators_V1 ", BaseData.instance.mUnbondingValidators_V1.count)
-                print("mUnbondedValidators_V1 ", BaseData.instance.mUnbondedValidators_V1.count)
+                print("mUnbondValidators_V1 ", BaseData.instance.mUnbondValidators_V1.count)
                 print("mAllValidators_V1 ", BaseData.instance.mAllValidators_V1.count)
                 print("mMyValidators_V1 ", BaseData.instance.mMyValidators_V1.count)
                 
@@ -1855,7 +1852,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-                    BaseData.instance.mUnbondedValidators_V1.append(Validator_V1(validator))
+                    BaseData.instance.mUnbondValidators_V1.append(Validator_V1(validator))
                 }
                 if (validators.count >= 100) {
                     self.onFetchUnbondedValidators(offset + 100)
@@ -1881,7 +1878,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-                    BaseData.instance.mUnbondingValidators_V1.append(Validator_V1(validator))
+                    BaseData.instance.mUnbondValidators_V1.append(Validator_V1(validator))
                 }
                 if (validators.count >= 100) {
                     self.onFetchUnbondingValidators(offset + 100)

@@ -49,7 +49,7 @@ class ValidatorListViewController: BaseViewController {
             validatorSegment.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
             validatorSegment.setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
             
-            if (chainType == ChainType.COSMOS_MAIN) {
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
                 validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_COSMOS2
             } else if (chainType == ChainType.IRIS_MAIN) {
                 validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_IRIS2
@@ -68,7 +68,7 @@ class ValidatorListViewController: BaseViewController {
             }
             
         } else {
-            if (chainType == ChainType.COSMOS_MAIN) {
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
                 validatorSegment.tintColor = COLOR_ATOM
             } else if (chainType == ChainType.IRIS_MAIN) {
                 validatorSegment.tintColor = COLOR_IRIS

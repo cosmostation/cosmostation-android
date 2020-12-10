@@ -56,9 +56,9 @@ final class BaseData : NSObject{
     
     //For StarGate after v0.40
     var mAllValidators_V1 = Array<Validator_V1>()
-    var mUnbondedValidators_V1 = Array<Validator_V1>()
-    var mUnbondingValidators_V1 = Array<Validator_V1>()
+//    var mUnbondingValidators_V1 = Array<Validator_V1>()
     var mBondedValidators_V1 = Array<Validator_V1>()
+    var mUnbondValidators_V1 = Array<Validator_V1>()
     var mMyValidators_V1 = Array<Validator_V1>()
     
     var mMyDelegations_V1 = Array<DelegationInfo_V1>()

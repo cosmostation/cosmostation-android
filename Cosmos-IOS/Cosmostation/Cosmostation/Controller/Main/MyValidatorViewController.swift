@@ -93,54 +93,92 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.mainTabVC.mMyValidators.count < 1) {
-            return 1;
-        } else if (self.mainTabVC.mMyValidators.count == 1) {
-            return 1;
+        if (chainType != ChainType.COSMOS_TEST) {
+            if (self.mainTabVC.mMyValidators.count < 1) {
+                return 1;
+            } else if (self.mainTabVC.mMyValidators.count == 1) {
+                return 1;
+            } else {
+                return self.mainTabVC.mMyValidators.count  + 1;
+            }
+            
         } else {
-            return self.mainTabVC.mMyValidators.count  + 1;
+            if (BaseData.instance.mMyValidators_V1.count < 1) {
+                return 1;
+            } else if (BaseData.instance.mMyValidators_V1.count == 1) {
+                return 1;
+            } else {
+                return BaseData.instance.mMyValidators_V1.count  + 1;
+            }
+            
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (mainTabVC.mMyValidators.count < 1) {
-            let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
-            if (chainType == ChainType.COSMOS_MAIN) {
-                cell?.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
-            } else if (chainType == ChainType.IRIS_MAIN) {
-                cell?.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
-            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                cell?.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
-            } else if (chainType == ChainType.BAND_MAIN) {
-                cell?.cardView.backgroundColor = TRANS_BG_COLOR_BAND
-            } else if (chainType == ChainType.SECRET_MAIN) {
-                cell?.cardView.backgroundColor = TRANS_BG_COLOR_SECRET
-            } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-                cell?.cardView.backgroundColor = TRANS_BG_COLOR_IOV
-            } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-                cell?.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
-            } else if (chainType == ChainType.AKASH_MAIN) {
-                cell?.cardView.backgroundColor = TRANS_BG_COLOR_AKASH
-            }
-            return cell!
-            
-        } else if (mainTabVC.mMyValidators.count == 1) {
-            let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
-            let validator = mainTabVC.mMyValidators[indexPath.row]
-            self.onSetValidatorItem(cell!, validator, indexPath)
-            return cell!
-            
-        } else {
-            if (indexPath.row == mainTabVC.mMyValidators.count) {
-                let cell:ClaimRewardAllCell? = tableView.dequeueReusableCell(withIdentifier:"ClaimRewardAllCell") as? ClaimRewardAllCell
-                self.onSetClaimAllItem(cell!)
+        if (chainType != ChainType.COSMOS_TEST) {
+            if (mainTabVC.mMyValidators.count < 1) {
+                let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
+                if (chainType == ChainType.COSMOS_MAIN) {
+                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
+                } else if (chainType == ChainType.IRIS_MAIN) {
+                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
+                } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
+                } else if (chainType == ChainType.BAND_MAIN) {
+                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_BAND
+                } else if (chainType == ChainType.SECRET_MAIN) {
+                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_SECRET
+                } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_IOV
+                } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
+                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
+                } else if (chainType == ChainType.AKASH_MAIN) {
+                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_AKASH
+                }
                 return cell!
-            } else {
+                
+            } else if (mainTabVC.mMyValidators.count == 1) {
                 let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
                 let validator = mainTabVC.mMyValidators[indexPath.row]
                 self.onSetValidatorItem(cell!, validator, indexPath)
                 return cell!
+                
+            } else {
+                if (indexPath.row == mainTabVC.mMyValidators.count) {
+                    let cell:ClaimRewardAllCell? = tableView.dequeueReusableCell(withIdentifier:"ClaimRewardAllCell") as? ClaimRewardAllCell
+                    self.onSetClaimAllItem(cell!)
+                    return cell!
+                } else {
+                    let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
+                    let validator = mainTabVC.mMyValidators[indexPath.row]
+                    self.onSetValidatorItem(cell!, validator, indexPath)
+                    return cell!
+                }
             }
+            
+        } else {
+            if (BaseData.instance.mMyValidators_V1.count < 1) {
+                let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
+                cell?.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
+                return cell!
+                
+            } else if (BaseData.instance.mMyValidators_V1.count == 1) {
+                let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
+                self.onSetValidatorItemV1(cell!, BaseData.instance.mMyValidators_V1[indexPath.row], indexPath)
+                return cell!
+                
+            } else {
+                if (indexPath.row == BaseData.instance.mMyValidators_V1.count) {
+                    let cell:ClaimRewardAllCell? = tableView.dequeueReusableCell(withIdentifier:"ClaimRewardAllCell") as? ClaimRewardAllCell
+                    self.onSetClaimAllItem(cell!)
+                    return cell!
+                } else {
+                    let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
+                    self.onSetValidatorItemV1(cell!, BaseData.instance.mMyValidators_V1[indexPath.row], indexPath)
+                    return cell!
+                }
+            }
+            
         }
     }
     
@@ -149,15 +187,27 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (mainTabVC.mMyValidators.count > 0 && indexPath.row != mainTabVC.mMyValidators.count) {
-            if let validator = self.mainTabVC.mMyValidators[indexPath.row] as? Validator {
+        if (chainType != ChainType.COSMOS_TEST) {
+            if (mainTabVC.mMyValidators.count > 0 && indexPath.row != mainTabVC.mMyValidators.count) {
+                if let validator = self.mainTabVC.mMyValidators[indexPath.row] as? Validator {
+                    let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
+                    validatorDetailVC.mValidator = validator
+                    validatorDetailVC.mIsTop100 = mainTabVC.mTopValidators.contains(where: {$0.operator_address == validator.operator_address})
+                    validatorDetailVC.hidesBottomBarWhenPushed = true
+                    self.navigationItem.title = ""
+                    self.navigationController?.pushViewController(validatorDetailVC, animated: true)
+                }
+            }
+            
+        } else {
+            if (BaseData.instance.mMyValidators_V1.count > 0 && indexPath.row != BaseData.instance.mMyValidators_V1.count) {
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
-                validatorDetailVC.mValidator = validator
-                validatorDetailVC.mIsTop100 = mainTabVC.mTopValidators.contains(where: {$0.operator_address == validator.operator_address})
+                validatorDetailVC.mValidator_V1 = BaseData.instance.mUnbondValidators_V1[indexPath.row]
                 validatorDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(validatorDetailVC, animated: true)
             }
+            
         }
     }
     
@@ -166,7 +216,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         cell.monikerLabel.text = validator.description.moniker
         cell.monikerLabel.adjustsFontSizeToFitWidth = true
         cell.freeEventImg.isHidden = true
-        
         if(validator.jailed) {
             cell.revokedImg.isHidden = false
             cell.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
@@ -238,55 +287,92 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         }
     }
     
+    func onSetValidatorItemV1(_ cell: MyValidatorCell, _ validator: Validator_V1, _ indexPath: IndexPath) {
+        cell.monikerLabel.text = validator.description?.moniker
+        cell.monikerLabel.adjustsFontSizeToFitWidth = true
+        cell.freeEventImg.isHidden = true
+        if(validator.jailed == true) {
+            cell.revokedImg.isHidden = false
+            cell.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+        } else {
+            cell.revokedImg.isHidden = true
+            cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+        }
+        
+        let myDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == validator.operator_address }.first
+        cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(myDelegation?.balance?.amount, cell.myDelegatedAmoutLabel.font, 6, 6)
+        
+        let myUnbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == validator.operator_address }.first
+        cell.myUndelegatingAmountLabel.attributedText = WUtils.displayAmount2(myUnbonding?.getAllUnbondingBalance().stringValue, cell.myUndelegatingAmountLabel.font, 6, 6)
+        
+        let myReward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator.operator_address }.first
+        cell.rewardAmoutLabel.attributedText = WUtils.displayAmount2(myReward?.getRewardByDenom(COSMOS_MAIN_DENOM).stringValue, cell.rewardAmoutLabel.font, 6, 6)
+        
+        cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
+        cell.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + validator.operator_address! + ".png")!)
+
+    }
+    
     func onSetClaimAllItem(_ cell: ClaimRewardAllCell) {
         WUtils.setDenomTitle(chainType!, cell.denomLabel)
-        cell.totalRewardLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.totalRewardLabel.font, 6, chainType!)
-        if (chainType == ChainType.COSMOS_MAIN) {
-            if(mainTabVC.mRewardList.count > 0) {
-                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, COSMOS_MAIN_DENOM, chainType!)
+        if (chainType != ChainType.COSMOS_TEST) {
+            cell.totalRewardLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.totalRewardLabel.font, 6, chainType!)
+            if (chainType == ChainType.COSMOS_MAIN) {
+                if(mainTabVC.mRewardList.count > 0) {
+                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, COSMOS_MAIN_DENOM, chainType!)
+                }
+                
+            } else if (chainType == ChainType.IRIS_MAIN) {
+                if (mainTabVC.mIrisRewards != nil) {
+                    cell.totalRewardLabel.attributedText = WUtils.displayAmount((mainTabVC.mIrisRewards?.getSimpleIrisReward().stringValue)!, cell.totalRewardLabel.font, 6, chainType!)
+                }
+                
+            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+                if (mainTabVC.mRewardList.count > 0) {
+                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, KAVA_MAIN_DENOM, chainType!)
+                }
+                
+            } else if (chainType == ChainType.BAND_MAIN) {
+                if (mainTabVC.mRewardList.count > 0) {
+                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, BAND_MAIN_DENOM, chainType!)
+                }
+                
+            } else if (chainType == ChainType.SECRET_MAIN) {
+                if (mainTabVC.mRewardList.count > 0) {
+                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, SECRET_MAIN_DENOM, chainType!)
+                }
+                
+            } else if (chainType == ChainType.IOV_MAIN) {
+                if (mainTabVC.mRewardList.count > 0) {
+                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, IOV_MAIN_DENOM, chainType!)
+                }
+                
+            } else if (chainType == ChainType.IOV_TEST) {
+                if (mainTabVC.mRewardList.count > 0) {
+                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, IOV_TEST_DENOM, chainType!)
+                }
+                
+            } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
+                if (mainTabVC.mRewardList.count > 0) {
+                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, CERTIK_MAIN_DENOM, chainType!)
+                }
+                
+            } else if (chainType == ChainType.AKASH_MAIN) {
+                if (mainTabVC.mRewardList.count > 0) {
+                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, AKASH_MAIN_DENOM, chainType!)
+                }
             }
+            cell.delegate = self
             
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            if (mainTabVC.mIrisRewards != nil) {
-                cell.totalRewardLabel.attributedText = WUtils.displayAmount((mainTabVC.mIrisRewards?.getSimpleIrisReward().stringValue)!, cell.totalRewardLabel.font, 6, chainType!)
+        } else {
+            var rewardSum = NSDecimalNumber.zero
+            BaseData.instance.mMyReward_V1.forEach { reward in
+                rewardSum = rewardSum.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
             }
+            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(rewardSum.stringValue, cell.totalRewardLabel.font, 6, 6)
+            cell.delegate = self
             
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            if (mainTabVC.mRewardList.count > 0) {
-                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, KAVA_MAIN_DENOM, chainType!)
-            }
-            
-        } else if (chainType == ChainType.BAND_MAIN) {
-            if (mainTabVC.mRewardList.count > 0) {
-                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, BAND_MAIN_DENOM, chainType!)
-            }
-            
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            if (mainTabVC.mRewardList.count > 0) {
-                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, SECRET_MAIN_DENOM, chainType!)
-            }
-            
-        } else if (chainType == ChainType.IOV_MAIN) {
-            if (mainTabVC.mRewardList.count > 0) {
-                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, IOV_MAIN_DENOM, chainType!)
-            }
-            
-        } else if (chainType == ChainType.IOV_TEST) {
-            if (mainTabVC.mRewardList.count > 0) {
-                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, IOV_TEST_DENOM, chainType!)
-            }
-            
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            if (mainTabVC.mRewardList.count > 0) {
-                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, CERTIK_MAIN_DENOM, chainType!)
-            }
-            
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            if (mainTabVC.mRewardList.count > 0) {
-                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, AKASH_MAIN_DENOM, chainType!)
-            }
         }
-        cell.delegate = self
     }
     
     
@@ -635,87 +721,154 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func sortByName() {
-        mainTabVC.mMyValidators.sort{
-            if ($0.description.moniker == "Cosmostation") {
-                return true
+        if (chainType != ChainType.COSMOS_TEST) {
+            mainTabVC.mMyValidators.sort{
+                if ($0.description.moniker == "Cosmostation") {
+                    return true
+                }
+                if ($1.description.moniker == "Cosmostation"){
+                    return false
+                }
+                if ($0.jailed && !$1.jailed) {
+                    return false
+                }
+                if (!$0.jailed && $1.jailed) {
+                    return true
+                }
+                return $0.description.moniker < $1.description.moniker
             }
-            if ($1.description.moniker == "Cosmostation"){
-                return false
+            
+        } else {
+            BaseData.instance.mMyValidators_V1.sort{
+                if ($0.description?.moniker == "Cosmostation") {
+                    return true
+                }
+                if ($1.description?.moniker == "Cosmostation"){
+                    return false
+                }
+                if ($0.jailed! && !$1.jailed!) {
+                    return false
+                }
+                if (!$0.jailed! && $1.jailed!) {
+                    return true
+                }
+                return $0.description!.moniker! < $1.description!.moniker!
             }
-            if ($0.jailed && !$1.jailed) {
-                return false
-            }
-            if (!$0.jailed && $1.jailed) {
-                return true
-            }
-            return $0.description.moniker < $1.description.moniker
+            
         }
     }
     
     func sortByDelegated() {
-        mainTabVC.mMyValidators.sort{
-            if ($0.description.moniker == "Cosmostation") {
-                return true
+        if (chainType != ChainType.COSMOS_TEST) {
+            mainTabVC.mMyValidators.sort{
+                if ($0.description.moniker == "Cosmostation") {
+                    return true
+                }
+                if ($1.description.moniker == "Cosmostation"){
+                    return false
+                }
+                if ($0.jailed && !$1.jailed) {
+                    return false
+                }
+                if (!$0.jailed && $1.jailed) {
+                    return true
+                }
+                var bonding0:Double = 0
+                var bonding1:Double = 0
+                if (BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address) != nil) {
+                    bonding0 = Double(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address)!.getBondingAmount($0)) as! Double
+                }
+                if (BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address) != nil) {
+                    bonding1 = Double(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address)!.getBondingAmount($1)) as! Double
+                }
+                return bonding0 > bonding1
             }
-            if ($1.description.moniker == "Cosmostation"){
-                return false
+            
+        } else {
+            BaseData.instance.mMyValidators_V1.sort {
+                if ($0.description?.moniker == "Cosmostation") {
+                    return true
+                }
+                if ($1.description?.moniker == "Cosmostation"){
+                    return false
+                }
+                if ($0.jailed! && !$1.jailed!) {
+                    return false
+                }
+                if (!$0.jailed! && $1.jailed!) {
+                    return true
+                }
+                let firstVal = $0
+                let seconVal = $1
+                let firstDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == firstVal.operator_address }.first
+                let secondDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == seconVal.operator_address }.first
+                return Double(firstDelegation!.balance!.amount)! > Double(secondDelegation!.balance!.amount)!
             }
-            if ($0.jailed && !$1.jailed) {
-                return false
-            }
-            if (!$0.jailed && $1.jailed) {
-                return true
-            }
-            var bonding0:Double = 0
-            var bonding1:Double = 0
-            if(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address) != nil) {
-                bonding0 = Double(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address)!.getBondingAmount($0)) as! Double
-            }
-            if(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address) != nil) {
-                bonding1 = Double(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address)!.getBondingAmount($1)) as! Double
-            }
-            return bonding0 > bonding1
+            
         }
     }
     
     func sortByReward() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
-            mainTabVC.mMyValidators.sort{
-                if ($0.description.moniker == "Cosmostation") {
-                    return true
+        if (chainType != ChainType.COSMOS_TEST) {
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
+                    chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
+                    chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+                mainTabVC.mMyValidators.sort{
+                    if ($0.description.moniker == "Cosmostation") {
+                        return true
+                    }
+                    if ($1.description.moniker == "Cosmostation"){
+                        return false
+                    }
+                    if ($0.jailed && !$1.jailed) {
+                        return false
+                    }
+                    if (!$0.jailed && $1.jailed) {
+                        return true
+                    }
+                    let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
+                    let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                    return reward0.compare(reward1).rawValue > 0 ? true : false
                 }
-                if ($1.description.moniker == "Cosmostation"){
-                    return false
+            } else if (chainType == ChainType.IRIS_MAIN) {
+                mainTabVC.mMyValidators.sort{
+                    if ($0.description.moniker == "Cosmostation") {
+                        return true
+                    }
+                    if ($1.description.moniker == "Cosmostation"){
+                        return false
+                    }
+                    if ($0.jailed && !$1.jailed) {
+                        return false
+                    }
+                    if (!$0.jailed && $1.jailed) {
+                        return true
+                    }
+                    let reward0 = mainTabVC.mIrisRewards?.getPerValReward(valOp: $0.operator_address)
+                    let reward1 = mainTabVC.mIrisRewards?.getPerValReward(valOp: $1.operator_address)
+                    return reward0!.compare(reward1!).rawValue > 0 ? true : false
                 }
-                if ($0.jailed && !$1.jailed) {
-                    return false
-                }
-                if (!$0.jailed && $1.jailed) {
-                    return true
-                }
-                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
-                return reward0.compare(reward1).rawValue > 0 ? true : false
             }
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            mainTabVC.mMyValidators.sort{
-                if ($0.description.moniker == "Cosmostation") {
+            
+        } else {
+            BaseData.instance.mMyValidators_V1.sort {
+                if ($0.description?.moniker == "Cosmostation") {
                     return true
                 }
-                if ($1.description.moniker == "Cosmostation"){
+                if ($1.description?.moniker == "Cosmostation"){
                     return false
                 }
-                if ($0.jailed && !$1.jailed) {
+                if ($0.jailed! && !$1.jailed!) {
                     return false
                 }
-                if (!$0.jailed && $1.jailed) {
+                if (!$0.jailed! && $1.jailed!) {
                     return true
                 }
-                let reward0 = mainTabVC.mIrisRewards?.getPerValReward(valOp: $0.operator_address)
-                let reward1 = mainTabVC.mIrisRewards?.getPerValReward(valOp: $1.operator_address)
-                return reward0!.compare(reward1!).rawValue > 0 ? true : false
+                let firstVal = $0
+                let seconVal = $1
+                let firstReward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == firstVal.operator_address }.first
+                let secondReward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == seconVal.operator_address }.first
+                return Int64(firstReward?.getRewardByDenom(COSMOS_MAIN_DENOM).intValue ?? 0) > Int64(secondReward?.getRewardByDenom(COSMOS_MAIN_DENOM).intValue ?? 0)
             }
         }
         
