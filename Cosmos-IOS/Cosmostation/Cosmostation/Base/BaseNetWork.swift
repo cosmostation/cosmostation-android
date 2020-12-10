@@ -43,6 +43,14 @@ class BaseNetWork {
         return result
     }
     
+    static func rewardsUrl(_ chain: ChainType, _ address: String) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_TEST) {
+            result = COSMOS_TEST_REWARDS + address + COSMOS_TEST_REWARDS_T
+        }
+        return result
+    }
+    
     static func mintParamUrl(_ chain: ChainType) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_TEST) {

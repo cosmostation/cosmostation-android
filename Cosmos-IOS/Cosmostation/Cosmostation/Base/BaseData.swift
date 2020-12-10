@@ -64,12 +64,46 @@ final class BaseData : NSObject{
     var mMyDelegations_V1 = Array<DelegationInfo_V1>()
     var mMyUnbondings_V1 = Array<UnbondingInfo_V1>()
     var mMyBalances_V1 = Array<Coin>()
+    var mMyReward_V1 = Array<Reward_V1>()
     
     var mMintParam_V1: MintParam_V1?
     var mStakingPool_V1: StakingPool_V1?
     var mProvision_V1: Provision_V1?
     var mInflation_V1: Inflation_V1?
     
+    func getAvailable(_ symbol:String) -> String {
+        var amount = NSDecimalNumber.zero.stringValue
+        for balance in mMyBalances_V1 {
+            if (balance.denom == symbol) {
+                amount = balance.amount
+            }
+        }
+        return amount;
+    }
+    
+    func getDelegatedSum() -> String {
+        var amount = NSDecimalNumber.zero
+        for delegation in mMyDelegations_V1 {
+            amount = amount.adding(WUtils.plainStringToDecimal(delegation.balance?.amount))
+        }
+        return amount.stringValue;
+    }
+    
+    func getUnbondingSum() -> String {
+        var amount = NSDecimalNumber.zero
+        for unbonding in mMyUnbondings_V1 {
+            amount = amount.adding(unbonding.getAllUnbondingBalance())
+        }
+        return amount.stringValue;
+    }
+    
+    func getRewardSum(_ symbol:String) -> String {
+        var amount = NSDecimalNumber.zero
+        for reward in mMyReward_V1 {
+            amount = amount.adding(reward.getRewardByDenom(symbol))
+        }
+        return amount.stringValue;
+    }
     
     public override init() {
         super.init();

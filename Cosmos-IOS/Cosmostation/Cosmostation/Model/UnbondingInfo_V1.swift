@@ -37,4 +37,14 @@ public struct UnbondingInfo_V1 {
             self.balance = dictionary?["balance"] as? String
         }
     }
+    
+    public func getAllUnbondingBalance() -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        if (self.entries != nil) {
+            for entry in self.entries! {
+                result = result.adding(WUtils.plainStringToDecimal(entry.balance))
+            }
+        }
+        return result
+    }
 }

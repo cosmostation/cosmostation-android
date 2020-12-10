@@ -1148,32 +1148,43 @@ class WUtils {
         return displayPercent(inflationValue, font)
     }
     
-    static func getYieldPerBlock() -> NSDecimalNumber {
+    static func getYieldPerBlock(_ chain: ChainType) -> NSDecimalNumber {
         let data = BaseData.instance
-        if (data.mStakingPool == nil || data.mProvision == nil || data.mMintParam == nil) {
-            return NSDecimalNumber.zero
+        if (chain != ChainType.COSMOS_TEST) {
+            if (data.mStakingPool == nil || data.mProvision == nil || data.mMintParam == nil) {
+                return NSDecimalNumber.zero
+            }
+            let provisions = WUtils.plainStringToDecimal(data.mProvision)
+            let bonded = WUtils.plainStringToDecimal(data.mStakingPool!.object(forKey: "bonded_tokens") as? String)
+            let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam?.blocks_per_year)
+            return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
+            
+        } else {
+            if (data.mStakingPool_V1 == nil || data.mProvision_V1 == nil || data.mMintParam_V1 == nil) {
+                return NSDecimalNumber.zero
+            }
+            let provisions = WUtils.plainStringToDecimal(data.mProvision_V1?.annual_provisions)
+            let bonded = WUtils.plainStringToDecimal(data.mStakingPool_V1?.bonded_tokens)
+            let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam_V1?.blocks_per_year)
+            return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
         }
-        let provisions = WUtils.plainStringToDecimal(data.mProvision)
-        let bonded = WUtils.plainStringToDecimal(data.mStakingPool!.object(forKey: "bonded_tokens") as? String)
-        let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam?.blocks_per_year)
-        return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
     }
     
     static func getDpEstApr(_ font: UIFont, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock()
+        let rpr = getYieldPerBlock(chain)
         let estApr = YEAR_SEC.dividing(by: getCBlockTime(chain), withBehavior: handler24Down).multiplying(by: rpr).multiplying(byPowerOf10: 2)
         return displayPercent(estApr, font)
     }
     
     static func getDpEstAprCommission(_ font: UIFont, _ commission: NSDecimalNumber, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock()
+        let rpr = getYieldPerBlock(chain)
         let commissionCal = NSDecimalNumber.one.subtracting(commission)
         let estAprCommission = YEAR_SEC.dividing(by: getCBlockTime(chain), withBehavior: handler24Down).multiplying(by: commissionCal).multiplying(by: rpr).multiplying(byPowerOf10: 2)
         return displayPercent(estAprCommission, font)
     }
     
     static func getDailyReward(_ font: UIFont, _ commission: NSDecimalNumber, _ delegated: NSDecimalNumber?, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock()
+        let rpr = getYieldPerBlock(chain)
         let commissionCal = NSDecimalNumber.one.subtracting(commission)
         var dAmount = NSDecimalNumber.zero
         if (delegated != nil) {
@@ -1184,7 +1195,7 @@ class WUtils {
     }
     
     static func getMonthlyReward(_ font: UIFont, _ commission: NSDecimalNumber, _ delegated: NSDecimalNumber?, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock()
+        let rpr = getYieldPerBlock(chain)
         let commissionCal = NSDecimalNumber.one.subtracting(commission)
         var dAmount = NSDecimalNumber.zero
         if (delegated != nil) {
@@ -1374,6 +1385,28 @@ class WUtils {
                 }
             }
         }
+        return amount
+    }
+    
+    static func getAllAtom2() -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        let data = BaseData.instance
+        
+        for balance in data.mMyBalances_V1 {
+            if (balance.denom == COSMOS_MAIN_DENOM) {
+                amount = plainStringToDecimal(balance.amount)
+            }
+        }
+        for delegation in data.mMyDelegations_V1 {
+            amount = amount.adding(plainStringToDecimal(delegation.balance?.amount))
+        }
+        for unbonding in data.mMyUnbondings_V1 {
+            amount = amount.adding(unbonding.getAllUnbondingBalance())
+        }
+        for reward in data.mMyReward_V1 {
+            amount = amount.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
+        }
+        
         return amount
     }
     
@@ -3051,7 +3084,7 @@ class WUtils {
     }
     
     static func getCBlockTime(_ chain: ChainType?) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return BLOCK_TIME_COSMOS
             
         } else if (chain == ChainType.IRIS_MAIN) {

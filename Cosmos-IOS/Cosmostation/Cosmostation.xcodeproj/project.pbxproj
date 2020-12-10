@@ -242,6 +242,7 @@
 		288A14DD25199A9800E17808 /* WalletCertikCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288A14DB25199A9800E17808 /* WalletCertikCell.swift */; };
 		288A14E125199C6200E17808 /* WalletCertikCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 288A14E325199C6200E17808 /* WalletCertikCell.xib */; };
 		28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908F6823F69BD100164030 /* EdgeInsetLabel.swift */; };
+		2892C46B2581D724009A96A6 /* Reward_V1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2892C46A2581D724009A96A6 /* Reward_V1.swift */; };
 		289BE017252DF58C00E5E4B4 /* KavaHavestParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE016252DF58B00E5E4B4 /* KavaHavestParam.swift */; };
 		289BE01A252E1E4000E5E4B4 /* KavaHavestDeposit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE019252E1E4000E5E4B4 /* KavaHavestDeposit.swift */; };
 		289BE01D252E2A0E00E5E4B4 /* KavaHavestReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE01C252E2A0E00E5E4B4 /* KavaHavestReward.swift */; };
@@ -759,6 +760,7 @@
 		288A14E225199C6200E17808 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletCertikCell.xib; sourceTree = "<group>"; };
 		288A14E725199C6500E17808 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletCertikCell.strings; sourceTree = "<group>"; };
 		28908F6823F69BD100164030 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
+		2892C46A2581D724009A96A6 /* Reward_V1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward_V1.swift; sourceTree = "<group>"; };
 		289BE016252DF58B00E5E4B4 /* KavaHavestParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHavestParam.swift; sourceTree = "<group>"; };
 		289BE019252E1E4000E5E4B4 /* KavaHavestDeposit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHavestDeposit.swift; sourceTree = "<group>"; };
 		289BE01C252E2A0E00E5E4B4 /* KavaHavestReward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHavestReward.swift; sourceTree = "<group>"; };
@@ -1658,6 +1660,7 @@
 				28592E7325805F7300C31460 /* Validator_V1.swift */,
 				28592E7925807F2E00C31460 /* DelegationInfo_V1.swift */,
 				2866CB9C2580C59A00A91172 /* UnbondingInfo_V1.swift */,
+				2892C46A2581D724009A96A6 /* Reward_V1.swift */,
 				2866CB9F2580DB3200A91172 /* MintParam_V1.swift */,
 				2866CBA22580DB4B00A91172 /* Inflation_V1.swift */,
 				2866CBA52580DB5E00A91172 /* Provision_V1.swift */,
@@ -2346,6 +2349,7 @@
 				E171A071225B08C100C5756C /* StepFeeViewController.swift in Sources */,
 				E1F7F634234311F8000E597F /* BnbToken.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
+				2892C46B2581D724009A96A6 /* Reward_V1.swift in Sources */,
 				280E1EF8254A7AC80007BA7D /* DeleteStarname0ViewController.swift in Sources */,
 				E1406FC22260654F00D9440C /* TxInfo.swift in Sources */,
 				E1133900235D95FD0011B61D /* AccountSelectViewController.swift in Sources */,

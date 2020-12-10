@@ -228,6 +228,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 5;
         } else if (chainType == ChainType.AKASH_MAIN) {
             return 5;
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            return 5;
         } else {
             return 0;
         }
@@ -258,6 +260,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetCertikItems(tableView, indexPath);
         } else if (chainType == ChainType.AKASH_MAIN) {
             return onSetAkashItems(tableView, indexPath);
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            return onSetCosmosTestItems(tableView, indexPath);
         } else {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             return cell!
@@ -1407,7 +1411,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
-    
     func onSetAkashItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
@@ -1493,6 +1496,69 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         }
     }
+    
+    func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            if (mainTabVC.mAccount.account_has_private) {
+                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
+                cell?.keyState.tintColor = COLOR_ATOM
+            }
+            cell?.dpAddress.text = mainTabVC.mAccount.account_address
+            cell?.dpAddress.adjustsFontSizeToFitWidth = true
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onShowToast(NSLocalizedString("prepare", comment: "")) }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell:WalletCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
+            let totalAtom = WUtils.getAllAtom2()
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAtom.stringValue, cell!.totalAmount.font!, 6, 6)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAtom, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(COSMOS_MAIN_DENOM), cell!.availableAmount.font!, 6, 6)
+            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), cell!.delegatedAmount.font!, 6, 6)
+            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), cell!.unbondingAmount.font, 6, 6)
+            cell?.rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(COSMOS_MAIN_DENOM), cell!.rewardAmount.font, 6, 6)
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
+            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                cell?.updownImg.image = UIImage(named: "priceUp")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                cell?.updownImg.image = UIImage(named: "priceDown")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else {
+                cell?.updownImg.image = nil
+                cell?.updownPercent.text = ""
+            }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.infaltionLabel.attributedText = WUtils.displayInflation(BaseData.instance.mInflation_V1?.inflation, font: cell!.infaltionLabel.font)
+            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+            
+        } else {
+            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.guideImg.image = UIImage(named: "guideImg")
+            cell?.guideTitle.text = NSLocalizedString("send_guide_title_cosmos", comment: "")
+            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_cosmos", comment: "")
+            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_cosmos", comment: ""), for: .normal)
+            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_cosmos", comment: ""), for: .normal)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+            
+        }
+    }
+    
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.onShowAccountSwicth()
