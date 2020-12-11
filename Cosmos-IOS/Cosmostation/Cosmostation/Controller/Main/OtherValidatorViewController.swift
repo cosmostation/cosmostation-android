@@ -67,7 +67,11 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onSorting() {
-        self.otherValidatorCnt.text = String(self.mainTabVC.mOtherValidators.count)
+        if (self.chainType != ChainType.COSMOS_TEST) {
+            self.otherValidatorCnt.text = String(self.mainTabVC.mOtherValidators.count)
+        } else {
+            self.otherValidatorCnt.text = String(BaseData.instance.mUnbondValidators_V1.count)
+        }
         self.sortByPower()
         self.otherValidatorTableView.reloadData()
     }

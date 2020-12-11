@@ -89,7 +89,11 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onSorting() {
-        self.allValidatorCnt.text = String(self.mainTabVC.mTopValidators.count)
+        if (self.chainType != ChainType.COSMOS_TEST) {
+            self.allValidatorCnt.text = String(self.mainTabVC.mTopValidators.count)
+        } else {
+            self.allValidatorCnt.text = String(BaseData.instance.mBondedValidators_V1.count)
+        }
         if (BaseData.instance.getAllValidatorSort() == 0) {
             self.sortType.text = NSLocalizedString("sort_by_power", comment: "")
             sortByPower()

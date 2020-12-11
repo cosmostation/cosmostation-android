@@ -82,4 +82,20 @@ class BaseNetWork {
         }
         return result
     }
+    
+    static func singleValidatorUrl(_ chain: ChainType, _ address: String, _ opAddress: String) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_TEST) {
+            result = COSMOS_TEST_SINGLE_VALIDATOR + address + COSMOS_TEST_SINGLE_VALIDATOR_M + opAddress
+        }
+        return result
+    }
+    
+    static func singleDelegationUrl(_ chain: ChainType, _ address: String, _ opAddress: String) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_TEST) {
+            result = COSMOS_TEST_SINGLE_DELEGATION + opAddress + COSMOS_TEST_SINGLE_DELEGATION_M + address
+        }
+        return result
+    }
 }

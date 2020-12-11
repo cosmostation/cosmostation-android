@@ -28,4 +28,12 @@ public struct DelegationInfo_V1 {
             self.shares = dictionary?["shares"] as? String
         }
     }
+    
+    public func getDelegation() -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        if (self.balance != nil) {
+            result = WUtils.plainStringToDecimal(self.balance?.amount)
+        }
+        return result
+    }
 }

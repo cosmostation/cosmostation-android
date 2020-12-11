@@ -657,6 +657,7 @@ class WUtils {
     }
     
     static func plainStringToDecimal(_ input: String?) -> NSDecimalNumber {
+        if (input == nil) { return NSDecimalNumber.zero }
         let result = NSDecimalNumber(string: input)
         if (NSDecimalNumber.notANumber == result) {
             return NSDecimalNumber.zero
@@ -1295,13 +1296,13 @@ class WUtils {
     }
     
     
-    static func displayCommission(_ rate:String, font:UIFont ) -> NSMutableAttributedString {
+    static func displayCommission(_ rate:String?, font:UIFont ) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 2
         nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let formatted   = nf.string(from: NSDecimalNumber.init(string: rate).multiplying(by: 100))! + "%"
+        let formatted   = nf.string(from: plainStringToDecimal(rate).multiplying(by: 100))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
         
         let preString   = formatted[..<endIndex]
@@ -1317,14 +1318,14 @@ class WUtils {
         return attributedString1
     }
     
-    static func displaySelfBondRate(_ selfShare: String, _ totalShare: String, _ font:UIFont ) ->  NSMutableAttributedString {
+    static func displaySelfBondRate(_ selfShare: String?, _ totalShare: String?, _ font:UIFont ) ->  NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 2
         nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let selfDecimal = localeStringToDecimal(selfShare)
-        let totalDecimal = localeStringToDecimal(totalShare)
+        let selfDecimal = plainStringToDecimal(selfShare)
+        let totalDecimal = plainStringToDecimal(totalShare)
         
         let formatted   = nf.string(from: selfDecimal.multiplying(by: 100).dividing(by: totalDecimal, withBehavior: handler2Down))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)

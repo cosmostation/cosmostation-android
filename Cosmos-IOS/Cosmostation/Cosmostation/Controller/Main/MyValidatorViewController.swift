@@ -72,7 +72,11 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onSortingMy() {
-        self.myValidatorCnt.text = String(self.mainTabVC.mMyValidators.count)
+        if (self.chainType != ChainType.COSMOS_TEST) {
+            self.myValidatorCnt.text = String(self.mainTabVC.mMyValidators.count)
+        } else {
+            self.myValidatorCnt.text = String(BaseData.instance.mMyValidators_V1.count)
+        }
         if (BaseData.instance.getMyValidatorSort() == 0) {
             self.sortType.text = NSLocalizedString("sort_by_my_delegate", comment: "")
             sortByDelegated()
@@ -202,7 +206,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         } else {
             if (BaseData.instance.mMyValidators_V1.count > 0 && indexPath.row != BaseData.instance.mMyValidators_V1.count) {
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
-                validatorDetailVC.mValidator_V1 = BaseData.instance.mUnbondValidators_V1[indexPath.row]
+                validatorDetailVC.mValidator_V1 = BaseData.instance.mMyValidators_V1[indexPath.row]
                 validatorDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(validatorDetailVC, animated: true)

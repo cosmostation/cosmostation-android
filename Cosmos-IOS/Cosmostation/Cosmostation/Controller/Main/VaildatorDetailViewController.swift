@@ -17,7 +17,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     @IBOutlet weak var loadingImg: LoadingImageView!
     
     var mValidator: Validator?
-    var mValidator_V1: Validator_V1?
     var mBonding: Bonding?
     var mUnbondings = Array<Unbonding>()
     var mRewards = Array<Reward>()
@@ -27,6 +26,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     var mFetchCnt = 0
     var mMyValidator = false
     var mIsTop100 = false
+    
+    var mValidator_V1: Validator_V1?
+    var mSelfDelegationInfo_V1: DelegationInfo_V1?
     
     var mInflation: String?
     var mProvision: String?
@@ -179,6 +181,18 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             onFetchApiHistory(account!, mValidator!)
+            
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            self.mFetchCnt = 5
+            BaseData.instance.mMyDelegations_V1.removeAll()
+            BaseData.instance.mMyUnbondings_V1.removeAll()
+            BaseData.instance.mMyReward_V1.removeAll()
+            
+            onFetchSingleValidator(account!.account_address, mValidator_V1!.operator_address!)
+            onFetchValidatorSelfBond(WKey.getAddressFromOpAddress(mValidator_V1!.operator_address!, chainType!), mValidator_V1!.operator_address)
+            onFetchDelegations(account!.account_address, 0)
+            onFetchUndelegations(account!.account_address, 0)
+            onFetchRewards(account!.account_address)
         }
         
     }
@@ -187,27 +201,36 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         self.mFetchCnt = self.mFetchCnt - 1
 //        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
-//            print("onFetchFinished mBonding ", mBonding)
-//            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
-//            print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
-//            print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
-//            print("onFetchFinished mUnbondings ", mUnbondings.count)
-//            print("onFetchFinished mRewards ", mRewards.count)
+            if (chainType != ChainType.COSMOS_TEST) {
+//                print("onFetchFinished mBonding ", mBonding)
+//                print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
+//                print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
+//                print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
+//                print("onFetchFinished mUnbondings ", mUnbondings.count)
+//                print("onFetchFinished mRewards ", mRewards.count)
 
-            if((mBonding != nil && NSDecimalNumber.init(string: mBonding?.bonding_shares) != NSDecimalNumber.zero) || mUnbondings.count > 0) {
-                mMyValidator = true
+                if((mBonding != nil && NSDecimalNumber.init(string: mBonding?.bonding_shares) != NSDecimalNumber.zero) || mUnbondings.count > 0) {
+                    mMyValidator = true
+                } else {
+                    mMyValidator = false
+                }
+                self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
+//                print("mMyValidator ", mMyValidator)
+                
+                self.validatorDetailTableView.reloadData()
+                self.loadingImg.onStopAnimation()
+                self.loadingImg.isHidden = true
+                self.validatorDetailTableView.isHidden = false
+                self.refresher.endRefreshing()
+                
             } else {
-                mMyValidator = false
+                self.validatorDetailTableView.reloadData()
+                self.loadingImg.onStopAnimation()
+                self.loadingImg.isHidden = true
+                self.validatorDetailTableView.isHidden = false
+                self.refresher.endRefreshing()
+                
             }
-            self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
-//            print("mMyValidator ", mMyValidator)
-            
-            self.validatorDetailTableView.reloadData()
-            self.loadingImg.onStopAnimation()
-            self.loadingImg.isHidden = true
-            self.validatorDetailTableView.isHidden = false
-            self.refresher.endRefreshing()
-            
         }
     }
     
@@ -216,18 +239,32 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (section == 0) {
-            if (mMyValidator) {
-                return 2
+        if (chainType != ChainType.COSMOS_TEST) {
+            if (section == 0) {
+                if (mMyValidator) {
+                    return 2
+                } else {
+                    return 1
+                }
+                
             } else {
-                return 1
+                if (mApiHistories.count > 0) {
+                    return mApiHistories.count
+                } else {
+                    return 1
+                }
             }
             
         } else {
-            if (mApiHistories.count > 0) {
-                return mApiHistories.count
+            if (section == 0) {
+                if (BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) {
+                    return 2
+                } else {
+                    return 1
+                }
+                
             } else {
-                return 1
+                return 0
             }
         }
     }
@@ -238,16 +275,32 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if(indexPath.section == 0) {
-            if (indexPath.row == 0 && mMyValidator) {
-                return onSetMyValidatorItems(tableView, indexPath)
-            } else if (indexPath.row == 0 && !mMyValidator) {
-                return onSetValidatorItems(tableView, indexPath)
+        if (chainType != ChainType.COSMOS_TEST) {
+            if (indexPath.section == 0) {
+                if (indexPath.row == 0 && mMyValidator) {
+                    return onSetMyValidatorItems(tableView, indexPath)
+                } else if (indexPath.row == 0 && !mMyValidator) {
+                    return onSetValidatorItems(tableView, indexPath)
+                } else {
+                    return onSetActionItems(tableView, indexPath)
+                }
             } else {
-                return onSetActionItems(tableView, indexPath)
+                return onSetHistoryItems(tableView, indexPath)
             }
+            
         } else {
-            return onSetHistoryItems(tableView, indexPath)
+            if (indexPath.section == 0) {
+                if (indexPath.row == 0 && BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) {
+                    return onSetMyValidatorItemsV1(tableView, indexPath)
+                } else if (indexPath.row == 0 && !BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) {
+                    return onSetValidatorItemsV1(tableView, indexPath)
+                } else {
+                    return onSetActionItemsV1(tableView, indexPath)
+                }
+                
+            } else {
+                return onSetHistoryItems(tableView, indexPath)
+            }
         }
     }
     
@@ -764,6 +817,124 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         cell?.actionReinvest = {
             self.onCheckReinvest()
+        }
+        return cell!
+    }
+    
+    func onSetMyValidatorItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:ValidatorDetailMyDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyDetailCell") as? ValidatorDetailMyDetailCell
+        cell?.monikerName.text = self.mValidator_V1?.description?.moniker
+        cell?.monikerName.adjustsFontSizeToFitWidth = true
+        if (self.mValidator_V1?.jailed == true) {
+            cell!.jailedImg.isHidden = false
+            cell!.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+        } else {
+            cell!.jailedImg.isHidden = true
+            cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+        }
+        cell?.freeEventImg.isHidden = true
+        cell?.website.text = self.mValidator_V1?.description?.website
+        cell?.descriptionMsg.text = self.mValidator_V1?.description?.details
+        cell?.actionTapUrl = {
+            guard let url = URL(string: self.mValidator_V1?.description?.website ?? "") else { return }
+            if (UIApplication.shared.canOpenURL(url)) {
+                let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
+                self.present(safariViewController, animated: true, completion: nil)
+            }
+        }
+        if (chainType == ChainType.COSMOS_TEST) {
+            cell?.totalBondedAmount.attributedText = WUtils.displayAmount2(self.mValidator_V1?.tokens, cell!.totalBondedAmount.font!, 6, 6)
+            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(self.mSelfDelegationInfo_V1?.balance?.amount, self.mValidator_V1?.tokens, cell!.selfBondedRate.font)
+            cell!.commissionRate.attributedText = WUtils.displayCommission(self.mValidator_V1?.commission?.commission_rates?.rate, font: cell!.commissionRate.font)
+            if (self.mValidator_V1?.status == BONDED_V1) {
+                cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, self.mValidator_V1!.getCommission(), chainType!)
+            } else {
+                cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
+                cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
+            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + self.mValidator_V1!.operator_address! + ".png")!)
+        }
+        return cell!
+    }
+    
+    func onSetValidatorItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:ValidatorDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailCell") as? ValidatorDetailCell
+        cell?.monikerName.text = self.mValidator_V1?.description?.moniker
+        cell?.monikerName.adjustsFontSizeToFitWidth = true
+        if (self.mValidator_V1?.jailed == true) {
+            cell!.jailedImg.isHidden = false
+            cell!.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+        } else {
+            cell!.jailedImg.isHidden = true
+            cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+        }
+        cell?.freeEventImg.isHidden = true
+        cell?.website.text = self.mValidator_V1?.description?.website
+        cell?.descriptionMsg.text = self.mValidator_V1?.description?.details
+        cell?.actionTapUrl = {
+            guard let url = URL(string: self.mValidator_V1?.description?.website ?? "") else { return }
+            if (UIApplication.shared.canOpenURL(url)) {
+                let safariViewController = SFSafariViewController(url: url)
+                safariViewController.modalPresentationStyle = .popover
+                self.present(safariViewController, animated: true, completion: nil)
+            }
+        }
+        cell?.actionDelegate = {
+            if (self.mValidator_V1?.jailed == true) {
+                self.onShowToast(NSLocalizedString("error_jailded_delegate", comment: ""))
+                return
+            } else {
+                self.onStartDelegate()
+            }
+        }
+        if (chainType == ChainType.COSMOS_TEST) {
+            cell?.totalBondedAmount.attributedText = WUtils.displayAmount2(self.mValidator_V1?.tokens, cell!.totalBondedAmount.font!, 6, 6)
+            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(self.mSelfDelegationInfo_V1?.balance?.amount, self.mValidator_V1?.tokens, cell!.selfBondedRate.font)
+            cell!.commissionRate.attributedText = WUtils.displayCommission(self.mValidator_V1?.commission?.commission_rates?.rate, font: cell!.commissionRate.font)
+            if (self.mValidator_V1?.status == BONDED_V1) {
+                cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, self.mValidator_V1!.getCommission(), chainType!)
+            } else {
+                cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
+                cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
+            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + self.mValidator_V1!.operator_address! + ".png")!)
+        }
+        return cell!
+    }
+    
+    func onSetActionItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
+        cell?.cardView.backgroundColor = WUtils.getChainBg(chainType!)
+        if (chainType == ChainType.COSMOS_TEST) {
+            let delegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == mValidator_V1?.operator_address}.first
+            let unbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == mValidator_V1?.operator_address}.first
+            let reward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == mValidator_V1?.operator_address}.first
+            cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation?.getDelegation().stringValue, cell!.myDelegateAmount.font, 6, 6)
+            cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding?.getAllUnbondingBalance().stringValue, cell!.myUndelegateAmount.font, 6, 6)
+            cell!.myRewardAmount.attributedText = WUtils.displayAmount2(reward?.getRewardByDenom(COSMOS_MAIN_DENOM).stringValue, cell!.myRewardAmount.font, 6, 6)
+            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator_V1!.getCommission(), delegation?.getDelegation(), chainType!)
+            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator_V1!.getCommission(), delegation?.getDelegation(), chainType!)
+        }
+        
+        cell?.actionDelegate = {
+            if (self.mValidator_V1?.jailed == true) {
+                self.onShowToast(NSLocalizedString("error_jailded_delegate", comment: ""))
+            } else {
+                self.onStartDelegate()
+            }
+        }
+        cell?.actionUndelegate = {
+            self.onStartUndelegate()
+        }
+        cell?.actionRedelegate = {
+            self.onShowToast(NSLocalizedString("prepare", comment: ""))
+        }
+        cell?.actionReward = {
+            self.onShowToast(NSLocalizedString("prepare", comment: ""))
+        }
+        cell?.actionReinvest = {
+            self.onShowToast(NSLocalizedString("prepare", comment: ""))
         }
         return cell!
     }
@@ -1330,6 +1501,121 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
     }
     
+    
+    func onFetchSingleValidator(_ address: String?, _ opAddress: String?) {
+        let url = BaseNetWork.singleValidatorUrl(chainType!, address!, opAddress!)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let validator = responseData.object(forKey: "validator") as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                self.mValidator_V1 = Validator_V1.init(validator)
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("singleValidatorUrl ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchValidatorSelfBond(_ address: String?, _ opAddress: String?) {
+        let url = BaseNetWork.singleDelegationUrl(chainType!, address!, opAddress!)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let delegation_response = responseData.object(forKey: "delegation_response") as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                self.mSelfDelegationInfo_V1 = DelegationInfo_V1.init(delegation_response)
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("singleValidatorUrl ", error) }
+                self.onFetchFinished()
+            }
+        }
+        
+    }
+    
+    func onFetchDelegations(_ address: String, _ offset: Int) {
+        let url = BaseNetWork.delegationUrl(chainType!, address)
+        let request = Alamofire.request(url, method: .get, parameters: ["pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let delegations = responseData.object(forKey: "delegation_responses") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for delegation in delegations {
+                    BaseData.instance.mMyDelegations_V1.append(DelegationInfo_V1(delegation))
+                }
+                if (delegations.count >= 100) {
+                    self.onFetchDelegations(address, offset + 100)
+                } else {
+                    self.onFetchFinished()
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchDelegations ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchUndelegations(_ address: String, _ offset: Int) {
+        let url = BaseNetWork.undelegationUrl(chainType!, address)
+        let request = Alamofire.request(url, method: .get, parameters: ["pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let undelegations = responseData.object(forKey: "unbonding_responses") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for undelegation in undelegations {
+                    BaseData.instance.mMyUnbondings_V1.append(UnbondingInfo_V1(undelegation))
+                }
+                if (undelegations.count >= 100) {
+                    self.onFetchUndelegations(address, offset + 100)
+                } else {
+                    self.onFetchFinished()
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchUndelegations ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchRewards(_ address: String) {
+        let url = BaseNetWork.rewardsUrl(chainType!, address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let rewards = responseData.object(forKey: "rewards") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for reward in rewards {
+                    BaseData.instance.mMyReward_V1.append(Reward_V1(reward))
+                }
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchRewards ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
     
     func onStartDelegate() {
         if (!account!.account_has_private) {
