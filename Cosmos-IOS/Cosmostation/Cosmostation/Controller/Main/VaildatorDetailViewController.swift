@@ -1678,20 +1678,34 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mTargetValidator = mValidator
+        
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN  || chainType == ChainType.IOV_MAIN ||
                 chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST ||
                 chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_DELEGATE
+            txVC.mTargetValidator = mValidator
+            
         } else if (chainType == ChainType.IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_DELEGATE
+            txVC.mTargetValidator = mValidator
+            
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            txVC.mType = COSMOS_MSG_TYPE_DELEGATE
+            txVC.mTargetValidator_V1 = mValidator_V1
+            
         }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -1704,33 +1718,52 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             return
         }
         
-        if (mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
-            self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
-            return
-        }
+        
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN  || chainType == ChainType.CERTIK_MAIN ||
                 chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+            if (mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
+                self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
+                return
+            }
             if (mUnbondings.count >= 7) {
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
             }
             
         } else if (chainType == ChainType.IRIS_MAIN) {
+            if (mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
+                self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
+                return
+            }
             if (mUnbondings.count >= 1) {
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
             }
+            
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            if (BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == mValidator_V1?.operator_address}.first == nil) {
+                self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
+                return
+            }
+            if let unbonding = BaseData.instance.mMyUnbondings_V1.filter({ $0.validator_address == mValidator_V1?.operator_address}).first {
+                if (unbonding.entries?.count ?? 0 >= 7) {
+                    self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
+                    return
+                }
+            }
+            
+        }
+        
+        if (chainType == ChainType.IRIS_MAIN) {
             if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             
-        }
-        
-        if (chainType == ChainType.IOV_MAIN) {
+        } else if (chainType == ChainType.IOV_MAIN) {
             if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "200000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
@@ -1759,16 +1792,32 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
+            
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            
+        } else {
+            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
+            return
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mTargetValidator = mValidator
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
                 chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+            txVC.mTargetValidator = mValidator
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
+            
         } else if (chainType == ChainType.IRIS_MAIN) {
+            txVC.mTargetValidator = mValidator
             txVC.mType = IRIS_MSG_TYPE_UNDELEGATE
+            
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            txVC.mTargetValidator_V1 = mValidator_V1
+            txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
         }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)

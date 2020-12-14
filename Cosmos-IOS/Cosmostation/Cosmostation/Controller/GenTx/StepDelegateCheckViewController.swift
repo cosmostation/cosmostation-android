@@ -66,12 +66,19 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
                 pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
             toDelegateAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mToDelegateAmount?.amount)!, toDelegateAmountLabel.font, 6, pageHolderVC.chainType!)
             feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+            targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             toDelegateAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mToDelegateAmount?.amount)!, toDelegateAmountLabel.font, 18, pageHolderVC.chainType!)
             feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 18, pageHolderVC.chainType!)
+            targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
+            
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+            toDelegateAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mToDelegateAmount?.amount, toDelegateAmountLabel.font, 6, 6)
+            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
+            targetValidatorLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
         }
-        targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
+        
         memoLabel.text = pageHolderVC.mMemo
     }
     
@@ -89,7 +96,11 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            self.onFetchAccountInfo(pageHolderVC.mAccount!)
+            if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+                self.onFetchAuth(pageHolderVC.mAccount!)
+            } else {
+                self.onFetchAccountInfo(pageHolderVC.mAccount!)
+            }
         }
     }
     
@@ -181,6 +192,29 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
         }
+    }
+    
+    func onFetchAuth(_ account: Account) {
+        self.showWaittingAlert()
+        let url = BaseNetWork.authUrl(self.pageHolderVC.chainType!, account.account_address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                print("res ", res)
+                guard let responseData = res as? NSDictionary, let account = responseData.object(forKey: "account") as? NSDictionary else {
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
+                let auth = Auth_V1.init(account)
+                self.onBroadcastTxV1(auth)
+                
+            case .failure(let error):
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                if (SHOW_LOG) { print("onFetchAuth ", error) }
+            }
+        }
+        
     }
     
     func onGenDelegateTx() {
@@ -295,5 +329,43 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
                 }
             });
         }
+    }
+    
+    func onBroadcastTxV1(_ auth: Auth_V1) {
+        DispatchQueue.global().async {
+            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
+                return
+            }
+            let stdTx = Signer.genSignedDelegateTxV1(auth.getAddress(), auth.getAccountNumber(), auth.getSequenceNumber(),
+                                                     self.pageHolderVC.mTargetValidator_V1!.operator_address!, self.pageHolderVC.mToDelegateAmount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
+                                                     WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+            
+            DispatchQueue.main.async(execute: {
+                let url = BaseNetWork.postTxUrl(self.pageHolderVC.chainType!)
+                let params = Signer.getBroadCastParam(stdTx)
+                let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                request.responseJSON { response in
+                    var txResult = [String:Any]()
+                    switch response.result {
+                    case .success(let res):
+                        if(SHOW_LOG) { print("Delegate ", res) }
+                        if let result = res as? [String : Any]  {
+                            txResult = result
+                        }
+                    case .failure(let error):
+                        if(SHOW_LOG) { print("Delegate error ", error) }
+                        if (response.response?.statusCode == 500) {
+                            txResult["net_error"] = 500
+                        }
+                    }
+                    if (self.waitAlert != nil) {
+                        self.waitAlert?.dismiss(animated: true, completion: {
+                            self.onStartTxDetail(txResult)
+                        })
+                    }
+                }
+            });
+        }
+        
     }
 }

@@ -93,6 +93,14 @@ final class BaseData : NSObject{
         return amount.stringValue;
     }
     
+    func getDelegated(_ opAddress: String?) -> NSDecimalNumber {
+        if let delegation = BaseData.instance.mMyDelegations_V1.filter({ $0.delegation?.validator_address == opAddress}).first {
+            return delegation.getDelegation()
+        } else {
+            return NSDecimalNumber.zero
+        }
+    }
+    
     func getUnbondingSum() -> String {
         var amount = NSDecimalNumber.zero
         for unbonding in mMyUnbondings_V1 {

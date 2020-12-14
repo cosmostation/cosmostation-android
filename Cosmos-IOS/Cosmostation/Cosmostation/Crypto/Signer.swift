@@ -35,6 +35,54 @@ class Signer {
         return genSignedTx(msgList, fee, memo, signatures)
     }
     
+    static func genSignedDelegateTxV1(_ fromAddress: String, _ accountNum: String, _ sequenceNum: String,
+                                  _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
+                                  _ pKey: HDPrivateKey, _ chain: ChainType) -> StdTx {
+        var msgList = Array<Msg>()
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        if (chain == ChainType.COSMOS_TEST) {
+            value.delegator_address = fromAddress
+            value.validator_address = toValAddress
+            let data = try? JSONEncoder().encode(amount)
+            do { value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+            } catch { print(error) }
+            
+            msg.type = COSMOS_MSG_TYPE_DELEGATE
+            msg.value = value
+        }
+        msgList.append(msg)
+        
+        let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
+        let signatureData = getSingleSignature(pKey, stdToSignMsg)
+        let signatures = getSignatures(pKey, signatureData!, accountNum, sequenceNum)
+        return genSignedTx(msgList, fee, memo, signatures)
+    }
+    
+    static func genSignedUndelegateTxV1(_ fromAddress: String, _ accountNum: String, _ sequenceNum: String,
+                                  _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
+                                  _ pKey: HDPrivateKey, _ chain: ChainType) -> StdTx {
+        var msgList = Array<Msg>()
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        if (chain == ChainType.COSMOS_TEST) {
+            value.delegator_address = fromAddress
+            value.validator_address = toValAddress
+            let data = try? JSONEncoder().encode(amount)
+            do { value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+            } catch { print(error) }
+            
+            msg.type = COSMOS_MSG_TYPE_UNDELEGATE2
+            msg.value = value
+        }
+        msgList.append(msg)
+        
+        let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
+        let signatureData = getSingleSignature(pKey, stdToSignMsg)
+        let signatures = getSignatures(pKey, signatureData!, accountNum, sequenceNum)
+        return genSignedTx(msgList, fee, memo, signatures)
+    }
+    
     
     static func getSingleSignature(_ pKey: HDPrivateKey, _ stdToSignMsg: StdSignMsg) -> Data? {
         let encoder = JSONEncoder()
