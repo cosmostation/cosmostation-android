@@ -2186,8 +2186,17 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mAkashSendDenom = AKASH_MAIN_DENOM
             txVC.mType = AKASH_MSG_TYPE_TRANSFER
             
+        } else if (chainType! == ChainType.COSMOS_TEST) {
+            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mCosmosSendDenom = COSMOS_MAIN_DENOM
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+            
         } else {
             return
+            
         }
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""

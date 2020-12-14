@@ -73,6 +73,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mProposer: String?
     var mVoteOpinion: String?
     
+    var mCosmosSendDenom: String?
     var mKavaSendDenom: String?
     var mIovSendDenom: String?
     var mOkSendDenom: String?

@@ -81,6 +81,10 @@ final class BaseData : NSObject{
         return amount;
     }
     
+    func getAvailable(_ symbol:String) -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(getAvailable(symbol))
+    }
+    
     func getDelegatedSum() -> String {
         var amount = NSDecimalNumber.zero
         for delegation in mMyDelegations_V1 {

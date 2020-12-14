@@ -270,6 +270,20 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
             mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+            mDpDecimal = 6
+            currentAva = BaseData.instance.getAvailable(COSMOS_MAIN_DENOM)
+            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
+            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
+            
+            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
+            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
+            
+            mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            
         }
         
         mToAddressLabel.text = pageHolderVC.mToSendRecipientAddress
@@ -285,8 +299,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.OKEX_TEST ||
                     pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
+                
             } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
                 self.onGenBnbSendTx()
+                
+            } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+                self.onFetchAuth(pageHolderVC.mAccount!)
             }
         }
     }
@@ -393,6 +411,29 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
             }
         }
+    }
+    
+    func onFetchAuth(_ account: Account) {
+        self.showWaittingAlert()
+        let url = BaseNetWork.authUrl(self.pageHolderVC.chainType!, account.account_address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                print("res ", res)
+                guard let responseData = res as? NSDictionary, let account = responseData.object(forKey: "account") as? NSDictionary else {
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
+                let auth = Auth_V1.init(account)
+                self.onBroadcastTxV1(auth)
+                
+            case .failure(let error):
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                if (SHOW_LOG) { print("onFetchAuth ", error) }
+            }
+        }
+        
     }
     
     func onGenSendTx() {
@@ -592,5 +633,43 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 }
             }
         }
+    }
+    
+    func onBroadcastTxV1(_ auth: Auth_V1) {
+        DispatchQueue.global().async {
+            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
+                return
+            }
+            let stdTx = Signer.genSignedSendTxV1(auth.getAddress(), auth.getAccountNumber(), auth.getSequenceNumber(),
+                                             self.pageHolderVC.mToSendRecipientAddress!, self.pageHolderVC.mToSendAmount, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
+                                             WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+            
+            DispatchQueue.main.async(execute: {
+                let url = BaseNetWork.postTxUrl(self.pageHolderVC.chainType!)
+                let params = Signer.getBroadCastParam(stdTx)
+                let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                request.responseJSON { response in
+                    var txResult = [String:Any]()
+                    switch response.result {
+                    case .success(let res):
+                        if(SHOW_LOG) { print("Send ", res) }
+                        if let result = res as? [String : Any]  {
+                            txResult = result
+                        }
+                    case .failure(let error):
+                        if(SHOW_LOG) { print("send error ", error) }
+                        if (response.response?.statusCode == 500) {
+                            txResult["net_error"] = 500
+                        }
+                    }
+                    if (self.waitAlert != nil) {
+                        self.waitAlert?.dismiss(animated: true, completion: {
+                            self.onStartTxDetail(txResult)
+                        })
+                    }
+                }
+            });
+        }
+        
     }
 }

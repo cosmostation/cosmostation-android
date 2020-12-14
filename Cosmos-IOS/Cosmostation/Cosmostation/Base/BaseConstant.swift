@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -121,9 +121,9 @@ let COSMOS_API_TRANS_HISTORY            = COSMOS_API + "v1/account/transfer_txs/
 
 //COSMOS_TEST_URL
 //let COSMOS_TEST_BLOCK                   = COSMOS_TEST_URL + "blocks/";
-//let COSMOS_TEST_TX                      = COSMOS_TEST_URL + "txs/";
+let COSMOS_TEST_TX                      = COSMOS_TEST_URL + "txs/";
 let COSMOS_TEST_BALANCE                 = COSMOS_TEST_URL + "cosmos/bank/v1beta1/balances/";
-let COSMOS_TEST_ACCOUNT_INFO            = COSMOS_TEST_URL + "cosmos/auth/v1beta1/accounts/";
+let COSMOS_TEST_AUTH                    = COSMOS_TEST_URL + "cosmos/auth/v1beta1/accounts/";
 let COSMOS_TEST_VALIDATORS              = COSMOS_TEST_URL + "cosmos/staking/v1beta1/validators";
 let COSMOS_TEST_DELEGATIONS             = COSMOS_TEST_URL + "cosmos/staking/v1beta1/delegations/";
 let COSMOS_TEST_UNDELEGATIONS           = COSMOS_TEST_URL + "cosmos/staking/v1beta1/delegators/";
@@ -146,7 +146,7 @@ let COSMOS_TEST_MINT_PARAM              = COSMOS_TEST_URL + "cosmos/mint/v1beta1
 let COSMOS_TEST_STAKING_POOL            = COSMOS_TEST_URL + "cosmos/staking/v1beta1/pool";
 //let COSMOS_URL_PROPOSALS                = COSMOS_TEST_URL + "gov/proposals";
 //let COSMOS_URL_PROPOSALS_TALLY_TAIL     = "/tally";
-//let COSMOS_URL_BORAD_TX                 = COSMOS_TEST_URL + "txs";
+let COSMOS_TEST_BORAD_TX                = COSMOS_TEST_URL + "txs";
 //
 //let COSMOS_API_HISTORY                  = COSMOS_TEST_API + "v1/account/txs/";
 //let COSMOS_API_TRANS_HISTORY            = COSMOS_TEST_API + "v1/account/transfer_txs/";

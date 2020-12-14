@@ -291,6 +291,8 @@
 		28BB2AAB25341A6E00CFF097 /* IovStarNameDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2AAA25341A6E00CFF097 /* IovStarNameDomain.swift */; };
 		28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */; };
 		28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */; };
+		28CE973325870E29006DEBEE /* Auth_V1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CE973225870E29006DEBEE /* Auth_V1.swift */; };
+		28CE973625872B7C006DEBEE /* Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CE973525872B7C006DEBEE /* Signer.swift */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
 		28D23DCE252EC16500BD9E7C /* KavaIncentiveParam2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D23DCD252EC16500BD9E7C /* KavaIncentiveParam2.swift */; };
 		28D23DD1252EC2A400BD9E7C /* KavaClaimMultiplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D23DD0252EC2A400BD9E7C /* KavaClaimMultiplier.swift */; };
@@ -809,6 +811,8 @@
 		28BB2AAA25341A6E00CFF097 /* IovStarNameDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameDomain.swift; sourceTree = "<group>"; };
 		28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxRewardAllCell.swift; sourceTree = "<group>"; };
 		28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxRewardAllCell.xib; sourceTree = "<group>"; };
+		28CE973225870E29006DEBEE /* Auth_V1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth_V1.swift; sourceTree = "<group>"; };
+		28CE973525872B7C006DEBEE /* Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signer.swift; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
 		28D23DCD252EC16500BD9E7C /* KavaIncentiveParam2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveParam2.swift; sourceTree = "<group>"; };
 		28D23DD0252EC2A400BD9E7C /* KavaClaimMultiplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaClaimMultiplier.swift; sourceTree = "<group>"; };
@@ -1509,6 +1513,7 @@
 			children = (
 				E1945E3D222E7E2900A1436F /* Bech32.swift */,
 				E1945E3C222E7E2900A1436F /* SegwitAddrCoder.swift */,
+				28CE973525872B7C006DEBEE /* Signer.swift */,
 			);
 			path = Crypto;
 			sourceTree = "<group>";
@@ -1665,6 +1670,7 @@
 				2866CBA22580DB4B00A91172 /* Inflation_V1.swift */,
 				2866CBA52580DB5E00A91172 /* Provision_V1.swift */,
 				2866CBA82580DB6C00A91172 /* StakingPool_V1.swift */,
+				28CE973225870E29006DEBEE /* Auth_V1.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2235,6 +2241,7 @@
 				282BDFE224A5992500D3A5D4 /* WcTradePopup.swift in Sources */,
 				E1406FCC2260A11300D9440C /* StepRewardCheckViewController.swift in Sources */,
 				2868559324989AA50099D18F /* Bep3WarnPopup.swift in Sources */,
+				28CE973325870E29006DEBEE /* Auth_V1.swift in Sources */,
 				2866CBA62580DB5E00A91172 /* Provision_V1.swift in Sources */,
 				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
@@ -2352,6 +2359,7 @@
 				2892C46B2581D724009A96A6 /* Reward_V1.swift in Sources */,
 				280E1EF8254A7AC80007BA7D /* DeleteStarname0ViewController.swift in Sources */,
 				E1406FC22260654F00D9440C /* TxInfo.swift in Sources */,
+				28CE973625872B7C006DEBEE /* Signer.swift in Sources */,
 				E1133900235D95FD0011B61D /* AccountSelectViewController.swift in Sources */,
 				E1F1CF0A239F7D7D004EF8A2 /* VoteSelectViewController.swift in Sources */,
 				E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */,

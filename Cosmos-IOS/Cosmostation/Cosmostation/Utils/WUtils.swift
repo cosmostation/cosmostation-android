@@ -1805,7 +1805,7 @@ class WUtils {
     }
     
     static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
-        if (chainType == ChainType.COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             if (coin.denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1919,7 +1919,7 @@ class WUtils {
     }
     
     static func showCoinDp(_ denom:String, _ amount:String, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
-        if (chainType == ChainType.COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             if (denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -2627,6 +2627,25 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_VOTE))
             }
             
+        } else if (chain == ChainType.COSMOS_TEST) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForRewards()[valCnt - 1]
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
+            } else if (type == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            }
         }
         return result
     }
