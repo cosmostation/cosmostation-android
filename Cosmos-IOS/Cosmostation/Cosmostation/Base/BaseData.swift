@@ -117,6 +117,14 @@ final class BaseData : NSObject{
         return amount.stringValue;
     }
     
+    func getReward(_ symbol:String, _ opAddress: String?) -> NSDecimalNumber {
+        if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == opAddress}).first {
+            return reward.getRewardByDenom(symbol)
+        } else {
+            return NSDecimalNumber.zero
+        }
+    }
+    
     public override init() {
         super.init();
         if database == nil {

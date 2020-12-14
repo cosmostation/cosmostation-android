@@ -32,6 +32,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mToDelegateAmount: Coin?
     var mToUndelegateAmount:Coin?
     var mRewardTargetValidators = Array<Validator>()
+    var mRewardTargetValidators_V1 = Array<Validator_V1>()
     
     var mToSendRecipientAddress:String?
     var mToSendAmount = Array<Coin>()

@@ -931,7 +931,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             self.onShowToast(NSLocalizedString("prepare", comment: ""))
         }
         cell?.actionReward = {
-            self.onShowToast(NSLocalizedString("prepare", comment: ""))
+            self.onStartGetSingleReward()
         }
         cell?.actionReinvest = {
             self.onShowToast(NSLocalizedString("prepare", comment: ""))
@@ -2086,21 +2086,43 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            let reward = BaseData.instance.getReward(COSMOS_MAIN_DENOM, mValidator_V1?.operator_address)
+            if (reward.compare(NSDecimalNumber.init(string: "3750")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "3750")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        var validators = Array<Validator>()
-        validators.append(mValidator!)
-        txVC.mRewardTargetValidators = validators
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
                 chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+            var validators = Array<Validator>()
+            validators.append(mValidator!)
+            txVC.mRewardTargetValidators = validators
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
+            
         } else if (chainType == ChainType.IRIS_MAIN) {
+            var validators = Array<Validator>()
+            validators.append(mValidator!)
+            txVC.mRewardTargetValidators = validators
             txVC.mType = IRIS_MSG_TYPE_WITHDRAW
+            
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            var validators = Array<Validator_V1>()
+            validators.append(mValidator_V1!)
+            txVC.mRewardTargetValidators_V1 = validators
+            txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
+            
         }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)

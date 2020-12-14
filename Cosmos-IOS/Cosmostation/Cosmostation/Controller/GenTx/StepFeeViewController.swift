@@ -186,7 +186,7 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "feeImg")
             self.speedMsg.text = NSLocalizedString("fee_speed_stargate_title", comment: "")
             
-            let gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count)
+            let gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count)
             let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE)
             self.rateFeeGasAmountLabel.text = gasAmount.stringValue
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 2)
@@ -542,7 +542,7 @@ class StepFeeViewController: BaseViewController {
         } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             feeCoin = Coin.init(COSMOS_MAIN_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
-            let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
+            let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue
             fee.gas = estGas
             
             var estAmount: Array<Coin> = Array<Coin>()

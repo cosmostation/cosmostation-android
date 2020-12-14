@@ -51,6 +51,14 @@ class BaseNetWork {
         return result
     }
     
+    static func rewardAddressUrl(_ chain: ChainType, _ address: String) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_TEST) {
+            result = COSMOS_TEST_REWARD_ADDRESS + address + COSMOS_TEST_REWARD_ADDRESS_T
+        }
+        return result
+    }
+    
     static func rewardsUrl(_ chain: ChainType, _ address: String) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_TEST) {

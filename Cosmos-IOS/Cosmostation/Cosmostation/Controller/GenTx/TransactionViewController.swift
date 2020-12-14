@@ -23,6 +23,7 @@ class TransactionViewController: UIViewController {
     var mTargetValidator_V1: Validator_V1?
     var mType: String?
     var mRewardTargetValidators = Array<Validator>()
+    var mRewardTargetValidators_V1 = Array<Validator_V1>()
     var mIrisRedelegate: Array<NSDictionary>?
     
     var mIrisToken: IrisToken?
@@ -244,6 +245,7 @@ class TransactionViewController: UIViewController {
             StepVc.mTargetValidator = self.mTargetValidator
             StepVc.mTargetValidator_V1 = self.mTargetValidator_V1
             StepVc.mRewardTargetValidators = self.mRewardTargetValidators
+            StepVc.mRewardTargetValidators_V1 = self.mRewardTargetValidators_V1
             StepVc.mIrisRedelegate = self.mIrisRedelegate
             StepVc.mIrisToken = self.mIrisToken
             StepVc.mBnbToken = self.mBnbToken

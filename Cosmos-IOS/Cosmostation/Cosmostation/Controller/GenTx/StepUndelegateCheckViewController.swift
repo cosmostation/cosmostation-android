@@ -368,7 +368,6 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             DispatchQueue.main.async(execute: {
                 let url = BaseNetWork.postTxUrl(self.pageHolderVC.chainType!)
                 let params = Signer.getBroadCastParam(stdTx)
-                print("params ", params)
                 let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                 request.responseJSON { response in
                     var txResult = [String:Any]()

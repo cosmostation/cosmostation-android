@@ -83,6 +83,30 @@ class Signer {
         return genSignedTx(msgList, fee, memo, signatures)
     }
     
+    static func genSignedRewardTxV1(_ fromAddress: String, _ accountNum: String, _ sequenceNum: String,
+                                    _ validators: Array<Validator_V1>, _ fee: Fee, _ memo: String,
+                                  _ pKey: HDPrivateKey, _ chain: ChainType) -> StdTx {
+        var msgList = Array<Msg>()
+        if (chain == ChainType.COSMOS_TEST) {
+            for validator in validators {
+                var msg = Msg.init()
+                var value = Msg.Value.init()
+                
+                value.delegator_address = fromAddress
+                value.validator_address = validator.operator_address
+                
+                msg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL
+                msg.value = value
+                msgList.append(msg)
+            }
+        }
+        
+        let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
+        let signatureData = getSingleSignature(pKey, stdToSignMsg)
+        let signatures = getSignatures(pKey, signatureData!, accountNum, sequenceNum)
+        return genSignedTx(msgList, fee, memo, signatures)
+    }
+    
     
     static func getSingleSignature(_ pKey: HDPrivateKey, _ stdToSignMsg: StdSignMsg) -> Data? {
         let encoder = JSONEncoder()
