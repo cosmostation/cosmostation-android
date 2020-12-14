@@ -33,8 +33,8 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerD
         
         chainType = pageHolderVC.chainType!
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_MAIN ||
-                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.COSMOS_TEST) {
             memoCntLabel.text = "0/255 byte"
         } else {
             memoCntLabel.text = "0/100 byte"
@@ -100,7 +100,7 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerD
         let byteArray = [UInt8](textView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.COSMOS_TEST) {
             memoCntLabel.text = String(byteArray.count) + "/255 byte"
             if (byteArray.count > 255) {
                 self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
@@ -121,7 +121,7 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerD
         let byteArray = [UInt8](memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.COSMOS_TEST) {
             if (byteArray.count > 255) {
                 return false
             }

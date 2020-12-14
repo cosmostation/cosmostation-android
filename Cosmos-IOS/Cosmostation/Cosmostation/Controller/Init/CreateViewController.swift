@@ -171,6 +171,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         akashAction.setValue(UIImage(named: "akashChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let cosmosTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_cosmos", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.COSMOS_TEST
+            self.onGenNewKey()
+        })
+        cosmosTestAction.setValue(UIImage(named: "cosmosTestChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let bnbTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_bnb", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.BINANCE_TEST
             self.onGenNewKey()
@@ -211,6 +217,9 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(certikAction)
         showAlert.addAction(akashAction)
         
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {
+            showAlert.addAction(cosmosTestAction)
+        }
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.BINANCE_TEST)) {
             showAlert.addAction(bnbTestAction)
         }

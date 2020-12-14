@@ -13,7 +13,7 @@ import NotificationBannerSwift
 
 class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBCardPopupDelegate, AccountSelectDelegate {
     
-    var mAccount:Account!
+    var mAccount: Account!
     var mChainType: ChainType!
     var mAccounts = Array<Account>()
     var mBalances = Array<Balance>()
@@ -337,12 +337,39 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             
+        } else if (mChainType == ChainType.COSMOS_TEST) {
+            self.mFetchCnt = 11
+            BaseData.instance.mAllValidators_V1.removeAll()
+            BaseData.instance.mBondedValidators_V1.removeAll()
+            BaseData.instance.mUnbondValidators_V1.removeAll()
+            BaseData.instance.mMyValidators_V1.removeAll()
+            
+            BaseData.instance.mMyDelegations_V1.removeAll()
+            BaseData.instance.mMyUnbondings_V1.removeAll()
+            BaseData.instance.mMyBalances_V1.removeAll()
+            BaseData.instance.mMyReward_V1.removeAll()
+            
+            onFetchBondedValidators(0)
+            onFetchUnbondedValidators(0)
+            onFetchUnbondingValidators(0)
+            
+            onFetchBalance(mAccount.account_address, 0)
+            onFetchDelegations(mAccount.account_address, 0)
+            onFetchUndelegations(mAccount.account_address, 0)
+            onFetchRewards(mAccount.account_address)
+            
+            onFetchMintParamV1()
+            onFetchInflationV1()
+            onFetchProvisionV1()
+            onFetchStakingPoolV1()
+            
         }
         onFetchPriceTic(false)
         return true
     }
     
     func onFetchFinished() {
+//        print("onFetchFinished ", self.mFetchCnt)
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
             if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST ||
@@ -463,11 +490,56 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 print("KAVA mHavestRewards ", BaseData.instance.mHavestRewards.count)
             }
             
-            if (mAllValidator.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            //For StarGate after v0.40
+            if (mChainType == ChainType.COSMOS_TEST) {
+                BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mBondedValidators_V1)
+                BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mUnbondValidators_V1)
+                for validator in BaseData.instance.mAllValidators_V1 {
+                    var mine = false;
+                    for delegation in BaseData.instance.mMyDelegations_V1 {
+                        if (delegation.delegation?.validator_address == validator.operator_address) {
+                            mine = true;
+                            break;
+                        }
+                    }
+                    for unbonding in BaseData.instance.mMyUnbondings_V1 {
+                        if (unbonding.validator_address == validator.operator_address) {
+                            mine = true;
+                            break;
+                        }
+                    }
+                    if (mine) {
+                        BaseData.instance.mMyValidators_V1.append(validator)
+                    }
+                }
+                
+                if (BaseData.instance.mAllValidators_V1.count <= 0) {
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                }
+                
+                print("mBondedValidators_V1 ", BaseData.instance.mBondedValidators_V1.count)
+                print("mUnbondValidators_V1 ", BaseData.instance.mUnbondValidators_V1.count)
+                print("mAllValidators_V1 ", BaseData.instance.mAllValidators_V1.count)
+                print("mMyValidators_V1 ", BaseData.instance.mMyValidators_V1.count)
+                
+                print("mMyBalances_V1 ", BaseData.instance.mMyBalances_V1.count)
+                print("mMyDelegations_V1 ", BaseData.instance.mMyDelegations_V1.count)
+                print("mMyUnbondings_V1 ", BaseData.instance.mMyUnbondings_V1.count)
+                print("mMyReward_V1 ", BaseData.instance.mMyReward_V1.count)
+                
+                print("mMintParam_V1 ", BaseData.instance.mMintParam_V1)
+                print("mStakingPool_V1 ", BaseData.instance.mStakingPool_V1)
+                print("mProvision_V1 ", BaseData.instance.mProvision_V1)
+                print("mInflation_V1 ", BaseData.instance.mInflation_V1)
+                
             } else {
-                BaseData.instance.setAllValidators(mAllValidator)
+                if (mAllValidator.count <= 0) {
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                } else {
+                    BaseData.instance.setAllValidators(mAllValidator)
+                }
             }
+            
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
             self.hideWaittingAlert()
         }
@@ -1238,7 +1310,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchPriceTic(_ showMsg:Bool) {
         var url: String?
         var parameters: Parameters?
-        if (mChainType == ChainType.COSMOS_MAIN) {
+        if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.COSMOS_TEST) {
             if (BaseData.instance.getMarket() == 0) {
                 url = CGC_PRICE_TIC + "cosmos"
                 parameters = [:]
@@ -1735,6 +1807,269 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 if (SHOW_LOG) { print("onFetchBandOracleStatus ", error) }
             }
             self.onFetchFinished()
+        }
+    }
+    
+    
+    
+    //For StarGate after v0.40
+    func onFetchBondedValidators(_ offset:Int) {
+        let url = BaseNetWork.validatorUrl(mChainType)
+        let request = Alamofire.request(url, method: .get, parameters: ["status":BONDED_V1, "pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("res", res)
+                guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "validators") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for validator in validators {
+                    BaseData.instance.mBondedValidators_V1.append(Validator_V1(validator))
+                }
+                if (validators.count >= 100) {
+                    self.onFetchBondedValidators(offset + 100)
+                } else {
+                    self.onFetchFinished()
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBondedValidators ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchUnbondedValidators(_ offset:Int) {
+        let url = BaseNetWork.validatorUrl(mChainType)
+        let request = Alamofire.request(url, method: .get, parameters: ["status":UNBONDED_V1, "pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("res", res)
+                guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "validators") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for validator in validators {
+                    BaseData.instance.mUnbondValidators_V1.append(Validator_V1(validator))
+                }
+                if (validators.count >= 100) {
+                    self.onFetchUnbondedValidators(offset + 100)
+                } else {
+                    self.onFetchFinished()
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBondedValidators ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchUnbondingValidators(_ offset:Int) {
+        let url = BaseNetWork.validatorUrl(mChainType)
+        let request = Alamofire.request(url, method: .get, parameters: ["status":UNBONDING_V1, "pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "validators") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for validator in validators {
+                    BaseData.instance.mUnbondValidators_V1.append(Validator_V1(validator))
+                }
+                if (validators.count >= 100) {
+                    self.onFetchUnbondingValidators(offset + 100)
+                } else {
+                    self.onFetchFinished()
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBondedValidators ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchDelegations(_ address: String, _ offset: Int) {
+        let url = BaseNetWork.delegationUrl(mChainType, address)
+        let request = Alamofire.request(url, method: .get, parameters: ["pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let delegations = responseData.object(forKey: "delegation_responses") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for delegation in delegations {
+                    BaseData.instance.mMyDelegations_V1.append(DelegationInfo_V1(delegation))
+                }
+                if (delegations.count >= 100) {
+                    self.onFetchDelegations(address, offset + 100)
+                } else {
+                    self.onFetchFinished()
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchDelegations ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchUndelegations(_ address: String, _ offset: Int) {
+        let url = BaseNetWork.undelegationUrl(mChainType, address)
+        let request = Alamofire.request(url, method: .get, parameters: ["pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let undelegations = responseData.object(forKey: "unbonding_responses") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for undelegation in undelegations {
+                    BaseData.instance.mMyUnbondings_V1.append(UnbondingInfo_V1(undelegation))
+                }
+                if (undelegations.count >= 100) {
+                    self.onFetchUndelegations(address, offset + 100)
+                } else {
+                    self.onFetchFinished()
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchUndelegations ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchBalance(_ address: String, _ offset: Int) {
+        let url = BaseNetWork.balanceUrl(mChainType, address)
+        let request = Alamofire.request(url, method: .get, parameters: ["pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let balances = responseData.object(forKey: "balances") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for balance in balances {
+                    BaseData.instance.mMyBalances_V1.append(Coin(balance))
+                }
+                if (balances.count >= 100) {
+                    self.onFetchBalance(address, offset + 100)
+                } else {
+                    self.onFetchFinished()
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBalance ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchRewards(_ address: String) {
+        let url = BaseNetWork.rewardsUrl(mChainType, address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let rewards = responseData.object(forKey: "rewards") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for reward in rewards {
+                    BaseData.instance.mMyReward_V1.append(Reward_V1(reward))
+                }
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchRewards ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchMintParamV1() {
+        let url = BaseNetWork.mintParamUrl(mChainType)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let params = responseData.object(forKey: "params") as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mMintParam_V1 = MintParam_V1(params)
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBalance ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchInflationV1() {
+        let url = BaseNetWork.inflationUrl(mChainType)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mInflation_V1 = Inflation_V1(responseData)
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBalance ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchProvisionV1() {
+        let url = BaseNetWork.provisionUrl(mChainType)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mProvision_V1 = Provision_V1(responseData)
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBalance ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchStakingPoolV1() {
+        let url = BaseNetWork.stakingPoolUrl(mChainType)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let pool = responseData.object(forKey: "pool") as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mStakingPool_V1 = StakingPool_V1(pool)
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBalance ", error) }
+                self.onFetchFinished()
+            }
         }
     }
     

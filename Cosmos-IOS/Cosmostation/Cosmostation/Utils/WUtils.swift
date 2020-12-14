@@ -657,6 +657,7 @@ class WUtils {
     }
     
     static func plainStringToDecimal(_ input: String?) -> NSDecimalNumber {
+        if (input == nil) { return NSDecimalNumber.zero }
         let result = NSDecimalNumber(string: input)
         if (NSDecimalNumber.notANumber == result) {
             return NSDecimalNumber.zero
@@ -679,7 +680,7 @@ class WUtils {
             formatted = nf.string(from: NSDecimalNumber.zero)
         } else if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                     chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN ||
-                    chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
+                    chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
@@ -1148,32 +1149,43 @@ class WUtils {
         return displayPercent(inflationValue, font)
     }
     
-    static func getYieldPerBlock() -> NSDecimalNumber {
+    static func getYieldPerBlock(_ chain: ChainType) -> NSDecimalNumber {
         let data = BaseData.instance
-        if (data.mStakingPool == nil || data.mProvision == nil || data.mMintParam == nil) {
-            return NSDecimalNumber.zero
+        if (chain != ChainType.COSMOS_TEST) {
+            if (data.mStakingPool == nil || data.mProvision == nil || data.mMintParam == nil) {
+                return NSDecimalNumber.zero
+            }
+            let provisions = WUtils.plainStringToDecimal(data.mProvision)
+            let bonded = WUtils.plainStringToDecimal(data.mStakingPool!.object(forKey: "bonded_tokens") as? String)
+            let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam?.blocks_per_year)
+            return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
+            
+        } else {
+            if (data.mStakingPool_V1 == nil || data.mProvision_V1 == nil || data.mMintParam_V1 == nil) {
+                return NSDecimalNumber.zero
+            }
+            let provisions = WUtils.plainStringToDecimal(data.mProvision_V1?.annual_provisions)
+            let bonded = WUtils.plainStringToDecimal(data.mStakingPool_V1?.bonded_tokens)
+            let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam_V1?.blocks_per_year)
+            return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
         }
-        let provisions = WUtils.plainStringToDecimal(data.mProvision)
-        let bonded = WUtils.plainStringToDecimal(data.mStakingPool!.object(forKey: "bonded_tokens") as? String)
-        let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam?.blocks_per_year)
-        return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
     }
     
     static func getDpEstApr(_ font: UIFont, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock()
+        let rpr = getYieldPerBlock(chain)
         let estApr = YEAR_SEC.dividing(by: getCBlockTime(chain), withBehavior: handler24Down).multiplying(by: rpr).multiplying(byPowerOf10: 2)
         return displayPercent(estApr, font)
     }
     
     static func getDpEstAprCommission(_ font: UIFont, _ commission: NSDecimalNumber, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock()
+        let rpr = getYieldPerBlock(chain)
         let commissionCal = NSDecimalNumber.one.subtracting(commission)
         let estAprCommission = YEAR_SEC.dividing(by: getCBlockTime(chain), withBehavior: handler24Down).multiplying(by: commissionCal).multiplying(by: rpr).multiplying(byPowerOf10: 2)
         return displayPercent(estAprCommission, font)
     }
     
     static func getDailyReward(_ font: UIFont, _ commission: NSDecimalNumber, _ delegated: NSDecimalNumber?, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock()
+        let rpr = getYieldPerBlock(chain)
         let commissionCal = NSDecimalNumber.one.subtracting(commission)
         var dAmount = NSDecimalNumber.zero
         if (delegated != nil) {
@@ -1184,7 +1196,7 @@ class WUtils {
     }
     
     static func getMonthlyReward(_ font: UIFont, _ commission: NSDecimalNumber, _ delegated: NSDecimalNumber?, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock()
+        let rpr = getYieldPerBlock(chain)
         let commissionCal = NSDecimalNumber.one.subtracting(commission)
         var dAmount = NSDecimalNumber.zero
         if (delegated != nil) {
@@ -1284,13 +1296,13 @@ class WUtils {
     }
     
     
-    static func displayCommission(_ rate:String, font:UIFont ) -> NSMutableAttributedString {
+    static func displayCommission(_ rate:String?, font:UIFont ) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 2
         nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let formatted   = nf.string(from: NSDecimalNumber.init(string: rate).multiplying(by: 100))! + "%"
+        let formatted   = nf.string(from: plainStringToDecimal(rate).multiplying(by: 100))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
         
         let preString   = formatted[..<endIndex]
@@ -1306,14 +1318,14 @@ class WUtils {
         return attributedString1
     }
     
-    static func displaySelfBondRate(_ selfShare: String, _ totalShare: String, _ font:UIFont ) ->  NSMutableAttributedString {
+    static func displaySelfBondRate(_ selfShare: String?, _ totalShare: String?, _ font:UIFont ) ->  NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 2
         nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let selfDecimal = localeStringToDecimal(selfShare)
-        let totalDecimal = localeStringToDecimal(totalShare)
+        let selfDecimal = plainStringToDecimal(selfShare)
+        let totalDecimal = plainStringToDecimal(totalShare)
         
         let formatted   = nf.string(from: selfDecimal.multiplying(by: 100).dividing(by: totalDecimal, withBehavior: handler2Down))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
@@ -1373,6 +1385,26 @@ class WUtils {
                     amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
                 }
             }
+        }
+        return amount
+    }
+    
+    static func getAllMainAsset(_ denom: String) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        let data = BaseData.instance
+        for balance in data.mMyBalances_V1 {
+            if (balance.denom == denom) {
+                amount = plainStringToDecimal(balance.amount)
+            }
+        }
+        for delegation in data.mMyDelegations_V1 {
+            amount = amount.adding(plainStringToDecimal(delegation.balance?.amount))
+        }
+        for unbonding in data.mMyUnbondings_V1 {
+            amount = amount.adding(unbonding.getAllUnbondingBalance())
+        }
+        for reward in data.mMyReward_V1 {
+            amount = amount.adding(reward.getRewardByDenom(denom))
         }
         return amount
     }
@@ -1773,7 +1805,7 @@ class WUtils {
     }
     
     static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
-        if (chainType == ChainType.COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             if (coin.denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1887,7 +1919,7 @@ class WUtils {
     }
     
     static func showCoinDp(_ denom:String, _ amount:String, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
-        if (chainType == ChainType.COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             if (denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -2052,7 +2084,7 @@ class WUtils {
     
     
     static func getChainColor(_ chain:ChainType?) -> UIColor {
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return COLOR_ATOM
         } else if (chain == ChainType.IRIS_MAIN) {
             return COLOR_IRIS
@@ -2097,7 +2129,8 @@ class WUtils {
             return COLOR_AKASH_DARK
         }
         
-        else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
+        else if (chain == ChainType.COSMOS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST ||
+                    chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
@@ -2124,14 +2157,14 @@ class WUtils {
             return TRANS_BG_COLOR_AKASH
         }
         
-        else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
+        else if (chain == ChainType.COSMOS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
     }
     
     static func getMainDenom(_ chain:ChainType) -> String {
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return "ATOM"
         } else if (chain == ChainType.IRIS_MAIN) {
             return "IRIS"
@@ -2156,7 +2189,7 @@ class WUtils {
     }
     
     static func setDenomTitle(_ chain: ChainType?, _ label: UILabel) {
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             label.text = "ATOM"
             label.textColor = COLOR_ATOM
         } else if (chain == ChainType.IRIS_MAIN) {
@@ -2210,7 +2243,9 @@ class WUtils {
             return ChainType.AKASH_MAIN
         }
         
-        else if (chainS == CHAIN_KAVA_TEST_S) {
+        else if (chainS == CHAIN_COSMOS_TEST_S) {
+            return ChainType.COSMOS_TEST
+        } else if (chainS == CHAIN_KAVA_TEST_S) {
             return ChainType.KAVA_TEST
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return ChainType.BINANCE_TEST
@@ -2245,7 +2280,9 @@ class WUtils {
             return CHAIN_AKASH_S
         }
         
-        else if (chain == ChainType.BINANCE_TEST) {
+        else if (chain == ChainType.COSMOS_TEST) {
+            return CHAIN_COSMOS_TEST_S
+        } else if (chain == ChainType.BINANCE_TEST) {
             return CHAIN_BINANCE_TEST_S
         } else if (chain == ChainType.KAVA_TEST) {
             return CHAIN_KAVA_TEST_S
@@ -2323,7 +2360,9 @@ class WUtils {
             return "akashnet-1"
         }
         
-        else if (chainS == CHAIN_BINANCE_TEST_S) {
+        else if (chainS == CHAIN_COSMOS_TEST_S) {
+            return "cosmoshub-test-stargate-e"
+        } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (chainS == CHAIN_KAVA_TEST_S) {
             return "kava-4-test"
@@ -2358,7 +2397,9 @@ class WUtils {
             return "akashnet-1"
         }
         
-        else if (chain == ChainType.BINANCE_TEST) {
+        else if (chain == ChainType.COSMOS_TEST) {
+            return "cosmoshub-test-stargate-e"
+        } else if (chain == ChainType.BINANCE_TEST) {
             return "Binance-Chain-Nile"
         } else if (chain == ChainType.KAVA_TEST) {
             return "kava-4-test"
@@ -2586,6 +2627,25 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_VOTE))
             }
             
+        } else if (chain == ChainType.COSMOS_TEST) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForRewards()[valCnt - 1]
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
+            } else if (type == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            }
         }
         return result
     }
@@ -3042,7 +3102,7 @@ class WUtils {
     }
     
     static func getCBlockTime(_ chain: ChainType?) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return BLOCK_TIME_COSMOS
             
         } else if (chain == ChainType.IRIS_MAIN) {

@@ -87,7 +87,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                     chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
                     chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST ||
-                    chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+                    chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
                 guard let txHash = mBroadCaseResult?["txhash"] as? String  else {
                     self.onStartMainTab()
                     return
@@ -278,7 +278,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST ||
+                chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
             cell?.feeLayer.isHidden = false
             cell?.usedFeeLayer.isHidden = true
             cell?.limitFeeLayer.isHidden = true
@@ -398,7 +399,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_MAIN ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+                chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
             cell?.delegatorLabel.text = msg?.value.delegator_address
             cell?.validatorLabel.text = msg?.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_address!, true)
@@ -435,7 +436,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
             cell?.undelegatorLabel.text = msg?.value.delegator_address
             cell?.validatorLabel.text = msg?.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_address!, true)
@@ -472,7 +473,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
             cell?.redelegatorLabel.text = msg?.value.delegator_address
             cell?.fromValidatorLabel.text = msg?.value.validator_src_address
             cell?.fromMonikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_src_address!, true)
@@ -513,7 +514,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST ||
+                chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
             var coins :[Coin]?
             if (msg?.type == COSMOS_MSG_TYPE_TRANSFER3) {
                 cell?.fromLabel.text = msg?.value.inputs![0].address
@@ -659,7 +661,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_MAIN ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+                chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
             cell?.delegatorLabel.text = msg?.value.delegator_address
             cell?.validatorLabel.text = msg?.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_address!, true)
@@ -735,7 +737,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
             cell?.delegatorLabel.text = msg?.value.delegator_address
             cell?.widthrawAddressLabel.text = msg?.value.withdraw_address
             
@@ -754,7 +756,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_MAIN ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+                chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
             cell?.voterLabel.text = msg?.value.voter
             cell?.proposalIdLabel.text = msg?.value.proposal_id
             cell?.opinionLabel.text = msg?.value.option
@@ -776,7 +778,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_MAIN ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.AKASH_MAIN) {
+                chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
             cell?.validatorLabel.text = msg?.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_address!, true)
             cell?.commissionAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleCommission(position - 1).stringValue, cell!.commissionAmountLabel.font!, 6, 6)
@@ -1440,6 +1442,10 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (self.chainType! == ChainType.AKASH_MAIN) {
             url = AKASH_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            
+        } else if (self.chainType! == ChainType.COSMOS_TEST) {
+            url = COSMOS_TEST_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         }
         print("url ", url)

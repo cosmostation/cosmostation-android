@@ -122,7 +122,7 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_CHECK_MY_DOMAIN;
         }
-        let param = ["owner":account.account_address, "results_per_page": 100, "offset":1] as [String : Any]
+        let param = ["owner":account.account_address, "results_per_page": 100, "offset":domainOffset] as [String : Any]
         let request = Alamofire.request(url!, method: .post, parameters: param, encoding: JSONEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -144,7 +144,6 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
                         self.onFetchResolve(domain.name)
                     }
                 }
-                self.onFetchFinished()
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchMyDomain ", error) }

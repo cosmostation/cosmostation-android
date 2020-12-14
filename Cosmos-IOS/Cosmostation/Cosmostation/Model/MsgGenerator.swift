@@ -663,9 +663,6 @@ class MsgGenerator {
         
         return stdSignedMsg
     }
-    
-    
-    
 
     
     /*

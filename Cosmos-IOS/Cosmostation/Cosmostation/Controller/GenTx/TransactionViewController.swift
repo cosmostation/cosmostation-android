@@ -20,14 +20,17 @@ class TransactionViewController: UIViewController {
     var mAccount: Account?
     var mUserChain: ChainType?
     var mTargetValidator: Validator?
+    var mTargetValidator_V1: Validator_V1?
     var mType: String?
     var mRewardTargetValidators = Array<Validator>()
+    var mRewardTargetValidators_V1 = Array<Validator_V1>()
     var mIrisRedelegate: Array<NSDictionary>?
     
     var mIrisToken: IrisToken?
     var mBnbToken: BnbToken?
     var mBnbTics = [String : NSMutableDictionary]()
     
+    var mCosmosSendDenom: String?
     var mKavaSendDenom: String?
     var mIovSendDenom: String?
     var mOkSendDenom: String?
@@ -240,7 +243,9 @@ class TransactionViewController: UIViewController {
             StepVc.topVC = self
             StepVc.mType = self.mType
             StepVc.mTargetValidator = self.mTargetValidator
+            StepVc.mTargetValidator_V1 = self.mTargetValidator_V1
             StepVc.mRewardTargetValidators = self.mRewardTargetValidators
+            StepVc.mRewardTargetValidators_V1 = self.mRewardTargetValidators_V1
             StepVc.mIrisRedelegate = self.mIrisRedelegate
             StepVc.mIrisToken = self.mIrisToken
             StepVc.mBnbToken = self.mBnbToken
@@ -248,6 +253,7 @@ class TransactionViewController: UIViewController {
             StepVc.mProposeId = self.mProposeId
             StepVc.mProposalTitle = self.mProposalTitle
             StepVc.mProposer = self.mProposer
+            StepVc.mCosmosSendDenom = self.mCosmosSendDenom
             StepVc.mKavaSendDenom = self.mKavaSendDenom
             StepVc.mIovSendDenom = self.mIovSendDenom
             StepVc.mOkSendDenom = self.mOkSendDenom

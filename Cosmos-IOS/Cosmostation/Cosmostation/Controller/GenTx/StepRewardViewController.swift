@@ -33,7 +33,7 @@ class StepRewardViewController: BaseViewController {
         pageHolderVC = self.parent as? StepGenTxViewController
         WUtils.setDenomTitle(pageHolderVC.chainType!, rewardDenomLabel)
         
-        if(pageHolderVC.mRewardTargetValidators.count == 16) {
+        if (pageHolderVC.mRewardTargetValidators.count == 16) {
             self.onShowToast(NSLocalizedString("reward_claim_top_16", comment: ""))
         }
         
@@ -54,68 +54,100 @@ class StepRewardViewController: BaseViewController {
             for val in pageHolderVC.mRewardTargetValidators {
                 self.onFetchEachReward(pageHolderVC.mAccount!.account_address, val.operator_address)
             }
+            self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
+            
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             mFetchCnt = 2
             self.onFetchIrisReward(pageHolderVC.mAccount!)
+            self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
+            
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+            mFetchCnt = 2
+            self.onFetchRewards(pageHolderVC.mAccount!.account_address)
+            self.onFetchRewardAddressV1(pageHolderVC.mAccount!.account_address)
+            
         }
-        self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
+        
     }
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
-        if(mFetchCnt <= 0) {
+        if (mFetchCnt <= 0) {
             updateView()
         }
     }
     
     func updateView() {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, COSMOS_MAIN_DENOM, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            var selectedRewardSum = NSDecimalNumber.zero
-            for delegation in pageHolderVC.mIrisRewards!.delegations {
-                for validator in pageHolderVC.mRewardTargetValidators {
-                    if (validator.operator_address == delegation.validator) {
-                        if (delegation.reward.count > 0 && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
-                            selectedRewardSum = selectedRewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
+        if (pageHolderVC.chainType! != ChainType.COSMOS_TEST) {
+            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
+                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, COSMOS_MAIN_DENOM, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+                var selectedRewardSum = NSDecimalNumber.zero
+                for delegation in pageHolderVC.mIrisRewards!.delegations {
+                    for validator in pageHolderVC.mRewardTargetValidators {
+                        if (validator.operator_address == delegation.validator) {
+                            if (delegation.reward.count > 0 && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
+                                selectedRewardSum = selectedRewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
+                            }
                         }
                     }
                 }
+                rewardAmountLabel.attributedText = WUtils.displayAmount(selectedRewardSum.stringValue, rewardAmountLabel.font, 18, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, KAVA_MAIN_DENOM, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
+                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, BAND_MAIN_DENOM, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, SECRET_MAIN_DENOM, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
+                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, IOV_MAIN_DENOM, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, IOV_TEST_DENOM, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, CERTIK_MAIN_DENOM, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, AKASH_MAIN_DENOM, pageHolderVC.chainType!)
+                
             }
-            rewardAmountLabel.attributedText = WUtils.displayAmount(selectedRewardSum.stringValue, rewardAmountLabel.font, 18, pageHolderVC.chainType!)
             
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, KAVA_MAIN_DENOM, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, BAND_MAIN_DENOM, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, SECRET_MAIN_DENOM, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, IOV_MAIN_DENOM, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, IOV_TEST_DENOM, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, CERTIK_MAIN_DENOM, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, AKASH_MAIN_DENOM, pageHolderVC.chainType!)
-        }
-        
-        var monikers = ""
-        for validator in pageHolderVC.mRewardTargetValidators {
-            if(monikers.count > 0) {
-                monikers = monikers + ",   " + validator.description.moniker
-            } else {
-                monikers = validator.description.moniker
+            var monikers = ""
+            for validator in pageHolderVC.mRewardTargetValidators {
+                if (monikers.count > 0) {
+                    monikers = monikers + ",   " + validator.description.moniker
+                } else {
+                    monikers = validator.description.moniker
+                }
             }
+            rewardFromLabel.text = monikers
+            
+        } else {
+            var selectedRewardSum = NSDecimalNumber.zero
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
+                }
+            }
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)
+            
+            var monikers = ""
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if (monikers.count > 0) {
+                    monikers = monikers + ",   " + (validator.description?.moniker)!
+                } else {
+                    monikers = (validator.description?.moniker)!
+                }
+            }
+            rewardFromLabel.text = monikers
+            
         }
-        rewardFromLabel.text = monikers
         
         rewardToAddressLabel.text = pageHolderVC.mRewardAddress
         rewardToAddressLabel.adjustsFontSizeToFitWidth = true
@@ -313,6 +345,52 @@ class StepRewardViewController: BaseViewController {
                 }
                 self.onFetchFinished()
             }
+        }
+    }
+    
+    
+    
+    
+    func onFetchRewards(_ address: String) {
+        let url = BaseNetWork.rewardsUrl(pageHolderVC.chainType!, address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let rewards = responseData.object(forKey: "rewards") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for reward in rewards {
+                    BaseData.instance.mMyReward_V1.append(Reward_V1(reward))
+                }
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchRewards ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchRewardAddressV1(_ address: String) {
+        let url = BaseNetWork.rewardAddressUrl(pageHolderVC.chainType!, address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let withdraw_address = responseData.object(forKey: "withdraw_address") as? String else {
+                    self.onFetchFinished()
+                    return;
+                }
+                self.pageHolderVC.mRewardAddress = withdraw_address.replacingOccurrences(of: "\"", with: "")
+                
+            case .failure(let error):
+                if(SHOW_LOG) {
+                    print("onFetchRewardAddressV1 ", error)
+                }
+            }
+            self.onFetchFinished()
         }
     }
     

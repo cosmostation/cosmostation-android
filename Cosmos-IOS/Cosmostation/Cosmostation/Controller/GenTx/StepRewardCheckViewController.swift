@@ -63,7 +63,6 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         self.navigationController?.pushViewController(passwordVC, animated: false)
     }
     
-    
     @IBAction func onClickBack(_ sender: Any) {
         self.beforeBtn.isUserInteractionEnabled = false
         self.confirmBtn.isUserInteractionEnabled = false
@@ -76,7 +75,6 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         self.confirmBtn.isUserInteractionEnabled = true
     }
 
-    
     func checkIsWasteFee() -> Bool {
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
             let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, COSMOS_MAIN_DENOM)
@@ -134,205 +132,270 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
                 return true
             }
+            
         } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
             let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, AKASH_MAIN_DENOM)
             if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
                 return true
             }
+            
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+            var selectedRewardSum = NSDecimalNumber.zero
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
+                }
+            }
+            if (NSDecimalNumber.init(string: pageHolderVC.mFee?.amount[0].amount).compare(selectedRewardSum).rawValue > 0 ) {
+                return true
+            }
+
         }
         return false
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, COSMOS_MAIN_DENOM)
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-            
-            var userBalance = NSDecimalNumber.zero
-            for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == COSMOS_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+        if (pageHolderVC.chainType! != ChainType.COSMOS_TEST) {
+            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
+                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, COSMOS_MAIN_DENOM)
+                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+                
+                var userBalance = NSDecimalNumber.zero
+                for balance in pageHolderVC.mBalances {
+                    if(balance.balance_denom == COSMOS_MAIN_DENOM) {
+                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+                    }
                 }
-            }
-            
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            var rewardSum = NSDecimalNumber.zero
-            for delegation in pageHolderVC.mIrisRewards!.delegations {
-                for validator in pageHolderVC.mRewardTargetValidators {
-                    if (validator.operator_address == delegation.validator) {
-                        if (delegation.reward.count > 0 && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
-                            rewardSum = rewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
+                
+                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+                var rewardSum = NSDecimalNumber.zero
+                for delegation in pageHolderVC.mIrisRewards!.delegations {
+                    for validator in pageHolderVC.mRewardTargetValidators {
+                        if (validator.operator_address == delegation.validator) {
+                            if (delegation.reward.count > 0 && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
+                                rewardSum = rewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
+                            }
                         }
                     }
                 }
+                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.chainType!)
+                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 18, pageHolderVC.chainType!)
+                
+                var userBalance = NSDecimalNumber.zero
+                for balance in pageHolderVC.mBalances {
+                    if(balance.balance_denom == IRIS_MAIN_DENOM) {
+                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+                    }
+                }
+                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, KAVA_MAIN_DENOM)
+                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+                
+                var userBalance = NSDecimalNumber.zero
+                for balance in pageHolderVC.mBalances {
+                    if(balance.balance_denom == KAVA_MAIN_DENOM) {
+                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+                    }
+                }
+                
+                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
+                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, BAND_MAIN_DENOM)
+                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+                
+                var userBalance = NSDecimalNumber.zero
+                for balance in pageHolderVC.mBalances {
+                    if(balance.balance_denom == BAND_MAIN_DENOM) {
+                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+                    }
+                }
+                
+                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
+                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, SECRET_MAIN_DENOM)
+                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+                
+                var userBalance = NSDecimalNumber.zero
+                for balance in pageHolderVC.mBalances {
+                    if(balance.balance_denom == SECRET_MAIN_DENOM) {
+                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+                    }
+                }
+                
+                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
+                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, IOV_MAIN_DENOM)
+                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+                
+                var userBalance = NSDecimalNumber.zero
+                for balance in pageHolderVC.mBalances {
+                    if(balance.balance_denom == IOV_MAIN_DENOM) {
+                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+                    }
+                }
+                
+                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, IOV_TEST_DENOM)
+                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+                
+                var userBalance = NSDecimalNumber.zero
+                for balance in pageHolderVC.mBalances {
+                    if(balance.balance_denom == IOV_TEST_DENOM) {
+                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+                    }
+                }
+                
+                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, CERTIK_MAIN_DENOM)
+                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+                
+                var userBalance = NSDecimalNumber.zero
+                for balance in pageHolderVC.mBalances {
+                    if(balance.balance_denom == CERTIK_MAIN_DENOM) {
+                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+                    }
+                }
+                
+                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                
+            } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, AKASH_MAIN_DENOM)
+                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+                
+                var userBalance = NSDecimalNumber.zero
+                for balance in pageHolderVC.mBalances {
+                    if(balance.balance_denom == AKASH_MAIN_DENOM) {
+                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+                    }
+                }
+                
+                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
             }
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 18, pageHolderVC.chainType!)
             
-            var userBalance = NSDecimalNumber.zero
-            for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == IRIS_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
+            var monikers = ""
+            for validator in pageHolderVC.mRewardTargetValidators {
+                if(monikers.count > 0) {
+                    monikers = monikers + ",   " + validator.description.moniker
+                } else {
+                    monikers = validator.description.moniker
                 }
             }
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.chainType!)
+            fromValidatorLabel.text = monikers
+            memoLabel.text = pageHolderVC.mMemo
             
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, KAVA_MAIN_DENOM)
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+            recipientLabel.text = pageHolderVC.mRewardAddress
+            recipientLabel.adjustsFontSizeToFitWidth = true
             
-            var userBalance = NSDecimalNumber.zero
-            for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == KAVA_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                }
-            }
-            
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, BAND_MAIN_DENOM)
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-            
-            var userBalance = NSDecimalNumber.zero
-            for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == BAND_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                }
-            }
-            
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, SECRET_MAIN_DENOM)
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-            
-            var userBalance = NSDecimalNumber.zero
-            for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == SECRET_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                }
-            }
-            
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, IOV_MAIN_DENOM)
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-            
-            var userBalance = NSDecimalNumber.zero
-            for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == IOV_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                }
-            }
-            
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, IOV_TEST_DENOM)
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-            
-            var userBalance = NSDecimalNumber.zero
-            for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == IOV_TEST_DENOM) {
-                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                }
-            }
-            
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, CERTIK_MAIN_DENOM)
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-            
-            var userBalance = NSDecimalNumber.zero
-            for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == CERTIK_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                }
-            }
-            
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, AKASH_MAIN_DENOM)
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-            
-            var userBalance = NSDecimalNumber.zero
-            for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == AKASH_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                }
-            }
-            
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-        }
+            if (pageHolderVC.mAccount?.account_address == pageHolderVC.mRewardAddress) {
+                recipientTitleLabel.isHidden = true
+                recipientLabel.isHidden = true
         
-        var monikers = ""
-        for validator in pageHolderVC.mRewardTargetValidators {
-            if(monikers.count > 0) {
-                monikers = monikers + ",   " + validator.description.moniker
+                expectedSeparator.isHidden = false
+                expectedAmountTitle.isHidden = false
+                expectedAmountLabel.isHidden = false
+                expectedDenomLabel.isHidden = false
+                
             } else {
-                monikers = validator.description.moniker
+                recipientTitleLabel.isHidden = false
+                recipientLabel.isHidden = false
+                
+                expectedSeparator.isHidden = true
+                expectedAmountTitle.isHidden = true
+                expectedAmountLabel.isHidden = true
+                expectedDenomLabel.isHidden = true
             }
-        }
-        fromValidatorLabel.text = monikers
-        memoLabel.text = pageHolderVC.mMemo
-        
-        recipientLabel.text = pageHolderVC.mRewardAddress
-        recipientLabel.adjustsFontSizeToFitWidth = true
-        
-        if (pageHolderVC.mAccount?.account_address == pageHolderVC.mRewardAddress) {
-            recipientTitleLabel.isHidden = true
-            recipientLabel.isHidden = true
-    
-            expectedSeparator.isHidden = false
-            expectedAmountTitle.isHidden = false
-            expectedAmountLabel.isHidden = false
-            expectedDenomLabel.isHidden = false
+            
+            //Hide expected amount with iris
+            if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+                expectedSeparator.isHidden = true
+                expectedAmountTitle.isHidden = true
+                expectedAmountLabel.isHidden = true
+                expectedDenomLabel.isHidden = true
+            }
             
         } else {
-            recipientTitleLabel.isHidden = false
-            recipientLabel.isHidden = false
+            var monikers = ""
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if(monikers.count > 0) {
+                    monikers = monikers + ",   " + (validator.description?.moniker)!
+                } else {
+                    monikers = (validator.description?.moniker)!
+                }
+            }
+            fromValidatorLabel.text = monikers
+            memoLabel.text = pageHolderVC.mMemo
             
-            expectedSeparator.isHidden = true
-            expectedAmountTitle.isHidden = true
-            expectedAmountLabel.isHidden = true
-            expectedDenomLabel.isHidden = true
-        }
+            var selectedRewardSum = NSDecimalNumber.zero
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
+                }
+            }
+            
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, 6, 6)
+            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
+                
+            let userBalance: NSDecimalNumber = BaseData.instance.getAvailable(COSMOS_MAIN_DENOM)
+            let expectedAmount = userBalance.adding(selectedRewardSum).subtracting(WUtils.plainStringToDecimal(pageHolderVC.mFee?.amount[0].amount))
+            expectedAmountLabel.attributedText = WUtils.displayAmount2(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, 6)
+            
+            if (pageHolderVC.mAccount?.account_address == pageHolderVC.mRewardAddress) {
+                recipientTitleLabel.isHidden = true
+                recipientLabel.isHidden = true
         
-        //Hide expected amount with iris
-        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            expectedSeparator.isHidden = true
-            expectedAmountTitle.isHidden = true
-            expectedAmountLabel.isHidden = true
-            expectedDenomLabel.isHidden = true
+                expectedSeparator.isHidden = false
+                expectedAmountTitle.isHidden = false
+                expectedAmountLabel.isHidden = false
+                expectedDenomLabel.isHidden = false
+                
+            } else {
+                recipientTitleLabel.isHidden = false
+                recipientLabel.isHidden = false
+                
+                expectedSeparator.isHidden = true
+                expectedAmountTitle.isHidden = true
+                expectedAmountLabel.isHidden = true
+                expectedDenomLabel.isHidden = true
+            }
+            
         }
     }
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            self.onFetchAccountInfo(pageHolderVC.mAccount!)
+            if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+                self.onFetchAuth(pageHolderVC.mAccount!)
+            } else {
+                self.onFetchAccountInfo(pageHolderVC.mAccount!)
+            }
         }
     }
     
@@ -423,6 +486,29 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
         }
+    }
+    
+    func onFetchAuth(_ account: Account) {
+        self.showWaittingAlert()
+        let url = BaseNetWork.authUrl(self.pageHolderVC.chainType!, account.account_address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                print("res ", res)
+                guard let responseData = res as? NSDictionary, let account = responseData.object(forKey: "account") as? NSDictionary else {
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
+                let auth = Auth_V1.init(account)
+                self.onBroadcastTxV1(auth)
+                
+            case .failure(let error):
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                if (SHOW_LOG) { print("onFetchAuth ", error) }
+            }
+        }
+        
     }
     
     func onGenGetRewardTx() {
@@ -552,5 +638,43 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 }
             });
         }
+    }
+    
+    func onBroadcastTxV1(_ auth: Auth_V1) {
+        DispatchQueue.global().async {
+            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
+                return
+            }
+            let stdTx = Signer.genSignedRewardTxV1(auth.getAddress(), auth.getAccountNumber(), auth.getSequenceNumber(),
+                                                   self.pageHolderVC.mRewardTargetValidators_V1, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
+                                                     WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+            
+            DispatchQueue.main.async(execute: {
+                let url = BaseNetWork.postTxUrl(self.pageHolderVC.chainType!)
+                let params = Signer.getBroadCastParam(stdTx)
+                let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                request.responseJSON { response in
+                    var txResult = [String:Any]()
+                    switch response.result {
+                    case .success(let res):
+                        if(SHOW_LOG) { print("Claim Reward ", res) }
+                        if let result = res as? [String : Any]  {
+                            txResult = result
+                        }
+                    case .failure(let error):
+                        if(SHOW_LOG) { print("Claim Reward error ", error) }
+                        if (response.response?.statusCode == 500) {
+                            txResult["net_error"] = 500
+                        }
+                    }
+                    if (self.waitAlert != nil) {
+                        self.waitAlert?.dismiss(animated: true, completion: {
+                            self.onStartTxDetail(txResult)
+                        })
+                    }
+                }
+            });
+        }
+        
     }
 }

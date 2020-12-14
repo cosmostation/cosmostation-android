@@ -43,7 +43,8 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:RestorePathCell? = tableView.dequeueReusableCell(withIdentifier:"RestorePathCell") as? RestorePathCell
         cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
         WUtils.setDenomTitle(userChain!, cell!.denomTitle)
-        if (userChain == ChainType.COSMOS_MAIN || userChain == ChainType.IRIS_MAIN || userChain == ChainType.CERTIK_MAIN || userChain == ChainType.CERTIK_TEST || userChain == ChainType.AKASH_MAIN) {
+        if (userChain == ChainType.COSMOS_MAIN || userChain == ChainType.IRIS_MAIN || userChain == ChainType.CERTIK_MAIN || userChain == ChainType.CERTIK_TEST ||
+                userChain == ChainType.AKASH_MAIN || userChain == ChainType.COSMOS_TEST ) {
             cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
         } else if (userChain == ChainType.BINANCE_MAIN || userChain == ChainType.BINANCE_TEST) {
             cell?.pathLabel.text = BNB_BASE_PATH.appending(String(indexPath.row))
@@ -236,6 +237,24 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             let accountInfo = AccountInfo.init(info)
                             if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
                                 cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
+                            }
+                        case .failure(let error):
+                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                        }
+                    }
+                    
+                } else if (self.userChain == ChainType.COSMOS_TEST) {
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
+                    let request = Alamofire.request(COSMOS_TEST_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    request.responseJSON { (response) in
+                        switch response.result {
+                        case .success(let res):
+                            if let responseData = res as? NSDictionary, let balances = responseData.object(forKey: "balances") as? Array<NSDictionary> {
+                                balances.forEach({ (balance) in
+                                    if (balance.object(forKey: "denom") as? String == COSMOS_MAIN_DENOM) {
+                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(balance.object(forKey: "amount") as? String, cell!.denomAmount.font!, 6, 6)
+                                    }
+                                })
                             }
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }

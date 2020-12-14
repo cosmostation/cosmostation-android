@@ -135,7 +135,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleAlarmBtn.isHidden = true
         }
         
-        else if (chainType! == ChainType.BINANCE_TEST) {
+        else if (chainType! == ChainType.COSMOS_TEST) {
+            titleChainImg.image = UIImage(named: "cosmosTestChainImg")
+            titleChainName.text = "(StarGate Testnet)"
+            titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Testnet)"
             titleAlarmBtn.isHidden = true

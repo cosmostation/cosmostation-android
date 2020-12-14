@@ -52,6 +52,79 @@ final class BaseData : NSObject{
     
     var mBandOracleStatus: BandOracleStatus?
     
+    
+    
+    //For StarGate after v0.40
+    var mAllValidators_V1 = Array<Validator_V1>()
+//    var mUnbondingValidators_V1 = Array<Validator_V1>()
+    var mBondedValidators_V1 = Array<Validator_V1>()
+    var mUnbondValidators_V1 = Array<Validator_V1>()
+    var mMyValidators_V1 = Array<Validator_V1>()
+    
+    var mMyDelegations_V1 = Array<DelegationInfo_V1>()
+    var mMyUnbondings_V1 = Array<UnbondingInfo_V1>()
+    var mMyBalances_V1 = Array<Coin>()
+    var mMyReward_V1 = Array<Reward_V1>()
+    
+    var mMintParam_V1: MintParam_V1?
+    var mStakingPool_V1: StakingPool_V1?
+    var mProvision_V1: Provision_V1?
+    var mInflation_V1: Inflation_V1?
+    
+    func getAvailable(_ symbol:String) -> String {
+        var amount = NSDecimalNumber.zero.stringValue
+        for balance in mMyBalances_V1 {
+            if (balance.denom == symbol) {
+                amount = balance.amount
+            }
+        }
+        return amount;
+    }
+    
+    func getAvailable(_ symbol:String) -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(getAvailable(symbol))
+    }
+    
+    func getDelegatedSum() -> String {
+        var amount = NSDecimalNumber.zero
+        for delegation in mMyDelegations_V1 {
+            amount = amount.adding(WUtils.plainStringToDecimal(delegation.balance?.amount))
+        }
+        return amount.stringValue;
+    }
+    
+    func getDelegated(_ opAddress: String?) -> NSDecimalNumber {
+        if let delegation = BaseData.instance.mMyDelegations_V1.filter({ $0.delegation?.validator_address == opAddress}).first {
+            return delegation.getDelegation()
+        } else {
+            return NSDecimalNumber.zero
+        }
+    }
+    
+    func getUnbondingSum() -> String {
+        var amount = NSDecimalNumber.zero
+        for unbonding in mMyUnbondings_V1 {
+            amount = amount.adding(unbonding.getAllUnbondingBalance())
+        }
+        return amount.stringValue;
+    }
+    
+    func getRewardSum(_ symbol:String) -> String {
+        var amount = NSDecimalNumber.zero
+        for reward in mMyReward_V1 {
+            amount = amount.adding(reward.getRewardByDenom(symbol))
+        }
+        return amount.stringValue;
+    }
+    
+    func getReward(_ symbol:String, _ opAddress: String?) -> NSDecimalNumber {
+        if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == opAddress}).first {
+            return reward.getRewardByDenom(symbol)
+        } else {
+            return NSDecimalNumber.zero
+        }
+    }
+    
     public override init() {
         super.init();
         if database == nil {

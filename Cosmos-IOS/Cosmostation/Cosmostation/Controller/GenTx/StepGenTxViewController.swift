@@ -28,9 +28,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mRewardAddress: String?
     
     var mTargetValidator: Validator?
+    var mTargetValidator_V1: Validator_V1?
     var mToDelegateAmount: Coin?
     var mToUndelegateAmount:Coin?
     var mRewardTargetValidators = Array<Validator>()
+    var mRewardTargetValidators_V1 = Array<Validator_V1>()
     
     var mToSendRecipientAddress:String?
     var mToSendAmount = Array<Coin>()
@@ -73,6 +75,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mProposer: String?
     var mVoteOpinion: String?
     
+    var mCosmosSendDenom: String?
     var mKavaSendDenom: String?
     var mIovSendDenom: String?
     var mOkSendDenom: String?

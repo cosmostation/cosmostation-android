@@ -77,7 +77,7 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
             return;
         }
         
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             if (!userInput!.starts(with: "cosmos1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;

@@ -96,6 +96,7 @@
 "fee_speed_certik_title" = "Support fixed amount fee for Certik Chain.";
 "fee_speed_secret_title" = "Support fixed amount fee for Secret Chain.";
 "fee_speed_akash_title" = "Support fixed amount fee for Akash Chain.";
+"fee_speed_stargate_title" = "Support fixed amount fee for Stargate Chain.";
 "fee_description_title_0" = "Tx fee 0.000001 ATOM";
 "fee_description_title_1" = "Tx fee rate 0.0025";
 "fee_description_title_2" = "Tx fee rate 0.025";
@@ -604,6 +605,7 @@
 "chain_title_secret" = "Secret Mainnet";
 "chain_title_certik" = "Certik Mainnet";
 "chain_title_akash" = "Akash Mainnet";
+"chain_title_test_cosmos" = "StarGate Testnet";
 "chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
 "chain_title_iov_test" = "Starname Testnet";

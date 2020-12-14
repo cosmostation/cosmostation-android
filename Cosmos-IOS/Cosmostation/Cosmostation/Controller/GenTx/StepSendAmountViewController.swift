@@ -98,6 +98,11 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             maxAvailable = pageHolderVC.mAccount!.getTokenBalance(AKASH_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "2500"))
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
             
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+            mDpDecimal = 6
+            maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mCosmosSendDenom!).subtracting(NSDecimalNumber.init(string: "2500"))
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
+            
         }
         
         mTargetAmountTextField.delegate = self
@@ -156,7 +161,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             return
         }
         
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
@@ -223,7 +228,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.localeStringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_amount", comment: ""))
                 return false
@@ -331,6 +336,9 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 
             } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
                 toSendCoin = Coin.init(pageHolderVC.mAkashSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
+                
+            } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+                toSendCoin = Coin.init(pageHolderVC.mCosmosSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
             }
             
             var tempList = Array<Coin>()
@@ -396,7 +404,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     }
     
     @IBAction func onClickHalf(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
             
@@ -441,7 +449,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     }
     
     @IBAction func onClickMax(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
             
