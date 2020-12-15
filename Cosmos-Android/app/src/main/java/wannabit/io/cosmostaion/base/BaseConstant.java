@@ -424,6 +424,7 @@ public class BaseConstant {
     public final static String FEE_KAVA_GAS_AMOUNT_REINVEST     = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_REDELEGATE   = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "500000";
+    public final static String FEE_KAVA_GAS_AMOUNT_CREATE_CDP   = "1000000";
     public final static String FEE_KAVA_GAS_AMOUNT_BEP3         = "200000";
     public final static String FEE_KAVA_GAS_AMOUNT_HIGH         = "350000";
 
