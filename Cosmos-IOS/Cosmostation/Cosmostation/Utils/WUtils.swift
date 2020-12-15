@@ -2502,7 +2502,9 @@ class WUtils {
                 result = WUtils.getGasAmountForKavaRewards()[valCnt - 1]
             } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REINVEST))
-            } else if (type == KAVA_MSG_TYPE_CREATE_CDP || type == KAVA_MSG_TYPE_DEPOSIT_CDP || type == KAVA_MSG_TYPE_WITHDRAW_CDP || type == KAVA_MSG_TYPE_DRAWDEBT_CDP || type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
+            } else if (type == KAVA_MSG_TYPE_CREATE_CDP) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_CREATE_CDP))
+            } else if (type == KAVA_MSG_TYPE_DEPOSIT_CDP || type == KAVA_MSG_TYPE_WITHDRAW_CDP || type == KAVA_MSG_TYPE_DRAWDEBT_CDP || type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_CDP))
             } else if (type == TASK_TYPE_HTLC_REFUND) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_BEP3))
