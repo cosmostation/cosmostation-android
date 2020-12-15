@@ -1507,7 +1507,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.dpAddress.text = mainTabVC.mAccount.account_address
             cell?.dpAddress.adjustsFontSizeToFitWidth = true
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onShowToast(NSLocalizedString("prepare", comment: "")) }
+            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -1520,7 +1520,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), cell!.unbondingAmount.font, 6, 6)
             cell?.rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(COSMOS_MAIN_DENOM), cell!.rewardAmount.font, 6, 6)
             cell?.actionDelegate = { self.onClickValidatorList() }
-            cell?.actionVote = { self.onClickVoteList() }
+            cell?.actionVote = { self.onShowToast(NSLocalizedString("prepare", comment: "")) }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAtom.multiplying(byPowerOf10: -6).stringValue)
             return cell!
             
@@ -1677,6 +1677,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.AKASH_MAIN) {
             guard let url = URL(string: EXPLORER_AKASH_MAIN + "account/" + mainTabVC.mAccount.account_address + "?net=" + WUtils.getChainId(chainType!)) else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.COSMOS_TEST) {
+            guard let url = URL(string: EXPLORER_COSMOS_TEST + "account/" + mainTabVC.mAccount.account_address) else { return }
+            self.onShowSafariWeb(url)
+            
         }
     }
     

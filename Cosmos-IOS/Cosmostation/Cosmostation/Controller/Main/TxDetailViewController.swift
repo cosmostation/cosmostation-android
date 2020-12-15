@@ -1281,6 +1281,14 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.COSMOS_TEST) {
+            let text = EXPLORER_COSMOS_TEST + "txs/" + mTxInfo!.txhash!
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
         }
         
     }

@@ -67,6 +67,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.AKASH_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            self.comingLabel.isHidden = false
+            self.historyTableView.isHidden = true
+            
         }
         
         self.comingLabel.isUserInteractionEnabled = true
