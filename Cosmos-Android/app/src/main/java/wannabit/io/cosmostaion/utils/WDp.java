@@ -1618,14 +1618,7 @@ public class WDp {
     public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
-            if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(BAND_MAIN)) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DATE, 21);
-                SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
-                result = unbondFormat.format(calendar.getTimeInMillis());
-                return result + "   " +c.getString(R.string.str_unbonding_21days_after);
-
-            } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)){
+            if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)){
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 3);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
@@ -1641,10 +1634,10 @@ public class WDp {
 
             } else {
                 Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DATE, 3);
+                calendar.add(Calendar.DATE, 21);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
                 result = unbondFormat.format(calendar.getTimeInMillis());
-                return result + "   " +c.getString(R.string.str_unbonding_3days_after);
+                return result + "   " +c.getString(R.string.str_unbonding_21days_after);
             }
 
         } catch (Exception e) {};
