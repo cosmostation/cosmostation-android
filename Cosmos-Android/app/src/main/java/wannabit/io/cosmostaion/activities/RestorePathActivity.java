@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -39,12 +40,26 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
 
@@ -58,7 +73,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
     private RecyclerView            mRecyclerView;
     private NewWalletAdapter        mNewWalletAdapter;
 
-    private boolean                 mIsNewBip44forKava;
+    private boolean                 mIsNewBip44;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +96,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         mEntropy =  getIntent().getStringExtra("entropy");
         mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
         mWordSize = getIntent().getIntExtra("size", 24);
-        mIsNewBip44forKava = getIntent().getBooleanExtra("bip44", false);
+        mIsNewBip44 = getIntent().getBooleanExtra("bip44", false);
     }
 
 
@@ -99,11 +114,11 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), mChain, this, mIsNewBip44forKava).execute(""+path, mEntropy, ""+mWordSize);
+        new GenerateAccountTask(getBaseApplication(), mChain, this, mIsNewBip44).execute(""+path, mEntropy, ""+mWordSize);
     }
 
     private void onOverrideAccount(Account account, int path) {
-        new OverrideAccountTask(getBaseApplication(), mChain, account, this, mIsNewBip44forKava).execute(""+path, mEntropy, ""+mWordSize);
+        new OverrideAccountTask(getBaseApplication(), mChain, account, this, mIsNewBip44).execute(""+path, mEntropy, ""+mWordSize);
     }
 
     @Override
@@ -132,32 +147,34 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull final NewWalletHolder holder, final int position) {
-            String address = WKey.getDpAddressWithPath(mHdSeed, mChain, position, mIsNewBip44forKava);
-            holder.newPath.setText(WDp.getPath(mChain, position, mIsNewBip44forKava));
+        public void onBindViewHolder(@NonNull final NewWalletHolder holder, @SuppressLint("RecyclerView") final int position) {
+            String address = WKey.getDpAddressWithPath(mHdSeed, mChain, position, mIsNewBip44);
+            holder.newPath.setText(WDp.getPath(mChain, position, mIsNewBip44));
             holder.newAddress.setText(address);
             final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
-            if(temp == null) {
+            if (temp == null) {
                 holder.newState.setText(getString(R.string.str_ready));
                 holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+                if (mChain.equals(COSMOS_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+                } else if (mChain.equals(IRIS_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-                } else if (mChain.equals(BaseChain.BNB_MAIN) || mChain.equals(BaseChain.BNB_TEST)) {
+                } else if (mChain.equals(BNB_MAIN) || mChain.equals(BNB_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
-                } else if (mChain.equals(BaseChain.KAVA_MAIN) || mChain.equals(BaseChain.KAVA_TEST)) {
+                } else if (mChain.equals(KAVA_MAIN) || mChain.equals(KAVA_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-                } else if (mChain.equals(BaseChain.IOV_MAIN) || mChain.equals(BaseChain.IOV_TEST)) {
+                } else if (mChain.equals(IOV_MAIN) || mChain.equals(IOV_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
-                } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+                } else if (mChain.equals(BAND_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
-                } else if (mChain.equals(BaseChain.CERTIK_MAIN) || mChain.equals(BaseChain.CERTIK_TEST)) {
+                } else if (mChain.equals(CERTIK_MAIN) || mChain.equals(CERTIK_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
-                } else if (mChain.equals(BaseChain.OK_TEST)) {
+                } else if (mChain.equals(OK_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
                 } else if (mChain.equals(AKASH_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+                } else if (mChain.equals(SECRET_MAIN)) {
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
                 }
             } else  {
                 if(temp.hasPrivateKey) {
@@ -167,24 +184,26 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 } else {
                     holder.newState.setText(getString(R.string.str_override));
                     holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                    if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+                    if (mChain.equals(COSMOS_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                    } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+                    } else if (mChain.equals(IRIS_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-                    } else if (mChain.equals(BaseChain.BNB_MAIN) || mChain.equals(BaseChain.BNB_TEST)) {
+                    } else if (mChain.equals(BNB_MAIN) || mChain.equals(BNB_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
-                    } else if (mChain.equals(BaseChain.KAVA_MAIN)|| mChain.equals(BaseChain.KAVA_TEST)) {
+                    } else if (mChain.equals(KAVA_MAIN)|| mChain.equals(KAVA_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-                    } else if (mChain.equals(BaseChain.IOV_MAIN) || mChain.equals(BaseChain.IOV_TEST)) {
+                    } else if (mChain.equals(IOV_MAIN) || mChain.equals(IOV_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
-                    } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+                    } else if (mChain.equals(BAND_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
-                    } else if (mChain.equals(BaseChain.OK_TEST)) {
+                    } else if (mChain.equals(OK_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
-                    } else if (mChain.equals(BaseChain.CERTIK_MAIN) || mChain.equals(BaseChain.CERTIK_TEST)) {
+                    } else if (mChain.equals(CERTIK_MAIN) || mChain.equals(CERTIK_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
                     } else if (mChain.equals(AKASH_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+                    } else if (mChain.equals(SECRET_MAIN)) {
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
                     }
                 }
             }
@@ -202,7 +221,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 }
             });
 
-            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (mChain.equals(COSMOS_MAIN)) {
                 holder.atomLayer.setVisibility(View.VISIBLE);
                 holder.atomAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
                 ApiClient.getCosmosChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
@@ -218,7 +237,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mChain.equals(IRIS_MAIN)) {
                 holder.irisLayer.setVisibility(View.VISIBLE);
                 holder.irisAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 18, 18));
                 ApiClient.getIrisChain(getBaseContext()).getBankInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
@@ -234,7 +253,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(BaseChain.BNB_MAIN)) {
+            } else if (mChain.equals(BNB_MAIN)) {
                 holder.bnbLayer.setVisibility(View.VISIBLE);
                 holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
                 ApiClient.getBnbChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResBnbAccountInfo>() {
@@ -253,7 +272,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (mChain.equals(KAVA_MAIN)) {
                 holder.kavaLayer.setVisibility(View.VISIBLE);
                 holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 6));
                 ApiClient.getKavaChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
@@ -267,7 +286,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+            } else if (mChain.equals(IOV_MAIN)) {
                 holder.iovLayer.setVisibility(View.VISIBLE);
                 holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
                 ApiClient.getIovChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
@@ -285,7 +304,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 });
 
 
-            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+            } else if (mChain.equals(BAND_MAIN)) {
                 holder.bandLayer.setVisibility(View.VISIBLE);
                 holder.bandAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
                 ApiClient.getBandChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
@@ -301,7 +320,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
+            } else if (mChain.equals(CERTIK_MAIN)) {
                 holder.certikLayer.setVisibility(View.VISIBLE);
                 holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
                 ApiClient.getCertikChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
@@ -317,7 +336,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(BaseChain.BNB_TEST)) {
+            } else if (mChain.equals(BNB_TEST)) {
                 holder.bnbLayer.setVisibility(View.VISIBLE);
                 holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
                 ApiClient.getBnbTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResBnbAccountInfo>() {
@@ -336,7 +355,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(BaseChain.KAVA_TEST)) {
+            } else if (mChain.equals(KAVA_TEST)) {
                 holder.kavaLayer.setVisibility(View.VISIBLE);
                 holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 6));
                 ApiClient.getKavaTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
@@ -351,7 +370,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(BaseChain.IOV_TEST)) {
+            } else if (mChain.equals(IOV_TEST)) {
                 holder.iovLayer.setVisibility(View.VISIBLE);
                 holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
                 ApiClient.getIovTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
@@ -367,7 +386,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(BaseChain.OK_TEST)) {
+            } else if (mChain.equals(OK_TEST)) {
                 holder.okLayer.setVisibility(View.VISIBLE);
                 holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
                 ApiClient.getOkTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
@@ -383,7 +402,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(BaseChain.CERTIK_TEST)) {
+            } else if (mChain.equals(CERTIK_TEST)) {
                 holder.certikLayer.setVisibility(View.VISIBLE);
                 holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
                 ApiClient.getCertikTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
@@ -412,6 +431,22 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) { }
                 });
 
+            } else if (mChain.equals(SECRET_MAIN)) {
+                holder.secretLayer.setVisibility(View.VISIBLE);
+                holder.secretAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                ApiClient.getSecretChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
+                            if (balance != null && balance.size() > 0 && balance.get(0) != null)
+                                holder.secretAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_SECRET), 6, 6));
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
+                });
+
             }
 
         }
@@ -423,8 +458,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         public class NewWalletHolder extends RecyclerView.ViewHolder {
             CardView cardNewWallet;
-            RelativeLayout atomLayer, photonLayer, irisLayer, bnbLayer, kavaLayer, iovLayer, bandLayer, okLayer, certikLayer, akashLayer;
-            TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount, bnbAmount, kavaAmount, iovAmount, bandAmount, okAmount, certikAmount, akashAmount;
+            RelativeLayout atomLayer, photonLayer, irisLayer, bnbLayer, kavaLayer, iovLayer, bandLayer, okLayer, certikLayer, akashLayer, secretLayer;
+            TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount, bnbAmount, kavaAmount, iovAmount, bandAmount, okAmount, certikAmount, akashAmount, secretAmount;
 
             public NewWalletHolder(View v) {
                 super(v);
@@ -452,6 +487,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 certikAmount        = itemView.findViewById(R.id.certik_amount);
                 akashLayer          = itemView.findViewById(R.id.akash_layer);
                 akashAmount         = itemView.findViewById(R.id.akash_amount);
+                secretLayer         = itemView.findViewById(R.id.secret_layer);
+                secretAmount        = itemView.findViewById(R.id.secret_amount);
             }
         }
     }

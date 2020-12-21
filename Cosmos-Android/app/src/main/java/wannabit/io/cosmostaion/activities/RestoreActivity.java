@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -37,9 +38,14 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
+import wannabit.io.cosmostaion.dialog.Dialog_SecretRestorePath;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class RestoreActivity extends BaseActivity implements View.OnClickListener{
 
@@ -61,7 +67,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     private MnemonicAdapter     mMnemonicAdapter;
     private ArrayList<String>   mWords = new ArrayList<>();
 
-    private boolean             mIsNewBip44forKava;
+    private boolean             mIsNewBip44;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,8 +286,14 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             }
 
             if (isValidWords()) {
-                if (mChain.equals(BaseChain.KAVA_MAIN) || mChain.equals(BaseChain.KAVA_TEST)) {
+                if (mChain.equals(KAVA_MAIN) || mChain.equals(KAVA_TEST)) {
                     Dialog_KavaRestorePath dialog = Dialog_KavaRestorePath.newInstance(null);
+                    dialog.setCancelable(false);
+                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    return;
+
+                } else if (mChain.equals(SECRET_MAIN)) {
+                    Dialog_SecretRestorePath dialog = Dialog_SecretRestorePath.newInstance(null);
                     dialog.setCancelable(false);
                     getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                     return;
@@ -336,7 +348,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void onUsingNewBip44(boolean using) {
-        mIsNewBip44forKava = using;
+        mIsNewBip44 = using;
         onConfirmedWords();
     }
 
@@ -348,7 +360,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
             intent.putExtra("size", mWords.size());
             intent.putExtra("chain", mChain.getChain());
-            intent.putExtra("bip44", mIsNewBip44forKava);
+            intent.putExtra("bip44", mIsNewBip44);
             startActivity(intent);
         }
     }
@@ -372,7 +384,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MnemonicHolder holder, final int position) {
+        public void onBindViewHolder(@NonNull MnemonicHolder holder, @SuppressLint("RecyclerView") final int position) {
             holder.itemMnemonic.setText(mFilteredMnemonic.get(position));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override

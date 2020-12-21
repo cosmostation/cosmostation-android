@@ -42,6 +42,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
 
 public class WatchingAccountAddActivity extends BaseActivity implements View.OnClickListener, TaskListener {
@@ -210,7 +211,14 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } if (mUserInput.startsWith("akash1")) {
+            } else if (mUserInput.startsWith("secret1")) {
+                if (WKey.isValidBech32(mUserInput)) {
+                    onGenNewAccount(SECRET_MAIN, mUserInput);
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (mUserInput.startsWith("akash1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(AKASH_MAIN, mUserInput);
                 } else {

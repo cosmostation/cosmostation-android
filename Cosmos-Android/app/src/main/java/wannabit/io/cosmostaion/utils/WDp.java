@@ -70,6 +70,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONTH_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
@@ -1520,6 +1521,13 @@ public class WDp {
         } else if (chain.equals(OK_TEST)) {
             return BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position);
 
+        } else if (chain.equals(SECRET_MAIN)) {
+            if (newBip) {
+                return BaseConstant.KEY_NEW_SECRET_PATH + String.valueOf(position);
+            } else {
+                return BaseConstant.KEY_PATH + String.valueOf(position);
+            }
+
         } else {
             return BaseConstant.KEY_PATH + String.valueOf(position);
 
@@ -1854,9 +1862,11 @@ public class WDp {
             return c.getResources().getColor(R.color.colorOK);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColor(R.color.colorCertik);
+        } else if (chain.equals(SECRET_MAIN)) {
+            return c.getResources().getColor(R.color.colorSecret);
         } else if (chain.equals(AKASH_MAIN)) {
             return c.getResources().getColor(R.color.colorAkash);
-        } else {
+        }  else {
             return c.getResources().getColor(R.color.colorGray0);
         }
     }
@@ -1876,6 +1886,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ok);
         } else if(chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_certik);
+        } else if (chain.equals(SECRET_MAIN)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_secret);
         } else if (chain.equals(AKASH_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_akash);
         }
@@ -1897,6 +1909,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorOK);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColorStateList(R.color.colorCertik);
+        } else if (chain.equals(SECRET_MAIN)) {
+            return c.getResources().getColorStateList(R.color.colorSecret);
         } else if (chain.equals(AKASH_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorAkash);
         }
@@ -1936,109 +1950,16 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorCertik));
             textview.setText(c.getString(R.string.s_ctk));
 
+        } else if (BaseChain.getChain(chain).equals(SECRET_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorSecret));
+            textview.setText(c.getString(R.string.s_akt));
+
         } else if (BaseChain.getChain(chain).equals(AKASH_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorAkash));
             textview.setText(c.getString(R.string.s_akt));
 
         }
     }
-
-    public static String getDpMainDenom(Context c, String chain) {
-        if (BaseChain.getChain(chain).equals(COSMOS_MAIN)) {
-            return c.getString(R.string.s_atom);
-        } else if (BaseChain.getChain(chain).equals(IRIS_MAIN)) {
-            return c.getString(R.string.s_iris);
-        } else if (BaseChain.getChain(chain).equals(BNB_MAIN) || BaseChain.getChain(chain).equals(BNB_TEST)) {
-            return c.getString(R.string.s_bnb);
-        } else if (BaseChain.getChain(chain).equals(KAVA_MAIN) || BaseChain.getChain(chain).equals(KAVA_TEST)) {
-            return c.getString(R.string.s_kava);
-        } else if (BaseChain.getChain(chain).equals(IOV_MAIN) || BaseChain.getChain(chain).equals(IOV_TEST)) {
-            return c.getString(R.string.s_iov);
-        } else if (BaseChain.getChain(chain).equals(BAND_MAIN)) {
-            return c.getString(R.string.s_band);
-        } else if (BaseChain.getChain(chain).equals(OK_TEST)) {
-            return c.getString(R.string.s_tok);
-        } else if (BaseChain.getChain(chain).equals(CERTIK_MAIN) || BaseChain.getChain(chain).equals(CERTIK_TEST)) {
-            return c.getString(R.string.s_ctk);
-        } else if (BaseChain.getChain(chain).equals(AKASH_MAIN)) {
-            return c.getString(R.string.s_akt);
-        }
-        return "";
-
-    }
-
-    public static Spanned DpLiquidationPriceTitle(Context c, String Denom) {
-        String strFront = c.getString(R.string.str_liquidation_title1);
-//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
-        String strBack = c.getString(R.string.str_liquidation_title2);
-        return Html.fromHtml(strFront + strChange + strBack);
-    }
-
-    public static Spanned DpBeforeLiquidationPriceTitle(Context c, String Denom) {
-        String strFront = c.getString(R.string.str_before_liquidation_title1);
-//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
-        String strBack = c.getString(R.string.str_liquidation_title2);
-        return Html.fromHtml(strFront + strChange + strBack);
-    }
-
-    public static Spanned DpAfterLiquidationPriceTitle(Context c, String Denom) {
-        String strFront = c.getString(R.string.str_after_liquidation_title1);
-//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
-        String strBack = c.getString(R.string.str_liquidation_title2);
-        return Html.fromHtml(strFront + strChange + strBack);
-    }
-
-    public static Spanned DpCurrentPriceTitle(Context c, String Denom) {
-        String strFront = c.getString(R.string.str_current_title1);
-//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
-        String strBack = c.getString(R.string.str_current_title2);
-        return Html.fromHtml(strFront + strChange + strBack);
-    }
-
-    public static Spanned DpCollateralTitle(Context c, String Denom) {
-        String strFront = c.getString(R.string.str_collateral_title1);
-//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
-        String strBack = c.getString(R.string.str_collateral_title2);
-        return Html.fromHtml(strFront + strChange + strBack);
-    }
-
-    public static Spanned DpLoanedTitle(Context c, String Denom) {
-        String strFront = c.getString(R.string.str_loaned_title1);
-//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
-        String strBack = c.getString(R.string.str_loaned_title2);
-        return Html.fromHtml(strFront + strChange + strBack);
-    }
-
-    public static Spanned DpPaymentTitle(Context c, String Denom) {
-        String strFront = c.getString(R.string.str_payment_title1);
-//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
-        String strBack = c.getString(R.string.str_payment_title2);
-        return Html.fromHtml(strFront + strChange + strBack);
-    }
-
-    public static Spanned DpRemainDebtTitle(Context c, String Denom) {
-        String strFront = c.getString(R.string.str_remain_debt_title1);
-//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
-        String strBack = c.getString(R.string.str_remain_debt_title2);
-        return Html.fromHtml(strFront + strChange + strBack);
-    }
-
-    public static Spanned DpCollateralValueTitle(Context c, String Denom) {
-        String strFront = c.getString(R.string.str_collateral_value_title1);
-//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
-        String strBack = c.getString(R.string.str_collateral_value_title2);
-        return Html.fromHtml(strFront + strChange + strBack);
-    }
-
 
     public static int getDpRiskColor(Context c, BigDecimal riskRate) {
         if (riskRate.longValue() <= 50) {
@@ -2174,6 +2095,7 @@ public class WDp {
         return result;
     }
 
+    // HTLC using
     public static String getDpChainName(Context c, BaseChain chain) {
         if (chain.equals(COSMOS_MAIN)) {
             return c.getString(R.string.str_cosmos_hub_2);
@@ -2216,6 +2138,7 @@ public class WDp {
 
     }
 
+    // HTLC using
     public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
         if (chain.equals(COSMOS_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.cosmos_wh_main));

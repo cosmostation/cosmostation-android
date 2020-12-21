@@ -105,6 +105,12 @@
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
+    <style name="font_ss_9_secret" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorSecret</item>
+        <item name="android:textSize">@dimen/text_size_9</item>
+    </style>
+
     <style name="font_ss_9_red" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorRed</item>

@@ -36,6 +36,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class AccountListActivity extends BaseActivity implements View.OnClickListener {
 
@@ -236,6 +237,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_chain_img));
                     holder.chainName.setText(getString(R.string.str_certik_main));
+
+                } else if (chain.equals(SECRET_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsecret));
+                    holder.chainName.setText(getString(R.string.str_secret_main));
 
                 } else if (chain.equals(AKASH_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);

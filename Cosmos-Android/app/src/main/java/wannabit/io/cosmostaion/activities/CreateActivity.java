@@ -39,6 +39,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class CreateActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -147,6 +148,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
         } else if (mChain.equals(AKASH_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+        } else if (mChain.equals(SECRET_MAIN)) {
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
         }
         for(int i = 0; i < mWordsLayer.length; i++) {
             if (mChain.equals(COSMOS_MAIN)) {
@@ -167,6 +170,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_darkgray));
             } else if (mChain.equals(AKASH_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_akash));
+            } else if (mChain.equals(SECRET_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_secret));
             }
         }
 
@@ -210,9 +215,9 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 }
             } else {
                 onShowWaitDialog();
-                if (mChain.equals(KAVA_MAIN) || mChain.equals(KAVA_TEST)) {
+                if (mChain.equals(KAVA_MAIN) || mChain.equals(KAVA_TEST) || mChain.equals(SECRET_MAIN)) {
                     new GenerateAccountTask(getBaseApplication(), mChain, this, true).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
-                } else {
+                }  else {
                     new GenerateAccountTask(getBaseApplication(), mChain, this, false).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
                 }
             }

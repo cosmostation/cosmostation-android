@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -360,6 +360,7 @@ public class BaseConstant {
     public final static String TOKEN_CERTIK         = "uctk";
     public final static String TOKEN_BAND           = "uband";
     public final static String TOKEN_AKASH          = "uakt";
+    public final static String TOKEN_SECRET         = "uscrt";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_OK_TEST        = "tokt";
@@ -392,6 +393,7 @@ public class BaseConstant {
     public final static String KEY_NEW_KAVA_PATH    = "44'/459'/0'/0/";
     public final static String KEY_BAND_PATH        = "44'/494'/0'/0/";
     public final static String KEY_NEW_OK_PATH      = "44'/996'/0'/0/";
+    public final static String KEY_NEW_SECRET_PATH  = "44'/529'/0'/0/";
     public final static String characterFilter      = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 

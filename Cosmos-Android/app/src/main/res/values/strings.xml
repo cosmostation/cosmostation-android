@@ -52,6 +52,8 @@
     <string name="url_lcd_certik_test" translatable="false">https://lcd-certik-testnet3.cosmostation.io/</string>
     <string name="url_api_certik_test" translatable="false">https://api-certik-testnet3.cosmostation.io/</string>
 
+    <string name="url_lcd_secret" translatable="false">https://lcd-secret.cosmostation.io/</string>
+    <string name="url_api_secret" translatable="false"></string>
 
     <string name="url_lcd_akash" translatable="false">https://lcd-akash.cosmostation.io/</string>
     <string name="url_api_akash" translatable="false">https://api-akash.cosmostation.io/</string>
@@ -313,6 +315,8 @@
     <string name="str_certik_chain_2" translatable="false">Certik Mainnet</string>
     <string name="str_certik_chain_test" translatable="false">(Certik Testnet)</string>
     <string name="str_certik_chain_test_2" translatable="false">Certik Testnet</string>
+    <string name="str_secret_chain" translatable="false">(Secret Mainnet)</string>
+    <string name="str_secret_chain_2" translatable="false">Secret Mainnet</string>
     <string name="str_akash_chain" translatable="false">(Akash Mainnet)</string>
     <string name="str_akash_chain_2" translatable="false">Akash Mainnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
@@ -327,6 +331,7 @@
     <string name="str_ok_test" translatable="false">OKEX TEST</string>
     <string name="str_certik_main" translatable="false">CERTIK</string>
     <string name="str_certik_test" translatable="false">CERTIK TEST</string>
+    <string name="str_secret_main" translatable="false">SECRET</string>
     <string name="str_akash_main" translatable="false">AKASH</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
@@ -548,6 +553,10 @@
     <string name="str_kava_newpath_msg">BIP44 for KAVA key generation will be implemented starting March, 2020.\n\nIf you created an address before March, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original KAVA wallet. Simply press [Import Mnemonics] to re-select your path.</string>
     <string name="str_kava_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_kava_new_path"><![CDATA[NEW PATH (44\'/459\'/0\'/0)]]></string>
+    <string name="str_secret_newpath_title">Select Key Path</string>
+    <string name="str_secret_newpath_msg">BIP44 for Secret key generation will be implemented starting Sep, 2020.\n\nIf you created an address before Sep, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your path.</string>
+    <string name="str_secret_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
+    <string name="str_secret_new_path"><![CDATA[NEW PATH (44\'/529\'/0\'/0)]]></string>
     <string name="str_kava_cdp_list">CDP Market</string>
     <string name="str_kava_cdp_details">CDP Status</string>
     <string name="str_kava_harvest_list">Harvest Market</string>
@@ -1202,6 +1211,7 @@
     <string name="s_tok" translatable="false">TOKT</string>
     <string name="s_ctk" translatable="false">CTK</string>
     <string name="s_akt" translatable="false">AKT</string>
+    <string name="s_scrt" translatable="false">SCRT</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

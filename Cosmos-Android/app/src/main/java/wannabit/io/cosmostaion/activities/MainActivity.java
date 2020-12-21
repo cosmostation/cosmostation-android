@@ -75,6 +75,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -317,6 +318,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setText(getString(R.string.str_certik_chain));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorCertik));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
+
+        } else if (mBaseChain.equals(SECRET_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsecret));
+            mToolbarChainName.setText(getString(R.string.str_secret_chain));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorSecret));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorSecret));
 
         } else if (mBaseChain.equals(AKASH_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_chain_img));
@@ -924,6 +931,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_chain_img));
                     holder.chainName.setText(getString(R.string.str_certik_main));
+
+                } else if (chain.equals(SECRET_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsecret));
+                    holder.chainName.setText(getString(R.string.str_secret_main));
 
                 } else if (chain.equals(AKASH_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
