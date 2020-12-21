@@ -507,7 +507,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.AKASH_MAIN) {
             url = AKASH_API_HISTORY + address
         }
-//        print("url ", url)
         let request = Alamofire.request(url!, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
