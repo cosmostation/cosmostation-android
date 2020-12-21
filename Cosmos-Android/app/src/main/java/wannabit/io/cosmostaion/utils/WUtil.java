@@ -76,6 +76,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_CERTIK;
@@ -400,7 +401,8 @@ public class WUtil {
         long time = System.currentTimeMillis();
         ArrayList<BondingState> result = new ArrayList<>();
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
+                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN) || chain.equals(AKASH_MAIN)) {
             for(ResLcdBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
@@ -436,7 +438,8 @@ public class WUtil {
             valAddress = lcd.validator_address;
 
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
+                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN) || chain.equals(AKASH_MAIN)) {
             return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
 
         } else if (chain.equals(IRIS_MAIN)) {
@@ -450,7 +453,8 @@ public class WUtil {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
+                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN) || chain.equals(AKASH_MAIN)) {
             for(ResLcdUnBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))

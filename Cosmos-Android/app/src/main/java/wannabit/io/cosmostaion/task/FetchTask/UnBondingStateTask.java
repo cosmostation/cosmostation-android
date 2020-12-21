@@ -26,6 +26,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class UnBondingStateTask extends CommonTask {
 
@@ -130,11 +131,21 @@ public class UnBondingStateTask extends CommonTask {
                     }
                 }
 
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
+                Response<ResLcdUnBondings> response = ApiClient.getSecretChain(mApp).getUnBondingList(mAccount.address).execute();
+                if(response.isSuccessful()) {
+                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, SECRET_MAIN, mAccount.id, response.body().result));
+                    } else {
+                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
+                    }
+                }
+
             } else if (BaseChain.getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getAkashChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, CERTIK_TEST, mAccount.id, response.body().result));
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, AKASH_MAIN, mAccount.id, response.body().result));
                     } else {
                         mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }

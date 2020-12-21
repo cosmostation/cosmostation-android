@@ -20,6 +20,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class SingleStakingPoolTask extends CommonTask {
     private BaseChain mChain;
@@ -126,6 +127,19 @@ public class SingleStakingPoolTask extends CommonTask {
 
             } else if (mChain.equals(CERTIK_TEST)) {
                 Response<ResStakingPool> response = ApiClient.getCertikTestChain(mApp).getStakingPool().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(SECRET_MAIN)) {
+                Response<ResStakingPool> response = ApiClient.getSecretChain(mApp).getStakingPool().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
