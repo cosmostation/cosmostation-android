@@ -172,7 +172,7 @@ public class WebActivity extends BaseActivity {
         } else if (mBasechain.equals(BaseChain.AKASH_MAIN)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorAkash));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl(EXPLORER_AKASH_MAIN + "transactions/" + mTxid);
+                mWebview.loadUrl(EXPLORER_AKASH_MAIN + "txs/" + mTxid);
             else if (!TextUtils.isEmpty(mVoteId))
                 mWebview.loadUrl(EXPLORER_AKASH_MAIN + "proposals/" + mVoteId);
             else if (!TextUtils.isEmpty(mAddress))

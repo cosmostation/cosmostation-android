@@ -529,7 +529,7 @@ public class BaseConstant {
     public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/starname/";
     public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
     public final static String EXPLORER_BAND_MAIN       = "https://cosmoscan.io/";
-    public final static String EXPLORER_AKASH_MAIN      = "https://akash.bigdipper.live/";
+    public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
 
     public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
     public final static String EXPLORER_KAVA_TEST       = "https://kava-testnet-9000.mintscan.io/";
