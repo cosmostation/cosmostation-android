@@ -88,6 +88,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_COSMOS;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_CERTIK_MANUAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal;
@@ -1185,6 +1186,9 @@ public class WUtil {
         } else if (chain.equals(AKASH_MAIN)) {
             return BaseConstant.CGC_AKASH;
 
+        } else if (chain.equals(SECRET_MAIN)) {
+            return BaseConstant.CGC_SECRET;
+
         }
         return BaseConstant.CGC_ATOM;
     }
@@ -1192,7 +1196,7 @@ public class WUtil {
     public static int getMaxMemoSize(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
                 chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(OK_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN)) {
+                chain.equals(OK_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
             return BaseConstant.MEMO_ATOM;
 
         } else if (chain.equals(IRIS_MAIN)) {
@@ -1769,6 +1773,9 @@ public class WUtil {
 
         } else if (chain.equals(CERTIK_MAIN)) {
             return BLOCK_TIME_CERTIK;
+
+        } else if (chain.equals(SECRET_MAIN)) {
+            return BLOCK_TIME_SECRET;
 
         } else if (chain.equals(AKASH_MAIN)) {
             return BLOCK_TIME_AKASH;

@@ -38,6 +38,8 @@ public class BaseConstant {
     public final static String PRE_CERTIK_UP_DOWN_24        = "PRE_CERTIK_UP_DOWN_24";
     public final static String PRE_AKASH_TIC                = "PRE_AKASH_TIC";
     public final static String PRE_AKASH_UP_DOWN_24         = "PRE_AKASH_UP_DOWN_24";
+    public final static String PRE_SECRET_TIC               = "PRE_SECRET_TIC";
+    public final static String PRE_SECRET_UP_DOWN_24        = "PRE_SECRET_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -487,6 +489,7 @@ public class BaseConstant {
     public final static String CGC_IOV = "starname";
     public final static String CGC_CERTIK = "certik";
     public final static String CGC_AKASH = "akash-network";
+    public final static String CGC_SECRET = "secret";
 
     public final static int CMC_ATOM = 3794;
     public final static int CMC_IRIS = 3874;
@@ -561,5 +564,6 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_KAVA = new BigDecimal("8.01");
     public final static BigDecimal BLOCK_TIME_BAND = new BigDecimal("3.01");
     public final static BigDecimal BLOCK_TIME_CERTIK = new BigDecimal("5.75");
+    public final static BigDecimal BLOCK_TIME_SECRET = new BigDecimal("5.96");
     public final static BigDecimal BLOCK_TIME_AKASH = new BigDecimal("6.21");
 }

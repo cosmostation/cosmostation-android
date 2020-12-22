@@ -64,6 +64,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SECRET_TIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SECRET_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 public class BaseData {
@@ -310,6 +312,27 @@ public class BaseData {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_AKASH_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
+        } else if (chain.equals(SECRET_MAIN)) {
+            if (getCurrency() == 0) {
+                getSharedPreferences().edit().putString(PRE_SECRET_TIC, ""+tic.market_data.current_price.usd).commit();
+                getSharedPreferences().edit().putString(PRE_SECRET_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
+            } else if (getCurrency() == 1) {
+                getSharedPreferences().edit().putString(PRE_SECRET_TIC, ""+tic.market_data.current_price.eur).commit();
+                getSharedPreferences().edit().putString(PRE_SECRET_UP_DOWN_24, ""+tic.market_data.price_change_24h.eur).commit();
+            } else if (getCurrency() == 2) {
+                getSharedPreferences().edit().putString(PRE_SECRET_TIC, ""+tic.market_data.current_price.krw).commit();
+                getSharedPreferences().edit().putString(PRE_SECRET_UP_DOWN_24, ""+tic.market_data.price_change_24h.krw).commit();
+            } else if (getCurrency() == 3) {
+                getSharedPreferences().edit().putString(PRE_SECRET_TIC, ""+tic.market_data.current_price.jpy).commit();
+                getSharedPreferences().edit().putString(PRE_SECRET_UP_DOWN_24, ""+tic.market_data.price_change_24h.jpy).commit();
+            } else if (getCurrency() == 4) {
+                getSharedPreferences().edit().putString(PRE_SECRET_TIC, ""+tic.market_data.current_price.cny).commit();
+                getSharedPreferences().edit().putString(PRE_SECRET_UP_DOWN_24, ""+tic.market_data.price_change_24h.cny).commit();
+            } else if (getCurrency() == 5) {
+                getSharedPreferences().edit().putString(PRE_SECRET_TIC, ""+tic.market_data.current_price.btc).commit();
+                getSharedPreferences().edit().putString(PRE_SECRET_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
+            }
+
         }
 
     }
@@ -342,6 +365,7 @@ public class BaseData {
             return BigDecimal.valueOf(getLastAkashTic());
 
         } else if (chain.equals(SECRET_MAIN)) {
+            return BigDecimal.valueOf(getLastSecretTic());
 
         }
         return BigDecimal.ZERO;
@@ -375,6 +399,7 @@ public class BaseData {
             return BigDecimal.valueOf(getLastAkashUpDown());
 
         } else if (chain.equals(SECRET_MAIN)) {
+            return BigDecimal.valueOf(getLastSecretUpDown());
 
         }
         return BigDecimal.ZERO;
@@ -595,6 +620,35 @@ public class BaseData {
 
     public double getLastAkashUpDown() {
         String priceS = getSharedPreferences().getString(BaseConstant.PRE_AKASH_UP_DOWN_24, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+
+
+
+    public void setLastSecretTic(Double price) {
+        getSharedPreferences().edit().putString(PRE_SECRET_TIC, ""+price).commit();
+    }
+
+    public double getLastSecretTic() {
+        String priceS = getSharedPreferences().getString(PRE_SECRET_TIC, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastSecretUpDown(Double price) {
+        getSharedPreferences().edit().putString(PRE_SECRET_UP_DOWN_24, ""+price).commit();
+    }
+
+    public double getLastSecretUpDown() {
+        String priceS = getSharedPreferences().getString(PRE_SECRET_UP_DOWN_24, "0");
         try {
             return Double.parseDouble(priceS);
         }catch (Exception e) {

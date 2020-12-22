@@ -48,7 +48,7 @@ public class WalletSecretHolder extends WalletHolder {
         mTvSecretDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvSecretUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvSecretRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-//        mTvSecretValue.setText(WDp.getValueOfBand(mainActivity, mainActivity.getBaseDao(), totalAmount));
+        mTvSecretValue.setText(WDp.getValueOfSecret(mainActivity, mainActivity.getBaseDao(), totalAmount));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
