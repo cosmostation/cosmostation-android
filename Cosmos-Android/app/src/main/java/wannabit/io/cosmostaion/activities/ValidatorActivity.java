@@ -79,6 +79,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BAND_ORACLE_STATUS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -88,6 +89,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class ValidatorActivity extends BaseActivity implements TaskListener {
 
@@ -250,6 +252,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 hasbalance  = true;
             }
 
+        } else if (mBaseChain.equals(SECRET_MAIN)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
+                hasbalance  = true;
+            }
+
         } else if (mBaseChain.equals(AKASH_MAIN)) {
             if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("5000")) > 0) {
                 hasbalance  = true;
@@ -359,6 +366,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
+        } else if (mBaseChain.equals(SECRET_MAIN)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("75000")) > 0) {
+                hasbalance  = true;
+            }
+            if (mRedelegates == null || mRedelegates.size() > 0) {
+                Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+
         } else if (mBaseChain.equals(AKASH_MAIN)) {
             if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("7500")) > 0) {
                 hasbalance  = true;
@@ -439,7 +457,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 hasbalance  = true;
             }
 
-        }  else if (mBaseChain.equals(AKASH_MAIN)) {
+        } else if (mBaseChain.equals(SECRET_MAIN)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else if (mBaseChain.equals(AKASH_MAIN)) {
             if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("5000")) > 0) {
                 hasbalance  = true;
             }
@@ -529,6 +552,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
             if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else if (mBaseChain.equals(SECRET_MAIN)) {
+            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("50000")) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
                 hasbalance  = true;
             }
 
@@ -648,6 +684,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 hasbalance  = true;
             }
 
+        } else if (mBaseChain.equals(SECRET_MAIN)) {
+            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("87500")) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("87500")) > 0) {
+                hasbalance  = true;
+            }
+
         } else {
             Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
             return;
@@ -676,7 +725,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchValHistory() {
-        if (mBaseChain.equals(IOV_TEST)) {
+        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(SECRET_MAIN)) {
             return;
         }
         mTaskCount++;
@@ -707,7 +756,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
-//        WLog.w("onTaskResponse " + result.taskType + "   " + mTaskCount);
         mTaskCount--;
         if (isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_VALIDATOR) {
@@ -940,6 +988,21 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
 
+            } else if (mBaseChain.equals(SECRET_MAIN)) {
+                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
+                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
+                if (mValidator.status == Validator.BONDED) {
+                    holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, mValidator.getCommission()));
+                } else {
+                    holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, BigDecimal.ONE));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+                try {
+                    Picasso.get().load(SECRET_VAL_URL + mValidator.operator_address + ".png")
+                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                            .into(holder.itemAvatar);
+                } catch (Exception e){}
+
             } else if (mBaseChain.equals(AKASH_MAIN)) {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
@@ -1092,6 +1155,21 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
                 try {
                     Picasso.get().load(CERTIK_VAL_URL + mValidator.operator_address + ".png")
+                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                            .into(holder.itemAvatar);
+                } catch (Exception e){}
+
+            } else if (mBaseChain.equals(SECRET_MAIN)) {
+                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
+                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
+                if (mValidator.status == Validator.BONDED) {
+                    holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, mValidator.getCommission()));
+                } else {
+                    holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, BigDecimal.ONE));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+                try {
+                    Picasso.get().load(SECRET_VAL_URL + mValidator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -1345,6 +1423,39 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
                 if (mReward != null) {
                     holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(TOKEN_CERTIK), 6, BaseChain.getChain(mAccount.baseChain)));
+                } else {
+                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+
+            } else if (mBaseChain.equals(SECRET_MAIN)) {
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
+
+                holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
+                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), mBondingState.getBondingAmount(mValidator), 6, 6));
+                    if (mValidator.status == Validator.BONDED) {
+                        holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), mValidator.getCommission(), mBondingState.getBondingAmount(mValidator), mBaseChain));
+                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), mValidator.getCommission(), mBondingState.getBondingAmount(mValidator), mBaseChain));
+                    } else {
+                        holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, mBondingState.getBondingAmount(mValidator), mBaseChain));
+                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, mBondingState.getBondingAmount(mValidator), mBaseChain));
+                        holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
+                        holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
+                    }
+                }
+
+                if (mUnBondingStates != null && mUnBondingStates.size() > 0 ) {
+                    BigDecimal sum = BigDecimal.ZERO;
+                    for(UnBondingState unbond:mUnBondingStates) {
+                        sum = sum.add(unbond.balance);
+                    }
+                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 6, BaseChain.getChain(mAccount.baseChain)));
+                } else {
+                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+
+                if (mReward != null) {
+                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(TOKEN_SECRET), 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
                     holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
