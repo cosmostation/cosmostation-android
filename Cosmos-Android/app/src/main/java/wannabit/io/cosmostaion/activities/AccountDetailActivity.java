@@ -48,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -272,6 +273,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_chain_img));
+
+        } else if (mBaseChain.equals(SECRET_MAIN)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
+            mCardRewardAddress.setVisibility(View.VISIBLE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsecret));
 
         } else if (mBaseChain.equals(AKASH_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));

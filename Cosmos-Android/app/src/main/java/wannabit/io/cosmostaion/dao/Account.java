@@ -275,6 +275,9 @@ public class Account {
             } else if (chain.equals(BaseChain.CERTIK_MAIN) || chain.equals(BaseChain.CERTIK_TEST)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
 
+            } else if (chain.equals(BaseChain.SECRET_MAIN)) {
+                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
+
             } else if (chain.equals(BaseChain.AKASH_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
 

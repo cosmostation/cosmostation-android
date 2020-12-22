@@ -37,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 public class MnemonicCheckActivity extends BaseActivity {
@@ -85,6 +86,8 @@ public class MnemonicCheckActivity extends BaseActivity {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
         } else if (getChain(toCheck.baseChain).equals(CERTIK_MAIN)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
+        } else if (getChain(toCheck.baseChain).equals(SECRET_MAIN)) {
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
         } else if (getChain(toCheck.baseChain).equals(AKASH_MAIN)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
         }
@@ -111,6 +114,8 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_band));
             } else if (getChain(toCheck.baseChain).equals(CERTIK_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_certik));
+            } else if (getChain(toCheck.baseChain).equals(SECRET_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_secret));
             } else if (getChain(toCheck.baseChain).equals(AKASH_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_akash));
             }

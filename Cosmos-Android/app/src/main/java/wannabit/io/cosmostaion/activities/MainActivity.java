@@ -747,7 +747,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     public void fetchFinished() {
-        if(!isFinishing()) {
+        if (!isFinishing() && mPageAdapter.mCurrentFragment != null) {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
