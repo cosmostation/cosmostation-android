@@ -84,6 +84,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
@@ -803,6 +804,31 @@ public class WDp {
         if (rewards != null) {
             for(Reward reward : rewards) {
                 sum = sum.add(reward.getRewardAmount(TOKEN_CERTIK));
+            }
+        }
+        return sum;
+    }
+
+    public static BigDecimal getAllSecret(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Balance balance : balances) {
+            if(balance.symbol.equals(TOKEN_SECRET)) {
+                sum = sum.add(balance.balance);
+            }
+        }
+        if (bondings != null) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+            }
+        }
+        if (unbondings != null) {
+            for(UnBondingState unbonding : unbondings) {
+                sum = sum.add(unbonding.balance);
+            }
+        }
+        if (rewards != null) {
+            for(Reward reward : rewards) {
+                sum = sum.add(reward.getRewardAmount(TOKEN_SECRET));
             }
         }
         return sum;
@@ -1971,7 +1997,7 @@ public class WDp {
 
         } else if (BaseChain.getChain(chain).equals(SECRET_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorSecret));
-            textview.setText(c.getString(R.string.s_akt));
+            textview.setText(c.getString(R.string.s_scrt));
 
         } else if (BaseChain.getChain(chain).equals(AKASH_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorAkash));
