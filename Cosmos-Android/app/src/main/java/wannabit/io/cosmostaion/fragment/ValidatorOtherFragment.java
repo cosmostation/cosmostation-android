@@ -40,6 +40,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
@@ -48,6 +49,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
 
 public class ValidatorOtherFragment extends BaseFragment {
 
@@ -168,9 +170,14 @@ public class ValidatorOtherFragment extends BaseFragment {
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
                 monikerUrl = CERTIK_VAL_URL + validator.operator_address + ".png";
 
+            } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
+                monikerUrl = SECRET_VAL_URL + validator.operator_address + ".png";
+
             } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
                 monikerUrl = AKASH_VAL_URL + validator.operator_address + ".png";
 
             }
@@ -209,6 +216,8 @@ public class ValidatorOtherFragment extends BaseFragment {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
                 } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) ||getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
+                } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
                 } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
                 }

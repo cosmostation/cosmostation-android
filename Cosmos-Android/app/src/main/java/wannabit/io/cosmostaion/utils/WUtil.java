@@ -851,7 +851,7 @@ public class WUtil {
                 if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
                 if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
                 if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)
-                        || chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                        || chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN)) {
                     if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
                     else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
                     else return 0;

@@ -204,7 +204,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            for(Validator validator:mAllValidators) {
+            for (Validator validator:mAllValidators) {
                 if (mIrisReward.getPerValReward(validator.operator_address).compareTo(BigDecimal.ONE) >= 0) {
                     toClaimValidators.add(validator);
                 }
