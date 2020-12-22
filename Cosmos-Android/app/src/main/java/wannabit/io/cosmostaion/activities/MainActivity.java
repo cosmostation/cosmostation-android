@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -27,6 +28,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
@@ -45,8 +49,10 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_Kava_Testnet;
+import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
@@ -76,6 +82,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -690,71 +698,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         getBaseDao().setKavaWarn();
     }
 
-    public void onStartOkDeposit() {
-        if(mAccount == null) return;
-        if(!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasbalance = false;
-        if (mBaseChain.equals(OK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(BigDecimal.ONE) > 0) {
-                hasbalance  = true;
-            }
-        }
-        if (!hasbalance) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_deposit, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Intent intent = new Intent(getBaseContext(), StakeDepositActivity.class);
-        startActivity(intent);
-
-    }
-
-    public void onStartOkWithdraw() {
-        if(mAccount == null) return;
-        if(!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasbalance = false;
-        if (mBaseChain.equals(OK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(BigDecimal.ONE) > 0) {
-                hasbalance  = true;
-            }
-        }
-        if (!hasbalance) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_deposit, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (WDp.getOkDepositCoin(getBaseDao().mOkDeposit).compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_withdraw, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Intent intent = new Intent(getBaseContext(), StakeWithdrawActivity.class);
-        startActivity(intent);
-
-    }
-
-    public void onStartOkVote() {
-        WLog.w("onStartOkVote");
-        Intent intent = new Intent(getBaseContext(), OKValidatorListActivity.class);
-        startActivity(intent);
-
-    }
-
-    public void onStarNameService() {
-        Intent intent = new Intent(getBaseContext(), StarNameListActivity.class);
-        startActivity(intent);
-
-    }
-
     public void onStartStakeDropEvent() {
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
@@ -794,6 +737,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     }
 
+    public void onStartBinanceWalletConnect(String wcUrl) {
+        Intent intent = new Intent(this, PasswordCheckActivity.class);
+        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_SIMPLE_CHECK);
+        intent.putExtra("wcUrl", wcUrl);
+        startActivityForResult(intent, CONST_PW_SIMPLE_CHECK);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+    }
 
     @Override
     public void fetchFinished() {
@@ -849,6 +799,21 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         public ArrayList<BaseFragment> getFragments() {
             return mFragments;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null && result.getContents() != null && result.getContents().trim().contains("wallet-bridge.binance.org")) {
+            Bundle bundle = new Bundle();
+            bundle.putString("wcUrl", result.getContents().trim());
+            Dialog_WalletConnect dialog = Dialog_WalletConnect.newInstance(bundle);
+            dialog.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

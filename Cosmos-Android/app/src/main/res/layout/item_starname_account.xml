@@ -17,7 +17,7 @@
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
-        app:cardBackgroundColor="@color/colorTransBg6"
+        app:cardBackgroundColor="@color/colorTransBgStarname"
         app:cardUseCompatPadding="true" >
         <RelativeLayout
             android:layout_width="match_parent"

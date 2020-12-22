@@ -142,7 +142,7 @@ public class OKValidatorTopFragment extends BaseFragment {
                 }
 
                 if (checkIsMyValidator(validator.operator_address)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
                 }
 
             }

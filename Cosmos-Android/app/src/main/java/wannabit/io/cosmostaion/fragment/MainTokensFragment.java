@@ -205,40 +205,40 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
         WDp.DpMainDenom(getMainActivity(), getMainActivity().mBaseChain.getChain(), mDenomTitle);
         if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
             onUpdateTotalCard();
             onFetchCosmosTokenPrice();
 
         } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
             onUpdateTotalCard();
             onFetchIrisTokenPrice();
 
         } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
             onUpdateTotalCard();
             onFetchBnbTokenPrice();
 
         } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
             onUpdateTotalCard();
             onFetchKavaTokenPrice();
 
         } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
             onUpdateTotalCard();
             onFetchIovTokenPrice();
 
         } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
             onUpdateTotalCard();
 
         } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
             onUpdateTotalCard();
 
         } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
             onUpdateTotalCard();
 
         }

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.MainActivity;
 
 public class Dialog_WalletConnect extends DialogFragment {
 
@@ -45,9 +46,11 @@ public class Dialog_WalletConnect extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("wcUrl", getArguments().getString("wcUrl"));
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+//                Intent resultIntent = new Intent();
+//                resultIntent.putExtra("wcUrl", getArguments().getString("wcUrl"));
+//                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+//                getDialog().dismiss();
+                ((MainActivity)getActivity()).onStartBinanceWalletConnect(getArguments().getString("wcUrl"));
                 getDialog().dismiss();
             }
         });

@@ -72,21 +72,21 @@ public class MnemonicCheckActivity extends BaseActivity {
         mEntropy = getIntent().getStringExtra("entropy");
         Account toCheck = getBaseDao().onSelectAccount(""+getIntent().getLongExtra("checkid", -1));
         if (getChain(toCheck.baseChain).equals(COSMOS_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
         } else if (getChain(toCheck.baseChain).equals(IRIS_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
         } else if (getChain(toCheck.baseChain).equals(BNB_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
         } else if (getChain(toCheck.baseChain).equals(KAVA_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
         } else if (getChain(toCheck.baseChain).equals(IOV_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
         } else if (getChain(toCheck.baseChain).equals(BAND_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
         } else if (getChain(toCheck.baseChain).equals(CERTIK_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
         } else if (getChain(toCheck.baseChain).equals(AKASH_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
         }
 
         else if (getChain(toCheck.baseChain).equals(BNB_TEST) || getChain(toCheck.baseChain).equals(KAVA_TEST) || getChain(toCheck.baseChain).equals(IOV_TEST) ||

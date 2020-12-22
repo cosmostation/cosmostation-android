@@ -133,7 +133,7 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
         public void onBindViewHolder(@NonNull OKMyValidatorHolder holder, int position) {
             final Validator validator  = mMyValidators.get(position);
             if (getSActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.commission_rates.rate));

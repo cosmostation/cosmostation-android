@@ -1,9 +1,11 @@
 package wannabit.io.cosmostaion.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,6 +70,7 @@ import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
@@ -947,7 +951,7 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_IRIS_ATTO)) return -1;
                     if(o2.symbol.equals(TOKEN_IRIS_ATTO)) return 1;
 
-                } else if (chain.equals(BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+                } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
                     if(o1.symbol.equals(TOKEN_BNB)) return -1;
                     if(o2.symbol.equals(TOKEN_BNB)) return 1;
 
@@ -994,7 +998,7 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_IRIS_ATTO)) return -1;
                     if(o2.symbol.equals(TOKEN_IRIS_ATTO)) return 1;
 
-                } else if (chain.equals(BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+                } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
                     if(o1.symbol.equals(TOKEN_BNB)) return -1;
                     if(o2.symbol.equals(TOKEN_BNB)) return 1;
 
@@ -1147,7 +1151,7 @@ public class WUtil {
         } else if (chain.equals(IRIS_MAIN)) {
             return BaseConstant.CMC_IRIS;
 
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return BaseConstant.CMC_BNB;
 
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
@@ -1163,7 +1167,7 @@ public class WUtil {
         } else if (chain.equals(IRIS_MAIN)) {
             return BaseConstant.CGC_IRIS;
 
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return BaseConstant.CGC_BNB;
 
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
@@ -1194,7 +1198,7 @@ public class WUtil {
         } else if (chain.equals(IRIS_MAIN)) {
             return BaseConstant.MEMO_IRIS;
 
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return BaseConstant.MEMO_BNB;
         }
         return BaseConstant.MEMO_IRIS;
@@ -1771,5 +1775,83 @@ public class WUtil {
 
         }
         return new BigDecimal("6");
+    }
+
+    public static Intent getGuide1Intent(BaseChain chain) {
+        if (chain.equals(COSMOS_MAIN)) {
+            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_ko.pdf"));
+            } else {
+                return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_en.pdf"));
+            }
+
+        } else if (chain.equals(IRIS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.irisnet.org/"));
+
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.binance.org"));
+
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/registration/"));
+
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.starname.network/"));
+
+        } else if (chain.equals(BAND_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://bandprotocol.com/"));
+
+        } else if (chain.equals(OK_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/"));
+
+        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/"));
+
+        } else if (chain.equals(AKASH_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://akash.network/"));
+
+        } else if (chain.equals(SECRET_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://scrt.network"));
+
+        }
+        return null;
+    }
+
+    public static Intent getGuide2Intent(BaseChain chain) {
+        if (chain.equals(COSMOS_MAIN)) {
+            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                return new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
+            } else {
+                return new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
+            }
+
+        } else if (chain.equals(IRIS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/irisnet-blog"));
+
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@binance"));
+
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/kava-labs"));
+
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/iov-internet-of-values"));
+
+        } else if (chain.equals(BAND_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/bandprotocol"));
+
+        } else if (chain.equals(OK_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/community"));
+
+        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/blog"));
+
+        } else if (chain.equals(AKASH_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://akash.network/"));
+
+        } else if (chain.equals(SECRET_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.scrt.network"));
+
+        }
+        return null;
     }
 }

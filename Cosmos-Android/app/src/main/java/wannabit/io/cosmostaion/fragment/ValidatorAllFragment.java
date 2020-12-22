@@ -240,19 +240,19 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             if (checkIsMyValidator(mMyValidators, validator.description.moniker)) {
                 if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
                 } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
                 } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
                 } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
                 } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
                 } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
                 } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
                 }
             } else {
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));

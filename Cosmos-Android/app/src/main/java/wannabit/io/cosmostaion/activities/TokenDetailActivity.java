@@ -817,7 +817,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         private void onBindVesting(RecyclerView.ViewHolder viewHolder, int position) {
             final VestingHolder holder = (VestingHolder)viewHolder;
             if (mBaseChain.equals(KAVA_MAIN) && mBalance.symbol.equals(TOKEN_KAVA)) {
-                holder.mVestingRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+                holder.mVestingRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
             }
             final ResLcdKavaAccountInfo.Value mKavaAccount = getBaseDao().mKavaAccount.value;
             holder.mVestingCnt.setText("(" + mKavaAccount.getCalcurateVestingCntByDenom(mBalance.symbol) + ")");

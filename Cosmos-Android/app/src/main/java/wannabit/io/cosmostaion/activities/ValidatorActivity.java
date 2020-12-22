@@ -1130,7 +1130,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         private void onBindAction(RecyclerView.ViewHolder viewHolder) {
             final MyActionHolder holder = (MyActionHolder)viewHolder;
             if (mBaseChain.equals(COSMOS_MAIN)) {
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
 
                 holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
                 if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
@@ -1163,7 +1163,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
             } else if (mBaseChain.equals(IRIS_MAIN)) {
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
                 if (mValidator.status == Validator.BONDED) {
                     if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 18, BaseChain.getChain(mAccount.baseChain)));
@@ -1203,7 +1203,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 if (mBaseChain.equals(KAVA_MAIN)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
                 } else {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
                 }
@@ -1239,7 +1239,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
             } else if (mBaseChain.equals(BAND_MAIN)) {
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
 
                 holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
                 if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
@@ -1272,7 +1272,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             } else if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
                 if (mBaseChain.equals(IOV_MAIN)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
                 } else {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
                 }
@@ -1315,7 +1315,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if (mBaseChain.equals(CERTIK_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
                 } else {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
                 }
 
                 holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
@@ -1349,7 +1349,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
             } else if (mBaseChain.equals(AKASH_MAIN)) {
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
 
                 holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
                 if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {

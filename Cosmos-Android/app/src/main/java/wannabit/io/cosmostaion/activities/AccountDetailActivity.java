@@ -215,70 +215,70 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         onUpdatePushStatusUI();
 
         if (mBaseChain.equals(COSMOS_MAIN)) {
-            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
 
         } else if (mBaseChain.equals(IRIS_MAIN)) {
-            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
             mCardAlarm.setVisibility(View.GONE);
-            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
 
         } else if (mBaseChain.equals(BNB_MAIN)) {
-            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
-            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
             mCardAlarm.setVisibility(View.GONE);
-            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
             mCardRewardAddress.setVisibility(View.GONE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
 
         } else if (mBaseChain.equals(KAVA_MAIN)) {
-            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
             mCardAlarm.setVisibility(View.GONE);
-            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
-            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
             mCardRewardAddress.setVisibility(View.GONE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
 
         } else if (mBaseChain.equals(IOV_MAIN)) {
-            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
-            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
             mCardAlarm.setVisibility(View.GONE);
-            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
-            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_chain_img));
 
         } else if (mBaseChain.equals(BAND_MAIN)) {
-            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
-            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
             mCardAlarm.setVisibility(View.GONE);
-            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
-            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
 
         } else if (mBaseChain.equals(CERTIK_MAIN)) {
-            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
-            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
             mCardAlarm.setVisibility(View.GONE);
-            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
-            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_chain_img));
 
         } else if (mBaseChain.equals(AKASH_MAIN)) {
-            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
-            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
             mCardAlarm.setVisibility(View.GONE);
-            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
-            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_chain_img));
 

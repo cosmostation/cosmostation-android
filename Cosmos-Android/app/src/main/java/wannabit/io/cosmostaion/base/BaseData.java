@@ -48,12 +48,20 @@ import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -306,6 +314,72 @@ public class BaseData {
 
     }
 
+    public BigDecimal getLastPriceTic(BaseChain chain) {
+        if (chain.equals(COSMOS_MAIN)) {
+            return BigDecimal.valueOf(getLastAtomTic());
+
+        } else if (chain.equals(IRIS_MAIN)) {
+            return BigDecimal.valueOf(getLastIrisTic());
+
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+            return BigDecimal.valueOf(getLastBnbTic());
+
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            return BigDecimal.valueOf(getLastKavaTic());
+
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            return BigDecimal.valueOf(getLastIovTic());
+
+        } else if (chain.equals(BAND_MAIN)) {
+            return BigDecimal.valueOf(getLastBandTic());
+
+        } else if (chain.equals(OK_TEST)) {
+
+        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+            return BigDecimal.valueOf(getLastCertikTic());
+
+        } else if (chain.equals(AKASH_MAIN)) {
+            return BigDecimal.valueOf(getLastAkashTic());
+
+        } else if (chain.equals(SECRET_MAIN)) {
+
+        }
+        return BigDecimal.ZERO;
+    }
+
+    public BigDecimal getLastPriceUpDown(BaseChain chain) {
+        if (chain.equals(COSMOS_MAIN)) {
+            return BigDecimal.valueOf(getLastAtomUpDown());
+
+        } else if (chain.equals(IRIS_MAIN)) {
+            return BigDecimal.valueOf(getLastIrisUpDown());
+
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+            return BigDecimal.valueOf(getLastBnbUpDown());
+
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            return BigDecimal.valueOf(getLastKavaUpDown());
+
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            return BigDecimal.valueOf(getLastIovUpDown());
+
+        } else if (chain.equals(BAND_MAIN)) {
+            return BigDecimal.valueOf(getLastBandUpDown());
+
+        } else if (chain.equals(OK_TEST)) {
+
+        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+            return BigDecimal.valueOf(getLastCertikUpDown());
+
+        } else if (chain.equals(AKASH_MAIN)) {
+            return BigDecimal.valueOf(getLastAkashUpDown());
+
+        } else if (chain.equals(SECRET_MAIN)) {
+
+        }
+        return BigDecimal.ZERO;
+
+    }
 
     public void setLastAtomTic(Double price) {
         getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+price).commit();

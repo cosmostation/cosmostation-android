@@ -131,23 +131,23 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     private void onUpdateView() {
         onHideWaitDialog();
         if (mChain.equals(COSMOS_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
         } else if (mChain.equals(IRIS_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
         } else if (mChain.equals(BNB_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
         } else if (mChain.equals(KAVA_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
         } else if (mChain.equals(IOV_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
         } else if (mChain.equals(BAND_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
         } else if (mChain.equals(CERTIK_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
         } else if (mChain.equals(BNB_TEST) || mChain.equals(KAVA_TEST) || mChain.equals(IOV_TEST) || mChain.equals(OK_TEST) || mChain.equals(CERTIK_TEST)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
         } else if (mChain.equals(AKASH_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
         } else if (mChain.equals(SECRET_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
         }

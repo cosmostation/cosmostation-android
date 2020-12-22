@@ -156,23 +156,23 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 holder.newState.setText(getString(R.string.str_ready));
                 holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
                 if (mChain.equals(COSMOS_MAIN)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
                 } else if (mChain.equals(IRIS_MAIN)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
                 } else if (mChain.equals(BNB_MAIN) || mChain.equals(BNB_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
                 } else if (mChain.equals(KAVA_MAIN) || mChain.equals(KAVA_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
                 } else if (mChain.equals(IOV_MAIN) || mChain.equals(IOV_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
                 } else if (mChain.equals(BAND_MAIN)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
                 } else if (mChain.equals(CERTIK_MAIN) || mChain.equals(CERTIK_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
                 } else if (mChain.equals(OK_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
                 } else if (mChain.equals(AKASH_MAIN)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
                 } else if (mChain.equals(SECRET_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
                 }
@@ -185,23 +185,23 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.newState.setText(getString(R.string.str_override));
                     holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
                     if (mChain.equals(COSMOS_MAIN)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
                     } else if (mChain.equals(IRIS_MAIN)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
                     } else if (mChain.equals(BNB_MAIN) || mChain.equals(BNB_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
                     } else if (mChain.equals(KAVA_MAIN)|| mChain.equals(KAVA_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
                     } else if (mChain.equals(IOV_MAIN) || mChain.equals(IOV_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
                     } else if (mChain.equals(BAND_MAIN)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg8));
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
                     } else if (mChain.equals(OK_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg9));
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
                     } else if (mChain.equals(CERTIK_MAIN) || mChain.equals(CERTIK_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg10));
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
                     } else if (mChain.equals(AKASH_MAIN)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg11));
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
                     } else if (mChain.equals(SECRET_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
                     }
