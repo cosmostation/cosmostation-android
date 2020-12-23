@@ -78,8 +78,6 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
         memoLabel.text = pageHolderVC.mMemo
         if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             expectedDateLabel.text = WUtils.unbondingDateFromNow(3) + " (3days after)"
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            expectedDateLabel.text = WUtils.unbondingDateFromNow(14) + " (14days after)"
         } else {
             expectedDateLabel.text = WUtils.unbondingDateFromNow(21) + " (21days after)"
         }

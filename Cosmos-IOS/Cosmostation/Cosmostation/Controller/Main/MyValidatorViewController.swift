@@ -806,7 +806,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 let seconVal = $1
                 let firstDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == firstVal.operator_address }.first
                 let secondDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == seconVal.operator_address }.first
-                return Double(firstDelegation!.balance!.amount)! > Double(secondDelegation!.balance!.amount)!
+                return WUtils.plainStringToDecimal(firstDelegation?.balance?.amount).compare(WUtils.plainStringToDecimal(secondDelegation?.balance?.amount)).rawValue > 0 ? true : false
             }
             
         }
