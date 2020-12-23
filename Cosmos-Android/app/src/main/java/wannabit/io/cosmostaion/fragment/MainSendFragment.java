@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.widget.WalletOkexHolder;
 import wannabit.io.cosmostaion.widget.WalletPriceHolder;
 import wannabit.io.cosmostaion.widget.WalletSecretHolder;
 import wannabit.io.cosmostaion.widget.WalletStarnameHolder;
+import wannabit.io.cosmostaion.widget.WalletUndelegationHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -222,6 +223,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_GIUDE) {
                 return new WalletGuideHolder(getLayoutInflater().inflate(R.layout.item_wallet_guide, viewGroup, false));
 
+            } else if (viewType == TYPE_UNDELEGATIONS) {
+                return new WalletUndelegationHolder(getLayoutInflater().inflate(R.layout.item_wallet_undelegation, viewGroup, false));
+
             }
             return null;
         }
@@ -233,46 +237,21 @@ public class MainSendFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                return 5;
-            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                return 5;
-            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) || getMainActivity().mBaseChain.equals(OK_TEST)) {
+            if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return 4;
+            } else {
+                if (getMainActivity().mUnbondings.size() > 0) {
+                    return 5;
+                } else {
+                    return 6;
+                }
             }
-            return 5;
         }
 
 
         @Override
         public int getItemViewType(int position) {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                if (position == 0) {
-                    return TYPE_ADDRESS;
-                } else if (position == 1) {
-                    return TYPE_COSMOS;
-                } else if (position == 2) {
-                    return TYPE_PRICE;
-                } else if (position == 3) {
-                    return TYPE_MINT;
-                } else if (position == 4) {
-                    return TYPE_GIUDE;
-                }
-
-            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                if (position == 0) {
-                    return TYPE_ADDRESS;
-                } else if (position == 1) {
-                    return TYPE_KAVA;
-                } else if (position == 2) {
-                    return TYPE_PRICE;
-                } else if (position == 3) {
-                    return TYPE_MINT;
-                } else if (position == 4) {
-                    return TYPE_GIUDE;
-                }
-
-            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) || getMainActivity().mBaseChain.equals(OK_TEST)) {
+            if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 if (position == 0) {
                     return TYPE_ADDRESS;
                 } else if (position == 1) {
@@ -288,22 +267,30 @@ public class MainSendFragment extends BaseFragment {
                 if (position == 0) {
                     return TYPE_ADDRESS;
                 } else if (position == 1) {
-                    if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) { return TYPE_IRIS; }
-                    else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) { return TYPE_STARNAME; }
+                    if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) { return TYPE_COSMOS; }
+                    else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) { return TYPE_IRIS; }
+                    else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) { return TYPE_KAVA; }
                     else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) { return TYPE_STARNAME; }
                     else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
                     else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) { return TYPE_CERTIK; }
                     else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) { return TYPE_AKASH; }
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
-
                 } else if (position == 2) {
-                    return TYPE_PRICE;
-                } else if (position == 3) {
-                    return TYPE_MINT;
-                } else if (position == 4) {
-                    return TYPE_GIUDE;
-                }
+                    if (getMainActivity().mUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
+                    else { return TYPE_PRICE; }
 
+                } else if (position == 3) {
+                    if (getMainActivity().mUnbondings.size() > 0) { return TYPE_PRICE; }
+                    else { return TYPE_MINT; }
+
+                } else if (position == 4) {
+                    if (getMainActivity().mUnbondings.size() > 0) { return TYPE_MINT; }
+                    else { return TYPE_GIUDE; }
+
+                } else if (position == 5) {
+                    return TYPE_GIUDE;
+
+                }
             }
             return TYPE_ADDRESS;
         }

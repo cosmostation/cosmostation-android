@@ -1925,6 +1925,33 @@ public class WDp {
         }
     }
 
+    public static int getChainBgColor(Context c, BaseChain chain) {
+        if (chain.equals(COSMOS_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgCosmos);
+        } else if (chain.equals(IRIS_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgIris);
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+            return c.getResources().getColor(R.color.colorTransBgBinance);
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            return c.getResources().getColor(R.color.colorTransBgKava);
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            return c.getResources().getColor(R.color.colorTransBgStarname);
+        } else if (chain.equals(BAND_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgBand);
+        } else if (chain.equals(OK_TEST)) {
+            return c.getResources().getColor(R.color.colorTransBgOkex);
+        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+            return c.getResources().getColor(R.color.colorTransBgCertik);
+        } else if (chain.equals(SECRET_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgSecret);
+        } else if (chain.equals(AKASH_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgAkash);
+        }  else {
+            return c.getResources().getColor(R.color.colorTransBgAkash);
+        }
+
+    }
+
     public static ColorStateList getTabColor(Context c, BaseChain chain) {
         if(chain.equals(COSMOS_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator);

@@ -186,8 +186,8 @@ public enum BaseChain {
         result.add(IOV_MAIN);
         result.add(KAVA_MAIN);
         result.add(BAND_MAIN);
-        result.add(CERTIK_MAIN);
         result.add(SECRET_MAIN);
+        result.add(CERTIK_MAIN);
         result.add(AKASH_MAIN);
 
 //        result.add(BNB_TEST);
