@@ -45,6 +45,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
@@ -77,7 +78,7 @@ public class MsgGenerator {
         Msg         result      = new Msg();
         Msg.Value   value       = new Msg.Value();
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(AKASH_MAIN)) {
+                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
             value.from_address = fromAddr;
             value.to_address = toAddr;
             value.amount = coins;
@@ -123,7 +124,8 @@ public class MsgGenerator {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN)) {
+                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
+                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
             value.delegator_address = fromAddr;
             value.validator_address = toValAddr;
             value.amount = toDeleagteAmout;
@@ -147,7 +149,8 @@ public class MsgGenerator {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN)) {
+                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
+                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
             value.delegator_address = requestAddr;
             value.validator_address = fromValAddr;
             value.amount = amount;
@@ -171,7 +174,8 @@ public class MsgGenerator {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN)) {
+                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
+                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
             value.delegator_address = requestAddr;
             value.validator_address = fromValAddr;
 
@@ -202,7 +206,8 @@ public class MsgGenerator {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN)) {
+                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
+                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
             value.delegator_address = accountAddr;
             value.validator_src_address = fromValAddr;
             value.validator_dst_address = toValAddr;
@@ -231,7 +236,8 @@ public class MsgGenerator {
         Msg.Value value = new Msg.Value();
 
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN)) {
+                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
+                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
             value.delegator_address = requestAddr;
             value.withdraw_address = newRewardAddr;
 
@@ -252,7 +258,8 @@ public class MsgGenerator {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN)) {
+                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
+                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
             value.proposal_id = proposalId;
             value.voter = accountAddr;
             value.option = opinion;

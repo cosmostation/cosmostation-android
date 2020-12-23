@@ -32,6 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -40,6 +41,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class UndelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -112,7 +114,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
                 if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
                         getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
-                        getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
+                        getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                     if(es.equals("0.000000")) {
                         mAmountInput.setText("0.00000");
                         mAmountInput.setSelection(7);
@@ -199,6 +201,9 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
+        } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
+
         } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
@@ -253,7 +258,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         } else if (v.equals(mAddHalf)) {
             if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
                     getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
-                    getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
+                    getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
@@ -262,7 +267,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         } else if (v.equals(mAddMax)) {
             if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
                     getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
-                    getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
+                    getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
@@ -329,6 +334,14 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin coin = new Coin(TOKEN_CERTIK, atomTemp.movePointRight(6).setScale(0).toPlainString());
+                getSActivity().mUnDelegateAmount = coin;
+                return true;
+
+            } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
+                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
+                Coin coin = new Coin(TOKEN_SECRET, atomTemp.movePointRight(6).setScale(0).toPlainString());
                 getSActivity().mUnDelegateAmount = coin;
                 return true;
 

@@ -479,7 +479,13 @@ public class BaseConstant {
     public final static String FEE_AKASH_GAS_AMOUNT_VOTE            = "100000";
     public final static String FEE_AKASH_GAS_AMOUNT_ADDRESS_CHANGE  = "100000";
 
-
+    public final static String SECRET_GAS_FEE_RATE_AVERAGE              = "0.25";
+    public final static String SECRET_GAS_AMOUNT_SEND                   = "80000";
+    public final static String SECRET_GAS_AMOUNT_STAKE                  = "200000";
+    public final static String SECRET_GAS_AMOUNT_REDELEGATE             = "300000";
+    public final static String SECRET_GAS_AMOUNT_REINVEST               = "350000";
+    public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
+    public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";
@@ -535,6 +541,7 @@ public class BaseConstant {
     public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/starname/";
     public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
     public final static String EXPLORER_BAND_MAIN       = "https://cosmoscan.io/";
+    public final static String EXPLORER_SECRET_MAIN     = "https://explorer.cashmaney.com/";
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
 
     public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";

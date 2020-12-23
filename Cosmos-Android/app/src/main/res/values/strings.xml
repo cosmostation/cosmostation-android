@@ -441,6 +441,7 @@
     <string name="str_fee_speed_title_ok">Support fixed transfer fee for Okex Chain.</string>
     <string name="str_fee_speed_title_certik">Support fixed transfer fee for Certik Chain.</string>
     <string name="str_fee_speed_title_akash">Support fixed transfer fee for Akash Chain.</string>
+    <string name="str_fee_speed_title_secret">Support fixed transfer fee for Secret Chain.</string>
     <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
     <string name="str_fee_description_title_2">Tx fee rate 0.025</string>
