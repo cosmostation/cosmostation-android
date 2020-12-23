@@ -100,8 +100,6 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
             Bundle bundle = new Bundle();
             if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
                 bundle.putInt("day", 3);
-            } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
-                bundle.putInt("day", 14);
             } else {
                 bundle.putInt("day", 21);
             }

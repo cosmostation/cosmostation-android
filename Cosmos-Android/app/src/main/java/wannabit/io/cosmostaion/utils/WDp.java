@@ -1687,13 +1687,6 @@ public class WDp {
                 result = unbondFormat.format(calendar.getTimeInMillis());
                 return result + "   " +c.getString(R.string.str_unbonding_3days_after);
 
-            } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DATE, 14);
-                SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
-                result = unbondFormat.format(calendar.getTimeInMillis());
-                return result + "   " +c.getString(R.string.str_unbonding_14days_after);
-
             } else {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 21);
