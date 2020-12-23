@@ -276,9 +276,9 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
 
             mGasAmount.setText(SECRET_GAS_AMOUNT_STAKE);
             if(getBaseDao().getCurrency() != 5) {
-                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAkashTic())).setScale(2, RoundingMode.DOWN);
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastSecretTic())).setScale(2, RoundingMode.DOWN);
             } else {
-                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAkashTic())).setScale(8, RoundingMode.DOWN);
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastSecretTic())).setScale(8, RoundingMode.DOWN);
             }
             mGasRate.setText(WDp.getDpString(SECRET_GAS_FEE_RATE_AVERAGE, 3));
             mFeeAmount = new BigDecimal(SECRET_GAS_AMOUNT_STAKE).multiply(new BigDecimal(SECRET_GAS_FEE_RATE_AVERAGE)).setScale(0);

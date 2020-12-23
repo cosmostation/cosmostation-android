@@ -43,6 +43,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
@@ -50,6 +51,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_ALL_REDELEGATE;
 
 public class RedelegateStep1Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
@@ -106,7 +108,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             } else {
                 if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
                         getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
-                        getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
+                        getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                     new SingleAllRedelegateState(getBaseApplication(), this, getSActivity().mAccount,
                             getSActivity().mFromValidator.operator_address,
                             mCheckedValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -216,6 +218,15 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
 
+            } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
+                try {
+                    Picasso.get().load(SECRET_VAL_URL+validator.operator_address+".png")
+                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                            .into(holder.itemAvatar);
+                } catch (Exception e){}
+
             } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
@@ -269,11 +280,15 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorCertik), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+            } else if (getSActivity().mBaseChain.equals(SECRET_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorSecret), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else if (getSActivity().mBaseChain.equals(AKASH_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAkash), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else {
+            }  else {
                 holder.itemCheckedBorder.setVisibility(View.GONE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             }
