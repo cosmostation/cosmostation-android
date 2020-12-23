@@ -31,6 +31,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -296,6 +297,19 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 6, 6));
             mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, 6));
             mRemainingPrice.setText(WDp.getValueOfCertik(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
+
+        } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
+            mDpDecimal = 6;
+            mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 6, 6));
+            mTotalPrice.setText(WDp.getValueOfSecret(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
+
+            BigDecimal currentAvai  = getSActivity().mAccount.getTokenBalance(getSActivity().mSecretDenom);
+            mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 6, 6));
+            mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, 6));
+            mRemainingPrice.setText(WDp.getValueOfSecret(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
+
 
         } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
             mDpDecimal = 6;

@@ -95,6 +95,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
 
@@ -526,6 +527,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 hasbalance  = true;
             }
             intent.putExtra("certikDenom", TOKEN_CERTIK);
+
+        } else if (mBaseChain.equals(SECRET_MAIN)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("20000")) > 0) {
+                hasbalance  = true;
+            }
+            intent.putExtra("secretDenom", TOKEN_SECRET);
 
         } else if (mBaseChain.equals(AKASH_MAIN)) {
             if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("2500")) > 0) {

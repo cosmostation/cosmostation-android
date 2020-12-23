@@ -54,7 +54,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
-
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
@@ -185,6 +185,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (mBaseChain.equals(AKASH_MAIN)) {
             if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("2500")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else if (mBaseChain.equals(SECRET_MAIN)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("20000")) > 0) {
                 hasbalance  = true;
             }
 
