@@ -146,6 +146,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
+        onShowWaitDialog();
     }
 
     @Override
@@ -820,6 +821,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             mBandOracles = getBaseDao().mBandOracles;
             mValidatorAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
+            onHideWaitDialog();
         }
     }
 

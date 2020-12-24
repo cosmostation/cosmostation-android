@@ -273,6 +273,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
         });
+        onShowWaitDialog();
     }
 
     @Override
