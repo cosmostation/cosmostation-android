@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.WalletAddressHolder;
 import wannabit.io.cosmostaion.widget.WalletAkashHolder;
 import wannabit.io.cosmostaion.widget.WalletBandHolder;
@@ -241,9 +242,9 @@ public class MainSendFragment extends BaseFragment {
                 return 4;
             } else {
                 if (getMainActivity().mUnbondings.size() > 0) {
-                    return 5;
-                } else {
                     return 6;
+                } else {
+                    return 5;
                 }
             }
         }
