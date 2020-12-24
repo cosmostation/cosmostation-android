@@ -95,6 +95,13 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 //                txDetail.putExtra("isGen", false);
 //                txDetail.putExtra("isSuccess", true);
 //                startActivity(txDetail);
+                if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
+                    Intent webintent = new Intent(getMainActivity(), WebActivity.class);
+                    webintent.putExtra("address", getMainActivity().mAccount.address);
+                    webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
+                    webintent.putExtra("goMain", false);
+                    getMainActivity().startActivity(webintent);
+                }
             }
         });
 
@@ -175,6 +182,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             mEmptyHistory.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
             mNotYet.setVisibility(View.VISIBLE);
+            mNotYet.setText("Coming Soon!!");
 
         } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -183,6 +191,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             mEmptyHistory.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
             mNotYet.setVisibility(View.VISIBLE);
+            mNotYet.setText("Check with Explorer");
 
         } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
