@@ -57,12 +57,17 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.BAND_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SECRET_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
+            self.comingLabel.isHidden = false
+            self.historyTableView.isHidden = true
+            self.comingLabel.text = "Check with Explorer"
+            
         } else if (chainType == ChainType.IOV_MAIN ) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.OKEX_TEST || chainType == ChainType.IOV_TEST) {
             self.comingLabel.isHidden = false
             self.historyTableView.isHidden = true
+            self.comingLabel.text = "Coming Soon!!"
+            
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.AKASH_MAIN) {
@@ -70,6 +75,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.COSMOS_TEST) {
             self.comingLabel.isHidden = false
             self.historyTableView.isHidden = true
+            self.comingLabel.text = "Check with Explorer"
             
         }
         
@@ -85,6 +91,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
 //        txDetailVC.hidesBottomBarWhenPushed = true
 //        self.navigationItem.title = ""
 //        self.navigationController?.pushViewController(txDetailVC, animated: true)
+        if (chainType == ChainType.SECRET_MAIN) {
+            guard let url = URL(string: EXPLORER_SECRET_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
+            self.onShowSafariWeb(url)
+        }
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -193,7 +204,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.BAND_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SECRET_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
+            self.comingLabel.isHidden = false
         } else if (chainType == ChainType.IOV_MAIN ) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.OKEX_TEST || chainType == ChainType.IOV_TEST) {
@@ -202,6 +213,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.AKASH_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.COSMOS_TEST) {
+            self.comingLabel.isHidden = false
         }
     }
 
@@ -497,7 +510,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_API_HISTORY + address
         } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_API_HISTORY + address
+//            url = SECRET_API_HISTORY + address
+            return
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_API_HISTORY + address
         } else if (chainType == ChainType.IOV_MAIN) {
