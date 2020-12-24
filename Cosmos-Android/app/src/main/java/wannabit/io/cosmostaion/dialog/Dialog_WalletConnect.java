@@ -38,7 +38,6 @@ public class Dialog_WalletConnect extends DialogFragment {
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ((BaseActivity)getActivity()).onShare(false);
                 getDialog().dismiss();
             }
         });
@@ -46,10 +45,6 @@ public class Dialog_WalletConnect extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("wcUrl", getArguments().getString("wcUrl"));
-//                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-//                getDialog().dismiss();
                 ((MainActivity)getActivity()).onStartBinanceWalletConnect(getArguments().getString("wcUrl"));
                 getDialog().dismiss();
             }

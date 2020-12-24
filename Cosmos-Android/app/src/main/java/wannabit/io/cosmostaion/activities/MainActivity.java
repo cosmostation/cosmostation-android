@@ -812,17 +812,25 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null && result.getContents() != null && result.getContents().trim().contains("wallet-bridge.binance.org")) {
-            Bundle bundle = new Bundle();
-            bundle.putString("wcUrl", result.getContents().trim());
-            Dialog_WalletConnect dialog = Dialog_WalletConnect.newInstance(bundle);
-            dialog.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        if (requestCode == CONST_PW_SIMPLE_CHECK && resultCode == RESULT_OK && !TextUtils.isEmpty(data.getStringExtra("wcUrl"))) {
+            Intent wcIntent = new Intent(this, WalletConnectActivity.class);
+            wcIntent.putExtra("wcUrl", data.getStringExtra("wcUrl"));
+            startActivity(wcIntent);
 
         } else {
-            super.onActivityResult(requestCode, resultCode, data);
+            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (result != null && result.getContents() != null && result.getContents().trim().contains("wallet-bridge.binance.org")) {
+                Bundle bundle = new Bundle();
+                bundle.putString("wcUrl", result.getContents().trim());
+                Dialog_WalletConnect dialog = Dialog_WalletConnect.newInstance(bundle);
+                dialog.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+            } else {
+                super.onActivityResult(requestCode, resultCode, data);
+            }
         }
+
     }
 
     private class ChainListAdapter extends RecyclerView.Adapter<ChainListAdapter.ChainHolder> {
