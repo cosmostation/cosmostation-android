@@ -1456,7 +1456,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             url = COSMOS_TEST_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         }
-        print("url ", url)
+//        print("url ", url)
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
