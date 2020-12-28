@@ -20,25 +20,25 @@ import wannabit.io.cosmostaion.network.res.ResOkWithdraw;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface OkChain {
-    @GET("/auth/accounts/{address}")
+    @GET("auth/accounts/{address}")
     Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
 
-    @GET("/accounts/{address}")
+    @GET("accounts/{address}")
     Call<ResOkAccountToken> getAccountToken(@Path("address") String address);
 
-    @GET("/tokens")
+    @GET("tokens")
     Call<ResOkTokenList> getTokenList();
 
-    @GET("/txs/{hash}")
+    @GET("txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 
-    @GET("/staking/validators?status=all")
+    @GET("staking/validators?status=all")
     Call<ArrayList<Validator>> getValidatorDetailList();
 
-    @GET("/staking/delegators/{address}")
+    @GET("staking/delegators/{address}")
     Call<ResOkDeposit> getDepositInfo(@Path("address") String address);
 
-    @GET("/staking/delegators/{address}/unbonding_delegations")
+    @GET("staking/delegators/{address}/unbonding_delegations")
     Call<ResOkWithdraw> getWithdrawInfo(@Path("address") String address);
 
 
@@ -51,6 +51,6 @@ public interface OkChain {
 
 
     //Broadcast Tx
-    @POST("/txs")
+    @POST("txs")
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 }
