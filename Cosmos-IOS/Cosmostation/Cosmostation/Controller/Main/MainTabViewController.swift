@@ -390,9 +390,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                    print("CDP mMyCdps", BaseData.instance.mMyCdps.count)
 //                }
                 
-                print("mBondingList ", mBondingList.count)
-                print("mUnbondingList ", mUnbondingList.count)
-                print("mRewardList ", mRewardList.count)
+//                print("mBondingList ", mBondingList.count)
+//                print("mUnbondingList ", mUnbondingList.count)
+//                print("mRewardList ", mRewardList.count)
 //
             } else if (mChainType == ChainType.IRIS_MAIN) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
@@ -456,9 +456,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         self.mMyValidators.append(validator)
                     }
                 }
-                print("mTopValidators ", mTopValidators.count)
-                print("mOtherValidators ", mOtherValidators.count)
-                print("mAllValidator ", mAllValidator.count)
+//                print("mTopValidators ", mTopValidators.count)
+//                print("mOtherValidators ", mOtherValidators.count)
+//                print("mAllValidator ", mAllValidator.count)
                 
             } else if (mChainType == ChainType.OKEX_TEST) {
                 self.mMyValidators.removeAll()
@@ -483,12 +483,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             }
             
-            if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-                print("KAVA mMyCdps ", BaseData.instance.mMyCdps.count)
-                print("KAVA mIncentiveClaimables ", BaseData.instance.mIncentiveClaimables.count)
-                print("KAVA mHavestDeposits ", BaseData.instance.mHavestDeposits.count)
-                print("KAVA mHavestRewards ", BaseData.instance.mHavestRewards.count)
-            }
+//            if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
+//                print("KAVA mMyCdps ", BaseData.instance.mMyCdps.count)
+//                print("KAVA mIncentiveClaimables ", BaseData.instance.mIncentiveClaimables.count)
+//                print("KAVA mHavestDeposits ", BaseData.instance.mHavestDeposits.count)
+//                print("KAVA mHavestRewards ", BaseData.instance.mHavestRewards.count)
+//            }
             
             //For StarGate after v0.40
             if (mChainType == ChainType.COSMOS_TEST) {
@@ -517,20 +517,20 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onShowToast(NSLocalizedString("error_network", comment: ""))
                 }
                 
-                print("mBondedValidators_V1 ", BaseData.instance.mBondedValidators_V1.count)
-                print("mUnbondValidators_V1 ", BaseData.instance.mUnbondValidators_V1.count)
-                print("mAllValidators_V1 ", BaseData.instance.mAllValidators_V1.count)
-                print("mMyValidators_V1 ", BaseData.instance.mMyValidators_V1.count)
-                
-                print("mMyBalances_V1 ", BaseData.instance.mMyBalances_V1.count)
-                print("mMyDelegations_V1 ", BaseData.instance.mMyDelegations_V1.count)
-                print("mMyUnbondings_V1 ", BaseData.instance.mMyUnbondings_V1.count)
-                print("mMyReward_V1 ", BaseData.instance.mMyReward_V1.count)
-                
-                print("mMintParam_V1 ", BaseData.instance.mMintParam_V1)
-                print("mStakingPool_V1 ", BaseData.instance.mStakingPool_V1)
-                print("mProvision_V1 ", BaseData.instance.mProvision_V1)
-                print("mInflation_V1 ", BaseData.instance.mInflation_V1)
+//                print("mBondedValidators_V1 ", BaseData.instance.mBondedValidators_V1.count)
+//                print("mUnbondValidators_V1 ", BaseData.instance.mUnbondValidators_V1.count)
+//                print("mAllValidators_V1 ", BaseData.instance.mAllValidators_V1.count)
+//                print("mMyValidators_V1 ", BaseData.instance.mMyValidators_V1.count)
+//
+//                print("mMyBalances_V1 ", BaseData.instance.mMyBalances_V1.count)
+//                print("mMyDelegations_V1 ", BaseData.instance.mMyDelegations_V1.count)
+//                print("mMyUnbondings_V1 ", BaseData.instance.mMyUnbondings_V1.count)
+//                print("mMyReward_V1 ", BaseData.instance.mMyReward_V1.count)
+//
+//                print("mMintParam_V1 ", BaseData.instance.mMintParam_V1)
+//                print("mStakingPool_V1 ", BaseData.instance.mStakingPool_V1)
+//                print("mProvision_V1 ", BaseData.instance.mProvision_V1)
+//                print("mInflation_V1 ", BaseData.instance.mInflation_V1)
                 
             } else {
                 if (mAllValidator.count <= 0) {
