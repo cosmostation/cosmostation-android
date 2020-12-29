@@ -111,6 +111,7 @@
     <string name="str_iov_main_net">Starname Mainnet</string>
     <string name="str_kava_main_net">Kava Mainnet</string>
     <string name="str_band_main_net">Band Mainnet</string>
+    <string name="str_secret_main_net">Secret Mainnet</string>
     <string name="str_certik_main_net">Certik Mainnet</string>
     <string name="str_akash_main_net">Akash Mainnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>

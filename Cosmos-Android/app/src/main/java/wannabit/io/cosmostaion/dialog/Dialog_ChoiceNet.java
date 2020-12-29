@@ -26,7 +26,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
     private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer;
     private LinearLayout mMain, mIris, mBinance, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mCertik, mAkash;
+    private LinearLayout mBand, mCertik, mAkash, mSecret;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -65,6 +65,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mBand = view.findViewById(R.id.band_chain);
         mCertik = view.findViewById(R.id.certik_chain);
         mAkash = view.findViewById(R.id.akash_chain);
+        mSecret = view.findViewById(R.id.secret_chain);
 
         mMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +111,14 @@ public class Dialog_ChoiceNet extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BAND_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
+        mSecret.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.SECRET_MAIN);
                 getDialog().dismiss();
             }
         });
