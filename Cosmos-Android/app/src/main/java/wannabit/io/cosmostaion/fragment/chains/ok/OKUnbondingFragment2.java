@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.ok.StakeWithdrawActivity;
+import wannabit.io.cosmostaion.activities.chains.ok.OKUnbondingActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -28,7 +28,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_STAKE_
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
-public class StakeWithdrawFragment2 extends BaseFragment implements View.OnClickListener {
+public class OKUnbondingFragment2 extends BaseFragment implements View.OnClickListener {
 
     private RelativeLayout mBtnGasType;
     private TextView        mTvGasType;
@@ -57,8 +57,8 @@ public class StakeWithdrawFragment2 extends BaseFragment implements View.OnClick
     private BigDecimal      mFeePrice       = BigDecimal.ZERO;
     private BigDecimal      mEstimateGasAmount  = BigDecimal.ZERO;
 
-    public static StakeWithdrawFragment2 newInstance(Bundle bundle) {
-        StakeWithdrawFragment2 fragment = new StakeWithdrawFragment2();
+    public static OKUnbondingFragment2 newInstance(Bundle bundle) {
+        OKUnbondingFragment2 fragment = new OKUnbondingFragment2();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -149,7 +149,7 @@ public class StakeWithdrawFragment2 extends BaseFragment implements View.OnClick
 
     }
 
-    private StakeWithdrawActivity getSActivity() {
-        return (StakeWithdrawActivity)getBaseActivity();
+    private OKUnbondingActivity getSActivity() {
+        return (OKUnbondingActivity)getBaseActivity();
     }
 }

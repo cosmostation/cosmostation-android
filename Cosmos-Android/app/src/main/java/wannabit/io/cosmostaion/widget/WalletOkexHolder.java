@@ -14,15 +14,13 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
-import wannabit.io.cosmostaion.activities.chains.ok.StakeDepositActivity;
-import wannabit.io.cosmostaion.activities.chains.ok.StakeWithdrawActivity;
+import wannabit.io.cosmostaion.activities.chains.ok.OKStakingActivity;
+import wannabit.io.cosmostaion.activities.chains.ok.OKUnbondingActivity;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 public class WalletOkexHolder extends WalletHolder {
@@ -77,7 +75,7 @@ public class WalletOkexHolder extends WalletHolder {
                     Toast.makeText(mainActivity, R.string.error_not_enough_to_deposit, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(mainActivity, StakeDepositActivity.class);
+                Intent intent = new Intent(mainActivity, OKStakingActivity.class);
                 mainActivity.startActivity(intent);
             }
         });
@@ -104,7 +102,7 @@ public class WalletOkexHolder extends WalletHolder {
                     Toast.makeText(mainActivity, R.string.error_not_enough_to_withdraw, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(mainActivity, StakeWithdrawActivity.class);
+                Intent intent = new Intent(mainActivity, OKUnbondingActivity.class);
                 mainActivity.startActivity(intent);
             }
         });

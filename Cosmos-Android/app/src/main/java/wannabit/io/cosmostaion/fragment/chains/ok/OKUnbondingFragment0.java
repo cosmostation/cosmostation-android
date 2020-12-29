@@ -18,16 +18,15 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.ok.StakeDepositActivity;
+import wannabit.io.cosmostaion.activities.chains.ok.OKUnbondingActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
-public class StakeDepositFragmentStep0 extends BaseFragment implements View.OnClickListener {
+public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickListener {
 
     private Button      mCancel, mNextBtn;
     private EditText    mAmountInput;
@@ -37,8 +36,8 @@ public class StakeDepositFragmentStep0 extends BaseFragment implements View.OnCl
     private Button      mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
     private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
 
-    public static StakeDepositFragmentStep0 newInstance(Bundle bundle) {
-        StakeDepositFragmentStep0 fragment = new StakeDepositFragmentStep0();
+    public static OKUnbondingFragment0 newInstance(Bundle bundle) {
+        OKUnbondingFragment0 fragment = new OKUnbondingFragment0();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -50,7 +49,7 @@ public class StakeDepositFragmentStep0 extends BaseFragment implements View.OnCl
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_stake_deposit_0, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_stake_withdraw_0, container, false);
         mCancel = rootView.findViewById(R.id.btn_cancel);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
@@ -135,7 +134,7 @@ public class StakeDepositFragmentStep0 extends BaseFragment implements View.OnCl
         super.onResume();
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mAvailableDenom);
         if (getSActivity().mBaseChain.equals(OK_TEST)) {
-            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK_TEST).subtract(BigDecimal.ONE);
+            mMaxAvailable = WDp.getOkDepositCoin(getBaseDao().mOkStaking);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, 8));
         }
     }
@@ -146,7 +145,7 @@ public class StakeDepositFragmentStep0 extends BaseFragment implements View.OnCl
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(isValidateDepositAmount()) {
+            if(isValidateWithdrawAmount()) {
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
@@ -193,40 +192,34 @@ public class StakeDepositFragmentStep0 extends BaseFragment implements View.OnCl
             if (getSActivity().mBaseChain.equals(OK_TEST)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
             }
-            onShowEmptyBlanaceWarnDialog();
 
         } else if (v.equals(mClearAll)) {
             mAmountInput.setText("");
 
         }
+
     }
 
-    private boolean isValidateDepositAmount() {
+    private boolean isValidateWithdrawAmount() {
         try {
             if (getSActivity().mBaseChain.equals(OK_TEST)) {
                 BigDecimal depositTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (depositTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (depositTemp.compareTo(mMaxAvailable) > 0) return false;
                 Coin token = new Coin(TOKEN_OK_TEST, depositTemp.setScale(8).toPlainString());
-                getSActivity().mToDepositCoin = token;
+                getSActivity().mToWithdrawCoin = token;
                 return true;
             }
             return false;
 
         } catch (Exception e) {
-            getSActivity().mToDepositCoin = null;
+            getSActivity().mToWithdrawCoin = null;
             return false;
         }
 
     }
 
-    private void onShowEmptyBlanaceWarnDialog() {
-        Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
-        dialog.setCancelable(true);
-        dialog.show(getFragmentManager().beginTransaction(), "dialog");
-    }
-
-    private StakeDepositActivity getSActivity() {
-        return (StakeDepositActivity)getBaseActivity();
+    private OKUnbondingActivity getSActivity() {
+        return (OKUnbondingActivity)getBaseActivity();
     }
 }

@@ -791,6 +791,7 @@ public class MsgGenerator {
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();
         pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+
         pubKey.value = WKey.getPubKeyValue(key);
         signature.pub_key = pubKey;
         signature.signature = signatureTx;

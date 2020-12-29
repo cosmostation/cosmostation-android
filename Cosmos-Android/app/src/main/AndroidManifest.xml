@@ -355,14 +355,14 @@
 
 
         <activity
-            android:name=".activities.chains.ok.StakeDepositActivity"
+            android:name=".activities.chains.ok.OKStakingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
-            android:name=".activities.chains.ok.StakeWithdrawActivity"
+            android:name=".activities.chains.ok.OKUnbondingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">

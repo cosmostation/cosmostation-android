@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.ok.StakeDepositActivity;
+import wannabit.io.cosmostaion.activities.chains.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -28,7 +28,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_STAKE_
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
-public class StakeDepositFragmentStep2 extends BaseFragment implements View.OnClickListener {
+public class OKStakingFragmentStep2 extends BaseFragment implements View.OnClickListener {
 
     private RelativeLayout  mBtnGasType;
     private TextView        mTvGasType;
@@ -58,8 +58,8 @@ public class StakeDepositFragmentStep2 extends BaseFragment implements View.OnCl
     private BigDecimal      mEstimateGasAmount  = BigDecimal.ZERO;
 
 
-    public static StakeDepositFragmentStep2 newInstance(Bundle bundle) {
-        StakeDepositFragmentStep2 fragment = new StakeDepositFragmentStep2();
+    public static OKStakingFragmentStep2 newInstance(Bundle bundle) {
+        OKStakingFragmentStep2 fragment = new OKStakingFragmentStep2();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -146,7 +146,7 @@ public class StakeDepositFragmentStep2 extends BaseFragment implements View.OnCl
         }
     }
 
-    private StakeDepositActivity getSActivity() {
-        return (StakeDepositActivity)getBaseActivity();
+    private OKStakingActivity getSActivity() {
+        return (OKStakingActivity)getBaseActivity();
     }
 }

@@ -267,6 +267,7 @@ public class BaseConstant {
 
 
     public final static String COSMOS_KEY_TYPE_PUBLIC                       = "tendermint/PubKeySecp256k1";
+    public final static String ETHERMINT_KEY_TYPE_PUBLIC                    = "ethermint/PubKeyEthSecp256k1";
     public final static String IOV_KEY_TYPE                                 = "sigs/ed25519/";
 
     public final static String CONST_PW_PURPOSE                             = "CONST_PW_PURPOSE";

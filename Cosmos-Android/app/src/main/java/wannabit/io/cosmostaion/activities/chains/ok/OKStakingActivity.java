@@ -21,27 +21,26 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.chains.ok.StakeWithdrawFragment0;
-import wannabit.io.cosmostaion.fragment.chains.ok.StakeWithdrawFragment1;
-import wannabit.io.cosmostaion.fragment.chains.ok.StakeWithdrawFragment2;
-import wannabit.io.cosmostaion.fragment.chains.ok.StakeWithdrawFragment3;
+import wannabit.io.cosmostaion.fragment.chains.ok.OKStakingFragmentStep0;
+import wannabit.io.cosmostaion.fragment.chains.ok.OKStakingFragmentStep1;
+import wannabit.io.cosmostaion.fragment.chains.ok.OKStakingFragmentStep2;
+import wannabit.io.cosmostaion.fragment.chains.ok.OKStakingFragmentStep3;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 
-public class StakeWithdrawActivity extends BaseActivity {
-    private RelativeLayout              mRootView;
-    private Toolbar                     mToolbar;
-    private TextView                    mTitle;
-    private ImageView                   mIvStep;
-    private TextView                    mTvStep;
-    private ViewPager                   mViewPager;
-    private StakeWithdrawPageAdapter    mPageAdapter;
+public class OKStakingActivity extends BaseActivity {
+    private RelativeLayout          mRootView;
+    private Toolbar                 mToolbar;
+    private TextView                mTitle;
+    private ImageView               mIvStep;
+    private TextView                mTvStep;
+    private ViewPager               mViewPager;
+    private StakeDepositPageAdapter mPageAdapter;
 
 
-    public Coin                     mToWithdrawCoin;
+    public Coin                     mToDepositCoin;
     public String                   mMemo;
     public Fee                      mFee;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,20 +52,20 @@ public class StakeWithdrawActivity extends BaseActivity {
         mIvStep             = findViewById(R.id.send_step);
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_ok_withdraw_c));
+        mTitle.setText(getString(R.string.str_ok_staking_c));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_ok_stake_withdraw_step_0));
+        mTvStep.setText(getString(R.string.str_ok_stake_deposit_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mBalances = mAccount.getBalances();
 
-        mPageAdapter = new StakeWithdrawPageAdapter(getSupportFragmentManager());
+        mPageAdapter = new StakeDepositPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
@@ -78,17 +77,17 @@ public class StakeWithdrawActivity extends BaseActivity {
             public void onPageSelected(int i) {
                 if(i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_ok_stake_withdraw_step_0));
+                    mTvStep.setText(getString(R.string.str_ok_stake_deposit_step_0));
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_ok_stake_withdraw_step_1));
+                    mTvStep.setText(getString(R.string.str_ok_stake_deposit_step_1));
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_ok_stake_withdraw_step_2));
+                    mTvStep.setText(getString(R.string.str_ok_stake_deposit_step_2));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_ok_stake_withdraw_step_3));
+                    mTvStep.setText(getString(R.string.str_ok_stake_deposit_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
@@ -104,6 +103,7 @@ public class StakeWithdrawActivity extends BaseActivity {
                 onHideKeyboard();
             }
         });
+
     }
 
     @Override
@@ -134,29 +134,30 @@ public class StakeWithdrawActivity extends BaseActivity {
         }
     }
 
-
-    public void onStartWithdraw() {
-        Intent intent = new Intent(StakeWithdrawActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_OK_WITHDRAW);
-        intent.putExtra("stakeAmount", mToWithdrawCoin);
+    public void onStartDeposit() {
+        Intent intent = new Intent(OKStakingActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_OK_DEPOSIT);
+        intent.putExtra("stakeAmount", mToDepositCoin);
         intent.putExtra("memo", mMemo);
         intent.putExtra("fee", mFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
     }
 
-    private class StakeWithdrawPageAdapter extends FragmentPagerAdapter {
+
+    private class StakeDepositPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
-        public StakeWithdrawPageAdapter(FragmentManager fm) {
+        public StakeDepositPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(StakeWithdrawFragment0.newInstance(null));
-            mFragments.add(StakeWithdrawFragment1.newInstance(null));
-            mFragments.add(StakeWithdrawFragment2.newInstance(null));
-            mFragments.add(StakeWithdrawFragment3.newInstance(null));
+            mFragments.add(OKStakingFragmentStep0.newInstance(null));
+            mFragments.add(OKStakingFragmentStep1.newInstance(null));
+            mFragments.add(OKStakingFragmentStep2.newInstance(null));
+            mFragments.add(OKStakingFragmentStep3.newInstance(null));
         }
 
         @Override

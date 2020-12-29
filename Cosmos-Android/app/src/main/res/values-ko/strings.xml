@@ -818,11 +818,11 @@
     <string name="str_delegate_warn_title">위임에 관해서</string>
     <string name="str_delegate_warn_msg">신중하게 검증인을 선택하세요.\n\n사용자는 자신을 대신해 노드를 운영할 검증인을 선택하여 위임함으로써 위임에 대한 리워드를 받을 수 있지만, 위임한 검증인의 노드에 문제가 발생 시 위임자 또한 지분의 일부가 삭감될 수 있습니다.\n\n위임 해제시, 네트워크에 따라 일정 기간의 언본딩 기간이 소요됩니다. 해제 기간동안 요청한 수량은 어떠한 거래도 할 수 없으며, 위임에 대한 리워드도 지급되지 않습니다.</string>
     <string name="str_memo_warn">메모 기입을 확인 바랍니다.\n특정 거래소 또는 지갑은 메모 입력을 요구합니다.</string>
-    <string name="str_ok_stake_deposit_step_0">예금 수량을 설정하세요</string>
+    <string name="str_ok_stake_deposit_step_0">위임 수량을 설정하세요</string>
     <string name="str_ok_stake_deposit_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_ok_stake_deposit_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_ok_stake_deposit_step_3">입력하신 정보를 확인하세요</string>
-    <string name="str_ok_stake_withdraw_step_0">출금 수량을 설정하세요</string>
+    <string name="str_ok_stake_withdraw_step_0">위임 해재 수량을 설정하세요</string>
     <string name="str_ok_stake_withdraw_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_ok_stake_withdraw_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_ok_stake_withdraw_step_3">입력하신 정보를 확인하세요</string>
@@ -836,8 +836,8 @@
     <string name="str_vote_direct">검증인에게 직접 투표</string>
     <string name="str_vote_agent">대리인을 통한 간접 투표</string>
     <string name="str_validator_vote"><![CDATA[검증인 & 투표]]></string>
-    <string name="str_ok_deposit_c">예금 하기</string>
-    <string name="str_ok_withdraw_c">출금 하기</string>
+    <string name="str_ok_staking_c">위임 하기</string>
+    <string name="str_ok_unbonding_c">위임 철회 하기</string>
     <string name="str_ok_direct_vote_c">검증인 투표</string>
     <string name="str_ok_direct_vote">검증인 투표</string>
     <string name="str_vote_to_validator">선택한 검증인</string>
@@ -1065,7 +1065,7 @@
     <string name="tx_receive">받기</string>
     <string name="tx_transfer">전송기하기</string>
     <string name="tx_delegate">위임</string>
-    <string name="tx_undelegate">위임 철회</string>다
+    <string name="tx_undelegate">위임 철회</string>
     <string name="tx_redelegate">재위임</string>
     <string name="tx_get_reward">이자 청구</string>
     <string name="tx_get_reward_all">이자 모두 청구</string>

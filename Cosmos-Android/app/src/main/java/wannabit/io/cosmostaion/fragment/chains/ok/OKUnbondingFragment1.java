@@ -13,18 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.ok.StakeWithdrawActivity;
+import wannabit.io.cosmostaion.activities.chains.ok.OKUnbondingActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class StakeWithdrawFragment1 extends BaseFragment implements View.OnClickListener {
+public class OKUnbondingFragment1 extends BaseFragment implements View.OnClickListener {
 
     private EditText mMemo;
     private TextView mMemoCnt;
     private Button mBeforeBtn, mNextBtn;
 
-    public static StakeWithdrawFragment1 newInstance(Bundle bundle) {
-        StakeWithdrawFragment1 fragment = new StakeWithdrawFragment1();
+    public static OKUnbondingFragment1 newInstance(Bundle bundle) {
+        OKUnbondingFragment1 fragment = new OKUnbondingFragment1();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -101,7 +101,7 @@ public class StakeWithdrawFragment1 extends BaseFragment implements View.OnClick
         }
     }
 
-    private StakeWithdrawActivity getSActivity() {
-        return (StakeWithdrawActivity)getBaseActivity();
+    private OKUnbondingActivity getSActivity() {
+        return (OKUnbondingActivity)getBaseActivity();
     }
 }

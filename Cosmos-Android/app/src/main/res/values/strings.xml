@@ -968,11 +968,11 @@
     <string name="str_delegate_warn_title">Delegate Notice</string>
     <string name="str_delegate_warn_msg">Please perform careful due diligence on validators before delegating.\n\nUsers can receive staking rewards for delegating to a validator to operate a node on their behalf. If a problem occurs with the selected validators node, you may also lose a portion of your delegated stake.\n\nWhen you undelegate, there will be an unbonding period specific to the network. For tokens in "unbonding" state, you will not be able to accumulate staking rewards or make transactions.</string>
     <string name="str_memo_warn">Please check your memo.\nSome exchanges or wallets may require a specific memo for deposits.</string>
-    <string name="str_ok_stake_deposit_step_0">Insert amount to deposit</string>
+    <string name="str_ok_stake_deposit_step_0">Insert amount to stake</string>
     <string name="str_ok_stake_deposit_step_1">Insert memo (optional)</string>
     <string name="str_ok_stake_deposit_step_2">Select transaction fee</string>
     <string name="str_ok_stake_deposit_step_3">Check transaction detail</string>
-    <string name="str_ok_stake_withdraw_step_0">Insert amount to withdraw</string>
+    <string name="str_ok_stake_withdraw_step_0">Insert amount to unbonding</string>
     <string name="str_ok_stake_withdraw_step_1">Insert memo (optional)</string>
     <string name="str_ok_stake_withdraw_step_2">Select transaction fee</string>
     <string name="str_ok_stake_withdraw_step_3">Check transaction detail</string>
@@ -986,8 +986,8 @@
     <string name="str_vote_direct">Direct vote to Validator</string>
     <string name="str_vote_agent">Indirect vote with Agent</string>
     <string name="str_validator_vote"><![CDATA[Validators & Vote]]></string>
-    <string name="str_ok_deposit_c">DEPOSIT</string>
-    <string name="str_ok_withdraw_c">WITHDRAW</string>
+    <string name="str_ok_staking_c">STAKING</string>
+    <string name="str_ok_unbonding_c">UNBONDING</string>
     <string name="str_ok_direct_vote_c">VOTE FOR VALIDATOR</string>
     <string name="str_ok_direct_vote">Vote for Validator</string>
     <string name="str_vote_to_validator">Vote to</string>

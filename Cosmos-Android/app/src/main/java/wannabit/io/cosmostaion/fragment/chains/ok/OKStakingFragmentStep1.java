@@ -13,19 +13,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.ok.StakeDepositActivity;
+import wannabit.io.cosmostaion.activities.chains.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class StakeDepositFragmentStep1 extends BaseFragment implements View.OnClickListener {
+public class OKStakingFragmentStep1 extends BaseFragment implements View.OnClickListener {
 
     private EditText mMemo;
     private TextView mMemoCnt;
 
     private Button mBeforeBtn, mNextBtn;
 
-    public static StakeDepositFragmentStep1 newInstance(Bundle bundle) {
-        StakeDepositFragmentStep1 fragment = new StakeDepositFragmentStep1();
+    public static OKStakingFragmentStep1 newInstance(Bundle bundle) {
+        OKStakingFragmentStep1 fragment = new OKStakingFragmentStep1();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -104,8 +104,8 @@ public class StakeDepositFragmentStep1 extends BaseFragment implements View.OnCl
 
     }
 
-    private StakeDepositActivity getSActivity() {
-        return (StakeDepositActivity)getBaseActivity();
+    private OKStakingActivity getSActivity() {
+        return (OKStakingActivity)getBaseActivity();
     }
 }
 
