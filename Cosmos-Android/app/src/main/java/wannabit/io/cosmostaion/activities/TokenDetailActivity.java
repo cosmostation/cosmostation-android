@@ -610,9 +610,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindOkt(RecyclerView.ViewHolder viewHolder, int position) {
             final OktHolder holder = (OktHolder)viewHolder;
-            holder.mOkAction.setVisibility(View.GONE);
-            holder.mOkVote.setVisibility(View.GONE);
-            holder.mOkTransfer.setVisibility(View.VISIBLE);
 
             BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_OK_TEST);
             BigDecimal lockedAmount = WDp.getLockedCoin(mBalances, TOKEN_OK_TEST);
@@ -1024,9 +1021,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         }
 
         public class OktHolder extends RecyclerView.ViewHolder {
-            private LinearLayout    mOkAction;
-            private RelativeLayout  mOkVote, mBtnOkSend, mBtnOkReceive;
-            private LinearLayout    mOkTransfer;
+            private RelativeLayout  mBtnOkSend, mBtnOkReceive;
             private TextView        mOkTotalAmount, mOkTotalValue, mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
 
             public OktHolder(View v) {
@@ -1037,9 +1032,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mOkLocked               = itemView.findViewById(R.id.ok_locked);
                 mOkDeposit              = itemView.findViewById(R.id.ok_deposit);
                 mOkWithdrawing          = itemView.findViewById(R.id.ok_withdrawing);
-                mOkAction               = itemView.findViewById(R.id.layer_ok_actions);
-                mOkVote                 = itemView.findViewById(R.id.btn_ok_vote);
-                mOkTransfer             = itemView.findViewById(R.id.btn_ok_transfer);
                 mBtnOkSend              = itemView.findViewById(R.id.btn_ok_send);
                 mBtnOkReceive           = itemView.findViewById(R.id.btn_ok_receive);
             }

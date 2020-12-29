@@ -744,6 +744,9 @@
     <string name="str_locked">잠긴 수량</string>
     <string name="str_frozen">얼린 수량</string>
     <string name="str_deposited">예금 수량</string>
+    <string name="str_staking">위임 수량</string>
+    <string name="str_to_staking">위임 하기</string>
+    <string name="str_to_unbonding">위임 철회 하기</string>
     <string name="str_deposit">예금 하기</string>
     <string name="str_withdraw">출금 하기</string>
     <string name="str_withdrawing">출금중 수량</string>

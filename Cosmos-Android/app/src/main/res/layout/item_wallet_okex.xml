@@ -111,7 +111,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_deposited"
+                    android:text="@string/str_staking"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/ok_deposit"
@@ -130,7 +130,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_withdrawing"
+                    android:text="@string/str_unbonding"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/ok_withdrawing"
@@ -164,7 +164,7 @@
                         android:drawablePadding="@dimen/space_4"
                         android:gravity="center"
                         style="@style/font_ss_12_white"
-                        android:text="@string/str_deposit" />
+                        android:text="@string/str_to_staking" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -185,7 +185,7 @@
                         android:drawablePadding="@dimen/space_4"
                         android:gravity="center"
                         style="@style/font_ss_12_white"
-                        android:text="@string/str_withdraw" />
+                        android:text="@string/str_to_unbonding" />
                 </RelativeLayout>
             </LinearLayout>
 

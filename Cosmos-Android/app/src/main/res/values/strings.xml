@@ -891,6 +891,9 @@
     <string name="str_locked">Locked</string>
     <string name="str_frozen">Frozen</string>
     <string name="str_deposited">Deposit</string>
+    <string name="str_staking">Staking</string>
+    <string name="str_to_staking">Staking</string>
+    <string name="str_to_unbonding">Unbonding</string>
     <string name="str_deposit">Deposit</string>
     <string name="str_withdraw">Withdraw</string>
     <string name="str_withdrawing">Withdrawing</string>
