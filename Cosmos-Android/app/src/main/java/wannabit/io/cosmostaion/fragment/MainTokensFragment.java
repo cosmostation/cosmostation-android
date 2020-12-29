@@ -58,7 +58,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -761,10 +763,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         } else  {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance.add(balance.locked), 0, 6));
             holder.itemValue.setText(WDp.getValueOfOk(getContext(), getBaseDao(), BigDecimal.ZERO));
-
+            try {
+                Picasso.get().load(OKEX_COIN_IMG_URL+  token.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
+            } catch (Exception e) { }
         }
 
         if (token != null) {

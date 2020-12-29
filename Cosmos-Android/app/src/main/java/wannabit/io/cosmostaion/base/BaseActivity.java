@@ -902,8 +902,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(KAVA_MAIN) ||
                         mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) ||
                         mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) ||
-                        mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(OK_TEST))) {
-            for(Validator top:mTopValidators) {
+                        mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN))) {
+            for (Validator top:mTopValidators) {
                 boolean already = false;
                 for (BondingState bond:mBondings) {
                     if(bond.validatorAddress.equals(top.operator_address)) {
@@ -956,10 +956,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 //            WLog.w("mStakingPool " + mStakingPool.height);
 //            WLog.w("mIrisStakingPool " + mIrisStakingPool);
 
-//            WLog.w("mOkTokenList " + getBaseDao().mOkTokenList.data.size());
-//            WLog.w("mOkAccountInfo " + getBaseDao().mOkAccountInfo.value.account_number);
-//            WLog.w("mOkAccountInfo " + getBaseDao().mOkAccountInfo.value.address);
-//            WLog.w("mOkStaking " + getBaseDao().mOkStaking.validator_address.size());
+        }
+
+        else if (mTaskCount == 0 && mBaseChain.equals(OK_TEST)) {
+            mAllValidators.addAll(mTopValidators);
+            mAllValidators.addAll(mOtherValidators);
+            WLog.w("mOkTokenList " + getBaseDao().mOkTokenList.data.size());
 
         }
 

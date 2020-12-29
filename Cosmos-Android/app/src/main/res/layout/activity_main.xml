@@ -140,7 +140,8 @@
             android:layout_marginRight="@dimen/space_16"
             android:layout_marginBottom="@dimen/space_72"
             app:backgroundTint="#FF564F"
-            app:srcCompat="@drawable/faucet_btn"/>
+            app:srcCompat="@drawable/faucet_btn"
+            android:visibility="gone"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/btn_floating"

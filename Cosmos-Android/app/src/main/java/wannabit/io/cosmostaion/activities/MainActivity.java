@@ -154,19 +154,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
         });
 
-        mFaucetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onGetFaucet();
-            }
-        });
-
-        mAirDropBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onGetAirDrop();
-            }
-        });
+//        mFaucetBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onGetFaucet();
+//            }
+//        });
+//
+//        mAirDropBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onGetAirDrop();
+//            }
+//        });
 
         mChainRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mChainRecyclerView.setHasFixedSize(true);
@@ -240,11 +240,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 if (position != 0) mFloatBtn.hide();
                 else if (!mFloatBtn.isShown()) mFloatBtn.show();
 
-                if (position != 1 || !(mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
-                    mFaucetBtn.hide();
-                } else if (!mFaucetBtn.isShown()) {
-                    mFaucetBtn.show();
-                }
+//                if (position != 1 || !(mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
+//                    mFaucetBtn.hide();
+//                } else if (!mFaucetBtn.isShown()) {
+//                    mFaucetBtn.show();
+//                }
 
 //                if (position != 1 || !(mBaseChain.equals(KAVA_MAIN)) || mAccount.accountNumber > 0) {
 //                    mAirDropBtn.hide();
@@ -347,52 +347,52 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setText(getString(R.string.str_binance_test_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
-            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
+//            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
 
         } else if (mBaseChain.equals(KAVA_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
             mToolbarChainName.setText(getString(R.string.str_kava_net_test));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKava));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
-            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
+//            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
 
         } else if (mBaseChain.equals(IOV_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_testnet_img));
             mToolbarChainName.setText(getString(R.string.str_iov_net_test));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIov));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
-            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
+//            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
 
         } else if (mBaseChain.equals(OK_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_testnet_img));
             mToolbarChainName.setText(getString(R.string.str_ok_net_test));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorOK));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
-            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
+//            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
 
         } else if (mBaseChain.equals(CERTIK_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_testnet_img));
             mToolbarChainName.setText(getString(R.string.str_certik_chain_test));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorCertik));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
-            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
+//            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
 
         }
 
-        if (mContentsPager != null) {
-            if (mContentsPager.getCurrentItem() == 1 &&
-                    (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
-                if (!mFaucetBtn.isShown()) mFaucetBtn.show();
-            } else {
-                mFaucetBtn.hide();
-            }
+//        if (mContentsPager != null) {
+//            if (mContentsPager.getCurrentItem() == 1 &&
+//                    (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
+//                if (!mFaucetBtn.isShown()) mFaucetBtn.show();
+//            } else {
+//                mFaucetBtn.hide();
+//            }
 
 //            if (mContentsPager.getCurrentItem() == 1 && mBaseChain.equals(KAVA_MAIN) && mAccount.accountNumber <= 0) {
 //                if (!mAirDropBtn.isShown()) mAirDropBtn.show();
 //            } else {
 //                mAirDropBtn.hide();
 //            }
-        }
+//        }
 
         // make syn more smooth with wallet change action
         if (mContentsPager != null && mContentsPager.getCurrentItem() == 2) {
