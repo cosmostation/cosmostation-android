@@ -25,7 +25,7 @@ import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResOkDeposit;
+import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -38,7 +38,7 @@ public class OKValidatorTopFragment extends BaseFragment {
     private TextView                    mValidatorSize;
 
     private ArrayList<Validator>        mTopValidators = new ArrayList<>();
-    private ResOkDeposit                mOkDeposit;
+    private ResOkStaking mOkDeposit;
 
     public static OKValidatorTopFragment newInstance(Bundle bundle) {
         OKValidatorTopFragment fragment = new OKValidatorTopFragment();
@@ -82,7 +82,7 @@ public class OKValidatorTopFragment extends BaseFragment {
     public void onRefreshTab() {
         if(!isAdded()) return;
         mTopValidators  = getBaseDao().mTopValidators;
-        mOkDeposit      = getBaseDao().mOkDeposit;
+        mOkDeposit      = getBaseDao().mOkStaking;
         WLog.w("mTopValidators "+ mTopValidators.size());
 
         mValidatorSize.setText(""+mTopValidators.size());

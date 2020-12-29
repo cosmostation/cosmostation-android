@@ -151,16 +151,20 @@ public class SimpleSendTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
                 mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
-            } else if (getChain(mAccount.baseChain).equals(OK_TEST)) {
-                Response<ResLcdAccountInfo> accountResponse = ApiClient.getOkTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (!accountResponse.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+            }
+            //yongjoo
+//            else if (getChain(mAccount.baseChain).equals(OK_TEST)) {
+//                Response<ResLcdAccountInfo> accountResponse = ApiClient.getOkTestChain(mApp).getAccountInfo(mAccount.address).execute();
+//                if (!accountResponse.isSuccessful()) {
+//                    mResult.errorCode = ERROR_CODE_BROADCAST;
+//                    return mResult;
+//                }
+//                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+//                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+//
+//            }
 
-            } else if (getChain(mAccount.baseChain).equals(CERTIK_MAIN)) {
+            else if (getChain(mAccount.baseChain).equals(CERTIK_MAIN)) {
                 Response<ResLcdAccountInfo> accountResponse = ApiClient.getCertikChain(mApp).getAccountInfo(mAccount.address).execute();
                 if (!accountResponse.isSuccessful()) {
                     mResult.errorCode = ERROR_CODE_BROADCAST;

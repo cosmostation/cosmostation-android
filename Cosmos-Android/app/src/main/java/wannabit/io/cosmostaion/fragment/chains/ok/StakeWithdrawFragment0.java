@@ -134,7 +134,7 @@ public class StakeWithdrawFragment0 extends BaseFragment implements View.OnClick
         super.onResume();
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mAvailableDenom);
         if (getSActivity().mBaseChain.equals(OK_TEST)) {
-            mMaxAvailable = WDp.getOkDepositCoin(getBaseDao().mOkDeposit);
+            mMaxAvailable = WDp.getOkDepositCoin(getBaseDao().mOkStaking);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, 8));
         }
     }

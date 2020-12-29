@@ -64,6 +64,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
+import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 
@@ -90,6 +91,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_CERTIK_MANUAL;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_OKEX_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_ParameterProposal;
@@ -173,6 +175,17 @@ public class WUtil {
                 result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
                 result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
             }
+        }
+        return result;
+    }
+
+    public static Account getAccountFromOkLcd(long id, ResOkAccountInfo lcd) {
+        Account result = new Account();
+        result.id = id;
+        if (lcd.type.equals(COSMOS_AUTH_TYPE_OKEX_ACCOUNT)) {
+            result.address = lcd.value.address;
+            result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
+            result.accountNumber = Integer.parseInt(lcd.value.account_number);
         }
         return result;
     }

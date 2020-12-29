@@ -10,36 +10,40 @@ import retrofit2.http.Path;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
-import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResLcdBondings;
-import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
+import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
-import wannabit.io.cosmostaion.network.res.ResOkDeposit;
+import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
-import wannabit.io.cosmostaion.network.res.ResOkWithdraw;
+import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface OkChain {
     @GET("auth/accounts/{address}")
-    Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
+    Call<ResOkAccountInfo> getAccountInfo(@Path("address") String address);
 
     @GET("accounts/{address}")
-    Call<ResOkAccountToken> getAccountToken(@Path("address") String address);
+    Call<ResOkAccountToken> getAccountBalance(@Path("address") String address);
 
     @GET("tokens")
     Call<ResOkTokenList> getTokenList();
 
+    @GET("staking/validators?status=bonded")
+    Call<ArrayList<Validator>> getBondedValidatorDetailList();
+
+    @GET("staking/validators?status=unbonding")
+    Call<ArrayList<Validator>> getUnBondingValidatorDetailList();
+
+    @GET("staking/validators?status=unbonded")
+    Call<ArrayList<Validator>> getUnBondedValidatorDetailList();
+
     @GET("txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 
-    @GET("staking/validators?status=all")
-    Call<ArrayList<Validator>> getValidatorDetailList();
-
     @GET("staking/delegators/{address}")
-    Call<ResOkDeposit> getDepositInfo(@Path("address") String address);
+    Call<ResOkStaking> getDepositInfo(@Path("address") String address);
 
     @GET("staking/delegators/{address}/unbonding_delegations")
-    Call<ResOkWithdraw> getWithdrawInfo(@Path("address") String address);
+    Call<ResOkUnbonding> getWithdrawInfo(@Path("address") String address);
 
 
 

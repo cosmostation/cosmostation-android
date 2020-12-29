@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -57,7 +57,7 @@ public class BaseConstant {
     public final static int TASK_INIT_ACCOUNT                           = 2002;
     public final static int TASK_INIT_EMPTY_ACCOUNT                     = 2003;
     public final static int TASK_FETCH_ACCOUNT                          = 2004;
-    public final static int TASK_FETCH_ALL_VALIDATOR                    = 2005;
+    public final static int TASK_FETCH_BONDEB_VALIDATOR                 = 2005;
     public final static int TASK_FETCH_BONDING_STATE                    = 2006;
     public final static int TASK_FETCH_UNBONDING_STATE                  = 2007;
     public final static int TASK_FETCH_TOTAL_REWARDS                    = 2008;
@@ -133,9 +133,9 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_HTLC_CREATE                     = 2079;
     public final static int TASK_GEN_TX_HTLC_CLAIM                      = 2080;
     public final static int TASK_FETCH_BNB_FEES                         = 2081;
-    public final static int TASK_FETCH_OK_DEPOSIT                       = 2082;
-    public final static int TASK_FETCH_OK_WITHDRAW                      = 2083;
-    public final static int TASK_FETCH_OK_ACCOUNT_TOKEN                 = 2084;
+    public final static int TASK_FETCH_OK_STAKING_INFO                  = 2082;
+    public final static int TASK_FETCH_OK_UNBONDING_INFO                = 2083;
+    public final static int TASK_FETCH_OK_ACCOUNT_BALANCE               = 2084;
     public final static int TASK_FETCH_OK_TOKEN_LIST                    = 2085;
     public final static int TASK_GEN_TX_OK_DEPOSIT                      = 2086;
     public final static int TASK_GEN_TX_OK_WITHDRAW                     = 2087;
@@ -176,6 +176,7 @@ public class BaseConstant {
     public final static String COSMOS_AUTH_TYPE_ACCOUNT                     = "cosmos-sdk/Account";
     public final static String COSMOS_AUTH_TYPE_ACCOUNT_LEGACY              = "auth/Account";
     public final static String COSMOS_AUTH_TYPE_CERTIK_MANUAL               = "auth/ManualVestingAccount";
+    public final static String COSMOS_AUTH_TYPE_OKEX_ACCOUNT                = "okexchain/EthAccount";
 
     public final static String COSMOS_MSG_TYPE_TRANSFER                     = "cosmos-sdk/Send";
     public final static String COSMOS_MSG_TYPE_TRANSFER2                    = "cosmos-sdk/MsgSend";

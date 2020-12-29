@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.fragment.chains.ok.DirectVoteFragment1;
 import wannabit.io.cosmostaion.fragment.chains.ok.DirectVoteFragment2;
 import wannabit.io.cosmostaion.fragment.chains.ok.DirectVoteFragment3;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResOkDeposit;
+import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class OKVoteDirectActivity extends BaseActivity {
@@ -38,7 +38,7 @@ public class OKVoteDirectActivity extends BaseActivity {
     private ViewPager               mViewPager;
     private DirectVotePageAdapter   mPageAdapter;
 
-    public ResOkDeposit             mOkDeposit;
+    public ResOkStaking mOkDeposit;
 
     public ArrayList<String>        mValAddesses = new ArrayList<>();
     public String                   mMemo;
@@ -71,7 +71,7 @@ public class OKVoteDirectActivity extends BaseActivity {
         mAllValidators.addAll(getBaseDao().mTopValidators);
         mAllValidators.addAll(getBaseDao().mOtherValidators);
         WUtil.onSortByOKValidatorPower(mAllValidators);
-        mOkDeposit = getBaseDao().mOkDeposit;
+        mOkDeposit = getBaseDao().mOkStaking;
 
         if (mOkDeposit != null && mOkDeposit.validator_address != null) {
             for (String valOp:mOkDeposit.validator_address) {

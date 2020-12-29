@@ -6,22 +6,22 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResOkWithdraw;
+import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class OkWithdrawTask extends CommonTask {
+public class OkUnbondingInfoTask extends CommonTask {
 
     private BaseChain mChain;
     private Account mAccount;
 
-    public OkWithdrawTask(BaseApplication app, TaskListener listener, Account account, BaseChain chain) {
+    public OkUnbondingInfoTask(BaseApplication app, TaskListener listener, Account account, BaseChain chain) {
         super(app, listener);
         this.mAccount           = account;
         this.mChain             = chain;
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_OK_WITHDRAW;
+        this.mResult.taskType   = BaseConstant.TASK_FETCH_OK_UNBONDING_INFO;
 
     }
 
@@ -30,7 +30,7 @@ public class OkWithdrawTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.OK_TEST)) {
-                Response<ResOkWithdraw> response = ApiClient.getOkTestChain(mApp).getWithdrawInfo(mAccount.address).execute();
+                Response<ResOkUnbonding> response = ApiClient.getOkTestChain(mApp).getWithdrawInfo(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class ResOkDeposit {
+public class ResOkStaking {
     @SerializedName("delegator_address")
     public String delegator_address;
 

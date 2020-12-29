@@ -140,7 +140,7 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
             return;
         }
 
-        BigDecimal depositAmount = WDp.getOkDepositCoin(getBaseDao().mOkDeposit);
+        BigDecimal depositAmount = WDp.getOkDepositCoin(getBaseDao().mOkStaking);
         if (depositAmount.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_only_deposit_can_vote, Toast.LENGTH_SHORT).show();
             return;

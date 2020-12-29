@@ -3,9 +3,7 @@ package wannabit.io.cosmostaion.utils;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
-import android.text.Html;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.widget.Button;
@@ -51,8 +49,8 @@ import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResOkDeposit;
-import wannabit.io.cosmostaion.network.res.ResOkWithdraw;
+import wannabit.io.cosmostaion.network.res.ResOkStaking;
+import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
@@ -478,7 +476,7 @@ public class WDp {
         return sum;
     }
 
-    public static BigDecimal getOkDepositCoin(ResOkDeposit deposit) {
+    public static BigDecimal getOkDepositCoin(ResOkStaking deposit) {
         BigDecimal sum = BigDecimal.ZERO;
         if (deposit != null && !TextUtils.isEmpty(deposit.tokens)) {
             sum = new BigDecimal(deposit.tokens);
@@ -486,7 +484,7 @@ public class WDp {
         return sum;
     }
 
-    public static BigDecimal getOkWithdrawingCoin(ResOkWithdraw withdraw) {
+    public static BigDecimal getOkWithdrawingCoin(ResOkUnbonding withdraw) {
         BigDecimal sum = BigDecimal.ZERO;
         if (withdraw != null && !TextUtils.isEmpty(withdraw.quantity)) {
             sum = new BigDecimal(withdraw.quantity);
@@ -781,7 +779,7 @@ public class WDp {
         return sum;
     }
 
-    public static BigDecimal getAllOk(Balance balance, ResOkDeposit deposit, ResOkWithdraw withdraw) {
+    public static BigDecimal getAllOk(Balance balance, ResOkStaking deposit, ResOkUnbonding withdraw) {
         BigDecimal sum = BigDecimal.ZERO;
         if (balance != null) {
             sum = sum.add(balance.balance);

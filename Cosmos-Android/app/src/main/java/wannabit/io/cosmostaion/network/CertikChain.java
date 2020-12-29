@@ -39,7 +39,7 @@ public interface CertikChain {
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 
     @GET("/staking/validators?status=bonded")
-    Call<ResLcdValidators> getValidatorDetailList();
+    Call<ResLcdValidators> getBondedValidatorDetailList();
 
     @GET("/staking/validators?status=unbonding")
     Call<ResLcdValidators> getUnBondingValidatorDetailList();

@@ -56,7 +56,7 @@ public interface CosmosChain {
     Call<ResBlockInfo> getSearchBlock(@Path("height") String height);
 
     @GET("/staking/validators?status=bonded")
-    Call<ResLcdValidators> getValidatorDetailList();
+    Call<ResLcdValidators> getBondedValidatorDetailList();
 
     @GET("/staking/validators?status=unbonding")
     Call<ResLcdValidators> getUnBondingValidatorDetailList();

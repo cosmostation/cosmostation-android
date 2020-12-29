@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResOkDeposit;
+import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -39,7 +39,7 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
     private Button                      mVote;
 
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
-    private ResOkDeposit                mOkDeposit;
+    private ResOkStaking mOkDeposit;
 
     public static OKValidatorMyFragment newInstance(Bundle bundle) {
         OKValidatorMyFragment fragment = new OKValidatorMyFragment();
@@ -88,7 +88,7 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
         ArrayList<Validator> allValidator = new ArrayList<>();
         allValidator.addAll(getBaseDao().mTopValidators);
         allValidator.addAll(getBaseDao().mOtherValidators);
-        mOkDeposit = getBaseDao().mOkDeposit;
+        mOkDeposit = getBaseDao().mOkStaking;
 
         for (Validator val:allValidator) {
             if (checkIsMyValidator(val.operator_address)) {

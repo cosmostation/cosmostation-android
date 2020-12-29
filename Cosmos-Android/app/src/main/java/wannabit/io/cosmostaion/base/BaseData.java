@@ -41,9 +41,10 @@ import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResMintParam;
-import wannabit.io.cosmostaion.network.res.ResOkDeposit;
+import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
-import wannabit.io.cosmostaion.network.res.ResOkWithdraw;
+import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -101,8 +102,9 @@ public class BaseData {
     public ArrayList<BnbToken>                                              mBnbTokens = new ArrayList<>();
     public ArrayList<ResBnbFee>                                             mBnbFees = new ArrayList<>();
 
-    public ResOkDeposit                                                     mOkDeposit;
-    public ResOkWithdraw                                                    mOkWithdraw;
+    public ResOkAccountInfo                                                 mOkAccountInfo;
+    public ResOkStaking                                                     mOkStaking;
+    public ResOkUnbonding                                                   mOkUnbonding;
     public ResOkTokenList                                                   mOkTokenList;
 
     public ResIovFee.IovFee                                                 mStarNameFee;

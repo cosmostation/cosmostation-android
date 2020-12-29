@@ -45,8 +45,8 @@ public class WalletOkexHolder extends WalletHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         BigDecimal availableAmount = WDp.getAvailableCoin(mainActivity.mBalances, TOKEN_OK_TEST);
         BigDecimal lockedAmount = WDp.getLockedCoin(mainActivity.mBalances, TOKEN_OK_TEST);
-        BigDecimal depositAmount = WDp.getOkDepositCoin(mainActivity.getBaseDao().mOkDeposit);
-        BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(mainActivity.getBaseDao().mOkWithdraw);
+        BigDecimal depositAmount = WDp.getOkDepositCoin(mainActivity.getBaseDao().mOkStaking);
+        BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(mainActivity.getBaseDao().mOkUnbonding);
         BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
 
         mOkTotalAmount.setText(WDp.getDpAmount2(mainActivity, totalAmount, 0, 6));
@@ -100,7 +100,7 @@ public class WalletOkexHolder extends WalletHolder {
                     Toast.makeText(mainActivity, R.string.error_not_enough_to_deposit, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (WDp.getOkDepositCoin(mainActivity.getBaseDao().mOkDeposit).compareTo(BigDecimal.ZERO) <= 0) {
+                if (WDp.getOkDepositCoin(mainActivity.getBaseDao().mOkStaking).compareTo(BigDecimal.ZERO) <= 0) {
                     Toast.makeText(mainActivity, R.string.error_not_enough_to_withdraw, Toast.LENGTH_SHORT).show();
                     return;
                 }

@@ -362,7 +362,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalOkAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_OK_TEST)) {
-                    totalOkAmount = totalOkAmount.add(WDp.getAllOk(balance, getBaseDao().mOkDeposit, getBaseDao().mOkWithdraw));
+                    totalOkAmount = totalOkAmount.add(WDp.getAllOk(balance, getBaseDao().mOkStaking, getBaseDao().mOkUnbonding));
                 } else {
 
                 }
@@ -755,7 +755,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         if (balance.symbol.equals(TOKEN_OK_TEST)) {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), OK_TEST));
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
-            BigDecimal totalAmount = WDp.getAllOk(balance, getBaseDao().mOkDeposit, getBaseDao().mOkWithdraw);
+            BigDecimal totalAmount = WDp.getAllOk(balance, getBaseDao().mOkStaking, getBaseDao().mOkUnbonding);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
             holder.itemValue.setText(WDp.getValueOfOk(getContext(), getBaseDao(), totalAmount));
 

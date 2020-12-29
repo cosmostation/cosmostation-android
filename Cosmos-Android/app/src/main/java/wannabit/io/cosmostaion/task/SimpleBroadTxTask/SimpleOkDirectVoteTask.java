@@ -57,17 +57,17 @@ public class SimpleOkDirectVoteTask extends CommonTask {
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
                 return mResult;
             }
-
-            if (mBaseChain.equals(OK_TEST)) {
-                Response<ResLcdAccountInfo> accountResponse = ApiClient.getOkTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (!accountResponse.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
-
-            }
+            //yongjoo
+//            if (mBaseChain.equals(OK_TEST)) {
+//                Response<ResLcdAccountInfo> accountResponse = ApiClient.getOkTestChain(mApp).getAccountInfo(mAccount.address).execute();
+//                if (!accountResponse.isSuccessful()) {
+//                    mResult.errorCode = ERROR_CODE_BROADCAST;
+//                    return mResult;
+//                }
+//                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+//                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+//
+//            }
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);

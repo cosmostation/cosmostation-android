@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ResOkWithdraw {
+public class ResOkUnbonding {
     @SerializedName("delegator_address")
     public String delegator_address;
 

@@ -106,8 +106,8 @@ public class StakeWithdrawFragment2 extends BaseFragment implements View.OnClick
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_ok));
 
             int myValidatorCnt = 0;
-            if (getBaseDao().mOkDeposit != null && getBaseDao().mOkDeposit.validator_address != null) {
-                myValidatorCnt = getBaseDao().mOkDeposit.validator_address.size();
+            if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
+                myValidatorCnt = getBaseDao().mOkStaking.validator_address.size();
             }
             mEstimateGasAmount = (new BigDecimal(FEE_OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.FEE_OK_GAS_AMOUNT_STAKE));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());

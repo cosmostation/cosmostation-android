@@ -13,16 +13,16 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class OkAccountTokenTask extends CommonTask {
+public class OkAccountBalanceTask extends CommonTask {
 
     private BaseChain mChain;
     private Account mAccount;
 
-    public OkAccountTokenTask(BaseApplication app, TaskListener listener, Account account, BaseChain chain) {
+    public OkAccountBalanceTask(BaseApplication app, TaskListener listener, Account account, BaseChain chain) {
         super(app, listener);
         this.mAccount           = account;
         this.mChain             = chain;
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_OK_ACCOUNT_TOKEN;
+        this.mResult.taskType   = BaseConstant.TASK_FETCH_OK_ACCOUNT_BALANCE;
 
     }
 
@@ -31,17 +31,19 @@ public class OkAccountTokenTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.OK_TEST)) {
-                Response<ResOkAccountToken> response = ApiClient.getOkTestChain(mApp).getAccountToken(mAccount.address).execute();
-                if(!response.isSuccessful()) {
+                Response<ResOkAccountToken> response = ApiClient.getOkTestChain(mApp).getAccountBalance(mAccount.address).execute();
+                if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
 
-                if(response.body() != null) {
-//                    mResult.resultData = response.body();
+                if (response.body() != null) {
                     mResult.isSuccess = true;
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromOkLcd(mAccount.id, response.body()));
+
+                } else {
+                    mApp.getBaseDao().onDeleteBalance(""+mAccount.id);
 
                 }
 
@@ -49,7 +51,7 @@ public class OkAccountTokenTask extends CommonTask {
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.w("OkDepositTask Error " + e.getMessage());
+            WLog.w("OkAccountBalanceTask Error " + e.getMessage());
 
         }
         return mResult;

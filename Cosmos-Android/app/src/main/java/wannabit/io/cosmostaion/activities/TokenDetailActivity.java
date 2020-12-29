@@ -616,8 +616,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
             BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_OK_TEST);
             BigDecimal lockedAmount = WDp.getLockedCoin(mBalances, TOKEN_OK_TEST);
-            BigDecimal depositAmount = WDp.getOkDepositCoin(getBaseDao().mOkDeposit);
-            BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(getBaseDao().mOkWithdraw);
+            BigDecimal depositAmount = WDp.getOkDepositCoin(getBaseDao().mOkStaking);
+            BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(getBaseDao().mOkUnbonding);
             BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
 
             holder.mOkTotalAmount.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 0, 6));

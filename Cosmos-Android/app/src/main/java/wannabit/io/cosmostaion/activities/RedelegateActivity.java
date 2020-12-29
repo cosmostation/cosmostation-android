@@ -32,7 +32,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
-import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
+import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -204,7 +204,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     private void onFetchValidtors() {
         if(mTaskCount > 0) return;
         mTaskCount = 1;
-        new AllValidatorInfoTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ValidatorInfoBondedTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
 
@@ -212,7 +212,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if(isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_FETCH_ALL_VALIDATOR) {
+        if (result.taskType == BaseConstant.TASK_FETCH_BONDEB_VALIDATOR) {
             mToValidators.clear();
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
             if(temp != null) {
