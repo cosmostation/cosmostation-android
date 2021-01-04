@@ -96,6 +96,9 @@ dependencies {
 
     implementation 'com.google.guava:guava:22.0-android'
 
+    //web3 for ethermint
+    implementation 'org.web3j:core:4.6.0-android'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
