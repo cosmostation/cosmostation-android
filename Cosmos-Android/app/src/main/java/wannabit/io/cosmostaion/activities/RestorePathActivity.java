@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
@@ -386,26 +387,26 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
-            }
-            //yongjoo
-//            else if (mChain.equals(OK_TEST)) {
-//                holder.okLayer.setVisibility(View.VISIBLE);
-//                holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
-//                ApiClient.getOkTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
-//                    @Override
-//                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-//                        if (response.isSuccessful() && response.body() != null) {
-//                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-//                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
-//                                holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_OK_TEST), 0, 8));
-//                        }
-//                    }
-//                    @Override
-//                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
-//                });
-//
-//            }
-            else if (mChain.equals(CERTIK_TEST)) {
+            } else if (mChain.equals(OK_TEST)) {
+                holder.okLayer.setVisibility(View.VISIBLE);
+                holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
+                ApiClient.getOkTestChain(getBaseContext()).getAccountBalance(address).enqueue(new Callback<ResOkAccountToken>() {
+                    @Override
+                    public void onResponse(Call<ResOkAccountToken> call, Response<ResOkAccountToken> response) {
+                        if(response.isSuccessful() && response.body() != null && response.body().data != null && response.body().data.currencies != null) {
+                            for (ResOkAccountToken.OkCurrency balance:response.body().data.currencies) {
+                                if (balance.symbol.equals(TOKEN_OK_TEST)) {
+                                    holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.available), 0, 6));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResOkAccountToken> call, Throwable t) { }
+                });
+
+            } else if (mChain.equals(CERTIK_TEST)) {
                 holder.certikLayer.setVisibility(View.VISIBLE);
                 holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
                 ApiClient.getCertikTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {

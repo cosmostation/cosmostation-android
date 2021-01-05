@@ -56,7 +56,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
-
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
 

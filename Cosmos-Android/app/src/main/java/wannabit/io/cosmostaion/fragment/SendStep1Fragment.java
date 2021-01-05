@@ -174,7 +174,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
-            mDpDecimal = 8;
+            mDpDecimal = 18;
             setDpDecimals(mDpDecimal);
             mDenomTitle.setText(getSActivity().mOkDenom.toUpperCase());
             if (getSActivity().mOkDenom.equals(TOKEN_OK_TEST)) {
@@ -345,7 +345,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
 
             } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
-                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2"), 8, RoundingMode.DOWN).toPlainString());
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN).toPlainString());
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
@@ -500,7 +500,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
-                Coin token = new Coin(getSActivity().mOkDenom, sendTemp.setScale(8).toPlainString());
+                Coin token = new Coin(getSActivity().mOkDenom, sendTemp.setScale(mDpDecimal).toPlainString());
                 mToSendCoins.add(token);
                 return true;
 
