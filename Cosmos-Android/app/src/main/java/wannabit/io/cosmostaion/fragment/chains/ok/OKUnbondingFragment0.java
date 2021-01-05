@@ -36,6 +36,10 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
     private Button      mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
     private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
 
+    private int                 mDpDecimal = 18;
+    private String              mDecimalChecker, mDecimalSetter,
+                                mDecimalDivider2, mDecimalDivider1;
+
     public static OKUnbondingFragment0 newInstance(Bundle bundle) {
         OKUnbondingFragment0 fragment = new OKUnbondingFragment0();
         fragment.setArguments(bundle);
@@ -95,34 +99,35 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
                     mAmountInput.setSelection(1);
                 }
 
-                if (getSActivity().mBaseChain.equals(OK_TEST)) {
-                    if (es.equals("0.00000000")) {
-                        mAmountInput.setText("0.0000000");
-                        mAmountInput.setSelection(9);
-                    } else {
-                        try {
-                            final BigDecimal inputAmount = new BigDecimal(es);
-                            if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                                return;
-                            }
-                            BigDecimal checkPosition = inputAmount.movePointRight(8);
-                            try {
-                                Long.parseLong(checkPosition.toPlainString());
-                            } catch (Exception e) {
-                                String recover = es.substring(0, es.length() - 1);
-                                mAmountInput.setText(recover);
-                                mAmountInput.setSelection(recover.length());
-                                return;
-                            }
+                if (es.equals(mDecimalChecker)) {
+                    mAmountInput.setText(mDecimalSetter);
+                    mAmountInput.setSelection(mDpDecimal + 1);
+
+                } else {
+                    try {
+                        final BigDecimal inputAmount = new BigDecimal(es);
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            return;
+                        }
+
+                        BigDecimal checkPosition = inputAmount.movePointRight(mDpDecimal);
+                        BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
+                        if (checkPosition.compareTo(checkMax) != 0) {
+                            String recover = es.substring(0, es.length() - 1);
+                            mAmountInput.setText(recover);
+                            mAmountInput.setSelection(recover.length());
+                            return;
+                        }
+                        if (getSActivity().mBaseChain.equals(OK_TEST)) {
                             if (inputAmount.compareTo(mMaxAvailable) > 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             } else {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                             }
-                            mAmountInput.setSelection(mAmountInput.getText().length());
-                        } catch (Exception e) { }
-                    }
+                        }
+
+                    } catch (Exception e) {}
                 }
             }
         });
@@ -135,7 +140,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mAvailableDenom);
         if (getSActivity().mBaseChain.equals(OK_TEST)) {
             mMaxAvailable = WDp.getOkDepositCoin(getBaseDao().mOkStaking);
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, 8));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, mDpDecimal));
         }
     }
 
@@ -206,7 +211,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
                 BigDecimal depositTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (depositTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (depositTemp.compareTo(mMaxAvailable) > 0) return false;
-                Coin token = new Coin(TOKEN_OK_TEST, depositTemp.setScale(8).toPlainString());
+                Coin token = new Coin(TOKEN_OK_TEST, depositTemp.setScale(mDpDecimal).toPlainString());
                 getSActivity().mToWithdrawCoin = token;
                 return true;
             }
@@ -217,6 +222,21 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
             return false;
         }
 
+    }
+
+    private void setDpDecimals(int decimals) {
+        mDecimalChecker = "0.";
+        mDecimalSetter = "0.";
+        mDecimalDivider2 = "2";
+        mDecimalDivider1 = "1";
+        for (int i = 0; i < decimals; i ++) {
+            mDecimalChecker = mDecimalChecker+"0";
+            mDecimalDivider2 = mDecimalDivider2 + "0";
+            mDecimalDivider1 = mDecimalDivider1 + "0";
+        }
+        for (int i = 0; i < decimals-1; i ++) {
+            mDecimalSetter = mDecimalSetter+"0";
+        }
     }
 
     private OKUnbondingActivity getSActivity() {

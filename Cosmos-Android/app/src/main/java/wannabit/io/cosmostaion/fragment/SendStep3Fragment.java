@@ -197,7 +197,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_bnb));
 
-            mMinFeeAmount.setText(WDp.getDpString(FEE_BNB_SEND, 8));
+            mMinFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(FEE_BNB_SEND), 0, 8));
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = new BigDecimal(FEE_BNB_SEND).multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -282,10 +282,10 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_ok));
 
             mGasAmount.setText(FEE_OK_GAS_AMOUNT_SEND);
-            mGasRate.setText(WDp.getDpString(FEE_OK_GAS_RATE_AVERAGE, 8));
+            mGasRate.setText(WDp.getDpString(FEE_OK_GAS_RATE_AVERAGE, 7));
             mFeeAmount = new BigDecimal(FEE_OK_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE)).setScale(18);
 
-            mGasFeeAmount.setText(mFeeAmount.setScale(6).toPlainString());
+            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 0, 6));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
         } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {

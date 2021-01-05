@@ -21,7 +21,7 @@ public class OKUnbondingFragment3 extends BaseFragment implements View.OnClickLi
 
     private TextView        mWithdrawAmount;
     private TextView        mFeeAmount;
-    private TextView        mMemo;
+    private TextView        mMemo, mTime;
     private Button          mBeforeBtn, mConfirmBtn;
     private TextView        mWithdrawDenom, mFeeDenom;
 
@@ -39,11 +39,12 @@ public class OKUnbondingFragment3 extends BaseFragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_stake_withdraw_3, container, false);
-        mWithdrawAmount      = rootView.findViewById(R.id.withdraw_amount);
-        mWithdrawDenom       = rootView.findViewById(R.id.withdraw_amount_denom);
+        mWithdrawAmount     = rootView.findViewById(R.id.withdraw_amount);
+        mWithdrawDenom      = rootView.findViewById(R.id.withdraw_amount_denom);
         mFeeAmount          = rootView.findViewById(R.id.fees_amount);
         mFeeDenom           = rootView.findViewById(R.id.fees_denom);
         mMemo               = rootView.findViewById(R.id.memo);
+        mTime               = rootView.findViewById(R.id.unbonding_time);
         mBeforeBtn          = rootView.findViewById(R.id.btn_before);
         mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
 
@@ -61,10 +62,11 @@ public class OKUnbondingFragment3 extends BaseFragment implements View.OnClickLi
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
         if (getSActivity().mBaseChain.equals(OK_TEST)) {
-            mWithdrawAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 0, 8));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 8));
+            mWithdrawAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 0, 18));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
 
         }
+        mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
         mMemo.setText(getSActivity().mMemo);
     }
 

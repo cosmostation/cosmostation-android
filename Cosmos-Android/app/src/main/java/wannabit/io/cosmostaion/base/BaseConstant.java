@@ -458,9 +458,9 @@ public class BaseConstant {
     public final static String FEE_IOV_GAS_AMOUNT_RENEW         = "300000";
     public final static String FEE_IOV_GAS_AMOUNT_REPLACE       = "300000";
 
-    public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.0000001";
+    public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.000005";
     public final static String FEE_OK_GAS_AMOUNT_SEND           = "200000";
-    public final static String FEE_OK_GAS_AMOUNT_STAKE          = "100000";
+    public final static String FEE_OK_GAS_AMOUNT_STAKE          = "200000";
     public final static String FEE_OK_GAS_AMOUNT_STAKE_MUX      = "20000";
     public final static String FEE_OK_GAS_AMOUNT_VOTE           = "200000";
     public final static String FEE_OK_GAS_AMOUNT_VOTE_MUX       = "50000";

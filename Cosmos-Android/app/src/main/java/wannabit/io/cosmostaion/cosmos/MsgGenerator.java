@@ -783,10 +783,10 @@ public class MsgGenerator {
                 msgs,
                 fee,
                 memo);
-//        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
+        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
 
         String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-//        WLog.w("signatureTx " + signatureTx);
+        WLog.w("signatureTx " + signatureTx);
 
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();
@@ -802,13 +802,13 @@ public class MsgGenerator {
         signatures.add(signature);
 
         StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
-//        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
+        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
 
         ReqBroadCast reqBroadCast = new ReqBroadCast();
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-//        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
 
         return reqBroadCast;

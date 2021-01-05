@@ -121,6 +121,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_16"
+                            android:text="@string/str_undelegate_complete_time"
+                            style="@style/font_ss_12_gray1"/>
+                        <TextView
+                            android:id="@+id/unbonding_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_8"
+                            style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_16"
                             android:text="@string/str_memo"
                             style="@style/font_ss_12_gray1"/>
                         <TextView

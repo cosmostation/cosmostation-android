@@ -61,7 +61,6 @@ public class SimpleOkDepositTask extends CommonTask {
                 return mResult;
             }
 
-            //yongjoo
             if (mBaseChain.equals(OK_TEST)) {
                 Response<ResOkAccountInfo> accountResponse = ApiClient.getOkTestChain(mApp).getAccountInfo(mAccount.address).execute();
                 if (!accountResponse.isSuccessful()) {
@@ -69,7 +68,8 @@ public class SimpleOkDepositTask extends CommonTask {
                     return mResult;
                 }
                 mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+                mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
+
 
             }
 

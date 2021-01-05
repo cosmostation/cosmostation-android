@@ -66,8 +66,8 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
         if (getSActivity().mBaseChain.equals(OK_TEST)) {
-            mDepositAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 0, 8));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 8));
+            mDepositAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 0, 18));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
 
         }
         mMemo.setText(getSActivity().mMemo);

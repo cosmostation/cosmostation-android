@@ -188,7 +188,7 @@ public class WDp {
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 0, 8));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 0, 18));
 
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             DpMainDenom(c, chain.getChain(), denomTv);
@@ -260,7 +260,7 @@ public class WDp {
             } else {
                 denomTv.setText(symbol.toUpperCase());
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 8));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 18));
 
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             DpMainDenom(c, chain.getChain(), denomTv);
@@ -1678,9 +1678,16 @@ public class WDp {
     public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
-            if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)){
+            if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 3);
+                SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
+                result = unbondFormat.format(calendar.getTimeInMillis());
+                return result + "   " +c.getString(R.string.str_unbonding_3days_after);
+
+            } else if (chain.equals(OK_TEST)) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DATE, 14);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
                 result = unbondFormat.format(calendar.getTimeInMillis());
                 return result + "   " +c.getString(R.string.str_unbonding_3days_after);

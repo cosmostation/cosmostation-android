@@ -10,17 +10,18 @@ import android.widget.Toast;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKUnbondingActivity;
-import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_STAKE_MUX;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 public class WalletOkexHolder extends WalletHolder {
@@ -66,15 +67,17 @@ public class WalletOkexHolder extends WalletHolder {
                     mainActivity.getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                     return;
                 }
-                ArrayList<Balance> balances = mainActivity.getBaseDao().onSelectBalance(mainActivity.mAccount.id);
-                boolean hasbalance = false;
-                if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(BigDecimal.ONE) > 0) {
-                    hasbalance  = true;
+                int myValidatorCnt = 0;
+                if (mainActivity.getBaseDao().mOkStaking != null && mainActivity.getBaseDao().mOkStaking.validator_address != null) {
+                    myValidatorCnt = mainActivity.getBaseDao().mOkStaking.validator_address.size();
                 }
-                if (!hasbalance) {
+                BigDecimal estimateGasAmount = (new BigDecimal(FEE_OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.FEE_OK_GAS_AMOUNT_STAKE));
+                BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE));
+                if (availableAmount.compareTo(feeAmount) <= 0) {
                     Toast.makeText(mainActivity, R.string.error_not_enough_to_deposit, Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 Intent intent = new Intent(mainActivity, OKStakingActivity.class);
                 mainActivity.startActivity(intent);
             }
@@ -89,19 +92,23 @@ public class WalletOkexHolder extends WalletHolder {
                     mainActivity.getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                     return;
                 }
-                ArrayList<Balance> balances = mainActivity.getBaseDao().onSelectBalance(mainActivity.mAccount.id);
-                boolean hasbalance = false;
-                if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(BigDecimal.ONE) > 0) {
-                    hasbalance  = true;
-                }
-                if (!hasbalance) {
-                    Toast.makeText(mainActivity, R.string.error_not_enough_to_deposit, Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
                 if (WDp.getOkDepositCoin(mainActivity.getBaseDao().mOkStaking).compareTo(BigDecimal.ZERO) <= 0) {
                     Toast.makeText(mainActivity, R.string.error_not_enough_to_withdraw, Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                int myValidatorCnt = 0;
+                if (mainActivity.getBaseDao().mOkStaking != null && mainActivity.getBaseDao().mOkStaking.validator_address != null) {
+                    myValidatorCnt = mainActivity.getBaseDao().mOkStaking.validator_address.size();
+                }
+                BigDecimal estimateGasAmount = (new BigDecimal(FEE_OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.FEE_OK_GAS_AMOUNT_STAKE));
+                BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE));
+                if (availableAmount.compareTo(feeAmount) <= 0) {
+                    Toast.makeText(mainActivity, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent intent = new Intent(mainActivity, OKUnbondingActivity.class);
                 mainActivity.startActivity(intent);
             }

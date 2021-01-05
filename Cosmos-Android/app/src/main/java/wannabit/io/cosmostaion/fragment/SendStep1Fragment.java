@@ -182,7 +182,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, mDpDecimal));
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorOK));
             } else {
-                mMaxAvailable = getSActivity().mAccount.getBnbTokenBalance(getSActivity().mOkDenom);
+                mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mOkDenom);
                 mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, mDpDecimal));
 
             }
