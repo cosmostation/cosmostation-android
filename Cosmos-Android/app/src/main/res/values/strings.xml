@@ -1182,7 +1182,7 @@
     <string name="error_bnb_mini_amount">Minimum amount required for BEP8 transactions is 1 token. If your balance is less than 1, you must send the entire amount.</string>
     <string name="error_max_30_validator">You can select Max 30 Validators.</string>
     <string name="error_min_1_validator">Please select more than 1 validator.</string>
-    <string name="error_only_deposit_can_vote">No deposit amount.\ndeposit first.</string>
+    <string name="error_only_deposit_can_vote">No staking amount.\nstaking first.</string>
     <string name="error_invalide_starname">Unregistered star name.</string>
     <string name="error_no_mattched_starname">Valide starname, but there is no mattching address with this chain.</string>
     <string name="error_starname_self_send">Valide starname, but self sending is not support.</string>

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -96,7 +97,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ToValidatorHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ToValidatorHolder holder, @SuppressLint("RecyclerView") int position) {
             final Validator validator  = getSActivity().mAllValidators.get(position);
             if (getSActivity().mBaseChain.equals(OK_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));

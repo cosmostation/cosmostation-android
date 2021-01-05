@@ -70,7 +70,6 @@ public class SimpleOkDepositTask extends CommonTask {
                 mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
                 mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
 
-
             }
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);

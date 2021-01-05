@@ -406,6 +406,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxHarvestClaimHolder(getLayoutInflater().inflate(R.layout.item_tx_claim_harvest, viewGroup, false));
             } else if (viewType == TYPE_TX_OK_STAKE) {
                 return new TxOkStakeHolder(getLayoutInflater().inflate(R.layout.item_tx_ok_stake, viewGroup, false));
+            }  else if (viewType == TYPE_TX_OK_DIRECT_VOTE) {
+                return new TxOkVoteHolder(getLayoutInflater().inflate(R.layout.item_tx_ok_vote_validator, viewGroup, false));
             } else if (viewType == TYPE_TX_REWARD_ALL) {
                 return new TxRewardAllHolder(getLayoutInflater().inflate(R.layout.item_tx_reward_all, viewGroup, false));
             } else if (viewType == TYPE_REGISTER_DOMAIN) {

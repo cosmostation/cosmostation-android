@@ -128,14 +128,8 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
-        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasbalance = false;
-        if (mBaseChain.equals(BaseChain.OK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(BigDecimal.ONE) > 0) {
-                hasbalance  = true;
-            }
-        }
-        if (!hasbalance) {
+        BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().onSelectBalance(mAccount.id), TOKEN_OK_TEST);
+        if (availableAmount.compareTo(BigDecimal.ONE) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_balance_to_vote, Toast.LENGTH_SHORT).show();
             return;
         }

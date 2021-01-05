@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -57,17 +58,16 @@ public class SimpleOkDirectVoteTask extends CommonTask {
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
                 return mResult;
             }
-            //yongjoo
-//            if (mBaseChain.equals(OK_TEST)) {
-//                Response<ResLcdAccountInfo> accountResponse = ApiClient.getOkTestChain(mApp).getAccountInfo(mAccount.address).execute();
-//                if (!accountResponse.isSuccessful()) {
-//                    mResult.errorCode = ERROR_CODE_BROADCAST;
-//                    return mResult;
-//                }
-//                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-//                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
-//
-//            }
+            if (mBaseChain.equals(OK_TEST)) {
+                Response<ResOkAccountInfo> accountResponse = ApiClient.getOkTestChain(mApp).getAccountInfo(mAccount.address).execute();
+                if (!accountResponse.isSuccessful()) {
+                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
+
+            }
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);

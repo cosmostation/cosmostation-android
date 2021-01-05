@@ -60,7 +60,7 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
         if (getSActivity().mBaseChain.equals(OK_TEST)) {
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 8));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
 
             String monikers = "";
             for (String valOp:getSActivity().mValAddesses) {

@@ -1032,7 +1032,7 @@
     <string name="error_bnb_mini_amount">BEP8는 최소 전송 금액은 1보다 커야 합니다. 토큰 잔고가 1 미만인 경우, 전체 금액 전송만 가능합니다.</string>
     <string name="error_max_30_validator">최대 30명의 검증인을 선택하실 수 있습니다.</string>
     <string name="error_min_1_validator">1개 이상의 검증인을 선택해주세요.</string>
-    <string name="error_only_deposit_can_vote">예금이 없습니다.\n먼저 예금을 해주세요.</string>
+    <string name="error_only_deposit_can_vote">스테이킹 금액이 없습니다.\n먼저 스테이킹을 해주세요.</string>
     <string name="error_invalide_starname">등록되지 않은 스타네임 입니다.</string>
     <string name="error_no_mattched_starname">유효한 스타네임 이지만, 현재 체인에 등록된 유효한 주소가 없습니다.</string>
     <string name="error_starname_self_send">유효한 스타네임 이지만, 자기 자신의 주소로는 송금할 수 없습니다.</string>
