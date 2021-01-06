@@ -190,6 +190,25 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/btn_ok_vote_for_validator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_40"
+                android:minHeight="@dimen/space_40"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_trans_with_border"
+                android:clickable="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/ic_votevalidator_20"
+                    android:drawablePadding="@dimen/space_4"
+                    android:gravity="center"
+                    style="@style/font_ss_12_white"
+                    android:text="@string/str_vote_for_validator" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/btn_ok_vote"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_40"
@@ -205,7 +224,7 @@
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
                     style="@style/font_ss_12_white"
-                    android:text="@string/str_vote_for_validator" />
+                    android:text="@string/str_governance" />
             </RelativeLayout>
 
         </LinearLayout>

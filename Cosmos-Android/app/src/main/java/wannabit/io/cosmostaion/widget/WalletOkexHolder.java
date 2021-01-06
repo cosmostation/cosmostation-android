@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKUnbondingActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
@@ -26,7 +27,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
 
 public class WalletOkexHolder extends WalletHolder {
     private TextView            mOkTotalAmount, mOkTotalValue, mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
-    private RelativeLayout      mBtnOkDeposit, mBtnOkWithdraw, mBtnOkVote;
+    private RelativeLayout      mBtnOkDeposit, mBtnOkWithdraw, mBtnOkVoteForVali, mBtnOkVote;
 
     public WalletOkexHolder(@NonNull View itemView) {
         super(itemView);
@@ -38,6 +39,7 @@ public class WalletOkexHolder extends WalletHolder {
         mOkWithdrawing      = itemView.findViewById(R.id.ok_withdrawing);
         mBtnOkDeposit       = itemView.findViewById(R.id.btn_ok_deposit);
         mBtnOkWithdraw      = itemView.findViewById(R.id.btn_ok_withdraw);
+        mBtnOkVoteForVali   = itemView.findViewById(R.id.btn_ok_vote_for_validator);
         mBtnOkVote          = itemView.findViewById(R.id.btn_ok_vote);
     }
 
@@ -113,11 +115,18 @@ public class WalletOkexHolder extends WalletHolder {
                 mainActivity.startActivity(intent);
             }
         });
-        mBtnOkVote.setOnClickListener(new View.OnClickListener() {
+        mBtnOkVoteForVali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mainActivity, OKValidatorListActivity.class);
                 mainActivity.startActivity(intent);
+            }
+        });
+        mBtnOkVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                mainActivity.startActivity(new Intent(mainActivity, VoteListActivity.class));
+                Toast.makeText(mainActivity, R.string.error_prepare, Toast.LENGTH_SHORT).show();
             }
         });
     }

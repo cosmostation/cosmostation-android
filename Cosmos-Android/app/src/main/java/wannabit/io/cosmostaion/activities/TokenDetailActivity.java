@@ -58,6 +58,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
@@ -617,11 +618,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(getBaseDao().mOkUnbonding);
             BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
 
-            holder.mOkTotalAmount.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 0, 6));
-            holder.mOkAvailable.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 0, 6));
-            holder.mOkLocked.setText(WDp.getDpAmount2(getBaseContext(), lockedAmount, 0, 6));
-            holder.mOkDeposit.setText(WDp.getDpAmount2(getBaseContext(), depositAmount, 0, 6));
-            holder.mOkWithdrawing.setText(WDp.getDpAmount2(getBaseContext(), withdrawAmount, 0, 6));
+            holder.mOkTotalAmount.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 0, 18));
+            holder.mOkAvailable.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 0, 18));
+            holder.mOkLocked.setText(WDp.getDpAmount2(getBaseContext(), lockedAmount, 0, 18));
+            holder.mOkDeposit.setText(WDp.getDpAmount2(getBaseContext(), depositAmount, 0, 18));
+            holder.mOkWithdrawing.setText(WDp.getDpAmount2(getBaseContext(), withdrawAmount, 0, 18));
             holder.mOkTotalValue.setText(WDp.getValueOfOk(getBaseContext(), getBaseDao(), totalAmount));
 
             holder.mBtnOkSend.setOnClickListener(new View.OnClickListener() {
@@ -776,11 +777,13 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 BigDecimal lockedAmount = WDp.getLockedCoin(mBalances, mOkToken.symbol);
                 BigDecimal totalAmount = availableAmount.add(lockedAmount);
 
-                holder.mTvTokenTotal.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 0, 8));
-                holder.mTvTokenAvailable.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 0, 8));
-                holder.mTvTokenLocked.setText(WDp.getDpAmount2(getBaseContext(), lockedAmount, 0, 8));
+                holder.mTvTokenTotal.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 0, 18));
+                holder.mTvTokenAvailable.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 0, 18));
+                holder.mTvTokenLocked.setText(WDp.getDpAmount2(getBaseContext(), lockedAmount, 0, 18));
                 holder.mTvTokenValue.setText(WDp.getValueOfOk(getBaseContext(), getBaseDao(), totalAmount));
-                holder.mTokenImg.setImageDrawable(getDrawable(R.drawable.token_ic));
+                try {
+                    Picasso.get().load(OKEX_COIN_IMG_URL+  mOkToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.mTokenImg);
+                } catch (Exception e) { }
 
             }
 
@@ -981,7 +984,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         }
 
         public class KavaHolder extends RecyclerView.ViewHolder {
-            private LinearLayout    mKavaAction, mKavaTransfer;
             private RelativeLayout  mBtnSendKava, mBtnReceiveKava;
             private RelativeLayout  mKavaVestingLayer, mKavaDepositLayer, mKavaIncentiveLayer;
             private TextView        mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVesting, mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards, mTvKavaDeposit, mTvKavaIncentive;
