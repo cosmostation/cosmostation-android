@@ -13,14 +13,14 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class HistoryTask extends CommonTask {
+public class BnbHistoryTask extends CommonTask {
 
     private ReqTx   mReq;
     private BaseChain mChain;
 
-    public HistoryTask(BaseApplication app, TaskListener listener, ReqTx mReq, BaseChain chain) {
+    public BnbHistoryTask(BaseApplication app, TaskListener listener, ReqTx mReq, BaseChain chain) {
         super(app, listener);
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_HISTORY;
+        this.mResult.taskType   = BaseConstant.TASK_FETCH_BNB_HISTORY;
         this.mReq = mReq;
         this.mChain = chain;
     }
@@ -42,7 +42,6 @@ public class HistoryTask extends CommonTask {
                 } else {
                     WLog.w("HistoryTask : NOk");
                 }
-                mResult.taskType = BaseConstant.TASK_FETCH_BNB_HISTORY;
 
             } else if (mChain.equals(BaseChain.BNB_TEST)) {
                 Response<ResBnbHistories> response = null;
@@ -62,7 +61,6 @@ public class HistoryTask extends CommonTask {
                 } else {
                     WLog.w("HistoryTask : NOk");
                 }
-                mResult.taskType = BaseConstant.TASK_FETCH_BNB_HISTORY;
 
             }
 

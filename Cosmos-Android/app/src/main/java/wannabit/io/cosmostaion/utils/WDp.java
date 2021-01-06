@@ -49,6 +49,7 @@ import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
@@ -87,6 +88,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFUNDED;
+import static wannabit.io.cosmostaion.network.res.ResOkHistory.OK_TYPE_CANCEL_ORDER;
+import static wannabit.io.cosmostaion.network.res.ResOkHistory.OK_TYPE_NEW_ORDER;
+import static wannabit.io.cosmostaion.network.res.ResOkHistory.OK_TYPE_SIDE_SEND;
+import static wannabit.io.cosmostaion.network.res.ResOkHistory.OK_TYPE_TRANSFER;
 
 public class WDp {
 
@@ -1545,6 +1550,25 @@ public class WDp {
 
     }
 
+    public static String DpOkTxType(Context c, ResOkHistory.DataDetail history) {
+        String result = c.getString(R.string.tx_known);
+        if (history.type == OK_TYPE_TRANSFER) {
+            if (history.side == OK_TYPE_SIDE_SEND) {
+                result = c.getString(R.string.tx_send);
+            } else {
+                result = c.getString(R.string.tx_receive);
+            }
+
+        } else if (history.type == OK_TYPE_NEW_ORDER) {
+            result = c.getString(R.string.tx_new_order);
+
+        } else if (history.type == OK_TYPE_CANCEL_ORDER) {
+            result = c.getString(R.string.tx_Cancel_order);
+
+        }
+        return result;
+    }
+
     public static String getHistoryDpCnt(ArrayList<Msg> msgs) {
         String result = "";
         if(msgs.size() > 2) {
@@ -1876,6 +1900,40 @@ public class WDp {
                     }
                 }
 
+            }
+
+        } catch (Exception e) {}
+
+        return "(" + result + " " + c.getString(R.string.str_ago) +")";
+    }
+
+    public static String getTimeTxGap(Context c, long rawValue) {
+        String result = "";
+        try {
+            Date blockTime  = new Date(rawValue);
+            Date nowTime    = Calendar.getInstance().getTime();
+
+            long difference = nowTime.getTime() - blockTime.getTime();
+
+            long differenceSeconds = difference / 1000 % 60;
+            long differenceMinutes = difference / (60 * 1000) % 60;
+            long differenceHours = difference / (60 * 60 * 1000) % 24;
+            long differenceDays = difference / (24 * 60 * 60 * 1000);
+
+            if(differenceDays > 1) {
+                result = ""+differenceDays+ " " + c.getString(R.string.str_day);
+            } else if (differenceDays == 1){
+                result = ""+differenceDays + c.getString(R.string.str_d) + " " + differenceHours + c.getString(R.string.str_h);
+            } else {
+                if (differenceHours > 0) {
+                    result = ""+differenceHours+ c.getString(R.string.str_h) + " " + differenceMinutes + c.getString(R.string.str_m);
+                } else {
+                    if(differenceMinutes > 0) {
+                        result = ""+differenceMinutes+ c.getString(R.string.str_m) + " " + differenceSeconds + c.getString(R.string.str_s);
+                    } else {
+                        result = differenceSeconds + c.getString(R.string.str_s);
+                    }
+                }
             }
 
         } catch (Exception e) {}
