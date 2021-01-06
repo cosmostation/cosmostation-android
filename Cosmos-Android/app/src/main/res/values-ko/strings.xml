@@ -732,6 +732,7 @@
     <string name="str_delegate">위임 하기</string>
     <string name="str_get_reward">위임 하기</string>
     <string name="str_vote_to">투표 하기</string>
+    <string name="str_governance">거버넌스</string>
     <string name="str_commission">검증인 수수료</string>
     <string name="str_voting_power">전체 위임량</string>
     <string name="str_free">무료</string>

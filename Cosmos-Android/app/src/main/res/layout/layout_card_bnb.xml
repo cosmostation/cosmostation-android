@@ -105,58 +105,10 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/layer_bnb_module"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
-                <RelativeLayout
-                    android:id="@+id/btn_wallet_connect"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="@dimen/space_40"
-                    android:minHeight="@dimen/space_40"
-                    android:background="@drawable/btn_trans_with_border"
-                    android:clickable="true">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:drawableLeft="@drawable/connect_ic"
-                        android:drawablePadding="@dimen/space_8"
-                        android:gravity="center"
-                        style="@style/font_ss_11_white"
-                        android:text="@string/str_wallet_connect" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/btn_bep3_send"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:layout_height="@dimen/space_40"
-                    android:minHeight="@dimen/space_40"
-                    android:background="@drawable/btn_trans_with_border"
-                    android:clickable="true">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:drawableLeft="@drawable/bepsend_ic_s"
-                        android:drawablePadding="@dimen/space_8"
-                        android:gravity="center"
-                        style="@style/font_ss_11_white"
-                        android:text="@string/str_interchain" />
-                </RelativeLayout>
-            </LinearLayout>
-
-
-            <LinearLayout
                 android:id="@+id/layer_bnb_transfer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="horizontal">
                 <RelativeLayout
                     android:id="@+id/btn_bnb_send"
                     android:layout_width="0dp"
@@ -207,8 +159,7 @@
                 android:minHeight="@dimen/space_40"
                 android:background="@drawable/btn_trans_with_border"
                 android:layout_marginTop="12dp"
-                android:clickable="true"
-                android:visibility="gone">
+                android:clickable="true">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -218,27 +169,6 @@
                     android:gravity="center"
                     style="@style/font_ss_12_white"
                     android:text="@string/str_interchain" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/btn_bnb_buy"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_40"
-                android:minHeight="@dimen/space_40"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/btn_trans_with_border"
-                android:clickable="true"
-                android:visibility="gone">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawableLeft="@drawable/card_ic"
-                    android:drawableTint="@color/colorWhite"
-                    android:drawablePadding="@dimen/space_8"
-                    android:gravity="center"
-                    style="@style/font_ss_12_white"
-                    android:text="@string/str_buy_bnb" />
             </RelativeLayout>
 
         </LinearLayout>

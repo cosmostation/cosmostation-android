@@ -489,10 +489,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindAtom(RecyclerView.ViewHolder viewHolder, int position) {
             final AtomHolder holder = (AtomHolder)viewHolder;
-            holder.mAtomAction.setVisibility(View.GONE);
-            holder.mAtomTransfer.setVisibility(View.VISIBLE);
-            holder.mBtnBuyAtom.setVisibility(View.GONE);
-
             BigDecimal totalAmount = WDp.getAllAtom(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
             holder.mTvAtomTotal.setText(WDp.getDpAmount(getBaseContext(), totalAmount, 6, mBaseChain));
             holder.mTvAtomAvailable.setText(WDp.getDpAvailableCoin(getBaseContext(), mBalances, mBaseChain, TOKEN_ATOM));
@@ -518,9 +514,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindIris(RecyclerView.ViewHolder viewHolder, int position) {
             final IrisHolder holder = (IrisHolder)viewHolder;
-            holder.mIrisAction.setVisibility(View.GONE);
-            holder.mIrisTransfer.setVisibility(View.VISIBLE);
-
             BigDecimal totalAmount = WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward, mAllValidators);
             holder.mTvIrisTotal.setText(WDp.getDpAmount(getBaseContext(), totalAmount, 18, mBaseChain));
             holder.mTvIrisAvailable.setText(WDp.getDpAmount(getBaseContext(), WDp.getAvailableCoin(mBalances, TOKEN_IRIS_ATTO), 18, mBaseChain));
@@ -545,11 +538,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindBnb(RecyclerView.ViewHolder viewHolder, int position) {
             final BnbHolder holder = (BnbHolder)viewHolder;
-            holder.mBnbAction.setVisibility(View.GONE);
-            holder.mBnbTransfer.setVisibility(View.VISIBLE);
-            holder.mBtnInterChain.setVisibility(View.VISIBLE);
-            holder.mBtnBuyBnb.setVisibility(View.GONE);
-
             if (mBnbToken != null) {
                 BigDecimal totalAmount = mBalance.locked.add(mBalance.balance);
                 holder.mTvBnbBalance.setText(WDp.getDpAmount(getBaseContext(), mBalance.balance, 8, mBaseChain));
@@ -580,19 +568,31 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindKava(RecyclerView.ViewHolder viewHolder, int position) {
             final KavaHolder holder = (KavaHolder)viewHolder;
-            holder.mKavaAction.setVisibility(View.GONE);
-            holder.mKavaTransfer.setVisibility(View.VISIBLE);
-            holder.mBtnBuyKava.setVisibility(View.GONE);
-            holder.mKavaDapp.setVisibility(View.GONE);
-
+            BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_KAVA);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, mAllValidators, mBaseChain);
+            BigDecimal unbondingAmount = WDp.getUnbondingAmount(mUnbondings);
+            BigDecimal rewardAmount = WDp.getAllRewardAmount(mRewards, TOKEN_KAVA);
+            BigDecimal vestingAmount = WDp.getLockedCoin(mBalances, TOKEN_KAVA);
+            BigDecimal harvestDepositAmount = WDp.getHavestDepositAmount(getBaseDao(), TOKEN_KAVA);
+            BigDecimal unclaimedIncentiveAmount = WDp.getUnclaimedIncentiveAmount(getBaseDao(), TOKEN_KAVA);
             BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
-            holder.mTvKavaTotal.setText(WDp.getDpAmount(getBaseContext(), totalAmount, 6, mBaseChain));
-            holder.mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getBaseContext(), mBalances, mBaseChain, TOKEN_KAVA));
-            holder.mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(getBaseContext(), mBondings, mAllValidators, mBaseChain));
-            holder.mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(getBaseContext(), mUnbondings, mAllValidators, mBaseChain));
-            holder.mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getBaseContext(), mRewards, mBaseChain, TOKEN_KAVA));
-            holder.mTvKavaVesting.setText(WDp.getDpVestedCoin(getBaseContext(), mBalances, mBaseChain, TOKEN_KAVA));
+
+            holder.mTvKavaTotal.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 6, 6));
+            holder.mTvKavaAvailable.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 6, 6));
+            holder.mTvKavaDelegated.setText(WDp.getDpAmount2(getBaseContext(), delegateAmount, 6, 6));
+            holder.mTvKavaUnBonding.setText(WDp.getDpAmount2(getBaseContext(), unbondingAmount, 6, 6));
+            holder.mTvKavaRewards.setText(WDp.getDpAmount2(getBaseContext(), rewardAmount, 6, 6));
+            holder.mTvKavaVesting.setText(WDp.getDpAmount2(getBaseContext(), vestingAmount, 6, 6));
+            holder.mTvKavaDeposit.setText(WDp.getDpAmount2(getBaseContext(), harvestDepositAmount, 6, 6));
+            holder.mTvKavaIncentive.setText(WDp.getDpAmount2(getBaseContext(), unclaimedIncentiveAmount, 6, 6));
             holder.mTvKavaValue.setText(WDp.getValueOfKava(getBaseContext(), getBaseDao(), totalAmount));
+
+            if (!vestingAmount.equals(BigDecimal.ZERO)) { holder.mKavaVestingLayer.setVisibility(View.VISIBLE);
+            } else { holder.mKavaVestingLayer.setVisibility(View.GONE); }
+            if (!harvestDepositAmount.equals(BigDecimal.ZERO)) { holder.mKavaDepositLayer.setVisibility(View.VISIBLE);
+            } else { holder.mKavaDepositLayer.setVisibility(View.GONE); }
+            if (!unclaimedIncentiveAmount.equals(BigDecimal.ZERO)) { holder.mKavaIncentiveLayer.setVisibility(View.VISIBLE);
+            } else { holder.mKavaIncentiveLayer.setVisibility(View.GONE); }
 
             holder.mBtnSendKava.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -606,11 +606,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     onClickReceive();
                 }
             });
+
         }
 
         private void onBindOkt(RecyclerView.ViewHolder viewHolder, int position) {
             final OktHolder holder = (OktHolder)viewHolder;
-
             BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_OK_TEST);
             BigDecimal lockedAmount = WDp.getLockedCoin(mBalances, TOKEN_OK_TEST);
             BigDecimal depositAmount = WDp.getOkDepositCoin(getBaseDao().mOkStaking);
@@ -926,8 +926,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
 
         public class AtomHolder extends RecyclerView.ViewHolder {
-            private LinearLayout    mAtomAction, mAtomTransfer;
-            private RelativeLayout  mBtnSendAtom, mBtnReceiveAtom, mBtnBuyAtom;
+            private RelativeLayout  mBtnSendAtom, mBtnReceiveAtom;
             private TextView        mTvAtomTotal, mTvAtomValue, mTvAtomAvailable, mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
 
             public AtomHolder(View v) {
@@ -938,16 +937,12 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvAtomDelegated        = itemView.findViewById(R.id.dash_atom_delegate);
                 mTvAtomUnBonding        = itemView.findViewById(R.id.dash_atom_unbonding);
                 mTvAtomRewards          = itemView.findViewById(R.id.dash_atom_reward);
-                mAtomAction             = itemView.findViewById(R.id.layer_cosmos_actions);
-                mAtomTransfer           = itemView.findViewById(R.id.layer_cosmos_transfer);
                 mBtnSendAtom            = itemView.findViewById(R.id.btn_atom_send);
                 mBtnReceiveAtom         = itemView.findViewById(R.id.btn_atom_receive);
-                mBtnBuyAtom             = itemView.findViewById(R.id.btn_cosmos_buy);
             }
         }
 
         public class IrisHolder extends RecyclerView.ViewHolder {
-            private LinearLayout    mIrisAction, mIrisTransfer;
             private RelativeLayout  mBtnSendIris, mBtnReceiveIris;
             private TextView        mTvIrisTotal, mTvIrisValue, mTvIrisAvailable, mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
 
@@ -959,16 +954,13 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvIrisDelegated        = itemView.findViewById(R.id.dash_iris_delegate);
                 mTvIrisUnBonding        = itemView.findViewById(R.id.dash_iris_unbonding);
                 mTvIrisRewards          = itemView.findViewById(R.id.dash_iris_reward);
-                mIrisAction             = itemView.findViewById(R.id.layer_iris_actions);
-                mIrisTransfer           = itemView.findViewById(R.id.layer_iris_transfer);
                 mBtnReceiveIris         = itemView.findViewById(R.id.btn_iris_receive);
                 mBtnSendIris            = itemView.findViewById(R.id.btn_iris_send);
             }
         }
 
         public class BnbHolder extends RecyclerView.ViewHolder {
-            private LinearLayout    mBnbAction, mBnbTransfer;
-            private RelativeLayout  mBtnSendBnb, mBtnReceiveBnb, mBtnInterChain, mBtnBuyBnb;
+            private RelativeLayout  mBtnSendBnb, mBtnReceiveBnb, mBtnInterChain;
             private TextView        mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
 
             public BnbHolder(View v) {
@@ -977,12 +969,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvBnbValue             = itemView.findViewById(R.id.dash_bnb_value);
                 mTvBnbBalance           = itemView.findViewById(R.id.dash_bnb_balance);
                 mTvBnbLocked            = itemView.findViewById(R.id.dash_bnb_locked);
-                mBnbAction              = itemView.findViewById(R.id.layer_bnb_module);
-                mBtnInterChain          = itemView.findViewById(R.id.btn_bep3_send2);
-                mBnbTransfer            = itemView.findViewById(R.id.layer_bnb_transfer);
                 mBtnSendBnb             = itemView.findViewById(R.id.btn_bnb_send);
                 mBtnReceiveBnb          = itemView.findViewById(R.id.btn_bnb_receive);
-                mBtnBuyBnb              = itemView.findViewById(R.id.btn_bnb_buy);
+                mBtnInterChain          = itemView.findViewById(R.id.btn_bep3_send2);
 
                 mTvBnbBalance.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 8, mBaseChain));
                 mTvBnbLocked.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 8, mBaseChain));
@@ -993,9 +982,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         public class KavaHolder extends RecyclerView.ViewHolder {
             private LinearLayout    mKavaAction, mKavaTransfer;
-            private RelativeLayout  mBtnSendKava, mBtnReceiveKava, mBtnBuyKava;
-            private RelativeLayout  mKavaVestingLayer, mKavaDepositLayer, mKavaIncentiveLayer, mKavaDapp;
-            private TextView        mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVesting, mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards, mTvKavaDeposit, mTvKavaIncnetive;
+            private RelativeLayout  mBtnSendKava, mBtnReceiveKava;
+            private RelativeLayout  mKavaVestingLayer, mKavaDepositLayer, mKavaIncentiveLayer;
+            private TextView        mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVesting, mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards, mTvKavaDeposit, mTvKavaIncentive;
 
             public KavaHolder(View v) {
                 super(v);
@@ -1007,16 +996,12 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvKavaRewards          = itemView.findViewById(R.id.dash_kava_reward);
                 mTvKavaVesting          = itemView.findViewById(R.id.dash_kava_vesting);
                 mTvKavaDeposit          = itemView.findViewById(R.id.dash_kava_harvest_deposited);
-                mTvKavaIncnetive        = itemView.findViewById(R.id.dash_kava_unclaimed_incentive);
+                mTvKavaIncentive        = itemView.findViewById(R.id.dash_kava_unclaimed_incentive);
                 mKavaVestingLayer       = itemView.findViewById(R.id.kava_harvest_vesting_layer);
                 mKavaDepositLayer       = itemView.findViewById(R.id.kava_harvest_deposit_layer);
                 mKavaIncentiveLayer     = itemView.findViewById(R.id.kava_harvest_incentive_layer);
-                mKavaAction             = itemView.findViewById(R.id.layer_kava_actions);
-                mKavaDapp               = itemView.findViewById(R.id.btn_kava_dapp);
-                mKavaTransfer           = itemView.findViewById(R.id.layer_kava_transfer);
                 mBtnSendKava            = itemView.findViewById(R.id.btn_kava_send);
                 mBtnReceiveKava         = itemView.findViewById(R.id.btn_kava_receive);
-                mBtnBuyKava             = itemView.findViewById(R.id.btn_kava_buy);
             }
         }
 

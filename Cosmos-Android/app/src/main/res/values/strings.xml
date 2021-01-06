@@ -879,6 +879,7 @@
     <string name="str_unclaimed_incentive">Unclaimed Incentive</string>
     <string name="str_get_reward">Delegate</string>
     <string name="str_vote_to">Vote</string>
+    <string name="str_governance">Governance</string>
     <string name="str_commission">Commission</string>
     <string name="str_voting_power">Voting Power</string>
     <string name="str_free">Free</string>
