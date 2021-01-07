@@ -3,7 +3,7 @@
 "5Ak-fk-XqG.text" = "--";
 
 /* Class = "UIButton"; normalTitle = "  Vote"; ObjectID = "C3t-mz-BvV"; */
-"C3t-mz-BvV.normalTitle" = "  투표하기";
+"C3t-mz-BvV.normalTitle" = "  거버넌스";
 
 /* Class = "UILabel"; text = "Vesting"; ObjectID = "JwO-XO-BlK"; */
 "JwO-XO-BlK.text" = "잠긴수량 (위임가능)";

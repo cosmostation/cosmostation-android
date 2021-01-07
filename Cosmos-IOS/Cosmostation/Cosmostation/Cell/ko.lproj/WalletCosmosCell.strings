@@ -33,7 +33,7 @@
 "iFt-o6-mYa.text" = "위임 철회중인 수량";
 
 /* Class = "UIButton"; normalTitle = "  Vote"; ObjectID = "tCY-6s-HEk"; */
-"tCY-6s-HEk.normalTitle" = "  투표하기";
+"tCY-6s-HEk.normalTitle" = "  거버넌스";
 
 /* Class = "UILabel"; text = "--"; ObjectID = "uvE-lW-F2j"; */
 "uvE-lW-F2j.text" = "--";
