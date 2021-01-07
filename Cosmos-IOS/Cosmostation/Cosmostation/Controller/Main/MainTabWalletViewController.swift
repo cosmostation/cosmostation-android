@@ -1796,13 +1796,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         
     }
     
-    func onClickOkVoteVal() {
+    //no need yet
+    func onClickOkVoteValMode() {
         let okVoteTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         okVoteTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("str_vote_direct", comment: ""), style: .default, handler: { _ in
-            let okValidatorListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "OkValidatorListViewController") as! OkValidatorListViewController
-            okValidatorListVC.hidesBottomBarWhenPushed = true
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(okValidatorListVC, animated: true)
+            self.onClickOkVoteVal()
         }))
         okVoteTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("str_vote_agent", comment: ""), style: .default, handler: { _ in
             self.onShowToast(NSLocalizedString("prepare", comment: ""))
@@ -1811,6 +1809,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
             okVoteTypeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
+    }
+    
+    func onClickOkVoteVal() {
+        let okValidatorListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "OkValidatorListViewController") as! OkValidatorListViewController
+        okValidatorListVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(okValidatorListVC, animated: true)
     }
     
     func onClickAprHelp() {

@@ -247,7 +247,6 @@
 		289BE017252DF58C00E5E4B4 /* KavaHavestParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE016252DF58B00E5E4B4 /* KavaHavestParam.swift */; };
 		289BE01A252E1E4000E5E4B4 /* KavaHavestDeposit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE019252E1E4000E5E4B4 /* KavaHavestDeposit.swift */; };
 		289BE01D252E2A0E00E5E4B4 /* KavaHavestReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE01C252E2A0E00E5E4B4 /* KavaHavestReward.swift */; };
-		289BE020252EBBB600E5E4B4 /* IncentiveCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BE01F252EBBB600E5E4B4 /* IncentiveCdpViewController.swift */; };
 		289DF170242DD90300433CF4 /* CdpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */; };
 		289DF178242DDF3800433CF4 /* CdpDetailTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */; };
 		289DF17C242DDF4F00433CF4 /* CdpDetailMyTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */; };
@@ -768,7 +767,6 @@
 		289BE016252DF58B00E5E4B4 /* KavaHavestParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHavestParam.swift; sourceTree = "<group>"; };
 		289BE019252E1E4000E5E4B4 /* KavaHavestDeposit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHavestDeposit.swift; sourceTree = "<group>"; };
 		289BE01C252E2A0E00E5E4B4 /* KavaHavestReward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHavestReward.swift; sourceTree = "<group>"; };
-		289BE01F252EBBB600E5E4B4 /* IncentiveCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncentiveCdpViewController.swift; sourceTree = "<group>"; };
 		289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailViewController.swift; sourceTree = "<group>"; };
 		289DF176242DDF3800433CF4 /* CdpDetailTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailTopCell.swift; sourceTree = "<group>"; };
 		289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyTopCell.swift; sourceTree = "<group>"; };
@@ -1263,6 +1261,17 @@
 			path = txs;
 			sourceTree = "<group>";
 		};
+		284FF3EF25A6EDF900505E7A /* okex */ = {
+			isa = PBXGroup;
+			children = (
+				28B4304324F8B34100BD7BB2 /* OkValidatorListViewController.swift */,
+				28B4304524F8B36600BD7BB2 /* OkMyValidatorViewController.swift */,
+				28B4304724F8B37500BD7BB2 /* OkTopValidatorViewController.swift */,
+				28B4304924F8B38500BD7BB2 /* OkOtherValidatorViewController.swift */,
+			);
+			path = okex;
+			sourceTree = "<group>";
+		};
 		2868558C24989A5E0099D18F /* PopUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -1523,6 +1532,7 @@
 		E1945E40222E7FB000A1436F /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				284FF3EF25A6EDF900505E7A /* okex */,
 				284D179D2535556800C364F9 /* kava */,
 				283439992531D0E100CCFADE /* starname */,
 				E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */,
@@ -1538,17 +1548,12 @@
 				E1827E17225620D000BC0350 /* VaildatorDetailViewController.swift */,
 				E1945E4B222E81C200A1436F /* VoteListViewController.swift */,
 				2845D87C246FAE16007CD497 /* VoteDetailsViewController.swift */,
-				289BE01F252EBBB600E5E4B4 /* IncentiveCdpViewController.swift */,
 				E17B213023470222001743D6 /* TokenDetailViewController.swift */,
 				E10492122347B41000A2980F /* WalletConnectViewController.swift */,
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
 				E11338FF235D95FD0011B61D /* AccountSelectViewController.swift */,
 				2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */,
 				2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */,
-				28B4304324F8B34100BD7BB2 /* OkValidatorListViewController.swift */,
-				28B4304524F8B36600BD7BB2 /* OkMyValidatorViewController.swift */,
-				28B4304724F8B37500BD7BB2 /* OkTopValidatorViewController.swift */,
-				28B4304924F8B38500BD7BB2 /* OkOtherValidatorViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -2264,7 +2269,6 @@
 				E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */,
 				E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */,
 				282FF35923F52FD40028CC66 /* TxRewardCell.swift in Sources */,
-				289BE020252EBBB600E5E4B4 /* IncentiveCdpViewController.swift in Sources */,
 				28592E772580616D00C31460 /* BaseNetWork.swift in Sources */,
 				2868559724989AB80099D18F /* CdpWarnPopup.swift in Sources */,
 				288A14DD25199A9800E17808 /* WalletCertikCell.swift in Sources */,
