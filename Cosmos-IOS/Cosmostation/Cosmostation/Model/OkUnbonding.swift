@@ -8,16 +8,14 @@
 
 import Foundation
 
-public class OkUnbonding {
-    var delegator_address: String = ""
-    var quantity: String = ""
-    var completion_time: String = ""
+public struct OkUnbonding {
+    var delegator_address: String?
+    var quantity: String?
+    var completion_time: String?
     
-    init() {}
-    
-    init(_ dictionary: [String: Any]) {
-        self.delegator_address = dictionary["delegator_address"] as? String ?? ""
-        self.quantity = dictionary["quantity"] as? String ?? ""
-        self.completion_time = dictionary["completion_time"] as? String ?? ""
+    init(_ dictionary: NSDictionary?) {
+        self.delegator_address = dictionary?["delegator_address"] as? String
+        self.quantity = dictionary?["quantity"] as? String
+        self.completion_time = dictionary?["completion_time"] as? String
     }
 }

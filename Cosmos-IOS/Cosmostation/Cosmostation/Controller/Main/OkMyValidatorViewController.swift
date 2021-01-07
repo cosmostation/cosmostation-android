@@ -84,7 +84,7 @@ class OkMyValidatorViewController: BaseViewController, UITableViewDelegate, UITa
         if (WUtils.okDepositAmount(BaseData.instance.mOkStaking).compare(NSDecimalNumber.zero).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_only_deposit_can_vote", comment: ""))
             return
-            
+
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController

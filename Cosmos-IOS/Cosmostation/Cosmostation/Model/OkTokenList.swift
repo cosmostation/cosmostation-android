@@ -8,22 +8,20 @@
 
 import Foundation
 
-public class OkTokenList {
-    var code: Int = -1
-    var msg: String = ""
-    var detail_msg: String = ""
-    var data: Array<OkToken> = Array<OkToken>()
+public struct OkTokenList {
+    var code: Int?
+    var msg: String?
+    var detail_msg: String?
+    var data: Array<OkToken>?
     
-    init() {}
-    
-    init(_ dictionary: [String: Any]) {
-        self.code = dictionary["code"] as? Int ?? -1
-        self.msg = dictionary["msg"] as? String ?? ""
-        self.detail_msg = dictionary["detail_msg"] as? String ?? ""
-        self.data.removeAll()
-        if let tokens = dictionary["data"] as? Array<NSDictionary> {
-            for token in tokens {
-                self.data.append(OkToken(token as! [String : Any]))
+    init(_ dictionary: NSDictionary?) {
+        self.code = dictionary?["code"] as? Int
+        self.msg = dictionary?["msg"] as? String
+        self.detail_msg = dictionary?["detail_msg"] as? String
+        if let rawDatas = dictionary?["data"] as? Array<NSDictionary> {
+            data = Array<OkToken>()
+            for rawData in rawDatas {
+                self.data!.append(OkToken(rawData))
             }
         }
     }

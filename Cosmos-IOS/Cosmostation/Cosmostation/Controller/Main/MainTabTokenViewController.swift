@@ -721,7 +721,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func onSetOkItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
-        let okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList, balance.balance_denom)
+        let okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList!, balance.balance_denom)
         if (balance.balance_denom == OKEX_TEST_DENOM) {
             cell?.tokenImg.image = UIImage(named: "okexTokenImg")
             cell?.tokenSymbol.textColor = COLOR_OK
@@ -740,9 +740,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         }
         if (okToken != nil) {
-            cell?.tokenSymbol.text = okToken?.original_symbol.uppercased()
+            cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
             cell?.tokenDescription.text = okToken?.description
-            cell?.tokenTitle.text = "(" + okToken!.symbol + ")"
+            cell?.tokenTitle.text = "(" + okToken!.symbol! + ")"
         }
         return cell!
     }

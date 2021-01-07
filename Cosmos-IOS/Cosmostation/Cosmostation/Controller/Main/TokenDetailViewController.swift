@@ -570,18 +570,18 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             
         } else if (chainType == ChainType.OKEX_TEST && okDenom != nil) {
             cell?.tokenInfoBtn.isHidden = false
-            okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList, okDenom!)
-            cell?.tokenSymbol.text = okToken?.original_symbol.uppercased()
+            okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList!, okDenom!)
+            cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
             
-            let available = WUtils.availableAmount(balances, okToken!.original_symbol)
-            let locked = WUtils.lockedAmount(balances, okToken!.original_symbol)
+            let available = WUtils.availableAmount(balances, okToken!.original_symbol!)
+            let locked = WUtils.lockedAmount(balances, okToken!.original_symbol!)
             let total = available.adding(locked)
             cell?.totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, cell!.totalAmount.font, 0, 8)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.availableAmount.font, 0, 8)
             cell?.totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
             
             cell?.actionTokenInfo = {
-                guard let url = URL(string: EXPLORER_OKEX_TEST + "token/" + self.okToken!.symbol) else { return }
+                guard let url = URL(string: EXPLORER_OKEX_TEST + "token/" + self.okToken!.symbol!) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 safariViewController.modalPresentationStyle = .popover
                 self.present(safariViewController, animated: true, completion: nil)

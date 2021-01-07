@@ -159,27 +159,27 @@ class WUtils {
                         }
                     })
                     
-                    if (SHOW_LOG) {
-                        print("Kava dpBalance            ", dpBalance)
-                        print("Kava originalVesting      ", originalVesting)
-                        print("Kava delegatedVesting     ", delegatedVesting)
-                    }
+//                    if (SHOW_LOG) {
+//                        print("Kava dpBalance            ", dpBalance)
+//                        print("Kava originalVesting      ", originalVesting)
+//                        print("Kava delegatedVesting     ", delegatedVesting)
+//                    }
                     
                     remainVesting = accountInfo.result.getCalcurateVestingAmountSumByDenom(KAVA_MAIN_DENOM)
-                    if (SHOW_LOG) { print("Kava remainVesting            ", remainVesting)}
+//                    if (SHOW_LOG) { print("Kava remainVesting            ", remainVesting)}
                     
                     dpVesting = remainVesting.subtracting(delegatedVesting);
-                    if (SHOW_LOG) { print("Kava dpVesting      ", dpVesting) }
+//                    if (SHOW_LOG) { print("Kava dpVesting      ", dpVesting) }
                     
                     if (dpVesting.compare(NSDecimalNumber.zero).rawValue <= 0) {
                         dpVesting = NSDecimalNumber.zero;
                     }
-                    if (SHOW_LOG) { print("Kava dpVesting1      ", dpVesting) }
+//                    if (SHOW_LOG) { print("Kava dpVesting1      ", dpVesting) }
                     
                     if (remainVesting.compare(delegatedVesting).rawValue > 0) {
                         dpBalance = dpBalance.subtracting(remainVesting).adding(delegatedVesting);
                     }
-                    if (SHOW_LOG) { print("Kava dpBalance      ", dpBalance) }
+//                    if (SHOW_LOG) { print("Kava dpBalance      ", dpBalance) }
                     
                     result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, delegatedVesting.stringValue, dpVesting.stringValue))
                     
@@ -191,16 +191,16 @@ class WUtils {
                         }
                     })
                     
-                    if (SHOW_LOG) {
-                        print("Hard dpBalance            ", dpBalance)
-                        print("Hard originalVesting      ", originalVesting)
-                    }
+//                    if (SHOW_LOG) {
+//                        print("Hard dpBalance            ", dpBalance)
+//                        print("Hard originalVesting      ", originalVesting)
+//                    }
                     
                     remainVesting = accountInfo.result.getCalcurateVestingAmountSumByDenom(KAVA_HARD_DENOM)
-                    if (SHOW_LOG) { print("Hard remainVesting   ", remainVesting)}
+//                    if (SHOW_LOG) { print("Hard remainVesting   ", remainVesting)}
                     
                     dpBalance = dpBalance.subtracting(remainVesting)
-                    if (SHOW_LOG) { print("Hard dpBalance      ", dpBalance) }
+//                    if (SHOW_LOG) { print("Hard dpBalance      ", dpBalance) }
                     
                     result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, remainVesting.stringValue, "0"))
                     
@@ -806,12 +806,12 @@ class WUtils {
         return amount;
     }
     
-    static func okDepositAmount(_ deposit: OkStaking) -> NSDecimalNumber {
-        return plainStringToDecimal(deposit.tokens)
+    static func okDepositAmount(_ deposit: OkStaking?) -> NSDecimalNumber {
+        return plainStringToDecimal(deposit?.tokens)
     }
     
-    static func okWithdrawAmount(_ withdraw: OkUnbonding) -> NSDecimalNumber {
-        return plainStringToDecimal(withdraw.quantity)
+    static func okWithdrawAmount(_ withdraw: OkUnbonding?) -> NSDecimalNumber {
+        return plainStringToDecimal(withdraw?.quantity)
     }
     
     static func dpVestingCoin(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
@@ -1534,7 +1534,7 @@ class WUtils {
         return amount
     }
     
-    static func getAllOkt(_ balances:Array<Balance>, _ deposit: OkStaking, _ withdraw: OkUnbonding) -> NSDecimalNumber {
+    static func getAllOkt(_ balances:Array<Balance>, _ deposit: OkStaking?, _ withdraw: OkUnbonding?) -> NSDecimalNumber {
         var sum = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == OKEX_TEST_DENOM) {
@@ -1542,8 +1542,8 @@ class WUtils {
                 sum = sum.adding(localeStringToDecimal(balance.balance_locked))
             }
         }
-        sum = sum.adding(localeStringToDecimal(deposit.tokens))
-        sum = sum.adding(localeStringToDecimal(withdraw.quantity))
+        sum = sum.adding(localeStringToDecimal(deposit?.tokens))
+        sum = sum.adding(localeStringToDecimal(withdraw?.quantity))
         return sum
     }
     
@@ -1739,7 +1739,8 @@ class WUtils {
     }
     
     static func getOkToken(_ okTokenList:OkTokenList, _ symbol:String) -> OkToken? {
-        for okToken in okTokenList.data {
+        if (okTokenList.data == nil) { return nil}
+        for okToken in okTokenList.data! {
             if (okToken.symbol == symbol) {
                 return okToken
             }
@@ -2379,7 +2380,7 @@ class WUtils {
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return "iovns-galaxynet"
         } else if (chainS == CHAIN_OKEX_TEST_S) {
-            return "okexchain-testnet1"
+            return "okexchaintestnet-1"
         } else if (chainS == CHAIN_CERTIK_TEST_S) {
             return "shentu-incentivized-3"
         }
@@ -2416,7 +2417,7 @@ class WUtils {
         } else if (chain == ChainType.IOV_TEST) {
             return "iovns-galaxynet"
         } else if (chain == ChainType.OKEX_TEST) {
-            return "okexchain-testnet1"
+            return "okexchaintestnet-1"
         } else if (chain == ChainType.CERTIK_TEST) {
             return "shentu-incentivized-3"
         }

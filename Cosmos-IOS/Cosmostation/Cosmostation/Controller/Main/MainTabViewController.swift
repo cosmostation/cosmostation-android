@@ -180,6 +180,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if (self.mFetchCnt > 0)  {
             return false
         }
+        self.mAllValidator.removeAll()
         self.mTopValidators.removeAll()
         self.mOtherValidators.removeAll()
         self.mMyValidators.removeAll()
@@ -200,7 +201,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.IRIS_MAIN) {
             self.mFetchCnt = 7
-            self.mAllValidator.removeAll()
             self.irisValidatorPage = 1
             onFetchIrisValidatorsInfo(irisValidatorPage)
             onFetchAccountInfo(mAccount)
@@ -212,7 +212,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
             self.mFetchCnt = 3
-            self.mAllValidator.removeAll()
             BaseData.instance.mBnbTokenList.removeAll()
             onFetchAccountInfo(mAccount)
             onFetchBnbTokens()
@@ -297,9 +296,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.OKEX_TEST) {
             self.mFetchCnt = 8
-            BaseData.instance.mOkStaking = OkStaking.init()
-            BaseData.instance.mOkUnbonding = OkUnbonding.init()
-            BaseData.instance.mOkTokenList = OkTokenList.init()
+            BaseData.instance.mOkStaking = nil
+            BaseData.instance.mOkUnbonding = nil
+            BaseData.instance.mOkTokenList = nil
             
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -374,178 +373,100 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchFinished() {
 //        print("onFetchFinished ", self.mFetchCnt)
         self.mFetchCnt = self.mFetchCnt - 1
-        if (mFetchCnt <= 0) {
-            if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST ||
-                    mChainType == ChainType.BAND_MAIN || mChainType == ChainType.SECRET_MAIN || mChainType == ChainType.CERTIK_MAIN ||
-                    mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST || mChainType == ChainType.CERTIK_TEST || mChainType == ChainType.AKASH_MAIN) {
-                mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
-                mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-                mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
-                mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
-                
-                mAllValidator.removeAll()
-                mAllValidator.append(contentsOf: mTopValidators)
-                mAllValidator.append(contentsOf: mOtherValidators)
-                
-//                if (mChainType == ChainType.KAVA_TEST) {
-//                    print("CDP circuit_breaker ", BaseData.instance.mCdpParam.result.circuit_breaker)
-//                    print("CDP mKavaPrice", BaseData.instance.mKavaPrice.count)
-//                    print("CDP mMyCdps", BaseData.instance.mMyCdps.count)
-//                }
-                
-//                print("mBondingList ", mBondingList.count)
-//                print("mUnbondingList ", mUnbondingList.count)
-//                print("mRewardList ", mRewardList.count)
-//
-            } else if (mChainType == ChainType.IRIS_MAIN) {
-                mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
-                mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-                mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
-                mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
-                
-                mTopValidators.removeAll()
-                mOtherValidators.removeAll()
-                for validator in mAllValidator {
-                    if (validator.status == validator.BONDED) {
-                        mTopValidators.append(validator)
-                    } else {
-                        mOtherValidators.append(validator)
-                    }
-                }
-                
-            }  else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
-                mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
-                mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-                NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
-                self.hideWaittingAlert()
-                return
-                
-            } else if (mChainType == ChainType.OKEX_TEST) {
-                mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
-                mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-                
-                mTopValidators.removeAll()
-                mOtherValidators.removeAll()
-                for validator in mAllValidator {
-                    if (validator.status == validator.BONDED) {
-                        mTopValidators.append(validator)
-                    } else {
-                        mOtherValidators.append(validator)
-                    }
-                }
-                
-            }
-            
-            if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.KAVA_MAIN ||
-                    mChainType == ChainType.KAVA_TEST || mChainType == ChainType.BAND_MAIN || mChainType == ChainType.SECRET_MAIN ||
-                    mChainType == ChainType.IOV_MAIN || mChainType == ChainType.CERTIK_MAIN ||  mChainType == ChainType.IOV_TEST ||
-                    mChainType == ChainType.CERTIK_TEST || mChainType == ChainType.AKASH_MAIN) {
-                self.mMyValidators.removeAll()
-                for validator in mAllValidator {
-                    var mine = false;
-                    for bonding in mBondingList {
-                        if (bonding.bonding_v_address == validator.operator_address) {
-                            mine = true;
-                            break;
-                        }
-                    }
-                    for unbonding in mUnbondingList {
-                        if (unbonding.unbonding_v_address == validator.operator_address) {
-                            mine = true;
-                            break;
-                        }
-                    }
-                    if (mine) {
-                        self.mMyValidators.append(validator)
-                    }
-                }
-//                print("mTopValidators ", mTopValidators.count)
-//                print("mOtherValidators ", mOtherValidators.count)
-//                print("mAllValidator ", mAllValidator.count)
-                
-            } else if (mChainType == ChainType.OKEX_TEST) {
-                self.mMyValidators.removeAll()
-                for validator in mAllValidator {
-                    for myVal in BaseData.instance.mOkStaking.validator_address {
-                        if (validator.operator_address == myVal) {
-                            self.mMyValidators.append(validator)
-                        }
-                    }
-                }
-//                print("OKEX_TEST mAllValidator ", mAllValidator.count)
-//                print("OKEX_TEST mTopValidators ", mTopValidators.count)
-//                print("OKEX_TEST mOtherValidators ", mOtherValidators.count)
-//                print("OKEX_TEST mMyValidators ", mMyValidators.count)
-//                print("OKEX_TEST mAccount ", mAccount.account_address)
-//                print("OKEX_TEST mBalances ", mBalances.count)
-                
-                BaseData.instance.mAllValidator = mAllValidator
-                BaseData.instance.mTopValidator = mTopValidators
-                BaseData.instance.mOtherValidator = mOtherValidators
-                BaseData.instance.mMyValidator = mMyValidators
-                
-            }
-            
-//            if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-//                print("KAVA mMyCdps ", BaseData.instance.mMyCdps.count)
-//                print("KAVA mIncentiveClaimables ", BaseData.instance.mIncentiveClaimables.count)
-//                print("KAVA mHavestDeposits ", BaseData.instance.mHavestDeposits.count)
-//                print("KAVA mHavestRewards ", BaseData.instance.mHavestRewards.count)
-//            }
-            
-            //For StarGate after v0.40
-            if (mChainType == ChainType.COSMOS_TEST) {
-                BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mBondedValidators_V1)
-                BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mUnbondValidators_V1)
-                for validator in BaseData.instance.mAllValidators_V1 {
-                    var mine = false;
-                    for delegation in BaseData.instance.mMyDelegations_V1 {
-                        if (delegation.delegation?.validator_address == validator.operator_address) {
-                            mine = true;
-                            break;
-                        }
-                    }
-                    for unbonding in BaseData.instance.mMyUnbondings_V1 {
-                        if (unbonding.validator_address == validator.operator_address) {
-                            mine = true;
-                            break;
-                        }
-                    }
-                    if (mine) {
-                        BaseData.instance.mMyValidators_V1.append(validator)
-                    }
-                }
-                
-                if (BaseData.instance.mAllValidators_V1.count <= 0) {
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                }
-                
-//                print("mBondedValidators_V1 ", BaseData.instance.mBondedValidators_V1.count)
-//                print("mUnbondValidators_V1 ", BaseData.instance.mUnbondValidators_V1.count)
-//                print("mAllValidators_V1 ", BaseData.instance.mAllValidators_V1.count)
-//                print("mMyValidators_V1 ", BaseData.instance.mMyValidators_V1.count)
-//
-//                print("mMyBalances_V1 ", BaseData.instance.mMyBalances_V1.count)
-//                print("mMyDelegations_V1 ", BaseData.instance.mMyDelegations_V1.count)
-//                print("mMyUnbondings_V1 ", BaseData.instance.mMyUnbondings_V1.count)
-//                print("mMyReward_V1 ", BaseData.instance.mMyReward_V1.count)
-//
-//                print("mMintParam_V1 ", BaseData.instance.mMintParam_V1)
-//                print("mStakingPool_V1 ", BaseData.instance.mStakingPool_V1)
-//                print("mProvision_V1 ", BaseData.instance.mProvision_V1)
-//                print("mInflation_V1 ", BaseData.instance.mInflation_V1)
-                
-            } else {
-                if (mAllValidator.count <= 0) {
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                } else {
-                    BaseData.instance.setAllValidators(mAllValidator)
-                }
-            }
-            
+        if (mFetchCnt > 0) { return }
+        
+        if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
+            mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
+            mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
             self.hideWaittingAlert()
+            return
+            
+        } else if (mChainType == ChainType.COSMOS_TEST) {
+            BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mBondedValidators_V1)
+            BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mUnbondValidators_V1)
+            for validator in BaseData.instance.mAllValidators_V1 {
+                var mine = false;
+                for delegation in BaseData.instance.mMyDelegations_V1 {
+                    if (delegation.delegation?.validator_address == validator.operator_address) {
+                        mine = true;
+                        break;
+                    }
+                }
+                for unbonding in BaseData.instance.mMyUnbondings_V1 {
+                    if (unbonding.validator_address == validator.operator_address) {
+                        mine = true;
+                        break;
+                    }
+                }
+                if (mine) {
+                    BaseData.instance.mMyValidators_V1.append(validator)
+                }
+            }
+            if (BaseData.instance.mAllValidators_V1.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            }
+            NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
+            self.hideWaittingAlert()
+            return
+            
+        } else if (mChainType == ChainType.IRIS_MAIN) {
+            mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
+            mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
+            mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
+            
+            for validator in mAllValidator {
+                if (validator.status == validator.BONDED) {
+                    mTopValidators.append(validator)
+                } else {
+                    mOtherValidators.append(validator)
+                }
+            }
+            
+        } else if (mChainType == ChainType.OKEX_TEST) {
+            mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
+            mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            
+            mAllValidator.append(contentsOf: mTopValidators)
+            mAllValidator.append(contentsOf: mOtherValidators)
+            
+            //TODO check my val?
+            
+        } else {
+            mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
+            mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
+            mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
+            
+            mAllValidator.append(contentsOf: mTopValidators)
+            mAllValidator.append(contentsOf: mOtherValidators)
+            
+            for validator in mAllValidator {
+                var mine = false;
+                for bonding in mBondingList {
+                    if (bonding.bonding_v_address == validator.operator_address) {
+                        mine = true;
+                        break;
+                    }
+                }
+                for unbonding in mUnbondingList {
+                    if (unbonding.unbonding_v_address == validator.operator_address) {
+                        mine = true;
+                        break;
+                    }
+                }
+                if (mine) {
+                    self.mMyValidators.append(validator)
+                }
+            }
         }
+        if (mAllValidator.count <= 0) { self.onShowToast(NSLocalizedString("error_network", comment: "")) }
+        else { BaseData.instance.setAllValidators(mAllValidator) }
+        NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
+        self.hideWaittingAlert()
+        
+
     }
     
     func onFetchTopValidatorsInfo() {
@@ -1681,7 +1602,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let info = res as? [String : Any] else {
+                guard let info = res as? NSDictionary else {
                     self.onFetchFinished()
                     return
                 }
@@ -1704,7 +1625,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let info = res as? [String : Any] else {
+                guard let info = res as? NSDictionary else {
                     self.onFetchFinished()
                     return
                 }
@@ -1727,7 +1648,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let tokenList = res as? [String : Any] else {
+                guard let tokenList = res as? NSDictionary else {
                     self.onFetchFinished()
                     return
                 }
