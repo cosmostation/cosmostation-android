@@ -1254,7 +1254,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletOkCell? = tableView.dequeueReusableCell(withIdentifier:"WalletOkCell") as? WalletOkCell
-            cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
             let totalAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, OKEX_TEST_DENOM)
             let lockedAmount = WUtils.lockedAmount(mainTabVC.mBalances, OKEX_TEST_DENOM)
@@ -1274,8 +1273,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionWithdraw = {
                 self.onClickOkWithdraw()
             }
+            cell?.actionVoteforVal = {
+                self.onClickOkVoteVal()
+            }
             cell?.actionVote = {
-                self.onClickOkVote()
+                self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
             }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.stringValue)
             return cell!
@@ -1794,7 +1796,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         
     }
     
-    func onClickOkVote() {
+    func onClickOkVoteVal() {
         let okVoteTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         okVoteTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("str_vote_direct", comment: ""), style: .default, handler: { _ in
             let okValidatorListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "OkValidatorListViewController") as! OkValidatorListViewController

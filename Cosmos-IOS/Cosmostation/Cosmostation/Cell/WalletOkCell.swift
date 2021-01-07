@@ -29,6 +29,7 @@ class WalletOkCell: UITableViewCell {
     
     var actionDeposit: (() -> Void)? = nil
     var actionWithdraw: (() -> Void)? = nil
+    var actionVoteforVal: (() -> Void)? = nil
     var actionVote: (() -> Void)? = nil
     
     @IBAction func onClickDeposit(_ sender: UIButton) {
@@ -36,6 +37,9 @@ class WalletOkCell: UITableViewCell {
     }
     @IBAction func onClickWithdraw(_ sender: UIButton) {
         actionWithdraw?()
+    }
+    @IBAction func onClickVoteForVal(_ sender: UIButton) {
+        actionVoteforVal?()
     }
     @IBAction func onClickVote(_ sender: UIButton) {
         actionVote?()

@@ -344,14 +344,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.actionSendBep3 = {
             self.onClickBep3Send(self.balance?.balance_denom)
         }
-        if (chainType == ChainType.BINANCE_MAIN) {
-            cell?.BtnBuyBnb.isHidden = false
-            cell?.actionBuy = {
-                self.onBuyCoin()
-            }
-        } else {
-            cell?.BtnBuyBnb.isHidden = true
-        }
         return cell!
     }
     
@@ -442,27 +434,24 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetOkItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:TokenDetailHeaderOkCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderOkCell") as? TokenDetailHeaderOkCell
-        cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
         let totalAmount = WUtils.getAllOkt(balances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
         let availableAmount = WUtils.availableAmount(balances, OKEX_TEST_DENOM)
         let lockedAmount = WUtils.lockedAmount(balances, OKEX_TEST_DENOM)
         let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkStaking)
         let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkUnbonding)
         
-        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 8)
-        cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 8)
-        cell?.lockedAmount.attributedText = WUtils.displayAmount2(lockedAmount.stringValue, cell!.lockedAmount.font, 0, 8)
-        cell?.depositAmount.attributedText = WUtils.displayAmount2(depositAmount.stringValue, cell!.depositAmount.font, 0, 8)
-        cell?.withdrawAmount.attributedText = WUtils.displayAmount2(withdrawAmount.stringValue, cell!.withdrawAmount.font, 0, 8)
+        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 18)
+        cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 18)
+        cell?.lockedAmount.attributedText = WUtils.displayAmount2(lockedAmount.stringValue, cell!.lockedAmount.font, 0, 18)
+        cell?.depositAmount.attributedText = WUtils.displayAmount2(depositAmount.stringValue, cell!.depositAmount.font, 0, 18)
+        cell?.withdrawAmount.attributedText = WUtils.displayAmount2(withdrawAmount.stringValue, cell!.withdrawAmount.font, 0, 18)
         cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
-        
         cell?.actionSend  = {
             self.onSendToken()
         }
         cell?.actionReceive = {
             self.onRecieveToken()
         }
-        
         return cell!
     }
     
@@ -570,14 +559,18 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             
         } else if (chainType == ChainType.OKEX_TEST && okDenom != nil) {
             cell?.tokenInfoBtn.isHidden = false
+            cell?.lockedLayer.isHidden = false
             okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList!, okDenom!)
+            let url = OKEX_COIN_IMG_URL + okToken!.original_symbol! + ".png"
             cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
+            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             
             let available = WUtils.availableAmount(balances, okToken!.original_symbol!)
             let locked = WUtils.lockedAmount(balances, okToken!.original_symbol!)
             let total = available.adding(locked)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, cell!.totalAmount.font, 0, 8)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.availableAmount.font, 0, 8)
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, cell!.totalAmount.font, 0, 18)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.availableAmount.font, 0, 18)
+            cell?.lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, cell!.availableAmount.font, 0, 18)
             cell?.totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
             
             cell?.actionTokenInfo = {
@@ -699,7 +692,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             url = BNB_TEST_URL_HISTORY
         }
         let request = Alamofire.request(url, method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970, "txAsset":symbol], encoding: URLEncoding.default, headers: [:])
-//        let request = Alamofire.request(url, method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970, "txAsset":symbol, "txType":"CLAIM_HTL"], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { response in
             switch response.result {
             case .success(let res):

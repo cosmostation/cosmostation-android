@@ -26,7 +26,6 @@ class TokenDetailHeaderBnbCell: UITableViewCell {
     
     var actionSend: (() -> Void)? = nil
     var actionRecieve: (() -> Void)? = nil
-    var actionBuy: (() -> Void)? = nil
     var actionSendBep3: (() -> Void)? = nil
     
     @IBAction func onClickSend(_ sender: Any) {
@@ -35,10 +34,6 @@ class TokenDetailHeaderBnbCell: UITableViewCell {
     
     @IBAction func onClickRecieve(_ sender: UIButton) {
         actionRecieve?()
-    }
-    
-    @IBAction func onClickBuy(_ sender: UIButton) {
-        actionBuy?()
     }
     
     @IBAction func onClickSendBep3(_ sender: UIButton) {

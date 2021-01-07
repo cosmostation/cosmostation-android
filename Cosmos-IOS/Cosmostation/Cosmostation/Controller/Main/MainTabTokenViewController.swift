@@ -740,6 +740,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         }
         if (okToken != nil) {
+            let url = OKEX_COIN_IMG_URL + okToken!.original_symbol! + ".png"
+            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
             cell?.tokenDescription.text = okToken?.description
             cell?.tokenTitle.text = "(" + okToken!.symbol! + ")"
