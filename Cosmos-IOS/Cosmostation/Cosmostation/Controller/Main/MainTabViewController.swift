@@ -296,18 +296,21 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStarNameConfig()
             
         } else if (mChainType == ChainType.OKEX_TEST) {
-            self.mFetchCnt = 6
+            self.mFetchCnt = 8
             BaseData.instance.mOkStaking = OkStaking.init()
             BaseData.instance.mOkUnbonding = OkUnbonding.init()
             BaseData.instance.mOkTokenList = OkTokenList.init()
             
-            onFetchOkValidatorsInfo()
-            onFetchAccountInfo(mAccount)
-            onFetchOkAccountTokens(mAccount)
-            onFetchOkTokenList()
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
             
-            onFetchOkDeposit(mAccount)
-            onFetchOkWithdraw(mAccount)
+            onFetchAccountInfo(mAccount)
+            onFetchOkAccountBalance(mAccount)
+            onFetchOkTokenList()
+            onFetchOkStakingInfo(mAccount)
+            onFetchOkUnbondingInfo(mAccount)
+            
             
         } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.CERTIK_TEST) {
             self.mFetchCnt = 10
@@ -567,17 +570,31 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CERTIK_TEST_VALIDATORS
         } else if (mChainType == ChainType.AKASH_MAIN) {
             url = AKASH_VALIDATORS
+        } else if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return
-                }
-                for validator in validators {
-                    self.mTopValidators.append(Validator(validator as! [String : Any]))
+                if (self.mChainType == ChainType.OKEX_TEST) {
+                    guard let validators = res as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    for validator in validators {
+                        self.mTopValidators.append(Validator(validator as! [String : Any]))
+                    }
+                    
+                } else {
+                    guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    for validator in validators {
+                        self.mTopValidators.append(Validator(validator as! [String : Any]))
+                    }
+                    
                 }
                 
             case .failure(let error):
@@ -611,6 +628,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CERTIK_TEST_VALIDATORS
         } else if (mChainType == ChainType.AKASH_MAIN) {
             url = AKASH_VALIDATORS
+        } else if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -666,6 +685,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CERTIK_TEST_VALIDATORS
         } else if (mChainType == ChainType.AKASH_MAIN) {
             url = AKASH_VALIDATORS
+        } else if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonding"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -724,31 +745,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
         }
     }
-    
-    func onFetchOkValidatorsInfo() {
-        var url: String?
-        if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_VALIDATORS
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["status":"all"], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let validators = res as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return
-                }
-                for validator in validators {
-                    self.mAllValidator.append(Validator(validator as! [String : Any]))
-                }
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
     
     func onFetchAccountInfo(_ account: Account) {
         var url: String?
@@ -830,17 +826,18 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, kavaAccountInfo))
                     
                 } else if (self.mChainType == ChainType.OKEX_TEST) {
-                    guard let info = res as? [String : Any] else {
+                    guard let info = res as? NSDictionary else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.onFetchFinished()
                         return
                     }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                    let okAccountInfo = OkAccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithOkAccountInfo(account, okAccountInfo))
+                    BaseData.instance.mOkAccountInfo = okAccountInfo
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("Cosmos onFetchAccountInfo ", error) }
+                if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
             }
             self.onFetchFinished()
         }
@@ -1651,34 +1648,34 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchOkAccountTokens(_ account: Account) {
+    func onFetchOkAccountBalance(_ account: Account) {
         var url: String?
         if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_ACCOUNT_TOKENS  + account.account_address
+            url = OKEX_TEST_ACCOUNT_BALANCE  + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let accountTokens = res as? [String : Any] else {
+                guard let okAccountBalancesInfo = res as? [String : Any] else {
                     _ = BaseData.instance.deleteBalance(account: account)
                     self.onFetchFinished()
                     return
                 }
-                let okAccountToken = OkAccountToken.init(accountTokens)
-                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithOkAccountInfo(account, okAccountToken))
+                let okAccountBalances = OkAccountToken.init(okAccountBalancesInfo)
+                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithOkAccountInfo(account, okAccountBalances))
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchOkAccountTokens ", error) }
+                if (SHOW_LOG) { print("onFetchOkAccountBalance ", error) }
             }
             self.onFetchFinished()
         }
     }
     
-    func onFetchOkDeposit(_ account: Account) {
+    func onFetchOkStakingInfo(_ account: Account) {
         var url: String?
         if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_DEPOSIT  + account.account_address
+            url = OKEX_TEST_STAKING  + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -1691,17 +1688,17 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 BaseData.instance.mOkStaking = OkStaking.init(info)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchOkDeposit ", error) }
+                if (SHOW_LOG) { print("onFetchOkStakingInfo ", error) }
             }
             self.onFetchFinished()
         }
         
     }
     
-    func onFetchOkWithdraw(_ account: Account) {
+    func onFetchOkUnbondingInfo(_ account: Account) {
         var url: String?
         if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_WITHDRAW  + account.account_address + OKEX_TEST_WITHDRAW_TAIL
+            url = OKEX_TEST_UNBONDING  + account.account_address + OKEX_TEST_UNBONDING_TAIL
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in

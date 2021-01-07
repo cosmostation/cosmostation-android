@@ -362,15 +362,15 @@ let IOV_TEST_STARNAME_DOMAIN_INFO       = IOV_TEST_URL + "starname/query/domainI
 
 
 //OKEX_TEST_URL
-let OKEX_TEST_TX                          = OKEX_TEST_URL + "txs/";
-let OKEX_TEST_VALIDATORS                  = OKEX_TEST_URL + "staking/validators";
-let OKEX_TEST_ACCOUNT_INFO                = OKEX_TEST_URL + "auth/accounts/";
-let OKEX_TEST_ACCOUNT_TOKENS              = OKEX_TEST_URL + "accounts/";
-let OKEX_TEST_TOKEN_LIST                  = OKEX_TEST_URL + "tokens";
-let OKEX_TEST_DEPOSIT                     = OKEX_TEST_URL + "staking/delegators/";
-let OKEX_TEST_WITHDRAW                    = OKEX_TEST_URL + "staking/delegators/";
-let OKEX_TEST_WITHDRAW_TAIL               = "/unbonding_delegations";
-let OKEX_TEST_BORAD_TX                    = OKEX_TEST_URL + "txs";
+let OKEX_TEST_TX                            = OKEX_TEST_URL + "txs/";
+let OKEX_TEST_VALIDATORS                    = OKEX_TEST_URL + "staking/validators";
+let OKEX_TEST_ACCOUNT_INFO                  = OKEX_TEST_URL + "auth/accounts/";
+let OKEX_TEST_ACCOUNT_BALANCE               = OKEX_TEST_URL + "accounts/";
+let OKEX_TEST_TOKEN_LIST                    = OKEX_TEST_URL + "tokens";
+let OKEX_TEST_STAKING                       = OKEX_TEST_URL + "staking/delegators/";
+let OKEX_TEST_UNBONDING                     = OKEX_TEST_URL + "staking/delegators/";
+let OKEX_TEST_UNBONDING_TAIL                = "/unbonding_delegations";
+let OKEX_TEST_BORAD_TX                      = OKEX_TEST_URL + "txs";
 
 
 //CERTIC_TEST_URL
@@ -570,6 +570,7 @@ let COSMOS_AUTH_TYPE_ACCOUNT_LEGACY         = "auth/Account";
 let COSMOS_AUTH_TYPE_VESTING_ACCOUNT        = "cosmos-sdk/ValidatorVestingAccount";
 let COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT      = "cosmos-sdk/PeriodicVestingAccount";
 let COSMOS_AUTH_TYPE_CERTIK_MANUAL          = "auth/ManualVestingAccount";
+let COSMOS_AUTH_TYPE_OKEX_ACCOUNT           = "okexchain/EthAccount";
 
 let COSMOS_MSG_TYPE_TRANSFER                = "cosmos-sdk/Send";
 let COSMOS_MSG_TYPE_TRANSFER2               = "cosmos-sdk/MsgSend";

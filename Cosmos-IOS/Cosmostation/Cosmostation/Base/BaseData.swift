@@ -43,6 +43,7 @@ final class BaseData : NSObject{
     
     var mBnbTokenList = Array<BnbToken>()
     
+    var mOkAccountInfo: OkAccountInfo?
     var mOkTokenList = OkTokenList.init();
     var mOkStaking = OkStaking.init();
     var mOkUnbonding = OkUnbonding.init();

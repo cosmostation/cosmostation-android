@@ -180,6 +180,7 @@
 		284D17DC2535573100C364F9 /* CdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D17DB2535573100C364F9 /* CdpViewController.swift */; };
 		284D17DF2535573D00C364F9 /* HarvestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D17DE2535573D00C364F9 /* HarvestViewController.swift */; };
 		284D17E62535732200C364F9 /* KavaIncentiveReward2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D17E52535732200C364F9 /* KavaIncentiveReward2.swift */; };
+		284FF3C225A6C13E00505E7A /* OkAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284FF3C125A6C13E00505E7A /* OkAccountInfo.swift */; };
 		2852D76D2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */; };
 		2852D76E2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2852D76C2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib */; };
 		2852D7732477E83400D11DC4 /* CdpIncentiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852D7712477E83400D11DC4 /* CdpIncentiveCell.swift */; };
@@ -697,6 +698,7 @@
 		284D17DB2535573100C364F9 /* CdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpViewController.swift; sourceTree = "<group>"; };
 		284D17DE2535573D00C364F9 /* HarvestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarvestViewController.swift; sourceTree = "<group>"; };
 		284D17E52535732200C364F9 /* KavaIncentiveReward2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveReward2.swift; sourceTree = "<group>"; };
+		284FF3C125A6C13E00505E7A /* OkAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkAccountInfo.swift; sourceTree = "<group>"; };
 		2852D76B2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxIncentiveTableViewCell.swift; sourceTree = "<group>"; };
 		2852D76C2477DEB800D11DC4 /* TxIncentiveTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxIncentiveTableViewCell.xib; sourceTree = "<group>"; };
 		2852D7712477E83400D11DC4 /* CdpIncentiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpIncentiveCell.swift; sourceTree = "<group>"; };
@@ -1601,6 +1603,7 @@
 				E1A82DE02244818C0097CAEE /* AccountInfo.swift */,
 				E14FDC832373C52C00095C06 /* KavaAccountInfo.swift */,
 				E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */,
+				284FF3C125A6C13E00505E7A /* OkAccountInfo.swift */,
 				E1A82DE22244821D0097CAEE /* PublicKey.swift */,
 				E1A82DE4224482800097CAEE /* Coin.swift */,
 				E1A82DE92244A20B0097CAEE /* BondingInfo.swift */,
@@ -2183,6 +2186,7 @@
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
 				285A33D12446CDAB0052BD3D /* StepHtlcSend2ViewController.swift in Sources */,
 				28BB2A992533FA2400CFF097 /* IovStarNameConfig.swift in Sources */,
+				284FF3C225A6C13E00505E7A /* OkAccountInfo.swift in Sources */,
 				2845D884246FAEED007CD497 /* VoteTallyTableViewCell.swift in Sources */,
 				284B0F02247D5FD800B5A2D0 /* StepIncentive0ViewController.swift in Sources */,
 				280E1F0C254AB5BA0007BA7D /* ReplaceResource0ViewController.swift in Sources */,
