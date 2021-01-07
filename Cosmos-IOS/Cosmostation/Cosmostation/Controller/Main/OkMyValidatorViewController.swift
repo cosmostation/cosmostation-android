@@ -81,7 +81,7 @@ class OkMyValidatorViewController: BaseViewController, UITableViewDelegate, UITa
                 return
             }
         }
-        if (WUtils.okDepositAmount(BaseData.instance.mOkDeposit).compare(NSDecimalNumber.zero).rawValue <= 0) {
+        if (WUtils.okDepositAmount(BaseData.instance.mOkStaking).compare(NSDecimalNumber.zero).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_only_deposit_can_vote", comment: ""))
             return
             

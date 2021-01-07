@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class OkWithdraw {
+public class OkUnbonding {
     var delegator_address: String = ""
     var quantity: String = ""
     var completion_time: String = ""

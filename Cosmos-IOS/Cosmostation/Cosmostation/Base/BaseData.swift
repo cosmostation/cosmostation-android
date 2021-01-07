@@ -44,8 +44,8 @@ final class BaseData : NSObject{
     var mBnbTokenList = Array<BnbToken>()
     
     var mOkTokenList = OkTokenList.init();
-    var mOkDeposit = OkDeposit.init();
-    var mOkWithdraw = OkWithdraw.init();
+    var mOkStaking = OkStaking.init();
+    var mOkUnbonding = OkUnbonding.init();
     
     var mStarNameFee: IovStarNameFees.IovFee?
     var mStarNameConfig: IovStarNameConfig.IovConfig?

@@ -110,8 +110,8 @@ class StepFeeViewController: BaseViewController {
             self.speedMsg.text = NSLocalizedString("fee_speed_ok_title", comment: "")
             
             var gasAmount = NSDecimalNumber.zero
-            if ((pageHolderVC.mType == OK_MSG_TYPE_DEPOSIT || pageHolderVC.mType == OK_MSG_TYPE_WITHDRAW) && BaseData.instance.mOkDeposit.validator_address.count > 0) {
-                gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, BaseData.instance.mOkDeposit.validator_address.count)
+            if ((pageHolderVC.mType == OK_MSG_TYPE_DEPOSIT || pageHolderVC.mType == OK_MSG_TYPE_WITHDRAW) && BaseData.instance.mOkStaking.validator_address.count > 0) {
+                gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, BaseData.instance.mOkStaking.validator_address.count)
             } else {
                 gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mOkVoteValidators.count)
             }
@@ -490,8 +490,8 @@ class StepFeeViewController: BaseViewController {
             feeCoin = Coin.init(OKEX_TEST_DENOM, WUtils.getFormattedNumber(feeAmount, 8))
             var fee = Fee.init()
             var estGas = ""
-            if ((pageHolderVC.mType == OK_MSG_TYPE_DEPOSIT || pageHolderVC.mType == OK_MSG_TYPE_WITHDRAW) && BaseData.instance.mOkDeposit.validator_address.count > 0) {
-                estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, BaseData.instance.mOkDeposit.validator_address.count).stringValue
+            if ((pageHolderVC.mType == OK_MSG_TYPE_DEPOSIT || pageHolderVC.mType == OK_MSG_TYPE_WITHDRAW) && BaseData.instance.mOkStaking.validator_address.count > 0) {
+                estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, BaseData.instance.mOkStaking.validator_address.count).stringValue
             } else {
                 estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mOkVoteValidators.count).stringValue
             }

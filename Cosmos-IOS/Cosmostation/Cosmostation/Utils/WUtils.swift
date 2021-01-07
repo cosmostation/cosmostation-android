@@ -796,11 +796,11 @@ class WUtils {
         return amount;
     }
     
-    static func okDepositAmount(_ deposit:OkDeposit) -> NSDecimalNumber {
+    static func okDepositAmount(_ deposit: OkStaking) -> NSDecimalNumber {
         return plainStringToDecimal(deposit.tokens)
     }
     
-    static func okWithdrawAmount(_ withdraw:OkWithdraw) -> NSDecimalNumber {
+    static func okWithdrawAmount(_ withdraw: OkUnbonding) -> NSDecimalNumber {
         return plainStringToDecimal(withdraw.quantity)
     }
     
@@ -1524,7 +1524,7 @@ class WUtils {
         return amount
     }
     
-    static func getAllOkt(_ balances:Array<Balance>, _ deposit:OkDeposit, _ withdraw:OkWithdraw) -> NSDecimalNumber {
+    static func getAllOkt(_ balances:Array<Balance>, _ deposit: OkStaking, _ withdraw: OkUnbonding) -> NSDecimalNumber {
         var sum = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == OKEX_TEST_DENOM) {

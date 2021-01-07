@@ -297,8 +297,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.OKEX_TEST) {
             self.mFetchCnt = 6
-            BaseData.instance.mOkDeposit = OkDeposit.init()
-            BaseData.instance.mOkWithdraw = OkWithdraw.init()
+            BaseData.instance.mOkStaking = OkStaking.init()
+            BaseData.instance.mOkUnbonding = OkUnbonding.init()
             BaseData.instance.mOkTokenList = OkTokenList.init()
             
             onFetchOkValidatorsInfo()
@@ -463,7 +463,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             } else if (mChainType == ChainType.OKEX_TEST) {
                 self.mMyValidators.removeAll()
                 for validator in mAllValidator {
-                    for myVal in BaseData.instance.mOkDeposit.validator_address {
+                    for myVal in BaseData.instance.mOkStaking.validator_address {
                         if (validator.operator_address == myVal) {
                             self.mMyValidators.append(validator)
                         }
@@ -1688,7 +1688,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchFinished()
                     return
                 }
-                BaseData.instance.mOkDeposit = OkDeposit.init(info)
+                BaseData.instance.mOkStaking = OkStaking.init(info)
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchOkDeposit ", error) }
@@ -1711,7 +1711,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchFinished()
                     return
                 }
-                BaseData.instance.mOkWithdraw = OkWithdraw.init(info)
+                BaseData.instance.mOkUnbonding = OkUnbonding.init(info)
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchOkWithdraw ", error) }

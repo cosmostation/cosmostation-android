@@ -312,7 +312,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             self.irisValidatorPage = 1;
             self.onFetchIrisValidatorsInfo(irisValidatorPage)
         } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
-            self.mOkVoteValidators = BaseData.instance.mOkDeposit.validator_address
+            self.mOkVoteValidators = BaseData.instance.mOkStaking.validator_address
         }
             
         self.dataSource = self

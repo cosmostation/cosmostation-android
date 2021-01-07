@@ -26,7 +26,7 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
         WUtils.setDenomTitle(pageHolderVC.chainType!, denomTitleLabel)
         
         if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            userAvailable = WUtils.okDepositAmount(BaseData.instance.mOkDeposit)
+            userAvailable = WUtils.okDepositAmount(BaseData.instance.mOkStaking)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userAvailable.stringValue, availableAmountLabel.font, 0, 8)
         }
         toWithdrawAmountInput.delegate = self

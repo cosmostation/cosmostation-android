@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -63,7 +63,7 @@ let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.
 let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band.cosmostation.io/";
 
-let OKEX_TEST_URL                       = "https://lcd-office.cosmostation.io/okexchain-testnet1/";
+let OKEX_TEST_URL                       = "https://www.okex.com/okexchain/v1/";
 let OKEX_TEST_API                       = "";
 
 

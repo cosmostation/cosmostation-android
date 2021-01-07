@@ -390,7 +390,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.OKEX_TEST) {
-            let allOk = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkDeposit, BaseData.instance.mOkWithdraw)
+            let allOk = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
             totalAmount.attributedText = WUtils.displayAmount2(allOk.stringValue, totalAmount.font, 0, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allOk, BaseData.instance.getLastPrice(), 0, totalValue.font)
             
@@ -725,7 +725,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         if (balance.balance_denom == OKEX_TEST_DENOM) {
             cell?.tokenImg.image = UIImage(named: "okexTokenImg")
             cell?.tokenSymbol.textColor = COLOR_OK
-            let tokenAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkDeposit, BaseData.instance.mOkWithdraw)
+            let tokenAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(tokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
             cell?.tokenValue.attributedText = WUtils.dpTokenValue(tokenAmount, BaseData.instance.getLastPrice(), 0, cell!.tokenValue.font)
             

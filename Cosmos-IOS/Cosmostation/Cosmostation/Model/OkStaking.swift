@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class OkDeposit {
+public class OkStaking {
     var delegator_address: String = ""
     var validator_address: Array<String> = Array<String>()
     var shares: String = ""

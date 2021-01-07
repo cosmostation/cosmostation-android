@@ -114,8 +114,8 @@
 		283D2EA424F52FE700247424 /* OkToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EA324F52FE700247424 /* OkToken.swift */; };
 		283D2EA624F5308900247424 /* OkTokenList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EA524F5308900247424 /* OkTokenList.swift */; };
 		283D2EA824F5388C00247424 /* OkAccountToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EA724F5388C00247424 /* OkAccountToken.swift */; };
-		283D2EAA24F56AEE00247424 /* OkDeposit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EA924F56AEE00247424 /* OkDeposit.swift */; };
-		283D2EAC24F56AFF00247424 /* OkWithdraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EAB24F56AFF00247424 /* OkWithdraw.swift */; };
+		283D2EAA24F56AEE00247424 /* OkStaking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EA924F56AEE00247424 /* OkStaking.swift */; };
+		283D2EAC24F56AFF00247424 /* OkUnbonding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EAB24F56AFF00247424 /* OkUnbonding.swift */; };
 		283D2EAF24F5742000247424 /* WalletOkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EAD24F5742000247424 /* WalletOkCell.swift */; };
 		283D2EB024F5742000247424 /* WalletOkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283D2EAE24F5742000247424 /* WalletOkCell.xib */; };
 		283D2EB324F6250F00247424 /* TokenDetailHeaderOkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D2EB124F6250F00247424 /* TokenDetailHeaderOkCell.swift */; };
@@ -631,8 +631,8 @@
 		283D2EA324F52FE700247424 /* OkToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkToken.swift; sourceTree = "<group>"; };
 		283D2EA524F5308900247424 /* OkTokenList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkTokenList.swift; sourceTree = "<group>"; };
 		283D2EA724F5388C00247424 /* OkAccountToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkAccountToken.swift; sourceTree = "<group>"; };
-		283D2EA924F56AEE00247424 /* OkDeposit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkDeposit.swift; sourceTree = "<group>"; };
-		283D2EAB24F56AFF00247424 /* OkWithdraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkWithdraw.swift; sourceTree = "<group>"; };
+		283D2EA924F56AEE00247424 /* OkStaking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkStaking.swift; sourceTree = "<group>"; };
+		283D2EAB24F56AFF00247424 /* OkUnbonding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkUnbonding.swift; sourceTree = "<group>"; };
 		283D2EAD24F5742000247424 /* WalletOkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletOkCell.swift; sourceTree = "<group>"; };
 		283D2EAE24F5742000247424 /* WalletOkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletOkCell.xib; sourceTree = "<group>"; };
 		283D2EB124F6250F00247424 /* TokenDetailHeaderOkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailHeaderOkCell.swift; sourceTree = "<group>"; };
@@ -1647,8 +1647,8 @@
 				28D23DD0252EC2A400BD9E7C /* KavaClaimMultiplier.swift */,
 				283D2EA524F5308900247424 /* OkTokenList.swift */,
 				283D2EA724F5388C00247424 /* OkAccountToken.swift */,
-				283D2EA924F56AEE00247424 /* OkDeposit.swift */,
-				283D2EAB24F56AFF00247424 /* OkWithdraw.swift */,
+				283D2EA924F56AEE00247424 /* OkStaking.swift */,
+				283D2EAB24F56AFF00247424 /* OkUnbonding.swift */,
 				28B4302924F76AD500BD7BB2 /* OkTransfer.swift */,
 				28089AA324FF8FC4007E9C40 /* IovStarNameResolve.swift */,
 				28BB2A952533FA0B00CFF097 /* IovStarNameFees.swift */,
@@ -2117,7 +2117,7 @@
 				28D3551725386A9300B804CF /* StepHarvestReward0ViewController.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				28156E7F25360B70006FF06C /* HarvestListAllCell.swift in Sources */,
-				283D2EAC24F56AFF00247424 /* OkWithdraw.swift in Sources */,
+				283D2EAC24F56AFF00247424 /* OkUnbonding.swift in Sources */,
 				2888B7FC246BC17300B2EB4A /* BnbNodeInfo.swift in Sources */,
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
 				286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */,
@@ -2144,7 +2144,7 @@
 				2800CF982471A004003C3EF1 /* CosmosProposer.swift in Sources */,
 				280524B4255CDA7D004D6172 /* StarnameWalletConnectViewController.swift in Sources */,
 				E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */,
-				283D2EAA24F56AEE00247424 /* OkDeposit.swift in Sources */,
+				283D2EAA24F56AEE00247424 /* OkStaking.swift in Sources */,
 				E1827E2A2256298300BC0350 /* ValidatorDetailHistoryHeader.swift in Sources */,
 				28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */,
 				28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */,

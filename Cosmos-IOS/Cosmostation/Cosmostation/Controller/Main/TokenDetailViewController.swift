@@ -443,11 +443,11 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     func onSetOkItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:TokenDetailHeaderOkCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderOkCell") as? TokenDetailHeaderOkCell
         cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
-        let totalAmount = WUtils.getAllOkt(balances, BaseData.instance.mOkDeposit, BaseData.instance.mOkWithdraw)
+        let totalAmount = WUtils.getAllOkt(balances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
         let availableAmount = WUtils.availableAmount(balances, OKEX_TEST_DENOM)
         let lockedAmount = WUtils.lockedAmount(balances, OKEX_TEST_DENOM)
-        let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkDeposit)
-        let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkWithdraw)
+        let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkStaking)
+        let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkUnbonding)
         
         cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 8)
         cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 8)

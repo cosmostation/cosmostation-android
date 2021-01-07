@@ -1255,11 +1255,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 1) {
             let cell:WalletOkCell? = tableView.dequeueReusableCell(withIdentifier:"WalletOkCell") as? WalletOkCell
             cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
-            let totalAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkDeposit, BaseData.instance.mOkWithdraw)
+            let totalAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, OKEX_TEST_DENOM)
             let lockedAmount = WUtils.lockedAmount(mainTabVC.mBalances, OKEX_TEST_DENOM)
-            let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkDeposit)
-            let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkWithdraw)
+            let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkStaking)
+            let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkUnbonding)
             
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 8)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 8)
@@ -1780,7 +1780,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 return
             }
         }
-        if (WUtils.okDepositAmount(BaseData.instance.mOkDeposit).compare(NSDecimalNumber.zero).rawValue <= 0) {
+        if (WUtils.okDepositAmount(BaseData.instance.mOkStaking).compare(NSDecimalNumber.zero).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_to_withdraw", comment: ""))
             return
             
