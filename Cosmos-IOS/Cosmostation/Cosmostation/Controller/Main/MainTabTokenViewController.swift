@@ -738,10 +738,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(tokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
             cell?.tokenValue.attributedText = WUtils.dpTokenValue(tokenAmount, BaseData.instance.getLastPrice(), 0, cell!.tokenValue.font)
             
-        }
-        if (okToken != nil) {
             let url = OKEX_COIN_IMG_URL + okToken!.original_symbol! + ".png"
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
+            
+        }
+        if (okToken != nil) {
             cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
             cell?.tokenDescription.text = okToken?.description
             cell?.tokenTitle.text = "(" + okToken!.symbol! + ")"

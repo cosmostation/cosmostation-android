@@ -1293,6 +1293,19 @@
 			path = PopUp;
 			sourceTree = "<group>";
 		};
+		2870EBC325ABEC5B00AF4590 /* okex */ = {
+			isa = PBXGroup;
+			children = (
+				28B4303B24F7EE0C00BD7BB2 /* StepOkDepositAmountViewController.swift */,
+				28B4303D24F7EE1F00BD7BB2 /* StepOkDepositCheckViewController.swift */,
+				28B4303F24F7EE3B00BD7BB2 /* StepOkWithdrawAmountViewController.swift */,
+				28B4304124F7EE4B00BD7BB2 /* StepOkWithdrawCheckViewController.swift */,
+				28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */,
+				28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */,
+			);
+			path = okex;
+			sourceTree = "<group>";
+		};
 		28BB2A7E2533D92500CFF097 /* starname */ = {
 			isa = PBXGroup;
 			children = (
@@ -1386,6 +1399,7 @@
 		E171A067225AF71800C5756C /* GenTx */ = {
 			isa = PBXGroup;
 			children = (
+				2870EBC325ABEC5B00AF4590 /* okex */,
 				283E9455254901B6007A9291 /* starname */,
 				E103DAE522814DFC006C2146 /* GenTx.storyboard */,
 				E171A06A225B04BD00C5756C /* TransactionViewController.swift */,
@@ -1440,12 +1454,6 @@
 				2888B803246CE37200B2EB4A /* StepHtlcRefund3ViewController.swift */,
 				284B0F01247D5FD800B5A2D0 /* StepIncentive0ViewController.swift */,
 				284B0F03247D5FE800B5A2D0 /* StepIncentive3ViewController.swift */,
-				28B4303B24F7EE0C00BD7BB2 /* StepOkDepositAmountViewController.swift */,
-				28B4303D24F7EE1F00BD7BB2 /* StepOkDepositCheckViewController.swift */,
-				28B4303F24F7EE3B00BD7BB2 /* StepOkWithdrawAmountViewController.swift */,
-				28B4304124F7EE4B00BD7BB2 /* StepOkWithdrawCheckViewController.swift */,
-				28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */,
-				28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */,
 				28F4CF6D25429BBF0050985D /* EventStakeDropViewController.swift */,
 				28F4CF742542AD3A0050985D /* EventStakeDropViewController.xib */,
 			);

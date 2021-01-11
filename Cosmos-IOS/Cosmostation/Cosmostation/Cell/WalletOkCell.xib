@@ -110,7 +110,7 @@
                                             <constraint firstAttribute="height" constant="40" id="aDU-rB-6ki"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                        <state key="normal" title="  Deposit" image="txDepositCdp">
+                                        <state key="normal" title="  Staking" image="txDepositCdp">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -135,7 +135,7 @@
                                             <constraint firstAttribute="height" constant="40" id="pkJ-lF-wQ8"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                        <state key="normal" title="  Withdraw" image="txWithdrawCdp">
+                                        <state key="normal" title="  Unbonding" image="txWithdrawCdp">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
