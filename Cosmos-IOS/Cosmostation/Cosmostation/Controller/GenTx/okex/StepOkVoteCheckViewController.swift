@@ -81,14 +81,15 @@ class StepOkVoteCheckViewController: BaseViewController, PasswordViewDelegate {
             switch response.result {
             case .success(let res):
                 if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                    guard let info = res as? [String : Any] else {
+                    guard let info = res as? NSDictionary else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))
                         return
                     }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                    let okAccountInfo = OkAccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithOkAccountInfo(account, okAccountInfo))
+                    BaseData.instance.mOkAccountInfo = okAccountInfo
                     self.onGenOkVoteTx()
                 }
                 
