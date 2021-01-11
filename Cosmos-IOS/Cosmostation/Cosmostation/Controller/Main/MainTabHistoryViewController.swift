@@ -26,6 +26,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     var mBnbHistories = Array<BnbHistory>()
+    var mOkHistories = Array<OkHistory.DataDetail>()
     var mApiHistories = Array<ApiHistory.HistoryData>()
     
     override func viewDidLoad() {
@@ -63,11 +64,12 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             
         } else if (chainType == ChainType.IOV_MAIN ) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.OKEX_TEST || chainType == ChainType.IOV_TEST) {
+        } else if (chainType == ChainType.IOV_TEST ) {
             self.comingLabel.isHidden = false
             self.historyTableView.isHidden = true
             self.comingLabel.text = "Coming Soon!!"
-            
+        } else if (chainType == ChainType.OKEX_TEST) {
+            onFetchOkHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.AKASH_MAIN) {
@@ -207,28 +209,28 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             self.comingLabel.isHidden = false
         } else if (chainType == ChainType.IOV_MAIN ) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.OKEX_TEST || chainType == ChainType.IOV_TEST) {
+        } else if (chainType == ChainType.IOV_TEST ) {
             self.comingLabel.isHidden = false
+        } else if (chainType == ChainType.OKEX_TEST) {
+            onFetchOkHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.AKASH_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.COSMOS_TEST) {
+        }
+        else if (chainType == ChainType.COSMOS_TEST) {
             self.comingLabel.isHidden = false
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
-            return self.mApiHistories.count
-        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+        if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return self.mBnbHistories.count
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
-                    chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN ||
-                    chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+        } else if (chainType == ChainType.OKEX_TEST) {
+            return self.mOkHistories.count
+        } else {
             return self.mApiHistories.count
         }
-        return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -252,6 +254,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return onSetCertikItem(tableView, indexPath);
         } else if (chainType == ChainType.AKASH_MAIN) {
             return onSetAkashItem(tableView, indexPath);
+        } else if (chainType == ChainType.OKEX_TEST) {
+            return onSetOkItem(tableView, indexPath);
         }
         return onSetEmptyItem(tableView, indexPath);
     }
@@ -405,6 +409,16 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         return cell!
     }
     
+    func onSetOkItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        let okHistory = mOkHistories[indexPath.row]
+        cell?.txTypeLabel.text = WUtils.okHistoryTitle(okHistory)
+        cell?.txTimeLabel.text = WUtils.longTimetoString(input: okHistory.timestamp! * 1000)
+        cell?.txTimeGapLabel.text = WUtils.timeGap2(input: okHistory.timestamp! * 1000)
+        cell?.txBlockLabel.text = okHistory.txhash
+        return cell!
+    }
+    
     func onSetEmptyItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
         return cell!
@@ -460,6 +474,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                 safariViewController.modalPresentationStyle = .popover
                 present(safariViewController, animated: true, completion: nil)
             }
+            
+        } else if (chainType == ChainType.OKEX_TEST) {
+            let okHistory = mOkHistories[indexPath.row]
+            guard let url = URL(string: EXPLORER_OKEX_TEST + "tx/" + okHistory.txhash!) else { return }
+            self.onShowSafariWeb(url)
         }
     }
     
@@ -496,6 +515,37 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         }
         self.refresher.endRefreshing()
     }
+    
+    func onFetchOkHistory(_ address:String) {
+        var url = ""
+        if (chainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_HISTORY
+        }
+        let request = Alamofire.request(url, method: .get, parameters: ["address":address], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { response in
+            switch response.result {
+            case .success(let res):
+                self.mOkHistories.removeAll()
+                if let historyInfo = res as? NSDictionary {
+                    let okHistory = OkHistory.init(historyInfo)
+                    if let okHistoryDetails = okHistory.data?.dataDetails {
+                        self.mOkHistories = okHistoryDetails
+                    }
+                }
+                if (self.mOkHistories.count > 0) {
+                    self.historyTableView.reloadData()
+                    self.emptyLabel.isHidden = true
+                } else {
+                    self.emptyLabel.isHidden = false
+                }
+
+            case .failure(let error):
+                print("error ", error)
+            }
+        }
+        self.refresher.endRefreshing()
+    }
+    
     
     func onFetchApiHistory(_ address:String) {
         var url: String?

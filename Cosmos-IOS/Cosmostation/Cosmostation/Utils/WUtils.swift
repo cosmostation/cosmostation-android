@@ -389,6 +389,25 @@ class WUtils {
         }
     }
     
+    static func timeGap2(input: Int64) -> String {
+        if (input == nil) { return "-"}
+        let secondsAgo = (Int(Date().millisecondsSince1970 - input) / 1000)
+        
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        
+        if secondsAgo < minute {
+            return "(\(secondsAgo) seconds ago)"
+        } else if secondsAgo < hour {
+            return "(\(secondsAgo / minute) minutes ago)"
+        } else if secondsAgo < day {
+            return "(\(secondsAgo / hour) hours ago)"
+        } else {
+            return "(\(secondsAgo / day) days ago)"
+        }
+    }
+    
     static func txTimeGap(input: String) -> String {
         let secondsAgo = Int(Date().timeIntervalSince(txTimeToInt64(input: input)))
         
@@ -608,6 +627,23 @@ class WUtils {
             
         } else if (bnbHistory.txType == "REFUND_HTL") {
             resultMsg = NSLocalizedString("tx_refund_htlc", comment: "")
+        }
+        return resultMsg
+    }
+    
+    static func okHistoryTitle(_ okHistory: OkHistory.DataDetail) -> String {
+        var resultMsg = NSLocalizedString("tx_known", comment: "")
+        if (okHistory.type! == OK_TX_TYPE_TRANSFER) {
+            if (okHistory.side! == OK_TX_TYPE_SIDE_SEND) {
+                resultMsg = NSLocalizedString("tx_send", comment: "")
+            } else {
+                resultMsg = NSLocalizedString("tx_receive", comment: "")
+            }
+        } else if (okHistory.type! == OK_TX_TYPE_TRANSFER) {
+            resultMsg = NSLocalizedString("tx_new_order", comment: "")
+            
+        } else if (okHistory.type! == OK_TX_TYPE_CANCEL_ORDER) {
+            resultMsg = NSLocalizedString("tx_cancel_order", comment: "")
         }
         return resultMsg
     }

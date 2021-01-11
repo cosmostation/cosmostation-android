@@ -371,6 +371,7 @@ let OKEX_TEST_TOKEN_LIST                    = OKEX_TEST_URL + "tokens";
 let OKEX_TEST_STAKING                       = OKEX_TEST_URL + "staking/delegators/";
 let OKEX_TEST_UNBONDING                     = OKEX_TEST_URL + "staking/delegators/";
 let OKEX_TEST_UNBONDING_TAIL                = "/unbonding_delegations";
+let OKEX_TEST_HISTORY                       = OKEX_TEST_URL + "transactions";
 let OKEX_TEST_BORAD_TX                      = OKEX_TEST_URL + "txs";
 
 
@@ -1109,3 +1110,14 @@ let BLOCK_TIME_BAND     = NSDecimalNumber.init(string: "3.01")
 let BLOCK_TIME_CERTIK   = NSDecimalNumber.init(string: "5.75")
 let BLOCK_TIME_SECRET   = NSDecimalNumber.init(string: "5.96")
 let BLOCK_TIME_AKASH    = NSDecimalNumber.init(string: "6.21")
+
+
+let OK_TX_TYPE_TRANSFER        = 1;
+let OK_TX_TYPE_NEW_ORDER       = 2;
+let OK_TX_TYPE_CANCEL_ORDER    = 3;
+
+let OK_TX_TYPE_SIDE_BUY        = 1;
+let OK_TX_TYPE_SIDE_SELL       = 2;
+let OK_TX_TYPE_SIDE_SEND       = 3;
+let OK_TX_TYPE_SIDE_RECEIVE    = 4;
+

@@ -291,6 +291,7 @@
 		28BB2AAB25341A6E00CFF097 /* IovStarNameDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2AAA25341A6E00CFF097 /* IovStarNameDomain.swift */; };
 		28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */; };
 		28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */; };
+		28CAAB6C25AC414A00416AA5 /* OkHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CAAB6B25AC414A00416AA5 /* OkHistory.swift */; };
 		28CE973325870E29006DEBEE /* Auth_V1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CE973225870E29006DEBEE /* Auth_V1.swift */; };
 		28CE973625872B7C006DEBEE /* Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CE973525872B7C006DEBEE /* Signer.swift */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
@@ -811,6 +812,7 @@
 		28BB2AAA25341A6E00CFF097 /* IovStarNameDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameDomain.swift; sourceTree = "<group>"; };
 		28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxRewardAllCell.swift; sourceTree = "<group>"; };
 		28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxRewardAllCell.xib; sourceTree = "<group>"; };
+		28CAAB6B25AC414A00416AA5 /* OkHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkHistory.swift; sourceTree = "<group>"; };
 		28CE973225870E29006DEBEE /* Auth_V1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth_V1.swift; sourceTree = "<group>"; };
 		28CE973525872B7C006DEBEE /* Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signer.swift; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
@@ -1611,6 +1613,7 @@
 			children = (
 				E151B64C22485AB20026B8C0 /* History.swift */,
 				E1F7F63523436B71000E597F /* BnbHistory.swift */,
+				28CAAB6B25AC414A00416AA5 /* OkHistory.swift */,
 				E151B64E22485B3B0026B8C0 /* Result.swift */,
 				E1A82DDE2244782B0097CAEE /* Validator.swift */,
 				E1A82DE02244818C0097CAEE /* AccountInfo.swift */,
@@ -2358,6 +2361,7 @@
 				283850242448A6C600E5DEF2 /* TxHtlcRefundCell.swift in Sources */,
 				E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */,
 				28E46BE424F8FCFF005CE985 /* StepOkVoteToViewController.swift in Sources */,
+				28CAAB6C25AC414A00416AA5 /* OkHistory.swift in Sources */,
 				28BB2A872533DA0B00CFF097 /* AccountPromotionCell.swift in Sources */,
 				28BB2AA02534173200CFF097 /* StarNameAccount.swift in Sources */,
 				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
