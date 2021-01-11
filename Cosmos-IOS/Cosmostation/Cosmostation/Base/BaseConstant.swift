@@ -63,7 +63,8 @@ let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.
 let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band.cosmostation.io/";
 
-let OKEX_TEST_URL                       = "https://www.okex.com/okexchain/v1/";
+//let OKEX_TEST_URL                       = "https://www.okex.com/okexchain/v1/";
+let OKEX_TEST_URL                       = "https://lcd-office.cosmostation.io/okexchain-testnet1/";
 let OKEX_TEST_API                       = "";
 
 
@@ -1036,7 +1037,7 @@ let CERTIK_MAIN_DENOM = "uctk"
 let AKASH_MAIN_DENOM = "uakt"
 
 let IOV_TEST_DENOM = "uvoi"
-let OKEX_TEST_DENOM = "tokt"
+let OKEX_TEST_DENOM = "okt"
 let KAVA_HARD_DENOM = "hard"
 
 

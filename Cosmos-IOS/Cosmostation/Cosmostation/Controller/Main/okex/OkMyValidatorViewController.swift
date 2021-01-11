@@ -115,7 +115,7 @@ class OkMyValidatorViewController: BaseViewController, UITableViewDelegate, UITa
         cell?.cardView.backgroundColor = TRANS_BG_COLOR_OK
         
         if (validator.description.identity.starts(with: "logo|||")) {
-            let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "")
+            let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "").trimmingCharacters(in: .whitespaces)
             cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
         }
         return cell!

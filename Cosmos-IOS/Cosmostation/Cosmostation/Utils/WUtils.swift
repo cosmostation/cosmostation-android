@@ -1538,12 +1538,12 @@ class WUtils {
         var sum = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == OKEX_TEST_DENOM) {
-                sum = sum.adding(localeStringToDecimal(balance.balance_amount))
-                sum = sum.adding(localeStringToDecimal(balance.balance_locked))
+                sum = sum.adding(plainStringToDecimal(balance.balance_amount))
+                sum = sum.adding(plainStringToDecimal(balance.balance_locked))
             }
         }
-        sum = sum.adding(localeStringToDecimal(deposit?.tokens))
-        sum = sum.adding(localeStringToDecimal(withdraw?.quantity))
+        sum = sum.adding(plainStringToDecimal(deposit?.tokens))
+        sum = sum.adding(plainStringToDecimal(withdraw?.quantity))
         return sum
     }
     
@@ -2190,7 +2190,7 @@ class WUtils {
         } else if (chain == ChainType.SECRET_MAIN) {
             return "SCRT"
         } else if (chain == ChainType.OKEX_TEST) {
-            return "TOKT"
+            return "OKT"
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             return "CTK"
         } else if (chain == ChainType.AKASH_MAIN) {
@@ -2222,7 +2222,7 @@ class WUtils {
             label.text = "SCRT"
             label.textColor = COLOR_SECRET
         } else if (chain == ChainType.OKEX_TEST) {
-            label.text = "TOKT"
+            label.text = "OKT"
             label.textColor = COLOR_OK
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             label.text = "CTK"
@@ -2380,7 +2380,7 @@ class WUtils {
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return "iovns-galaxynet"
         } else if (chainS == CHAIN_OKEX_TEST_S) {
-            return "okexchaintestnet-1"
+            return "okexchain-65"
         } else if (chainS == CHAIN_CERTIK_TEST_S) {
             return "shentu-incentivized-3"
         }
@@ -2417,7 +2417,7 @@ class WUtils {
         } else if (chain == ChainType.IOV_TEST) {
             return "iovns-galaxynet"
         } else if (chain == ChainType.OKEX_TEST) {
-            return "okexchaintestnet-1"
+            return "okexchain-65"
         } else if (chain == ChainType.CERTIK_TEST) {
             return "shentu-incentivized-3"
         }

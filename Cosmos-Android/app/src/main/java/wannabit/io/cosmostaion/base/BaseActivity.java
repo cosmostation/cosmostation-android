@@ -959,12 +959,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
         else if (mTaskCount == 0 && mBaseChain.equals(OK_TEST)) {
-
             getBaseDao().mTopValidators = this.mTopValidators;
             getBaseDao().mOtherValidators = this.mOtherValidators;
-            WLog.w("TopValidators " + getBaseDao().mTopValidators.size());
-            WLog.w("OtherValidators " + getBaseDao().mOtherValidators.size());
-            WLog.w("mOkTokenList " + getBaseDao().mOkTokenList.data.size());
+//            WLog.w("TopValidators " + getBaseDao().mTopValidators.size());
+//            WLog.w("OtherValidators " + getBaseDao().mOtherValidators.size());
+//            WLog.w("mOkTokenList " + getBaseDao().mOkTokenList.data.size());
 
         }
 

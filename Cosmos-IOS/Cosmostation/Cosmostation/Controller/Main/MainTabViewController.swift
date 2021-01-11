@@ -186,6 +186,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         self.mMyValidators.removeAll()
         self.mRewardList.removeAll()
         
+        BaseData.instance.mAllValidator.removeAll()
+        BaseData.instance.mTopValidator.removeAll()
+        BaseData.instance.mOtherValidator.removeAll()
+        BaseData.instance.mMyValidator.removeAll()
+        
         if (mChainType == ChainType.COSMOS_MAIN) {
             self.mFetchCnt = 10
             onFetchTopValidatorsInfo()
@@ -430,8 +435,30 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             mAllValidator.append(contentsOf: mTopValidators)
             mAllValidator.append(contentsOf: mOtherValidators)
+            for validator in mAllValidator {
+                if let validator_address = BaseData.instance.mOkStaking?.validator_address {
+                    for myVal in validator_address {
+                        if (validator.operator_address == myVal) {
+                            self.mMyValidators.append(validator)
+                        }
+                    }
+                }
+            }
+//            for validator in mAllValidator {
+//                if (BaseData.instance.mOkStaking?.validator_address?.contains(validator.operator_address)) {
+//
+//                }
+//            }
             
-            //TODO check my val?
+            BaseData.instance.mAllValidator = mAllValidator
+            BaseData.instance.mTopValidator = mTopValidators
+            BaseData.instance.mOtherValidator = mOtherValidators
+            BaseData.instance.mMyValidator = mMyValidators
+            
+            print("BaseData.instance.mAllValidator ", BaseData.instance.mAllValidator.count)
+            print("BaseData.instance.mTopValidator ", BaseData.instance.mTopValidator.count)
+            print("BaseData.instance.mOtherValidator ", BaseData.instance.mOtherValidator.count)
+            print("BaseData.instance.mMyValidator ", BaseData.instance.mMyValidator.count)
             
         } else {
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)

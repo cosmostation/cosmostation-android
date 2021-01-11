@@ -50,7 +50,7 @@ class StepOkVoteToViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.valjailedImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
         if (validator.description.identity.starts(with: "logo|||")) {
-            let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "")
+            let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "").trimmingCharacters(in: .whitespaces)
             cell?.valImg.af_setImage(withURL: URL(string: url)!)
         }
         cell?.valPowerLabel.attributedText =  WUtils.displayAmount2(validator.delegator_shares, cell!.valPowerLabel.font, 0, 8)
