@@ -1907,7 +1907,7 @@ class WUtils {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
             }
-            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 0, 8)
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 0, 18)
             
         } else if (chainType == ChainType.CERTIK_TEST) {
             if (coin.denom == CERTIK_MAIN_DENOM) {
@@ -2021,7 +2021,7 @@ class WUtils {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
             }
-            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 0, 8)
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 0, 18)
             
         } else if (chainType == ChainType.CERTIK_TEST) {
             if (denom == CERTIK_MAIN_DENOM) {

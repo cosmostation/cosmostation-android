@@ -1088,7 +1088,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
-    
     func onBindRegisterDomain(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
         let cell:TxRegisterDomainCell? = tableView.dequeueReusableCell(withIdentifier:"TxRegisterDomainCell") as? TxRegisterDomainCell
         let msg = mTxInfo?.getMsg(position - 1)

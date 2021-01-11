@@ -110,7 +110,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mSwapRemainCap: NSDecimalNumber = NSDecimalNumber.zero
     var mSwapMaxOnce: NSDecimalNumber = NSDecimalNumber.zero
     
-    var mOkToDeposit = Coin.init()
+    var mOkToStaking = Coin.init()
     var mOkToWithdraw = Coin.init()
     var mOkVoteValidators: Array<String> = Array<String>()
     

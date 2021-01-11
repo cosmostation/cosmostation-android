@@ -54,8 +54,8 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
     
     func onUpdateView() {
         if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            toWithdrawAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mOkToWithdraw.amount, toWithdrawAmountLabel.font, 0, 8)
-            feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 0, 8)
+            toWithdrawAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mOkToWithdraw.amount, toWithdrawAmountLabel.font, 0, 18)
+            feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 0, 18)
         }
         memoLabel.text = pageHolderVC.mMemo
     }
@@ -77,14 +77,15 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
             switch response.result {
             case .success(let res):
                 if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                    guard let info = res as? [String : Any] else {
+                    guard let info = res as? NSDictionary else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))
                         return
                     }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                    let okAccountInfo = OkAccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithOkAccountInfo(account, okAccountInfo))
+                    BaseData.instance.mOkAccountInfo = okAccountInfo
                     self.onGenOkWithdrawTx()
                 }
                 

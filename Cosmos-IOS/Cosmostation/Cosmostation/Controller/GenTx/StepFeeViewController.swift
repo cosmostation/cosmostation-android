@@ -109,17 +109,19 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "feeImg")
             self.speedMsg.text = NSLocalizedString("fee_speed_ok_title", comment: "")
             
-            var gasAmount = NSDecimalNumber.zero
-            if ((pageHolderVC.mType == OK_MSG_TYPE_DEPOSIT || pageHolderVC.mType == OK_MSG_TYPE_WITHDRAW) && BaseData.instance.mOkStaking!.validator_address!.count > 0) {
-                gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, BaseData.instance.mOkStaking!.validator_address!.count)
+            var estimateGasAmount = NSDecimalNumber.zero
+            if (pageHolderVC.mType == OK_MSG_TYPE_DEPOSIT || pageHolderVC.mType == OK_MSG_TYPE_WITHDRAW) {
+                var currentVotedCnt = 0
+                if let voted = BaseData.instance.mOkStaking?.validator_address?.count { currentVotedCnt = voted }
+                estimateGasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, currentVotedCnt)
             } else {
-                gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mOkVoteValidators.count)
+                estimateGasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mOkVoteValidators.count)
             }
             let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_OK)
-            self.rateFeeGasAmountLabel.text = gasAmount.stringValue
-            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 8)
-            feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler8)
-            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 0, 8)
+            self.rateFeeGasAmountLabel.text = estimateGasAmount.stringValue
+            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 6)
+            feeAmount = estimateGasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler8)
+            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 0, 6)
             self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
@@ -487,22 +489,23 @@ class StepFeeViewController: BaseViewController {
             pageHolderVC.onNextPage()
             
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            feeCoin = Coin.init(OKEX_MAIN_DENOM, WUtils.getFormattedNumber(feeAmount, 8))
+            feeCoin = Coin.init(OKEX_MAIN_DENOM, WUtils.getFormattedNumber(feeAmount, 18))
             var fee = Fee.init()
-            var estGas = ""
-            if ((pageHolderVC.mType == OK_MSG_TYPE_DEPOSIT || pageHolderVC.mType == OK_MSG_TYPE_WITHDRAW) && BaseData.instance.mOkStaking!.validator_address!.count > 0) {
-                estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, BaseData.instance.mOkStaking!.validator_address!.count).stringValue
+            var estimateGas = ""
+            if (pageHolderVC.mType == OK_MSG_TYPE_DEPOSIT || pageHolderVC.mType == OK_MSG_TYPE_WITHDRAW) {
+                var currentVotedCnt = 0
+                if let voted = BaseData.instance.mOkStaking?.validator_address?.count { currentVotedCnt = voted }
+                estimateGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, currentVotedCnt).stringValue
             } else {
-                estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mOkVoteValidators.count).stringValue
+                estimateGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mOkVoteValidators.count).stringValue
             }
-            fee.gas = estGas
+            fee.gas = estimateGas
             
             var estAmount: Array<Coin> = Array<Coin>()
             estAmount.append(feeCoin)
             fee.amount = estAmount
-            
             pageHolderVC.mFee = fee
-            
+
             self.beforeBtn.isUserInteractionEnabled = false
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()

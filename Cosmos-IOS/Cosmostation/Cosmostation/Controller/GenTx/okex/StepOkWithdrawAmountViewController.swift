@@ -19,6 +19,7 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
     
     var pageHolderVC: StepGenTxViewController!
     var userAvailable = NSDecimalNumber.zero
+    var mDpDecimal:Int16 = 18
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +27,9 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
         WUtils.setDenomTitle(pageHolderVC.chainType!, denomTitleLabel)
         
         if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+            mDpDecimal = 18
             userAvailable = WUtils.okDepositAmount(BaseData.instance.mOkStaking)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userAvailable.stringValue, availableAmountLabel.font, 0, 8)
+            availableAmountLabel.attributedText = WUtils.displayAmount2(userAvailable.stringValue, availableAmountLabel.font, 0, mDpDecimal)
         }
         toWithdrawAmountInput.delegate = self
         toWithdrawAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -45,12 +47,12 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
             if (text.count == 0 && string.starts(with: ",")) { return false }
             
             if let index = text.range(of: ".")?.upperBound {
-                if(text.substring(from: index).count > (7) && range.length == 0) {
+                if(text.substring(from: index).count > (mDpDecimal - 1) && range.length == 0) {
                     return false
                 }
             }
             if let index = text.range(of: ",")?.upperBound {
-                if(text.substring(from: index).count > (7) && range.length == 0) {
+                if(text.substring(from: index).count > (mDpDecimal - 1) && range.length == 0) {
                     return false
                 }
             }
@@ -110,7 +112,7 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
             let userInput = WUtils.localeStringToDecimal((toWithdrawAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
             var toWithdrawCoin: Coin?
             if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                toWithdrawCoin = Coin.init(OKEX_MAIN_DENOM, WUtils.getFormattedNumber(userInput, 8))
+                toWithdrawCoin = Coin.init(OKEX_MAIN_DENOM, WUtils.getFormattedNumber(userInput, mDpDecimal))
             }
             
             self.pageHolderVC.mOkToWithdraw = toWithdrawCoin!
@@ -171,11 +173,11 @@ class StepOkWithdrawAmountViewController: BaseViewController, UITextFieldDelegat
     }
     
     @IBAction func onClickHalf(_ sender: UIButton) {
-        let halfValue = userAvailable.dividing(by: NSDecimalNumber(2), withBehavior: WUtils.getDivideHandler(8))
-        toWithdrawAmountInput.text = WUtils.decimalNumberToLocaleString(halfValue, 8)
+        let halfValue = userAvailable.dividing(by: NSDecimalNumber(2), withBehavior: WUtils.getDivideHandler(mDpDecimal))
+        toWithdrawAmountInput.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
     }
     
     @IBAction func onClickMax(_ sender: UIButton) {
-        toWithdrawAmountInput.text = WUtils.decimalNumberToLocaleString(userAvailable, 8)
+        toWithdrawAmountInput.text = WUtils.decimalNumberToLocaleString(userAvailable, mDpDecimal)
     }
 }

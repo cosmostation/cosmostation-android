@@ -63,8 +63,8 @@ let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.
 let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band.cosmostation.io/";
 
-//let OKEX_TEST_URL                       = "https://www.okex.com/okexchain/v1/";
-let OKEX_TEST_URL                       = "https://lcd-office.cosmostation.io/okexchain-testnet1/";
+let OKEX_TEST_URL                       = "https://www.okex.com/okexchain-test/v1/";
+//let OKEX_TEST_URL                       = "https://lcd-office.cosmostation.io/okexchain-testnet1/";
 let OKEX_TEST_API                       = "";
 
 
@@ -778,9 +778,9 @@ let IOV_GAS_AMOUNT_REPLACE                  = "300000"
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"
 
 
-let GAS_FEE_RATE_OK                         = "0.0000001"
+let GAS_FEE_RATE_OK                         = "0.000005"
 let OK_GAS_AMOUNT_SEND                      = "200000"
-let OK_GAS_AMOUNT_STAKE                     = "100000"
+let OK_GAS_AMOUNT_STAKE                     = "200000"
 let OK_GAS_AMOUNT_STAKE_MUX                 = "20000"
 let OK_GAS_AMOUNT_VOTE                      = "200000"
 let OK_GAS_AMOUNT_VOTE_MUX                  = "50000"

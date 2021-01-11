@@ -52,8 +52,8 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
     
     func onUpdateView() {
         if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            toDepositAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mOkToDeposit.amount, toDepositAmountLabel.font, 0, 8)
-            feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 0, 8)
+            toDepositAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mOkToStaking.amount, toDepositAmountLabel.font, 0, 18)
+            feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 0, 18)
         }
         memoLabel.text = pageHolderVC.mMemo
     }
@@ -87,14 +87,15 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
             switch response.result {
             case .success(let res):
                 if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                    guard let info = res as? [String : Any] else {
+                    guard let info = res as? NSDictionary else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))
                         return
                     }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                    let okAccountInfo = OkAccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithOkAccountInfo(account, okAccountInfo))
+                    BaseData.instance.mOkAccountInfo = okAccountInfo
                     self.onGenOkDepositTx()
                 }
                 
@@ -115,12 +116,13 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
             
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                let msg = MsgGenerator.genOkDepositMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mOkToDeposit)
+                let msg = MsgGenerator.genOkDepositMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mOkToStaking)
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
                 if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
+                    
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
                     let data = try? encoder.encode(stdMsg)
