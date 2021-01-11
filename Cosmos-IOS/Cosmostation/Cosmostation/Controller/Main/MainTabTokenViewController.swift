@@ -722,7 +722,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
         let okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList!, balance.balance_denom)
-        if (balance.balance_denom == OKEX_TEST_DENOM) {
+        if (balance.balance_denom == OKEX_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "okexTokenImg")
             cell?.tokenSymbol.textColor = COLOR_OK
             let tokenAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
@@ -1060,10 +1060,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
         } else if (chainType! == ChainType.OKEX_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == OKEX_TEST_DENOM) {
+                if ($0.balance_denom == OKEX_MAIN_DENOM) {
                     return true
                 }
-                if ($1.balance_denom == OKEX_TEST_DENOM){
+                if ($1.balance_denom == OKEX_MAIN_DENOM){
                     return false
                 }
                 return $0.balance_denom < $1.balance_denom
@@ -1126,10 +1126,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.OKEX_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == OKEX_TEST_DENOM) {
+                if ($0.balance_denom == OKEX_MAIN_DENOM) {
                     return true
                 }
-                if ($1.balance_denom == OKEX_TEST_DENOM){
+                if ($1.balance_denom == OKEX_MAIN_DENOM){
                     return false
                 }
                 return WUtils.localeStringToDecimal($0.balance_amount).adding(WUtils.localeStringToDecimal($0.balance_locked)).stringValue > WUtils.localeStringToDecimal($1.balance_amount).adding(WUtils.localeStringToDecimal($1.balance_locked)).stringValue

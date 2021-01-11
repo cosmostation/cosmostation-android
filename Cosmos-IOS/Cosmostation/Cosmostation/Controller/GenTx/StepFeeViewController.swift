@@ -487,7 +487,7 @@ class StepFeeViewController: BaseViewController {
             pageHolderVC.onNextPage()
             
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            feeCoin = Coin.init(OKEX_TEST_DENOM, WUtils.getFormattedNumber(feeAmount, 8))
+            feeCoin = Coin.init(OKEX_MAIN_DENOM, WUtils.getFormattedNumber(feeAmount, 8))
             var fee = Fee.init()
             var estGas = ""
             if ((pageHolderVC.mType == OK_MSG_TYPE_DEPOSIT || pageHolderVC.mType == OK_MSG_TYPE_WITHDRAW) && BaseData.instance.mOkStaking!.validator_address!.count > 0) {

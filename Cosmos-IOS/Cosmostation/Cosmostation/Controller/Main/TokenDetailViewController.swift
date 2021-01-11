@@ -202,7 +202,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 } else if (chainType == ChainType.KAVA_TEST && balance?.balance_denom == KAVA_MAIN_DENOM) {
                     return onSetKavaTestItem(tableView, indexPath);
                     
-                } else if (chainType == ChainType.OKEX_TEST && self.okDenom == OKEX_TEST_DENOM) {
+                } else if (chainType == ChainType.OKEX_TEST && self.okDenom == OKEX_MAIN_DENOM) {
                     return onSetOkItem(tableView, indexPath);
                     
                 } else {
@@ -435,8 +435,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     func onSetOkItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:TokenDetailHeaderOkCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderOkCell") as? TokenDetailHeaderOkCell
         let totalAmount = WUtils.getAllOkt(balances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
-        let availableAmount = WUtils.availableAmount(balances, OKEX_TEST_DENOM)
-        let lockedAmount = WUtils.lockedAmount(balances, OKEX_TEST_DENOM)
+        let availableAmount = WUtils.availableAmount(balances, OKEX_MAIN_DENOM)
+        let lockedAmount = WUtils.lockedAmount(balances, OKEX_MAIN_DENOM)
         let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkStaking)
         let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkUnbonding)
         
@@ -794,7 +794,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.OKEX_TEST) {
-            if (WUtils.getTokenAmount(balances, OKEX_TEST_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }

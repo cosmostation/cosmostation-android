@@ -202,7 +202,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mRemainBalanceTitle.text = pageHolderVC.mOkSendDenom!.uppercased()
             currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mOkSendDenom!)
             
-            if (pageHolderVC.mOkSendDenom == OKEX_TEST_DENOM) {
+            if (pageHolderVC.mOkSendDenom == OKEX_MAIN_DENOM) {
                 mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, 8)
                 mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, 8)
                 mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 0, 8)

@@ -1537,7 +1537,7 @@ class WUtils {
     static func getAllOkt(_ balances:Array<Balance>, _ deposit: OkStaking?, _ withdraw: OkUnbonding?) -> NSDecimalNumber {
         var sum = NSDecimalNumber.zero
         for balance in balances {
-            if (balance.balance_denom == OKEX_TEST_DENOM) {
+            if (balance.balance_denom == OKEX_MAIN_DENOM) {
                 sum = sum.adding(plainStringToDecimal(balance.balance_amount))
                 sum = sum.adding(plainStringToDecimal(balance.balance_locked))
             }
@@ -1901,7 +1901,7 @@ class WUtils {
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.OKEX_TEST) {
-            if (coin.denom == OKEX_TEST_DENOM) {
+            if (coin.denom == OKEX_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white
@@ -2015,7 +2015,7 @@ class WUtils {
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.OKEX_TEST) {
-            if (denom == OKEX_TEST_DENOM) {
+            if (denom == OKEX_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white

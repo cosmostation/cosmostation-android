@@ -78,8 +78,8 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             mDpDecimal = 8
             self.denomTitleLabel.text = pageHolderVC.mOkSendDenom?.uppercased()
-            if (pageHolderVC.mOkSendDenom == OKEX_TEST_DENOM) {
-                maxAvailable = pageHolderVC.mAccount!.getTokenBalance(OKEX_TEST_DENOM).subtracting(NSDecimalNumber.init(string: "0.02"))
+            if (pageHolderVC.mOkSendDenom == OKEX_MAIN_DENOM) {
+                maxAvailable = pageHolderVC.mAccount!.getTokenBalance(OKEX_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "0.02"))
                 mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 0, mDpDecimal)
                 
             } else {
@@ -488,7 +488,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxAvailable, mDpDecimal)
-            if (pageHolderVC.mOkSendDenom == OKEX_TEST_DENOM) {
+            if (pageHolderVC.mOkSendDenom == OKEX_MAIN_DENOM) {
                 self.showMaxWarnning()
             }
             

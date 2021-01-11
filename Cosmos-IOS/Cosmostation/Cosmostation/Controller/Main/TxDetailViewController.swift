@@ -1643,10 +1643,10 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (chainType! == ChainType.OKEX_TEST) {
             return coins.sorted(by: {
-                if ($0.denom == OKEX_TEST_DENOM) {
+                if ($0.denom == OKEX_MAIN_DENOM) {
                     return true
                 }
-                if ($1.denom == OKEX_TEST_DENOM) {
+                if ($1.denom == OKEX_MAIN_DENOM) {
                     return false
                 }
                 return false

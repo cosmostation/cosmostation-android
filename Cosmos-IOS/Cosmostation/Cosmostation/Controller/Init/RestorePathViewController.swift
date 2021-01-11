@@ -331,7 +331,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             }
                             let accountInfo = AccountInfo.init(info)
                             let balances = WUtils.getBalancesWithAccountInfo(accountInfo)
-                            let available = WUtils.getTokenAmount(balances, OKEX_TEST_DENOM)
+                            let available = WUtils.getTokenAmount(balances, OKEX_MAIN_DENOM)
                             cell?.denomAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.denomAmount.font!, 0, 8)
                             
                         case .failure(let error):

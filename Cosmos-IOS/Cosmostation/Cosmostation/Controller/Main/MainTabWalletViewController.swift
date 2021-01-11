@@ -1255,8 +1255,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 1) {
             let cell:WalletOkCell? = tableView.dequeueReusableCell(withIdentifier:"WalletOkCell") as? WalletOkCell
             let totalAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, OKEX_TEST_DENOM)
-            let lockedAmount = WUtils.lockedAmount(mainTabVC.mBalances, OKEX_TEST_DENOM)
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, OKEX_MAIN_DENOM)
+            let lockedAmount = WUtils.lockedAmount(mainTabVC.mBalances, OKEX_MAIN_DENOM)
             let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkStaking)
             let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkUnbonding)
 
@@ -1758,7 +1758,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         if (chainType! == ChainType.OKEX_TEST) {
-            if (WUtils.getTokenAmount(mainTabVC.mBalances, OKEX_TEST_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+            if (WUtils.getTokenAmount(mainTabVC.mBalances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_to_deposit", comment: ""))
                 return
             }
@@ -1777,7 +1777,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         if (chainType! == ChainType.OKEX_TEST) {
-            if (WUtils.getTokenAmount(mainTabVC.mBalances, OKEX_TEST_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+            if (WUtils.getTokenAmount(mainTabVC.mBalances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -2175,11 +2175,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mType = IOV_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.OKEX_TEST) {
-            if (WUtils.getTokenAmount(balances, OKEX_TEST_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mOkSendDenom = OKEX_TEST_DENOM
+            txVC.mOkSendDenom = OKEX_MAIN_DENOM
             txVC.mType = OK_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {

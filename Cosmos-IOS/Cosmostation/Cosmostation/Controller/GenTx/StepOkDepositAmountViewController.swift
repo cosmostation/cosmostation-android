@@ -26,7 +26,7 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
         WUtils.setDenomTitle(pageHolderVC.chainType!, denomTitleLabel)
         
         if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            userAvailable = WUtils.getTokenAmount(pageHolderVC.mBalances, OKEX_TEST_DENOM).subtracting(NSDecimalNumber.one)
+            userAvailable = WUtils.getTokenAmount(pageHolderVC.mBalances, OKEX_MAIN_DENOM).subtracting(NSDecimalNumber.one)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userAvailable.stringValue, availableAmountLabel.font, 0, 8)
         }
         toDepositAmountInput.delegate = self
@@ -112,7 +112,7 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
             print("getFormattedNumber ", WUtils.getFormattedNumber(userInput, 8))
             var toDepositCoin: Coin?
             if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                toDepositCoin = Coin.init(OKEX_TEST_DENOM, WUtils.getFormattedNumber(userInput, 8))
+                toDepositCoin = Coin.init(OKEX_MAIN_DENOM, WUtils.getFormattedNumber(userInput, 8))
             }
             
             self.pageHolderVC.mOkToDeposit = toDepositCoin!

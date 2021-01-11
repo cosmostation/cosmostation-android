@@ -1035,9 +1035,9 @@ let BAND_MAIN_DENOM = "uband"
 let SECRET_MAIN_DENOM = "uscrt"
 let CERTIK_MAIN_DENOM = "uctk"
 let AKASH_MAIN_DENOM = "uakt"
+let OKEX_MAIN_DENOM = "okt"
 
 let IOV_TEST_DENOM = "uvoi"
-let OKEX_TEST_DENOM = "okt"
 let KAVA_HARD_DENOM = "hard"
 
 
