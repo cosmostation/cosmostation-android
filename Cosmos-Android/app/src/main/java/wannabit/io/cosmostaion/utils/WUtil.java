@@ -113,7 +113,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class WUtil {
 
@@ -987,8 +987,8 @@ public class WUtil {
                     if(o2.symbol.equals(TOKEN_IOV_TEST)) return 1;
 
                 } else if (chain.equals(OK_TEST)) {
-                    if(o1.symbol.equals(TOKEN_OK_TEST)) return -1;
-                    if(o2.symbol.equals(TOKEN_OK_TEST)) return 1;
+                    if(o1.symbol.equals(TOKEN_OK)) return -1;
+                    if(o2.symbol.equals(TOKEN_OK)) return 1;
 
                 } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                     if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
@@ -1033,8 +1033,8 @@ public class WUtil {
                     if(o2.symbol.equals(TOKEN_IOV_TEST)) return 1;
 
                 } else if (chain.equals(OK_TEST)) {
-                    if(o1.symbol.equals(TOKEN_OK_TEST)) return -1;
-                    if(o2.symbol.equals(TOKEN_OK_TEST)) return 1;
+                    if(o1.symbol.equals(TOKEN_OK)) return -1;
+                    if(o2.symbol.equals(TOKEN_OK)) return 1;
 
                 } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                     if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
@@ -1093,8 +1093,8 @@ public class WUtil {
                     if(o2.denom.equals(TOKEN_KAVA)) return 1;
                     else return 0;
                 } else if (chain.equals(OK_TEST)) {
-                    if(o1.denom.equals(TOKEN_OK_TEST)) return -1;
-                    if(o2.denom.equals(TOKEN_OK_TEST)) return 1;
+                    if(o1.denom.equals(TOKEN_OK)) return -1;
+                    if(o2.denom.equals(TOKEN_OK)) return 1;
                     else return 0;
 
                 } else {

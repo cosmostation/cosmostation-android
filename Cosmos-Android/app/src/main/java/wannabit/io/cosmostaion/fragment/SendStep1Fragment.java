@@ -53,7 +53,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 
 public class SendStep1Fragment extends BaseFragment implements View.OnClickListener {
@@ -177,8 +177,8 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mDpDecimal = 18;
             setDpDecimals(mDpDecimal);
             mDenomTitle.setText(getSActivity().mOkDenom.toUpperCase());
-            if (getSActivity().mOkDenom.equals(TOKEN_OK_TEST)) {
-                mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK_TEST).subtract(new BigDecimal("0.02"));
+            if (getSActivity().mOkDenom.equals(TOKEN_OK)) {
+                mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK).subtract(new BigDecimal("0.02"));
                 mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, mDpDecimal));
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorOK));
             } else {
@@ -389,7 +389,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
-                if (getSActivity().mOkDenom.equals(TOKEN_OK_TEST)) {
+                if (getSActivity().mOkDenom.equals(TOKEN_OK)) {
                     onShowEmptyBlanaceWarnDialog();
                 }
 

@@ -37,7 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class SendStep4Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -260,14 +260,14 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mDenomCurrentAmount.setText(getSActivity().mOkDenom.toUpperCase());
             mDenomRemainAmount.setText(getSActivity().mOkDenom.toUpperCase());
 
-            if (getSActivity().mOkDenom.equals(TOKEN_OK_TEST)) {
+            if (getSActivity().mOkDenom.equals(TOKEN_OK)) {
                 mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorOK));
                 mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorOK));
                 mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorOK));
                 mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 0, mDpDecimal));
                 mTotalPrice.setText(WDp.getValueOfOk(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
 
-                BigDecimal currentAvai  = getSActivity().mAccount.getTokenBalance(TOKEN_OK_TEST);
+                BigDecimal currentAvai  = getSActivity().mAccount.getTokenBalance(TOKEN_OK);
                 mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 0, mDpDecimal));
                 mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 0, mDpDecimal));
                 mRemainingPrice.setText(WDp.getValueOfOk(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));

@@ -29,7 +29,7 @@ import wannabit.io.cosmostaion.fragment.chains.ok.OKValidatorTopFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class OKValidatorListActivity extends BaseActivity implements FetchCallBack {
 
@@ -128,7 +128,7 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
-        BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().onSelectBalance(mAccount.id), TOKEN_OK_TEST);
+        BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().onSelectBalance(mAccount.id), TOKEN_OK);
         if (availableAmount.compareTo(BigDecimal.ONE) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_balance_to_vote, Toast.LENGTH_SHORT).show();
             return;

@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_VOTE_MUX;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class DirectVoteFragment2 extends BaseFragment implements View.OnClickListener {
 
@@ -132,7 +132,7 @@ public class DirectVoteFragment2 extends BaseFragment implements View.OnClickLis
             if (getSActivity().mBaseChain.equals(OK_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
-                gasCoin.denom = TOKEN_OK_TEST;
+                gasCoin.denom = TOKEN_OK;
                 gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);

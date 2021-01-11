@@ -75,7 +75,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 
 public class TokenDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
@@ -268,7 +268,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
             } else if (type == TYPE_OKT) {
                 Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
-                intent.putExtra("okDenom", TOKEN_OK_TEST);
+                intent.putExtra("okDenom", TOKEN_OK);
                 startActivity(intent);
 
             } else if (type == TYPE_TOKEN) {
@@ -357,7 +357,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             }
 
         } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_OK_TEST).compareTo(new BigDecimal("0.02")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.02")) > 0) {
                 hasbalance  = true;
             }
         }
@@ -473,7 +473,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 } else if ((mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST))&& mBalance.symbol.equals(TOKEN_KAVA)) {
                     return TYPE_KAVA;
 
-                } else if (mBaseChain.equals(OK_TEST) && mOkDenom.equals(TOKEN_OK_TEST)) {
+                } else if (mBaseChain.equals(OK_TEST) && mOkDenom.equals(TOKEN_OK)) {
                     return TYPE_OKT;
 
                 } else {
@@ -612,8 +612,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindOkt(RecyclerView.ViewHolder viewHolder, int position) {
             final OktHolder holder = (OktHolder)viewHolder;
-            BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_OK_TEST);
-            BigDecimal lockedAmount = WDp.getLockedCoin(mBalances, TOKEN_OK_TEST);
+            BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_OK);
+            BigDecimal lockedAmount = WDp.getLockedCoin(mBalances, TOKEN_OK);
             BigDecimal depositAmount = WDp.getOkDepositCoin(getBaseDao().mOkStaking);
             BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(getBaseDao().mOkUnbonding);
             BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);

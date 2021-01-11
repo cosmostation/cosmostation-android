@@ -59,7 +59,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
@@ -389,14 +389,14 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
             } else if (mChain.equals(OK_TEST)) {
                 holder.okLayer.setVisibility(View.VISIBLE);
-                holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
+                holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 18));
                 ApiClient.getOkTestChain(getBaseContext()).getAccountBalance(address).enqueue(new Callback<ResOkAccountToken>() {
                     @Override
                     public void onResponse(Call<ResOkAccountToken> call, Response<ResOkAccountToken> response) {
                         if(response.isSuccessful() && response.body() != null && response.body().data != null && response.body().data.currencies != null) {
                             for (ResOkAccountToken.OkCurrency balance:response.body().data.currencies) {
-                                if (balance.symbol.equals(TOKEN_OK_TEST)) {
-                                    holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.available), 0, 6));
+                                if (balance.symbol.equals(TOKEN_OK)) {
+                                    holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.available), 0, 18));
                                     break;
                                 }
                             }

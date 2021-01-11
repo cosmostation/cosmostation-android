@@ -34,7 +34,7 @@ public class ResOkHistory {
         public ArrayList<DataDetail> dataDetails;
 
         @SerializedName("param_page")
-        public PageParam page;
+        public PageParam param_page;
 
     }
 

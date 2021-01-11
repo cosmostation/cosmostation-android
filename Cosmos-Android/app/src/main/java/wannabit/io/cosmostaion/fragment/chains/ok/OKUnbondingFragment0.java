@@ -24,7 +24,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickListener {
 
@@ -211,7 +211,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
                 BigDecimal depositTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (depositTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (depositTemp.compareTo(mMaxAvailable) > 0) return false;
-                Coin token = new Coin(TOKEN_OK_TEST, depositTemp.setScale(mDpDecimal).toPlainString());
+                Coin token = new Coin(TOKEN_OK, depositTemp.setScale(mDpDecimal).toPlainString());
                 getSActivity().mToWithdrawCoin = token;
                 return true;
             }

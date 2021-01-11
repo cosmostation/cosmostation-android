@@ -72,7 +72,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class MainTokensFragment extends BaseFragment implements View.OnClickListener {
@@ -363,7 +363,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
             BigDecimal totalOkAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_OK_TEST)) {
+                if (balance.symbol.equals(TOKEN_OK)) {
                     totalOkAmount = totalOkAmount.add(WDp.getAllOk(balance, getBaseDao().mOkStaking, getBaseDao().mOkUnbonding));
                 } else {
 
@@ -754,7 +754,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     private void onBindOkItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
         final OkToken token = WUtil.getOkToken(getBaseDao().mOkTokenList, balance.symbol);
-        if (balance.symbol.equals(TOKEN_OK_TEST)) {
+        if (balance.symbol.equals(TOKEN_OK)) {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), OK_TEST));
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
             BigDecimal totalAmount = WDp.getAllOk(balance, getBaseDao().mOkStaking, getBaseDao().mOkUnbonding);

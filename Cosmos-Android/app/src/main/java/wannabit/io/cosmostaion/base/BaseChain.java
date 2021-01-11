@@ -45,7 +45,7 @@ public enum BaseChain {
     OK_TEST_LEGACY("okchain"),
     OK_TEST_LEGACY1("okchain-testnet1"),
     OK_TEST_LEGACY2("okexchain-testnet1"),
-    OK_TEST("okexchaintestnet-1"),
+    OK_TEST("okexchain-65"),
     CERTIK_TEST("shentu-incentivized-3");
 
     private final String chainName;

@@ -29,7 +29,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_STAKE_MUX;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClickListener {
 
@@ -152,7 +152,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
             }
             BigDecimal estimateGasAmount = (new BigDecimal(FEE_OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.FEE_OK_GAS_AMOUNT_STAKE));
             BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE));
-            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK_TEST).subtract(feeAmount);
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK).subtract(feeAmount);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, mDpDecimal));
         }
     }
@@ -224,7 +224,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
                 BigDecimal depositTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (depositTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (depositTemp.compareTo(mMaxAvailable) > 0) return false;
-                Coin token = new Coin(TOKEN_OK_TEST, depositTemp.setScale(mDpDecimal).toPlainString());
+                Coin token = new Coin(TOKEN_OK, depositTemp.setScale(mDpDecimal).toPlainString());
                 getSActivity().mToDepositCoin = token;
                 return true;
             }
