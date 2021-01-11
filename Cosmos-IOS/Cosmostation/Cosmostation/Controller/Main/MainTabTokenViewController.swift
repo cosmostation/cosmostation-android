@@ -274,27 +274,27 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
 //            self.view.addSubview(floaty)
 //
 //        } else
-        if (chainType! == ChainType.BINANCE_TEST) {
-            let floaty = Floaty()
-            floaty.buttonImage = UIImage.init(named: "faucetBtn")
-            floaty.buttonColor = COLOR_BNB
-            floaty.fabDelegate = self
-            self.view.addSubview(floaty)
-            
-        } else if (chainType! == ChainType.IOV_TEST) {
-            let floaty = Floaty()
-            floaty.buttonImage = UIImage.init(named: "faucetBtn")
-            floaty.buttonColor = COLOR_IOV
-            floaty.fabDelegate = self
-            self.view.addSubview(floaty)
-            
-        } else if (chainType! == ChainType.OKEX_TEST) {
-            let floaty = Floaty()
-            floaty.buttonImage = UIImage.init(named: "faucetBtn")
-            floaty.buttonColor = COLOR_OK
-            floaty.fabDelegate = self
-            self.view.addSubview(floaty)
-        }
+//        if (chainType! == ChainType.BINANCE_TEST) {
+//            let floaty = Floaty()
+//            floaty.buttonImage = UIImage.init(named: "faucetBtn")
+//            floaty.buttonColor = COLOR_BNB
+//            floaty.fabDelegate = self
+//            self.view.addSubview(floaty)
+//            
+//        } else if (chainType! == ChainType.IOV_TEST) {
+//            let floaty = Floaty()
+//            floaty.buttonImage = UIImage.init(named: "faucetBtn")
+//            floaty.buttonColor = COLOR_IOV
+//            floaty.fabDelegate = self
+//            self.view.addSubview(floaty)
+//            
+//        } else if (chainType! == ChainType.OKEX_TEST) {
+//            let floaty = Floaty()
+//            floaty.buttonImage = UIImage.init(named: "faucetBtn")
+//            floaty.buttonColor = COLOR_OK
+//            floaty.fabDelegate = self
+//            self.view.addSubview(floaty)
+//        }
     }
     
     func emptyFloatySelected(_ floaty: Floaty) {

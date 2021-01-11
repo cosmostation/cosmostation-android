@@ -76,7 +76,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            mDpDecimal = 8
+            mDpDecimal = 18
             self.denomTitleLabel.text = pageHolderVC.mOkSendDenom?.uppercased()
             if (pageHolderVC.mOkSendDenom == OKEX_MAIN_DENOM) {
                 maxAvailable = pageHolderVC.mAccount!.getTokenBalance(OKEX_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "0.02"))
@@ -329,7 +329,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 toSendCoin = Coin.init(SECRET_MAIN_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
                 
             } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                toSendCoin = Coin.init(pageHolderVC.mOkSendDenom!, WUtils.getFormattedNumber(userInput, 8))
+                toSendCoin = Coin.init(pageHolderVC.mOkSendDenom!, WUtils.getFormattedNumber(userInput, mDpDecimal))
                 
             } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                 toSendCoin = Coin.init(CERTIK_MAIN_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)

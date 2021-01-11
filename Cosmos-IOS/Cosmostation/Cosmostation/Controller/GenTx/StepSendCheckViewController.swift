@@ -196,19 +196,19 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            mDpDecimal = 8
+            mDpDecimal = 18
             mToSendDenomLabel.text = pageHolderVC.mOkSendDenom!.uppercased()
             mCurrentBalanceDenomTitle.text = pageHolderVC.mOkSendDenom!.uppercased()
             mRemainBalanceTitle.text = pageHolderVC.mOkSendDenom!.uppercased()
             currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mOkSendDenom!)
             
             if (pageHolderVC.mOkSendDenom == OKEX_MAIN_DENOM) {
-                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, 8)
-                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, 8)
-                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 0, 8)
+                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, mDpDecimal)
+                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, mDpDecimal)
+                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 0, mDpDecimal)
                 
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, 8)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, 8)
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, mDpDecimal)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, mDpDecimal)
                 
                 mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), 0, mTotalSpendPrice.font)
                 mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), 0, mReminaingPrice.font)
@@ -224,11 +224,11 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mTotalSpendPrice.isHidden = true
                 mReminaingPrice.isHidden = true
                 
-                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, 8)
-                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, 8)
+                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, mDpDecimal)
+                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, mDpDecimal)
                 
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, 8)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, 8)
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, mDpDecimal)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, mDpDecimal)
                 
             }
             
@@ -394,15 +394,17 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     self.onGenSendTx()
                     
                 } else if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                    guard let info = res as? [String : Any] else {
+                    guard let info = res as? NSDictionary else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))
                         return
                     }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                    let okAccountInfo = OkAccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithOkAccountInfo(account, okAccountInfo))
+                    BaseData.instance.mOkAccountInfo = okAccountInfo
                     self.onGenSendTx()
+                    
                 }
                 
             case .failure(let error):
