@@ -85,6 +85,10 @@ class MainTabSettingViewController: BaseViewController {
             titleChainImg.image = UIImage(named: "akashChainImg")
             titleChainName.text = "(Akash Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.OKEX_MAIN) {
+            titleChainImg.image = UIImage(named: "okexChainImg")
+            titleChainName.text = "(OKex Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {

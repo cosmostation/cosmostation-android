@@ -140,6 +140,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_AKASH
+        } else if (chainType! == ChainType.OKEX_MAIN) {
+            titleChainImg.image = UIImage(named: "okexChainImg")
+            titleChainName.text = "(OKex Mainnet)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = TRANS_BG_COLOR_OK
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
