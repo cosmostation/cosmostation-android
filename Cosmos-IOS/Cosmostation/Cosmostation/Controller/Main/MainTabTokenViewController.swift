@@ -248,7 +248,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             onFetchIovTokenPrice()
             updateFloaty()
             
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             onFetchOkTokenPrice()
             updateFloaty()
             
@@ -395,7 +395,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             let allOk = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
             totalAmount.attributedText = WUtils.displayAmount2(allOk.stringValue, totalAmount.font, 0, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allOk, BaseData.instance.getLastPrice(), 0, totalValue.font)
@@ -443,7 +443,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetBandItems(tableView, indexPath)
         } else if (chainType! == ChainType.SECRET_MAIN) {
             return onSetSecretItems(tableView, indexPath)
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             return onSetOkItems(tableView, indexPath)
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             return onSetCertikItems(tableView, indexPath)
@@ -488,7 +488,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (chainType! == ChainType.BAND_MAIN) {
             //TODO Band tokens details
             
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             tokenDetailVC.okDenom = mainTabVC.mBalances[indexPath.row].balance_denom
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
@@ -878,30 +878,28 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     
     func onRequestFaucet() {
-        if (chainType! == ChainType.BINANCE_TEST) {
-            if (mainTabVC.mAccount.getBnbBalance().compare(NSDecimalNumber.init(value: 2)).rawValue > 0) {
-                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
-                return
-            }
-            self.showWaittingAlert()
-            let request = Alamofire.request(BNB_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000), execute: {
-                        self.onRequestFetch()
-                        self.hideWaittingAlert()
-                    })
-
-                case .failure(let error):
-                    self.onShowToast(error.localizedDescription)
-                    self.hideWaittingAlert()
-                }
-            }
-            
-        }
-        
-//        else if (chainType! == ChainType.KAVA_TEST) {
+//        if (chainType! == ChainType.BINANCE_TEST) {
+//            if (mainTabVC.mAccount.getBnbBalance().compare(NSDecimalNumber.init(value: 2)).rawValue > 0) {
+//                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
+//                return
+//            }
+//            self.showWaittingAlert()
+//            let request = Alamofire.request(BNB_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+//            request.responseJSON { (response) in
+//                switch response.result {
+//                case .success(let res):
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000), execute: {
+//                        self.onRequestFetch()
+//                        self.hideWaittingAlert()
+//                    })
+//
+//                case .failure(let error):
+//                    self.onShowToast(error.localizedDescription)
+//                    self.hideWaittingAlert()
+//                }
+//            }
+//
+//        } else if (chainType! == ChainType.KAVA_TEST) {
 //            if (mainTabVC.mAccount.getKavaBalance().compare(NSDecimalNumber.init(value: 5000000)).rawValue > 0) {
 //                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
 //                return
@@ -943,35 +941,33 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
 //                }
 //            }
 //            
+//        } else if (chainType! == ChainType.IOV_TEST) {
+//            if (mainTabVC.mAccount.getIovBalance().compare(NSDecimalNumber.init(value: 1000000000)).rawValue > 0) {
+//                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
+//                return
+//            }
+//            self.showWaittingAlert()
+//            let request = Alamofire.request(IOV_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+//            request.responseJSON { (response) in
+//                switch response.result {
+//                case .success(let res):
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
+//                        self.onRequestFetch()
+//                        self.hideWaittingAlert()
+//                    })
+//
+//                case .failure(let error):
+//                    self.onShowToast(error.localizedDescription)
+//                    self.hideWaittingAlert()
+//                }
+//            }
+//
+//        } else if (chainType! == ChainType.OKEX_TEST) {
+//            guard let url = URL(string: "https://www.okex.com/drawdex") else { return }
+//            let safariViewController = SFSafariViewController(url: url)
+//            safariViewController.modalPresentationStyle = .popover
+//            present(safariViewController, animated: true, completion: nil)
 //        }
-        
-        else if (chainType! == ChainType.IOV_TEST) {
-            if (mainTabVC.mAccount.getIovBalance().compare(NSDecimalNumber.init(value: 1000000000)).rawValue > 0) {
-                self.onShowToast(NSLocalizedString("error_no_more_faucet", comment: ""))
-                return
-            }
-            self.showWaittingAlert()
-            let request = Alamofire.request(IOV_TEST_FAUCET +  mainTabVC.mAccount.account_address , method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
-                        self.onRequestFetch()
-                        self.hideWaittingAlert()
-                    })
-
-                case .failure(let error):
-                    self.onShowToast(error.localizedDescription)
-                    self.hideWaittingAlert()
-                }
-            }
-            
-        } else if (chainType! == ChainType.OKEX_TEST) {
-            guard let url = URL(string: "https://www.okex.com/drawdex") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .popover
-            present(safariViewController, animated: true, completion: nil)
-        }
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
@@ -1065,12 +1061,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.balance_denom < $1.balance_denom
             }
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == OKEX_MAIN_DENOM) {
                     return true
                 }
                 if ($1.balance_denom == OKEX_MAIN_DENOM){
+                    return false
+                }
+                if ($0.balance_denom == OKEX_MAIN_OKB) {
+                    return true
+                }
+                if ($1.balance_denom == OKEX_MAIN_OKB){
                     return false
                 }
                 return $0.balance_denom < $1.balance_denom
@@ -1131,12 +1133,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return WUtils.localeStringToDecimal($0.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($0.balance_denom)).compare(WUtils.localeStringToDecimal($1.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($1.balance_denom))).rawValue > 0 ? true : false
             }
             
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == OKEX_MAIN_DENOM) {
                     return true
                 }
                 if ($1.balance_denom == OKEX_MAIN_DENOM){
+                    return false
+                }
+                if ($0.balance_denom == OKEX_MAIN_OKB) {
+                    return true
+                }
+                if ($1.balance_denom == OKEX_MAIN_OKB){
                     return false
                 }
                 return WUtils.localeStringToDecimal($0.balance_amount).adding(WUtils.localeStringToDecimal($0.balance_locked)).stringValue > WUtils.localeStringToDecimal($1.balance_amount).adding(WUtils.localeStringToDecimal($1.balance_locked)).stringValue
@@ -1180,8 +1188,22 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 let totalTokenValue1 = WUtils.getKavaTokenDollorValue($1.balance_denom, totalTokenAmount1)
                 return totalTokenValue0.compare(totalTokenValue1).rawValue > 0 ? true : false
             }
-        } else if (chainType! == ChainType.OKEX_TEST) {
-            
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == OKEX_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == OKEX_MAIN_DENOM){
+                    return false
+                }
+                if ($0.balance_denom == OKEX_MAIN_OKB) {
+                    return true
+                }
+                if ($1.balance_denom == OKEX_MAIN_OKB){
+                    return false
+                }
+                return $0.balance_denom < $1.balance_denom
+            }
         }
         
 //        else if (chainType! == ChainType.BAND_MAIN) {
