@@ -64,7 +64,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             } else {
                 cell?.pathLabel.text = SECRET_BASE_PATH.appending(String(indexPath.row))
             }
-        } else if (userChain == ChainType.OKEX_TEST) {
+        } else if (userChain == ChainType.OKEX_MAIN || userChain == ChainType.OKEX_TEST) {
             cell?.pathLabel.text = OK_BASE_PATH.appending(String(indexPath.row))
         }
         
@@ -374,6 +374,28 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             tempAccount.account_id = -1
                             let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info))
                             cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, AKASH_MAIN_DENOM, ChainType.AKASH_MAIN)
+                            
+                        case .failure(let error):
+                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                        }
+                    }
+                    
+                } else if (self.userChain == ChainType.OKEX_MAIN) {
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 18)
+                    let request = Alamofire.request(OKEX_ACCOUNT_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    request.responseJSON { (response) in
+                        switch response.result {
+                        case .success(let res):
+                            guard let okAccountBalancesInfo = res as? [String : Any] else {
+                                return
+                            }
+                            let okAccountBalances = OkAccountToken.init(okAccountBalancesInfo)
+                            for currency in okAccountBalances.data.currencies {
+                                if (currency.symbol == OKEX_MAIN_DENOM) {
+                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(currency.available, cell!.denomAmount.font!, 0, 18)
+                                    return
+                                }
+                            }
                             
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }

@@ -157,14 +157,14 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
             }
             
         } else if (userInput.starts(with: "okexchain1")) {
-            if (!ChainType.SUPPRT_CHAIN().contains(ChainType.OKEX_TEST)) {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                return;
-                
-            }
             if (WKey.isValidateBech32(userInput)) {
-                self.onGenWatchAccount(ChainType.OKEX_TEST, userInput)
-                return;
+                if (ChainType.SUPPRT_CHAIN().contains(ChainType.OKEX_TEST)) {
+                    self.onShowOkChainSelect(userInput)
+                    return;
+                } else {
+                    self.onGenWatchAccount(ChainType.OKEX_MAIN, userInput)
+                    return;
+                }
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
                 self.addAddressInputText.text = ""
@@ -297,6 +297,25 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
         showAlert.addAction(certikTestAction)
         self.present(showAlert, animated: true, completion: nil)
     }
+    
+    func onShowOkChainSelect(_ input:String) {
+        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: NSLocalizedString("chain_title_okex", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.OKEX_MAIN, input)
+        })
+        okAction.setValue(UIImage(named: "okexChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        let okTestAction = UIAlertAction(title: NSLocalizedString("chain_title_okex_test", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.OKEX_TEST, input)
+        })
+        okTestAction.setValue(UIImage(named: "okexTestnetImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        showAlert.addAction(okAction)
+        showAlert.addAction(okTestAction)
+        self.present(showAlert, animated: true, completion: nil)
+        
+    }
+    
+    
     
     func scannedAddress(result: String) {
         self.addAddressInputText.text = result.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)

@@ -1936,7 +1936,7 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
-        } else if (chainType == ChainType.OKEX_TEST) {
+        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             if (coin.denom == OKEX_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -2050,7 +2050,7 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
-        } else if (chainType == ChainType.OKEX_TEST) {
+        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             if (denom == OKEX_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -2147,7 +2147,7 @@ class WUtils {
             return COLOR_SECRET
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             return COLOR_CERTIK
-        } else if (chain == ChainType.OKEX_TEST) {
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return COLOR_OK
         } else if (chain == ChainType.AKASH_MAIN) {
             return COLOR_AKASH
@@ -2174,6 +2174,8 @@ class WUtils {
             return COLOR_CERTIK_DARK
         } else if (chain == ChainType.AKASH_MAIN) {
             return COLOR_AKASH_DARK
+        } else if (chain == ChainType.OKEX_MAIN) {
+            return COLOR_OK_DARK
         }
         
         else if (chain == ChainType.COSMOS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST ||
@@ -2202,6 +2204,8 @@ class WUtils {
             return TRANS_BG_COLOR_CERTIK
         } else if (chain == ChainType.AKASH_MAIN) {
             return TRANS_BG_COLOR_AKASH
+        } else if (chain == ChainType.OKEX_MAIN) {
+            return TRANS_BG_COLOR_OK
         }
         
         else if (chain == ChainType.COSMOS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
@@ -2225,7 +2229,7 @@ class WUtils {
             return "BAND"
         } else if (chain == ChainType.SECRET_MAIN) {
             return "SCRT"
-        } else if (chain == ChainType.OKEX_TEST) {
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return "OKT"
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             return "CTK"
@@ -2257,7 +2261,7 @@ class WUtils {
         } else if (chain == ChainType.SECRET_MAIN) {
             label.text = "SCRT"
             label.textColor = COLOR_SECRET
-        } else if (chain == ChainType.OKEX_TEST) {
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             label.text = "OKT"
             label.textColor = COLOR_OK
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
@@ -2288,6 +2292,8 @@ class WUtils {
             return ChainType.CERTIK_MAIN
         } else if (chainS == CHAIN_AKASH_S) {
             return ChainType.AKASH_MAIN
+        } else if (chainS == CHAIN_OKEX_S) {
+            return ChainType.OKEX_MAIN
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2325,6 +2331,8 @@ class WUtils {
             return CHAIN_CERTIK_S
         } else if (chain == ChainType.AKASH_MAIN) {
             return CHAIN_AKASH_S
+        } else if (chain == ChainType.OKEX_MAIN) {
+            return CHAIN_OKEX_S
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2405,6 +2413,9 @@ class WUtils {
             return "shentu-1"
         } else if (chainS == CHAIN_AKASH_S) {
             return "akashnet-1"
+        } else if (chainS == CHAIN_OKEX_S) {
+            return "okexchain-65"
+//            return "okexchain-65"
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2442,6 +2453,9 @@ class WUtils {
             return "shentu-1"
         } else if (chain == ChainType.AKASH_MAIN) {
             return "akashnet-1"
+        } else if (chain == ChainType.OKEX_MAIN) {
+            return "okexchain-65"
+//            return "okexchain-65"
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2613,7 +2627,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REPLACE))
             }
             
-        } else if (chain == ChainType.OKEX_TEST) {
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))
             if (type == OK_MSG_TYPE_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))

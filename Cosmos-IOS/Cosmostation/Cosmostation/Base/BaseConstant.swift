@@ -63,9 +63,11 @@ let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.
 let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band.cosmostation.io/";
 
+
+let OKEX_URL                            = "https://www.okex.com/okexchain-test/v1/";
+//let OKEX_URL                            = "https://www.okex.com/okexchain/v1/";
+
 let OKEX_TEST_URL                       = "https://www.okex.com/okexchain-test/v1/";
-//let OKEX_TEST_URL                       = "https://lcd-office.cosmostation.io/okexchain-testnet1/";
-let OKEX_TEST_API                       = "";
 
 
 let CERTIK_URL                          = "https://lcd-certik.cosmostation.io/";
@@ -361,6 +363,18 @@ let IOV_TEST_CHECK_MY_DOMAIN            = IOV_TEST_URL + "starname/query/domains
 let IOV_TEST_CHECK_MY_ACCOUNT           = IOV_TEST_URL + "starname/query/accountsWithOwner";
 let IOV_TEST_STARNAME_DOMAIN_INFO       = IOV_TEST_URL + "starname/query/domainInfo";
 
+
+//OKEX_URL
+let OKEX_TX                                 = OKEX_URL + "txs/";
+let OKEX_VALIDATORS                         = OKEX_URL + "staking/validators";
+let OKEX_ACCOUNT_INFO                       = OKEX_URL + "auth/accounts/";
+let OKEX_ACCOUNT_BALANCE                    = OKEX_URL + "accounts/";
+let OKEX_TOKEN_LIST                         = OKEX_URL + "tokens";
+let OKEX_STAKING                            = OKEX_URL + "staking/delegators/";
+let OKEX_UNBONDING                          = OKEX_URL + "staking/delegators/";
+let OKEX_UNBONDING_TAIL                     = "/unbonding_delegations";
+let OKEX_HISTORY                            = OKEX_URL + "transactions";
+let OKEX_BORAD_TX                           = OKEX_URL + "txs";
 
 //OKEX_TEST_URL
 let OKEX_TEST_TX                            = OKEX_TEST_URL + "txs/";
@@ -927,6 +941,7 @@ enum ChainType: String {
     case SECRET_MAIN
     case CERTIK_MAIN
     case AKASH_MAIN
+    case OKEX_MAIN
     
     case COSMOS_TEST
     case BINANCE_TEST
@@ -946,6 +961,7 @@ enum ChainType: String {
         result.append(SECRET_MAIN)
         result.append(CERTIK_MAIN)
         result.append(AKASH_MAIN)
+        result.append(OKEX_MAIN)
 
         result.append(COSMOS_TEST)
 //        result.append(BINANCE_TEST)
@@ -1017,6 +1033,7 @@ let CHAIN_BAND_S = "SUPPORT_CHAIN_BAND_MAIN"
 let CHAIN_SECRET_S = "SUPPORT_CHAIN_SECRET_MAIN"
 let CHAIN_CERTIK_S = "SUPPORT_CHAIN_CERTIK_MAIN"
 let CHAIN_AKASH_S = "SUPPORT_CHAIN_AKASH_MAIN"
+let CHAIN_OKEX_S = "SUPPORT_CHAIN_OKEX_MAIN"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
@@ -1079,6 +1096,7 @@ let EXPLORER_BINANCE_MAIN   = "https://binance.mintscan.io/";
 let EXPLORER_BAND_MAIN      = "https://cosmoscan.io/";
 let EXPLORER_SECRET_MAIN    = "https://explorer.cashmaney.com/";
 let EXPLORER_AKASH_MAIN     = "https://www.mintscan.io/akash/";
+let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
