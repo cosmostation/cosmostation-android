@@ -61,14 +61,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             self.comingLabel.isHidden = false
             self.historyTableView.isHidden = true
             self.comingLabel.text = "Check with Explorer"
-            
         } else if (chainType == ChainType.IOV_MAIN ) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.IOV_TEST ) {
             self.comingLabel.isHidden = false
             self.historyTableView.isHidden = true
             self.comingLabel.text = "Coming Soon!!"
-        } else if (chainType == ChainType.OKEX_TEST) {
+        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             onFetchOkHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
@@ -78,7 +77,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             self.comingLabel.isHidden = false
             self.historyTableView.isHidden = true
             self.comingLabel.text = "Check with Explorer"
-            
         }
         
         self.comingLabel.isUserInteractionEnabled = true
@@ -215,7 +213,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.IOV_TEST ) {
             self.comingLabel.isHidden = false
-        } else if (chainType == ChainType.OKEX_TEST) {
+        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             onFetchOkHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
@@ -230,7 +228,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return self.mBnbHistories.count
-        } else if (chainType == ChainType.OKEX_TEST) {
+        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return self.mOkHistories.count
         } else {
             return self.mApiHistories.count
@@ -258,7 +256,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return onSetCertikItem(tableView, indexPath);
         } else if (chainType == ChainType.AKASH_MAIN) {
             return onSetAkashItem(tableView, indexPath);
-        } else if (chainType == ChainType.OKEX_TEST) {
+        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return onSetOkItem(tableView, indexPath);
         }
         return onSetEmptyItem(tableView, indexPath);
@@ -479,6 +477,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                 present(safariViewController, animated: true, completion: nil)
             }
             
+        } else if (chainType == ChainType.OKEX_MAIN) {
+            let okHistory = mOkHistories[indexPath.row]
+            guard let url = URL(string: EXPLORER_OKEX_MAIN + "tx/" + okHistory.txhash!) else { return }
+            self.onShowSafariWeb(url)
+            
         } else if (chainType == ChainType.OKEX_TEST) {
             let okHistory = mOkHistories[indexPath.row]
             guard let url = URL(string: EXPLORER_OKEX_TEST + "tx/" + okHistory.txhash!) else { return }
@@ -522,7 +525,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchOkHistory(_ address:String) {
         var url = ""
-        if (chainType == ChainType.OKEX_TEST) {
+        if (chainType == ChainType.OKEX_MAIN) {
+            url = OKEX_HISTORY
+        } else if (chainType == ChainType.OKEX_TEST) {
             url = OKEX_TEST_HISTORY
         }
         let request = Alamofire.request(url, method: .get, parameters: ["address":address], encoding: URLEncoding.default, headers: [:])
