@@ -29,6 +29,7 @@ class OkMyValidatorViewController: BaseViewController, UITableViewDelegate, UITa
         self.okMyValidatorTableView.dataSource = self
         self.okMyValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.okMyValidatorTableView.register(UINib(nibName: "OtherValidatorCell", bundle: nil), forCellReuseIdentifier: "OtherValidatorCell")
+        self.okMyValidatorTableView.register(UINib(nibName: "OkPromotionCell", bundle: nil), forCellReuseIdentifier: "OkPromotionCell")
         self.okMyValidatorTableView.rowHeight = UITableView.automaticDimension
         self.okMyValidatorTableView.estimatedRowHeight = UITableView.automaticDimension
         
@@ -70,7 +71,6 @@ class OkMyValidatorViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @IBAction func onClickVote(_ sender: UIButton) {
-        print("onClickVote")
         if (!mainTabVC.mAccount.account_has_private) {
             self.onShowAddMenomicDialog()
             return
@@ -94,31 +94,41 @@ class OkMyValidatorViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.mMyValidator.count
+        if (self.mMyValidator.count == 0) {
+            return 1
+        } else {
+            return self.mMyValidator.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:OtherValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"OtherValidatorCell") as? OtherValidatorCell
-        let validator = mMyValidator[indexPath.row]
-        cell?.monikerLabel.text = validator.description.moniker
-        cell?.monikerLabel.adjustsFontSizeToFitWidth = true
-        cell?.freeEventImg.isHidden = true
-        if (validator.jailed) {
-            cell?.revokedImg.isHidden = false
-            cell?.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+        if (self.mMyValidator.count == 0) {
+            let cell:OkPromotionCell? = tableView.dequeueReusableCell(withIdentifier:"OkPromotionCell") as? OkPromotionCell
+            return cell!
+            
         } else {
-            cell?.revokedImg.isHidden = true
-            cell?.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+            let cell:OtherValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"OtherValidatorCell") as? OtherValidatorCell
+            let validator = mMyValidator[indexPath.row]
+            cell?.monikerLabel.text = validator.description.moniker
+            cell?.monikerLabel.adjustsFontSizeToFitWidth = true
+            cell?.freeEventImg.isHidden = true
+            if (validator.jailed) {
+                cell?.revokedImg.isHidden = false
+                cell?.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+            } else {
+                cell?.revokedImg.isHidden = true
+                cell?.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+            }
+            cell?.powerLabel.attributedText =  WUtils.displayAmount2(validator.delegator_shares, cell!.powerLabel.font, 0, 0)
+            cell?.commissionLabel.attributedText = WUtils.displayCommission("0", font: cell!.commissionLabel.font)
+            cell?.cardView.backgroundColor = TRANS_BG_COLOR_OK
+
+            if (validator.description.identity.starts(with: "logo|||")) {
+                let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "").trimmingCharacters(in: .whitespaces)
+                cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
+            }
+            return cell!
         }
-        cell?.powerLabel.attributedText =  WUtils.displayAmount2(validator.delegator_shares, cell!.powerLabel.font, 0, 8)
-        cell?.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell!.commissionLabel.font)
-        cell?.cardView.backgroundColor = TRANS_BG_COLOR_OK
-        
-        if (validator.description.identity.starts(with: "logo|||")) {
-            let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "").trimmingCharacters(in: .whitespaces)
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
-        }
-        return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
