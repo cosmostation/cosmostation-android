@@ -233,13 +233,13 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
-        showAlert.addAction(iovAction)
+        showAlert.addAction(okexAction)
         showAlert.addAction(kavaAction)
         showAlert.addAction(bandAction)
-        showAlert.addAction(secretAction)
+        showAlert.addAction(iovAction)
         showAlert.addAction(certikAction)
         showAlert.addAction(akashAction)
-        showAlert.addAction(okexAction)
+        showAlert.addAction(secretAction)
         
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {
