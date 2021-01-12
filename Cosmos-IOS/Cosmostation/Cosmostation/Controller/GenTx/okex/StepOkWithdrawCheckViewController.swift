@@ -53,7 +53,7 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             toWithdrawAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mOkToWithdraw.amount, toWithdrawAmountLabel.font, 0, 18)
             feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 0, 18)
         }
@@ -69,14 +69,16 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        if (pageHolderVC.chainType! == ChainType.OKEX_MAIN) {
+            url = OKEX_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             url = OKEX_TEST_ACCOUNT_INFO + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+                if (self.pageHolderVC.chainType! == ChainType.OKEX_MAIN || self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
                     guard let info = res as? NSDictionary else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -110,7 +112,7 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
-                if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+                if (self.pageHolderVC.chainType! == ChainType.OKEX_MAIN || self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
@@ -147,7 +149,9 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     var url: String?
-                    if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+                    if (self.pageHolderVC.chainType! == ChainType.OKEX_MAIN) {
+                        url = OKEX_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
                         url = OKEX_TEST_BORAD_TX
                     }
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])

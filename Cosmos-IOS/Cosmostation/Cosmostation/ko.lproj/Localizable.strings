@@ -304,11 +304,11 @@
 "reward_harvest_step_2" = "Tx 수수료를 선택하세요";
 "reward_harvest_step_3" = "입력하신 정보를 확인하세요";
 
-"str_ok_stake_deposit_step_0" = "예금 수량을 설정하세요";
+"str_ok_stake_deposit_step_0" = "스테이킹 수량을 설정하세요";
 "str_ok_stake_deposit_step_1" = "메모를 입력하세요 (선택사항)";
 "str_ok_stake_deposit_step_2" = "Tx 수수료를 선택하세요";
 "str_ok_stake_deposit_step_3" = "입력하신 정보를 확인하세요";
-"str_ok_stake_withdraw_step_0" = "출금 수량을 설정하세요";
+"str_ok_stake_withdraw_step_0" = "언본딩 수량을 설정하세요";
 "str_ok_stake_withdraw_step_1" = "메모를 입력하세요 (선택사항)";
 "str_ok_stake_withdraw_step_2" = "Tx 수수료를 선택하세요";
 "str_ok_stake_withdraw_step_3" = "입력하신 정보를 확인하세요";
@@ -410,8 +410,8 @@
 "title_interchain_swap" = "인터체인 보내기 & 받기";
 "title_interchain_refund" = "인터체인 환불하기";
 "title_participate_incentive" = "Crypto Payday 인센티브";
-"title_ok_deposit" = "예금";
-"title_ok_withdraw" = "출금";
+"title_ok_deposit" = "스테이킹";
+"title_ok_withdraw" = "언본딩";
 "title_ok_vote" = "검증인 투표";
 "title_starname_list" = "스타네임 서비스";
 "title_starname_registe_domain" = "프리미엄 스타네임 등록";

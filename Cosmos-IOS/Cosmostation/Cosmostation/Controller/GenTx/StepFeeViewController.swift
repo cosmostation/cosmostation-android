@@ -99,7 +99,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
             self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
             
-        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             self.minFeeCardView.isHidden = true
             self.rateFeeCardView.isHidden = false
             
@@ -488,7 +488,7 @@ class StepFeeViewController: BaseViewController {
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
             
-        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             feeCoin = Coin.init(OKEX_MAIN_DENOM, WUtils.getFormattedNumber(feeAmount, 18))
             var fee = Fee.init()
             var estimateGas = ""
