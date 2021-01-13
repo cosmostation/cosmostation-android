@@ -68,6 +68,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
@@ -187,7 +188,7 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             if (coin.denom.equals(TOKEN_OK)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
@@ -259,7 +260,7 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             if (symbol.equals(TOKEN_OK)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
@@ -1594,7 +1595,7 @@ public class WDp {
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return BaseConstant.KEY_IOV_PATH + String.valueOf(position);
 
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position);
 
         } else if (chain.equals(SECRET_MAIN)) {
@@ -1709,12 +1710,12 @@ public class WDp {
                 result = unbondFormat.format(calendar.getTimeInMillis());
                 return result + "   " +c.getString(R.string.str_unbonding_3days_after);
 
-            } else if (chain.equals(OK_TEST)) {
+            } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 14);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
                 result = unbondFormat.format(calendar.getTimeInMillis());
-                return result + "   " +c.getString(R.string.str_unbonding_3days_after);
+                return result + "   " +c.getString(R.string.str_unbonding_14days_after);
 
             } else {
                 Calendar calendar = Calendar.getInstance();
@@ -1968,7 +1969,7 @@ public class WDp {
             return c.getResources().getColor(R.color.colorIov);
         } else if (chain.equals(BAND_MAIN)) {
             return c.getResources().getColor(R.color.colorBand);
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return c.getResources().getColor(R.color.colorOK);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColor(R.color.colorCertik);
@@ -1994,7 +1995,7 @@ public class WDp {
             return c.getResources().getColor(R.color.colorTransBgStarname);
         } else if (chain.equals(BAND_MAIN)) {
             return c.getResources().getColor(R.color.colorTransBgBand);
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return c.getResources().getColor(R.color.colorTransBgOkex);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColor(R.color.colorTransBgCertik);
@@ -2019,7 +2020,7 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_band);
         } else if(chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iov);
-        } else if(chain.equals(OK_TEST)) {
+        } else if(chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ok);
         } else if(chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_certik);
@@ -2042,7 +2043,7 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorBand);
         } else if(chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return c.getResources().getColorStateList(R.color.colorIov);
-        } else if(chain.equals(OK_TEST)) {
+        } else if(chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return c.getResources().getColorStateList(R.color.colorOK);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return c.getResources().getColorStateList(R.color.colorCertik);
@@ -2079,9 +2080,9 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorBand));
             textview.setText(c.getString(R.string.s_band));
 
-        } else if (BaseChain.getChain(chain).equals(OK_TEST)) {
+        } else if (BaseChain.getChain(chain).equals(OKEX_MAIN) || BaseChain.getChain(chain).equals(OK_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorOK));
-            textview.setText(c.getString(R.string.s_tok));
+            textview.setText(c.getString(R.string.s_okt));
 
         } else if (BaseChain.getChain(chain).equals(CERTIK_MAIN) || BaseChain.getChain(chain).equals(CERTIK_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorCertik));
@@ -2264,6 +2265,9 @@ public class WDp {
         } else if (chain.equals(IOV_TEST)) {
             return c.getString(R.string.str_iov_net_test_2);
 
+        } else if (chain.equals(OKEX_MAIN)) {
+            return c.getString(R.string.str_ok_net2);
+
         } else if (chain.equals(OK_TEST)) {
             return c.getString(R.string.str_ok_net_test_2);
 
@@ -2312,6 +2316,10 @@ public class WDp {
         } else if (chain.equals(IOV_TEST)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_testnet_img));
             txtView.setText(c.getString(R.string.str_iov_net_test_2));
+
+        } else if (chain.equals(OKEX_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.okex_chain_img));
+            txtView.setText(c.getString(R.string.str_ok_net2));
 
         } else if (chain.equals(OK_TEST)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.okex_testnet_img));

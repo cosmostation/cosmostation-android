@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Certik;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Iov;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Kava;
+import wannabit.io.cosmostaion.dialog.Dialog_Choice_Okex;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
@@ -41,6 +42,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
@@ -185,8 +187,16 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("okexchain1")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(OK_TEST, mUserInput);
-                    return;
+                    if (SUPPORT_CHAINS().contains(OK_TEST)) {
+                        Dialog_Choice_Okex dialog = Dialog_Choice_Okex.newInstance(null);
+                        dialog.setCancelable(false);
+                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                        return;
+
+                    } else {
+                        onGenNewAccount(OKEX_MAIN, mUserInput);
+                        return;
+                    }
 
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();

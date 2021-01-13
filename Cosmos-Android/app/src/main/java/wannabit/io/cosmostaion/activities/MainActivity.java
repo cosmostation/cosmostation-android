@@ -57,6 +57,7 @@ import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -280,6 +281,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 //        WLog.w("mAccount " + mAccount.address);
 //        WLog.w("sequenceNumber " + mAccount.sequenceNumber);
 //        WLog.w("accountNumber " + mAccount.accountNumber);
+//        WLog.w("mBaseChain " + mBaseChain);
 
         if (mBaseChain.equals(COSMOS_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));

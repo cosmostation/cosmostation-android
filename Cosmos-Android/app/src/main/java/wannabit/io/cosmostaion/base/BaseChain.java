@@ -32,6 +32,7 @@ public enum BaseChain {
     CERTIK_MAIN("shentu-1"),
     SECRET_MAIN("secret-2"),
     AKASH_MAIN("akashnet-1"),
+    OKEX_MAIN("okexchain-1"),
 
     BNB_TEST("Binance-Chain-Nile"),
     KAVA_TEST_LEGACY4("kava-testnet-4000"),
@@ -92,6 +93,9 @@ public enum BaseChain {
         }
         if (chainName.equals(AKASH_MAIN.chainName)) {
             return AKASH_MAIN;
+        }
+        if (chainName.equals(OKEX_MAIN.chainName)) {
+            return OKEX_MAIN;
         }
 
         if (chainName.equals(BNB_TEST.chainName)) {
@@ -157,6 +161,9 @@ public enum BaseChain {
         if (chain.equals(AKASH_MAIN.chainName)) {
             return AKASH_MAIN.chainName;
         }
+        if (chain.equals(OKEX_MAIN.chainName)) {
+            return OKEX_MAIN.chainName;
+        }
 
         if (chain.equals(KAVA_TEST_LEGACY4.chainName) ||
                 chain.equals(KAVA_TEST_LEGACY5.chainName) ||
@@ -190,12 +197,13 @@ public enum BaseChain {
         result.add(COSMOS_MAIN);
         result.add(IRIS_MAIN);
         result.add(BNB_MAIN);
-        result.add(IOV_MAIN);
+        result.add(OKEX_MAIN);
         result.add(KAVA_MAIN);
         result.add(BAND_MAIN);
-        result.add(SECRET_MAIN);
+        result.add(IOV_MAIN);
         result.add(CERTIK_MAIN);
         result.add(AKASH_MAIN);
+        result.add(SECRET_MAIN);
 
 //        result.add(BNB_TEST);
 //        result.add(KAVA_TEST);

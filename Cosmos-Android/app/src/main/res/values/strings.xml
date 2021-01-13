@@ -42,6 +42,9 @@
     <string name="url_api_band_main" translatable="false">https://api-band.cosmostation.io/</string>
 
 
+<!--    <string name="url_lcd_ok" translatable="false">https://www.okex.com/okexchain/v1/</string>-->
+    <string name="url_lcd_ok" translatable="false">https://www.okex.com/okexchain-test/v1/</string>
+
 <!--    <string name="url_lcd_ok_test" translatable="false">https://lcd-office.cosmostation.io/okexchain-testnet1/</string>-->
     <string name="url_lcd_ok_test" translatable="false">https://www.okex.com/okexchain-test/v1/</string>
     <string name="url_api_ok_test" translatable="false"></string>
@@ -115,6 +118,7 @@
     <string name="str_secret_main_net">Secret Mainnet</string>
     <string name="str_certik_main_net">Certik Mainnet</string>
     <string name="str_akash_main_net">Akash Mainnet</string>
+    <string name="str_okex_main_net">Okex Mainnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
     <string name="str_kava_test_net">Kava Testnet</string>
     <string name="str_iov_test_net">Starname Testnet</string>
@@ -315,6 +319,8 @@
     <string name="str_kava_net_test_2" translatable="false">Kava Testnet</string>
     <string name="str_iov_net_test" translatable="false">(Starname Testnet)</string>
     <string name="str_iov_net_test_2" translatable="false">Starname Testnet</string>
+    <string name="str_ok_net" translatable="false">(Okex Mainnet)</string>
+    <string name="str_ok_net2" translatable="false">Okex Mainnet</string>
     <string name="str_ok_net_test" translatable="false">(Okex Testnet)</string>
     <string name="str_ok_net_test_2" translatable="false">Okex Testnet</string>
     <string name="str_certik_chain" translatable="false">(Certik Mainnet)</string>
@@ -1221,7 +1227,7 @@
     <string name="s_iov" translatable="false">IOV</string>
     <string name="s_kava" translatable="false">KAVA</string>
     <string name="s_band" translatable="false">BAND</string>
-    <string name="s_tok" translatable="false">TOKT</string>
+    <string name="s_okt" translatable="false">OKT</string>
     <string name="s_ctk" translatable="false">CTK</string>
     <string name="s_akt" translatable="false">AKT</string>
     <string name="s_scrt" translatable="false">SCRT</string>
