@@ -75,6 +75,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
@@ -920,6 +921,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_chain_img));
                     holder.chainName.setText(getString(R.string.str_akash_main));
+
+                } else if (chain.equals(OKEX_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_chain_img));
+                    holder.chainName.setText(getString(R.string.str_okex_main));
 
                 }
 
