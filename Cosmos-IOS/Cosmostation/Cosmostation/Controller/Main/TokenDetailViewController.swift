@@ -577,9 +577,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, cell!.availableAmount.font, 0, 18)
             cell?.totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
             cell?.actionTokenInfo = {
-                var tokenInfoUrl = ""
-                if (self.chainType == ChainType.OKEX_MAIN) {tokenInfoUrl = EXPLORER_OKEX_MAIN}
-                else {tokenInfoUrl = EXPLORER_OKEX_TEST}
+                let tokenInfoUrl = self.chainType == ChainType.OKEX_MAIN ? EXPLORER_OKEX_MAIN : EXPLORER_OKEX_TEST
                 guard let url = URL(string: tokenInfoUrl + "token/" + self.okToken!.symbol!) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 safariViewController.modalPresentationStyle = .popover
@@ -799,7 +797,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             txVC.mKavaSendDenom = self.balance?.balance_denom
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             if (WUtils.getTokenAmount(balances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return

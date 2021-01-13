@@ -137,7 +137,7 @@ class MsgGenerator {
             msg.type = IRIS_MSG_TYPE_TRANSFER
             msg.value = value
             
-        } else if (chain == ChainType.OKEX_TEST) {
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             value.from_address = fromAddress
             value.to_address = toAddress
             let data = try? JSONEncoder().encode(amount)
