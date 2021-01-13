@@ -367,6 +367,7 @@ public class BaseConstant {
     public final static String TOKEN_AKASH          = "uakt";
     public final static String TOKEN_SECRET         = "uscrt";
     public final static String TOKEN_OK             = "okt";
+    public final static String TOKEN_OK_OKB         = "okb";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
 
