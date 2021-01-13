@@ -195,7 +195,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             
-        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             mDpDecimal = 18
             mToSendDenomLabel.text = pageHolderVC.mOkSendDenom!.uppercased()
             mCurrentBalanceDenomTitle.text = pageHolderVC.mOkSendDenom!.uppercased()
@@ -297,7 +297,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
                     pageHolderVC.chainType! == ChainType.KAVA_TEST || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN ||
                     pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.OKEX_TEST ||
-                    pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+                    pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
+                    pageHolderVC.chainType! == ChainType.OKEX_MAIN) {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
                 
             } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
@@ -331,6 +332,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             url = CERTIK_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
             url = IOV_TEST_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN) {
+            url = OKEX_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             url = OKEX_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
@@ -393,7 +396,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenSendTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+                } else if (self.pageHolderVC.chainType! == ChainType.OKEX_MAIN || self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
                     guard let info = res as? NSDictionary else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -457,7 +460,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
                         self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN  || self.pageHolderVC.chainType! == ChainType.IOV_MAIN ||
                         self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.OKEX_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN ||
-                        self.pageHolderVC.chainType! == ChainType.CERTIK_TEST || self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+                        self.pageHolderVC.chainType! == ChainType.CERTIK_TEST || self.pageHolderVC.chainType! == ChainType.AKASH_MAIN || self.pageHolderVC.chainType! == ChainType.OKEX_MAIN) {
                     
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     let encoder = JSONEncoder()
@@ -539,6 +542,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         url = CERTIK_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
                         url = IOV_TEST_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.OKEX_MAIN) {
+                        url = OKEX_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
                         url = OKEX_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {

@@ -75,7 +75,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             maxAvailable = pageHolderVC.mAccount!.getTokenBalance(SECRET_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "20000"))
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
             
-        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             mDpDecimal = 18
             self.denomTitleLabel.text = pageHolderVC.mOkSendDenom?.uppercased()
             if (pageHolderVC.mOkSendDenom == OKEX_MAIN_DENOM) {
@@ -203,7 +203,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 return
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             if (userInput.compare(maxAvailable).rawValue > 0) {
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
@@ -276,7 +276,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 return false
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             if (userInput.compare(maxAvailable).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_amount", comment: ""))
                 return false
@@ -328,7 +328,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
                 toSendCoin = Coin.init(SECRET_MAIN_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
                 
-            } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+            } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
                 toSendCoin = Coin.init(pageHolderVC.mOkSendDenom!, WUtils.getFormattedNumber(userInput, mDpDecimal))
                 
             } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
@@ -432,7 +432,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
             
-        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2), withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
             
@@ -486,7 +486,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 self.showMaxWarnning()
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxAvailable, mDpDecimal)
             if (pageHolderVC.mOkSendDenom == OKEX_MAIN_DENOM) {
                 self.showMaxWarnning()

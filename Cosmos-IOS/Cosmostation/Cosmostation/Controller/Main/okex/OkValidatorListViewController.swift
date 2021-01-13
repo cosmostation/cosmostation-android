@@ -44,12 +44,12 @@ class OkValidatorListViewController: BaseViewController {
         if #available(iOS 13.0, *) {
             validatorSegment.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
             validatorSegment.setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
-            if (chainType == ChainType.OKEX_TEST) {
+            if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
                 validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_OK2
             }
             
         } else {
-            if (chainType == ChainType.OKEX_TEST) {
+            if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
                 validatorSegment.tintColor = COLOR_OK
             }
         }

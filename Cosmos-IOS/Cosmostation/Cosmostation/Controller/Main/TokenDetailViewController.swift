@@ -82,7 +82,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 keyState.tintColor = COLOR_BNB
             } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 keyState.tintColor = COLOR_KAVA
-            } else if (chainType == ChainType.OKEX_TEST) {
+            } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
                 keyState.tintColor = COLOR_OK
             }
         }
@@ -134,6 +134,10 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             
         } else if (chainType! == ChainType.BINANCE_TEST) {
             guard let url = URL(string: EXPLORER_BINANCE_TEST + "address/" + account!.account_address) else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.OKEX_MAIN) {
+            guard let url = URL(string: EXPLORER_OKEX_MAIN + "address/" + account!.account_address) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.OKEX_TEST) {
@@ -202,7 +206,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 } else if (chainType == ChainType.KAVA_TEST && balance?.balance_denom == KAVA_MAIN_DENOM) {
                     return onSetKavaTestItem(tableView, indexPath);
                     
-                } else if (chainType == ChainType.OKEX_TEST && self.okDenom == OKEX_MAIN_DENOM) {
+                } else if ((chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) && self.okDenom == OKEX_MAIN_DENOM) {
                     return onSetOkItem(tableView, indexPath);
                     
                 } else {
@@ -557,7 +561,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 
             }
             
-        } else if (chainType == ChainType.OKEX_TEST && okDenom != nil) {
+        } else if ((chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) && okDenom != nil) {
             cell?.tokenInfoBtn.isHidden = false
             cell?.lockedLayer.isHidden = false
             okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList!, okDenom!)
@@ -572,9 +576,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.availableAmount.font, 0, 18)
             cell?.lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, cell!.availableAmount.font, 0, 18)
             cell?.totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
-            
             cell?.actionTokenInfo = {
-                guard let url = URL(string: EXPLORER_OKEX_TEST + "token/" + self.okToken!.symbol!) else { return }
+                let tokenInfoUrl = self.chainType == ChainType.OKEX_MAIN ? EXPLORER_OKEX_MAIN : EXPLORER_OKEX_TEST
+                guard let url = URL(string: tokenInfoUrl + "token/" + self.okToken!.symbol!) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 safariViewController.modalPresentationStyle = .popover
                 self.present(safariViewController, animated: true, completion: nil)
@@ -793,7 +797,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             txVC.mKavaSendDenom = self.balance?.balance_denom
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             if (WUtils.getTokenAmount(balances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return

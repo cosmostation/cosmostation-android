@@ -26,7 +26,7 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
         pageHolderVC = self.parent as? StepGenTxViewController
         WUtils.setDenomTitle(pageHolderVC.chainType!, denomTitleLabel)
         
-        if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             mDpDecimal = 18
             var currentVotedCnt = 0
             if let voted = BaseData.instance.mOkStaking?.validator_address?.count { currentVotedCnt = voted }
@@ -115,10 +115,9 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
         if (isValiadAmount()) {
             let userInput = WUtils.localeStringToDecimal((toDepositAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
             var toStakingCoin: Coin?
-            if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+            if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
                 toStakingCoin = Coin.init(OKEX_MAIN_DENOM, WUtils.getFormattedNumber(userInput, mDpDecimal))
             }
-
             self.pageHolderVC.mOkToStaking = toStakingCoin!
             self.cancelBtn.isUserInteractionEnabled = false
             self.nextBtn.isUserInteractionEnabled = false

@@ -87,7 +87,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                     chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
                     chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST ||
-                    chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
+                    chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST ||
+                    chainType == ChainType.OKEX_MAIN) {
                 guard let txHash = mBroadCaseResult?["txhash"] as? String  else {
                     self.onStartMainTab()
                     return
@@ -357,7 +358,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.memoLabel.text = mTxInfo!.tx?.value.memo
             cell?.feeAmountLabel.attributedText = WUtils.displayAmount2("0.000375", cell!.feeAmountLabel.font!, 0, 8)
             
-        } else if (chainType == ChainType.OKEX_TEST) {
+        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             cell?.feeLayer.isHidden = false
             cell?.usedFeeLayer.isHidden = true
             cell?.limitFeeLayer.isHidden = true
@@ -515,7 +516,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
                 chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
                 chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST ||
-                chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
+                chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.OKEX_MAIN) {
             var coins :[Coin]?
             if (msg?.type == COSMOS_MSG_TYPE_TRANSFER3) {
                 cell?.fromLabel.text = msg?.value.inputs![0].address
@@ -1054,8 +1055,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindOkStake(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:TxOkStakeCell? = tableView.dequeueReusableCell(withIdentifier:"TxOkStakeCell") as? TxOkStakeCell
         let msg = mTxInfo?.getMsg(position - 1)
-        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
-        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (msg?.type == OK_MSG_TYPE_DEPOSIT) {
             cell?.txIcon.image = UIImage(named: "txDepositCdp")
             cell?.txLabel.text = NSLocalizedString("title_ok_deposit", comment: "")
@@ -1063,6 +1062,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.txIcon.image = UIImage(named: "txWithdrawCdp")
             cell?.txLabel.text = NSLocalizedString("title_ok_withdraw", comment: "")
         }
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         cell?.delegatorLabel.text = msg?.value.delegator_address
         WUtils.showCoinDp(msg!.value.quantity!, cell!.stakeDenom, cell!.stakeAmount, chainType!)
         return cell!
@@ -1246,6 +1247,13 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
+        } else if (self.chainType! == ChainType.OKEX_MAIN) {
+            let text = EXPLORER_OKEX_MAIN + "tx/" + mTxInfo!.txhash!
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
         } else if (self.chainType! == ChainType.OKEX_TEST) {
             let text = EXPLORER_OKEX_TEST + "tx/" + mTxInfo!.txhash!
             let textToShare = [ text ]
@@ -1323,6 +1331,10 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (self.chainType! == ChainType.BINANCE_TEST) {
             guard let url = URL(string: EXPLORER_BINANCE_TEST + "tx/" + mTxInfo!.hash!) else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (self.chainType! == ChainType.OKEX_MAIN) {
+            guard let url = URL(string: EXPLORER_OKEX_MAIN + "tx/" + mTxInfo!.txhash!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.OKEX_TEST) {
@@ -1437,6 +1449,10 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (self.chainType! == ChainType.IOV_TEST) {
             url = IOV_TEST_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            
+        } else if (self.chainType! == ChainType.OKEX_MAIN) {
+            url = OKEX_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         } else if (self.chainType! == ChainType.OKEX_TEST) {
@@ -1640,12 +1656,18 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 return false
             })
             
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             return coins.sorted(by: {
                 if ($0.denom == OKEX_MAIN_DENOM) {
                     return true
                 }
                 if ($1.denom == OKEX_MAIN_DENOM) {
+                    return false
+                }
+                if ($0.denom == OKEX_MAIN_OKB) {
+                    return true
+                }
+                if ($1.denom == OKEX_MAIN_OKB) {
                     return false
                 }
                 return false

@@ -41,7 +41,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
 //        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_address)
 //        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_new_bip44)
         
-        
         self.walletTableView.delegate = self
         self.walletTableView.dataSource = self
         self.walletTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -131,6 +130,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.AKASH_MAIN) {
             titleChainImg.image = UIImage(named: "akashChainImg")
             titleChainName.text = "(Akash Mainnet)"
+            titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.OKEX_MAIN) {
+            titleChainImg.image = UIImage(named: "okexChainImg")
+            titleChainName.text = "(OKex Mainnet)"
             titleAlarmBtn.isHidden = true
         }
         
@@ -222,7 +225,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 5;
         } else if (chainType == ChainType.IOV_MAIN  || chainType == ChainType.IOV_TEST ) {
             return 5;
-        } else if (chainType == ChainType.OKEX_TEST) {
+        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return 4;
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             return 5;
@@ -254,8 +257,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetIovItems(tableView, indexPath);
         } else if (chainType == ChainType.IOV_TEST) {
             return onSetIovTestItems(tableView, indexPath);
-        } else if (chainType == ChainType.OKEX_TEST) {
-            return onSetOkTestItems(tableView, indexPath);
+        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            return onSetOKexItems(tableView, indexPath);
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             return onSetCertikItems(tableView, indexPath);
         } else if (chainType == ChainType.AKASH_MAIN) {
@@ -1235,7 +1238,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
-    func onSetOkTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+    func onSetOKexItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             if (mainTabVC.mAccount.account_has_private) {
@@ -1664,6 +1667,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: EXPLORER_BINANCE_TEST + "address/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
             
+        } else if (chainType! == ChainType.OKEX_MAIN) {
+            guard let url = URL(string: EXPLORER_OKEX_MAIN + "address/" + mainTabVC.mAccount.account_address) else { return }
+            self.onShowSafariWeb(url)
+            
         } else if (chainType! == ChainType.OKEX_TEST) {
             guard let url = URL(string: EXPLORER_OKEX_TEST + "address/" + mainTabVC.mAccount.account_address) else { return }
             self.onShowSafariWeb(url)
@@ -1757,7 +1764,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             self.onShowAddMenomicDialog()
             return
         }
-        if (chainType! == ChainType.OKEX_TEST) {
+        if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             if (WUtils.getTokenAmount(mainTabVC.mBalances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_to_deposit", comment: ""))
                 return
@@ -1776,7 +1783,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             self.onShowAddMenomicDialog()
             return
         }
-        if (chainType! == ChainType.OKEX_TEST) {
+        if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             if (WUtils.getTokenAmount(mainTabVC.mBalances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
@@ -1863,7 +1870,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://iov.one/") else { return }
             self.onShowSafariWeb(url)
             
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             guard let url = URL(string: "https://www.okex.com/") else { return }
             self.onShowSafariWeb(url)
             
@@ -1913,7 +1920,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://medium.com/iov-internet-of-values") else { return }
             self.onShowSafariWeb(url)
             
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             guard let url = URL(string: "https://www.okex.com/community") else { return }
             self.onShowSafariWeb(url)
             
@@ -2174,7 +2181,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mIovSendDenom = IOV_TEST_DENOM
             txVC.mType = IOV_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.OKEX_TEST) {
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             if (WUtils.getTokenAmount(balances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return

@@ -53,8 +53,8 @@ class StepOkVoteToViewController: BaseViewController, UITableViewDelegate, UITab
             let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "").trimmingCharacters(in: .whitespaces)
             cell?.valImg.af_setImage(withURL: URL(string: url)!)
         }
-        cell?.valPowerLabel.attributedText =  WUtils.displayAmount2(validator.delegator_shares, cell!.valPowerLabel.font, 0, 8)
-        cell?.valCommissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell!.valCommissionLabel.font)
+        cell?.valPowerLabel.attributedText =  WUtils.displayAmount2(validator.delegator_shares, cell!.valPowerLabel.font, 0, 0)
+        cell?.valCommissionLabel.attributedText = WUtils.displayCommission("0", font: cell!.valCommissionLabel.font)
         
         cell?.rootCard.needBorderUpdate = false
         if (self.pageHolderVC.mOkVoteValidators.contains(where: {$0 == validator.operator_address})) {
