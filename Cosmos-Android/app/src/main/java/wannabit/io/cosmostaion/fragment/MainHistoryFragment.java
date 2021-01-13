@@ -48,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_ADDRESS;
@@ -199,7 +200,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
             new OkHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
@@ -314,7 +315,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 });
 
-            } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 final ResOkHistory.DataDetail history = mOkHistory.get(position);
                 viewHolder.historySuccess.setVisibility(View.GONE);
                 viewHolder.historyType.setText(WDp.DpOkTxType(getContext(), history));
@@ -381,10 +382,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         public int getItemCount() {
             if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 return mBnbHistory.size();
-
-            } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return mOkHistory.size();
-
             } else {
                 return mApiTxHistory.size();
             }
