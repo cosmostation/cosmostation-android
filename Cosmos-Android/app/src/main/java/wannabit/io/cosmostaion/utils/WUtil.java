@@ -80,6 +80,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_AKASH;
@@ -1820,7 +1821,7 @@ public class WUtil {
         } else if (chain.equals(BAND_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://bandprotocol.com/"));
 
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/"));
 
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
@@ -1859,7 +1860,7 @@ public class WUtil {
         } else if (chain.equals(BAND_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/bandprotocol"));
 
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/community"));
 
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {

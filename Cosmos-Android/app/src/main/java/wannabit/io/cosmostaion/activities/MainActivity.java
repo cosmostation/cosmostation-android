@@ -337,6 +337,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setText(getString(R.string.str_akash_chain));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAkash));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAkash));
+
+        } else if (mBaseChain.equals(OKEX_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_chain_img));
+            mToolbarChainName.setText(getString(R.string.str_ok_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorOK));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
+
         }
 
         else if (mBaseChain.equals(BNB_TEST)) {
