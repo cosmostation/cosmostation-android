@@ -23,6 +23,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
@@ -116,6 +117,19 @@ public class ValidatorInfoUnbondedTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
+            } else if (mChain.equals(OKEX_MAIN)) {
+                Response<ArrayList<Validator>> response = ApiClient.getOkexChain(mApp).getUnBondedValidatorDetailList().execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
             } else if (mChain.equals(OK_TEST)) {
                 Response<ArrayList<Validator>> response = ApiClient.getOkTestChain(mApp).getUnBondedValidatorDetailList().execute();
                 if (!response.isSuccessful()) {
@@ -129,7 +143,7 @@ public class ValidatorInfoUnbondedTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            }  else if (mChain.equals(CERTIK_MAIN)) {
+            } else if (mChain.equals(CERTIK_MAIN)) {
                 Response<ResLcdValidators> response = ApiClient.getCertikChain(mApp).getUnBondedValidatorDetailList().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
