@@ -55,6 +55,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
@@ -186,7 +187,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         } else if ((mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) && mAccount.hasPrivateKey) {
             mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        } else if (mBaseChain.equals(OK_TEST) && mAccount.hasPrivateKey) {
+        } else if ((mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) && mAccount.hasPrivateKey) {
             mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorOK), android.graphics.PorterDuff.Mode.SRC_IN);
         }
     }
@@ -207,7 +208,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         } else if (mBaseChain.equals(KAVA_TEST)) {
             new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(OK_TEST)) {
+        } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             mSwipeRefreshLayout.setRefreshing(false);
 
         }
@@ -273,14 +274,14 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
             } else if (type == TYPE_TOKEN) {
                 Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
-                if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                if (mBaseChain.equals(IRIS_MAIN)) {
                     intent.putExtra("irisToken", mIrisToken);
-                } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+                } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                     intent.putExtra("bnbToken", mBnbToken);
                     intent.putExtra("bnbTics", mBnbTics);
-                } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                     intent.putExtra("kavaDenom", mBalance.symbol);
-                } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
+                } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
                     intent.putExtra("okDenom", mOkToken.symbol);
                 }
                 startActivity(intent);
@@ -292,8 +293,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     private void onClickReceive() {
         Bundle bundle = new Bundle();
         bundle.putString("address", mAccount.address);
-        if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
-        } else { bundle.putString("title", mAccount.nickName); }
+        if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
+        else { bundle.putString("title", mAccount.nickName); }
         Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
         show.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
@@ -301,17 +302,17 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void onClickTokenDetail() {
-        if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+        if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             Intent webintent = new Intent(this, WebActivity.class);
             webintent.putExtra("asset", mBnbToken.symbol);
             webintent.putExtra("chain", mBaseChain.getChain());
             startActivity(webintent);
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
             Intent webintent = new Intent(this, WebActivity.class);
             webintent.putExtra("asset", "usdx");
             webintent.putExtra("chain", mBaseChain.getChain());
             startActivity(webintent);
-        } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
+        } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             Intent webintent = new Intent(this, WebActivity.class);
             webintent.putExtra("asset", mOkToken.symbol);
             webintent.putExtra("chain", mBaseChain.getChain());
@@ -335,14 +336,14 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
             if (WDp.getAvailableCoin(balances, mBalance.symbol).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
                 return false;
             }
             hasbalance  = true;
 
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (mBaseChain.equals(IRIS_MAIN)) {
             if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
                 hasbalance  = true;
             }
@@ -351,12 +352,12 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 return false;
             }
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+        } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
                 hasbalance  = true;
             }
 
-        } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
+        } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.02")) > 0) {
                 hasbalance  = true;
             }
@@ -473,7 +474,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 } else if ((mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST))&& mBalance.symbol.equals(TOKEN_KAVA)) {
                     return TYPE_KAVA;
 
-                } else if (mBaseChain.equals(OK_TEST) && mOkDenom.equals(TOKEN_OK)) {
+                } else if ((mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) && mOkDenom.equals(TOKEN_OK)) {
                     return TYPE_OKT;
 
                 } else {
@@ -767,7 +768,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     holder.mBtnBep3Send.setVisibility(View.GONE);
                 }
 
-            } else if (mBaseChain.equals(OK_TEST) && mOkToken != null) {
+            } else if ((mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) && mOkToken != null) {
                 holder.mTokenLink.setVisibility(View.VISIBLE);
                 holder.mTokenLockedLayer.setVisibility(View.VISIBLE);
                 holder.mTvTokenSymbol.setText(mOkToken.original_symbol.toUpperCase());
