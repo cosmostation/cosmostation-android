@@ -29,6 +29,9 @@ import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+
 public class OKValidatorOtherFragment extends BaseFragment {
 
     private SwipeRefreshLayout          mSwipeRefreshLayout;
@@ -112,10 +115,10 @@ public class OKValidatorOtherFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull OKOtherValidatorHolder holder, int position) {
             final Validator validator  = mOtherValidators.get(position);
-            if (getSActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
+            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 holder.itemTvMoniker.setText(validator.description.moniker);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
-                holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.commission_rates.rate));
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
+                holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
 
                 String imgUrl = validator.description.identity;
                 if (!TextUtils.isEmpty(imgUrl) && imgUrl.startsWith("logo|||")) {
@@ -129,7 +132,7 @@ public class OKValidatorOtherFragment extends BaseFragment {
                     holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
                 }
 
-                if(validator.jailed) {
+                if (validator.jailed) {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {
@@ -165,7 +168,7 @@ public class OKValidatorOtherFragment extends BaseFragment {
                 itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemFree            = itemView.findViewById(R.id.avatar_validator_free);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
-                itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
+                itemTvVotingPower   = itemView.findViewById(R.id.delegate_power_validator);
                 itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
             }
         }
