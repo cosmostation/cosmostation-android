@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.activities.chains.ok.OKUnbondingActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class OKUnbondingFragment3 extends BaseFragment implements View.OnClickListener {
@@ -61,7 +62,7 @@ public class OKUnbondingFragment3 extends BaseFragment implements View.OnClickLi
         BigDecimal toDeleagteAmount = new BigDecimal(getSActivity().mToWithdrawCoin.amount);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
-        if (getSActivity().mBaseChain.equals(OK_TEST)) {
+        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
             mWithdrawAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 0, 18));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
 

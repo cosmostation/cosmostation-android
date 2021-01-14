@@ -1098,7 +1098,7 @@ public class WUtil {
                     if(o1.denom.equals(TOKEN_KAVA)) return -1;
                     if(o2.denom.equals(TOKEN_KAVA)) return 1;
                     else return 0;
-                } else if (chain.equals(OK_TEST)) {
+                } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
                     if(o1.denom.equals(TOKEN_OK)) return -1;
                     if(o2.denom.equals(TOKEN_OK)) return 1;
                     else return 0;
@@ -1215,7 +1215,8 @@ public class WUtil {
     public static int getMaxMemoSize(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
                 chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(OK_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
+                chain.equals(OK_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) ||
+                chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN) || chain.equals(OKEX_MAIN)) {
             return BaseConstant.MEMO_ATOM;
 
         } else if (chain.equals(IRIS_MAIN)) {
