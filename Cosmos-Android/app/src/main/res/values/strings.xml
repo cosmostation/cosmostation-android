@@ -1118,6 +1118,8 @@
     <string name="str_starname_walletconnect_alert_msg">You can easily export the addresses in Cosmostaion Wallet and link it with Starname Manager. This function only links your addresses using WalletConnect, and does not export your private keys or moves your assets.\n\nWould you like to link your wallets to Starname Manager?</string>
     <string name="str_starname_walletconnect_alert_msg2">Ready to Export %1$s Addresses</string>
     <string name="str_starname_walletconnect_complete">Export Complete</string>
+    <string name="str_ok_promotion_title">START VOTING FOR VALIDATORS</string>
+    <string name="str_ok_promotion_msg">Vote for Cosmostation to secure OK Chain as a validator.\nSelect multiple validators to spread out your vote.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
