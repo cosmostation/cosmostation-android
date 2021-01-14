@@ -49,6 +49,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
@@ -193,7 +194,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
-            } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
+            } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 if (userInput.startsWith("okexchain1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
