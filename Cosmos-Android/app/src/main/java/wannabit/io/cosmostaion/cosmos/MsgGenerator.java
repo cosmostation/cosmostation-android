@@ -44,6 +44,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
@@ -100,7 +101,7 @@ public class MsgGenerator {
             result.type = BaseConstant.IRIS_MSG_TYPE_TRANSFER;
             result.value = value;
 
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             value.from_address = fromAddr;
             value.to_address = toAddr;
             value.amount = coins;
@@ -544,7 +545,7 @@ public class MsgGenerator {
     public static Msg genOkDeposit(String delegator, Coin coin, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OK_TEST)) {
+        if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             value.delegator_address = delegator;
             value.quantity = coin;
 
@@ -557,7 +558,7 @@ public class MsgGenerator {
     public static Msg genOkWithdraw(String delegator, Coin coin, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OK_TEST)) {
+        if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             value.delegator_address = delegator;
             value.quantity = coin;
 
@@ -570,7 +571,7 @@ public class MsgGenerator {
     public static Msg genOkVote(String delegator, ArrayList<String> toVals, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OK_TEST)) {
+        if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             value.delegator_address = delegator;
             value.validator_addresses = toVals;
 
