@@ -52,6 +52,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
@@ -63,7 +64,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
-
 
     private String              mHdSeed;
     private String              mEntropy;
@@ -111,7 +111,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
@@ -170,7 +169,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
                 } else if (mChain.equals(CERTIK_MAIN) || mChain.equals(CERTIK_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
-                } else if (mChain.equals(OK_TEST)) {
+                } else if (mChain.equals(OKEX_MAIN) || mChain.equals(OK_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
                 } else if (mChain.equals(AKASH_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
@@ -197,7 +196,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
                     } else if (mChain.equals(BAND_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
-                    } else if (mChain.equals(OK_TEST)) {
+                    } else if (mChain.equals(OKEX_MAIN) || mChain.equals(OK_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
                     } else if (mChain.equals(CERTIK_MAIN) || mChain.equals(CERTIK_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
@@ -385,6 +384,25 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     }
                     @Override
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
+                });
+
+            } else if (mChain.equals(OKEX_MAIN)) {
+                holder.okLayer.setVisibility(View.VISIBLE);
+                holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 18));
+                ApiClient.getOkexChain(getBaseContext()).getAccountBalance(address).enqueue(new Callback<ResOkAccountToken>() {
+                    @Override
+                    public void onResponse(Call<ResOkAccountToken> call, Response<ResOkAccountToken> response) {
+                        if(response.isSuccessful() && response.body() != null && response.body().data != null && response.body().data.currencies != null) {
+                            for (ResOkAccountToken.OkCurrency balance:response.body().data.currencies) {
+                                if (balance.symbol.equals(TOKEN_OK)) {
+                                    holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.available), 0, 18));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResOkAccountToken> call, Throwable t) { }
                 });
 
             } else if (mChain.equals(OK_TEST)) {

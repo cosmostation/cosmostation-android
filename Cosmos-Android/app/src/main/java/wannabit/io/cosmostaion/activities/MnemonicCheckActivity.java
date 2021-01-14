@@ -36,6 +36,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
@@ -50,7 +51,6 @@ public class MnemonicCheckActivity extends BaseActivity {
 
     private String              mEntropy;
     private ArrayList<String>   mWords = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +90,8 @@ public class MnemonicCheckActivity extends BaseActivity {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
         } else if (getChain(toCheck.baseChain).equals(AKASH_MAIN)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
+        } else if (getChain(toCheck.baseChain).equals(OKEX_MAIN)) {
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
         }
 
         else if (getChain(toCheck.baseChain).equals(BNB_TEST) || getChain(toCheck.baseChain).equals(KAVA_TEST) || getChain(toCheck.baseChain).equals(IOV_TEST) ||
@@ -118,6 +120,8 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_secret));
             } else if (getChain(toCheck.baseChain).equals(AKASH_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_akash));
+            } else if (getChain(toCheck.baseChain).equals(OKEX_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_okex));
             }
 
             else if (getChain(toCheck.baseChain).equals(BNB_TEST) || getChain(toCheck.baseChain).equals(KAVA_TEST) || getChain(toCheck.baseChain).equals(IOV_TEST) ||

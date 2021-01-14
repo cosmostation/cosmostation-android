@@ -37,7 +37,6 @@ public class OKUnbondingActivity extends BaseActivity {
     private ViewPager                   mViewPager;
     private StakeWithdrawPageAdapter    mPageAdapter;
 
-
     public Coin                     mToWithdrawCoin;
     public String                   mMemo;
     public Fee                      mFee;

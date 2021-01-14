@@ -26,7 +26,20 @@ public class OkTokenListTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mChain.equals(BaseChain.OK_TEST)) {
+            if (mChain.equals(BaseChain.OKEX_MAIN)) {
+                Response<ResOkTokenList> response = ApiClient.getOkexChain(mApp).getTokenList().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.OK_TEST)) {
                 Response<ResOkTokenList> response = ApiClient.getOkTestChain(mApp).getTokenList().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;

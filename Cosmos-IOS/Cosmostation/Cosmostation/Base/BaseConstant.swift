@@ -793,7 +793,8 @@ let IOV_GAS_AMOUNT_REPLACE                  = "300000"
 let GAS_FEE_IOV_TRANSFER                    = "0.500000000"
 
 
-let GAS_FEE_RATE_OK                         = "0.000005"
+//let GAS_FEE_RATE_OK                         = "0.000005"
+let GAS_FEE_RATE_OK                         = "0.000001"
 let OK_GAS_AMOUNT_SEND                      = "200000"
 let OK_GAS_AMOUNT_STAKE                     = "200000"
 let OK_GAS_AMOUNT_STAKE_MUX                 = "20000"

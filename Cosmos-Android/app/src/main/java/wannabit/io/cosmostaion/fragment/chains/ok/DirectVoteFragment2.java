@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_VOTE_MUX;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
@@ -104,7 +105,7 @@ public class DirectVoteFragment2 extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
-        if (getSActivity().mBaseChain.equals(OK_TEST)) {
+        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -129,7 +130,7 @@ public class DirectVoteFragment2 extends BaseFragment implements View.OnClickLis
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mBaseChain.equals(OK_TEST)) {
+            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = TOKEN_OK;

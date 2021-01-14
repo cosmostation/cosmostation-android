@@ -24,6 +24,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SECRET_MAIN;
 
@@ -136,6 +137,17 @@ public class WebActivity extends BaseActivity {
                 mWebview.loadUrl(EXPLORER_BINANCE_TEST + "asset/" + mAsset);
             else
                 mWebview.loadUrl(EXPLORER_BINANCE_TEST);
+
+        } else if (mBasechain.equals(BaseChain.OKEX_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl(EXPLORER_OKEX_MAIN + "tx/" + mTxid);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl(EXPLORER_OKEX_MAIN + "address/" + mAddress);
+            else if (!TextUtils.isEmpty(mAsset))
+                mWebview.loadUrl(EXPLORER_OKEX_MAIN + "token/" + mAsset);
+            else
+                mWebview.loadUrl(EXPLORER_OKEX_MAIN);
 
         } else if (mBasechain.equals(BaseChain.OK_TEST)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));

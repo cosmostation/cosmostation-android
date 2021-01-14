@@ -80,6 +80,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_AKASH;
@@ -114,6 +115,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_OKB;
 
 public class WUtil {
 
@@ -986,9 +988,11 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_IOV_TEST)) return -1;
                     if(o2.symbol.equals(TOKEN_IOV_TEST)) return 1;
 
-                } else if (chain.equals(OK_TEST)) {
+                } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
                     if(o1.symbol.equals(TOKEN_OK)) return -1;
                     if(o2.symbol.equals(TOKEN_OK)) return 1;
+                    if(o1.symbol.equals(TOKEN_OK_OKB)) return -1;
+                    if(o2.symbol.equals(TOKEN_OK_OKB)) return 1;
 
                 } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                     if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
@@ -1032,9 +1036,11 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_IOV_TEST)) return -1;
                     if(o2.symbol.equals(TOKEN_IOV_TEST)) return 1;
 
-                } else if (chain.equals(OK_TEST)) {
+                } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
                     if(o1.symbol.equals(TOKEN_OK)) return -1;
                     if(o2.symbol.equals(TOKEN_OK)) return 1;
+                    if(o1.symbol.equals(TOKEN_OK_OKB)) return -1;
+                    if(o2.symbol.equals(TOKEN_OK_OKB)) return 1;
 
                 } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                     if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
@@ -1092,7 +1098,7 @@ public class WUtil {
                     if(o1.denom.equals(TOKEN_KAVA)) return -1;
                     if(o2.denom.equals(TOKEN_KAVA)) return 1;
                     else return 0;
-                } else if (chain.equals(OK_TEST)) {
+                } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
                     if(o1.denom.equals(TOKEN_OK)) return -1;
                     if(o2.denom.equals(TOKEN_OK)) return 1;
                     else return 0;
@@ -1209,7 +1215,8 @@ public class WUtil {
     public static int getMaxMemoSize(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
                 chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(OK_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
+                chain.equals(OK_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) ||
+                chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN) || chain.equals(OKEX_MAIN)) {
             return BaseConstant.MEMO_ATOM;
 
         } else if (chain.equals(IRIS_MAIN)) {
@@ -1820,7 +1827,7 @@ public class WUtil {
         } else if (chain.equals(BAND_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://bandprotocol.com/"));
 
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/"));
 
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
@@ -1859,7 +1866,7 @@ public class WUtil {
         } else if (chain.equals(BAND_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/bandprotocol"));
 
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/community"));
 
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {

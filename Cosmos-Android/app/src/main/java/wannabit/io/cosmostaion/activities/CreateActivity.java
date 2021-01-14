@@ -38,6 +38,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
@@ -150,6 +151,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
         } else if (mChain.equals(SECRET_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
+        } else if (mChain.equals(OKEX_MAIN)) {
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
         }
         for(int i = 0; i < mWordsLayer.length; i++) {
             if (mChain.equals(COSMOS_MAIN)) {
@@ -172,6 +175,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_akash));
             } else if (mChain.equals(SECRET_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_secret));
+            } else if (mChain.equals(OKEX_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_okex));
             }
         }
 

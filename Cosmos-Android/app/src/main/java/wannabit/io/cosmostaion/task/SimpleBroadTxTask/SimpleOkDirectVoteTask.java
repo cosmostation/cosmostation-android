@@ -18,7 +18,6 @@ import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
-import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -26,6 +25,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
@@ -58,7 +58,16 @@ public class SimpleOkDirectVoteTask extends CommonTask {
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
                 return mResult;
             }
-            if (mBaseChain.equals(OK_TEST)) {
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                Response<ResOkAccountInfo> accountResponse = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
+                if (!accountResponse.isSuccessful()) {
+                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
+
+            } else if (mBaseChain.equals(OK_TEST)) {
                 Response<ResOkAccountInfo> accountResponse = ApiClient.getOkTestChain(mApp).getAccountInfo(mAccount.address).execute();
                 if (!accountResponse.isSuccessful()) {
                     mResult.errorCode = ERROR_CODE_BROADCAST;
@@ -76,7 +85,25 @@ public class SimpleOkDirectVoteTask extends CommonTask {
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(incentiveMsg);
 
-            if (getChain(mAccount.baseChain).equals(OK_TEST)) {
+            if (getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+                Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    if (response.body().txhash != null) {
+                        mResult.resultData = response.body().txhash;
+                    }
+                    if (response.body().code != null) {
+                        mResult.errorCode = response.body().code;
+                        mResult.errorMsg = response.body().raw_log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
+
+                } else {
+                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(OK_TEST)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getOkTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {

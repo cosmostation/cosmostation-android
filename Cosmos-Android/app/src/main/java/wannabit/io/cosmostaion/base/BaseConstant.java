@@ -367,6 +367,7 @@ public class BaseConstant {
     public final static String TOKEN_AKASH          = "uakt";
     public final static String TOKEN_SECRET         = "uscrt";
     public final static String TOKEN_OK             = "okt";
+    public final static String TOKEN_OK_OKB         = "okb";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
 
@@ -459,7 +460,8 @@ public class BaseConstant {
     public final static String FEE_IOV_GAS_AMOUNT_RENEW         = "300000";
     public final static String FEE_IOV_GAS_AMOUNT_REPLACE       = "300000";
 
-    public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.000005";
+//    public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.000005";
+    public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.000001";
     public final static String FEE_OK_GAS_AMOUNT_SEND           = "200000";
     public final static String FEE_OK_GAS_AMOUNT_STAKE          = "200000";
     public final static String FEE_OK_GAS_AMOUNT_STAKE_MUX      = "20000";
@@ -547,6 +549,7 @@ public class BaseConstant {
     public final static String EXPLORER_BAND_MAIN       = "https://cosmoscan.io/";
     public final static String EXPLORER_SECRET_MAIN     = "https://explorer.cashmaney.com/";
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
+    public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
 
     public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
     public final static String EXPLORER_KAVA_TEST       = "https://kava-testnet-9000.mintscan.io/";

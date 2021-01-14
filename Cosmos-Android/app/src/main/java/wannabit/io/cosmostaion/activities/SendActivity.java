@@ -31,6 +31,9 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+
 public class SendActivity extends BaseActivity {
 
     private ImageView               mChainBg;
@@ -96,7 +99,7 @@ public class SendActivity extends BaseActivity {
             if (TextUtils.isEmpty(mIovDenom)) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (TextUtils.isEmpty(mKavaDenom)) onBackPressed();
-        } else if (mBaseChain.equals(BaseChain.OK_TEST)) {
+        } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             if (TextUtils.isEmpty(mOkDenom)) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
             if (TextUtils.isEmpty(mCertikDenom)) onBackPressed();

@@ -2182,7 +2182,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mType = IOV_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
-            if (WUtils.getTokenAmount(balances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.02")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.2")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }

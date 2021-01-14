@@ -42,6 +42,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
@@ -238,7 +239,8 @@ public class MainSendFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) || getMainActivity().mBaseChain.equals(OK_TEST)) {
+            if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) ||
+                    getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return 4;
             } else {
                 if (getMainActivity().mUnbondings.size() > 0) {
@@ -252,12 +254,13 @@ public class MainSendFragment extends BaseFragment {
 
         @Override
         public int getItemViewType(int position) {
-            if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) || getMainActivity().mBaseChain.equals(OK_TEST)) {
+            if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) ||
+                    getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 if (position == 0) {
                     return TYPE_ADDRESS;
                 } else if (position == 1) {
                     if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) { return TYPE_BINANCE; }
-                    else if (getMainActivity().mBaseChain.equals(OK_TEST)) { return TYPE_OKEX; }
+                    else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) { return TYPE_OKEX; }
                 } else if (position == 2) {
                     return TYPE_PRICE;
                 } else if (position == 3) {

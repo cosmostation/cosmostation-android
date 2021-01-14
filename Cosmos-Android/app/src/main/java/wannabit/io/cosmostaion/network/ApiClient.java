@@ -315,6 +315,20 @@ public class ApiClient {
     }
 
 
+    //Services for Okex mainnet chain
+    private static OkChain service_ok = null;
+    public static OkChain getOkexChain(Context c) {
+        if (service_ok == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_ok))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_ok = retrofit.create(OkChain.class);
+            }
+        }
+        return service_ok;
+    }
 
     //Services for OkTest chain
     private static OkChain service_ok_test = null;

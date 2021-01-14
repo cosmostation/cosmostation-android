@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class DirectVoteFragment3 extends BaseFragment implements View.OnClickListener {
@@ -59,7 +60,7 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
-        if (getSActivity().mBaseChain.equals(OK_TEST)) {
+        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
 
             String monikers = "";

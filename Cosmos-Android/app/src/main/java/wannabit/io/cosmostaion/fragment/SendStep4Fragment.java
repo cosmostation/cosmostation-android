@@ -30,6 +30,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -251,7 +252,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, 6));
             mRemainingPrice.setText(WDp.getValueOfBand(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
 
-        } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
             mDpDecimal = 18;
             mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 0, mDpDecimal));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, mDpDecimal));

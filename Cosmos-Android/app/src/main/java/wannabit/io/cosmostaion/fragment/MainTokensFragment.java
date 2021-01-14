@@ -56,6 +56,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;
@@ -144,7 +145,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         super.onResume();
         onUpdateView();
     }
-
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
@@ -263,7 +263,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             onUpdateTotalCard();
 
-        } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             onUpdateTotalCard();
 
@@ -360,7 +360,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBandAmount, 6, 6));
             mTotalValue.setText(WDp.getValueOfBand(getContext(), getBaseDao(), totalBandAmount));
 
-        } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
             BigDecimal totalOkAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_OK)) {
@@ -447,7 +447,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindIovItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 onBindBandItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 onBindOkItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
                 onBindCertikItem(viewHolder, position);
@@ -755,7 +755,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         final Balance balance = mBalances.get(position);
         final OkToken token = WUtil.getOkToken(getBaseDao().mOkTokenList, balance.symbol);
         if (balance.symbol.equals(TOKEN_OK)) {
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), OK_TEST));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
             BigDecimal totalAmount = WDp.getAllOk(balance, getBaseDao().mOkStaking, getBaseDao().mOkUnbonding);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));

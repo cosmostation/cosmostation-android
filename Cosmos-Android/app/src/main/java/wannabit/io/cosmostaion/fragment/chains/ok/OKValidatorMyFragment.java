@@ -25,10 +25,14 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class OKValidatorMyFragment extends BaseFragment implements View.OnClickListener {
 
@@ -121,49 +125,74 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    public class OKMyValidatorAdapter extends RecyclerView.Adapter<OKMyValidatorAdapter.OKMyValidatorHolder> {
+    public class OKMyValidatorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        private static final int TYPE_PROMOTION                 = 0;
+        private static final int TYPE_MY_VALIDATOR              = 1;
 
         @NonNull
         @Override
-        public OKMyValidatorHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new OKMyValidatorHolder(getLayoutInflater().inflate(R.layout.item_ok_validator, viewGroup, false));
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+            if (viewType == TYPE_PROMOTION) {
+                return new OKPromotionHolder(getLayoutInflater().inflate(R.layout.item_ok_promotion, viewGroup, false));
+            } else if (viewType == TYPE_MY_VALIDATOR) {
+                return new OKMyValidatorHolder(getLayoutInflater().inflate(R.layout.item_ok_validator, viewGroup, false));
+            }
+            return null;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull OKMyValidatorHolder holder, int position) {
-            final Validator validator  = mMyValidators.get(position);
-            if (getSActivity().mBaseChain.equals(BaseChain.OK_TEST)) {
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
-                holder.itemTvMoniker.setText(validator.description.moniker);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
-                holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.commission_rates.rate));
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+            if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
+                final OKMyValidatorHolder holder = (OKMyValidatorHolder)viewHolder;
+                final Validator validator  = mMyValidators.get(position);
+                if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
+                    holder.itemTvMoniker.setText(validator.description.moniker);
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
+                    holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
 
-                String imgUrl = validator.description.identity;
-                if (!TextUtils.isEmpty(imgUrl) && imgUrl.startsWith("logo|||")) {
-                    imgUrl = imgUrl.replace("logo|||" , "");
-                    try {
-                        Picasso.get().load(imgUrl)
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
-                } else {
-                    holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
+                    String imgUrl = validator.description.identity;
+                    if (!TextUtils.isEmpty(imgUrl) && imgUrl.startsWith("logo|||")) {
+                        imgUrl = imgUrl.replace("logo|||" , "");
+                        try {
+                            Picasso.get().load(imgUrl)
+                                    .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                    .into(holder.itemAvatar);
+                        } catch (Exception e){}
+                    } else {
+                        holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
+                    }
+
+                    if(validator.jailed) {
+                        holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                        holder.itemRevoked.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                        holder.itemRevoked.setVisibility(View.GONE);
+                    }
                 }
-
-                if(validator.jailed) {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
-                    holder.itemRevoked.setVisibility(View.VISIBLE);
-                } else {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
-                    holder.itemRevoked.setVisibility(View.GONE);
-                }
-
             }
+
         }
 
         @Override
         public int getItemCount() {
-            return mMyValidators.size();
+            if (mMyValidators == null || mMyValidators.size() < 1) {
+                return 1;
+            } else {
+                return mMyValidators.size();
+            }
+        }
+
+
+
+        @Override
+        public int getItemViewType(int position) {
+            if (mMyValidators == null || mMyValidators.size() < 1) {
+                return TYPE_PROMOTION;
+            } else {
+                return TYPE_MY_VALIDATOR;
+            }
         }
 
         public class OKMyValidatorHolder extends RecyclerView.ViewHolder {
@@ -182,8 +211,15 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
                 itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemFree            = itemView.findViewById(R.id.avatar_validator_free);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
-                itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
+                itemTvVotingPower   = itemView.findViewById(R.id.delegate_power_validator);
                 itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
+            }
+        }
+
+        public class OKPromotionHolder extends RecyclerView.ViewHolder {
+
+            public OKPromotionHolder(@NonNull View itemView) {
+                super(itemView);
             }
         }
     }

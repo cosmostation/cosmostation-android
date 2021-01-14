@@ -25,17 +25,25 @@ public class OkHistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-             if (mChain.equals(BaseChain.OK_TEST)) {
-                Response<ResOkHistory> response = ApiClient.getOkTestChain(mApp).getTxHistory(mAddress).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
+             if (mChain.equals(BaseChain.OKEX_MAIN)) {
+                 Response<ResOkHistory> response = ApiClient.getOkexChain(mApp).getTxHistory(mAddress).execute();
+                 if (response.isSuccessful() && response.body() != null) {
+                     mResult.resultData = response.body();
+                     mResult.isSuccess = true;
+                 } else {
+                     WLog.w("HistoryTask : NOk");
+                 }
 
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
+             } else if (mChain.equals(BaseChain.OK_TEST)) {
+                 Response<ResOkHistory> response = ApiClient.getOkTestChain(mApp).getTxHistory(mAddress).execute();
+                 if (response.isSuccessful() && response.body() != null) {
+                     mResult.resultData = response.body();
+                     mResult.isSuccess = true;
+                 } else {
+                     WLog.w("HistoryTask : NOk");
+                 }
 
-            }
+             }
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class DirectVoteFragment0 extends BaseFragment implements View.OnClickListener {
@@ -99,9 +100,9 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
         @Override
         public void onBindViewHolder(@NonNull ToValidatorHolder holder, @SuppressLint("RecyclerView") int position) {
             final Validator validator  = getSActivity().mAllValidators.get(position);
-            if (getSActivity().mBaseChain.equals(OK_TEST)) {
+            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
-                holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.commission_rates.rate));
+                holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
 
                 String imgUrl = validator.description.identity;
                 if (!TextUtils.isEmpty(imgUrl) && imgUrl.startsWith("logo|||")) {
@@ -118,7 +119,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemFree.setVisibility(View.GONE);
 
-                if(validator.jailed) {
+                if (validator.jailed) {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {

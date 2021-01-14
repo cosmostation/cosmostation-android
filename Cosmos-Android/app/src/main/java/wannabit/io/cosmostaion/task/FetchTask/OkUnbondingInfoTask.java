@@ -29,7 +29,20 @@ public class OkUnbondingInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mChain.equals(BaseChain.OK_TEST)) {
+            if (mChain.equals(BaseChain.OKEX_MAIN)) {
+                Response<ResOkUnbonding> response = ApiClient.getOkexChain(mApp).getWithdrawInfo(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.OK_TEST)) {
                 Response<ResOkUnbonding> response = ApiClient.getOkTestChain(mApp).getWithdrawInfo(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;

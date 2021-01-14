@@ -37,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
@@ -116,7 +117,7 @@ public class WKey {
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(234, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(996, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(SECRET_MAIN)) {
@@ -203,7 +204,7 @@ public class WKey {
                 result = bech32Encode("tbnb".getBytes(), converted);
             } else if (chain.equals(IOV_MAIN) ||chain.equals(IOV_TEST)){
                 result = bech32Encode("star".getBytes(), converted);
-            } else if (chain.equals(OK_TEST)){
+            } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)){
                 result = bech32Encode("okexchain".getBytes(), converted);
             } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)){
                 result = bech32Encode("certik".getBytes(), converted);
@@ -231,7 +232,7 @@ public class WKey {
             return bech32Encode("band".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return bech32Encode("star".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return bech32Encode("okexchain".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return bech32Encode("certik".getBytes(), bech32Decode(dpOpAddress).data);
@@ -255,7 +256,7 @@ public class WKey {
             return bech32Encode("bandvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return bech32Encode("starvaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return bech32Encode("okexchainvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return bech32Encode("certikvaloper".getBytes(), bech32Decode(dpOpAddress).data);

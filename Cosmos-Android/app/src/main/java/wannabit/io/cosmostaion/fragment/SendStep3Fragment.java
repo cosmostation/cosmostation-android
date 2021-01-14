@@ -42,6 +42,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_AMOUNT_SEND;
@@ -273,7 +274,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             });
             mSeekBarGas.setProgress(0);
 
-        } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -442,7 +443,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 fee.gas = FEE_IOV_GAS_AMOUNT_SEND;
                 getSActivity().mTargetFee = fee;
 
-            } else if (getSActivity().mBaseChain.equals(OK_TEST)) {
+            } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = TOKEN_OK;

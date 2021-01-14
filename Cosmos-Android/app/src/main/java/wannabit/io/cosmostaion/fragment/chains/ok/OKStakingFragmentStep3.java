@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Ok_Deposit_warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClickListener {
@@ -65,7 +66,7 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
         BigDecimal toDeleagteAmount = new BigDecimal(getSActivity().mToDepositCoin.amount);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
-        if (getSActivity().mBaseChain.equals(OK_TEST)) {
+        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
             mDepositAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 0, 18));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
 

@@ -25,6 +25,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
@@ -89,7 +90,7 @@ public class WalletGuideHolder extends WalletHolder {
             itemBtnGuide1.setText(R.string.str_faq_band);
             itemBtnGuide2.setText(R.string.str_guide_band);
 
-        } else if (mainActivity.mBaseChain.equals(OK_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(OKEX_MAIN) || mainActivity.mBaseChain.equals(OK_TEST)) {
             itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.okex_img));
             itemGuideTitle.setText(R.string.str_front_guide_title_ok);
             itemGuideMsg.setText(R.string.str_front_guide_msg_ok);

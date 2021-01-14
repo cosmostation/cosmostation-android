@@ -57,6 +57,7 @@ import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -74,6 +75,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
@@ -280,6 +282,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 //        WLog.w("mAccount " + mAccount.address);
 //        WLog.w("sequenceNumber " + mAccount.sequenceNumber);
 //        WLog.w("accountNumber " + mAccount.accountNumber);
+//        WLog.w("mBaseChain " + mBaseChain);
 
         if (mBaseChain.equals(COSMOS_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
@@ -334,6 +337,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setText(getString(R.string.str_akash_chain));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAkash));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAkash));
+
+        } else if (mBaseChain.equals(OKEX_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_chain_img));
+            mToolbarChainName.setText(getString(R.string.str_ok_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorOK));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
+
         }
 
         else if (mBaseChain.equals(BNB_TEST)) {
@@ -511,8 +521,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
             intent.putExtra("iovDenom", TOKEN_IOV_TEST);
 
-        } else if (mBaseChain.equals(OK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.02")) > 0) {
+        } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+            if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.2")) > 0) {
                 hasbalance  = true;
             }
             intent.putExtra("okDenom", TOKEN_OK);
@@ -918,6 +928,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_chain_img));
                     holder.chainName.setText(getString(R.string.str_akash_main));
+
+                } else if (chain.equals(OKEX_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_chain_img));
+                    holder.chainName.setText(getString(R.string.str_okex_main));
 
                 }
 

@@ -28,6 +28,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
@@ -111,6 +112,13 @@ public class AccountInfoTask extends CommonTask {
                 if(response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
+                Response<ResOkAccountInfo> response = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
+                if (response.isSuccessful()) {
+                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, response.body()));
+                    mApp.getBaseDao().mOkAccountInfo = response.body();
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(OK_TEST)) {

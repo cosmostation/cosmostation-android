@@ -23,8 +23,8 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_STAKE_MUX;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
@@ -99,7 +99,7 @@ public class OKStakingFragmentStep2 extends BaseFragment implements View.OnClick
         mNextBtn.setOnClickListener(this);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvGasType);
 
-        if (getSActivity().mBaseChain.equals(OK_TEST)) {
+        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -131,7 +131,7 @@ public class OKStakingFragmentStep2 extends BaseFragment implements View.OnClick
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mBaseChain.equals(OK_TEST)) {
+            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = TOKEN_OK;
