@@ -358,7 +358,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             }
 
         } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.02")) > 0) {
+            if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.2")) > 0) {
                 hasbalance  = true;
             }
         }
