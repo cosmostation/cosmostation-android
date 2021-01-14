@@ -79,7 +79,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             mDpDecimal = 18
             self.denomTitleLabel.text = pageHolderVC.mOkSendDenom?.uppercased()
             if (pageHolderVC.mOkSendDenom == OKEX_MAIN_DENOM) {
-                maxAvailable = pageHolderVC.mAccount!.getTokenBalance(OKEX_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "0.02"))
+                maxAvailable = pageHolderVC.mAccount!.getTokenBalance(OKEX_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "0.2"))
                 mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 0, mDpDecimal)
                 
             } else {
