@@ -64,8 +64,7 @@ let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band.cosmostation.io/";
 
 
-let OKEX_URL                            = "https://www.okex.com/okexchain-test/v1/";
-//let OKEX_URL                            = "https://www.okex.com/okexchain/v1/";
+let OKEX_URL                            = "https://www.okex.com/okexchain/v1/";
 
 let OKEX_TEST_URL                       = "https://www.okex.com/okexchain-test/v1/";
 
