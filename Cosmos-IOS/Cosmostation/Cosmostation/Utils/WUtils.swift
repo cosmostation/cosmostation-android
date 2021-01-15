@@ -2414,8 +2414,7 @@ class WUtils {
         } else if (chainS == CHAIN_AKASH_S) {
             return "akashnet-1"
         } else if (chainS == CHAIN_OKEX_S) {
-            return "okexchain-65"
-//            return "okexchain-65"
+            return "okexchain-66"
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2454,8 +2453,7 @@ class WUtils {
         } else if (chain == ChainType.AKASH_MAIN) {
             return "akashnet-1"
         } else if (chain == ChainType.OKEX_MAIN) {
-            return "okexchain-65"
-//            return "okexchain-65"
+            return "okexchain-66"
         }
         
         else if (chain == ChainType.COSMOS_TEST) {

@@ -32,7 +32,7 @@ public enum BaseChain {
     CERTIK_MAIN("shentu-1"),
     SECRET_MAIN("secret-2"),
     AKASH_MAIN("akashnet-1"),
-    OKEX_MAIN("okexchain-1"),
+    OKEX_MAIN("okexchain-66"),
 
     BNB_TEST("Binance-Chain-Nile"),
     KAVA_TEST_LEGACY4("kava-testnet-4000"),
