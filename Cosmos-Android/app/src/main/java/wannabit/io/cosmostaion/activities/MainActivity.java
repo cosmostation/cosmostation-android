@@ -719,7 +719,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             return;
         }
         if (mBaseChain.equals(COSMOS_MAIN)) {
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, mAllValidators, mBaseChain);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, getBaseDao().mAllValidators, mBaseChain);
             BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_ATOM);
             if (availableAmount.compareTo(new BigDecimal("3500")) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
@@ -732,7 +732,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
 
         } else if (mBaseChain.equals(KAVA_MAIN)) {
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, mAllValidators, mBaseChain);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, getBaseDao().mAllValidators, mBaseChain);
             BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_KAVA);
             if (availableAmount.compareTo(new BigDecimal("6000")) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();

@@ -65,8 +65,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
     private TextView                    mValidatorSize, mSortType;
     private LinearLayout                mBtnSort;
 
-    private ArrayList<Validator>        mMyValidators = new ArrayList<>();
-    private ArrayList<Validator>        mTopValidators = new ArrayList<>();
     private ResBandOracleStatus         mBandOracles;
 
     public static ValidatorAllFragment newInstance(Bundle bundle) {
@@ -109,11 +107,9 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onRefreshTab() {
-        if(!isAdded()) return;
-        mTopValidators  = getMainActivity().mTopValidators;
-        mMyValidators   = getMainActivity().mMyValidators;
+        if (!isAdded()) return;
         mBandOracles    = getBaseDao().mBandOracles;
-        mValidatorSize.setText(""+mTopValidators.size());
+        mValidatorSize.setText(""+getBaseDao().mTopValidators.size());
         onSortValidator();
 
         mAllValidatorAdapter.notifyDataSetChanged();
@@ -144,12 +140,11 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         @Override
         public AllValidatorHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             return new AllValidatorHolder(getLayoutInflater().inflate(R.layout.item_reward_validator, viewGroup, false));
-
         }
 
         @Override
         public void onBindViewHolder(@NonNull final AllValidatorHolder holder, final int position) {
-            final Validator validator  = mTopValidators.get(position);
+            final Validator validator  = getBaseDao().mTopValidators.get(position);
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
 
             if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
@@ -249,7 +244,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 holder.itemRevoked.setVisibility(View.GONE);
             }
 
-            if (checkIsMyValidator(mMyValidators, validator.description.moniker)) {
+            if (checkIsMyValidator(getBaseDao().mMyValidators, validator.description.moniker)) {
                 if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
                 } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
@@ -284,7 +279,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
         @Override
         public int getItemCount() {
-            return mTopValidators.size();
+            return getBaseDao().mTopValidators.size();
         }
 
         public class AllValidatorHolder extends RecyclerView.ViewHolder {
@@ -313,13 +308,13 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
     public void onSortValidator() {
         if(getBaseDao().getValSorting() == 2){
-            WUtil.onSortingByCommission(mTopValidators, getMainActivity().mBaseChain);
+            WUtil.onSortingByCommission(getBaseDao().mTopValidators, getMainActivity().mBaseChain);
             mSortType.setText(getString(R.string.str_sorting_by_yield));
         } else if (getBaseDao().getValSorting() == 0){
-            WUtil.onSortByValidatorName(mTopValidators);
+            WUtil.onSortByValidatorName(getBaseDao().mTopValidators);
             mSortType.setText(getString(R.string.str_sorting_by_name));
         } else {
-            WUtil.onSortByValidatorPower(mTopValidators);
+            WUtil.onSortByValidatorPower(getBaseDao().mTopValidators);
             mSortType.setText(getString(R.string.str_sorting_by_power));
         }
     }

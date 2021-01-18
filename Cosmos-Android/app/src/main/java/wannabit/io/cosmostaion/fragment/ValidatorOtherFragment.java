@@ -27,7 +27,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -58,8 +57,8 @@ public class ValidatorOtherFragment extends BaseFragment {
     private OtherValidatorAdapter       mOtherValidatorAdapter;
     private TextView                    mValidatorSize;
 
-    private ArrayList<Validator>        mMyValidators = new ArrayList<>();
-    private ArrayList<Validator>        mOtherValidators = new ArrayList<>();
+//    private ArrayList<Validator>        mMyValidators = new ArrayList<>();
+//    private ArrayList<Validator>        mOtherValidators = new ArrayList<>();
     private ResBandOracleStatus         mBandOracles;
 
     public static ValidatorOtherFragment newInstance(Bundle bundle) {
@@ -101,11 +100,9 @@ public class ValidatorOtherFragment extends BaseFragment {
     @Override
     public void onRefreshTab() {
         if(!isAdded()) return;
-        mOtherValidators    = getMainActivity().mOtherValidators;
-        mMyValidators       = getMainActivity().mMyValidators;
         mBandOracles        = getBaseDao().mBandOracles;
-        mValidatorSize.setText(""+mOtherValidators.size());
-        WUtil.onSortByValidatorPower(mOtherValidators);
+        mValidatorSize.setText(""+getBaseDao().mOtherValidators.size());
+        WUtil.onSortByValidatorPower(getBaseDao().mOtherValidators);
 
         mOtherValidatorAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
@@ -131,7 +128,7 @@ public class ValidatorOtherFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
-            final Validator validator  = mOtherValidators.get(position);
+            final Validator validator  = getBaseDao().mOtherValidators.get(position);
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
 
             String monikerUrl = "";
@@ -203,7 +200,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                 holder.itemRevoked.setVisibility(View.GONE);
             }
 
-            if(checkIsMyValidator(mMyValidators, validator.description.moniker)) {
+            if (checkIsMyValidator(getBaseDao().mMyValidators, validator.description.moniker)) {
                 if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
                 } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
@@ -238,7 +235,7 @@ public class ValidatorOtherFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            return mOtherValidators.size();
+            return getBaseDao().mOtherValidators.size();
         }
 
         public class OtherValidatorHolder extends RecyclerView.ViewHolder {

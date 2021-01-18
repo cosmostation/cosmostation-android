@@ -17,17 +17,14 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -40,8 +37,7 @@ public class OKValidatorTopFragment extends BaseFragment {
     private OKTopValidatorAdapter       mOKTopValidatorAdapter;
     private TextView                    mValidatorSize;
 
-    private ArrayList<Validator>        mTopValidators = new ArrayList<>();
-    private ResOkStaking mOkDeposit;
+    private ResOkStaking                mOkDeposit;
 
     public static OKValidatorTopFragment newInstance(Bundle bundle) {
         OKValidatorTopFragment fragment = new OKValidatorTopFragment();
@@ -83,12 +79,9 @@ public class OKValidatorTopFragment extends BaseFragment {
 
     @Override
     public void onRefreshTab() {
-        if(!isAdded()) return;
-        mTopValidators  = getBaseDao().mTopValidators;
+        if (!isAdded()) return;
         mOkDeposit      = getBaseDao().mOkStaking;
-        WLog.w("mTopValidators "+ mTopValidators.size());
-
-        mValidatorSize.setText(""+mTopValidators.size());
+        mValidatorSize.setText(""+getBaseDao().mTopValidators.size());
         onSortValidator();
 
         mOKTopValidatorAdapter.notifyDataSetChanged();
@@ -118,7 +111,7 @@ public class OKValidatorTopFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull OKTopValidatorHolder holder, int position) {
-            final Validator validator  = mTopValidators.get(position);
+            final Validator validator  = getBaseDao().mTopValidators.get(position);
             if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
@@ -152,7 +145,7 @@ public class OKValidatorTopFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            return mTopValidators.size();
+            return getBaseDao().mTopValidators.size();
         }
 
         public class OKTopValidatorHolder extends RecyclerView.ViewHolder {
@@ -192,6 +185,6 @@ public class OKValidatorTopFragment extends BaseFragment {
     }
 
     public void onSortValidator() {
-        WUtil.onSortByOKValidatorPower(mTopValidators);
+        WUtil.onSortByOKValidatorPower(getBaseDao().mTopValidators);
     }
 }

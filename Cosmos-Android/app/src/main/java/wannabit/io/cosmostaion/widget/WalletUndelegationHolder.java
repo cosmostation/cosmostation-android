@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -60,6 +61,7 @@ public class WalletUndelegationHolder extends WalletHolder {
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
+        final BaseData baseData = mainActivity.getBaseDao();
         mUndelegateLayer1.setVisibility(View.GONE);
         mUndelegateLayer2.setVisibility(View.GONE);
         mUndelegateLayer3.setVisibility(View.GONE);
@@ -70,31 +72,31 @@ public class WalletUndelegationHolder extends WalletHolder {
         final int dpDecimal = mainActivity.mBaseChain.equals(IRIS_MAIN) ? 18 : 6;
         WUtil.onSortUnbondingsRecent(unbondings);
         mUndelegateCnt.setText(String.valueOf(unbondings.size()));
-        mUndelegateMoniker0.setText(WUtil.getMonikerName(unbondings.get(0).validatorAddress, mainActivity.mAllValidators, false));
+        mUndelegateMoniker0.setText(WUtil.getMonikerName(unbondings.get(0).validatorAddress, baseData.mAllValidators, false));
         mUndelegateAmount0.setText(WDp.getDpAmount2(mainActivity, unbondings.get(0).balance, dpDecimal, 6));
         mUndelegateTime0.setText(WDp.getUnbondingTimeleft(mainActivity, unbondings.get(0).completionTime));
 
         if (unbondings.size() > 1) {
             mUndelegateLayer1.setVisibility(View.VISIBLE);
-            mUndelegateMoniker1.setText(WUtil.getMonikerName(unbondings.get(1).validatorAddress, mainActivity.mAllValidators, false));
+            mUndelegateMoniker1.setText(WUtil.getMonikerName(unbondings.get(1).validatorAddress, baseData.mAllValidators, false));
             mUndelegateAmount1.setText(WDp.getDpAmount2(mainActivity, unbondings.get(1).balance, dpDecimal, 6));
             mUndelegateTime1.setText(WDp.getUnbondingTimeleft(mainActivity, unbondings.get(1).completionTime));
         }
         if (unbondings.size() > 2) {
             mUndelegateLayer2.setVisibility(View.VISIBLE);
-            mUndelegateMoniker2.setText(WUtil.getMonikerName(unbondings.get(2).validatorAddress, mainActivity.mAllValidators, false));
+            mUndelegateMoniker2.setText(WUtil.getMonikerName(unbondings.get(2).validatorAddress, baseData.mAllValidators, false));
             mUndelegateAmount2.setText(WDp.getDpAmount2(mainActivity, unbondings.get(2).balance, dpDecimal, 6));
             mUndelegateTime2.setText(WDp.getUnbondingTimeleft(mainActivity, unbondings.get(2).completionTime));
         }
         if (unbondings.size() > 3) {
             mUndelegateLayer3.setVisibility(View.VISIBLE);
-            mUndelegateMoniker3.setText(WUtil.getMonikerName(unbondings.get(3).validatorAddress, mainActivity.mAllValidators, false));
+            mUndelegateMoniker3.setText(WUtil.getMonikerName(unbondings.get(3).validatorAddress, baseData.mAllValidators, false));
             mUndelegateAmount3.setText(WDp.getDpAmount2(mainActivity, unbondings.get(3).balance, dpDecimal, 6));
             mUndelegateTime3.setText(WDp.getUnbondingTimeleft(mainActivity, unbondings.get(3).completionTime));
         }
         if (unbondings.size() > 4) {
             mUndelegateLayer4.setVisibility(View.VISIBLE);
-            mUndelegateMoniker4.setText(WUtil.getMonikerName(unbondings.get(4).validatorAddress, mainActivity.mAllValidators, false));
+            mUndelegateMoniker4.setText(WUtil.getMonikerName(unbondings.get(4).validatorAddress, baseData.mAllValidators, false));
             mUndelegateAmount4.setText(WDp.getDpAmount2(mainActivity, unbondings.get(4).balance, dpDecimal, 6));
             mUndelegateTime4.setText(WDp.getUnbondingTimeleft(mainActivity, unbondings.get(4).completionTime));
         }

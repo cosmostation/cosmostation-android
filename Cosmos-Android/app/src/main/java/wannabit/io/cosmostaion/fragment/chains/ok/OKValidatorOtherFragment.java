@@ -39,9 +39,7 @@ public class OKValidatorOtherFragment extends BaseFragment {
     private OKOtherValidatorAdapter     mOKOtherValidatorAdapter;
     private TextView                    mValidatorSize;
 
-    private ArrayList<Validator>        mOtherValidators = new ArrayList<>();
-    private ResOkStaking mOkDeposit;
-
+    private ResOkStaking                mOkDeposit;
 
     public static OKValidatorOtherFragment newInstance(Bundle bundle) {
         OKValidatorOtherFragment fragment = new OKValidatorOtherFragment();
@@ -82,11 +80,9 @@ public class OKValidatorOtherFragment extends BaseFragment {
 
     @Override
     public void onRefreshTab() {
-        if(!isAdded()) return;
-        mOtherValidators  = getBaseDao().mOtherValidators;
+        if (!isAdded()) return;
         mOkDeposit      = getBaseDao().mOkStaking;
-
-        mValidatorSize.setText(""+mOtherValidators.size());
+        mValidatorSize.setText(""+getBaseDao().mOtherValidators.size());
         onSortValidator();
 
         mOKOtherValidatorAdapter.notifyDataSetChanged();
@@ -114,7 +110,7 @@ public class OKValidatorOtherFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull OKOtherValidatorHolder holder, int position) {
-            final Validator validator  = mOtherValidators.get(position);
+            final Validator validator  = getBaseDao().mOtherValidators.get(position);
             if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
@@ -149,13 +145,13 @@ public class OKValidatorOtherFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            return mOtherValidators.size();
+            return getBaseDao().mOtherValidators.size();
         }
 
         public class OKOtherValidatorHolder extends RecyclerView.ViewHolder {
-            CardView itemRoot;
-            CircleImageView itemAvatar;
-            ImageView itemRevoked;
+            CardView            itemRoot;
+            CircleImageView     itemAvatar;
+            ImageView           itemRevoked;
             ImageView           itemFree;
             TextView            itemTvMoniker;
             TextView            itemTvVotingPower;
@@ -188,6 +184,6 @@ public class OKValidatorOtherFragment extends BaseFragment {
     }
 
     public void onSortValidator() {
-        WUtil.onSortByOKValidatorPower(mOtherValidators);
+        WUtil.onSortByOKValidatorPower(getBaseDao().mOtherValidators);
     }
 }

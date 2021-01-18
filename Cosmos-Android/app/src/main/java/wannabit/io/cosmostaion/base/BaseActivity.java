@@ -130,6 +130,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -176,10 +177,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public View                             mRootview;
     public Account                          mAccount;
     public BaseChain                        mBaseChain;
-    public ArrayList<Validator>             mOtherValidators = new ArrayList<>();
-    public ArrayList<Validator>             mTopValidators = new ArrayList<>();
-    public ArrayList<Validator>             mMyValidators = new ArrayList<>();
-    public ArrayList<Validator>             mAllValidators = new ArrayList<>();
+
     public ArrayList<Balance>               mBalances = new ArrayList<>();
     public ArrayList<BondingState>          mBondings = new ArrayList<>();
     public ArrayList<UnBondingState>        mUnbondings = new ArrayList<>();
@@ -238,7 +236,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     @Override
     protected void onStop() {
         super.onStop();
-        if(mNeedLeaveTime) {
+        if (mNeedLeaveTime) {
             getBaseDao().setAppLockLeaveTime();
         }
 
@@ -476,12 +474,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (mTaskCount > 0) {
             callback.fetchBusy();
         }
-
-        ArrayList<Account> accounts = new ArrayList<Account>();
-        accounts.add(mAccount);
         mFetchCallback = callback;
-        mOtherValidators.clear();
-        mAllValidators.clear();
+
+        getBaseDao().mAllValidators.clear();
+        getBaseDao().mMyValidators.clear();
+        getBaseDao().mTopValidators.clear();
+        getBaseDao().mOtherValidators.clear();
+
         getBaseDao().mStakingPool = null;
         getBaseDao().mIrisStakingPool = null;
         getBaseDao().mInflation = BigDecimal.ZERO;
@@ -696,21 +695,23 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 return;
             }
-            ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
+            ArrayList<Validator> bondedValis = (ArrayList<Validator>)result.resultData;
             if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
                     mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
                     mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) ||
                     mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(BaseChain.OKEX_MAIN) || mBaseChain.equals(BaseChain.OK_TEST)) {
-                if (temp != null) { mTopValidators = temp; }
+                if (bondedValis != null) {
+                    getBaseDao().mTopValidators = bondedValis;
+                }
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                mTopValidators = WUtil.getTopVals(temp);
-                mOtherValidators = WUtil.getOthersVals(temp);
+                getBaseDao().mTopValidators = WUtil.getTopVals(bondedValis);
+                getBaseDao().mOtherValidators = WUtil.getOthersVals(bondedValis);
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_VALIDATOR || result.taskType == BaseConstant.TASK_FETCH_UNBONDED_VALIDATOR) {
-            ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
-            if (temp != null) {
-                mOtherValidators.addAll(temp);
+            ArrayList<Validator> unbondValis = (ArrayList<Validator>)result.resultData;
+            if (unbondValis != null) {
+                getBaseDao().mOtherValidators.addAll(unbondValis);
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
@@ -898,13 +899,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
 
-        mMyValidators.clear();
         if (mTaskCount == 0 &&
                 (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(KAVA_MAIN) ||
                         mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) ||
                         mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) ||
                         mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN))) {
-            for (Validator top:mTopValidators) {
+            for (Validator top:getBaseDao().mTopValidators) {
                 boolean already = false;
                 for (BondingState bond:mBondings) {
                     if(bond.validatorAddress.equals(top.operator_address)) {
@@ -918,54 +918,41 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         break;
                     }
                 }
-                if (already) mMyValidators.add(top);
+                if (already) getBaseDao().mMyValidators.add(top);
             }
 
-            for (Validator other:mOtherValidators) {
+            for (Validator other:getBaseDao().mOtherValidators) {
                 boolean already = false;
-                for (BondingState bond:mBondings) {
-                    if(bond.validatorAddress.equals(other.operator_address)) {
+                for (BondingState bond : mBondings) {
+                    if (bond.validatorAddress.equals(other.operator_address)) {
                         already = true;
                         break;
                     }
                 }
-                for (UnBondingState unbond:mUnbondings) {
-                    if(unbond.validatorAddress.equals(other.operator_address) && !already) {
+                for (UnBondingState unbond : mUnbondings) {
+                    if (unbond.validatorAddress.equals(other.operator_address) && !already) {
                         already = true;
                         break;
                     }
                 }
-                if(already) mMyValidators.add(other);
+                if (already) getBaseDao().mMyValidators.add(other);
             }
-            mAllValidators.addAll(mTopValidators);
-            mAllValidators.addAll(mOtherValidators);
-            getBaseDao().mAllValidators = this.mAllValidators;
-            getBaseDao().mMyValidators = this.mMyValidators;
-            getBaseDao().mTopValidators = this.mTopValidators;
-            getBaseDao().mOtherValidators = this.mOtherValidators;
+            getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
+            getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
 
-//            WLog.w("MyValidators " + mMyValidators.size());
-//            WLog.w("TopValidators " + mTopValidators.size());
-//            WLog.w("OtherValidators " + mOtherValidators.size());
+        } else if (mTaskCount == 0 && (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST))) {
+            getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
+            getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
 
-//            WLog.w("mBondings " + mBondings.size());
-//            WLog.w("mUnbondings " + mUnbondings.size());
-//            WLog.w("mRewards " + mRewards.size());
-
-//            WLog.w("mInflation " + mInflation);
-//            WLog.w("mProvisions " + mProvisions);
-//            WLog.w("mStakingPool " + mStakingPool.height);
-//            WLog.w("mIrisStakingPool " + mIrisStakingPool);
-
-        }
-
-        else if (mTaskCount == 0 && (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST))) {
-            getBaseDao().mTopValidators = this.mTopValidators;
-            getBaseDao().mOtherValidators = this.mOtherValidators;
-//            WLog.w("TopValidators " + getBaseDao().mTopValidators.size());
-//            WLog.w("OtherValidators " + getBaseDao().mOtherValidators.size());
-//            WLog.w("mOkTokenList " + getBaseDao().mOkTokenList.data.size());
-
+            if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
+                for (String valAddr : getBaseDao().mOkStaking.validator_address) {
+                    for (Validator val:getBaseDao().mAllValidators) {
+                        if (val.operator_address.equals(valAddr)) {
+                            getBaseDao().mMyValidators.add(val);
+                        }
+                    }
+                }
+            }
         }
 
         if (mTaskCount == 0 && mFetchCallback != null) {

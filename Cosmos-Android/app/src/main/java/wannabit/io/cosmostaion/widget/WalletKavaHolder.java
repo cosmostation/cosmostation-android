@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsListActivity;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -47,14 +48,15 @@ public class WalletKavaHolder extends WalletHolder {
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
+        final BaseData baseData = mainActivity.getBaseDao();
         BigDecimal availableAmount = WDp.getAvailableCoin(mainActivity.mBalances, TOKEN_KAVA);
-        BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mainActivity.mBondings, mainActivity.mAllValidators, mainActivity.mBaseChain);
+        BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mainActivity.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
         BigDecimal unbondingAmount = WDp.getUnbondingAmount(mainActivity.mUnbondings);
         BigDecimal rewardAmount = WDp.getAllRewardAmount(mainActivity.mRewards, TOKEN_KAVA);
         BigDecimal vestingAmount = WDp.getLockedCoin(mainActivity.mBalances, TOKEN_KAVA);
         BigDecimal harvestDepositAmount = WDp.getHavestDepositAmount(mainActivity.getBaseDao(), TOKEN_KAVA);
         BigDecimal unclaimedIncentiveAmount = WDp.getUnclaimedIncentiveAmount(mainActivity.getBaseDao(), TOKEN_KAVA);
-        BigDecimal totalAmount = WDp.getAllKava(mainActivity.getBaseDao(), mainActivity.mBalances, mainActivity.mBondings, mainActivity.mUnbondings, mainActivity.mRewards, mainActivity.mAllValidators);
+        BigDecimal totalAmount = WDp.getAllKava(mainActivity.getBaseDao(), mainActivity.mBalances, mainActivity.mBondings, mainActivity.mUnbondings, mainActivity.mRewards, baseData.mAllValidators);
 
         mTvKavaTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvKavaAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));

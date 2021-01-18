@@ -18,16 +18,12 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -41,9 +37,6 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
     private OKMyValidatorAdapter        mOKMyValidatorAdapter;
     private TextView                    mValidatorSize;
     private Button                      mVote;
-
-    private ArrayList<Validator>        mMyValidators = new ArrayList<>();
-    private ResOkStaking mOkDeposit;
 
     public static OKValidatorMyFragment newInstance(Bundle bundle) {
         OKValidatorMyFragment fragment = new OKValidatorMyFragment();
@@ -88,18 +81,7 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         if(!isAdded()) return;
-        mMyValidators.clear();
-        ArrayList<Validator> allValidator = new ArrayList<>();
-        allValidator.addAll(getBaseDao().mTopValidators);
-        allValidator.addAll(getBaseDao().mOtherValidators);
-        mOkDeposit = getBaseDao().mOkStaking;
-
-        for (Validator val:allValidator) {
-            if (checkIsMyValidator(val.operator_address)) {
-                mMyValidators.add(val);
-            }
-        }
-        mValidatorSize.setText(""+mMyValidators.size());
+        mValidatorSize.setText(""+getBaseDao().mMyValidators.size());
         onSortValidator();
 
         mOKMyValidatorAdapter.notifyDataSetChanged();
@@ -144,7 +126,7 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final OKMyValidatorHolder holder = (OKMyValidatorHolder)viewHolder;
-                final Validator validator  = mMyValidators.get(position);
+                final Validator validator  = getBaseDao().mMyValidators.get(position);
                 if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
                     holder.itemTvMoniker.setText(validator.description.moniker);
@@ -177,10 +159,10 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
 
         @Override
         public int getItemCount() {
-            if (mMyValidators == null || mMyValidators.size() < 1) {
+            if (getBaseDao().mMyValidators == null || getBaseDao().mMyValidators.size() < 1) {
                 return 1;
             } else {
-                return mMyValidators.size();
+                return getBaseDao().mMyValidators.size();
             }
         }
 
@@ -188,7 +170,7 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
 
         @Override
         public int getItemViewType(int position) {
-            if (mMyValidators == null || mMyValidators.size() < 1) {
+            if (getBaseDao().mMyValidators == null || getBaseDao().mMyValidators.size() < 1) {
                 return TYPE_PROMOTION;
             } else {
                 return TYPE_MY_VALIDATOR;
@@ -224,21 +206,8 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    private boolean checkIsMyValidator(String valAddress){
-        boolean myVal = false;
-        if (mOkDeposit == null || mOkDeposit.validator_address == null) {
-            return myVal;
-        }
-        for (String val:mOkDeposit.validator_address) {
-            if (val.equals(valAddress)){
-                return true;
-            }
-        }
-        return myVal;
-    }
-
     public void onSortValidator() {
-        WUtil.onSortByOKValidatorPower(mMyValidators);
+        WUtil.onSortByOKValidatorPower(getBaseDao().mMyValidators);
     }
 
 }

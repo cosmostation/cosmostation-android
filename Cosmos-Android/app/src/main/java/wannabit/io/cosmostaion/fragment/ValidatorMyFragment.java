@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
@@ -52,7 +51,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -61,9 +63,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class ValidatorMyFragment extends BaseFragment implements View.OnClickListener {
@@ -76,7 +75,6 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     private TextView                    mValidatorSize, mSortType;
     private LinearLayout                mBtnSort;
 
-    private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Reward>           mRewards = new ArrayList<>();
     private ResLcdIrisReward            mIrisRewards;
     private ResBandOracleStatus         mBandOracles;
@@ -123,11 +121,10 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         if(!isAdded()) return;
-        mMyValidators   = getMainActivity().mMyValidators;
         mRewards        = getMainActivity().mRewards;
         mIrisRewards    = getMainActivity().mIrisReward;
         mBandOracles    = getBaseDao().mBandOracles;
-        mValidatorSize.setText(""+mMyValidators.size());
+        mValidatorSize.setText(""+getBaseDao().mMyValidators.size());
         onSortValidator();
 
         mMyValidatorAdapter.notifyDataSetChanged();
@@ -235,7 +232,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder    = (RewardMyValidatorHolder)viewHolder;
-                final Validator validator               = mMyValidators.get(position);
+                final Validator validator               = getBaseDao().mMyValidators.get(position);
                 holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
 
                 BondingState bonding = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, validator.operator_address);
@@ -357,21 +354,21 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
         @Override
         public int getItemCount() {
-            if(mMyValidators == null || mMyValidators.size() < 1) {
+            if(getBaseDao().mMyValidators == null || getBaseDao().mMyValidators.size() < 1) {
                 return 1;
-            } else if (mMyValidators.size() == 1) {
+            } else if (getBaseDao().mMyValidators.size() == 1) {
                 return 1;
-            } else if (mMyValidators.size() >= 1) {
-                return mMyValidators.size() + 1;
+            } else if (getBaseDao().mMyValidators.size() >= 1) {
+                return getBaseDao().mMyValidators.size() + 1;
             }
             return 0;
         }
 
         @Override
         public int getItemViewType(int position) {
-            if(mMyValidators == null || mMyValidators.size() < 1) {
+            if (getBaseDao().mMyValidators == null ||getBaseDao().mMyValidators.size() < 1) {
                 return TYPE_PROMOTION;
-            } else if (mMyValidators.size() > 1 && position == mMyValidators.size()) {
+            } else if (getBaseDao().mMyValidators.size() > 1 && position == getBaseDao().mMyValidators.size()) {
                 return TYPE_HEADER_WITHDRAW_ALL;
             } else {
                 return TYPE_MY_VALIDATOR;
@@ -432,41 +429,41 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     public void onSortValidator() {
         if (getBaseDao().getMyValSorting() == 2){
             if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_ATOM);
+                WUtil.onSortByReward(getBaseDao().mMyValidators, mRewards, TOKEN_ATOM);
 
             } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-                WUtil.onSortIrisByReward(mMyValidators, mIrisRewards);
+                WUtil.onSortIrisByReward(getBaseDao().mMyValidators, mIrisRewards);
 
             } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_KAVA);
+                WUtil.onSortByReward(getBaseDao().mMyValidators, mRewards, TOKEN_KAVA);
 
             } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_BAND);
+                WUtil.onSortByReward(getBaseDao().mMyValidators, mRewards, TOKEN_BAND);
 
             } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
-                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_IOV);
+                WUtil.onSortByReward(getBaseDao().mMyValidators, mRewards, TOKEN_IOV);
 
             } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
-                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_IOV_TEST);
+                WUtil.onSortByReward(getBaseDao().mMyValidators, mRewards, TOKEN_IOV_TEST);
 
             } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_CERTIK);
+                WUtil.onSortByReward(getBaseDao().mMyValidators, mRewards, TOKEN_CERTIK);
 
             } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
-                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_SECRET);
+                WUtil.onSortByReward(getBaseDao().mMyValidators, mRewards, TOKEN_SECRET);
 
             } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-                WUtil.onSortByReward(mMyValidators, mRewards, TOKEN_AKASH);
+                WUtil.onSortByReward(getBaseDao().mMyValidators, mRewards, TOKEN_AKASH);
 
             }
             mSortType.setText(getString(R.string.str_sorting_by_reward));
 
         } else if (getBaseDao().getMyValSorting() == 0){
-            WUtil.onSortByValidatorName(mMyValidators);
+            WUtil.onSortByValidatorName(getBaseDao().mMyValidators);
             mSortType.setText(getString(R.string.str_sorting_by_name));
 
         } else {
-            WUtil.onSortByDelegate(getMainActivity().mAccount.id, mMyValidators, getBaseDao());
+            WUtil.onSortByDelegate(getMainActivity().mAccount.id, getBaseDao().mMyValidators, getBaseDao());
             mSortType.setText(getString(R.string.str_sorting_by_my_delegated));
         }
     }

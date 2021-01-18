@@ -188,7 +188,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         mTxHash     = getIntent().getStringExtra("txHash");
         mBnbTime    = getIntent().getStringExtra("bnbTime");
 
-        mAllValidators = getBaseDao().mAllValidators;
         if (mIsGen) {
             mLoadingMsgTv.setVisibility(View.VISIBLE);
         }
@@ -979,7 +978,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_address);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
+                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_address);
                 holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, 6));
                 holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
@@ -990,7 +989,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_addr);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
+                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, getBaseDao().mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_addr);
                 holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.delegation.amount), 18, 18));
 
@@ -1007,7 +1006,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemUnDelegator.setText(msg.value.delegator_address);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
+                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_address);
                 holder.itemUndelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, mBaseChain));
                 holder.itemAutoRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, mBaseChain));
@@ -1018,7 +1017,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemUnDelegator.setText(msg.value.delegator_addr);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
+                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, getBaseDao().mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_addr);
                 holder.itemUndelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.shares_amount), 18, 18));
 
@@ -1036,9 +1035,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemReDelegator.setText(msg.value.delegator_address);
                 holder.itemFromValidator.setText(msg.value.validator_src_address);
-                holder.itemFromMoniker.setText(WUtil.getMonikerName(msg.value.validator_src_address, mAllValidators, true));
+                holder.itemFromMoniker.setText(WUtil.getMonikerName(msg.value.validator_src_address, getBaseDao().mAllValidators, true));
                 holder.itemToValidator.setText(msg.value.validator_dst_address);
-                holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_address, mAllValidators, true));
+                holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_address, getBaseDao().mAllValidators, true));
                 holder.itemRedelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, mBaseChain));
                 holder.itemAutoRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, mBaseChain));
                 if (mResTxInfo.getMsgs().size() == 1) {
@@ -1049,9 +1048,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemReDelegator.setText(msg.value.delegator_addr);
                 holder.itemFromValidator.setText(msg.value.validator_src_addr);
-                holder.itemFromMoniker.setText(WUtil.getMonikerName(msg.value.validator_src_addr, mAllValidators, true));
+                holder.itemFromMoniker.setText(WUtil.getMonikerName(msg.value.validator_src_addr, getBaseDao().mAllValidators, true));
                 holder.itemToValidator.setText(msg.value.validator_dst_addr);
-                holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_addr, mAllValidators, true));
+                holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_addr, getBaseDao().mAllValidators, true));
                 holder.itemRedelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.shares_amount), 18, 18));
 
             }
@@ -1066,14 +1065,14 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_address);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
+                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_address);
                 holder.itemRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleReward(msg.value.validator_address, position - 1), 6, mBaseChain));
 
             } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemDelegator.setText(msg.value.delegator_addr);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
+                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, getBaseDao().mAllValidators, true));
                 holder.itemValidator.setText(msg.value.validator_addr);
                 holder.itemRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleRewardIris(), 18, 18));
 
@@ -1090,48 +1089,48 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemDelegator.setText(msg.value.delegator_addr);
                 holder.itemRewardValidatorCnt.setText( " (" + String.valueOf(mResTxInfo.rewardValidatorsIris().size()) + ")");
                 holder.itemRewardValidator0.setText(mResTxInfo.rewardValidatorIris(0));
-                holder.itemRewardMoniker0.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(0), mAllValidators, true));
+                holder.itemRewardMoniker0.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(0), getBaseDao().mAllValidators, true));
                 if (mResTxInfo.rewardValidatorsIris().size() > 1) {
                     holder.itemRewardValidator1.setVisibility(View.VISIBLE);
                     holder.itemRewardMoniker1.setVisibility(View.VISIBLE);
                     holder.itemRewardValidator1.setText(mResTxInfo.rewardValidatorIris(1));
-                    holder.itemRewardMoniker1.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(1), mAllValidators, true));
+                    holder.itemRewardMoniker1.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(1), getBaseDao().mAllValidators, true));
                 }
                 if (mResTxInfo.rewardValidatorsIris().size() > 2) {
                     holder.itemRewardValidator2.setVisibility(View.VISIBLE);
                     holder.itemRewardMoniker2.setVisibility(View.VISIBLE);
                     holder.itemRewardValidator2.setText(mResTxInfo.rewardValidatorIris(2));
-                    holder.itemRewardMoniker2.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(2), mAllValidators, true));
+                    holder.itemRewardMoniker2.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(2), getBaseDao().mAllValidators, true));
                 }
                 if (mResTxInfo.rewardValidatorsIris().size() > 3) {
                     holder.itemRewardValidator3.setVisibility(View.VISIBLE);
                     holder.itemRewardMoniker3.setVisibility(View.VISIBLE);
                     holder.itemRewardValidator3.setText(mResTxInfo.rewardValidatorIris(3));
-                    holder.itemRewardMoniker3.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(3), mAllValidators, true));
+                    holder.itemRewardMoniker3.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(3), getBaseDao().mAllValidators, true));
                 }
                 if (mResTxInfo.rewardValidatorsIris().size() > 4) {
                     holder.itemRewardValidator4.setVisibility(View.VISIBLE);
                     holder.itemRewardMoniker4.setVisibility(View.VISIBLE);
                     holder.itemRewardValidator4.setText(mResTxInfo.rewardValidatorIris(4));
-                    holder.itemRewardMoniker4.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(4), mAllValidators, true));
+                    holder.itemRewardMoniker4.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(4), getBaseDao().mAllValidators, true));
                 }
                 if (mResTxInfo.rewardValidatorsIris().size() > 5) {
                     holder.itemRewardValidator5.setVisibility(View.VISIBLE);
                     holder.itemRewardMoniker5.setVisibility(View.VISIBLE);
                     holder.itemRewardValidator5.setText(mResTxInfo.rewardValidatorIris(5));
-                    holder.itemRewardMoniker5.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(5), mAllValidators, true));
+                    holder.itemRewardMoniker5.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(5), getBaseDao().mAllValidators, true));
                 }
                 if (mResTxInfo.rewardValidatorsIris().size() > 6) {
                     holder.itemRewardValidator6.setVisibility(View.VISIBLE);
                     holder.itemRewardMoniker6.setVisibility(View.VISIBLE);
                     holder.itemRewardValidator6.setText(mResTxInfo.rewardValidatorIris(6));
-                    holder.itemRewardMoniker6.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(6), mAllValidators, true));
+                    holder.itemRewardMoniker6.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(6), getBaseDao().mAllValidators, true));
                 }
                 if (mResTxInfo.rewardValidatorsIris().size() > 7) {
                     holder.itemRewardValidator7.setVisibility(View.VISIBLE);
                     holder.itemRewardMoniker7.setVisibility(View.VISIBLE);
                     holder.itemRewardValidator7.setText(mResTxInfo.rewardValidatorIris(7));
-                    holder.itemRewardMoniker7.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(7), mAllValidators, true));
+                    holder.itemRewardMoniker7.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(7), getBaseDao().mAllValidators, true));
                 }
                 holder.itemRewardAllAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleRewardIris(), 18, 18));
 
@@ -1185,13 +1184,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemCommissionValidator.setText(msg.value.validator_address);
-                holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators, true));
+                holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
                 holder.itemCommissionAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleCommission(position - 1), 6, 6));
 
             } else if (mBaseChain.equals(IRIS_MAIN)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemCommissionValidator.setText(msg.value.validator_addr);
-                holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, mAllValidators, true));
+                holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, getBaseDao().mAllValidators, true));
                 holder.itemCommissionAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleCommissionIris(), 18, 18));
             }
         }
@@ -1458,31 +1457,17 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemVoter.setText(msg.value.delegator_address);
 
-                mAllValidators.clear();
-                mAllValidators.addAll(getBaseDao().mTopValidators);
-                mAllValidators.addAll(getBaseDao().mOtherValidators);
-
                 ArrayList<String> toValAdd = msg.value.validator_addresses;
-
                 String monikers = "";
                 for (String valOp:toValAdd) {
-                    for (Validator validator:mAllValidators) {
+                    for (Validator validator:getBaseDao().mAllValidators) {
                         if (validator.operator_address.equals(valOp)) {
                             monikers = monikers + validator.description.moniker + "\n";
                         }
                     }
                 }
                 holder.itemValList.setText(monikers);
-
-//                ArrayList<String> toValAdd = msg.value.validator_addresses;
-//                String monikers = "";
-//                for (String valOp:toValAdd) {
-//                    monikers = monikers + valOp + "\n";
-//                }
-//                WLog.w("toValAdd " + toValAdd);
-
             }
-
         }
 
         private void onBindRegisterDomain(RecyclerView.ViewHolder viewHolder, int position) {

@@ -65,7 +65,7 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
 
             String monikers = "";
             for (String valOp:getSActivity().mValAddesses) {
-                for (Validator validator:getSActivity().mAllValidators) {
+                for (Validator validator:getBaseDao().mAllValidators) {
                     if (validator.operator_address.equals(valOp)) {
                         monikers = monikers + validator.description.moniker + "\n";
                     }

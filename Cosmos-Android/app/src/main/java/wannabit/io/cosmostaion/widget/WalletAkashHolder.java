@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
@@ -37,8 +38,9 @@ public class WalletAkashHolder extends WalletHolder {
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
+        final BaseData baseData = mainActivity.getBaseDao();
         final BigDecimal availableAmount = WDp.getAvailableCoin(mainActivity.mBalances, TOKEN_AKASH);
-        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mainActivity.mBondings, mainActivity.mAllValidators, mainActivity.mBaseChain);
+        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mainActivity.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
         final BigDecimal unbondingAmount = WDp.getUnbondingAmount(mainActivity.mUnbondings);
         final BigDecimal rewardAmount = WDp.getAllRewardAmount(mainActivity.mRewards, TOKEN_AKASH);
         final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);

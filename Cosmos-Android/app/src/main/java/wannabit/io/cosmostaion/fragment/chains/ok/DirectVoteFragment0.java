@@ -99,7 +99,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
 
         @Override
         public void onBindViewHolder(@NonNull ToValidatorHolder holder, @SuppressLint("RecyclerView") int position) {
-            final Validator validator  = getSActivity().mAllValidators.get(position);
+            final Validator validator  = getBaseDao().mAllValidators.get(position);
             if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
                 holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
@@ -162,7 +162,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
 
         @Override
         public int getItemCount() {
-            return getSActivity().mAllValidators.size();
+            return getBaseDao().mAllValidators.size();
         }
 
         public class ToValidatorHolder extends RecyclerView.ViewHolder {
