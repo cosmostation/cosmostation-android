@@ -39,10 +39,10 @@ public class WalletCosmosHolder extends WalletHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = WDp.getAvailableCoin(mainActivity.mBalances, TOKEN_ATOM);
-        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mainActivity.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
-        final BigDecimal unbondingAmount = WDp.getUnbondingAmount(mainActivity.mUnbondings);
-        final BigDecimal rewardAmount = WDp.getAllRewardAmount(mainActivity.mRewards, TOKEN_ATOM);
+        final BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_ATOM);
+        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
+        final BigDecimal unbondingAmount = WDp.getUnbondingAmount(baseData.mUnbondings);
+        final BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, TOKEN_ATOM);
         final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
 
         mTvAtomTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
@@ -50,7 +50,7 @@ public class WalletCosmosHolder extends WalletHolder {
         mTvAtomDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvAtomUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvAtomRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvAtomValue.setText(WDp.getValueOfAtom(mainActivity, mainActivity.getBaseDao(), totalAmount));
+        mTvAtomValue.setText(WDp.getValueOfAtom(mainActivity, baseData, totalAmount));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
@@ -58,7 +58,7 @@ public class WalletCosmosHolder extends WalletHolder {
             @Override
             public void onClick(View v) {
                 Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
-                validators.putExtra("rewards", mainActivity.mRewards);
+                validators.putExtra("rewards", baseData.mRewards);
                 mainActivity.startActivity(validators);
             }
         });

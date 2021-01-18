@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.activities.chains.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKUnbondingActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -44,10 +45,11 @@ public class WalletOkexHolder extends WalletHolder {
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
-        BigDecimal availableAmount = WDp.getAvailableCoin(mainActivity.mBalances, TOKEN_OK);
-        BigDecimal lockedAmount = WDp.getLockedCoin(mainActivity.mBalances, TOKEN_OK);
-        BigDecimal depositAmount = WDp.getOkDepositCoin(mainActivity.getBaseDao().mOkStaking);
-        BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(mainActivity.getBaseDao().mOkUnbonding);
+        final BaseData baseData = mainActivity.getBaseDao();
+        BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_OK);
+        BigDecimal lockedAmount = WDp.getLockedCoin(baseData.mBalances, TOKEN_OK);
+        BigDecimal depositAmount = WDp.getOkDepositCoin(baseData.mOkStaking);
+        BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(baseData.mOkUnbonding);
         BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
 
         mOkTotalAmount.setText(WDp.getDpAmount2(mainActivity, totalAmount, 0, 6));
@@ -55,7 +57,7 @@ public class WalletOkexHolder extends WalletHolder {
         mOkLocked.setText(WDp.getDpAmount2(mainActivity, lockedAmount, 0, 6));
         mOkDeposit.setText(WDp.getDpAmount2(mainActivity, depositAmount, 0, 6));
         mOkWithdrawing.setText(WDp.getDpAmount2(mainActivity, withdrawAmount, 0, 6));
-        mOkTotalValue.setText(WDp.getValueOfOk(mainActivity, mainActivity.getBaseDao(), totalAmount));
+        mOkTotalValue.setText(WDp.getValueOfOk(mainActivity, baseData, totalAmount));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 

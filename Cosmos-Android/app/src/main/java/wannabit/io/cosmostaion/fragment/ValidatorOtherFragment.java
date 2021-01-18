@@ -57,8 +57,6 @@ public class ValidatorOtherFragment extends BaseFragment {
     private OtherValidatorAdapter       mOtherValidatorAdapter;
     private TextView                    mValidatorSize;
 
-//    private ArrayList<Validator>        mMyValidators = new ArrayList<>();
-//    private ArrayList<Validator>        mOtherValidators = new ArrayList<>();
     private ResBandOracleStatus         mBandOracles;
 
     public static ValidatorOtherFragment newInstance(Bundle bundle) {

@@ -65,7 +65,6 @@ public class WithdrawHarvestActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mBalances = mAccount.getBalances();
         mHarvestDepositDenom = getIntent().getStringExtra("harvestDepositDemon");
 
         mPageAdapter = new WithdrawHarvestPageAdapter(getSupportFragmentManager());

@@ -107,9 +107,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mBalances = getBaseDao().onSelectBalance(mAccount.id);
-        mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
-        mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
 
         mToolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(mToolbar);
@@ -128,8 +125,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         mIrisToken = getIntent().getParcelableExtra("irisToken");
         mBnbToken = getIntent().getParcelableExtra("bnbToken");
         mBnbTics = (HashMap<String, ResBnbTic>)getIntent().getSerializableExtra("bnbTics");
-        mIrisReward = getIntent().getParcelableExtra("irisreward");
-        mRewards = getIntent().getParcelableArrayListExtra("rewards");
         mOkDenom = getIntent().getStringExtra("okDenom");
         mOkToken = WUtil.getOkToken(getBaseDao().mOkTokenList, mOkDenom);
         onCheckVesting();
@@ -490,13 +485,13 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindAtom(RecyclerView.ViewHolder viewHolder, int position) {
             final AtomHolder holder = (AtomHolder)viewHolder;
-            BigDecimal totalAmount = WDp.getAllAtom(mBalances, mBondings, mUnbondings, mRewards, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllAtom(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
             holder.mTvAtomTotal.setText(WDp.getDpAmount(getBaseContext(), totalAmount, 6, mBaseChain));
-            holder.mTvAtomAvailable.setText(WDp.getDpAvailableCoin(getBaseContext(), mBalances, mBaseChain, TOKEN_ATOM));
-            holder.mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getBaseContext(), mBondings, getBaseDao().mAllValidators, mBaseChain));
-            holder.mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getBaseContext(), mUnbondings, getBaseDao().mAllValidators, mBaseChain));
-            holder.mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getBaseContext(), mUnbondings, getBaseDao().mAllValidators, mBaseChain));
-            holder.mTvAtomRewards.setText(WDp.getDpAllRewardAmount(getBaseContext(), mRewards, mBaseChain, TOKEN_ATOM));
+            holder.mTvAtomAvailable.setText(WDp.getDpAvailableCoin(getBaseContext(), getBaseDao().mBalances, mBaseChain, TOKEN_ATOM));
+            holder.mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getBaseContext(), getBaseDao().mBondings, getBaseDao().mAllValidators, mBaseChain));
+            holder.mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getBaseContext(), getBaseDao().mUnbondings, getBaseDao().mAllValidators, mBaseChain));
+            holder.mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getBaseContext(), getBaseDao().mUnbondings, getBaseDao().mAllValidators, mBaseChain));
+            holder.mTvAtomRewards.setText(WDp.getDpAllRewardAmount(getBaseContext(), getBaseDao().mRewards, mBaseChain, TOKEN_ATOM));
             holder.mTvAtomValue.setText(WDp.getValueOfAtom(getBaseContext(), getBaseDao(), totalAmount));
 
             holder.mBtnSendAtom.setOnClickListener(new View.OnClickListener() {
@@ -515,12 +510,12 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindIris(RecyclerView.ViewHolder viewHolder, int position) {
             final IrisHolder holder = (IrisHolder)viewHolder;
-            BigDecimal totalAmount = WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllIris(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mIrisReward, getBaseDao().mAllValidators);
             holder.mTvIrisTotal.setText(WDp.getDpAmount(getBaseContext(), totalAmount, 18, mBaseChain));
-            holder.mTvIrisAvailable.setText(WDp.getDpAmount(getBaseContext(), WDp.getAvailableCoin(mBalances, TOKEN_IRIS_ATTO), 18, mBaseChain));
-            holder.mTvIrisDelegated.setText(WDp.getDpAmount(getBaseContext(), WDp.getAllDelegatedAmount(mBondings, getBaseDao().mAllValidators, mBaseChain), 18, mBaseChain));
-            holder.mTvIrisUnBonding.setText(WDp.getDpAmount(getBaseContext(), WDp.getUnbondingAmount(mUnbondings), 18, mBaseChain));
-            holder.mTvIrisRewards.setText(WDp.getDpAmount(getBaseContext(), mIrisReward.getSimpleIrisReward(), 18, mBaseChain));
+            holder.mTvIrisAvailable.setText(WDp.getDpAmount(getBaseContext(), WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_IRIS_ATTO), 18, mBaseChain));
+            holder.mTvIrisDelegated.setText(WDp.getDpAmount(getBaseContext(), WDp.getAllDelegatedAmount(getBaseDao().mBondings, getBaseDao().mAllValidators, mBaseChain), 18, mBaseChain));
+            holder.mTvIrisUnBonding.setText(WDp.getDpAmount(getBaseContext(), WDp.getUnbondingAmount(getBaseDao().mUnbondings), 18, mBaseChain));
+            holder.mTvIrisRewards.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().mIrisReward.getSimpleIrisReward(), 18, mBaseChain));
             holder.mTvIrisValue.setText(WDp.getValueOfIris(getBaseContext(), getBaseDao(), totalAmount));
 
             holder.mBtnSendIris.setOnClickListener(new View.OnClickListener() {
@@ -569,14 +564,14 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindKava(RecyclerView.ViewHolder viewHolder, int position) {
             final KavaHolder holder = (KavaHolder)viewHolder;
-            BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_KAVA);
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, getBaseDao().mAllValidators, mBaseChain);
-            BigDecimal unbondingAmount = WDp.getUnbondingAmount(mUnbondings);
-            BigDecimal rewardAmount = WDp.getAllRewardAmount(mRewards, TOKEN_KAVA);
-            BigDecimal vestingAmount = WDp.getLockedCoin(mBalances, TOKEN_KAVA);
+            BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_KAVA);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getBaseDao().mBondings, getBaseDao().mAllValidators, mBaseChain);
+            BigDecimal unbondingAmount = WDp.getUnbondingAmount(getBaseDao().mUnbondings);
+            BigDecimal rewardAmount = WDp.getAllRewardAmount(getBaseDao().mRewards, TOKEN_KAVA);
+            BigDecimal vestingAmount = WDp.getLockedCoin(getBaseDao().mBalances, TOKEN_KAVA);
             BigDecimal harvestDepositAmount = WDp.getHavestDepositAmount(getBaseDao(), TOKEN_KAVA);
             BigDecimal unclaimedIncentiveAmount = WDp.getUnclaimedIncentiveAmount(getBaseDao(), TOKEN_KAVA);
-            BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), mBalances, mBondings, mUnbondings, mRewards, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
 
             holder.mTvKavaTotal.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 6, 6));
             holder.mTvKavaAvailable.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 6, 6));
@@ -612,8 +607,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindOkt(RecyclerView.ViewHolder viewHolder, int position) {
             final OktHolder holder = (OktHolder)viewHolder;
-            BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_OK);
-            BigDecimal lockedAmount = WDp.getLockedCoin(mBalances, TOKEN_OK);
+            BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_OK);
+            BigDecimal lockedAmount = WDp.getLockedCoin(getBaseDao().mBalances, TOKEN_OK);
             BigDecimal depositAmount = WDp.getOkDepositCoin(getBaseDao().mOkStaking);
             BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(getBaseDao().mOkUnbonding);
             BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
@@ -701,9 +696,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
             } else if (mBaseChain.equals(KAVA_MAIN) && mBalance != null) {
                 final int dpDecimal                         = WUtil.getKavaCoinDecimal(mBalance.symbol);
-                final BigDecimal tokenTotalAmount           = WDp.getKavaTokenAll(getBaseDao(), mBalances, mBalance.symbol);
-                final BigDecimal availableTokenAmount       = WDp.getAvailableCoin(mBalances, mBalance.symbol);
-                final BigDecimal vestingTokenAmount         = WDp.getKavaVestingAmount(mBalances, mBalance.symbol);
+                final BigDecimal tokenTotalAmount           = WDp.getKavaTokenAll(getBaseDao(), getBaseDao().mBalances, mBalance.symbol);
+                final BigDecimal availableTokenAmount       = WDp.getAvailableCoin(getBaseDao().mBalances, mBalance.symbol);
+                final BigDecimal vestingTokenAmount         = WDp.getKavaVestingAmount(getBaseDao().mBalances, mBalance.symbol);
                 final BigDecimal havestDepositTokenAmount   = WDp.getHavestDepositAmount(getBaseDao(), mBalance.symbol);
                 final BigDecimal havestRewardTokenAmount    = WDp.getHavestRewardAmount(getBaseDao(), mBalance.symbol);
                 final BigDecimal tokenTotalValue            = WDp.kavaTokenDollorValue(getBaseDao(), mBalance.symbol, tokenTotalAmount);
@@ -735,9 +730,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
             } else if (mBaseChain.equals(KAVA_TEST) && mBalance != null) {
                 final int dpDecimal                         = WUtil.getKavaCoinDecimal(mBalance.symbol);
-                final BigDecimal tokenTotalAmount           = WDp.getKavaTokenAll(getBaseDao(), mBalances, mBalance.symbol);
-                final BigDecimal availableTokenAmount       = WDp.getAvailableCoin(mBalances, mBalance.symbol);
-                final BigDecimal vestingTokenAmount         = WDp.getKavaVestingAmount(mBalances, mBalance.symbol);
+                final BigDecimal tokenTotalAmount           = WDp.getKavaTokenAll(getBaseDao(), getBaseDao().mBalances, mBalance.symbol);
+                final BigDecimal availableTokenAmount       = WDp.getAvailableCoin(getBaseDao().mBalances, mBalance.symbol);
+                final BigDecimal vestingTokenAmount         = WDp.getKavaVestingAmount(getBaseDao().mBalances, mBalance.symbol);
                 final BigDecimal havestDepositTokenAmount   = WDp.getHavestDepositAmount(getBaseDao(), mBalance.symbol);
                 final BigDecimal havestRewardTokenAmount    = WDp.getHavestRewardAmount(getBaseDao(), mBalance.symbol);
                 final BigDecimal tokenTotalValue            = WDp.kavaTokenDollorValue(getBaseDao(), mBalance.symbol, tokenTotalAmount);
@@ -773,8 +768,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 holder.mTvTokenSymbol.setText(mOkToken.original_symbol.toUpperCase());
                 holder.mTvTokenDenom.setText(mOkToken.description);
 
-                BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, mOkToken.symbol);
-                BigDecimal lockedAmount = WDp.getLockedCoin(mBalances, mOkToken.symbol);
+                BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().mBalances, mOkToken.symbol);
+                BigDecimal lockedAmount = WDp.getLockedCoin(getBaseDao().mBalances, mOkToken.symbol);
                 BigDecimal totalAmount = availableAmount.add(lockedAmount);
 
                 holder.mTvTokenTotal.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 0, 18));

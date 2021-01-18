@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.widget;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,8 +17,6 @@ import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 
 public class WalletIrisHolder extends WalletHolder {
@@ -40,10 +37,10 @@ public class WalletIrisHolder extends WalletHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = WDp.getAvailableCoin(mainActivity.mBalances, TOKEN_IRIS_ATTO);
-        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mainActivity.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
-        final BigDecimal unbondingAmount = WDp.getUnbondingAmount(mainActivity.mUnbondings);
-        final BigDecimal rewardAmount = mainActivity.mIrisReward == null ? BigDecimal.ZERO : mainActivity.mIrisReward.getSimpleIrisReward();
+        final BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_IRIS_ATTO);
+        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
+        final BigDecimal unbondingAmount = WDp.getUnbondingAmount(baseData.mUnbondings);
+        final BigDecimal rewardAmount = baseData.mIrisReward == null ? BigDecimal.ZERO : baseData.mIrisReward.getSimpleIrisReward();
         final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
 
         mTvIrisTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 18, 6));
@@ -51,7 +48,7 @@ public class WalletIrisHolder extends WalletHolder {
         mTvIrisDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 18, 6));
         mTvIrisUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 18, 6));
         mTvIrisRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 18, 6));
-        mTvIrisValue.setText(WDp.getValueOfIris(mainActivity, mainActivity.getBaseDao(), totalAmount));
+        mTvIrisValue.setText(WDp.getValueOfIris(mainActivity, baseData, totalAmount));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
@@ -59,7 +56,6 @@ public class WalletIrisHolder extends WalletHolder {
             @Override
             public void onClick(View v) {
                 Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
-                validators.putExtra("irisreward", mainActivity.mIrisReward);
                 mainActivity.startActivity(validators);
             }
         });

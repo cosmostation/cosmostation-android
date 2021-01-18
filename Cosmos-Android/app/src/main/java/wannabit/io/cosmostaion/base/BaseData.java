@@ -22,7 +22,9 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
+import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Password;
+import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
@@ -39,6 +41,7 @@ import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
@@ -76,18 +79,29 @@ public class BaseData {
     private SQLiteDatabase          mSQLiteDatabase;
     public String                   mCopySalt;
     public EncResult                mCopyEncResult;
-    public ArrayList<Validator>     mAllValidators = new ArrayList<>();
-    public ArrayList<Validator>     mMyValidators = new ArrayList<>();
-    public ArrayList<Validator>     mTopValidators = new ArrayList<>();
-    public ArrayList<Validator>     mOtherValidators = new ArrayList<>();
-    public ResStakingPool           mStakingPool;
-    public ResLcdIrisPool           mIrisStakingPool;
-    public BigDecimal               mInflation = BigDecimal.ZERO;
-    public BigDecimal               mProvisions = BigDecimal.ZERO;
-    public ResMintParam.MintParam   mMintParam;
-
 
     //COMMON DATA
+    public ArrayList<Validator>         mAllValidators = new ArrayList<>();
+    public ArrayList<Validator>         mMyValidators = new ArrayList<>();
+    public ArrayList<Validator>         mTopValidators = new ArrayList<>();
+    public ArrayList<Validator>         mOtherValidators = new ArrayList<>();
+
+    public ArrayList<Balance>           mBalances = new ArrayList<>();
+    public ArrayList<BondingState>      mBondings = new ArrayList<>();
+    public ArrayList<UnBondingState>    mUnbondings = new ArrayList<>();
+    public ArrayList<Reward>            mRewards = new ArrayList<>();
+
+    public ResStakingPool               mStakingPool;
+    public ResLcdIrisPool               mIrisStakingPool;
+    public BigDecimal                   mInflation = BigDecimal.ZERO;
+    public BigDecimal                   mProvisions = BigDecimal.ZERO;
+    public ResMintParam.MintParam       mMintParam;
+
+    //COMMON DATA FOR IRIS
+    public ArrayList<IrisToken>         mIrisTokens = new ArrayList<>();
+    public ResLcdIrisReward             mIrisReward;
+
+    //COMMON DATA FOR KAVA
     public ResLcdKavaAccountInfo.Result                                     mKavaAccount;
     public ResCdpParam.Result                                               mKavaCdpParams;
     public ArrayList<ResCdpOwnerStatus.MyCDP>                               mMyOwenCdp = new ArrayList<>();
@@ -99,18 +113,22 @@ public class BaseData {
     public ArrayList<ResKavaHarvestReward.HarvestReward>                    mHavestRewards = new ArrayList<>();
     public BigDecimal                                                       mHardPrice = BigDecimal.ZERO;
 
-    public ArrayList<BnbToken>                                              mBnbTokens = new ArrayList<>();
-    public ArrayList<ResBnbFee>                                             mBnbFees = new ArrayList<>();
+    //COMMON DATA FOR BINANCE
+    public ArrayList<BnbToken>      mBnbTokens = new ArrayList<>();
+    public ArrayList<ResBnbFee>     mBnbFees = new ArrayList<>();
 
-    public ResOkAccountInfo                                                 mOkAccountInfo;
-    public ResOkStaking                                                     mOkStaking;
-    public ResOkUnbonding                                                   mOkUnbonding;
-    public ResOkTokenList                                                   mOkTokenList;
+    //COMMON DATA FOR OKEX
+    public ResOkAccountInfo         mOkAccountInfo;
+    public ResOkStaking             mOkStaking;
+    public ResOkUnbonding           mOkUnbonding;
+    public ResOkTokenList           mOkTokenList;
 
-    public ResIovFee.IovFee                                                 mStarNameFee;
-    public ResIovConfig.IovConfig                                           mStarNameConfig;
+    //COMMON DATA FOR STARNAME
+    public ResIovFee.IovFee         mStarNameFee;
+    public ResIovConfig.IovConfig   mStarNameConfig;
 
-    public ResBandOracleStatus                                              mBandOracles;
+    //COMMON DATA FOR BAND
+    public ResBandOracleStatus      mBandOracles;
 
     public BigDecimal getBnbTransferFee() {
         BigDecimal result =  BigDecimal.ZERO;

@@ -56,7 +56,6 @@ import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.IrisToken;
@@ -178,17 +177,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public Account                          mAccount;
     public BaseChain                        mBaseChain;
 
-    public ArrayList<Balance>               mBalances = new ArrayList<>();
-    public ArrayList<BondingState>          mBondings = new ArrayList<>();
-    public ArrayList<UnBondingState>        mUnbondings = new ArrayList<>();
-    public ArrayList<Reward>                mRewards = new ArrayList<>();
-
-    public ResLcdIrisReward                 mIrisReward;
-    public ArrayList<IrisToken>             mIrisTokens = new ArrayList<>();
-
     protected int                           mTaskCount;
     private FetchCallBack                   mFetchCallback;
-
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
@@ -475,10 +465,17 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mTopValidators.clear();
         getBaseDao().mOtherValidators.clear();
 
+        getBaseDao().mBalances.clear();
+        getBaseDao().mBondings.clear();
+        getBaseDao().mUnbondings.clear();
+        getBaseDao().mRewards.clear();
+
+
         getBaseDao().mStakingPool = null;
         getBaseDao().mIrisStakingPool = null;
         getBaseDao().mInflation = BigDecimal.ZERO;
         getBaseDao().mProvisions = BigDecimal.ZERO;
+        getBaseDao().mIrisTokens.clear();
 
         if (mBaseChain.equals(COSMOS_MAIN)) {
             mTaskCount = 10;
@@ -682,7 +679,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         mTaskCount--;
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-            mBalances = getBaseDao().onSelectBalance(mAccount.id);
+            getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDEB_VALIDATOR) {
             if (!result.isSuccess) {
@@ -709,19 +706,19 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
-            mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
+            getBaseDao().mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
             if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
                     mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
                     mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
-                mTaskCount = mTaskCount + mBondings.size();
-                mRewards.clear();
-                for(BondingState bonding:mBondings) {
+                mTaskCount = mTaskCount + getBaseDao().mBondings.size();
+                getBaseDao().mRewards.clear();
+                for(BondingState bonding:getBaseDao().mBondings) {
                     new SingleRewardTask(getBaseApplication(), this, mAccount, bonding.validatorAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_STATE) {
-            mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
+            getBaseDao().mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             Reward reward = (Reward)result.resultData;
@@ -748,7 +745,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             } catch (Exception e) {}
 
         } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
-            this.mIrisReward = (ResLcdIrisReward)result.resultData;
+            getBaseDao().mIrisReward = (ResLcdIrisReward)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_IRIS_POOL) {
             getBaseDao().mIrisStakingPool = (ResLcdIrisPool)result.resultData;
@@ -772,7 +769,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_IRIS_TOKENS) {
-            mIrisTokens = (ArrayList<IrisToken>)result.resultData;
+            getBaseDao().mIrisTokens = (ArrayList<IrisToken>)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
             if (result.isSuccess && result.resultData != null) {
@@ -849,7 +846,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == TASK_FETCH_OK_ACCOUNT_BALANCE) {
             if (result.isSuccess) {
-                mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
             }
 
         } else if (result.taskType == TASK_FETCH_OK_STAKING_INFO) {
@@ -896,13 +893,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN))) {
             for (Validator top:getBaseDao().mTopValidators) {
                 boolean already = false;
-                for (BondingState bond:mBondings) {
+                for (BondingState bond: getBaseDao().mBondings) {
                     if(bond.validatorAddress.equals(top.operator_address)) {
                         already = true;
                         break;
                     }
                 }
-                for (UnBondingState unbond:mUnbondings) {
+                for (UnBondingState unbond: getBaseDao().mUnbondings) {
                     if(unbond.validatorAddress.equals(top.operator_address) && !already) {
                         already = true;
                         break;
@@ -913,13 +910,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
             for (Validator other:getBaseDao().mOtherValidators) {
                 boolean already = false;
-                for (BondingState bond : mBondings) {
+                for (BondingState bond: getBaseDao().mBondings) {
                     if (bond.validatorAddress.equals(other.operator_address)) {
                         already = true;
                         break;
                     }
                 }
-                for (UnBondingState unbond : mUnbondings) {
+                for (UnBondingState unbond: getBaseDao().mUnbondings) {
                     if (unbond.validatorAddress.equals(other.operator_address) && !already) {
                         already = true;
                         break;
@@ -951,20 +948,20 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     private void onUpdateReward(Reward reward) {
-        if (mRewards == null) mRewards = new ArrayList<>();
-        if (mRewards.size() == 0) {
-            mRewards.add(reward);
+        if (getBaseDao().mRewards == null) getBaseDao().mRewards = new ArrayList<>();
+        if (getBaseDao().mRewards.size() == 0) {
+            getBaseDao().mRewards.add(reward);
         } else {
             int match = -1;
-            for(int i = 0; i < mRewards.size(); i++) {
-                if(mRewards.get(i).validatorAddress.equals(reward.validatorAddress)) {
+            for(int i = 0; i < getBaseDao().mRewards.size(); i++) {
+                if(getBaseDao().mRewards.get(i).validatorAddress.equals(reward.validatorAddress)) {
                     match = i; break;
                 }
             }
             if(match > 0) {
-                mRewards.remove(match);
+                getBaseDao().mRewards.remove(match);
             }
-            mRewards.add(reward);
+            getBaseDao().mRewards.add(reward);
         }
     }
 

@@ -66,7 +66,6 @@ public class OKVoteDirectActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mBalances = mAccount.getBalances();
 
         WUtil.onSortByOKValidatorPower(getBaseDao().mAllValidators);
         mOkDeposit = getBaseDao().mOkStaking;

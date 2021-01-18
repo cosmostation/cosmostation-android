@@ -142,14 +142,13 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 return;
             }
 
-            mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (mBondings.size() == 0) {
+                if (getBaseDao().mBondings.size() == 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -160,7 +159,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                if (mBondings.size() == 0) {
+                if (getBaseDao().mBondings.size() == 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -170,8 +169,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(mBalances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("80000000000000000")) <= 0) {
+                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                if (WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("80000000000000000")) <= 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -182,13 +181,13 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                if (mBondings.size() == 0) {
+                if (getBaseDao().mBondings.size() == 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(mBalances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) <= 0) {
+                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                if (WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) <= 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -199,13 +198,13 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                if (mBondings.size() == 0) {
+                if (getBaseDao().mBondings.size() == 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(mBalances, TOKEN_IOV).compareTo(new BigDecimal("100000")) <= 0) {
+                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                if (WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_IOV).compareTo(new BigDecimal("100000")) <= 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -216,13 +215,13 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                if (mBondings.size() == 0) {
+                if (getBaseDao().mBondings.size() == 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(mBalances, TOKEN_SECRET).compareTo(new BigDecimal("25000")) <= 0) {
+                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                if (WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_SECRET).compareTo(new BigDecimal("25000")) <= 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -233,13 +232,13 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                if (mBondings.size() == 0) {
+                if (getBaseDao().mBondings.size() == 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(mBalances, TOKEN_AKASH).compareTo(new BigDecimal("2500")) <= 0) {
+                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                if (WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_AKASH).compareTo(new BigDecimal("2500")) <= 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }

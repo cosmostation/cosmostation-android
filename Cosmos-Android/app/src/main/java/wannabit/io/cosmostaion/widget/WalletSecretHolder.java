@@ -39,10 +39,10 @@ public class WalletSecretHolder extends WalletHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = WDp.getAvailableCoin(mainActivity.mBalances, TOKEN_SECRET);;
-        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mainActivity.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
-        final BigDecimal unbondingAmount = WDp.getUnbondingAmount(mainActivity.mUnbondings);
-        final BigDecimal rewardAmount = WDp.getAllRewardAmount(mainActivity.mRewards, TOKEN_SECRET);
+        final BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_SECRET);;
+        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
+        final BigDecimal unbondingAmount = WDp.getUnbondingAmount(baseData.mUnbondings);
+        final BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, TOKEN_SECRET);
         final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
 
         mTvSecretTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
@@ -50,7 +50,7 @@ public class WalletSecretHolder extends WalletHolder {
         mTvSecretDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvSecretUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvSecretRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvSecretValue.setText(WDp.getValueOfSecret(mainActivity, mainActivity.getBaseDao(), totalAmount));
+        mTvSecretValue.setText(WDp.getValueOfSecret(mainActivity, baseData, totalAmount));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
@@ -58,7 +58,7 @@ public class WalletSecretHolder extends WalletHolder {
             @Override
             public void onClick(View v) {
                 Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
-                validators.putExtra("rewards", mainActivity.mRewards);
+                validators.putExtra("rewards", baseData.mRewards);
                 mainActivity.startActivity(validators);
             }
         });

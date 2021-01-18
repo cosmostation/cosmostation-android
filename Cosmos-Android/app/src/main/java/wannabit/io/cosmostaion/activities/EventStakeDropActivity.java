@@ -85,7 +85,6 @@ public class EventStakeDropActivity extends BaseActivity implements View.OnClick
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mBalances = mAccount.getBalances();
 
         mBtnQr.setOnClickListener(this);
         mBtnPaste.setOnClickListener(this);

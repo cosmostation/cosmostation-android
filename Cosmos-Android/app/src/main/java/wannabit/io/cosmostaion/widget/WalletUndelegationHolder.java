@@ -68,7 +68,7 @@ public class WalletUndelegationHolder extends WalletHolder {
         mUndelegateLayer4.setVisibility(View.GONE);
         mUndelegateCard.setCardBackgroundColor(WDp.getChainBgColor(mainActivity, mainActivity.mBaseChain));
 
-        final ArrayList<UnBondingState>  unbondings = mainActivity.mUnbondings;
+        final ArrayList<UnBondingState>  unbondings = baseData.mUnbondings;
         final int dpDecimal = mainActivity.mBaseChain.equals(IRIS_MAIN) ? 18 : 6;
         WUtil.onSortUnbondingsRecent(unbondings);
         mUndelegateCnt.setText(String.valueOf(unbondings.size()));

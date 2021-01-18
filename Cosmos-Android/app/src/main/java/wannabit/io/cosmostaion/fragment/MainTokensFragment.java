@@ -192,7 +192,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onUpdateView() {
-        mBalances = getMainActivity().mBalances;
+        mBalances = getBaseDao().mBalances;
         if (mOrder == ORDER_NAME) {
             mTokenSortType.setText(R.string.str_name);
             WUtil.onSortingTokenByName(mBalances, getMainActivity().mBaseChain);
@@ -289,7 +289,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalAtomAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_ATOM)) {
-                    totalAtomAmount = totalAtomAmount.add(WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators));
+                    totalAtomAmount = totalAtomAmount.add(WDp.getAllAtom(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators));
                 } else {
 
                 }
@@ -301,7 +301,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalIrisAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_IRIS_ATTO)) {
-                    totalIrisAmount = totalIrisAmount.add(WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, getBaseDao().mAllValidators));
+                    totalIrisAmount = totalIrisAmount.add(WDp.getAllIris(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mIrisReward, getBaseDao().mAllValidators));
                 } else {
 
                 }
@@ -328,7 +328,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalKavaAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_KAVA)) {
-                    totalKavaAmount = totalKavaAmount.add(WDp.getAllKava(getBaseDao(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators));
+                    totalKavaAmount = totalKavaAmount.add(WDp.getAllKava(getBaseDao(), getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators));
                 } else {
                     BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), mBalances, balance.symbol);
                     BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
@@ -343,7 +343,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalIovAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_IOV) || balance.symbol.equals(TOKEN_IOV_TEST) ) {
-                    totalIovAmount = totalIovAmount.add(WDp.getAllIov(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators));
+                    totalIovAmount = totalIovAmount.add(WDp.getAllIov(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators));
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalIovAmount, 6, 6));
@@ -353,7 +353,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalBandAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_BAND)) {
-                    totalBandAmount = totalBandAmount.add(WDp.getAllBand(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators));
+                    totalBandAmount = totalBandAmount.add(WDp.getAllBand(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators));
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBandAmount, 6, 6));
@@ -375,7 +375,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalCtkAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_CERTIK) ) {
-                    totalCtkAmount = totalCtkAmount.add(WDp.getAllCtk(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators));
+                    totalCtkAmount = totalCtkAmount.add(WDp.getAllCtk(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators));
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalCtkAmount, 6, 6));
@@ -385,7 +385,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalScrtAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_SECRET) ) {
-                    totalScrtAmount = totalScrtAmount.add(WDp.getAllSecret(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators));
+                    totalScrtAmount = totalScrtAmount.add(WDp.getAllSecret(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators));
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalScrtAmount, 6, 6));
@@ -395,7 +395,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalAktAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_AKASH) ) {
-                    totalAktAmount = totalAktAmount.add(WDp.getAllAkt(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators));
+                    totalAktAmount = totalAktAmount.add(WDp.getAllAkt(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators));
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAktAmount, 6, 6));
@@ -491,7 +491,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
 
-            BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllAtom(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             holder.itemValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), totalAmount));
         } else {
@@ -503,7 +503,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             public void onClick(View v) {
                 Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
                 intent.putExtra("balance", balance);
-                intent.putExtra("rewards", getMainActivity().mRewards);
                 startActivity(intent);
             }
         });
@@ -512,7 +511,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onBindIrisItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
-        final IrisToken token = WUtil.getIrisToken(getMainActivity().mIrisTokens, balance);
+        final IrisToken token = WUtil.getIrisToken(getBaseDao().mIrisTokens, balance);
         if (token != null) {
             holder.itemSymbol.setText(token.base_token.symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + token.base_token.id + ")");
@@ -521,7 +520,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal amount = BigDecimal.ZERO;
             if (balance.symbol.equals(TOKEN_IRIS_ATTO)) {
-                amount = WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, getBaseDao().mAllValidators);
+                amount = WDp.getAllIris(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mIrisReward, getBaseDao().mAllValidators);
                 holder.itemBalance.setText(WDp.getDpAmount(getContext(), amount, 6, getMainActivity().mBaseChain));
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IRIS_MAIN));
@@ -539,7 +538,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
                 intent.putExtra("balance", balance);
                 intent.putExtra("irisToken", token);
-                intent.putExtra("irisreward", getMainActivity().mIrisReward);
                 startActivity(intent);
             }
         });
@@ -600,7 +598,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
 
-            BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
         } else {
@@ -636,7 +634,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             public void onClick(View v) {
                 Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
                 intent.putExtra("balance", balance);
-                intent.putExtra("rewards", getMainActivity().mRewards);
                 startActivity(intent);
             }
         });
@@ -652,7 +649,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
 
-            BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
         } else {
@@ -688,7 +685,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             public void onClick(View v) {
                 Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
                 intent.putExtra("balance", balance);
-                intent.putExtra("rewards", getMainActivity().mRewards);
                 startActivity(intent);
             }
         });
@@ -704,7 +700,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemFullName.setText("Starname Native Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
 
-            BigDecimal totalAmount = WDp.getAllIov(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllIov(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalAmount));
         } else {
@@ -728,7 +724,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemFullName.setText("Band Chain Native Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
 
-            BigDecimal totalAmount = WDp.getAllBand(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllBand(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getValueOfBand(getContext(), getBaseDao(), totalAmount));
         } else {
@@ -739,7 +735,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             public void onClick(View v) {
 //                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
 //                intent.putExtra("balance", balance);
-//                intent.putExtra("rewards", getMainActivity().mRewards);
 //                startActivity(intent);
             }
         });
@@ -789,7 +784,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemFullName.setText("Certik Staking Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_token_img));
 
-            BigDecimal totalAmount = WDp.getAllCtk(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllCtk(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getValueOfCertik(getContext(), getBaseDao(), totalAmount));
         } else {
@@ -813,7 +808,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemFullName.setText("Secret Native Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensecret));
 
-            BigDecimal totalAmount = WDp.getAllSecret(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllSecret(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getValueOfSecret(getContext(), getBaseDao(), totalAmount));
 
@@ -837,7 +832,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemFullName.setText("Akash Staking Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_token_img));
 
-            BigDecimal totalAmount = WDp.getAllAkt(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllAkt(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getValueOfAkash(getContext(), getBaseDao(), totalAmount));
         } else {

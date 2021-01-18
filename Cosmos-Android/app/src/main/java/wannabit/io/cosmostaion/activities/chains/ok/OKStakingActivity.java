@@ -37,7 +37,6 @@ public class OKStakingActivity extends BaseActivity {
     private ViewPager               mViewPager;
     private StakeDepositPageAdapter mPageAdapter;
 
-
     public Coin                     mToDepositCoin;
     public String                   mMemo;
     public Fee                      mFee;
@@ -63,7 +62,6 @@ public class OKStakingActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mBalances = mAccount.getBalances();
 
         mPageAdapter = new StakeDepositPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);

@@ -270,11 +270,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
         });
         onShowWaitDialog();
+        onAccountSwitched();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void onAccountSwitched() {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
@@ -408,7 +407,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         onShowTestNetWarnIfNeed();
         mSelectChainPosition = getBaseDao().getLastChain();
         onChainSelected(mSelectChainPosition);
-
     }
 
     private void onChainSelected(int position) {
@@ -490,7 +488,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
                 hasbalance  = true;
             }
-            intent.putExtra("irisToken", WUtil.getIrisMainToken(mIrisTokens));
+            intent.putExtra("irisToken", WUtil.getIrisMainToken(getBaseDao().mIrisTokens));
 
         } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             if (WDp.getAvailableCoin(balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
@@ -719,8 +717,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             return;
         }
         if (mBaseChain.equals(COSMOS_MAIN)) {
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, getBaseDao().mAllValidators, mBaseChain);
-            BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_ATOM);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getBaseDao().mBondings, getBaseDao().mAllValidators, mBaseChain);
+            BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_ATOM);
             if (availableAmount.compareTo(new BigDecimal("3500")) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
                 return;
@@ -732,8 +730,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
 
         } else if (mBaseChain.equals(KAVA_MAIN)) {
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(mBondings, getBaseDao().mAllValidators, mBaseChain);
-            BigDecimal availableAmount = WDp.getAvailableCoin(mBalances, TOKEN_KAVA);
+            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getBaseDao().mBondings, getBaseDao().mAllValidators, mBaseChain);
+            BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_KAVA);
             if (availableAmount.compareTo(new BigDecimal("6000")) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
                 return;
@@ -759,9 +757,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     public void fetchFinished() {
-        if (!isFinishing() && mPageAdapter.mCurrentFragment != null) {
+        if (!isFinishing()) {
             onHideWaitDialog();
-            mPageAdapter.mCurrentFragment.onRefreshTab();
+            if (mPageAdapter.mCurrentFragment != null) mPageAdapter.mCurrentFragment.onRefreshTab();
         }
     }
 
@@ -1061,7 +1059,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                                 public void run() {
                                     getBaseDao().setLastUser(account.id);
                                     mToShowTestWarn = true;
-                                    onResume();
+                                    onAccountSwitched();
                                 }
                             },200);
 

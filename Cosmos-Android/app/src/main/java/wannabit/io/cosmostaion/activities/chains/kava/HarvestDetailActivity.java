@@ -150,7 +150,6 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mBalances = mAccount.getBalances();
         mDepositDenom = getIntent().getStringExtra("deposit_denom");
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -298,9 +297,9 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
         if (mDepositDenom.equals(TOKEN_KAVA) || mDepositDenom.equals(TOKEN_HARD)) {
             mAssetDepositLayer.setVisibility(View.GONE);
         }
-        BigDecimal targetAvailable = WDp.getAvailableCoin(mBalances, mDepositDenom);
-        BigDecimal hardAvailable = WDp.getAvailableCoin(mBalances, TOKEN_HARD);
-        BigDecimal kavaAvailable = WDp.getAvailableCoin(mBalances, TOKEN_KAVA);
+        BigDecimal targetAvailable = WDp.getAvailableCoin(getBaseDao().mBalances, mDepositDenom);
+        BigDecimal hardAvailable = WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_HARD);
+        BigDecimal kavaAvailable = WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_KAVA);
 
         WDp.showCoinDp(getBaseContext(), mDepositDenom, targetAvailable.toPlainString(), mAssetDepositDenom, mAssetDepositAmount, mBaseChain);
         WDp.showCoinDp(getBaseContext(), TOKEN_HARD, hardAvailable.toPlainString(), mAssetRewardDenom, mAssetRewardAmount, mBaseChain);
@@ -313,7 +312,7 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
 
     private void onHarvestDeposit() {
         if (!onCommonCheck()) return;
-        if (WDp.getAvailableCoin(mBalances, mDepositDenom).compareTo(BigDecimal.ZERO) <= 0) {
+        if (WDp.getAvailableCoin(getBaseDao().mBalances, mDepositDenom).compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_no_available_to_deposit, Toast.LENGTH_SHORT).show();
             return;
         }

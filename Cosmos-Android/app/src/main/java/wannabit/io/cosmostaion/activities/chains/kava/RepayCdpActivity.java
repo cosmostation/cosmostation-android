@@ -90,7 +90,6 @@ public class RepayCdpActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mBalances = mAccount.getBalances();
 
         mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
@@ -195,7 +194,7 @@ public class RepayCdpActivity extends BaseActivity implements TaskListener {
     }
 
     public BigDecimal getTokenAvailable(String denom) {
-        return WUtil.getTokenBalance(mBalances, denom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, denom).balance;
+        return WUtil.getTokenBalance(getBaseDao().mBalances, denom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(getBaseDao().mBalances, denom).balance;
     }
 
 

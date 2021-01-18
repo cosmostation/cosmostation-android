@@ -63,7 +63,6 @@ public class OKUnbondingActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mBalances = mAccount.getBalances();
 
         mPageAdapter = new StakeWithdrawPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);

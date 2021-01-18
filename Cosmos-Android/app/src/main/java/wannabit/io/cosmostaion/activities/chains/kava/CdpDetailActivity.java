@@ -205,7 +205,6 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mBalances = mAccount.getBalances();
 
         mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
@@ -251,9 +250,9 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
     private void onUpdateView() {
         cDenom = mCollateralParam.denom;
         pDenom = mCollateralParam.debt_limit.denom;
-        cAvailable = WUtil.getTokenBalance(mBalances, cDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, cDenom).balance;
-        pAvailable = WUtil.getTokenBalance(mBalances, pDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, pDenom).balance;
-        kAvailable = WUtil.getTokenBalance(mBalances, TOKEN_KAVA) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, TOKEN_KAVA).balance;
+        cAvailable = WUtil.getTokenBalance(getBaseDao().mBalances, cDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(getBaseDao().mBalances, cDenom).balance;
+        pAvailable = WUtil.getTokenBalance(getBaseDao().mBalances, pDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(getBaseDao().mBalances, pDenom).balance;
+        kAvailable = WUtil.getTokenBalance(getBaseDao().mBalances, TOKEN_KAVA) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(getBaseDao().mBalances, TOKEN_KAVA).balance;
         currentPrice = new BigDecimal(mKavaTokenPrice.price);
 
         onUpdateInfoView();
