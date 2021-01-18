@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.widget;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +12,7 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -30,11 +30,12 @@ public class WalletMintHolder extends WalletHolder {
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
+        final BaseData baseData = mainActivity.getBaseDao();
         if (mainActivity.mBaseChain.equals(IRIS_MAIN)) {
             mInflation.setText(WDp.getPercentDp(new BigDecimal("4")));
-            mAPR.setText(WDp.getIrisYieldString(mainActivity.mIrisStakingPool, BigDecimal.ZERO));
+            mAPR.setText(WDp.getIrisYieldString(baseData.mIrisStakingPool, BigDecimal.ZERO));
         } else {
-            mInflation.setText(WDp.getPercentDp(mainActivity.mInflation.multiply(new BigDecimal("100"))));
+            mInflation.setText(WDp.getPercentDp(baseData.mInflation.multiply(new BigDecimal("100"))));
             mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
         }
 

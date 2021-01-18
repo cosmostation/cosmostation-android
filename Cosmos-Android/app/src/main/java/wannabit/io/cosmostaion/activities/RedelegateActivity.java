@@ -87,10 +87,6 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mStakingPool = getBaseDao().mStakingPool;
-        mIrisStakingPool = getBaseDao().mIrisStakingPool;
-        mProvisions = getBaseDao().mProvisions;
-
         mFromValidator          = getIntent().getParcelableExtra("validator");
         mIrisRedelegateState    = getIntent().getParcelableArrayListExtra("irisReState");
         mBondingState           = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);

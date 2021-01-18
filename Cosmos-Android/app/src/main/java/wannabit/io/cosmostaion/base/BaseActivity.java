@@ -183,12 +183,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public ArrayList<UnBondingState>        mUnbondings = new ArrayList<>();
     public ArrayList<Reward>                mRewards = new ArrayList<>();
 
-
-    public ResStakingPool                   mStakingPool;
-    public ResLcdIrisPool                   mIrisStakingPool;
-    public BigDecimal                       mInflation = BigDecimal.ZERO;
-    public BigDecimal                       mProvisions = BigDecimal.ZERO;
-
     public ResLcdIrisReward                 mIrisReward;
     public ArrayList<IrisToken>             mIrisTokens = new ArrayList<>();
 
@@ -736,13 +730,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_INFLATION) {
             try {
-                this.mInflation = new BigDecimal((String)result.resultData);
                 getBaseDao().mInflation = new BigDecimal((String)result.resultData);
             } catch (Exception e) {}
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_PROVISIONS) {
             try {
-                this.mProvisions = new BigDecimal((String)result.resultData);
                 getBaseDao().mProvisions = new BigDecimal((String)result.resultData);
             } catch (Exception e) {}
 
@@ -751,7 +743,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
                         mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
                         mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
-                    this.mStakingPool = (ResStakingPool)result.resultData;
                     getBaseDao().mStakingPool = (ResStakingPool)result.resultData;
                 }
             } catch (Exception e) {}
@@ -760,7 +751,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             this.mIrisReward = (ResLcdIrisReward)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_IRIS_POOL) {
-            this.mIrisStakingPool = (ResLcdIrisPool)result.resultData;
             getBaseDao().mIrisStakingPool = (ResLcdIrisPool)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_TOKENS) {

@@ -158,7 +158,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvCommission.setText(WDp.getIrisYieldString(getMainActivity().mIrisStakingPool, new BigDecimal(validator.commission.rate)));
+                holder.itemTvCommission.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, new BigDecimal(validator.commission.rate)));
                 try {
                     Picasso.get().load(IRIS_VAL_URL + validator.operator_address + ".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)

@@ -59,7 +59,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -126,9 +125,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mValidator = getIntent().getParcelableExtra("validator");
-        mStakingPool = getBaseDao().mStakingPool;
-        mIrisStakingPool = getBaseDao().mIrisStakingPool;
-        mProvisions = getBaseDao().mProvisions;
         mBandOracles = getBaseDao().mBandOracles;
 
         setSupportActionBar(mToolbar);
@@ -815,9 +811,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         if (mTaskCount == 0) {
-            mStakingPool = getBaseDao().mStakingPool;
-            mIrisStakingPool = getBaseDao().mIrisStakingPool;
-            mProvisions = getBaseDao().mProvisions;
             mBandOracles = getBaseDao().mBandOracles;
             mValidatorAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
@@ -912,9 +905,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens).movePointRight(18), 18, BaseChain.getChain(mAccount.baseChain)));
                 if (mValidator.status == Validator.BONDED) {
-                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(mIrisStakingPool, new BigDecimal(mValidator.commission.rate)));
+                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, new BigDecimal(mValidator.commission.rate)));
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(mIrisStakingPool, BigDecimal.ONE));
+                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, BigDecimal.ONE));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
@@ -1083,9 +1076,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens).movePointRight(18), 18, BaseChain.getChain(mAccount.baseChain)));
                 if (mValidator.status == Validator.BONDED) {
-                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(mIrisStakingPool, new BigDecimal(mValidator.commission.rate)));
+                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, new BigDecimal(mValidator.commission.rate)));
                 } else {
-                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(mIrisStakingPool, BigDecimal.ONE));
+                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, BigDecimal.ONE));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
@@ -1248,8 +1241,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if (mValidator.status == Validator.BONDED) {
                     if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 18, BaseChain.getChain(mAccount.baseChain)));
-                        holder.itemDailyReturn.setText(WDp.getIrisDailyReturn(getBaseContext(), mIrisStakingPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
-                        holder.itemMonthlyReturn.setText(WDp.getIrisMonthlyReturn(getBaseContext(), mIrisStakingPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemDailyReturn.setText(WDp.getIrisDailyReturn(getBaseContext(), getBaseDao().mIrisStakingPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemMonthlyReturn.setText(WDp.getIrisMonthlyReturn(getBaseContext(), getBaseDao().mIrisStakingPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 18, BaseChain.getChain(mAccount.baseChain)));
                         holder.itemDailyReturn.setText("-");
@@ -1261,8 +1254,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 18, BaseChain.getChain(mAccount.baseChain)));
                     }
-                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
-                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), getBaseDao().mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
+                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), getBaseDao().mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
                     holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                     holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                 }

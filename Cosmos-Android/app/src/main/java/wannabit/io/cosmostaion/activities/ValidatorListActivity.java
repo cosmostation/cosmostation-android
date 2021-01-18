@@ -30,7 +30,6 @@ import wannabit.io.cosmostaion.fragment.ValidatorAllFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorOtherFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -74,11 +73,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mStakingPool = getBaseDao().mStakingPool;
-        mIrisStakingPool = getBaseDao().mIrisStakingPool;
-        mProvisions = getBaseDao().mProvisions;
-        mInflation = getBaseDao().mInflation;
-
 
         mRewards = getIntent().getParcelableArrayListExtra("rewards");
         mIrisReward = getIntent().getParcelableExtra("irisreward");
@@ -494,11 +488,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     @Override
     public void fetchFinished() {
         if (!isFinishing()) {
-            mStakingPool = getBaseDao().mStakingPool;
-            mIrisStakingPool = getBaseDao().mIrisStakingPool;
-            mProvisions = getBaseDao().mProvisions;
-            mInflation = getBaseDao().mInflation;
-
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
