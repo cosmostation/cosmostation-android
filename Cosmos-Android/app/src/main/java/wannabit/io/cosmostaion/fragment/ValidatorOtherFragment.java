@@ -57,8 +57,6 @@ public class ValidatorOtherFragment extends BaseFragment {
     private OtherValidatorAdapter       mOtherValidatorAdapter;
     private TextView                    mValidatorSize;
 
-    private ResBandOracleStatus         mBandOracles;
-
     public static ValidatorOtherFragment newInstance(Bundle bundle) {
         ValidatorOtherFragment fragment = new ValidatorOtherFragment();
         fragment.setArguments(bundle);
@@ -97,8 +95,7 @@ public class ValidatorOtherFragment extends BaseFragment {
 
     @Override
     public void onRefreshTab() {
-        if(!isAdded()) return;
-        mBandOracles        = getBaseDao().mBandOracles;
+        if (!isAdded()) return;
         mValidatorSize.setText(""+getBaseDao().mOtherValidators.size());
         WUtil.onSortByValidatorPower(getBaseDao().mOtherValidators);
 
@@ -149,7 +146,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
                 monikerUrl = BAND_VAL_URL + validator.operator_address + ".png";
-                if (mBandOracles != null && !mBandOracles.isEnable(validator.operator_address)) {
+                if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
                     holder.itemBandOracleOff.setVisibility(View.VISIBLE);
                 } else {
                     holder.itemBandOracleOff.setVisibility(View.INVISIBLE);

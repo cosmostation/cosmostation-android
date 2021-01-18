@@ -29,9 +29,7 @@ import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_ValidatorSorting;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -64,8 +62,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
     private AllValidatorAdapter         mAllValidatorAdapter;
     private TextView                    mValidatorSize, mSortType;
     private LinearLayout                mBtnSort;
-
-    private ResBandOracleStatus         mBandOracles;
 
     public static ValidatorAllFragment newInstance(Bundle bundle) {
         ValidatorAllFragment fragment = new ValidatorAllFragment();
@@ -108,7 +104,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        mBandOracles    = getBaseDao().mBandOracles;
         mValidatorSize.setText(""+getBaseDao().mTopValidators.size());
         onSortValidator();
 
@@ -118,7 +113,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onBusyFetch() {
-        if(!isAdded()) return;
+        if (!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
@@ -177,7 +172,8 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
             } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
-                if (mBandOracles != null && !mBandOracles.isEnable(validator.operator_address)) {
+                holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorGray1));
+                if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
                     holder.itemBandOracleOff.setVisibility(View.VISIBLE);
                     holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorRed));
                 } else {

@@ -74,8 +74,6 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     private TextView                    mValidatorSize, mSortType;
     private LinearLayout                mBtnSort;
 
-    private ResBandOracleStatus         mBandOracles;
-
     public static ValidatorMyFragment newInstance(Bundle bundle) {
         ValidatorMyFragment fragment = new ValidatorMyFragment();
         fragment.setArguments(bundle);
@@ -117,8 +115,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
-        if(!isAdded()) return;
-        mBandOracles    = getBaseDao().mBandOracles;
+        if (!isAdded()) return;
         mValidatorSize.setText(""+getBaseDao().mMyValidators.size());
         onSortValidator();
 
@@ -267,7 +264,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
                     holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), getBaseDao().mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_BAND));
-                    if (mBandOracles != null && !mBandOracles.isEnable(validator.operator_address)) {
+                    if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
                         holder.itemBandOracleOff.setVisibility(View.VISIBLE);
                     } else {
                         holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
