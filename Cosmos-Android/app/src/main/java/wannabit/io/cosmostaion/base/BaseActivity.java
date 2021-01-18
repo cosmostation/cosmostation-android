@@ -886,64 +886,64 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
 
-        if (mTaskCount == 0 &&
-                (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(KAVA_MAIN) ||
-                        mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) ||
-                        mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) ||
-                        mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN))) {
-            for (Validator top:getBaseDao().mTopValidators) {
-                boolean already = false;
-                for (BondingState bond: getBaseDao().mBondings) {
-                    if(bond.validatorAddress.equals(top.operator_address)) {
-                        already = true;
-                        break;
+        if (mTaskCount == 0) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_MAIN) ||
+                    mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
+                for (Validator top:getBaseDao().mTopValidators) {
+                    boolean already = false;
+                    for (BondingState bond: getBaseDao().mBondings) {
+                        if(bond.validatorAddress.equals(top.operator_address)) {
+                            already = true;
+                            break;
+                        }
                     }
-                }
-                for (UnBondingState unbond: getBaseDao().mUnbondings) {
-                    if(unbond.validatorAddress.equals(top.operator_address) && !already) {
-                        already = true;
-                        break;
+                    for (UnBondingState unbond: getBaseDao().mUnbondings) {
+                        if(unbond.validatorAddress.equals(top.operator_address) && !already) {
+                            already = true;
+                            break;
+                        }
                     }
+                    if (already) getBaseDao().mMyValidators.add(top);
                 }
-                if (already) getBaseDao().mMyValidators.add(top);
-            }
 
-            for (Validator other:getBaseDao().mOtherValidators) {
-                boolean already = false;
-                for (BondingState bond: getBaseDao().mBondings) {
-                    if (bond.validatorAddress.equals(other.operator_address)) {
-                        already = true;
-                        break;
+                for (Validator other:getBaseDao().mOtherValidators) {
+                    boolean already = false;
+                    for (BondingState bond: getBaseDao().mBondings) {
+                        if (bond.validatorAddress.equals(other.operator_address)) {
+                            already = true;
+                            break;
+                        }
                     }
-                }
-                for (UnBondingState unbond: getBaseDao().mUnbondings) {
-                    if (unbond.validatorAddress.equals(other.operator_address) && !already) {
-                        already = true;
-                        break;
+                    for (UnBondingState unbond: getBaseDao().mUnbondings) {
+                        if (unbond.validatorAddress.equals(other.operator_address) && !already) {
+                            already = true;
+                            break;
+                        }
                     }
+                    if (already) getBaseDao().mMyValidators.add(other);
                 }
-                if (already) getBaseDao().mMyValidators.add(other);
-            }
-            getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
-            getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
+                getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
+                getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
 
-        } else if (mTaskCount == 0 && (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST))) {
-            getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
-            getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
+            } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+                getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
+                getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
 
-            if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
-                for (String valAddr : getBaseDao().mOkStaking.validator_address) {
-                    for (Validator val:getBaseDao().mAllValidators) {
-                        if (val.operator_address.equals(valAddr)) {
-                            getBaseDao().mMyValidators.add(val);
+                if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
+                    for (String valAddr : getBaseDao().mOkStaking.validator_address) {
+                        for (Validator val:getBaseDao().mAllValidators) {
+                            if (val.operator_address.equals(valAddr)) {
+                                getBaseDao().mMyValidators.add(val);
+                            }
                         }
                     }
                 }
             }
-        }
 
-        if (mTaskCount == 0 && mFetchCallback != null) {
-            mFetchCallback.fetchFinished();
+            if (mFetchCallback != null) {
+                mFetchCallback.fetchFinished();
+            }
         }
     }
 
