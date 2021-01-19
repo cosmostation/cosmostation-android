@@ -100,9 +100,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             mDpDecimal = 6
-            maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mCosmosSendDenom!).subtracting(NSDecimalNumber.init(string: "2500"))
+            if (pageHolderVC.mCosmosSendDenom == COSMOS_TEST_DENOM) {
+                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mCosmosSendDenom!).subtracting(NSDecimalNumber.init(string: "2500"))
+            } else {
+                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mCosmosSendDenom!)
+            }
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
-            
         }
         
         mTargetAmountTextField.delegate = self

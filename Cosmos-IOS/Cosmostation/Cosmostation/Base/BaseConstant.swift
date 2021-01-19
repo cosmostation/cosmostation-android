@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -34,7 +34,7 @@ let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";
 let COSMOS_API                          = "https://api.cosmostation.io/";
 
-let COSMOS_TEST_URL                     = "https://lcd-office.cosmostation.io/cosmoshub-test-stargate-e/";
+let COSMOS_TEST_URL                     = "https://lcd-office.cosmostation.io/stargate-final/";
 let COSMOS_TEST_API                     = "";
 
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
@@ -76,10 +76,8 @@ let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostat
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
 
 
-//let SECRET_URL                          = "https://lcd-secret.cosmostation.io/";
-//let SECRET_URL                          = "https://secret-2.node.enigma.co/";
 let SECRET_URL                          = "https://lcd.enigma.co/";
-let SECRET_API                          = "https://api-secret.cosmostation.io/";
+let SECRET_API                          = "";
 
 
 let AKASH_URL                           = "https://lcd-akash.cosmostation.io/";
@@ -1056,6 +1054,7 @@ let AKASH_MAIN_DENOM = "uakt"
 let OKEX_MAIN_DENOM = "okt"
 let OKEX_MAIN_OKB = "okb"
 
+let COSMOS_TEST_DENOM = "umuon"
 let IOV_TEST_DENOM = "uvoi"
 let KAVA_HARD_DENOM = "hard"
 

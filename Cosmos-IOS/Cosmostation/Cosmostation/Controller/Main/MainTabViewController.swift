@@ -31,8 +31,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     var mIrisTokenList = Array<IrisToken>()
     
-//    var mBnbTokenList = Array<BnbToken>()
-    
     var waitAlert: UIAlertController?
     var banner: NotificationBanner?
     var notiView: NotificationView?
@@ -1896,6 +1894,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
+    // set zero amount for staking denoms if nil
     func onFetchBalance(_ address: String, _ offset: Int) {
         let url = BaseNetWork.balanceUrl(mChainType, address)
         let request = Alamofire.request(url, method: .get, parameters: ["pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])

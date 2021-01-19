@@ -222,6 +222,7 @@
             <connections>
                 <outlet property="availableAmount" destination="TOL-hl-9Ov" id="MUb-m8-gn3"/>
                 <outlet property="delegatedAmount" destination="7hm-tl-rdP" id="qPO-HT-jaI"/>
+                <outlet property="denomTitle" destination="MG4-Bu-b0E" id="ZrP-TH-VE0"/>
                 <outlet property="rewardAmount" destination="cKq-N3-YYY" id="bWY-jb-xoG"/>
                 <outlet property="totalAmount" destination="uvE-lW-F2j" id="UuW-od-r4d"/>
                 <outlet property="totalValue" destination="9e8-4h-du7" id="p7K-mN-flC"/>

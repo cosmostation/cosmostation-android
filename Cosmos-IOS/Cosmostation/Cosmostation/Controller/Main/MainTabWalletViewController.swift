@@ -1517,16 +1517,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
-            let totalAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAtom.stringValue, cell!.totalAmount.font!, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAtom, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(COSMOS_MAIN_DENOM), cell!.availableAmount.font!, 6, 6)
-            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), cell!.delegatedAmount.font!, 6, 6)
-            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), cell!.unbondingAmount.font, 6, 6)
-            cell?.rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(COSMOS_MAIN_DENOM), cell!.rewardAmount.font, 6, 6)
+            cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onShowToast(NSLocalizedString("prepare", comment: "")) }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAtom.multiplying(byPowerOf10: -6).stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -2206,11 +2199,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mType = AKASH_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.COSMOS_TEST) {
-            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
+            if (BaseData.instance.getAvailable(COSMOS_TEST_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mCosmosSendDenom = COSMOS_MAIN_DENOM
+            txVC.mCosmosSendDenom = COSMOS_TEST_DENOM
             txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else {

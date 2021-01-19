@@ -74,7 +74,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             mDpDecimal = 6
-            userBalance = BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "5000"))
+            userBalance = BaseData.instance.getAvailable(COSMOS_TEST_DENOM).subtracting(NSDecimalNumber.init(string: "5000"))
             availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
             
         }
@@ -230,7 +230,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
                 coin = Coin.init(AKASH_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
             } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
-                coin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
+                coin = Coin.init(COSMOS_TEST_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
             }
             pageHolderVC.mToDelegateAmount = coin
             sender.isUserInteractionEnabled = false

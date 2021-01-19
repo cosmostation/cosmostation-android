@@ -189,7 +189,7 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
                 coin = Coin.init(AKASH_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
             } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
-                coin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
+                coin = Coin.init(COSMOS_TEST_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
             }
             pageHolderVC.mToUndelegateAmount = coin
             sender.isUserInteractionEnabled = false

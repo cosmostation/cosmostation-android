@@ -411,7 +411,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalValue.attributedText = WUtils.dpAtomValue(allAkt, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.COSMOS_TEST) {
-            let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
+            let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
             
@@ -522,13 +522,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = BaseData.instance.mMyBalances_V1[indexPath.row]
-        if (balance.denom == COSMOS_MAIN_DENOM) {
+        if (balance.denom == COSMOS_TEST_DENOM) {
             cell?.tokenImg.image = UIImage(named: "atom_ic")
-            cell?.tokenSymbol.text = "ATOM"
+            cell?.tokenSymbol.text = "MUON"
             cell?.tokenSymbol.textColor = COLOR_ATOM
             cell?.tokenTitle.text = "(" + balance.denom + ")"
-            cell?.tokenDescription.text = "Cosmos Staking Token"
-            let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
+            cell?.tokenDescription.text = "Stargate Staking Token"
+            let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
         }

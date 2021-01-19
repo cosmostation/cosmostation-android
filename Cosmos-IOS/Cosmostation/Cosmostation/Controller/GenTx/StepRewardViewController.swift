@@ -132,7 +132,7 @@ class StepRewardViewController: BaseViewController {
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_V1 {
                 if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
-                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_TEST_DENOM))
                 }
             }
             rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)

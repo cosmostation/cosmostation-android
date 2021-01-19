@@ -310,7 +310,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         cell.myUndelegatingAmountLabel.attributedText = WUtils.displayAmount2(myUnbonding?.getAllUnbondingBalance().stringValue, cell.myUndelegatingAmountLabel.font, 6, 6)
         
         let myReward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator.operator_address }.first
-        cell.rewardAmoutLabel.attributedText = WUtils.displayAmount2(myReward?.getRewardByDenom(COSMOS_MAIN_DENOM).stringValue, cell.rewardAmoutLabel.font, 6, 6)
+        cell.rewardAmoutLabel.attributedText = WUtils.displayAmount2(myReward?.getRewardByDenom(COSMOS_TEST_DENOM).stringValue, cell.rewardAmoutLabel.font, 6, 6)
         
         cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
         cell.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + validator.operator_address! + ".png")!)

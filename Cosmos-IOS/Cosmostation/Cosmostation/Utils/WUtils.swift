@@ -2215,7 +2215,7 @@ class WUtils {
     }
     
     static func getMainDenom(_ chain:ChainType) -> String {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
             return "ATOM"
         } else if (chain == ChainType.IRIS_MAIN) {
             return "IRIS"
@@ -2235,12 +2235,14 @@ class WUtils {
             return "CTK"
         } else if (chain == ChainType.AKASH_MAIN) {
             return "AKT"
+        } else if (chain == ChainType.COSMOS_TEST) {
+            return "MUON"
         }
         return ""
     }
     
     static func setDenomTitle(_ chain: ChainType?, _ label: UILabel) {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
             label.text = "ATOM"
             label.textColor = COLOR_ATOM
         } else if (chain == ChainType.IRIS_MAIN) {
@@ -2270,6 +2272,9 @@ class WUtils {
         } else if (chain == ChainType.AKASH_MAIN) {
             label.text = "AKT"
             label.textColor = COLOR_AKASH
+        } else if (chain == ChainType.COSMOS_TEST) {
+            label.text = "MUON"
+            label.textColor = COLOR_ATOM
         }
     }
     
@@ -2418,7 +2423,7 @@ class WUtils {
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
-            return "cosmoshub-test-stargate-e"
+            return "stargate-final"
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (chainS == CHAIN_KAVA_TEST_S) {
@@ -2457,7 +2462,7 @@ class WUtils {
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
-            return "cosmoshub-test-stargate-e"
+            return "stargate-final"
         } else if (chain == ChainType.BINANCE_TEST) {
             return "Binance-Chain-Nile"
         } else if (chain == ChainType.KAVA_TEST) {

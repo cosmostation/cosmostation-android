@@ -273,7 +273,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             mDpDecimal = 6
-            currentAva = BaseData.instance.getAvailable(COSMOS_MAIN_DENOM)
+            currentAva = BaseData.instance.getAvailable(COSMOS_TEST_DENOM)
             mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
             mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
             mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
@@ -425,7 +425,6 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("res ", res)
                 guard let responseData = res as? NSDictionary, let account = responseData.object(forKey: "account") as? NSDictionary else {
                     self.onShowToast(NSLocalizedString("error_network", comment: ""))
                     return

@@ -685,8 +685,9 @@ final class BaseData : NSObject{
         }
     }
     
-    public func updateLastTotal(_ account: Account, _ amount: String){
-        let target = DB_ACCOUNT.filter(DB_ACCOUNT_ID == account.account_id)
+    public func updateLastTotal(_ account: Account?, _ amount: String) {
+        if (account == nil) { return}
+        let target = DB_ACCOUNT.filter(DB_ACCOUNT_ID == account!.account_id)
         do {
             try database.run(target.update(DB_ACCOUNT_LAST_TOTAL <- amount))
         } catch {

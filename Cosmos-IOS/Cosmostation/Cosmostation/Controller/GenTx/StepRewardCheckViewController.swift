@@ -143,7 +143,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_V1 {
                 if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
-                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_TEST_DENOM))
                 }
             }
             if (NSDecimalNumber.init(string: pageHolderVC.mFee?.amount[0].amount).compare(selectedRewardSum).rawValue > 0 ) {
@@ -356,7 +356,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_V1 {
                 if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
-                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_TEST_DENOM))
                 }
             }
             

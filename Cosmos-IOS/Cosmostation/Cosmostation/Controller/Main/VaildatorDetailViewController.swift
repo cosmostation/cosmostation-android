@@ -912,7 +912,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             let reward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == mValidator_V1?.operator_address}.first
             cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation?.getDelegation().stringValue, cell!.myDelegateAmount.font, 6, 6)
             cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding?.getAllUnbondingBalance().stringValue, cell!.myUndelegateAmount.font, 6, 6)
-            cell!.myRewardAmount.attributedText = WUtils.displayAmount2(reward?.getRewardByDenom(COSMOS_MAIN_DENOM).stringValue, cell!.myRewardAmount.font, 6, 6)
+            cell!.myRewardAmount.attributedText = WUtils.displayAmount2(reward?.getRewardByDenom(COSMOS_TEST_DENOM).stringValue, cell!.myRewardAmount.font, 6, 6)
             cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator_V1!.getCommission(), delegation?.getDelegation(), chainType!)
             cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator_V1!.getCommission(), delegation?.getDelegation(), chainType!)
         }
@@ -1679,7 +1679,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (chainType == ChainType.COSMOS_TEST) {
-            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+            if (BaseData.instance.getAvailable(COSMOS_TEST_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
@@ -1843,7 +1843,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     return
                 }
             }
-            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+            if (BaseData.instance.getAvailable(COSMOS_TEST_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
@@ -2137,12 +2137,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (chainType == ChainType.COSMOS_TEST) {
-            let reward = BaseData.instance.getReward(COSMOS_MAIN_DENOM, mValidator_V1?.operator_address)
+            let reward = BaseData.instance.getReward(COSMOS_TEST_DENOM, mValidator_V1?.operator_address)
             if (reward.compare(NSDecimalNumber.init(string: "3750")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                 return
             }
-            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "3750")).rawValue <= 0) {
+            if (BaseData.instance.getAvailable(COSMOS_TEST_DENOM).compare(NSDecimalNumber.init(string: "3750")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
