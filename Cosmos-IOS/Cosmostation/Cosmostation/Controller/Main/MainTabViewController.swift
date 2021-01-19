@@ -426,6 +426,24 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     mOtherValidators.append(validator)
                 }
             }
+            for validator in mAllValidator {
+                var mine = false;
+                for bonding in mBondingList {
+                    if (bonding.bonding_v_address == validator.operator_address) {
+                        mine = true;
+                        break;
+                    }
+                }
+                for unbonding in mUnbondingList {
+                    if (unbonding.unbonding_v_address == validator.operator_address) {
+                        mine = true;
+                        break;
+                    }
+                }
+                if (mine) {
+                    self.mMyValidators.append(validator)
+                }
+            }
             
         } else if (mChainType == ChainType.OKEX_MAIN || mChainType == ChainType.OKEX_TEST) {
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
