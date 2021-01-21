@@ -16,4 +16,16 @@ public struct StakingPool_V1 {
         self.not_bonded_tokens = dictionary?["not_bonded_tokens"] as? String
         self.bonded_tokens = dictionary?["bonded_tokens"] as? String
     }
+    
+    public func getBondedTokens() -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(bonded_tokens)
+    }
+    
+    public func getUnBondedTokens() -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(not_bonded_tokens)
+    }
+    
+    public func getTotalTokens() -> NSDecimalNumber {
+        return getBondedTokens().adding(getUnBondedTokens())
+    }
 }

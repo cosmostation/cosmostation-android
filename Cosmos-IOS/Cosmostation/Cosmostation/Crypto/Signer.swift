@@ -17,7 +17,7 @@ class Signer {
         var msgList = Array<Msg>()
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
             value.from_address = fromAddress
             value.to_address = toAddress
             let data = try? JSONEncoder().encode(amount)
@@ -41,7 +41,7 @@ class Signer {
         var msgList = Array<Msg>()
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             let data = try? JSONEncoder().encode(amount)
@@ -65,7 +65,7 @@ class Signer {
         var msgList = Array<Msg>()
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             let data = try? JSONEncoder().encode(amount)
@@ -87,7 +87,7 @@ class Signer {
                                     _ validators: Array<Validator_V1>, _ fee: Fee, _ memo: String,
                                   _ pKey: HDPrivateKey, _ chain: ChainType) -> StdTx {
         var msgList = Array<Msg>()
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
             for validator in validators {
                 var msg = Msg.init()
                 var value = Msg.Value.init()

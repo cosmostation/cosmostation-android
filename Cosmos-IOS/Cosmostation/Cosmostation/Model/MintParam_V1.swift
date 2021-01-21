@@ -15,6 +15,8 @@ public struct MintParam_V1 {
     var inflation_min: String?
     var goal_bonded: String?
     var blocks_per_year: String?
+    //for iris testnet
+    var inflation: String?
     
     init(_ dictionary: NSDictionary?) {
         self.mint_denom = dictionary?["mint_denom"] as? String
@@ -23,5 +25,10 @@ public struct MintParam_V1 {
         self.inflation_min = dictionary?["inflation_min"] as? String
         self.goal_bonded = dictionary?["goal_bonded"] as? String
         self.blocks_per_year = dictionary?["blocks_per_year"] as? String
+        self.inflation = dictionary?["inflation"] as? String
+    }
+    
+    public func getInflation() -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(inflation)
     }
 }

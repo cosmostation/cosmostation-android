@@ -726,7 +726,8 @@ class WUtils {
             formatted = nf.string(from: NSDecimalNumber.zero)
         } else if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                     chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN ||
-                    chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST) {
+                    chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST ||
+                    chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
@@ -1197,7 +1198,25 @@ class WUtils {
     
     static func getYieldPerBlock(_ chain: ChainType) -> NSDecimalNumber {
         let data = BaseData.instance
-        if (chain != ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_TEST) {
+            if (data.mStakingPool_V1 == nil || data.mProvision_V1 == nil || data.mMintParam_V1 == nil) {
+                return NSDecimalNumber.zero
+            }
+            let provisions = WUtils.plainStringToDecimal(data.mProvision_V1?.annual_provisions)
+            let bonded = WUtils.plainStringToDecimal(data.mStakingPool_V1?.bonded_tokens)
+            let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam_V1?.blocks_per_year)
+            return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
+            
+        } else if (chain == ChainType.IRIS_TEST) {
+            if (data.mStakingPool_V1 == nil || data.mMintParam_V1 == nil) {
+                return NSDecimalNumber.zero
+            } else {
+                let provisions = data.mStakingPool_V1!.getTotalTokens().multiplying(by: data.mMintParam_V1!.getInflation())
+                let bonded = data.mStakingPool_V1!.getBondedTokens()
+                return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: plainStringToDecimal("6311520"), withBehavior: handler24Down)
+            }
+            
+        } else {
             if (data.mStakingPool == nil || data.mProvision == nil || data.mMintParam == nil) {
                 return NSDecimalNumber.zero
             }
@@ -1206,14 +1225,6 @@ class WUtils {
             let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam?.blocks_per_year)
             return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
             
-        } else {
-            if (data.mStakingPool_V1 == nil || data.mProvision_V1 == nil || data.mMintParam_V1 == nil) {
-                return NSDecimalNumber.zero
-            }
-            let provisions = WUtils.plainStringToDecimal(data.mProvision_V1?.annual_provisions)
-            let bonded = WUtils.plainStringToDecimal(data.mStakingPool_V1?.bonded_tokens)
-            let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam_V1?.blocks_per_year)
-            return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
         }
     }
     
@@ -1747,6 +1758,16 @@ class WUtils {
         return nil
     }
     
+    static func getIrisMainTokenV1() -> IrisToken_V1? {
+        let tokens = BaseData.instance.mIrisTokens_V1
+        for token in tokens {
+            if (token.min_unit == IRIS_TEST_DENOM) {
+                return token
+            }
+        }
+        return nil
+    }
+    
     static func getBnbToken(_ bnbTokens:Array<BnbToken>, _ balance:Balance) -> BnbToken? {
         for bnbToken in bnbTokens {
             if (bnbToken.symbol == balance.balance_denom) {
@@ -1962,6 +1983,16 @@ class WUtils {
                 denomLabel.text = coin.denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
+        } else if (chainType == ChainType.IRIS_TEST) {
+            if (coin.denom == IRIS_TEST_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
         }
     }
     
@@ -2067,8 +2098,18 @@ class WUtils {
                 denomLabel.text = denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
         } else if (chainType == ChainType.AKASH_MAIN) {
             if (denom == AKASH_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
+        } else if (chainType == ChainType.IRIS_TEST) {
+            if (denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white
@@ -2133,7 +2174,7 @@ class WUtils {
     static func getChainColor(_ chain:ChainType?) -> UIColor {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return COLOR_ATOM
-        } else if (chain == ChainType.IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             return COLOR_IRIS
         } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             return COLOR_BNB
@@ -2178,14 +2219,14 @@ class WUtils {
             return COLOR_OK_DARK
         }
         
-        else if (chain == ChainType.COSMOS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST ||
+        else if (chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST ||
                     chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
     }
     
-    static func getChainBg(_ chain:ChainType) -> UIColor {
+    static func getChainBg(_ chain:ChainType?) -> UIColor {
         if (chain == ChainType.COSMOS_MAIN) {
             return TRANS_BG_COLOR_COSMOS
         } else if (chain == ChainType.IRIS_MAIN) {
@@ -2208,7 +2249,8 @@ class WUtils {
             return TRANS_BG_COLOR_OK
         }
         
-        else if (chain == ChainType.COSMOS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST || chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
+        else if (chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST ||
+                    chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
             return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
@@ -2237,6 +2279,8 @@ class WUtils {
             return "AKT"
         } else if (chain == ChainType.COSMOS_TEST) {
             return "MUON"
+        } else if (chain == ChainType.IRIS_TEST) {
+            return "BIF"
         }
         return ""
     }
@@ -2275,6 +2319,9 @@ class WUtils {
         } else if (chain == ChainType.COSMOS_TEST) {
             label.text = "MUON"
             label.textColor = COLOR_ATOM
+        } else if (chain == ChainType.IRIS_TEST) {
+            label.text = "BIF"
+            label.textColor = COLOR_IRIS
         }
     }
     
@@ -2303,6 +2350,8 @@ class WUtils {
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
             return ChainType.COSMOS_TEST
+        } else if (chainS == CHAIN_IRIS_TEST_S) {
+            return ChainType.IRIS_TEST
         } else if (chainS == CHAIN_KAVA_TEST_S) {
             return ChainType.KAVA_TEST
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
@@ -2342,6 +2391,8 @@ class WUtils {
         
         else if (chain == ChainType.COSMOS_TEST) {
             return CHAIN_COSMOS_TEST_S
+        } else if (chain == ChainType.IRIS_TEST) {
+            return CHAIN_IRIS_TEST_S
         } else if (chain == ChainType.BINANCE_TEST) {
             return CHAIN_BINANCE_TEST_S
         } else if (chain == ChainType.KAVA_TEST) {
@@ -2424,6 +2475,8 @@ class WUtils {
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
             return "stargate-final"
+        } else if (chainS == CHAIN_IRIS_TEST_S) {
+            return "bifrost-2"
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (chainS == CHAIN_KAVA_TEST_S) {
@@ -2463,6 +2516,8 @@ class WUtils {
         
         else if (chain == ChainType.COSMOS_TEST) {
             return "stargate-final"
+        } else if (chain == ChainType.IRIS_TEST) {
+            return "bifrost-2"
         } else if (chain == ChainType.BINANCE_TEST) {
             return "Binance-Chain-Nile"
         } else if (chain == ChainType.KAVA_TEST) {
@@ -2712,6 +2767,17 @@ class WUtils {
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             }
+            
+        } else if (chain == ChainType.IRIS_TEST) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForRewards()[valCnt - 1]
+            }
+            
         }
         return result
     }
@@ -3171,7 +3237,7 @@ class WUtils {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return BLOCK_TIME_COSMOS
             
-        } else if (chain == ChainType.IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             return BLOCK_TIME_IRIS
             
         } else if (chain == ChainType.IOV_MAIN) {

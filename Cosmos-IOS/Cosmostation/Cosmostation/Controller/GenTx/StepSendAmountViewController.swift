@@ -106,6 +106,16 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mCosmosSendDenom!)
             }
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
+            
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            mDpDecimal = pageHolderVC.mIrisTokenV1!.scale!
+            if (pageHolderVC.mIrisTokenV1?.min_unit == IRIS_TEST_DENOM) {
+                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mIrisTokenV1!.min_unit!).subtracting(NSDecimalNumber.init(string: "5000"))
+            } else {
+                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mIrisTokenV1!.min_unit!)
+            }
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
+            
         }
         
         mTargetAmountTextField.delegate = self
@@ -222,6 +232,11 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
             }
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
+                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
         }
         self.mTargetAmountTextField.layer.borderColor = UIColor.white.cgColor
     }
@@ -286,13 +301,18 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             }
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            if (userInput.compare(maxAvailable).rawValue > 0) {
+            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_amount", comment: ""))
                 return false
             }
             
         } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-            if (userInput.compare(maxAvailable).rawValue > 0) {
+            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_amount", comment: ""))
+                return false
+            }
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_amount", comment: ""))
                 return false
             }
@@ -342,6 +362,10 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 
             } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
                 toSendCoin = Coin.init(pageHolderVC.mCosmosSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
+                
+            } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+                toSendCoin = Coin.init(pageHolderVC.mIrisTokenV1!.min_unit!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
+                
             }
             
             var tempList = Array<Coin>()
@@ -447,6 +471,10 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
             
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
+            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
+            
         }
         self.onUIupdate()
     }
@@ -506,6 +534,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
             if (pageHolderVC.mAkashSendDenom == AKASH_MAIN_DENOM) {
+                self.showMaxWarnning()
+            }
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
+            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
+            if (pageHolderVC.mIrisTokenV1!.min_unit! == IRIS_TEST_DENOM) {
                 self.showMaxWarnning()
             }
         }

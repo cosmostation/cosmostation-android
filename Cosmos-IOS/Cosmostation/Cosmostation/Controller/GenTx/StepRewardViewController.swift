@@ -61,7 +61,7 @@ class StepRewardViewController: BaseViewController {
             self.onFetchIrisReward(pageHolderVC.mAccount!)
             self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
             
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             mFetchCnt = 2
             self.onFetchRewards(pageHolderVC.mAccount!.account_address)
             self.onFetchRewardAddressV1(pageHolderVC.mAccount!.account_address)
@@ -78,7 +78,45 @@ class StepRewardViewController: BaseViewController {
     }
     
     func updateView() {
-        if (pageHolderVC.chainType! != ChainType.COSMOS_TEST) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+            var selectedRewardSum = NSDecimalNumber.zero
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_TEST_DENOM))
+                }
+            }
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)
+            
+            var monikers = ""
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if (monikers.count > 0) {
+                    monikers = monikers + ",   " + (validator.description?.moniker)!
+                } else {
+                    monikers = (validator.description?.moniker)!
+                }
+            }
+            rewardFromLabel.text = monikers
+            
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            var selectedRewardSum = NSDecimalNumber.zero
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(IRIS_TEST_DENOM))
+                }
+            }
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)
+            
+            var monikers = ""
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if (monikers.count > 0) {
+                    monikers = monikers + ",   " + (validator.description?.moniker)!
+                } else {
+                    monikers = (validator.description?.moniker)!
+                }
+            }
+            rewardFromLabel.text = monikers
+            
+        } else {
             if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
                 rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, COSMOS_MAIN_DENOM, pageHolderVC.chainType!)
                 
@@ -127,26 +165,6 @@ class StepRewardViewController: BaseViewController {
                 }
             }
             rewardFromLabel.text = monikers
-            
-        } else {
-            var selectedRewardSum = NSDecimalNumber.zero
-            for validator in pageHolderVC.mRewardTargetValidators_V1 {
-                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
-                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_TEST_DENOM))
-                }
-            }
-            rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)
-            
-            var monikers = ""
-            for validator in pageHolderVC.mRewardTargetValidators_V1 {
-                if (monikers.count > 0) {
-                    monikers = monikers + ",   " + (validator.description?.moniker)!
-                } else {
-                    monikers = (validator.description?.moniker)!
-                }
-            }
-            rewardFromLabel.text = monikers
-            
         }
         
         rewardToAddressLabel.text = pageHolderVC.mRewardAddress

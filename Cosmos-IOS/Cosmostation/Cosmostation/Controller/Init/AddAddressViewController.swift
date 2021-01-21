@@ -73,8 +73,13 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
             
         } else if (userInput.starts(with: "iaa1")) {
             if (WKey.isValidateBech32(userInput)) {
-                self.onGenWatchAccount(ChainType.IRIS_MAIN, userInput)
-                return;
+                if (ChainType.SUPPRT_CHAIN().contains(ChainType.IRIS_TEST)) {
+                    self.onShowIrisChainSelect(userInput)
+                    return;
+                } else {
+                    self.onGenWatchAccount(ChainType.IRIS_MAIN, userInput)
+                    return;
+                }
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
                 self.addAddressInputText.text = ""
@@ -246,6 +251,22 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
         
         showAlert.addAction(cosmosAction)
         showAlert.addAction(cosmosTestAction)
+        self.present(showAlert, animated: true, completion: nil)
+    }
+    
+    func onShowIrisChainSelect(_ input:String) {
+        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let irisAction = UIAlertAction(title: NSLocalizedString("chain_title_iris", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.IRIS_MAIN, input)
+        })
+        irisAction.setValue(UIImage(named: "irisWh")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        let irisTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_iris", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.IRIS_TEST, input)
+        })
+        irisTestAction.setValue(UIImage(named: "irisTestChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        showAlert.addAction(irisAction)
+        showAlert.addAction(irisTestAction)
         self.present(showAlert, animated: true, completion: nil)
     }
     

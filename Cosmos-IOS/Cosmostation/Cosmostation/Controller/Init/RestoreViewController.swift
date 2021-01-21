@@ -200,6 +200,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         cosmosTestAction.setValue(UIImage(named: "cosmosTestChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let irisTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_iris", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.IRIS_TEST
+            self.initViewUpdate()
+        })
+        irisTestAction.setValue(UIImage(named: "irisTestChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let bnbTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_bnb", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.BINANCE_TEST
             self.initViewUpdate()
@@ -244,6 +250,9 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {
             showAlert.addAction(cosmosTestAction)
+        }
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.IRIS_TEST)) {
+            showAlert.addAction(irisTestAction)
         }
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.BINANCE_TEST)) {
             showAlert.addAction(bnbTestAction)

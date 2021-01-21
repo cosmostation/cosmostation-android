@@ -31,4 +31,22 @@ class WalletGuideCell: UITableViewCell {
     @IBAction func onClickGuide2(_ sender: Any) {
         actionGuide2?()
     }
+    
+    func updateView(_ account: Account?, _ chainType: ChainType?) {
+        if (chainType == ChainType.COSMOS_TEST) {
+            guideImg.image = UIImage(named: "guideImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_cosmos", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_cosmos", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_cosmos", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_cosmos", comment: ""), for: .normal)
+            
+        } else if (chainType == ChainType.IRIS_TEST) {
+            guideImg.image = UIImage(named: "irisnetImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_iris", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_iris", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iris", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_iris", comment: ""), for: .normal)
+            
+        }
+    }
 }

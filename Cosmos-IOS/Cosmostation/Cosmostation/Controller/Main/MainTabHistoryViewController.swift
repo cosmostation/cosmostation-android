@@ -77,6 +77,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             self.comingLabel.isHidden = false
             self.historyTableView.isHidden = true
             self.comingLabel.text = "Check with Explorer"
+        } else if (chainType == ChainType.IRIS_TEST) {
+            self.comingLabel.isHidden = false
+            self.historyTableView.isHidden = true
+            self.comingLabel.text = "Check with Explorer"
         }
         
         self.comingLabel.isUserInteractionEnabled = true
@@ -158,6 +162,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "cosmosTestChainImg")
             titleChainName.text = "(StarGate Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.IRIS_TEST) {
+            titleChainImg.image = UIImage(named: "irisTestChainImg")
+            titleChainName.text = "(Bifrost Testnet)"
+            titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Testnet)"
@@ -221,6 +229,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
         else if (chainType == ChainType.COSMOS_TEST) {
+            self.comingLabel.isHidden = false
+        } else if (chainType == ChainType.IRIS_TEST) {
             self.comingLabel.isHidden = false
         }
     }

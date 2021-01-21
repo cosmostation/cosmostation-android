@@ -67,11 +67,12 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onSorting() {
-        if (self.chainType != ChainType.COSMOS_TEST) {
-            self.otherValidatorCnt.text = String(self.mainTabVC.mOtherValidators.count)
-        } else {
+        if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             self.otherValidatorCnt.text = String(BaseData.instance.mUnbondValidators_V1.count)
+        } else {
+            self.otherValidatorCnt.text = String(self.mainTabVC.mOtherValidators.count)
         }
+        
         self.sortByPower()
         self.otherValidatorTableView.reloadData()
     }
@@ -83,22 +84,23 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType != ChainType.COSMOS_TEST) {
-            return self.mainTabVC.mOtherValidators.count
-        } else {
+        if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             return BaseData.instance.mUnbondValidators_V1.count
+        } else {
+            return self.mainTabVC.mOtherValidators.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:OtherValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"OtherValidatorCell") as? OtherValidatorCell
-        if (chainType != ChainType.COSMOS_TEST) {
+        if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+            cell?.updateView(BaseData.instance.mBondedValidators_V1[indexPath.row], self.chainType)
+            
+        } else {
             guard self.mainTabVC.mTopValidators.count > 0 else { return cell! }
             if let validator = self.mainTabVC.mOtherValidators[indexPath.row] as? Validator {
                 self.onSetValidatorItem(cell!, validator, indexPath)
             }
-        } else {
-            self.onSetValidatorItemV1(cell!, BaseData.instance.mUnbondValidators_V1[indexPath.row], indexPath)
         }
         return cell!
     }
@@ -108,7 +110,14 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType != ChainType.COSMOS_TEST) {
+        if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+            let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
+            validatorDetailVC.mValidator_V1 = BaseData.instance.mUnbondValidators_V1[indexPath.row]
+            validatorDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(validatorDetailVC, animated: true)
+            
+        } else {
             if let validator = self.mainTabVC.mOtherValidators[indexPath.row] as? Validator {
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
                 validatorDetailVC.mValidator = validator
@@ -117,16 +126,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(validatorDetailVC, animated: true)
             }
-            
-        } else {
-            let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
-            validatorDetailVC.mValidator_V1 = BaseData.instance.mUnbondValidators_V1[indexPath.row]
-            validatorDetailVC.hidesBottomBarWhenPushed = true
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(validatorDetailVC, animated: true)
         }
     }
-    
     
     func onSetValidatorItem(_ cell: OtherValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         if (chainType == ChainType.COSMOS_MAIN) {
@@ -210,64 +211,23 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         }
     }
     
-    func onSetValidatorItemV1(_ cell: OtherValidatorCell, _ validator: Validator_V1, _ indexPath: IndexPath) {
-        if (chainType == ChainType.COSMOS_TEST) {
-            cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
-            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, NSDecimalNumber.one, chainType!)
-            cell.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + validator.operator_address! + ".png")!)
-        }
-        cell.monikerLabel.text = validator.description?.moniker
-        cell.monikerLabel.adjustsFontSizeToFitWidth = true
-        cell.freeEventImg.isHidden = true
-        if (validator.jailed == true) {
-            cell.revokedImg.isHidden = false
-            cell.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
-        } else {
-            cell.revokedImg.isHidden = true
-            cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
-        }
-        if BaseData.instance.mMyValidators_V1.first(where: {$0.operator_address == validator.operator_address}) != nil {
-            cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
-        } else {
-            cell.cardView.backgroundColor = COLOR_BG_GRAY
-        }
-    }
-    
     func sortByPower() {
-        if (chainType != ChainType.COSMOS_TEST) {
-            mainTabVC.mOtherValidators.sort{
-                if ($0.description.moniker == "Cosmostation") {
-                    return true
-                }
-                if ($1.description.moniker == "Cosmostation") {
-                    return false
-                }
-                if ($0.jailed && !$1.jailed) {
-                    return false
-                }
-                if (!$0.jailed && $1.jailed) {
-                    return true
-                }
-                return Double($0.tokens)! > Double($1.tokens)!
-            }
-            
-        } else {
+        if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             BaseData.instance.mUnbondValidators_V1.sort{
-                if ($0.description?.moniker == "Cosmostation") {
-                    return true
-                }
-                if ($1.description?.moniker == "Cosmostation") {
-                    return false
-                }
-                if ($0.jailed! && !$1.jailed!) {
-                    return false
-                }
-                if (!$0.jailed! && $1.jailed!) {
-                    return true
-                }
+                if ($0.description?.moniker == "Cosmostation") { return true }
+                if ($1.description?.moniker == "Cosmostation") { return false }
+                if ($0.jailed! && !$1.jailed!) { return false }
+                if (!$0.jailed! && $1.jailed!) { return true }
                 return Double($0.tokens!)! > Double($1.tokens!)!
             }
-            
+        } else {
+            mainTabVC.mOtherValidators.sort{
+                if ($0.description.moniker == "Cosmostation") { return true }
+                if ($1.description.moniker == "Cosmostation") { return false }
+                if ($0.jailed && !$1.jailed) { return false }
+                if (!$0.jailed && $1.jailed) { return true }
+                return Double($0.tokens)! > Double($1.tokens)!
+            }
         }
     }
 }

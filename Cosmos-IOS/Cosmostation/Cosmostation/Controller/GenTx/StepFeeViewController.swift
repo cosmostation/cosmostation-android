@@ -195,6 +195,25 @@ class StepFeeViewController: BaseViewController {
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
             self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
+            
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            self.minFeeCardView.isHidden = true
+            self.rateFeeCardView.isHidden = false
+            
+            self.feeSlider.isHidden = true
+            self.feesLabels.isHidden = true
+            
+            self.speedImg.image = UIImage.init(named: "feeImg")
+            self.speedMsg.text = NSLocalizedString("fee_speed_iris_title", comment: "")
+            
+            let gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count)
+            let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE)
+            self.rateFeeGasAmountLabel.text = gasAmount.stringValue
+            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 2)
+            feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
+            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
+            self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
+            
         }
         
     }
@@ -557,6 +576,23 @@ class StepFeeViewController: BaseViewController {
             self.beforeBtn.isUserInteractionEnabled = false
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
+            
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            feeCoin = Coin.init(IRIS_TEST_DENOM, feeAmount.stringValue)
+            var fee = Fee.init()
+            let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue
+            fee.gas = estGas
+            
+            var estAmount: Array<Coin> = Array<Coin>()
+            estAmount.append(feeCoin)
+            fee.amount = estAmount
+            
+            pageHolderVC.mFee = fee
+            
+            self.beforeBtn.isUserInteractionEnabled = false
+            self.nextBtn.isUserInteractionEnabled = false
+            pageHolderVC.onNextPage()
+            
         }
     }
     

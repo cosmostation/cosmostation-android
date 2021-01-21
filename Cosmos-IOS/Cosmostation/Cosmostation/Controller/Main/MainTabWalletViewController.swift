@@ -141,6 +141,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "cosmosTestChainImg")
             titleChainName.text = "(StarGate Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.IRIS_TEST) {
+            titleChainImg.image = UIImage(named: "irisTestChainImg")
+            titleChainName.text = "(Bifrost Testnet)"
+            titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Testnet)"
@@ -231,7 +235,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 5;
         } else if (chainType == ChainType.AKASH_MAIN) {
             return 5;
-        } else if (chainType == ChainType.COSMOS_TEST) {
+        } else if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             return 5;
         } else {
             return 0;
@@ -265,6 +269,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetAkashItems(tableView, indexPath);
         } else if (chainType == ChainType.COSMOS_TEST) {
             return onSetCosmosTestItems(tableView, indexPath);
+        } else if (chainType == ChainType.IRIS_TEST) {
+            return onSetIrisTestItems(tableView, indexPath);
         } else {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             return cell!
@@ -1505,12 +1511,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_ATOM
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
+            cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
             cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
@@ -1524,42 +1525,55 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 2) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.text = ""
-            }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.infaltionLabel.attributedText = WUtils.displayInflation(BaseData.instance.mInflation_V1?.inflation, font: cell!.infaltionLabel.font)
-            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
+            cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "guideImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_cosmos", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_cosmos", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_cosmos", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_cosmos", comment: ""), for: .normal)
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+    }
+    
+    func onSetIrisTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell:WalletIrisCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onShowToast(NSLocalizedString("prepare", comment: "")) }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+            
+        } else {
+            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -1830,7 +1844,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickGuide1() {
-        if (chainType! == ChainType.COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST) {
             if(Locale.current.languageCode == "ko") {
                 guard let url = URL(string: "https://www.cosmostation.io/files/guide_KO.pdf") else { return }
                 self.onShowSafariWeb(url)
@@ -1839,7 +1853,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowSafariWeb(url)
             }
             
-        } else if (chainType! == ChainType.IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
             guard let url = URL(string: "https://www.irisnet.org") else { return }
             self.onShowSafariWeb(url)
             
@@ -1880,7 +1894,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickGuide2() {
-        if (chainType! == ChainType.COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST) {
             if(Locale.current.languageCode == "ko") {
                 guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_ko.html") else { return }
                 self.onShowSafariWeb(url)
@@ -1889,7 +1903,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowSafariWeb(url)
             }
 
-        } else if (chainType! == ChainType.IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
             guard let url = URL(string: "https://medium.com/irisnet-blog") else { return }
             self.onShowSafariWeb(url)
 
@@ -1929,7 +1943,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickMarketInfo() {
-        if (chainType! == ChainType.COSMOS_MAIN) {
+        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST) {
             if (BaseData.instance.getMarket() == 0) {
                 guard let url = URL(string: "https://www.coingecko.com/en/coins/cosmos") else { return }
                 self.onShowSafariWeb(url)
@@ -1938,7 +1952,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowSafariWeb(url)
             }
             
-        } else if (chainType! == ChainType.IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
             if (BaseData.instance.getMarket() == 0) {
                 guard let url = URL(string: "https://www.coingecko.com/en/coins/irisnet") else { return }
                 self.onShowSafariWeb(url)
@@ -2204,6 +2218,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 return
             }
             txVC.mCosmosSendDenom = COSMOS_TEST_DENOM
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+            
+        } else if (chainType! == ChainType.IRIS_TEST) {
+            if (BaseData.instance.getAvailable(IRIS_TEST_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mIrisTokenV1 = WUtils.getIrisMainTokenV1()
             txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else {

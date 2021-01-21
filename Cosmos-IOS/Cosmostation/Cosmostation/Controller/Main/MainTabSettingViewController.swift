@@ -95,6 +95,10 @@ class MainTabSettingViewController: BaseViewController {
             titleChainImg.image = UIImage(named: "cosmosTestChainImg")
             titleChainName.text = "(StarGate Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.IRIS_TEST) {
+            titleChainImg.image = UIImage(named: "irisTestChainImg")
+            titleChainName.text = "(Bifrost Testnet)"
+            titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Testnet)"

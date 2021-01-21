@@ -46,4 +46,51 @@ class OtherValidatorCell: UITableViewCell {
         super.prepareForReuse()
     }
     
+    func updateView(_ validator: Validator_V1, _ chainType: ChainType?) {
+        if (chainType == ChainType.COSMOS_TEST) {
+            powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, powerLabel.font!, 6, 6)
+            commissionLabel.attributedText = WUtils.getDpEstAprCommission(commissionLabel.font, NSDecimalNumber.one, chainType!)
+            validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + validator.operator_address! + ".png")!)
+            
+            monikerLabel.text = validator.description?.moniker
+            monikerLabel.adjustsFontSizeToFitWidth = true
+            freeEventImg.isHidden = true
+            if (validator.jailed == true) {
+                revokedImg.isHidden = false
+                validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+            } else {
+                revokedImg.isHidden = true
+                validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+            }
+            if BaseData.instance.mMyValidators_V1.first(where: {$0.operator_address == validator.operator_address}) != nil {
+                cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
+            } else {
+                cardView.backgroundColor = COLOR_BG_GRAY
+            }
+            
+        } else if (chainType == ChainType.IRIS_TEST) {
+            powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, powerLabel.font!, 6, 6)
+            commissionLabel.attributedText = WUtils.getDpEstAprCommission(commissionLabel.font, NSDecimalNumber.one, chainType!)
+            validatorImg.af_setImage(withURL: URL(string: IRIS_VAL_URL + validator.operator_address! + ".png")!)
+            
+            monikerLabel.text = validator.description?.moniker
+            monikerLabel.adjustsFontSizeToFitWidth = true
+            freeEventImg.isHidden = true
+            if (validator.jailed == true) {
+                revokedImg.isHidden = false
+                validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+            } else {
+                revokedImg.isHidden = true
+                validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+            }
+            if BaseData.instance.mMyValidators_V1.first(where: {$0.operator_address == validator.operator_address}) != nil {
+                cardView.backgroundColor = TRANS_BG_COLOR_IRIS
+            } else {
+                cardView.backgroundColor = COLOR_BG_GRAY
+            }
+            
+        }
+        
+    }
+    
 }

@@ -40,6 +40,9 @@ let COSMOS_TEST_API                     = "";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let IRIS_API                            = "https://api-iris.cosmostation.io/";
 
+let IRIS_TEST_URL                       = "https://lcd-office.cosmostation.io/bifrost-2/";
+let IRIS_TEST_API                       = "";
+
 let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 
@@ -122,7 +125,6 @@ let COSMOS_API_HISTORY                  = COSMOS_API + "v1/account/txs/";
 let COSMOS_API_TRANS_HISTORY            = COSMOS_API + "v1/account/transfer_txs/";
 
 //COSMOS_TEST_URL
-//let COSMOS_TEST_BLOCK                   = COSMOS_TEST_URL + "blocks/";
 let COSMOS_TEST_TX                      = COSMOS_TEST_URL + "txs/";
 let COSMOS_TEST_BALANCE                 = COSMOS_TEST_URL + "cosmos/bank/v1beta1/balances/";
 let COSMOS_TEST_AUTH                    = COSMOS_TEST_URL + "cosmos/auth/v1beta1/accounts/";
@@ -136,22 +138,13 @@ let COSMOS_TEST_SINGLE_VALIDATOR        = COSMOS_TEST_URL + "cosmos/staking/v1be
 let COSMOS_TEST_SINGLE_VALIDATOR_M      = "/validators/";
 let COSMOS_TEST_SINGLE_DELEGATION       = COSMOS_TEST_URL + "cosmos/staking/v1beta1/validators/";
 let COSMOS_TEST_SINGLE_DELEGATION_M     = "/delegations/";
-//let COSMOS_URL_REWARD_FROM_VAL          = COSMOS_TEST_URL + "distribution/delegators/";
-//let COSMOS_URL_REWARD_FROM_VAL_TAIL     = "/rewards/";
 let COSMOS_TEST_REWARD_ADDRESS          = COSMOS_TEST_URL + "cosmos/distribution/v1beta1/delegators/";
 let COSMOS_TEST_REWARD_ADDRESS_T        = "/withdraw_address";
-//let COSMOS_URL_REDELEGATION             = COSMOS_TEST_URL + "staking/redelegations";
-//let COSMOS_URL_MINT_PARAM               = COSMOS_TEST_URL + "minting/parameters";
 let COSMOS_TEST_INFLATION               = COSMOS_TEST_URL + "cosmos/mint/v1beta1/inflation";
 let COSMOS_TEST_PROVISIONS              = COSMOS_TEST_URL + "cosmos/mint/v1beta1/annual_provisions";
 let COSMOS_TEST_MINT_PARAM              = COSMOS_TEST_URL + "cosmos/mint/v1beta1/params";
 let COSMOS_TEST_STAKING_POOL            = COSMOS_TEST_URL + "cosmos/staking/v1beta1/pool";
-//let COSMOS_URL_PROPOSALS                = COSMOS_TEST_URL + "gov/proposals";
-//let COSMOS_URL_PROPOSALS_TALLY_TAIL     = "/tally";
 let COSMOS_TEST_BORAD_TX                = COSMOS_TEST_URL + "txs";
-//
-//let COSMOS_API_HISTORY                  = COSMOS_TEST_API + "v1/account/txs/";
-//let COSMOS_API_TRANS_HISTORY            = COSMOS_TEST_API + "v1/account/transfer_txs/";
 
 
 //IRIS_URL
@@ -175,6 +168,28 @@ let IRIS_LCD_URL_TOKENS                 = IRIS_LCD_URL + "asset/tokens";
 
 let IRIS_API_HISTORY                    = IRIS_API + "v1/account/txs/";
 let IRIS_API_TRANS_HISTORY              = IRIS_API + "v1/account/transfer_txs/";
+
+
+//IRIS_TEST_URL
+let IRIS_TEST_TX                        = IRIS_TEST_URL + "txs/";
+let IRIS_TEST_BALANCE                   = IRIS_TEST_URL + "cosmos/bank/v1beta1/balances/";
+let IRIS_TEST_AUTH                      = IRIS_TEST_URL + "cosmos/auth/v1beta1/accounts/";
+let IRIS_TEST_VALIDATORS                = IRIS_TEST_URL + "cosmos/staking/v1beta1/validators";
+let IRIS_TEST_DELEGATIONS               = IRIS_TEST_URL + "cosmos/staking/v1beta1/delegations/";
+let IRIS_TEST_UNDELEGATIONS             = IRIS_TEST_URL + "cosmos/staking/v1beta1/delegators/";
+let IRIS_TEST_UNDELEGATIONS_T           = "/unbonding_delegations";
+let IRIS_TEST_REWARDS                   = IRIS_TEST_URL + "cosmos/distribution/v1beta1/delegators/";
+let IRIS_TEST_REWARDS_T                 = "/rewards";
+let IRIS_TEST_SINGLE_VALIDATOR          = IRIS_TEST_URL + "cosmos/staking/v1beta1/delegators/";
+let IRIS_TEST_SINGLE_VALIDATOR_M        = "/validators/";
+let IRIS_TEST_SINGLE_DELEGATION         = IRIS_TEST_URL + "cosmos/staking/v1beta1/validators/";
+let IRIS_TEST_SINGLE_DELEGATION_M       = "/delegations/";
+let IRIS_TEST_REWARD_ADDRESS            = IRIS_TEST_URL + "cosmos/distribution/v1beta1/delegators/";
+let IRIS_TEST_REWARD_ADDRESS_T          = "/withdraw_address";
+let IRIS_TEST_MINT_PARAM                = IRIS_TEST_URL + "irishub/mint/params";
+let IRIS_TEST_STAKING_POOL              = IRIS_TEST_URL + "cosmos/staking/v1beta1/pool";
+let IRIS_TEST_TOKENS                    = IRIS_TEST_URL + "irismod/token/tokens";
+let IRIS_TEST_BORAD_TX                  = IRIS_TEST_URL + "txs";
 
 
 //BNB_URL
@@ -763,6 +778,7 @@ let GAS_FEE_AMOUNT_IRIS_REWARD_BASE         = "10000"
 let GAS_FEE_AMOUNT_IRIS_REWARD_MUX          = "5000"
 
 
+
 let GAS_FEE_BNB_TRANSFER                    = "0.000375"
 
 let KAVA_GAS_FEE_AMOUNT_LOW                 = "150000"
@@ -942,6 +958,7 @@ enum ChainType: String {
     case OKEX_MAIN
     
     case COSMOS_TEST
+    case IRIS_TEST
     case BINANCE_TEST
     case KAVA_TEST
     case IOV_TEST
@@ -962,6 +979,7 @@ enum ChainType: String {
         result.append(SECRET_MAIN)
 
         result.append(COSMOS_TEST)
+        result.append(IRIS_TEST)
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
@@ -1034,6 +1052,7 @@ let CHAIN_AKASH_S = "SUPPORT_CHAIN_AKASH_MAIN"
 let CHAIN_OKEX_S = "SUPPORT_CHAIN_OKEX_MAIN"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
+let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
 let CHAIN_BINANCE_TEST_S = "SUPPORT_CHAIN_BINANCE_TEST"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
@@ -1055,6 +1074,7 @@ let OKEX_MAIN_DENOM = "okt"
 let OKEX_MAIN_OKB = "okb"
 
 let COSMOS_TEST_DENOM = "umuon"
+let IRIS_TEST_DENOM = "ubif"
 let IOV_TEST_DENOM = "uvoi"
 let KAVA_HARD_DENOM = "hard"
 
@@ -1099,6 +1119,7 @@ let EXPLORER_AKASH_MAIN     = "https://www.mintscan.io/akash/";
 let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
+let EXPLORER_IRIS_TEST      = "https://bifrost.irisplorer.io/";
 let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
 let EXPLORER_KAVA_TEST      = "https://kava-testnet-9000.mintscan.io/";
 let EXPLORER_OKEX_TEST      = "https://www.oklink.com/okexchain-test/";

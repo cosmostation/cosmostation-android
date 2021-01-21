@@ -182,7 +182,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             onFetchApiHistory(account!, mValidator!)
             
-        } else if (chainType == ChainType.COSMOS_TEST) {
+        } else if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             self.mFetchCnt = 5
             BaseData.instance.mMyDelegations_V1.removeAll()
             BaseData.instance.mMyUnbondings_V1.removeAll()
@@ -193,6 +193,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchDelegations(account!.account_address, 0)
             onFetchUndelegations(account!.account_address, 0)
             onFetchRewards(account!.account_address)
+            
         }
         
     }
@@ -200,23 +201,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
 //        print("onFetchFinished ", self.mFetchCnt)
-        if(mFetchCnt <= 0) {
-            if (chainType != ChainType.COSMOS_TEST) {
-//                print("onFetchFinished mBonding ", mBonding)
-//                print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
-//                print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
-//                print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
-//                print("onFetchFinished mUnbondings ", mUnbondings.count)
-//                print("onFetchFinished mRewards ", mRewards.count)
-
-                if((mBonding != nil && NSDecimalNumber.init(string: mBonding?.bonding_shares) != NSDecimalNumber.zero) || mUnbondings.count > 0) {
-                    mMyValidator = true
-                } else {
-                    mMyValidator = false
-                }
-                self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
-//                print("mMyValidator ", mMyValidator)
-                
+        if (mFetchCnt <= 0) {
+            if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
                 self.validatorDetailTableView.reloadData()
                 self.loadingImg.onStopAnimation()
                 self.loadingImg.isHidden = true
@@ -224,12 +210,17 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.refresher.endRefreshing()
                 
             } else {
+                if ((mBonding != nil && NSDecimalNumber.init(string: mBonding?.bonding_shares) != NSDecimalNumber.zero) || mUnbondings.count > 0) {
+                    mMyValidator = true
+                } else {
+                    mMyValidator = false
+                }
+                self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
                 self.validatorDetailTableView.reloadData()
                 self.loadingImg.onStopAnimation()
                 self.loadingImg.isHidden = true
                 self.validatorDetailTableView.isHidden = false
                 self.refresher.endRefreshing()
-                
             }
         }
     }
@@ -239,32 +230,20 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType != ChainType.COSMOS_TEST) {
+        if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             if (section == 0) {
-                if (mMyValidator) {
-                    return 2
-                } else {
-                    return 1
-                }
-                
-            } else {
-                if (mApiHistories.count > 0) {
-                    return mApiHistories.count
-                } else {
-                    return 1
-                }
-            }
-            
-        } else {
-            if (section == 0) {
-                if (BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) {
-                    return 2
-                } else {
-                    return 1
-                }
-                
+                if (BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) { return 2 }
+                else { return 1 }
             } else {
                 return 0
+            }
+        } else {
+            if (section == 0) {
+                if (mMyValidator) { return 2 }
+                else { return 1 }
+            } else {
+                if (mApiHistories.count > 0) { return mApiHistories.count }
+                else { return 1 }
             }
         }
     }
@@ -275,20 +254,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType != ChainType.COSMOS_TEST) {
-            if (indexPath.section == 0) {
-                if (indexPath.row == 0 && mMyValidator) {
-                    return onSetMyValidatorItems(tableView, indexPath)
-                } else if (indexPath.row == 0 && !mMyValidator) {
-                    return onSetValidatorItems(tableView, indexPath)
-                } else {
-                    return onSetActionItems(tableView, indexPath)
-                }
-            } else {
-                return onSetHistoryItems(tableView, indexPath)
-            }
-            
-        } else {
+        if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             if (indexPath.section == 0) {
                 if (indexPath.row == 0 && BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) {
                     return onSetMyValidatorItemsV1(tableView, indexPath)
@@ -297,7 +263,19 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 } else {
                     return onSetActionItemsV1(tableView, indexPath)
                 }
-                
+            } else {
+                return onSetHistoryItems(tableView, indexPath)
+            }
+            
+        } else {
+            if (indexPath.section == 0) {
+                if (indexPath.row == 0 && mMyValidator) {
+                    return onSetMyValidatorItems(tableView, indexPath)
+                } else if (indexPath.row == 0 && !mMyValidator) {
+                    return onSetValidatorItems(tableView, indexPath)
+                } else {
+                    return onSetActionItems(tableView, indexPath)
+                }
             } else {
                 return onSetHistoryItems(tableView, indexPath)
             }
@@ -823,18 +801,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onSetMyValidatorItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailMyDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyDetailCell") as? ValidatorDetailMyDetailCell
-        cell?.monikerName.text = self.mValidator_V1?.description?.moniker
-        cell?.monikerName.adjustsFontSizeToFitWidth = true
-        if (self.mValidator_V1?.jailed == true) {
-            cell!.jailedImg.isHidden = false
-            cell!.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
-        } else {
-            cell!.jailedImg.isHidden = true
-            cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
-        }
-        cell?.freeEventImg.isHidden = true
-        cell?.website.text = self.mValidator_V1?.description?.website
-        cell?.descriptionMsg.text = self.mValidator_V1?.description?.details
+        cell?.updateView(self.mValidator_V1, self.mSelfDelegationInfo_V1, self.chainType)
         cell?.actionTapUrl = {
             guard let url = URL(string: self.mValidator_V1?.description?.website ?? "") else { return }
             if (UIApplication.shared.canOpenURL(url)) {
@@ -843,35 +810,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.present(safariViewController, animated: true, completion: nil)
             }
         }
-        if (chainType == ChainType.COSMOS_TEST) {
-            cell?.totalBondedAmount.attributedText = WUtils.displayAmount2(self.mValidator_V1?.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(self.mSelfDelegationInfo_V1?.balance?.amount, self.mValidator_V1?.tokens, cell!.selfBondedRate.font)
-            cell!.commissionRate.attributedText = WUtils.displayCommission(self.mValidator_V1?.commission?.commission_rates?.rate, font: cell!.commissionRate.font)
-            if (self.mValidator_V1?.status == BONDED_V1) {
-                cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, self.mValidator_V1!.getCommission(), chainType!)
-            } else {
-                cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
-                cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
-            }
-            cell?.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + self.mValidator_V1!.operator_address! + ".png")!)
-        }
         return cell!
     }
     
     func onSetValidatorItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailCell") as? ValidatorDetailCell
-        cell?.monikerName.text = self.mValidator_V1?.description?.moniker
-        cell?.monikerName.adjustsFontSizeToFitWidth = true
-        if (self.mValidator_V1?.jailed == true) {
-            cell!.jailedImg.isHidden = false
-            cell!.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
-        } else {
-            cell!.jailedImg.isHidden = true
-            cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
-        }
-        cell?.freeEventImg.isHidden = true
-        cell?.website.text = self.mValidator_V1?.description?.website
-        cell?.descriptionMsg.text = self.mValidator_V1?.description?.details
+        cell?.updateView(self.mValidator_V1, self.mSelfDelegationInfo_V1, self.chainType)
         cell?.actionTapUrl = {
             guard let url = URL(string: self.mValidator_V1?.description?.website ?? "") else { return }
             if (UIApplication.shared.canOpenURL(url)) {
@@ -888,35 +832,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onStartDelegate()
             }
         }
-        if (chainType == ChainType.COSMOS_TEST) {
-            cell?.totalBondedAmount.attributedText = WUtils.displayAmount2(self.mValidator_V1?.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(self.mSelfDelegationInfo_V1?.balance?.amount, self.mValidator_V1?.tokens, cell!.selfBondedRate.font)
-            cell!.commissionRate.attributedText = WUtils.displayCommission(self.mValidator_V1?.commission?.commission_rates?.rate, font: cell!.commissionRate.font)
-            if (self.mValidator_V1?.status == BONDED_V1) {
-                cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, self.mValidator_V1!.getCommission(), chainType!)
-            } else {
-                cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
-                cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
-            }
-            cell?.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + self.mValidator_V1!.operator_address! + ".png")!)
-        }
         return cell!
     }
     
     func onSetActionItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
-        cell?.cardView.backgroundColor = WUtils.getChainBg(chainType!)
-        if (chainType == ChainType.COSMOS_TEST) {
-            let delegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == mValidator_V1?.operator_address}.first
-            let unbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == mValidator_V1?.operator_address}.first
-            let reward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == mValidator_V1?.operator_address}.first
-            cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation?.getDelegation().stringValue, cell!.myDelegateAmount.font, 6, 6)
-            cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding?.getAllUnbondingBalance().stringValue, cell!.myUndelegateAmount.font, 6, 6)
-            cell!.myRewardAmount.attributedText = WUtils.displayAmount2(reward?.getRewardByDenom(COSMOS_TEST_DENOM).stringValue, cell!.myRewardAmount.font, 6, 6)
-            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator_V1!.getCommission(), delegation?.getDelegation(), chainType!)
-            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator_V1!.getCommission(), delegation?.getDelegation(), chainType!)
-        }
-        
+        cell?.updateView(self.mValidator_V1, self.chainType)
         cell?.actionDelegate = {
             if (self.mValidator_V1?.jailed == true) {
                 self.onShowToast(NSLocalizedString("error_jailded_delegate", comment: ""))
@@ -1684,6 +1605,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.IRIS_TEST) {
+            if (BaseData.instance.getAvailable(IRIS_TEST_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
@@ -1702,7 +1629,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             txVC.mType = IRIS_MSG_TYPE_DELEGATE
             txVC.mTargetValidator = mValidator
             
-        } else if (chainType == ChainType.COSMOS_TEST) {
+        } else if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             txVC.mType = COSMOS_MSG_TYPE_DELEGATE
             txVC.mTargetValidator_V1 = mValidator_V1
             
@@ -1848,6 +1775,22 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.IRIS_TEST) {
+            if (BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == mValidator_V1?.operator_address}.first == nil) {
+                self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
+                return
+            }
+            if let unbonding = BaseData.instance.mMyUnbondings_V1.filter({ $0.validator_address == mValidator_V1?.operator_address}).first {
+                if (unbonding.entries?.count ?? 0 >= 7) {
+                    self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
+                    return
+                }
+            }
+            if (BaseData.instance.getAvailable(IRIS_TEST_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
@@ -1865,7 +1808,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             txVC.mTargetValidator = mValidator
             txVC.mType = IRIS_MSG_TYPE_UNDELEGATE
             
-        } else if (chainType == ChainType.COSMOS_TEST) {
+        } else if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             txVC.mTargetValidator_V1 = mValidator_V1
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
         }
@@ -2147,6 +2090,17 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.IRIS_TEST) {
+            let reward = BaseData.instance.getReward(IRIS_TEST_DENOM, mValidator_V1?.operator_address)
+            if (reward.compare(NSDecimalNumber.init(string: "3750")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            if (BaseData.instance.getAvailable(IRIS_TEST_DENOM).compare(NSDecimalNumber.init(string: "3750")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
@@ -2167,7 +2121,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             txVC.mRewardTargetValidators = validators
             txVC.mType = IRIS_MSG_TYPE_WITHDRAW
             
-        } else if (chainType == ChainType.COSMOS_TEST) {
+        } else if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             var validators = Array<Validator_V1>()
             validators.append(mValidator_V1!)
             txVC.mRewardTargetValidators_V1 = validators

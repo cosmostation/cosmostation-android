@@ -192,6 +192,13 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainImg.image = UIImage(named: "cosmosTestChainImg")
                     cell?.chainName.text = "STARGATE"
                     
+                } else if (selectedChain == ChainType.IRIS_TEST) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "irisTestChainImg")
+                    cell?.chainName.text = "BIFROST"
+                    
                 } else if (selectedChain == ChainType.BINANCE_TEST) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false

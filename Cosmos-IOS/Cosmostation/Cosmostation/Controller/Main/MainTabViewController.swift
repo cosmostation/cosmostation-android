@@ -368,6 +368,33 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvisionV1()
             onFetchStakingPoolV1()
             
+        } else if (mChainType == ChainType.IRIS_TEST) {
+            self.mFetchCnt = 10
+            BaseData.instance.mAllValidators_V1.removeAll()
+            BaseData.instance.mBondedValidators_V1.removeAll()
+            BaseData.instance.mUnbondValidators_V1.removeAll()
+            BaseData.instance.mMyValidators_V1.removeAll()
+            
+            BaseData.instance.mMyDelegations_V1.removeAll()
+            BaseData.instance.mMyUnbondings_V1.removeAll()
+            BaseData.instance.mMyBalances_V1.removeAll()
+            BaseData.instance.mMyReward_V1.removeAll()
+            
+            BaseData.instance.mIrisTokens_V1.removeAll()
+            
+            onFetchBondedValidators(0)
+            onFetchUnbondedValidators(0)
+            onFetchUnbondingValidators(0)
+            
+            onFetchBalance(mAccount.account_address, 0)
+            onFetchDelegations(mAccount.account_address, 0)
+            onFetchUndelegations(mAccount.account_address, 0)
+            onFetchRewards(mAccount.account_address)
+            
+            onFetchMintParamV1()
+            onFetchStakingPoolV1()
+            onFetchIrisTokensV1()
+            
         }
         onFetchPriceTic(false)
         return true
@@ -385,7 +412,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.hideWaittingAlert()
             return
             
-        } else if (mChainType == ChainType.COSMOS_TEST) {
+        } else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.IRIS_TEST) {
             BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mBondedValidators_V1)
             BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mUnbondValidators_V1)
             for validator in BaseData.instance.mAllValidators_V1 {
@@ -406,6 +433,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     BaseData.instance.mMyValidators_V1.append(validator)
                 }
             }
+            
+            print("BaseData.instance.mAllValidators_V1 ", BaseData.instance.mAllValidators_V1.count)
+            print("BaseData.instance.mBondedValidators_V1 ", BaseData.instance.mBondedValidators_V1.count)
+            print("BaseData.instance.mUnbondValidators_V1 ", BaseData.instance.mUnbondValidators_V1.count)
+            print("BaseData.instance.mMyValidators_V1 ", BaseData.instance.mMyValidators_V1.count)
+            print("BaseData.instance.mMyBalances_V1 ", BaseData.instance.mMyBalances_V1.count)
+            
             if (BaseData.instance.mAllValidators_V1.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
@@ -466,11 +500,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             BaseData.instance.mOtherValidator = mOtherValidators
             BaseData.instance.mMyValidator = mMyValidators
             
-            print("BaseData.instance.mAllValidator ", BaseData.instance.mAllValidator.count)
-            print("BaseData.instance.mTopValidator ", BaseData.instance.mTopValidator.count)
-            print("BaseData.instance.mOtherValidator ", BaseData.instance.mOtherValidator.count)
-            print("BaseData.instance.mMyValidator ", BaseData.instance.mMyValidator.count)
-            
         } else {
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
             mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
@@ -499,6 +528,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
             }
         }
+        
+        print("BaseData.instance.mAllValidator ", BaseData.instance.mAllValidator.count)
+        print("BaseData.instance.mTopValidator ", BaseData.instance.mTopValidator.count)
+        print("BaseData.instance.mOtherValidator ", BaseData.instance.mOtherValidator.count)
+        print("BaseData.instance.mMyValidator ", BaseData.instance.mMyValidator.count)
+        
         if (mAllValidator.count <= 0) { self.onShowToast(NSLocalizedString("error_network", comment: "")) }
         else { BaseData.instance.setAllValidators(mAllValidator) }
         NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
@@ -1277,7 +1312,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 url = CMC_PRICE_TIC + "3794"
                 parameters = ["convert":BaseData.instance.getCurrencyString()]
             }
-        } else if (mChainType == ChainType.IRIS_MAIN) {
+        } else if (mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.IRIS_TEST) {
             if (BaseData.instance.getMarket() == 0) {
                 url = CGC_PRICE_TIC + "iris-network"
                 parameters = [:]
@@ -1779,7 +1814,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     
     
-    //For StarGate after v0.40
+    //For StarGate & Bifrost after v0.40
     func onFetchBondedValidators(_ offset:Int) {
         let url = BaseNetWork.validatorUrl(mChainType)
         let request = Alamofire.request(url, method: .get, parameters: ["status":BONDED_V1, "pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
@@ -1929,6 +1964,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 if (balances.count >= 100) {
                     self.onFetchBalance(address, offset + 100)
                 } else {
+                    BaseData.instance.checkZeroMainDenom(self.mChainType)
                     self.onFetchFinished()
                 }
                 
@@ -2036,6 +2072,29 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchBalance ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    
+    func onFetchIrisTokensV1() {
+        let url = BaseNetWork.irisTokensUrl(mChainType)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let tokens = responseData.object(forKey: "Tokens") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for token in tokens {
+                    BaseData.instance.mIrisTokens_V1.append(IrisToken_V1.init(token))
+                }
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchIrisTokensV1 ", error) }
                 self.onFetchFinished()
             }
         }

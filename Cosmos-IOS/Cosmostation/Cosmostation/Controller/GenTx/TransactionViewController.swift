@@ -37,6 +37,7 @@ class TransactionViewController: UIViewController {
     var mCertikSendDenom: String?
     var mSecretSendDenom: String?
     var mAkashSendDenom: String?
+    var mIrisTokenV1: IrisToken_V1?
     
     var mProposeId: String?
     var mProposalTitle: String?
@@ -260,6 +261,7 @@ class TransactionViewController: UIViewController {
             StepVc.mCertikSendDenom = self.mCertikSendDenom
             StepVc.mSecretSendDenom = self.mSecretSendDenom
             StepVc.mAkashSendDenom = self.mAkashSendDenom
+            StepVc.mIrisTokenV1 = self.mIrisTokenV1
             StepVc.mCDenom = self.mCDenom
             StepVc.mMarketID = self.mMarketID
             StepVc.mHtlcDenom = self.mHtlcDenom

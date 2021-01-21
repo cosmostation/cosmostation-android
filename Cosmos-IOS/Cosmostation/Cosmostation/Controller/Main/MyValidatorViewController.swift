@@ -72,11 +72,12 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onSortingMy() {
-        if (self.chainType != ChainType.COSMOS_TEST) {
-            self.myValidatorCnt.text = String(self.mainTabVC.mMyValidators.count)
-        } else {
+        if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             self.myValidatorCnt.text = String(BaseData.instance.mMyValidators_V1.count)
+        } else {
+            self.myValidatorCnt.text = String(self.mainTabVC.mMyValidators.count)
         }
+        
         if (BaseData.instance.getMyValidatorSort() == 0) {
             self.sortType.text = NSLocalizedString("sort_by_my_delegate", comment: "")
             sortByDelegated()
@@ -97,29 +98,47 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType != ChainType.COSMOS_TEST) {
-            if (self.mainTabVC.mMyValidators.count < 1) {
-                return 1;
-            } else if (self.mainTabVC.mMyValidators.count == 1) {
-                return 1;
-            } else {
-                return self.mainTabVC.mMyValidators.count  + 1;
-            }
+        if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+            if (BaseData.instance.mMyValidators_V1.count < 1) { return 1; }
+            else if (BaseData.instance.mMyValidators_V1.count == 1) { return 1; }
+            else { return BaseData.instance.mMyValidators_V1.count + 1; }
             
         } else {
-            if (BaseData.instance.mMyValidators_V1.count < 1) {
-                return 1;
-            } else if (BaseData.instance.mMyValidators_V1.count == 1) {
-                return 1;
-            } else {
-                return BaseData.instance.mMyValidators_V1.count  + 1;
-            }
-            
+            if (self.mainTabVC.mMyValidators.count < 1) { return 1; }
+            else if (self.mainTabVC.mMyValidators.count == 1) { return 1; }
+            else { return self.mainTabVC.mMyValidators.count + 1; }
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType != ChainType.COSMOS_TEST) {
+        if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+            if (BaseData.instance.mMyValidators_V1.count < 1) {
+                let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
+                if (chainType == ChainType.COSMOS_TEST) {
+                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
+                } else if (chainType == ChainType.IRIS_TEST) {
+                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
+                }
+                return cell!
+                
+            } else if (BaseData.instance.mMyValidators_V1.count == 1) {
+                let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
+                cell?.updateView(BaseData.instance.mMyValidators_V1[indexPath.row], self.chainType)
+                return cell!
+                
+            } else {
+                if (indexPath.row == BaseData.instance.mMyValidators_V1.count) {
+                    let cell:ClaimRewardAllCell? = tableView.dequeueReusableCell(withIdentifier:"ClaimRewardAllCell") as? ClaimRewardAllCell
+                    self.onSetClaimAllItem(cell!)
+                    return cell!
+                } else {
+                    let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
+                    cell?.updateView(BaseData.instance.mMyValidators_V1[indexPath.row], self.chainType)
+                    return cell!
+                }
+            }
+            
+        } else {
             if (mainTabVC.mMyValidators.count < 1) {
                 let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
                 if (chainType == ChainType.COSMOS_MAIN) {
@@ -159,30 +178,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                     return cell!
                 }
             }
-            
-        } else {
-            if (BaseData.instance.mMyValidators_V1.count < 1) {
-                let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
-                cell?.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
-                return cell!
-                
-            } else if (BaseData.instance.mMyValidators_V1.count == 1) {
-                let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
-                self.onSetValidatorItemV1(cell!, BaseData.instance.mMyValidators_V1[indexPath.row], indexPath)
-                return cell!
-                
-            } else {
-                if (indexPath.row == BaseData.instance.mMyValidators_V1.count) {
-                    let cell:ClaimRewardAllCell? = tableView.dequeueReusableCell(withIdentifier:"ClaimRewardAllCell") as? ClaimRewardAllCell
-                    self.onSetClaimAllItem(cell!)
-                    return cell!
-                } else {
-                    let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
-                    self.onSetValidatorItemV1(cell!, BaseData.instance.mMyValidators_V1[indexPath.row], indexPath)
-                    return cell!
-                }
-            }
-            
         }
     }
     
@@ -191,7 +186,16 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType != ChainType.COSMOS_TEST) {
+        if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            if (BaseData.instance.mMyValidators_V1.count > 0 && indexPath.row != BaseData.instance.mMyValidators_V1.count) {
+                let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
+                validatorDetailVC.mValidator_V1 = BaseData.instance.mMyValidators_V1[indexPath.row]
+                validatorDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(validatorDetailVC, animated: true)
+            }
+            
+        } else {
             if (mainTabVC.mMyValidators.count > 0 && indexPath.row != mainTabVC.mMyValidators.count) {
                 if let validator = self.mainTabVC.mMyValidators[indexPath.row] as? Validator {
                     let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
@@ -202,16 +206,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                     self.navigationController?.pushViewController(validatorDetailVC, animated: true)
                 }
             }
-            
-        } else {
-            if (BaseData.instance.mMyValidators_V1.count > 0 && indexPath.row != BaseData.instance.mMyValidators_V1.count) {
-                let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
-                validatorDetailVC.mValidator_V1 = BaseData.instance.mMyValidators_V1[indexPath.row]
-                validatorDetailVC.hidesBottomBarWhenPushed = true
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(validatorDetailVC, animated: true)
-            }
-            
         }
     }
     
@@ -319,7 +313,23 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetClaimAllItem(_ cell: ClaimRewardAllCell) {
         WUtils.setDenomTitle(chainType!, cell.denomLabel)
-        if (chainType != ChainType.COSMOS_TEST) {
+        if (chainType == ChainType.COSMOS_TEST) {
+            var rewardSum = NSDecimalNumber.zero
+            BaseData.instance.mMyReward_V1.forEach { reward in
+                rewardSum = rewardSum.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
+            }
+            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(rewardSum.stringValue, cell.totalRewardLabel.font, 6, 6)
+            cell.delegate = self
+            
+        } else if (chainType == ChainType.IRIS_TEST) {
+            var rewardSum = NSDecimalNumber.zero
+            BaseData.instance.mMyReward_V1.forEach { reward in
+                rewardSum = rewardSum.adding(reward.getRewardByDenom(IRIS_TEST_DENOM))
+            }
+            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(rewardSum.stringValue, cell.totalRewardLabel.font, 6, 6)
+            cell.delegate = self
+            
+        } else {
             cell.totalRewardLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.totalRewardLabel.font, 6, chainType!)
             if (chainType == ChainType.COSMOS_MAIN) {
                 if(mainTabVC.mRewardList.count > 0) {
@@ -367,15 +377,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 }
             }
             cell.delegate = self
-            
-        } else {
-            var rewardSum = NSDecimalNumber.zero
-            BaseData.instance.mMyReward_V1.forEach { reward in
-                rewardSum = rewardSum.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
-            }
-            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(rewardSum.stringValue, cell.totalRewardLabel.font, 6, 6)
-            cell.delegate = self
-            
         }
     }
     

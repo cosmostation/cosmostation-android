@@ -51,7 +51,7 @@ class ValidatorListViewController: BaseViewController {
             
             if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
                 validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_COSMOS2
-            } else if (chainType == ChainType.IRIS_MAIN) {
+            } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
                 validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_IRIS2
             } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_KAVA2
@@ -70,7 +70,7 @@ class ValidatorListViewController: BaseViewController {
         } else {
             if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
                 validatorSegment.tintColor = COLOR_ATOM
-            } else if (chainType == ChainType.IRIS_MAIN) {
+            } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
                 validatorSegment.tintColor = COLOR_IRIS
             } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 validatorSegment.tintColor = COLOR_KAVA

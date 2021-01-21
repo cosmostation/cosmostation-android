@@ -284,6 +284,20 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            mDpDecimal = pageHolderVC.mIrisTokenV1!.scale!
+            currentAva = BaseData.instance.getAvailable(IRIS_TEST_DENOM)
+            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, mDpDecimal)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
+            
+            if (pageHolderVC.mIrisTokenV1!.min_unit! == IRIS_TEST_DENOM) {
+                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
+                
+                mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+                mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            }
         }
         
         mToAddressLabel.text = pageHolderVC.mToSendRecipientAddress
@@ -304,7 +318,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
                 self.onGenBnbSendTx()
                 
-            } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+            } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
                 self.onFetchAuth(pageHolderVC.mAccount!)
             }
         }
@@ -649,6 +663,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             let stdTx = Signer.genSignedSendTxV1(auth.getAddress(), auth.getAccountNumber(), auth.getSequenceNumber(),
                                              self.pageHolderVC.mToSendRecipientAddress!, self.pageHolderVC.mToSendAmount, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
                                              WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+            print("stdTx ", stdTx)
             
             DispatchQueue.main.async(execute: {
                 let url = BaseNetWork.postTxUrl(self.pageHolderVC.chainType!)

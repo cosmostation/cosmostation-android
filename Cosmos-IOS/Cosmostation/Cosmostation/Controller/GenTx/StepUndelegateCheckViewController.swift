@@ -73,6 +73,11 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount2(pageHolderVC.mToUndelegateAmount?.amount, toUnDelegateAmoutLaebl.font, 6, 6)
             feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
+            
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount2(pageHolderVC.mToUndelegateAmount?.amount, toUnDelegateAmoutLaebl.font, 6, 6)
+            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
+            targetValidatorLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
         }
         
         memoLabel.text = pageHolderVC.mMemo
@@ -85,7 +90,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
 
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+            if (pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
                 self.onFetchAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)

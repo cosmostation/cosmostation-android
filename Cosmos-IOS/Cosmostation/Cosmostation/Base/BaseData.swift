@@ -57,7 +57,6 @@ final class BaseData : NSObject{
     
     //For StarGate after v0.40
     var mAllValidators_V1 = Array<Validator_V1>()
-//    var mUnbondingValidators_V1 = Array<Validator_V1>()
     var mBondedValidators_V1 = Array<Validator_V1>()
     var mUnbondValidators_V1 = Array<Validator_V1>()
     var mMyValidators_V1 = Array<Validator_V1>()
@@ -71,6 +70,21 @@ final class BaseData : NSObject{
     var mStakingPool_V1: StakingPool_V1?
     var mProvision_V1: Provision_V1?
     var mInflation_V1: Inflation_V1?
+    
+    
+    var mIrisTokens_V1 = Array<IrisToken_V1>()
+    
+    func checkZeroMainDenom(_ chain: ChainType?) {
+        if (chain == ChainType.COSMOS_TEST) {
+            if (!mMyBalances_V1.contains(where: {$0.denom == COSMOS_TEST_DENOM})) {
+                mMyBalances_V1.append(Coin.init(COSMOS_TEST_DENOM, "0"))
+            }
+        } else if (chain == ChainType.IRIS_TEST) {
+            if (!mMyBalances_V1.contains(where: {$0.denom == IRIS_TEST_DENOM})) {
+                mMyBalances_V1.append(Coin.init(IRIS_TEST_DENOM, "0"))
+            }
+        }
+    }
     
     func getAvailable(_ symbol:String) -> String {
         var amount = NSDecimalNumber.zero.stringValue

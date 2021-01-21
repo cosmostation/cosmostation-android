@@ -150,12 +150,112 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 return true
             }
 
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            var selectedRewardSum = NSDecimalNumber.zero
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(IRIS_TEST_DENOM))
+                }
+            }
+            if (NSDecimalNumber.init(string: pageHolderVC.mFee?.amount[0].amount).compare(selectedRewardSum).rawValue > 0 ) {
+                return true
+            }
         }
         return false
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! != ChainType.COSMOS_TEST) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+            var monikers = ""
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if(monikers.count > 0) {
+                    monikers = monikers + ",   " + (validator.description?.moniker)!
+                } else {
+                    monikers = (validator.description?.moniker)!
+                }
+            }
+            fromValidatorLabel.text = monikers
+            memoLabel.text = pageHolderVC.mMemo
+            
+            var selectedRewardSum = NSDecimalNumber.zero
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_TEST_DENOM))
+                }
+            }
+            
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, 6, 6)
+            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
+            
+            let userBalance: NSDecimalNumber = BaseData.instance.getAvailable(COSMOS_MAIN_DENOM)
+            let expectedAmount = userBalance.adding(selectedRewardSum).subtracting(WUtils.plainStringToDecimal(pageHolderVC.mFee?.amount[0].amount))
+            expectedAmountLabel.attributedText = WUtils.displayAmount2(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, 6)
+            
+            if (pageHolderVC.mAccount?.account_address == pageHolderVC.mRewardAddress) {
+                recipientTitleLabel.isHidden = true
+                recipientLabel.isHidden = true
+                
+                expectedSeparator.isHidden = false
+                expectedAmountTitle.isHidden = false
+                expectedAmountLabel.isHidden = false
+                expectedDenomLabel.isHidden = false
+                
+            } else {
+                recipientTitleLabel.isHidden = false
+                recipientLabel.isHidden = false
+                
+                expectedSeparator.isHidden = true
+                expectedAmountTitle.isHidden = true
+                expectedAmountLabel.isHidden = true
+                expectedDenomLabel.isHidden = true
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            var monikers = ""
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if(monikers.count > 0) {
+                    monikers = monikers + ",   " + (validator.description?.moniker)!
+                } else {
+                    monikers = (validator.description?.moniker)!
+                }
+            }
+            fromValidatorLabel.text = monikers
+            memoLabel.text = pageHolderVC.mMemo
+            
+            var selectedRewardSum = NSDecimalNumber.zero
+            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(IRIS_TEST_DENOM))
+                }
+            }
+            
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, 6, 6)
+            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
+            
+            let userBalance: NSDecimalNumber = BaseData.instance.getAvailable(IRIS_TEST_DENOM)
+            let expectedAmount = userBalance.adding(selectedRewardSum).subtracting(WUtils.plainStringToDecimal(pageHolderVC.mFee?.amount[0].amount))
+            expectedAmountLabel.attributedText = WUtils.displayAmount2(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, 6)
+            
+            if (pageHolderVC.mAccount?.account_address == pageHolderVC.mRewardAddress) {
+                recipientTitleLabel.isHidden = true
+                recipientLabel.isHidden = true
+                
+                expectedSeparator.isHidden = false
+                expectedAmountTitle.isHidden = false
+                expectedAmountLabel.isHidden = false
+                expectedDenomLabel.isHidden = false
+                
+            } else {
+                recipientTitleLabel.isHidden = false
+                recipientLabel.isHidden = false
+                
+                expectedSeparator.isHidden = true
+                expectedAmountTitle.isHidden = true
+                expectedAmountLabel.isHidden = true
+                expectedDenomLabel.isHidden = true
+            }
+            
+        } else {
             if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
                 let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, COSMOS_MAIN_DENOM)
                 rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
@@ -340,58 +440,13 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 expectedAmountLabel.isHidden = true
                 expectedDenomLabel.isHidden = true
             }
-            
-        } else {
-            var monikers = ""
-            for validator in pageHolderVC.mRewardTargetValidators_V1 {
-                if(monikers.count > 0) {
-                    monikers = monikers + ",   " + (validator.description?.moniker)!
-                } else {
-                    monikers = (validator.description?.moniker)!
-                }
-            }
-            fromValidatorLabel.text = monikers
-            memoLabel.text = pageHolderVC.mMemo
-            
-            var selectedRewardSum = NSDecimalNumber.zero
-            for validator in pageHolderVC.mRewardTargetValidators_V1 {
-                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
-                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_TEST_DENOM))
-                }
-            }
-            
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, 6, 6)
-            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
-                
-            let userBalance: NSDecimalNumber = BaseData.instance.getAvailable(COSMOS_MAIN_DENOM)
-            let expectedAmount = userBalance.adding(selectedRewardSum).subtracting(WUtils.plainStringToDecimal(pageHolderVC.mFee?.amount[0].amount))
-            expectedAmountLabel.attributedText = WUtils.displayAmount2(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, 6)
-            
-            if (pageHolderVC.mAccount?.account_address == pageHolderVC.mRewardAddress) {
-                recipientTitleLabel.isHidden = true
-                recipientLabel.isHidden = true
-        
-                expectedSeparator.isHidden = false
-                expectedAmountTitle.isHidden = false
-                expectedAmountLabel.isHidden = false
-                expectedDenomLabel.isHidden = false
-                
-            } else {
-                recipientTitleLabel.isHidden = false
-                recipientLabel.isHidden = false
-                
-                expectedSeparator.isHidden = true
-                expectedAmountTitle.isHidden = true
-                expectedAmountLabel.isHidden = true
-                expectedDenomLabel.isHidden = true
-            }
-            
         }
+        
     }
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+            if (pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
                 self.onFetchAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)

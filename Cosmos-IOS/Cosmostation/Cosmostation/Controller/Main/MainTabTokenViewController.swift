@@ -154,6 +154,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             kavaOracle.isHidden = true
             titleAlarmBtn.isHidden = true
             totalCard.backgroundColor = COLOR_BG_GRAY
+        } else if (chainType! == ChainType.IRIS_TEST) {
+            titleChainImg.image = UIImage(named: "irisTestChainImg")
+            titleChainName.text = "(Bifrost Testnet)"
+            kavaOracle.isHidden = true
+            titleAlarmBtn.isHidden = true
+            totalCard.backgroundColor = COLOR_BG_GRAY
         } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Testnet)"
@@ -218,7 +224,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST) {
             onFetchCosmosTokenPrice()
             
-        } else if (chainType! == ChainType.IRIS_MAIN) {
+        } else if (chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
             onFetchIrisTokenPrice()
             
         } else if (chainType! == ChainType.BINANCE_MAIN) {
@@ -415,14 +421,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
             
+        } else if (chainType! == ChainType.IRIS_TEST) {
+            let allAtom = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType! != ChainType.COSMOS_TEST) {
-            return mainTabVC.mBalances.count;
-        } else {
+        if (chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
             return BaseData.instance.mMyBalances_V1.count
+        } else {
+            return mainTabVC.mBalances.count;
         }
     }
     
@@ -451,6 +461,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetAkashItems(tableView, indexPath)
         } else if (chainType! == ChainType.COSMOS_TEST) {
             return onSetCosmosTestItems(tableView, indexPath)
+        } else if (chainType! == ChainType.IRIS_TEST) {
+            return onSetIrisTestItems(tableView, indexPath)
         }
         return onSetCosmosItems(tableView, indexPath)
     }
@@ -557,6 +569,22 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.tokenAmount.attributedText = WUtils.displayIrisToken(balance.balance_amount, cell!.tokenAmount.font, 6, irisToken.base_token!.decimal)
                 cell?.tokenValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.tokenValue.font)
             }
+        }
+        return cell!
+    }
+    
+    func onSetIrisTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_V1[indexPath.row]
+        if (balance.denom == IRIS_TEST_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "irisTokenImg")
+            cell?.tokenSymbol.text = "BIF"
+            cell?.tokenSymbol.textColor = COLOR_IRIS
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Bifrost Staking Token"
+            let allAtom = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
         }
         return cell!
     }

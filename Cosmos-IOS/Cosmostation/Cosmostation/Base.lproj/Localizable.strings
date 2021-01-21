@@ -607,6 +607,7 @@
 "chain_title_akash" = "Akash Mainnet";
 "chain_title_okex" = "Okex Mainnet";
 "chain_title_test_cosmos" = "StarGate Testnet";
+"chain_title_test_iris" = "Bifrost Testnet";
 "chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
 "chain_title_iov_test" = "Starname Testnet";
