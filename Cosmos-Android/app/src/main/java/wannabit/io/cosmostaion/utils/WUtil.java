@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.StarNameResource;
+import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
@@ -75,9 +76,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -749,6 +752,25 @@ public class WUtil {
         });
     }
 
+    public static void onSortByValidatorNameV1(ArrayList<Validator_V1> validators) {
+        Collections.sort(validators, new Comparator<Validator_V1>() {
+            @Override
+            public int compare(Validator_V1 o1, Validator_V1 o2) {
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+                return o1.description.moniker.compareTo(o2.description.moniker);
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator_V1>() {
+            @Override
+            public int compare(Validator_V1 o1, Validator_V1 o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
     public static void onSortByValidatorPower(ArrayList<Validator> validators) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
@@ -769,6 +791,29 @@ public class WUtil {
                 else return 0;
             }
         });
+    }
+
+    public static void onSortByValidatorPowerV1(ArrayList<Validator_V1> validators) {
+        Collections.sort(validators, new Comparator<Validator_V1>() {
+            @Override
+            public int compare(Validator_V1 o1, Validator_V1 o2) {
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+
+                if (Double.parseDouble(o1.tokens) > Double.parseDouble(o2.tokens)) return -1;
+                else if (Double.parseDouble(o1.tokens) < Double.parseDouble(o2.tokens)) return 1;
+                else return 0;
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator_V1>() {
+            @Override
+            public int compare(Validator_V1 o1, Validator_V1 o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+
     }
 
     public static void onSortByOKValidatorPower(ArrayList<Validator> validators) {
@@ -826,6 +871,28 @@ public class WUtil {
         });
     }
 
+    public static void onSortByDelegateV1(final long userId, ArrayList<Validator_V1> validators, final BaseData dao) {
+        Collections.sort(validators, new Comparator<Validator_V1>() {
+            @Override
+            public int compare(Validator_V1 o1, Validator_V1 o2) {
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+
+                BigDecimal bondingO1 = WDp.getDelegation(dao, o1.operator_address);
+                BigDecimal bondingO2 = WDp.getDelegation(dao, o2.operator_address);
+                return bondingO2.compareTo(bondingO1);
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator_V1>() {
+            @Override
+            public int compare(Validator_V1 o1, Validator_V1 o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
     public static void onSortByReward(ArrayList<Validator> validators, final ArrayList<Reward> rewards, String denom) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
@@ -841,6 +908,28 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
+    public static void onSortByRewardV1(ArrayList<Validator_V1> validators, String denom, final BaseData dao) {
+        Collections.sort(validators, new Comparator<Validator_V1>() {
+            @Override
+            public int compare(Validator_V1 o1, Validator_V1 o2) {
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+
+                BigDecimal rewardO1 = WDp.getReward(dao, denom, o1.operator_address);
+                BigDecimal rewardO2 = WDp.getReward(dao, denom, o2.operator_address);
+                return rewardO2.compareTo(rewardO1);
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator_V1>() {
+            @Override
+            public int compare(Validator_V1 o1, Validator_V1 o2) {
                 if (o1.jailed && !o2.jailed) return 1;
                 else if (!o1.jailed && o2.jailed) return -1;
                 else return 0;
@@ -881,6 +970,27 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
+    public static void onSortingByCommissionV1(ArrayList<Validator_V1> validators) {
+        Collections.sort(validators, new Comparator<Validator_V1>() {
+            @Override
+            public int compare(Validator_V1 o1, Validator_V1 o2) {
+                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+                if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
+                else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
+                else return 0;
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator_V1>() {
+            @Override
+            public int compare(Validator_V1 o1, Validator_V1 o2) {
                 if (o1.jailed && !o2.jailed) return 1;
                 else if (!o1.jailed && o2.jailed) return -1;
                 else return 0;
@@ -1181,10 +1291,10 @@ public class WUtil {
     }
 
     public static String getCGCId(BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
             return BaseConstant.CGC_ATOM;
 
-        } else if (chain.equals(IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             return BaseConstant.CGC_IRIS;
 
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
@@ -1216,7 +1326,8 @@ public class WUtil {
         if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
                 chain.equals(IOV_MAIN) || chain.equals(BAND_MAIN) || chain.equals(IOV_TEST) ||
                 chain.equals(OK_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) ||
-                chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN) || chain.equals(OKEX_MAIN)) {
+                chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN) || chain.equals(OKEX_MAIN) ||
+                chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
             return BaseConstant.MEMO_ATOM;
 
         } else if (chain.equals(IRIS_MAIN)) {
@@ -1776,10 +1887,10 @@ public class WUtil {
 
 
     public static BigDecimal getCBlockTime(BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
             return BLOCK_TIME_COSMOS;
 
-        } else if (chain.equals(IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             return BLOCK_TIME_IRIS;
 
         } else if (chain.equals(IOV_MAIN)) {

@@ -70,9 +70,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -345,7 +347,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         }
 
-        else if (mBaseChain.equals(BNB_TEST)) {
+        else if (mBaseChain.equals(COSMOS_TEST)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_test_cosmos));
+            mToolbarChainName.setText(getString(R.string.str_cosmos_testnet));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAtom));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
+
+        } else if (mBaseChain.equals(IRIS_TEST)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_test_iris));
+            mToolbarChainName.setText(getString(R.string.str_iris_testnet));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIris));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIris));
+
+        } else if (mBaseChain.equals(BNB_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));
             mToolbarChainName.setText(getString(R.string.str_binance_test_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
@@ -396,11 +410,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 //                mAirDropBtn.hide();
 //            }
 //        }
-
-        // make syn more smooth with wallet change action
-        if (mContentsPager != null && mContentsPager.getCurrentItem() == 2) {
-            mPageAdapter.mCurrentFragment.onRefreshTab();
-        }
 
         onUpdateTitle();
         onFetchAllData();
@@ -935,8 +944,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
                 }
 
+                else if (chain.equals(COSMOS_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_test_cosmos));
+                    holder.chainName.setText(getString(R.string.str_cosmos_test));
 
-                else if (chain.equals(BNB_TEST)) {
+                } else if (chain.equals(IRIS_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_test_iris));
+                    holder.chainName.setText(getString(R.string.str_iris_test));
+
+                } else if (chain.equals(BNB_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));

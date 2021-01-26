@@ -32,9 +32,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -98,7 +100,7 @@ public class WKey {
     }
 
     public static List<ChildNumber> getParentPath(BaseChain chain, boolean newBip) {
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
@@ -190,9 +192,9 @@ public class WKey {
 
         try {
             byte[] converted = convertBits(hash3, 8,5,true);
-            if (chain.equals(COSMOS_MAIN)) {
+            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
                 result = bech32Encode("cosmos".getBytes(), converted);
-            } else if (chain.equals(IRIS_MAIN)){
+            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)){
                 result = bech32Encode("iaa".getBytes(), converted);
             } else if (chain.equals(BNB_MAIN)){
                 result = bech32Encode("bnb".getBytes(), converted);
@@ -222,9 +224,9 @@ public class WKey {
     }
 
     public static String convertDpOpAddressToDpAddress(String dpOpAddress, BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
             return bech32Encode("cosmos".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             return bech32Encode("iaa".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             return bech32Encode("kava".getBytes(), bech32Decode(dpOpAddress).data);
@@ -246,9 +248,9 @@ public class WKey {
     }
 
     public static String convertDpAddressToDpOpAddress(String dpOpAddress, BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
             return bech32Encode("cosmosvaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             return bech32Encode("iva".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             return bech32Encode("kavavaloper".getBytes(), bech32Decode(dpOpAddress).data);

@@ -31,6 +31,7 @@
                     android:layout_height="@dimen/space_20"
                     android:src="@drawable/atom_ic"/>
                 <TextView
+                    android:id="@+id/atom_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/atom_icon"

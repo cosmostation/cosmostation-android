@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.ValidatorAllFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorOtherFragment;
+import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -137,6 +138,12 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     public void onStartValidatorDetail(Validator validator) {
         Intent intent = new Intent(ValidatorListActivity.this, ValidatorActivity.class);
         intent.putExtra("validator", validator);
+        startActivity(intent);
+    }
+
+    public void onStartValidatorDetailV1(String opAddress) {
+        Intent intent = new Intent(ValidatorListActivity.this, ValidatorActivity.class);
+        intent.putExtra("valOpAddress", opAddress);
         startActivity(intent);
     }
 

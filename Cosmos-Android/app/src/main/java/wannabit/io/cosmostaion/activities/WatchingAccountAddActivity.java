@@ -22,7 +22,9 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Certik;
+import wannabit.io.cosmostaion.dialog.Dialog_Choice_Cosmos;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Iov;
+import wannabit.io.cosmostaion.dialog.Dialog_Choice_Iris;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Kava;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Okex;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -37,9 +39,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -101,8 +105,16 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
             mUserInput = mInput.getText().toString().trim();
             if (mUserInput.startsWith("cosmos1")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(COSMOS_MAIN, mUserInput);
-                    return;
+                    if (SUPPORT_CHAINS().contains(COSMOS_TEST)) {
+                        Dialog_Choice_Cosmos dialog = Dialog_Choice_Cosmos.newInstance(null);
+                        dialog.setCancelable(false);
+                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                        return;
+
+                    } else {
+                        onGenNewAccount(COSMOS_MAIN, mUserInput);
+                        return;
+                    }
 
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
@@ -111,8 +123,16 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("iaa1")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(IRIS_MAIN, mUserInput);
-                    return;
+                    if (SUPPORT_CHAINS().contains(IRIS_TEST)) {
+                        Dialog_Choice_Iris dialog = Dialog_Choice_Iris.newInstance(null);
+                        dialog.setCancelable(false);
+                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                        return;
+
+                    } else {
+                        onGenNewAccount(IRIS_MAIN, mUserInput);
+                        return;
+                    }
 
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();

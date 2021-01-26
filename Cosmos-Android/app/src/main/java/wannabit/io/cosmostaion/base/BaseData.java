@@ -26,6 +26,14 @@ import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.model.Delegation_V1;
+import wannabit.io.cosmostaion.model.IrisToken_V1;
+import wannabit.io.cosmostaion.model.ParamMint_V1;
+import wannabit.io.cosmostaion.model.Reward_V1;
+import wannabit.io.cosmostaion.model.StakingPool_V1;
+import wannabit.io.cosmostaion.model.Undelegation_V1;
+import wannabit.io.cosmostaion.model.Validator_V1;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
@@ -59,9 +67,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -130,6 +140,26 @@ public class BaseData {
     //COMMON DATA FOR BAND
     public ResBandOracleStatus      mBandOracles;
 
+
+
+    //V1 .40 version
+    public ArrayList<Validator_V1>      mTopValidators_V1 = new ArrayList<>();
+    public ArrayList<Validator_V1>      mOtherValidators_V1 = new ArrayList<>();
+    public ArrayList<Validator_V1>      mAllValidators_V1 = new ArrayList<>();
+    public ArrayList<Validator_V1>      mMyValidators_V1 = new ArrayList<>();
+
+    public ArrayList<Coin>              mBalance_V1 = new ArrayList<>();
+    public ArrayList<Delegation_V1>     mDelegations_V1 = new ArrayList<>();
+    public ArrayList<Undelegation_V1>   mUndelegations_V1 = new ArrayList<>();
+    public ArrayList<Reward_V1>         mRewards_V1 = new ArrayList<>();
+
+    public StakingPool_V1               mStakingPool_V1;
+    public ParamMint_V1                 mParamMint_V1;
+    public BigDecimal                   mInflation_V1;
+    public BigDecimal                   mProvision_V1;
+
+    public ArrayList<IrisToken_V1>      mIrisTokens_V1 = new ArrayList<>();
+
     public BigDecimal getBnbTransferFee() {
         BigDecimal result =  BigDecimal.ZERO;
         for (ResBnbFee fee: mBnbFees) {
@@ -163,7 +193,7 @@ public class BaseData {
 
 
     public void setLastPriceTic(BaseChain chain, ResCgcTic tic) {
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
             if (getCurrency() == 0) {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+tic.market_data.current_price.usd).commit();
                 getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
@@ -184,7 +214,7 @@ public class BaseData {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             if (getCurrency() == 0) {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_TIC, ""+tic.market_data.current_price.usd).commit();
                 getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
@@ -358,10 +388,10 @@ public class BaseData {
     }
 
     public BigDecimal getLastPriceTic(BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
             return BigDecimal.valueOf(getLastAtomTic());
 
-        } else if (chain.equals(IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             return BigDecimal.valueOf(getLastIrisTic());
 
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
@@ -392,10 +422,10 @@ public class BaseData {
     }
 
     public BigDecimal getLastPriceUpDown(BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
             return BigDecimal.valueOf(getLastAtomUpDown());
 
-        } else if (chain.equals(IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             return BigDecimal.valueOf(getLastIrisUpDown());
 
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {

@@ -35,7 +35,9 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
@@ -168,7 +170,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, final int position) {
             holder.chainCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -260,7 +262,19 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 }
 
 
-                else if (chain.equals(BaseChain.BNB_TEST)) {
+                else if (chain.equals(COSMOS_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_test_cosmos));
+                    holder.chainName.setText(getString(R.string.str_cosmos_test));
+
+                } else if (chain.equals(IRIS_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_test_iris));
+                    holder.chainName.setText(getString(R.string.str_iris_test));
+
+                }else if (chain.equals(BaseChain.BNB_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));

@@ -169,6 +169,22 @@ public class BaseConstant {
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
     public final static int TASK_FETCH_API_STAKE_HISTORY                = 2302;
 
+
+    public final static int TASK_V1_FETCH_BALANCE                       = 3001;
+    public final static int TASK_V1_FETCH_BONDED_VALIDATORS             = 3002;
+    public final static int TASK_V1_FETCH_UNBONDED_VALIDATORS           = 3003;
+    public final static int TASK_V1_FETCH_UNBONDING_VALIDATORS          = 3004;
+    public final static int TASK_V1_FETCH_DELEGATIONS                   = 3005;
+    public final static int TASK_V1_FETCH_UNDELEGATIONS                 = 3006;
+    public final static int TASK_V1_FETCH_ALL_REWARDS                   = 3007;
+    public final static int TASK_V1_FETCH_PARAM_MINT                    = 3008;
+    public final static int TASK_V1_FETCH_INFLATION                     = 3009;
+    public final static int TASK_V1_FETCH_PROVISION                     = 3010;
+    public final static int TASK_V1_FETCH_STAKING_POOL                  = 3011;
+    public final static int TASK_V1_FETCH_IRIS_TOKEN_LIST               = 3012;
+    public final static int TASK_V1_FETCH_VALIDATOR_INFO                = 3013;
+    public final static int TASK_V1_FETCH_SELF_BONDING                  = 3014;
+
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
 
     public final static String COSMOS_AUTH_TYPE_DELAYEDACCOUNT              = "cosmos-sdk/DelayedVestingAccount";
@@ -370,6 +386,8 @@ public class BaseConstant {
     public final static String TOKEN_OK_OKB         = "okb";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
+    public final static String TOKEN_COSMOS_TEST    = "umuon";
+    public final static String TOKEN_IRIS_TEST      = "ubif";
 
 
     //HTLC swap support Token Types

@@ -67,6 +67,14 @@ import wannabit.io.cosmostaion.dialog.Dialog_Push_Enable;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.Delegation_V1;
+import wannabit.io.cosmostaion.model.IrisToken_V1;
+import wannabit.io.cosmostaion.model.ParamMint_V1;
+import wannabit.io.cosmostaion.model.Reward_V1;
+import wannabit.io.cosmostaion.model.StakingPool_V1;
+import wannabit.io.cosmostaion.model.Undelegation_V1;
+import wannabit.io.cosmostaion.model.Validator_V1;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
@@ -127,6 +135,18 @@ import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleStakingPoolTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.V1Task.AllRewardTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.BalanceTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.BondedValidatorsTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.DelegationsTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.InflationTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.IrisTokenListTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.ParamMintTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.ProvisionTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.StakingPoolTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.UnBondedValidatorsTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.UnBondingValidatorsTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.UnDelegationsTask_V1;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -135,11 +155,16 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -164,6 +189,18 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_TOKEN_LIST
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_UNBONDING_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_CONFIG;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_FEE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_ALL_REWARDS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_BALANCE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_BONDED_VALIDATORS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_DELEGATIONS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_INFLATION;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_IRIS_TOKEN_LIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PARAM_MINT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PROVISION;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_STAKING_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_UNBONDED_VALIDATORS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_UNBONDING_VALIDATORS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_UNDELEGATIONS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -286,7 +323,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
         boolean hasbalance = true;
-        if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+        if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             if (WDp.getAvailableCoin(mAccount.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) <= 0) {
                 hasbalance  = false;
             }
@@ -477,6 +514,25 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mProvisions = BigDecimal.ZERO;
         getBaseDao().mIrisTokens.clear();
 
+        //V1 .40 version
+        getBaseDao().mTopValidators_V1.clear();
+        getBaseDao().mOtherValidators_V1.clear();
+        getBaseDao().mAllValidators_V1.clear();
+        getBaseDao().mMyValidators_V1.clear();
+
+        getBaseDao().mBalance_V1.clear();
+        getBaseDao().mDelegations_V1.clear();
+        getBaseDao().mUndelegations_V1.clear();
+        getBaseDao().mRewards_V1.clear();
+
+        getBaseDao().mStakingPool_V1 = null;
+        getBaseDao().mParamMint_V1 = null;
+        getBaseDao().mInflation_V1 = BigDecimal.ZERO;
+        getBaseDao().mProvision_V1 = BigDecimal.ZERO;
+
+        getBaseDao().mIrisTokens_V1.clear();
+
+
         if (mBaseChain.equals(COSMOS_MAIN)) {
             mTaskCount = 10;
             new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -492,7 +548,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (mBaseChain.equals(IRIS_MAIN)) {
             mTaskCount = 7;
             new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -504,7 +560,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new IrisPoolTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST) ) {
+        } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST) ) {
             mTaskCount = 3;
             getBaseDao().mBnbTokens.clear();
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -659,7 +715,40 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        } else if (mBaseChain.equals(COSMOS_TEST)) {
+            mTaskCount = 11;
+            new BondedValidatorsTask_V1(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnBondedValidatorsTask_V1(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnBondingValidatorsTask_V1(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new BalanceTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new DelegationsTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnDelegationsTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new AllRewardTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new StakingPoolTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ParamMintTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ProvisionTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new InflationTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(IRIS_TEST)) {
+            mTaskCount = 10;
+            new BondedValidatorsTask_V1(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnBondedValidatorsTask_V1(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnBondingValidatorsTask_V1(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new BalanceTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new DelegationsTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnDelegationsTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new AllRewardTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new StakingPoolTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ParamMintTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new IrisTokenListTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
+
+
         onPriceTic(BaseChain.getChain(mAccount.baseChain));
 //        return true;
     }
@@ -694,7 +783,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 if (bondedValis != null) {
                     getBaseDao().mTopValidators = bondedValis;
                 }
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
                 getBaseDao().mTopValidators = WUtil.getTopVals(bondedValis);
                 getBaseDao().mOtherValidators = WUtil.getOthersVals(bondedValis);
             }
@@ -883,11 +972,121 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mMintParam = ((ResMintParam.MintParam)result.resultData);
             }
+
+        }
+
+        else if (result.taskType == TASK_V1_FETCH_BONDED_VALIDATORS) {
+            if (result.isSuccess) {
+                ArrayList<Validator_V1> bonded = (ArrayList<Validator_V1>)result.resultData;
+                if (bonded != null) { getBaseDao().mTopValidators_V1.addAll(bonded); }
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_UNBONDED_VALIDATORS) {
+            if (result.isSuccess) {
+                ArrayList<Validator_V1> unbonded = (ArrayList<Validator_V1>) result.resultData;
+                if (unbonded != null) {
+                    getBaseDao().mOtherValidators_V1.addAll(unbonded);
+                }
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_UNBONDING_VALIDATORS) {
+            if (result.isSuccess) {
+                ArrayList<Validator_V1> unbonding = (ArrayList<Validator_V1>) result.resultData;
+                if (unbonding != null) {
+                    getBaseDao().mOtherValidators_V1.addAll(unbonding);
+                }
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_BALANCE) {
+            if (result.isSuccess) {
+                ArrayList<Coin> balance = (ArrayList<Coin>)result.resultData;
+                getBaseDao().mBalance_V1 = balance;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_DELEGATIONS) {
+            if (result.isSuccess) {
+                ArrayList<Delegation_V1> delegations = (ArrayList<Delegation_V1>)result.resultData;
+                getBaseDao().mDelegations_V1 = delegations;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_UNDELEGATIONS) {
+            if (result.isSuccess) {
+                ArrayList<Undelegation_V1> undelegations = (ArrayList<Undelegation_V1>)result.resultData;
+                getBaseDao().mUndelegations_V1 = undelegations;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_ALL_REWARDS) {
+            if (result.isSuccess) {
+                ArrayList<Reward_V1> rewards = (ArrayList<Reward_V1>)result.resultData;
+                getBaseDao().mRewards_V1 = rewards;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_STAKING_POOL) {
+            if (result.isSuccess) {
+                StakingPool_V1 pool = (StakingPool_V1)result.resultData;
+                getBaseDao().mStakingPool_V1 = pool;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_PARAM_MINT) {
+            if (result.isSuccess) {
+                ParamMint_V1 paramMint = (ParamMint_V1)result.resultData;
+                getBaseDao().mParamMint_V1 = paramMint;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_INFLATION) {
+            if (result.isSuccess) {
+                BigDecimal inflation = (BigDecimal)result.resultData;
+                getBaseDao().mInflation_V1 = inflation;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_PROVISION) {
+            if (result.isSuccess) {
+                BigDecimal provision = (BigDecimal)result.resultData;
+                getBaseDao().mProvision_V1 = provision;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_IRIS_TOKEN_LIST) {
+            if (result.isSuccess) {
+                ArrayList<IrisToken_V1> irisTokens = (ArrayList<IrisToken_V1>)result.resultData;
+                getBaseDao().mIrisTokens_V1 = irisTokens;
+            }
         }
 
 
         if (mTaskCount == 0) {
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+            WLog.w("mTopValidators_V1 " + getBaseDao().mTopValidators_V1.size());
+            WLog.w("mOtherValidators_V1 " + getBaseDao().mOtherValidators_V1.size());
+            WLog.w("mAllValidators_V1 " + getBaseDao().mAllValidators_V1.size());
+            WLog.w("mMyValidators_V1 " + getBaseDao().mMyValidators_V1.size());
+            WLog.w("mBalance_V1 " + getBaseDao().mBalance_V1.size());
+            WLog.w("mDelegations_V1 " + getBaseDao().mDelegations_V1.size());
+            WLog.w("mUndelegations_V1 " + getBaseDao().mUndelegations_V1.size());
+            WLog.w("mRewards_V1 " + getBaseDao().mRewards_V1.size());
+//
+//            WLog.w("mStakingPool_V1 " + getBaseDao().mStakingPool_V1.getBondedTokens());
+//            WLog.w("mParamMint_V1 " + getBaseDao().mParamMint_V1.mint_denom);
+//            WLog.w("mInflation_V1 " + getBaseDao().mInflation_V1);
+//            WLog.w("mProvision_V1 " + getBaseDao().mProvision_V1);
+
+            if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+                getBaseDao().mAllValidators_V1.addAll(getBaseDao().mTopValidators_V1);
+                getBaseDao().mAllValidators_V1.addAll(getBaseDao().mOtherValidators_V1);
+                for (Validator_V1 validator: getBaseDao().mAllValidators_V1) {
+                    boolean already = false;
+                    for (Delegation_V1 delegation: getBaseDao().mDelegations_V1) {
+                        if (delegation.delegation.validator_address.equals(validator.operator_address)) {
+                            already = true; break;
+                        }
+                    }
+                    for (Undelegation_V1 undelegation: getBaseDao().mUndelegations_V1) {
+                        if (undelegation.validator_address.equals(validator.operator_address)) {
+                            already = true; break;
+                        }
+                    }
+                    if (already) getBaseDao().mMyValidators_V1.add(validator);
+                }
+
+            } else  if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
                     mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_MAIN) ||
                     mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
                 for (Validator top:getBaseDao().mTopValidators) {
@@ -974,15 +1173,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     try {
                         getBaseDao().setLastPriceTic(chain, response.body());
                     } catch (Exception e) {
-                        if (chain.equals(COSMOS_MAIN)) {
+                        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
                             getBaseDao().setLastAtomTic(0d);
                             getBaseDao().setLastAtomUpDown(0d);
 
-                        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
                             getBaseDao().setLastIrisTic(0d);
                             getBaseDao().setLastIrisUpDown(0d);
 
-                        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+                        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
                             getBaseDao().setLastBnbTic(0d);
                             getBaseDao().setLastBnbUpDown(0d);
 
@@ -1020,11 +1219,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().setLastAtomTic(0d);
                         getBaseDao().setLastAtomUpDown(0d);
 
-                    } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                    } else if (chain.equals(IRIS_MAIN)) {
                         getBaseDao().setLastIrisTic(0d);
                         getBaseDao().setLastIrisUpDown(0d);
 
-                    } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+                    } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
                         getBaseDao().setLastBnbTic(0d);
                         getBaseDao().setLastBnbUpDown(0d);
 
@@ -1058,12 +1257,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastAtomTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                             getBaseDao().setLastAtomUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
 
-                        } else if (response.isSuccessful() && chain.equals(BaseChain.IRIS_MAIN)) {
+                        } else if (response.isSuccessful() && chain.equals(IRIS_MAIN)) {
                             ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
                             getBaseDao().setLastIrisTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                             getBaseDao().setLastIrisUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
 
-                        } else if (response.isSuccessful() && (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST) )) {
+                        } else if (response.isSuccessful() && (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST) )) {
                             ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
                             getBaseDao().setLastBnbTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                             getBaseDao().setLastBnbUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
@@ -1080,11 +1279,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastAtomTic(0d);
                             getBaseDao().setLastAtomUpDown(0d);
 
-                        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                        } else if (chain.equals(IRIS_MAIN)) {
                             getBaseDao().setLastIrisTic(0d);
                             getBaseDao().setLastIrisUpDown(0d);
 
-                        } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+                        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
                             getBaseDao().setLastBnbTic(0d);
                             getBaseDao().setLastBnbUpDown(0d);
 
@@ -1102,11 +1301,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().setLastAtomTic(0d);
                         getBaseDao().setLastAtomUpDown(0d);
 
-                    } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                    } else if (chain.equals(IRIS_MAIN)) {
                         getBaseDao().setLastIrisTic(0d);
                         getBaseDao().setLastIrisUpDown(0d);
 
-                    } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+                    } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
                         getBaseDao().setLastBnbTic(0d);
                         getBaseDao().setLastBnbUpDown(0d);
 
@@ -1181,7 +1380,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         String query = "?apiKey=" + getString(R.string.moon_pay_public_key);
         if (mBaseChain.equals(COSMOS_MAIN)) {
             query = query + "&currencyCode=atom";
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (mBaseChain.equals(BNB_MAIN)) {
             query = query + "&currencyCode=bnb";
         } else if (mBaseChain.equals(KAVA_MAIN)) {
             query = query + "&currencyCode=kava";

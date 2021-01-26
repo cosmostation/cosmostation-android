@@ -24,6 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -34,9 +35,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -96,8 +99,13 @@ public class ValidatorOtherFragment extends BaseFragment {
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        mValidatorSize.setText(""+getBaseDao().mOtherValidators.size());
-        WUtil.onSortByValidatorPower(getBaseDao().mOtherValidators);
+        if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            mValidatorSize.setText(""+getBaseDao().mOtherValidators_V1.size());
+            WUtil.onSortByValidatorPowerV1(getBaseDao().mOtherValidators_V1);
+        } else {
+            mValidatorSize.setText(""+getBaseDao().mOtherValidators.size());
+            WUtil.onSortByValidatorPower(getBaseDao().mOtherValidators);
+        }
 
         mOtherValidatorAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
@@ -123,98 +131,117 @@ public class ValidatorOtherFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
-            final Validator validator  = getBaseDao().mOtherValidators.get(position);
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+            if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+                final Validator_V1 validator  = getBaseDao().mOtherValidators_V1.get(position);
+                String monikerUrl = "";
+                if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
+                    monikerUrl = COSMOS_VAL_URL + validator.operator_address + ".png";
+                } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+                    monikerUrl = IRIS_VAL_URL + validator.operator_address + ".png";
+                }
+                try {
+                    Picasso.get().load(monikerUrl).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img) .into(holder.itemAvatar);
+                } catch (Exception e){}
 
-            String monikerUrl = "";
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), 6, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
-                monikerUrl = COSMOS_VAL_URL + validator.operator_address + ".png";
-
-            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
-                monikerUrl = IRIS_VAL_URL + validator.operator_address + ".png";
-
-            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
-                monikerUrl = KAVA_VAL_URL + validator.operator_address + ".png";
-
-            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
-                monikerUrl = BAND_VAL_URL + validator.operator_address + ".png";
-                if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
-                    holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+                holder.itemTvMoniker.setText(validator.description.moniker);
+                if(validator.jailed) {
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemRevoked.setVisibility(View.GONE);
                 }
-
-            } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
-                monikerUrl = IOV_VAL_URL + validator.operator_address + ".png";
-
-            } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
-                monikerUrl = CERTIK_VAL_URL + validator.operator_address + ".png";
-
-            } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
-                monikerUrl = SECRET_VAL_URL + validator.operator_address + ".png";
-
-            } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
-                monikerUrl = AKASH_VAL_URL + validator.operator_address + ".png";
-
-            }
-
-            try {
-                Picasso.get().load(monikerUrl).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img) .into(holder.itemAvatar);
-            } catch (Exception e){}
-
-            holder.itemTvMoniker.setText(validator.description.moniker);
-            holder.itemFree.setVisibility(View.GONE);
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getMainActivity().onStartValidatorDetail(validator);
+                if (getBaseDao().mMyValidators_V1.contains(validator)) {
+                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
+                } else {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
                 }
-            });
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getMainActivity().onStartValidatorDetailV1(validator.operator_address);
+                    }
+                });
 
-            if(validator.jailed) {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
-                holder.itemRevoked.setVisibility(View.VISIBLE);
             } else {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
-                holder.itemRevoked.setVisibility(View.GONE);
-            }
-
-            if (checkIsMyValidator(getBaseDao().mMyValidators, validator.description.moniker)) {
+                final Validator validator  = getBaseDao().mOtherValidators.get(position);
+                String monikerUrl = "";
                 if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
+                    monikerUrl = COSMOS_VAL_URL + validator.operator_address + ".png";
+
                 } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
+                    monikerUrl = IRIS_VAL_URL + validator.operator_address + ".png";
+
                 } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
+                    monikerUrl = KAVA_VAL_URL + validator.operator_address + ".png";
+
                 } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
+                    monikerUrl = BAND_VAL_URL + validator.operator_address + ".png";
+                    if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
+                        holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+                    }
+
                 } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
-                } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) ||getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
+                    monikerUrl = IOV_VAL_URL + validator.operator_address + ".png";
+
+                } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
+                    monikerUrl = CERTIK_VAL_URL + validator.operator_address + ".png";
+
                 } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
+                    monikerUrl = SECRET_VAL_URL + validator.operator_address + ".png";
+
                 } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
+                    monikerUrl = AKASH_VAL_URL + validator.operator_address + ".png";
+
                 }
-            } else {
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+
+                try {
+                    Picasso.get().load(monikerUrl).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img) .into(holder.itemAvatar);
+                } catch (Exception e){}
+
+                holder.itemTvMoniker.setText(validator.description.moniker);
+                holder.itemFree.setVisibility(View.GONE);
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getMainActivity().onStartValidatorDetail(validator);
+                    }
+                });
+
+                if(validator.jailed) {
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemRevoked.setVisibility(View.VISIBLE);
+                } else {
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemRevoked.setVisibility(View.GONE);
+                }
+
+                if (checkIsMyValidator(getBaseDao().mMyValidators, validator.description.moniker)) {
+                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
+                } else {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                }
             }
         }
 
@@ -230,7 +257,11 @@ public class ValidatorOtherFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            return getBaseDao().mOtherValidators.size();
+            if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+                return getBaseDao().mOtherValidators_V1.size();
+            } else {
+                return getBaseDao().mOtherValidators.size();
+            }
         }
 
         public class OtherValidatorHolder extends RecyclerView.ViewHolder {

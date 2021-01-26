@@ -39,8 +39,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -271,8 +273,8 @@ public class MainSendFragment extends BaseFragment {
                 if (position == 0) {
                     return TYPE_ADDRESS;
                 } else if (position == 1) {
-                    if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) { return TYPE_COSMOS; }
-                    else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) { return TYPE_IRIS; }
+                    if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST)) { return TYPE_COSMOS; }
+                    else if (getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) { return TYPE_IRIS; }
                     else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) { return TYPE_KAVA; }
                     else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) { return TYPE_STARNAME; }
                     else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }

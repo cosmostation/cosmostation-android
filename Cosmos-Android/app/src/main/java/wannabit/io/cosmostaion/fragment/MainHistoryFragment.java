@@ -121,7 +121,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mRecyclerView.setHasFixedSize(true);
         mHistoryAdapter = new HistoryAdapter();
         mRecyclerView.setAdapter(mHistoryAdapter);
-        onFetchHistory();
         return rootView;
     }
 
@@ -162,6 +161,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     }
 
     private void onFetchHistory() {
+        WLog.w("onFetchHistory");
         mNotYet.setVisibility(View.GONE);
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
         if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {

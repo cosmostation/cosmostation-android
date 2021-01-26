@@ -26,7 +26,9 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResBalance_V1;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
@@ -47,9 +49,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -57,8 +61,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
@@ -155,9 +161,9 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             if (temp == null) {
                 holder.newState.setText(getString(R.string.str_ready));
                 holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                if (mChain.equals(COSMOS_MAIN)) {
+                if (mChain.equals(COSMOS_MAIN) || mChain.equals(COSMOS_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
-                } else if (mChain.equals(IRIS_MAIN)) {
+                } else if (mChain.equals(IRIS_MAIN) || mChain.equals(IRIS_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
                 } else if (mChain.equals(BNB_MAIN) || mChain.equals(BNB_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
@@ -184,9 +190,9 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 } else {
                     holder.newState.setText(getString(R.string.str_override));
                     holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                    if (mChain.equals(COSMOS_MAIN)) {
+                    if (mChain.equals(COSMOS_MAIN) || mChain.equals(COSMOS_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
-                    } else if (mChain.equals(IRIS_MAIN)) {
+                    } else if (mChain.equals(IRIS_MAIN) || mChain.equals(IRIS_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
                     } else if (mChain.equals(BNB_MAIN) || mChain.equals(BNB_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
@@ -469,6 +475,42 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
+            } else if (mChain.equals(COSMOS_TEST)) {
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), TOKEN_COSMOS_TEST,"0", holder.coinDenom, holder.coinAmount, mChain);
+                ApiClient.getCosmosTestChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
+                    @Override
+                    public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            for (Coin coin:  response.body().balances) {
+                                if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResBalance_V1> call, Throwable t) { }
+                });
+
+            } else if (mChain.equals(IRIS_TEST)) {
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), TOKEN_IRIS_TEST,"0", holder.coinDenom, holder.coinAmount, mChain);
+                ApiClient.getIrisTestChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
+                    @Override
+                    public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            for (Coin coin:  response.body().balances) {
+                                if (coin.denom.equals(TOKEN_IRIS_TEST)) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResBalance_V1> call, Throwable t) { }
+                });
+
             }
 
         }
@@ -482,6 +524,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             CardView cardNewWallet;
             RelativeLayout atomLayer, photonLayer, irisLayer, bnbLayer, kavaLayer, iovLayer, bandLayer, okLayer, certikLayer, akashLayer, secretLayer;
             TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount, bnbAmount, kavaAmount, iovAmount, bandAmount, okAmount, certikAmount, akashAmount, secretAmount;
+            RelativeLayout coinLayer;
+            TextView coinDenom, coinAmount;
 
             public NewWalletHolder(View v) {
                 super(v);
@@ -511,6 +555,9 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 akashAmount         = itemView.findViewById(R.id.akash_amount);
                 secretLayer         = itemView.findViewById(R.id.secret_layer);
                 secretAmount        = itemView.findViewById(R.id.secret_amount);
+                coinLayer         = itemView.findViewById(R.id.coin_layer);
+                coinDenom         = itemView.findViewById(R.id.coin_denom);
+                coinAmount        = itemView.findViewById(R.id.coin_amount);
             }
         }
     }

@@ -17,16 +17,18 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class Dialog_ChoiceNet extends DialogFragment {
 
 
-    private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer;
+    private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mCertik, mAkash, mSecret;
+    private LinearLayout mBand, mCertik, mAkash, mSecret, mCosmosTest, mIrisTest;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -50,6 +52,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mOkex = view.findViewById(R.id.okex_net);
         mKava = view.findViewById(R.id.kava_net);
         mIov = view.findViewById(R.id.iov_net);
+
+        mCosmosTestLayer = view.findViewById(R.id.cosmos_test_layer);
+        mCosmosTest = view.findViewById(R.id.cosmos_test_net);
+        mIrisTestLayer = view.findViewById(R.id.iris_test_layer);
+        mIrisTest = view.findViewById(R.id.iris_test_net);
         mBinanaceTestLayer = view.findViewById(R.id.bnb_test_layer);
         mBinanaceTest = view.findViewById(R.id.bnb_test_net);
         mKavaTestLayer = view.findViewById(R.id.kava_test_layer);
@@ -67,6 +74,9 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mCertik = view.findViewById(R.id.certik_chain);
         mAkash = view.findViewById(R.id.akash_chain);
         mSecret = view.findViewById(R.id.secret_chain);
+
+
+
 
         mMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +158,28 @@ public class Dialog_ChoiceNet extends DialogFragment {
             }
         });
 
+
+        if (BaseChain.SUPPORT_CHAINS().contains(COSMOS_TEST)) {
+            mCosmosTestLayer.setVisibility(View.VISIBLE);
+            mCosmosTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((BaseActivity)getActivity()).onChoiceNet(COSMOS_TEST);
+                    getDialog().dismiss();
+                }
+            });
+        }
+
+        if (BaseChain.SUPPORT_CHAINS().contains(IRIS_TEST)) {
+            mIrisTestLayer.setVisibility(View.VISIBLE);
+            mIrisTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((BaseActivity)getActivity()).onChoiceNet(IRIS_TEST);
+                    getDialog().dismiss();
+                }
+            });
+        }
 
         if (BaseChain.SUPPORT_CHAINS().contains(BNB_TEST)) {
             mBinanaceTestLayer.setVisibility(View.VISIBLE);

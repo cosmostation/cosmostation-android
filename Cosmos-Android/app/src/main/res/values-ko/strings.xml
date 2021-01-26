@@ -13,6 +13,8 @@
     <string name="str_certik_main_net">써틱 메인넷</string>
     <string name="str_akash_main_net">아카시 메인넷</string>
     <string name="str_okex_main_net">오케이엑스 메인넷</string>
+    <string name="str_cosmos_test_net">스타게이트 테스트넷</string>
+    <string name="str_iris_test_net">바이프로스트 테스트넷</string>
     <string name="str_bnb_test_net">바이낸스 테스트넷</string>
     <string name="str_kava_test_net">카바 테스트넷</string>
     <string name="str_iov_test_net">스타네임 테스트넷</string>

@@ -34,6 +34,8 @@ public enum BaseChain {
     AKASH_MAIN("akashnet-1"),
     OKEX_MAIN("okexchain-66"),
 
+    COSMOS_TEST("stargate-final"),
+    IRIS_TEST("bifrost-2"),
     BNB_TEST("Binance-Chain-Nile"),
     KAVA_TEST_LEGACY4("kava-testnet-4000"),
     KAVA_TEST_LEGACY5("kava-testnet-5000"),
@@ -98,6 +100,12 @@ public enum BaseChain {
             return OKEX_MAIN;
         }
 
+        if (chainName.equals(COSMOS_TEST.chainName)) {
+            return COSMOS_TEST;
+        }
+        if (chainName.equals(IRIS_TEST.chainName)) {
+            return IRIS_TEST;
+        }
         if (chainName.equals(BNB_TEST.chainName)) {
             return BNB_TEST;
         }
@@ -165,6 +173,16 @@ public enum BaseChain {
             return OKEX_MAIN.chainName;
         }
 
+
+        if (chain.equals(COSMOS_TEST.chainName)) {
+            return COSMOS_TEST.chainName;
+        }
+        if (chain.equals(IRIS_TEST.chainName)) {
+            return IRIS_TEST.chainName;
+        }
+        if (chain.equals(BNB_TEST.chainName)) {
+            return BNB_TEST.chainName;
+        }
         if (chain.equals(KAVA_TEST_LEGACY4.chainName) ||
                 chain.equals(KAVA_TEST_LEGACY5.chainName) ||
                 chain.equals(KAVA_TEST_LEGACY6.chainName) ||
@@ -173,9 +191,6 @@ public enum BaseChain {
                 chain.equals(KAVA_TEST_3.chainName) ||
                 chain.equals(KAVA_TEST.chainName)) {
             return KAVA_TEST.chainName;
-        }
-        if (chain.equals(BNB_TEST.chainName)) {
-            return BNB_TEST.chainName;
         }
         if (chain.equals(IOV_TEST.chainName)) {
             return IOV_TEST.chainName;
@@ -205,6 +220,8 @@ public enum BaseChain {
         result.add(AKASH_MAIN);
         result.add(SECRET_MAIN);
 
+        result.add(COSMOS_TEST);
+        result.add(IRIS_TEST);
 //        result.add(BNB_TEST);
 //        result.add(KAVA_TEST);
 //        result.add(IOV_TEST);

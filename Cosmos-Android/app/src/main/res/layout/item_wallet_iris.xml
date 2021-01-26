@@ -31,6 +31,7 @@
                     android:layout_height="@dimen/space_20"
                     android:src="@drawable/iris_toket_img"/>
                 <TextView
+                    android:id="@+id/iris_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/iris_icon"

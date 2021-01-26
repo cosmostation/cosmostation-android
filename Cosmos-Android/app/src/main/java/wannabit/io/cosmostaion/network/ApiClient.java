@@ -458,6 +458,37 @@ public class ApiClient {
     }
 
 
+    //Services for Cosmos test net
+    private static NetworkCosmos_V1 service_cosmos_test = null;
+    public static NetworkCosmos_V1 getCosmosTestChain(Context c) {
+        if (service_cosmos_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_cosmos_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_cosmos_test = retrofit.create(NetworkCosmos_V1.class);
+            }
+        }
+        return service_cosmos_test;
+    }
+
+    //Services for Iris test net
+    private static NetWorkIris_V1 service_iris_test = null;
+    public static NetWorkIris_V1 getIrisTestChain(Context c) {
+        if (service_iris_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_iris_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_iris_test = retrofit.create(NetWorkIris_V1.class);
+            }
+        }
+        return service_iris_test;
+    }
+
+
 
     private static MarketCapService marketCapService = null;
     public static MarketCapService getCMCClient(Context c) {
