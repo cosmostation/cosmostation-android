@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.model.Delegation_V1;
 import wannabit.io.cosmostaion.model.KavaCDP;
 import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.Undelegation_V1;
+import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Input;
@@ -795,7 +796,14 @@ public class WDp {
         return result;
     }
 
-
+    public static Validator_V1 getValidatorInfo(BaseData basedata, String valOpAddress) {
+        for (Validator_V1 val: basedata.mAllValidators_V1) {
+            if (val.operator_address.equals(valOpAddress)) {
+                return val;
+            }
+        }
+        return null;
+    }
 
 
 

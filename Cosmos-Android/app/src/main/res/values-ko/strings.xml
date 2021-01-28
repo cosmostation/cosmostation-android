@@ -300,6 +300,8 @@
     <string name="str_fee_speed_title_certik">현재 써틱 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_akash">현재 아카시 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_secret">현재 시크릿 체인은 고정 전송 수수료를 지원합니다.</string>
+    <string name="str_fee_speed_title_stargate">현재 스타게이트 체인은 고정 전송 수수료를 지원합니다.</string>
+    <string name="str_fee_speed_title_bifrost">현재 비프로스트 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_description_title_0">트랜잭션 수수료 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">트랜잭션 수수료 비율 0.0025</string>
     <string name="str_fee_description_title_2">트랜잭션 수수료 비율 0.025</string>

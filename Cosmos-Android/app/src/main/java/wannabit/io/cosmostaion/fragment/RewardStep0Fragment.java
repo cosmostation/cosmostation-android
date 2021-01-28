@@ -16,9 +16,9 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Reward;
+import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -27,9 +27,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -45,7 +47,6 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     private RelativeLayout  mProgressBar;
 
     private Button          mCancelBtn, mNextBtn;
-
 
     public static RewardStep0Fragment newInstance(Bundle bundle) {
         RewardStep0Fragment fragment = new RewardStep0Fragment();
@@ -89,19 +90,48 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
             }
             mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, getSActivity().mBaseChain));
+            String monikers = "";
+            for (Validator validator:getSActivity().mValidators) {
+                if(TextUtils.isEmpty(monikers)) {
+                    monikers = validator.description.moniker;
+                } else {
+                    monikers = monikers + ",    " + validator.description.moniker;
+                }
+            }
+            mTvFromValidators.setText(monikers);
+
         } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             mTvRewardAmount.setText(WDp.getDpAmount(getContext(), getSActivity().getIrisRewardSum(), 18, getSActivity().mBaseChain));
-        }
-
-        String monikers = "";
-        for (Validator validator:getSActivity().mValidators) {
-            if(TextUtils.isEmpty(monikers)) {
-                monikers = validator.description.moniker;
-            } else {
-                monikers = monikers + ",    " + validator.description.moniker;
+            String monikers = "";
+            for (Validator validator:getSActivity().mValidators) {
+                if(TextUtils.isEmpty(monikers)) {
+                    monikers = validator.description.moniker;
+                } else {
+                    monikers = monikers + ",    " + validator.description.moniker;
+                }
             }
+            mTvFromValidators.setText(monikers);
+
+        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            BigDecimal rewardSum = BigDecimal.ZERO;
+            for (String opAddress: getSActivity().mValOpAddresses_V1) {
+                rewardSum = rewardSum.add(WDp.getReward(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+            }
+            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+            String monikers = "";
+            for (Validator_V1 validator: getBaseDao().mAllValidators_V1) {
+                boolean isMatch = false;
+                for (String myVal: getSActivity().mValOpAddresses_V1) {
+                    if (myVal.equals(validator.operator_address)) { isMatch = true; break; }
+                }
+                if (isMatch) {
+                    if (TextUtils.isEmpty(monikers)) {  monikers = validator.description.moniker; }
+                    else { monikers = monikers + ",    " + validator.description.moniker; }
+                }
+            }
+            mTvFromValidators.setText(monikers);
+
         }
-        mTvFromValidators.setText(monikers);
 
         mTvReceiveAddress.setText(getSActivity().mWithdrawAddress);
         if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {

@@ -20,9 +20,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -76,15 +78,26 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
                 getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
             mTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAmount, 6, getSActivity().mBaseChain));
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+            mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
+            mValidatorName.setText(getSActivity().mValidator.description.moniker);
+            mMemo.setText(getSActivity().mUnDelegateMemo);
 
         } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             mTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAmount, 18, getSActivity().mBaseChain));
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
+            mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
+            mValidatorName.setText(getSActivity().mValidator.description.moniker);
+            mMemo.setText(getSActivity().mUnDelegateMemo);
+
+        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
+            mValidatorName.setText(WDp.getValidatorInfo(getBaseDao(), getSActivity().mValOpAddress_V1).description.moniker);
+            mMemo.setText(getSActivity().mUnDelegateMemo);
 
         }
-        mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
-        mValidatorName.setText(getSActivity().mValidator.description.moniker);
-        mMemo.setText(getSActivity().mUnDelegateMemo);
+
 
     }
 

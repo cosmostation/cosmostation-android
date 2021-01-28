@@ -35,11 +35,11 @@ public class WalletMintHolder extends WalletHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
         if (mainActivity.mBaseChain.equals(COSMOS_TEST)) {
-            mInflation.setText(WDp.getPercentDp(baseData.mInflation_V1.multiply(new BigDecimal("100"))));
+            if (baseData.mInflation_V1 != null) mInflation.setText(WDp.getPercentDp(baseData.mInflation_V1.multiply(new BigDecimal("100"))));
             mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
 
         } else if (mainActivity.mBaseChain.equals(IRIS_TEST)) {
-            mInflation.setText(WDp.getPercentDp(baseData.mParamMint_V1.getInflation().multiply(new BigDecimal("100"))));
+            if (baseData.mParamMint_V1 != null)  mInflation.setText(WDp.getPercentDp(baseData.mParamMint_V1.getInflation().multiply(new BigDecimal("100"))));
             mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
 
         } else if (mainActivity.mBaseChain.equals(IRIS_MAIN)) {

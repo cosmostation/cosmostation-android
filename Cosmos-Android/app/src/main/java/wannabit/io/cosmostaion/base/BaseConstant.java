@@ -184,6 +184,11 @@ public class BaseConstant {
     public final static int TASK_V1_FETCH_IRIS_TOKEN_LIST               = 3012;
     public final static int TASK_V1_FETCH_VALIDATOR_INFO                = 3013;
     public final static int TASK_V1_FETCH_SELF_BONDING                  = 3014;
+    public final static int TASK_V1_FETCH_WITHDRAW_ADDRESS              = 3015;
+
+    public final static int TASK_V1_BROAD_DELEGATE                      = 3300;
+    public final static int TASK_V1_BROAD_UNDELEGATE                    = 3301;
+    public final static int TASK_V1_BROAD_CLAIM_REWARDS                 = 3302;
 
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
 
@@ -509,6 +514,9 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_REINVEST               = "350000";
     public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
+
+    public final static String STARGATE_GAS_RATE_AVERAGE                = "0.025";
+    public final static String STARGATE_GAS_AMOUNT_MID                  = "200000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";

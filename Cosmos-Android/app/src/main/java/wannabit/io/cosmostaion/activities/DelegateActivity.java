@@ -28,6 +28,9 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+
 public class DelegateActivity extends BaseActivity {
 
     private RelativeLayout              mRootView;
@@ -43,6 +46,9 @@ public class DelegateActivity extends BaseActivity {
     public Coin                         mToDelegateAmount;
     public String                       mToDelegateMemo;
     public Fee                          mToDelegateFee;
+
+    //V1 .40 version
+    public String                       mValOpAddress_V1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,7 @@ public class DelegateActivity extends BaseActivity {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mValidator = getIntent().getParcelableExtra("validator");
+        mValOpAddress_V1 = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -167,7 +174,11 @@ public class DelegateActivity extends BaseActivity {
     public void onStartDelegate() {
         Intent intent = new Intent(DelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE);
-        intent.putExtra("toAddress", mValidator.operator_address);
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            intent.putExtra("toAddress", mValOpAddress_V1);
+        } else {
+            intent.putExtra("toAddress", mValidator.operator_address);
+        }
         intent.putExtra("dAmount", mToDelegateAmount);
         intent.putExtra("memo", mToDelegateMemo);
         intent.putExtra("fee", mToDelegateFee);

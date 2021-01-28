@@ -101,9 +101,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
@@ -245,7 +247,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onCheckDelegate() {
-        if (mAccount == null || mValidator == null) return;
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -253,83 +254,119 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasbalance = false;
-        if (mBaseChain.equals(COSMOS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_ATOM).compareTo(BigDecimal.ZERO) > 0) {
-                hasbalance  = true;
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            if (mValidator_V1.jailed) {
+                Toast.makeText(getBaseContext(), R.string.error_disabled_jailed, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (mBaseChain.equals(COSMOS_TEST)) {
+                if (WDp.getAvailable(getBaseDao(), TOKEN_COSMOS_TEST).compareTo(new BigDecimal("5000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            } else if (mBaseChain.equals(IRIS_TEST)) {
+                if (WDp.getAvailable(getBaseDao(), TOKEN_IRIS_TEST).compareTo(new BigDecimal("5000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
             }
 
-        } else if (mBaseChain.equals(IRIS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-            if (WDp.getDelegableAmount(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(BAND_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_BAND).compareTo(BigDecimal.ZERO) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(IOV_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(SECRET_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(AKASH_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("5000")) > 0) {
-                hasbalance  = true;
+            if (!mValidator_V1.status.equals(Validator_V1.BONDED_V1)) {
+                Dialog_Not_Top_100 add = Dialog_Not_Top_100.newInstance(null);
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            } else {
+                onStartDelegate();
             }
 
         } else {
-            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
-            return;
+            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+            boolean hasbalance = false;
+            if (mBaseChain.equals(COSMOS_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_ATOM).compareTo(BigDecimal.ZERO) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+                if (WDp.getDelegableAmount(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(BAND_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_BAND).compareTo(BigDecimal.ZERO) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(IOV_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(IOV_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(SECRET_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(AKASH_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("5000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else {
+                Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!hasbalance) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (mValidator.jailed) {
+                Toast.makeText(getBaseContext(), R.string.error_disabled_jailed, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (mValidator.status != Validator.BONDED) {
+                Dialog_Not_Top_100 add = Dialog_Not_Top_100.newInstance(null);
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+
+            } else {
+                onStartDelegate();
+            }
         }
-
-        if (!hasbalance) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (mValidator.jailed) {
-            Toast.makeText(getBaseContext(), R.string.error_disabled_jailed, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (mValidator.status != Validator.BONDED) {
-            Dialog_Not_Top_100 add = Dialog_Not_Top_100.newInstance(null);
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-
-        } else {
-            onStartDelegate();
-        }
-
     }
 
     public void onStartDelegate() {
-        Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
-        toDelegate.putExtra("validator", mValidator);
-        startActivity(toDelegate);
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
+            toDelegate.putExtra("valOpAddress", mValOpAddress_V1);
+            startActivity(toDelegate);
+
+        } else {
+            Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
+            toDelegate.putExtra("validator", mValidator);
+            startActivity(toDelegate);
+        }
+
     }
 
     public void onCheckRedelegate() {
@@ -337,6 +374,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        // not support yet redelegate for .40
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -452,72 +495,102 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
-        if (mBondingState == null || mBondingState.getBondingAmount(mValidator).compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN)) {
-            if (mUnBondingStates != null && mUnBondingStates.size() >= 7){
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            if (mMyDelegation == null || mMyDelegation.getDelegation().compareTo(BigDecimal.ZERO) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (mMyUndelegation != null && mMyUndelegation.entries.size() >= 7) {
                 Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
                 return;
             }
-        } else if (mBaseChain.equals(IRIS_MAIN)) {
-            if (mUnBondingStates != null && mUnBondingStates.size() >= 1){
-                Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over_iris, Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
+            if (mBaseChain.equals(COSMOS_TEST)) {
+                if (WDp.getAvailable(getBaseDao(), TOKEN_COSMOS_TEST).compareTo(new BigDecimal("5000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasbalance = false;
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN)) {
-            hasbalance  = true;
-
-        } else if (mBaseChain.equals(IRIS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
-                hasbalance  = true;
+            } else if (mBaseChain.equals(IRIS_TEST)) {
+                if (WDp.getAvailable(getBaseDao(), TOKEN_IRIS_TEST).compareTo(new BigDecimal("5000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
-        } else if (mBaseChain.equals(IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(IOV_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(SECRET_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(AKASH_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("5000")) > 0) {
-                hasbalance  = true;
-            }
+            Intent toDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
+            toDelegate.putExtra("valOpAddress", mValOpAddress_V1);
+            startActivity(toDelegate);
 
         } else {
-            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
-            return;
+            if (mBondingState == null || mBondingState.getBondingAmount(mValidator).compareTo(BigDecimal.ZERO) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN)) {
+                if (mUnBondingStates != null && mUnBondingStates.size() >= 7){
+                    Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
+                if (mUnBondingStates != null && mUnBondingStates.size() >= 1){
+                    Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over_iris, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+            boolean hasbalance = false;
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN)) {
+                hasbalance  = true;
+
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(IOV_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(IOV_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(SECRET_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(AKASH_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("5000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else {
+                Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!hasbalance) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
+            unDelegate.putExtra("validator", mValidator);
+            startActivity(unDelegate);
         }
 
-        if (!hasbalance) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
-        unDelegate.putExtra("validator", mValidator);
-        startActivity(unDelegate);
     }
 
     private void onGetReward() {
@@ -528,112 +601,142 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasbalance = false;
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN)) {
-            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(BigDecimal.ONE) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            hasbalance  = true;
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            if (mBaseChain.equals(COSMOS_TEST)) {
+                if (WDp.getAvailable(getBaseDao(), TOKEN_COSMOS_TEST).compareTo(new BigDecimal("3750")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (WDp.getReward(getBaseDao(), TOKEN_COSMOS_TEST, mValOpAddress_V1).compareTo(new BigDecimal("3750")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-        } else if (mBaseChain.equals(IRIS_MAIN)) {
-            if (mIrisReward == null || mIrisReward.getPerValReward(mValidator.operator_address) == BigDecimal.ZERO) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
+            } else if (mBaseChain.equals(IRIS_TEST)) {
+                if (WDp.getAvailable(getBaseDao(), TOKEN_IRIS_TEST).compareTo(new BigDecimal("3750")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (WDp.getReward(getBaseDao(), TOKEN_IRIS_TEST, mValOpAddress_V1).compareTo(new BigDecimal("3750")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
-            if (mIrisReward.getPerValReward(mValidator.operator_address).compareTo(new BigDecimal("400000000000000000")) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(IOV_MAIN)) {
-            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("200000")) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(IOV_TEST)) {
-            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("200000")) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("10000")) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(SECRET_MAIN)) {
-            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("50000")) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(AKASH_MAIN)) {
-            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("5000")) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("5000")) > 0) {
-                hasbalance  = true;
-            }
+            ArrayList<String> valAdds= new ArrayList<>();
+            valAdds.add(mValOpAddress_V1);
+            Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
+            claimReward.putStringArrayListExtra("valOpAddresses", valAdds);
+            startActivity(claimReward);
 
         } else {
-            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
-            return;
+            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+            boolean hasbalance = false;
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN)) {
+                if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (new BigDecimal(mReward.amount.get(0).amount).compareTo(BigDecimal.ONE) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                hasbalance  = true;
+
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
+                if (mIrisReward == null || mIrisReward.getPerValReward(mValidator.operator_address) == BigDecimal.ZERO) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (mIrisReward.getPerValReward(mValidator.operator_address).compareTo(new BigDecimal("400000000000000000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(IOV_MAIN)) {
+                if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("200000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(IOV_TEST)) {
+                if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("200000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
+                if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("10000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(SECRET_MAIN)) {
+                if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("50000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(AKASH_MAIN)) {
+                if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("5000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("5000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else {
+                Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!hasbalance) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ArrayList<Validator> val = new ArrayList<>();
+            val.add(mValidator);
+            Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
+            claimReward.putExtra("opAddresses", val);
+            startActivity(claimReward);
         }
 
-        if (!hasbalance) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        ArrayList<Validator> val = new ArrayList<>();
-        val.add(mValidator);
-        Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
-        claimReward.putExtra("opAddresses", val);
-        startActivity(claimReward);
     }
 
     private void onCheckReInvest() {

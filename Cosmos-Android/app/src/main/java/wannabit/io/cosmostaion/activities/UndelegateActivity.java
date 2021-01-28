@@ -36,9 +36,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -60,6 +62,9 @@ public class UndelegateActivity extends BaseActivity {
     public String                       mUnDelegateMemo;
     public Fee                          mUnDelegateFee;
     public String                       mUnDelegateShare;
+
+    //V1 .40 version
+    public String                       mValOpAddress_V1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +88,12 @@ public class UndelegateActivity extends BaseActivity {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mValidator = getIntent().getParcelableExtra("validator");
-        mBondingState = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            mValOpAddress_V1 = getIntent().getStringExtra("valOpAddress");
+        } else {
+            mValidator = getIntent().getParcelableExtra("validator");
+            mBondingState = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
+        }
 
         mPageAdapter = new UndelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -178,14 +187,20 @@ public class UndelegateActivity extends BaseActivity {
     public void onStartUndelegate() {
         Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE);
-        intent.putExtra("toAddress", mValidator.operator_address);
         if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
                 mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
                 mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
+            intent.putExtra("toAddress", mValidator.operator_address);
             intent.putExtra("uAmount", mUnDelegateAmount);
-        } else if  (mBaseChain.equals(IRIS_MAIN)) {
+
+        } else if (mBaseChain.equals(IRIS_MAIN)) {
             BigDecimal validatorShareRate = new BigDecimal(mValidator.delegator_shares).divide(new BigDecimal(mValidator.tokens), 18, BigDecimal.ROUND_HALF_DOWN);
             mUnDelegateAmount.amount = validatorShareRate.multiply(new BigDecimal(mUnDelegateAmount.amount)).setScale(0, RoundingMode.DOWN).toPlainString();
+            intent.putExtra("toAddress", mValidator.operator_address);
+            intent.putExtra("uAmount", mUnDelegateAmount);
+
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            intent.putExtra("toAddress", mValOpAddress_V1);
             intent.putExtra("uAmount", mUnDelegateAmount);
         }
 

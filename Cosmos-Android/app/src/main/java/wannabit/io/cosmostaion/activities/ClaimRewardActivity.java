@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.fragment.RewardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep3Fragment;
+import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -31,6 +32,8 @@ import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.V1Task.AllRewardTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.WithdrawAddressTask_V1;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -38,9 +41,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -50,6 +55,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWAR
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_IRIS_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_ALL_REWARDS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_WITHDRAW_ADDRESS;
 
 public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
@@ -70,7 +77,8 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
 
-
+    //V1 .40 version
+    public ArrayList<String>            mValOpAddresses_V1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,13 +102,18 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = getChain(mAccount.baseChain);
 
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            mValOpAddresses_V1 = getIntent().getStringArrayListExtra("valOpAddresses");
+
+        } else {
+            mValidators = (ArrayList<Validator>)(getIntent().getSerializableExtra("opAddresses"));
+            WLog.w("mValidators : " + mValidators.size());
+            if(mValidators.size() < 1) {onBackPressed();}
+        }
+
         mPageAdapter = new RewardPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
-
-        mValidators = (ArrayList<Validator>)(getIntent().getSerializableExtra("opAddresses"));
-        WLog.w("mValidators : " + mValidators.size());
-        if(mValidators.size() < 1) {onBackPressed();}
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -194,6 +207,12 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
             mTaskCount = 2;
             new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            mTaskCount = 2;
+            new AllRewardTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new WithdrawAddressTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
 
     }
@@ -202,7 +221,11 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     public void onStartReward() {
         Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REWARD);
-        intent.putExtra("validators", mValidators);
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            intent.putExtra("valOpAddresses", mValOpAddresses_V1);
+        } else {
+            intent.putExtra("validators", mValidators);
+        }
         intent.putExtra("memo", mRewardMemo);
         intent.putExtra("fee", mRewardFee);
         startActivity(intent);
@@ -227,14 +250,25 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
         }
 
+        else if (result.taskType == TASK_V1_FETCH_ALL_REWARDS) {
+            if (result.isSuccess) {
+                ArrayList<Reward_V1> rewards = (ArrayList<Reward_V1>)result.resultData;
+                getBaseDao().mRewards_V1 = rewards;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_WITHDRAW_ADDRESS) {
+            mWithdrawAddress = (String)result.resultData;
+
+        }
+
         if(mTaskCount == 0) {
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
     }
 
     private void onUpdateReward(Reward reward) {
-        if(mRewards == null) mRewards = new ArrayList<>();
-        if(mRewards.size() == 0) {
+        if (mRewards == null) mRewards = new ArrayList<>();
+        if (mRewards.size() == 0) {
             mRewards.add(reward);
         } else {
             int match = -1;

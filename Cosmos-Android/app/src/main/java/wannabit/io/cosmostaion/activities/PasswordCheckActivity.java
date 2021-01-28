@@ -63,13 +63,17 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
+import wannabit.io.cosmostaion.task.V1Task.broadcast.ClaimRewardsTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.broadcast.DelegateTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.broadcast.UndelegateTask_V1;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
@@ -172,6 +176,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private long                        mIdToDelete;
     private long                        mIdToCheck;
 
+
+    public ArrayList<String>            mValOpAddresses_V1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
@@ -241,6 +248,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck  = getIntent().getLongExtra("checkid", -1);
+
+
+        mValOpAddresses_V1 = getIntent().getStringArrayListExtra("valOpAddresses");
 
         onInitView();
     }
@@ -338,32 +348,36 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_DELEGATE) {
             onShowWaitDialog();
-            new SimpleDelegateTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mTargetAddress,
-                    mDAmount,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+                new DelegateTask_V1(getBaseApplication(), this, mAccount, mTargetAddress, mDAmount, mTargetMemo, mTargetFee)
+                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+            } else {
+                new SimpleDelegateTask(getBaseApplication(), this, mAccount, mTargetAddress, mDAmount, mTargetMemo, mTargetFee)
+                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            }
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_UNDELEGATE) {
             onShowWaitDialog();
-            new SimpleUndelegateTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mTargetAddress,
-                    mUAmount,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+                new UndelegateTask_V1(getBaseApplication(), this, mAccount, mTargetAddress, mUAmount, mTargetMemo, mTargetFee)
+                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+            } else {
+                new SimpleUndelegateTask(getBaseApplication(), this, mAccount, mTargetAddress, mUAmount, mTargetMemo, mTargetFee)
+                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            }
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REWARD) {
             onShowWaitDialog();
-            new SimpleRewardTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mValidators,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+                new ClaimRewardsTask_V1(getBaseApplication(), this, mAccount, mValOpAddresses_V1,  mTargetMemo, mTargetFee)
+                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+            } else {
+                new SimpleRewardTask(getBaseApplication(), this, mAccount, mValidators,  mTargetMemo, mTargetFee)
+                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            }
 
         } else if (mPurpose == CONST_PW_DELETE_ACCOUNT) {
             onShowWaitDialog();

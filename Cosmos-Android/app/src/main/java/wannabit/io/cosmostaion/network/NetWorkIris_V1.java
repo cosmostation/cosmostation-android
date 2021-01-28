@@ -1,21 +1,35 @@
 package wannabit.io.cosmostaion.network;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResAllReward_V1;
+import wannabit.io.cosmostaion.network.res.ResAuth_V1;
 import wannabit.io.cosmostaion.network.res.ResBalance_V1;
+import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResDelegation_V1;
 import wannabit.io.cosmostaion.network.res.ResDelegations_V1;
 import wannabit.io.cosmostaion.network.res.ResIrisTokenList_V1;
+import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResParamMint_V1;
 import wannabit.io.cosmostaion.network.res.ResStakingPool_V1;
+import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.network.res.ResUndelegations_V1;
 import wannabit.io.cosmostaion.network.res.ResValidatorInfo_V1;
 import wannabit.io.cosmostaion.network.res.ResValidators_V1;
+import wannabit.io.cosmostaion.network.res.ResWithdrawAddress_V1;
 
 public interface NetWorkIris_V1 {
+
+    @GET("txs/{hash}")
+    Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
+
+    @GET("cosmos/auth/v1beta1/accounts/{address}")
+    Call<ResAuth_V1> getAuth(@Path("address") String address);
 
     @GET("cosmos/bank/v1beta1/balances/{address}")
     Call<ResBalance_V1> getBalance(@Path("address") String address, @Query("pagination.limit") int limit, @Query("pagination.offset") int offset);
@@ -50,8 +64,19 @@ public interface NetWorkIris_V1 {
     @GET("cosmos/staking/v1beta1/pool")
     Call<ResStakingPool_V1> getStakingPool();
 
+    @GET("cosmos/distribution/v1beta1/delegators/{address}/withdraw_address")
+    Call<ResWithdrawAddress_V1> getRewardAddress(@Path("address") String address);
+
+
     @GET("irismod/token/tokens")
     Call<ResIrisTokenList_V1> getTokenList(@Query("pagination.limit") int limit, @Query("pagination.offset") int offset);
+
+
+
+
+    //Broadcast Tx
+    @POST("txs")
+    Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
 
 }

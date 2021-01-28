@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
+import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -26,9 +27,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -91,211 +94,246 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         BigDecimal rewardSum    = BigDecimal.ZERO;
         BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            for (Reward reward:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+        if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            for (String opAddress: getSActivity().mValOpAddresses_V1) {
+                rewardSum = rewardSum.add(WDp.getReward(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), opAddress));
             }
             mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+            if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
                 mTvGoalLayer.setVisibility(View.GONE);
                 mExpectedLayer.setVisibility(View.VISIBLE);
-
-                BigDecimal currentAtom      = getSActivity().mAccount.getAtomBalance();
-                BigDecimal expectedAtom     = currentAtom.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAtom, 6, 6));
-                BigDecimal expectedPrice = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    expectedPrice = expectedAtom.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
-                } else {
-                    expectedPrice = expectedAtom.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
-                }
-                mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                BigDecimal availableAmount  = WDp.getAvailable(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain));
+                BigDecimal expectedAmount   = availableAmount.add(rewardSum).subtract(feeAmount);
+                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAmount, 6, 6));
+                mExpectedPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), expectedAmount, getSActivity().mBaseChain));
 
             } else {
                 mTvGoalLayer.setVisibility(View.VISIBLE);
                 mExpectedLayer.setVisibility(View.GONE);
             }
-
-        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), getSActivity().getIrisRewardSum(), 18, 18));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 18, 18));
-            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                mTvGoalLayer.setVisibility(View.GONE);
-            } else {
-                mTvGoalLayer.setVisibility(View.VISIBLE);
-            }
-            mExpectedLayer.setVisibility(View.GONE);
-
-        } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-            for (Reward reward:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
-            }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                mTvGoalLayer.setVisibility(View.GONE);
-                mExpectedLayer.setVisibility(View.VISIBLE);
-
-                BigDecimal currentKava      = getSActivity().mAccount.getKavaBalance();
-                BigDecimal expectedKava     = currentKava.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedKava, 6, 6));
-                BigDecimal expectedPrice = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    expectedPrice = expectedKava.multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
-                } else {
-                    expectedPrice = expectedKava.multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+            String monikers = "";
+            for (Validator_V1 validator: getBaseDao().mAllValidators_V1) {
+                boolean isMatch = false;
+                for (String myVal: getSActivity().mValOpAddresses_V1) {
+                    if (myVal.equals(validator.operator_address)) { isMatch = true; break; }
                 }
-                mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
-            } else {
-                mTvGoalLayer.setVisibility(View.VISIBLE);
-                mExpectedLayer.setVisibility(View.GONE);
-            }
-
-        } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
-            for (Reward reward:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
-            }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                mTvGoalLayer.setVisibility(View.GONE);
-                mExpectedLayer.setVisibility(View.VISIBLE);
-
-                BigDecimal currentBand     = getSActivity().mAccount.getBandBalance();
-                BigDecimal expectedBand    = currentBand.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedBand, 6, 6));
-                BigDecimal expectedPrice = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    expectedPrice = expectedBand.multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
-                } else {
-                    expectedPrice = expectedBand.multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                if (isMatch) {
+                    if (TextUtils.isEmpty(monikers)) {  monikers = validator.description.moniker; }
+                    else { monikers = monikers + ",    " + validator.description.moniker; }
                 }
-                mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
-            } else {
-                mTvGoalLayer.setVisibility(View.VISIBLE);
-                mExpectedLayer.setVisibility(View.GONE);
             }
+            mTvFromValidators.setText(monikers);
+            mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
+            mMemo.setText(getSActivity().mRewardMemo);
 
-        } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-            for (Reward reward:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
-            }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                mTvGoalLayer.setVisibility(View.GONE);
-                mExpectedLayer.setVisibility(View.VISIBLE);
-
-                BigDecimal currentIov     = getSActivity().mAccount.getIovBalance();
-                BigDecimal expectedIov    = currentIov.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedIov, 6, 6));
-                BigDecimal expectedPrice = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    expectedPrice = expectedIov.multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
-                } else {
-                    expectedPrice = expectedIov.multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+        } else {
+            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+                for (Reward reward:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
                 }
-                mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+                if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                    mTvGoalLayer.setVisibility(View.GONE);
+                    mExpectedLayer.setVisibility(View.VISIBLE);
 
-            } else {
-                mTvGoalLayer.setVisibility(View.VISIBLE);
-                mExpectedLayer.setVisibility(View.GONE);
-            }
+                    BigDecimal currentAtom      = getSActivity().mAccount.getAtomBalance();
+                    BigDecimal expectedAtom     = currentAtom.add(rewardSum).subtract(feeAmount);
+                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAtom, 6, 6));
+                    BigDecimal expectedPrice = BigDecimal.ZERO;
+                    if(getBaseDao().getCurrency() != 5) {
+                        expectedPrice = expectedAtom.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                    } else {
+                        expectedPrice = expectedAtom.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    }
+                    mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-        } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
-            for (Reward reward:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
-            }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                mTvGoalLayer.setVisibility(View.GONE);
-                mExpectedLayer.setVisibility(View.VISIBLE);
-
-                BigDecimal currentCertik     = getSActivity().mAccount.getTokenBalance(TOKEN_CERTIK);
-                BigDecimal expectedCertik    = currentCertik.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedCertik, 6, 6));
-                BigDecimal expectedPrice = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    expectedPrice = expectedCertik.multiply(new BigDecimal(""+getBaseDao().getLastCertikTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
                 } else {
-                    expectedPrice = expectedCertik.multiply(new BigDecimal(""+getBaseDao().getLastCertikTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    mTvGoalLayer.setVisibility(View.VISIBLE);
+                    mExpectedLayer.setVisibility(View.GONE);
                 }
-                mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-            } else {
-                mTvGoalLayer.setVisibility(View.VISIBLE);
-                mExpectedLayer.setVisibility(View.GONE);
-            }
-
-        } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-            for (Reward reward:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
-            }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                mTvGoalLayer.setVisibility(View.GONE);
-                mExpectedLayer.setVisibility(View.VISIBLE);
-
-                BigDecimal currentScrt     = getSActivity().mAccount.getTokenBalance(TOKEN_SECRET);
-                BigDecimal expectedScrt    = currentScrt.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedScrt, 6, 6));
-                BigDecimal expectedPrice = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    expectedPrice = expectedScrt.multiply(new BigDecimal(""+getBaseDao().getLastSecretTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), getSActivity().getIrisRewardSum(), 18, 18));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 18, 18));
+                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                    mTvGoalLayer.setVisibility(View.GONE);
                 } else {
-                    expectedPrice = expectedScrt.multiply(new BigDecimal(""+getBaseDao().getLastSecretTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    mTvGoalLayer.setVisibility(View.VISIBLE);
                 }
-                mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
-            } else {
-                mTvGoalLayer.setVisibility(View.VISIBLE);
                 mExpectedLayer.setVisibility(View.GONE);
-            }
 
-        } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-            for (Reward reward:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
-            }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                mTvGoalLayer.setVisibility(View.GONE);
-                mExpectedLayer.setVisibility(View.VISIBLE);
+            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
+                for (Reward reward:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                }
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                    mTvGoalLayer.setVisibility(View.GONE);
+                    mExpectedLayer.setVisibility(View.VISIBLE);
 
-                BigDecimal currentAkt     = getSActivity().mAccount.getTokenBalance(TOKEN_AKASH);
-                BigDecimal expectedAkt    = currentAkt.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAkt, 6, 6));
-                BigDecimal expectedPrice = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    expectedPrice = expectedAkt.multiply(new BigDecimal(""+getBaseDao().getLastAkashTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                    BigDecimal currentKava      = getSActivity().mAccount.getKavaBalance();
+                    BigDecimal expectedKava     = currentKava.add(rewardSum).subtract(feeAmount);
+                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedKava, 6, 6));
+                    BigDecimal expectedPrice = BigDecimal.ZERO;
+                    if(getBaseDao().getCurrency() != 5) {
+                        expectedPrice = expectedKava.multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                    } else {
+                        expectedPrice = expectedKava.multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    }
+                    mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
                 } else {
-                    expectedPrice = expectedAkt.multiply(new BigDecimal(""+getBaseDao().getLastAkashTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    mTvGoalLayer.setVisibility(View.VISIBLE);
+                    mExpectedLayer.setVisibility(View.GONE);
                 }
-                mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-            } else {
-                mTvGoalLayer.setVisibility(View.VISIBLE);
-                mExpectedLayer.setVisibility(View.GONE);
+            } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
+                for (Reward reward:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                }
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                    mTvGoalLayer.setVisibility(View.GONE);
+                    mExpectedLayer.setVisibility(View.VISIBLE);
+
+                    BigDecimal currentBand     = getSActivity().mAccount.getBandBalance();
+                    BigDecimal expectedBand    = currentBand.add(rewardSum).subtract(feeAmount);
+                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedBand, 6, 6));
+                    BigDecimal expectedPrice = BigDecimal.ZERO;
+                    if(getBaseDao().getCurrency() != 5) {
+                        expectedPrice = expectedBand.multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                    } else {
+                        expectedPrice = expectedBand.multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    }
+                    mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+                } else {
+                    mTvGoalLayer.setVisibility(View.VISIBLE);
+                    mExpectedLayer.setVisibility(View.GONE);
+                }
+
+            } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
+                for (Reward reward:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                }
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                    mTvGoalLayer.setVisibility(View.GONE);
+                    mExpectedLayer.setVisibility(View.VISIBLE);
+
+                    BigDecimal currentIov     = getSActivity().mAccount.getIovBalance();
+                    BigDecimal expectedIov    = currentIov.add(rewardSum).subtract(feeAmount);
+                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedIov, 6, 6));
+                    BigDecimal expectedPrice = BigDecimal.ZERO;
+                    if(getBaseDao().getCurrency() != 5) {
+                        expectedPrice = expectedIov.multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                    } else {
+                        expectedPrice = expectedIov.multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    }
+                    mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+                } else {
+                    mTvGoalLayer.setVisibility(View.VISIBLE);
+                    mExpectedLayer.setVisibility(View.GONE);
+                }
+
+            } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                for (Reward reward:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                }
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                    mTvGoalLayer.setVisibility(View.GONE);
+                    mExpectedLayer.setVisibility(View.VISIBLE);
+
+                    BigDecimal currentCertik     = getSActivity().mAccount.getTokenBalance(TOKEN_CERTIK);
+                    BigDecimal expectedCertik    = currentCertik.add(rewardSum).subtract(feeAmount);
+                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedCertik, 6, 6));
+                    BigDecimal expectedPrice = BigDecimal.ZERO;
+                    if(getBaseDao().getCurrency() != 5) {
+                        expectedPrice = expectedCertik.multiply(new BigDecimal(""+getBaseDao().getLastCertikTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                    } else {
+                        expectedPrice = expectedCertik.multiply(new BigDecimal(""+getBaseDao().getLastCertikTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    }
+                    mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+                } else {
+                    mTvGoalLayer.setVisibility(View.VISIBLE);
+                    mExpectedLayer.setVisibility(View.GONE);
+                }
+
+            } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
+                for (Reward reward:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                }
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                    mTvGoalLayer.setVisibility(View.GONE);
+                    mExpectedLayer.setVisibility(View.VISIBLE);
+
+                    BigDecimal currentScrt     = getSActivity().mAccount.getTokenBalance(TOKEN_SECRET);
+                    BigDecimal expectedScrt    = currentScrt.add(rewardSum).subtract(feeAmount);
+                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedScrt, 6, 6));
+                    BigDecimal expectedPrice = BigDecimal.ZERO;
+                    if(getBaseDao().getCurrency() != 5) {
+                        expectedPrice = expectedScrt.multiply(new BigDecimal(""+getBaseDao().getLastSecretTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                    } else {
+                        expectedPrice = expectedScrt.multiply(new BigDecimal(""+getBaseDao().getLastSecretTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    }
+                    mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+                } else {
+                    mTvGoalLayer.setVisibility(View.VISIBLE);
+                    mExpectedLayer.setVisibility(View.GONE);
+                }
+
+            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
+                for (Reward reward:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                }
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                    mTvGoalLayer.setVisibility(View.GONE);
+                    mExpectedLayer.setVisibility(View.VISIBLE);
+
+                    BigDecimal currentAkt     = getSActivity().mAccount.getTokenBalance(TOKEN_AKASH);
+                    BigDecimal expectedAkt    = currentAkt.add(rewardSum).subtract(feeAmount);
+                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAkt, 6, 6));
+                    BigDecimal expectedPrice = BigDecimal.ZERO;
+                    if(getBaseDao().getCurrency() != 5) {
+                        expectedPrice = expectedAkt.multiply(new BigDecimal(""+getBaseDao().getLastAkashTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                    } else {
+                        expectedPrice = expectedAkt.multiply(new BigDecimal(""+getBaseDao().getLastAkashTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    }
+                    mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+                } else {
+                    mTvGoalLayer.setVisibility(View.VISIBLE);
+                    mExpectedLayer.setVisibility(View.GONE);
+                }
+
             }
 
+            String monikers = "";
+            for (Validator validator:getSActivity().mValidators) {
+                if(TextUtils.isEmpty(monikers)) {
+                    monikers = validator.description.moniker;
+                } else {
+                    monikers = monikers + ",    " + validator.description.moniker;
+                }
+            }
+            mTvFromValidators.setText(monikers);
+            mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
+            mMemo.setText(getSActivity().mRewardMemo);
         }
-
-        String monikers = "";
-        for (Validator validator:getSActivity().mValidators) {
-            if(TextUtils.isEmpty(monikers)) {
-                monikers = validator.description.moniker;
-            } else {
-                monikers = monikers + ",    " + validator.description.moniker;
-            }
-        }
-        mTvFromValidators.setText(monikers);
-        mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
-        mMemo.setText(getSActivity().mRewardMemo);
     }
 
     @Override
@@ -329,6 +367,14 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             BigDecimal rewardSum    = getSActivity().getIrisRewardSum();
             BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
+            return feeAmount.compareTo(rewardSum) < 0;
+
+        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            BigDecimal rewardSum    = BigDecimal.ZERO;
+            BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
+            for (String opAddress: getSActivity().mValOpAddresses_V1) {
+                rewardSum = rewardSum.add(WDp.getReward(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+            }
             return feeAmount.compareTo(rewardSum) < 0;
         }
         return false;
