@@ -88,6 +88,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
@@ -485,80 +486,92 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             return;
         }
 
-        Intent intent = new Intent(MainActivity.this, SendActivity.class);
-        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasbalance = false;
-        if (mBaseChain.equals(COSMOS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_ATOM).compareTo(BigDecimal.ZERO) > 0) {
-                hasbalance  = true;
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            Intent intent = new Intent(MainActivity.this, SendActivity.class);
+            if (WDp.getAvailable(getBaseDao(), WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("2500")) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+            startActivity(intent);
+
+        } else {
+            Intent intent = new Intent(MainActivity.this, SendActivity.class);
+            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+            boolean hasbalance = false;
+            if (mBaseChain.equals(COSMOS_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_ATOM).compareTo(BigDecimal.ZERO) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("irisToken", WUtil.getIrisMainToken(getBaseDao().mIrisTokens));
+
+            } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("bnbToken", WUtil.getBnbMainToken(getBaseDao().mBnbTokens));
+
+            } else if (mBaseChain.equals(IOV_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("100000")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("iovDenom", TOKEN_IOV);
+
+            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("kavaDenom", TOKEN_KAVA);
+
+            } else if (mBaseChain.equals(BAND_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_BAND).compareTo(BigDecimal.ZERO) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(IOV_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("100000")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("iovDenom", TOKEN_IOV_TEST);
+
+            } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.2")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("okDenom", TOKEN_OK);
+
+            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("certikDenom", TOKEN_CERTIK);
+
+            } else if (mBaseChain.equals(SECRET_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("20000")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("secretDenom", TOKEN_SECRET);
+
+            } else if (mBaseChain.equals(AKASH_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("2500")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("akashDenom", TOKEN_AKASH);
+
             }
 
-        } else if (mBaseChain.equals(IRIS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
-                hasbalance  = true;
+            if (!hasbalance) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
             }
-            intent.putExtra("irisToken", WUtil.getIrisMainToken(getBaseDao().mIrisTokens));
-
-        } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
-                hasbalance  = true;
-            }
-            intent.putExtra("bnbToken", WUtil.getBnbMainToken(getBaseDao().mBnbTokens));
-
-        } else if (mBaseChain.equals(IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("100000")) > 0) {
-                hasbalance  = true;
-            }
-            intent.putExtra("iovDenom", TOKEN_IOV);
-
-        } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
-                hasbalance  = true;
-            }
-            intent.putExtra("kavaDenom", TOKEN_KAVA);
-
-        } else if (mBaseChain.equals(BAND_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_BAND).compareTo(BigDecimal.ZERO) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(IOV_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("100000")) > 0) {
-                hasbalance  = true;
-            }
-            intent.putExtra("iovDenom", TOKEN_IOV_TEST);
-
-        } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.2")) > 0) {
-                hasbalance  = true;
-            }
-            intent.putExtra("okDenom", TOKEN_OK);
-
-        } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) > 0) {
-                hasbalance  = true;
-            }
-            intent.putExtra("certikDenom", TOKEN_CERTIK);
-
-        } else if (mBaseChain.equals(SECRET_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("20000")) > 0) {
-                hasbalance  = true;
-            }
-            intent.putExtra("secretDenom", TOKEN_SECRET);
-
-        } else if (mBaseChain.equals(AKASH_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("2500")) > 0) {
-                hasbalance  = true;
-            }
-            intent.putExtra("akashDenom", TOKEN_AKASH);
-
+            startActivity(intent);
         }
 
-        if (!hasbalance) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        startActivity(intent);
     }
 
     public void onGetFaucet() {

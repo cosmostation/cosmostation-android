@@ -189,6 +189,7 @@ public class BaseConstant {
     public final static int TASK_V1_BROAD_DELEGATE                      = 3300;
     public final static int TASK_V1_BROAD_UNDELEGATE                    = 3301;
     public final static int TASK_V1_BROAD_CLAIM_REWARDS                 = 3302;
+    public final static int TASK_V1_BROAD_SEND                          = 3303;
 
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
 
@@ -516,6 +517,7 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
 
     public final static String STARGATE_GAS_RATE_AVERAGE                = "0.025";
+    public final static String STARGATE_GAS_AMOUNT_LOW                  = "100000";
     public final static String STARGATE_GAS_AMOUNT_MID                  = "200000";
 
     public final static String CGC_ATOM = "cosmos";

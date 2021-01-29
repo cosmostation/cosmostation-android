@@ -21,14 +21,36 @@ import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 public class Signer {
+
+    public static ReqBroadCast genSignedSendTxV1(String fromAddress, String accountNum, String sequenceNum,
+                                                     String toAddress, ArrayList<Coin> amounts, Fee fee, String memo,
+                                                     DeterministicKey pKey, BaseChain chain) {
+        ArrayList<Msg>  msgList = new ArrayList<>();
+        Msg             msg     = new Msg();
+        Msg.Value       value   = new Msg.Value();
+
+        if (chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+            value.from_address = fromAddress;
+            value.to_address = toAddress;
+            value.amount = amounts;
+            msg.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
+            msg.value = value;
+        }
+        msgList.add(msg);
+
+        StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
+        String                  signatureTx     = getSingleSignature(pKey, stdToSignMsg.getToSignByte());
+        ArrayList<Signature>    signatures      = getSignatures(pKey, signatureTx, accountNum, sequenceNum);
+        StdTx                   signedTx        = getSignedTx(msgList, fee, memo, signatures);
+
+        return getBroadReq(signedTx);
+    }
 
     public static ReqBroadCast genSignedDelegateTxV1(String fromAddress, String accountNum, String sequenceNum,
                                                      String toValAddress, Coin amount, Fee fee, String memo,

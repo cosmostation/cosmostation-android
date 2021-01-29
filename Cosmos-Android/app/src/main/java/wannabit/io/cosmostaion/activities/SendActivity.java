@@ -60,6 +60,9 @@ public class SendActivity extends BaseActivity {
     public String                       mAkashDenom;
     public String                       mSecretDenom;
 
+    //V1 .40 version
+    public String                       mDenom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +88,8 @@ public class SendActivity extends BaseActivity {
         mCertikDenom = getIntent().getStringExtra("certikDenom");
         mAkashDenom = getIntent().getStringExtra("akashDenom");
         mSecretDenom = getIntent().getStringExtra("secretDenom");
+
+        mDenom = getIntent().getStringExtra("sendTokenDenom");
 
         mTvStep.setText(getString(R.string.str_send_step_0));
 
