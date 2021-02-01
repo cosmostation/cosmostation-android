@@ -2256,7 +2256,7 @@ class WUtils {
         return TRANS_BG_COLOR_COSMOS
     }
     
-    static func getMainDenom(_ chain:ChainType) -> String {
+    static func getDpMainDenom(_ chain:ChainType) -> String {
         if (chain == ChainType.COSMOS_MAIN) {
             return "ATOM"
         } else if (chain == ChainType.IRIS_MAIN) {
@@ -2283,6 +2283,40 @@ class WUtils {
             return "BIF"
         }
         return ""
+    }
+    
+    static func getMainDenom(_ chain:ChainType?) -> String {
+        if (chain == ChainType.COSMOS_MAIN) {
+            return COSMOS_MAIN_DENOM
+        } else if (chain == ChainType.IRIS_MAIN) {
+            return IRIS_MAIN_DENOM
+        } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
+            return BNB_MAIN_DENOM
+        } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
+            return KAVA_MAIN_DENOM
+        } else if (chain == ChainType.IOV_MAIN ) {
+            return IOV_MAIN_DENOM
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_MAIN_DENOM
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_MAIN_DENOM
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            return OKEX_MAIN_DENOM
+        } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+            return CERTIK_MAIN_DENOM
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return AKASH_MAIN_DENOM
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
+            return COSMOS_TEST_DENOM
+        } else if (chain == ChainType.IRIS_TEST) {
+            return IRIS_TEST_DENOM
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_DENOM
+        }
+        return ""
+
     }
     
     static func setDenomTitle(_ chain: ChainType?, _ label: UILabel) {
@@ -2771,7 +2805,7 @@ class WUtils {
         } else if (chain == ChainType.IRIS_TEST) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             if (type == COSMOS_MSG_TYPE_TRANSFER2) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {

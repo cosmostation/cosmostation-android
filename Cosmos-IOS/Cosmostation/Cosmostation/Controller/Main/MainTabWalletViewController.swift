@@ -2221,7 +2221,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.IRIS_TEST) {
-            if (BaseData.instance.getAvailable(IRIS_TEST_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+            if (BaseData.instance.getAvailable(IRIS_TEST_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }

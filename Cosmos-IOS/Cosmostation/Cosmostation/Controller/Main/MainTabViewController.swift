@@ -2011,7 +2011,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.onFetchFinished()
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBalance ", error) }
+                if (SHOW_LOG) { print("onFetchMintParamV1 ", error) }
                 self.onFetchFinished()
             }
         }
@@ -2031,7 +2031,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.onFetchFinished()
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBalance ", error) }
+                if (SHOW_LOG) { print("onFetchInflationV1 ", error) }
                 self.onFetchFinished()
             }
         }
@@ -2051,7 +2051,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.onFetchFinished()
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBalance ", error) }
+                if (SHOW_LOG) { print("onFetchProvisionV1 ", error) }
                 self.onFetchFinished()
             }
         }
@@ -2071,7 +2071,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.onFetchFinished()
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBalance ", error) }
+                if (SHOW_LOG) { print("onFetchStakingPoolV1 ", error) }
                 self.onFetchFinished()
             }
         }

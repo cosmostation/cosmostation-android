@@ -188,7 +188,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             BaseData.instance.mMyUnbondings_V1.removeAll()
             BaseData.instance.mMyReward_V1.removeAll()
             
-            onFetchSingleValidator(account!.account_address, mValidator_V1!.operator_address!)
+            onFetchSingleValidator(mValidator_V1!.operator_address!)
             onFetchValidatorSelfBond(WKey.getAddressFromOpAddress(mValidator_V1!.operator_address!, chainType!), mValidator_V1!.operator_address)
             onFetchDelegations(account!.account_address, 0)
             onFetchUndelegations(account!.account_address, 0)
@@ -1423,9 +1423,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     
-    func onFetchSingleValidator(_ address: String?, _ opAddress: String?) {
-        let url = BaseNetWork.singleValidatorUrl(chainType!, address!, opAddress!)
+    func onFetchSingleValidator(_ opAddress: String?) {
+        let url = BaseNetWork.singleValidatorUrl(chainType!, opAddress!)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        print("request ", request.request?.url)
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

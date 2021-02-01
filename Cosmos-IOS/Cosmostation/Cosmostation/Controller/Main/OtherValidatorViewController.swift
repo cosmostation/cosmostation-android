@@ -94,7 +94,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:OtherValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"OtherValidatorCell") as? OtherValidatorCell
         if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
-            cell?.updateView(BaseData.instance.mBondedValidators_V1[indexPath.row], self.chainType)
+            cell?.updateView(BaseData.instance.mUnbondValidators_V1[indexPath.row], self.chainType)
             
         } else {
             guard self.mainTabVC.mTopValidators.count > 0 else { return cell! }

@@ -251,7 +251,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         case .success(let res):
                             if let responseData = res as? NSDictionary, let balances = responseData.object(forKey: "balances") as? Array<NSDictionary> {
                                 balances.forEach({ (balance) in
-                                    if (balance.object(forKey: "denom") as? String == COSMOS_MAIN_DENOM) {
+                                    if (balance.object(forKey: "denom") as? String == COSMOS_TEST_DENOM) {
                                         cell?.denomAmount.attributedText = WUtils.displayAmount2(balance.object(forKey: "amount") as? String, cell!.denomAmount.font!, 6, 6)
                                     }
                                 })

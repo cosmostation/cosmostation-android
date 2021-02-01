@@ -127,12 +127,12 @@ class BaseNetWork {
     
     
     
-    static func singleValidatorUrl(_ chain: ChainType, _ address: String, _ opAddress: String) -> String {
+    static func singleValidatorUrl(_ chain: ChainType, _ opAddress: String) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_TEST) {
-            result = COSMOS_TEST_SINGLE_VALIDATOR + address + COSMOS_TEST_SINGLE_VALIDATOR_M + opAddress
+            result = COSMOS_TEST_SINGLE_VALIDATOR + opAddress
         } else if (chain == ChainType.IRIS_TEST) {
-            result = IRIS_TEST_SINGLE_VALIDATOR + address + IRIS_TEST_SINGLE_VALIDATOR_M + opAddress
+            result = IRIS_TEST_SINGLE_VALIDATOR + opAddress
         }
         return result
     }

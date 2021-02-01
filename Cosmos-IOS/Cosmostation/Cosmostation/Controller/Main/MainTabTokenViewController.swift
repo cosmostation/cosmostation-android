@@ -422,9 +422,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.IRIS_TEST) {
-            let allAtom = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
+            let allIris = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allIris, BaseData.instance.getLastPrice(), totalValue.font)
         }
     }
     
@@ -585,6 +585,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allAtom = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            
+        } else if (balance.isIbc()) {
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            
+        } else {
+            
         }
         return cell!
     }
@@ -1105,15 +1111,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.balance_denom < $1.balance_denom
             }
+            
+        } else if (chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+            BaseData.instance.mMyBalances_V1.sort {
+                if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
+                if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
+                return $0.denom < $1.denom
+            }
         }
-        
-//        else if (chainType! == ChainType.BAND_MAIN) {
-//
-//        } else if (chainType! == ChainType.IOV_MAIN) {
-//
-//        } else if (chainType! == ChainType.IOV_TEST) {
-//
-//        }
     }
     
     func sortByAmount() {
@@ -1177,15 +1182,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return WUtils.localeStringToDecimal($0.balance_amount).adding(WUtils.localeStringToDecimal($0.balance_locked)).stringValue > WUtils.localeStringToDecimal($1.balance_amount).adding(WUtils.localeStringToDecimal($1.balance_locked)).stringValue
             }
+            
+        } else if (chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+            BaseData.instance.mMyBalances_V1.sort {
+                if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
+                if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
+                return WUtils.localeStringToDecimal($0.amount).compare(WUtils.localeStringToDecimal($1.amount)).rawValue > 0 ? true : false
+            }
         }
-        
-//        else if (chainType! == ChainType.BAND_MAIN) {
-//
-//        } else if (chainType! == ChainType.IOV_MAIN) {
-//
-//        } else if (chainType! == ChainType.IOV_TEST) {
-//
-//        }
     }
     
     func sortByValue() {
@@ -1232,15 +1236,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.balance_denom < $1.balance_denom
             }
+            
+        } else if (chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+            BaseData.instance.mMyBalances_V1.sort {
+                if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
+                if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
+                return false
+            }
         }
-        
-//        else if (chainType! == ChainType.BAND_MAIN) {
-//
-//        } else if (chainType! == ChainType.IOV_MAIN) {
-//
-//        } else if (chainType! == ChainType.IOV_TEST) {
-//
-//        }
         
     }
 }

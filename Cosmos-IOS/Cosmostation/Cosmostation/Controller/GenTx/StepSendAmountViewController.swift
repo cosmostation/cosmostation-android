@@ -110,7 +110,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             mDpDecimal = pageHolderVC.mIrisTokenV1!.scale!
             if (pageHolderVC.mIrisTokenV1?.min_unit == IRIS_TEST_DENOM) {
-                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mIrisTokenV1!.min_unit!).subtracting(NSDecimalNumber.init(string: "5000"))
+                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mIrisTokenV1!.min_unit!).subtracting(NSDecimalNumber.init(string: "2500"))
             } else {
                 maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mIrisTokenV1!.min_unit!)
             }

@@ -28,4 +28,16 @@ public struct Coin: Codable {
         self.denom = denom
         self.amount = amount
     }
+    
+    func isIbc() -> Bool {
+        if (denom.starts(with: "ibc/")) {
+            return true
+        }
+        return false
+    }
+    
+    func getIbcHash() -> String? {
+        if (!isIbc()) {return nil}
+        return denom.replacingOccurrences(of: "ibc/", with: "")
+    }
 }
