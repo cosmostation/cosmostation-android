@@ -977,8 +977,8 @@ enum ChainType: String {
         result.append(AKASH_MAIN)
         result.append(SECRET_MAIN)
 
-        result.append(COSMOS_TEST)
-        result.append(IRIS_TEST)
+//        result.append(COSMOS_TEST)
+//        result.append(IRIS_TEST)
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
