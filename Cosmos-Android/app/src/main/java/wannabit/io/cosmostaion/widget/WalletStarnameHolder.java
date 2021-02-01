@@ -50,7 +50,8 @@ public class WalletStarnameHolder extends WalletHolder {
         mTvIovDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvIovUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvIovRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvIovValue.setText(WDp.getValueOfAtom(mainActivity, baseData, totalAmount));
+        mTvIovValue.setText(WDp.getValueOfIov(mainActivity, baseData, totalAmount));
+
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
