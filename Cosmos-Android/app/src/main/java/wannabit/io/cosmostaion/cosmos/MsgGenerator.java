@@ -31,7 +31,6 @@ import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -784,10 +783,10 @@ public class MsgGenerator {
                 msgs,
                 fee,
                 memo);
-        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
+//        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
 
         String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-        WLog.w("signatureTx " + signatureTx);
+//        WLog.w("signatureTx " + signatureTx);
 
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();
@@ -803,13 +802,13 @@ public class MsgGenerator {
         signatures.add(signature);
 
         StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
-        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
+//        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
 
         ReqBroadCast reqBroadCast = new ReqBroadCast();
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+//        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
 
         return reqBroadCast;
@@ -846,7 +845,7 @@ public class MsgGenerator {
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+//        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
         return reqBroadCast;
     }
 
@@ -891,7 +890,7 @@ public class MsgGenerator {
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+//        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
         return reqBroadCast;
     }
 }

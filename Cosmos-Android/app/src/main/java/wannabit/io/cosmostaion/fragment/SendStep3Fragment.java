@@ -288,7 +288,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_ok));
 
             mGasAmount.setText(FEE_OK_GAS_AMOUNT_SEND);
-            mGasRate.setText(WDp.getDpString(FEE_OK_GAS_RATE_AVERAGE, 7));
+            mGasRate.setText(WDp.getDpString(FEE_OK_GAS_RATE_AVERAGE, 9));
             mFeeAmount = new BigDecimal(FEE_OK_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE)).setScale(18);
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 0, 6));

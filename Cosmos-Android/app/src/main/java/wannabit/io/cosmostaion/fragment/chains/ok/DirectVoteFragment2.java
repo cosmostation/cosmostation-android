@@ -115,7 +115,7 @@ public class DirectVoteFragment2 extends BaseFragment implements View.OnClickLis
 
             mEstimateGasAmount = (new BigDecimal(FEE_OK_GAS_AMOUNT_VOTE_MUX).multiply(new BigDecimal(""+getSActivity().mValAddesses.size()))).add(new BigDecimal(BaseConstant.FEE_OK_GAS_AMOUNT_VOTE));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());
-            mGasRate.setText(WDp.getDpString(FEE_OK_GAS_RATE_AVERAGE, 7));
+            mGasRate.setText(WDp.getDpString(FEE_OK_GAS_RATE_AVERAGE, 9));
             mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE)).setScale(18);
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 0, 6));
