@@ -119,7 +119,7 @@ class StepFeeViewController: BaseViewController {
             }
             let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_OK)
             self.rateFeeGasAmountLabel.text = estimateGasAmount.stringValue
-            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 6)
+            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 8)
             feeAmount = estimateGasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler8)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 0, 6)
             self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
