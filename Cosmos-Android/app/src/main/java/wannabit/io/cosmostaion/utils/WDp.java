@@ -783,6 +783,8 @@ public class WDp {
         BigDecimal price = dao.getLastPriceTic(chain);
         if (chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
             return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+            return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);
         } else {
             return BigDecimal.ZERO;
         }

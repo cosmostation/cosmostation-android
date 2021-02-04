@@ -1209,6 +1209,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastSecretTic(0d);
                             getBaseDao().setLastSecretUpDown(0d);
 
+                        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+                            getBaseDao().setLastOKexTic(0d);
+                            getBaseDao().setLastOKexUpDown(0d);
                         }
                     }
                 }

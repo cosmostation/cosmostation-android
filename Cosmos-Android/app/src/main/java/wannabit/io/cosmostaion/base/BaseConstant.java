@@ -40,6 +40,8 @@ public class BaseConstant {
     public final static String PRE_AKASH_UP_DOWN_24         = "PRE_AKASH_UP_DOWN_24";
     public final static String PRE_SECRET_TIC               = "PRE_SECRET_TIC";
     public final static String PRE_SECRET_UP_DOWN_24        = "PRE_SECRET_UP_DOWN_24";
+    public final static String PRE_OKEX_TIC                 = "PRE_OKEX_TIC";
+    public final static String PRE_OKEX_UP_DOWN_24          = "PRE_OKEX_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -528,6 +530,7 @@ public class BaseConstant {
     public final static String CGC_CERTIK = "certik";
     public final static String CGC_AKASH = "akash-network";
     public final static String CGC_SECRET = "secret";
+    public final static String CGC_OKEX = "okexchain";
 
     public final static int CMC_ATOM = 3794;
     public final static int CMC_IRIS = 3874;

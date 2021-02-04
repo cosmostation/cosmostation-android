@@ -94,6 +94,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_SECRET;
+import static wannabit.io.cosmostaion.base.BaseConstant.CGC_OKEX;
+import static wannabit.io.cosmostaion.base.BaseConstant.CGC_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_CERTIK_MANUAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_OKEX_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
@@ -1316,7 +1318,10 @@ public class WUtil {
             return BaseConstant.CGC_AKASH;
 
         } else if (chain.equals(SECRET_MAIN)) {
-            return BaseConstant.CGC_SECRET;
+            return CGC_SECRET;
+
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+            return CGC_OKEX;
 
         }
         return BaseConstant.CGC_ATOM;
