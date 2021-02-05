@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
+import wannabit.io.cosmostaion.network.res.ResOkTickersList;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -28,6 +29,9 @@ public interface OkChain {
 
     @GET("tokens")
     Call<ResOkTokenList> getTokenList();
+
+    @GET("tokens")
+    Call<ResOkTickersList> getDexTickers();
 
     @GET("staking/validators?status=bonded")
     Call<ArrayList<Validator>> getBondedValidatorDetailList();

@@ -78,6 +78,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_OKB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class MainTokensFragment extends BaseFragment implements View.OnClickListener {
@@ -278,6 +279,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             onUpdateTotalCard();
+            onFetchOKexTokenPrice();
 
         } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
@@ -392,12 +394,19 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_OK)) {
                     totalOkAmount = totalOkAmount.add(WDp.getAllOk(balance, getBaseDao().mOkStaking, getBaseDao().mOkUnbonding));
+
                 } else {
+                    OkToken token = WUtil.getOkToken(getBaseDao().mOkTokenList, balance.symbol);
+                    if (token == null) continue;
+                    BigDecimal tokenTotalAmount = balance.balance.add(balance.locked);
+                    BigDecimal tokenTotalValue = WDp.okExTokenDollorValue(getBaseDao(), token, tokenTotalAmount);
+                    BigDecimal convertedOKTAmount = tokenTotalValue.divide(getBaseDao().getLastOKexDollorTic(), 6, RoundingMode.DOWN);
+                    totalOkAmount = totalOkAmount.add(convertedOKTAmount);
 
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalOkAmount, 0, 6));
-            mTotalValue.setText(WDp.getValueOfOk(getContext(), getBaseDao(), totalOkAmount));
+            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalOkAmount, getMainActivity().mBaseChain));
 
         } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
             BigDecimal totalCtkAmount = BigDecimal.ZERO;
@@ -614,11 +623,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                     amount = balance.exchangeToBnbAmount(tic);
                 }
                 try {
-                    Picasso.get().load(TOKEN_IMG_URL+token.original_symbol+".png")
-                            .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
-                            .into(holder.itemImg);
-
-                }catch (Exception e) {}
+                    Picasso.get().load(TOKEN_IMG_URL+token.original_symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+                } catch (Exception e) {}
             }
             holder.itemValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), amount));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -788,28 +794,37 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindOkItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
-        final OkToken token = WUtil.getOkToken(getBaseDao().mOkTokenList, balance.symbol);
-        if (balance.symbol.equals(TOKEN_OK)) {
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
-            BigDecimal totalAmount = WDp.getAllOk(balance, getBaseDao().mOkStaking, getBaseDao().mOkUnbonding);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-            holder.itemValue.setText(WDp.getValueOfOk(getContext(), getBaseDao(), totalAmount));
-
-        } else  {
+        final Balance balance   = mBalances.get(position);
+        final OkToken token     = WUtil.getOkToken(getBaseDao().mOkTokenList, balance.symbol);
+        if (token == null) {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance.add(balance.locked), 0, 6));
-            holder.itemValue.setText(WDp.getValueOfOk(getContext(), getBaseDao(), BigDecimal.ZERO));
-            try {
-                Picasso.get().load(OKEX_COIN_IMG_URL+  token.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
-            } catch (Exception e) { }
+            holder.itemSymbol.setText(balance.symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 0, 6));
+            return;
         }
 
-        if (token != null) {
-            holder.itemInnerSymbol.setText("(" + token.symbol + ")");
-            holder.itemFullName.setText(token.description);
-            holder.itemSymbol.setText(token.original_symbol.toUpperCase());
+
+        holder.itemSymbol.setText(token.original_symbol.toUpperCase());
+        holder.itemInnerSymbol.setText("(" + token.symbol + ")");
+        holder.itemFullName.setText(token.description);
+        if (token.symbol.equals(TOKEN_OK)) {
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
+
+            BigDecimal totalAmount = WDp.getAllOk(balance, getBaseDao().mOkStaking, getBaseDao().mOkUnbonding);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
+        }  else {
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            Picasso.get().load(OKEX_COIN_IMG_URL+  token.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
+
+            BigDecimal totalAmount = balance.balance.add(balance.locked);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+            BigDecimal tokenTotalValue = WDp.okExTokenDollorValue(getBaseDao(), token, totalAmount);
+            BigDecimal convertedOKTAmount = tokenTotalValue.divide(getBaseDao().getLastOKexDollorTic(), 6, RoundingMode.DOWN);
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), convertedOKTAmount, getMainActivity().mBaseChain));
         }
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -978,7 +993,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     private void onFetchKavaTokenPrice() {
         for (int i = 0; i < mBalances.size(); i ++) {
             final int position = i;
-            if (!mBalances.get(position).symbol.equals(TOKEN_HARD)) {
+            if (mBalances.get(position).symbol.equals(TOKEN_HARD)) {
                 ApiClient.getCGCClient(getMainActivity()).getPriceTicLite("hard-protocol", "false", "false", "false", "false", "false").enqueue(new Callback<ResCgcTic>() {
                     @Override
                     public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
@@ -1001,6 +1016,28 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
 
+    private void onFetchOKexTokenPrice() {
+        for (int i = 0; i < mBalances.size(); i ++) {
+            final int position = i;
+            if (mBalances.get(position).symbol.equals("okb-c4d")) {
+//          if (mBalances.get(position).symbol.equals(TOKEN_OK_OKB)) {
+                ApiClient.getCGCClient(getMainActivity()).getPriceTicLite("okb", "false", "false", "false", "false", "false").enqueue(new Callback<ResCgcTic>() {
+                    @Override
+                    public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
+                        getBaseDao().mOKBPrice = new BigDecimal(response.body().market_data.current_price.usd);
+                        mTokensAdapter.notifyItemChanged(position);
+                        onUpdateTotalCard();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResCgcTic> call, Throwable t) {
+                        WLog.w("onFetchOKexTokenPrice onFailure");
+
+                    }
+                });
+            }
+        }
+    }
 
 
     public MainActivity getMainActivity() {

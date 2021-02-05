@@ -54,6 +54,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
+import wannabit.io.cosmostaion.network.res.ResOkTickersList;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
@@ -135,6 +136,8 @@ public class BaseData {
     public ResOkStaking             mOkStaking;
     public ResOkUnbonding           mOkUnbonding;
     public ResOkTokenList           mOkTokenList;
+    public ResOkTickersList         mOkTickersList;
+    public BigDecimal               mOKBPrice = BigDecimal.ZERO;
 
     //COMMON DATA FOR STARNAME
     public ResIovFee.IovFee         mStarNameFee;
@@ -387,6 +390,7 @@ public class BaseData {
             }
 
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+            getSharedPreferences().edit().putString(BaseConstant.PRE_OKEX_DOLLOR_TIC, ""+tic.market_data.current_price.usd).commit();
             if (getCurrency() == 0) {
                 getSharedPreferences().edit().putString(PRE_OKEX_TIC, ""+tic.market_data.current_price.usd).commit();
                 getSharedPreferences().edit().putString(PRE_OKEX_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
@@ -741,8 +745,17 @@ public class BaseData {
         String priceS = getSharedPreferences().getString(PRE_OKEX_TIC, "0");
         try {
             return Double.parseDouble(priceS);
-        }catch (Exception e) {
+        } catch (Exception e) {
             return Double.parseDouble("0");
+        }
+    }
+
+    public BigDecimal getLastOKexDollorTic() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_OKEX_DOLLOR_TIC, "0");
+        try {
+            return new BigDecimal(priceS);
+        } catch (Exception e) {
+            return BigDecimal.ZERO;
         }
     }
 

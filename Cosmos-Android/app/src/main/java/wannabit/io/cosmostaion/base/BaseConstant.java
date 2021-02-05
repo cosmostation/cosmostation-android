@@ -42,6 +42,7 @@ public class BaseConstant {
     public final static String PRE_SECRET_UP_DOWN_24        = "PRE_SECRET_UP_DOWN_24";
     public final static String PRE_OKEX_TIC                 = "PRE_OKEX_TIC";
     public final static String PRE_OKEX_UP_DOWN_24          = "PRE_OKEX_UP_DOWN_24";
+    public final static String PRE_OKEX_DOLLOR_TIC          = "PRE_OKEX_DOLLOR_TIC";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -166,6 +167,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_BAND_ORACLE_STATUS               = 2111;
     public final static int TASK_FETCH_MINT_PARAM                       = 2112;
     public final static int TASK_FETCH_OK_HISTORY                       = 2113;
+    public final static int TASK_FETCH_OK_DEX_TICKERS                   = 2114;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;

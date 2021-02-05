@@ -29,6 +29,8 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
+import wannabit.io.cosmostaion.dao.OkTicker;
+import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.Delegation_V1;
@@ -640,6 +642,27 @@ public class WDp {
         }
     }
 
+    public static BigDecimal okExTokenDollorValue(BaseData baseData, OkToken okToken, BigDecimal amount) {
+        if (okToken.original_symbol.equals("usdt") || okToken.original_symbol.equals("usdc") || okToken.original_symbol.equals("usdk")) {
+            return amount;
+        }
+
+        else if (okToken.original_symbol.equals("okb") && baseData.mOKBPrice != null) {
+            WLog.w("baseData " + baseData.mOKBPrice);
+            return amount.multiply(baseData.mOKBPrice);
+
+        }
+
+        else if (baseData.mOkTickersList != null) {
+            ArrayList<OkTicker> tickers = baseData.mOkTickersList.data;
+            return BigDecimal.ZERO;
+
+        }
+        return BigDecimal.ZERO;
+    }
+
+
+
 
     public static SpannableString getDpAvailableCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
         return getDpAmount(c, getAvailableCoin(balances, denom), 6, chain);
@@ -1128,7 +1151,6 @@ public class WDp {
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
-
         } else {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(2, RoundingMode.DOWN);
             SpannableString result;
