@@ -801,13 +801,14 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(balance.symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 0, 6));
+            holder.itemFullName.setText("");
             return;
         }
-
 
         holder.itemSymbol.setText(token.original_symbol.toUpperCase());
         holder.itemInnerSymbol.setText("(" + token.symbol + ")");
         holder.itemFullName.setText(token.description);
+
         if (token.symbol.equals(TOKEN_OK)) {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));

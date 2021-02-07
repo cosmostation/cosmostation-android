@@ -645,15 +645,12 @@ public class WDp {
     public static BigDecimal okExTokenDollorValue(BaseData baseData, OkToken okToken, BigDecimal amount) {
         if (okToken.original_symbol.equals("usdt") || okToken.original_symbol.equals("usdc") || okToken.original_symbol.equals("usdk")) {
             return amount;
-        }
 
-        else if (okToken.original_symbol.equals("okb") && baseData.mOKBPrice != null) {
-            WLog.w("baseData " + baseData.mOKBPrice);
+        } else if (okToken.original_symbol.equals("okb") && baseData.mOKBPrice != null) {
             return amount.multiply(baseData.mOKBPrice);
 
-        }
-
-        else if (baseData.mOkTickersList != null) {
+        } else if (baseData.mOkTickersList != null) {
+            //TODO display with ticker update!
             ArrayList<OkTicker> tickers = baseData.mOkTickersList.data;
             return BigDecimal.ZERO;
 

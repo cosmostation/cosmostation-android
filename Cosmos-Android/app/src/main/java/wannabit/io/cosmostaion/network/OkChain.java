@@ -30,7 +30,7 @@ public interface OkChain {
     @GET("tokens")
     Call<ResOkTokenList> getTokenList();
 
-    @GET("tokens")
+    @GET("tickers")
     Call<ResOkTickersList> getDexTickers();
 
     @GET("staking/validators?status=bonded")

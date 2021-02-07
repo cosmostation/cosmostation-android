@@ -1105,6 +1105,8 @@ public class WUtil {
                     if(o2.symbol.equals(TOKEN_OK)) return 1;
                     if(o1.symbol.equals(TOKEN_OK_OKB)) return -1;
                     if(o2.symbol.equals(TOKEN_OK_OKB)) return 1;
+                    if(o1.symbol.equals("okb-c4d")) return -1;
+                    if(o2.symbol.equals("okb-c4d")) return 1;
 
                 } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                     if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
@@ -1153,6 +1155,8 @@ public class WUtil {
                     if(o2.symbol.equals(TOKEN_OK)) return 1;
                     if(o1.symbol.equals(TOKEN_OK_OKB)) return -1;
                     if(o2.symbol.equals(TOKEN_OK_OKB)) return 1;
+                    if(o1.symbol.equals("okb-c4d")) return -1;
+                    if(o2.symbol.equals("okb-c4d")) return 1;
 
                 } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                     if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
