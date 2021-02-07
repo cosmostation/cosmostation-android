@@ -402,9 +402,20 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
-            let allOk = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
-            totalAmount.attributedText = WUtils.displayAmount2(allOk.stringValue, totalAmount.font, 0, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allOk, BaseData.instance.getLastPrice(), 0, totalValue.font)
+            var allOKT = NSDecimalNumber.zero
+            for balance in mainTabVC.mBalances {
+                if (balance.balance_denom == OKEX_MAIN_DENOM) {
+                    allOKT = allOKT.adding(WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding))
+                } else {
+                    let okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList, balance.balance_denom)
+                    let totalTokenAmount = balance.getAllAmountOKToken()
+                    let totalTokenValue = WUtils.getOkexTokenDollorValue(okToken, totalTokenAmount)
+                    let convertedOKTAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler6)
+                    allOKT = allOKT.adding(convertedOKTAmount)
+                }
+            }
+            totalAmount.attributedText = WUtils.displayAmount2(allOKT.stringValue, totalAmount.font, 0, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(allOKT, BaseData.instance.getLastPrice(), 0, totalValue.font)
             
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             let allCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
@@ -761,31 +772,37 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func onSetOkItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
-        let okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList!, balance.balance_denom)
+        let okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList, balance.balance_denom)
+        if (okToken == nil) {
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenSymbol.text = balance.balance_denom.uppercased()
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.tokenAmount.font, 0, 6)
+            cell?.tokenDescription.text = ""
+            return cell!
+            
+        }
+        cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
+        cell?.tokenTitle.text = "(" + okToken!.symbol! + ")"
+        cell?.tokenDescription.text = okToken?.description
+        
         if (balance.balance_denom == OKEX_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "okexTokenImg")
             cell?.tokenSymbol.textColor = COLOR_OK
+            cell?.tokenImg.image = UIImage(named: "okexTokenImg")
+            
             let tokenAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(tokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
             cell?.tokenValue.attributedText = WUtils.dpTokenValue(tokenAmount, BaseData.instance.getLastPrice(), 0, cell!.tokenValue.font)
             
         } else {
-            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            let totalTokenAmount = balance.getAllAmountOKToken()
+            let totalTokenValue = WUtils.getOkexTokenDollorValue(okToken, totalTokenAmount)
+            let convertedOKTAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler6)
+            
             cell?.tokenSymbol.textColor = UIColor.white
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, balance.balance_denom)
-            let lockedAmount = WUtils.lockedAmount(mainTabVC.mBalances, balance.balance_denom)
-            let tokenAmount = availableAmount.adding(lockedAmount)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(tokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(tokenAmount, BaseData.instance.getLastPrice(), 0, cell!.tokenValue.font)
-            
-            let url = OKEX_COIN_IMG_URL + okToken!.original_symbol! + ".png"
-            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
-            
-        }
-        if (okToken != nil) {
-            cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
-            cell?.tokenDescription.text = okToken?.description
-            cell?.tokenTitle.text = "(" + okToken!.symbol! + ")"
+            cell?.tokenImg.af_setImage(withURL: URL(string: OKEX_COIN_IMG_URL + okToken!.original_symbol! + ".png")!)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(convertedOKTAmount, BaseData.instance.getLastPrice(), 0, cell!.tokenValue.font)
         }
         return cell!
     }
@@ -899,7 +916,26 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchOkTokenPrice() {
-        self.onUpdateTotalCard()
+        for i in 0..<mainTabVC.mBalances.count {
+            if ((mainTabVC.mBalances[i].balance_denom == "okb-c4d")) {
+//            if ((mainTabVC.mBalances[i].balance_denom == OKEX_MAIN_OKB)) {
+                let url = CGC_PRICE_TIC + "okb"
+                let request = Alamofire.request(url, method: .get, parameters: ["localization":"false", "tickers":"false", "community_data":"false", "developer_data":"false", "sparkline":"false"], encoding: URLEncoding.default, headers: [:]);
+                request.responseJSON { (response) in
+                    switch response.result {
+                    case .success(let res):
+                        if let tics = res as? NSDictionary, let priceUsd = tics.value(forKeyPath: "market_data.current_price.usd") as? Double {
+                            BaseData.instance.mOKBPrice = NSDecimalNumber.init(value: priceUsd)
+                            self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .none)
+                        }
+                        self.onUpdateTotalCard()
+
+                    case .failure(let error):
+                        if (SHOW_LOG) { print("onFetchKavaTokenPrice ", error) }
+                    }
+                }
+            }
+        }
     }
     
     func onFetchCertikTokenPrice() {
@@ -1097,18 +1133,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == OKEX_MAIN_DENOM) {
-                    return true
-                }
-                if ($1.balance_denom == OKEX_MAIN_DENOM){
-                    return false
-                }
-                if ($0.balance_denom == OKEX_MAIN_OKB) {
-                    return true
-                }
-                if ($1.balance_denom == OKEX_MAIN_OKB){
-                    return false
-                }
+                if ($0.balance_denom == OKEX_MAIN_DENOM) { return true }
+                if ($1.balance_denom == OKEX_MAIN_DENOM) { return false }
+                if ($0.balance_denom == OKEX_MAIN_OKB) { return true }
+                if ($1.balance_denom == OKEX_MAIN_OKB){ return false }
+                if ($0.balance_denom == "okb-c4d") { return true }
+                if ($1.balance_denom == "okb-c4d"){ return false }
                 return $0.balance_denom < $1.balance_denom
             }
             
@@ -1168,18 +1198,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == OKEX_MAIN_DENOM) {
-                    return true
-                }
-                if ($1.balance_denom == OKEX_MAIN_DENOM){
-                    return false
-                }
-                if ($0.balance_denom == OKEX_MAIN_OKB) {
-                    return true
-                }
-                if ($1.balance_denom == OKEX_MAIN_OKB){
-                    return false
-                }
+                if ($0.balance_denom == OKEX_MAIN_DENOM) { return true }
+                if ($1.balance_denom == OKEX_MAIN_DENOM) { return false }
+                if ($0.balance_denom == OKEX_MAIN_OKB) { return true }
+                if ($1.balance_denom == OKEX_MAIN_OKB) { return false }
+                if ($0.balance_denom == "okb-c4d") { return true }
+                if ($1.balance_denom == "okb-c4d") { return false }
                 return WUtils.localeStringToDecimal($0.balance_amount).adding(WUtils.localeStringToDecimal($0.balance_locked)).stringValue > WUtils.localeStringToDecimal($1.balance_amount).adding(WUtils.localeStringToDecimal($1.balance_locked)).stringValue
             }
             
@@ -1222,18 +1246,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == OKEX_MAIN_DENOM) {
-                    return true
-                }
-                if ($1.balance_denom == OKEX_MAIN_DENOM){
-                    return false
-                }
-                if ($0.balance_denom == OKEX_MAIN_OKB) {
-                    return true
-                }
-                if ($1.balance_denom == OKEX_MAIN_OKB){
-                    return false
-                }
+                if ($0.balance_denom == OKEX_MAIN_DENOM) { return true }
+                if ($1.balance_denom == OKEX_MAIN_DENOM){ return false }
+                if ($0.balance_denom == OKEX_MAIN_OKB) { return true }
+                if ($1.balance_denom == OKEX_MAIN_OKB){ return false }
+                if ($0.balance_denom == "okb-c4d") { return true }
+                if ($1.balance_denom == "okb-c4d"){ return false }
                 return $0.balance_denom < $1.balance_denom
             }
             

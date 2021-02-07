@@ -1717,7 +1717,7 @@ class WUtils {
     
     static func getKavaTokenDollorValue(_ denom: String, _ amount: NSDecimalNumber) -> NSDecimalNumber {
         let dpDeciaml = getKavaCoinDecimal(denom)
-        if (denom == "usdx" || denom == "busd"){
+        if (denom == "usdx" || denom == "busd") {
             return amount.multiplying(byPowerOf10: -dpDeciaml)
             
         } else if (denom == "hard") {
@@ -1737,6 +1737,21 @@ class WUtils {
         }
     }
     
+    static func getOkexTokenDollorValue(_ okToken: OkToken?, _ amount: NSDecimalNumber) -> NSDecimalNumber {
+        if (okToken == nil) { return NSDecimalNumber.zero }
+        if (okToken!.original_symbol == "usdt" || okToken!.original_symbol == "usdc" || okToken!.original_symbol == "usdk") {
+            return amount
+            
+        } else if (okToken!.original_symbol == "okb" && BaseData.instance.mOKBPrice != nil) {
+            return amount.multiplying(by: BaseData.instance.mOKBPrice)
+            
+        } else if (BaseData.instance.mOkTickerList != nil) {
+            //TODO display with ticker update!
+            let okTickers = BaseData.instance.mOkTickerList?.data
+            return NSDecimalNumber.zero
+        }
+        return NSDecimalNumber.zero
+    }
     
     
     static func getIrisToken(_ irisTokens:Array<IrisToken>, _ balance:Balance) -> IrisToken? {
@@ -1795,9 +1810,9 @@ class WUtils {
         return nil
     }
     
-    static func getOkToken(_ okTokenList:OkTokenList, _ symbol:String) -> OkToken? {
-        if (okTokenList.data == nil) { return nil}
-        for okToken in okTokenList.data! {
+    static func getOkToken(_ okTokenList: OkTokenList?, _ symbol:String) -> OkToken? {
+        if (okTokenList == nil || okTokenList?.data == nil) { return nil}
+        for okToken in okTokenList!.data! {
             if (okToken.symbol == symbol) {
                 return okToken
             }

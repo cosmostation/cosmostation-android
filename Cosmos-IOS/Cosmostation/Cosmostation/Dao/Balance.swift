@@ -78,6 +78,10 @@ public class Balance {
             return getAllAmountBnbToken().multiplying(by: NSDecimalNumber(string: tic!.object(forKey: "lastPrice") as? String), withBehavior: WUtils.handler8)
         }
     }
+    
+    func getAllAmountOKToken() -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(self.balance_amount).adding(WUtils.plainStringToDecimal(self.balance_locked))
+    }
 }
 
 

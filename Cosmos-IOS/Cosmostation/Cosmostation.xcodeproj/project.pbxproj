@@ -208,6 +208,8 @@
 		285A33E724486DA20052BD3D /* HtlcResultSentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285A33E524486DA20052BD3D /* HtlcResultSentCell.xib */; };
 		285A33EA24486DB60052BD3D /* HtlcResultClaimCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33E824486DB60052BD3D /* HtlcResultClaimCell.swift */; };
 		285A33EB24486DB60052BD3D /* HtlcResultClaimCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285A33E924486DB60052BD3D /* HtlcResultClaimCell.xib */; };
+		285F8C8B25CFB21000317B30 /* OkTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F8C8A25CFB21000317B30 /* OkTicker.swift */; };
+		285F8C8E25CFB27D00317B30 /* OkTickerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F8C8D25CFB27D00317B30 /* OkTickerList.swift */; };
 		28617A7B243198D0006D66EA /* StepCreateCpdAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A7A243198D0006D66EA /* StepCreateCpdAmountViewController.swift */; };
 		28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A7C243198E2006D66EA /* StepCreateCpdCheckViewController.swift */; };
 		28617A7F24329433006D66EA /* StepDepositCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A7E24329433006D66EA /* StepDepositCdpAmountViewController.swift */; };
@@ -729,6 +731,8 @@
 		285A33E524486DA20052BD3D /* HtlcResultSentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HtlcResultSentCell.xib; sourceTree = "<group>"; };
 		285A33E824486DB60052BD3D /* HtlcResultClaimCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtlcResultClaimCell.swift; sourceTree = "<group>"; };
 		285A33E924486DB60052BD3D /* HtlcResultClaimCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HtlcResultClaimCell.xib; sourceTree = "<group>"; };
+		285F8C8A25CFB21000317B30 /* OkTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkTicker.swift; sourceTree = "<group>"; };
+		285F8C8D25CFB27D00317B30 /* OkTickerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkTickerList.swift; sourceTree = "<group>"; };
 		28617A7A243198D0006D66EA /* StepCreateCpdAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCreateCpdAmountViewController.swift; sourceTree = "<group>"; };
 		28617A7C243198E2006D66EA /* StepCreateCpdCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCreateCpdCheckViewController.swift; sourceTree = "<group>"; };
 		28617A7E24329433006D66EA /* StepDepositCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDepositCdpAmountViewController.swift; sourceTree = "<group>"; };
@@ -1587,6 +1591,7 @@
 				E1F7F63123421394000E597F /* IrisToken.swift */,
 				E1F7F633234311F8000E597F /* BnbToken.swift */,
 				283D2EA324F52FE700247424 /* OkToken.swift */,
+				285F8C8A25CFB21000317B30 /* OkTicker.swift */,
 			);
 			path = Dao;
 			sourceTree = "<group>";
@@ -1671,6 +1676,7 @@
 				28156EA72536E89A006FF06C /* KavaHarvestAccount.swift */,
 				28D23DD0252EC2A400BD9E7C /* KavaClaimMultiplier.swift */,
 				283D2EA524F5308900247424 /* OkTokenList.swift */,
+				285F8C8D25CFB27D00317B30 /* OkTickerList.swift */,
 				283D2EA724F5388C00247424 /* OkAccountToken.swift */,
 				283D2EA924F56AEE00247424 /* OkStaking.swift */,
 				283D2EAB24F56AFF00247424 /* OkUnbonding.swift */,
@@ -2220,6 +2226,7 @@
 				28156E8E25369622006FF06C /* HarvestListStakeCell.swift in Sources */,
 				285A33E2244862670052BD3D /* HtlcResultViewController.swift in Sources */,
 				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
+				285F8C8E25CFB27D00317B30 /* OkTickerList.swift in Sources */,
 				2842AB72242C7C8A00248EEB /* CdpListAllCell.swift in Sources */,
 				283D2EA824F5388C00247424 /* OkAccountToken.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
@@ -2414,6 +2421,7 @@
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,
 				283E9472254902F4007A9291 /* TxDeleteAccountCell.swift in Sources */,
 				E1C3C89B23B1E3E400A693C0 /* NotificationView.swift in Sources */,
+				285F8C8B25CFB21000317B30 /* OkTicker.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
 				28474ED4241E06AF00AF5A81 /* TxCreateCdpCell.swift in Sources */,
 				289BE01D252E2A0E00E5E4B4 /* KavaHavestReward.swift in Sources */,

@@ -298,7 +298,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStarNameConfig()
             
         } else if (mChainType == ChainType.OKEX_MAIN || mChainType == ChainType.OKEX_TEST) {
-            self.mFetchCnt = 8
+            self.mFetchCnt = 9
             BaseData.instance.mOkStaking = nil
             BaseData.instance.mOkUnbonding = nil
             BaseData.instance.mOkTokenList = nil
@@ -310,6 +310,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchAccountInfo(mAccount)
             onFetchOkAccountBalance(mAccount)
             onFetchOkTokenList()
+            onFetchOkDexTicker()
+            
             onFetchOkStakingInfo(mAccount)
             onFetchOkUnbondingInfo(mAccount)
             
@@ -1336,9 +1338,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 url = CMC_PRICE_TIC + "4846"
                 parameters = ["convert":BaseData.instance.getCurrencyString()]
             }
+            
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = CGC_PRICE_TIC + "band-protocol"
             parameters = [:]
+            
         } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
             url = CGC_PRICE_TIC + "starname"
             parameters = [:]
@@ -1346,10 +1350,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.SECRET_MAIN) {
             url = CGC_PRICE_TIC + "secret"
             parameters = [:]
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            //TODO No price info for OK
-            BaseData.instance.setPriceTicCgc(nil)
-            return
+            
+        } else if (mChainType == ChainType.OKEX_MAIN || mChainType == ChainType.OKEX_TEST) {
+            url = CGC_PRICE_TIC + "okexchain"
+            parameters = [:]
+            
         } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.CERTIK_TEST) {
             url = CGC_PRICE_TIC + "certik"
             parameters = [:]
@@ -1743,6 +1748,31 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             self.onFetchFinished()
         }
+    }
+    
+    func onFetchOkDexTicker() {
+        var url: String?
+        if (mChainType == ChainType.OKEX_MAIN) {
+            url = OKEX_TICKER_LIST
+        } else if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_TICKER_LIST
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let tickerList = res as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mOkTickerList = OkTickerList.init(tickerList)
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchOkDexTicker ", error) }
+            }
+            self.onFetchFinished()
+        }
+        
     }
     
     func onFetchStarNameFees() {

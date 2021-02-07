@@ -45,8 +45,10 @@ final class BaseData : NSObject{
     
     var mOkAccountInfo: OkAccountInfo?
     var mOkTokenList: OkTokenList?
+    var mOkTickerList: OkTickerList?
     var mOkStaking: OkStaking?
     var mOkUnbonding: OkUnbonding?
+    var mOKBPrice: NSDecimalNumber = NSDecimalNumber.zero
     
     var mStarNameFee: IovStarNameFees.IovFee?
     var mStarNameConfig: IovStarNameConfig.IovConfig?
