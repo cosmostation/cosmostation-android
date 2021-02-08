@@ -292,7 +292,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mFeeAmount = new BigDecimal(FEE_OK_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE)).setScale(18);
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 0, 6));
-            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            mGasFeePrice.setText(WDp.getValueOfOk(getContext(), getBaseDao(), mFeeAmount));
 
         } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
