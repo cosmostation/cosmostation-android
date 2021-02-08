@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.task.UserTask;
 
-import com.github.orogvany.bip32.wallet.HdAddress;
-
 import org.bitcoinj.crypto.DeterministicKey;
 
 import wannabit.io.cosmostaion.R;
@@ -15,6 +13,10 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
+
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+
 public class GenerateAccountTask extends CommonTask {
     private BaseChain mBaseChain;
     private Boolean mNewPath;
@@ -61,7 +63,14 @@ public class GenerateAccountTask extends CommonTask {
         Account newAccount          = Account.getNewInstance();
         DeterministicKey dKey       = WKey.getKeyWithPathfromEntropy(mBaseChain, entropy, Integer.parseInt(path), mNewPath);
         EncResult encR              = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, entropy, false);
-        newAccount.address          = WKey.getDpAddress(mBaseChain, dKey.getPublicKeyAsHex());
+
+        //OKex using ethermint style account
+        if ((mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) && mNewPath) {
+            newAccount.address       = WKey.generateAddressFromPriv("okexchain", dKey.getPrivateKeyAsHex());
+        } else {
+            newAccount.address      = WKey.getDpAddress(mBaseChain, dKey.getPublicKeyAsHex());
+        }
+
         newAccount.baseChain        = mBaseChain.getChain();
         newAccount.hasPrivateKey    = true;
         newAccount.resource         = encR.getEncDataString();

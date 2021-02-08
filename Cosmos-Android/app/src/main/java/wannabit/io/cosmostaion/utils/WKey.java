@@ -4,6 +4,7 @@ import android.util.Base64;
 
 import com.google.common.collect.ImmutableList;
 
+import org.bitcoinj.core.Bech32;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicHierarchy;
@@ -12,8 +13,11 @@ import org.bitcoinj.crypto.HDKeyDerivation;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.crypto.MnemonicException;
 import org.bouncycastle.crypto.digests.RIPEMD160Digest;
+import org.bouncycastle.util.encoders.Hex;
+import org.web3j.crypto.Keys;
 
 import java.io.ByteArrayOutputStream;
+import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -25,6 +29,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
 
+import static org.bitcoinj.core.ECKey.CURVE;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
@@ -179,6 +184,47 @@ public class WKey {
         return result;
     }
 
+
+    // Ethermint Style Key gen (OKex)
+    public static String createNewAddressSecp256k1(String mainPrefix, byte[] publickKey) throws Exception {
+        byte[] uncompressedPubKey = CURVE.getCurve().decodePoint(publickKey).getEncoded(false);
+        byte[] pub = new byte[64];
+        System.arraycopy(uncompressedPubKey, 1, pub, 0, 64);
+
+        byte[] address = Keys.getAddress(pub);
+        WLog.w("eth address " + WUtil.ByteArrayToHexString(address));
+
+        String addressResult = null;
+        try {
+            byte[] bytes = convertBits(address, 8, 5, true);
+            addressResult = Bech32.encode(mainPrefix, bytes);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return addressResult;
+    }
+
+    public static String generatePubKeyHexFromPriv(String privateKey) {
+        ECKey k = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+        return k.getPublicKeyAsHex();
+    }
+
+    public static String generateAddressFromPub(String prefix, String pubKey) {
+        try {
+            String addr = createNewAddressSecp256k1(prefix, Hex.decode(pubKey));
+            return addr;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public static String generateAddressFromPriv(String prefix, String privateKey) {
+        String pub = generatePubKeyHexFromPriv(privateKey);
+        return generateAddressFromPub(prefix, pub);
+    }
+
+
     public static String getDpAddress(BaseChain chain, String pubHex) {
         String result       = null;
         MessageDigest digest = Sha256.getSha256Digest();
@@ -278,6 +324,9 @@ public class WKey {
 
     public static String getDpAddressWithPath(String seed, BaseChain chain, int path, Boolean newBip) {
         DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain, newBip), true, true,  new ChildNumber(path));
+        if ((chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) && newBip) {
+            return generateAddressFromPriv("okexchain", childKey.getPrivateKeyAsHex());
+        }
         return getDpAddress(chain, childKey.getPublicKeyAsHex());
     }
 

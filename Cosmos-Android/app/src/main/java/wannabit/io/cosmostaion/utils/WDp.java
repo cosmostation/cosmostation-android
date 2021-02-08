@@ -1796,7 +1796,11 @@ public class WDp {
             return BaseConstant.KEY_IOV_PATH + String.valueOf(position);
 
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-            return BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position);
+            if (newBip) {
+                return  ("(Ethermint Type) ") + BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position);
+            } else {
+                return ("(Tendermint Type) ") + BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position);
+            }
 
         } else if (chain.equals(SECRET_MAIN)) {
             if (newBip) {

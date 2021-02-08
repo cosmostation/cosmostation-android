@@ -591,6 +591,10 @@
     <string name="str_secret_newpath_msg">BIP44 for Secret key generation will be implemented starting Sep, 2020.\n\nIf you created an address before Sep, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your path.</string>
     <string name="str_secret_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_secret_new_path"><![CDATA[NEW PATH (44\'/529\'/0\'/0)]]></string>
+    <string name="str_okex_newpath_title">Select Key Type</string>
+    <string name="str_okex_newpath_msg">OKex Chain support 2 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\n\nIf you mistakenly selected the wrong type, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your type.</string>
+    <string name="str_okex_old_type"><![CDATA[Tendermint Type Key]]></string>
+    <string name="str_okex_new_type"><![CDATA[Ethermint(Default) Type Key]]></string>
     <string name="str_kava_cdp_list">CDP Market</string>
     <string name="str_kava_cdp_details">CDP Status</string>
     <string name="str_kava_harvest_list">Harvest Market</string>

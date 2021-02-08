@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
+import wannabit.io.cosmostaion.dialog.Dialog_OkexRestoreType;
 import wannabit.io.cosmostaion.dialog.Dialog_SecretRestorePath;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -45,6 +46,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class RestoreActivity extends BaseActivity implements View.OnClickListener{
@@ -294,6 +297,12 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
                 } else if (mChain.equals(SECRET_MAIN)) {
                     Dialog_SecretRestorePath dialog = Dialog_SecretRestorePath.newInstance(null);
+                    dialog.setCancelable(false);
+                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    return;
+
+                } else if (mChain.equals(OKEX_MAIN) || mChain.equals(OK_TEST)) {
+                    Dialog_OkexRestoreType dialog = Dialog_OkexRestoreType.newInstance(null);
                     dialog.setCancelable(false);
                     getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                     return;
