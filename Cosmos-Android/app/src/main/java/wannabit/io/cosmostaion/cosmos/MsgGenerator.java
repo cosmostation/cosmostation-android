@@ -8,8 +8,14 @@ import com.binance.dex.api.client.encoding.message.Token;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.crypto.DeterministicKey;
+import org.bouncycastle.util.Strings;
+import org.bouncycastle.util.encoders.Hex;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Sign;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,6 +77,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
+
+
 
 public class MsgGenerator {
 
@@ -892,5 +900,56 @@ public class MsgGenerator {
 
 //        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
         return reqBroadCast;
+    }
+
+
+    public static ReqBroadCast getOKexBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
+        if (!account.newBip44) {
+            //using Tendermint type sig
+            return getBraodcaseReq(account, msgs, fee, memo, key);
+        } else {
+            //using Ethermint type sig
+            StdSignMsg tosign = genToSignMsg( BaseChain.getDpChain(account.baseChain), ""+account.accountNumber, ""+account.sequenceNumber, msgs, fee, memo);
+            String sig = MsgGenerator.getEthermintSignature(key, tosign.getToSignByte());
+
+            Signature signature = new Signature();
+            Pub_key pubKey = new Pub_key();
+            pubKey.type = BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC;
+
+            String pubHex = WKey.generatePubKeyHexFromPriv(key.getPrivateKeyAsHex());
+            pubKey.value = Strings.fromByteArray(org.bouncycastle.util.encoders.Base64.encode(Hex.decode(pubHex)));
+            signature.pub_key = pubKey;
+            signature.signature = sig;
+            signature.account_number = ""+account.accountNumber;
+            signature.sequence = ""+account.sequenceNumber;
+
+            ArrayList<Signature> signatures = new ArrayList<>();
+            signatures.add(signature);
+
+            StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
+//            WLog.w("Ethermint signedTx : " +  WUtil.prettyPrinter(signedTx));
+
+            ReqBroadCast reqBroadCast = new ReqBroadCast();
+            reqBroadCast.returns = "sync";
+            reqBroadCast.tx = signedTx.value;
+//            WLog.w("Ethermint reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+
+            return reqBroadCast;
+        }
+    }
+
+
+    public static String getEthermintSignature(DeterministicKey key, byte[] toSignByte) {
+        BigInteger privKey = new BigInteger(key.getPrivateKeyAsHex(), 16);
+        Sign.SignatureData sig = Sign.signMessage(toSignByte, ECKeyPair.create(privKey));
+        return toBase64(sig);
+    }
+
+    public static String toBase64(Sign.SignatureData sig) {
+        byte[] sigData = new byte[64];  // 32 bytes for R + 32 bytes for S
+        System.arraycopy(sig.getR(), 0, sigData, 0, 32);
+        System.arraycopy(sig.getS(), 0, sigData, 32, 32);
+        System.out.println(Hex.toHexString(sigData));
+        return new String(org.bouncycastle.util.encoders.Base64.encode(sigData), Charset.forName("UTF-8"));
     }
 }

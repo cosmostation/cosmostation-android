@@ -90,7 +90,7 @@ public class SimpleOkDepositTask extends CommonTask {
             msgs.add(depositMsg);
 
             if (getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -108,7 +108,7 @@ public class SimpleOkDepositTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(OK_TEST)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getOkTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {

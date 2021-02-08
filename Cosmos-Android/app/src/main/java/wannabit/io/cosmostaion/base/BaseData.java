@@ -434,8 +434,6 @@ public class BaseData {
         } else if (chain.equals(BAND_MAIN)) {
             return BigDecimal.valueOf(getLastBandTic());
 
-        } else if (chain.equals(OK_TEST)) {
-
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return BigDecimal.valueOf(getLastCertikTic());
 
@@ -470,8 +468,6 @@ public class BaseData {
 
         } else if (chain.equals(BAND_MAIN)) {
             return BigDecimal.valueOf(getLastBandUpDown());
-
-        } else if (chain.equals(OK_TEST)) {
 
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return BigDecimal.valueOf(getLastCertikUpDown());
