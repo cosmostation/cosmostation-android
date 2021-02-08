@@ -181,7 +181,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             setDpDecimals(mDpDecimal);
             mDenomTitle.setText(getSActivity().mOkDenom.toUpperCase());
             if (getSActivity().mOkDenom.equals(TOKEN_OK)) {
-                mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK).subtract(new BigDecimal("0.2"));
+                mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK).subtract(new BigDecimal("0.002"));
                 mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, mDpDecimal));
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorOK));
             } else {

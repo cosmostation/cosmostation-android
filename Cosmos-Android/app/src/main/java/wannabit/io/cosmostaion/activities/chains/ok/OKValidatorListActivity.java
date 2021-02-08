@@ -129,7 +129,7 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
             return;
         }
         BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().onSelectBalance(mAccount.id), TOKEN_OK);
-        if (availableAmount.compareTo(BigDecimal.ONE) <= 0) {
+        if (availableAmount.compareTo(new BigDecimal("0.1")) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_balance_to_vote, Toast.LENGTH_SHORT).show();
             return;
         }

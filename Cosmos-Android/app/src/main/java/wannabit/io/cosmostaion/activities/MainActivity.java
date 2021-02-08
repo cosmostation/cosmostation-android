@@ -540,7 +540,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 intent.putExtra("iovDenom", TOKEN_IOV_TEST);
 
             } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.2")) > 0) {
+                if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.002")) > 0) {
                     hasbalance  = true;
                 }
                 intent.putExtra("okDenom", TOKEN_OK);
