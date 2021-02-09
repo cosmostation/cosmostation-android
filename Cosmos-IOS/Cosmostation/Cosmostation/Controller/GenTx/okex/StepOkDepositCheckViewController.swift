@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
+import HDWalletKit
 
 class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate, SBCardPopupDelegate {
     @IBOutlet weak var toDepositAmountLabel: UILabel!
@@ -135,22 +136,43 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
                     let data = try? encoder.encode(stdMsg)
                     let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
                     let rawData: Data? = rawResult!.data(using: .utf8)
-                    let hash = Crypto.sha256(rawData!)
-                    let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
                     
-                    var genedSignature = Signature.init()
-                    var genPubkey =  PublicKey.init()
-                    genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                    genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
-                    genedSignature.pub_key = genPubkey
-                    genedSignature.signature = WKey.convertSignature(signedData!)
-                    genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
-                    genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
-                    
-                    var signatures: Array<Signature> = Array<Signature>()
-                    signatures.append(genedSignature)
-                    
-                    stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
+                    if (self.pageHolderVC.mAccount!.account_new_bip44) {
+                        let hash = HDWalletKit.Crypto.sha3keccak256(data: rawData!)
+                        let signedData: Data? = try ECDSA.compactsign(hash, privateKey: pKey.privateKey().raw)
+                        
+                        var genedSignature = Signature.init()
+                        var genPubkey =  PublicKey.init()
+                        genPubkey.type = ETHERMINT_KEY_TYPE_PUBLIC
+                        genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                        genedSignature.pub_key = genPubkey
+                        genedSignature.signature = signedData!.base64EncodedString()
+                        genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                        genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
+                        
+                        var signatures: Array<Signature> = Array<Signature>()
+                        signatures.append(genedSignature)
+                        
+                        stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
+                        
+                    } else {
+                        let hash = Crypto.sha256(rawData!)
+                        let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                        
+                        var genedSignature = Signature.init()
+                        var genPubkey =  PublicKey.init()
+                        genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
+                        genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                        genedSignature.pub_key = genPubkey
+                        genedSignature.signature = WKey.convertSignature(signedData!)
+                        genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                        genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
+                        
+                        var signatures: Array<Signature> = Array<Signature>()
+                        signatures.append(genedSignature)
+                        
+                        stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
+                    }
                 }
                 
                 

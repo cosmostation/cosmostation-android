@@ -11,6 +11,7 @@ import Alamofire
 import BitcoinKit
 import BinanceChain
 import SwiftKeychainWrapper
+import HDWalletKit
 
 class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
 
@@ -472,8 +473,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 
                 if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
                         self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN  || self.pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                        self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.OKEX_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN ||
-                        self.pageHolderVC.chainType! == ChainType.CERTIK_TEST || self.pageHolderVC.chainType! == ChainType.AKASH_MAIN || self.pageHolderVC.chainType! == ChainType.OKEX_MAIN) {
+                        self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
+                        self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
                     
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     let encoder = JSONEncoder()
@@ -522,6 +523,52 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     
                     stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
                     
+                } else if (self.pageHolderVC.chainType! == ChainType.OKEX_MAIN || self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
+                    
+                    let encoder = JSONEncoder()
+                    encoder.outputFormatting = .sortedKeys
+                    let data = try? encoder.encode(stdMsg)
+                    let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
+                    let rawData: Data? = rawResult!.data(using: .utf8)
+                    
+                    if (self.pageHolderVC.mAccount!.account_new_bip44) {
+                        let hash = HDWalletKit.Crypto.sha3keccak256(data: rawData!)
+                        let signedData: Data? = try ECDSA.compactsign(hash, privateKey: pKey.privateKey().raw)
+                        
+                        var genedSignature = Signature.init()
+                        var genPubkey =  PublicKey.init()
+                        genPubkey.type = ETHERMINT_KEY_TYPE_PUBLIC
+                        genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                        genedSignature.pub_key = genPubkey
+                        genedSignature.signature = signedData!.base64EncodedString()
+                        genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                        genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
+                        
+                        var signatures: Array<Signature> = Array<Signature>()
+                        signatures.append(genedSignature)
+                        
+                        stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
+                        
+                    } else {
+                        let hash = Crypto.sha256(rawData!)
+                        let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                        
+                        var genedSignature = Signature.init()
+                        var genPubkey =  PublicKey.init()
+                        genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
+                        genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                        genedSignature.pub_key = genPubkey
+                        genedSignature.signature = WKey.convertSignature(signedData!)
+                        genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                        genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
+                        
+                        var signatures: Array<Signature> = Array<Signature>()
+                        signatures.append(genedSignature)
+                        
+                        stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
+                    }
+                    
                 }
                 
                 
@@ -536,6 +583,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+                    print("params ", params)
                     var url: String?
                     if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
                         url = COSMOS_URL_BORAD_TX
