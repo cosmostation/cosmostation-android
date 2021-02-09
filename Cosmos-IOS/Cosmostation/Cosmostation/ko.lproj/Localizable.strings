@@ -199,6 +199,10 @@
 "select_new_path_msg_secret" = "2020. 09월 부터 Secret 키 생성에 bip44가 적용됩니다.\n\n2020. 09월 이전에 주소를 생성하신 경우 [변경전 Path]를 이후에 생성하신 경우 [변경후 Path]를 선택해주세요.\n\nPath를 잘못 선택한 경우에도 기존 Secret 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 Path를 다시 지정하면 됩니다.";
 "secret_old_path" = "변경 전 PATH (44'/118'/0'/0)";
 "secret_new_path" = "변경 후 PATH (44'/529'/0'/0)";
+"select_keytype_okex_title" = "키 타입 선택";
+"select_keytype_okex_msg" = "OKex체인은 두가지 타입의 키 타입을 지원합니다.\n\n테스트 넷부터 사용하시던 타입을 사용하시려면 [Tendermint Type]를, 이후에 생성하신 경우 [Ethermint Type] 선택해주세요.\n\n잘못 선택한 경우에도 기존 OKex 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 타입을 다시 지정하면 됩니다.";
+"keytype_okex_old" = "Tendermint 타입 키 생성";
+"keytype_okex_new" = "Ethermint(기본) 타입 키 생성";
 "tx_next" = "다음";
 "str_deposit" = "  %@ 입금";
 "str_withdraw" = "  %@ 출금";

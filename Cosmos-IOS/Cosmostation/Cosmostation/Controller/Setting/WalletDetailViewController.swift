@@ -161,14 +161,16 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             
         } else if (chainType == ChainType.OKEX_MAIN) {
             chainImg.image = UIImage(named: "okexChainImg")
-            keyPath.text = OK_BASE_PATH.appending(account!.account_path)
+            if (account!.account_new_bip44) { keyPath.text = "(Ethermint Type) " + OK_BASE_PATH.appending(account!.account_path) }
+            else { keyPath.text = "(Tendermint Type) " + OK_BASE_PATH.appending(account!.account_path) }
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
         } else if (chainType == ChainType.OKEX_TEST) {
             chainImg.image = UIImage(named: "okexTestnetImg")
-            keyPath.text = OK_BASE_PATH.appending(account!.account_path)
+            if (account!.account_new_bip44) { keyPath.text = "(Ethermint Type) " + OK_BASE_PATH.appending(account!.account_path) }
+            else { keyPath.text = "(Tendermint Type) " + OK_BASE_PATH.appending(account!.account_path) }
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow

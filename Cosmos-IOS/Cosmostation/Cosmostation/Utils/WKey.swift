@@ -11,6 +11,7 @@ import BitcoinKit
 import BinanceChain
 import ed25519swift
 import CryptoSwift
+import HDWalletKit
 
 class WKey {
     
@@ -149,11 +150,19 @@ class WKey {
         } catch {
             return ""
         }
+        
     }
     
     static func getDpAddressPath(_ mnemonic: [String], _ path:Int, _ chain:ChainType, _ newbip:Bool) -> String {
-        let maskerKey = getMasterKeyFromWords(mnemonic)
-        return WKey.getHDKeyDpAddressWithPath(maskerKey, path: path, chain: chain, newbip)
+        let masterKey = getMasterKeyFromWords(mnemonic)
+        if ((chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) && newbip) {
+            let pKey = try! masterKey.derived(at: 44, hardened: true).derived(at: 996, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+            return generateAddressFromPriv("okexchain", pKey.privateKey())
+            
+        } else {
+            return WKey.getHDKeyDpAddressWithPath(masterKey, path: path, chain: chain, newbip)
+        }
+        
     }
     
     static func isValidateAddress(_ address:String) -> Bool {
@@ -365,8 +374,26 @@ class WKey {
         }
     }
     
-    
-    
+    // Ethermint Style address gen (OKex)
+    static func generateAddressFromPriv(_ prefix: String, _ priKey: BitcoinKit.PrivateKey) -> String {
+        let uncompressedPubKey = HDWalletKit.Crypto.generatePublicKey(data: priKey.raw, compressed: false)
+        print("uncompressedPubKey ", uncompressedPubKey.dataToHexString(), "   ", uncompressedPubKey.dataToHexString().count)
+        var pub = Data(count: 64)
+        pub = uncompressedPubKey.subdata(in: (1..<65))
+        print("pub ", pub.dataToHexString(), "   ", pub.dataToHexString().count)
+        
+        let eth = HDWalletKit.Crypto.sha3keccak256(data: pub)
+        var address = Data(count: 20)
+        address = eth.subdata(in: (12..<32))
+        let ethAddress  = EthereumAddress.init(data: address)
+        print("ethAddress ", ethAddress.string)
+        
+        var result = ""
+        let convert = try? WKey.convertBits(from: 8, to: 5, pad: true, idata: address)
+        result = Bech32().encode("okexchain", values: convert!)
+        print("OKexAddress ", result)
+        return result
+    }
     
     
     

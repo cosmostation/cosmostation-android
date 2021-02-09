@@ -181,6 +181,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 }
             }
         }
+        
     }
     
     func updateFloaty() {

@@ -43,8 +43,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:RestorePathCell? = tableView.dequeueReusableCell(withIdentifier:"RestorePathCell") as? RestorePathCell
         cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
         WUtils.setDenomTitle(userChain!, cell!.denomTitle)
-        if (userChain == ChainType.COSMOS_MAIN || userChain == ChainType.IRIS_MAIN || userChain == ChainType.CERTIK_MAIN || userChain == ChainType.CERTIK_TEST ||
-                userChain == ChainType.AKASH_MAIN || userChain == ChainType.COSMOS_TEST || userChain == ChainType.IRIS_TEST) {
+        if (userChain == ChainType.COSMOS_MAIN || userChain == ChainType.IRIS_MAIN || userChain == ChainType.CERTIK_MAIN || userChain == ChainType.CERTIK_TEST || userChain == ChainType.AKASH_MAIN || userChain == ChainType.COSMOS_TEST || userChain == ChainType.IRIS_TEST) {
             cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
         } else if (userChain == ChainType.BINANCE_MAIN || userChain == ChainType.BINANCE_TEST) {
             cell?.pathLabel.text = BNB_BASE_PATH.appending(String(indexPath.row))
@@ -65,7 +64,11 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell?.pathLabel.text = SECRET_BASE_PATH.appending(String(indexPath.row))
             }
         } else if (userChain == ChainType.OKEX_MAIN || userChain == ChainType.OKEX_TEST) {
-            cell?.pathLabel.text = OK_BASE_PATH.appending(String(indexPath.row))
+            if (self.usingBip44) {
+                cell?.pathLabel.text = "(Ethermint Type) " + OK_BASE_PATH.appending(String(indexPath.row))
+            } else {
+                cell?.pathLabel.text = "(Tendermint Type) " + OK_BASE_PATH.appending(String(indexPath.row))
+            }
         }
         
         DispatchQueue.global().async {
@@ -305,7 +308,6 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     request.responseJSON { (response) in
                         switch response.result {
                             case .success(let res):
-                                print("res ", res)
                                 guard let info = res as? [String : Any] else {
                                     return
                                 }

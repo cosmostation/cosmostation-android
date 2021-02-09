@@ -200,6 +200,10 @@
 "select_new_path_msg_secret" = "BIP44 for SECRET key generation will be implemented starting Sep, 2020.\n\nIf you created an address before Sep, 2020, please select [Old Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your path.";
 "secret_old_path" = "OLD PATH (44'/118'/0'/0)";
 "secret_new_path" = "NEW PATH (44'/529'/0'/0)";
+"select_keytype_okex_title" = "Select Key Type";
+"select_keytype_okex_msg" = "OKex Chain support 2 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\n\nIf you mistakenly selected the wrong type, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your type.";
+"keytype_okex_old" = "Tendermint Type Key";
+"keytype_okex_new" = "Ethermint(Default) Type Key";
 "tx_next" = "Next";
 "str_deposit" = "  Deposit %@";
 "str_withdraw" = "  Withdraw %@";
