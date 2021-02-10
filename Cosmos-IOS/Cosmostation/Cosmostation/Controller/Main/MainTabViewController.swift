@@ -436,11 +436,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
             }
             
-            print("BaseData.instance.mAllValidators_V1 ", BaseData.instance.mAllValidators_V1.count)
-            print("BaseData.instance.mBondedValidators_V1 ", BaseData.instance.mBondedValidators_V1.count)
-            print("BaseData.instance.mUnbondValidators_V1 ", BaseData.instance.mUnbondValidators_V1.count)
-            print("BaseData.instance.mMyValidators_V1 ", BaseData.instance.mMyValidators_V1.count)
-            print("BaseData.instance.mMyBalances_V1 ", BaseData.instance.mMyBalances_V1.count)
+//            print("BaseData.instance.mAllValidators_V1 ", BaseData.instance.mAllValidators_V1.count)
+//            print("BaseData.instance.mBondedValidators_V1 ", BaseData.instance.mBondedValidators_V1.count)
+//            print("BaseData.instance.mUnbondValidators_V1 ", BaseData.instance.mUnbondValidators_V1.count)
+//            print("BaseData.instance.mMyValidators_V1 ", BaseData.instance.mMyValidators_V1.count)
+//            print("BaseData.instance.mMyBalances_V1 ", BaseData.instance.mMyBalances_V1.count)
             
             if (BaseData.instance.mAllValidators_V1.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
@@ -531,10 +531,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
         }
         
-        print("BaseData.instance.mAllValidator ", BaseData.instance.mAllValidator.count)
-        print("BaseData.instance.mTopValidator ", BaseData.instance.mTopValidator.count)
-        print("BaseData.instance.mOtherValidator ", BaseData.instance.mOtherValidator.count)
-        print("BaseData.instance.mMyValidator ", BaseData.instance.mMyValidator.count)
+//        print("BaseData.instance.mAllValidator ", BaseData.instance.mAllValidator.count)
+//        print("BaseData.instance.mTopValidator ", BaseData.instance.mTopValidator.count)
+//        print("BaseData.instance.mOtherValidator ", BaseData.instance.mOtherValidator.count)
+//        print("BaseData.instance.mMyValidator ", BaseData.instance.mMyValidator.count)
         
         if (mAllValidator.count <= 0) { self.onShowToast(NSLocalizedString("error_network", comment: "")) }
         else { BaseData.instance.setAllValidators(mAllValidator) }
