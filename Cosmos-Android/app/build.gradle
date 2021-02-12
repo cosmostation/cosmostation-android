@@ -100,6 +100,12 @@ dependencies {
     //web3 for ethermint
     implementation 'org.web3j:core:4.6.0-android'
 
+    //Grpc and protobuff
+    implementation 'io.grpc:grpc-okhttp:1.33.1'
+    implementation 'io.grpc:grpc-protobuf:1.33.1'
+    implementation 'io.grpc:grpc-stub:1.33.1'
+    implementation 'com.google.protobuf:protobuf-java:3.14.0'
+    implementation 'com.google.protobuf:protobuf-java-util:3.14.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
