@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Fee_Description;
@@ -46,17 +46,13 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_AMOUNT_STAKE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_RATE_LOW;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IRIS_GAS_AMOUNT_REWARD_MUX;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.STARGATE_GAS_AMOUNT_MID;
 import static wannabit.io.cosmostaion.base.BaseConstant.STARGATE_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -67,7 +63,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
-
 
 public class RewardStep2Fragment extends BaseFragment implements View.OnClickListener {
 

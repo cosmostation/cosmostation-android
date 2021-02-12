@@ -2,13 +2,14 @@ package wannabit.io.cosmostaion.widget;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,11 +22,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 
 public class WalletAddressHolder extends WalletHolder {
-    public CardView    itemRoot;
-    public ImageView   itemKeyStatus;
-    public ImageView   itemBtnWebLink;
-    public ImageView   itemBtnCopy;
-    public TextView    itemAddressTv;
+    public CardView     itemRoot;
+    public ImageView    itemKeyStatus;
+    public ImageView    itemBtnWebLink;
+    public ImageView    itemBtnCopy;
+    public TextView     itemAddressTv;
 
     public WalletAddressHolder(@NonNull View itemView) {
         super(itemView);

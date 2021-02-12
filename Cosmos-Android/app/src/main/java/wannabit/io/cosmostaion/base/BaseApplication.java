@@ -10,7 +10,6 @@ import com.squareup.picasso.Picasso;
 import java.util.UUID;
 
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class BaseApplication extends Application {
 

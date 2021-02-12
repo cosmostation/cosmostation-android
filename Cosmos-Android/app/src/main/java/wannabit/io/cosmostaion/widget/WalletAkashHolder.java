@@ -1,11 +1,11 @@
 package wannabit.io.cosmostaion.widget;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -19,7 +19,6 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 
 public class WalletAkashHolder extends WalletHolder {
     private TextView        mTvAkashTotal, mTvAkashValue, mTvAkashAvailable, mTvAkashDelegated, mTvAkashUnBonding, mTvAkashRewards;

@@ -1,13 +1,8 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +10,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
@@ -255,37 +257,37 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemRevoked.setVisibility(View.GONE);
             }
 
-            holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+            holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), PorterDuff.Mode.SRC_IN);
             if (getSActivity().mBaseChain.equals(COSMOS_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else if ((getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBand), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBand), PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else if ((getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIov), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIov), PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else if ((getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorCertik), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorCertik), PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorSecret), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorSecret), PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else if (getSActivity().mBaseChain.equals(AKASH_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAkash), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAkash), PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             }  else {

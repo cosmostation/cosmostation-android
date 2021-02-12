@@ -1,12 +1,12 @@
 package wannabit.io.cosmostaion.widget;
 
 import android.Manifest;
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.gun0912.tedpermission.PermissionListener;
@@ -19,20 +19,15 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.ValidatorListActivity;
-import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 
 public class WalletBinanceHolder extends WalletHolder {
     public TextView         mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;

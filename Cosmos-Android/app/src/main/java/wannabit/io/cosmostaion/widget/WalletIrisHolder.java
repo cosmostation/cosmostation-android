@@ -1,10 +1,11 @@
 package wannabit.io.cosmostaion.widget;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -17,11 +18,8 @@ import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 

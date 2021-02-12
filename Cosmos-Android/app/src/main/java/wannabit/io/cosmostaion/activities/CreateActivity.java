@@ -3,14 +3,15 @@ package wannabit.io.cosmostaion.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
 

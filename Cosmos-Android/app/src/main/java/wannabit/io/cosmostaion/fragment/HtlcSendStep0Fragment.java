@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.squareup.picasso.Picasso;
 
@@ -33,7 +34,6 @@ import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply2;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_RELAY_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;

@@ -5,12 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
-import android.support.v4.os.CancellationSignal;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,6 +12,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
+import androidx.core.os.CancellationSignal;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
@@ -44,8 +45,8 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
     private KeyboardPagerAdapter    mAdapter;
     private String                  mUserInput = "";
 
-    private FingerprintManagerCompat    mFingerprintManagerCompat;
-    private CancellationSignal          mCancellationSignal;
+    private FingerprintManagerCompat mFingerprintManagerCompat;
+    private CancellationSignal mCancellationSignal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

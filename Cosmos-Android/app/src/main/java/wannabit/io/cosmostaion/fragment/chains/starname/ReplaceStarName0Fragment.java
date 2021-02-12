@@ -1,28 +1,22 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
 import android.app.Activity;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -31,7 +25,6 @@ import wannabit.io.cosmostaion.activities.chains.starname.ReplaceStarNameActivit
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameResourceAddActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
-import wannabit.io.cosmostaion.dialog.Dialog_Wallet_for_Starname;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.utils.WUtil;
 

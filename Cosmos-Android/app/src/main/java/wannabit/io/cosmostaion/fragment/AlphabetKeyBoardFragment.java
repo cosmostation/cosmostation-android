@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseFragment;
 
 public class AlphabetKeyBoardFragment extends KeyboardFragment implements View.OnClickListener{
 

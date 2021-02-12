@@ -2,13 +2,14 @@ package wannabit.io.cosmostaion.widget;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +19,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -33,12 +33,12 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
 
 public class WalletPriceHolder extends WalletHolder {
-    private CardView            itemRoot;
-    private TextView            itemPerPrice, itemUpDownPrice;
-    private ImageView           itemUpDownImg;
-    private LinearLayout        itemBuyLayer;
-    private RelativeLayout      itemBuyCoinBtn;
-    private TextView            itemBuyCoinTv;
+    private CardView        itemRoot;
+    private TextView        itemPerPrice, itemUpDownPrice;
+    private ImageView       itemUpDownImg;
+    private LinearLayout    itemBuyLayer;
+    private RelativeLayout  itemBuyCoinBtn;
+    private TextView        itemBuyCoinTv;
 
     public WalletPriceHolder(@NonNull View itemView) {
         super(itemView);

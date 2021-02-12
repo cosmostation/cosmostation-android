@@ -12,7 +12,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/bg_cosmos"/>
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/font_ssm_17_white"/>
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/step_layer"

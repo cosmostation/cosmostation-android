@@ -1,7 +1,8 @@
 package wannabit.io.cosmostaion.base;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class BaseFragment extends Fragment {
 

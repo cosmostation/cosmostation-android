@@ -3,9 +3,6 @@ package wannabit.io.cosmostaion.activities;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -58,7 +59,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
-
 
     private Toolbar         mToolbar;
     private Button          mBtnCheck, mBtnDelete;

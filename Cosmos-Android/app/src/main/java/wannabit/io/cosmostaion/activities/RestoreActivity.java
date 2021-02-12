@@ -6,10 +6,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +21,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.bitcoinj.crypto.MnemonicCode;
 
@@ -361,8 +362,10 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         onConfirmedWords();
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
             intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(mWords));

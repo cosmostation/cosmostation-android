@@ -1,10 +1,11 @@
 package wannabit.io.cosmostaion.widget;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -16,9 +17,7 @@ import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class WalletSecretHolder extends WalletHolder {

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.binance.dex.api.client.domain.OrderSide;
 import com.binance.dex.api.client.domain.OrderType;

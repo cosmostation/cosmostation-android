@@ -10,7 +10,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/bg_cosmos"/>
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             style="@style/font_ssm_17_white"
             android:text="@string/str_wallet_manage"/>
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
 
     <LinearLayout
@@ -31,14 +31,14 @@
         android:layout_below="@+id/tool_bar"
         android:paddingTop="@dimen/space_4"
         android:orientation="horizontal">
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chain_recycler"
             android:layout_width="@dimen/space_92"
             android:layout_height="match_parent"
             android:paddingTop="@dimen/space_4"
             android:clipToPadding="false"
             android:overScrollMode="never"/>
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/account_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/bg_cosmos"/>
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             style="@style/font_ssm_17_white"
             android:text="@string/str_watch_address_path_c"/>
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/input_layer"

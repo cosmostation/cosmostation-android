@@ -3,9 +3,6 @@ package wannabit.io.cosmostaion.activities;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

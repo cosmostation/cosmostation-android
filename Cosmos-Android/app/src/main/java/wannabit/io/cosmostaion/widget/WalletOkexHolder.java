@@ -1,11 +1,12 @@
 package wannabit.io.cosmostaion.widget;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +14,6 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKUnbondingActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;

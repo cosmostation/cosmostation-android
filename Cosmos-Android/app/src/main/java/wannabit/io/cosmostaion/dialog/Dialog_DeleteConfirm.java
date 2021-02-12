@@ -1,18 +1,18 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.fragment.app.DialogFragment;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountDetailActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class Dialog_DeleteConfirm extends DialogFragment {
 

@@ -2,13 +2,12 @@ package wannabit.io.cosmostaion.crypto;
 
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Base64;
 
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
-import java.security.PrivateKey;
 import java.security.Signature;
 
 import javax.crypto.Cipher;
@@ -16,7 +15,6 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class CryptoHelper {
