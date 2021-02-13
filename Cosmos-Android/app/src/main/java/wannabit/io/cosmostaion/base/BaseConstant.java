@@ -195,6 +195,26 @@ public class BaseConstant {
     public final static int TASK_V1_BROAD_CLAIM_REWARDS                 = 3302;
     public final static int TASK_V1_BROAD_SEND                          = 3303;
 
+
+    public final static int TASK_GRPC_FETCH_BALANCE                     = 4001;
+    public final static int TASK_GRPC_FETCH_BONDED_VALIDATORS           = 4002;
+    public final static int TASK_GRPC_FETCH_UNBONDED_VALIDATORS         = 4003;
+    public final static int TASK_GRPC_FETCH_UNBONDING_VALIDATORS        = 4004;
+    public final static int TASK_GRPC_FETCH_DELEGATIONS                 = 4005;
+    public final static int TASK_GRPC_FETCH_UNDELEGATIONS               = 4006;
+    public final static int TASK_GRPC_FETCH_ALL_REWARDS                 = 4007;
+    public final static int TASK_GRPC_FETCH_PARAM_MINT                  = 4008;
+    public final static int TASK_GRPC_FETCH_IRIS_PARAM_MINT             = 4009;
+    public final static int TASK_GRPC_FETCH_INFLATION                   = 4010;
+    public final static int TASK_GRPC_FETCH_PROVISION                   = 4011;
+    public final static int TASK_GRPC_FETCH_STAKING_POOL                = 4012;
+    public final static int TASK_GRPC_FETCH_IRIS_TOKEN_LIST             = 4013;
+
+
+
+
+
+
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
 
     public final static String COSMOS_AUTH_TYPE_DELAYEDACCOUNT              = "cosmos-sdk/DelayedVestingAccount";

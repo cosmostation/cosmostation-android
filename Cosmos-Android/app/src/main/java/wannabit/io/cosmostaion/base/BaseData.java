@@ -15,7 +15,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
+import cosmos.base.v1beta1.CoinOuterClass;
+import cosmos.distribution.v1beta1.Distribution;
+import cosmos.staking.v1beta1.Staking;
+import irismod.token.TokenOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
@@ -165,6 +170,161 @@ public class BaseData {
     public BigDecimal                   mProvision_V1;
 
     public ArrayList<IrisToken_V1>      mIrisTokens_V1 = new ArrayList<>();
+
+
+    //gRPC
+    public ArrayList<Staking.Validator>                         mGRpcTopValidators = new ArrayList<>();
+    public ArrayList<Staking.Validator>                         mGRpcOtherValidators = new ArrayList<>();
+    public ArrayList<Staking.Validator>                         mGRpcAllValidators = new ArrayList<>();
+    public ArrayList<Staking.Validator>                         mGRpcMyValidators = new ArrayList<>();
+
+    public ArrayList<CoinOuterClass.Coin>                       mGrpcBalance = new ArrayList<>();
+    public ArrayList<Staking.DelegationResponse>                mGrpcDelegations = new ArrayList<>();
+    public ArrayList<Staking.UnbondingDelegation>               mGrpcUndelegations = new ArrayList<>();
+    public ArrayList<Distribution.DelegationDelegatorReward>    mGrpcRewards = new ArrayList<>();
+
+    public Staking.Pool                                         mGrpcStakingPool;
+    public cosmos.mint.v1beta1.Mint.Params                      mGrpcParamMint;
+    public BigDecimal                                           mGrpcInflation;
+    public BigDecimal                                           mGrpcProvision;
+
+    public irishub.mint.Mint.Params                             mGrpcIrisParamMint;
+    public ArrayList<TokenOuterClass.Token>                     mGrpcIrisTokens = new ArrayList<>();
+
+
+    //gRPC funcs
+    public BigDecimal getAvailable(String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (CoinOuterClass.Coin coin: mGrpcBalance) {
+            if (coin.getDenom().equalsIgnoreCase(denom)) {
+                result = new BigDecimal(coin.getAmount());
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal getDelegationSum() {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Staking.DelegationResponse delegation: mGrpcDelegations) {
+            sum = sum.add(new BigDecimal(delegation.getBalance().getAmount()));
+        }
+        return sum;
+    }
+
+    public BigDecimal getDelegation(String valOpAddress) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Staking.DelegationResponse delegation: mGrpcDelegations) {
+            if (delegation.getDelegation().getValidatorAddress().equals(valOpAddress)) {
+                result = new BigDecimal(delegation.getBalance().getAmount());
+            }
+        }
+        return result;
+    }
+
+    public Staking.Delegation getDelegationInfo(String valOpAddress) {
+        for (Staking.DelegationResponse delegation: mGrpcDelegations) {
+            if (delegation.getDelegation().getValidatorAddress().equals(valOpAddress)) {
+                return delegation.getDelegation();
+            }
+        }
+        return null;
+    }
+
+    public BigDecimal getUndelegationSum() {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Staking.UnbondingDelegation undelegation: mGrpcUndelegations) {
+            sum = sum.add(getAllUnbondingBalance(undelegation));
+        }
+        return sum;
+    }
+
+    public BigDecimal getUndelegation(String valOpAddress) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Staking.UnbondingDelegation undelegation: mGrpcUndelegations) {
+            if (undelegation.getValidatorAddress().equals(valOpAddress)) {
+                result = getAllUnbondingBalance(undelegation);
+            }
+        }
+        return result;
+    }
+
+    public Staking.UnbondingDelegation getUndelegationInfo(String valOpAddress) {
+        for (Staking.UnbondingDelegation undelegation: mGrpcUndelegations) {
+            if (undelegation.getValidatorAddress().equals(valOpAddress)) {
+                return undelegation;
+            }
+        }
+        return null;
+    }
+
+    public BigDecimal getAllUnbondingBalance(Staking.UnbondingDelegation undelegation) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (undelegation != null && undelegation.getEntriesList().size() > 0) {
+            for (Staking.UnbondingDelegationEntry entry: undelegation.getEntriesList()) {
+                result = result.add(new BigDecimal(entry.getBalance()));
+            }
+        }
+        return result;
+    }
+
+
+    public BigDecimal getRewardSum(String denom) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Distribution.DelegationDelegatorReward reward: mGrpcRewards) {
+            sum = sum.add(decCoinAmount(reward.getRewardList(), denom));
+        }
+        return sum;
+    }
+
+    public BigDecimal getReward(String denom, String valOpAddress) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Distribution.DelegationDelegatorReward reward: mGrpcRewards) {
+            if (reward.getValidatorAddress().equals(valOpAddress)) {
+                result = decCoinAmount(reward.getRewardList(), denom);
+            }
+        }
+        return result;
+    }
+
+    public Distribution.DelegationDelegatorReward getRewardInfo(String valOpAddress) {
+        for (Distribution.DelegationDelegatorReward reward: mGrpcRewards) {
+            if (reward.getValidatorAddress().equals(valOpAddress)) {
+                return reward;
+            }
+        }
+        return null;
+    }
+
+    public CoinOuterClass.DecCoin decCoin(List<CoinOuterClass.DecCoin> coins, String denom) {
+        for (CoinOuterClass.DecCoin coin: coins) {
+            if (coin.getDenom().equals(denom)) {
+                return coin;
+            }
+        }
+        return null;
+    }
+
+    public BigDecimal decCoinAmount(List<CoinOuterClass.DecCoin> coins, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (CoinOuterClass.DecCoin coin: coins) {
+            if (coin.getDenom().equals(denom)) {
+                return new BigDecimal(coin.getAmount()).movePointLeft(18);
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal getAllMainAsset(String denom) {
+        return getAvailable(denom).add(getDelegationSum()).add(getUndelegationSum()).add(getRewardSum(denom));
+    }
+
+
+
+
+
+
+
+
 
     public BigDecimal getBnbTransferFee() {
         BigDecimal result =  BigDecimal.ZERO;

@@ -383,16 +383,18 @@ public class WDp {
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
         if (chain.equals(COSMOS_TEST)) {
-            if (baseData == null || baseData.mStakingPool_V1 == null || baseData.mProvision_V1 == null || baseData.mParamMint_V1 == null) { return result; }
-            BigDecimal provisions = baseData.mProvision_V1;
-            BigDecimal bonded = baseData.mStakingPool_V1.getBondedTokens();
-            BigDecimal blocksPerYear = new BigDecimal(baseData.mParamMint_V1.blocks_per_year);
+            //TODO need real test
+            if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcProvision == null || baseData.mGrpcParamMint == null) { return result; }
+            BigDecimal provisions = baseData.mGrpcProvision;
+            BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
+            BigDecimal blocksPerYear = new BigDecimal(baseData.mGrpcParamMint.getBlocksPerYear());
             return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(blocksPerYear, 24, RoundingMode.DOWN);
 
         } else if (chain.equals(IRIS_TEST)) {
-            if (baseData == null || baseData.mStakingPool_V1 == null || baseData.mParamMint_V1 == null) { return result; }
-            BigDecimal provisions = baseData.mStakingPool_V1.getTotalTokens().multiply(baseData.mParamMint_V1.getInflation());
-            BigDecimal bonded = baseData.mStakingPool_V1.getBondedTokens();
+            if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcIrisParamMint == null) { return result; }
+            BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
+            BigDecimal unbonded = new BigDecimal(baseData.mGrpcStakingPool.getNotBondedTokens());
+            BigDecimal provisions = (bonded.add(unbonded)).multiply(new BigDecimal(baseData.mGrpcIrisParamMint.getInflation())).movePointLeft(18);
             return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(new BigDecimal("6311520"), 24, RoundingMode.DOWN);
 
         } else {

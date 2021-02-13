@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
@@ -61,11 +62,11 @@ public class WalletCosmosHolder extends WalletHolder {
 
         } else if (mainActivity.mBaseChain.equals(COSMOS_TEST)) {
             mTvDenomTitle.setText(mainActivity.getString(R.string.s_muon));
-            final BigDecimal availableAmount = WDp.getAvailable(baseData, TOKEN_COSMOS_TEST);
-            final BigDecimal delegateAmount = WDp.getDelegationSum(baseData);
-            final BigDecimal unbondingAmount = WDp.getUndelegationSum(baseData);
-            final BigDecimal rewardAmount = WDp.getRewardSum(baseData, TOKEN_COSMOS_TEST);
-            final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
+            final BigDecimal availableAmount = baseData.getAvailable(TOKEN_COSMOS_TEST);
+            final BigDecimal delegateAmount = baseData.getDelegationSum();
+            final BigDecimal unbondingAmount = baseData.getUndelegationSum();
+            final BigDecimal rewardAmount = baseData.getRewardSum(TOKEN_COSMOS_TEST);
+            final BigDecimal totalAmount = baseData.getAllMainAsset(TOKEN_COSMOS_TEST);
 
             mTvAtomTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
             mTvAtomAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
