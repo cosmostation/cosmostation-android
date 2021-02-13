@@ -267,7 +267,6 @@ public class BaseData {
         return result;
     }
 
-
     public BigDecimal getRewardSum(String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Distribution.DelegationDelegatorReward reward: mGrpcRewards) {
