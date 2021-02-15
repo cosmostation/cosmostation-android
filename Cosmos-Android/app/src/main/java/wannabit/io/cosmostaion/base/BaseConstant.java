@@ -209,6 +209,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_PROVISION                   = 4011;
     public final static int TASK_GRPC_FETCH_STAKING_POOL                = 4012;
     public final static int TASK_GRPC_FETCH_IRIS_TOKEN_LIST             = 4013;
+    public final static int TASK_GRPC_FETCH_VALIDATOR_INFO              = 4014;
+    public final static int TASK_GRPC_FETCH_SELF_BONDING                = 4015;
 
 
 

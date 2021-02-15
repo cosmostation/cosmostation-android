@@ -221,10 +221,10 @@ public class BaseData {
         return result;
     }
 
-    public Staking.Delegation getDelegationInfo(String valOpAddress) {
+    public Staking.DelegationResponse getDelegationInfo(String valOpAddress) {
         for (Staking.DelegationResponse delegation: mGrpcDelegations) {
             if (delegation.getDelegation().getValidatorAddress().equals(valOpAddress)) {
-                return delegation.getDelegation();
+                return delegation;
             }
         }
         return null;

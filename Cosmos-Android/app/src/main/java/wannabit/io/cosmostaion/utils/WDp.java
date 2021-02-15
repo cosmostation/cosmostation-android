@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -79,7 +80,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONTH_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -1334,32 +1337,31 @@ public class WDp {
         return  getPercentDp(result);
     }
 
+    public static SpannableString getSelfBondGrpcRate(String total, String self) {
+        BigDecimal result = new BigDecimal(self).movePointLeft(18).multiply(new BigDecimal("100")).divide(new BigDecimal(total), 2, RoundingMode.DOWN);
+        return  getPercentDp(result);
+    }
+
     public static SpannableString getCommissionRate(String rate) {
         BigDecimal result = new BigDecimal(rate).multiply(new BigDecimal("100")).setScale(2, RoundingMode.DOWN);
         return getPercentDp(result);
     }
 
-    public static BigDecimal getCommissionRateDecimal(String rate) {
-        return new BigDecimal(rate).setScale(2, RoundingMode.DOWN);
+    public static SpannableString getDpCommissionGrpcRate(Staking.Validator validator) {
+        BigDecimal result = getCommissionGrpcRate(validator);
+        result = result.movePointRight(2).setScale(2, RoundingMode.DOWN);
+        return getPercentDp(result);
     }
 
-    public static int getCommisionColor(String rateS) {
-        int result = R.color.colorGray1;
-        float rate = Float.parseFloat(rateS);
-        if(rate > 0.1999f) {
-            result = R.color.colorCommision4;
-            return result;
+    public static BigDecimal getCommissionGrpcRate(Staking.Validator validator) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (validator != null && validator.getCommission() != null && validator.getCommission().getCommissionRates() != null &&
+                validator.getCommission().getCommissionRates().getRate() != null) {
+            result = new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18);
         }
-//        if(rate > 0.15f) {
-//            result = R.color.colorCommision3;
-//            return result;
-//        }
-//        if(rate > 0.121f) {
-//            result = R.color.colorCommision3;
-//            return result;
-//        }
         return result;
     }
+
 
     public static BigDecimal uAtomToAtom(BigDecimal uatom) {
         return uatom.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN);
@@ -2632,6 +2634,16 @@ public class WDp {
         }
         return c.getString(R.string.str_bep3_status_open);
 
+    }
+
+    public static String getMonikerImgUrl(BaseChain basechain, String opAddress) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
+            return COSMOS_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
+            return IRIS_VAL_URL + opAddress + ".png";
+
+        }
+        return "";
     }
 
 }

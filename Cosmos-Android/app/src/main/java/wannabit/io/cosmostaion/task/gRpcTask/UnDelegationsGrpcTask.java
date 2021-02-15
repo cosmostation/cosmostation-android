@@ -25,7 +25,6 @@ public class UnDelegationsGrpcTask extends CommonTask {
 
     public UnDelegationsGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account) {
         super(app, listener);
-        WLog.w("UnDelegationsGrpcTask");
         this.mChain = chain;
         this.mAccount = account;
         this.mResult.taskType = TASK_GRPC_FETCH_UNDELEGATIONS;
