@@ -18,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import cosmos.distribution.v1beta1.Distribution;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -35,21 +36,26 @@ import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
+import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_IRIS_REWARD;
 
 public class ReInvestActivity extends BaseActivity implements TaskListener {
@@ -67,6 +73,9 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
     public Coin                     mReinvestCoin;
     public String                   mReinvestMemo;
     public Fee                      mReinvestFee;
+
+    //gRPC
+    public String                   mValOpAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +100,7 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mValidator = getIntent().getParcelableExtra("validator");
+        mValOpAddress = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new ReInvestPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -137,6 +147,9 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
 
         } else if (mBaseChain.equals(IRIS_MAIN)) {
             new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
     }
@@ -187,7 +200,11 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
     public void onStartReInvest() {
         Intent intent = new Intent(ReInvestActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REINVEST);
-        intent.putExtra("reInvestValidator", mValidator);
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            intent.putExtra("reInvestValAddr", mValOpAddress);
+        } else {
+            intent.putExtra("reInvestValidator", mValidator);
+        }
         mReinvestCoin.amount = new BigDecimal(mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
         intent.putExtra("reInvestAmount", mReinvestCoin);
         intent.putExtra("memo", mReinvestMemo);
@@ -207,6 +224,7 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
             } else {
                 onBackPressed();
             }
+
         } else if (result.taskType == TASK_IRIS_REWARD) {
             ResLcdIrisReward mIrisReward = (ResLcdIrisReward)result.resultData;
             if (mIrisReward != null && mIrisReward.getPerValRewardCoin(mValidator.operator_address) != null) {
@@ -215,6 +233,17 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
             } else {
                 onBackPressed();
             }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
+            ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>) result.resultData;
+            if (rewards != null) {
+                getBaseDao().mGrpcRewards = rewards;
+                mReinvestCoin = new Coin(WDp.mainDenom(mBaseChain), getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).toPlainString());
+                mPageAdapter.mCurrentFragment.onRefreshTab();
+            } else {
+                onBackPressed();
+            }
+
         }
     }
 

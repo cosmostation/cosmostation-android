@@ -96,7 +96,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mDelegateAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            mValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValOpAddress_V1).getDescription().getMoniker());
+            mValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValOpAddress).getDescription().getMoniker());
             mMemo.setText(getSActivity().mToDelegateMemo);
 
         }

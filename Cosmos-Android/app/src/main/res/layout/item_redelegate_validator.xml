@@ -54,7 +54,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/space_4"
                         android:layout_marginTop="@dimen/space_4"
-                        android:src="@drawable/free_ic"/>
+                        android:src="@drawable/free_ic"
+                        android:visibility="gone"/>
                 </RelativeLayout>
             </LinearLayout>
 

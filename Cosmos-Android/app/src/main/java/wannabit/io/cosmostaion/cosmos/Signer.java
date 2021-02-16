@@ -272,7 +272,6 @@ public class Signer {
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
-
     public static ServiceOuterClass.BroadcastTxRequest getGrpcClaimRewardsReq(Auth.BaseAccount fromAccount, ArrayList<String> toValAddresses, Fee fee, String memo, DeterministicKey pKey, BaseChain chain) {
         ArrayList<Any> msgsAny = new ArrayList<>();
         for (String valAddr: toValAddresses) {
@@ -280,6 +279,38 @@ public class Signer {
             Any msgClaimRewardAny = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward").setValue(msgClaimReward.toByteString()).build();
             msgsAny.add(msgClaimRewardAny);
         }
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(fromAccount, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(fromAccount, txBody, authInfo, pKey, chain);
+
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcReDelegateReq(Auth.BaseAccount fromAccount, String fromValAddress, String toValAddress, Coin amounts, Fee fee, String memo, DeterministicKey pKey, BaseChain chain) {
+        CoinOuterClass.Coin toReDelegateCoin = CoinOuterClass.Coin.newBuilder().setAmount(amounts.amount).setDenom(amounts.denom).build();
+        cosmos.staking.v1beta1.Tx.MsgBeginRedelegate msgReDelegate = cosmos.staking.v1beta1.Tx.MsgBeginRedelegate.newBuilder().setDelegatorAddress(fromAccount.getAddress()).setValidatorSrcAddress(fromValAddress).setValidatorDstAddress(toValAddress).setAmount(toReDelegateCoin).build();
+        Any msgReDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgBeginRedelegate").setValue(msgReDelegate.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgReDelegateAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(fromAccount, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(fromAccount, txBody, authInfo, pKey, chain);
+
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcReInvestReq(Auth.BaseAccount fromAccount, String valAddress, Coin amounts, Fee fee, String memo, DeterministicKey pKey, BaseChain chain) {
+        ArrayList<Any> msgsAny = new ArrayList<>();
+        cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward msgClaimReward = cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress(fromAccount.getAddress()).setValidatorAddress(valAddress).build();
+        Any msgClaimRewardAny = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward").setValue(msgClaimReward.toByteString()).build();
+        msgsAny.add(msgClaimRewardAny);
+
+        CoinOuterClass.Coin toReinvsetCoin = CoinOuterClass.Coin.newBuilder().setAmount(amounts.amount).setDenom(amounts.denom).build();
+        cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress(fromAccount.getAddress()).setValidatorAddress(valAddress).setAmount(toReinvsetCoin).build();
+        Any msgDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
+        msgsAny.add(msgDelegateAny);
+
         TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
         TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(fromAccount, pKey);
         TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);

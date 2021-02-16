@@ -14,16 +14,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
-import wannabit.io.cosmostaion.dialog.Dialog_VestingAccount;
 import wannabit.io.cosmostaion.fragment.RedelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep2Fragment;
@@ -36,12 +35,16 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.task.V1Task.BondedValidatorsTask_V1;
+import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BONDEB_VALIDATOR;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_VALIDATORS;
 
 public class RedelegateActivity extends BaseActivity implements TaskListener {
 
@@ -66,6 +69,11 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
 
     private int                             mTaskCount;
 
+    //gRPC
+    public ArrayList<Staking.Validator>     mGRpcTopValidators = new ArrayList<>();
+    public String                           mValOpAddress;
+    public String                           mToValOpAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,9 +96,14 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mFromValidator          = getIntent().getParcelableExtra("validator");
-        mIrisRedelegateState    = getIntent().getParcelableArrayListExtra("irisReState");
-        mBondingState           = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            mValOpAddress = getIntent().getStringExtra("valOpAddress");
+
+        } else {
+            mFromValidator          = getIntent().getParcelableExtra("validator");
+            mIrisRedelegateState    = getIntent().getParcelableArrayListExtra("irisReState");
+            mBondingState           = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
+        }
 
         mPageAdapter = new RedelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -128,12 +141,6 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         });
         mViewPager.setCurrentItem(0);
         onFetchValidtors();
-
-        if (mBaseChain.equals(KAVA_MAIN) && (WDp.getVestedCoin(mAccount.balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0)) {
-            Dialog_VestingAccount dialog = Dialog_VestingAccount.newInstance(null);
-            dialog.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-        }
     }
 
     @Override
@@ -187,13 +194,19 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     public void onStartRedelegate() {
         Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REDELEGATE);
-        intent.putExtra("fromValidator", mFromValidator);
-        intent.putExtra("toValidator", mToValidator);
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            intent.putExtra("fromValidatorAddr", mValOpAddress);
+            intent.putExtra("toValidatorAddr", mToValOpAddress);
+        } else {
+            intent.putExtra("fromValidator", mFromValidator);
+            intent.putExtra("toValidator", mToValidator);
+        }
         intent.putExtra("rAmount", mReDelegateAmount);
         intent.putExtra("memo", mReDelegateMemo);
         intent.putExtra("fee", mReDelegateFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
 
     }
 
@@ -201,7 +214,13 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     private void onFetchValidtors() {
         if(mTaskCount > 0) return;
         mTaskCount = 1;
-        new ValidatorInfoBondedTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else {
+            new ValidatorInfoBondedTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        }
 
     }
 
@@ -209,7 +228,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if(isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_FETCH_BONDEB_VALIDATOR) {
+        if (result.taskType == TASK_FETCH_BONDEB_VALIDATOR) {
             mToValidators.clear();
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
             if(temp != null) {
@@ -221,6 +240,20 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
                 WUtil.onSortByValidatorPower(mToValidators);
             }
             if(!result.isSuccess) { Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show(); }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_BONDED_VALIDATORS) {
+            ArrayList<Staking.Validator> temp = (ArrayList<Staking.Validator>)result.resultData;
+            if (temp != null) {
+                for (Staking.Validator val:temp) {
+                    if (!val.getOperatorAddress().equals(mValOpAddress)) {
+                        mGRpcTopValidators.add(val);
+                    }
+                }
+                WUtil.onSortByValidatorPowerV1(mGRpcTopValidators);
+
+            } else {
+                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+            }
         }
 
         if(mTaskCount == 0) {

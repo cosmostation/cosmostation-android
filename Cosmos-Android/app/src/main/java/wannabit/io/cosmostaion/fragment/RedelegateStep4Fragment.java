@@ -24,9 +24,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -77,20 +79,32 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
     public void onRefreshTab() {
         BigDecimal toReDeleagteAmount = new BigDecimal(getSActivity().mReDelegateAmount.amount);
         BigDecimal feeAmount= new BigDecimal(getSActivity().mReDelegateFee.amount.get(0).amount);
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
-                getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
-                getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
-                getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-            mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 6, getSActivity().mBaseChain));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
 
-        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-            mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 18, getSActivity().mBaseChain));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
+        if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+
+            mFromValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValOpAddress).getDescription().getMoniker());
+            mToValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mToValOpAddress).getDescription().getMoniker());
+            mMemo.setText(getSActivity().mReDelegateMemo);
+
+        } else {
+            if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
+                    getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
+                    getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
+                    getSActivity().mBaseChain.equals(SECRET_MAIN)) {
+                mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 6, getSActivity().mBaseChain));
+                mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+
+            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+                mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 18, getSActivity().mBaseChain));
+                mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
+            }
+            mFromValidatorName.setText(getSActivity().mFromValidator.description.moniker);
+            mToValidatorName.setText(getSActivity().mToValidator.description.moniker);
+            mMemo.setText(getSActivity().mReDelegateMemo);
         }
-        mFromValidatorName.setText(getSActivity().mFromValidator.description.moniker);
-        mToValidatorName.setText(getSActivity().mToValidator.description.moniker);
-        mMemo.setText(getSActivity().mReDelegateMemo);
+
     }
 
 

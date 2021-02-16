@@ -78,7 +78,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
 
-    //V1 .40 version
+    //gRPC
     public ArrayList<String>            mValAddresses;
 
     @Override

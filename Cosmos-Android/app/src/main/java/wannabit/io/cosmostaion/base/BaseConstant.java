@@ -212,11 +212,15 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_VALIDATOR_INFO              = 4014;
     public final static int TASK_GRPC_FETCH_SELF_BONDING                = 4015;
     public final static int TASK_GRPC_FETCH_WITHDRAW_ADDRESS            = 4016;
+    public final static int TASK_GRPC_FETCH_REDELEGATIONS_TO            = 4017;
+    public final static int TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO       = 4018;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
     public final static int TASK_GRPC_BROAD_CLAIM_REWARDS               = 4302;
     public final static int TASK_GRPC_BROAD_SEND                        = 4303;
+    public final static int TASK_GRPC_BROAD_REDELEGATE                  = 4304;
+    public final static int TASK_GRPC_BROAD_REINVEST                    = 4305;
 
 
 
@@ -549,6 +553,7 @@ public class BaseConstant {
     public final static String STARGATE_GAS_RATE_AVERAGE                = "0.025";
     public final static String STARGATE_GAS_AMOUNT_LOW                  = "100000";
     public final static String STARGATE_GAS_AMOUNT_MID                  = "200000";
+    public final static String STARGATE_GAS_AMOUNT_HIGH                 = "300000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";
