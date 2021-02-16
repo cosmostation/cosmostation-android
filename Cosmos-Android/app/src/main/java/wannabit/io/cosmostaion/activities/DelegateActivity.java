@@ -114,13 +114,6 @@ public class DelegateActivity extends BaseActivity {
                 onHideKeyboard();
             }
         });
-
-//        if (mBaseChain.equals(BaseChain.KAVA_MAIN) && (WDp.getVestedCoin(mAccount.balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0)) {
-//            Dialog_VestingAccount dialog = Dialog_VestingAccount.newInstance(null);
-//            dialog.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-//        }
-
     }
 
     @Override

@@ -318,6 +318,14 @@ public class BaseData {
     }
 
 
+    public Staking.Validator getValidatorInfo(String valOpAddress) {
+        for (Staking.Validator val: mGRpcAllValidators) {
+            if (val.getOperatorAddress().equals(valOpAddress)) {
+                return val;
+            }
+        }
+        return null;
+    }
 
 
 

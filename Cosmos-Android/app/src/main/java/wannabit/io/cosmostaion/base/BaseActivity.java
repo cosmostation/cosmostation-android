@@ -314,10 +314,17 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onHideWaitDialog() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("wait");
-        if (prev != null) {
-            ft.remove(prev).commitNowAllowingStateLoss();
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        Fragment prev = getSupportFragmentManager().findFragmentByTag("wait");
+//        if (prev != null) {
+//            WLog.w("not null");
+//            ft.remove(prev).commitNowAllowingStateLoss();
+//        } else {
+//            WLog.w("null null");
+//
+//        }
+        if (mDialogWait != null) {
+            mDialogWait.dismiss();
         }
     }
 

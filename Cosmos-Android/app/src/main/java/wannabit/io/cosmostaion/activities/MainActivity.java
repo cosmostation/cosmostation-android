@@ -477,8 +477,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onStartSendActivity() {
-        if(mAccount == null) return;
-        if(!mAccount.hasPrivateKey) {
+        if (mAccount == null) return;
+        if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();

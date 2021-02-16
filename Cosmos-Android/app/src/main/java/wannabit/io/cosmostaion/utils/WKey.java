@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.utils;
 import android.util.Base64;
 
 import com.google.common.collect.ImmutableList;
+import com.google.protobuf.Any;
+import com.google.protobuf.ByteString;
 
 import org.bitcoinj.core.Bech32;
 import org.bitcoinj.core.ECKey;
@@ -182,6 +184,13 @@ public class WKey {
             WLog.w("Exception");
         }
         return result;
+    }
+
+    // For gRpc Keys
+    public static Any generateGrpcPubKeyFromPriv(String privateKey) {
+        ECKey ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+        cosmos.crypto.secp256k1.Keys.PubKey pubKey = cosmos.crypto.secp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
+        return Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(pubKey.toByteString()).build();
     }
 
 

@@ -32,9 +32,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -73,9 +75,9 @@ public class MnemonicCheckActivity extends BaseActivity {
 
         mEntropy = getIntent().getStringExtra("entropy");
         Account toCheck = getBaseDao().onSelectAccount(""+getIntent().getLongExtra("checkid", -1));
-        if (getChain(toCheck.baseChain).equals(COSMOS_MAIN)) {
+        if (getChain(toCheck.baseChain).equals(COSMOS_MAIN) || getChain(toCheck.baseChain).equals(COSMOS_TEST)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
-        } else if (getChain(toCheck.baseChain).equals(IRIS_MAIN)) {
+        } else if (getChain(toCheck.baseChain).equals(IRIS_MAIN) || getChain(toCheck.baseChain).equals(IRIS_TEST)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
         } else if (getChain(toCheck.baseChain).equals(BNB_MAIN)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
@@ -103,9 +105,9 @@ public class MnemonicCheckActivity extends BaseActivity {
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
 
         for(int i = 0; i < mWordsLayer.length; i++) {
-            if (getChain(toCheck.baseChain).equals(COSMOS_MAIN)) {
+            if (getChain(toCheck.baseChain).equals(COSMOS_MAIN) || getChain(toCheck.baseChain).equals(COSMOS_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_atom));
-            } else if (getChain(toCheck.baseChain).equals(IRIS_MAIN)) {
+            } else if (getChain(toCheck.baseChain).equals(IRIS_MAIN) || getChain(toCheck.baseChain).equals(IRIS_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iris));
             } else if (getChain(toCheck.baseChain).equals(BNB_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_bnb));

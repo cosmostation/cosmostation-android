@@ -43,9 +43,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -309,7 +311,25 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         }
 
 
-        else if (mBaseChain.equals(BNB_TEST)) {
+        else if (mBaseChain.equals(COSMOS_TEST)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setVisibility(View.GONE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_test_cosmos));
+
+        } else if (mBaseChain.equals(IRIS_TEST)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setVisibility(View.GONE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_test_iris));
+
+        } else if (mBaseChain.equals(BNB_TEST)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardAlarm.setVisibility(View.GONE);
