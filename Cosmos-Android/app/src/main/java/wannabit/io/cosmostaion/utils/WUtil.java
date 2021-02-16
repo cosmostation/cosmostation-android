@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
@@ -35,6 +36,8 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import cosmos.base.v1beta1.CoinOuterClass;
+import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
@@ -947,6 +950,35 @@ public class WUtil {
                 return rewardO2.compareTo(rewardO1);
             }
         });
+    }
+
+
+
+    public static void onSortRewardAmount(ArrayList<Distribution.DelegationDelegatorReward> rewards, String denom) {
+        Collections.sort(rewards, new Comparator<Distribution.DelegationDelegatorReward>() {
+            @Override
+            public int compare(Distribution.DelegationDelegatorReward o1, Distribution.DelegationDelegatorReward o2) {
+                BigDecimal rewardO1 = getGrpcRewardAmount(o1, denom);
+                BigDecimal rewardO2 = getGrpcRewardAmount(o2, denom);
+                return rewardO2.compareTo(rewardO1);
+            }
+        });
+    }
+
+    public static BigDecimal getGrpcRewardAmount(Distribution.DelegationDelegatorReward reward, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        result = decCoinAmount(reward.getRewardList(), denom);
+        return result;
+    }
+
+    public static BigDecimal decCoinAmount(List<CoinOuterClass.DecCoin> coins, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (CoinOuterClass.DecCoin coin: coins) {
+            if (coin.getDenom().equals(denom)) {
+                return new BigDecimal(coin.getAmount()).movePointLeft(18);
+            }
+        }
+        return result;
     }
 
     public static void onSortingByCommission(ArrayList<Validator> validators, final BaseChain chain) {

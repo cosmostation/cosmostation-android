@@ -123,7 +123,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                         getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
                         getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
                         getSActivity().mBaseChain.equals(SECRET_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
-                    if(es.equals("0.000000")) {
+                    if (es.equals("0.000000")) {
                         mAmountInput.setText("0.00000");
                         mAmountInput.setSelection(7);
                     } else {
@@ -226,11 +226,11 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         }
 
         else if (getSActivity().mBaseChain.equals(COSMOS_TEST)) {
-            mMaxAvailable = WDp.getAvailable(getBaseDao(), TOKEN_COSMOS_TEST).subtract(new BigDecimal("5000"));
+            mMaxAvailable = getSActivity().getBaseDao().getAvailable(TOKEN_COSMOS_TEST).subtract(new BigDecimal("5000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else if (getSActivity().mBaseChain.equals(IRIS_TEST)) {
-            mMaxAvailable = WDp.getAvailable(getBaseDao(), TOKEN_IRIS_TEST).subtract(new BigDecimal("5000"));
+            mMaxAvailable = getSActivity().getBaseDao().getAvailable(TOKEN_IRIS_TEST).subtract(new BigDecimal("5000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         }

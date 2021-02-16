@@ -65,6 +65,7 @@ import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -270,7 +271,7 @@ public class BaseData {
     public BigDecimal getRewardSum(String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Distribution.DelegationDelegatorReward reward: mGrpcRewards) {
-            sum = sum.add(decCoinAmount(reward.getRewardList(), denom));
+            sum = sum.add(WUtil.decCoinAmount(reward.getRewardList(), denom));
         }
         return sum;
     }
@@ -279,7 +280,7 @@ public class BaseData {
         BigDecimal result = BigDecimal.ZERO;
         for (Distribution.DelegationDelegatorReward reward: mGrpcRewards) {
             if (reward.getValidatorAddress().equals(valOpAddress)) {
-                result = decCoinAmount(reward.getRewardList(), denom);
+                result = WUtil.decCoinAmount(reward.getRewardList(), denom);
             }
         }
         return result;
@@ -301,16 +302,6 @@ public class BaseData {
             }
         }
         return null;
-    }
-
-    public BigDecimal decCoinAmount(List<CoinOuterClass.DecCoin> coins, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (CoinOuterClass.DecCoin coin: coins) {
-            if (coin.getDenom().equals(denom)) {
-                return new BigDecimal(coin.getAmount()).movePointLeft(18);
-            }
-        }
-        return result;
     }
 
     public BigDecimal getAllMainAsset(String denom) {

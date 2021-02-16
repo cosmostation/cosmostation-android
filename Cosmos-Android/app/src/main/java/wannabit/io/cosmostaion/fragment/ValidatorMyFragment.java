@@ -209,14 +209,14 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                         holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), getBaseDao().mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_AKASH));
 
                     }
-
-                    holder.itemBtnWithdrawAll.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            getMainActivity().onStartRewardAll();
-                        }
-                    });
                 }
+
+                holder.itemBtnWithdrawAll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getMainActivity().onStartRewardAll();
+                    }
+                });
 
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder    = (RewardMyValidatorHolder)viewHolder;

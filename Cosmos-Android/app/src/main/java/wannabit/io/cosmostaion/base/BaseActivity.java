@@ -842,7 +842,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         }
 
-
         onPriceTic(BaseChain.getChain(mAccount.baseChain));
 //        return true;
     }

@@ -2,8 +2,6 @@ package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
 import org.bitcoinj.crypto.DeterministicKey;
 
-import java.util.ArrayList;
-
 import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
@@ -28,28 +26,28 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_BROAD_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_BROAD_UNDELEGATE;
 
-public class SendGrpcTask extends CommonTask {
-    private BaseChain       mBaseChain;
-    private Account         mAccount;
-    private String          mToAddress;
-    private ArrayList<Coin> mAmount;
-    private String          mMemo;
-    private Fee             mFees;
+public class UndelegateGrpcTask extends CommonTask {
+    private BaseChain           mBaseChain;
+    private Account             mAccount;
+    private String              mValidatorAddress;
+    private Coin                mAmount;
+    private String              mMemo;
+    private Fee                 mFees;
 
-    private Auth.BaseAccount mAuthAccount;
-    private DeterministicKey deterministicKey;
+    private Auth.BaseAccount    mAuthAccount;
+    private DeterministicKey    deterministicKey;
 
-    public SendGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String toAddress, ArrayList<Coin> amount, String memo, Fee fee) {
+    public UndelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String toValidatorAddress, Coin toDelegateAmount, String toDelegateMemo, Fee toFees) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = account;
-        this.mToAddress = toAddress;
-        this.mAmount = amount;
-        this.mMemo = memo;
-        this.mFees = fee;
-        this.mResult.taskType = TASK_GRPC_BROAD_SEND;
+        this.mValidatorAddress = toValidatorAddress;
+        this.mAmount = toDelegateAmount;
+        this.mMemo = toDelegateMemo;
+        this.mFees = toFees;
+        this.mResult.taskType = TASK_GRPC_BROAD_UNDELEGATE;
     }
 
     @Override
@@ -72,7 +70,7 @@ public class SendGrpcTask extends CommonTask {
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e( "SendGrpcTask "+ e.getMessage());
+            WLog.e( "UndelegateGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;
@@ -87,8 +85,7 @@ public class SendGrpcTask extends CommonTask {
 
         //broadCast
         ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSendReq(mAuthAccount, mToAddress, mAmount, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
-
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcUnDelegateReq(mAuthAccount, mValidatorAddress, mAmount, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
         txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
             @Override
             public void onNext(ServiceOuterClass.BroadcastTxResponse value) {
@@ -114,3 +111,4 @@ public class SendGrpcTask extends CommonTask {
         });
     }
 }
+

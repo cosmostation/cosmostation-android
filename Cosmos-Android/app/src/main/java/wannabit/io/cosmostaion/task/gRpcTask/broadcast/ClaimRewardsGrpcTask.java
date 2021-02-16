@@ -17,7 +17,6 @@ import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -28,28 +27,26 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_BROAD_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_BROAD_CLAIM_REWARDS;
 
-public class SendGrpcTask extends CommonTask {
-    private BaseChain       mBaseChain;
-    private Account         mAccount;
-    private String          mToAddress;
-    private ArrayList<Coin> mAmount;
-    private String          mMemo;
-    private Fee             mFees;
+public class ClaimRewardsGrpcTask extends CommonTask {
+    private BaseChain           mBaseChain;
+    private Account             mAccount;
+    private ArrayList<String>   mValAddresses;
+    private String              mMemo;
+    private Fee                 mFees;
 
-    private Auth.BaseAccount mAuthAccount;
-    private DeterministicKey deterministicKey;
+    private Auth.BaseAccount    mAuthAccount;
+    private DeterministicKey    deterministicKey;
 
-    public SendGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String toAddress, ArrayList<Coin> amount, String memo, Fee fee) {
+    public ClaimRewardsGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, ArrayList<String> valAddresses, String toDelegateMemo, Fee toFees) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = account;
-        this.mToAddress = toAddress;
-        this.mAmount = amount;
-        this.mMemo = memo;
-        this.mFees = fee;
-        this.mResult.taskType = TASK_GRPC_BROAD_SEND;
+        this.mValAddresses = valAddresses;
+        this.mMemo = toDelegateMemo;
+        this.mFees = toFees;
+        this.mResult.taskType = TASK_GRPC_BROAD_CLAIM_REWARDS;
     }
 
     @Override
@@ -72,7 +69,7 @@ public class SendGrpcTask extends CommonTask {
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e( "SendGrpcTask "+ e.getMessage());
+            WLog.e( "ClaimRewardsGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;
@@ -87,8 +84,7 @@ public class SendGrpcTask extends CommonTask {
 
         //broadCast
         ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSendReq(mAuthAccount, mToAddress, mAmount, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
-
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcClaimRewardsReq(mAuthAccount, mValAddresses, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
         txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
             @Override
             public void onNext(ServiceOuterClass.BroadcastTxResponse value) {
@@ -113,4 +109,6 @@ public class SendGrpcTask extends CommonTask {
             public void onCompleted() { WLog.w("onCompleted "); }
         });
     }
+
+
 }

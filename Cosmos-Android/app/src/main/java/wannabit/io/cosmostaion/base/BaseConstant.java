@@ -211,6 +211,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_IRIS_TOKEN_LIST             = 4013;
     public final static int TASK_GRPC_FETCH_VALIDATOR_INFO              = 4014;
     public final static int TASK_GRPC_FETCH_SELF_BONDING                = 4015;
+    public final static int TASK_GRPC_FETCH_WITHDRAW_ADDRESS            = 4016;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;

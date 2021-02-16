@@ -14,12 +14,12 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
-import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -96,15 +96,15 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         BigDecimal rewardSum    = BigDecimal.ZERO;
         BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
         if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
-            for (String opAddress: getSActivity().mValOpAddresses_V1) {
-                rewardSum = rewardSum.add(WDp.getReward(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+            for (String opAddress: getSActivity().mValAddresses) {
+                rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
             }
             mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
                 mTvGoalLayer.setVisibility(View.GONE);
                 mExpectedLayer.setVisibility(View.VISIBLE);
-                BigDecimal availableAmount  = WDp.getAvailable(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain));
+                BigDecimal availableAmount  = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
                 BigDecimal expectedAmount   = availableAmount.add(rewardSum).subtract(feeAmount);
                 mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAmount, 6, 6));
                 mExpectedPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), expectedAmount, getSActivity().mBaseChain));
@@ -114,14 +114,14 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 mExpectedLayer.setVisibility(View.GONE);
             }
             String monikers = "";
-            for (Validator_V1 validator: getBaseDao().mAllValidators_V1) {
+            for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
                 boolean isMatch = false;
-                for (String myVal: getSActivity().mValOpAddresses_V1) {
-                    if (myVal.equals(validator.operator_address)) { isMatch = true; break; }
+                for (String myVal: getSActivity().mValAddresses) {
+                    if (myVal.equals(validator.getOperatorAddress())) { isMatch = true; break; }
                 }
                 if (isMatch) {
-                    if (TextUtils.isEmpty(monikers)) {  monikers = validator.description.moniker; }
-                    else { monikers = monikers + ",    " + validator.description.moniker; }
+                    if (TextUtils.isEmpty(monikers)) {  monikers = validator.getDescription().getMoniker(); }
+                    else { monikers = monikers + ",    " + validator.getDescription().getMoniker(); }
                 }
             }
             mTvFromValidators.setText(monikers);
@@ -373,8 +373,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             BigDecimal rewardSum    = BigDecimal.ZERO;
             BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
-            for (String opAddress: getSActivity().mValOpAddresses_V1) {
-                rewardSum = rewardSum.add(WDp.getReward(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+            for (String opAddress: getSActivity().mValAddresses) {
+                rewardSum = rewardSum.add(getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
             }
             return feeAmount.compareTo(rewardSum) < 0;
         }
