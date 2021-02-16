@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -53,6 +54,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -141,7 +143,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     public void onStartDeleteUser() {
-        if(mAccount.hasPrivateKey) {
+        if (mAccount.hasPrivateKey) {
             Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_DELETE_ACCOUNT);
             intent.putExtra("id", mAccount.id);
@@ -160,56 +162,72 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             return;
         }
 
-        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasbalance = false;
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(BAND_MAIN)) {
-            hasbalance  = true;
-
-        } else if (mBaseChain.equals(IRIS_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("80000000000000000")) > 0) {
-                hasbalance  = true;
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("2500")) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
             }
 
-        }  else if (mBaseChain.equals(IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("100000")) > 0) {
-                hasbalance  = true;
-            }
+            getBaseDao().setLastUser(mAccount.id);
+            Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
+            changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
+            startActivity(changeAddress);
 
-        } else if (mBaseChain.equals(IOV_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("100000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(AKASH_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("2500")) > 0) {
-                hasbalance  = true;
-            }
-
-        } else if (mBaseChain.equals(SECRET_MAIN)) {
-            if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("20000")) > 0) {
-                hasbalance  = true;
-            }
 
         } else {
-            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
-            return;
+            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+            boolean hasbalance = false;
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(BAND_MAIN)) {
+                hasbalance  = true;
 
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("80000000000000000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            }  else if (mBaseChain.equals(IOV_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("100000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(IOV_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("100000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(AKASH_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("2500")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(SECRET_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("20000")) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else {
+                Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+                return;
+
+            }
+
+            if (!hasbalance){
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            getBaseDao().setLastUser(mAccount.id);
+            Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
+            changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
+            startActivity(changeAddress);
         }
 
-        if (!hasbalance){
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        getBaseDao().setLastUser(mAccount.id);
-        Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
-        changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
-        startActivity(changeAddress);
     }
 
     private void onInitView() {
@@ -317,7 +335,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardAlarm.setVisibility(View.GONE);
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            mCardRewardAddress.setVisibility(View.GONE);
+            mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_test_cosmos));
 
         } else if (mBaseChain.equals(IRIS_TEST)) {
@@ -326,7 +344,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardAlarm.setVisibility(View.GONE);
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            mCardRewardAddress.setVisibility(View.GONE);
+            mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_test_iris));
 
         } else if (mBaseChain.equals(BNB_TEST)) {
@@ -376,9 +394,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         }
 
-        new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain,  mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        if(TextUtils.isEmpty(mAccount.nickName)) {
+        } else {
+            new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        }
+
+        if (TextUtils.isEmpty(mAccount.nickName)) {
             mAccountName.setText(getString(R.string.str_my_wallet) + mAccount.id);
         } else {
             mAccountName.setText(mAccount.nickName);
@@ -505,6 +529,17 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             if (!TextUtils.isEmpty(rewardAddress)) {
                 mRewardAddress.setText(rewardAddress.trim());
                 if(rewardAddress.equals(mAccount.address)) {
+                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorWhite));
+                } else {
+                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_WITHDRAW_ADDRESS) {
+            String rewardAddress = (String)result.resultData;
+            if (!TextUtils.isEmpty(rewardAddress)) {
+                mRewardAddress.setText(rewardAddress.trim());
+                if (rewardAddress.equals(mAccount.address)) {
                     mRewardAddress.setTextColor(getResources().getColor(R.color.colorWhite));
                 } else {
                     mRewardAddress.setTextColor(getResources().getColor(R.color.colorRed));

@@ -13,7 +13,6 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import cosmos.auth.v1beta1.Auth;
-import cosmos.bank.v1beta1.Tx;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.tx.v1beta1.TxOuterClass;
@@ -318,6 +317,20 @@ public class Signer {
 
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcRewardAddressChangeReq(Auth.BaseAccount fromAccount, String newAddress, Fee fee, String memo, DeterministicKey pKey, BaseChain chain) {
+        cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress msgSetWithdrawAddress = cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress.newBuilder().setDelegatorAddress(fromAccount.getAddress()).setWithdrawAddress(newAddress).build();
+        Any msgSetWithdrawAddressAny = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgSetWithdrawAddress").setValue(msgSetWithdrawAddress.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSetWithdrawAddressAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(fromAccount, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(fromAccount, txBody, authInfo, pKey, chain);
+
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+
 
 
     public static TxOuterClass.TxBody getGrpcTxBody(Any msgAny, String memo) {

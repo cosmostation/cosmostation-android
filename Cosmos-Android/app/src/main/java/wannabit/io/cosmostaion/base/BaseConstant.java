@@ -221,6 +221,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_BROAD_SEND                        = 4303;
     public final static int TASK_GRPC_BROAD_REDELEGATE                  = 4304;
     public final static int TASK_GRPC_BROAD_REINVEST                    = 4305;
+    public final static int TASK_GRPC_BROAD_REWARD_ADDRESS_CHANGE       = 4306;
 
 
 

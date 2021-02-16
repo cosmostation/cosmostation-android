@@ -72,7 +72,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                 return;
             }
 
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.COSMOS_TEST)) {
                 if (targetAddress.startsWith("cosmos1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
@@ -80,7 +80,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.IRIS_TEST)) {
                 if (targetAddress.startsWith("iaa1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
