@@ -487,7 +487,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             Intent intent = new Intent(MainActivity.this, SendActivity.class);
-            if (WDp.getAvailable(getBaseDao(), WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("2500")) <= 0) {
+            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("2500")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }

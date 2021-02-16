@@ -190,7 +190,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
 
         if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
-            mMaxAvailable = WDp.getDelegation(getBaseDao(), getSActivity().mValOpAddress);
+            mMaxAvailable = getBaseDao().getDelegation(getSActivity().mValOpAddress);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else {

@@ -266,7 +266,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Toast.makeText(getBaseContext(), R.string.error_disabled_jailed, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (WDp.getAvailable(getBaseDao(), WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("5000")) <= 0) {
+            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("5000")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -615,21 +615,21 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             if (mBaseChain.equals(COSMOS_TEST)) {
-                if (WDp.getAvailable(getBaseDao(), TOKEN_COSMOS_TEST).compareTo(new BigDecimal("3750")) <= 0) {
+                if (getBaseDao().getAvailable(TOKEN_COSMOS_TEST).compareTo(new BigDecimal("3750")) <= 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (WDp.getReward(getBaseDao(), TOKEN_COSMOS_TEST, mValOpAddress).compareTo(new BigDecimal("3750")) <= 0) {
+                if (getBaseDao().getReward(TOKEN_COSMOS_TEST, mValOpAddress).compareTo(new BigDecimal("3750")) <= 0) {
                     Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
             } else if (mBaseChain.equals(IRIS_TEST)) {
-                if (WDp.getAvailable(getBaseDao(), TOKEN_IRIS_TEST).compareTo(new BigDecimal("3750")) <= 0) {
+                if (getBaseDao().getAvailable(TOKEN_IRIS_TEST).compareTo(new BigDecimal("3750")) <= 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (WDp.getReward(getBaseDao(), TOKEN_IRIS_TEST, mValOpAddress).compareTo(new BigDecimal("3750")) <= 0) {
+                if (getBaseDao().getReward(TOKEN_IRIS_TEST, mValOpAddress).compareTo(new BigDecimal("3750")) <= 0) {
                     Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                     return;
                 }

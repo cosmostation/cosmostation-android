@@ -94,7 +94,7 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
             mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
-            mValidatorName.setText(WDp.getValidatorInfo(getBaseDao(), getSActivity().mValOpAddress).description.moniker);
+            mValidatorName.setText(getBaseDao().getValidatorInfo(getSActivity().mValOpAddress).getDescription().getMoniker());
             mMemo.setText(getSActivity().mUnDelegateMemo);
 
         }

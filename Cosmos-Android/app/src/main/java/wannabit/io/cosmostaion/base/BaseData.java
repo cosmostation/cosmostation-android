@@ -31,14 +31,6 @@ import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
-import wannabit.io.cosmostaion.model.Delegation_V1;
-import wannabit.io.cosmostaion.model.IrisToken_V1;
-import wannabit.io.cosmostaion.model.ParamMint_V1;
-import wannabit.io.cosmostaion.model.Reward_V1;
-import wannabit.io.cosmostaion.model.StakingPool_V1;
-import wannabit.io.cosmostaion.model.Undelegation_V1;
-import wannabit.io.cosmostaion.model.Validator_V1;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
@@ -151,27 +143,6 @@ public class BaseData {
 
     //COMMON DATA FOR BAND
     public ResBandOracleStatus      mBandOracles;
-
-
-
-    //V1 .40 version
-    public ArrayList<Validator_V1>      mTopValidators_V1 = new ArrayList<>();
-    public ArrayList<Validator_V1>      mOtherValidators_V1 = new ArrayList<>();
-    public ArrayList<Validator_V1>      mAllValidators_V1 = new ArrayList<>();
-    public ArrayList<Validator_V1>      mMyValidators_V1 = new ArrayList<>();
-
-    public ArrayList<Coin>              mBalance_V1 = new ArrayList<>();
-    public ArrayList<Delegation_V1>     mDelegations_V1 = new ArrayList<>();
-    public ArrayList<Undelegation_V1>   mUndelegations_V1 = new ArrayList<>();
-    public ArrayList<Reward_V1>         mRewards_V1 = new ArrayList<>();
-
-    public StakingPool_V1               mStakingPool_V1;
-    public ParamMint_V1                 mParamMint_V1;
-    public BigDecimal                   mInflation_V1;
-    public BigDecimal                   mProvision_V1;
-
-    public ArrayList<IrisToken_V1>      mIrisTokens_V1 = new ArrayList<>();
-
 
     //gRPC
     public ArrayList<Staking.Validator>                         mGRpcTopValidators = new ArrayList<>();
