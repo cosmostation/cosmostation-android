@@ -569,8 +569,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             
-            let available = WUtils.availableAmount(balances, okToken!.original_symbol!)
-            let locked = WUtils.lockedAmount(balances, okToken!.original_symbol!)
+            let available = WUtils.availableAmount(balances, okToken!.symbol!)
+            let locked = WUtils.lockedAmount(balances, okToken!.symbol!)
             let total = available.adding(locked)
             cell?.totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, cell!.totalAmount.font, 0, 18)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.availableAmount.font, 0, 18)
