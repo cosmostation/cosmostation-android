@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
+import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.task.FetchTask.ApiAccountTxsHistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbHistoryTask;
@@ -44,9 +45,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -72,6 +75,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private ArrayList<BnbHistory>                   mBnbHistory = new ArrayList<>();
     private ArrayList<ResOkHistory.DataDetail>      mOkHistory = new ArrayList<>();
     private ArrayList<ResApiTxList.Data>            mApiTxHistory = new ArrayList<>();
+    private ArrayList<ResApiTxListCustom>           mApiTxCustomHistory = new ArrayList<>();
 
     public static MainHistoryFragment newInstance(Bundle bundle) {
         MainHistoryFragment fragment = new MainHistoryFragment();
@@ -204,6 +208,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
             new OkHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
     }
 
@@ -240,17 +247,33 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
-            ArrayList<ResApiTxList.Data> hits = (ArrayList<ResApiTxList.Data>)result.resultData;
-            if (hits != null && hits.size() > 0) {
-//                WLog.w("hit size " + hits.size());
-                mApiTxHistory = hits;
-                mHistoryAdapter.notifyDataSetChanged();
-                mEmptyHistory.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);
+            if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+                ArrayList<ResApiTxListCustom> hits = (ArrayList<ResApiTxListCustom>)result.resultData;
+                if (hits != null && hits.size() > 0) {
+                    WLog.w("Custom hit size " + hits.size());
+                    mApiTxCustomHistory = hits;
+                    mHistoryAdapter.notifyDataSetChanged();
+                    mEmptyHistory.setVisibility(View.GONE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+
+                } else {
+                    mEmptyHistory.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.GONE);
+                }
 
             } else {
-                mEmptyHistory.setVisibility(View.VISIBLE);
-                mRecyclerView.setVisibility(View.GONE);
+                ArrayList<ResApiTxList.Data> hits = (ArrayList<ResApiTxList.Data>)result.resultData;
+                if (hits != null && hits.size() > 0) {
+                    WLog.w("hit size " + hits.size());
+                    mApiTxHistory = hits;
+                    mHistoryAdapter.notifyDataSetChanged();
+                    mEmptyHistory.setVisibility(View.GONE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+
+                } else {
+                    mEmptyHistory.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.GONE);
+                }
             }
         }
         mSwipeRefreshLayout.setRefreshing(false);
@@ -267,115 +290,138 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
-            if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
-                final BnbHistory history = mBnbHistory.get(position);
-                viewHolder.historyType.setText(WDp.DpBNBTxType(getContext(), history, getMainActivity().mAccount.address));
-                viewHolder.history_time.setText(WDp.getTimeformat(getContext(), history.timeStamp));
-                viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), history.timeStamp));
-                viewHolder.history_block.setText(history.blockHeight + " block");
-                viewHolder.historySuccess.setVisibility(View.GONE);
-                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (history.txType.equals("HTL_TRANSFER") || history.txType.equals("CLAIM_HTL") || history.txType.equals("REFUND_HTL") || history.txType.equals("TRANSFER")) {
-                            Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-                            txDetail.putExtra("txHash", history.txHash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            txDetail.putExtra("bnbTime", history.timeStamp);
-                            startActivity(txDetail);
-
-                        } else {
-                            Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                            webintent.putExtra("txid", history.txHash);
-                            webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                            startActivity(webintent);
-                        }
-                    }
-                });
-
-            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-                final ResApiTxList.Data tx = mApiTxHistory.get(position);
-                if(tx.result.Code > 0) {
-                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
-                } else {
+            if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+                final ResApiTxListCustom history = mApiTxCustomHistory.get(position);
+                viewHolder.historyType.setText(history.getMsgType(getContext(), getMainActivity().mAccount.address));
+                viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), history.timestamp));
+                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), history.timestamp));
+                viewHolder.history_block.setText(history.height + " block");
+                if (history.isSuccess()) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
+                } else {
+                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
                 }
-                viewHolder.historyType.setText(WDp.DpTxType(getContext(), tx.messages, getMainActivity().mAccount.address));
-                viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), tx.time));
-                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), tx.time));
-                viewHolder.history_block.setText("" + tx.height + " block");
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-                        txDetail.putExtra("txHash", tx.tx_hash);
+                        txDetail.putExtra("txHash", history.tx_hash);
                         txDetail.putExtra("isGen", false);
                         txDetail.putExtra("isSuccess", true);
                         startActivity(txDetail);
-                    }
-                });
-
-            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
-                final ResOkHistory.DataDetail history = mOkHistory.get(position);
-                viewHolder.historySuccess.setVisibility(View.GONE);
-                viewHolder.historyType.setText(WDp.DpOkTxType(getContext(), history));
-                viewHolder.history_time.setText(WDp.getDpTime(getContext(), history.timestamp * 1000));
-                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), history.timestamp * 1000));
-                viewHolder.history_block.setText(history.txhash);
-                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                        webintent.putExtra("txid", history.txhash);
-                        webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                        startActivity(webintent);
                     }
                 });
 
             } else {
-                final ResApiTxList.Data tx = mApiTxHistory.get(position);
-                viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
-                viewHolder.historyRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-                if (tx.logs != null) {
+                if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
+                    final BnbHistory history = mBnbHistory.get(position);
+                    viewHolder.historyType.setText(WDp.DpBNBTxType(getContext(), history, getMainActivity().mAccount.address));
+                    viewHolder.history_time.setText(WDp.getTimeformat(getContext(), history.timeStamp));
+                    viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), history.timeStamp));
+                    viewHolder.history_block.setText(history.blockHeight + " block");
                     viewHolder.historySuccess.setVisibility(View.GONE);
+                    viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (history.txType.equals("HTL_TRANSFER") || history.txType.equals("CLAIM_HTL") || history.txType.equals("REFUND_HTL") || history.txType.equals("TRANSFER")) {
+                                Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                                txDetail.putExtra("txHash", history.txHash);
+                                txDetail.putExtra("isGen", false);
+                                txDetail.putExtra("isSuccess", true);
+                                txDetail.putExtra("bnbTime", history.timeStamp);
+                                startActivity(txDetail);
+
+                            } else {
+                                Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+                                webintent.putExtra("txid", history.txHash);
+                                webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
+                                startActivity(webintent);
+                            }
+                        }
+                    });
+
+                } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+                    final ResApiTxList.Data tx = mApiTxHistory.get(position);
+                    if(tx.result.Code > 0) {
+                        viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                    } else {
+                        viewHolder.historySuccess.setVisibility(View.GONE);
+                    }
+                    viewHolder.historyType.setText(WDp.DpTxType(getContext(), tx.messages, getMainActivity().mAccount.address));
+                    viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), tx.time));
+                    viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), tx.time));
+                    viewHolder.history_block.setText("" + tx.height + " block");
+                    viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                            txDetail.putExtra("txHash", tx.tx_hash);
+                            txDetail.putExtra("isGen", false);
+                            txDetail.putExtra("isSuccess", true);
+                            startActivity(txDetail);
+                        }
+                    });
+
+                } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
+                    final ResOkHistory.DataDetail history = mOkHistory.get(position);
+                    viewHolder.historySuccess.setVisibility(View.GONE);
+                    viewHolder.historyType.setText(WDp.DpOkTxType(getContext(), history));
+                    viewHolder.history_time.setText(WDp.getDpTime(getContext(), history.timestamp * 1000));
+                    viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), history.timestamp * 1000));
+                    viewHolder.history_block.setText(history.txhash);
+                    viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+                            webintent.putExtra("txid", history.txhash);
+                            webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
+                            startActivity(webintent);
+                        }
+                    });
+
                 } else {
-                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
-                }
-                viewHolder.historyType.setText(WDp.DpTxType(getContext(), tx.messages, getMainActivity().mAccount.address));
-                viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), tx.time));
-                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), tx.time));
-                viewHolder.history_block.setText("" + tx.height + " block");
-                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-                        txDetail.putExtra("txHash", tx.tx_hash);
-                        txDetail.putExtra("isGen", false);
-                        txDetail.putExtra("isSuccess", true);
-                        startActivity(txDetail);
+                    final ResApiTxList.Data tx = mApiTxHistory.get(position);
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    viewHolder.historyRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                    if (tx.logs != null) {
+                        viewHolder.historySuccess.setVisibility(View.GONE);
+                    } else {
+                        viewHolder.historySuccess.setVisibility(View.VISIBLE);
                     }
-                });
-
-                //TODO STAKE DROP EVENT
-                if (WDp.getHistoryDpType(tx.messages, getMainActivity().mAccount.address) == TX_TYPE_SEND) {
-                    if (tx.height > PERSISTENCE_COSMOS_EVENT_START && tx.height < PERSISTENCE_COSMOS_EVENT_END) {
-                        if (tx.messages.get(0).value.to_address.equals(PERSISTENCE_COSMOS_EVENT_ADDRESS) && tx.messages.get(0).value.from_address.equals(getMainActivity().mAccount.address)) {
-                            viewHolder.historyType.setText("Persistence\nStake Drop");
-                            viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorStakeDrop));
-                            viewHolder.historyRoot.setCardBackgroundColor(getResources().getColor(R.color.colorStakeDropBG));
+                    viewHolder.historyType.setText(WDp.DpTxType(getContext(), tx.messages, getMainActivity().mAccount.address));
+                    viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), tx.time));
+                    viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), tx.time));
+                    viewHolder.history_block.setText("" + tx.height + " block");
+                    viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                            txDetail.putExtra("txHash", tx.tx_hash);
+                            txDetail.putExtra("isGen", false);
+                            txDetail.putExtra("isSuccess", true);
+                            startActivity(txDetail);
                         }
+                    });
 
-                    } else if (tx.height > PERSISTENCE_KAVA_EVENT_START && tx.height < PERSISTENCE_KAVA_EVENT_END) {
-                        if (tx.messages.get(0).value.to_address.equals(PERSISTENCE_KAVA_EVENT_ADDRESS) && tx.messages.get(0).value.from_address.equals(getMainActivity().mAccount.address)) {
-                            viewHolder.historyType.setText("Persistence\nStake Drop");
-                            viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorStakeDrop));
-                            viewHolder.historyRoot.setCardBackgroundColor(getResources().getColor(R.color.colorStakeDropBG));
+                    //TODO STAKE DROP EVENT
+                    if (WDp.getHistoryDpType(tx.messages, getMainActivity().mAccount.address) == TX_TYPE_SEND) {
+                        if (tx.height > PERSISTENCE_COSMOS_EVENT_START && tx.height < PERSISTENCE_COSMOS_EVENT_END) {
+                            if (tx.messages.get(0).value.to_address.equals(PERSISTENCE_COSMOS_EVENT_ADDRESS) && tx.messages.get(0).value.from_address.equals(getMainActivity().mAccount.address)) {
+                                viewHolder.historyType.setText("Persistence\nStake Drop");
+                                viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorStakeDrop));
+                                viewHolder.historyRoot.setCardBackgroundColor(getResources().getColor(R.color.colorStakeDropBG));
+                            }
+
+                        } else if (tx.height > PERSISTENCE_KAVA_EVENT_START && tx.height < PERSISTENCE_KAVA_EVENT_END) {
+                            if (tx.messages.get(0).value.to_address.equals(PERSISTENCE_KAVA_EVENT_ADDRESS) && tx.messages.get(0).value.from_address.equals(getMainActivity().mAccount.address)) {
+                                viewHolder.historyType.setText("Persistence\nStake Drop");
+                                viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorStakeDrop));
+                                viewHolder.historyRoot.setCardBackgroundColor(getResources().getColor(R.color.colorStakeDropBG));
+                            }
+
                         }
-
                     }
                 }
-
             }
         }
 
@@ -385,6 +431,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mBnbHistory.size();
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return mOkHistory.size();
+            } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+                return mApiTxCustomHistory.size();
             } else {
                 return mApiTxHistory.size();
             }

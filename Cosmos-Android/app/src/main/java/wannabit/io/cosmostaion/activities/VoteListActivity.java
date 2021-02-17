@@ -17,7 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import cosmos.distribution.v1beta1.Distribution;
+import cosmos.gov.v1beta1.Gov;
+import cosmos.gov.v1beta1.Tx;
+import cosmos.params.v1beta1.Params;
+import cosmos.upgrade.v1beta1.Upgrade;
+import ibc.core.client.v1.Client;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -29,7 +36,13 @@ import wannabit.io.cosmostaion.task.FetchTask.IrisProposalTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.ProposalsGrpcTask;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSALS;
 
 public class VoteListActivity extends BaseActivity implements TaskListener {
 
@@ -39,12 +52,13 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private TextView            mEmptyProposal;
     private VoteAdapter         mVoteAdapter;
     private IrisVoteAdapter     mIrisVoteAdapter;
+    private GrpcProposalsAdapter mGrpcProposalsAdapter;
 
 
     private ArrayList<Validator> mTopValidators = new ArrayList<>();
     private ArrayList<Proposal> mProposals = new ArrayList<>();
     private ArrayList<IrisProposal> mIrisProposals = new ArrayList<>();
-
+    private ArrayList<Gov.Proposal> mGrpcProposals = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +119,12 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             mIrisVoteAdapter = new IrisVoteAdapter();
             mRecyclerView.setAdapter(mIrisVoteAdapter);
             new IrisProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) ) {
+            mGrpcProposalsAdapter = new GrpcProposalsAdapter();
+            mRecyclerView.setAdapter(mGrpcProposalsAdapter);
+            new ProposalsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
 
     }
@@ -113,7 +133,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_ALL_PROPOSAL) {
-            if(result.isSuccess) {
+            mProposals.clear();
+            if (result.isSuccess) {
                 ArrayList<Proposal> temp = (ArrayList<Proposal>)result.resultData;
                 if(temp != null && temp.size() > 0) {
                     mProposals = temp;
@@ -131,7 +152,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_IRIS_PROPOSAL) {
-            if(result.isSuccess) {
+            mIrisProposals.clear();
+            if (result.isSuccess) {
                 ArrayList<IrisProposal> temp = (ArrayList<IrisProposal>)result.resultData;
                 if(temp != null && temp.size() > 0) {
                     mIrisProposals = temp;
@@ -143,6 +165,21 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                     mEmptyProposal.setVisibility(View.VISIBLE);
                     mRecyclerView.setVisibility(View.GONE);
                 }
+
+            } else {
+                mEmptyProposal.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_PROPOSALS) {
+            mGrpcProposals.clear();
+            List<Gov.Proposal> temp = (List<Gov.Proposal>)result.resultData;
+            if (temp != null && temp.size() > 0) {
+                mGrpcProposals.addAll(temp);
+                WUtil.onSortingGrpcProposals(mGrpcProposals);
+                mGrpcProposalsAdapter.notifyDataSetChanged();
+                mEmptyProposal.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
 
             } else {
                 mEmptyProposal.setVisibility(View.VISIBLE);
@@ -369,4 +406,100 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         }
     }
 
+
+    private class GrpcProposalsAdapter extends RecyclerView.Adapter<GrpcProposalsAdapter.VoteHolder> {
+
+        @NonNull
+        @Override
+        public VoteHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+            return new GrpcProposalsAdapter.VoteHolder(getLayoutInflater().inflate(R.layout.item_proposal, viewGroup, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull VoteHolder voteHolder, int position) {
+            final Gov.Proposal proposal = mGrpcProposals.get(position);
+            voteHolder.proposal_id.setText("# " + proposal.getProposalId());
+            if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
+                voteHolder.proposal_status.setText("DepositPeriod");
+            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
+                voteHolder.proposal_status.setText("VotingPeriod");
+            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
+                voteHolder.proposal_status.setText("Rejected");
+            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
+                voteHolder.proposal_status.setText("Passed");
+            } else {
+                voteHolder.proposal_status_img.setVisibility(View.GONE);
+                voteHolder.proposal_status.setText("unKnown");
+            }
+
+            try {
+                if (proposal.getContent().getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
+                    Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposal.getContent().getValue());
+                    voteHolder.proposal_title.setText(textProposal.getTitle());
+                    voteHolder.proposal_details.setText(textProposal.getDescription());
+
+                } else if (proposal.getContent().getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
+                    Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposal.getContent().getValue());
+                    voteHolder.proposal_title.setText(parameterChangeProposal.getTitle());
+                    voteHolder.proposal_details.setText(parameterChangeProposal.getDescription());
+
+                } else if (proposal.getContent().getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
+                    Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposal.getContent().getValue());
+                    voteHolder.proposal_title.setText(clientUpdateProposal.getTitle());
+                    voteHolder.proposal_details.setText(clientUpdateProposal.getDescription());
+
+                } else if (proposal.getContent().getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
+                    Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposal.getContent().getValue());
+                    voteHolder.proposal_title.setText(communityPoolSpendProposal.getTitle());
+                    voteHolder.proposal_details.setText(communityPoolSpendProposal.getDescription());
+
+                } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
+                    Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+                    voteHolder.proposal_title.setText(softwareUpgradeProposal.getTitle());
+                    voteHolder.proposal_details.setText(softwareUpgradeProposal.getDescription());
+
+                } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
+                    Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+                    voteHolder.proposal_title.setText(cancelSoftwareUpgradeProposal.getTitle());
+                    voteHolder.proposal_details.setText(cancelSoftwareUpgradeProposal.getDescription());
+                }
+
+            } catch (Exception e){WLog.w("Ex " +e.getMessage());}
+
+            voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+//                    voteIntent.putExtra("proposalId", proposal.getProposalId());
+//                    startActivity(voteIntent);
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return mGrpcProposals.size();
+        }
+
+        public class VoteHolder extends RecyclerView.ViewHolder {
+            private CardView card_proposal;
+            private TextView proposal_id, proposal_status, proposal_title, proposal_details;
+            private ImageView proposal_status_img;
+
+            public VoteHolder(@NonNull View itemView) {
+                super(itemView);
+                card_proposal               = itemView.findViewById(R.id.card_proposal);
+                proposal_id                 = itemView.findViewById(R.id.proposal_id);
+                proposal_status             = itemView.findViewById(R.id.proposal_status);
+                proposal_title              = itemView.findViewById(R.id.proposal_title);
+                proposal_details            = itemView.findViewById(R.id.proposal_details);
+                proposal_status_img         = itemView.findViewById(R.id.proposal_status_img);
+
+            }
+        }
+    }
 }

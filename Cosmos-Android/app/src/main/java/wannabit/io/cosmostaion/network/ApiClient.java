@@ -53,6 +53,21 @@ public class ApiClient {
         return api_cosmos;
     }
 
+    //Services for Cosmos Test api
+    private static HistoryApi api_cosmos_test = null;
+    public static HistoryApi getCosmosTestApi(Context c) {
+        if (api_cosmos_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_cosmos_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_cosmos_test = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_cosmos_test;
+    }
+
 
 
     //Services for Iris main net
@@ -83,6 +98,21 @@ public class ApiClient {
             }
         }
         return api_iris;
+    }
+
+    //Services for Iris Test api
+    private static HistoryApi api_iris_test = null;
+    public static HistoryApi getIrisTestApi(Context c) {
+        if (api_iris_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_iris_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_iris_test = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_iris_test;
     }
 
 

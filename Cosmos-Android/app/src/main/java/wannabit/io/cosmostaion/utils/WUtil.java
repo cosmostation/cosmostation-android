@@ -38,6 +38,7 @@ import javax.net.ssl.X509TrustManager;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
+import cosmos.gov.v1beta1.Gov;
 import cosmos.staking.v1beta1.Staking;
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
@@ -1059,6 +1060,17 @@ public class WUtil {
                 else if (Integer.parseInt(o1.value.basicProposal.proposal_id) > Integer.parseInt(o2.value.basicProposal.proposal_id)) return -1;
                 else return 0;
 
+            }
+        });
+    }
+
+    public static void onSortingGrpcProposals(ArrayList<Gov.Proposal> proposals) {
+        Collections.sort(proposals, new Comparator<Gov.Proposal>() {
+            @Override
+            public int compare(Gov.Proposal o1, Gov.Proposal o2) {
+                if (o1.getProposalId() < o2.getProposalId()) return 1;
+                else if (o1.getProposalId() > o2.getProposalId()) return -1;
+                return 0;
             }
         });
     }

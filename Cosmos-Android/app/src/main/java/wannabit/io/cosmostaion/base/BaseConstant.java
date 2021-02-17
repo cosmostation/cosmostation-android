@@ -214,6 +214,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_WITHDRAW_ADDRESS            = 4016;
     public final static int TASK_GRPC_FETCH_REDELEGATIONS_TO            = 4017;
     public final static int TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO       = 4018;
+    public final static int TASK_GRPC_FETCH_PROPOSALS                   = 4019;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
@@ -616,6 +617,8 @@ public class BaseConstant {
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
     public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
 
+    public final static String EXPLORER_COSMOS_TEST     = "https://test.mintscan.io/cosmos/";
+    public final static String EXPLORER_IRIS_TEST       = "https://test.mintscan.io/iris/";
     public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
     public final static String EXPLORER_KAVA_TEST       = "https://kava-testnet-9000.mintscan.io/";
     public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";

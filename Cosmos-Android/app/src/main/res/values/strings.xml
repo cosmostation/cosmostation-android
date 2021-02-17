@@ -12,14 +12,14 @@
     <string name="url_api_cosmos_main" translatable="false">https://api.cosmostation.io/</string>
 
     <string name="url_lcd_cosmos_test" translatable="false">https://lcd-office.cosmostation.io/stargate-final/</string>
-    <string name="url_api_cosmos_test" translatable="false"></string>
+    <string name="url_api_cosmos_test" translatable="false">https://api-office.cosmostation.io/stargate-final/</string>
 
 
     <string name="url_lcd_iris_main" translatable="false">https://lcd-iris.cosmostation.io/</string>
     <string name="url_api_iris_main" translatable="false">https://api-iris.cosmostation.io/</string>
 
     <string name="url_lcd_iris_test" translatable="false">https://lcd-office.cosmostation.io/bifrost/</string>
-    <string name="url_api_iris_test" translatable="false"></string>
+    <string name="url_api_iris_test" translatable="false">https://api-office.cosmostation.io/bifrost/</string>
 
 
     <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
